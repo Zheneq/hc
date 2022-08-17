@@ -1,88 +1,167 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using WebSocketSharp;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Networking;
+using WebSocketSharp;
+using Debug = UnityEngine.Debug;
+using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
 
 namespace ArtemisServer.BridgeServer
 {
-    public class ArtemisBridgeServerInterface
+    public class ArtemisBridgeServerInterface : ArtemisClientBase
     {
-        private static ArtemisBridgeServerInterface Instance;
-        private static WebSocketSharp.WebSocket ws;
-        private static string BridgeServerAddress = "ws://127.0.0.1:6060/BridgeServer";
-
         private LobbyGameInfo m_gameInfo;
         private LobbyTeamInfo m_teamInfo; // TODO use ServerTeamInfo
+        private LobbySessionInfo m_sessionInfo;
 
-        public enum BridgeMessageType
+        protected bool m_registered;
+        private int ConnectionTimeout;
+        public event Action<RegisterGameServerResponse> OnConnectedHandler = delegate { };
+        public event Action<string> OnDisconnectedHandler = delegate { };
+        public event Action<LaunchGameRequest> OnLaunchGameRequest = delegate { };
+        public event Action<JoinGameServerRequest> OnJoinGameServerRequest = delegate { };
+        public event Action<JoinGameAsObserverRequest> OnJoinGameAsObserverRequest = delegate { };
+        public event Action<ShutdownGameRequest> OnShutdownGameRequest = delegate { };
+        public event Action<DisconnectPlayerRequest> OnDisconnectPlayerRequest = delegate { };
+        public event Action<ReconnectPlayerRequest> OnReconnectPlayerRequest = delegate { };
+        public event Action<MonitorHeartbeatResponse> OnMonitorHeartbeatResponse = delegate { };
+        
+        public static readonly List<Type> BridgeMessageTypes = new List<Type>
         {
-            InitialConfig,
-            SetLobbyGameInfo,
-            SetTeamInfo,
-            Start,
-            Stop,
-            GameStatusChange
+            typeof(RegisterGameServerRequest),
+            typeof(RegisterGameServerResponse),
+            typeof(LaunchGameRequest),
+            typeof(JoinGameServerRequest),
+            typeof(JoinGameAsObserverRequest),
+            typeof(ShutdownGameRequest),
+            typeof(DisconnectPlayerRequest),
+            typeof(ReconnectPlayerRequest),
+            typeof(MonitorHeartbeatResponse),
+            typeof(ServerGameSummaryNotification),
+            typeof(PlayerDisconnectedNotification),
+            typeof(ServerGameMetricsNotification),
+            typeof(ServerGameStatusNotification),
+            typeof(MonitorHeartbeatNotification),
+            typeof(LaunchGameResponse),
+            typeof(JoinGameServerResponse),
+            typeof(JoinGameAsObserverResponse)
+        };
+
+        protected override List<Type> GetMessageTypes()
+        {
+            return BridgeMessageTypes;
         }
 
         private ArtemisBridgeServerInterface()
         {
-            UIFrontendLoadingScreen.Get().StartDisplayError("trying to connect to bridge server ", "at address: "+BridgeServerAddress);
-            ws = new WebSocketSharp.WebSocket(BridgeServerAddress);
-            ws.OnMessage += Ws_OnMessage;
-            ws.OnError += Ws_OnError;
-            ws.OnOpen += Ws_OnOpen;
-            ws.Connect();
+            // rogues
+            // this.AutoStart = false;
+            // this.AutoReconnect = false;
+            m_registered = false;
+            m_sessionInfo = new LobbySessionInfo();
+            ConnectionTimeout = 30;
+            m_overallConnectionTimer = new Stopwatch();
+            m_reconnectDelayTimer = new Stopwatch();
+            // Log = Log.LogInstance;
         }
 
-        private void Ws_OnOpen(object sender, EventArgs e)
+        public void Initialize(string lobbyServerAddress, short port, ProcessType processType, string processCode, long accountId = 0L)
+        {
+            networkAddress = lobbyServerAddress;
+            m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
+            m_sessionInfo.ProtocolVersion = "";
+            m_sessionInfo.ProcessType = processType;
+            m_sessionInfo.ProcessCode = processCode;
+            m_sessionInfo.AccountId = accountId;
+
+            RegisterMessageDelegate<LaunchGameRequest>(HandleLaunchGameRequest);
+            RegisterMessageDelegate<JoinGameServerRequest>(HandleJoinGameServerRequest);
+            RegisterMessageDelegate<JoinGameAsObserverRequest>(HandleJoinGameAsObserverRequest);
+            RegisterMessageDelegate<ShutdownGameRequest>(HandleShutdownGameRequest);
+            RegisterMessageDelegate<DisconnectPlayerRequest>(HandleDisconnectPlayerRequest);
+            RegisterMessageDelegate<ReconnectPlayerRequest>(HandleReconnectPlayerRequest);
+            RegisterMessageDelegate<MonitorHeartbeatResponse>(HandleMonitorHeartbeatResponse);
+            
+            // custom
+            Log.Info($"ArtemisBridgeServerInterface initialized for {processType} {lobbyServerAddress} - {processCode}");
+            m_sessionInfo.ConnectionAddress = ServerGameManager.s_address + ":" + ServerGameManager.s_port;
+        }
+
+        protected override void OnConnecting()
+        {
+            UIFrontendLoadingScreen.Get().StartDisplayError("trying to connect to bridge server ", "at address: " + networkAddress);
+        }
+
+        protected override void OnConnected()
         {
             Log.Info("Successfully connected to lobby's bridge server");
             UIFrontendLoadingScreen.Get().StartDisplayError("connected to bridge server");
-            MemoryStream stream = new MemoryStream();
-            stream.WriteByte((byte)BridgeMessageType.InitialConfig);
-            string addressAndPort = ServerGameManager.s_address + ":" + ServerGameManager.s_port;
             
-            stream.Write(GetByteArray(addressAndPort), 0, addressAndPort.Length);
-
-            byte[] buffer = stream.ToArray();
-            ws.Send(buffer);
-
-            GameObject artemisServerObject = new GameObject("ArtemisServerComponent");
-            ArtemisGamePoller gm = artemisServerObject.AddComponent<ArtemisGamePoller>();
-            gm.Poll(this);
+            // StartInsight();
+            m_registered = false;
+            RegisterGameServer();
         }
 
-        private void Ws_OnError(object sender, WebSocketSharp.ErrorEventArgs e)
+        protected override void OnDisconnected()
         {
-            Log.Info("--- Websocket Error ---");
-            Log.Info(e.Exception.Source);
-            Log.Info(e.Message);
-            Log.Info(e.Exception.StackTrace);
+            Log.Info("ArtemisBridgeServerInterface::OnDisconnected");
+            UIFrontendLoadingScreen.Get().StartDisplayError("Disconnected");
+            
+            // if (m_registered)
+            // {
+            //     Log.Info($"Disconnected from {networkAddress}");
+            //     UIFrontendLoadingScreen.Get().StartDisplayError("Disconnected");
+            //     OnDisconnectedHandler("");
+            //     return;
+            // }
+            // if (m_overallConnectionTimer.IsRunning)
+            // {
+            //     if (m_overallConnectionTimer.Elapsed.TotalSeconds < ConnectionTimeout)
+            //     {
+            //         Log.Info($"Retrying connection to {networkAddress}");
+            //         UIFrontendLoadingScreen.Get().StartDisplayError("Retrying connection");
+            //         Reconnect();
+            //         return;
+            //     }
+            //     Log.Info($"Failed to connect to {networkAddress}");
+            //     UIFrontendLoadingScreen.Get().StartDisplayError("Failed to connect");
+            //     m_overallConnectionTimer.Reset();
+            //     OnConnectedHandler(new RegisterGameServerResponse
+            //     {
+            //         Success = false,
+            //         ErrorMessage = "connection failure"
+            //     });
+            // }
+        }
+        
+        protected override void OnError(ErrorEventArgs e)
+        {
+            UIFrontendLoadingScreen.Get().StartDisplayError("network error", e.Message);
         }
 
-        public static void Init()
+        public void Update()
         {
-            Log.Info("Init ArtemisBridgeServerInterface");
-            Instance = new ArtemisBridgeServerInterface();
+            // TODO handle connection loss?
         }
 
         public void StartGame(string game)
-		{
+        {
             StartGame(JsonConvert.DeserializeObject<ServerGame>(game));
         }
 
         private void StartGame(ServerGame game)
-		{
+        {
             m_gameInfo = game.gameInfo;
             m_teamInfo = game.teamInfo;
-            ServerGameManager.Get().HandleLaunchGameRequest(new LaunchGameRequest()
+            OnLaunchGameRequest(new LaunchGameRequest
             {
                 GameInfo = m_gameInfo,
-                TeamInfo = new LobbyServerTeamInfo()
+                TeamInfo = new LobbyServerTeamInfo
                 {
                     TeamPlayerInfo = m_teamInfo.TeamPlayerInfo.Select(consLobbyServerPlayerInfo).ToList()
                 },
@@ -91,57 +170,173 @@ namespace ArtemisServer.BridgeServer
             });
         }
 
-        private void Ws_OnMessage(object sender, MessageEventArgs e)
+        private void RegisterGameServer()
         {
-            MemoryStream stream = new MemoryStream(e.RawData);
-            BridgeMessageType messageType;
-            string data;
-
-            using (System.IO.StreamReader reader = new System.IO.StreamReader(stream))
+            Log.Info($"Registering game server {m_sessionInfo.ProcessCode}");
+            RegisterGameServerRequest registerGameServerRequest = new RegisterGameServerRequest
             {
-                messageType = (BridgeMessageType)reader.Read();
-                data = reader.ReadToEnd();
-            }
-            
-            switch (messageType)
+                SessionInfo = m_sessionInfo,
+                isPrivate = false
+            };
+            CallbackHandler callback = delegate(CallbackStatus status, AllianceMessageBase msg)
             {
-                case BridgeMessageType.SetLobbyGameInfo:
-                    m_gameInfo = JsonConvert.DeserializeObject<LobbyGameInfo>(data);
-                    break;
-                case BridgeMessageType.SetTeamInfo:
-                    m_teamInfo = JsonConvert.DeserializeObject<LobbyTeamInfo>(data);
-                    break;
-                case BridgeMessageType.Start:
-                    ServerGameManager.Get().HandleLaunchGameRequest(new LaunchGameRequest()
-                    {
-                        GameInfo = m_gameInfo,
-                        TeamInfo = new LobbyServerTeamInfo()
-                        {
-                            TeamPlayerInfo = m_teamInfo.TeamPlayerInfo.Select(consLobbyServerPlayerInfo).ToList()
-                        },
-                        SessionInfo = m_teamInfo.TeamPlayerInfo.ToDictionary(x => x.PlayerId, consLobbySessionInfo),
-                        GameplayOverrides = new LobbyGameplayOverrides()
-                    });
-                    break;
-                default:
-                    Log.Error("Received unhandled ws message type: " + messageType.ToString());
-                    break;
+                HandleRegisterGameServerResponse((RegisterGameServerResponse)msg);
+            };
+            Send(registerGameServerRequest, callback);
+        }
+
+        private void HandleRegisterGameServerResponse(RegisterGameServerResponse response)
+        {
+            if (!response.Success)
+            {
+                Log.Error($"Failed to register game server with monitor server: {response.ErrorMessage}");
+                UIFrontendLoadingScreen.Get().StartDisplayError("connected to bridge server", "failed to register");
+                m_registered = false;
+                OnConnectedHandler(response);
+                Disconnect();
+            }
+            else
+            {
+                Log.Info("Registered game server with monitor server");
+                UIFrontendLoadingScreen.Get().StartDisplayError("connected to bridge server", "registered as generic server");
+                m_registered = true;
+                m_overallConnectionTimer.Reset();
+
+                GameObject artemisServerObject = new GameObject("ArtemisServerComponent");
+                ArtemisGamePoller gm = artemisServerObject.AddComponent<ArtemisGamePoller>();
+                gm.Poll(this);
+                
+                OnConnectedHandler(response);
             }
         }
 
-        public static void ReportGameReady()
+        private void HandleLaunchGameRequest(AllianceMessageBase msg)
         {
-            ws.Send(new byte[] { (byte)BridgeMessageType.Start }); // tell the lobby server that we started successfully
+            OnLaunchGameRequest((LaunchGameRequest)msg);
         }
 
-        private byte[] GetByteArray(string str)
+        private void HandleJoinGameServerRequest(AllianceMessageBase msg)
         {
-            return Encoding.UTF8.GetBytes(str);
+            OnJoinGameServerRequest((JoinGameServerRequest)msg);
         }
+
+        private void HandleJoinGameAsObserverRequest(AllianceMessageBase msg)
+        {
+            OnJoinGameAsObserverRequest((JoinGameAsObserverRequest)msg);
+        }
+
+        private void HandleShutdownGameRequest(AllianceMessageBase msg)
+        {
+            OnShutdownGameRequest((ShutdownGameRequest)msg);
+        }
+
+        private void HandleDisconnectPlayerRequest(AllianceMessageBase msg)
+        {
+            OnDisconnectPlayerRequest((DisconnectPlayerRequest)msg);
+        }
+
+        private void HandleReconnectPlayerRequest(AllianceMessageBase msg)
+        {
+            OnReconnectPlayerRequest((ReconnectPlayerRequest)msg);
+        }
+
+        private void HandleMonitorHeartbeatResponse(AllianceMessageBase msg)
+        {
+            OnMonitorHeartbeatResponse((MonitorHeartbeatResponse)msg);
+        }
+
+        public void SendGameStatusNotification(GameStatus gameStatus)
+        {
+            Send(new ServerGameStatusNotification
+            {
+                GameStatus = gameStatus
+            });
+        }
+
+        public void SendGameMetricsNotification(ServerGameMetrics gameMetrics)
+        {
+            Send(new ServerGameMetricsNotification
+            {
+                GameMetrics = gameMetrics
+            });
+        }
+
+        public void SendGameSummaryNotification(LobbyGameSummary gameSummary, LobbyGameSummaryOverrides gameSummaryOverrides = null)
+        {
+            Send(new ServerGameSummaryNotification
+            {
+                GameSummary = gameSummary,
+                GameSummaryOverrides = gameSummaryOverrides
+            });
+        }
+
+        public void SendPlayerDisconnectedNotification(LobbySessionInfo sessionInfo, LobbyServerPlayerInfo playerInfo)
+        {
+            Send(new PlayerDisconnectedNotification
+            {
+                SessionInfo = sessionInfo,
+                PlayerInfo = playerInfo
+            });
+        }
+
+        public void SendMonitorHeartbeatNotification()
+        {
+            Send(new MonitorHeartbeatNotification());
+        }
+
+        public void SendLaunchGameResponse(bool success, LobbyGameInfo gameInfo)
+        {
+            Send(new LaunchGameResponse
+            {
+                Success = success,
+                GameInfo = gameInfo
+            });
+        }
+
+        public void SendJoinGameServerResponse(
+            int responseId,
+            bool success,
+            string responseText,
+            int origRequestId,
+            LobbyServerPlayerInfo playerInfo,
+            string gameServerProcessCode)
+        {
+            Send(new JoinGameServerResponse
+            {
+                ResponseId = responseId,
+                ErrorMessage = responseText,
+                Success = success,
+                OrigRequestId = origRequestId,
+                PlayerInfo = playerInfo,
+                GameServerProcessCode = gameServerProcessCode
+            });
+        }
+
+        public void SendJoinGameAsObserverResponse(
+            int responseId,
+            bool success,
+            string responseText,
+            LobbyGameplayOverrides gameplayOverrides,
+            LobbyGameInfo gameInfo,
+            LobbyTeamInfo teamInfo,
+            LobbyPlayerInfo playerInfo)
+        {
+            Send(new JoinGameAsObserverResponse
+            {
+                ResponseId = responseId,
+                ErrorMessage = responseText,
+                Success = success,
+                GameplayOverrides = gameplayOverrides,
+                GameInfo = gameInfo,
+                TeamInfo = teamInfo,
+                PlayerInfo = playerInfo
+            });
+        }
+
 
         public static LobbySessionInfo consLobbySessionInfo(LobbyPlayerInfo playerInfo)
         {
-            return new LobbySessionInfo()
+            return new LobbySessionInfo
             {
                 AccountId = playerInfo.AccountId,
                 UserName = playerInfo.Handle,
@@ -162,7 +357,7 @@ namespace ArtemisServer.BridgeServer
 
         public static LobbyServerPlayerInfo consLobbyServerPlayerInfo(LobbyPlayerInfo playerInfo)
         {
-            var result = new LobbyServerPlayerInfo()
+            var result = new LobbyServerPlayerInfo
             {
                 AccountId = playerInfo.AccountId,
                 PlayerId = playerInfo.PlayerId,
@@ -207,7 +402,8 @@ namespace ArtemisServer.BridgeServer
             return result;
         }
 
-        class ServerGame {
+        class ServerGame
+        {
             public LobbyGameInfo gameInfo;
             public LobbyTeamInfo teamInfo;
         }
