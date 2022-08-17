@@ -1,7 +1,7 @@
-using LobbyGameClientMessages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -119,13 +119,13 @@ public class UIGameOverScreen : UIScene
 
 		public GameOverExperienceUpdateSubState(UpdatingInfo StartInfo)
 		{
-			base.SubStateType = GameOverScreenState.ExperienceBars;
+			SubStateType = GameOverScreenState.ExperienceBars;
 			TypesBeingUpdated.Add(StartInfo);
 		}
 
 		public GameOverExperienceUpdateSubState(IEnumerable<UpdatingInfo> StartInfos)
 		{
-			base.SubStateType = GameOverScreenState.ExperienceBars;
+			SubStateType = GameOverScreenState.ExperienceBars;
 			TypesBeingUpdated.AddRange(StartInfos);
 		}
 
@@ -182,7 +182,7 @@ public class UIGameOverScreen : UIScene
 
 		public GameOverTutorialGames()
 		{
-			base.SubStateType = GameOverScreenState.TutorialTenGames;
+			SubStateType = GameOverScreenState.TutorialTenGames;
 			CloseClicked = false;
 		}
 
@@ -223,14 +223,14 @@ public class UIGameOverScreen : UIScene
 
 		public GameOverGGSubState(float TimeToFadeOut)
 		{
-			base.SubStateType = GameOverScreenState.GGBoostUsage;
+			SubStateType = GameOverScreenState.GGBoostUsage;
 			CurrentGGBoostState = GGBoosts.Recapping;
 			FadeOutTime = TimeToFadeOut;
 		}
 
 		public override bool IsDone()
 		{
-			if (base.SubStateType == GameOverScreenState.GGBoostUsage)
+			if (SubStateType == GameOverScreenState.GGBoostUsage)
 			{
 				while (true)
 				{
@@ -387,7 +387,7 @@ public class UIGameOverScreen : UIScene
 	{
 		public GameOverVictoryDefeatWaitingSubState()
 		{
-			base.SubStateType = GameOverScreenState.VictoryDefeatWaitingForNotification;
+			SubStateType = GameOverScreenState.VictoryDefeatWaitingForNotification;
 		}
 
 		public override bool IsDone()
@@ -1207,7 +1207,7 @@ public class UIGameOverScreen : UIScene
 					}
 				}
 			}
-			goto IL_009e;
+
 			IL_009e:
 			return result;
 			IL_009c:
@@ -1275,9 +1275,9 @@ public class UIGameOverScreen : UIScene
 			GetRewardTooltip(tooltip).Setup(m_results.FactionContributionAmounts, UIGameOverRewardTooltip.RewardTooltipType.FactionInfo);
 			return true;
 		});
-		m_isoDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.ISOAmount, m_isoDisplay));
-		m_freelancerCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount, m_freelancerCurrencyDisplay));
-		m_rankedCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, (UITooltipBase tooltip) => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount, m_rankedCurrencyDisplay));
+		m_isoDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, tooltip => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.ISOAmount, m_isoDisplay));
+		m_freelancerCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, tooltip => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.FreelancerCurrencyAmount, m_freelancerCurrencyDisplay));
+		m_rankedCurrencyDisplay.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, tooltip => SetupCurrencyTooltip(tooltip, UIGameOverRewardTooltip.RewardTooltipType.RankedPointsAmount, m_rankedCurrencyDisplay));
 		m_characterXPInfo.m_tooltipHitBox.Setup(TooltipType.MatchEndRewards, delegate(UITooltipBase tooltip)
 		{
 			GetRewardTooltip(tooltip).Setup(m_characterXPInfo, UIGameOverRewardTooltip.RewardTooltipType.CharacterInfo, m_results.NumCharactersPlayed);
@@ -1796,7 +1796,7 @@ public class UIGameOverScreen : UIScene
 		m_characterXPInfo.m_barLevelLabel.text = m_results.CharacterLevelAtStart.ToString();
 		m_characterXPInfo.m_GGXPSlider.fillAmount = 0f;
 		m_characterXPInfo.m_NormalXPGainSlider.fillAmount = 0f;
-		m_characterXPInfo.m_OldXPSlider.fillAmount = (float)m_results.CharacterXpAtStart / (float)num;
+		m_characterXPInfo.m_OldXPSlider.fillAmount = m_results.CharacterXpAtStart / (float)num;
 		m_characterXPInfo.m_QuestXPSlider.fillAmount = 0f;
 		m_characterXPInfo.m_XPLabel.text = m_results.CharacterXpAtStart.ToString();
 		m_characterXPInfo.m_LastLevelDisplayed = m_results.CharacterLevelAtStart;
@@ -1807,7 +1807,7 @@ public class UIGameOverScreen : UIScene
 		m_playerXPInfo.m_barLevelLabel.text = m_results.SeasonLevelAtStart.ToString();
 		m_playerXPInfo.m_GGXPSlider.fillAmount = 0f;
 		m_playerXPInfo.m_NormalXPGainSlider.fillAmount = 0f;
-		m_playerXPInfo.m_OldXPSlider.fillAmount = (float)m_results.SeasonXpAtStart / (float)seasonExperience;
+		m_playerXPInfo.m_OldXPSlider.fillAmount = m_results.SeasonXpAtStart / (float)seasonExperience;
 		m_playerXPInfo.m_QuestXPSlider.fillAmount = 0f;
 		m_playerXPInfo.m_XPLabel.text = m_results.SeasonXpAtStart.ToString();
 		m_playerXPInfo.m_LastLevelDisplayed = m_results.SeasonLevelAtStart;
@@ -1835,7 +1835,6 @@ public class UIGameOverScreen : UIScene
 		goto IL_02d1;
 		IL_02c4:
 		UIManager.SetGameObjectActive(m_rewardsInfoContainer, false);
-		goto IL_02d1;
 		IL_02d1:
 		SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason);
 		UIManager.SetGameObjectActive(m_playerXPInfo.m_barLevelUpAnimator, !seasonTemplate.IsTutorial);
@@ -1859,12 +1858,12 @@ public class UIGameOverScreen : UIScene
 				}
 				num2++;
 			}
-			goto IL_038f;
+
 			IL_038f:
 			m_tutorialLevelText.text = num2 - 1 + "/" + (endLevel - 1);
 			for (int i = m_tutorialLevelSliderBars.Count; i < endLevel - 1; i++)
 			{
-				UITutorialSeasonLevelBar uITutorialSeasonLevelBar = UnityEngine.Object.Instantiate(m_tutorialLevelBarPrefab);
+				UITutorialSeasonLevelBar uITutorialSeasonLevelBar = Instantiate(m_tutorialLevelBarPrefab);
 				uITutorialSeasonLevelBar.transform.SetParent(m_tutorialLevelLayout.transform);
 				uITutorialSeasonLevelBar.transform.localScale = Vector3.one;
 				uITutorialSeasonLevelBar.transform.localPosition = Vector3.zero;
@@ -2237,7 +2236,7 @@ public class UIGameOverScreen : UIScene
 						}
 						for (int l = 0; l < list2.Count; l++)
 						{
-							EndGameRewardItem endGameRewardItem = UnityEngine.Object.Instantiate(m_endGameReward);
+							EndGameRewardItem endGameRewardItem = Instantiate(m_endGameReward);
 							UIManager.ReparentTransform(endGameRewardItem.transform, m_RewardsGrid.transform);
 							UIManager.SetGameObjectActive(endGameRewardItem, true);
 							endGameRewardItem.Setup(list2[l], CharacterType.None);
@@ -2246,7 +2245,7 @@ public class UIGameOverScreen : UIScene
 						}
 						for (int m = 0; m < list3.Count; m++)
 						{
-							EndGameRewardItem endGameRewardItem2 = UnityEngine.Object.Instantiate(m_endGameReward);
+							EndGameRewardItem endGameRewardItem2 = Instantiate(m_endGameReward);
 							UIManager.ReparentTransform(endGameRewardItem2.transform, m_RewardsGrid.transform);
 							UIManager.SetGameObjectActive(endGameRewardItem2, true);
 							endGameRewardItem2.Setup(list3[m], playersOriginalActorData.m_characterType);
@@ -2398,10 +2397,10 @@ public class UIGameOverScreen : UIScene
 														});
 													for (int i = 0; i < item.BadgesEarned.Count; i++)
 													{
-														UIGameOverBadgeWidget uIGameOverBadgeWidget = UnityEngine.Object.Instantiate(m_BadgePrefab);
+														UIGameOverBadgeWidget uIGameOverBadgeWidget = Instantiate(m_BadgePrefab);
 														uIGameOverBadgeWidget.Setup(item.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, item.GlobalPercentiles);
 														UIManager.ReparentTransform(uIGameOverBadgeWidget.transform, m_PersonalHighlightBadgesContainer.transform);
-														UIGameOverBadgeWidget uIGameOverBadgeWidget2 = UnityEngine.Object.Instantiate(m_BadgePrefab);
+														UIGameOverBadgeWidget uIGameOverBadgeWidget2 = Instantiate(m_BadgePrefab);
 														uIGameOverBadgeWidget2.Setup(item.BadgesEarned[i], GameManager.Get().PlayerInfo.CharacterType, item.GlobalPercentiles);
 														UIManager.ReparentTransform(uIGameOverBadgeWidget2.transform, m_StatPadgeBadgesContainer.transform);
 													}
@@ -2555,33 +2554,33 @@ public class UIGameOverScreen : UIScene
 		UIGameOverStatWidget[] componentsInChildren = m_freelancerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
-			UnityEngine.Object.Destroy(componentsInChildren[i].gameObject);
+			Destroy(componentsInChildren[i].gameObject);
 		}
 		componentsInChildren = m_generalStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 		for (int j = 0; j < componentsInChildren.Length; j++)
 		{
-			UnityEngine.Object.Destroy(componentsInChildren[j].gameObject);
+			Destroy(componentsInChildren[j].gameObject);
 		}
 		while (true)
 		{
 			componentsInChildren = m_firepowerStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 			for (int k = 0; k < componentsInChildren.Length; k++)
 			{
-				UnityEngine.Object.Destroy(componentsInChildren[k].gameObject);
+				Destroy(componentsInChildren[k].gameObject);
 			}
 			while (true)
 			{
 				componentsInChildren = m_supportStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 				for (int l = 0; l < componentsInChildren.Length; l++)
 				{
-					UnityEngine.Object.Destroy(componentsInChildren[l].gameObject);
+					Destroy(componentsInChildren[l].gameObject);
 				}
 				while (true)
 				{
 					componentsInChildren = m_frontlineStatGrid.GetComponentsInChildren<UIGameOverStatWidget>(true);
 					for (int m = 0; m < componentsInChildren.Length; m++)
 					{
-						UnityEngine.Object.Destroy(componentsInChildren[m].gameObject);
+						Destroy(componentsInChildren[m].gameObject);
 					}
 					while (true)
 					{
@@ -2604,7 +2603,7 @@ public class UIGameOverScreen : UIScene
 											m_CharacterImage.sprite = characterResourceLink.GetCharacterSelectIcon();
 											for (int n = 0; n < 4; n++)
 											{
-												UIGameOverStatWidget uIGameOverStatWidget = UnityEngine.Object.Instantiate(m_freelancerStatPrefab);
+												UIGameOverStatWidget uIGameOverStatWidget = Instantiate(m_freelancerStatPrefab);
 												AbilityData component = characterResourceLink.ActorDataPrefab.GetComponent<AbilityData>();
 												uIGameOverStatWidget.SetupReplayFreelancerStat(firstPlayerCharacter, playbackMatchData.MatchFreelancerStats, n, component);
 												UIManager.ReparentTransform(uIGameOverStatWidget.transform, m_freelancerStatGrid.transform);
@@ -2621,7 +2620,7 @@ public class UIGameOverScreen : UIScene
 													StatDisplaySettings.StatType[] generalStats = StatDisplaySettings.GeneralStats;
 													foreach (StatDisplaySettings.StatType typeOfStat in generalStats)
 													{
-														UIGameOverStatWidget uIGameOverStatWidget2 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+														UIGameOverStatWidget uIGameOverStatWidget2 = Instantiate(m_generalStatPrefab);
 														uIGameOverStatWidget2.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat, firstPlayerCharacter);
 														UIManager.ReparentTransform(uIGameOverStatWidget2.transform, m_generalStatGrid.transform);
 														m_GameOverStatWidgets.Add(uIGameOverStatWidget2);
@@ -2637,7 +2636,7 @@ public class UIGameOverScreen : UIScene
 															StatDisplaySettings.StatType[] firepowerStats = StatDisplaySettings.FirepowerStats;
 															foreach (StatDisplaySettings.StatType typeOfStat2 in firepowerStats)
 															{
-																UIGameOverStatWidget uIGameOverStatWidget3 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+																UIGameOverStatWidget uIGameOverStatWidget3 = Instantiate(m_generalStatPrefab);
 																uIGameOverStatWidget3.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat2, firstPlayerCharacter);
 																UIManager.ReparentTransform(uIGameOverStatWidget3.transform, m_firepowerStatGrid.transform);
 																m_GameOverStatWidgets.Add(uIGameOverStatWidget3);
@@ -2645,7 +2644,7 @@ public class UIGameOverScreen : UIScene
 															StatDisplaySettings.StatType[] supportStats = StatDisplaySettings.SupportStats;
 															foreach (StatDisplaySettings.StatType typeOfStat3 in supportStats)
 															{
-																UIGameOverStatWidget uIGameOverStatWidget4 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+																UIGameOverStatWidget uIGameOverStatWidget4 = Instantiate(m_generalStatPrefab);
 																uIGameOverStatWidget4.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat3, firstPlayerCharacter);
 																UIManager.ReparentTransform(uIGameOverStatWidget4.transform, m_supportStatGrid.transform);
 																m_GameOverStatWidgets.Add(uIGameOverStatWidget4);
@@ -2661,7 +2660,7 @@ public class UIGameOverScreen : UIScene
 																	StatDisplaySettings.StatType[] frontlinerStats = StatDisplaySettings.FrontlinerStats;
 																	foreach (StatDisplaySettings.StatType typeOfStat4 in frontlinerStats)
 																	{
-																		UIGameOverStatWidget uIGameOverStatWidget5 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+																		UIGameOverStatWidget uIGameOverStatWidget5 = Instantiate(m_generalStatPrefab);
 																		uIGameOverStatWidget5.SetupReplayStat(playbackMatchData.MatchFreelancerStats, typeOfStat4, firstPlayerCharacter);
 																		UIManager.ReparentTransform(uIGameOverStatWidget5.transform, m_frontlineStatGrid.transform);
 																		m_GameOverStatWidgets.Add(uIGameOverStatWidget5);
@@ -2770,7 +2769,7 @@ public class UIGameOverScreen : UIScene
 						ActorBehavior actorBehavior = playersOriginalActorData2.GetActorBehavior();
 						for (int num5 = 0; num5 < freelancerStats.GetNumStats(); num5++)
 						{
-							UIGameOverStatWidget uIGameOverStatWidget6 = UnityEngine.Object.Instantiate(m_freelancerStatPrefab);
+							UIGameOverStatWidget uIGameOverStatWidget6 = Instantiate(m_freelancerStatPrefab);
 							uIGameOverStatWidget6.SetupForFreelancerStats(m_statsAtBeginningOfMatch, actorBehavior, freelancerStats, num5, playersOriginalActorData2.GetAbilityData());
 							uIGameOverStatWidget6.UpdatePercentiles(GetFreelancerStatPercentiles(num5));
 							UIManager.ReparentTransform(uIGameOverStatWidget6.transform, m_freelancerStatGrid.transform);
@@ -2781,7 +2780,7 @@ public class UIGameOverScreen : UIScene
 							StatDisplaySettings.StatType[] generalStats2 = StatDisplaySettings.GeneralStats;
 							foreach (StatDisplaySettings.StatType typeOfStat5 in generalStats2)
 							{
-								UIGameOverStatWidget uIGameOverStatWidget7 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+								UIGameOverStatWidget uIGameOverStatWidget7 = Instantiate(m_generalStatPrefab);
 								uIGameOverStatWidget7.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat5);
 								uIGameOverStatWidget7.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget7.GeneralStatType));
 								UIManager.ReparentTransform(uIGameOverStatWidget7.transform, m_generalStatGrid.transform);
@@ -2792,7 +2791,7 @@ public class UIGameOverScreen : UIScene
 								StatDisplaySettings.StatType[] firepowerStats2 = StatDisplaySettings.FirepowerStats;
 								foreach (StatDisplaySettings.StatType typeOfStat6 in firepowerStats2)
 								{
-									UIGameOverStatWidget uIGameOverStatWidget8 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+									UIGameOverStatWidget uIGameOverStatWidget8 = Instantiate(m_generalStatPrefab);
 									uIGameOverStatWidget8.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat6);
 									uIGameOverStatWidget8.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget8.GeneralStatType));
 									UIManager.ReparentTransform(uIGameOverStatWidget8.transform, m_firepowerStatGrid.transform);
@@ -2801,7 +2800,7 @@ public class UIGameOverScreen : UIScene
 								StatDisplaySettings.StatType[] supportStats2 = StatDisplaySettings.SupportStats;
 								foreach (StatDisplaySettings.StatType typeOfStat7 in supportStats2)
 								{
-									UIGameOverStatWidget uIGameOverStatWidget9 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+									UIGameOverStatWidget uIGameOverStatWidget9 = Instantiate(m_generalStatPrefab);
 									uIGameOverStatWidget9.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat7);
 									uIGameOverStatWidget9.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget9.GeneralStatType));
 									UIManager.ReparentTransform(uIGameOverStatWidget9.transform, m_supportStatGrid.transform);
@@ -2812,7 +2811,7 @@ public class UIGameOverScreen : UIScene
 									StatDisplaySettings.StatType[] frontlinerStats2 = StatDisplaySettings.FrontlinerStats;
 									foreach (StatDisplaySettings.StatType typeOfStat8 in frontlinerStats2)
 									{
-										UIGameOverStatWidget uIGameOverStatWidget10 = UnityEngine.Object.Instantiate(m_generalStatPrefab);
+										UIGameOverStatWidget uIGameOverStatWidget10 = Instantiate(m_generalStatPrefab);
 										uIGameOverStatWidget10.SetupForAStat(m_statsAtBeginningOfMatch, actorBehavior, typeOfStat8);
 										uIGameOverStatWidget10.UpdatePercentiles(GetStatPercentiles(uIGameOverStatWidget10.GeneralStatType));
 										UIManager.ReparentTransform(uIGameOverStatWidget10.transform, m_frontlineStatGrid.transform);
@@ -2911,7 +2910,7 @@ public class UIGameOverScreen : UIScene
 			flag2 = false;
 			goto IL_0057;
 		}
-		goto IL_0118;
+
 		IL_0118:
 		UIManager.SetGameObjectActive(m_rankModeLevelContainer, flag2);
 		return;
@@ -3257,105 +3256,57 @@ public class UIGameOverScreen : UIScene
 		if (GameManager.Get().GameConfig != null)
 		{
 			GameType gameType = GameManager.Get().GameConfig.GameType;
-			if (gameType == GameType.Custom)
+			if (gameType == GameType.Custom
+			    || gameType == GameType.Tutorial && m_results.SeasonLevelAtStart > 1)
 			{
-				goto IL_0108;
+				UITutorialSeasonInterstitial.Get().SetVisible(false);
 			}
-			if (gameType == GameType.Tutorial)
+			else
 			{
-				if (m_results.SeasonLevelAtStart > 1)
-				{
-					goto IL_0108;
-				}
-			}
-			PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
-			SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(playerAccountData.QuestComponent.ActiveSeason);
-			if (seasonTemplate != null)
-			{
-				if (seasonTemplate.IsTutorial)
+				PersistedAccountData playerAccountData = ClientGameManager.Get().GetPlayerAccountData();
+				SeasonTemplate seasonTemplate = SeasonWideData.Get().GetSeasonTemplate(playerAccountData.QuestComponent.ActiveSeason);
+				if (seasonTemplate != null && seasonTemplate.IsTutorial)
 				{
 					UITutorialSeasonInterstitial.Get().Setup(seasonTemplate, playerAccountData.QuestComponent.SeasonLevel - 1, true);
 				}
 			}
 		}
-		goto IL_0115;
-		IL_0115:
-		if (notification.BadgeAndParticipantsInfo.IsNullOrEmpty())
+		if (!notification.BadgeAndParticipantsInfo.IsNullOrEmpty())
 		{
-			return;
-		}
-		int playerId;
-		while (true)
-		{
-			playerId = GameManager.Get().PlayerInfo.PlayerId;
-			BadgeAndParticipantInfo badgeAndParticipantInfo = notification.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
-			if (badgeAndParticipantInfo == null)
-			{
-				return;
-			}
-			while (true)
+			int playerId = GameManager.Get().PlayerInfo.PlayerId;
+			BadgeAndParticipantInfo badgeAndParticipantInfo = notification.BadgeAndParticipantsInfo.Find(p => p.PlayerId == playerId);
+			if (badgeAndParticipantInfo != null)
 			{
 				if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty())
 				{
-					using (Dictionary<StatDisplaySettings.StatType, PercentileInfo>.Enumerator enumerator = badgeAndParticipantInfo.GlobalPercentiles.GetEnumerator())
+					foreach (KeyValuePair<StatDisplaySettings.StatType, PercentileInfo> globalStat in badgeAndParticipantInfo.GlobalPercentiles)
 					{
-						while (enumerator.MoveNext())
+						UIGameOverStatWidget generalStatWidget = m_GameOverStatWidgets
+							.Find(p => 
+								p.GeneralStatType == globalStat.Key 
+								&& p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat);
+						if (generalStatWidget != null)
 						{
-							KeyValuePair<StatDisplaySettings.StatType, PercentileInfo> kvPair = enumerator.Current;
-							UIGameOverStatWidget uIGameOverStatWidget = m_GameOverStatWidgets.Find((UIGameOverStatWidget p) => p.GeneralStatType == kvPair.Key && p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.GeneralStat);
-							if (uIGameOverStatWidget != null)
-							{
-								uIGameOverStatWidget.UpdatePercentiles(kvPair.Value);
-							}
+							generalStatWidget.UpdatePercentiles(globalStat.Value);
 						}
 					}
 				}
 				if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty())
 				{
-					while (true)
+					foreach (KeyValuePair<int, PercentileInfo> lancerStat in badgeAndParticipantInfo.FreelancerSpecificPercentiles)
 					{
-						using (Dictionary<int, PercentileInfo>.Enumerator enumerator2 = badgeAndParticipantInfo.FreelancerSpecificPercentiles.GetEnumerator())
+						UIGameOverStatWidget freelancerStatWidget = m_GameOverStatWidgets
+							.Find(p =>
+								p.FreelancerStat == lancerStat.Key
+								&& p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat);
+						if (freelancerStatWidget != null)
 						{
-							while (enumerator2.MoveNext())
-							{
-								KeyValuePair<int, PercentileInfo> ivPair = enumerator2.Current;
-								UIGameOverStatWidget uIGameOverStatWidget2 = m_GameOverStatWidgets.Find(delegate(UIGameOverStatWidget p)
-								{
-									int result;
-									if (p.FreelancerStat == ivPair.Key)
-									{
-										result = ((p.DisplayStatType == UIGameOverStatWidget.StatDisplayType.FreelancerStat) ? 1 : 0);
-									}
-									else
-									{
-										result = 0;
-									}
-									return (byte)result != 0;
-								});
-								if (uIGameOverStatWidget2 != null)
-								{
-									uIGameOverStatWidget2.UpdatePercentiles(ivPair.Value);
-								}
-							}
-							while (true)
-							{
-								switch (2)
-								{
-								default:
-									return;
-								case 0:
-									break;
-								}
-							}
+							freelancerStatWidget.UpdatePercentiles(lancerStat.Value);
 						}
 					}
 				}
-				return;
 			}
 		}
-		IL_0108:
-		UITutorialSeasonInterstitial.Get().SetVisible(false);
-		goto IL_0115;
 	}
 
 	public void NotifySelfGGPackUsed()
@@ -3673,7 +3624,7 @@ public class UIGameOverScreen : UIScene
 			num = DisplayInfo.GetTotalNormalCurrencyReward(CurrencyType) + DisplayInfo.GetTotalGGBoostCurrencyReward(CurrencyType);
 			num2 = DisplayInfo.GetTotalQuestCurrencyReward(CurrencyType);
 		}
-		int num3 = num + (int)((float)num2 * UpdateInfo.PercentageProgress);
+		int num3 = num + (int)(num2 * UpdateInfo.PercentageProgress);
 		DisplayInfo.m_currencyGainText.text = "+" + num3;
 	}
 
@@ -3735,15 +3686,15 @@ public class UIGameOverScreen : UIScene
 			}
 			if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.NormalExpBar)
 			{
-				DisplayInfo.m_NormalXPGainSlider.fillAmount = (float)num / (float)xPForType;
+				DisplayInfo.m_NormalXPGainSlider.fillAmount = num / (float)xPForType;
 			}
 			else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.GGExpBar)
 			{
-				DisplayInfo.m_GGXPSlider.fillAmount = (float)num / (float)xPForType;
+				DisplayInfo.m_GGXPSlider.fillAmount = num / (float)xPForType;
 			}
 			else if (UpdateInfo.UpdateType == GameOverExperienceUpdateSubState.UpdatingType.QuestExp)
 			{
-				DisplayInfo.m_QuestXPSlider.fillAmount = (float)num / (float)xPForType;
+				DisplayInfo.m_QuestXPSlider.fillAmount = num / (float)xPForType;
 			}
 			DisplayInfo.m_barLevelLabel.text = num2.ToString();
 			DisplayInfo.m_XPLabel.text = num + " / " + xPForType;
@@ -3777,7 +3728,7 @@ public class UIGameOverScreen : UIScene
 								num += enumerator.Current.Value;
 							}
 						}
-						int num2 = (int)((float)num * UpdateInfo.PercentageProgress);
+						int num2 = (int)(num * UpdateInfo.PercentageProgress);
 						m_influenceDisplay.m_currencyGainText.text = "+" + num2;
 						return;
 					}
@@ -3854,8 +3805,8 @@ public class UIGameOverScreen : UIScene
 								UIScreenManager.Get().PlayNormalXPLoop(true);
 								int normalBarXPTotal = GetNormalBarXPTotal();
 								int num = normalBarXPTotal + m_results.ConsumableXpGained;
-								int xPGainedSoFar = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)normalBarXPTotal);
-								int num2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)num);
+								int xPGainedSoFar = Mathf.RoundToInt(UpdateInfo.PercentageProgress * normalBarXPTotal);
+								int num2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * num);
 								m_expGain.text = "+" + xPGainedSoFar;
 								UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, normalBarXPTotal, m_results.SeasonXpAtStart, m_results.SeasonLevelAtStart, xPGainedSoFar);
 								if (m_results.NumCharactersPlayed > 1)
@@ -3917,7 +3868,7 @@ public class UIGameOverScreen : UIScene
 						int num3 = gGXpGained;
 						int normalBarXPTotal2 = GetNormalBarXPTotal();
 						int num4 = normalBarXPTotal2 + m_results.ConsumableXpGained;
-						int num5 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)gGXpGained);
+						int num5 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * gGXpGained);
 						m_expGain.text = "+" + (normalBarXPTotal2 + num5);
 						UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, gGXpGained, m_results.SeasonXpAtStart + normalBarXPTotal2, m_results.SeasonLevelAtStart, num5);
 						if (m_results.NumCharactersPlayed > 1)
@@ -3927,7 +3878,7 @@ public class UIGameOverScreen : UIScene
 							num4 /= m_results.NumCharactersPlayed;
 							num3 -= num4;
 						}
-						int xPGainedSoFar2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)num3);
+						int xPGainedSoFar2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * num3);
 						UpdateExpSubStateHelper(UpdateInfo, m_characterXPInfo, num3, m_results.CharacterXpAtStart + num4, m_results.CharacterLevelAtStart, xPGainedSoFar2);
 					}
 					else
@@ -3982,7 +3933,7 @@ public class UIGameOverScreen : UIScene
 					UIScreenManager.Get().PlayGGBoostXPLoop(true);
 					int questXpGained = m_results.QuestXpGained;
 					int num6 = GetNormalBarXPTotal() + m_results.GGXpGained;
-					int num7 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * (float)questXpGained);
+					int num7 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * questXpGained);
 					m_expGain.text = "+" + (num6 + num7);
 					UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, questXpGained, m_results.SeasonXpAtStart + num6, m_results.SeasonLevelAtStart, num7);
 					return;
@@ -4449,7 +4400,7 @@ public class UIGameOverScreen : UIScene
 	{
 		if (StateToBeUpdated.SubStateType == GameOverScreenState.Stats)
 		{
-			int num = Mathf.FloorToInt((float)m_GameOverStatWidgets.Count * StateToBeUpdated.PercentageProgress);
+			int num = Mathf.FloorToInt(m_GameOverStatWidgets.Count * StateToBeUpdated.PercentageProgress);
 			for (int i = 0; i < num; i++)
 			{
 				m_GameOverStatWidgets[i].SetHighlight();
@@ -4475,7 +4426,7 @@ public class UIGameOverScreen : UIScene
 						}
 					}
 				}
-				num2 = Mathf.FloorToInt((float)num3 * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - TopPartipantFrontTimePadPercentage) / (1f - (TopPartipantFrontTimePadPercentage + TopPartipantEndTimePadPercentage))));
+				num2 = Mathf.FloorToInt(num3 * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - TopPartipantFrontTimePadPercentage) / (1f - (TopPartipantFrontTimePadPercentage + TopPartipantEndTimePadPercentage))));
 			}
 			for (int j = 0; j < m_TopParticipantWidgets.Length; j++)
 			{
@@ -4495,7 +4446,7 @@ public class UIGameOverScreen : UIScene
 		}
 		if (StateToBeUpdated.SubStateType == GameOverScreenState.PersonalHighlights)
 		{
-			int num4 = Mathf.FloorToInt((float)m_PersonalHighlightWidgets.Length * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - PersonalHighlightsFrontTimePadPercentage) / (1f - (PersonalHighlightsFrontTimePadPercentage + PersonalHighlightsEndTimePadPercentage))));
+			int num4 = Mathf.FloorToInt(m_PersonalHighlightWidgets.Length * Mathf.Clamp01((StateToBeUpdated.PercentageProgress - PersonalHighlightsFrontTimePadPercentage) / (1f - (PersonalHighlightsFrontTimePadPercentage + PersonalHighlightsEndTimePadPercentage))));
 			for (int k = 0; k < m_PersonalHighlightWidgets.Length; k++)
 			{
 				UIManager.SetGameObjectActive(m_PersonalHighlightWidgets[k], true);
@@ -4512,7 +4463,7 @@ public class UIGameOverScreen : UIScene
 		}
 		if (StateToBeUpdated.SubStateType == GameOverScreenState.MissionNotifications)
 		{
-			int num5 = Mathf.FloorToInt((float)QuestCompletePanel.Get().TotalQuestsToDisplayForGameOver() * StateToBeUpdated.PercentageProgress);
+			int num5 = Mathf.FloorToInt(QuestCompletePanel.Get().TotalQuestsToDisplayForGameOver() * StateToBeUpdated.PercentageProgress);
 			for (int l = 0; l < num5; l++)
 			{
 				QuestCompletePanel.Get().DisplayGameOverQuestComplete(l);
@@ -4601,7 +4552,6 @@ public class UIGameOverScreen : UIScene
 							}
 						}
 						num = 0;
-						goto IL_0075;
 					}
 					IL_0075:
 					flag = ((byte)num != 0);
@@ -4705,7 +4655,6 @@ public class UIGameOverScreen : UIScene
 				}
 			}
 			num = 0;
-			goto IL_0076;
 			IL_0076:
 			bool flag6 = (byte)num != 0;
 			bool flag7 = ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback();
@@ -4981,7 +4930,7 @@ public class UIGameOverScreen : UIScene
 			if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 			{
 				int playerId = GameManager.Get().PlayerInfo.PlayerId;
-				BadgeAndParticipantInfo badgeAndParticipantInfo = m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
+				BadgeAndParticipantInfo badgeAndParticipantInfo = m_results.BadgeAndParticipantsInfo.Find(p => p.PlayerId == playerId);
 				if (badgeAndParticipantInfo != null)
 				{
 					if (!badgeAndParticipantInfo.GlobalPercentiles.IsNullOrEmpty())
@@ -5002,7 +4951,7 @@ public class UIGameOverScreen : UIScene
 			if (!m_results.BadgeAndParticipantsInfo.IsNullOrEmpty())
 			{
 				int playerId = GameManager.Get().PlayerInfo.PlayerId;
-				BadgeAndParticipantInfo badgeAndParticipantInfo = m_results.BadgeAndParticipantsInfo.Find((BadgeAndParticipantInfo p) => p.PlayerId == playerId);
+				BadgeAndParticipantInfo badgeAndParticipantInfo = m_results.BadgeAndParticipantsInfo.Find(p => p.PlayerId == playerId);
 				if (badgeAndParticipantInfo != null)
 				{
 					if (!badgeAndParticipantInfo.FreelancerSpecificPercentiles.IsNullOrEmpty())
