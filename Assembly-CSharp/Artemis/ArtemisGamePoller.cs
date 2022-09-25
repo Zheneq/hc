@@ -17,6 +17,11 @@ namespace ArtemisServer.BridgeServer
 		public void Poll(ArtemisBridgeServerInterface absi)
 		{
 			ar = absi;
+			if (File.Exists(PATH))
+			{
+				Log.Info("Deleting obsolete file.");
+				File.Delete(PATH);
+			}
 			Log.Info("Looking for a game file...");
 			StartCoroutine(GameLoop());
 		}

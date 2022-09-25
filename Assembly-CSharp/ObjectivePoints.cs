@@ -334,74 +334,77 @@ public class ObjectivePoints : NetworkBehaviour
         {
             return;
         }
-        for (int i = 0; i < m_passivePointsForTeamWithCharacter.Count; i++)
+		
+        // custom
+        CheckForEndOfGame();
+		
+        // rogues?
+        foreach (PointsForCharacter pointsForCharacter in m_passivePointsForTeamWithCharacter)
         {
-            PointsForCharacter pointsForCharacter = m_passivePointsForTeamWithCharacter[i];
-            if (pointsForCharacter.m_characterType != CharacterType.None && pointsForCharacter.m_points != 0)
-            {
-                int teamANum = 0;
-                int teamBNum = 0;
-                List<ActorData> actors = GameFlowData.Get().GetActors();
-                for (int j = 0; j < actors.Count; j++)
-                {
-                    ActorData actorData = actors[j];
-                    if (actorData.m_characterType == pointsForCharacter.m_characterType)
-                    {
-                        if (actorData.GetTeam() == Team.TeamA)
-                        {
-                            teamANum++;
-                        }
-                        else if (actorData.GetTeam() == Team.TeamB)
-                        {
-                            teamBNum++;
-                        }
-                    }
-                }
-                int teamAAdjustAmount;
-                if (teamANum == 0)
-                {
-                    teamAAdjustAmount = 0;
-                }
-                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.AtLeastOneMatchingActor)
-                {
-                    teamAAdjustAmount = pointsForCharacter.m_points;
-                }
-                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.PerEachMatchingActor)
-                {
-                    teamAAdjustAmount = pointsForCharacter.m_points * teamANum;
-                }
-                else
-                {
-                    teamAAdjustAmount = 0;
-                }
-                int teamBAdjustAmount;
-                if (teamBNum == 0)
-                {
-                    teamBAdjustAmount = 0;
-                }
-                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.AtLeastOneMatchingActor)
-                {
-                    teamBAdjustAmount = pointsForCharacter.m_points;
-                }
-                else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.PerEachMatchingActor)
-                {
-                    teamBAdjustAmount = pointsForCharacter.m_points * teamANum;
-                }
-                else
-                {
-                    teamBAdjustAmount = 0;
-                }
-                if (teamAAdjustAmount > 0)
-                {
-                    AdjustPoints(teamAAdjustAmount, Team.TeamA);
-                }
-                if (teamBAdjustAmount > 0)
-                {
-                    AdjustPoints(teamBAdjustAmount, Team.TeamB);
-                }
-            }
+	        if (pointsForCharacter.m_characterType == CharacterType.None || pointsForCharacter.m_points == 0)
+	        {
+		        continue;
+	        }
+	        int teamANum = 0;
+	        int teamBNum = 0;
+	        foreach (ActorData actorData in GameFlowData.Get().GetActors())
+	        {
+		        if (actorData.m_characterType == pointsForCharacter.m_characterType)
+		        {
+			        if (actorData.GetTeam() == Team.TeamA)
+			        {
+				        teamANum++;
+			        }
+			        else if (actorData.GetTeam() == Team.TeamB)
+			        {
+				        teamBNum++;
+			        }
+		        }
+	        }
+	        int teamAAdjustAmount;
+	        if (teamANum == 0)
+	        {
+		        teamAAdjustAmount = 0;
+	        }
+	        else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.AtLeastOneMatchingActor)
+	        {
+		        teamAAdjustAmount = pointsForCharacter.m_points;
+	        }
+	        else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.PerEachMatchingActor)
+	        {
+		        teamAAdjustAmount = pointsForCharacter.m_points * teamANum;
+	        }
+	        else
+	        {
+		        teamAAdjustAmount = 0;
+	        }
+	        int teamBAdjustAmount;
+	        if (teamBNum == 0)
+	        {
+		        teamBAdjustAmount = 0;
+	        }
+	        else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.AtLeastOneMatchingActor)
+	        {
+		        teamBAdjustAmount = pointsForCharacter.m_points;
+	        }
+	        else if (pointsForCharacter.m_givePointsFor == PointsForCharacter.CalculationType.PerEachMatchingActor)
+	        {
+		        teamBAdjustAmount = pointsForCharacter.m_points * teamANum;
+	        }
+	        else
+	        {
+		        teamBAdjustAmount = 0;
+	        }
+	        if (teamAAdjustAmount > 0)
+	        {
+		        AdjustPoints(teamAAdjustAmount, Team.TeamA);
+	        }
+	        if (teamBAdjustAmount > 0)
+	        {
+		        AdjustPoints(teamBAdjustAmount, Team.TeamB);
+	        }
         }
-	}
+    }
 #endif
 
 	public void SetUpGameUI(UIGameModePanel UIPanel)
@@ -600,6 +603,7 @@ public class ObjectivePoints : NetworkBehaviour
 			}
 			// end removed in rogues
 
+			Log.Info($"Objectives [{m_objectives.Count}]");
 			foreach (MatchObjective objective in m_objectives)
 			{
 				objective.Server_OnActorDeath(actor);
@@ -655,16 +659,20 @@ public class ObjectivePoints : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::CheckForEndOfGame()' called on client");
 			return;
 		}
+		Log.Info($"CheckForEndOfGame m_matchState: {m_matchState}, m_skipEndOfGameCheck: {m_skipEndOfGameCheck}");
 		if (m_matchState == MatchState.InMatch
 			&& !m_skipEndOfGameCheck
 			&& !GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.SkipEndOfGameCheck)  // removed in rogues
 			&& (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DisableGameEndCheck")))  // removed in rogues
 		{
+			Log.Info($"CheckForEndOfGame checking conditions");
 			bool isOvertime = m_timeLimitTurns == 0 || GameFlowData.Get().CurrentTurn >= m_timeLimitTurns;
 			int teamAPoints = m_points[0];
 			int teamBPoints = m_points[1];
 			bool hasTeamAWon = m_teamAVictoryCondition.ArePointConditionsMet(teamAPoints, teamBPoints, isOvertime, Team.TeamA);
 			bool hasTeamBWon = m_teamBVictoryCondition.ArePointConditionsMet(teamBPoints, teamAPoints, isOvertime, Team.TeamB);
+			Log.Info($"CheckForEndOfGame turn {GameFlowData.Get().CurrentTurn}/{m_timeLimitTurns}" + (isOvertime ? "[overtime]" : "") + ", " +
+			         $"teamAPoints {teamAPoints}, teamBPoints {teamBPoints}, hasTeamAWon {hasTeamAWon}, hasTeamBWon {hasTeamBWon}");
 			bool isGameOver;
 			if (hasTeamAWon && hasTeamBWon || !hasTeamAWon && !hasTeamBWon && m_timeLimitTurns > 0)
 			{
@@ -680,8 +688,10 @@ public class ObjectivePoints : NetworkBehaviour
 					if (isOvertime)
 					{
 						m_inSuddenDeath = true;
+						Log.Info($"CheckForEndOfGame sudden death");
 						if (m_disablePowerupsAfterTimeLimit)
 						{
+							Log.Info($"CheckForEndOfGame disabling powerups");
 							PowerUpManager.Get().SetSpawningEnabled(false);
 						}
 					}
@@ -782,6 +792,7 @@ public class ObjectivePoints : NetworkBehaviour
 
 	public void AdjustPoints(int adjustAmount, Team teamToAdjust)
 	{
+		Log.Info($"ObjectivePoints::AdjustPoints: {teamToAdjust} - {adjustAmount}");
 		if (adjustAmount != 0)
 		{
 			if (teamToAdjust == Team.TeamA)

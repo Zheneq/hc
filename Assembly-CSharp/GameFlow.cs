@@ -689,7 +689,10 @@ public class GameFlow : NetworkBehaviour
 			ServerCombatManager.Get().ResolveTechPoints();
 
 			// TODO wait a couple seconds here? (if we wait in ending turn, it can cause ui artifacts)
-			GameFlowData.Get().gameState = GameState.EndingTurn;
+			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
+			{
+				GameFlowData.Get().gameState = GameState.EndingTurn;
+			}
 			
 			foreach (ActorData actorData in GameFlowData.Get().GetActors())
 			{
@@ -1617,6 +1620,7 @@ public class GameFlow : NetworkBehaviour
 	// added in rogues
 	private void HandleUpdateTurnEnd()  // HandleUpdateTeamTurnEnd_FCFS() in rogues
 	{
+		ObjectivePoints.Get().m_timeLimitTurns = 5;
 		if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
 		{
 			ServerCombatManager.Get().ResolveHitPoints();
@@ -1629,7 +1633,19 @@ public class GameFlow : NetworkBehaviour
 
 		// custom
 		OnTurnEnd();
-		GameFlowData.Get().gameState = GameState.BothTeams_Decision;
+		switch (GameFlowData.Get().gameState)
+		{
+			case GameState.EndingTurn:
+				GameFlowData.Get().gameState = GameState.BothTeams_Decision;
+				break;
+			case GameState.EndingGame:
+				// TODO
+				break;
+			default:
+				Log.Error($"Unexpected game state on turn end: {GameFlowData.Get().gameState}");
+				GameFlowData.Get().gameState = GameState.BothTeams_Decision; // fallback
+				break;
+		}
 		// rogues
 		//OnTeamTurnEnd(nextActingTeam_FCFS == Team.TeamA);
 		//GameFlowData.Get().gameState = GameState.PVE_TeamTurnStart;

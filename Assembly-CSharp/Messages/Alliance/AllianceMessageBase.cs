@@ -2,6 +2,7 @@
 // SERVER
 using System;
 using System.Reflection;
+using Newtonsoft.Json;
 //using Mirror;
 using UnityEngine.Networking;
 
@@ -30,36 +31,54 @@ public class AllianceMessageBase : MessageBase
 		Log.Critical("Nested messages must implement DeserializeNested to avoid calling into the base Deserialize");
 	}
 
+	// rogues + custom json fallback
 	public static void SerializeObject(object o, NetworkWriter writer)
 	{
 		writer.Write(o != null);
 		if (o != null)
 		{
-			o.GetType().GetMethod("Serialize").Invoke(o, new object[]
+			MethodInfo methodInfo = o.GetType().GetMethod("Serialize");
+			if (methodInfo != null)
 			{
-				writer
-			});
+				methodInfo.Invoke(o, new object[]
+				{
+					writer
+				});
+			}
+			else
+			{
+				writer.Write(JsonConvert.SerializeObject(o));
+			}
 		}
 	}
 
+	// rogues + custom json fallback
 	public static void DeserializeObject<T>(out T o, NetworkReader reader)
 	{
-		if (reader.ReadBoolean())
+		if (!reader.ReadBoolean())
 		{
-			ConstructorInfo constructor = typeof(T).GetConstructor(new Type[0]);
-			o = (T)((object)constructor.Invoke(new object[0]));
-			string name = "Deserialize";
-			if (typeof(T).IsSubclassOf(typeof(AllianceMessageBase)))
-			{
-				name = "DeserializeNested";
-			}
-			o.GetType().GetMethod(name).Invoke(o, new object[]
+			o = default(T);
+			return;
+		}
+		ConstructorInfo constructor = typeof(T).GetConstructor(Type.EmptyTypes);
+		o = (T)((object)constructor.Invoke(new object[0]));
+		string name = "Deserialize";
+		if (typeof(T).IsSubclassOf(typeof(AllianceMessageBase)))
+		{
+			name = "DeserializeNested";
+		}
+		MethodInfo methodInfo = o.GetType().GetMethod(name);
+		if (methodInfo != null)
+		{
+			methodInfo.Invoke(o, new object[]
 			{
 				reader
 			});
-			return;
 		}
-		o = default(T);
+		else
+		{
+			o = JsonConvert.DeserializeObject<T>(reader.ReadString());
+		}
 	}
 }
 #endif
