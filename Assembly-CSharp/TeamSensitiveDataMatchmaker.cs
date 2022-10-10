@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
@@ -37,7 +39,9 @@ public class TeamSensitiveDataMatchmaker
 		}
 		if (m_actorIndexToHostileData.ContainsKey(actor.ActorIndex))
 		{
-			actor.SetClientHostileTeamSensitiveData(m_actorIndexToHostileData[actor.ActorIndex]);
+			// rogues
+			// Debug.LogError("Trying to handle hostile team sensitive data, should have been removed");
+			actor.SetClientHostileTeamSensitiveData(m_actorIndexToHostileData[actor.ActorIndex]);  // removed in rogues
 			m_actorIndexToHostileData.Remove(actor.ActorIndex);
 		}
 	}
@@ -75,7 +79,7 @@ public class TeamSensitiveDataMatchmaker
 			case ActorTeamSensitiveData.ObservedBy.Friendlies:
 				dictionary = m_actorIndexToFriendlyData;
 				break;
-			case ActorTeamSensitiveData.ObservedBy.Hostiles:
+			case ActorTeamSensitiveData.ObservedBy.Hostiles:  // removed in rogues
 				dictionary = m_actorIndexToHostileData;
 				break;
 			default:
