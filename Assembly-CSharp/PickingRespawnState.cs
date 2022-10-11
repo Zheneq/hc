@@ -13,33 +13,25 @@ public class PickingRespawnState : TurnState
 	public override void OnEnter()
 	{
 		ActorData component = m_SM.GetComponent<ActorData>();
-		if (!(component == GameFlowData.Get().activeOwnedActorData))
+		if (component != GameFlowData.Get().activeOwnedActorData)
 		{
 			return;
 		}
-		while (true)
+		GameObject gameObject = null;
+		if (component.RespawnPickedPositionSquare != null)
 		{
-			GameObject gameObject = null;
-			if (component.RespawnPickedPositionSquare != null)
-			{
-				gameObject = component.RespawnPickedPositionSquare.gameObject;
-			}
-			else if (!component.respawnSquares.IsNullOrEmpty())
-			{
-				gameObject = component.respawnSquares[0].gameObject;
-			}
-			focusedCameraYet = false;
-			if (gameObject != null)
-			{
-				while (true)
-				{
-					CameraManager.Get().SetTargetObject(gameObject, CameraManager.CameraTargetReason.MustSelectRespawnLoc);
-					focusedCameraYet = true;
-					InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
-					return;
-				}
-			}
-			return;
+			gameObject = component.RespawnPickedPositionSquare.gameObject;
+		}
+		else if (!component.respawnSquares.IsNullOrEmpty())
+		{
+			gameObject = component.respawnSquares[0].gameObject;
+		}
+		focusedCameraYet = false;
+		if (gameObject != null)
+		{
+			CameraManager.Get().SetTargetObject(gameObject, CameraManager.CameraTargetReason.MustSelectRespawnLoc);
+			focusedCameraYet = true;
+			InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
 		}
 	}
 
@@ -53,7 +45,7 @@ public class PickingRespawnState : TurnState
 
 	public override void OnMsg(TurnMessage msg, int extraData)
 	{
-		ActorData component = m_SM.GetComponent<ActorData>();
+		ActorData actorData = m_SM.GetComponent<ActorData>();
 		switch (msg)
 		{
 		case TurnMessage.MOVEMENT_RESOLVED:
@@ -74,74 +66,59 @@ public class PickingRespawnState : TurnState
 		case TurnMessage.BEGIN_RESOLVE:
 		case TurnMessage.DISCONNECTED:
 			m_SM.NextState = TurnStateEnum.WAITING;
-			if (!(component.RespawnPickedPositionSquare == null) || component.respawnSquares.IsNullOrEmpty())
+			if (actorData.RespawnPickedPositionSquare == null && !actorData.respawnSquares.IsNullOrEmpty())
 			{
-				return;
+				actorData.RespawnPickedPositionSquare = actorData.respawnSquares[0];
 			}
-			while (true)
-			{
-				component.RespawnPickedPositionSquare = component.respawnSquares[0];
-				return;
-			}
+			return;
 		case TurnMessage.DONE_BUTTON_CLICKED:
 			m_SM.NextState = TurnStateEnum.CONFIRMED;
-			if (component.RespawnPickedPositionSquare == null && !component.respawnSquares.IsNullOrEmpty())
+			if (actorData.RespawnPickedPositionSquare == null && !actorData.respawnSquares.IsNullOrEmpty())
 			{
-				component.RespawnPickedPositionSquare = component.respawnSquares[0];
+				actorData.RespawnPickedPositionSquare = actorData.respawnSquares[0];
 			}
 			return;
 		case TurnMessage.CANCEL_BUTTON_CLICKED:
-			component.RespawnPickedPositionSquare = null;
+			actorData.RespawnPickedPositionSquare = null;
 			if (m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData)
 			{
 				InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
 			}
 			return;
 		case TurnMessage.PICK_RESPAWN:
-			if (!(m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData))
-			{
-				return;
-			}
-			while (true)
+			if (m_SM.GetComponent<ActorData>() == GameFlowData.Get().activeOwnedActorData)
 			{
 				InterfaceManager.Get().CancelAlert(StringUtil.TR("PickRespawnLocation", "Global"));
-				return;
 			}
+			return;
 		case TurnMessage.RESPAWN:
 			m_SM.NextState = TurnStateEnum.DECIDING;
-			return;
-		}
-		while (true)
-		{
 			return;
 		}
 	}
 
 	public override void Update()
 	{
-		ActorData component = m_SM.GetComponent<ActorData>();
-		if (!focusedCameraYet)
+		ActorData actorData = m_SM.GetComponent<ActorData>();
+		if (!focusedCameraYet && actorData == GameFlowData.Get().activeOwnedActorData)
 		{
-			if (component == GameFlowData.Get().activeOwnedActorData)
+			GameObject gameObject = null;
+			if (actorData.RespawnPickedPositionSquare != null)
 			{
-				GameObject gameObject = null;
-				if (component.RespawnPickedPositionSquare != null)
-				{
-					gameObject = component.RespawnPickedPositionSquare.gameObject;
-				}
-				else if (!component.respawnSquares.IsNullOrEmpty())
-				{
-					gameObject = component.respawnSquares[0].gameObject;
-				}
-				if (gameObject != null)
-				{
-					CameraManager.Get().SetTargetObject(gameObject, CameraManager.CameraTargetReason.MustSelectRespawnLoc);
-					focusedCameraYet = true;
-					InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
-				}
+				gameObject = actorData.RespawnPickedPositionSquare.gameObject;
+			}
+			else if (!actorData.respawnSquares.IsNullOrEmpty())
+			{
+				gameObject = actorData.respawnSquares[0].gameObject;
+			}
+			if (gameObject != null)
+			{
+				CameraManager.Get().SetTargetObject(gameObject, CameraManager.CameraTargetReason.MustSelectRespawnLoc);
+				focusedCameraYet = true;
+				InterfaceManager.Get().DisplayAlert(StringUtil.TR("PickRespawnLocation", "Global"), BoardSquare.s_respawnOptionHighlightColor, 60f, true);
 			}
 		}
-		if (component.NextRespawnTurn <= GameFlowData.Get().CurrentTurn)
+		if (actorData.NextRespawnTurn <= GameFlowData.Get().CurrentTurn)
 		{
 			m_SM.NextState = TurnStateEnum.DECIDING;
 		}
