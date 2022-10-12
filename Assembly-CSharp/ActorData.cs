@@ -4617,9 +4617,18 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_serverMovementWaitForEvent = eventType;
 		m_serverMovementDestination = dest;
 		m_serverMovementPath = path;
-		if (NetworkServer.active && m_teamSensitiveData_friendly != null)
+		if (NetworkServer.active)
 		{
-			m_teamSensitiveData_friendly.BroadcastMovement(eventType, GetGridPos(), dest, movementType, teleportType, path);
+			if (m_teamSensitiveData_friendly != null)
+			{
+				m_teamSensitiveData_friendly.BroadcastMovement(eventType, GetGridPos(), dest, movementType, teleportType, path);
+			}
+			// custom
+			if (m_teamSensitiveData_hostile != null)
+			{
+				m_teamSensitiveData_hostile.BroadcastMovement(eventType, GetGridPos(), dest, movementType, teleportType, path);
+			}
+			// end custom
 		}
 	}
 #endif
@@ -4654,6 +4663,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				m_teamSensitiveData_friendly.BroadcastMovement(fromEvent, GetGridPos(), dest, movementType, teleportType, path);
 			}
+			// custom
+			if (m_teamSensitiveData_hostile != null)
+			{
+				m_teamSensitiveData_hostile.BroadcastMovement(fromEvent, GetGridPos(), dest, movementType, teleportType, path);
+			}
+			// end custom
 		}
 	}
 #endif
@@ -5104,14 +5119,20 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 #if SERVER
 	public void InitActorNetworkVisibilityObjects()
 	{
-		ActorTeamSensitiveData component = UnityEngine.Object.Instantiate<GameObject>(NetworkedSharedGameplayPrefabs.GetActorTeamSensitiveData_FriendlyPrefab()).GetComponent<ActorTeamSensitiveData>();
-		m_teamSensitiveData_friendly = component;
-		component.InitToActor(this);
+		ActorTeamSensitiveData friendly = Instantiate(NetworkedSharedGameplayPrefabs.GetActorTeamSensitiveData_FriendlyPrefab()).GetComponent<ActorTeamSensitiveData>();
+		m_teamSensitiveData_friendly = friendly;
+		friendly.InitToActor(this);
 		NetworkServer.Spawn(m_teamSensitiveData_friendly.gameObject);
+		
+		// custom
+		ActorTeamSensitiveData hostile = Instantiate(NetworkedSharedGameplayPrefabs.GetActorTeamSensitiveData_HostilePrefab()).GetComponent<ActorTeamSensitiveData>();
+		m_teamSensitiveData_hostile = hostile;
+		hostile.InitToActor(this);
+		NetworkServer.Spawn(m_teamSensitiveData_hostile.gameObject);
+		// end custom
 	}
 #endif
-
-
+	
 	// server-only -- added in rogues
 #if SERVER
 	public void DespawnTeamSensitiveDataNetObjects()
@@ -5121,6 +5142,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			NetworkServer.Destroy(m_teamSensitiveData_friendly.gameObject);
 			m_teamSensitiveData_friendly = null;
 		}
+		
+		// custom
+		if (m_teamSensitiveData_hostile != null)
+		{
+			NetworkServer.Destroy(m_teamSensitiveData_hostile.gameObject);
+			m_teamSensitiveData_hostile = null;
+		}
+		// end custom
 	}
 #endif
 

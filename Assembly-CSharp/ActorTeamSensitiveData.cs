@@ -390,60 +390,83 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	// added in rogues
 #if SERVER
-	public bool ShouldAdjustMovementToVisibility(ActorData.MovementType movementType, ActorData.TeleportType teleportType, BoardSquarePathInfo path)
+	public bool ShouldAdjustMovementToVisibility(
+		ActorData.MovementType movementType,
+		ActorData.TeleportType teleportType,
+		BoardSquarePathInfo path)
 	{
-		return NetworkServer.active && m_typeObservingMe == ActorTeamSensitiveData.ObservedBy.Hostiles && (movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Teleport) && (movementType != ActorData.MovementType.Teleport || teleportType == ActorData.TeleportType.Evasion_AdjustToVision) && path != null && (!(ServerEffectManager.Get() != null) || !ServerEffectManager.Get().HasEffectRequiringAccuratePositionOnClients(Actor));
+		return NetworkServer.active
+		       && m_typeObservingMe == ObservedBy.Hostiles
+		       && (movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Teleport)
+		       && (movementType != ActorData.MovementType.Teleport || teleportType == ActorData.TeleportType.Evasion_AdjustToVision)
+		       && path != null
+		       && (ServerEffectManager.Get() == null || !ServerEffectManager.Get().HasEffectRequiringAccuratePositionOnClients(Actor));
 	}
 #endif
 
 	// added in rogues
 #if SERVER
-	public void BroadcastMovement(GameEventManager.EventType eventType, GridPos start, BoardSquare dest, ActorData.MovementType movementType, ActorData.TeleportType teleportType, BoardSquarePathInfo path)
+	public void BroadcastMovement(
+		GameEventManager.EventType eventType,
+		GridPos start,
+		BoardSquare dest,
+		ActorData.MovementType movementType,
+		ActorData.TeleportType teleportType,
+		BoardSquarePathInfo path)
 	{
 		if (Actor.TeamSensitiveData_authority == this && eventType == GameEventManager.EventType.Invalid)
 		{
 			Actor.MoveToBoardSquareLocal(dest, movementType, path, false);
 		}
-		bool flag = ShouldAdjustMovementToVisibility(movementType, teleportType, path);
+		bool adjustMovementToVisibility = ShouldAdjustMovementToVisibility(movementType, teleportType, path);
 		m_lastMovementDestination = dest;
 		m_lastMovementPath = path;
 		m_lastMovementWaitForEvent = eventType;
 		m_lastMovementType = movementType;
-		if (flag)
+		if (adjustMovementToVisibility)
 		{
-			bool flag2 = movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Charge || movementType == ActorData.MovementType.Knockback;
-			BoardSquarePathInfo boardSquarePathInfo = path.Clone(null);
-			BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
-			BoardSquarePathInfo boardSquarePathInfo3 = null;
-			while (boardSquarePathInfo2 != null)
+			bool flag2 = movementType == ActorData.MovementType.Normal
+			             || movementType == ActorData.MovementType.Charge
+			             || movementType == ActorData.MovementType.Knockback;
+			BoardSquarePathInfo pathCopy = path.Clone(null);
+			BoardSquarePathInfo step = pathCopy;
+			BoardSquarePathInfo lastVisibleStep = null;
+			while (step != null)
 			{
-				if (boardSquarePathInfo2.m_visibleToEnemies || boardSquarePathInfo2.m_updateLastKnownPos || boardSquarePathInfo2.m_moverDiesHere || boardSquarePathInfo2.m_moverHasGameplayHitHere)
+				if (step.m_visibleToEnemies
+				    || step.m_updateLastKnownPos
+				    || step.m_moverDiesHere
+				    || step.m_moverHasGameplayHitHere)
 				{
-					boardSquarePathInfo3 = boardSquarePathInfo2;
+					lastVisibleStep = step;
 				}
-				else if (boardSquarePathInfo2.prev != null && flag2 && (boardSquarePathInfo2.prev.m_visibleToEnemies || boardSquarePathInfo2.prev.m_moverHasGameplayHitHere))
+				else if (step.prev != null
+				         && flag2
+				         && (step.prev.m_visibleToEnemies || step.prev.m_moverHasGameplayHitHere))
 				{
-					boardSquarePathInfo3 = boardSquarePathInfo2;
+					lastVisibleStep = step;
 				}
-				if (boardSquarePathInfo2.next == null)
+				if (step.next == null)
 				{
 					break;
 				}
-				boardSquarePathInfo2 = boardSquarePathInfo2.next;
+				step = step.next;
 			}
-			if (boardSquarePathInfo3 != boardSquarePathInfo2)
+			if (lastVisibleStep != step)
 			{
 				FacingDirAfterMovement = Vector3.zero;
 				m_disappearingAfterMovement = true;
-				if (boardSquarePathInfo3 != null)
+				if (lastVisibleStep != null)
 				{
-					boardSquarePathInfo3.next = null;
-					PackageRpcMovement(eventType, start, boardSquarePathInfo3.square, boardSquarePathInfo, movementType, true, m_respawning);
+					lastVisibleStep.next = null;
+					PackageRpcMovement(eventType, start, lastVisibleStep.square, pathCopy, movementType, true, m_respawning);
 					m_respawning = false;
-					return;
 				}
-				PackageRpcMovement(eventType, GridPos.s_invalid, null, null, movementType, true, m_respawning);
-				m_respawning = false;
+				else
+				{
+					PackageRpcMovement(eventType, GridPos.s_invalid, null, null, movementType, true, m_respawning);
+					m_respawning = false;
+				}
 				return;
 			}
 		}
@@ -1502,4 +1525,40 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		return false;
 #endif
 	}
+
+#if SERVER
+	// custom
+	public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initialize)
+	{
+		foreach (NetworkConnection connection in NetworkServer.connections)
+		{
+			if (connection != null && connection.isReady && OnCheckObserver(connection))
+			{
+				observers.Add(connection);
+			}
+		}
+		foreach (NetworkConnection localConnection in NetworkServer.localConnections)
+		{
+			if (localConnection != null && localConnection.isReady && OnCheckObserver(localConnection))
+			{
+				observers.Add(localConnection);
+			}
+		}
+		return true;
+	}
+
+	// custom
+	public override bool OnCheckObserver(NetworkConnection conn)
+	{
+		Player player = GameFlow.Get().GetPlayerFromConnectionId(conn.connectionId);
+		ServerPlayerState playerState = ServerGameManager.Get().GetPlayerStateByConnectionId(conn.connectionId);
+		if (playerState == null || Actor == null)
+		{
+			Log.Error($"OnCheckObserver {m_typeObservingMe} {Actor?.m_displayName} by {playerState?.PlayerInfo.Handle} {player}");
+			return false;
+		}
+		bool isAlly =  playerState.PlayerInfo.TeamId == ActorsTeam;
+		return isAlly == (m_typeObservingMe == ObservedBy.Friendlies);
+	}
+#endif
 }

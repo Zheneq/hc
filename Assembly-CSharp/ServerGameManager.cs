@@ -787,17 +787,13 @@ public class ServerGameManager : MonoBehaviour
 		{
 			LobbySessionInfo sessionInfo = request.SessionInfo[lobbyServerPlayerInfo.PlayerId];
 			List<LobbyServerPlayerInfo> list3 = new List<LobbyServerPlayerInfo>();
-			using (List<int>.Enumerator enumerator2 = lobbyServerPlayerInfo.ProxyPlayerIds.GetEnumerator())
+			foreach (int proxyPlayerId in lobbyServerPlayerInfo.ProxyPlayerIds)
 			{
-				while (enumerator2.MoveNext())
+				LobbyServerPlayerInfo lobbyServerPlayerInfo2 = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault();
+				if (lobbyServerPlayerInfo2 != null)
 				{
-					int proxyPlayerId = enumerator2.Current;
-					LobbyServerPlayerInfo lobbyServerPlayerInfo2 = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault();
-					if (lobbyServerPlayerInfo2 != null)
-					{
-						lobbyServerPlayerInfo2.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
-						list3.Add(lobbyServerPlayerInfo2);
-					}
+					lobbyServerPlayerInfo2.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
+					list3.Add(lobbyServerPlayerInfo2);
 				}
 			}
 			AddPlayerState(sessionInfo, lobbyServerPlayerInfo, list3, num--);
@@ -839,31 +835,7 @@ public class ServerGameManager : MonoBehaviour
 			Log.Info($"ServerGameManager::HandleLaunchGameRequest [HACK]: Added player {m_serverPlayerStates[playerId].PlayerInfo.Handle} {m_serverPlayerStates[playerId].PlayerInfo.CharacterType}");
 		}
 		// end todo remove
-
-		// custom
-		//CharacterResourceLink resourceLink = GameWideData.Get().GetCharacterResourceLink(playerInfo.CharacterType);
-
-		//Log.Info($"Add Character {resourceLink.GetDisplayName()} for player {playerInfo.Handle}");
-
-		//GameObject atsdObject = SpawnObject("ActorTeamSensitiveData_Friendly", false);
-		//GameObject character = GameObject.Instantiate(resourceLink.ActorDataPrefab);
-
-		//ActorData actorData = character.GetComponent<ActorData>();
-		//ActorTeamSensitiveData atsd = atsdObject.GetComponent<ActorTeamSensitiveData>();
-		//actorData.SetupAbilityMods(playerInfo.CharacterInfo.CharacterMods); //#
-		//actorData.PlayerIndex = playerInfo.PlayerId;
-		//actorData.ActorIndex = playerInfo.PlayerId;
-		//atsd.SetActorIndex(actorData.ActorIndex); // PATCH private -> public ActorTeamSensitiveData.SetActorIndex
-		//PlayerData playerData = character.GetComponent<PlayerData>();
-		//playerData.PlayerIndex = playerInfo.PlayerId;
-
-		//actorData.SetTeam(playerInfo.TeamId);
-		//actorData.UpdateDisplayName(playerInfo.Handle);
-		//actorData.SetClientFriendlyTeamSensitiveData(atsd);
-		//NetworkServer.Spawn(atsdObject);
-		//NetworkServer.Spawn(character);
-		// end custom
-
+		
 		gameManager.SetGameSummary(new LobbyGameSummary());
 		m_sentGameSummary = false;
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
