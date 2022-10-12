@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // was empty in reactor
@@ -29,7 +30,8 @@ public static class ServerGameplayUtils
 				actorData.SetServerLastKnownPosSquare(actorData.CurrentBoardSquare, "SetServerLastKnownPositionsForMovement");
 			}
 		}
-		IterateOverLastKnownPosData(ref dictionary, out actorsThatWillBeSeenButArentMoving_normal, stabilizedMovement, false);
+		bool consideringChasers = stabilizedMovement.m_movementInstances.Any(mi => mi.m_wasChase);  // false in rogues
+		IterateOverLastKnownPosData(ref dictionary, out actorsThatWillBeSeenButArentMoving_normal, stabilizedMovement, consideringChasers);
 		actorsThatWillBeSeenButArentMoving_chase = null;
 		foreach (LastKnownPosData lastKnownPosData in dictionary.Values)
 		{
@@ -548,14 +550,20 @@ public static class ServerGameplayUtils
 
 		public void UpdateLastKnownPath(MovementStage movementStage)
 		{
-			if (m_movementInstance.m_groundBased || m_currentlyConsideredPath.next == null || m_currentlyConsideredPath.prev == null)
+			if (m_movementInstance.m_groundBased
+			    || m_currentlyConsideredPath.next == null
+			    || m_currentlyConsideredPath.prev == null)
 			{
-				bool flag = Actor.GetActorStatus().HasStatus(StatusType.Revealed, true) || CaptureTheFlag.IsActorRevealedByFlag_Server(Actor) || !m_movementInstance.m_willBeStealthed;
-				bool flag2 = movementStage == MovementStage.Knockback;
-				bool flag3 = flag && Actor.IsActorVisibleToAnyEnemy();
-				bool flag4 = m_currentlyConsideredPath.prev != null && m_currentlyConsideredPath.prev.m_updateLastKnownPos;
-				bool flag5 = m_movementInstance.m_groundBased && flag4 && !m_currentlyConsideredPath.square.IsValidForGameplay();
-				if (flag2 || flag3 || flag5)
+				bool isNotHidden = Actor.GetActorStatus().HasStatus(StatusType.Revealed)
+				            || CaptureTheFlag.IsActorRevealedByFlag_Server(Actor)
+				            || !m_movementInstance.m_willBeStealthed;
+				bool isKnockbackStage = movementStage == MovementStage.Knockback;
+				bool isVisible = isNotHidden && Actor.IsActorVisibleToAnyEnemy();
+				bool flag5 = m_movementInstance.m_groundBased 
+				             && m_currentlyConsideredPath.prev != null 
+				             && m_currentlyConsideredPath.prev.m_updateLastKnownPos 
+				             && !m_currentlyConsideredPath.square.IsValidForGameplay();
+				if (isKnockbackStage || isVisible || flag5)
 				{
 					m_serverLastKnownPath = m_currentlyConsideredPath;
 					m_serverLastKnownPath.m_visibleToEnemies = true;
