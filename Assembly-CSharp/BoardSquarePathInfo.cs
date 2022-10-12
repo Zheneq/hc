@@ -32,63 +32,34 @@ public class BoardSquarePathInfo : IComparable
 	}
 
 	public BoardSquare square;
-
 	public float moveCost;
-
 	public float heuristicCost;
-
 	public BoardSquarePathInfo prev;
-
 	public BoardSquarePathInfo next;
-
 	public bool m_unskippable;
-
 	public bool m_reverse;
-
 	public bool m_visibleToEnemies;
-
 	public bool m_updateLastKnownPos;
-
 	public bool m_moverDiesHere;
-
 	public bool m_moverHasGameplayHitHere;
-
 	public bool m_moverClashesHere;
-
 	public bool m_moverBumpedFromClash;
-
 	public int m_expectedBackupNum;
-
 	public ConnectionType connectionType;
-
 	public ChargeCycleType chargeCycleType;
-
 	public ChargeEndType chargeEndType = ChargeEndType.None;
-
 	public float segmentMovementSpeed;
-
 	public float segmentMovementDuration;
 
 	public float F_cost
 	{
 		get
 		{
-			int num = Mathf.Max(m_expectedBackupNum - 1, 0);
-			if (num > 0)
+			int extra = Mathf.Max(m_expectedBackupNum - 1, 0);
+			if (extra > 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-					{
-						float num2 = 1.5f * (float)num + 0.1f;
-						return moveCost + heuristicCost + num2;
-					}
-					}
-				}
+				float extraCost = 1.5f * extra + 0.1f;
+				return moveCost + heuristicCost + extraCost;
 			}
 			return moveCost + heuristicCost;
 		}
@@ -98,30 +69,11 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (obj == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return 1;
-				}
-			}
+			return 1;
 		}
-		BoardSquarePathInfo boardSquarePathInfo = obj as BoardSquarePathInfo;
-		if (boardSquarePathInfo != null)
+		if (obj is BoardSquarePathInfo boardSquarePathInfo)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return FindMoveCostToEnd().CompareTo(boardSquarePathInfo.FindMoveCostToEnd());
-				}
-			}
+			return FindMoveCostToEnd().CompareTo(boardSquarePathInfo.FindMoveCostToEnd());
 		}
 		throw new ArgumentException("Object is not a BoardSquarePathInfo");
 	}
@@ -148,69 +100,52 @@ public class BoardSquarePathInfo : IComparable
 	{
 		if (other == null)
 		{
-			while (true)
-			{
-				return false;
-			}
+			return false;
 		}
 		bool flag = true;
-		flag &= (other.square == square);
-		flag &= (other.moveCost == moveCost);
-		flag &= (other.heuristicCost == heuristicCost);
-		flag &= (other.m_unskippable == m_unskippable);
-		flag &= (other.m_moverClashesHere = m_moverClashesHere);
-		flag &= (other.m_moverBumpedFromClash = m_moverBumpedFromClash);
-		flag &= (other.m_reverse == m_reverse);
-		flag &= (other.chargeEndType == chargeEndType);
-		flag &= (other.chargeCycleType == chargeCycleType);
-		flag &= (other.segmentMovementSpeed == segmentMovementSpeed);
-		flag &= (other.segmentMovementDuration == segmentMovementDuration);
-		if (flag)
+		flag &= other.square == square;
+		flag &= other.moveCost == moveCost;
+		flag &= other.heuristicCost == heuristicCost;
+		flag &= other.m_unskippable == m_unskippable;
+		flag &= other.m_moverClashesHere = m_moverClashesHere;
+		flag &= other.m_moverBumpedFromClash = m_moverBumpedFromClash;
+		flag &= other.m_reverse == m_reverse;
+		flag &= other.chargeEndType == chargeEndType;
+		flag &= other.chargeCycleType == chargeCycleType;
+		flag &= other.segmentMovementSpeed == segmentMovementSpeed;
+		flag &= other.segmentMovementDuration == segmentMovementDuration;
+		if (!flag)
 		{
-			if (next != null)
-			{
-				if (other.next != null)
-				{
-					flag = next.IsSamePathAs(other.next);
-					goto IL_0168;
-				}
-			}
-			if (next == null && other.next != null)
-			{
-				flag = false;
-			}
-			else if (next != null)
-			{
-				if (other.next == null)
-				{
-					flag = false;
-				}
-			}
+			return false;
 		}
-		goto IL_0168;
-		IL_0168:
-		return flag;
+		if (next != null && other.next != null)
+		{
+			return next.IsSamePathAs(other.next);
+		}
+		return next == null && other.next == null;
 	}
 
 	public BoardSquarePathInfo Clone(BoardSquarePathInfo previous)
 	{
-		BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
-		boardSquarePathInfo.square = square;
-		boardSquarePathInfo.moveCost = moveCost;
-		boardSquarePathInfo.heuristicCost = heuristicCost;
-		boardSquarePathInfo.m_unskippable = m_unskippable;
-		boardSquarePathInfo.m_reverse = m_reverse;
-		boardSquarePathInfo.chargeEndType = chargeEndType;
-		boardSquarePathInfo.chargeCycleType = chargeCycleType;
-		boardSquarePathInfo.segmentMovementSpeed = segmentMovementSpeed;
-		boardSquarePathInfo.segmentMovementDuration = segmentMovementDuration;
-		boardSquarePathInfo.connectionType = connectionType;
-		boardSquarePathInfo.m_moverDiesHere = m_moverDiesHere;
-		boardSquarePathInfo.m_moverHasGameplayHitHere = m_moverHasGameplayHitHere;
-		boardSquarePathInfo.m_updateLastKnownPos = m_updateLastKnownPos;
-		boardSquarePathInfo.m_visibleToEnemies = m_visibleToEnemies;
-		boardSquarePathInfo.m_moverClashesHere = m_moverClashesHere;
-		boardSquarePathInfo.m_moverBumpedFromClash = m_moverBumpedFromClash;
+		BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo
+		{
+			square = square,
+			moveCost = moveCost,
+			heuristicCost = heuristicCost,
+			m_unskippable = m_unskippable,
+			m_reverse = m_reverse,
+			chargeEndType = chargeEndType,
+			chargeCycleType = chargeCycleType,
+			segmentMovementSpeed = segmentMovementSpeed,
+			segmentMovementDuration = segmentMovementDuration,
+			connectionType = connectionType,
+			m_moverDiesHere = m_moverDiesHere,
+			m_moverHasGameplayHitHere = m_moverHasGameplayHitHere,
+			m_updateLastKnownPos = m_updateLastKnownPos,
+			m_visibleToEnemies = m_visibleToEnemies,
+			m_moverClashesHere = m_moverClashesHere,
+			m_moverBumpedFromClash = m_moverBumpedFromClash
+		};
 		if (previous != null)
 		{
 			boardSquarePathInfo.prev = previous;
@@ -225,295 +160,191 @@ public class BoardSquarePathInfo : IComparable
 	public void CalcAndSetMoveCostToEnd()
 	{
 		float num = moveCost;
-		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo.moveCost = num, boardSquarePathInfo = boardSquarePathInfo.next)
+		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			bool flag = Board.Get().GetSquaresAreDiagonallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
-			bool flag2 = Board.Get().GetSquaresAreCardinallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square);
-			bool flag3 = boardSquarePathInfo.square == boardSquarePathInfo.prev.square;
-			if (flag)
+			if (Board.Get().GetSquaresAreDiagonallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square))
 			{
 				num += 1.5f;
-				continue;
 			}
-			if (flag2)
+			else if (Board.Get().GetSquaresAreCardinallyAdjacent(boardSquarePathInfo.square, boardSquarePathInfo.prev.square))
 			{
 				num += 1f;
-				continue;
 			}
-			if (flag3)
+			else if (boardSquarePathInfo.square == boardSquarePathInfo.prev.square)
 			{
 				if (boardSquarePathInfo.next != null)
 				{
 					Log.Warning("Calculating move costs on a path, but it has the same square twice in a row.");
 				}
-				continue;
 			}
-			if (boardSquarePathInfo.connectionType != 0)
+			else if (boardSquarePathInfo.connectionType == ConnectionType.Run ||
+			         boardSquarePathInfo.connectionType == ConnectionType.Vault)
 			{
-				if (boardSquarePathInfo.connectionType != ConnectionType.Vault)
-				{
-					num += boardSquarePathInfo.square.HorizontalDistanceOnBoardTo(boardSquarePathInfo.prev.square);
-					continue;
-				}
+				Log.Warning(
+					"Calculating move costs on a path, but it has two non-adjacent consecutive squares.");
 			}
-			Log.Warning("Calculating move costs on a path, but it has two non-adjacent consecutive squares.");
-		}
-		while (true)
-		{
-			switch (7)
+			else
 			{
-			default:
-				return;
-			case 0:
-				break;
+				num += boardSquarePathInfo.square.HorizontalDistanceOnBoardTo(boardSquarePathInfo.prev.square);
 			}
+
+			boardSquarePathInfo.moveCost = num;
 		}
 	}
 
 	public float FindMoveCostToEnd()
 	{
-		float num = moveCost;
+		float endCost = moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			num = boardSquarePathInfo.moveCost;
+			endCost = boardSquarePathInfo.moveCost;
 		}
-		return num - moveCost;
+		return endCost - moveCost;
 	}
 
 	public float FindMoveCostToOneBeforeEnd()
 	{
-		float num = moveCost;
+		float oneBeforeEndCost = moveCost;
 		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
 			if (boardSquarePathInfo.next == null)
 			{
 				break;
 			}
-			num = boardSquarePathInfo.moveCost;
+			oneBeforeEndCost = boardSquarePathInfo.moveCost;
 		}
-		return num - moveCost;
+		return oneBeforeEndCost - moveCost;
 	}
 
 	internal float FindDistanceToEnd()
 	{
-		float num = 0f;
+		float dist = 0f;
 		for (BoardSquarePathInfo boardSquarePathInfo = next; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 		{
-			num += (boardSquarePathInfo.square.ToVector3() - square.ToVector3()).magnitude;
+			dist += (boardSquarePathInfo.square.ToVector3() - square.ToVector3()).magnitude;
 		}
-		while (true)
-		{
-			return num;
-		}
+		return dist;
 	}
 
 	public int GetNumSquaresToEnd(bool checkDuplicate = true)
 	{
-		BoardSquarePathInfo boardSquarePathInfo = this;
 		int num = 1;
-		for (; boardSquarePathInfo.next != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		for (BoardSquarePathInfo step = this; step.next != null; step = step.next)
 		{
-			if (checkDuplicate)
+			if (!checkDuplicate || step.next.square != step.square)
 			{
-				if (!(boardSquarePathInfo.next.square != boardSquarePathInfo.square))
-				{
-					continue;
-				}
+				num++;
 			}
-			num++;
 		}
 		return num;
 	}
 
 	public BoardSquarePathInfo GetPathMidpoint()
 	{
-		float num = FindMoveCostToEnd();
-		float num2 = num / 2f;
+		float costToEnd = FindMoveCostToEnd();
+		float halfCostToEnd = costToEnd / 2f;
 		BoardSquarePathInfo result = this;
-		float num3 = num;
-		BoardSquarePathInfo boardSquarePathInfo = next;
-		while (true)
+		float bestCostToEnd = costToEnd;
+		for (BoardSquarePathInfo step = next; step != null; step = step.next)
 		{
-			if (boardSquarePathInfo != null)
+			float remainingCostToEnd = step.FindMoveCostToEnd();
+			if (Math.Abs(remainingCostToEnd - halfCostToEnd) >= Math.Abs(bestCostToEnd - halfCostToEnd))
 			{
-				float num4 = boardSquarePathInfo.FindMoveCostToEnd();
-				if (Math.Abs(num4 - num2) < Math.Abs(num3 - num2))
-				{
-					result = boardSquarePathInfo;
-					num3 = num4;
-					boardSquarePathInfo = boardSquarePathInfo.next;
-					continue;
-				}
 				break;
 			}
-			break;
+			result = step;
+			bestCostToEnd = remainingCostToEnd;
 		}
 		return result;
 	}
 
 	public BoardSquarePathInfo GetPathEndpoint()
 	{
-		BoardSquarePathInfo boardSquarePathInfo = this;
-		while (boardSquarePathInfo.next != null)
+		BoardSquarePathInfo step = this;
+		while (step.next != null)
 		{
-			boardSquarePathInfo = boardSquarePathInfo.next;
+			step = step.next;
 		}
-		return boardSquarePathInfo;
+		return step;
 	}
 
 	public BoardSquarePathInfo GetPathStartPoint()
 	{
-		BoardSquarePathInfo boardSquarePathInfo = this;
-		while (boardSquarePathInfo.prev != null)
+		BoardSquarePathInfo step = this;
+		while (step.prev != null)
 		{
-			boardSquarePathInfo = boardSquarePathInfo.prev;
+			step = step.prev;
 		}
-		while (true)
-		{
-			return boardSquarePathInfo;
-		}
+		return step;
 	}
 
 	public bool IsPathEndpoint()
 	{
-		if (next == null)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
-		}
-		return false;
+		return next == null;
 	}
 
 	public bool IsPathStartPoint()
 	{
-		if (prev == null)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
-		}
-		return false;
+		return prev == null;
 	}
 
 	public BoardSquarePathInfo BackUpOnceFromEnd()
 	{
 		BoardSquarePathInfo pathEndpoint = GetPathEndpoint();
-		if (pathEndpoint != null)
+		if (pathEndpoint?.prev != null)
 		{
-			if (pathEndpoint.prev != null)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-					{
-						BoardSquarePathInfo boardSquarePathInfo = pathEndpoint.prev;
-						boardSquarePathInfo.next = null;
-						return boardSquarePathInfo;
-					}
-					}
-				}
-			}
+			BoardSquarePathInfo newLastStep = pathEndpoint.prev;
+			newLastStep.next = null;
+			return newLastStep;
 		}
-		return pathEndpoint;
+		else
+		{
+			return pathEndpoint;
+		}
 	}
 
 	public List<GridPos> ToGridPosPath()
 	{
 		List<GridPos> list = new List<GridPos>();
-		for (BoardSquarePathInfo boardSquarePathInfo = this; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+		for (BoardSquarePathInfo step = this; step != null; step = step.next)
 		{
-			list.Add(boardSquarePathInfo.square.GetGridPos());
+			list.Add(step.square.GetGridPos());
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	public bool IsValidPathForMaxMovement(float maxMovement)
 	{
 		if (maxMovement <= 0f)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return next == null;
-				}
-			}
+			return next == null;
 		}
-		float num = FindMoveCostToOneBeforeEnd();
-		return maxMovement > num;
+		return maxMovement > FindMoveCostToOneBeforeEnd();
 	}
 
 	public static bool IsConnectionTypeConventional(ConnectionType connectionType)
 	{
-		int result;
-		if (connectionType != ConnectionType.Flight && connectionType != ConnectionType.Teleport)
-		{
-			if (connectionType != ConnectionType.Knockback)
-			{
-				result = ((connectionType != ConnectionType.Charge) ? 1 : 0);
-				goto IL_0029;
-			}
-		}
-		result = 0;
-		goto IL_0029;
-		IL_0029:
-		return (byte)result != 0;
+		return connectionType != ConnectionType.Flight
+		       && connectionType != ConnectionType.Teleport
+		       && connectionType != ConnectionType.Knockback
+		       && connectionType != ConnectionType.Charge;
 	}
 
 	public string GetDebugPathStringToEnd(string prefix)
 	{
 		string text = prefix;
 		int num = 0;
-		BoardSquarePathInfo boardSquarePathInfo = this;
-		while (boardSquarePathInfo != null)
+		BoardSquarePathInfo step = this;
+		while (step != null && num < 100)
 		{
-			if (num < 100)
+			text += "\n" + (step.square != null ? step.square.ToString() : null)
+			             + " | Connection Type = " + step.connectionType;
+			if (step == step.next)
 			{
-				string text2;
-				if (boardSquarePathInfo.square != null)
-				{
-					text2 = boardSquarePathInfo.square.ToString();
-				}
-				else
-				{
-					text2 = null;
-				}
-				string text3 = text;
-				text = text3 + "\n" + text2 + " | Connection Type = " + boardSquarePathInfo.connectionType;
-				if (boardSquarePathInfo == boardSquarePathInfo.next)
-				{
-					break;
-				}
-				boardSquarePathInfo = boardSquarePathInfo.next;
-				num++;
-				continue;
+				break;
 			}
-			break;
+			step = step.next;
+			num++;
 		}
 		return text;
 	}
@@ -522,31 +353,17 @@ public class BoardSquarePathInfo : IComparable
 	{
 		string text = prefix;
 		int num = 0;
-		BoardSquarePathInfo boardSquarePathInfo = this;
-		while (boardSquarePathInfo != null)
+		BoardSquarePathInfo step = this;
+		while (step != null && num < 100)
 		{
-			if (num < 100)
+			text += "\n" + (step.square != null ? step.square.ToString() : null)
+			             + " | Connection Type = " + step.connectionType;
+			if (step == step.prev)
 			{
-				string text2;
-				if (boardSquarePathInfo.square != null)
-				{
-					text2 = boardSquarePathInfo.square.ToString();
-				}
-				else
-				{
-					text2 = null;
-				}
-				string text3 = text;
-				text = text3 + "\n" + text2 + " | Connection Type = " + boardSquarePathInfo.connectionType;
-				if (boardSquarePathInfo == boardSquarePathInfo.prev)
-				{
-					break;
-				}
-				boardSquarePathInfo = boardSquarePathInfo.prev;
-				num++;
-				continue;
+				break;
 			}
-			break;
+			step = step.prev;
+			num++;
 		}
 		return text;
 	}
@@ -558,112 +375,72 @@ public class BoardSquarePathInfo : IComparable
 
 	public bool WillDieAtEnd()
 	{
-		BoardSquarePathInfo pathEndpoint = GetPathEndpoint();
-		if (pathEndpoint != null)
-		{
-			if (pathEndpoint.m_moverDiesHere)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
-			return false;
-		}
-		return false;
+		return GetPathEndpoint()?.m_moverDiesHere == true;
 	}
 
 	public void CheckIsValidTriggeringPath(ActorData mover)
 	{
-		int num = 0;
-		int num2 = 0;
-		int num3 = 0;
-		bool flag = false;
-		BoardSquarePathInfo pathStartPoint = GetPathStartPoint();
-		while (pathStartPoint != null)
+		int numNull = 0;
+		int numTotal = 0;
+		int numAfterDeath = 0;
+		bool isDead = false;
+		
+		for (BoardSquarePathInfo step = GetPathStartPoint(); step != null; step = step.next)
 		{
-			if (num2 >= 100)
+			if (numTotal >= 100)
 			{
 				break;
 			}
 			if (square == null)
 			{
-				num++;
+				numNull++;
 			}
-			if (flag)
+			if (isDead)
 			{
-				num3++;
+				numAfterDeath++;
 			}
-			if (pathStartPoint.m_moverDiesHere)
+			if (step.m_moverDiesHere)
 			{
-				flag = true;
+				isDead = true;
 			}
-			pathStartPoint = pathStartPoint.next;
-			num2++;
+			numTotal++;
 		}
-		if (num <= 0)
+		if (numNull <= 0 && numTotal < 100 && numAfterDeath <= 0)
 		{
-			if (num2 < 100)
-			{
-				if (num3 <= 0)
-				{
-					return;
-				}
-			}
+			return;
 		}
-		string text = num + " null squares";
-		if (num != 0)
+		string textNull = numNull + " null squares";
+		if (numNull != 0)
 		{
-			text = "INVALID SQUARES: " + text;
+			textNull = "INVALID SQUARES: " + textNull;
 		}
-		string text2 = num2 + " total path nodes";
-		if (num2 >= 100)
+		string textTotal = numTotal + " total path nodes";
+		if (numTotal >= 100)
 		{
-			text2 = "INVALID LENGTH: " + text2;
+			textTotal = "INVALID LENGTH: " + textTotal;
 		}
-		string text3 = num3 + " steps after death";
-		if (num3 > 0)
+		string textAfterDeath = numAfterDeath + " steps after death";
+		if (numAfterDeath > 0)
 		{
-			text3 = "INVALID DEATH-MOVEMENT: " + text3;
+			textAfterDeath = "INVALID DEATH-MOVEMENT: " + textAfterDeath;
 		}
-		string str = "Invalid BoardSquarePathInfo for gameplay!  Path has:\n\t" + text2 + "\n\t" + text + "\n\t" + text3;
-		str = str + "\nMover: " + mover.DebugNameString();
-		Debug.LogError(str);
+		Debug.LogError("Invalid BoardSquarePathInfo for gameplay!  Path has:\n\t"
+		               + textTotal + "\n\t" + textNull + "\n\t" + textAfterDeath
+		               + "\nMover: " + mover.DebugNameString());
 	}
 
 	public bool IsNodePartOfMyFuturePath(BoardSquarePathInfo other, bool includePresent = true)
 	{
-		bool result = false;
-		BoardSquarePathInfo boardSquarePathInfo;
-		if (includePresent)
+		BoardSquarePathInfo step = includePresent ? this : next;
+		while (step != null)
 		{
-			boardSquarePathInfo = this;
-		}
-		else
-		{
-			boardSquarePathInfo = next;
-		}
-		while (true)
-		{
-			if (boardSquarePathInfo != null)
+			if (other == step)
 			{
-				if (other == boardSquarePathInfo)
-				{
-					result = true;
-					break;
-				}
-				boardSquarePathInfo = boardSquarePathInfo.next;
-				continue;
+				return true;
 			}
-			break;
+			step = step.next;
 		}
-		return result;
+		return false;
 	}
 
 	public void ResetClashingOfPath()
