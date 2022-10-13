@@ -8,262 +8,268 @@ using UnityEngine;
 public class ServerEvadeManager
 {
 	private List<ServerEvadeUtils.EvadeInfo> m_processedEvades;
-	private List<ServerEvadeManager.EvaderSwapInfo> m_evaderSwapData;
-	private ServerEvadeManager.EvaderSwapState m_currentSwapState;
+	private List<EvaderSwapInfo> m_evaderSwapData;
+	private EvaderSwapState m_currentSwapState;
 
 	public ServerEvadeManager()
 	{
-		this.m_processedEvades = new List<ServerEvadeUtils.EvadeInfo>();
-		this.m_evaderSwapData = new List<ServerEvadeManager.EvaderSwapInfo>();
+		m_processedEvades = new List<ServerEvadeUtils.EvadeInfo>();
+		m_evaderSwapData = new List<EvaderSwapInfo>();
 	}
 
-	private bool DebugShowChargeGizmo
+	private bool DebugShowChargeGizmo => false;
+
+	private void AppendNonPlayerEvades(
+		ref List<ServerEvadeUtils.EvadeInfo> evades,
+		List<ServerEvadeUtils.NonPlayerEvadeData> attachedEvadeDataList)
 	{
-		get
+		if (attachedEvadeDataList == null)
 		{
-			return false;
+			return;
 		}
-	}
-
-	private void AppendNonPlayerEvades(ref List<ServerEvadeUtils.EvadeInfo> evades, List<ServerEvadeUtils.NonPlayerEvadeData> attachedEvadeDataList)
-	{
-		if (attachedEvadeDataList != null)
+		foreach (ServerEvadeUtils.NonPlayerEvadeData nonPlayerEvadeData in attachedEvadeDataList)
 		{
-			foreach (ServerEvadeUtils.NonPlayerEvadeData nonPlayerEvadeData in attachedEvadeDataList)
+			if (nonPlayerEvadeData.ShouldAddToEvades() && nonPlayerEvadeData.IsTeleport())
 			{
-				if (nonPlayerEvadeData.ShouldAddToEvades() && nonPlayerEvadeData.IsTeleport())
-				{
-					evades.Add(new ServerEvadeUtils.NonPlayerTeleportInfo(nonPlayerEvadeData.m_mover, nonPlayerEvadeData.m_start, nonPlayerEvadeData.m_idealDestination, nonPlayerEvadeData));
-				}
+				evades.Add(new ServerEvadeUtils.NonPlayerTeleportInfo(
+					nonPlayerEvadeData.m_mover,
+					nonPlayerEvadeData.m_start,
+					nonPlayerEvadeData.m_idealDestination,
+					nonPlayerEvadeData));
 			}
 		}
 	}
 
 	public void ProcessEvades(List<AbilityRequest> allRequests, AbilityPriority currentPriority)
 	{
-		List<ServerEvadeUtils.EvadeInfo> list = new List<ServerEvadeUtils.EvadeInfo>();
+		List<ServerEvadeUtils.EvadeInfo> allEvades = new List<ServerEvadeUtils.EvadeInfo>();
 		foreach (AbilityRequest abilityRequest in allRequests)
 		{
 			if (abilityRequest.m_ability.RunPriority == currentPriority && abilityRequest.m_ability.IsCharge())
 			{
-				list.Add(new ServerEvadeUtils.ChargeInfo(abilityRequest));
-				List<ServerEvadeUtils.NonPlayerEvadeData> nonPlayerEvades = abilityRequest.m_ability.GetNonPlayerEvades(abilityRequest.m_targets, abilityRequest.m_caster, abilityRequest.m_additionalData);
-				this.AppendNonPlayerEvades(ref list, nonPlayerEvades);
+				allEvades.Add(new ServerEvadeUtils.ChargeInfo(abilityRequest));
+				List<ServerEvadeUtils.NonPlayerEvadeData> nonPlayerEvades = abilityRequest.m_ability.GetNonPlayerEvades(
+					abilityRequest.m_targets, abilityRequest.m_caster, abilityRequest.m_additionalData);
+				AppendNonPlayerEvades(ref allEvades, nonPlayerEvades);
 			}
 			else if (abilityRequest.m_ability.RunPriority == currentPriority && abilityRequest.m_ability.IsTeleport())
 			{
-				list.Add(new ServerEvadeUtils.TeleportInfo(abilityRequest));
-				List<ServerEvadeUtils.NonPlayerEvadeData> nonPlayerEvades2 = abilityRequest.m_ability.GetNonPlayerEvades(abilityRequest.m_targets, abilityRequest.m_caster, abilityRequest.m_additionalData);
-				this.AppendNonPlayerEvades(ref list, nonPlayerEvades2);
+				allEvades.Add(new ServerEvadeUtils.TeleportInfo(abilityRequest));
+				List<ServerEvadeUtils.NonPlayerEvadeData> nonPlayerEvades = abilityRequest.m_ability.GetNonPlayerEvades(
+					abilityRequest.m_targets, abilityRequest.m_caster, abilityRequest.m_additionalData);
+				AppendNonPlayerEvades(ref allEvades, nonPlayerEvades);
 			}
 		}
-		if (list.Count == 0)
+		if (allEvades.Count == 0)
 		{
 			return;
 		}
-		list.Sort(delegate(ServerEvadeUtils.EvadeInfo evade1, ServerEvadeUtils.EvadeInfo evade2)
+		allEvades.Sort(delegate(ServerEvadeUtils.EvadeInfo evade1, ServerEvadeUtils.EvadeInfo evade2)
 		{
-			float evadePathDistance = evade1.GetEvadePathDistance(evade1.GetIdealDestination());
-			float evadePathDistance2 = evade2.GetEvadePathDistance(evade2.GetIdealDestination());
-			return evadePathDistance.CompareTo(evadePathDistance2);
+			float dist1 = evade1.GetEvadePathDistance(evade1.GetIdealDestination());
+			float dist2 = evade2.GetEvadePathDistance(evade2.GetIdealDestination());
+			return dist1.CompareTo(dist2);
 		});
-		List<BoardSquare> list2 = new List<BoardSquare>();
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in list)
+		List<BoardSquare> invalidSquares = new List<BoardSquare>();
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in allEvades)
 		{
 			if (evadeInfo.GetMover() != null && evadeInfo.GetMover().GetPassiveData() != null)
 			{
-				evadeInfo.GetMover().GetPassiveData().AddInvalidEvadeDestinations(list, list2);
+				evadeInfo.GetMover().GetPassiveData().AddInvalidEvadeDestinations(allEvades, invalidSquares);
 			}
 		}
 		List<BoardSquare> additionalInvalidSquares_evaderSpecific = new List<BoardSquare>();
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo2 in list)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in allEvades)
 		{
-			BoardSquare idealDestination = evadeInfo2.GetIdealDestination();
-			List<BoardSquare> list3 = new List<BoardSquare>();
-			int num = 0;
-			while (list3.Count == 0 && num <= 4)
+			BoardSquare idealDestination = evadeInfo.GetIdealDestination();
+			List<BoardSquare> destinationSquares = new List<BoardSquare>();
+			int borderRadius = 0;
+			while (destinationSquares.Count == 0 && borderRadius <= 4)
 			{
-				list3 = this.GetDestinationSquaresInBorderOf(idealDestination, num, evadeInfo2, list, list2, additionalInvalidSquares_evaderSpecific, true);
-				num++;
+				destinationSquares = GetDestinationSquaresInBorderOf(
+					idealDestination, borderRadius, evadeInfo, allEvades, invalidSquares,
+					additionalInvalidSquares_evaderSpecific, true);
+				borderRadius++;
 			}
-			num = 0;
-			while (list3.Count == 0 && num <= 4)
+			borderRadius = 0;
+			while (destinationSquares.Count == 0 && borderRadius <= 4)
 			{
-				list3 = this.GetDestinationSquaresInBorderOf(idealDestination, num, evadeInfo2, list, list2, additionalInvalidSquares_evaderSpecific, false);
-				num++;
+				destinationSquares = GetDestinationSquaresInBorderOf(
+					idealDestination, borderRadius, evadeInfo, allEvades, invalidSquares,
+					additionalInvalidSquares_evaderSpecific, false);
+				borderRadius++;
 			}
-			BoardSquare boardSquare = null;
-			float num2 = -1f;
-			Vector3 bestSquareTestVector = evadeInfo2.GetBestSquareTestVector();
-			foreach (BoardSquare boardSquare2 in list3)
+			BoardSquare bestDestination = null;
+			float bestDotProduct = -1f;
+			Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
+			foreach (BoardSquare square in destinationSquares)
 			{
-				Vector3 vector = boardSquare2.ToVector3() - idealDestination.ToVector3();
+				Vector3 vector = square.ToVector3() - idealDestination.ToVector3();
 				vector.y = 0f;
 				vector.Normalize();
-				float num3 = Vector3.Dot(bestSquareTestVector, vector);
-				if (boardSquare == null || num3 > num2)
+				float dotProduct = Vector3.Dot(bestSquareTestVector, vector);
+				if (bestDestination == null || dotProduct > bestDotProduct)
 				{
-					boardSquare = boardSquare2;
-					num2 = num3;
+					bestDestination = square;
+					bestDotProduct = dotProduct;
 				}
 			}
-			if (boardSquare == null)
+			if (bestDestination == null)
 			{
-				evadeInfo2.MarkAsInvalid();
+				evadeInfo.MarkAsInvalid();
 			}
 			else
 			{
-				evadeInfo2.ModifyDestination(boardSquare);
+				evadeInfo.ModifyDestination(bestDestination);
 			}
 		}
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo3 in list)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in allEvades)
 		{
-			evadeInfo3.ProcessEvadeDodge(list);
+			evadeInfo.ProcessEvadeDodge(allEvades);
 		}
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo4 in list)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in allEvades)
 		{
-			evadeInfo4.StorePath();
-			if (evadeInfo4.m_evadePath != null)
+			evadeInfo.StorePath();
+			if (evadeInfo.m_evadePath != null)
 			{
-				evadeInfo4.m_evadePath.CheckPathConnectionForSelfReference();
+				evadeInfo.m_evadePath.CheckPathConnectionForSelfReference();
 			}
 		}
-		this.ProcessClashes(allRequests, currentPriority, ref list);
-		this.m_processedEvades = list;
+		ProcessClashes(allRequests, currentPriority, ref allEvades);
+		m_processedEvades = allEvades;
 	}
 
-	public void ProcessClashes(List<AbilityRequest> allRequests, AbilityPriority currentPriority, ref List<ServerEvadeUtils.EvadeInfo> evades)
+	public void ProcessClashes(
+		List<AbilityRequest> allRequests,
+		AbilityPriority currentPriority,
+		ref List<ServerEvadeUtils.EvadeInfo> evades)
 	{
 		ServerClashUtils.MovementClashCollection movementClashCollection = ServerClashUtils.IdentifyClashSegments_Evade(evades);
-		List<BoardSquare> list = new List<BoardSquare>();
+		List<BoardSquare> invalidSquares = new List<BoardSquare>();
 		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evades)
 		{
 			if (evadeInfo.GetMover() != null && evadeInfo.GetMover().GetPassiveData() != null)
 			{
-				evadeInfo.GetMover().GetPassiveData().AddInvalidEvadeDestinations(evades, list);
+				evadeInfo.GetMover().GetPassiveData().AddInvalidEvadeDestinations(evades, invalidSquares);
 			}
 		}
-		List<BoardSquare> list2 = new List<BoardSquare>();
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo2 in evades)
+		List<BoardSquare> squaresOfInterest = new List<BoardSquare>();
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evades)
 		{
-			if (evadeInfo2.m_evadeDest != null && !list2.Contains(evadeInfo2.m_evadeDest))
+			if (evadeInfo.m_evadeDest != null && !squaresOfInterest.Contains(evadeInfo.m_evadeDest))
 			{
-				list2.Add(evadeInfo2.m_evadeDest);
+				squaresOfInterest.Add(evadeInfo.m_evadeDest);
 			}
 		}
-		bool flag = false;
-		List<ServerClashUtils.MovementClash> list3 = new List<ServerClashUtils.MovementClash>();
+		bool hasClashes = false;
+		List<ServerClashUtils.MovementClash> clashes = new List<ServerClashUtils.MovementClash>();
 		foreach (ServerClashUtils.MovementClash movementClash in movementClashCollection.m_clashes)
 		{
 			if (!movementClash.m_continuing)
 			{
-				list3.Add(movementClash);
-				flag = true;
-				if (movementClash.m_clashSquare != null && !list2.Contains(movementClash.m_clashSquare))
+				clashes.Add(movementClash);
+				hasClashes = true;
+				if (movementClash.m_clashSquare != null && !squaresOfInterest.Contains(movementClash.m_clashSquare))
 				{
-					list2.Add(movementClash.m_clashSquare);
+					squaresOfInterest.Add(movementClash.m_clashSquare);
 				}
 			}
 		}
-		foreach (ServerClashUtils.MovementClash movementClash2 in list3)
+		foreach (ServerClashUtils.MovementClash movementClash in clashes)
 		{
-			List<ServerClashUtils.MovementClashParticipant> allParticipants = movementClash2.GetAllParticipants();
-			List<ServerEvadeUtils.EvadeInfo> list4 = new List<ServerEvadeUtils.EvadeInfo>();
-			foreach (ServerEvadeUtils.EvadeInfo evadeInfo3 in evades)
+			List<ServerClashUtils.MovementClashParticipant> allParticipants = movementClash.GetAllParticipants();
+			List<ServerEvadeUtils.EvadeInfo> evadesInClash = new List<ServerEvadeUtils.EvadeInfo>();
+			foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evades)
 			{
-				bool flag2 = false;
-				using (List<ServerClashUtils.MovementClashParticipant>.Enumerator enumerator3 = allParticipants.GetEnumerator())
+				foreach (ServerClashUtils.MovementClashParticipant participant in allParticipants)
 				{
-					while (enumerator3.MoveNext())
+					if (participant.Actor == evadeInfo.GetMover())
 					{
-						if (enumerator3.Current.Actor == evadeInfo3.GetMover())
-						{
-							flag2 = true;
-							break;
-						}
+						evadesInClash.Add(evadeInfo);
+						break;
 					}
 				}
-				if (flag2)
-				{
-					list4.Add(evadeInfo3);
-				}
 			}
-			foreach (ServerEvadeUtils.EvadeInfo evadeInfo4 in list4)
+			foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evadesInClash)
 			{
-				evadeInfo4.ResetDestinationData();
+				evadeInfo.ResetDestinationData();
 			}
-			foreach (ServerEvadeUtils.EvadeInfo evadeInfo5 in list4)
+			foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evadesInClash)
 			{
-				BoardSquare idealDestination = evadeInfo5.GetIdealDestination();
-				List<BoardSquare> list5 = new List<BoardSquare>();
-				int num = 0;
-				while (list5.Count == 0 && num <= 4)
+				BoardSquare idealDestination = evadeInfo.GetIdealDestination();
+				List<BoardSquare> destinationSquares = new List<BoardSquare>();
+				int borderRadius = 0;
+				while (destinationSquares.Count == 0 && borderRadius <= 4)
 				{
-					list5 = this.GetDestinationSquaresInBorderOf(idealDestination, num, evadeInfo5, evades, list, list2, true);
-					num++;
+					destinationSquares = GetDestinationSquaresInBorderOf(
+						idealDestination, borderRadius, evadeInfo, evades, invalidSquares,
+						squaresOfInterest, true);
+					borderRadius++;
 				}
-				num = 0;
-				while (list5.Count == 0 && num <= 4)
+				borderRadius = 0;
+				while (destinationSquares.Count == 0 && borderRadius <= 4)
 				{
-					list5 = this.GetDestinationSquaresInBorderOf(idealDestination, num, evadeInfo5, evades, list, list2, false);
-					num++;
+					destinationSquares = GetDestinationSquaresInBorderOf(
+						idealDestination, borderRadius, evadeInfo, evades, invalidSquares,
+						squaresOfInterest, false);
+					borderRadius++;
 				}
-				BoardSquare boardSquare = null;
-				float num2 = -1f;
-				Vector3 bestSquareTestVector = evadeInfo5.GetBestSquareTestVector();
-				foreach (BoardSquare boardSquare2 in list5)
+				BoardSquare bestDestination = null;
+				float bestDotProduct = -1f;
+				Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
+				foreach (BoardSquare destination in destinationSquares)
 				{
-					Vector3 vector = boardSquare2.ToVector3() - idealDestination.ToVector3();
+					Vector3 vector = destination.ToVector3() - idealDestination.ToVector3();
 					vector.y = 0f;
 					vector.Normalize();
-					float num3 = Vector3.Dot(bestSquareTestVector, vector);
-					if (boardSquare == null || num3 > num2)
+					float dotProduct = Vector3.Dot(bestSquareTestVector, vector);
+					if (bestDestination == null || dotProduct > bestDotProduct)
 					{
-						boardSquare = boardSquare2;
-						num2 = num3;
+						bestDestination = destination;
+						bestDotProduct = dotProduct;
 					}
 				}
-				if (boardSquare == null)
+				if (bestDestination == null)
 				{
-					evadeInfo5.MarkAsInvalid();
+					evadeInfo.MarkAsInvalid();
 				}
 				else
 				{
-					evadeInfo5.ModifyDestination(boardSquare);
-					if (!list2.Contains(boardSquare))
+					evadeInfo.ModifyDestination(bestDestination);
+					if (!squaresOfInterest.Contains(bestDestination))
 					{
-						list2.Add(boardSquare);
+						squaresOfInterest.Add(bestDestination);
 					}
 				}
 			}
-			foreach (ServerEvadeUtils.EvadeInfo evadeInfo6 in list4)
+			foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evadesInClash)
 			{
-				evadeInfo6.ProcessEvadeDodge(list4);
+				evadeInfo.ProcessEvadeDodge(evadesInClash);
 			}
-			foreach (ServerEvadeUtils.EvadeInfo evadeInfo7 in list4)
+			foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evadesInClash)
 			{
-				evadeInfo7.StorePath();
-				if (evadeInfo7.m_evadePath != null)
+				evadeInfo.StorePath();
+				if (evadeInfo.m_evadePath != null)
 				{
-					evadeInfo7.m_evadePath.CheckPathConnectionForSelfReference();
+					evadeInfo.m_evadePath.CheckPathConnectionForSelfReference();
 				}
 			}
 		}
-		if (flag)
+		if (hasClashes)
 		{
-			ClientClashManager.SendClashesAtEndOfMovementMsgToClients(list3);
+			ClientClashManager.SendClashesAtEndOfMovementMsgToClients(clashes);
 			movementClashCollection = ServerClashUtils.IdentifyClashSegments_Evade(evades);
 		}
 	}
 
 	public void RunEvades()
 	{
-		if (this.m_processedEvades == null)
+		if (m_processedEvades == null)
 		{
 			Log.Error("Trying to run evades, but they have not been processed.");
 			return;
 		}
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in this.m_processedEvades)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
 			if (evadeInfo.m_request == null && !(evadeInfo is ServerEvadeUtils.NonPlayerTeleportInfo))
 			{
@@ -274,56 +280,74 @@ public class ServerEvadeManager
 				evadeInfo.GetMover().UnoccupyCurrentBoardSquare();
 			}
 		}
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo2 in this.m_processedEvades)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
-			if (evadeInfo2.m_request == null && !(evadeInfo2 is ServerEvadeUtils.NonPlayerTeleportInfo))
+			if (evadeInfo.m_request == null && !(evadeInfo is ServerEvadeUtils.NonPlayerTeleportInfo))
 			{
 				Log.Error("Trying to run evade has null ability request.");
 			}
-			else if (evadeInfo2.IsStillValid())
+			else if (evadeInfo.IsStillValid())
 			{
-				if (evadeInfo2 is ServerEvadeUtils.ChargeInfo)
+				if (evadeInfo is ServerEvadeUtils.ChargeInfo chargeInfo)
 				{
-					ServerEvadeUtils.ChargeInfo chargeInfo = evadeInfo2 as ServerEvadeUtils.ChargeInfo;
 					Ability ability = chargeInfo.m_request.m_ability;
-					Vector3 facingDirAfterMovement = (ability != null) ? ability.GetFacingDirAfterMovement(evadeInfo2) : Vector3.zero;
-					ServerEvadeManager.ChargeToPos(chargeInfo.m_request.m_caster, chargeInfo.m_evadePath, facingDirAfterMovement, chargeInfo.m_request.m_ability.GetMovementType());
-					if (Application.isEditor && this.DebugShowChargeGizmo)
+					Vector3 facingDirAfterMovement = ability != null
+						? ability.GetFacingDirAfterMovement(evadeInfo)
+						: Vector3.zero;
+					ChargeToPos(
+						chargeInfo.m_request.m_caster,
+						chargeInfo.m_evadePath,
+						facingDirAfterMovement,
+						chargeInfo.m_request.m_ability.GetMovementType());
+					if (Application.isEditor && DebugShowChargeGizmo)
 					{
-						for (BoardSquarePathInfo boardSquarePathInfo = chargeInfo.m_evadePath; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+						for (BoardSquarePathInfo step = chargeInfo.m_evadePath; step != null; step = step.next)
 						{
-							if (boardSquarePathInfo.next == null)
+							if (step.next == null)
 							{
 								break;
 							}
-							Debug.DrawLine(boardSquarePathInfo.square.ToVector3(), boardSquarePathInfo.next.square.ToVector3(), Color.red, 10f);
+							Debug.DrawLine(step.square.ToVector3(), step.next.square.ToVector3(), Color.red, 10f);
 						}
 					}
 				}
-				else if (evadeInfo2 is ServerEvadeUtils.TeleportInfo)
+				else if (evadeInfo is ServerEvadeUtils.TeleportInfo teleportInfo)
 				{
-					ServerEvadeUtils.TeleportInfo teleportInfo = evadeInfo2 as ServerEvadeUtils.TeleportInfo;
 					ActorData caster = teleportInfo.m_request.m_caster;
-					Ability ability2 = teleportInfo.m_request.m_ability;
-					caster.TeleportToBoardSquare(teleportInfo.m_evadeDest, ability2.GetFacingDirAfterMovement(evadeInfo2), ability2.GetEvasionTeleportType(), teleportInfo.m_evadePath, ability2.CalcMovementSpeed(evadeInfo2.GetEvadeDistance()), ability2.GetMovementType(), GameEventManager.EventType.TheatricsEvasionMoveStart, null);
+					Ability ability = teleportInfo.m_request.m_ability;
+					caster.TeleportToBoardSquare(
+						teleportInfo.m_evadeDest,
+						ability.GetFacingDirAfterMovement(evadeInfo),
+						ability.GetEvasionTeleportType(),
+						teleportInfo.m_evadePath,
+						ability.CalcMovementSpeed(evadeInfo.GetEvadeDistance()), 
+						ability.GetMovementType(),
+						GameEventManager.EventType.TheatricsEvasionMoveStart);
 				}
-				else if (evadeInfo2 is ServerEvadeUtils.NonPlayerTeleportInfo)
+				else if (evadeInfo is ServerEvadeUtils.NonPlayerTeleportInfo nonPlayerTeleportInfo)
 				{
-					ServerEvadeUtils.NonPlayerTeleportInfo nonPlayerTeleportInfo = evadeInfo2 as ServerEvadeUtils.NonPlayerTeleportInfo;
 					ActorData mover = nonPlayerTeleportInfo.GetMover();
 					if (mover != null)
 					{
-						mover.TeleportToBoardSquare(nonPlayerTeleportInfo.m_evadeDest, nonPlayerTeleportInfo.m_attachedEvadeData.m_facingDirection, ActorData.TeleportType.Evasion_DontAdjustToVision, nonPlayerTeleportInfo.m_evadePath, nonPlayerTeleportInfo.m_attachedEvadeData.m_moveSpeed, nonPlayerTeleportInfo.m_attachedEvadeData.m_movementType, GameEventManager.EventType.TheatricsEvasionMoveStart, nonPlayerTeleportInfo.m_teleportStart);
+						mover.TeleportToBoardSquare(
+							nonPlayerTeleportInfo.m_evadeDest,
+							nonPlayerTeleportInfo.m_attachedEvadeData.m_facingDirection,
+							ActorData.TeleportType.Evasion_DontAdjustToVision,
+							nonPlayerTeleportInfo.m_evadePath,
+							nonPlayerTeleportInfo.m_attachedEvadeData.m_moveSpeed,
+							nonPlayerTeleportInfo.m_attachedEvadeData.m_movementType,
+							GameEventManager.EventType.TheatricsEvasionMoveStart,
+							nonPlayerTeleportInfo.m_teleportStart);
 					}
 				}
 			}
 		}
-		this.m_processedEvades.Clear();
+		m_processedEvades.Clear();
 	}
 
 	public void GatherGameplayResultsInResponseToEvades(out List<ActorData> actorsThatWillBeSeenButArentMoving)
 	{
-		MovementCollection movementCollection = new MovementCollection(this.m_processedEvades);
+		MovementCollection movementCollection = new MovementCollection(m_processedEvades);
 		ServerEffectManager.Get().GatherAllEffectResultsInResponseToEvades(movementCollection);
 		BarrierManager.Get().GatherAllBarrierResultsInResponseToEvades(movementCollection);
 		PowerUpManager.Get().GatherAllPowerupResultsInResponseToEvades(movementCollection);
@@ -336,108 +360,111 @@ public class ServerEvadeManager
 		//{
 		//	CollectTheCoins.Get().GatherResultsInResponseToEvades(movementCollection);
 		//}
-		List<ActorData> list;
-		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(movementCollection, out actorsThatWillBeSeenButArentMoving, out list);
+		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
+			movementCollection, 
+			out actorsThatWillBeSeenButArentMoving,
+			out _);
 	}
 
 	public void SwapEvaderSquaresWithDestinations()
 	{
-		if (this.m_currentSwapState != ServerEvadeManager.EvaderSwapState.Present)
+		if (m_currentSwapState != EvaderSwapState.Present)
 		{
-			Log.Error("Swapping evader squares to gather results, but we already swapped, and are in '" + this.m_currentSwapState.ToString() + "' mode.");
+			Log.Error("Swapping evader squares to gather results, but we already swapped, and are in '" + m_currentSwapState + "' mode.");
 		}
-		this.m_evaderSwapData.Clear();
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in this.m_processedEvades)
+		m_evaderSwapData.Clear();
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
-			this.m_evaderSwapData.Add(new ServerEvadeManager.EvaderSwapInfo(evadeInfo.GetMover(), evadeInfo.GetMover().GetCurrentBoardSquare(), evadeInfo.m_evadeDest));
+			m_evaderSwapData.Add(new EvaderSwapInfo(evadeInfo.GetMover(), evadeInfo.GetMover().GetCurrentBoardSquare(), evadeInfo.m_evadeDest));
 		}
-		ServerEvadeManager.SwapActorSquares(this.m_evaderSwapData);
-		this.m_currentSwapState = ServerEvadeManager.EvaderSwapState.Future;
+		SwapActorSquares(m_evaderSwapData);
+		m_currentSwapState = EvaderSwapState.Future;
 	}
 
 	public void SwapEvaderCurrentSquaresWithPreEvadeSquares(out bool swapsOccured)
 	{
 		swapsOccured = false;
-		if (this.m_currentSwapState != ServerEvadeManager.EvaderSwapState.Present)
+		if (m_currentSwapState != EvaderSwapState.Present)
 		{
-			Log.Error("Swapping evader squares to gather results, but we already swapped, and are in '" + this.m_currentSwapState.ToString() + "' mode.");
+			Log.Error("Swapping evader squares to gather results, but we already swapped, and are in '" + m_currentSwapState + "' mode.");
 		}
-		this.m_evaderSwapData.Clear();
+		m_evaderSwapData.Clear();
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
-			if (!(actorData == null) && !actorData.IsDead() && !(actorData.CurrentBoardSquare == null) && actorData.CurrentBoardSquare != actorData.SquareAtResolveStart)
+			if (actorData != null
+			    && !actorData.IsDead()
+			    && actorData.CurrentBoardSquare != null
+			    && actorData.CurrentBoardSquare != actorData.SquareAtResolveStart)
 			{
-				this.m_evaderSwapData.Add(new ServerEvadeManager.EvaderSwapInfo(actorData, actorData.CurrentBoardSquare, actorData.SquareAtResolveStart));
+				m_evaderSwapData.Add(new EvaderSwapInfo(actorData, actorData.CurrentBoardSquare, actorData.SquareAtResolveStart));
 				swapsOccured = true;
 			}
 		}
 		if (swapsOccured)
 		{
-			ServerEvadeManager.SwapActorSquares(this.m_evaderSwapData);
+			SwapActorSquares(m_evaderSwapData);
 		}
-		this.m_currentSwapState = ServerEvadeManager.EvaderSwapState.AlternateReality;
+		m_currentSwapState = EvaderSwapState.AlternateReality;
 	}
 
-	private static void SwapActorSquares(List<ServerEvadeManager.EvaderSwapInfo> swapData)
+	private static void SwapActorSquares(List<EvaderSwapInfo> swapData)
 	{
-		foreach (ServerEvadeManager.EvaderSwapInfo evaderSwapInfo in swapData)
+		foreach (EvaderSwapInfo evaderSwapInfo in swapData)
 		{
 			evaderSwapInfo.m_actor.UnoccupyCurrentBoardSquare();
 		}
-		foreach (ServerEvadeManager.EvaderSwapInfo evaderSwapInfo2 in swapData)
+		foreach (EvaderSwapInfo evaderSwapInfo in swapData)
 		{
-			evaderSwapInfo2.m_actor.SwapBoardSquare(evaderSwapInfo2.m_postSwapSquare);
+			evaderSwapInfo.m_actor.SwapBoardSquare(evaderSwapInfo.m_postSwapSquare);
 		}
-		foreach (ServerEvadeManager.EvaderSwapInfo evaderSwapInfo3 in swapData)
+		foreach (EvaderSwapInfo evaderSwapInfo in swapData)
 		{
-			evaderSwapInfo3.m_actor.OccupyCurrentBoardSquare();
+			evaderSwapInfo.m_actor.OccupyCurrentBoardSquare();
 		}
 	}
 
 	public void UndoEvaderDestinationsSwap()
 	{
-		if (this.m_currentSwapState == ServerEvadeManager.EvaderSwapState.Present)
+		if (m_currentSwapState == EvaderSwapState.Present)
 		{
-			Log.Error("Undoing swap of evader squares to gather results, but we already undid that, and are in '" + this.m_currentSwapState.ToString() + "' mode.");
+			Log.Error("Undoing swap of evader squares to gather results, but we already undid that, and are in '" + m_currentSwapState + "' mode.");
 		}
-		foreach (ServerEvadeManager.EvaderSwapInfo evaderSwapInfo in this.m_evaderSwapData)
+		foreach (EvaderSwapInfo evaderSwapInfo in m_evaderSwapData)
 		{
 			evaderSwapInfo.m_actor.UnoccupyCurrentBoardSquare();
 		}
-		foreach (ServerEvadeManager.EvaderSwapInfo evaderSwapInfo2 in this.m_evaderSwapData)
+		foreach (EvaderSwapInfo evaderSwapInfo in m_evaderSwapData)
 		{
-			evaderSwapInfo2.m_actor.SwapBoardSquare(evaderSwapInfo2.m_preSwapSquare);
+			evaderSwapInfo.m_actor.SwapBoardSquare(evaderSwapInfo.m_preSwapSquare);
 		}
-		foreach (ServerEvadeManager.EvaderSwapInfo evaderSwapInfo3 in this.m_evaderSwapData)
+		foreach (EvaderSwapInfo evaderSwapInfo in m_evaderSwapData)
 		{
-			evaderSwapInfo3.m_actor.OccupyCurrentBoardSquare();
+			evaderSwapInfo.m_actor.OccupyCurrentBoardSquare();
 		}
-		this.m_evaderSwapData.Clear();
-		this.m_currentSwapState = ServerEvadeManager.EvaderSwapState.Present;
+		m_evaderSwapData.Clear();
+		m_currentSwapState = EvaderSwapState.Present;
 	}
 
 	public bool HasEvades()
 	{
-		return this.m_processedEvades.Count > 0;
+		return m_processedEvades.Count > 0;
 	}
 
 	public bool HasProcessedEvadeForActor(ActorData actor)
 	{
-		bool result = false;
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in this.m_processedEvades)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
 			if (evadeInfo != null && evadeInfo.GetMover() == actor)
 			{
-				result = true;
-				break;
+				return true;
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public int GetNumSquaresInProcessedEvade(ActorData actor)
 	{
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in this.m_processedEvades)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
 			if (evadeInfo != null && evadeInfo.GetMover() == actor)
 			{
@@ -449,7 +476,7 @@ public class ServerEvadeManager
 
 	public List<BoardSquare> GetSquaresInProcessedEvade(ActorData actor)
 	{
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in this.m_processedEvades)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
 			if (evadeInfo != null && evadeInfo.GetMover() == actor)
 			{
@@ -461,60 +488,76 @@ public class ServerEvadeManager
 
 	public BoardSquare GetProcessedEvadeDestination(ActorData actor)
 	{
-		BoardSquare result = null;
-		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in this.m_processedEvades)
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in m_processedEvades)
 		{
 			if (evadeInfo != null && evadeInfo.GetMover() == actor)
 			{
-				result = evadeInfo.m_evadeDest;
-				break;
+				return evadeInfo.m_evadeDest;
 			}
 		}
-		return result;
+		return null;
 	}
 
-	private List<BoardSquare> GetDestinationSquaresInBorderOf(BoardSquare center, int borderRadius, ServerEvadeUtils.EvadeInfo evade, List<ServerEvadeUtils.EvadeInfo> allEvades, List<BoardSquare> additionalInvalidSquares_general, List<BoardSquare> additionalInvalidSquares_evaderSpecific, bool requireLosToCenter)
+	private List<BoardSquare> GetDestinationSquaresInBorderOf(
+		BoardSquare center,
+		int borderRadius,
+		ServerEvadeUtils.EvadeInfo evade,
+		List<ServerEvadeUtils.EvadeInfo> allEvades,
+		List<BoardSquare> additionalInvalidSquares_general,
+		List<BoardSquare> additionalInvalidSquares_evaderSpecific,
+		bool requireLosToCenter)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
-		if (borderRadius == 0)
+		if (borderRadius != 0)
 		{
-			if (evade.IsDestinationReserved())
+			List<BoardSquare> squaresInBorderLayer =
+				AreaEffectUtils.GetSquaresInBorderLayer(center, borderRadius, requireLosToCenter);
+			foreach (var boardSquare in squaresInBorderLayer)
 			{
-				if (evade.IsValidEvadeDestination(center, allEvades))
-				{
-					list.Add(center);
-				}
-			}
-			else if (evade.IsValidEvadeDestination(center, allEvades) && !additionalInvalidSquares_general.Contains(center) && !additionalInvalidSquares_evaderSpecific.Contains(center))
-			{
-				list.Add(center);
-			}
-		}
-		else
-		{
-			List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(center, borderRadius, requireLosToCenter);
-			for (int i = 0; i < squaresInBorderLayer.Count; i++)
-			{
-				BoardSquare boardSquare = squaresInBorderLayer[i];
-				if (evade.IsValidEvadeDestination(boardSquare, allEvades) && !additionalInvalidSquares_general.Contains(boardSquare) && !additionalInvalidSquares_evaderSpecific.Contains(boardSquare))
+				if (evade.IsValidEvadeDestination(boardSquare, allEvades)
+				    && !additionalInvalidSquares_general.Contains(boardSquare)
+				    && !additionalInvalidSquares_evaderSpecific.Contains(boardSquare))
 				{
 					list.Add(boardSquare);
 				}
 			}
 		}
+		else if (evade.IsDestinationReserved())
+		{
+			if (evade.IsValidEvadeDestination(center, allEvades))
+			{
+				list.Add(center);
+			}
+		}
+		else if (evade.IsValidEvadeDestination(center, allEvades) &&
+		         !additionalInvalidSquares_general.Contains(center) &&
+		         !additionalInvalidSquares_evaderSpecific.Contains(center))
+		{
+			list.Add(center);
+		}
 		return list;
 	}
 
-	public static void ChargeToPos(ActorData charger, BoardSquarePathInfo chargePath, Vector3 facingDirAfterMovement, ActorData.MovementType movementType)
+	public static void ChargeToPos(
+		ActorData charger,
+		BoardSquarePathInfo chargePath,
+		Vector3 facingDirAfterMovement,
+		ActorData.MovementType movementType)
 	{
 		if (chargePath != null)
 		{
 			BoardSquare square = chargePath.GetPathEndpoint().square;
-			charger.QueueMoveToBoardSquareOnEvent(square, movementType, ActorData.TeleportType.NotATeleport, chargePath, facingDirAfterMovement, GameEventManager.EventType.TheatricsEvasionMoveStart);
+			charger.QueueMoveToBoardSquareOnEvent(
+				square, movementType, ActorData.TeleportType.NotATeleport, chargePath, facingDirAfterMovement);
 		}
 	}
 
-	public static BoardSquarePathInfo BuildPathForCharge(ActorData charger, ServerEvadeUtils.ChargeSegment[] targetPositions, ActorData.MovementType movementType, float speed, bool passThroughInvalidSquares)
+	public static BoardSquarePathInfo BuildPathForCharge(
+		ActorData charger,
+		ServerEvadeUtils.ChargeSegment[] targetPositions,
+		ActorData.MovementType movementType,
+		float speed,
+		bool passThroughInvalidSquares)
 	{
 		BoardSquarePathInfo boardSquarePathInfo = null;
 		BoardSquare pos = targetPositions[targetPositions.Length - 1].m_pos;
@@ -526,30 +569,37 @@ public class ServerEvadeManager
 			BoardSquarePathInfo boardSquarePathInfo4;
 			if (movementType == ActorData.MovementType.WaypointFlight)
 			{
-				BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo();
-				boardSquarePathInfo2.square = pos3;
-				BoardSquarePathInfo boardSquarePathInfo3 = new BoardSquarePathInfo();
-				boardSquarePathInfo3.square = pos2;
+				BoardSquarePathInfo boardSquarePathInfo2 = new BoardSquarePathInfo
+				{
+					square = pos3
+				};
+				BoardSquarePathInfo boardSquarePathInfo3 = new BoardSquarePathInfo
+				{
+					square = pos2
+				};
 				boardSquarePathInfo2.next = boardSquarePathInfo3;
 				boardSquarePathInfo3.prev = boardSquarePathInfo2;
 				boardSquarePathInfo4 = boardSquarePathInfo2;
 			}
 			else
 			{
-				boardSquarePathInfo4 = KnockbackUtils.BuildStraightLineChargePath(charger, pos2, pos3, passThroughInvalidSquares);
+				boardSquarePathInfo4 = KnockbackUtils.BuildStraightLineChargePath(
+					charger, pos2, pos3, passThroughInvalidSquares);
 			}
-			for (BoardSquarePathInfo boardSquarePathInfo5 = boardSquarePathInfo4; boardSquarePathInfo5 != null; boardSquarePathInfo5 = boardSquarePathInfo5.next)
+			for (BoardSquarePathInfo step = boardSquarePathInfo4; step != null; step = step.next)
 			{
-				boardSquarePathInfo5.chargeCycleType = targetPositions[i].m_cycle;
-				boardSquarePathInfo5.chargeEndType = targetPositions[i].m_end;
-				boardSquarePathInfo5.segmentMovementSpeed = targetPositions[i].m_segmentMovementSpeed;
-				boardSquarePathInfo5.segmentMovementDuration = targetPositions[i].m_segmentMovementDuration;
-				boardSquarePathInfo5.m_reverse = targetPositions[i].m_reverseFacing;
+				step.chargeCycleType = targetPositions[i].m_cycle;
+				step.chargeEndType = targetPositions[i].m_end;
+				step.segmentMovementSpeed = targetPositions[i].m_segmentMovementSpeed;
+				step.segmentMovementDuration = targetPositions[i].m_segmentMovementDuration;
+				step.m_reverse = targetPositions[i].m_reverseFacing;
 			}
 			if (boardSquarePathInfo != null)
 			{
 				BoardSquarePathInfo pathEndpoint = boardSquarePathInfo.GetPathEndpoint();
-				if (boardSquarePathInfo4 != null && boardSquarePathInfo4.next != null && pathEndpoint.square == boardSquarePathInfo4.square)
+				if (boardSquarePathInfo4 != null
+				    && boardSquarePathInfo4.next != null
+				    && pathEndpoint.square == boardSquarePathInfo4.square)
 				{
 					pathEndpoint.m_unskippable = true;
 					pathEndpoint.next = boardSquarePathInfo4.next;
@@ -588,31 +638,15 @@ public class ServerEvadeManager
 		BoardSquarePathInfo result = null;
 		if (boardSquarePathInfo7 == null)
 		{
-			Log.Error("{0} is building charge path to {1} from {2}, but the path node is null.", new object[]
-			{
-				charger.DisplayName,
-				gridPos.ToString(),
-				charger.GetGridPos().ToString()
-			});
+			Log.Error("{0} is building charge path to {1} from {2}, but the path node is null.", charger.DisplayName, gridPos.ToString(), charger.GetGridPos().ToString());
 		}
 		else if (boardSquarePathInfo7.square == null)
 		{
-			Log.Error("{0} is building charge path to {1} from {2}, but the path square is null.", new object[]
-			{
-				charger.DisplayName,
-				gridPos.ToString(),
-				charger.GetGridPos().ToString()
-			});
+			Log.Error("{0} is building charge path to {1} from {2}, but the path square is null.", charger.DisplayName, gridPos.ToString(), charger.GetGridPos().ToString());
 		}
 		else if (boardSquarePathInfo7.square != pos)
 		{
-			Log.Error("{0} is building charge path to {1} from {2}, but he was trying to go to {3}.", new object[]
-			{
-				charger.DisplayName,
-				boardSquarePathInfo7.square.GetGridPos().ToString(),
-				charger.GetGridPos().ToString(),
-				pos.GetGridPos().ToString()
-			});
+			Log.Error("{0} is building charge path to {1} from {2}, but he was trying to go to {3}.", charger.DisplayName, boardSquarePathInfo7.square.GetGridPos().ToString(), charger.GetGridPos().ToString(), pos.GetGridPos().ToString());
 		}
 		else
 		{
@@ -624,16 +658,14 @@ public class ServerEvadeManager
 	private struct EvaderSwapInfo
 	{
 		public ActorData m_actor;
-
 		public BoardSquare m_preSwapSquare;
-
 		public BoardSquare m_postSwapSquare;
 
 		public EvaderSwapInfo(ActorData actor, BoardSquare preSwapSquare, BoardSquare postSwapSquare)
 		{
-			this.m_actor = actor;
-			this.m_preSwapSquare = preSwapSquare;
-			this.m_postSwapSquare = postSwapSquare;
+			m_actor = actor;
+			m_preSwapSquare = preSwapSquare;
+			m_postSwapSquare = postSwapSquare;
 		}
 	}
 
