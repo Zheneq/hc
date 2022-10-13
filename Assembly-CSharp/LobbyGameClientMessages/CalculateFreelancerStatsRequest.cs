@@ -6,27 +6,15 @@ namespace LobbyGameClientMessages
 	public class CalculateFreelancerStatsRequest : WebSocketMessage, StatDisplaySettings.IPersistatedStatValueSupplier
 	{
 		public PersistedStatBucket PersistedStatBucket;
-
 		public CharacterType CharacterType;
-
 		public PersistedStats PersistedStats;
-
 		public MatchFreelancerStats MatchFreelancerStats;
 
 		public float? GetStat(StatDisplaySettings.StatType Type)
 		{
 			if (PersistedStats != null)
 			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return PersistedStats.GetGameplayStat(Type).Average();
-					}
-				}
+				return PersistedStats.GetGameplayStat(Type).Average();
 			}
 			if (MatchFreelancerStats != null)
 			{
@@ -43,16 +31,7 @@ namespace LobbyGameClientMessages
 			}
 			if (MatchFreelancerStats != null)
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return MatchFreelancerStats.GetFreelancerStat(FreelancerStatIndex);
-					}
-				}
+				return MatchFreelancerStats.GetFreelancerStat(FreelancerStatIndex);
 			}
 			return null;
 		}

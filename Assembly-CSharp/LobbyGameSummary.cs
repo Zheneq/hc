@@ -5,52 +5,28 @@ using System.Collections.Generic;
 public class LobbyGameSummary
 {
 	public string GameServerAddress;
-
 	public GameResult GameResult;
-
 	public float GameResultFraction = 0.5f;
-
 	public string TimeText = string.Empty;
-
 	public int NumOfTurns;
-
 	public int TeamAPoints;
-
 	public int TeamBPoints;
-
 	public TimeSpan MatchTime;
-
 	public List<PlayerGameSummary> PlayerGameSummaryList = new List<PlayerGameSummary>();
-
 	public Dictionary<Team, Dictionary<int, ELODancecard>> m_ELODancecard = new Dictionary<Team, Dictionary<int, ELODancecard>>();
-
 	public List<BadgeAndParticipantInfo> BadgeAndParticipantsInfo;
 
 	public ELODancecard GetEloDancecardByAccountId(long accountId)
 	{
-		using (Dictionary<Team, Dictionary<int, ELODancecard>>.Enumerator enumerator = m_ELODancecard.GetEnumerator())
+		foreach (Dictionary<int, ELODancecard> eloDancecards in m_ELODancecard.Values)
 		{
-			while (enumerator.MoveNext())
+			foreach (ELODancecard value in eloDancecards.Values)
 			{
-				foreach (ELODancecard value in enumerator.Current.Value.Values)
+				if (value.m_accountId == accountId)
 				{
-					if (value.m_accountId == accountId)
-					{
-						return value;
-					}
+					return value;
 				}
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_000e;
-				}
-			}
-			end_IL_000e:;
 		}
 		Log.Warning("Account {0}'s dancecard not found in game", accountId);
 		return null;
@@ -58,26 +34,12 @@ public class LobbyGameSummary
 
 	public ELODancecard GetEloDancecardByPlayerId(int playerId)
 	{
-		using (Dictionary<Team, Dictionary<int, ELODancecard>>.Enumerator enumerator = m_ELODancecard.GetEnumerator())
+		foreach (Dictionary<int, ELODancecard> eloDancecards in m_ELODancecard.Values)
 		{
-			while (enumerator.MoveNext())
+			if (eloDancecards.TryGetValue(playerId, out ELODancecard value))
 			{
-				if (enumerator.Current.Value.TryGetValue(playerId, out ELODancecard value))
-				{
-					return value;
-				}
+				return value;
 			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_000c;
-				}
-			}
-			end_IL_000c:;
 		}
 		Log.Warning("PlayerId {0}'s dancecard not found in game", playerId);
 		return null;
@@ -87,55 +49,32 @@ public class LobbyGameSummary
 	{
 		if (m_ELODancecard.TryGetValue(teamId, out Dictionary<int, ELODancecard> value))
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					value.Add(playerId, ELODancecard.Create(accountId, groupId, groupSize));
-					return;
-				}
-			}
+			value.Add(playerId, ELODancecard.Create(accountId, groupId, groupSize));
 		}
-		m_ELODancecard.Add(teamId, new Dictionary<int, ELODancecard>());
-		m_ELODancecard[teamId].Add(playerId, ELODancecard.Create(accountId, groupId, groupSize));
+		else
+		{
+			m_ELODancecard.Add(teamId, new Dictionary<int, ELODancecard>());
+			m_ELODancecard[teamId].Add(playerId, ELODancecard.Create(accountId, groupId, groupSize));
+		}
 	}
 
 	public void UpdateELODancecard(int playerId, Team teamId, long accountId, bool isBot, BotDifficulty difficulty)
 	{
 		if (m_ELODancecard.TryGetValue(teamId, out Dictionary<int, ELODancecard> value))
 		{
-			while (true)
+			if (value.TryGetValue(playerId, out ELODancecard value2))
 			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-				{
-					if (value.TryGetValue(playerId, out ELODancecard value2))
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								value2.Increment(isBot, difficulty);
-								return;
-							}
-						}
-					}
-					value.Add(playerId, ELODancecard.Create(accountId, isBot, difficulty));
-					return;
-				}
-				}
+				value2.Increment(isBot, difficulty);
+			}
+			else
+			{
+				value.Add(playerId, ELODancecard.Create(accountId, isBot, difficulty));
 			}
 		}
-		m_ELODancecard.Add(teamId, new Dictionary<int, ELODancecard>());
-		m_ELODancecard[teamId].Add(playerId, ELODancecard.Create(accountId, isBot, difficulty));
+		else
+		{
+			m_ELODancecard.Add(teamId, new Dictionary<int, ELODancecard>());
+			m_ELODancecard[teamId].Add(playerId, ELODancecard.Create(accountId, isBot, difficulty));
+		}
 	}
 }
