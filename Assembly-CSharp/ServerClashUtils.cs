@@ -160,9 +160,10 @@ public static class ServerClashUtils
 			{
 				resolutionEntries.Add(new ClashResolutionEntry(clashParticipant));
 			}
-			while (false)  // TODO
+			// custom, was unreachable (while(false)) in rogues
+			while (bumpDistance <= 6 && bumpDestinationNum < clasherNum)
 			{
-				float distance = 1f + 0.5f * (float)bumpDistance;
+				float distance = 1f + 0.5f * bumpDistance;
 				bumpDestinations = GetPotentialBumpDestinationSquaresWithDistanceFromSquare(
 					clashSquare, distance, invalidSquares, resolutionEntries);
 				bumpDestinationNum = bumpDestinations.Count;

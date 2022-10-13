@@ -67,6 +67,10 @@ public class PlayerAction_Movement : PlayerAction
 			}
 		}
 		ServerActionBuffer.Get().ClearNormalMovementResults();
+		// custom
+		ServerClashUtils.MovementClashCollection clashes = ServerClashUtils.IdentifyClashSegments_Movement(validRequests, m_isChase);
+		ServerClashUtils.ResolveClashMovement(validRequests, clashes, m_isChase);
+		// end custom
 		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(validRequests, m_isChase);
 		MovementCollection movementCollection = new MovementCollection(validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList());
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
