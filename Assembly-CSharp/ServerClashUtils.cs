@@ -93,169 +93,177 @@ public static class ServerClashUtils
 		return result;
 	}
 
-	public static void ResolveClashMovement(List<MovementRequest> storedMovementRequests, MovementClashCollection clashCollection, bool forChaseMovement)
+	public static void ResolveClashMovement(
+		List<MovementRequest> storedMovementRequests,
+		MovementClashCollection clashCollection,
+		bool forChaseMovement)
 	{
-		if (clashCollection == null || clashCollection.m_clashes == null || clashCollection.m_clashes.Count == 0)
+		if (clashCollection?.m_clashes == null || clashCollection.m_clashes.Count == 0)
 		{
 			return;
 		}
 		clashCollection.SortClashes();
-		List<BoardSquare> list = new List<BoardSquare>();
-		foreach (ActorData actorData in ServerActionBuffer.Get().GetStationaryActors())
+		List<BoardSquare> invalidSquares = new List<BoardSquare>();
+		foreach (ActorData stationaryActor in ServerActionBuffer.Get().GetStationaryActors())
 		{
-			list.Add(actorData.CurrentBoardSquare);
+			invalidSquares.Add(stationaryActor.CurrentBoardSquare);
 		}
-		List<ActorData> list2 = new List<ActorData>();
-		foreach (ActorData actorData2 in GameFlowData.Get().GetActors())
+		List<ActorData> afterImageActors = new List<ActorData>();
+		foreach (ActorData actor in GameFlowData.Get().GetActors())
 		{
-			if (!actorData2.IsDead() && actorData2.GetComponent<Passive_TricksterAfterImage>() != null)
+			if (!actor.IsDead() && actor.GetComponent<Passive_TricksterAfterImage>() != null)
 			{
-				list2.Add(actorData2);
+				afterImageActors.Add(actor);
 			}
 		}
-		foreach (ActorData actorData3 in list2)
+		foreach (ActorData afterImageActor in afterImageActors)
 		{
-			if (!list.Contains(actorData3.CurrentBoardSquare))
+			if (!invalidSquares.Contains(afterImageActor.CurrentBoardSquare))
 			{
-				list.Add(actorData3.CurrentBoardSquare);
+				invalidSquares.Add(afterImageActor.CurrentBoardSquare);
 			}
 		}
 		foreach (MovementRequest movementRequest in storedMovementRequests)
 		{
-			if (movementRequest.WasEverChasing() && !forChaseMovement)
+			if (!movementRequest.WasEverChasing() || forChaseMovement)
 			{
-				if (!list.Contains(movementRequest.m_actor.CurrentBoardSquare))
+				if (!invalidSquares.Contains(movementRequest.m_targetSquare))
 				{
-					list.Add(movementRequest.m_actor.CurrentBoardSquare);
+					invalidSquares.Add(movementRequest.m_targetSquare);
 				}
 			}
-			else if (!list.Contains(movementRequest.m_targetSquare))
+			else
 			{
-				list.Add(movementRequest.m_targetSquare);
+				if (!invalidSquares.Contains(movementRequest.m_actor.CurrentBoardSquare))
+				{
+					invalidSquares.Add(movementRequest.m_actor.CurrentBoardSquare);
+				}
 			}
 		}
 		foreach (MovementClash movementClash in clashCollection.m_clashes)
 		{
-			if (!movementClash.m_continuing && movementClash.m_chase == forChaseMovement)
+			if (movementClash.m_continuing || movementClash.m_chase != forChaseMovement)
 			{
-				int num = movementClash.m_teamAClashers.Count + movementClash.m_teamBClashers.Count;
-				BoardSquare clashSquare = movementClash.m_clashSquare;
-				int num2 = 0;
-				int num3 = 0;
-				List<BoardSquare> list3 = null;
-				List<ClashResolutionEntry> list4 = new List<ClashResolutionEntry>(num);
-				foreach (MovementClashParticipant clashParticipant in movementClash.m_teamAClashers)
+				continue;
+			}
+			int clasherNum = movementClash.m_teamAClashers.Count + movementClash.m_teamBClashers.Count;
+			BoardSquare clashSquare = movementClash.m_clashSquare;
+			int bumpDistance = 0;
+			int bumpDestinationNum = 0;
+			List<BoardSquare> bumpDestinations = null;
+			List<ClashResolutionEntry> resolutionEntries = new List<ClashResolutionEntry>(clasherNum);
+			foreach (MovementClashParticipant clashParticipant in movementClash.m_teamAClashers)
+			{
+				resolutionEntries.Add(new ClashResolutionEntry(clashParticipant));
+			}
+			foreach (MovementClashParticipant clashParticipant in movementClash.m_teamBClashers)
+			{
+				resolutionEntries.Add(new ClashResolutionEntry(clashParticipant));
+			}
+			while (false)  // TODO
+			{
+				float distance = 1f + 0.5f * (float)bumpDistance;
+				bumpDestinations = GetPotentialBumpDestinationSquaresWithDistanceFromSquare(
+					clashSquare, distance, invalidSquares, resolutionEntries);
+				bumpDestinationNum = bumpDestinations.Count;
+				bumpDistance++;
+			}
+			if (bumpDistance <= 6 && bumpDestinationNum < clasherNum)
+			{
+				continue;
+			}
+			if (bumpDestinationNum < clasherNum)
+			{
+				bumpDistance = 0;
+				bumpDestinationNum = 0;
+				bumpDestinations = new List<BoardSquare>();
+				while (bumpDistance <= 12 && bumpDestinationNum < clasherNum)
 				{
-					list4.Add(new ClashResolutionEntry(clashParticipant));
-				}
-				using (List<MovementClashParticipant>.Enumerator enumerator4 = movementClash.m_teamBClashers.GetEnumerator())
-				{
-					while (enumerator4.MoveNext())
+					float distance = 1f + 0.5f * bumpDistance;
+					List<BoardSquare> potentialBumpDestinations = GetPotentialBumpDestinationSquaresWithDistanceFromSquare(
+							clashSquare, distance, invalidSquares, resolutionEntries);
+					foreach (BoardSquare bumpDestination in potentialBumpDestinations)
 					{
-						MovementClashParticipant clashParticipant2 = enumerator4.Current;
-						list4.Add(new ClashResolutionEntry(clashParticipant2));
+						bumpDestinations.Add(bumpDestination);
 					}
+					bumpDestinationNum = bumpDestinations.Count;
+					bumpDistance++;
 				}
-				if (false)  // TODO LOW unreachable code
-                {
-					float distance2 = 1f + 0.5f * (float)num2;
-					list3 = GetPotentialBumpDestinationSquaresWithDistanceFromSquare(clashSquare, distance2, list, list4);
-					num3 = list3.Count;
-					num2++;
-				}
-				if (num2 > 6 || num3 >= num)
+			}
+			List<ClashResolutionEntry> processedResolutionEntries = new List<ClashResolutionEntry>();
+			while (processedResolutionEntries.Count < resolutionEntries.Count)
+			{
+				ClashResolutionEntry bestResolvedEntry = null;
+				float bestWeight = 0f;
+				int destinationSquareIndex = -1;
+				foreach (ClashResolutionEntry resolutionEntry in resolutionEntries)
 				{
-					if (num3 < num)
+					if (processedResolutionEntries.Contains(resolutionEntry))
 					{
-						num2 = 0;
-						num3 = 0;
-						list3 = new List<BoardSquare>();
-						while (num2 <= 12 && num3 < num)
+						continue;
+					}
+					for (int j = 0; j < bumpDestinations.Count; j++)
+					{
+						BoardSquare dest = bumpDestinations[j];
+						if (IsSquareAlreadyClaimedByResolutionEntry(processedResolutionEntries, dest))
 						{
-							float distance = 1f + 0.5f * (float)num2;
-							List<BoardSquare> potentialBumpDestinationSquaresWithDistanceFromSquare = GetPotentialBumpDestinationSquaresWithDistanceFromSquare(clashSquare, distance, list, list4);
-							for (int i = 0; i < potentialBumpDestinationSquaresWithDistanceFromSquare.Count; i++)
-							{
-								list3.Add(potentialBumpDestinationSquaresWithDistanceFromSquare[i]);
-							}
-							num3 = list3.Count;
-							num2++;
+							continue;
 						}
-					}
-					List<ClashResolutionEntry> list5 = new List<ClashResolutionEntry>();
-					while (list5.Count < list4.Count)
-					{
-						ClashResolutionEntry clashResolutionEntry = null;
-						float num4 = 0f;
-						int index = -1;
-						foreach (ClashResolutionEntry clashResolutionEntry2 in list4)
+						BoardSquarePathInfo path = resolutionEntry.Actor.GetActorMovement().BuildPathTo_IgnoreBarriers(clashSquare, dest);
+						if (path == null)
 						{
-							if (!list5.Contains(clashResolutionEntry2))
+							Debug.LogError(
+								$"While trying to stabilize clashes, failed to build a path " +
+								$"from {BoardSquare.DebugString(clashSquare)} to {BoardSquare.DebugString(dest)} " +
+								$"for actor {resolutionEntry.Actor.DebugNameString()}");
+							continue;
+						}
+						float dist = path.FindDistanceToEnd();
+						int clashSteps = 0;
+						float lastStepWeight = 0f;
+						BoardSquarePathInfo originalStep = resolutionEntry.m_clashParticipant.OriginalPath.GetPathEndpoint().prev;
+						BoardSquarePathInfo clashStep = path.next;
+						while (originalStep != null && clashStep != null)
+						{
+							if (originalStep.square == clashStep.square)
 							{
-								for (int j = 0; j < list3.Count; j++)
+								clashSteps++;
+								originalStep = originalStep.prev;
+								clashStep = clashStep.next;
+							}
+							else
+							{
+								if (Board.Get().GetSquaresAreCardinallyAdjacent(originalStep.square, clashStep.square))
 								{
-									BoardSquare boardSquare = list3[j];
-									if (!IsSquareAlreadyClaimedByResolutionEntry(list5, boardSquare))
-									{
-										BoardSquarePathInfo boardSquarePathInfo = clashResolutionEntry2.Actor.GetActorMovement().BuildPathTo_IgnoreBarriers(clashSquare, boardSquare);
-										if (boardSquarePathInfo == null)
-										{
-											Debug.LogError(string.Format("While trying to stabilize clashes, failed to build a path from {0} to {1} for actor {2}", BoardSquare.DebugString(clashSquare, false), BoardSquare.DebugString(boardSquare, false), clashResolutionEntry2.Actor.DebugNameString()));
-										}
-										else
-										{
-											float num5 = boardSquarePathInfo.FindDistanceToEnd();
-											int num6 = 0;
-											float num7 = 0f;
-											BoardSquarePathInfo prev = clashResolutionEntry2.m_clashParticipant.OriginalPath.GetPathEndpoint().prev;
-											BoardSquarePathInfo next = boardSquarePathInfo.next;
-											while (prev != null && next != null)
-											{
-												if (prev.square == next.square)
-												{
-													num6++;
-													prev = prev.prev;
-													next = next.next;
-												}
-												else
-												{
-													if (Board.Get().GetSquaresAreCardinallyAdjacent(prev.square, next.square))
-													{
-														num7 = 0.2f;
-														break;
-													}
-													if (Board.Get().GetSquaresAreDiagonallyAdjacent(prev.square, next.square))
-													{
-														num7 = 0.1f;
-														break;
-													}
-													num7 = 0f;
-													break;
-												}
-											}
-											float num8 = num5 * 10f - (float)num6 - num7;
-											if (clashResolutionEntry == null || num8 < num4)
-											{
-												num4 = num8;
-												clashResolutionEntry = clashResolutionEntry2;
-												index = j;
-											}
-										}
-									}
+									lastStepWeight = 0.2f;
+									break;
 								}
+								if (Board.Get().GetSquaresAreDiagonallyAdjacent(originalStep.square, clashStep.square))
+								{
+									lastStepWeight = 0.1f;
+									break;
+								}
+								lastStepWeight = 0f;
+								break;
 							}
 						}
-						clashResolutionEntry.m_newDestSquare = list3[index];
-						list5.Add(clashResolutionEntry);
+						float weight = dist * 10f - clashSteps - lastStepWeight;
+						if (bestResolvedEntry == null || weight < bestWeight)
+						{
+							bestWeight = weight;
+							bestResolvedEntry = resolutionEntry;
+							destinationSquareIndex = j;
+						}
 					}
-					foreach (ClashResolutionEntry clashResolutionEntry3 in list4)
-					{
-						BoardSquare newDestSquare = clashResolutionEntry3.m_newDestSquare;
-						clashResolutionEntry3.BumpToNewDestinationSquare(newDestSquare);
-						list.Add(newDestSquare);
-					}
-					continue;
 				}
+				bestResolvedEntry.m_newDestSquare = bumpDestinations[destinationSquareIndex];
+				processedResolutionEntries.Add(bestResolvedEntry);
+			}
+			foreach (ClashResolutionEntry resolutionEntry in resolutionEntries)
+			{
+				BoardSquare newDestSquare = resolutionEntry.m_newDestSquare;
+				resolutionEntry.BumpToNewDestinationSquare(newDestSquare);
+				invalidSquares.Add(newDestSquare);
 			}
 		}
 	}
@@ -266,50 +274,53 @@ public static class ServerClashUtils
 		return flag && ((cost1 != float.MaxValue && cost2 != float.MaxValue) || infiniteCostsConsideredEqual);
 	}
 
-	public static MovementClashCollection IdentifyClashSegments_Movement(List<MovementRequest> stabilizedMovementRequests, bool forChaseMovement)
+	public static MovementClashCollection IdentifyClashSegments_Movement(
+		List<MovementRequest> stabilizedMovementRequests,
+		bool forChaseMovement)
 	{
 		MovementClashCollection movementClashCollection = new MovementClashCollection();
-		List<MovementRequest> list = new List<MovementRequest>();
-		for (int i = 0; i < stabilizedMovementRequests.Count; i++)
+		List<MovementRequest> requestsToProcess = new List<MovementRequest>();
+		foreach (MovementRequest movementRequest in stabilizedMovementRequests)
 		{
-			MovementRequest movementRequest = stabilizedMovementRequests[i];
 			if (forChaseMovement == movementRequest.WasEverChasing())
 			{
 				movementRequest.m_path.ResetClashingOfPath();
 				movementRequest.m_path.CalcAndSetMoveCostToEnd();
-				list.Add(movementRequest);
+				requestsToProcess.Add(movementRequest);
 			}
 		}
-		for (int j = 0; j < list.Count; j++)
+		for (int i = 0; i < requestsToProcess.Count; i++)
 		{
-			for (int k = j + 1; k < list.Count; k++)
+			for (int j = i + 1; j < requestsToProcess.Count; j++)
 			{
-				MovementRequest movementRequest2 = list[j];
-				MovementRequest movementRequest3 = list[k];
-				if (movementRequest2.m_actor.GetTeam() != movementRequest3.m_actor.GetTeam())
+				MovementRequest requestA = requestsToProcess[i];
+				MovementRequest requestB = requestsToProcess[j];
+				if (requestA.m_actor.GetTeam() != requestB.m_actor.GetTeam())
 				{
-					BoardSquarePathInfo boardSquarePathInfo = movementRequest2.m_path;
-					BoardSquarePathInfo boardSquarePathInfo2 = movementRequest3.m_path;
-					while (boardSquarePathInfo != null && boardSquarePathInfo2 != null)
+					BoardSquarePathInfo stepA = requestA.m_path;
+					BoardSquarePathInfo stepB = requestB.m_path;
+					while (stepA != null && stepB != null)
 					{
-						if (boardSquarePathInfo.square == boardSquarePathInfo2.square && AreMoveCostsEqual(boardSquarePathInfo.moveCost, boardSquarePathInfo2.moveCost, false) && boardSquarePathInfo.IsPathEndpoint() == boardSquarePathInfo2.IsPathEndpoint())
+						if (stepA.square == stepB.square
+						    && AreMoveCostsEqual(stepA.moveCost, stepB.moveCost)
+						    && stepA.IsPathEndpoint() == stepB.IsPathEndpoint())
 						{
-							boardSquarePathInfo.m_moverClashesHere = true;
-							boardSquarePathInfo2.m_moverClashesHere = true;
-							movementClashCollection.AddClash(movementRequest2, boardSquarePathInfo, movementRequest3, boardSquarePathInfo2);
+							stepA.m_moverClashesHere = true;
+							stepB.m_moverClashesHere = true;
+							movementClashCollection.AddClash(requestA, stepA, requestB, stepB);
 						}
-						if (boardSquarePathInfo.moveCost == boardSquarePathInfo2.moveCost)
+						if (stepA.moveCost == stepB.moveCost)
 						{
-							boardSquarePathInfo = boardSquarePathInfo.next;
-							boardSquarePathInfo2 = boardSquarePathInfo2.next;
+							stepA = stepA.next;
+							stepB = stepB.next;
 						}
-						else if (boardSquarePathInfo.moveCost > boardSquarePathInfo2.moveCost)
+						else if (stepA.moveCost > stepB.moveCost)
 						{
-							boardSquarePathInfo2 = boardSquarePathInfo2.next;
+							stepB = stepB.next;
 						}
 						else
 						{
-							boardSquarePathInfo = boardSquarePathInfo.next;
+							stepA = stepA.next;
 						}
 					}
 				}
@@ -321,41 +332,44 @@ public static class ServerClashUtils
 	public static MovementClashCollection IdentifyClashSegments_Evade(List<ServerEvadeUtils.EvadeInfo> evades)
 	{
 		MovementClashCollection movementClashCollection = new MovementClashCollection();
+		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evades)
+		{
+			evadeInfo.m_evadePath.ResetClashingOfPath();
+			evadeInfo.m_evadePath.CalcAndSetMoveCostToEnd();
+		}
 		for (int i = 0; i < evades.Count; i++)
 		{
-			evades[i].m_evadePath.ResetClashingOfPath();
-			evades[i].m_evadePath.CalcAndSetMoveCostToEnd();
-		}
-		for (int j = 0; j < evades.Count; j++)
-		{
-			for (int k = j + 1; k < evades.Count; k++)
+			for (int j = i + 1; j < evades.Count; j++)
 			{
-				ServerEvadeUtils.EvadeInfo evadeInfo = evades[j];
-				ServerEvadeUtils.EvadeInfo evadeInfo2 = evades[k];
-				if (evadeInfo.GetMover().GetTeam() != evadeInfo2.GetMover().GetTeam() && !evadeInfo.IsDestinationReserved() && !evadeInfo2.IsDestinationReserved())
+				ServerEvadeUtils.EvadeInfo evadeA = evades[i];
+				ServerEvadeUtils.EvadeInfo evadeB = evades[j];
+				if (evadeA.GetMover().GetTeam() != evadeB.GetMover().GetTeam()
+				    && !evadeA.IsDestinationReserved() && !evadeB.IsDestinationReserved())
 				{
-					BoardSquarePathInfo boardSquarePathInfo = evadeInfo.m_evadePath;
-					BoardSquarePathInfo boardSquarePathInfo2 = evadeInfo2.m_evadePath;
-					while (boardSquarePathInfo != null && boardSquarePathInfo2 != null)
+					BoardSquarePathInfo stepA = evadeA.m_evadePath;
+					BoardSquarePathInfo stepB = evadeB.m_evadePath;
+					while (stepA != null && stepB != null)
 					{
-						if (boardSquarePathInfo.square == boardSquarePathInfo2.square && AreMoveCostsEqual(boardSquarePathInfo.moveCost, boardSquarePathInfo2.moveCost, false) && boardSquarePathInfo.IsPathEndpoint() == boardSquarePathInfo2.IsPathEndpoint())
+						if (stepA.square == stepB.square
+						    && AreMoveCostsEqual(stepA.moveCost, stepB.moveCost)
+						    && stepA.IsPathEndpoint() == stepB.IsPathEndpoint())
 						{
-							boardSquarePathInfo.m_moverClashesHere = true;
-							boardSquarePathInfo2.m_moverClashesHere = true;
-							movementClashCollection.AddClash(evadeInfo, boardSquarePathInfo, evadeInfo2, boardSquarePathInfo2);
+							stepA.m_moverClashesHere = true;
+							stepB.m_moverClashesHere = true;
+							movementClashCollection.AddClash(evadeA, stepA, evadeB, stepB);
 						}
-						if (boardSquarePathInfo.moveCost == boardSquarePathInfo2.moveCost)
+						if (stepA.moveCost == stepB.moveCost)
 						{
-							boardSquarePathInfo = boardSquarePathInfo.next;
-							boardSquarePathInfo2 = boardSquarePathInfo2.next;
+							stepA = stepA.next;
+							stepB = stepB.next;
 						}
-						else if (boardSquarePathInfo.moveCost > boardSquarePathInfo2.moveCost)
+						else if (stepA.moveCost > stepB.moveCost)
 						{
-							boardSquarePathInfo2 = boardSquarePathInfo2.next;
+							stepB = stepB.next;
 						}
 						else
 						{
-							boardSquarePathInfo = boardSquarePathInfo.next;
+							stepA = stepA.next;
 						}
 					}
 				}
@@ -367,7 +381,6 @@ public static class ServerClashUtils
 	private class ClashResolutionEntry
 	{
 		public MovementClashParticipant m_clashParticipant;
-
 		public BoardSquare m_newDestSquare;
 
 		public ClashResolutionEntry(MovementClashParticipant clashParticipant)
@@ -375,21 +388,8 @@ public static class ServerClashUtils
 			m_clashParticipant = clashParticipant;
 		}
 
-		public ActorData Actor
-		{
-			get
-			{
-				return m_clashParticipant.Actor;
-			}
-		}
-
-		public BoardSquarePathInfo OriginalPath
-		{
-			get
-			{
-				return m_clashParticipant.OriginalPath;
-			}
-		}
+		public ActorData Actor => m_clashParticipant.Actor;
+		public BoardSquarePathInfo OriginalPath => m_clashParticipant.OriginalPath;
 
 		public void BumpToNewDestinationSquare(BoardSquare newDest)
 		{
@@ -415,37 +415,9 @@ public static class ServerClashUtils
 			m_segmentOnPath = segmentOnPath;
 		}
 
-		public ActorData Actor
-		{
-			get
-			{
-				if (m_request != null)
-				{
-					return m_request.m_actor;
-				}
-				return m_evade.GetMover();
-			}
-		}
-
-		public bool WasEverChasing
-		{
-			get
-			{
-				return m_request != null && m_request.WasEverChasing();
-			}
-		}
-
-		public BoardSquarePathInfo OriginalPath
-		{
-			get
-			{
-				if (m_request != null)
-				{
-					return m_request.m_path;
-				}
-				return m_evade.m_evadePath;
-			}
-		}
+		public ActorData Actor => m_request != null ? m_request.m_actor : m_evade.GetMover();
+		public bool WasEverChasing => m_request != null && m_request.WasEverChasing();
+		public BoardSquarePathInfo OriginalPath => m_request != null ? m_request.m_path : m_evade.m_evadePath;
 
 		public void BumpToNewDestinationSquare(BoardSquare newDest)
 		{
@@ -455,29 +427,28 @@ public static class ServerClashUtils
 				return;
 			}
 			BoardSquarePathInfo pathEndpoint = OriginalPath.GetPathEndpoint();
-			BoardSquare square = pathEndpoint.square;
-			BoardSquarePathInfo boardSquarePathInfo = Actor.GetActorMovement().BuildPathTo_IgnoreBarriers(square, newDest);
+			BoardSquare endpointSquare = pathEndpoint.square;
+			BoardSquarePathInfo boardSquarePathInfo = Actor.GetActorMovement().BuildPathTo_IgnoreBarriers(endpointSquare, newDest);
 			if (boardSquarePathInfo == null)
 			{
 				Log.Error("{act} MoveStabilizationErr: Failed to build a bump path.  Movement is now untrustworthy.");
 				return;
 			}
-			BoardSquarePathInfo next = boardSquarePathInfo.next;
-			next.prev = pathEndpoint;
-			pathEndpoint.next = next;
+			BoardSquarePathInfo step = boardSquarePathInfo.next;
+			step.prev = pathEndpoint;
+			pathEndpoint.next = step;
 			pathEndpoint.m_moverClashesHere = true;
-			while (next != null)
+			while (step != null)
 			{
-				next.m_moverBumpedFromClash = true;
-				next = next.next;
+				step.m_moverBumpedFromClash = true;
+				step = step.next;
 			}
 			OriginalPath.CalcAndSetMoveCostToEnd();
 			if (m_request != null)
 			{
 				m_request.m_targetSquare = newDest;
-				return;
 			}
-			if (m_evade != null)
+			else if (m_evade != null)
 			{
 				m_evade.ModifyDestination(newDest);
 			}
@@ -553,15 +524,15 @@ public static class ServerClashUtils
 
 		public List<MovementClashParticipant> GetParticipantsOfTeam(Team team)
 		{
-			if (team == Team.TeamA)
+			switch (team)
 			{
-				return m_teamAClashers;
+				case Team.TeamA:
+					return m_teamAClashers;
+				case Team.TeamB:
+					return m_teamBClashers;
+				default:
+					return null;
 			}
-			if (team == Team.TeamB)
-			{
-				return m_teamBClashers;
-			}
-			return null;
 		}
 
 		public List<MovementClashParticipant> GetAllParticipants()
@@ -578,8 +549,7 @@ public static class ServerClashUtils
 			{
 				return 1;
 			}
-			MovementClash movementClash = obj as MovementClash;
-			if (movementClash == null)
+			if (!(obj is MovementClash movementClash))
 			{
 				throw new ArgumentException("Object is not a MovementClash");
 			}
@@ -608,32 +578,46 @@ public static class ServerClashUtils
 			m_clashes = new List<MovementClash>();
 		}
 
-		public void AddClash(MovementRequest firstRequest, BoardSquarePathInfo firstSegment, MovementRequest secondRequest, BoardSquarePathInfo secondSegment)
+		public void AddClash(
+			MovementRequest firstRequest,
+			BoardSquarePathInfo firstSegment,
+			MovementRequest secondRequest,
+			BoardSquarePathInfo secondSegment)
 		{
 			MovementClashParticipant first = new MovementClashParticipant(firstRequest, firstSegment);
 			MovementClashParticipant second = new MovementClashParticipant(secondRequest, secondSegment);
-			MovementClash movementClash = FindExistingClashFor(firstRequest.WasEverChasing(), firstSegment.square, firstSegment.moveCost, !firstSegment.IsPathEndpoint());
+			MovementClash movementClash = FindExistingClashFor(
+				firstRequest.WasEverChasing(), firstSegment.square, firstSegment.moveCost, !firstSegment.IsPathEndpoint());
 			if (movementClash == null)
 			{
 				MovementClash item = new MovementClash(first, second);
 				m_clashes.Add(item);
-				return;
 			}
-			movementClash.AddClashers(first, second);
+			else
+			{
+				movementClash.AddClashers(first, second);
+			}
 		}
 
-		public void AddClash(ServerEvadeUtils.EvadeInfo firstEvade, BoardSquarePathInfo firstSegment, ServerEvadeUtils.EvadeInfo secondEvade, BoardSquarePathInfo secondSegment)
+		public void AddClash(
+			ServerEvadeUtils.EvadeInfo firstEvade,
+			BoardSquarePathInfo firstSegment,
+			ServerEvadeUtils.EvadeInfo secondEvade,
+			BoardSquarePathInfo secondSegment)
 		{
 			MovementClashParticipant first = new MovementClashParticipant(firstEvade, firstSegment);
 			MovementClashParticipant second = new MovementClashParticipant(secondEvade, secondSegment);
-			MovementClash movementClash = FindExistingClashFor(false, firstSegment.square, firstSegment.moveCost, !firstSegment.IsPathEndpoint());
+			MovementClash movementClash = FindExistingClashFor(
+				false, firstSegment.square, firstSegment.moveCost, !firstSegment.IsPathEndpoint());
 			if (movementClash == null)
 			{
 				MovementClash item = new MovementClash(first, second);
 				m_clashes.Add(item);
-				return;
 			}
-			movementClash.AddClashers(first, second);
+			else
+			{
+				movementClash.AddClashers(first, second);
+			}
 		}
 
 		public MovementClash FindExistingClashFor(bool chase, BoardSquare clashSquare, float moveCost, bool continuing)
@@ -642,10 +626,12 @@ public static class ServerClashUtils
 			{
 				return null;
 			}
-			for (int i = 0; i < m_clashes.Count; i++)
+			foreach (MovementClash movementClash in m_clashes)
 			{
-				MovementClash movementClash = m_clashes[i];
-				if (movementClash.m_chase == chase && !(movementClash.m_clashSquare != clashSquare) && movementClash.m_moveCost == moveCost && movementClash.m_continuing == continuing)
+				if (movementClash.m_chase == chase
+				    && movementClash.m_clashSquare == clashSquare
+				    && movementClash.m_moveCost == moveCost
+				    && movementClash.m_continuing == continuing)
 				{
 					return movementClash;
 				}
