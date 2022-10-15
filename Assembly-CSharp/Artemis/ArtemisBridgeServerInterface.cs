@@ -30,6 +30,8 @@ namespace ArtemisServer.BridgeServer
         public event Action<DisconnectPlayerRequest> OnDisconnectPlayerRequest = delegate { };
         public event Action<ReconnectPlayerRequest> OnReconnectPlayerRequest = delegate { };
         public event Action<MonitorHeartbeatResponse> OnMonitorHeartbeatResponse = delegate { };
+
+        private LaunchGameRequest pendingLaunchGameRequest = null;
         
         public static readonly List<Type> BridgeMessageTypes = new List<Type>
         {
@@ -147,6 +149,14 @@ namespace ArtemisServer.BridgeServer
         public void Update()
         {
             // TODO handle connection loss?
+
+            // custom
+            if (pendingLaunchGameRequest != null)
+            {
+                OnLaunchGameRequest(pendingLaunchGameRequest);
+                pendingLaunchGameRequest = null;
+            }
+            // end custom
         }
 
         public void StartGame(string game)
@@ -201,18 +211,13 @@ namespace ArtemisServer.BridgeServer
                 UIFrontendLoadingScreen.Get().StartDisplayError("connected to bridge server", "registered as generic server");
                 m_registered = true;
                 m_overallConnectionTimer.Reset();
-
-                GameObject artemisServerObject = new GameObject("ArtemisServerComponent");
-                ArtemisGamePoller gm = artemisServerObject.AddComponent<ArtemisGamePoller>();
-                gm.Poll(this);
-                
                 OnConnectedHandler(response);
             }
         }
 
         private void HandleLaunchGameRequest(AllianceMessageBase msg)
         {
-            OnLaunchGameRequest((LaunchGameRequest)msg);
+            pendingLaunchGameRequest = (LaunchGameRequest)msg; // cannot do it on this thread, handling it in Update
         }
 
         private void HandleJoinGameServerRequest(AllianceMessageBase msg)

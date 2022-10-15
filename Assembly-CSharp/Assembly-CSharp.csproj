@@ -478,7 +478,6 @@
     <Compile Include="AreaEffectUtils.cs" />
     <Compile Include="Artemis\ArtemisBridgeServerInterface.cs" />
     <Compile Include="Artemis\ArtemisClientBase.cs" />
-    <Compile Include="Artemis\ArtemisGamePoller.cs" />
     <Compile Include="AssetBundleManager.cs" />
     <Compile Include="AssetFileSelectorAttribute.cs" />
     <Compile Include="AssetsLoadingState.cs" />
