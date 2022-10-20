@@ -16,34 +16,15 @@ public class MyNetworkClient : NetworkClient
 
 	public bool IsConnected
 	{
-		get
-		{
-			return m_AsyncConnect == ConnectState.Connected;
-		}
-		set
-		{
-			int asyncConnect;
-			if (value)
-			{
-				asyncConnect = 4;
-			}
-			else
-			{
-				asyncConnect = 5;
-			}
-			m_AsyncConnect = (ConnectState)asyncConnect;
-		}
+		get => m_AsyncConnect == ConnectState.Connected;
+		set => m_AsyncConnect = value ? ConnectState.Connected : ConnectState.Disconnected;
 	}
 
 	public override void Disconnect()
 	{
-		if (m_Connection != null)
+		if (m_Connection is MyNetworkClientConnection myNetworkClientConnection)
 		{
-			MyNetworkClientConnection myNetworkClientConnection = m_Connection as MyNetworkClientConnection;
-			if (myNetworkClientConnection != null)
-			{
-				myNetworkClientConnection.Close();
-			}
+			myNetworkClientConnection.Close();
 		}
 		base.Disconnect();
 	}

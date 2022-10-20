@@ -3875,37 +3875,30 @@ public class ClientGameManager : MonoBehaviour
 			return;
 		}
 		GameManager gameManager = GameManager.Get();
-		if (ReplayPlayManager.Get())
+		if (ReplayPlayManager.Get() && ReplayPlayManager.Get().IsPlayback())
 		{
-			if (ReplayPlayManager.Get().IsPlayback())
-			{
-				ResetLoadAssetsState();
-				Log.Info("Stub-connecting to replay system");
-				MyNetworkManager.Get().MyStartClientStub();
-				goto IL_14A;
-			}
+			ResetLoadAssetsState();
+			Log.Info("Stub-connecting to replay system");
+			MyNetworkManager.Get().MyStartClientStub();
 		}
-		if (gameManager.GameInfo != null)
+		else if (gameManager.GameInfo != null && !string.IsNullOrEmpty(gameManager.GameInfo.GameServerAddress))
 		{
-			if (string.IsNullOrEmpty(gameManager.GameInfo.GameServerAddress))
+			if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
 			{
+				throw new FormatException(
+					$"Could not parse game server address {gameManager.GameInfo.GameServerAddress}");
 			}
-			else
-			{
-				if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
-				{
-					throw new FormatException(string.Format("Could not parse game server address {0}", gameManager.GameInfo.GameServerAddress));
-				}
-				ResetLoadAssetsState();
-				IsRegisteredToGameServer = false;
-				Log.Info("Connecting to {0}", gameManager.GameInfo.GameServerAddress);
-				MyNetworkManager.Get().MyStartClient(gameManager.GameInfo.GameServerAddress, Handle);
-				goto IL_14A;
-			}
+
+			ResetLoadAssetsState();
+			IsRegisteredToGameServer = false;
+			Log.Info("Connecting to {0}", gameManager.GameInfo.GameServerAddress);
+			MyNetworkManager.Get().MyStartClient(gameManager.GameInfo.GameServerAddress, Handle);
 		}
-		Log.Error("Game server address is empty");
-		return;
-		IL_14A:
+		else
+		{
+			Log.Error("Game server address is empty");
+			return;
+		}
 		if (!m_registeredHandlers)
 		{
 			MyNetworkManager myNetworkManager = MyNetworkManager.Get();
@@ -4008,23 +4001,23 @@ public class ClientGameManager : MonoBehaviour
 		if (m_lobbyGameClientInterface != null)
 		{
 			GameManager gameManager = GameManager.Get();
-			if (ReplayPlayManager.Get())
+			if (ReplayPlayManager.Get() && ReplayPlayManager.Get().IsPlayback())
 			{
-				if (ReplayPlayManager.Get().IsPlayback())
-				{
-					Log.Info("Stub-connected to replay system", gameManager.GameInfo.GameServerAddress);
-					goto IL_8C;
-				}
+				Log.Info("Stub-connected to replay system", gameManager.GameInfo.GameServerAddress);
 			}
-			Log.Info("Connected to {0}", gameManager.GameInfo.GameServerAddress);
-			IL_8C:
+			else
+			{
+				Log.Info("Connected to {0}", gameManager.GameInfo.GameServerAddress);
+			}
 			ClientScene.AddPlayer(conn, 0);
-			GameManager.LoginRequest loginRequest = new GameManager.LoginRequest();
-			loginRequest.AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId);
-			loginRequest.SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken);
-			loginRequest.PlayerId = gameManager.PlayerInfo.PlayerId;
-			loginRequest.LastReceivedMsgSeqNum = m_lastReceivedMsgSeqNum;
-			Client.Send(0x33, loginRequest);
+			GameManager.LoginRequest loginRequest = new GameManager.LoginRequest
+			{
+				AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId),
+				SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken),
+				PlayerId = gameManager.PlayerInfo.PlayerId,
+				LastReceivedMsgSeqNum = m_lastReceivedMsgSeqNum
+			};
+			Client.Send((int) MyMsgType.LoginRequest, loginRequest);
 		}
 	}
 

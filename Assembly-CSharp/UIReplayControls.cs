@@ -4,11 +4,8 @@ using UnityEngine.EventSystems;
 public class UIReplayControls : MonoBehaviour
 {
 	public _SelectableBtn m_playBtn;
-
 	public _SelectableBtn m_pauseBtn;
-
 	public _SelectableBtn m_rewindBtn;
-
 	public _SelectableBtn m_fastForwardBtn;
 
 	private void Start()
@@ -18,15 +15,14 @@ public class UIReplayControls : MonoBehaviour
 		m_rewindBtn.spriteController.callback = RewindClicked;
 		m_fastForwardBtn.spriteController.callback = FFClicked;
 		UIManager.SetGameObjectActive(m_playBtn, false);
-		if (ReplayPlayManager.Get() != null)
+		if (ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback())
 		{
-			if (ReplayPlayManager.Get().IsPlayback())
-			{
-				UIManager.SetGameObjectActive(base.gameObject, true);
-				return;
-			}
+			UIManager.SetGameObjectActive(gameObject, true);
 		}
-		UIManager.SetGameObjectActive(base.gameObject, false);
+		else
+		{
+			UIManager.SetGameObjectActive(gameObject, false);
+		}
 	}
 
 	private void PlayClicked(BaseEventData data)
