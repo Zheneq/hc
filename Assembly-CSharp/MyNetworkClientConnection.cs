@@ -5,43 +5,22 @@ using WebSocketSharp;
 
 public class MyNetworkClientConnection : NetworkConnection
 {
-	public static Action<UNetMessage> OnSending = delegate
-	{
-	};
+	public static Action<UNetMessage> OnSending = delegate { };
 
 	public CloseStatusCode CloseStatusCode;
 
 	private string m_gameServerAddress;
-
 	private MyNetworkClient m_myNetworkClient;
-
 	private GameClientInterface m_gameClientInterface;
 
 	public TimeSpan HeartbeatTimeout
 	{
-		get
-		{
-			TimeSpan result;
-			if (m_gameClientInterface != null)
-			{
-				result = m_gameClientInterface.HeartbeatTimeout;
-			}
-			else
-			{
-				result = TimeSpan.Zero;
-			}
-			return result;
-		}
+		get => m_gameClientInterface?.HeartbeatTimeout ?? TimeSpan.Zero;
 		set
 		{
-			if (m_gameClientInterface == null)
-			{
-				return;
-			}
-			while (true)
+			if (m_gameClientInterface != null)
 			{
 				m_gameClientInterface.HeartbeatTimeout = value;
-				return;
 			}
 		}
 	}
@@ -60,17 +39,8 @@ public class MyNetworkClientConnection : NetworkConnection
 	public override void Initialize(string networkAddress, int networkHostId, int networkConnectionId, HostTopology hostTopology)
 	{
 		base.Initialize(networkAddress, networkHostId, networkConnectionId, hostTopology);
-		m_myNetworkClient = (NetworkManager.singleton.client as MyNetworkClient);
-		object obj;
-		if (m_myNetworkClient.UseSSL)
-		{
-			obj = "wss://";
-		}
-		else
-		{
-			obj = "ws://";
-		}
-		string arg = (string)obj;
+		m_myNetworkClient = NetworkManager.singleton.client as MyNetworkClient;
+		string arg = m_myNetworkClient.UseSSL ? "wss://" : "ws://";
 		m_gameServerAddress = $"{arg}{NetworkManager.singleton.networkAddress}:{NetworkManager.singleton.networkPort}";
 		Log.Info("MyNetworkClientConnection.Initialize address={0}", m_gameServerAddress);
 		Connect();
@@ -89,52 +59,46 @@ public class MyNetworkClientConnection : NetworkConnection
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.IsReconnectingInstantly)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					clientGameManager.ReloginToGameServerInstantly(this);
-					return;
-				}
-			}
+			clientGameManager.ReloginToGameServerInstantly(this);
 		}
-		InvokeHandlerNoData(32);
+		else
+		{
+			InvokeHandlerNoData(MsgType.Connect);
+		}
 	}
 
 	protected void HandleDisconnectedFromGameServer(string reason, bool allowRelogin, CloseStatusCode code)
 	{
 		Log.Warning("MyNetworkClientConnection.HandleDisconnectedFromGameServer {0} reason={1} allowRelogin={2} CloseStatusCode={3}", m_gameServerAddress, reason, allowRelogin, code);
 		ClientGameManager clientGameManager = ClientGameManager.Get();
-		if (allowRelogin)
+		if (allowRelogin && clientGameManager.ReconnectToGameServerInstantly(this))
 		{
-			if (clientGameManager.ReconnectToGameServerInstantly(this))
-			{
-				return;
-			}
+			return;
 		}
 		m_myNetworkClient.IsConnected = false;
 		CloseStatusCode = code;
 		connectionId = -1;
-		InvokeHandlerNoData(33);
+		InvokeHandlerNoData(MsgType.Disconnect);
 	}
 
 	protected void HandleConnectionErrorToGameServer(string errorMessage)
 	{
 		Log.Info("MyNetworkClientConnection.HandleConnectionErrorToGameServer {0} {1}", m_gameServerAddress, errorMessage);
-		StringMessage stringMessage = new StringMessage();
-		stringMessage.value = errorMessage;
+		StringMessage stringMessage = new StringMessage
+		{
+			value = errorMessage
+		};
 		byte[] buffer = new byte[8192];
 		NetworkWriter writer = new NetworkWriter(buffer);
 		stringMessage.Serialize(writer);
 		NetworkReader reader = new NetworkReader(buffer);
-		NetworkMessage networkMessage = new NetworkMessage();
-		networkMessage.msgType = 34;
-		networkMessage.reader = reader;
-		networkMessage.conn = this;
-		networkMessage.channelId = 0;
+		NetworkMessage networkMessage = new NetworkMessage
+		{
+			msgType = MsgType.Error,
+			reader = reader,
+			conn = this,
+			channelId = 0
+		};
 		InvokeHandler(networkMessage);
 	}
 
@@ -148,16 +112,17 @@ public class MyNetworkClientConnection : NetworkConnection
 	public override bool TransportSend(byte[] bytes, int numBytes, int channelId, out byte error)
 	{
 		error = 0;
-		UNetMessage uNetMessage = new UNetMessage();
-		uNetMessage.Bytes = bytes;
-		uNetMessage.NumBytes = numBytes;
-		UNetMessage uNetMessage2 = uNetMessage;
-		byte[] bytes2 = uNetMessage2.Serialize();
+		UNetMessage uNetMessage = new UNetMessage
+		{
+			Bytes = bytes,
+			NumBytes = numBytes
+		};
+		byte[] uNetMessageBytes = uNetMessage.Serialize();
 		if (m_gameClientInterface != null)
 		{
-			m_gameClientInterface.SendMessage(bytes2);
+			m_gameClientInterface.SendMessage(uNetMessageBytes);
 		}
-		OnSending(uNetMessage2);
+		OnSending(uNetMessage);
 		return true;
 	}
 
@@ -170,16 +135,7 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (!ClientGameManager.Get().IsFastForward)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return base.SendBytes(bytes, numBytes, channelId);
-				}
-			}
+			return base.SendBytes(bytes, numBytes, channelId);
 		}
 		return true;
 	}
@@ -188,16 +144,7 @@ public class MyNetworkClientConnection : NetworkConnection
 	{
 		if (!ClientGameManager.Get().IsFastForward)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return base.SendWriter(writer, channelId);
-				}
-			}
+			return base.SendWriter(writer, channelId);
 		}
 		return true;
 	}
@@ -212,18 +159,13 @@ public class MyNetworkClientConnection : NetworkConnection
 
 	public void Close()
 	{
-		if (m_gameClientInterface == null)
-		{
-			return;
-		}
-		while (true)
+		if (m_gameClientInterface != null)
 		{
 			m_gameClientInterface.Disconnect();
 			m_gameClientInterface.OnConnected -= HandleConnectedToGameServer;
 			m_gameClientInterface.OnDisconnected -= HandleDisconnectedFromGameServer;
 			m_gameClientInterface.OnConnectionError -= HandleConnectionErrorToGameServer;
 			m_gameClientInterface.OnMessage -= HandleMessageFromGameServer;
-			return;
 		}
 	}
 }
