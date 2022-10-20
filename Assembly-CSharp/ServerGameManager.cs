@@ -255,11 +255,13 @@ public class ServerGameManager : MonoBehaviour
 			}
 			if (ObjectivePoints.Get() != null)
 			{
-				ServerGameMetrics serverGameMetrics = new ServerGameMetrics();
-				serverGameMetrics.CurrentTurn = m_lastUpdateTurn;
-				serverGameMetrics.TeamAPoints = ObjectivePoints.Get().GetPointsForTeam(Team.TeamA);
-				serverGameMetrics.TeamBPoints = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB);
-				serverGameMetrics.AverageFrameTime = (from f in m_recentFrameTimes where f != 0f select f).Average();
+				ServerGameMetrics serverGameMetrics = new ServerGameMetrics
+				{
+					CurrentTurn = m_lastUpdateTurn,
+					TeamAPoints = ObjectivePoints.Get().GetPointsForTeam(Team.TeamA),
+					TeamBPoints = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB),
+					AverageFrameTime = (from f in m_recentFrameTimes where f != 0f select f).Average()
+				};
 				Log.Info($"Frame time: {serverGameMetrics.AverageFrameTime * 1000f} ms");
 				if (m_monitorGameServerInterface != null)
 				{
@@ -501,7 +503,9 @@ public class ServerGameManager : MonoBehaviour
 			m_sentGameSummary = true;
 			foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 			{
-				if (serverPlayerState.SessionInfo != null && serverPlayerState.PlayerInfo != null && !serverPlayerState.PlayerInfo.IsNPCBot)
+				if (serverPlayerState.SessionInfo != null
+				    && serverPlayerState.PlayerInfo != null
+				    && !serverPlayerState.PlayerInfo.IsNPCBot)
 				{
 					serverPlayerState.LogGameExit(GameManager.Get().GameSummary.GameResult);
 				}
@@ -839,7 +843,7 @@ public class ServerGameManager : MonoBehaviour
 		gameManager.SetGameSummary(new LobbyGameSummary());
 		m_sentGameSummary = false;
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
-		gameManager.GameInfo.GameServerAddress = string.Format("{0}:{1}", ListenAddress, ListenPort);
+		gameManager.GameInfo.GameServerAddress = $"{ListenAddress}:{ListenPort}";
 		gameManager.GameInfo.GameServerHost = commonServerConfig.PrivateHostName;
 		m_monitorGameServerInterface.SendLaunchGameResponse(true, gameManager.GameInfo);
 		SetGameStatus(GameStatus.Launched);
@@ -873,39 +877,35 @@ public class ServerGameManager : MonoBehaviour
 		//	return;
 		//}
 
-		if (!serverPlayerState.IsAIControlled || primaryPlayerInfo.ReplacedWithBots || serverPlayerState.IsLoadTestBot)
+		if (!serverPlayerState.IsAIControlled
+		    || primaryPlayerInfo.ReplacedWithBots
+		    || serverPlayerState.IsLoadTestBot)
 		{
 			if (serverPlayerState.IsAIControlled && primaryPlayerInfo.ReplacedWithBots)
 			{
-				Log.Info("Player {0}[{1}] Is AI Controlled and replaced with bots when adding player state", serverPlayerState.PlayerInfo.Handle, serverPlayerState.SessionInfo.AccountId);
+				Log.Info($"Player {serverPlayerState.PlayerInfo.Handle}[{serverPlayerState.SessionInfo.AccountId}] " +
+				         $"Is AI Controlled and replaced with bots when adding player state");
 			}
-			string text = "localhost";
+			string host = "localhost";
 
 			// custom
-			string text2 = serverPlayerState.SessionInfo.ConnectionAddress;
+			string address = serverPlayerState.SessionInfo.ConnectionAddress;
 			// rogues
 			//string text2 = (!serverPlayerState.SessionInfo.ExternalConnectionAddress.IsNullOrEmpty()) ? serverPlayerState.SessionInfo.ExternalConnectionAddress : serverPlayerState.SessionInfo.ConnectionAddress;
 
-			if (serverPlayerState != null && serverPlayerState.SessionInfo != null && !text2.IsNullOrEmpty())
+			if (serverPlayerState != null && serverPlayerState.SessionInfo != null && !address.IsNullOrEmpty())
 			{
-				Debug.Log("Expecting connection from client at address " + text2);
-				string[] array = text2.Split(':', '/');
-				if (!array.IsNullOrEmpty())
+				Debug.Log("Expecting connection from client at address " + address);
+				string[] addressParts = address.Split(':', '/');
+				if (!addressParts.IsNullOrEmpty())
 				{
-					if (array.Length > 1)
-					{
-						text = array[array.Length - 2];
-					}
-					else
-					{
-						text = array[0];
-					}
+					host = addressParts.Length > 1 ? addressParts[addressParts.Length - 2] : addressParts[0];
 				}
 			}
 
 			// TODO probably will have to set serverPlayerState.ConnectionPersistent somewhere else
 			// Though null is fine, it will be set when client actually connects.
-			//serverPlayerState.ConnectionPersistent = new NetworkConnection(); // new NetworkConnection(text, connectionTemporaryId); in rogues
+			//serverPlayerState.ConnectionPersistent = new NetworkConnection(); // new NetworkConnection(host, connectionTemporaryId); in rogues
 			//NetworkServer.AddConnection(serverPlayerState.ConnectionPersistent);
 
 			// TODO LOW load-test bots
@@ -1034,36 +1034,46 @@ public class ServerGameManager : MonoBehaviour
 		}
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
 		GameManager gameManager = GameManager.Get();
-		if (gameManager.GameStatus == GameStatus.Connecting || gameManager.GameStatus == GameStatus.Loading)
+		if (gameManager.GameStatus != GameStatus.Connecting
+		    && gameManager.GameStatus != GameStatus.Loading)
 		{
-			bool flag = false;
+			return;
+		}
+		bool isWaitingForPlayers = false;
+		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
+		{
+			if (serverPlayerState.PlayerInfo != null
+			    && serverPlayerState.SessionInfo != null
+			    && (serverPlayerState.ConnectionPersistent == null || serverPlayerState.ConnectionPersistent.connectionId < 0))
+			{
+				isWaitingForPlayers = true;
+				break;
+			}
+		}
+		bool isTimeOut = Time.unscaledTime - gameManager.GameStatusTime >= commonServerConfig.GameServerClientConnectTimeout.TotalSeconds;
+		if (isWaitingForPlayers && isTimeOut)
+		{
 			foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 			{
-				if (serverPlayerState.PlayerInfo != null && serverPlayerState.SessionInfo != null && (serverPlayerState.ConnectionPersistent == null || serverPlayerState.ConnectionPersistent.connectionId < 0))
+				if (serverPlayerState.PlayerInfo != null
+				    && serverPlayerState.SessionInfo != null
+				    && (serverPlayerState.ConnectionPersistent == null || !serverPlayerState.ConnectionPersistent.isReady))
 				{
-					flag = true;
-					break;
+					Log.Info($"Player {serverPlayerState.PlayerInfo.Handle}[{serverPlayerState.SessionInfo.AccountId}] " +
+					         $"has failed to connect to game {gameManager.GameInfo.Name}, and will now be controlled by a bot " +
+					         $"| {ListenAddress}:{ListenPort}");
+					SendConsoleMessageWithHandle("PlayerFailedToConnect", "Disconnect", serverPlayerState.PlayerInfo.Handle);
+					serverPlayerState.DisconnectAndReplaceWithBots(GameResult.ClientConnectionFailedToGameServer);
 				}
 			}
-			if (flag && Time.unscaledTime - gameManager.GameStatusTime >= commonServerConfig.GameServerClientConnectTimeout.TotalSeconds)
-			{
-				foreach (ServerPlayerState serverPlayerState2 in m_serverPlayerStates.Values)
-				{
-					if (serverPlayerState2.PlayerInfo != null && serverPlayerState2.SessionInfo != null && (serverPlayerState2.ConnectionPersistent == null || !serverPlayerState2.ConnectionPersistent.isReady))
-					{
-						Log.Info("Player {0}[{1}] has failed to connect to game {2}, and will now be controlled by a bot | {3}:{4}", serverPlayerState2.PlayerInfo.Handle, serverPlayerState2.SessionInfo.AccountId, gameManager.GameInfo.Name, ListenAddress, ListenPort);
-						SendConsoleMessageWithHandle("PlayerFailedToConnect", "Disconnect", serverPlayerState2.PlayerInfo.Handle);
-						serverPlayerState2.DisconnectAndReplaceWithBots(GameResult.ClientConnectionFailedToGameServer);
-					}
-				}
-				flag = false;
-			}
-			if (!flag && gameManager.GameStatus == GameStatus.Connecting)
-			{
-				SetGameStatus(GameStatus.Connected);
-				SetGameStatus(GameStatus.Authenticated);
-				SetGameStatus(GameStatus.Loading);
-			}
+			isWaitingForPlayers = false;
+		}
+
+		if (!isWaitingForPlayers && gameManager.GameStatus == GameStatus.Connecting)
+		{
+			SetGameStatus(GameStatus.Connected);
+			SetGameStatus(GameStatus.Authenticated);
+			SetGameStatus(GameStatus.Loading);
 		}
 	}
 
@@ -1450,7 +1460,9 @@ public class ServerGameManager : MonoBehaviour
 		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 		{
 			//Log.Info($"ClientsPreparedForGameStart {serverPlayerState.PlayerInfo.Handle} connected:{serverPlayerState.ConnectionPersistent != null} bot:{serverPlayerState.PlayerInfo.IsAIControlled} ready:{serverPlayerState.GameLoadingState.IsReady}");
-			if (serverPlayerState.ConnectionPersistent != null && !serverPlayerState.PlayerInfo.IsAIControlled && !serverPlayerState.GameLoadingState.IsReady)
+			if (serverPlayerState.ConnectionPersistent != null
+			    && !serverPlayerState.PlayerInfo.IsAIControlled
+			    && !serverPlayerState.GameLoadingState.IsReady)
 			{
 				result = false;
 				break;
@@ -1665,7 +1677,10 @@ public class ServerGameManager : MonoBehaviour
 			{
 				flag2 = NPCCoordinator.Get().LoadingState == NPCCoordinator.LoadingStateEnum.Done;
 			}
-			if (m_loadLevelOperation == null && m_loadingCharacterResources.Count == 0 && (VisualsLoader.Get() == null || VisualsLoader.Get().LevelLoaded()) && flag2)
+			if (m_loadLevelOperation == null
+			    && m_loadingCharacterResources.Count == 0
+			    && (VisualsLoader.Get() == null || VisualsLoader.Get().LevelLoaded())
+			    && flag2)
 			{
 				m_loading = false;
 				foreach (ServerPlayerState sps in m_serverPlayerStates.Values)

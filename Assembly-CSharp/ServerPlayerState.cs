@@ -154,12 +154,7 @@ public class ServerPlayerState
 		{
 			return;
 		}
-		Log.Info("Player {0} exiting game with result {1} ({2})", new object[]
-		{
-			SessionInfo.Name,
-			gameResult,
-			(GameInfo != null) ? GameInfo.Name : "?"
-		});
+		Log.Info($"Player {SessionInfo.Name} exiting game with result {gameResult} ({(GameInfo != null ? GameInfo.Name : "?")})");
 		GameResult = gameResult;
 		long accountId = 0L;
 		if (SessionInfo != null)
