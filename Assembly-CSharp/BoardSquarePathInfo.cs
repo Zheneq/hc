@@ -107,8 +107,8 @@ public class BoardSquarePathInfo : IComparable
 		flag &= other.moveCost == moveCost;
 		flag &= other.heuristicCost == heuristicCost;
 		flag &= other.m_unskippable == m_unskippable;
-		flag &= other.m_moverClashesHere = m_moverClashesHere;
-		flag &= other.m_moverBumpedFromClash = m_moverBumpedFromClash;
+		flag &= other.m_moverClashesHere == m_moverClashesHere; // bugfix: was = instead of ==
+		flag &= other.m_moverBumpedFromClash == m_moverBumpedFromClash; // bugfix: was = instead of ==
 		flag &= other.m_reverse == m_reverse;
 		flag &= other.chargeEndType == chargeEndType;
 		flag &= other.chargeCycleType == chargeCycleType;
