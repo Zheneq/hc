@@ -851,7 +851,7 @@ public class GameFlow : NetworkBehaviour
 
 	// added in rogues
 	[Server]
-	public void AddPlayer(ServerPlayerState serverPlayerState)
+	public void AddPlayer(ServerPlayerState serverPlayerState, bool replayGenerator)  // custom bool replayGenerator
 	{
 		if (!NetworkServer.active)
 		{
@@ -883,6 +883,10 @@ public class GameFlow : NetworkBehaviour
 			throw new Exception(string.Format("Could not load character {0}", serverPlayerState.PlayerInfo.CharacterType.ToString()));
 		}
 		playerDetails.m_serverPlayerInfo = serverPlayerState.PlayerInfo;
+		
+		// custom
+		playerDetails.m_replayGenerator = replayGenerator;
+		
 		base.SetDirtyBit(1U);
 	}
 
@@ -1090,7 +1094,7 @@ public class GameFlow : NetworkBehaviour
 						}
 					}
 				}
-				if (playerDetails.IsHumanControlled)
+				if (playerDetails.IsHumanControlled || playerDetails.m_replayGenerator)  // custom check m_replayGenerator
 				{
 					int playerConnectionId = ServerGameManager.Get().GetPlayerConnectionId(playerDetails.m_accountId);
 					NetworkConnection networkConnection2 = null;

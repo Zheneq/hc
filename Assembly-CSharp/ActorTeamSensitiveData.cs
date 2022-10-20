@@ -1557,7 +1557,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			Log.Error($"OnCheckObserver {m_typeObservingMe} {Actor?.m_displayName} by {playerState?.PlayerInfo.Handle} {player}");
 			return false;
 		}
-		bool isAlly =  playerState.PlayerInfo.TeamId == ActorsTeam;
+		bool isAlly = playerState.PlayerInfo.TeamId == ActorsTeam || playerState.PlayerInfo.TeamId == Team.Spectator;
 		return isAlly == (m_typeObservingMe == ObservedBy.Friendlies);
 	}
 #endif

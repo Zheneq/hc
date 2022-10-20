@@ -73,6 +73,10 @@ public class ServerGameManager : MonoBehaviour
 
 	public bool IsConnectedToMonitorServer => m_monitorGameServerInterface != null && m_monitorGameServerInterface.isConnected;
 
+	// custom
+	private const int ReplayRecorderAccountId = -1;
+	private ReplayRecorder m_replayRecorder;
+	
 	// custom Artemis
 	public static Dictionary<string, GameObject> ResourceNetworkObjects = new Dictionary<string, GameObject>();
 
@@ -511,6 +515,8 @@ public class ServerGameManager : MonoBehaviour
 				}
 			}
 		}
+		// custom
+		m_replayRecorder?.SaveReplay();
 	}
 
 	private void OnDestroy()
@@ -840,6 +846,9 @@ public class ServerGameManager : MonoBehaviour
 		}
 		// end todo remove
 		
+		// custom
+		AddReplayGeneratorSpectator();
+		
 		gameManager.SetGameSummary(new LobbyGameSummary());
 		m_sentGameSummary = false;
 		CommonServerConfig commonServerConfig = CommonServerConfig.Get();
@@ -851,7 +860,35 @@ public class ServerGameManager : MonoBehaviour
 		LoadAssets();
 	}
 
-	private void AddPlayerState(LobbySessionInfo sessionInfo, LobbyServerPlayerInfo primaryPlayerInfo, List<LobbyServerPlayerInfo> proxyPlayerInfos, int connectionTemporaryId)
+	// custom
+	private void AddReplayGeneratorSpectator()
+	{
+		int playerId = 0;
+		LobbyServerPlayerInfo lobbyServerPlayerInfo = new LobbyServerPlayerInfo()
+		{
+			PlayerId = playerId,
+			TeamId = Team.Spectator,
+			Handle = "replay_generator",
+			IsLoadTestBot = true
+		};
+		AddPlayerState(
+			new LobbySessionInfo
+			{
+				AccountId = ReplayRecorderAccountId
+			},
+			lobbyServerPlayerInfo,
+			new List<LobbyServerPlayerInfo>(),
+			-1);
+		ServerPlayerState serverPlayerState = m_serverPlayerStates[playerId];
+		GameManager.Get().TeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(lobbyServerPlayerInfo, 0, new MatchmakingQueueConfig()));
+		m_replayRecorder = new ReplayRecorder(serverPlayerState);
+	}
+
+	private void AddPlayerState(
+		LobbySessionInfo sessionInfo,
+		LobbyServerPlayerInfo primaryPlayerInfo,
+		List<LobbyServerPlayerInfo> proxyPlayerInfos,
+		int connectionTemporaryId)
 	{
 		GameManager gameManager = GameManager.Get();
 		ServerPlayerState serverPlayerState = new ServerPlayerState
@@ -1299,8 +1336,11 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 
-		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
-		playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
+		// custom Artemis (ReconnectReplayStatus is not used in rogues at all
+		if (!playerState.IsAIControlled)
+		{
+			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
+		}
 		// end custom Artemis
 
 		int num = playerState.PlayerInfo.LobbyPlayerInfo.IsSpectator ? 2 : 1;
@@ -1319,7 +1359,10 @@ public class ServerGameManager : MonoBehaviour
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
 
 		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
-		playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
+		if (!playerState.IsAIControlled)
+		{
+			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
+		}
 		// end custom Artemis
 
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
@@ -1352,6 +1395,10 @@ public class ServerGameManager : MonoBehaviour
 		UILoadingScreenPanel.Get().SetLoadingProgress(loadingProgressInfo.PlayerId, loadingProgress, false);
 		foreach (ServerPlayerState serverPlayerState2 in m_serverPlayerStates.Values)
 		{
+			// custom
+			if (serverPlayerState2.IsAIControlled) continue;
+			// end custom
+			
 			if (serverPlayerState2.ConnectionPersistent != null && !serverPlayerState2.LocalClient)
 			{
 				// TODO LOW check
@@ -1759,12 +1806,12 @@ public class ServerGameManager : MonoBehaviour
 		}
 		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 		{
-			if (serverPlayerState.PlayerInfo.IsGameOwner && NetworkClient.active)
-			{
-				// TODO check
-				ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent, 0); // ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent); in rogues
-			}
-			GameFlow.Get().AddPlayer(serverPlayerState);
+			// rogues
+			// if (serverPlayerState.PlayerInfo.IsGameOwner && NetworkClient.active)
+			// {
+			// 	ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent, 0); // ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent); in rogues
+			// }
+			GameFlow.Get().AddPlayer(serverPlayerState, serverPlayerState.SessionInfo.AccountId == ReplayRecorderAccountId);  // custom replay generator flag
 		}
 
 		// custom artemis

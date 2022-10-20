@@ -1993,6 +1993,8 @@
     <Compile Include="ReplaceableVFXPrefab.cs" />
     <Compile Include="Replay.cs" />
     <Compile Include="ReplayPlayManager.cs" />
+    <Compile Include="ReplayRecorder.cs" />
+    <Compile Include="ReplayRecorderNetworkConnection.cs" />
     <Compile Include="ReplayTimestamp.cs" />
     <Compile Include="RequiredObjectiveCountType.cs" />
     <Compile Include="RequirementCollection.cs" />
