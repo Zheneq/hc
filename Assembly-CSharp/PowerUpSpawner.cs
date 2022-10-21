@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -5,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
-public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameEventListener
+public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameEventListener  // IGameEventListener removed in rogues
 {
 	[Serializable]
 	public class PowerupSpawnInfo
@@ -14,6 +16,14 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		public GameObject m_baseSeqPrefab;
 		public GameObject m_spawnSeqPrefab;
 	}
+
+	// rogues
+	// [Serializable]
+	// public class PowerUpByTag
+	// {
+	// 	public string tag;
+	// 	public PowerUp powerUp;
+	// }
 
 	public enum ExtraPowerupSelectMode
 	{
@@ -25,6 +35,10 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	[Separator("Default Prefabs")]
 	public PowerUp m_powerUpPrefab;
+	
+	// rogues
+	// internal List<PowerUpByTag> m_powerUpPrefabByTag;
+	
 	public GameObject m_baseSequencePrefab;
 	public GameObject m_spawnSequencePrefab;
 
@@ -97,6 +111,23 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		set => SetSyncVar(value, ref m_spawningEnabled, 8u);
 	}
 
+	// rogues
+	// public static PowerUp GetPowerUpToSpawn(List<PowerUpByTag> powerUpPrefabs, MissionData mission)
+	// {
+	// 	if (powerUpPrefabs == null)
+	// 	{
+	// 		return null;
+	// 	}
+	// 	foreach (PowerUpByTag powerUpByTag in powerUpPrefabs)
+	// 	{
+	// 		if (mission.IsMissionTagActive(powerUpByTag.tag))
+	// 		{
+	// 			return powerUpByTag.powerUp;
+	// 		}
+	// 	}
+	// 	return null;
+	// }
+
 	private int ChooseNextPrefabSpawnIndex(bool isForFirstSpawn = false)
 	{
 		if (m_extraPowerupsForMixedSpawn == null)
@@ -140,9 +171,24 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	public void Awake()
 	{
 		m_finalizedPowerupSpawnInfoList = new List<PowerupSpawnInfo>();
+		
+		PowerUp powerUpPrefab;
+		
+		// reactor
+		powerUpPrefab = m_powerUpPrefab;
+		// rogues
+		// MissionData mission = NetworkServer.active
+		// 	? GameManager.Get().GameConfig.GameMission
+		// 	: ClientGameManager.Get().GameInfo.GameMission;
+		// powerUpPrefab = GetPowerUpToSpawn(m_powerUpPrefabByTag, mission);
+		// if (powerUpPrefab == null)
+		// {
+		// 	powerUpPrefab = m_powerUpPrefab;
+		// }
+		
 		PowerupSpawnInfo powerupSpawnInfo = new PowerupSpawnInfo
 		{
-			m_powerupObjectPrefab = m_powerUpPrefab,
+			m_powerupObjectPrefab = powerUpPrefab,
 			m_baseSeqPrefab = m_baseSequencePrefab,
 			m_spawnSeqPrefab = m_spawnSequencePrefab
 		};
@@ -166,10 +212,12 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	public void Start()
 	{
+		// removed in rogues
 		if (NetworkClient.active)
 		{
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.ReplayRestart);
 		}
+		// end removed in rogues
 	}
 
 	private void Initialize()
@@ -190,10 +238,12 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			PowerUpManager.Get().RemoveListener(this);
 		}
+		// removed in rogues
 		if (NetworkClient.active)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.ReplayRestart);
 		}
+		// end removed in rogues
 	}
 
 	private void PlayBaseSequence()
@@ -373,6 +423,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		}
 	}
 
+	// removed in rogues
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
 		if (eventType == GameEventManager.EventType.ReplayRestart)
@@ -426,12 +477,20 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	public void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
 	{
+#if SERVER
+		// added in rogues
+		if (boardSquare != null)
+		{
+			squaresToAvoid.Add(boardSquare);
+		}
+#endif
 	}
 
 	private void UNetVersion()
 	{
 	}
 
+	// different in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -486,6 +545,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		return flag;
 	}
 
+	// different in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
