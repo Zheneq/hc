@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
+using Random = UnityEngine.Random;
 
 public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameEventListener
 {
@@ -22,17 +23,17 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	private BoardSquare m_boardSquare;
 
-	[Separator("Default Prefabs", true)]
+	[Separator("Default Prefabs")]
 	public PowerUp m_powerUpPrefab;
 	public GameObject m_baseSequencePrefab;
 	public GameObject m_spawnSequencePrefab;
 
-	[Separator("Additional Prefabs for mixing up powerup to spawn", true)]
+	[Separator("Additional Prefabs for mixing up powerup to spawn")]
 	public ExtraPowerupSelectMode m_extraPowerupSelectMode;
 	public List<PowerupSpawnInfo> m_extraPowerupsForMixedSpawn;
 	public bool m_useSameFirstPowerupIfRandom = true;
 
-	[Separator("Timing of spawns", true)]
+	[Separator("Timing of spawns")]
 	public int m_spawnInterval;
 	public int m_initialSpawnDelay;
 	public Team m_teamRestriction;
@@ -57,74 +58,43 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	public BoardSquare boardSquare => m_boardSquare;
 
-	public bool IsEnabled
-	{
-		get
-		{
-			return m_spawningEnabled && m_isReady;
-		}
-	}
+	public bool IsEnabled => m_spawningEnabled && m_isReady;
 
 	public uint Networkm_sequenceSourceId
 	{
-		get
-		{
-			return m_sequenceSourceId;
-		}
+		get => m_sequenceSourceId;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_sequenceSourceId, 1u);
-		}
+		set => SetSyncVar(value, ref m_sequenceSourceId, 1u);
 	}
 
 	public int Networkm_nextPowerupPrefabIndex
 	{
-		get
-		{
-			return m_nextPowerupPrefabIndex;
-		}
+		get => m_nextPowerupPrefabIndex;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_nextPowerupPrefabIndex, 2u);
-		}
+		set => SetSyncVar(value, ref m_nextPowerupPrefabIndex, 2u);
 	}
 
 	public int Networkm_nextSpawnTurn
 	{
-		get
-		{
-			return m_nextSpawnTurn;
-		}
+		get => m_nextSpawnTurn;
 		[param: In]
 		set
 		{
-			ref int nextSpawnTurn = ref m_nextSpawnTurn;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!syncVarHookGuard)
-				{
-					syncVarHookGuard = true;
-					HookNextSpawnTurn(value);
-					syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookNextSpawnTurn(value);
+				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref nextSpawnTurn, 4u);
+			SetSyncVar(value, ref m_nextSpawnTurn, 4u);
 		}
 	}
 
 	public bool Networkm_spawningEnabled
 	{
-		get
-		{
-			return m_spawningEnabled;
-		}
+		get => m_spawningEnabled;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_spawningEnabled, 8u);
-		}
+		set => SetSyncVar(value, ref m_spawningEnabled, 8u);
 	}
 
 	private int ChooseNextPrefabSpawnIndex(bool isForFirstSpawn = false)
@@ -144,7 +114,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		{
 			if (!isForFirstSpawn || !m_useSameFirstPowerupIfRandom)
 			{
-				return UnityEngine.Random.Range(0, m_finalizedPowerupSpawnInfoList.Count);
+				return Random.Range(0, m_finalizedPowerupSpawnInfoList.Count);
 			}
 		}
 		return 0;
@@ -275,15 +245,15 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	{
 		if (m_baseSequences != null)
 		{
-			for (int i = 0; i < m_baseSequences.Length; i++)
+			foreach (Sequence sequence in m_baseSequences)
 			{
 				if (IsEnabled)
 				{
-					m_baseSequences[i].SetTimerController(m_nextSpawnTurn - GameFlowData.Get().CurrentTurn);
+					sequence.SetTimerController(m_nextSpawnTurn - GameFlowData.Get().CurrentTurn);
 				}
 				else
 				{
-					m_baseSequences[i].SetTimerController(5);
+					sequence.SetTimerController(5);
 				}
 			}
 		}
@@ -320,7 +290,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 		Networkm_nextSpawnTurn = GameFlowData.Get().CurrentTurn + m_spawnInterval;
 		if (GameplayMutators.Get() != null)
 		{
-			Networkm_nextSpawnTurn = Mathf.Max(m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), GameFlowData.Get().CurrentTurn + 1);
+			Networkm_nextSpawnTurn = Mathf.Max(
+				m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), 
+				GameFlowData.Get().CurrentTurn + 1);
 		}
 		Networkm_nextPowerupPrefabIndex = ChooseNextPrefabSpawnIndex();
 		UpdateTimerController();
@@ -329,7 +301,7 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	PowerUp[] PowerUp.IPowerUpListener.GetActivePowerUps()
 	{
-		return new PowerUp[]
+		return new[]
 		{
 			m_powerUpInstance
 		};
