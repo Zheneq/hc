@@ -1,5 +1,8 @@
+// ROGUES
+// SERVER
 using UnityEngine.Networking;
 
+// removed in rogues
 public class ResolvingState : TurnState
 {
 	private float m_stateTime;
@@ -12,6 +15,10 @@ public class ResolvingState : TurnState
 	public override void OnEnter()
 	{
 		ActorData component = m_SM.GetComponent<ActorData>();
+#if SERVER
+		// custom
+		component.GetTimeBank().OnResolve(component);
+#endif
 		if (HUD_UI.Get() != null)
 		{
 			if (component == GameFlowData.Get().activeOwnedActorData)

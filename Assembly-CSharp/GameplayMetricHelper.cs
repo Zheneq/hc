@@ -479,14 +479,9 @@ public static class GameplayMetricHelper
 		}
 	}
 
-	// TODO timebank
 	public static void RecordTimebankUsed(ActorData actor)
 	{
-		PlayerGameSummary playerSummaryByActor = GetPlayerSummaryByActor(actor);
-		if (playerSummaryByActor != null)
-		{
-			playerSummaryByActor.TimebankUsage.Add(GameFlowData.Get().CurrentTurn);
-		}
+		GetPlayerSummaryByActor(actor)?.TimebankUsage.Add(GameFlowData.Get().CurrentTurn);
 	}
 
 	private static PlayerGameSummary GetPlayerSummaryByActor(ActorData actor)

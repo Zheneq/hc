@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -16,6 +18,7 @@ public class TimeBank : NetworkBehaviour
 	private bool m_resolved;
 	private bool m_clientEndTurnRequested;
 
+	// removed in rogues
 	private static int kCmdCmdConsumableUsed = -1923431383;
 
 	public float Networkm_reserveRemaining
@@ -41,13 +44,18 @@ public class TimeBank : NetworkBehaviour
 
 	static TimeBank()
 	{
+		// reactor
 		RegisterCommandDelegate(typeof(TimeBank), kCmdCmdConsumableUsed, InvokeCmdCmdConsumableUsed);
 		NetworkCRC.RegisterBehaviour("TimeBank", 0);
+		// rogues
+		// NetworkBehaviour.RegisterCommandDelegate(typeof(TimeBank), "CmdConsumableUsed", new CmdDelegate(InvokeCmdCmdConsumableUsed));
 	}
 
 	private void Awake()
 	{
 		int networkm_consumablesRemaining = GameWideData.Get().m_tbConsumables;
+		
+		// removed in rogues
 		try
 		{
 			LobbyGameConfig gameConfig = GameManager.Get().GameConfig;
@@ -68,6 +76,8 @@ public class TimeBank : NetworkBehaviour
 		{
 			Log.Exception(exception);
 		}
+		// end removed in rogues
+		
 		Networkm_reserveRemaining = GameWideData.Get().m_tbInitial;
 		Networkm_consumablesRemaining = networkm_consumablesRemaining;
 		ResetTurn();
@@ -103,7 +113,7 @@ public class TimeBank : NetworkBehaviour
 		    && isLocalPlayer
 		    && !GameFlowData.Get().PreventAutoLockInOnTimeout())
 		{
-			component.RequestEndTurn();
+			component.RequestEndTurn();  // RequestEndTurn(true) in rogues
 			m_clientEndTurnRequested = true;
 		}
 	}
@@ -183,16 +193,34 @@ public class TimeBank : NetworkBehaviour
 		{
 			return;
 		}
+		Log.Info($"Timebank {actorData.m_displayName} before resolve: " +
+		         $"m_reserveUsed={m_reserveUsed} " +
+		         $"m_reserveRemaining={m_reserveRemaining} " +
+		         $"m_clientConsumableUsed={m_clientConsumableUsed} " +
+		         $"m_consumablesRemaining={m_consumablesRemaining}");
 		if ((m_reserveUsed > m_reserveRemaining || m_clientConsumableUsed)
-		    && m_consumablesRemaining > 0
-		    && m_clientConsumableUsed)
+		    && m_consumablesRemaining > 0)
 		{
-			Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
+			Log.Info($"Timebank {actorData.m_displayName} used");
+			if (m_clientConsumableUsed)
+			{
+				Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
+				Log.Info($"Timebank {actorData.m_displayName} decreased");
+			}
+#if SERVER
+			// added in rogues
+			GameplayMetricHelper.RecordTimebankUsed(actorData);
+#endif
 		}
 		Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining - m_reserveUsed, 0f);
 		float recharge = Mathf.Min(m_reserveRemaining + GameWideData.Get().m_tbRecharge, GameWideData.Get().m_tbRechargeCap);
 		Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining, recharge);
 		Networkm_resolved = true;
+		Log.Info($"Timebank {actorData.m_displayName} after resolve: " +
+		         $"m_reserveUsed={m_reserveUsed} " +
+		         $"m_reserveRemaining={m_reserveRemaining} " +
+		         $"m_clientConsumableUsed={m_clientConsumableUsed} " +
+		         $"m_consumablesRemaining={m_consumablesRemaining}");
 	}
 
 	private void UNetVersion()
@@ -211,24 +239,31 @@ public class TimeBank : NetworkBehaviour
 
 	public void CallCmdConsumableUsed()
 	{
+		// removed in rogues
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("Command function CmdConsumableUsed called on server.");
 			return;
 		}
+		// end removed in rogues
+		
 		if (isServer)
 		{
 			CmdConsumableUsed();
 			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
+		// reactor
 		networkWriter.Write((short)0);
 		networkWriter.Write((short)5);
 		networkWriter.WritePackedUInt32((uint)kCmdCmdConsumableUsed);
 		networkWriter.Write(GetComponent<NetworkIdentity>().netId);
 		SendCommandInternal(networkWriter, 0, "CmdConsumableUsed");
+		// rogues
+		// base.SendCommandInternal(typeof(TimeBank), "CmdConsumableUsed", networkWriter, 0);
 	}
 
+	// different in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -273,6 +308,7 @@ public class TimeBank : NetworkBehaviour
 		return flag;
 	}
 
+	// different in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
