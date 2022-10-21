@@ -7,66 +7,41 @@ public class TimeBank : NetworkBehaviour
 {
 	[SyncVar]
 	private float m_reserveRemaining;
-
 	[SyncVar]
 	private int m_consumablesRemaining;
-
 	private float m_reserveUsed;
-
 	private bool m_confirmed;
-
 	private bool m_clientConsumableUsed;
-
 	[SyncVar]
 	private bool m_resolved;
-
 	private bool m_clientEndTurnRequested;
 
-	private static int kCmdCmdConsumableUsed;
+	private static int kCmdCmdConsumableUsed = -1923431383;
 
 	public float Networkm_reserveRemaining
 	{
-		get
-		{
-			return m_reserveRemaining;
-		}
+		get => m_reserveRemaining;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_reserveRemaining, 1u);
-		}
+		set => SetSyncVar(value, ref m_reserveRemaining, 1u);
 	}
 
 	public int Networkm_consumablesRemaining
 	{
-		get
-		{
-			return m_consumablesRemaining;
-		}
+		get => m_consumablesRemaining;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_consumablesRemaining, 2u);
-		}
+		set => SetSyncVar(value, ref m_consumablesRemaining, 2u);
 	}
 
 	public bool Networkm_resolved
 	{
-		get
-		{
-			return m_resolved;
-		}
+		get => m_resolved;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_resolved, 4u);
-		}
+		set => SetSyncVar(value, ref m_resolved, 4u);
 	}
 
 	static TimeBank()
 	{
-		kCmdCmdConsumableUsed = -1923431383;
-		NetworkBehaviour.RegisterCommandDelegate(typeof(TimeBank), kCmdCmdConsumableUsed, InvokeCmdCmdConsumableUsed);
+		RegisterCommandDelegate(typeof(TimeBank), kCmdCmdConsumableUsed, InvokeCmdCmdConsumableUsed);
 		NetworkCRC.RegisterBehaviour("TimeBank", 0);
 	}
 
@@ -78,45 +53,16 @@ public class TimeBank : NetworkBehaviour
 			LobbyGameConfig gameConfig = GameManager.Get().GameConfig;
 			if (gameConfig.HasSelectedSubType)
 			{
-				if (gameConfig.InstanceSubType.GameOverrides != null)
+				int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides?.InitialTimeBankConsumables;
+				if (initialTimeBankConsumables.HasValue)
 				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-						{
-							int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
-							if (initialTimeBankConsumables.HasValue)
-							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-									{
-										int? initialTimeBankConsumables2 = gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables;
-										networkm_consumablesRemaining = initialTimeBankConsumables2.Value;
-										goto end_IL_000d;
-									}
-									}
-								}
-							}
-							goto end_IL_000d;
-						}
-						}
-					}
+					networkm_consumablesRemaining = initialTimeBankConsumables.Value;
 				}
 			}
 			else
 			{
 				Log.Error("Why does the GameManager's GameConfig not have a specific InstanceSubType? Where did it get it's GameConfig from? SubTypeBit is set to 0x{0:x4}", gameConfig.InstanceSubTypeBit);
 			}
-			end_IL_000d:;
 		}
 		catch (Exception exception)
 		{
@@ -136,101 +82,40 @@ public class TimeBank : NetworkBehaviour
 	public void Update()
 	{
 		ActorTurnSM component = GetComponent<ActorTurnSM>();
-		if (!component.AmStillDeciding())
+		if (!component.AmStillDeciding()
+		    || GameFlowData.Get() == null
+		    || GameFlowData.Get().GetTimeInState() < 0.9f
+		    || GameFlowData.Get().gameState != GameState.BothTeams_Decision)
 		{
 			return;
 		}
-		while (true)
+		float gracePeriod = GameWideData.Get() != null ? GameWideData.Get().m_tbGracePeriodBeforeConsuming : 0f;
+		if (!m_clientConsumableUsed && TimeToDisplay() + gracePeriod < 0f && !m_confirmed)
 		{
-			if (GameFlowData.Get() == null)
+			m_clientConsumableUsed = true;
+			if (isLocalPlayer)
 			{
-				return;
+				CallCmdConsumableUsed();
 			}
-			while (true)
-			{
-				if (GameFlowData.Get().GetTimeInState() < 0.9f)
-				{
-					return;
-				}
-				while (true)
-				{
-					if (GameFlowData.Get().gameState != GameState.BothTeams_Decision)
-					{
-						return;
-					}
-					float num = TimeToDisplay();
-					float num2;
-					if (GameWideData.Get() != null)
-					{
-						num2 = GameWideData.Get().m_tbGracePeriodBeforeConsuming;
-					}
-					else
-					{
-						num2 = 0f;
-					}
-					float num3 = num2;
-					if (!m_clientConsumableUsed)
-					{
-						if (num + num3 < 0f)
-						{
-							if (!m_confirmed)
-							{
-								m_clientConsumableUsed = true;
-								if (base.isLocalPlayer)
-								{
-									CallCmdConsumableUsed();
-								}
-							}
-						}
-					}
-					if (AllowUnconfirm() || m_clientEndTurnRequested || !base.isLocalPlayer)
-					{
-						return;
-					}
-					while (true)
-					{
-						if (!GameFlowData.Get().PreventAutoLockInOnTimeout())
-						{
-							while (true)
-							{
-								component.RequestEndTurn();
-								m_clientEndTurnRequested = true;
-								return;
-							}
-						}
-						return;
-					}
-				}
-			}
+		}
+		if (!AllowUnconfirm()
+		    && !m_clientEndTurnRequested
+		    && isLocalPlayer
+		    && !GameFlowData.Get().PreventAutoLockInOnTimeout())
+		{
+			component.RequestEndTurn();
+			m_clientEndTurnRequested = true;
 		}
 	}
 
 	public float TimeToDisplay()
 	{
-		float result;
-		if (GameFlowData.Get() != null)
-		{
-			result = GameFlowData.Get().GetTimeRemainingInDecision();
-		}
-		else
-		{
-			result = 0f;
-		}
-		return result;
+		return GameFlowData.Get() != null ? GameFlowData.Get().GetTimeRemainingInDecision() : 0f;
 	}
 
 	public bool HasTimeSaved()
 	{
-		int result;
-		if (!(m_reserveRemaining > 0f))
-		{
-			result = ((m_consumablesRemaining > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return m_reserveRemaining > 0f || m_consumablesRemaining > 0;
 	}
 
 	public float GetTimeSaved()
@@ -294,37 +179,20 @@ public class TimeBank : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		if (m_resolved)
 		{
-			if (m_resolved)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (!(m_reserveUsed > m_reserveRemaining))
-				{
-					if (!m_clientConsumableUsed)
-					{
-						goto IL_0099;
-					}
-				}
-				if (m_consumablesRemaining > 0)
-				{
-					if (m_clientConsumableUsed)
-					{
-						Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
-					}
-				}
-				goto IL_0099;
-				IL_0099:
-				Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining - m_reserveUsed, 0f);
-				float b = Mathf.Min(m_reserveRemaining + GameWideData.Get().m_tbRecharge, GameWideData.Get().m_tbRechargeCap);
-				Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining, b);
-				Networkm_resolved = true;
-				return;
-			}
+			return;
 		}
+		if ((m_reserveUsed > m_reserveRemaining || m_clientConsumableUsed)
+		    && m_consumablesRemaining > 0
+		    && m_clientConsumableUsed)
+		{
+			Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
+		}
+		Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining - m_reserveUsed, 0f);
+		float recharge = Mathf.Min(m_reserveRemaining + GameWideData.Get().m_tbRecharge, GameWideData.Get().m_tbRechargeCap);
+		Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining, recharge);
+		Networkm_resolved = true;
 	}
 
 	private void UNetVersion()
@@ -335,17 +203,8 @@ public class TimeBank : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command CmdConsumableUsed called on client.");
-					return;
-				}
-			}
+			Debug.LogError("Command CmdConsumableUsed called on client.");
+			return;
 		}
 		((TimeBank)obj).CmdConsumableUsed();
 	}
@@ -354,31 +213,13 @@ public class TimeBank : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("Command function CmdConsumableUsed called on server.");
-					return;
-				}
-			}
+			Debug.LogError("Command function CmdConsumableUsed called on server.");
+			return;
 		}
-		if (base.isServer)
+		if (isServer)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					CmdConsumableUsed();
-					return;
-				}
-			}
+			CmdConsumableUsed();
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -398,36 +239,36 @@ public class TimeBank : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_reserveRemaining);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_consumablesRemaining);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_resolved);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
