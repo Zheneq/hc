@@ -336,7 +336,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		{
 			return;
 		}
-		Log.Info($"[JSON] {{\"RpcMovement\":{{" +
+		Log.Info($"[JSON] {m_typeObservingMe} {{\"RpcMovement\":{{" +
 			$"\"wait\":{DefaultJsonSerializer.Serialize(wait)}," +
 			$"\"start\":{DefaultJsonSerializer.Serialize(start)}," +
 			$"\"end\":{DefaultJsonSerializer.Serialize(end_grid)}," +
@@ -494,7 +494,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
-		string jsonLog = "[JSON] {\"actorTeamSensitiveData\": {";
+		string jsonLog = $"[JSON] {m_typeObservingMe} {{\"actorTeamSensitiveData\": {{";
 		uint setBits = uint.MaxValue;
 		if (!initialState)
 		{
@@ -825,7 +825,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcReceivedPingInfo(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType, bool spam)
 	{
-		Log.Info($"[JSON] {{\"RpcReceivedPingInfo\":{{" +
+		Log.Info($"[JSON] {m_typeObservingMe} {{\"RpcReceivedPingInfo\":{{" +
 			$"\"teamIndex\":{DefaultJsonSerializer.Serialize(teamIndex)}," +
 			$"\"worldPosition\":{DefaultJsonSerializer.Serialize(worldPosition)}," +
 			$"\"pingType\":{DefaultJsonSerializer.Serialize(pingType)}," +
@@ -1022,7 +1022,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	[ClientRpc]
 	internal void RpcReceivedAbilityPingInfo(int teamIndex, LocalizationArg_AbilityPing localizedPing, bool spam)
 	{
-		Log.Info($"[JSON] {{\"RpcReceivedAbilityPingInfo\":{{" +
+		Log.Info($"[JSON] {m_typeObservingMe} {{\"RpcReceivedAbilityPingInfo\":{{" +
 			$"\"teamIndex\":{DefaultJsonSerializer.Serialize(teamIndex)}," +
 			$"\"localizedPing\":{DefaultJsonSerializer.Serialize(localizedPing)}," +
 			$"\"spam\":{DefaultJsonSerializer.Serialize(spam)}" +
