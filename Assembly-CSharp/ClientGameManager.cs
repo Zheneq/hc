@@ -3345,34 +3345,21 @@ public class ClientGameManager : MonoBehaviour
 
 	private void SetGameplayOverrides(LobbyGameplayOverrides gameplayOverrides)
 	{
-		bool flag;
-		if (GameManager.Get() != null)
-		{
-			if (GameManager.Get().GameplayOverrides != null)
-			{
-				flag = (GameManager.Get().GameplayOverrides.EnableCards != gameplayOverrides.EnableCards);
-				goto IL_5D;
-			}
-		}
-		flag = false;
-		IL_5D:
-		bool flag2 = flag;
+		bool enableCardsChanged = GameManager.Get() != null
+		             && GameManager.Get().GameplayOverrides != null
+		             && GameManager.Get().GameplayOverrides.EnableCards != gameplayOverrides.EnableCards;
 		GameManager.Get().SetGameplayOverrides(gameplayOverrides);
-		if (flag2)
+		if (enableCardsChanged)
 		{
-			if (UICharacterSelectScreenController.Get() != null)
+			if (UICharacterSelectScreenController.Get() != null
+			    && UICharacterSelectCharacterSettingsPanel.Get() != null)
 			{
-				if (UICharacterSelectCharacterSettingsPanel.Get() != null)
+				if (!gameplayOverrides.EnableCards
+				    && UICharacterSelectCharacterSettingsPanel.Get().GetTabPanel() == UICharacterSelectCharacterSettingsPanel.TabPanel.Catalysts)
 				{
-					if (!gameplayOverrides.EnableCards)
-					{
-						if (UICharacterSelectCharacterSettingsPanel.Get().GetTabPanel() == UICharacterSelectCharacterSettingsPanel.TabPanel.Catalysts)
-						{
-							UICharacterSelectCharacterSettingsPanel.Get().OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Skins);
-						}
-					}
-					UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
+					UICharacterSelectCharacterSettingsPanel.Get().OpenTab(UICharacterSelectCharacterSettingsPanel.TabPanel.Skins);
 				}
+				UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
 			}
 			if (UIRankedCharacterSelectSettingsPanel.Get() != null)
 			{

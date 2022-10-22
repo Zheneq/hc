@@ -783,30 +783,16 @@ public class GameManager : MonoBehaviour
 
 	public void SetGameplayOverrides(LobbyGameplayOverrides gameplayOverrides)
 	{
-		LobbyGameplayOverrides gameplayOverrides2 = GameplayOverrides;
+		LobbyGameplayOverrides oldOverrides = GameplayOverrides;
 		if (gameplayOverrides != null)
 		{
 			gameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
 			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
 		}
 		m_gameplayOverrides = gameplayOverrides;
-		using (List<string>.Enumerator enumerator = gameplayOverrides2.GetDifferences(GameplayOverrides).GetEnumerator())
+		foreach (string current in oldOverrides.GetDifferences(GameplayOverrides))
 		{
-			while (enumerator.MoveNext())
-			{
-				string current = enumerator.Current;
-				Log.Notice(current);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			Log.Notice(current);
 		}
 	}
 
