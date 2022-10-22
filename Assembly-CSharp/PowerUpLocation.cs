@@ -1,5 +1,8 @@
+// ROGUES
+// SERVER
 using UnityEngine;
 
+// same in rogues & reactor
 public class PowerUpLocation : MonoBehaviour
 {
     private BoardSquare m_boardSquare;

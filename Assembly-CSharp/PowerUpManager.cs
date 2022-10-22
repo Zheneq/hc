@@ -211,6 +211,7 @@ public class PowerUpManager : MonoBehaviour
 
 #if SERVER
 	// added in rogues
+	// TODO POWERUPS call it
 	public void ExecuteUnexecutedMovementHitsForAllPowerups(MovementStage movementStage, bool asFailsafe)
 	{
 		foreach (PowerUp.IPowerUpListener powerUpListener in powerUpListeners)

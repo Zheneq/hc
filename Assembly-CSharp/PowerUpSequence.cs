@@ -1,5 +1,8 @@
+// ROGUES
+// SERVER
 using UnityEngine;
 
+// same in rogues & reactor
 public class PowerUpSequence : Sequence
 {
     public Transform m_powerUpPrefab;

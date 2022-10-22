@@ -1,6 +1,9 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// same in rogues & reactor
 public class ClientPowerupResults
 {
 	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
