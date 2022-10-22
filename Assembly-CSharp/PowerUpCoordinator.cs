@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -170,12 +172,23 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 
 	public void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
 	{
+#if SERVER
+		// added in rogues
+		foreach (PowerUpLocation powerUpLocation in m_powerUpLocations)
+		{
+			if (powerUpLocation != null && powerUpLocation.boardSquare != null)
+			{
+				squaresToAvoid.Add(powerUpLocation.boardSquare);
+			}
+		}
+#endif
 	}
 
 	private void UNetVersion()
 	{
 	}
 
+	// different in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -210,6 +223,7 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		return flag;
 	}
 
+	// different in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)
