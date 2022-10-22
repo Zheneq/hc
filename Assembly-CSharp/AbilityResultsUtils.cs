@@ -632,10 +632,17 @@ public static class AbilityResultsUtils
 		sbyte casterActorIndex = (sbyte)results.Effect.CasterActorIndex;
 
 		// custom reactor
-		Ability ability = results.Effect.Parent.Ability;
 		// TODO check this
-		AbilityData.ActionType abilityActionType = ability?.GetComponent<AbilityData>()?.GetActionTypeOfAbility(ability) ?? AbilityData.ActionType.INVALID_ACTION;
-		sbyte sourceAbilityActionType = (sbyte)abilityActionType;
+		AbilityData.ActionType abilityActionType = AbilityData.ActionType.INVALID_ACTION;
+		Ability ability = results.Effect.Parent.Ability;
+		if (ability != null && ability.GetInstanceID() != 0)  // powerups reference broken abilities
+		{
+			AbilityData abilityData = ability.GetComponent<AbilityData>();
+			if (abilityData)
+			{
+				abilityActionType = abilityData.GetActionTypeOfAbility(ability);
+			}
+		}
 		// rogues
 		//bool isStandalone = results.IsStandalone;
 
@@ -659,7 +666,7 @@ public static class AbilityResultsUtils
 		writer.WritePackedUInt32(effectGUID);
 		writer.Write(casterActorIndex);
 		// custom reactor
-		writer.Write(sourceAbilityActionType);
+		writer.Write((sbyte)abilityActionType);
 		// rogues
 		//writer.Write(isStandalone);
 		//if (isStandalone)
