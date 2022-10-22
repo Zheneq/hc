@@ -4,10 +4,11 @@ using UnityEngine;
 public class ClientPowerupResults
 {
 	private List<ServerClientUtils.SequenceStartData> m_seqStartDataList;
-
 	private ClientAbilityResults m_powerupAbilityResults;
 
-	public ClientPowerupResults(List<ServerClientUtils.SequenceStartData> seqStartDataList, ClientAbilityResults clientAbilityResults)
+	public ClientPowerupResults(
+		List<ServerClientUtils.SequenceStartData> seqStartDataList,
+		ClientAbilityResults clientAbilityResults)
 	{
 		m_seqStartDataList = seqStartDataList;
 		m_powerupAbilityResults = clientAbilityResults;
@@ -15,50 +16,15 @@ public class ClientPowerupResults
 
 	public bool HasSequencesToStart()
 	{
-		if (m_seqStartDataList == null)
+		if (m_seqStartDataList == null || m_seqStartDataList.Count == 0)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
+			return false;
 		}
-		if (m_seqStartDataList.Count == 0)
+		foreach (ServerClientUtils.SequenceStartData current in m_seqStartDataList)
 		{
-			while (true)
+			if (current != null && current.HasSequencePrefab())
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		using (List<ServerClientUtils.SequenceStartData>.Enumerator enumerator = m_seqStartDataList.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				ServerClientUtils.SequenceStartData current = enumerator.Current;
-				if (current != null && current.HasSequencePrefab())
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return true;
-						}
-					}
-				}
+				return true;
 			}
 		}
 		return false;
@@ -68,26 +34,19 @@ public class ClientPowerupResults
 	{
 		if (HasSequencesToStart())
 		{
-			while (true)
+			foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
 			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					foreach (ServerClientUtils.SequenceStartData seqStartData in m_seqStartDataList)
-					{
-						seqStartData.CreateSequencesFromData(OnPowerupHitActor, OnPowerupHitPosition);
-					}
-					return;
-				}
+				seqStartData.CreateSequencesFromData(OnPowerupHitActor, OnPowerupHitPosition);
 			}
 		}
-		if (ClientAbilityResults.DebugTraceOn)
+		else
 		{
-			Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+			if (ClientAbilityResults.DebugTraceOn)
+			{
+				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+			}
+			m_powerupAbilityResults.RunClientAbilityHits();
 		}
-		m_powerupAbilityResults.RunClientAbilityHits();
 	}
 
 	internal void OnPowerupHitActor(ActorData target)
@@ -104,16 +63,7 @@ public class ClientPowerupResults
 	{
 		if (m_powerupAbilityResults != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_powerupAbilityResults.GetDebugDescription();
-				}
-			}
+			return m_powerupAbilityResults.GetDebugDescription();
 		}
 		return "Powerup UNKNWON";
 	}
