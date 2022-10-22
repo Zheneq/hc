@@ -6,55 +6,34 @@ using UnityEngine.Networking;
 public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 {
 	public PowerUpLocation[] m_powerUpLocations;
-
 	public PowerUp[] m_powerUpPrefabs;
-
 	public int m_spawnIntervalMin;
-
 	public int m_spawnIntervalMax;
-
 	public int m_initialSpawnDelay;
-
+	
 	[SyncVar]
 	private int m_nextSpawnTurn;
-
 	private PowerUp m_currentPowerUp;
-
 	private PowerUpLocation m_nextPowerUpLocation;
-
 	private GameObject m_nextPowerUpPrefab;
-
 	[SyncVar]
 	private int m_nextPowerUpIndex;
-
 	private bool m_spawningEnabled = true;
 
 	public PowerUp currentPowerUp => m_currentPowerUp;
 
 	public int Networkm_nextSpawnTurn
 	{
-		get
-		{
-			return m_nextSpawnTurn;
-		}
+		get => m_nextSpawnTurn;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_nextSpawnTurn, 1u);
-		}
+		set => SetSyncVar(value, ref m_nextSpawnTurn, 1u);
 	}
 
 	public int Networkm_nextPowerUpIndex
 	{
-		get
-		{
-			return m_nextPowerUpIndex;
-		}
+		get => m_nextPowerUpIndex;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_nextPowerUpIndex, 2u);
-		}
+		set => SetSyncVar(value, ref m_nextPowerUpIndex, 2u);
 	}
 
 	private void Start()
@@ -62,29 +41,20 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		Networkm_nextPowerUpIndex = -1;
 		Networkm_nextSpawnTurn = m_initialSpawnDelay;
 		PowerUpManager.AddListenerStatic(this);
-		for (int i = 0; i < m_powerUpLocations.Length; i++)
+		foreach (PowerUpLocation powerUpLocation in m_powerUpLocations)
 		{
-			if (m_powerUpLocations[i] != null)
+			if (powerUpLocation != null)
 			{
-				m_powerUpLocations[i].Initialize();
+				powerUpLocation.Initialize();
 			}
-		}
-		while (true)
-		{
-			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (m_nextPowerUpIndex != -1)
-		{
-			return;
-		}
-		while (true)
+		if (m_nextPowerUpIndex == -1)
 		{
 			SetupNextPowerupData();
-			return;
 		}
 	}
 
@@ -94,50 +64,16 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		{
 			return;
 		}
-		while (true)
+		if (m_currentPowerUp == null)
 		{
-			if (m_currentPowerUp == null)
+			if (m_nextSpawnTurn <= GameFlowData.Get().CurrentTurn && IsSpawningEnabled())
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						if (m_nextSpawnTurn <= GameFlowData.Get().CurrentTurn)
-						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-									if (IsSpawningEnabled())
-									{
-										while (true)
-										{
-											switch (2)
-											{
-											case 0:
-												break;
-											default:
-												SpawnPowerUp();
-												return;
-											}
-										}
-									}
-									return;
-								}
-							}
-						}
-						return;
-					}
-				}
+				SpawnPowerUp();
 			}
+		}
+		else
+		{
 			m_currentPowerUp.OnTurnTick();
-			return;
 		}
 	}
 
@@ -146,7 +82,9 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 		Networkm_nextSpawnTurn = GameFlowData.Get().CurrentTurn + GameplayRandom.Range(m_spawnIntervalMin, m_spawnIntervalMax);
 		if (GameplayMutators.Get() != null)
 		{
-			Networkm_nextSpawnTurn = Mathf.Max(m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), GameFlowData.Get().CurrentTurn + 1);
+			Networkm_nextSpawnTurn = Mathf.Max(
+				m_nextSpawnTurn - GameplayMutators.GetPowerupRefreshSpeedAdjustment(), 
+				GameFlowData.Get().CurrentTurn + 1);
 		}
 		SetupNextPowerupData();
 		m_currentPowerUp = null;
@@ -154,7 +92,7 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 
 	PowerUp[] PowerUp.IPowerUpListener.GetActivePowerUps()
 	{
-		return new PowerUp[1]
+		return new[]
 		{
 			m_currentPowerUp
 		};
@@ -162,25 +100,14 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 
 	bool PowerUp.IPowerUpListener.IsPowerUpSpawnPoint(BoardSquare square)
 	{
-		bool result = false;
-		PowerUpLocation[] powerUpLocations = m_powerUpLocations;
-		int num = 0;
-		while (true)
+		foreach (PowerUpLocation powerUpLocation in m_powerUpLocations)
 		{
-			if (num < powerUpLocations.Length)
+			if (powerUpLocation != null && powerUpLocation.boardSquare == square)
 			{
-				PowerUpLocation powerUpLocation = powerUpLocations[num];
-				if (powerUpLocation != null && powerUpLocation.boardSquare == square)
-				{
-					result = true;
-					break;
-				}
-				num++;
-				continue;
+				return true;
 			}
-			break;
 		}
-		return result;
+		return false;
 	}
 
 	void PowerUp.IPowerUpListener.SetSpawningEnabled(bool enabled)
@@ -190,55 +117,29 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 
 	private bool IsSpawningEnabled()
 	{
-		int result;
-		if (m_spawningEnabled)
-		{
-			if (DebugParameters.Get() != null)
-			{
-				result = ((!DebugParameters.Get().GetParameterAsBool("DisablePowerUps")) ? 1 : 0);
-			}
-			else
-			{
-				result = 1;
-			}
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_spawningEnabled
+		       && (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DisablePowerUps"));
 	}
 
 	private void SetupNextPowerupData()
 	{
-		if (!NetworkServer.active || m_powerUpPrefabs == null)
+		if (!NetworkServer.active)
 		{
 			return;
 		}
-		while (true)
+		if (m_powerUpPrefabs == null || m_powerUpLocations == null)
 		{
-			if (m_powerUpLocations == null)
-			{
-				return;
-			}
-			Networkm_nextPowerUpIndex = GameplayRandom.Range(0, m_powerUpPrefabs.Length);
-			PowerUpLocation powerUpLocation = m_powerUpLocations[GameplayRandom.Range(0, m_powerUpLocations.Length)];
-			if (powerUpLocation != null && powerUpLocation.boardSquare != null)
-			{
-				m_nextPowerUpLocation = powerUpLocation;
-			}
-			object nextPowerUpPrefab;
-			if (m_powerUpPrefabs[m_nextPowerUpIndex] == null)
-			{
-				nextPowerUpPrefab = null;
-			}
-			else
-			{
-				nextPowerUpPrefab = m_powerUpPrefabs[m_nextPowerUpIndex].gameObject;
-			}
-			m_nextPowerUpPrefab = (GameObject)nextPowerUpPrefab;
 			return;
 		}
+		Networkm_nextPowerUpIndex = GameplayRandom.Range(0, m_powerUpPrefabs.Length);
+		PowerUpLocation powerUpLocation = m_powerUpLocations[GameplayRandom.Range(0, m_powerUpLocations.Length)];
+		if (powerUpLocation != null && powerUpLocation.boardSquare != null)
+		{
+			m_nextPowerUpLocation = powerUpLocation;
+		}
+		m_nextPowerUpPrefab = m_powerUpPrefabs[m_nextPowerUpIndex] != null
+			? m_powerUpPrefabs[m_nextPowerUpIndex].gameObject
+			: null;
 	}
 
 	[Server]
@@ -246,46 +147,25 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Server] function 'System.Void PowerUpCoordinator::SpawnPowerUp()' called on client");
-					return;
-				}
-			}
+			Debug.LogWarning("[Server] function 'System.Void PowerUpCoordinator::SpawnPowerUp()' called on client");
+			return;
 		}
-		if (!m_nextPowerUpPrefab)
+		if (!m_nextPowerUpPrefab
+		    || !m_nextPowerUpLocation
+		    || !m_nextPowerUpLocation.boardSquare)
 		{
 			return;
 		}
-		while (true)
-		{
-			if (!m_nextPowerUpLocation)
-			{
-				return;
-			}
-			while (true)
-			{
-				if ((bool)m_nextPowerUpLocation.boardSquare)
-				{
-					Vector3 position = m_nextPowerUpLocation.boardSquare.ToVector3();
-					GameObject gameObject = Object.Instantiate(m_nextPowerUpPrefab, position, Quaternion.identity);
-					m_currentPowerUp = gameObject.GetComponent<PowerUp>();
-					m_currentPowerUp.powerUpListener = this;
-					m_nextPowerUpPrefab = null;
-					m_nextPowerUpLocation = null;
-					Networkm_nextPowerUpIndex = -1;
-					NetworkServer.Spawn(gameObject);
-					m_currentPowerUp.CalculateBoardSquare();
-					m_currentPowerUp.CheckForPickupOnSpawn();
-				}
-				return;
-			}
-		}
+		Vector3 position = m_nextPowerUpLocation.boardSquare.ToVector3();
+		GameObject gameObject = Instantiate(m_nextPowerUpPrefab, position, Quaternion.identity);
+		m_currentPowerUp = gameObject.GetComponent<PowerUp>();
+		m_currentPowerUp.powerUpListener = this;
+		m_nextPowerUpPrefab = null;
+		m_nextPowerUpLocation = null;
+		Networkm_nextPowerUpIndex = -1;
+		NetworkServer.Spawn(gameObject);
+		m_currentPowerUp.CalculateBoardSquare();
+		m_currentPowerUp.CheckForPickupOnSpawn();
 	}
 
 	public void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
@@ -300,41 +180,32 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					writer.WritePackedUInt32((uint)m_nextSpawnTurn);
-					writer.WritePackedUInt32((uint)m_nextPowerUpIndex);
-					return true;
-				}
-			}
+			writer.WritePackedUInt32((uint)m_nextSpawnTurn);
+			writer.WritePackedUInt32((uint)m_nextPowerUpIndex);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_nextSpawnTurn);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_nextPowerUpIndex);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -343,32 +214,18 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
-					m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
+			m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
 		{
 			m_nextSpawnTurn = (int)reader.ReadPackedUInt32();
 		}
-		if ((num & 2) == 0)
-		{
-			return;
-		}
-		while (true)
+		if ((num & 2) != 0)
 		{
 			m_nextPowerUpIndex = (int)reader.ReadPackedUInt32();
-			return;
 		}
 	}
 }
