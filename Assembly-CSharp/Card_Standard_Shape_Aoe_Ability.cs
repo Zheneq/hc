@@ -1,57 +1,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Chronosurge, Probe
 public class Card_Standard_Shape_Aoe_Ability : Ability
 {
 	public AbilityAreaShape m_shape = AbilityAreaShape.Five_x_Five;
-
 	public bool m_penetrateLos = true;
-
 	public bool m_includeAllies;
-
 	public bool m_includeEnemies;
-
 	[Header("-- Whether require targeting on or near actor")]
 	public bool m_requireTargetingOnActor;
-
 	public AbilityAreaShape m_targeterValidationShape;
-
 	[Header("-- Whether to center shape on caster (for self targeted abilities after Evasion phase)")]
 	public bool m_centerShapeOnCaster;
-
 	[Header("-- On Ally")]
 	public int m_healAmount;
-
 	public int m_techPointGain;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	[Header("-- On Enemy")]
 	public int m_damageAmount;
-
 	public int m_techPointLoss;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Header("-- Vision on Target Square")]
 	public bool m_addVisionOnTargetSquare;
-
 	public float m_visionRadius = 1.5f;
-
 	public int m_visionDuration = 1;
-
 	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always;
-
 	public bool m_visionAreaIgnoreLos = true;
-
 	public bool m_visionAreaCanFunctionInGlobalBlind = true;
-
 	[Header("-- Whether to show targeter arc")]
 	public bool m_showTargeterArc;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_persistentSequencePrefab;
 
 	private void Start()
@@ -61,56 +41,24 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 			m_abilityName = "Card Ability - Standard Shape Aoe";
 		}
 		m_sequencePrefab = m_castSequencePrefab;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, m_shape, m_penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, IncludeEnemies(), IncludeAllies());
-		base.Targeter.ShowArcToShape = m_showTargeterArc;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			m_shape,
+			m_penetrateLos,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			IncludeEnemies(),
+			IncludeAllies());
+		Targeter.ShowArcToShape = m_showTargeterArc;
 	}
 
 	public bool IncludeAllies()
 	{
-		int result;
-		if (m_includeAllies)
-		{
-			if (m_healAmount <= 0)
-			{
-				if (m_techPointGain <= 0)
-				{
-					result = (m_allyHitEffect.m_applyEffect ? 1 : 0);
-					goto IL_0048;
-				}
-			}
-			result = 1;
-		}
-		else
-		{
-			result = 0;
-		}
-		goto IL_0048;
-		IL_0048:
-		return (byte)result != 0;
+		return m_includeAllies && (m_healAmount > 0 || m_techPointGain > 0 || m_allyHitEffect.m_applyEffect);
 	}
 
 	public bool IncludeEnemies()
 	{
-		int result;
-		if (m_includeEnemies)
-		{
-			if (m_damageAmount <= 0)
-			{
-				if (m_techPointLoss <= 0)
-				{
-					result = (m_enemyHitEffect.m_applyEffect ? 1 : 0);
-					goto IL_0048;
-				}
-			}
-			result = 1;
-		}
-		else
-		{
-			result = 0;
-		}
-		goto IL_0048;
-		IL_0048:
-		return (byte)result != 0;
+		return m_includeEnemies && (m_damageAmount > 0 || m_techPointLoss > 0 || m_enemyHitEffect.m_applyEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -122,52 +70,45 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	{
 		if (m_requireTargetingOnActor)
 		{
-			return HasTargetableActorsInDecision(caster, IncludeEnemies(), IncludeAllies(), false, ValidateCheckPath.Ignore, true, false);
+			return HasTargetableActorsInDecision(
+				caster,
+				IncludeEnemies(),
+				IncludeAllies(), 
+				false,
+				ValidateCheckPath.Ignore,
+				true,
+				false);
 		}
 		return base.CustomCanCastValidation(caster);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (m_requireTargetingOnActor)
+		if (!m_requireTargetingOnActor)
 		{
-			while (true)
+			return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
+		}
+		
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_targeterValidationShape, target, m_penetrateLos, caster, relevantTeams, null);
+					
+		foreach (ActorData actor in actorsInShape)
+		{
+			if (CanTargetActorInDecision(
+				    caster,
+				    actor,
+				    IncludeEnemies(),
+				    IncludeAllies(),
+				    false,
+				    ValidateCheckPath.Ignore,
+				    true,
+				    false))
 			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-				{
-					bool result = false;
-					List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_targeterValidationShape, target, m_penetrateLos, caster, relevantTeams, null);
-					using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							ActorData current = enumerator.Current;
-							if (CanTargetActorInDecision(caster, current, IncludeEnemies(), IncludeAllies(), false, ValidateCheckPath.Ignore, true, false))
-							{
-								return true;
-							}
-						}
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								return result;
-							}
-						}
-					}
-				}
-				}
+				return true;
 			}
 		}
-		return base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
+		return false;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
