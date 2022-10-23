@@ -1,34 +1,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Critical Shot, Adrenaline, Overload, Second Wind
 public class Card_Standard_Ability : Ability
 {
 	[Header("-- Targeting --")]
 	public bool m_targetCenterAtCaster;
-
 	[Header("-- On Hit --")]
 	public int m_healAmount = 30;
-
 	public int m_techPointsAmount;
-
 	[Tooltip("Credits to give to the actor who used the card.")]
 	public int m_personalCredits;
-
 	[Tooltip("Credits to give to each actor on the team of the actor who used the card (including the card user).")]
 	public int m_teamCredits;
-
 	public bool m_applyEffect;
-
 	public StandardActorEffectData m_effect;
-
 	public bool m_overrideEffectRunPhase;
-
 	public AbilityPriority m_phaseOverrideValue = AbilityPriority.Combat_Damage;
 
 	private void Start()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			true,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false);
+		Targeter.ShowArcToShape = false;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()

@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Echo Boost
 public class Card_ExtendBuffDuration_Ability : Ability
 {
 	[Header("-- Status to extend duration --")]
 	public int m_extendAmount = 1;
-
 	public List<StatusType> m_buffsToExtend;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
 
@@ -22,8 +21,13 @@ public class Card_ExtendBuffDuration_Ability : Ability
 
 	private void Setup()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			false,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false);
+		Targeter.ShowArcToShape = false;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
