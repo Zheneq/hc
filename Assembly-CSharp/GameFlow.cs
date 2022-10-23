@@ -1445,6 +1445,9 @@ public class GameFlow : NetworkBehaviour
 					this.HandleUpdateStartingGame();
 					return;
 				case GameState.Deployment:
+					// TODO LOW HACK deploymentTime set to 1 second in the asset
+					gameFlowData.m_deploymentTime = 7f;
+					
 					if (gameFlowData.GetTimeSinceDeployment() > gameFlowData.m_deploymentTime / Time.timeScale)
 					{
 						MatchLogger.Get().ResetMatchStartTime();
