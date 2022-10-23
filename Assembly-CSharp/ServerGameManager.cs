@@ -18,7 +18,6 @@ using Random = UnityEngine.Random;
 //using Open.Nat;
 
 // server-only -- was empty in reactor
-// TODO fix networking & asyncs
 public class ServerGameManager : MonoBehaviour
 {
 #if SERVER
@@ -44,7 +43,6 @@ public class ServerGameManager : MonoBehaviour
 	private float m_loadingProgressUpdateFrequency = 0.5f;
 	private List<GameObject> m_instancesForGameScenes = new List<GameObject>();
 
-	// TODO LOW look into this if we want to collect events and stats
 	private ArtemisBridgeServerInterface m_monitorGameServerInterface; // MonitorGameServerInterface in rogues
 
 	private const int m_maxPlayers = 32;
@@ -815,37 +813,6 @@ public class ServerGameManager : MonoBehaviour
 			Log.Info($"ServerGameManager::HandleLaunchGameRequest: Added bot {primaryPlayerInfo.Handle} {primaryPlayerInfo.CharacterType}");
 		}
 
-
-		// TODO REMOVE hack -- no monitor server to create server player state ahead of time, so we create it here
-		List<LobbyServerPlayerInfo> remotePlayers = (from p in request.TeamInfo.TeamPlayerInfo where !p.IsNPCBot && p.IsRemoteControlled select p).ToList();
-		Log.Info($"ServerGameManager::HandleLaunchGameRequest: {remotePlayers.Count} remote players");
-		foreach (LobbyServerPlayerInfo remotePlayer in remotePlayers)
-		{
-			int playerId = remotePlayer.PlayerId;
-			long accountId = Convert.ToInt64(remotePlayer.AccountId);
-			HandleJoinGameServerRequest(new JoinGameServerRequest
-			{
-				OrigRequestId = 0,
-				GameServerProcessCode = "foo",
-				PlayerInfo = remotePlayer,
-				//new LobbyServerPlayerInfo()
-				//{
-				//	PlayerId = playerId,
-				//	ReplacedWithBots = false,
-				//},
-				SessionInfo = new LobbySessionInfo
-				{
-					AccountId = accountId,
-					UserName = $"player_{accountId}",
-					SessionToken = 0,
-					ReconnectSessionToken = 0,
-				}
-			});
-			//m_serverPlayerStates[playerId].ConnectionPersistent = null;
-			Log.Info($"ServerGameManager::HandleLaunchGameRequest [HACK]: Added player {m_serverPlayerStates[playerId].PlayerInfo.Handle} {m_serverPlayerStates[playerId].PlayerInfo.CharacterType}");
-		}
-		// end todo remove
-		
 		// custom
 		AddReplayGeneratorSpectator();
 		
@@ -984,7 +951,6 @@ public class ServerGameManager : MonoBehaviour
 				{
 					playerInfo.CharacterCards.DashCard = CardType.None;
 				}
-
 				if (!gameplayOverrides.IsCardAllowed(playerInfo.CharacterCards.CombatCard))
 				{
 					playerInfo.CharacterCards.CombatCard = CardType.None;
@@ -1163,7 +1129,6 @@ public class ServerGameManager : MonoBehaviour
 						m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
 						GameManager.EndGameNotification endGameNotification = new GameManager.EndGameNotification();
 
-						// TODO LOW check
 						// custom
 						NetworkServer.SendToClient(connectionPersistent.connectionId, (short)MyMsgType.EndGameNotification, endGameNotification);
 						// rogues
@@ -1175,7 +1140,7 @@ public class ServerGameManager : MonoBehaviour
 	}
 
 	// custom
-	static private NetworkMessageDelegate Wrap<T>(Action<NetworkConnection, T> handler) where T : MessageBase, new()
+	private static NetworkMessageDelegate Wrap<T>(Action<NetworkConnection, T> handler) where T : MessageBase, new()
 	{
 		return msg => handler(msg.conn, msg.ReadMessage<T>());
 	}
@@ -1186,16 +1151,11 @@ public class ServerGameManager : MonoBehaviour
 		{
 			return;
 		}
-		long num = Convert.ToInt64(request.AccountId);
-
-		// TODO HACK
-		m_serverPlayerStates[request.PlayerId].SessionInfo.SessionToken = Convert.ToInt64(request.SessionToken);
-		m_serverPlayerStates[request.PlayerId].SessionInfo.AccountId = num;
-
+		long accountId = Convert.ToInt64(request.AccountId);
 		GameManager.LoginResponse loginResponse = new GameManager.LoginResponse();
 		if (!m_serverPlayerStates.TryGetValue(request.PlayerId, out ServerPlayerState serverPlayerState)
 			|| serverPlayerState.SessionInfo == null
-			|| num != serverPlayerState.SessionInfo.AccountId)
+			|| accountId != serverPlayerState.SessionInfo.AccountId)
 		{
 			loginResponse.Success = false;
 			if (serverPlayerState != null && serverPlayerState.ReplacedWithBots)
@@ -1209,7 +1169,6 @@ public class ServerGameManager : MonoBehaviour
 				loginResponse.ErrorMessage = "Invalid login request";
 			}
 
-			// TODO LOW check
 			// custom
 			NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
 			// rogues
@@ -1226,7 +1185,6 @@ public class ServerGameManager : MonoBehaviour
 			Log.Error("Received invalid reconnect request from {0} (connectionId {1}) {2} to game {3} | request= {4} {5} {6} | playerState= {7} {8}", conn.address, conn.connectionId, serverPlayerState.SessionInfo.Name, serverPlayerState.GameInfo.GameServerProcessCode, request.AccountId, request.SessionToken, request.PlayerId, serverPlayerState.SessionInfo.SessionToken, serverPlayerState.SessionInfo.ReconnectSessionToken);
 			loginResponse.ErrorMessage = "Invalid reconnect request";
 
-			// TODO LOW check
 			// custom
 			NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
 			// rogues
@@ -1252,7 +1210,6 @@ public class ServerGameManager : MonoBehaviour
 			Log.Error("LoginRequest from {0} is using type {1} connection, not ServerExternalConnection", serverPlayerState, conn.GetType().ToString());
 			loginResponse.ErrorMessage = string.Format("{0} is not a ServerExternalConnection", conn.GetType());
 
-			// TODO LOW check
 			// custom
 			NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
 			// rogues
@@ -1270,7 +1227,6 @@ public class ServerGameManager : MonoBehaviour
 		serverPlayerState.ConnectionAddress = conn.address;
 		loginResponse.Success = true;
 
-		// TODO LOW check
 		// custom
 		NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
 		// rogues
@@ -1352,7 +1308,6 @@ public class ServerGameManager : MonoBehaviour
 		spawningObjectsNotification.PlayerId = playerState.PlayerInfo.PlayerId;
 		spawningObjectsNotification.SpawnableObjectCount = totalObjectCount;
 
-		// TODO LOW check
 		// custom
 		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
@@ -1401,20 +1356,11 @@ public class ServerGameManager : MonoBehaviour
 			
 			if (serverPlayerState2.ConnectionPersistent != null && !serverPlayerState2.LocalClient)
 			{
-				// TODO LOW check
 				// custom
 				NetworkServer.SendToClient(serverPlayerState2.ConnectionPersistent.connectionId, (short)MyMsgType.ServerAssetsLoadingProgressUpdate, loadingProgressInfo);
 				// rogues
 				//NetworkServer.SendToClient<GameManager.AssetsLoadingProgress>(serverPlayerState2.ConnectionPersistent.connectionId, loadingProgressInfo);
 			}
-
-			// custom TODO HACK
-			//if (serverPlayerState2.PlayerInfo.IsNPCBot && !serverPlayerState2.PlayerInfo.ReplacedWithBots)
-			//{
-			//	serverPlayerState2.DisconnectAndReplaceWithBots(GameResult.ClientDisconnectedAtLaunch);
-			//			 serverPlayerState2.GameLoadingState.IsLoaded = true;
-			//			 //SetClientReady(serverPlayerState2);
-			//		 }
 		}
 	}
 
@@ -1494,7 +1440,6 @@ public class ServerGameManager : MonoBehaviour
 		fakeActionResponse.msgSize = Random.Range(32, 1500); // CryptoRandom.RangeInt32(32, 1500) in rogues
 		fakeActionResponse.msgData = new byte[fakeActionResponse.msgSize];
 
-		// TODO LOW check
 		// custom
 		NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.ServerFakeActionResponse, fakeActionResponse);
 		// rogues
@@ -1669,7 +1614,6 @@ public class ServerGameManager : MonoBehaviour
 				{
 					if (serverPlayerState.ConnectionPersistent != null && !serverPlayerState.LocalClient)
 					{
-						// TODO LOW check
 						// custom
 						NetworkServer.SendToClient(serverPlayerState.ConnectionPersistent.connectionId, (short)MyMsgType.ServerAssetsLoadingProgressUpdate, assetsLoadingProgress);
 						// rogues
