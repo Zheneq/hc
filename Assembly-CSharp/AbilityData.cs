@@ -551,7 +551,10 @@ public class AbilityData : NetworkBehaviour
 		}
 		for (int j = 0; j < NUM_CARDS; j++)
 		{
-			m_currentCardIds.Add(-1);
+				m_currentCardIds.Add(-1);
+#if SERVER
+				m_cardUsed.Add(false);
+#endif
 		}
 		// end removed in rogues
 
@@ -2187,7 +2190,9 @@ public class AbilityData : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void AbilityData::RemoveUsedCards()' called on client");
 			return;
 		}
-		if (NetworkServer.active && CardManagerData.Get() != null && CardManagerData.Get().m_cardConsumeMode == CardManagerData.CardConsumeMode.OneUse)
+		if (NetworkServer.active
+		    && CardManagerData.Get() != null
+		    && CardManagerData.Get().m_cardConsumeMode == CardManagerData.CardConsumeMode.OneUse)
 		{
 			for (int i = 0; i < 3; i++)
 			{
