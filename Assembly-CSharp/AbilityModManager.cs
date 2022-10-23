@@ -9,11 +9,7 @@ public class AbilityModManager : NetworkBehaviour
 
 	private Dictionary<Type, List<AbilityMod>> m_abilityTypeToMods = new Dictionary<Type, List<AbilityMod>>();
 
-	public bool ShowDebugGUI
-	{
-		get;
-		set;
-	}
+	public bool ShowDebugGUI { get; set; }
 
 	internal static AbilityModManager Get()
 	{
@@ -22,14 +18,9 @@ public class AbilityModManager : NetworkBehaviour
 
 	private void Awake()
 	{
-		if (!(s_instance == null))
-		{
-			return;
-		}
-		while (true)
+		if (s_instance == null)
 		{
 			s_instance = this;
-			return;
 		}
 	}
 
@@ -52,31 +43,17 @@ public class AbilityModManager : NetworkBehaviour
 
 	private void OnGameStateChanged(GameState newState)
 	{
-		if (newState == GameState.BothTeams_Decision)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
 		switch (newState)
 		{
-		case GameState.BothTeams_Resolve:
-			while (true)
-			{
+			case GameState.BothTeams_Decision:
+				break;
+			case GameState.BothTeams_Resolve:
 				ShowDebugGUI = false;
-				return;
-			}
-		case GameState.EndingGame:
-			ShowDebugGUI = false;
-			m_abilityTypeToMods.Clear();
-			break;
+				break;
+			case GameState.EndingGame:
+				ShowDebugGUI = false;
+				m_abilityTypeToMods.Clear();
+				break;
 		}
 	}
 
@@ -85,26 +62,13 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogWarning("[Client] function 'System.Void AbilityModManager::OnActiveOwnedActorChange(ActorData)' called on server");
-					return;
-				}
-			}
-		}
-		if (!(activeActor != null))
-		{
+			Debug.LogWarning("[Client] function 'System.Void AbilityModManager::OnActiveOwnedActorChange(ActorData)' called on server");
 			return;
 		}
-		while (true)
+
+		if (activeActor != null)
 		{
 			LoadAvailableModsForActor(activeActor);
-			return;
 		}
 	}
 
@@ -117,23 +81,9 @@ public class AbilityModManager : NetworkBehaviour
 			{
 				LoadAvailableModsForAbility(ability);
 			}
-			using (List<AbilityMod>.Enumerator enumerator = m_abilityTypeToMods[ability.GetType()].GetEnumerator())
+			foreach (AbilityMod mod in m_abilityTypeToMods[ability.GetType()])
 			{
-				while (enumerator.MoveNext())
-				{
-					AbilityMod current = enumerator.Current;
-					list.Add(current);
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return list;
-					}
-				}
+				list.Add(mod);
 			}
 		}
 		return list;
@@ -141,25 +91,19 @@ public class AbilityModManager : NetworkBehaviour
 
 	public AbilityMod GetDefaultModForAbility(Ability ability)
 	{
-		if (ability != null)
+		if (ability == null)
 		{
-			if (!m_abilityTypeToMods.ContainsKey(ability.GetType()))
+			return null;
+		}
+		if (!m_abilityTypeToMods.ContainsKey(ability.GetType()))
+		{
+			LoadAvailableModsForAbility(ability);
+		}
+		foreach (AbilityMod mod in m_abilityTypeToMods[ability.GetType()])
+		{
+			if (mod.m_availableInGame && mod.m_defaultEquip)
 			{
-				LoadAvailableModsForAbility(ability);
-			}
-			using (List<AbilityMod>.Enumerator enumerator = m_abilityTypeToMods[ability.GetType()].GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					AbilityMod current = enumerator.Current;
-					if (current.m_availableInGame)
-					{
-						if (current.m_defaultEquip)
-						{
-							return current;
-						}
-					}
-				}
+				return mod;
 			}
 		}
 		return null;
@@ -171,25 +115,11 @@ public class AbilityModManager : NetworkBehaviour
 		{
 			return null;
 		}
-		List<AbilityMod> availableModsForAbility = GetAvailableModsForAbility(ability);
-		using (List<AbilityMod>.Enumerator enumerator = availableModsForAbility.GetEnumerator())
+		foreach (AbilityMod mod in GetAvailableModsForAbility(ability))
 		{
-			while (enumerator.MoveNext())
+			if (mod != null && mod.m_abilityScopeId == abilityScopeId)
 			{
-				AbilityMod current = enumerator.Current;
-				if (current != null && current.m_abilityScopeId == abilityScopeId)
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return current;
-						}
-					}
-				}
+				return mod;
 			}
 		}
 		return null;
@@ -203,19 +133,8 @@ public class AbilityModManager : NetworkBehaviour
 			AbilityData component = actorData.GetComponent<AbilityData>();
 			if (component != null)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-					{
-						Ability abilityOfActionType = component.GetAbilityOfActionType((AbilityData.ActionType)actionTypeInt);
-						return GetAbilityModForAbilityById(abilityOfActionType, abilityScopeId);
-					}
-					}
-				}
+				Ability abilityOfActionType = component.GetAbilityOfActionType((AbilityData.ActionType)actionTypeInt);
+				return GetAbilityModForAbilityById(abilityOfActionType, abilityScopeId);
 			}
 		}
 		return null;
@@ -223,18 +142,14 @@ public class AbilityModManager : NetworkBehaviour
 
 	private void LoadAvailableModsForActor(ActorData actor)
 	{
-		if (!(actor != null) || !(actor.GetAbilityData() != null))
+		if (actor == null || actor.GetAbilityData() == null)
 		{
 			return;
 		}
-		while (true)
+		for (AbilityData.ActionType i = AbilityData.ActionType.ABILITY_0; i <= AbilityData.ActionType.ABILITY_4; i++)
 		{
-			for (int i = 0; i <= 4; i++)
-			{
-				Ability abilityOfActionType = actor.GetAbilityData().GetAbilityOfActionType((AbilityData.ActionType)i);
-				LoadAvailableModsForAbility(abilityOfActionType);
-			}
-			return;
+			Ability abilityOfActionType = actor.GetAbilityData().GetAbilityOfActionType(i);
+			LoadAvailableModsForAbility(abilityOfActionType);
 		}
 	}
 
@@ -242,16 +157,7 @@ public class AbilityModManager : NetworkBehaviour
 	{
 		if (ability == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		Type type = ability.GetType();
 		if (m_abilityTypeToMods.ContainsKey(type))
@@ -262,24 +168,9 @@ public class AbilityModManager : NetworkBehaviour
 		{
 			m_abilityTypeToMods[type] = new List<AbilityMod>();
 		}
-		List<AbilityMod> availableModsForAbilityType = AbilityModHelper.GetAvailableModsForAbilityType(type);
-		using (List<AbilityMod>.Enumerator enumerator = availableModsForAbilityType.GetEnumerator())
+		foreach (AbilityMod mod in AbilityModHelper.GetAvailableModsForAbilityType(type))
 		{
-			while (enumerator.MoveNext())
-			{
-				AbilityMod current = enumerator.Current;
-				m_abilityTypeToMods[type].Add(current);
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
+			m_abilityTypeToMods[type].Add(mod);
 		}
 	}
 
@@ -289,8 +180,7 @@ public class AbilityModManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result = default(bool);
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
