@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -161,4 +163,62 @@ public class ExampleAbility_Flash : Ability
 	{
 		return ActorData.TeleportType.Evasion_AdjustToVision;
 	}
+
+#if SERVER
+	// added in rogues
+	internal override bool IsStealthEvade()
+	{
+		if (!m_applyEffect)
+		{
+			return false;
+		}
+		foreach (StatusType statusChange in m_effectToApply.m_statusChanges)
+		{
+			if (statusChange == StatusType.InvisibleToEnemies)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_startSquareSequence,
+				caster.GetSquareAtPhaseStart(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource),
+			new ServerClientUtils.SequenceStartData(
+				m_endSquareSequence,
+				Board.Get().GetSquare(targets[0].GridPos),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		if (m_applyEffect)
+		{
+			actorHitResults.AddEffect(new StandardActorEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				m_effectToApply));
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+#endif
 }

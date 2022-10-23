@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +13,12 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	[Header("-- Whether require targeting on or near actor")]
 	public bool m_requireTargetingOnActor;
 	public AbilityAreaShape m_targeterValidationShape;
+	
+	// removed in rogues
 	[Header("-- Whether to center shape on caster (for self targeted abilities after Evasion phase)")]
 	public bool m_centerShapeOnCaster;
+	// end removed in rogues
+	
 	[Header("-- On Ally")]
 	public int m_healAmount;
 	public int m_techPointGain;
@@ -27,7 +33,7 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	public int m_visionDuration = 1;
 	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always;
 	public bool m_visionAreaIgnoreLos = true;
-	public bool m_visionAreaCanFunctionInGlobalBlind = true;
+	public bool m_visionAreaCanFunctionInGlobalBlind = true;  // removed in rogues
 	[Header("-- Whether to show targeter arc")]
 	public bool m_showTargeterArc;
 	[Header("-- Sequences")]
@@ -121,4 +127,66 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 		AbilityMod.AddToken_EffectInfo(tokens, m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
 		AddTokenInt(tokens, "VisionDuration", string.Empty, m_visionDuration);
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (ActorData hitActor in GetHitActors(targets, caster, nonActorTargetInfo))
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+			if (hitActor.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.SetBaseHealing(m_healAmount);
+				actorHitResults.SetTechPointGain(m_techPointGain);
+				actorHitResults.AddStandardEffectInfo(m_allyHitEffect);
+			}
+			else
+			{
+				actorHitResults.SetBaseDamage(m_damageAmount);
+				actorHitResults.SetTechPointLoss(m_techPointLoss);
+				actorHitResults.AddStandardEffectInfo(m_enemyHitEffect);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (m_addVisionOnTargetSquare)
+		{
+			PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(targets[0].FreePos));
+			PositionVisionProviderEffect effect = new PositionVisionProviderEffect(
+				AsEffectSource(),
+				Board.Get().GetSquare(targets[0].GridPos),
+				caster,
+				m_visionDuration,
+				m_visionRadius,
+				m_brushRevealType,
+				m_visionAreaIgnoreLos,
+				m_persistentSequencePrefab);
+			positionHitResults.AddEffect(effect);
+			abilityResults.StorePositionHit(positionHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		return AreaEffectUtils.GetActorsInShape(m_shape, targets[0], m_penetrateLos, caster, relevantTeams, nonActorTargetInfo);
+	}
+#endif
 }

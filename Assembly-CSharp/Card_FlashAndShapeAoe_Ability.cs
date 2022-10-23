@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,4 +82,66 @@ public class Card_FlashAndShapeAoe_Ability : Ability
 			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount)
 		};
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_startSquareSequence,
+				caster.GetSquareAtPhaseStart(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource),
+			new ServerClientUtils.SequenceStartData(
+				m_endSquareSequence,
+				Board.Get().GetSquare(targets[0].GridPos),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		casterHitResults.AddStandardEffectInfo(m_casterHitEffect);
+		abilityResults.StoreActorHit(casterHitResults);
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_shape,
+			targets[0],
+			m_penetrateLos,
+			caster,
+			TargeterUtils.GetRelevantTeams(caster, m_affectAllies, m_affectEnemies),
+			nonActorTargetInfo);
+		if (actorsInShape.Contains(caster))
+		{
+			actorsInShape.Remove(caster);
+		}
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInShape);
+		foreach (ActorData actorData in actorsInShape)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
+			if (actorData.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.AddStandardEffectInfo(m_allyHitEffect);
+				actorHitResults.AddBaseHealing(m_healAmount);
+			}
+			else
+			{
+				actorHitResults.AddStandardEffectInfo(m_enemyHitEffect);
+				actorHitResults.AddBaseDamage(m_damageAmount);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }
