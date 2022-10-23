@@ -6,31 +6,11 @@ public class CardManager : NetworkBehaviour
 	public GameObject m_dataPrefab;
 
 	private CardManagerData m_dataPrefabInstanceComponent;
-
 	private static CardManager s_instance;
 
-	public GameObject[] m_cardIndex
-	{
-		get
-		{
-			object result;
-			if (m_dataPrefabInstanceComponent == null)
-			{
-				result = null;
-			}
-			else
-			{
-				result = m_dataPrefabInstanceComponent.m_cardIndex;
-			}
-			return (GameObject[])result;
-		}
-	}
+	public GameObject[] m_cardIndex => m_dataPrefabInstanceComponent == null ? null : m_dataPrefabInstanceComponent.m_cardIndex;
 
-	public bool ShowingInGameCardUI
-	{
-		get;
-		set;
-	}
+	public bool ShowingInGameCardUI { get; set; }
 
 	internal static CardManager Get()
 	{
@@ -64,8 +44,7 @@ public class CardManager : NetworkBehaviour
 
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result = default(bool);
-		return result;
+		return false;
 	}
 
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
