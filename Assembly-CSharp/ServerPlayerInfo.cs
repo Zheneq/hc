@@ -16,6 +16,8 @@ public class ServerPlayerInfo
 	public CharacterVisualInfo CharacterSkin = new CharacterVisualInfo();
 	public CharacterCardInfo CharacterCards = new CharacterCardInfo();
 
+	// custom
+	public CharacterModInfo CharacterMods = new CharacterModInfo();
 	// rogues
 	//public CharacterGearInfo CharacterGear = new CharacterGearInfo();
 
@@ -35,7 +37,10 @@ public class ServerPlayerInfo
 		CharacterType = lobbyPlayerInfo.CharacterInfo.CharacterType;
 		CharacterSkin = lobbyPlayerInfo.CharacterInfo.CharacterSkin;
 		CharacterCards = lobbyPlayerInfo.CharacterInfo.CharacterCards;
-		//CharacterGear = lobbyPlayerInfo.CharacterInfo.CharacterGear;  // rogues
+		// custom
+		CharacterMods = lobbyPlayerInfo.CharacterInfo.CharacterMods;
+		// rogues
+		// CharacterGear = lobbyPlayerInfo.CharacterInfo.CharacterGear;
 		CharacterTaunts = lobbyPlayerInfo.CharacterInfo.CharacterTaunts;
 		CharacterAbilityVfxSwaps = lobbyPlayerInfo.CharacterInfo.CharacterAbilityVfxSwaps;
 		LobbyPlayerInfo = lobbyPlayerInfo;

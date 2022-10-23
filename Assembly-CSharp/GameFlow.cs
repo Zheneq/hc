@@ -1034,23 +1034,6 @@ public class GameFlow : NetworkBehaviour
 					actorData.SetTeam(playerInfo.TeamId);
 					//actorData.InitEquipmentStats(); // rogues
 
-					// custom
-					// TODO ARTEMIS actors seem to be not network spawned yet at this point (OnStartServer not called)
-					//actorData.GetAbilityData().SpawnAndSetupCards(new CharacterCardInfo  // TODO get cards from lobby
-					//{
-					//	PrepCard = CardType.NoOverride,
-					//	DashCard = CardType.NoOverride,
-					//	CombatCard = CardType.NoOverride,
-					//});
-					//actorData.SetupAbilityMods(new CharacterModInfo  // TODO get mods from lobby
-					//{
-					//	ModForAbility0 = 0,
-					//	ModForAbility1 = 0,
-					//	ModForAbility2 = 0,
-					//	ModForAbility3 = 0,
-					//	ModForAbility4 = 0,
-					//});
-
 					// TODO probably will break fourlancer
 					actorData.PlayerIndex = playerInfo.PlayerId;
 					actorData.ActorIndex = playerInfo.PlayerId;

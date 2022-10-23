@@ -1992,6 +1992,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// reactor
 	public void SetupAbilityMods(CharacterModInfo characterMods)
 	{
 		m_selectedMods = characterMods;
@@ -2017,7 +2018,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			abilityId++;
 		}
 	}
-
 	//public void SetupAbilityGear()  // rogues
 	//{
 	//	if (NetworkServer.active)
