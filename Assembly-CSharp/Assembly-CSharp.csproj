@@ -606,6 +606,7 @@
     <Compile Include="CardMapOverride.cs" />
     <Compile Include="CardMapOverrides.cs" />
     <Compile Include="CardModifyCooldown.cs" />
+    <Compile Include="CardModifyCooldownEffect.cs" />
     <Compile Include="CardRarity.cs" />
     <Compile Include="CardType.cs" />
     <Compile Include="Card_DashAndChase_Ability.cs" />
