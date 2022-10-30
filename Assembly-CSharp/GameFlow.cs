@@ -1447,6 +1447,8 @@ public class GameFlow : NetworkBehaviour
 				case GameState.Deployment:
 					// TODO LOW HACK deploymentTime set to 1 second in the asset
 					gameFlowData.m_deploymentTime = 7f;
+					// TODO LOW HACK m_timeLimitTurns set to 21 in the asset
+					ObjectivePoints.Get().m_timeLimitTurns = 20;
 					
 					if (gameFlowData.GetTimeSinceDeployment() > gameFlowData.m_deploymentTime / Time.timeScale)
 					{
