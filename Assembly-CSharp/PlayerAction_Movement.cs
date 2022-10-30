@@ -82,7 +82,23 @@ public class PlayerAction_Movement : PlayerAction
 			actorData.GetActorMovement().ClearPath();
 			actorData.UpdateServerLastVisibleTurn();
 		}
-		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(movementCollection, out _, out _);
+		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
+			movementCollection,
+			out List<ActorData> seenNonMovers_normal,
+			out List<ActorData> seenNonMovers_chase);
+		// custom
+		List<ActorData> seenNonMovers = m_isChase ? seenNonMovers_chase : seenNonMovers_normal;
+		foreach (ActorData seenNonMover in seenNonMovers)
+		{
+			seenNonMover.TeamSensitiveData_hostile.BroadcastMovement(
+				GameEventManager.EventType.NormalMovementStart,
+				seenNonMover.CurrentBoardSquare.GetGridPos(),
+				seenNonMover.CurrentBoardSquare,
+				ActorData.MovementType.None,
+				ActorData.TeleportType.Reappear,
+				null);
+		}
+		// end custom
 		ServerResolutionManager.Get().OnNormalMovementStart();
 		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, m_isChase
 			? ServerMovementManager.MovementType.NormalMovement_Chase

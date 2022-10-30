@@ -986,6 +986,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			return m_teamSensitiveData_hostile;
 		}
 	}
+	
+	// custom
+	public ActorTeamSensitiveData TeamSensitiveData_hostile => m_teamSensitiveData_hostile;
 
 	public BoardSquare MoveFromBoardSquare
 	{
@@ -7200,9 +7203,20 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		        || ServerLastKnownPosSquare.y != square.y))
 		{
 			ServerLastKnownPosSquare = square;
+			
+			// TODO LOW It doesn't look like this is how it was handled in the original server,
+			//  but otherwise position is updated on the client too late
+			//  (e.g. player gets hit, plays damage animation while standing on wrong square, and then teleports)
+			TeamSensitiveData_hostile.BroadcastMovement(
+				GameEventManager.EventType.ClientResolutionStarted,
+				ServerLastKnownPosSquare.GetGridPos(),
+				ServerLastKnownPosSquare,
+				MovementType.None,
+				TeleportType.Reappear,
+				null);
 		}
 
-		// TODO HIGH check m_serverLastKnownPosX/Y
+		// TODO LOW check m_serverLastKnownPosX/Y
 	}
 #endif
 
