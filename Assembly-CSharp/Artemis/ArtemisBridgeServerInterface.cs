@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
-using UnityEngine;
-using UnityEngine.Networking;
 using WebSocketSharp;
-using Debug = UnityEngine.Debug;
-using ErrorEventArgs = WebSocketSharp.ErrorEventArgs;
 
 namespace ArtemisServer.BridgeServer
 {
@@ -91,7 +85,7 @@ namespace ArtemisServer.BridgeServer
             
             // custom
             Log.Info($"ArtemisBridgeServerInterface initialized for {processType} {lobbyServerAddress} - {processCode}");
-            m_sessionInfo.ConnectionAddress = ServerGameManager.s_address + ":" + ServerGameManager.s_port;
+            m_sessionInfo.ConnectionAddress = HydrogenConfig.Get().PublicAddress + ":" + ServerGameManager.s_port;
         }
 
         protected override void OnConnecting()

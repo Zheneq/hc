@@ -123,6 +123,11 @@ public class HydrogenConfig : JsonConfig
 	private static HydrogenConfig s_instance = new HydrogenConfig();
 
 	public string ProcessName => $"{ProcessType.ToString()}-{ProcessCode}";
+	
+	// TODO LOW use CommonServerConfig? It is not loaded now
+	// custom
+	public string PublicAddress = "127.0.0.1";
+	// end custom
 
 	public HydrogenConfig()
 	{
