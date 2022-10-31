@@ -781,19 +781,15 @@ public class ActorTurnSM : NetworkBehaviour
 
 	private void UpdateStates()
 	{
-#if PURE_REACTOR
-		if (!GameFlowData.Get().GetPause())  // check added in rogues
-		{
-#endif
+		// if (!GameFlowData.Get().GetPause())  // check added in rogues
+		// {
 		do
 		{
 			SwitchToNewStates();
 			GetState().Update();
 		}
 		while (NextState != CurrentState);
-#if PURE_REACTOR
-		}
-#endif
+		// }
 	}
 
 	// added in rogues
@@ -1362,6 +1358,16 @@ public class ActorTurnSM : NetworkBehaviour
 			//}
 			UpdateStates();
 		}
+		
+#if SERVER
+		// custom
+		if (NetworkServer.active
+		    && (msg == TurnMessage.DONE_BUTTON_CLICKED
+				|| msg == TurnMessage.CANCEL_BUTTON_CLICKED))
+		{
+			GameFlowData.Get().UpdateTimeRemainingOverflow();
+		}
+#endif
 	}
 
 	[Command]
@@ -1372,6 +1378,7 @@ public class ActorTurnSM : NetworkBehaviour
 			&& msgEnum != (int)TurnMessage.PICKED_RESPAWN
 			&& msgEnum != (int)TurnMessage.DONE_BUTTON_CLICKED
 			&& msgEnum != (int)TurnMessage.MOVE_BUTTON_CLICKED
+			&& msgEnum != (int)TurnMessage.CANCEL_BUTTON_CLICKED // custom
 			&& msgEnum != (int)TurnMessage.PICK_RESPAWN)
 		{
 			Debug.LogError(string.Format("HACK ATTEMPT: Client sent invalid TurnMessage enum value for CmdGUITurnMessage - {0}", msgEnum));

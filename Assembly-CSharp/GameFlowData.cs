@@ -1618,6 +1618,34 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			ControlpadGameplay.Get().OnTurnTick();
 		}
 	}
+	
+	// custom - don't wait for timebanks if everyone has confirmed
+#if SERVER
+	public void UpdateTimeRemainingOverflow()
+	{
+		float overflow = 0f;
+
+		if (m_timeRemainingInDecision <= 0)
+		{
+			return;
+		}
+		
+		foreach (ActorData actorData in GetActors())
+		{
+			Log.Info($"UpdateTimeRemainingOverflow {actorData.m_displayName} " +
+			         $"{actorData.GetTimeBank().GetPermittedOverflowTime()} " +
+			         $"{actorData.GetActorTurnSM()?.CurrentState}");
+			if (actorData != null
+			    && actorData.IsHumanControlled()
+			    && actorData.GetActorTurnSM()?.CurrentState != TurnStateEnum.CONFIRMED)
+			{
+				overflow = Mathf.Max(overflow, actorData.GetTimeBank().GetPermittedOverflowTime());
+				Log.Info($"UpdateTimeRemainingOverflow Waiting for {actorData.m_displayName} ");
+			}
+		}
+		Networkm_timeRemainingInDecisionOverflow = overflow;
+	}
+#endif
 
 	// removed in rogues
 	public bool HasPotentialGameMutatorVisibilityChanges(bool onTurnStart)
