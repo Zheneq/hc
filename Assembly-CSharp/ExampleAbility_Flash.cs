@@ -39,6 +39,25 @@ public class ExampleAbility_Flash : Ability
 		{
 			m_tags.Add(AbilityTags.UseTeleportUIEffect);
 		}
+		
+#if SERVER
+		// custom
+		if (IsStealthEvade())
+		{
+			if (m_tags != null)
+			{
+				if (!m_tags.Contains(AbilityTags.DontBreakCasterInvisibilityOnCast))
+				{
+					m_tags.Add(AbilityTags.DontBreakCasterInvisibilityOnCast);
+				}
+			}
+			else
+			{
+				Log.Error($"Failed to add stealth evade tag to {GetDebugIdentifier()}!");
+			}
+		}
+		// end custom
+#endif
 	}
 
 	public override bool IsFlashAbility()
