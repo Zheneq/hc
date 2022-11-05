@@ -1379,8 +1379,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public BoardSquare InitialSpawnSquare => m_initialSpawnSquare;
 
+#if SERVER
 	// added in rogues
-	//public event Action<ActorData, ActorHitResults> OnKnockbackHitExecutedDelegate;
+	public event Action<ActorData, ActorHitResults> OnKnockbackHitExecutedDelegate;
+#endif
 
 	public event Action OnTurnStartDelegates;
 	public event Action<UnityEngine.Object, GameObject> OnAnimationEventDelegates;
@@ -5520,12 +5522,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	//}
 
 	// added in rogues
-	//#if SERVER
-	//	public void OnKnockbackHitExecutedOnTarget(ActorData target, ActorHitResults hitRes)
-	//	{
-	//		OnKnockbackHitExecutedDelegate?.Invoke(target, hitRes);
-	//	}
-	//#endif
+#if SERVER
+		public void OnKnockbackHitExecutedOnTarget(ActorData target, ActorHitResults hitRes)
+		{
+			OnKnockbackHitExecutedDelegate?.Invoke(target, hitRes);
+		}
+#endif
 
 	public bool HasQueuedMovement()
 	{
