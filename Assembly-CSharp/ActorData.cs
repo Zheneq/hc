@@ -7209,13 +7209,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			// TODO LOW It doesn't look like this is how it was handled in the original server,
 			//  but otherwise position is updated on the client too late
 			//  (e.g. player gets hit, plays damage animation while standing on wrong square, and then teleports)
-			TeamSensitiveData_hostile.BroadcastMovement(
-				GameEventManager.EventType.ClientResolutionStarted,
-				ServerLastKnownPosSquare.GetGridPos(),
-				ServerLastKnownPosSquare,
-				MovementType.None,
-				TeleportType.Reappear,
-				null);
+			if (ServerLastKnownPosSquare != null)
+			{
+				TeamSensitiveData_hostile.BroadcastMovement(
+					GameEventManager.EventType.ClientResolutionStarted,
+					ServerLastKnownPosSquare.GetGridPos(),
+					ServerLastKnownPosSquare,
+					MovementType.None,
+					TeleportType.Reappear,
+					null);
+			}
 		}
 
 		// TODO LOW check m_serverLastKnownPosX/Y
