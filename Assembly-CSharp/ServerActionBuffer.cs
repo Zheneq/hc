@@ -88,6 +88,9 @@ public class ServerActionBuffer : NetworkBehaviour
 					ServerCombatManager.Get().ResolveHitPoints();
 					ServerCombatManager.Get().ResolveTechPoints();
 				}
+				
+				OnAbilityPhaseEnd(m_abilityPhase); // custom
+				
 				m_abilityPhase = value;
 				SynchronizeSharedData();
 				
