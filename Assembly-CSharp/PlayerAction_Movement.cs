@@ -87,7 +87,8 @@ public class PlayerAction_Movement : PlayerAction
 			out List<ActorData> seenNonMovers_normal,
 			out List<ActorData> seenNonMovers_chase);
 		// custom
-		List<ActorData> seenNonMovers = m_isChase ? seenNonMovers_chase : seenNonMovers_normal;
+		// List<ActorData> seenNonMovers = m_isChase ? seenNonMovers_chase : seenNonMovers_normal;
+		List<ActorData> seenNonMovers = seenNonMovers_normal;
 		foreach (ActorData seenNonMover in seenNonMovers)
 		{
 			seenNonMover.TeamSensitiveData_hostile.BroadcastMovement(

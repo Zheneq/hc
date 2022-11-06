@@ -12,6 +12,8 @@ public static class ServerGameplayUtils
 		MovementCollection stabilizedMovement,
 		out List<ActorData> actorsThatWillBeSeenButArentMoving_normal,
 		out List<ActorData> actorsThatWillBeSeenButArentMoving_chase)
+	// NOTE actorsThatWillBeSeenButArentMoving_chase is always null so it is not used.
+	// If you change that, update the calls accordingly.
 	{
 		Dictionary<ActorData, LastKnownPosData> dictionary = new Dictionary<ActorData, LastKnownPosData>();
 		foreach (MovementInstance movementInstance in stabilizedMovement.m_movementInstances)

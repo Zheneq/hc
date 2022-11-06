@@ -5159,11 +5159,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 #endif
 
 
-	// server-only -- added in rogues
-	// TODO it is suspiciosly empty
+	// server-only -- added in rogues, empty in rogues
+	// TODO VISION maybe we are supposed to synchronize something else
 #if SERVER
 	public void SynchronizeTeamSensitiveData()
 	{
+		// custom
+		TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
 	}
 #endif
 
