@@ -525,6 +525,36 @@ public class ActorStatus : NetworkBehaviour
 				//	}
 				//	break;
 //#endif
+#if SERVER
+			// custom
+			case StatusType.VisionPowerup:
+				ActorAdditionalVisionProviders visionProviders = actorData.GetAdditionalActorVisionProviders();
+				if (statusGained)
+				{
+					// TODO use params from PowerUp_VisionBuff ability?
+					visionProviders.AddVisionProviderOnActor(
+						actorData.ActorIndex,
+						6.0f,
+						false,
+						VisionProviderInfo.BrushRevealType.Always,
+						true,
+						true,
+						BoardSquare.VisibilityFlags.Self);
+				}
+				else
+				{
+					visionProviders.RemoveVisionProviderOnActor(
+						actorData.ActorIndex,
+						6.0f,
+						false,
+						VisionProviderInfo.BrushRevealType.Always,
+						true,
+						true,
+						BoardSquare.VisibilityFlags.Self);
+				}
+				FogOfWar.CalculateFogOfWarForTeam(actorData.GetTeam());
+				break;
+#endif
 		}
 		if (Board.Get() != null)
 		{
