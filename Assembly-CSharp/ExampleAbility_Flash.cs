@@ -42,6 +42,7 @@ public class ExampleAbility_Flash : Ability
 		
 #if SERVER
 		// custom
+		// TODO HACK stealth abilities
 		if (IsStealthEvade())
 		{
 			if (m_tags != null)

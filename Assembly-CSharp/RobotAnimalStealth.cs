@@ -20,6 +20,22 @@ public class RobotAnimalStealth : Ability
 			m_useCharge = false;
 		}
 		SetupTargeter();
+		
+		// custom
+		// TODO HACK stealth abilities
+#if SERVER
+		if (m_tags != null)
+		{
+			if (!m_tags.Contains(AbilityTags.DontBreakCasterInvisibilityOnCast))
+			{
+				m_tags.Add(AbilityTags.DontBreakCasterInvisibilityOnCast);
+			}
+		}
+		else
+		{
+			Log.Error($"Failed to add stealth evade tag to {GetDebugIdentifier()}!");
+		}
+#endif
 	}
 
 	public override int GetExpectedNumberOfTargeters()
