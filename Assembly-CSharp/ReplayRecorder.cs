@@ -112,6 +112,9 @@ public class ReplayRecorder
         m_client.Send((int)MyMsgType.AssetsLoadedNotification, notification);
         
         PopulateReplayData();
+        
+        // Note: without this all NetworkClient.active checks stop failing and break the server
+        m_client.Shutdown();
     }
 }
 #endif
