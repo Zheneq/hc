@@ -137,6 +137,13 @@ public class BazookaGirlDelayedMissileEffect : Effect
                 }
             }
         }
+
+        if (processedActors.Count == 0)
+        {
+            ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Caster, m_targetSquare.ToVector3()));
+            effectResults.StoreActorHit(actorHitResults);
+        }
+        
         PositionHitParameters positionHitParams = new PositionHitParameters(m_targetSquare.ToVector3());
         PositionHitResults positionHitResults = new PositionHitResults(positionHitParams);
         positionHitResults.AddEffectSequenceToEnd(m_markerSequencePrefab, m_guid);
@@ -156,7 +163,7 @@ public class BazookaGirlDelayedMissileEffect : Effect
         Log.Info($"BazookaGirlDelayedMissileEffect::GetCasterAnimationIndex {phaseIndex} (HitPhase={HitPhase}, age={m_time.age})");
         if (phaseIndex == HitPhase && m_time.age >= m_turnsBeforeExploding)
         {
-            return m_explosionAnimationIndex; // TODO Does this number matter? The only thing I know it's non-zero
+            return 0; // m_explosionAnimationIndex; // TODO ZUKI -- m_explosionAnimationIndex is unused
         }
         return base.GetCasterAnimationIndex(phaseIndex);
     }

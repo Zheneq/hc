@@ -335,22 +335,26 @@ public class BazookaGirlDelayedMissile : Ability
 				caster,
 				caster.GetOtherTeams(),
 				nonActorTargetInfo);
-			if (GetOnCastEnemyHitEffect() == null)
+			// if (GetOnCastEnemyHitEffect() == null)
+			// {
+			// 	TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
+			// }
+			StandardEffectInfo onCastEnemyHitEffect = GetOnCastEnemyHitEffect();
+			if (onCastEnemyHitEffect != null && onCastEnemyHitEffect.m_applyEffect)
 			{
-				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
-			}
-			foreach (ActorData targetActor in actors)
-			{
-				if (processedActors.Contains(targetActor))
+				foreach (ActorData targetActor in actors)
 				{
-					continue;
-				}
-				if (targetActor.GetTeam() != caster.GetTeam())
-				{
-					ActorHitParameters hitParams = new ActorHitParameters(targetActor, targetSquare.ToVector3());
-					ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetOnCastEnemyHitEffect(), hitParams);
-					abilityResults.StoreActorHit(hitResults);
-					processedActors.Add(targetActor);
+					if (processedActors.Contains(targetActor))
+					{
+						continue;
+					}
+					if (targetActor.GetTeam() != caster.GetTeam())
+					{
+						ActorHitParameters hitParams = new ActorHitParameters(targetActor, targetSquare.ToVector3());
+						ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, onCastEnemyHitEffect, hitParams);
+						abilityResults.StoreActorHit(hitResults);
+						processedActors.Add(targetActor);
+					}
 				}
 			}
 		}
@@ -409,11 +413,15 @@ public class BazookaGirlDelayedMissile : Ability
 		// }
 		// TODO ZUKI reveal targets if there is an effect and do not reveal otherwise?
 		List<ActorData> targetActors = actors.Where(target => target.GetTeam() != caster.GetTeam()).ToList();
-		foreach (ActorData targetActor in targetActors)
+		StandardEffectInfo onCastEnemyHitEffect = GetOnCastEnemyHitEffect();
+		if (onCastEnemyHitEffect != null && onCastEnemyHitEffect.m_applyEffect)
 		{
-			ActorHitParameters hitParams = new ActorHitParameters(targetActor, damageOrigin);
-			ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, GetOnCastEnemyHitEffect(), hitParams);
-			abilityResults.StoreActorHit(hitResults);
+			foreach (ActorData targetActor in targetActors)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(targetActor, damageOrigin);
+				ActorHitResults hitResults = new ActorHitResults(0, HitActionType.Damage, onCastEnemyHitEffect, hitParams);
+				abilityResults.StoreActorHit(hitResults);
+			}
 		}
 
 		List<ShapeToHitInfo> shapeToHitInfo = new List<ShapeToHitInfo>();
