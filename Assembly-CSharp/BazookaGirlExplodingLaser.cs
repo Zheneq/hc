@@ -267,12 +267,30 @@ public class BazookaGirlExplodingLaser : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
+		Vector3 targetPos;
+		Vector3 aimDirection = m_explosionType == ExplosionType.Cone 
+			? GetAimDirectionLaserWithCone(caster, targets, out targetPos)
+			: GetAimDirectionLaserWithShape(caster, targets, out targetPos);
+		GetHitActorsLaser(caster, targetPos, aimDirection, null, out var adjustedCoords, out _);
+
+		Sequence.IExtraSequenceParams[] extraParams = {
+			new SplineProjectileSequence.DelayedProjectileExtraParams
+			{
+				startDelay = -1.0f
+			},
+			new SplineProjectileSequence.ProjectilePropertyParams
+			{
+				projectileWidthInWorld = 1.125f
+			}
+		};
+		
 		return new ServerClientUtils.SequenceStartData(
 			AsEffectSource().GetSequencePrefab(),
-			targets[0].FreePos,
+			adjustedCoords.end,
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
-			additionalData.m_sequenceSource);
+			additionalData.m_sequenceSource,
+			extraParams);
 	}
 	
 	// custom
@@ -298,42 +316,9 @@ public class BazookaGirlExplodingLaser : Ability
 		ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		AbilityTarget currentTarget = targets[0];
-		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
-		Vector3 targetPos = currentTarget.FreePos;
-		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
-		if (m_clampMaxRangeToCursorPos
-		    && m_snapToTargetSquareWhenClampRange
-		    && targetSquare != null
-		    && targetSquare != caster.GetCurrentBoardSquare())
-		{
-			aimDirection = targetSquare.ToVector3() - caster.GetFreePos();
-			aimDirection.y = 0f;
-			aimDirection.Normalize();
-			targetPos = targetSquare.ToVector3();
-		}
-		float distance = GetLaserRange();
-		if (m_clampMaxRangeToCursorPos)
-		{
-			float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPos);
-			distance = Mathf.Min(clampedDistance, distance);
-		}
-		VectorUtils.LaserCoords adjustedCoords = default(VectorUtils.LaserCoords);
-		adjustedCoords.start = caster.GetLoSCheckPos();
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
-			adjustedCoords.start, 
-			aimDirection,
-			distance,
-			GetLaserWidth(),
-			caster,
-			caster.GetOtherTeams(),
-			LaserPenetrateLos(),
-			1,
-			false,
-			true,
-			out adjustedCoords.end,
-			nonActorTargetInfo);
-		bool hitEnv = AreaEffectUtils.LaserHitWorldGeo(distance, adjustedCoords, LaserPenetrateLos(), actorsInLaser);
+		Vector3 aimDirection = GetAimDirectionLaserWithCone(caster, targets, out Vector3 targetPos);
+		List<ActorData> actorsInLaser = GetHitActorsLaser(
+			caster, targetPos, aimDirection, nonActorTargetInfo, out var adjustedCoords, out bool hitEnv);
 		if (GetLaserDamage() > 0)
 		{
 			foreach (ActorData target in actorsInLaser)
@@ -371,7 +356,7 @@ public class BazookaGirlExplodingLaser : Ability
 			{
 				if (target != null && target.GetTeam() != caster.GetTeam())
 				{
-					ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+					ActorHitParameters hitParams = new ActorHitParameters(target, coneStart);
 					ActorHitResults hitResults = new ActorHitResults(GetExplosionDamage(), HitActionType.Damage, GetExplosionHitEffect(), hitParams);
 					abilityResults.StoreActorHit(hitResults);
 				}
@@ -387,43 +372,9 @@ public class BazookaGirlExplodingLaser : Ability
 		ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		AbilityTarget currentTarget = targets[0];
-		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
-		Vector3 targetPos = currentTarget.FreePos;
-		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
-		if (SnapAimDirection()
-		    && targetSquare != null
-		    && targetSquare != caster.GetCurrentBoardSquare())
-		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_explosionShape, targetSquare.ToVector3(), targetSquare);
-			Vector3 snapTargetPos = SnapToTargetShapeCenter() ? centerOfShape : targetSquare.ToVector3();
-			aimDirection = snapTargetPos - caster.GetFreePos();
-			aimDirection.y = 0f;
-			aimDirection.Normalize();
-			targetPos = snapTargetPos;
-		}
-		float distance = GetLaserRange();
-		if (m_clampMaxRangeToCursorPos)
-		{
-			float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPos);
-			distance = Mathf.Min(clampedDistance, distance);
-		}
-		VectorUtils.LaserCoords adjustedCoords = default(VectorUtils.LaserCoords);
-		adjustedCoords.start = caster.GetLoSCheckPos();
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
-			adjustedCoords.start,
-			aimDirection, 
-			distance,
-			GetLaserWidth(),
-			caster,
-			caster.GetOtherTeams(),
-			LaserPenetrateLos(),
-			1,
-			false, 
-			true,
-			out adjustedCoords.end,
-			nonActorTargetInfo);
-		bool hitEnv = AreaEffectUtils.LaserHitWorldGeo(distance, adjustedCoords, LaserPenetrateLos(), actorsInLaser);
+		Vector3 aimDirection = GetAimDirectionLaserWithShape(caster, targets, out Vector3 targetPos);
+		List<ActorData> actorsInLaser = GetHitActorsLaser(
+			caster, targetPos, aimDirection, nonActorTargetInfo, out var adjustedCoords, out bool hitEnv);
 		foreach (ActorData target in actorsInLaser)
 		{
 			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
@@ -449,13 +400,93 @@ public class BazookaGirlExplodingLaser : Ability
 			{
 				if (!actorsInLaser.Contains(target))
 				{
-					ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+					ActorHitParameters hitParams = new ActorHitParameters(target, centerOfShape);
 					ActorHitResults hitResults = new ActorHitResults(GetExplosionDamage(), HitActionType.Damage, GetExplosionHitEffect(), hitParams);
 					abilityResults.StoreActorHit(hitResults);
 				}
 			}
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// custom
+	private Vector3 GetAimDirectionLaserWithCone(ActorData caster, List<AbilityTarget> targets, out Vector3 targetPos)
+	{
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
+		targetPos = currentTarget.FreePos;
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		if (m_clampMaxRangeToCursorPos
+		    && m_snapToTargetSquareWhenClampRange
+		    && targetSquare != null
+		    && targetSquare != caster.GetCurrentBoardSquare())
+		{
+			aimDirection = targetSquare.ToVector3() - caster.GetFreePos();
+			aimDirection.y = 0f;
+			aimDirection.Normalize();
+			targetPos = targetSquare.ToVector3();
+		}
+
+		targetPos.y = 1.0f;
+
+		return aimDirection;
+	}
+
+	// custom
+	private Vector3 GetAimDirectionLaserWithShape(ActorData caster, List<AbilityTarget> targets, out Vector3 targetPos)
+	{
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget?.AimDirection ?? caster.transform.forward;
+		targetPos = currentTarget.FreePos;
+		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+		if (SnapAimDirection()
+		    && targetSquare != null
+		    && targetSquare != caster.GetCurrentBoardSquare())
+		{
+			Vector3 centerOfShape =
+				AreaEffectUtils.GetCenterOfShape(m_explosionShape, targetSquare.ToVector3(), targetSquare);
+			Vector3 snapTargetPos = SnapToTargetShapeCenter() ? centerOfShape : targetSquare.ToVector3();
+			aimDirection = snapTargetPos - caster.GetFreePos();
+			aimDirection.y = 0f;
+			aimDirection.Normalize();
+			targetPos = snapTargetPos;
+		}
+		return aimDirection;
+	}
+
+	// custom
+	private List<ActorData> GetHitActorsLaser(
+		ActorData caster,
+		Vector3 targetPos,
+		Vector3 aimDirection,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out VectorUtils.LaserCoords adjustedCoords,
+		out bool hitEnv)
+	{
+		float distance = GetLaserRange();
+		if (m_clampMaxRangeToCursorPos)
+		{
+			float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPos);
+			distance = Mathf.Min(clampedDistance, distance);
+		}
+
+		adjustedCoords = default(VectorUtils.LaserCoords);
+		adjustedCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			adjustedCoords.start,
+			aimDirection,
+			distance,
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			LaserPenetrateLos(),
+			1,
+			false,
+			true,
+			out adjustedCoords.end,
+			nonActorTargetInfo);
+		hitEnv = AreaEffectUtils.LaserHitWorldGeo(distance, adjustedCoords, LaserPenetrateLos(), actorsInLaser);
+		return actorsInLaser;
 	}
 
 	// custom
