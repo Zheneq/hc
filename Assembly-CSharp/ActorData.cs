@@ -2680,8 +2680,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	internal bool IsInRagdoll()
 	{
+		// TODO HACK ActorData.m_actorModelData can happen to be null, and it affects gameplay for some reason
+		// (e.g. AdvanceGameplayPath is not called after a dash)
+#if SERVER
+		return false;
+#else
 		Animator modelAnimator = GetModelAnimator();
 		return modelAnimator == null || !modelAnimator.enabled;
+#endif
 	}
 
 	internal void DoVisualDeath(ActorModelData.ImpulseInfo impulseInfo)
