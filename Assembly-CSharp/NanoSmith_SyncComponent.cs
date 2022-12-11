@@ -8,15 +8,9 @@ public class NanoSmith_SyncComponent : NetworkBehaviour
 
 	public int Networkm_extraAbsorbOnVacuumBomb
 	{
-		get
-		{
-			return m_extraAbsorbOnVacuumBomb;
-		}
+		get => m_extraAbsorbOnVacuumBomb;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_extraAbsorbOnVacuumBomb, 1u);
-		}
+		set => SetSyncVar(value, ref m_extraAbsorbOnVacuumBomb, 1u);
 	}
 
 	private void UNetVersion()
@@ -27,31 +21,22 @@ public class NanoSmith_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					writer.WritePackedUInt32((uint)m_extraAbsorbOnVacuumBomb);
-					return true;
-				}
-			}
+			writer.WritePackedUInt32((uint)m_extraAbsorbOnVacuumBomb);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_extraAbsorbOnVacuumBomb);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -60,17 +45,8 @@ public class NanoSmith_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					m_extraAbsorbOnVacuumBomb = (int)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_extraAbsorbOnVacuumBomb = (int)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)

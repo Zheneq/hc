@@ -4,27 +4,19 @@ using UnityEngine;
 public class NanoSmithAnvilSlam : Ability
 {
 	public int m_dashDamageAmount = 5;
-
 	public float m_dashMaxDistance = 5f;
-
 	public float m_dashWidth = 1f;
-
 	public StandardEffectInfo m_dashEffectOnHit;
-
 	public float m_dashRecoveryTime = 0.5f;
-
 	[Header("-- additional bolt info now specified in NanoSmithBoltInfoComponent")]
 	public int m_boltCount = 8;
-
 	public float m_boltAngleOffset;
-
 	public bool m_boltAngleRelativeToAim;
 
 	private NanoSmithBoltInfo m_boltInfo;
 
 	[Header("-- Sequences -----------------------------------------------")]
 	public GameObject m_slamSequencePrefab;
-
 	public GameObject m_boltSequencePrefab;
 
 	private void Start()
@@ -34,7 +26,7 @@ public class NanoSmithAnvilSlam : Ability
 			m_abilityName = "Anvil Slam";
 		}
 		NanoSmithBoltInfoComponent component = GetComponent<NanoSmithBoltInfoComponent>();
-		if ((bool)component)
+		if (component != null)
 		{
 			m_boltInfo = component.m_boltInfo.GetShallowCopy();
 			if (component.m_anvilSlamRangeOverride > 0f)
@@ -48,7 +40,14 @@ public class NanoSmithAnvilSlam : Ability
 			m_boltInfo = new NanoSmithBoltInfo();
 		}
 		ResetTooltipAndTargetingNumbers();
-		base.Targeter = new AbilityUtil_Targeter_AnvilSlam(this, m_dashWidth, m_dashMaxDistance, m_boltCount, m_boltAngleRelativeToAim, m_boltAngleOffset, m_boltInfo);
+		Targeter = new AbilityUtil_Targeter_AnvilSlam(
+			this,
+			m_dashWidth,
+			m_dashMaxDistance,
+			m_boltCount,
+			m_boltAngleRelativeToAim,
+			m_boltAngleOffset,
+			m_boltInfo);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -56,12 +55,9 @@ public class NanoSmithAnvilSlam : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_dashDamageAmount);
 		m_dashEffectOnHit.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
-		if (m_boltCount > 0)
+		if (m_boltCount > 0 && m_boltInfo != null)
 		{
-			if (m_boltInfo != null)
-			{
-				m_boltInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
-			}
+			m_boltInfo.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Secondary);
 		}
 		return numbers;
 	}

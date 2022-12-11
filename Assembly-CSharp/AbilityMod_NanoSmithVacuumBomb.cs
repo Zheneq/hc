@@ -6,11 +6,8 @@ public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
 {
 	[Space(10f)]
 	public AbilityModPropertyInt m_damageMod;
-
 	public AbilityModPropertyInt m_cooldownChangePerHitMod;
-
 	public AbilityModPropertyEffectInfo m_onCenterActorEffectOverride;
-
 	public AbilityModPropertyEffectInfo m_enemyHitEffectOverride;
 
 	public override Type GetTargetAbilityType()
@@ -21,39 +18,23 @@ public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NanoSmithVacuumBomb nanoSmithVacuumBomb = targetAbility as NanoSmithVacuumBomb;
-		if (!(nanoSmithVacuumBomb != null))
+		if (nanoSmithVacuumBomb != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_damageMod, "BombDamageAmount", string.Empty, nanoSmithVacuumBomb.m_bombDamageAmount);
-			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", nanoSmithVacuumBomb.m_enemyHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_onCenterActorEffectOverride, "OnCenterActorEffect", nanoSmithVacuumBomb.m_onCenterActorEffect);
-			return;
+			AddToken(tokens, m_damageMod, "BombDamageAmount", string.Empty, nanoSmithVacuumBomb.m_bombDamageAmount);
+			AddToken_EffectMod(tokens, m_enemyHitEffectOverride, "EnemyHitEffect", nanoSmithVacuumBomb.m_enemyHitEffect);
+			AddToken_EffectMod(tokens, m_onCenterActorEffectOverride, "OnCenterActorEffect", nanoSmithVacuumBomb.m_onCenterActorEffect);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		NanoSmithVacuumBomb nanoSmithVacuumBomb = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithVacuumBomb;
-		bool flag = nanoSmithVacuumBomb != null;
-		string empty = string.Empty;
-		empty += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", flag, flag ? nanoSmithVacuumBomb.m_bombDamageAmount : 0);
-		empty += AbilityModHelper.GetModPropertyDesc(m_cooldownChangePerHitMod, "[Cooldown Change Per Hit]", flag);
-		string str = empty;
-		AbilityModPropertyEffectInfo onCenterActorEffectOverride = m_onCenterActorEffectOverride;
-		object baseVal;
-		if (flag)
-		{
-			baseVal = nanoSmithVacuumBomb.m_onCenterActorEffect;
-		}
-		else
-		{
-			baseVal = null;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(onCenterActorEffectOverride, "{ On CenterActor Effect Override }", flag, (StandardEffectInfo)baseVal);
-		return empty + AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectOverride, "{ Enemy Hit Effect Override }", flag, (!flag) ? null : nanoSmithVacuumBomb.m_enemyHitEffect);
+		bool isValid = nanoSmithVacuumBomb != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? nanoSmithVacuumBomb.m_bombDamageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_cooldownChangePerHitMod, "[Cooldown Change Per Hit]", isValid);
+		desc += AbilityModHelper.GetModPropertyDesc(m_onCenterActorEffectOverride, "{ On CenterActor Effect Override }", isValid, isValid ? nanoSmithVacuumBomb.m_onCenterActorEffect : null);
+		return desc + AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectOverride, "{ Enemy Hit Effect Override }", isValid, isValid ? nanoSmithVacuumBomb.m_enemyHitEffect : null);
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability ability, List<int> numbers)

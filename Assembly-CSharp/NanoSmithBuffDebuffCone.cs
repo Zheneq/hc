@@ -5,18 +5,12 @@ public class NanoSmithBuffDebuffCone : Ability
 {
 	[Header("-- Cone Targeting")]
 	public float m_coneAngle = 270f;
-
 	public float m_coneLength = 1.5f;
-
 	public bool m_conePenetrateLineOfSight;
-
 	[Header("-- Hit Effects")]
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	public StandardEffectInfo m_casterHitEffect;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -32,7 +26,16 @@ public class NanoSmithBuffDebuffCone : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, m_coneAngle, m_coneLength, 0f, m_conePenetrateLineOfSight, true, m_enemyHitEffect.m_applyEffect, m_allyHitEffect.m_applyEffect, m_casterHitEffect.m_applyEffect);
+		Targeter = new AbilityUtil_Targeter_DirectionCone(
+			this,
+			m_coneAngle,
+			m_coneLength,
+			0f,
+			m_conePenetrateLineOfSight,
+			true,
+			m_enemyHitEffect.m_applyEffect,
+			m_allyHitEffect.m_applyEffect,
+			m_casterHitEffect.m_applyEffect);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
