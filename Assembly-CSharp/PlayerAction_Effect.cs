@@ -93,8 +93,8 @@ public class PlayerAction_Effect : PlayerAction
 		{
 			base.ExecuteAction();
 			AbilityPriority phase = this.m_phase;
-			bool flag = phase == AbilityPriority.Evasion;
-			bool flag2 = phase == AbilityPriority.Combat_Knockback;
+			bool isEvasionPhase = phase == AbilityPriority.Evasion;
+			bool isKnockbackPhase = phase == AbilityPriority.Combat_Knockback;
 			List<ActorAnimation> list = new List<ActorAnimation>();
 			this.m_requests = (from effectResults in this.m_requests
 							   where effectResults.m_actorToHitResults.Any<KeyValuePair<ActorData, ActorHitResults>>() || effectResults.m_positionToHitResults.Any<KeyValuePair<Vector3, PositionHitResults>>() || effectResults.m_sequenceStartData.Any<ServerClientUtils.SequenceStartData>()
@@ -107,7 +107,7 @@ public class PlayerAction_Effect : PlayerAction
 				{
 					ActorAnimation actorAnimation = new ActorAnimation(null, null, effectResults2);
 					actorAnimation.m_playOrderGroupIndex = 0;
-					if (flag || flag2)
+					if (isEvasionPhase || isKnockbackPhase)
 					{
 						actorAnimation.m_playOrderIndex = 0;
 					}
@@ -124,12 +124,12 @@ public class PlayerAction_Effect : PlayerAction
 			//{
 			//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
 			//}
-			//if (flag2)
-			//{
-			//	List<ActorData> actorsThatWillBeSeenButArentMoving;
-			//	ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(new List<AbilityRequest>(), out actorsThatWillBeSeenButArentMoving);
-			//	ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
-			//}
+			if (isKnockbackPhase)
+			{
+				List<ActorData> actorsThatWillBeSeenButArentMoving;
+				ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(new List<AbilityRequest>(), out actorsThatWillBeSeenButArentMoving);
+				ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+			}
 			//ServerResolutionManager.Get().SendEffectActionsToClients_FCFS(this.m_requests, list, phase);
 			return list;
 		}
