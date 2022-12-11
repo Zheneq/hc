@@ -6,15 +6,10 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 {
 	[Space(10f)]
 	public AbilityModPropertyInt m_sweepDurationMod;
-
 	public AbilityModPropertyInt m_sweepDamageMod;
-
 	public AbilityModPropertyInt m_shieldGainPerTurnMod;
-
 	public AbilityModPropertyEffectInfo m_allyTargetEffectOverride;
-
 	public AbilityModPropertyEffectInfo m_enemySweepOnHitEffectOverride;
-
 	public AbilityModPropertyEffectInfo m_allySweepOnHitEffectOverride;
 
 	public override Type GetTargetAbilityType()
@@ -25,65 +20,27 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NanoSmithWeaponsOfWar nanoSmithWeaponsOfWar = targetAbility as NanoSmithWeaponsOfWar;
-		if (!(nanoSmithWeaponsOfWar != null))
+		if (nanoSmithWeaponsOfWar != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken_EffectMod(tokens, m_allyTargetEffectOverride, "TargetAllyOnHitEffect", nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect);
-			AbilityMod.AddToken(tokens, m_sweepDamageMod, "SweepDamageAmount", string.Empty, nanoSmithWeaponsOfWar.m_sweepDamageAmount);
-			AbilityMod.AddToken(tokens, m_sweepDurationMod, "SweepDuration", string.Empty, nanoSmithWeaponsOfWar.m_sweepDuration);
-			AbilityMod.AddToken_EffectMod(tokens, m_enemySweepOnHitEffectOverride, "EnemySweepOnHitEffect", nanoSmithWeaponsOfWar.m_enemySweepOnHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_allySweepOnHitEffectOverride, "AllySweepOnHitEffect", nanoSmithWeaponsOfWar.m_allySweepOnHitEffect);
-			AbilityMod.AddToken(tokens, m_shieldGainPerTurnMod, "ShieldGainPerTurn", string.Empty, 0, false);
-			return;
+			AddToken_EffectMod(tokens, m_allyTargetEffectOverride, "TargetAllyOnHitEffect", nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect);
+			AddToken(tokens, m_sweepDamageMod, "SweepDamageAmount", string.Empty, nanoSmithWeaponsOfWar.m_sweepDamageAmount);
+			AddToken(tokens, m_sweepDurationMod, "SweepDuration", string.Empty, nanoSmithWeaponsOfWar.m_sweepDuration);
+			AddToken_EffectMod(tokens, m_enemySweepOnHitEffectOverride, "EnemySweepOnHitEffect", nanoSmithWeaponsOfWar.m_enemySweepOnHitEffect);
+			AddToken_EffectMod(tokens, m_allySweepOnHitEffectOverride, "AllySweepOnHitEffect", nanoSmithWeaponsOfWar.m_allySweepOnHitEffect);
+			AddToken(tokens, m_shieldGainPerTurnMod, "ShieldGainPerTurn", string.Empty, 0, false);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		NanoSmithWeaponsOfWar nanoSmithWeaponsOfWar = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithWeaponsOfWar;
-		bool flag = nanoSmithWeaponsOfWar != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt sweepDurationMod = m_sweepDurationMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = nanoSmithWeaponsOfWar.m_sweepDuration;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(sweepDurationMod, "[Sweep Duration]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyInt sweepDamageMod = m_sweepDamageMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = nanoSmithWeaponsOfWar.m_sweepDamageAmount;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(sweepDamageMod, "[Sweep Damage]", flag, baseVal2);
-		empty += AbilityModHelper.GetModPropertyDesc(m_shieldGainPerTurnMod, "[Shield Gain Per Round]", flag);
-		string str3 = empty;
-		AbilityModPropertyEffectInfo allyTargetEffectOverride = m_allyTargetEffectOverride;
-		object baseVal3;
-		if (flag)
-		{
-			baseVal3 = nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect;
-		}
-		else
-		{
-			baseVal3 = null;
-		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(allyTargetEffectOverride, "{ Ally Target Effect Override }", flag, (StandardEffectInfo)baseVal3);
-		empty += AbilityModHelper.GetModPropertyDesc(m_enemySweepOnHitEffectOverride, "{ Enemy Sweep On Hit Effect Override }", flag, (!flag) ? null : nanoSmithWeaponsOfWar.m_enemySweepOnHitEffect);
-		return empty + AbilityModHelper.GetModPropertyDesc(m_allySweepOnHitEffectOverride, "{ Ally Sweep On Hit Effect Override }", flag, (!flag) ? null : nanoSmithWeaponsOfWar.m_allySweepOnHitEffect);
+		bool isValid = nanoSmithWeaponsOfWar != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_sweepDurationMod, "[Sweep Duration]", isValid, isValid ? nanoSmithWeaponsOfWar.m_sweepDuration : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_sweepDamageMod, "[Sweep Damage]", isValid, isValid ? nanoSmithWeaponsOfWar.m_sweepDamageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_shieldGainPerTurnMod, "[Shield Gain Per Round]", isValid);
+		desc += AbilityModHelper.GetModPropertyDesc(m_allyTargetEffectOverride, "{ Ally Target Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect : null);
+		desc += AbilityModHelper.GetModPropertyDesc(m_enemySweepOnHitEffectOverride, "{ Enemy Sweep On Hit Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_enemySweepOnHitEffect : null);
+		return desc + AbilityModHelper.GetModPropertyDesc(m_allySweepOnHitEffectOverride, "{ Ally Sweep On Hit Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_allySweepOnHitEffect : null);
 	}
 }

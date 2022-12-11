@@ -5,17 +5,13 @@ public class NanoSmithBarrier : Ability
 {
 	[Header("-- Barrier Info")]
 	public bool m_snapToGrid = true;
-
 	public StandardBarrierData m_barrierData;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSeqPrefab;
-
 	[TextArea(1, 10)]
 	public string m_notes;
 
 	private AbilityMod_NanoSmithBarrier m_abilityMod;
-
 	private StandardBarrierData m_cachedBarrierData;
 
 	private void Start()
@@ -33,23 +29,19 @@ public class NanoSmithBarrier : Ability
 		float width = barrierData.m_width;
 		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					base.Targeter = new AbilityUtil_Targeter_Barrier(this, barrierData.m_width, m_snapToGrid);
-					return;
-				}
-			}
+			Targeter = new AbilityUtil_Targeter_Barrier(this, barrierData.m_width, m_snapToGrid);
+			return;
 		}
 		ClearTargeters();
-		base.Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false));
-		AbilityUtil_Targeter_Barrier abilityUtil_Targeter_Barrier = new AbilityUtil_Targeter_Barrier(this, width, m_snapToGrid, false, false);
-		abilityUtil_Targeter_Barrier.SetUseMultiTargetUpdate(true);
-		base.Targeters.Add(abilityUtil_Targeter_Barrier);
+		Targeters.Add(new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			true,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false));
+		AbilityUtil_Targeter_Barrier targeter = new AbilityUtil_Targeter_Barrier(this, width, m_snapToGrid, false, false);
+		targeter.SetUseMultiTargetUpdate(true);
+		Targeters.Add(targeter);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -68,21 +60,7 @@ public class NanoSmithBarrier : Ability
 	{
 		if (GetExpectedNumberOfTargeters() > 1 && targetIndex > 0)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-					bool flag = false;
-					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[0].GridPos);
-					return boardSquareSafe2 == boardSquareSafe;
-				}
-				}
-			}
+			return Board.Get().GetSquare(currentTargets[0].GridPos) == Board.Get().GetSquare(target.GridPos);
 		}
 		return true;
 	}
@@ -90,31 +68,19 @@ public class NanoSmithBarrier : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_NanoSmithBarrier abilityMod_NanoSmithBarrier = modAsBase as AbilityMod_NanoSmithBarrier;
-		StandardBarrierData standardBarrierData;
-		if ((bool)abilityMod_NanoSmithBarrier)
-		{
-			standardBarrierData = abilityMod_NanoSmithBarrier.m_barrierDataMod.GetModifiedValue(m_barrierData);
-		}
-		else
-		{
-			standardBarrierData = m_barrierData;
-		}
-		StandardBarrierData standardBarrierData2 = standardBarrierData;
-		standardBarrierData2.AddTooltipTokens(tokens, "BarrierData", abilityMod_NanoSmithBarrier != null, m_barrierData);
+		StandardBarrierData barrierData = abilityMod_NanoSmithBarrier != null
+			? abilityMod_NanoSmithBarrier.m_barrierDataMod.GetModifiedValue(m_barrierData)
+			: m_barrierData;
+		barrierData.AddTooltipTokens(tokens, "BarrierData", abilityMod_NanoSmithBarrier != null, m_barrierData);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_NanoSmithBarrier))
+		if (abilityMod.GetType() == typeof(AbilityMod_NanoSmithBarrier))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_NanoSmithBarrier);
+			m_abilityMod = abilityMod as AbilityMod_NanoSmithBarrier;
 			m_cachedBarrierData = m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData);
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -127,15 +93,6 @@ public class NanoSmithBarrier : Ability
 
 	private StandardBarrierData GetBarrierData()
 	{
-		StandardBarrierData result;
-		if (m_abilityMod == null)
-		{
-			result = m_barrierData;
-		}
-		else
-		{
-			result = m_cachedBarrierData;
-		}
-		return result;
+		return m_abilityMod != null ? m_cachedBarrierData : m_barrierData;
 	}
 }
