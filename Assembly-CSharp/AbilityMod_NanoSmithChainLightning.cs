@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,9 +49,12 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues 
 	{
+		// reactor
 		NanoSmithChainLightning nanoSmithChainLightning = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithChainLightning;
+		// rogues
+		// NanoSmithChainLightning nanoSmithChainLightning = targetAbility as NanoSmithChainLightning;
 		bool isValid = nanoSmithChainLightning != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", isValid, isValid ? nanoSmithChainLightning.m_laserDamage : 0);

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,6 +50,14 @@ public class NanoSmithBoltInfo
 			true,
 			out coords.end,
 			nonActorTargetInfo);
+		
+		// added in rogues
+		// if (boltPhase == AbilityPriority.Evasion)  
+		// {
+		// 	ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRange);
+		// }
+		// end added in rogues
+
 		if (!includeActorAtStartPos)
 		{
 			BoardSquare boardSquare = Board.Get().GetSquareFromVec3(boltStartPos);

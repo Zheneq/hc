@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +16,7 @@ public class NanosmithBoltLaserSequence : Sequence
 		public Vector3[] boltEndPositions;
 		public List<ActorData[]> boltHitActors;
 
+		// changed in rogues
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
 			stream.Serialize(ref startDelay);
@@ -45,6 +48,7 @@ public class NanosmithBoltLaserSequence : Sequence
 			}
 		}
 
+		// changed in rogues
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
 			stream.Serialize(ref startDelay);
@@ -350,8 +354,9 @@ public class NanosmithBoltLaserSequence : Sequence
 							SpawnImpactFX(TargetPos, Quaternion.identity);
 						}
 						m_fx.SetActive(false);
-						if (m_fxImpactPrefab == null && m_markForRemovalAfterImpact)
+						if (m_fxImpactPrefab == null) // broken code both in reactor & rogues
 						{
+							bool markForRemovalAfterImpact = m_markForRemovalAfterImpact;
 						}
 					}
 				}
@@ -361,8 +366,9 @@ public class NanosmithBoltLaserSequence : Sequence
 					{
 						m_impactDurationLeft -= GameTime.deltaTime;
 					}
-					else if (m_markForRemovalAfterImpact)
+					else // broken code both in reactor & rogues
 					{
+						bool markForRemovalAfterImpact2 = m_markForRemovalAfterImpact;
 					}
 				}
 			}

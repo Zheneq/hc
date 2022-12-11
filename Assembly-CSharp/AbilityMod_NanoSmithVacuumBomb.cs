@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,9 +28,12 @@ public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		NanoSmithVacuumBomb nanoSmithVacuumBomb = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithVacuumBomb;
+		// rogues
+		// NanoSmithVacuumBomb nanoSmithVacuumBomb = targetAbility as NanoSmithVacuumBomb;
 		bool isValid = nanoSmithVacuumBomb != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? nanoSmithVacuumBomb.m_bombDamageAmount : 0);

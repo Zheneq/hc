@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -155,4 +157,83 @@ public class NanoSmithWeaponsOfWar : Ability
 			? m_abilityMod.m_enemySweepOnHitEffectOverride.GetModifiedValue(m_enemySweepOnHitEffect)
 			: m_enemySweepOnHitEffect;
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData currentBestActorTarget = targets[0].GetCurrentBestActorTarget();
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab, square, currentBestActorTarget.AsArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData hitActor = GetHitActor(targets, caster);
+		if (hitActor == null)
+		{
+			return;
+		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, hitActor.GetFreePos()));
+		bool flag = hitActor.GetTeam() == caster.GetTeam();
+		if ((flag && m_canTargetAllies) || (!flag && m_canTargetEnemies))
+		{
+			actorHitResults.AddStandardEffectInfo(flag ? GetAllyTargetEffect() : m_targetEnemyOnHitEffect);
+			bool includeAllies = m_sweepIncludeAllies || (GetAllySweepEffect() != null && GetAllySweepEffect().m_applyEffect);
+			NanoSmithWeaponsOfWarEffect effect = new NanoSmithWeaponsOfWarEffect(
+				AsEffectSource(),
+				square,
+				hitActor,
+				caster,
+				GetSweepDuration(),
+				GetSweepDamage(),
+				m_sweepShape,
+				m_sweepPenetrateLineOfSight,
+				m_sweepIncludeTarget,
+				m_sweepIncludeEnemies,
+				includeAllies,
+				m_sweepDamageDelay,
+				GetEnemySweepEffect(),
+				GetAllySweepEffect(),
+				m_persistentSequencePrefab,
+				m_rangeIndicatorSequencePrefab,
+				m_bladeSequencePrefab);
+			actorHitResults.AddEffect(effect);
+			if (flag && GetShieldGainPerTurn() > 0)
+			{
+				ShieldOverTimeEffect shieldEffect = new ShieldOverTimeEffect(
+					AsEffectSource(),
+					square,
+					hitActor,
+					caster,
+					AbilityPriority.Prep_Defense,
+					GetSweepDuration(),
+					GetShieldGainPerTurn(),
+					1,
+					m_shieldPerTurnSequencePrefab);
+				actorHitResults.AddEffect(shieldEffect);
+			}
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	// added in rogues
+	private ActorData GetHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null
+		    && square.OccupantActor != null
+		    && !square.OccupantActor.IgnoreForAbilityHits)
+		{
+			return square.OccupantActor;
+		}
+		return null;
+	}
+#endif
 }

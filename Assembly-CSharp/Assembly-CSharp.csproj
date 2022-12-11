@@ -1676,6 +1676,7 @@
     <Compile Include="NanoSmithAnvilSlam.cs" />
     <Compile Include="NanoSmithBarrier.cs" />
     <Compile Include="NanoSmithBlastShield.cs" />
+    <Compile Include="NanoSmithBlastShieldEffect.cs" />
     <Compile Include="NanoSmithBoltInfo.cs" />
     <Compile Include="NanoSmithBoltInfoComponent.cs" />
     <Compile Include="NanosmithBoltLaserSequence.cs" />
@@ -1685,6 +1686,7 @@
     <Compile Include="NanoSmithSmite.cs" />
     <Compile Include="NanoSmithVacuumBomb.cs" />
     <Compile Include="NanoSmithWeaponsOfWar.cs" />
+    <Compile Include="NanoSmithWeaponsOfWarEffect.cs" />
     <Compile Include="NanoSmith_SyncComponent.cs" />
     <Compile Include="NavigationBar.cs" />
     <Compile Include="NegateLogicOpClass.cs" />
@@ -2133,6 +2135,7 @@
     <Compile Include="ShapeToDataBase.cs" />
     <Compile Include="SharedActionBuffer.cs" />
     <Compile Include="SharedEffectBarrierManager.cs" />
+    <Compile Include="ShieldOverTimeEffect.cs" />
     <Compile Include="SideFlags.cs" />
     <Compile Include="SiegeBreakerBigBang.cs" />
     <Compile Include="SiegeBreakerBlackHole.cs" />

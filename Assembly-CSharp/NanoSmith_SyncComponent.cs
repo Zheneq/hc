@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
@@ -17,6 +19,7 @@ public class NanoSmith_SyncComponent : NetworkBehaviour
 	{
 	}
 
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -41,6 +44,7 @@ public class NanoSmith_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// same in reactor & rogues
 public class NanoSmithBoltInfoComponent : MonoBehaviour
 {
 	[Header("-- Bolt Info ----------------------------")]

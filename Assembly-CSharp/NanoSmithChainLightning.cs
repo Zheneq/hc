@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +30,11 @@ public class NanoSmithChainLightning : Ability
 	private StandardEffectInfo m_cachedLaserEnemyHitEffect;
 	private StandardEffectInfo m_cachedChainEnemyHitEffect;
 
+	// added in rogues
+#if SERVER
+	private NanoSmith_SyncComponent m_syncComp;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -39,6 +46,10 @@ public class NanoSmithChainLightning : Ability
 
 	private void SetupTargeter()
 	{
+		// added in rogues
+#if SERVER
+		m_syncComp = GetComponent<NanoSmith_SyncComponent>();
+#endif
 		SetCachedFields();
 		ClearTargeters();
 		if (GetExpectedNumberOfTargeters() < 2)
@@ -257,4 +268,225 @@ public class NanoSmithChainLightning : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp == null || GetExtraAbsorbPerHitForVacuumBomb() <= 0)
+		{
+			return;
+		}
+		List<ActorData> htiActors = additionalData.m_abilityResults.HitActorList();
+		int hitEnemyNum = 0;
+		foreach (var hitActor in htiActors)
+		{
+			if (hitActor.GetTeam() != caster.GetTeam())
+			{
+				hitEnemyNum++;
+			}
+		}
+		if (hitEnemyNum > 0)
+		{
+			int maxExtraAbsorb = GetMaxExtraAbsorbForVacuumBomb();
+			int extraAbsorb = m_syncComp.m_extraAbsorbOnVacuumBomb;
+			extraAbsorb += hitEnemyNum * GetExtraAbsorbPerHitForVacuumBomb();
+			if (maxExtraAbsorb > 0 && extraAbsorb > maxExtraAbsorb)
+			{
+				extraAbsorb = maxExtraAbsorb;
+			}
+			m_syncComp.Networkm_extraAbsorbOnVacuumBomb = extraAbsorb;
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		foreach (AbilityTarget targeter in targets)
+		{
+			GetSequenceSetupInfo(targeter, caster, out _, out var extraParams);
+			List<ActorData> hitActors = additionalData.m_abilityResults.HitActorList();
+			if (hitActors.Contains(caster))
+			{
+				hitActors.Remove(caster);
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_selfHitSequencePrefab,
+					caster.GetFreePos(),
+					new[] { caster },
+					caster,
+					additionalData.m_sequenceSource));
+			}
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_bounceLaserSequencePrefab,
+				caster.GetCurrentBoardSquare(),
+				hitActors.ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				extraParams.ToArray()));
+		}
+		return list;
+	}
+
+	// added in rogues
+	private void GetSequenceSetupInfo(
+		AbilityTarget targeter,
+		ActorData caster,
+		out Vector3 targetPos,
+		out BouncingShotSequence.ExtraParams extraParams)
+	{
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> actorToSegmentInfo =
+			GetActorToSegmentInfo(targeter, caster, out List<Vector3> endPoints, null);
+		BouncingShotSequence.ExtraParams extraParams2 = new BouncingShotSequence.ExtraParams
+		{
+			laserTargets = actorToSegmentInfo,
+			segmentPts = endPoints
+		};
+		targetPos = endPoints[0];
+		extraParams = extraParams2;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Dictionary<ActorData, ActorHitResults> dictionary = new Dictionary<ActorData, ActorHitResults>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (AbilityTarget targeter in targets)
+		{
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> actorToSegmentInfo =
+				GetActorToSegmentInfo(targeter, caster, out _, nonActorTargetInfo);
+			foreach (ActorData actorData in actorToSegmentInfo.Keys)
+			{
+				if (dictionary.ContainsKey(actorData))
+				{
+					if (actorToSegmentInfo[actorData].m_endpointIndex == 0)
+					{
+						dictionary[actorData].AddBaseDamage(GetLaserDamage());
+						dictionary[actorData].AddStandardEffectInfo(GetLaserEnemyHitEffect());
+					}
+					else
+					{
+						dictionary[actorData].AddBaseDamage(GetChainDamage());
+						dictionary[actorData].AddTechPointGainOnCaster(GetEnergyGainPerChainHit());
+						dictionary[actorData].AddStandardEffectInfo(GetChainEnemyHitEffect());
+					}
+				}
+				else
+				{
+					ActorHitResults actorHitResults = new ActorHitResults(
+						new ActorHitParameters(actorData, actorToSegmentInfo[actorData].m_segmentOrigin));
+					if (actorToSegmentInfo[actorData].m_endpointIndex == 0)
+					{
+						actorHitResults.SetBaseDamage(GetLaserDamage());
+						actorHitResults.AddStandardEffectInfo(GetLaserEnemyHitEffect());
+					}
+					else
+					{
+						actorHitResults.SetBaseDamage(GetChainDamage());
+						actorHitResults.SetTechPointGainOnCaster(GetEnergyGainPerChainHit());
+						actorHitResults.AddStandardEffectInfo(GetChainEnemyHitEffect());
+					}
+					dictionary[actorData] = actorHitResults;
+				}
+			}
+		}
+		foreach (ActorHitResults hitResults in dictionary.Values)
+		{
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> GetActorToSegmentInfo(
+		AbilityTarget targeter,
+		ActorData caster,
+		out List<Vector3> endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary
+			= new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
+		endPoints = new List<Vector3>();
+		List<ActorData> list = new List<ActorData>();
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targeter.AimDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			PenetrateLos(),
+			GetLaserMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		foreach (ActorData actorData in actorsInLaser)
+		{
+			AreaEffectUtils.BouncingLaserInfo value;
+			value.m_segmentOrigin = laserCoords.start;
+			value.m_endpointIndex = 0;
+			dictionary.Add(actorData, value);
+			list.Add(actorData);
+		}
+		endPoints.Add(laserCoords.end);
+		int num = 0;
+		if (actorsInLaser.Count > 0)
+		{
+			ActorData actorData = actorsInLaser[actorsInLaser.Count - 1];
+			int chainMaxHits = GetChainMaxHits();
+			while (actorData != null && (chainMaxHits <= 0 || num < chainMaxHits))
+			{
+				ActorData actorData3 = FindChainHitActor(actorData, caster, list);
+				if (actorData3 != null)
+				{
+					AreaEffectUtils.BouncingLaserInfo value2;
+					value2.m_segmentOrigin = actorData.GetLoSCheckPos();
+					value2.m_endpointIndex = 1 + num;
+					dictionary.Add(actorData3, value2);
+					list.Add(actorData3);
+					endPoints.Add(actorData3.GetLoSCheckPos());
+					num++;
+				}
+				actorData = actorData3;
+			}
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	private ActorData FindChainHitActor(ActorData fromActor, ActorData caster, List<ActorData> actorsAddedSoFar)
+	{
+		ActorData result = null;
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, true);
+		Vector3 loSCheckPos = fromActor.GetLoSCheckPos();
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(
+			loSCheckPos, GetChainRadius(), PenetrateLos(), caster, relevantTeams, null);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadius, loSCheckPos);
+		foreach (ActorData actorData in actorsInRadius)
+		{
+			if (!actorsAddedSoFar.Contains(actorData)
+			    && (ChainCanHitInvisibleActors() || actorData.IsActorVisibleIgnoringFogOfWar(caster)))
+			{
+				result = actorData;
+				break;
+			}
+		}
+		return result;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalTechPointsCasterGain > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.NanoSmithStats.EnergyFromChainLightning, results.FinalTechPointsCasterGain);
+		}
+	}
+#endif
 }

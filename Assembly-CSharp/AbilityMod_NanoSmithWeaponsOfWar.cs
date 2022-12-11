@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,9 +33,12 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		NanoSmithWeaponsOfWar nanoSmithWeaponsOfWar = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithWeaponsOfWar;
+		// rogues
+		// NanoSmithWeaponsOfWar nanoSmithWeaponsOfWar = targetAbility as NanoSmithWeaponsOfWar;
 		bool isValid = nanoSmithWeaponsOfWar != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_sweepDurationMod, "[Sweep Duration]", isValid, isValid ? nanoSmithWeaponsOfWar.m_sweepDuration : 0);

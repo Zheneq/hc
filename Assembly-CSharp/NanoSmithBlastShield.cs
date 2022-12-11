@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -168,4 +170,66 @@ public class NanoSmithBlastShield : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets, 
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData hitActor = GetHitActor(targets, caster);
+		List<ActorData> list = new List<ActorData> { hitActor };
+		if (hitActor != caster && additionalData.m_abilityResults.HitActorList().Contains(caster))
+		{
+			list.Add(caster);
+		}
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab, square, list.ToArray(), caster, additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		ActorData hitActor = GetHitActor(targets, caster);
+		if (hitActor == null)
+		{
+			return;
+		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+		NanoSmithBlastShieldEffect effect = new NanoSmithBlastShieldEffect(
+			AsEffectSource(),
+			square,
+			hitActor,
+			caster,
+			GetShieldEffectData(),
+			GetHealOnEndIfHasRemainingAbsorb(),
+			m_shieldSequencePrefab);
+		actorHitResults.AddEffect(effect);
+		actorHitResults.SetTechPointGain(GetEnergyGainOnShieldTarget());
+		abilityResults.StoreActorHit(actorHitResults);
+		if (hitActor != caster && GetExtraEffectOnCasterIfTargetingAlly().m_applyEffect)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			actorHitResults2.AddStandardEffectInfo(GetExtraEffectOnCasterIfTargetingAlly());
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+	}
+
+	// added in rogues
+	private ActorData GetHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null
+		    && square.OccupantActor != null
+		    && !square.OccupantActor.IgnoreForAbilityHits
+		    && (m_allowOnEnemy || square.OccupantActor.GetTeam() == caster.GetTeam()))
+		{
+			return square.OccupantActor;
+		}
+		return null;
+	}
+#endif
 }

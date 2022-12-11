@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,9 +30,13 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		NanoSmithBlastShield nanoSmithBlastShield = GetTargetAbilityOnAbilityData(abilityData) as NanoSmithBlastShield;
+		// rogues
+		// NanoSmithBlastShield nanoSmithBlastShield = targetAbility as NanoSmithBlastShield;
+		
 		bool isValid = nanoSmithBlastShield != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_shieldEffectOverride, "{ Shield Effect }", isValid, isValid ? nanoSmithBlastShield.m_shieldEffect : null);

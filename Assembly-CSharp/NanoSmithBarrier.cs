@@ -1,6 +1,9 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
+// empty in rogues
 public class NanoSmithBarrier : Ability
 {
 	[Header("-- Barrier Info")]
@@ -95,4 +98,6 @@ public class NanoSmithBarrier : Ability
 	{
 		return m_abilityMod != null ? m_cachedBarrierData : m_barrierData;
 	}
+	
+	// TODO HELIO server side
 }

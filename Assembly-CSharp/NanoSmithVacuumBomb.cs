@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,12 +35,21 @@ public class NanoSmithVacuumBomb : Ability
 	private StandardEffectInfo m_cachedOnCenterActorEffect;
 	private StandardEffectInfo m_cachedEnemyHitEffect;
 
+	// added in rogues
+#if SERVER
+	private AbilityData.ActionType m_myActionType = AbilityData.ActionType.INVALID_ACTION;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
 		{
 			m_abilityName = "Vacuum Bomb";
 		}
+		// added in rogues
+#if SERVER
+		m_myActionType = GetComponent<AbilityData>().GetActionTypeOfAbility(this);
+#endif
 		SetupTargeter();
 	}
 
@@ -182,4 +193,140 @@ public class NanoSmithVacuumBomb : Ability
 			? m_syncComp.m_extraAbsorbOnVacuumBomb
 			: 0;
 	}
+
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_extraAbsorbOnVacuumBomb = 0;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorData knockbackCenterActor = GetKnockbackCenterActor(targets, caster);
+		if (knockbackCenterActor == null)
+		{
+			return;
+		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(knockbackCenterActor, knockbackCenterActor.GetFreePos()));
+		StandardEffectInfo centerActorEffect = GetCenterActorEffect();
+		if (m_syncComp != null && m_syncComp.m_extraAbsorbOnVacuumBomb > 0)
+		{
+			centerActorEffect = centerActorEffect.GetShallowCopy();
+			centerActorEffect.m_effectData.m_absorbAmount += m_syncComp.m_extraAbsorbOnVacuumBomb;
+		}
+		actorHitResults.AddStandardEffectInfo(centerActorEffect);
+		if (m_knockbackDelay > 0)
+		{
+			DelayedAoeKnockbackEffect.KnockbackCenterType knockbackCenterType =
+				m_knockbackCenterType == KnockbackCenterType.FromTargetActor
+					? DelayedAoeKnockbackEffect.KnockbackCenterType.FromTargetActor
+					: DelayedAoeKnockbackEffect.KnockbackCenterType.FromTargetSquare;
+			DelayedAoeKnockbackEffect delayedAoeKnockbackEffect = new DelayedAoeKnockbackEffect(
+				AsEffectSource(),
+				Board.Get().GetSquare(targets[0].GridPos),
+				knockbackCenterActor,
+				caster,
+				knockbackCenterType,
+				m_knockbackDelay,
+				GetDamageAmount(),
+				GetEnemyHitEffect(),
+				m_bombShape,
+				m_bombPenetrateLineOfSight,
+				m_knockbackType,
+				m_knockbackDistance,
+				m_knockbackAdjacentActorsIfPull,
+				m_delayedKnockbackMarkerSequencePrefab,
+				m_delayedKnockbackHitSequencePrefab);
+			delayedAoeKnockbackEffect.SetCooldownOnHitConfig(m_myActionType, GetCooldownChangePerHit());
+			actorHitResults.AddEffect(delayedAoeKnockbackEffect);
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+		if (m_knockbackDelay <= 0)
+		{
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			List<ActorData> bombHitActors = GetBombHitActors(targets, caster, nonActorTargetInfo);
+			bool isCooldownReductionApplied = false;
+			foreach (ActorData actorData in bombHitActors)
+			{
+				ActorHitResults bombHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
+				bombHitResults.SetBaseDamage(GetDamageAmount());
+				bombHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_bombShape, targets[0]);
+				if (m_knockbackCenterType == KnockbackCenterType.FromTargetActor)
+				{
+					BoardSquare currentBoardSquare = caster.GetCurrentBoardSquare();
+					centerOfShape = AreaEffectUtils.GetCenterOfShape(m_bombShape, currentBoardSquare.ToVector3(), currentBoardSquare);
+				}
+				KnockbackHitData knockbackData;
+				if (m_knockbackType == KnockbackType.PullToSource
+				    && m_knockbackAdjacentActorsIfPull
+				    && Board.Get().GetSquaresAreAdjacent(actorData.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare()))
+				{
+					Vector3 aimDir = caster.GetFreePos() - actorData.GetFreePos();
+					aimDir.y = 0f;
+					float distance = 2f;
+					if (Board.Get().GetSquaresAreDiagonallyAdjacent(actorData.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare()))
+					{
+						distance = 2.82f;
+					}
+					knockbackData = new KnockbackHitData(actorData, caster, KnockbackType.ForwardAlongAimDir, aimDir, centerOfShape, distance);
+				}
+				else
+				{
+					knockbackData = new KnockbackHitData(actorData, caster, m_knockbackType, targets[0].AimDirection, centerOfShape, m_knockbackDistance);
+				}
+				bombHitResults.AddKnockbackData(knockbackData);
+				if (!isCooldownReductionApplied && GetCooldownChangePerHit() != 0)
+				{
+					int addAmount = GetCooldownChangePerHit() * bombHitActors.Count;
+					MiscHitEventData_AddToCasterCooldown hitEvent = new MiscHitEventData_AddToCasterCooldown(m_myActionType, addAmount);
+					bombHitResults.AddMiscHitEvent(hitEvent);
+					isCooldownReductionApplied = true;
+				}
+				abilityResults.StoreActorHit(bombHitResults);
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetBombHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		return AreaEffectUtils.GetActorsInShape(m_bombShape, targets[0], m_bombPenetrateLineOfSight, caster, caster.GetOtherTeams(), nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private ActorData GetKnockbackCenterActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		return targets[0].GetCurrentBestActorTarget();
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0 || results.HasKnockback)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.NanoSmithStats.VacuumBombHits);
+		}
+	}
+#endif
 }
