@@ -6,11 +6,8 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 {
 	[Header("----------------------------")]
 	public AbilityModPropertyInt m_damageMod;
-
 	public AbilityModPropertyInt m_activeDurationMod;
-
 	public StandardEffectInfo m_missileHitEffectOverride;
-
 	public AbilityModPropertyInt m_extraDamagePerTarget;
 
 	public override Type GetTargetAbilityType()
@@ -21,46 +18,26 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SpaceMarineMissileBarrage spaceMarineMissileBarrage = targetAbility as SpaceMarineMissileBarrage;
-		if (!(spaceMarineMissileBarrage != null))
+		if (spaceMarineMissileBarrage != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, spaceMarineMissileBarrage.m_damage);
-			AbilityMod.AddToken(tokens, m_activeDurationMod, "Duration", string.Empty, 1);
-			AbilityMod.AddToken(tokens, m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0);
+			AddToken(tokens, m_damageMod, "Damage", string.Empty, spaceMarineMissileBarrage.m_damage);
+			AddToken(tokens, m_activeDurationMod, "Duration", string.Empty, 1);
+			AddToken(tokens, m_extraDamagePerTarget, "ExtraDamagePerTarget", string.Empty, 0);
 			if (m_missileHitEffectOverride != null)
 			{
-				while (true)
-				{
-					AbilityMod.AddToken_EffectInfo(tokens, m_missileHitEffectOverride, "EnemyHitEffect", spaceMarineMissileBarrage.m_effectOnTargets);
-					return;
-				}
+				AddToken_EffectInfo(tokens, m_missileHitEffectOverride, "EnemyHitEffect", spaceMarineMissileBarrage.m_effectOnTargets);
 			}
-			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SpaceMarineMissileBarrage spaceMarineMissileBarrage = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineMissileBarrage;
-		bool flag = spaceMarineMissileBarrage != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt damageMod = m_damageMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = spaceMarineMissileBarrage.m_damage;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal);
-		empty += AbilityModHelper.GetModPropertyDesc(m_activeDurationMod, "[Active Duration]", flag, 1);
-		empty += AbilityModHelper.GetModEffectInfoDesc(m_missileHitEffectOverride, "{ Missile Hit Effect Override }", string.Empty, flag, (!flag) ? null : spaceMarineMissileBarrage.m_effectOnTargets);
-		return empty + PropDesc(m_extraDamagePerTarget, "[Extra Damage Per Target]", flag);
+		bool isValid = spaceMarineMissileBarrage != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? spaceMarineMissileBarrage.m_damage : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_activeDurationMod, "[Active Duration]", isValid, 1);
+		desc += AbilityModHelper.GetModEffectInfoDesc(m_missileHitEffectOverride, "{ Missile Hit Effect Override }", string.Empty, isValid, isValid ? spaceMarineMissileBarrage.m_effectOnTargets : null);
+		return desc + PropDesc(m_extraDamagePerTarget, "[Extra Damage Per Target]", isValid);
 	}
 }

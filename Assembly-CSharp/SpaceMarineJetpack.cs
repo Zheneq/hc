@@ -4,20 +4,14 @@ using UnityEngine;
 public class SpaceMarineJetpack : Ability
 {
 	public int m_damage = 10;
-
 	public bool m_penetrateLineOfSight;
-
 	[Header("-- Effect on Self --")]
 	public StandardEffectInfo m_effectOnSelf;
-
 	public AbilityAreaShape m_landingShape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_applyDebuffs = true;
-
 	public StandardActorEffectData m_debuffData;
 
 	private AbilityMod_SpaceMarineJetpack m_abilityMod;
-
 	private StandardEffectInfo m_cachedEffectOnSelf;
 
 	private void Start()
@@ -28,144 +22,60 @@ public class SpaceMarineJetpack : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		if (base.Targeter == null)
+		if (Targeter == null)
 		{
-			base.Targeter = new AbilityUtil_Targeter_Jetpack(this, m_landingShape, m_penetrateLineOfSight);
+			Targeter = new AbilityUtil_Targeter_Jetpack(this, m_landingShape, m_penetrateLineOfSight);
 		}
-		AbilityUtil_Targeter_Jetpack abilityUtil_Targeter_Jetpack = base.Targeter as AbilityUtil_Targeter_Jetpack;
-		if (abilityUtil_Targeter_Jetpack == null)
+		if (Targeter is AbilityUtil_Targeter_Jetpack abilityUtil_Targeter_Jetpack)
 		{
-			return;
-		}
-		while (true)
-		{
-			int num;
-			if (!HasAbsorbOnCasterPerEnemyHit())
-			{
-				if (!GetEffectOnSelf().m_applyEffect)
-				{
-					if (m_abilityMod != null)
-					{
-						num = (m_abilityMod.m_effectToSelfOnCast.m_applyEffect ? 1 : 0);
-					}
-					else
-					{
-						num = 0;
-					}
-					goto IL_00a8;
-				}
-			}
-			num = 1;
-			goto IL_00a8;
-			IL_00a8:
-			int affectsCaster;
-			if (num != 0)
-			{
-				affectsCaster = 2;
-			}
-			else
-			{
-				affectsCaster = 0;
-			}
-			abilityUtil_Targeter_Jetpack.m_affectsCaster = (AbilityUtil_Targeter.AffectsActor)affectsCaster;
-			return;
+			abilityUtil_Targeter_Jetpack.m_affectsCaster =
+				HasAbsorbOnCasterPerEnemyHit()
+				|| GetEffectOnSelf().m_applyEffect
+				|| m_abilityMod != null && m_abilityMod.m_effectToSelfOnCast.m_applyEffect
+					? AbilityUtil_Targeter.AffectsActor.Always
+					: AbilityUtil_Targeter.AffectsActor.Never;
 		}
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEffectOnSelf;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
-		}
-		else
-		{
-			cachedEffectOnSelf = m_effectOnSelf;
-		}
-		m_cachedEffectOnSelf = cachedEffectOnSelf;
+		m_cachedEffectOnSelf = m_abilityMod != null
+			? m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf)
+			: m_effectOnSelf;
 	}
 
 	public StandardEffectInfo GetEffectOnSelf()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnSelf != null)
-		{
-			result = m_cachedEffectOnSelf;
-		}
-		else
-		{
-			result = m_effectOnSelf;
-		}
-		return result;
+		return m_cachedEffectOnSelf ?? m_effectOnSelf;
 	}
 
 	private int GetDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damage;
-		}
-		else
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
 	public int CooldownResetHealthThreshold()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_cooldownResetThreshold.GetModifiedValue(0);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownResetThreshold.GetModifiedValue(0)
+			: 0;
 	}
 
 	private bool HasAbsorbOnCasterPerEnemyHit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			if (m_abilityMod.m_effectOnCasterPerEnemyHit.m_applyEffect)
-			{
-				result = ((m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount > 0) ? 1 : 0);
-				goto IL_005a;
-			}
-		}
-		result = 0;
-		goto IL_005a;
-		IL_005a:
-		return (byte)result != 0;
+		return m_abilityMod != null
+		       && m_abilityMod.m_effectOnCasterPerEnemyHit.m_applyEffect
+		       && m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount > 0;
 	}
 
 	private StandardActorEffectData GetEffectOnEnemies()
 	{
-		StandardActorEffectData standardActorEffectData = null;
-		if (m_applyDebuffs)
-		{
-			standardActorEffectData = m_debuffData;
-		}
-		if (m_abilityMod != null)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_additionalEffectOnEnemy.GetModifiedValue(standardActorEffectData);
-				}
-			}
-		}
-		return standardActorEffectData;
+		StandardActorEffectData standardActorEffectData = m_applyDebuffs ? m_debuffData : null;
+		return m_abilityMod != null
+			? m_abilityMod.m_additionalEffectOnEnemy.GetModifiedValue(standardActorEffectData)
+			: standardActorEffectData;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -199,10 +109,10 @@ public class SpaceMarineJetpack : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (HasAbsorbOnCasterPerEnemyHit())
 		{
-			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
-			int num = actorsInRange.Count - 1;
-			int num3 = dictionary[AbilityTooltipSymbol.Absorb] = num * m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount;
+			dictionary = new Dictionary<AbilityTooltipSymbol, int>
+			{
+				[AbilityTooltipSymbol.Absorb] = (Targeter.GetActorsInRange().Count - 1) * m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount
+			};
 		}
 		return dictionary;
 	}
@@ -210,27 +120,12 @@ public class SpaceMarineJetpack : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SpaceMarineJetpack abilityMod_SpaceMarineJetpack = modAsBase as AbilityMod_SpaceMarineJetpack;
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_SpaceMarineJetpack)
-		{
-			effectInfo = abilityMod_SpaceMarineJetpack.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
-		}
-		else
-		{
-			effectInfo = m_effectOnSelf;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnSelf", m_effectOnSelf);
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SpaceMarineJetpack)
-		{
-			val = abilityMod_SpaceMarineJetpack.m_damageMod.GetModifiedValue(m_damage);
-		}
-		else
-		{
-			val = m_damage;
-		}
-		AddTokenInt(tokens, "Damage", empty, val);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SpaceMarineJetpack != null
+			? abilityMod_SpaceMarineJetpack.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf)
+			: m_effectOnSelf, "EffectOnSelf", m_effectOnSelf);
+		AddTokenInt(tokens, "Damage", string.Empty, abilityMod_SpaceMarineJetpack != null
+			? abilityMod_SpaceMarineJetpack.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage);
 		m_debuffData.AddTooltipTokens(tokens, "DebuffData");
 	}
 
@@ -241,22 +136,14 @@ public class SpaceMarineJetpack : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineJetpack))
+		if (abilityMod.GetType() != typeof(AbilityMod_SpaceMarineJetpack))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_SpaceMarineJetpack);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+
+		m_abilityMod = abilityMod as AbilityMod_SpaceMarineJetpack;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()

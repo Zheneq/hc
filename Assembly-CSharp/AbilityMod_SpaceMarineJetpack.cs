@@ -6,16 +6,12 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 {
 	[Header("-- Effect on Self --")]
 	public AbilityModPropertyEffectInfo m_effectOnSelfMod;
-
 	[Header("-- Damage Mod")]
 	public AbilityModPropertyInt m_damageMod;
-
 	[Header("-- Effect on Caster per Enemy Hit")]
 	public StandardEffectInfo m_effectOnCasterPerEnemyHit;
-
 	[Header("-- Additional Effect on Enemy")]
 	public AbilityModPropertyEffectData m_additionalEffectOnEnemy;
-
 	[Header("-- Cooldown Reset Health Threshold (Less Than)")]
 	public AbilityModPropertyInt m_cooldownResetThreshold;
 
@@ -27,50 +23,23 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SpaceMarineJetpack spaceMarineJetpack = targetAbility as SpaceMarineJetpack;
-		if (!(spaceMarineJetpack != null))
+		if (spaceMarineJetpack != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", spaceMarineJetpack.m_effectOnSelf);
-			AbilityMod.AddToken(tokens, m_damageMod, "Damage", string.Empty, spaceMarineJetpack.m_damage);
-			AbilityMod.AddToken_EffectMod(tokens, m_additionalEffectOnEnemy, "DebuffData", spaceMarineJetpack.m_debuffData);
-			return;
+			AddToken_EffectMod(tokens, m_effectOnSelfMod, "EffectOnSelf", spaceMarineJetpack.m_effectOnSelf);
+			AddToken(tokens, m_damageMod, "Damage", string.Empty, spaceMarineJetpack.m_damage);
+			AddToken_EffectMod(tokens, m_additionalEffectOnEnemy, "DebuffData", spaceMarineJetpack.m_debuffData);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SpaceMarineJetpack spaceMarineJetpack = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineJetpack;
-		bool flag = spaceMarineJetpack != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyEffectInfo effectOnSelfMod = m_effectOnSelfMod;
-		object baseVal;
-		if (flag)
-		{
-			baseVal = spaceMarineJetpack.m_effectOnSelf;
-		}
-		else
-		{
-			baseVal = null;
-		}
-		empty = str + PropDesc(effectOnSelfMod, "[EffectOnSelf]", flag, (StandardEffectInfo)baseVal);
-		string str2 = empty;
-		AbilityModPropertyInt damageMod = m_damageMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = spaceMarineJetpack.m_damage;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage]", flag, baseVal2);
-		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnCasterPerEnemyHit, "Effect on Caster per Enemy Hit", string.Empty, flag);
-		empty += PropDesc(m_additionalEffectOnEnemy, "Additional Effect on Enemy", flag, spaceMarineJetpack.m_debuffData);
-		return empty + AbilityModHelper.GetModPropertyDesc(m_cooldownResetThreshold, "[Cooldown Reset Health Threshold]", flag);
+		bool isValid = spaceMarineJetpack != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_effectOnSelfMod, "[EffectOnSelf]", isValid, isValid ? spaceMarineJetpack.m_effectOnSelf : null);
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? spaceMarineJetpack.m_damage : 0);
+		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnCasterPerEnemyHit, "Effect on Caster per Enemy Hit", string.Empty, isValid);
+		desc += PropDesc(m_additionalEffectOnEnemy, "Additional Effect on Enemy", isValid, spaceMarineJetpack.m_debuffData);
+		return desc + AbilityModHelper.GetModPropertyDesc(m_cooldownResetThreshold, "[Cooldown Reset Health Threshold]", isValid);
 	}
 }
