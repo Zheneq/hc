@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,9 +38,12 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SpaceMarineDropPod spaceMarineDropPod = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineDropPod;
+		// rogues
+		// SpaceMarineDropPod spaceMarineDropPod = targetAbility as SpaceMarineDropPod;
 		bool isValid = spaceMarineDropPod != null;
 		int powerupHealMod = 0;
 		int powerupTechPointMod = 0;

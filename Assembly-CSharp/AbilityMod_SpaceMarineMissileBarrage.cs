@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,9 +32,12 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SpaceMarineMissileBarrage spaceMarineMissileBarrage = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineMissileBarrage;
+		// rogues
+		// SpaceMarineMissileBarrage spaceMarineMissileBarrage = targetAbility as SpaceMarineMissileBarrage;
 		bool isValid = spaceMarineMissileBarrage != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? spaceMarineMissileBarrage.m_damage : 0);

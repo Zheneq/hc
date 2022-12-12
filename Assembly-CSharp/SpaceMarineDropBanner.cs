@@ -1,3 +1,7 @@
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
+
 public class SpaceMarineDropBanner : Ability
 {
 	public int m_duration = 2;
@@ -14,4 +18,20 @@ public class SpaceMarineDropBanner : Ability
 		}
 		Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_penetrateLineOfSight, true, true);
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetCurrentBoardSquare(),
+			caster.AsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+#endif
 }

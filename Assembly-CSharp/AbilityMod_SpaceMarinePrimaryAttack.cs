@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 
@@ -33,9 +35,12 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SpaceMarinePrimaryAttack spaceMarinePrimaryAttack = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarinePrimaryAttack;
+		// rogues
+		// SpaceMarinePrimaryAttack spaceMarinePrimaryAttack = targetAbility as SpaceMarinePrimaryAttack;
 		bool isValid = spaceMarinePrimaryAttack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserTargetInfoMod, "[LaserTargetInfo]", isValid, isValid ? spaceMarinePrimaryAttack.m_laserTargetInfo : null);

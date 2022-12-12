@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,9 +33,12 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SpaceMarineJetpack spaceMarineJetpack = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineJetpack;
+		// rogues
+		// SpaceMarineJetpack spaceMarineJetpack = targetAbility as SpaceMarineJetpack;
 		bool isValid = spaceMarineJetpack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_effectOnSelfMod, "[EffectOnSelf]", isValid, isValid ? spaceMarineJetpack.m_effectOnSelf : null);

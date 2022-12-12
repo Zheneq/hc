@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -171,7 +173,6 @@ public class SpaceMarineDropPod : Ability
 			Debug.LogError("Trying to apply wrong type of ability mod");
 			return;
 		}
-		
 		m_abilityMod = abilityMod as AbilityMod_SpaceMarineDropPod;
 		Targeter = new AbilityUtil_Targeter_KnockbackAoE(
 			this,
@@ -201,4 +202,167 @@ public class SpaceMarineDropPod : Ability
 			m_knockbackDistance,
 			m_knockbackType);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_knockbackShape, targets[0]);
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, null);
+		hitTargets.Add(caster);
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			centerOfShape,
+			hitTargets.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Dictionary<ActorData, ActorHitResults> dictionary = new Dictionary<ActorData, ActorHitResults>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, nonActorTargetInfo);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_knockbackShape, targets[0]);
+		foreach (ActorData hitActor in hitTargets)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, centerOfShape));
+			actorHitResults.SetBaseDamage(ModdedDamage());
+			if (ModdedKnockbackDistance() > 0f)
+			{
+				Vector3 centerOfShape2 = AreaEffectUtils.GetCenterOfShape(m_knockbackShape, targets[0]);
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					hitActor, caster, m_knockbackType, targets[0].AimDirection, centerOfShape2, ModdedKnockbackDistance());
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			dictionary.Add(hitActor, actorHitResults);
+		}
+		ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		if (GetEnergyRefundIfNoEnemyHit() > 0 && hitTargets.Count == 0)
+		{
+			if (m_energyRefundAffectedByBuff)
+			{
+				actorHitResults2.SetTechPointGain(GetEnergyRefundIfNoEnemyHit());
+			}
+			else
+			{
+				actorHitResults2.AddDirectTechPointGainOnCaster(GetEnergyRefundIfNoEnemyHit());
+			}
+		}
+		PowerUp powerupPrefab = m_powerupPrefab;
+		if (powerupPrefab != null)
+		{
+			int num = 0;
+			List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(m_powerupShape, targets[0], true, caster);
+			BoardSquare boardSquare = null;
+			foreach (BoardSquare boardSquare2 in squaresInShape)
+			{
+				if (num < m_numPowerupToSpawn)
+				{
+					num++;
+					if (boardSquare == null)
+					{
+						boardSquare = boardSquare2;
+					}
+					SpoilSpawnDataForAbilityHit spoilSpawnData = CreateSpoilSpawnData(caster, boardSquare2, powerupPrefab.gameObject, 1);
+					actorHitResults2.AddSpoilSpawnData(spoilSpawnData);
+				}
+			}
+			if (num < m_numPowerupToSpawn && boardSquare != null)
+			{
+				int numToSpawn = Mathf.Min(20, m_numPowerupToSpawn - num);
+				SpoilSpawnDataForAbilityHit spoilSpawnData2 = CreateSpoilSpawnData(caster, boardSquare, powerupPrefab.gameObject, numToSpawn);
+				actorHitResults2.AddSpoilSpawnData(spoilSpawnData2);
+			}
+		}
+		if (m_abilityMod != null && m_abilityMod.m_groundEffectInfoOnDropPod.m_applyGroundEffect)
+		{
+			GroundEffectField groundEffectData = m_abilityMod.m_groundEffectInfoOnDropPod.m_groundEffectData;
+			StandardGroundEffect standardGroundEffect = new StandardGroundEffect(AsEffectSource(), square, targets[0].FreePos, null, caster, groundEffectData);
+			List<ActorData> affectableActorsInField = m_abilityMod.m_groundEffectInfoOnDropPod.GetAffectableActorsInField(targets[0], caster, nonActorTargetInfo);
+			Vector3 centerOfShape3 = AreaEffectUtils.GetCenterOfShape(groundEffectData.shape, targets[0]);
+			foreach (ActorData actorData2 in affectableActorsInField)
+			{
+				ActorHitResults value = null;
+				if (dictionary.ContainsKey(actorData2))
+				{
+					value = dictionary[actorData2];
+				}
+				else
+				{
+					value = new ActorHitResults(new ActorHitParameters(actorData2, centerOfShape3));
+					dictionary.Add(actorData2, value);
+				}
+				m_abilityMod.m_groundEffectInfoOnDropPod.SetupActorHitResult(ref value, caster, actorData2.GetCurrentBoardSquare());
+			}
+			standardGroundEffect.AddToActorsHitThisTurn(affectableActorsInField);
+			actorHitResults2.AddEffect(standardGroundEffect);
+		}
+		abilityResults.StoreActorHit(actorHitResults2);
+		foreach (ActorHitResults hitResults in dictionary.Values)
+		{
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private SpoilSpawnDataForAbilityHit CreateSpoilSpawnData(ActorData caster, BoardSquare desiredSpawnSquare, GameObject spoilPrefab, int numToSpawn)
+	{
+		SpoilSpawnDataForAbilityHit spoilSpawnDataForAbilityHit = new SpoilSpawnDataForAbilityHit(
+			desiredSpawnSquare,
+			caster.GetTeam(),
+			new List<GameObject>
+			{
+				spoilPrefab
+			})
+		{
+			m_numToSpawn = numToSpawn,
+			m_duration = m_powerupDuration,
+			m_canSpawnOnEnemyOccupiedSquare = m_canSpawnOnEnemyOccupiedSquares,
+			m_canSpawnOnAllyOccupiedSquare = m_canSpawnOnAllyOccupiedSquares
+		};
+		if (m_abilityMod != null || GetExtraPowerupHealIfDirectHit() > 0 || GetExtraPowerupEnergyIfDirectHit() > 0)
+		{
+			spoilSpawnDataForAbilityHit.m_spoilMod = new StandardPowerUpAbilityModData();
+			if (m_abilityMod != null)
+			{
+				spoilSpawnDataForAbilityHit.m_spoilMod.m_healMod.CopyValuesFrom(m_abilityMod.m_powerupHealMod);
+				spoilSpawnDataForAbilityHit.m_spoilMod.m_techPointMod.CopyValuesFrom(m_abilityMod.m_powerupTechPointMod);
+			}
+			spoilSpawnDataForAbilityHit.m_spoilMod.m_extraHealIfDirectHit = GetExtraPowerupHealIfDirectHit();
+			spoilSpawnDataForAbilityHit.m_spoilMod.m_extraTechPointIfDirectHit = GetExtraPowerupEnergyIfDirectHit();
+		}
+		return spoilSpawnDataForAbilityHit;
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitTargets(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		return AreaEffectUtils.GetActorsInShape(m_knockbackShape, targets[0], m_penetrateLoS, caster, caster.GetOtherTeams(), nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SpaceMarineStats.DamageDealtByUlt, results.FinalDamage);
+		}
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SpaceMarineStats.HealingDealtByUlt, results.FinalHealing);
+		}
+		if (results.AppliedStatus(StatusType.Rooted) || results.AppliedStatus(StatusType.Snared))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SpaceMarineStats.NumSlowsPlusRootsApplied);
+		}
+	}
+#endif
 }

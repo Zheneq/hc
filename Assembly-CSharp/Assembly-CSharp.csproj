@@ -2213,10 +2213,12 @@
     <Compile Include="SorceressHealingKnockbackEffect.cs" />
     <Compile Include="SorceressHealingLaser.cs" />
     <Compile Include="SpaceMarineDropBanner.cs" />
+    <Compile Include="SpaceMarineDropBannerEffect.cs" />
     <Compile Include="SpaceMarineDropPod.cs" />
     <Compile Include="SpaceMarineHandCannon.cs" />
     <Compile Include="SpaceMarineJetpack.cs" />
     <Compile Include="SpaceMarineMissileBarrage.cs" />
+    <Compile Include="SpaceMarineMissileBarrageEffect.cs" />
     <Compile Include="SpaceMarinePrimaryAttack.cs" />
     <Compile Include="SparkAoeBuffDebuff.cs" />
     <Compile Include="SparkBasicAttack.cs" />

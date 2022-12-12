@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,9 +48,12 @@ public class AbilityMod_SpaceMarineHandCannon : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SpaceMarineHandCannon spaceMarineHandCannon = GetTargetAbilityOnAbilityData(abilityData) as SpaceMarineHandCannon;
+		// rogues
+		// SpaceMarineHandCannon spaceMarineHandCannon = targetAbility as SpaceMarineHandCannon;
 		bool isValid = spaceMarineHandCannon != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", isValid, isValid ? spaceMarineHandCannon.m_primaryDamage : 0);

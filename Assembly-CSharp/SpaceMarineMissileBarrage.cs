@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// SERVER
+// ROGUES
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpaceMarineMissileBarrage : Ability
@@ -115,4 +117,64 @@ public class SpaceMarineMissileBarrage : Ability
 			? m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0)
 			: 0;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			caster.AsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		StandardEffectInfo standardEffectInfo = ModdedEffectOnTargets();
+		if (standardEffectInfo != null)
+		{
+			SpaceMarineMissileBarrageEffect effect = new SpaceMarineMissileBarrageEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				m_abilityName,
+				m_radius,
+				m_penetrateLineOfSight,
+				false,
+				ModdedDamage(),
+				m_missiles,
+				standardEffectInfo,
+				ModdedMissileActiveDuration(),
+				m_buffSequence,
+				m_missileSequence,
+				m_missileLaunchAnimIndex,
+				abilityResults.CinematicRequested,
+				m_abilityMod != null ? m_abilityMod.m_cooldownReductionsOnSelf : null,
+				ModdedExtraDamagePerTarget(),
+				m_considerDamageAsDirect);
+			actorHitResults.AddEffect(effect);
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage > 0)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SpaceMarineStats.MissilesHit);
+		}
+		if (results.AppliedStatus(StatusType.Rooted) || results.AppliedStatus(StatusType.Snared))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SpaceMarineStats.NumSlowsPlusRootsApplied);
+		}
+	}
+#endif
 }

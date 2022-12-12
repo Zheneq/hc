@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -110,7 +112,6 @@ public class SpaceMarineHandCannon : Ability
 			Debug.LogError("Trying to apply wrong type of ability mod");
 			return;
 		}
-		
 		m_abilityMod = abilityMod as AbilityMod_SpaceMarineHandCannon;
 		SetupTargeter();
 	}
@@ -181,4 +182,121 @@ public class SpaceMarineHandCannon : Ability
 			? m_abilityMod.m_coneHitEffectOverride
 			: m_effectInfoOnConeTargets;
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		FindHitActors(targets, caster, out _, out Vector3 coneOrigin, null);
+		SplineProjectileSequence.ProjectilePropertyParams projectilePropertyParams = new SplineProjectileSequence.ProjectilePropertyParams
+			{
+				projectileWidthInWorld = ModdedLaserWidth() * Board.Get().squareSize
+			};
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			coneOrigin,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			projectilePropertyParams.ToArray());
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(targets, caster, out ActorData primaryTarget, out Vector3 coneOrigin, nonActorTargetInfo);
+		if (!hitActors.Contains(primaryTarget) && primaryTarget != null)
+		{
+			hitActors.Add(primaryTarget);
+		}
+		foreach (ActorData hitActor in hitActors)
+		{
+			int baseDamage;
+			Vector3 origin;
+			StandardEffectInfo effectInfo;
+			if (hitActor == primaryTarget)
+			{
+				baseDamage = ModdedLaserDamage();
+				origin = caster.GetLoSCheckPos();
+				effectInfo = GetLaserEffectInfo();
+			}
+			else
+			{
+				baseDamage = ModdedConeDamage();
+				origin = coneOrigin;
+				effectInfo = GetConeEffectInfo();
+			}
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, origin));
+			actorHitResults.SetBaseDamage(baseDamage);
+			actorHitResults.AddStandardEffectInfo(effectInfo);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out ActorData primaryTarget,
+		out Vector3 coneOrigin,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		new List<Team>().AddRange(caster.GetOtherTeams());
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			ModdedLaserLength(),
+			ModdedLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			m_penetrateLineOfSight,
+			1,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		primaryTarget = null;
+		if (actorsInLaser.Count > 0)
+		{
+			primaryTarget = actorsInLaser[0];
+		}
+		coneOrigin = laserCoords.end;
+		List<ActorData> result;
+		if (primaryTarget != null && ShouldExplode())
+		{
+			AreaEffectUtils.GetEndPointForValidGameplaySquare(laserCoords.start, laserCoords.end, out Vector3 adjustedEndPoint);
+			BoardSquare endPointSquare = Board.Get().GetSquareFromVec3(adjustedEndPoint);
+			result = AreaEffectUtils.GetActorsInCone(
+				coneOrigin,
+				VectorUtils.HorizontalAngle_Deg(aimDirection),
+				ModdedConeAngle(),
+				ModdedConeLength(),
+				m_coneBackwardOffset,
+				m_penetrateLineOfSight,
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			TargeterUtils.RemoveActorsWithoutLosToSquare(ref result, endPointSquare, caster);
+		}
+		else
+		{
+			result = new List<ActorData>();
+		}
+		return result;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.AppliedStatus(StatusType.Rooted) || results.AppliedStatus(StatusType.Snared))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SpaceMarineStats.NumSlowsPlusRootsApplied);
+		}
+	}
+#endif
 }
