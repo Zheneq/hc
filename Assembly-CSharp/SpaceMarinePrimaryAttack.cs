@@ -3,33 +3,23 @@ using UnityEngine;
 
 public class SpaceMarinePrimaryAttack : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public LaserTargetingInfo m_laserTargetInfo;
-
 	[Header("-- Cone on initial target hit --")]
 	public bool m_addConeOnFirstHitTarget = true;
-
 	public ConeTargetingInfo m_coneTargetInfo;
-
-	[Separator("Enemy Hit: Laser", true)]
+	[Separator("Enemy Hit: Laser")]
 	public int m_damageAmount = 18;
-
 	public int m_extraDamageToClosestTarget;
-
-	[Separator("Enemy Hit: Cone", true)]
+	[Separator("Enemy Hit: Cone")]
 	public int m_coneDamageAmount = 18;
-
 	public StandardEffectInfo m_coneEnemyHitEffect;
-
 	[Header("-- Whether length of targeter should ignore world geo")]
 	public bool m_laserLengthIgnoreWorldGeo = true;
 
 	private AbilityMod_SpaceMarinePrimaryAttack m_abilityMod;
-
 	private LaserTargetingInfo m_cachedLaserTargetInfo;
-
 	private ConeTargetingInfo m_cachedConeTargetInfo;
-
 	private StandardEffectInfo m_cachedConeEnemyHitEffect;
 
 	private void Start()
@@ -46,10 +36,18 @@ public class SpaceMarinePrimaryAttack : Ability
 		SetCachedFields();
 		LaserTargetingInfo laserTargetInfo = GetLaserTargetInfo();
 		ConeTargetingInfo coneTargetInfo = GetConeTargetInfo();
-		AbilityUtil_Targeter_SpaceMarineBasicAttack abilityUtil_Targeter_SpaceMarineBasicAttack = new AbilityUtil_Targeter_SpaceMarineBasicAttack(this, laserTargetInfo.width, laserTargetInfo.range, laserTargetInfo.maxTargets, coneTargetInfo.m_widthAngleDeg, coneTargetInfo.m_radiusInSquares, laserTargetInfo.penetrateLos);
-		abilityUtil_Targeter_SpaceMarineBasicAttack.AddConeOnFirstLaserHit = AddConeOnFirstHitTarget();
-		abilityUtil_Targeter_SpaceMarineBasicAttack.LengthIgnoreWorldGeo = m_laserLengthIgnoreWorldGeo;
-		base.Targeter = abilityUtil_Targeter_SpaceMarineBasicAttack;
+		Targeter = new AbilityUtil_Targeter_SpaceMarineBasicAttack(
+			this,
+			laserTargetInfo.width,
+			laserTargetInfo.range,
+			laserTargetInfo.maxTargets,
+			coneTargetInfo.m_widthAngleDeg,
+			coneTargetInfo.m_radiusInSquares,
+			laserTargetInfo.penetrateLos)
+		{
+			AddConeOnFirstLaserHit = AddConeOnFirstHitTarget(),
+			LengthIgnoreWorldGeo = m_laserLengthIgnoreWorldGeo
+		};
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -64,98 +62,58 @@ public class SpaceMarinePrimaryAttack : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedLaserTargetInfo = ((!m_abilityMod) ? m_laserTargetInfo : m_abilityMod.m_laserTargetInfoMod.GetModifiedValue(m_laserTargetInfo));
-		ConeTargetingInfo cachedConeTargetInfo;
-		if ((bool)m_abilityMod)
-		{
-			cachedConeTargetInfo = m_abilityMod.m_coneTargetInfoMod.GetModifiedValue(m_coneTargetInfo);
-		}
-		else
-		{
-			cachedConeTargetInfo = m_coneTargetInfo;
-		}
-		m_cachedConeTargetInfo = cachedConeTargetInfo;
-		StandardEffectInfo cachedConeEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
-		}
-		else
-		{
-			cachedConeEnemyHitEffect = m_coneEnemyHitEffect;
-		}
-		m_cachedConeEnemyHitEffect = cachedConeEnemyHitEffect;
+		m_cachedLaserTargetInfo = m_abilityMod != null
+			? m_abilityMod.m_laserTargetInfoMod.GetModifiedValue(m_laserTargetInfo)
+			: m_laserTargetInfo;
+		m_cachedConeTargetInfo = m_abilityMod != null
+			? m_abilityMod.m_coneTargetInfoMod.GetModifiedValue(m_coneTargetInfo)
+			: m_coneTargetInfo;
+		m_cachedConeEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect)
+			: m_coneEnemyHitEffect;
 	}
 
 	public LaserTargetingInfo GetLaserTargetInfo()
 	{
-		return (m_cachedLaserTargetInfo == null) ? m_laserTargetInfo : m_cachedLaserTargetInfo;
+		return m_cachedLaserTargetInfo ?? m_laserTargetInfo;
 	}
 
 	public bool AddConeOnFirstHitTarget()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_addConeOnFirstHitTargetMod.GetModifiedValue(m_addConeOnFirstHitTarget);
-		}
-		else
-		{
-			result = m_addConeOnFirstHitTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_addConeOnFirstHitTargetMod.GetModifiedValue(m_addConeOnFirstHitTarget)
+			: m_addConeOnFirstHitTarget;
 	}
 
 	public ConeTargetingInfo GetConeTargetInfo()
 	{
-		ConeTargetingInfo result;
-		if (m_cachedConeTargetInfo != null)
-		{
-			result = m_cachedConeTargetInfo;
-		}
-		else
-		{
-			result = m_coneTargetInfo;
-		}
-		return result;
+		return m_cachedConeTargetInfo ?? m_coneTargetInfo;
 	}
 
 	public int GetLaserDamage()
 	{
-		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_baseDamageMod.GetModifiedValue(m_damageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_baseDamageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public int GetExtraDamageToClosestTarget()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageOnClosestMod.GetModifiedValue(m_extraDamageToClosestTarget);
-		}
-		else
-		{
-			result = m_extraDamageToClosestTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageOnClosestMod.GetModifiedValue(m_extraDamageToClosestTarget)
+			: m_extraDamageToClosestTarget;
 	}
 
 	public int GetConeDamageAmount()
 	{
-		return (!m_abilityMod) ? m_coneDamageAmount : m_abilityMod.m_coneDamageAmountMod.GetModifiedValue(m_coneDamageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneDamageAmountMod.GetModifiedValue(m_coneDamageAmount)
+			: m_coneDamageAmount;
 	}
 
 	public StandardEffectInfo GetConeEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedConeEnemyHitEffect != null)
-		{
-			result = m_cachedConeEnemyHitEffect;
-		}
-		else
-		{
-			result = m_coneEnemyHitEffect;
-		}
-		return result;
+		return m_cachedConeEnemyHitEffect ?? m_coneEnemyHitEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -168,21 +126,21 @@ public class SpaceMarinePrimaryAttack : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
-			if (base.Targeter is AbilityUtil_Targeter_SpaceMarineBasicAttack)
+			if (Targeter is AbilityUtil_Targeter_SpaceMarineBasicAttack)
 			{
-				int num = GetLaserDamage();
-				AbilityUtil_Targeter_SpaceMarineBasicAttack abilityUtil_Targeter_SpaceMarineBasicAttack = base.Targeter as AbilityUtil_Targeter_SpaceMarineBasicAttack;
-				List<ActorData> lastLaserHitActors = abilityUtil_Targeter_SpaceMarineBasicAttack.GetLastLaserHitActors();
+				int damage = GetLaserDamage();
+				AbilityUtil_Targeter_SpaceMarineBasicAttack targeter = Targeter as AbilityUtil_Targeter_SpaceMarineBasicAttack;
+				List<ActorData> lastLaserHitActors = targeter.GetLastLaserHitActors();
 				if (lastLaserHitActors.Count > 0 && lastLaserHitActors[0] == targetActor)
 				{
-					num += GetExtraDamageToClosestTarget();
+					damage += GetExtraDamageToClosestTarget();
 				}
-				results.m_damage = num;
+				results.m_damage = damage;
 			}
 		}
-		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
+		else if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0)
 		{
 			results.m_damage = GetConeDamageAmount();
 		}
@@ -200,22 +158,14 @@ public class SpaceMarinePrimaryAttack : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarinePrimaryAttack))
+		if (abilityMod.GetType() != typeof(AbilityMod_SpaceMarinePrimaryAttack))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_SpaceMarinePrimaryAttack);
-					SetupTargeter();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+
+		m_abilityMod = abilityMod as AbilityMod_SpaceMarinePrimaryAttack;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()

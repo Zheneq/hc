@@ -1,29 +1,20 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SpaceMarineMissileBarrage : Ability
 {
 	[Space(10f)]
 	public int m_missiles = 3;
-
 	public int m_damage = 3;
-
 	public float m_radius = 5f;
-
 	public bool m_penetrateLineOfSight;
-
 	public AbilityPriority m_damageRunPriority;
-
 	public StandardEffectInfo m_effectOnTargets;
-
-	[Separator("Whether damage can be reacted to", true)]
+	[Separator("Whether damage can be reacted to")]
 	public bool m_considerDamageAsDirect;
-
-	[Separator("Sequences and Anim", true)]
+	[Separator("Sequences and Anim")]
 	public GameObject m_buffSequence;
-
 	public GameObject m_missileSequence;
-
 	public int m_missileLaunchAnimIndex = 11;
 
 	private AbilityMod_SpaceMarineMissileBarrage m_abilityMod;
@@ -35,18 +26,15 @@ public class SpaceMarineMissileBarrage : Ability
 
 	private void Setup()
 	{
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_penetrateLineOfSight, true, false, m_missiles);
-		AbilityUtil_Targeter targeter = base.Targeter;
-		int affectsCaster;
-		if (GetModdedEffectForSelf() != null)
-		{
-			affectsCaster = (GetModdedEffectForSelf().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			affectsCaster = 0;
-		}
-		targeter.SetAffectedGroups(true, false, (byte)affectsCaster != 0);
+		Targeter = new AbilityUtil_Targeter_AoE_Smooth(
+			this,
+			m_radius,
+			m_penetrateLineOfSight,
+			true, 
+			false,
+			m_missiles);
+		bool affectsCaster = GetModdedEffectForSelf() != null && GetModdedEffectForSelf().m_applyEffect;
+		Targeter.SetAffectedGroups(true, false, affectsCaster);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -60,10 +48,13 @@ public class SpaceMarineMissileBarrage : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int numActorsInRange = base.Targeter.GetNumActorsInRange();
-		dictionary.Add(AbilityTooltipSymbol.Damage, ModdedDamage() + ModdedExtraDamagePerTarget() * (numActorsInRange - 1));
-		return dictionary;
+		return new Dictionary<AbilityTooltipSymbol, int>
+		{
+			{
+				AbilityTooltipSymbol.Damage,
+				ModdedDamage() + ModdedExtraDamagePerTarget() * (Targeter.GetNumActorsInRange() - 1)
+			}
+		};
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -71,45 +62,23 @@ public class SpaceMarineMissileBarrage : Ability
 		AbilityMod_SpaceMarineMissileBarrage abilityMod_SpaceMarineMissileBarrage = modAsBase as AbilityMod_SpaceMarineMissileBarrage;
 		AddTokenInt(tokens, "DelayTurns", string.Empty, 1);
 		AddTokenInt(tokens, "Missiles", string.Empty, m_missiles);
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SpaceMarineMissileBarrage)
-		{
-			val = abilityMod_SpaceMarineMissileBarrage.m_damageMod.GetModifiedValue(m_damage);
-		}
-		else
-		{
-			val = m_damage;
-		}
-		AddTokenInt(tokens, "Damage", empty, val);
+		AddTokenInt(tokens, "Damage", string.Empty, abilityMod_SpaceMarineMissileBarrage != null
+			? abilityMod_SpaceMarineMissileBarrage.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage);
 		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnTargets, "EffectOnTargets");
 	}
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		int result;
-		if (animIndex != m_missileLaunchAnimIndex)
-		{
-			result = (base.CanTriggerAnimAtIndexForTaunt(animIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return animIndex == m_missileLaunchAnimIndex || base.CanTriggerAnimAtIndexForTaunt(animIndex);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SpaceMarineMissileBarrage))
+		if (abilityMod.GetType() == typeof(AbilityMod_SpaceMarineMissileBarrage))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SpaceMarineMissileBarrage);
+			m_abilityMod = abilityMod as AbilityMod_SpaceMarineMissileBarrage;
 			Setup();
-			return;
 		}
 	}
 
@@ -121,55 +90,29 @@ public class SpaceMarineMissileBarrage : Ability
 
 	public int ModdedDamage()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_damageMod.GetModifiedValue(m_damage) : m_damage;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
 	public int ModdedMissileActiveDuration()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 1;
-		}
-		else
-		{
-			result = m_abilityMod.m_activeDurationMod.GetModifiedValue(1);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_activeDurationMod.GetModifiedValue(1)
+			: 1;
 	}
 
 	public StandardEffectInfo ModdedEffectOnTargets()
 	{
-		if (m_abilityMod != null)
-		{
-			if (m_abilityMod.m_missileHitEffectOverride.m_applyEffect)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return m_abilityMod.m_missileHitEffectOverride;
-					}
-				}
-			}
-		}
-		return m_effectOnTargets;
+		return m_abilityMod != null && m_abilityMod.m_missileHitEffectOverride.m_applyEffect
+			? m_abilityMod.m_missileHitEffectOverride
+			: m_effectOnTargets;
 	}
 
 	public int ModdedExtraDamagePerTarget()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamagePerTarget.GetModifiedValue(0)
+			: 0;
 	}
 }
