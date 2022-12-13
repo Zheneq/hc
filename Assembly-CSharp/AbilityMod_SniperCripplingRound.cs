@@ -6,14 +6,10 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 {
 	[Header("-- Damage Mod")]
 	public AbilityModPropertyInt m_laserDamageMod;
-
 	public AbilityModPropertyInt m_explosionDamageMod;
-
 	[Header("-- Effect Duration Mod and Additional Effect")]
 	public AbilityModPropertyInt m_enemyHitEffectDurationMod;
-
 	public StandardEffectInfo m_additionalEnemyHitEffect;
-
 	[Header("-- Max targets hit by laser. Explosion only on first.")]
 	public AbilityModPropertyInt m_maxTargetsMod;
 
@@ -27,56 +23,23 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		SniperCripplingRound sniperCripplingRound = targetAbility as SniperCripplingRound;
 		if (sniperCripplingRound != null)
 		{
-			AbilityMod.AddToken(tokens, m_laserDamageMod, "Damage_Laser", string.Empty, sniperCripplingRound.m_laserDamageAmount);
-			AbilityMod.AddToken(tokens, m_explosionDamageMod, "Damage_Explosion", string.Empty, sniperCripplingRound.m_explosionDamageAmount);
-			AbilityMod.AddToken(tokens, m_enemyHitEffectDurationMod, "EffectDuration", string.Empty, sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration);
-			AbilityMod.AddToken_EffectInfo(tokens, m_additionalEnemyHitEffect, "AdditionalEffect", null, false);
-			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, 1);
+			AddToken(tokens, m_laserDamageMod, "Damage_Laser", string.Empty, sniperCripplingRound.m_laserDamageAmount);
+			AddToken(tokens, m_explosionDamageMod, "Damage_Explosion", string.Empty, sniperCripplingRound.m_explosionDamageAmount);
+			AddToken(tokens, m_enemyHitEffectDurationMod, "EffectDuration", string.Empty, sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration);
+			AddToken_EffectInfo(tokens, m_additionalEnemyHitEffect, "AdditionalEffect", null, false);
+			AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, 1);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SniperCripplingRound sniperCripplingRound = GetTargetAbilityOnAbilityData(abilityData) as SniperCripplingRound;
-		bool flag = sniperCripplingRound != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt laserDamageMod = m_laserDamageMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = sniperCripplingRound.m_laserDamageAmount;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(laserDamageMod, "[Laser Damage]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyInt explosionDamageMod = m_explosionDamageMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = sniperCripplingRound.m_explosionDamageAmount;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(explosionDamageMod, "[Explosion Damage]", flag, baseVal2);
-		string str3 = empty;
-		AbilityModPropertyInt enemyHitEffectDurationMod = m_enemyHitEffectDurationMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(enemyHitEffectDurationMod, "[Effect Duration]", flag, baseVal3);
-		empty += AbilityModHelper.GetModEffectInfoDesc(m_additionalEnemyHitEffect, "{ Additional Enemy Hit Effect }", string.Empty, flag);
-		return empty + AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Laser Targets]", flag, 1);
+		bool isValid = sniperCripplingRound != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", isValid, isValid ? sniperCripplingRound.m_laserDamageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_explosionDamageMod, "[Explosion Damage]", isValid, isValid ? sniperCripplingRound.m_explosionDamageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectDurationMod, "[Effect Duration]", isValid, isValid ? sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration : 0);
+		desc += AbilityModHelper.GetModEffectInfoDesc(m_additionalEnemyHitEffect, "{ Additional Enemy Hit Effect }", string.Empty, isValid);
+		return desc + AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Laser Targets]", isValid, 1);
 	}
 }

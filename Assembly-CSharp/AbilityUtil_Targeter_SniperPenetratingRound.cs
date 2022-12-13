@@ -3,14 +3,20 @@ using System.Collections.Generic;
 public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_Laser
 {
 	private bool m_knockbackNearbyEnemies;
-
 	private float m_knockbackThresholdDistance = -1f;
-
 	private KnockbackType m_knockbackType = KnockbackType.AwayFromSource;
-
 	private float m_knockbackDistance;
 
-	public AbilityUtil_Targeter_SniperPenetratingRound(Ability ability, float width, float distance, bool penetrateLos, int maxTargets, bool shouldKnockback, float knockbackThresholdDistance, KnockbackType knockbackType, float knockbackDistance)
+	public AbilityUtil_Targeter_SniperPenetratingRound(
+		Ability ability,
+		float width,
+		float distance,
+		bool penetrateLos,
+		int maxTargets,
+		bool shouldKnockback,
+		float knockbackThresholdDistance,
+		KnockbackType knockbackType,
+		float knockbackDistance)
 		: base(ability, width, distance, penetrateLos, maxTargets)
 	{
 		m_knockbackNearbyEnemies = shouldKnockback;
@@ -19,7 +25,12 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 		m_knockbackDistance = knockbackDistance;
 	}
 
-	public AbilityUtil_Targeter_SniperPenetratingRound(Ability ability, float width, float distance, bool penetrateLoS, int maxTargets)
+	public AbilityUtil_Targeter_SniperPenetratingRound(
+		Ability ability,
+		float width,
+		float distance,
+		bool penetrateLoS,
+		int maxTargets)
 		: base(ability, width, distance, penetrateLoS, maxTargets)
 	{
 		m_knockbackNearbyEnemies = false;
@@ -28,66 +39,38 @@ public class AbilityUtil_Targeter_SniperPenetratingRound : AbilityUtil_Targeter_
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateTargeting(currentTarget, targetingActor);
-		if (!m_knockbackNearbyEnemies)
+		if (m_knockbackNearbyEnemies && m_knockbackDistance > 0f)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_knockbackDistance > 0f)
+			int arrowIndex = 0;
+			EnableAllMovementArrows();
+			List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
+			foreach (ActorData actor in visibleActorsInRange)
 			{
-				int num = 0;
-				EnableAllMovementArrows();
-				List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
-				using (List<ActorData>.Enumerator enumerator = visibleActorsInRange.GetEnumerator())
+				if (actor.GetTeam() != targetingActor.GetTeam() && ActorMeetKnockbackConditions(actor, targetingActor))
 				{
-					while (enumerator.MoveNext())
+					float dist = VectorUtils.HorizontalPlaneDistInSquares(actor.GetFreePos(), targetingActor.GetFreePos());
+					if (m_knockbackThresholdDistance <= 0f || dist < m_knockbackThresholdDistance)
 					{
-						ActorData current = enumerator.Current;
-						if (current.GetTeam() != targetingActor.GetTeam())
-						{
-							if (ActorMeetKnockbackConditions(current, targetingActor))
-							{
-								float num2 = VectorUtils.HorizontalPlaneDistInSquares(current.GetFreePos(), targetingActor.GetFreePos());
-								int num3;
-								if (!(m_knockbackThresholdDistance <= 0f))
-								{
-									num3 = ((num2 < m_knockbackThresholdDistance) ? 1 : 0);
-								}
-								else
-								{
-									num3 = 1;
-								}
-								if (num3 != 0)
-								{
-									BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, targetingActor.GetFreePos(), m_knockbackDistance);
-									num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
-								}
-							}
-						}
+						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(
+							actor,
+							m_knockbackType,
+							currentTarget.AimDirection,
+							targetingActor.GetFreePos(),
+							m_knockbackDistance);
+						arrowIndex = AddMovementArrowWithPrevious(actor, path, TargeterMovementType.Knockback, arrowIndex);
 					}
 				}
-				SetMovementArrowEnabledFromIndex(num, false);
 			}
-			return;
+
+			SetMovementArrowEnabledFromIndex(arrowIndex, false);
 		}
 	}
 
 	private bool ActorMeetKnockbackConditions(ActorData target, ActorData caster)
 	{
-		if (m_knockbackNearbyEnemies && m_knockbackDistance > 0f)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_knockbackThresholdDistance <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetFreePos(), caster.GetFreePos()) < m_knockbackThresholdDistance;
-				}
-			}
-		}
-		return false;
+		return m_knockbackNearbyEnemies
+		       && m_knockbackDistance > 0f
+		       && (m_knockbackThresholdDistance <= 0f
+		           || VectorUtils.HorizontalPlaneDistInSquares(target.GetFreePos(), caster.GetFreePos()) < m_knockbackThresholdDistance);
 	}
 }

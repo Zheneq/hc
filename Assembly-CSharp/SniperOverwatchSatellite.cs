@@ -3,7 +3,6 @@ using UnityEngine;
 public class SniperOverwatchSatellite : TempSatellite
 {
 	private GameObject m_attackTarget;
-
 	private float m_timeDespawnTriggered = -1f;
 
 	public override void TriggerAttack(GameObject attackTarget)
@@ -26,34 +25,14 @@ public class SniperOverwatchSatellite : TempSatellite
 	private void Update()
 	{
 		AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
-		if (currentAnimatorStateInfo.IsTag("Despawn"))
+		if (currentAnimatorStateInfo.IsTag("Despawn") && currentAnimatorStateInfo.normalizedTime >= 1f
+		    || m_timeDespawnTriggered > 0f && Time.time - m_timeDespawnTriggered >= 10f)
 		{
-			if (currentAnimatorStateInfo.normalizedTime >= 1f)
-			{
-				goto IL_006c;
-			}
+			Destroy(gameObject);
 		}
-		if (m_timeDespawnTriggered > 0f && Time.time - m_timeDespawnTriggered >= 10f)
+		else if (currentAnimatorStateInfo.IsTag("Attack") && m_attackTarget != null)
 		{
-			goto IL_006c;
+			transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - transform.position).normalized);
 		}
-		if (!currentAnimatorStateInfo.IsTag("Attack"))
-		{
-			return;
-		}
-		while (true)
-		{
-			if (m_attackTarget != null)
-			{
-				while (true)
-				{
-					base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
-					return;
-				}
-			}
-			return;
-		}
-		IL_006c:
-		Object.Destroy(base.gameObject);
 	}
 }
