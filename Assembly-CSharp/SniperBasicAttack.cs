@@ -4,13 +4,9 @@ using UnityEngine;
 public class SniperBasicAttack : Ability
 {
 	public int m_laserDamageAmount = 5;
-
 	public int m_minDamageAmount;
-
 	public int m_damageChangePerHit;
-
 	public LaserTargetingInfo m_laserInfo;
-
 	public StandardEffectInfo m_laserHitEffect;
 
 	private AbilityMod_SniperBasicAttack m_abilityMod;
@@ -26,7 +22,7 @@ public class SniperBasicAttack : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserRange(), GetLaserPenetratesLoS(), GetMaxTargets());
+		Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserRange(), GetLaserPenetratesLoS(), GetMaxTargets());
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -52,28 +48,23 @@ public class SniperBasicAttack : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = base.Targeter as AbilityUtil_Targeter_Laser;
-		if (abilityUtil_Targeter_Laser != null)
+		if (Targeter is AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser)
 		{
-			ActorData component = GetComponent<ActorData>();
-			if (component != null)
+			ActorData actorData = GetComponent<ActorData>();
+			if (actorData != null)
 			{
-				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContext = abilityUtil_Targeter_Laser.GetHitActorContext();
-				for (int i = 0; i < hitActorContext.Count; i++)
+				List<AbilityUtil_Targeter_Laser.HitActorContext> hitActorContexts = abilityUtil_Targeter_Laser.GetHitActorContext();
+				for (int i = 0; i < hitActorContexts.Count; i++)
 				{
-					AbilityUtil_Targeter_Laser.HitActorContext hitActorContext2 = hitActorContext[i];
-					if (!(hitActorContext2.actor == targetActor))
-					{
-						continue;
-					}
-					while (true)
+					AbilityUtil_Targeter_Laser.HitActorContext hitActorContext = hitActorContexts[i];
+					if (hitActorContext.actor == targetActor)
 					{
 						Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-						if (targetActor.GetTeam() != component.GetTeam())
+						if (targetActor.GetTeam() != actorData.GetTeam())
 						{
 							int hitOrder = i;
-							AbilityUtil_Targeter_Laser.HitActorContext hitActorContext3 = hitActorContext[i];
-							int num = dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountByHitOrder(hitOrder, hitActorContext3.squaresFromCaster);
+							dictionary[AbilityTooltipSymbol.Damage] =
+								GetDamageAmountByHitOrder(hitOrder, hitActorContext.squaresFromCaster);
 						}
 						return dictionary;
 					}
@@ -86,67 +77,41 @@ public class SniperBasicAttack : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SniperBasicAttack abilityMod_SniperBasicAttack = modAsBase as AbilityMod_SniperBasicAttack;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SniperBasicAttack)
-		{
-			val = abilityMod_SniperBasicAttack.m_damageMod.GetModifiedValue(m_laserDamageAmount);
-		}
-		else
-		{
-			val = m_laserDamageAmount;
-		}
-		AddTokenInt(tokens, "LaserDamageAmount", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_SniperBasicAttack)
-		{
-			val2 = abilityMod_SniperBasicAttack.m_minDamageMod.GetModifiedValue(m_minDamageAmount);
-		}
-		else
-		{
-			val2 = m_minDamageAmount;
-		}
-		AddTokenInt(tokens, "MinDamageAmount", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_SniperBasicAttack)
-		{
-			val3 = abilityMod_SniperBasicAttack.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit);
-		}
-		else
-		{
-			val3 = m_damageChangePerHit;
-		}
-		AddTokenInt(tokens, "DamageChangePerHit", empty3, val3);
+		AddTokenInt(tokens, "LaserDamageAmount", string.Empty, abilityMod_SniperBasicAttack != null
+			? abilityMod_SniperBasicAttack.m_damageMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount);
+		AddTokenInt(tokens, "MinDamageAmount", string.Empty, abilityMod_SniperBasicAttack != null
+			? abilityMod_SniperBasicAttack.m_minDamageMod.GetModifiedValue(m_minDamageAmount)
+			: m_minDamageAmount);
+		AddTokenInt(tokens, "DamageChangePerHit", string.Empty, abilityMod_SniperBasicAttack != null
+			? abilityMod_SniperBasicAttack.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit)
+			: m_damageChangePerHit);
 		AbilityMod.AddToken_EffectInfo(tokens, m_laserHitEffect, "LaserHitEffect", m_laserHitEffect);
 	}
 
 	public int GetDamageAmountByHitOrder(int hitOrder, float distanceFromCasterInSquares)
 	{
-		int num = GetBaseDamage();
-		if (GetFarDistanceThreshold() > 0f)
+		int damage = GetBaseDamage();
+		if (GetFarDistanceThreshold() > 0f
+		    && distanceFromCasterInSquares > GetFarDistanceThreshold()
+		    && GetFarEnemyDamageAmount() > 0)
 		{
-			if (distanceFromCasterInSquares > GetFarDistanceThreshold() && GetFarEnemyDamageAmount() > 0)
-			{
-				num = GetFarEnemyDamageAmount();
-			}
+			damage = GetFarEnemyDamageAmount();
 		}
-		int b = num + hitOrder * GetDamageChangePerHit();
+		int b = damage + hitOrder * GetDamageChangePerHit();
 		return Mathf.Max(GetMinDamage(), b);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_SniperBasicAttack))
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SniperBasicAttack);
-			SetupTargeter();
-		}
-		else
+		if (abilityMod.GetType() != typeof(AbilityMod_SniperBasicAttack))
 		{
 			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
+		
+		m_abilityMod = abilityMod as AbilityMod_SniperBasicAttack;
+		SetupTargeter();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -157,121 +122,70 @@ public class SniperBasicAttack : Ability
 
 	public float GetLaserWidth()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserInfo.width) : m_laserInfo.width;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserInfo.width)
+			: m_laserInfo.width;
 	}
 
 	public float GetLaserRange()
 	{
-		if (m_abilityMod != null)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					if (m_abilityMod.m_useTargetDataOverrides)
-					{
-						if (m_abilityMod.m_targetDataOverrides.Length > 0)
-						{
-							return m_abilityMod.m_targetDataOverrides[0].m_range;
-						}
-					}
-					return m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserInfo.range);
-				}
-			}
-		}
-		return m_laserInfo.range;
+		return m_abilityMod != null
+			? m_abilityMod.m_useTargetDataOverrides && m_abilityMod.m_targetDataOverrides.Length > 0
+				? m_abilityMod.m_targetDataOverrides[0].m_range
+				: m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserInfo.range)
+			: m_laserInfo.range;
 	}
 
 	public bool GetLaserPenetratesLoS()
 	{
-		if (m_abilityMod != null)
-		{
-			if (m_abilityMod.m_useTargetDataOverrides)
-			{
-				if (m_abilityMod.m_targetDataOverrides.Length > 0)
-				{
-					return !m_abilityMod.m_targetDataOverrides[0].m_checkLineOfSight;
-				}
-			}
-		}
-		return m_laserInfo.penetrateLos;
+		return m_abilityMod != null
+		       && m_abilityMod.m_useTargetDataOverrides
+		       && m_abilityMod.m_targetDataOverrides.Length > 0
+			? !m_abilityMod.m_targetDataOverrides[0].m_checkLineOfSight
+			: m_laserInfo.penetrateLos;
 	}
 
 	public int GetMaxTargets()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_laserInfo.maxTargets;
-		}
-		else
-		{
-			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_laserInfo.maxTargets);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_laserInfo.maxTargets)
+			: m_laserInfo.maxTargets;
 	}
 
 	public int GetBaseDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_laserDamageAmount;
-		}
-		else
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_laserDamageAmount);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount;
 	}
 
 	public int GetMinDamage()
 	{
-		int b;
-		if (m_abilityMod == null)
-		{
-			b = m_minDamageAmount;
-		}
-		else
-		{
-			b = m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamageAmount);
-		}
-		return Mathf.Max(0, b);
+		return Mathf.Max(
+			0,
+			m_abilityMod != null
+				? m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamageAmount)
+				: m_minDamageAmount);
 	}
 
 	public int GetDamageChangePerHit()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageChangePerHit;
-		}
-		else
-		{
-			result = m_abilityMod.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageChangePerHitMod.GetModifiedValue(m_damageChangePerHit)
+			: m_damageChangePerHit;
 	}
 
 	public float GetFarDistanceThreshold()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_farDistanceThreshold : 0f;
+		return m_abilityMod != null
+			? m_abilityMod.m_farDistanceThreshold
+			: 0f;
 	}
 
 	public int GetFarEnemyDamageAmount()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_laserDamageAmount;
-		}
-		else
-		{
-			result = m_abilityMod.m_farEnemyDamageMod.GetModifiedValue(m_laserDamageAmount);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_farEnemyDamageMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount;
 	}
 }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +6,9 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 {
 	[Header("-- Healing on Self")]
 	public int m_healingOnSelf;
-
 	[Header("-- Stealth Effect Data Override")]
 	public bool m_useStealthEffectDataOverride;
-
 	public StandardActorEffectData m_stealthEffectDataOverride;
-
 	[Header("-- Health threshold to trigger cooldown reset, value:(0-1)")]
 	public AbilityModPropertyFloat m_cooldownResetHealthThresholdMod;
 
@@ -23,54 +20,33 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SniperGhillieSuit sniperGhillieSuit = targetAbility as SniperGhillieSuit;
-		if (!(sniperGhillieSuit != null))
-		{
-			return;
-		}
-		while (true)
+		if (sniperGhillieSuit != null)
 		{
 			if (m_healingOnSelf > 0)
 			{
-				AbilityMod.AddToken_IntDiff(tokens, "HealOnSelf", string.Empty, m_healingOnSelf, false, 0);
+				AddToken_IntDiff(tokens, "HealOnSelf", string.Empty, m_healingOnSelf, false, 0);
 			}
-			if (m_useStealthEffectDataOverride)
+			if (m_useStealthEffectDataOverride && m_stealthEffectDataOverride != null)
 			{
-				if (m_stealthEffectDataOverride != null)
-				{
-					m_stealthEffectDataOverride.AddTooltipTokens(tokens, "EffectOnSelf", true, sniperGhillieSuit.m_standardActorEffectData);
-				}
+				m_stealthEffectDataOverride.AddTooltipTokens(tokens, "EffectOnSelf", true, sniperGhillieSuit.m_standardActorEffectData);
 			}
-			AbilityMod.AddToken(tokens, m_cooldownResetHealthThresholdMod, "CooldownResetHealthThreshold", string.Empty, sniperGhillieSuit.m_cooldownResetHealthThreshold, true, false, true);
-			return;
+			AddToken(tokens, m_cooldownResetHealthThresholdMod, "CooldownResetHealthThreshold", string.Empty, sniperGhillieSuit.m_cooldownResetHealthThreshold, true, false, true);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SniperGhillieSuit sniperGhillieSuit = GetTargetAbilityOnAbilityData(abilityData) as SniperGhillieSuit;
-		bool flag = sniperGhillieSuit != null;
-		string text = string.Empty;
+		bool isValid = sniperGhillieSuit != null;
+		string desc = string.Empty;
 		if (m_healingOnSelf > 0)
 		{
-			string text2 = text;
-			text = text2 + "[Healing on Self] = " + m_healingOnSelf + "\n";
+			desc += "[Healing on Self] = " + m_healingOnSelf + "\n";
 		}
 		if (m_useStealthEffectDataOverride)
 		{
-			string str = text;
-			StandardActorEffectData stealthEffectDataOverride = m_stealthEffectDataOverride;
-			string empty = string.Empty;
-			object baseVal;
-			if (flag)
-			{
-				baseVal = sniperGhillieSuit.m_standardActorEffectData;
-			}
-			else
-			{
-				baseVal = null;
-			}
-			text = str + AbilityModHelper.GetModEffectDataDesc(stealthEffectDataOverride, "{ Stealth Effect Data Override }", empty, flag, (StandardActorEffectData)baseVal);
+			desc += AbilityModHelper.GetModEffectDataDesc(m_stealthEffectDataOverride, "{ Stealth Effect Data Override }", string.Empty, isValid, isValid ? sniperGhillieSuit.m_standardActorEffectData : null);
 		}
-		return text + PropDesc(m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", flag, (!flag) ? 0f : sniperGhillieSuit.m_cooldownResetHealthThreshold);
+		return desc + PropDesc(m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", isValid, isValid ? sniperGhillieSuit.m_cooldownResetHealthThreshold : 0f);
 	}
 }
