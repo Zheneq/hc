@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// same in reactor & rogues
 public class SniperOverwatchSatellite : TempSatellite
 {
 	private GameObject m_attackTarget;

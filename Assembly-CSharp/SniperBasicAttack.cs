@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -188,4 +190,68 @@ public class SniperBasicAttack : Ability
 			? m_abilityMod.m_farEnemyDamageMod.GetModifiedValue(m_laserDamageAmount)
 			: m_laserDamageAmount;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		if (hitActors.Count > 1)
+		{
+			ActorData value = hitActors[0];
+			hitActors[0] = hitActors[hitActors.Count - 1];
+			hitActors[hitActors.Count - 1] = value;
+		}
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			laserCoords.end,
+			hitActors.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out _, nonActorTargetInfo);
+		for (int i = 0; i < hitActors.Count; i++)
+		{
+			ActorData hitActor = hitActors[i];
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, caster.GetFreePos());
+			int damage = GetDamageAmountByHitOrder(i, (caster.GetFreePos() - hitActor.GetFreePos()).magnitude / Board.Get().squareSize);
+			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, m_laserHitEffect, hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_laserInfo.affectsAllies, m_laserInfo.affectsEnemies);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			relevantTeams,
+			GetLaserPenetratesLoS(),
+			GetMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+#endif
 }

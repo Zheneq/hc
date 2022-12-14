@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿// ROGUES
+// SERVER
+using UnityEngine;
 
+// same in reactor & rogues
 public class SniperOverwatchSatelliteSequence : TempSatelliteSequence
 {
 	[AnimEventPicker]

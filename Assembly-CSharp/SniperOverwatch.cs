@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -93,4 +95,64 @@ public class SniperOverwatch : Ability
 		}
 		return m_onEnemyMoveThrough;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			Quaternion.LookRotation(targets[0].AimDirection),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		float maxDistanceInWorld = m_range * Board.Get().squareSize;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(
+			caster.GetLoSCheckPos(), aimDirection, maxDistanceInWorld, m_penetrateLos, caster);
+		Vector3 center = (caster.GetFreePos() + laserEndPoint) / 2f;
+		center.y = caster.GetFreePos().y;
+		Vector3 facingDir = Vector3.Cross(Vector3.up, aimDirection);
+		float width = (laserEndPoint - caster.GetLoSCheckPos()).magnitude / Board.Get().squareSize;
+		Barrier barrier = new Barrier(
+			m_abilityName,
+			center,
+			facingDir,
+			width,
+			true,
+			BlockingRules.ForNobody,
+			BlockingRules.ForNobody,
+			BlockingRules.ForNobody,
+			BlockingRules.ForNobody,
+			GetBarrierDuration(),
+			caster,
+			m_barrierSequencePrefabs,
+			true,
+			GetOnEnemyMovedThroughResponse(),
+			null,
+			GetEnemyMaxHits(),
+			false,
+			abilityResults.SequenceSource
+			)
+		{
+			m_removeAtTurnEndIfEnemyMovedThrough = m_removeOnTurnEndIfEnemyMovedThrough
+		};
+		barrier.SetSourceAbility(this);
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(caster.GetFreePos()));
+		positionHitResults.AddBarrier(barrier);
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,9 +34,12 @@ public class AbilityMod_SniperOverwatch : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SniperOverwatch sniperOverwatch = GetTargetAbilityOnAbilityData(abilityData) as SniperOverwatch;
+		// rogues
+		// SniperOverwatch sniperOverwatch = targetAbility as SniperOverwatch;
 		bool isValid = sniperOverwatch != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_durationMod, "[Barrier Duration]", isValid, isValid ? sniperOverwatch.m_duration : 0);

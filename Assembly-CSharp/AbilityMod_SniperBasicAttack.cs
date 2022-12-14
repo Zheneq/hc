@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,9 +42,12 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SniperBasicAttack sniperBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as SniperBasicAttack;
+		// rogues
+		// SniperBasicAttack sniperBasicAttack = targetAbility as SniperBasicAttack;
 		bool isValid = sniperBasicAttack != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", isValid, isValid ? sniperBasicAttack.m_laserInfo.width : 0f);

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -96,4 +98,50 @@ public class SniperGhillieSuit : Ability
 	{
 		m_abilityMod = null;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_isToggleAbility && ServerEffectManager.Get().HasEffect(caster, typeof(SniperGhillieSuitEffect))
+				? m_toggleOffSequencePrefab
+				: m_toggleOnSequencePrefab,
+			caster.GetFreePos(),
+			new[] { caster },
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		actorHitResults.SetBaseHealing(GetHealingAmountOnSelf());
+		bool hasEffect = ServerEffectManager.Get().HasEffect(caster, typeof(SniperGhillieSuitEffect));
+		bool applyEffect = !m_isToggleAbility || !hasEffect;
+		if (hasEffect)
+		{
+			Effect effect = ServerEffectManager.Get().GetEffect(caster, typeof(SniperGhillieSuitEffect));
+			actorHitResults.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
+		}
+		if (applyEffect && GetStealthEffectData() != null)
+		{
+			SniperGhillieSuitEffect effect = new SniperGhillieSuitEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				GetStealthEffectData(),
+				m_isToggleAbility,
+				m_costPerTurn,
+				m_proximityBasedInvisibility,
+				m_unsuppressInvisOnPhaseEnd);
+			actorHitResults.AddEffect(effect);
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+#endif
 }

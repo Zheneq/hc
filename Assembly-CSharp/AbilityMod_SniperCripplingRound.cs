@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,9 +33,12 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SniperCripplingRound sniperCripplingRound = GetTargetAbilityOnAbilityData(abilityData) as SniperCripplingRound;
+		// rogues
+		// SniperCripplingRound sniperCripplingRound = targetAbility as SniperCripplingRound;
 		bool isValid = sniperCripplingRound != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamageMod, "[Laser Damage]", isValid, isValid ? sniperCripplingRound.m_laserDamageAmount : 0);

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -173,4 +175,115 @@ public class SniperPenetratingRound : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetHitActors(targets, caster, out var endPoints, null);
+		if (m_laserInfo.maxTargets <= 0)
+		{
+			float maxDistanceInWorld = GetLaserRange() * Board.Get().squareSize;
+			float widthInWorld = GetLaserWidth() * Board.Get().squareSize;
+			endPoints = VectorUtils.GetLaserCoordinates(
+				caster.GetLoSCheckPos(),
+				targets[0].AimDirection,
+				maxDistanceInWorld,
+				widthInWorld,
+				m_laserInfo.penetrateLos,
+				caster);
+		}
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			null,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				new HealLaserSequence.ExtraParams
+				{
+					endPos = endPoints.end
+				}
+			});
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out _, nonActorTargetInfo);
+		bool flag = GetLowHealthThreshold() > 0f && GetAdditionalDamageOnLowHealthTarget() > 0;
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			int num = 0;
+			if (flag && actorData.GetHitPointPercent() < GetLowHealthThreshold())
+			{
+				num = GetAdditionalDamageOnLowHealthTarget();
+			}
+			actorHitResults.SetBaseDamage(GetModdedDamage() + num);
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			if (CanKnockbackOnHitActors() && ActorMeetKnockbackConditions(actorData, caster))
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					actorData,
+					caster,
+					m_abilityMod.m_knockbackType,
+					targets[0].AimDirection,
+					caster.GetFreePos(),
+					m_abilityMod.m_knockbackDistance);
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out VectorUtils.LaserCoords endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_laserInfo.affectsAllies, m_laserInfo.affectsEnemies);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			relevantTeams,
+			m_laserInfo.penetrateLos,
+			m_laserInfo.maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	private bool ActorMeetKnockbackConditions(ActorData target, ActorData caster)
+	{
+		return CanKnockbackOnHitActors()
+		       && (GetKnockbackThresholdDistance() <= 0f || VectorUtils.HorizontalPlaneDistInSquares(target.GetFreePos(), caster.GetFreePos()) < GetKnockbackThresholdDistance());
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SniperStats.DamageDoneByUlt, results.FinalDamage);
+		}
+	}
+#endif
 }

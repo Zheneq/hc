@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,12 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SniperPenetratingRound sniperPenetratingRound = GetTargetAbilityOnAbilityData(abilityData) as SniperPenetratingRound;
+		// rogues
+		// SniperPenetratingRound sniperPenetratingRound = targetAbility as SniperPenetratingRound;
 		bool isValid = sniperPenetratingRound != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", isValid, isValid ? sniperPenetratingRound.m_laserInfo.width : 0f);

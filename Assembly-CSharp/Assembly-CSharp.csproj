@@ -2189,6 +2189,7 @@
     <Compile Include="SniperBasicAttack.cs" />
     <Compile Include="SniperCripplingRound.cs" />
     <Compile Include="SniperGhillieSuit.cs" />
+    <Compile Include="SniperGhillieSuitEffect.cs" />
     <Compile Include="SniperOverwatch.cs" />
     <Compile Include="SniperOverwatchSatellite.cs" />
     <Compile Include="SniperOverwatchSatelliteActionSequence.cs" />

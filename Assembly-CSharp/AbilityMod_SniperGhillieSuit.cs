@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,9 +36,12 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SniperGhillieSuit sniperGhillieSuit = GetTargetAbilityOnAbilityData(abilityData) as SniperGhillieSuit;
+		// rogues
+		// SniperGhillieSuit sniperGhillieSuit = targetAbility as SniperGhillieSuit;
 		bool isValid = sniperGhillieSuit != null;
 		string desc = string.Empty;
 		if (m_healingOnSelf > 0)
