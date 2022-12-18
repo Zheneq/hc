@@ -445,6 +445,25 @@ public class ClaymoreMultiRadiusCone : Ability
 				effect = GetEffectOuter();
 				energy += targets.Count * ModdedOuterTpGain();
 			}
+			if (GetBonusDamageIfCasterHealthBelow() > 0 && GetCasterHealthThreshForBonus() > 0f)
+			{
+				float healthPercent = caster.HitPoints / (float)caster.GetMaxHitPoints();
+				if (ShouldApplyCasterBonusPerThresholdReached())
+				{
+					int numBonus = Mathf.FloorToInt((1f - healthPercent) / GetCasterHealthThreshForBonus());
+					damage += GetBonusDamageIfCasterHealthBelow() * numBonus;
+				}
+				else if (healthPercent < GetCasterHealthThreshForBonus())
+				{
+					damage += GetBonusDamageIfCasterHealthBelow();
+				}
+			}
+			if (GetBonusDamageIfEnemyHealthBelow() > 0
+			    && GetEnemyHealthThreshForBonus() > 0f
+			    && actor.HitPoints / (float)actor.GetMaxHitPoints() < GetEnemyHealthThreshForBonus())
+			{
+				damage += GetBonusDamageIfEnemyHealthBelow();
+			}
 			ActorHitParameters hitParams = new ActorHitParameters(actor, casterPos);
 			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, effect, hitParams);
 			abilityResults.StoreActorHit(hitResults);
