@@ -10,58 +10,38 @@ public class Ninja360Attack : Ability
 		Laser
 	}
 
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public TargetingMode m_targetingMode = TargetingMode.Laser;
-
 	public bool m_penetrateLineOfSight;
-
 	[Header("  (( if using Laser ))")]
 	public LaserTargetingInfo m_laserInfo;
-
 	[Header("  (( if using Cone ))")]
 	public ConeTargetingInfo m_coneInfo;
-
 	public float m_innerConeAngle;
-
 	[Header("  (( if using Shape ))")]
 	public AbilityAreaShape m_targeterShape = AbilityAreaShape.Three_x_Three;
-
-	[Separator("On Hit", true)]
+	[Separator("On Hit")]
 	public int m_damageAmount = 15;
-
 	[Header("-- Damage for Inner Area Hit --")]
 	public int m_innerAreaDamage = 30;
-
 	[Space(10f)]
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public bool m_useDifferentEffectForInnerCone;
-
 	public StandardEffectInfo m_innerConeEnemyHitEffect;
-
 	[Header("-- Energy Gain on Marked Target --")]
 	public int m_energyGainOnMarkedHit;
-
 	public int m_selfHealOnMarkedHit;
-
 	[Separator("[Deathmark] Effect", "magenta")]
 	public bool m_applyDeathmarkEffect = true;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
 
 	private const int c_innerConeIdentifier = 1;
-
 	private Ninja_SyncComponent m_syncComp;
-
 	private AbilityMod_Ninja360Attack m_abilityMod;
-
 	private LaserTargetingInfo m_cachedLaserInfo;
-
 	private ConeTargetingInfo m_cachedConeInfo;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedInnerConeEnemyHitEffect;
 
 	private void Start()
@@ -83,55 +63,55 @@ public class Ninja360Attack : Ability
 		if (m_targetingMode == TargetingMode.Laser)
 		{
 			LaserTargetingInfo laserInfo = GetLaserInfo();
-			base.Targeter = new AbilityUtil_Targeter_Laser(this, laserInfo.width, laserInfo.range, PenetrateLineOfSight(), laserInfo.maxTargets);
-			return;
+			Targeter = new AbilityUtil_Targeter_Laser(
+				this,
+				laserInfo.width,
+				laserInfo.range,
+				PenetrateLineOfSight(),
+				laserInfo.maxTargets);
 		}
-		if (m_targetingMode == TargetingMode.Cone)
+		else if (m_targetingMode == TargetingMode.Cone)
 		{
-			while (true)
+			ConeTargetingInfo coneInfo = GetConeInfo();
+			float radiusInSquares = coneInfo.m_radiusInSquares;
+			List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
+			list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneInfo.m_widthAngleDeg, radiusInSquares));
+			if (GetInnerConeAngle() > 0f)
 			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-				{
-					ConeTargetingInfo coneInfo = GetConeInfo();
-					float radiusInSquares = coneInfo.m_radiusInSquares;
-					List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
-					list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneInfo.m_widthAngleDeg, radiusInSquares));
-					if (GetInnerConeAngle() > 0f)
-					{
-						list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(GetInnerConeAngle(), radiusInSquares));
-					}
-					AbilityUtil_Targeter_MultipleCones abilityUtil_Targeter_MultipleCones = new AbilityUtil_Targeter_MultipleCones(this, list, coneInfo.m_backwardsOffset, PenetrateLineOfSight(), true, true, false, GetSelfHealOnMarkedHit() > 0);
-					if (GetSelfHealOnMarkedHit() > 0)
-					{
-						abilityUtil_Targeter_MultipleCones.m_affectCasterDelegate = IncludeCasterForTargeter;
-					}
-					base.Targeter = abilityUtil_Targeter_MultipleCones;
-					return;
-				}
-				}
+				list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(GetInnerConeAngle(), radiusInSquares));
 			}
+			AbilityUtil_Targeter_MultipleCones abilityUtil_Targeter_MultipleCones = new AbilityUtil_Targeter_MultipleCones(
+				this,
+				list,
+				coneInfo.m_backwardsOffset,
+				PenetrateLineOfSight(),
+				true,
+				true, 
+				false,
+				GetSelfHealOnMarkedHit() > 0);
+			if (GetSelfHealOnMarkedHit() > 0)
+			{
+				abilityUtil_Targeter_MultipleCones.m_affectCasterDelegate = IncludeCasterForTargeter;
+			}
+			Targeter = abilityUtil_Targeter_MultipleCones;
 		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, GetTargeterShape(), PenetrateLineOfSight());
+		else
+		{
+			Targeter = new AbilityUtil_Targeter_Shape(this, GetTargeterShape(), PenetrateLineOfSight());
+		}
 	}
 
 	private bool IncludeCasterForTargeter(ActorData caster, List<ActorData> addedSoFar)
 	{
-		if (GetSelfHealOnMarkedHit() > 0)
+		if (GetSelfHealOnMarkedHit() <= 0)
 		{
-			for (int i = 0; i < addedSoFar.Count; i++)
+			return false;
+		}
+		foreach (ActorData actor in addedSoFar)
+		{
+			if (IsActorMarked(actor))
 			{
-				if (!IsActorMarked(addedSoFar[i]))
-				{
-					continue;
-				}
-				while (true)
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -149,223 +129,114 @@ public class Ninja360Attack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		if (m_targetingMode == TargetingMode.Laser)
+		switch (m_targetingMode)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return GetLaserInfo().range;
-				}
-			}
+			case TargetingMode.Laser:
+				return GetLaserInfo().range;
+			case TargetingMode.Cone:
+				return GetConeInfo().m_radiusInSquares;
+			default:
+				return 0f;
 		}
-		if (m_targetingMode == TargetingMode.Cone)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return GetConeInfo().m_radiusInSquares;
-				}
-			}
-		}
-		return 0f;
 	}
 
 	private void SetCachedFields()
 	{
-		LaserTargetingInfo cachedLaserInfo;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
-		}
-		else
-		{
-			cachedLaserInfo = m_laserInfo;
-		}
-		m_cachedLaserInfo = cachedLaserInfo;
-		m_cachedConeInfo = ((!m_abilityMod) ? m_coneInfo : m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo));
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		StandardEffectInfo cachedInnerConeEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedInnerConeEnemyHitEffect = m_abilityMod.m_innerConeEnemyHitEffectMod.GetModifiedValue(m_innerConeEnemyHitEffect);
-		}
-		else
-		{
-			cachedInnerConeEnemyHitEffect = m_innerConeEnemyHitEffect;
-		}
-		m_cachedInnerConeEnemyHitEffect = cachedInnerConeEnemyHitEffect;
+		m_cachedLaserInfo = m_abilityMod != null
+			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
+			: m_laserInfo;
+		m_cachedConeInfo = m_abilityMod != null
+			? m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo)
+			: m_coneInfo;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
+		m_cachedInnerConeEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_innerConeEnemyHitEffectMod.GetModifiedValue(m_innerConeEnemyHitEffect)
+			: m_innerConeEnemyHitEffect;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
-		}
-		else
-		{
-			result = m_penetrateLineOfSight;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight)
+			: m_penetrateLineOfSight;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		LaserTargetingInfo result;
-		if (m_cachedLaserInfo != null)
-		{
-			result = m_cachedLaserInfo;
-		}
-		else
-		{
-			result = m_laserInfo;
-		}
-		return result;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
-		return (m_cachedConeInfo == null) ? m_coneInfo : m_cachedConeInfo;
+		return m_cachedConeInfo ?? m_coneInfo;
 	}
 
 	public float GetInnerConeAngle()
 	{
-		return (!m_abilityMod) ? m_innerConeAngle : m_abilityMod.m_innerConeAngleMod.GetModifiedValue(m_innerConeAngle);
+		return m_abilityMod != null
+			? m_abilityMod.m_innerConeAngleMod.GetModifiedValue(m_innerConeAngle)
+			: m_innerConeAngle;
 	}
 
 	public AbilityAreaShape GetTargeterShape()
 	{
-		AbilityAreaShape result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_targeterShapeMod.GetModifiedValue(m_targeterShape);
-		}
-		else
-		{
-			result = m_targeterShape;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_targeterShapeMod.GetModifiedValue(m_targeterShape)
+			: m_targeterShape;
 	}
 
 	public int GetDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			result = m_damageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public int GetInnerAreaDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_innerAreaDamageMod.GetModifiedValue(m_innerAreaDamage);
-		}
-		else
-		{
-			result = m_innerAreaDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_innerAreaDamageMod.GetModifiedValue(m_innerAreaDamage)
+			: m_innerAreaDamage;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public bool UseDifferentEffectForInnerCone()
 	{
-		return (!m_abilityMod) ? m_useDifferentEffectForInnerCone : m_abilityMod.m_useDifferentEffectForInnerConeMod.GetModifiedValue(m_useDifferentEffectForInnerCone);
+		return m_abilityMod != null
+			? m_abilityMod.m_useDifferentEffectForInnerConeMod.GetModifiedValue(m_useDifferentEffectForInnerCone)
+			: m_useDifferentEffectForInnerCone;
 	}
 
 	public StandardEffectInfo GetInnerConeEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedInnerConeEnemyHitEffect != null)
-		{
-			result = m_cachedInnerConeEnemyHitEffect;
-		}
-		else
-		{
-			result = m_innerConeEnemyHitEffect;
-		}
-		return result;
+		return m_cachedInnerConeEnemyHitEffect ?? m_innerConeEnemyHitEffect;
 	}
 
 	public int GetEnergyGainOnMarkedHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyGainOnMarkedHitMod.GetModifiedValue(m_energyGainOnMarkedHit);
-		}
-		else
-		{
-			result = m_energyGainOnMarkedHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyGainOnMarkedHitMod.GetModifiedValue(m_energyGainOnMarkedHit)
+			: m_energyGainOnMarkedHit;
 	}
 
 	public int GetSelfHealOnMarkedHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealOnMarkedHitMod.GetModifiedValue(m_selfHealOnMarkedHit);
-		}
-		else
-		{
-			result = m_selfHealOnMarkedHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealOnMarkedHitMod.GetModifiedValue(m_selfHealOnMarkedHit)
+			: m_selfHealOnMarkedHit;
 	}
 
 	public bool ApplyDeathmarkEffect()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect);
-		}
-		else
-		{
-			result = m_applyDeathmarkEffect;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect)
+			: m_applyDeathmarkEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -378,168 +249,93 @@ public class Ninja360Attack : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (m_targetingMode == TargetingMode.Cone)
+		if (m_targetingMode != TargetingMode.Cone)
 		{
-			if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+			return false;
+		}
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		{
+			int damage = GetDamageAmount();
+			if (GetInnerAreaDamage() > 0 && GetInnerConeAngle() > 0f)
 			{
-				while (true)
+				ActorData actorData = ActorData;
+				Vector3 lastUpdateAimDir = Targeter.LastUpdateAimDir;
+				float coneForwardAngle = VectorUtils.HorizontalAngle_Deg(lastUpdateAimDir);
+				if (IsActorInInnerCone(targetActor, actorData, coneForwardAngle))
 				{
-					int damage = GetDamageAmount();
-					if (GetInnerAreaDamage() > 0 && GetInnerConeAngle() > 0f)
-					{
-						ActorData actorData = base.ActorData;
-						Vector3 lastUpdateAimDir = base.Targeter.LastUpdateAimDir;
-						float coneForwardAngle = VectorUtils.HorizontalAngle_Deg(lastUpdateAimDir);
-						if (IsActorInInnerCone(targetActor, actorData, coneForwardAngle))
-						{
-							damage = GetInnerAreaDamage();
-						}
-					}
-					results.m_damage = damage;
-					return true;
+					damage = GetInnerAreaDamage();
 				}
 			}
-			if (targetActor == base.ActorData && GetSelfHealOnMarkedHit() > 0)
+			results.m_damage = damage;
+			return true;
+		}
+		if (targetActor == ActorData && GetSelfHealOnMarkedHit() > 0)
+		{
+			int num = 0;
+			List<ActorData> visibleActorsInRangeByTooltipSubject = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
+			for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
 			{
-				while (true)
+				ActorData targetActor2 = visibleActorsInRangeByTooltipSubject[i];
+				if (IsActorMarked(targetActor2))
 				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-					{
-						int num = 0;
-						List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
-						for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
-						{
-							ActorData targetActor2 = visibleActorsInRangeByTooltipSubject[i];
-							if (IsActorMarked(targetActor2))
-							{
-								num += GetSelfHealOnMarkedHit();
-							}
-						}
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								results.m_healing = num;
-								return true;
-							}
-						}
-					}
-					}
+					num += GetSelfHealOnMarkedHit();
 				}
 			}
+			results.m_healing = num;
+			return true;
 		}
 		return false;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (GetEnergyGainOnMarkedHit() > 0)
+		if (GetEnergyGainOnMarkedHit() <= 0)
 		{
-			while (true)
+			return 0;
+		}
+		int num = 0;
+		foreach (ActorData targetActor in Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy))
+		{
+			if (IsActorMarked(targetActor))
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num = 0;
-					List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
-					for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
-					{
-						ActorData targetActor = visibleActorsInRangeByTooltipSubject[i];
-						if (IsActorMarked(targetActor))
-						{
-							num += GetEnergyGainOnMarkedHit();
-						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return num;
-						}
-					}
-				}
-				}
+				num += GetEnergyGainOnMarkedHit();
 			}
 		}
-		return 0;
+		return num;
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		if (symbolType == AbilityTooltipSymbol.Damage)
-		{
-			if (m_syncComp != null)
-			{
-				if (m_syncComp.m_deathmarkOnTriggerDamage > 0)
-				{
-					if (IsActorMarked(targetActor))
-					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								break;
-							default:
-								return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false);
-							}
-						}
-					}
-				}
-			}
-		}
-		return null;
+		return symbolType == AbilityTooltipSymbol.Damage
+		       && m_syncComp != null
+		       && m_syncComp.m_deathmarkOnTriggerDamage > 0
+		       && IsActorMarked(targetActor)
+			? "\n+ " + AbilityUtils.CalculateDamageForTargeter(
+				ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false)
+			: null;
 	}
 
 	public bool IsActorInInnerCone(ActorData targetActor, ActorData caster, float coneForwardAngle)
 	{
-		if (m_targetingMode == TargetingMode.Cone)
+		if (m_targetingMode == TargetingMode.Cone && GetInnerConeAngle() > 0f)
 		{
-			if (GetInnerConeAngle() > 0f)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-					{
-						ConeTargetingInfo coneInfo = GetConeInfo();
-						return AreaEffectUtils.IsSquareInConeByActorRadius(targetActor.GetCurrentBoardSquare(), caster.GetFreePos(), coneForwardAngle, GetInnerConeAngle(), coneInfo.m_radiusInSquares, coneInfo.m_backwardsOffset, PenetrateLineOfSight(), caster);
-					}
-					}
-				}
-			}
+			ConeTargetingInfo coneInfo = GetConeInfo();
+			return AreaEffectUtils.IsSquareInConeByActorRadius(
+				targetActor.GetCurrentBoardSquare(),
+				caster.GetFreePos(),
+				coneForwardAngle,
+				GetInnerConeAngle(),
+				coneInfo.m_radiusInSquares,
+				coneInfo.m_backwardsOffset,
+				PenetrateLineOfSight(),
+				caster);
 		}
 		return false;
 	}
 
 	public bool IsActorMarked(ActorData targetActor)
 	{
-		int result;
-		if (m_syncComp != null)
-		{
-			result = (m_syncComp.ActorHasDeathmark(targetActor) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_syncComp != null && m_syncComp.ActorHasDeathmark(targetActor);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -556,7 +352,7 @@ public class Ninja360Attack : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_Ninja360Attack))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_Ninja360Attack);
+			m_abilityMod = abilityMod as AbilityMod_Ninja360Attack;
 			Setup();
 		}
 	}

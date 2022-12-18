@@ -3,61 +3,39 @@ using UnityEngine;
 
 public class NinjaOmnidash : Ability
 {
-	[Separator("On Hit Stuff", true)]
+	[Separator("On Hit Stuff")]
 	public int m_baseDamage = 60;
-
 	public int m_damageChangePerEnemyAfterFirst = -10;
-
 	public int m_minDamage;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Header("-- Effect for single hit --")]
 	public StandardEffectInfo m_singleHitEnemyEffect;
-
 	public StandardEffectInfo m_extraSingleHitEnemyEffect;
-
-	[Separator("Energy gain on Marked hit", true)]
+	[Separator("Energy gain on Marked hit")]
 	public int m_energyGainPerMarkedHit;
-
-	[Separator("For Dash", true)]
+	[Separator("For Dash")]
 	public bool m_skipEvade;
-
 	[Space(10f)]
 	public bool m_isTeleport = true;
-
 	public float m_dashRadiusAtStart = 3f;
-
 	public float m_dashRadiusMiddle;
-
 	public float m_dashRadiusAtEnd;
-
 	public bool m_dashPenetrateLineOfSight;
-
 	[Header("-- Whether can queue movement evade")]
 	public bool m_canQueueMoveAfterEvade = true;
-
 	[Separator("[Deathmark] Effect", "magenta")]
 	public bool m_applyDeathmarkEffect = true;
-
-	[Separator("Cooldown Reset on other ability", true)]
+	[Separator("Cooldown Reset on other ability")]
 	public int m_cdrOnAbility;
-
 	public AbilityData.ActionType m_cdrAbilityTarget = AbilityData.ActionType.ABILITY_2;
-
 	[Header("-- Sequences --")]
 	public GameObject m_onCastSequencePrefab;
 
 	private TargetData[] m_noEvadeTargetData = new TargetData[0];
-
 	private AbilityMod_NinjaOmnidash m_abilityMod;
-
 	private Ninja_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedSingleHitEnemyEffect;
-
 	private StandardEffectInfo m_cachedExtraSingleHitEnemyEffect;
 
 	public AbilityMod_NinjaOmnidash GetMod()
@@ -83,37 +61,45 @@ public class NinjaOmnidash : Ability
 		}
 		if (SkipEvade())
 		{
-			base.Targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, GetDashRadiusAtStart(), DashPenetrateLineOfSight(), true, false, -1, false, false);
-			return;
+			Targeter = new AbilityUtil_Targeter_AoE_AroundActor(
+				this,
+				GetDashRadiusAtStart(),
+				DashPenetrateLineOfSight(),
+				true,
+				false, 
+				-1,
+				false,
+				false);
 		}
-		AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, GetDashRadiusAtStart(), GetDashRadiusAtEnd(), GetDashRadiusMiddle(), -1, false, DashPenetrateLineOfSight());
-		abilityUtil_Targeter_ChargeAoE.ShowTeleportLines = DashIsTeleport();
-		abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = DashIsTeleport();
-		abilityUtil_Targeter_ChargeAoE.m_shouldAddCasterDelegate = ShouldAddCasterForTargeter;
-		base.Targeter = abilityUtil_Targeter_ChargeAoE;
+		else
+		{
+			Targeter = new AbilityUtil_Targeter_ChargeAoE(
+				this,
+				GetDashRadiusAtStart(),
+				GetDashRadiusAtEnd(),
+				GetDashRadiusMiddle(),
+				-1,
+				false,
+				DashPenetrateLineOfSight())
+			{
+				ShowTeleportLines = DashIsTeleport(),
+				AllowChargeThroughInvalidSquares = DashIsTeleport(),
+				m_shouldAddCasterDelegate = ShouldAddCasterForTargeter
+			};
+		}
 	}
 
 	private bool ShouldAddCasterForTargeter(ActorData caster, List<ActorData> addedSoFar)
 	{
-		if (GetDeathmarkTriggerSelfHeal() > 0)
+		if (GetDeathmarkTriggerSelfHeal() <= 0 || m_syncComp == null)
 		{
-			if (m_syncComp != null)
+			return false;
+		}
+		foreach (ActorData actor in addedSoFar)
+		{
+			if (IsActorMarked(actor))
 			{
-				for (int i = 0; i < addedSoFar.Count; i++)
-				{
-					if (!IsActorMarked(addedSoFar[i]))
-					{
-						continue;
-					}
-					while (true)
-					{
-						return true;
-					}
-				}
-				while (true)
-				{
-					return false;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -121,57 +107,30 @@ public class NinjaOmnidash : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Design --</color>\nIf using [Skip Evade] option, please set phase to one that is not Evasion.\nPlease edit [Deathmark] info on Ninja sync component.";
+		return "<color=cyan>-- For Design --</color>\n" +
+		       "If using [Skip Evade] option, please set phase to one that is not Evasion.\n" +
+		       "Please edit [Deathmark] info on Ninja sync component.";
 	}
 
 	internal override ActorData.MovementType GetMovementType()
 	{
-		if (SkipEvade())
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return ActorData.MovementType.None;
-				}
-			}
-		}
-		return DashIsTeleport() ? ActorData.MovementType.Teleport : ActorData.MovementType.Charge;
+		return SkipEvade()
+			? ActorData.MovementType.None
+			: DashIsTeleport()
+				? ActorData.MovementType.Teleport
+				: ActorData.MovementType.Charge;
 	}
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		int result;
-		if (CanQueueMoveAfterEvade())
-		{
-			result = ((!SkipEvade()) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return CanQueueMoveAfterEvade() && !SkipEvade();
 	}
 
 	public override TargetData[] GetTargetData()
 	{
-		if (SkipEvade())
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_noEvadeTargetData;
-				}
-			}
-		}
-		return base.GetTargetData();
+		return SkipEvade()
+			? m_noEvadeTargetData
+			: base.GetTargetData();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -188,247 +147,151 @@ public class NinjaOmnidash : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		m_cachedSingleHitEnemyEffect = ((!m_abilityMod) ? m_singleHitEnemyEffect : m_abilityMod.m_singleHitEnemyEffectMod.GetModifiedValue(m_singleHitEnemyEffect));
-		StandardEffectInfo cachedExtraSingleHitEnemyEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedExtraSingleHitEnemyEffect = m_abilityMod.m_extraSingleHitEnemyEffectMod.GetModifiedValue(m_extraSingleHitEnemyEffect);
-		}
-		else
-		{
-			cachedExtraSingleHitEnemyEffect = m_extraSingleHitEnemyEffect;
-		}
-		m_cachedExtraSingleHitEnemyEffect = cachedExtraSingleHitEnemyEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
+		m_cachedSingleHitEnemyEffect = m_abilityMod != null
+			? m_abilityMod.m_singleHitEnemyEffectMod.GetModifiedValue(m_singleHitEnemyEffect)
+			: m_singleHitEnemyEffect;
+		m_cachedExtraSingleHitEnemyEffect = m_abilityMod != null
+			? m_abilityMod.m_extraSingleHitEnemyEffectMod.GetModifiedValue(m_extraSingleHitEnemyEffect)
+			: m_extraSingleHitEnemyEffect;
 	}
 
 	public int GetBaseDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_baseDamageMod.GetModifiedValue(m_baseDamage);
-		}
-		else
-		{
-			result = m_baseDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_baseDamageMod.GetModifiedValue(m_baseDamage)
+			: m_baseDamage;
 	}
 
 	public int GetDamageChangePerEnemyAfterFirst()
 	{
-		return (!m_abilityMod) ? m_damageChangePerEnemyAfterFirst : m_abilityMod.m_damageChangePerEnemyAfterFirstMod.GetModifiedValue(m_damageChangePerEnemyAfterFirst);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageChangePerEnemyAfterFirstMod.GetModifiedValue(m_damageChangePerEnemyAfterFirst)
+			: m_damageChangePerEnemyAfterFirst;
 	}
 
 	public int GetMinDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamage);
-		}
-		else
-		{
-			result = m_minDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamage)
+			: m_minDamage;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public StandardEffectInfo GetSingleHitEnemyEffect()
 	{
-		return (m_cachedSingleHitEnemyEffect == null) ? m_singleHitEnemyEffect : m_cachedSingleHitEnemyEffect;
+		return m_cachedSingleHitEnemyEffect ?? m_singleHitEnemyEffect;
 	}
 
 	public StandardEffectInfo GetExtraSingleHitEnemyEffect()
 	{
-		return (m_cachedExtraSingleHitEnemyEffect == null) ? m_extraSingleHitEnemyEffect : m_cachedExtraSingleHitEnemyEffect;
+		return m_cachedExtraSingleHitEnemyEffect ?? m_extraSingleHitEnemyEffect;
 	}
 
 	public int GetEnergyGainPerMarkedHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyGainPerMarkedHitMod.GetModifiedValue(m_energyGainPerMarkedHit);
-		}
-		else
-		{
-			result = m_energyGainPerMarkedHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyGainPerMarkedHitMod.GetModifiedValue(m_energyGainPerMarkedHit)
+			: m_energyGainPerMarkedHit;
 	}
 
 	public bool SkipEvade()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_skipEvadeMod.GetModifiedValue(m_skipEvade);
-		}
-		else
-		{
-			result = m_skipEvade;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_skipEvadeMod.GetModifiedValue(m_skipEvade)
+			: m_skipEvade;
 	}
 
 	public bool DashIsTeleport()
 	{
-		return (!m_abilityMod) ? m_isTeleport : m_abilityMod.m_isTeleportMod.GetModifiedValue(m_isTeleport);
+		return m_abilityMod != null
+			? m_abilityMod.m_isTeleportMod.GetModifiedValue(m_isTeleport)
+			: m_isTeleport;
 	}
 
 	public float GetDashRadiusAtStart()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_dashRadiusAtStartMod.GetModifiedValue(m_dashRadiusAtStart);
-		}
-		else
-		{
-			result = m_dashRadiusAtStart;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_dashRadiusAtStartMod.GetModifiedValue(m_dashRadiusAtStart)
+			: m_dashRadiusAtStart;
 	}
 
 	public float GetDashRadiusMiddle()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_dashRadiusMiddleMod.GetModifiedValue(m_dashRadiusMiddle);
-		}
-		else
-		{
-			result = m_dashRadiusMiddle;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_dashRadiusMiddleMod.GetModifiedValue(m_dashRadiusMiddle)
+			: m_dashRadiusMiddle;
 	}
 
 	public float GetDashRadiusAtEnd()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_dashRadiusAtEndMod.GetModifiedValue(m_dashRadiusAtEnd);
-		}
-		else
-		{
-			result = m_dashRadiusAtEnd;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_dashRadiusAtEndMod.GetModifiedValue(m_dashRadiusAtEnd)
+			: m_dashRadiusAtEnd;
 	}
 
 	public bool DashPenetrateLineOfSight()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(m_dashPenetrateLineOfSight);
-		}
-		else
-		{
-			result = m_dashPenetrateLineOfSight;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_dashPenetrateLineOfSightMod.GetModifiedValue(m_dashPenetrateLineOfSight)
+			: m_dashPenetrateLineOfSight;
 	}
 
 	public bool CanQueueMoveAfterEvade()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(m_canQueueMoveAfterEvade);
-		}
-		else
-		{
-			result = m_canQueueMoveAfterEvade;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_canQueueMoveAfterEvadeMod.GetModifiedValue(m_canQueueMoveAfterEvade)
+			: m_canQueueMoveAfterEvade;
 	}
 
 	public bool ApplyDeathmarkEffect()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect);
-		}
-		else
-		{
-			result = m_applyDeathmarkEffect;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_applyDeathmarkEffectMod.GetModifiedValue(m_applyDeathmarkEffect)
+			: m_applyDeathmarkEffect;
 	}
 
 	public int GetCdrOnAbility()
 	{
-		return (!m_abilityMod) ? m_cdrOnAbility : m_abilityMod.m_cdrOnAbilityMod.GetModifiedValue(m_cdrOnAbility);
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrOnAbilityMod.GetModifiedValue(m_cdrOnAbility)
+			: m_cdrOnAbility;
 	}
 
 	public bool IsActorMarked(ActorData actor)
 	{
-		int result;
-		if (m_syncComp != null)
-		{
-			result = (m_syncComp.ActorHasDeathmark(actor) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_syncComp != null && m_syncComp.ActorHasDeathmark(actor);
 	}
 
 	public int CalcDamageForNumEnemies(int numEnemies)
 	{
-		int b = GetBaseDamage() + Mathf.Max(0, numEnemies - 1) * GetDamageChangePerEnemyAfterFirst();
-		b = Mathf.Max(GetMinDamage(), b);
-		return Mathf.Max(0, b);
+		int damage = GetBaseDamage() + Mathf.Max(0, numEnemies - 1) * GetDamageChangePerEnemyAfterFirst();
+		damage = Mathf.Max(GetMinDamage(), damage);
+		return Mathf.Max(0, damage);
 	}
 
 	public int GetDeathmarkTriggerDamage()
 	{
-		int result = 0;
-		if (m_syncComp != null)
-		{
-			result = ((!(m_abilityMod != null)) ? m_syncComp.m_deathmarkOnTriggerDamage : m_abilityMod.m_deathmarkDamageMod.GetModifiedValue(m_syncComp.m_deathmarkOnTriggerDamage));
-		}
-		return result;
+		return m_syncComp != null
+			? m_abilityMod != null
+				? m_abilityMod.m_deathmarkDamageMod.GetModifiedValue(m_syncComp.m_deathmarkOnTriggerDamage)
+				: m_syncComp.m_deathmarkOnTriggerDamage
+			: 0;
 	}
 
 	public int GetDeathmarkTriggerSelfHeal()
 	{
-		int result = 0;
-		if (m_syncComp != null)
-		{
-			result = ((!(m_abilityMod != null)) ? m_syncComp.m_deathmarkOnTriggerCasterHeal : m_abilityMod.m_deathmarkCasterHealMod.GetModifiedValue(m_syncComp.m_deathmarkOnTriggerCasterHeal));
-		}
-		return result;
+		return m_syncComp != null
+			? m_abilityMod != null
+				? m_abilityMod.m_deathmarkCasterHealMod.GetModifiedValue(m_syncComp.m_deathmarkOnTriggerCasterHeal)
+				: m_syncComp.m_deathmarkOnTriggerCasterHeal
+			: 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -441,103 +304,71 @@ public class NinjaOmnidash : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-			int num = results.m_damage = CalcDamageForNumEnemies(visibleActorsCountByTooltipSubject);
+			int targets = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+			results.m_damage = CalcDamageForNumEnemies(targets);
 		}
-		else if (targetActor == base.ActorData && GetDeathmarkTriggerSelfHeal() > 0)
+		else if (targetActor == ActorData && GetDeathmarkTriggerSelfHeal() > 0)
 		{
-			int num2 = 0;
+			int healing = 0;
 			if (m_syncComp != null)
 			{
-				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
-				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
+				foreach (ActorData actor in Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy))
 				{
-					if (m_syncComp.ActorHasDeathmark(visibleActorsInRangeByTooltipSubject[i]))
+					if (m_syncComp.ActorHasDeathmark(actor))
 					{
-						num2 += GetDeathmarkTriggerSelfHeal();
+						healing += GetDeathmarkTriggerSelfHeal();
 					}
 				}
 			}
-			results.m_healing = num2;
+			results.m_healing = healing;
 		}
 		return true;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		int num = 0;
-		if (GetEnergyGainPerMarkedHit() > 0)
+		int techPoints = 0;
+		if (GetEnergyGainPerMarkedHit() > 0 && m_syncComp != null)
 		{
-			if (m_syncComp != null)
+			foreach (ActorData actor in Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy))
 			{
-				List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Enemy);
-				for (int i = 0; i < visibleActorsInRangeByTooltipSubject.Count; i++)
+				if (IsActorMarked(actor))
 				{
-					if (IsActorMarked(visibleActorsInRangeByTooltipSubject[i]))
-					{
-						num += GetEnergyGainPerMarkedHit();
-					}
+					techPoints += GetEnergyGainPerMarkedHit();
 				}
 			}
 		}
-		return num;
+		return techPoints;
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		if (symbolType == AbilityTooltipSymbol.Damage)
-		{
-			if (m_syncComp != null)
-			{
-				if (GetDeathmarkTriggerDamage() > 0)
-				{
-					if (IsActorMarked(targetActor))
-					{
-						return "\n+ " + AbilityUtils.CalculateDamageForTargeter(base.ActorData, targetActor, this, GetDeathmarkTriggerDamage(), false);
-					}
-				}
-			}
-		}
-		return null;
+		return symbolType == AbilityTooltipSymbol.Damage
+		       && m_syncComp != null
+		       && GetDeathmarkTriggerDamage() > 0
+		       && IsActorMarked(targetActor)
+			? "\n+ " + AbilityUtils.CalculateDamageForTargeter(
+				ActorData, targetActor, this, GetDeathmarkTriggerDamage(), false)
+			: null;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool result = false;
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null)
-		{
-			if (boardSquareSafe.IsValidForGameplay())
-			{
-				if (boardSquareSafe != caster.GetCurrentBoardSquare())
-				{
-					if (DashIsTeleport())
-					{
-						result = true;
-					}
-					else
-					{
-						result = (KnockbackUtils.BuildStraightLineChargePath(caster, boardSquareSafe) != null);
-					}
-				}
-			}
-		}
-		return result;
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		return targetSquare != null
+		       && targetSquare.IsValidForGameplay()
+		       && targetSquare != caster.GetCurrentBoardSquare()
+		       && (DashIsTeleport() || KnockbackUtils.BuildStraightLineChargePath(caster, targetSquare) != null);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_NinjaOmnidash))
+		if (abilityMod.GetType() == typeof(AbilityMod_NinjaOmnidash))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_NinjaOmnidash);
+			m_abilityMod = abilityMod as AbilityMod_NinjaOmnidash;
 			Setup();
-			return;
 		}
 	}
 

@@ -3,13 +3,9 @@ using UnityEngine;
 public class NinjaCloneSatellite : TempSatellite
 {
 	private GameObject m_attackTarget;
-
 	private int m_numAttacksLeft;
-
 	private float m_attackDelay;
-
 	private float m_lastAttackTime = -1f;
-
 	private int m_lastAttackIndex;
 
 	private void SetRandomParameter()
@@ -19,7 +15,7 @@ public class NinjaCloneSatellite : TempSatellite
 
 	private void IncrementRandomParameter()
 	{
-		float value = (float)m_lastAttackIndex / 3f;
+		float value = m_lastAttackIndex / 3f;
 		m_modelAnimator.SetFloat("RandomValue", value);
 		m_lastAttackIndex++;
 		m_lastAttackIndex %= 3;
@@ -63,66 +59,29 @@ public class NinjaCloneSatellite : TempSatellite
 	private void Update()
 	{
 		AnimatorStateInfo currentAnimatorStateInfo = m_modelAnimator.GetCurrentAnimatorStateInfo(0);
-		if (currentAnimatorStateInfo.IsTag("Despawn"))
+		if (currentAnimatorStateInfo.IsTag("Despawn") && currentAnimatorStateInfo.normalizedTime >= 1f)
 		{
-			if (currentAnimatorStateInfo.normalizedTime >= 1f)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						Object.Destroy(base.gameObject);
-						return;
-					}
-				}
-			}
+			Destroy(gameObject);
+			return;
 		}
 		if (!currentAnimatorStateInfo.IsTag("Attack"))
 		{
 			return;
 		}
-		while (true)
+		if (m_attackTarget != null)
 		{
-			if (m_attackTarget != null)
-			{
-				base.transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - base.transform.position).normalized);
-			}
-			if (m_numAttacksLeft > 0 && Time.time > m_lastAttackTime + m_attackDelay)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						IncrementRandomParameter();
-						m_modelAnimator.SetTrigger("StartAttack");
-						m_lastAttackTime = Time.time;
-						m_numAttacksLeft--;
-						return;
-					}
-				}
-			}
-			if (m_numAttacksLeft != 0)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (currentAnimatorStateInfo.normalizedTime >= 1f)
-				{
-					while (true)
-					{
-						TriggerDespawn();
-						return;
-					}
-				}
-				return;
-			}
+			transform.rotation = Quaternion.LookRotation((m_attackTarget.transform.position - transform.position).normalized);
+		}
+		if (m_numAttacksLeft > 0 && Time.time > m_lastAttackTime + m_attackDelay)
+		{
+			IncrementRandomParameter();
+			m_modelAnimator.SetTrigger("StartAttack");
+			m_lastAttackTime = Time.time;
+			m_numAttacksLeft--;
+		}
+		else if (m_numAttacksLeft == 0 && currentAnimatorStateInfo.normalizedTime >= 1f)
+		{
+			TriggerDespawn();
 		}
 	}
 }

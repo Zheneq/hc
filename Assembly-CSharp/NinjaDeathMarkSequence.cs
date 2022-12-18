@@ -7,68 +7,40 @@ public class NinjaDeathMarkSequence : TempSatelliteSequence
 	public Object m_startEvent;
 
 	private bool m_spawnedTempSatellite;
-
 	private bool m_setFinishTrigger;
 
 	public override void FinishSetup()
 	{
-		if (!(m_startEvent == null))
-		{
-			return;
-		}
-		while (true)
+		if (m_startEvent == null)
 		{
 			SpawnTempSatellite();
-			return;
 		}
 	}
 
 	private void SpawnTempSatellite()
 	{
 		m_spawnedTempSatellite = true;
-		m_tempSatelliteInstance = InstantiateFX(m_tempSatellitePrefab, base.TargetPos, Quaternion.identity);
+		m_tempSatelliteInstance = InstantiateFX(m_tempSatellitePrefab, TargetPos, Quaternion.identity);
 		m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().Setup(this);
 		m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().TriggerDeathMarkAttack();
 	}
 
 	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
-		if (!(m_startEvent == parameter))
-		{
-			return;
-		}
-		while (true)
+		if (m_startEvent == parameter)
 		{
 			SpawnTempSatellite();
-			return;
 		}
 	}
 
 	private void Update()
 	{
-		if (!m_spawnedTempSatellite)
+		if (m_spawnedTempSatellite
+		    && !m_setFinishTrigger
+		    && (m_tempSatelliteInstance == null || m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().IsDespawning()))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_setFinishTrigger)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (!(m_tempSatelliteInstance == null))
-				{
-					if (!m_tempSatelliteInstance.GetComponent<NinjaCloneSatellite>().IsDespawning())
-					{
-						return;
-					}
-				}
-				m_setFinishTrigger = true;
-				base.Caster.GetActorModelData().GetModelAnimator().SetTrigger("FinishAttack");
-				return;
-			}
+			m_setFinishTrigger = true;
+			Caster.GetActorModelData().GetModelAnimator().SetTrigger("FinishAttack");
 		}
 	}
 
