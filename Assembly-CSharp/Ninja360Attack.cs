@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -362,4 +364,146 @@ public class Ninja360Attack : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		FindHitActors(targets, caster, null, out Vector3 targetPos);
+		float coneForwardAngle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		List<ActorData> hitActors = new List<ActorData>();
+		foreach (ActorData actor in additionalData.m_abilityResults.HitActorsArray())
+		{
+			if (IsActorInInnerCone(actor, caster, coneForwardAngle))
+			{
+				hitActors.Add(actor);
+			}
+		}
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targetPos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				new HitActorGroupOnAnimEventSequence.ActorParams
+				{
+					m_groupIdentifier = 1,
+					m_hitActors = hitActors
+				}
+			});
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out _);
+		float coneForwardAngle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		foreach (ActorData actorData in hitActors)
+		{
+			int damage = GetDamageAmount();
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (IsActorInInnerCone(actorData, caster, coneForwardAngle))
+			{
+				if (GetInnerAreaDamage() > 0)
+				{
+					damage = GetInnerAreaDamage();
+				}
+				if (UseDifferentEffectForInnerCone())
+				{
+					actorHitResults.AddStandardEffectInfo(GetInnerConeEnemyHitEffect());
+				}
+				else
+				{
+					actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+				}
+			}
+			else
+			{
+				actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			}
+			actorHitResults.SetBaseDamage(damage);
+			if (IsActorMarked(actorData) && GetEnergyGainOnMarkedHit() > 0)
+			{
+				actorHitResults.SetTechPointGainOnCaster(GetEnergyGainOnMarkedHit());
+			}
+			if (m_syncComp != null && ApplyDeathmarkEffect())
+			{
+				m_syncComp.HandleAddDeathmarkEffect(actorHitResults, actorData, this, damage, caster);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, out Vector3 endPos)
+	{
+		List<Team> otherTeams = caster.GetOtherTeams();
+		Vector3 aimDirection = targets[0].AimDirection;
+		endPos = caster.GetFreePos();
+		switch (m_targetingMode)
+		{
+			case TargetingMode.Laser:
+			{
+				LaserTargetingInfo laserInfo = GetLaserInfo();
+				return AreaEffectUtils.GetActorsInLaser(
+					caster.GetLoSCheckPos(),
+					aimDirection,
+					laserInfo.range,
+					laserInfo.width,
+					caster,
+					otherTeams,
+					PenetrateLineOfSight(),
+					laserInfo.maxTargets,
+					false,
+					true,
+					out endPos,
+					nonActorTargetInfo);
+			}
+			case TargetingMode.Cone:
+			{
+				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+				ConeTargetingInfo coneInfo = GetConeInfo();
+				return AreaEffectUtils.GetActorsInCone(
+					caster.GetLoSCheckPos(),
+					coneCenterAngleDegrees,
+					coneInfo.m_widthAngleDeg,
+					coneInfo.m_radiusInSquares,
+					coneInfo.m_backwardsOffset,
+					PenetrateLineOfSight(),
+					caster,
+					otherTeams,
+					nonActorTargetInfo);
+			}
+			default:
+				return AreaEffectUtils.GetActorsInShape(
+					GetTargeterShape(),
+					caster.GetFreePos(),
+					caster.GetCurrentBoardSquare(),
+					PenetrateLineOfSight(),
+					caster,
+					otherTeams,
+					nonActorTargetInfo);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.HasHitResultsTag(HitResultsTags.DeathmarkDetonation))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TeleportingNinjaStats.NumDetonationsOfMark);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		Ninja_SyncComponent.IncrementDeathmarkTotalDamage(caster, target, results);
+	}
+#endif
 }

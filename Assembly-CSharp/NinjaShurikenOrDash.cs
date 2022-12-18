@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -40,6 +42,11 @@ public class NinjaShurikenOrDash : Ability
 	private StandardEffectInfo m_cachedExtraEnemyEffectOnMarked;
 	private StandardEffectInfo m_cachedDashAllyHitEffect;
 
+#if SERVER
+	// added in rogues
+	private Passive_Ninja m_passive;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -56,6 +63,17 @@ public class NinjaShurikenOrDash : Ability
 		{
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
+#if SERVER
+		// added in rogues
+		if (m_passive == null)
+		{
+			PassiveData component = GetComponent<PassiveData>();
+			if (component != null)
+			{
+				m_passive = component.GetPassiveOfType(typeof(Passive_Ninja)) as Passive_Ninja;
+			}
+		}
+#endif
 		ClearTargeters();
 		Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true));
 		AbilityUtil_Targeter_ChargeAoE targeter = new AbilityUtil_Targeter_ChargeAoE(
@@ -460,4 +478,188 @@ public class NinjaShurikenOrDash : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		if (targets.Count >= 2)
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[1].GridPos);
+			if (square != null)
+			{
+				return square;
+			}
+		}
+		return base.GetModifiedMoveStartSquare(caster, targets);
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[3];
+		array[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_end = BoardSquarePathInfo.ChargeEndType.None
+		};
+		array[1] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_pos = Board.Get().GetSquare(targets[0].GridPos),
+			m_end = BoardSquarePathInfo.ChargeEndType.None
+		};
+		array[2] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_pos = Board.Get().GetSquare(targets[1].GridPos)
+		};
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+		array[0].m_segmentMovementSpeed = segmentMovementSpeed;
+		array[1].m_segmentMovementSpeed = segmentMovementSpeed;
+		array[2].m_segmentMovementSpeed = segmentMovementSpeed;
+		return array;
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments);
+	}
+
+	// added in rogues
+	public override BoardSquare GetIdealDestination(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (targets.Count > 1)
+		{
+			return Board.Get().GetSquare(targets[1].GridPos);
+		}
+		return base.GetIdealDestination(targets, caster, additionalData);
+	}
+
+	// added in rogues
+	internal override Vector3 GetFacingDirAfterMovement(ServerEvadeUtils.EvadeInfo evade)
+	{
+		Vector3 freePos = evade.m_request.m_caster.GetFreePos(evade.m_evadeDest);
+		Vector3 result = evade.m_request.m_targets[0].GetWorldGridPos() - freePos;
+		result.y = 0f;
+		result.Normalize();
+		return result;
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null
+		    && m_passive != null
+		    && m_delayExtraMarkedEffectToTurnStart
+		    && GetExtraEnemyEffectOnMarked().m_applyEffect)
+		{
+			m_passive.m_dashActorToExtraEffectMap.Clear();
+			ActorData chargeHitActor = GetChargeHitActor(targets, caster);
+			if (chargeHitActor != null && IsActorMarked(chargeHitActor))
+			{
+				m_passive.m_dashActorToExtraEffectMap[chargeHitActor] = GetExtraEnemyEffectOnMarked();
+			}
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_dashSequencePrefab,
+				caster.GetFreePos(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorData chargeHitActor = GetChargeHitActor(targets, caster);
+		if (chargeHitActor == null)
+		{
+			return;
+		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(chargeHitActor, caster.GetFreePos()));
+		if (chargeHitActor.GetTeam() == caster.GetTeam())
+		{
+			actorHitResults.AddBaseHealing(GetDashHealing());
+			actorHitResults.AddStandardEffectInfo(GetDashAllyHitEffect());
+		}
+		else
+		{
+			int damage = CalcDamageOnActor(chargeHitActor, caster);
+			actorHitResults.AddBaseDamage(damage);
+			actorHitResults.AddStandardEffectInfo(GetDashEnemyHitEffect());
+			if (IsActorMarked(chargeHitActor) && !m_delayExtraMarkedEffectToTurnStart)
+			{
+				actorHitResults.AddStandardEffectInfo(GetExtraEnemyEffectOnMarked());
+			}
+			if (m_syncComp != null && DashApplyDeathmark())
+			{
+				m_syncComp.HandleAddDeathmarkEffect(actorHitResults, chargeHitActor, this, damage, caster);
+			}
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	// added in rogues
+	private ActorData GetChargeHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		ActorData result = null;
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			AbilityAreaShape.SingleSquare, targets[0], true, caster, null, null);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInShape);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInShape, targets[0].FreePos);
+		TargeterUtils.LimitActorsToMaxNumber(ref actorsInShape, 1);
+		if (actorsInShape.Count > 0)
+		{
+			result = actorsInShape[0];
+		}
+		return result;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.TeleportingNinjaStats.DamageDodgedWithDash, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.HasHitResultsTag(HitResultsTags.DeathmarkDetonation))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TeleportingNinjaStats.NumDetonationsOfMark);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		Ninja_SyncComponent.IncrementDeathmarkTotalDamage(caster, target, results);
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +45,11 @@ public class NinjaDarts : Ability
 	private StandardEffectInfo m_cachedEnemyExtraHitEffectForHitCount;
 	private StandardEffectInfo m_cachedAllySingleHitEffect;
 	private StandardEffectInfo m_cachedAllyMultiHitEffect;
+	
+#if SERVER
+	// added in rogues
+	private AbilityData.ActionType m_myActionType;
+#endif
 
 	private void Start()
 	{
@@ -56,6 +63,14 @@ public class NinjaDarts : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
+#if SERVER
+		// added in rogues
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData != null)
+		{
+			m_myActionType = abilityData.GetActionTypeOfAbility(this);
+		}
+#endif
 		if (m_syncComp == null)
 		{
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
@@ -354,4 +369,131 @@ public class NinjaDarts : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		bool hitCaster = additionalData.m_abilityResults.HitActorList().Contains(caster);
+		GetHitActorsAndHitCount(
+			targets,
+			caster,
+			out List<List<ActorData>> actorsForSequence,
+			out List<Vector3> targetPosForSequences,
+			out _,
+			null);
+		for (int i = 0; i < actorsForSequence.Count; i++)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab, targetPosForSequences[i], actorsForSequence[i].ToArray(), caster, additionalData.m_sequenceSource));
+		}
+		if (hitCaster)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				SequenceLookup.Get().GetSimpleHitSequencePrefab(), caster.GetFreePos(), caster.AsArray(), caster, additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> hitActorsAndHitCount = GetHitActorsAndHitCount(targets, caster, out _, out _, out int numLasersWithHits, nonActorTargetInfo);
+		int energy = GetEnergyPerDartHit() * numLasersWithHits;
+		bool energyGain = false;
+		foreach (ActorData actorData in hitActorsAndHitCount.Keys)
+		{
+			Vector3 freePos = caster.GetFreePos();
+			if (actorData.GetTeam() != caster.GetTeam() && IgnoreCoverOnTargets() && ActorIsMarked(actorData))
+			{
+				freePos = actorData.GetFreePos();
+			}
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, freePos));
+			if (energy > 0 && !energyGain)
+			{
+				actorHitResults.SetTechPointGainOnCaster(energy);
+				energyGain = true;
+			}
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				int damage = CalcDamageFromNumHits(hitActorsAndHitCount[actorData]);
+				actorHitResults.SetBaseDamage(damage);
+				actorHitResults.AddStandardEffectInfo(
+					hitActorsAndHitCount[actorData] < 2
+						? GetEnemySingleHitEffect()
+						: GetEnemyMultiHitEffect());
+				if (GetEnemyExtraEffectHitCount() > 0 && hitActorsAndHitCount[actorData] >= GetEnemyExtraEffectHitCount())
+				{
+					actorHitResults.AddStandardEffectInfo(GetEnemyExtraHitEffectForHitCount());
+				}
+				if (m_syncComp != null && ApplyDeathmarkEffect())
+				{
+					m_syncComp.HandleAddDeathmarkEffect(actorHitResults, actorData, this, damage, caster);
+				}
+			}
+			else
+			{
+				actorHitResults.AddStandardEffectInfo(
+					hitActorsAndHitCount[actorData] < 2
+						? GetAllySingleHitEffect()
+						: GetAllyMultiHitEffect());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (GetCdrOnMiss() > 0 && hitActorsAndHitCount.Count == 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_myActionType, -1 * GetCdrOnMiss()));
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetHitActorsAndHitCount(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<List<ActorData>> actorsForSequence,
+		out List<Vector3> targetPosForSequences,
+		out int numLasersWithHits,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		return AbilityCommon_FanLaser.GetHitActorsAndHitCount(
+			targets,
+			caster,
+			GetLaserInfo(),
+			GetLaserCount(),
+			GetAngleInBetween(),
+			ChangeAngleByCursorDistance(),
+			GetTargeterMinAngle(),
+			GetTargeterMaxAngle(),
+			GetTargeterMinInterpDistance(),
+			GetTargeterMaxInterpDistance(),
+			out actorsForSequence,
+			out targetPosForSequences,
+			out numLasersWithHits,
+			nonActorTargetInfo,
+			true);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.HasHitResultsTag(HitResultsTags.DeathmarkDetonation))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TeleportingNinjaStats.NumDetonationsOfMark);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		Ninja_SyncComponent.IncrementDeathmarkTotalDamage(caster, target, results);
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,6 +37,15 @@ public class NinjaVanish : Ability
 	private StandardBarrierData m_cachedVisionBlockBarrierData;
 	private GroundEffectField m_cachedGroundEffectData;
 
+#if SERVER
+	// added in rogues
+	private Passive_Ninja m_passive;
+	// added in rogues
+	private AbilityData m_abilityData;
+	// added in rogues
+	private AbilityData.ActionType m_myActionType = AbilityData.ActionType.INVALID_ACTION;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -47,6 +58,15 @@ public class NinjaVanish : Ability
 	private void Setup()
 	{
 		SetCachedFields();
+#if SERVER
+		// added in rogues
+		m_passive = GetPassiveOfType(typeof(Passive_Ninja)) as Passive_Ninja;
+		m_abilityData = GetComponent<AbilityData>();
+		if (m_abilityData != null)
+		{
+			m_myActionType = m_abilityData.GetActionTypeOfAbility(this);
+		}
+#endif
 		if (SkipEvade())
 		{
 			Targeter = new AbilityUtil_Targeter_Shape(
@@ -114,9 +134,19 @@ public class NinjaVanish : Ability
 		m_cachedSelfEffectOnNextTurn = m_abilityMod != null
 			? m_abilityMod.m_selfEffectOnNextTurnMod.GetModifiedValue(m_selfEffectOnNextTurn)
 			: m_selfEffectOnNextTurn;
+		// added in rogues
+		// if (m_visionBlockBarrierData == null)
+		// {
+		// 	m_visionBlockBarrierData = ScriptableObject.CreateInstance<StandardBarrierData>();
+		// }
 		m_cachedVisionBlockBarrierData = m_abilityMod != null
 			? m_abilityMod.m_visionBlockBarrierDataMod.GetModifiedValue(m_visionBlockBarrierData)
 			: m_visionBlockBarrierData;
+		// added in rogues
+		// if (m_groundEffectData == null)
+		// {
+		// 	m_groundEffectData = ScriptableObject.CreateInstance<GroundEffectField>();
+		// }
 		m_cachedGroundEffectData = m_abilityMod != null
 			? m_abilityMod.m_groundEffectDataMod.GetModifiedValue(m_groundEffectData)
 			: m_groundEffectData;
@@ -261,4 +291,129 @@ public class NinjaVanish : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null)
+		{
+			return square;
+		}
+		return base.GetModifiedMoveStartSquare(caster, targets);
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_passive != null && GetSelfEffectOnNextTurn().m_applyEffect)
+		{
+			m_passive.m_vanishSelfEffectOnTurnStart = GetSelfEffectOnNextTurn();
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare square = caster.GetSquareAtPhaseStart();
+		if (square == null)
+		{
+			square = caster.GetCurrentBoardSquare();
+		}
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				square.ToVector3(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		actorHitResults.AddStandardEffectInfo(GetEffectOnSelf());
+		if (GetCdrIfOnlyAbilityUsed() > 0 && m_abilityData != null)
+		{
+			bool flag = false;
+			int num = CdrConsiderCatalyst() ? AbilityData.LAST_CARD : AbilityData.ABILITY_4;
+			for (int i = 0; i <= num && !flag; i++)
+			{
+				if (i != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)i))  // , true in rogues
+				{
+					flag = true;
+				}
+			}
+			if (!flag)
+			{
+				actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_myActionType, -1 * GetCdrIfOnlyAbilityUsed()));
+			}
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+		BoardSquare casterSquare = caster.GetSquareAtPhaseStart();
+		if (casterSquare == null)
+		{
+			casterSquare = caster.GetCurrentBoardSquare();
+		}
+		Vector3 vector = casterSquare.ToVector3();
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(vector));
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetGroundEffectData().shape, vector, casterSquare);
+		float radiusInWorld = 0.5f * GetBarrierWidth() * Board.Get().squareSize;
+		List<BarrierPoseInfo> barrierPosesForRegularPolygon = BarrierPoseInfo.GetBarrierPosesForRegularPolygon(centerOfShape, 4, radiusInWorld);
+		if (barrierPosesForRegularPolygon != null)
+		{
+			GetVisionBlockBarrierData().m_width = GetBarrierWidth() + 0.05f;
+			foreach (BarrierPoseInfo barrierPoseInfo in barrierPosesForRegularPolygon)
+			{
+				Barrier barrier = new Barrier(m_abilityName, barrierPoseInfo.midpoint, barrierPoseInfo.facingDirection, caster, GetVisionBlockBarrierData());
+				barrier.SetSourceAbility(this);
+				positionHitResults.AddBarrier(barrier);
+			}
+		}
+		NinjaVanishGroundEffect effect = new NinjaVanishGroundEffect(AsEffectSource(), casterSquare, vector, null, caster, GetGroundEffectData(), GetSelfHealOnTurnStartIfInField());
+		positionHitResults.AddEffect(effect);
+		abilityResults.StorePositionHit(positionHitResults);
+		if (GetEffectOnEnemy().m_applyEffect)
+		{
+			foreach (ActorData actorData in GetInitialHitActors(targets, caster))
+			{
+				ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
+				actorHitResults2.AddStandardEffectInfo(GetEffectOnEnemy());
+				abilityResults.StoreActorHit(actorHitResults2);
+			}
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetInitialHitActors(List<AbilityTarget> targets, ActorData caster)
+	{
+		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+		if (squareAtPhaseStart != null)
+		{
+			return AreaEffectUtils.GetActorsInShape(
+				GetGroundEffectData().shape,
+				squareAtPhaseStart.ToVector3(),
+				squareAtPhaseStart,
+				GetGroundEffectData().penetrateLos,
+				caster,
+				caster.GetOtherTeams(),
+				null);
+		}
+		return new List<ActorData>();
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.HasHitResultsTag(HitResultsTags.DeathmarkDetonation))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TeleportingNinjaStats.NumDetonationsOfMark);
+		}
+	}
+#endif
 }

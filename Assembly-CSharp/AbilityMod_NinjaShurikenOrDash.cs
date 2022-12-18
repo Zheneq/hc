@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -54,9 +56,12 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		NinjaShurikenOrDash ninjaShurikenOrDash = GetTargetAbilityOnAbilityData(abilityData) as NinjaShurikenOrDash;
+		// rogues
+		// NinjaShurikenOrDash ninjaShurikenOrDash = targetAbility as NinjaShurikenOrDash;
 		bool isValid = ninjaShurikenOrDash != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_isTeleportMod, "[IsTeleport]", isValid, isValid && ninjaShurikenOrDash.m_isTeleport);

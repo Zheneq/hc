@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// identical in reactor & rogues
 public class NinjaCloneSatellite : TempSatellite
 {
 	private GameObject m_attackTarget;

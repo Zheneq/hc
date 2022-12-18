@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -252,7 +254,10 @@ public class NinjaSetRotationToTargetSequence : Sequence
 			Source.OnSequenceHit(this, TargetPos);
 			if (m_casterInTargetsList)
 			{
+				// reactor
 				Source.OnSequenceHit(this, Caster, CreateImpulseInfoWithActorForward(Caster));
+				// rogues
+				// Source.OnSequenceHit(this, Caster, null);
 			}
 		}
 	}

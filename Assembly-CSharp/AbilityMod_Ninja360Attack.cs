@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,9 +51,12 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		Ninja360Attack ninja360Attack = GetTargetAbilityOnAbilityData(abilityData) as Ninja360Attack;
+		// rogues
+		// Ninja360Attack ninja360Attack = targetAbility as Ninja360Attack;
 		bool isValid = ninja360Attack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isValid, isValid && ninja360Attack.m_penetrateLineOfSight);

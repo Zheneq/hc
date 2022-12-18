@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,9 +64,12 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		NinjaOmnidash ninjaOmnidash = GetTargetAbilityOnAbilityData(abilityData) as NinjaOmnidash;
+		// rogues
+		// NinjaOmnidash ninjaOmnidash = targetAbility as NinjaOmnidash;
 		bool isValid = ninjaOmnidash != null;
 		Ninja_SyncComponent ninja_SyncComponent = null;
 		if (ninjaOmnidash != null)

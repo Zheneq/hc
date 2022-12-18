@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -42,6 +44,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 	private AbilityData.ActionType m_shurikenOrDashActionType;
 	private NinjaRewind m_rewindAbility;
 	
+	// removed in rogues
 	private static int kListm_deathmarkedActorIndices = -313595951;
 
 	public short Networkm_rewindHToHp
@@ -79,6 +82,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		set => SetSyncVar(value, ref m_totalDeathmarkDamage, 16u);
 	}
 
+	// removed in rogues
 	static Ninja_SyncComponent()
 	{
 		RegisterSyncListDelegate(typeof(Ninja_SyncComponent), kListm_deathmarkedActorIndices, InvokeSyncListm_deathmarkedActorIndices);
@@ -139,7 +143,72 @@ public class Ninja_SyncComponent : NetworkBehaviour
 	{
 		return m_totalDeathmarkDamage;
 	}
+	
+#if SERVER
+	// added in rogues
+	public void AddDeathmarkActorIndex(int actorIndex)
+	{
+		if (actorIndex >= 0)
+		{
+			m_deathmarkedActorIndices.Add((uint)actorIndex);
+		}
+	}
 
+	// added in rogues
+	public void RemoveDeathmarkActorIndex(int actorIndex)
+	{
+		m_deathmarkedActorIndices.Remove((uint)actorIndex);
+	}
+
+	// added in rogues
+	public void HandleAddDeathmarkEffect(ActorHitResults hitRes, ActorData target, Ability sourceAbility, int damage, ActorData caster)
+	{
+		List<Effect> effectsOnTargetByCaster = ServerEffectManager.Get().GetEffectsOnTargetByCaster(target, caster, typeof(NinjaDeathmarkEffect));
+		if (damage > 0)
+		{
+			hitRes.AddEffect(CreateDeathmarkEffect(sourceAbility, target, caster));
+		}
+		else if (effectsOnTargetByCaster.Count > 0)
+		{
+			hitRes.AddEffectForRefresh(effectsOnTargetByCaster[0], ServerEffectManager.Get().GetActorEffects(target));
+		}
+		else
+		{
+			hitRes.AddEffect(CreateDeathmarkEffect(sourceAbility, target, caster));
+		}
+	}
+
+	// added in rogues
+	private NinjaDeathmarkEffect CreateDeathmarkEffect(Ability sourceAbility, ActorData target, ActorData caster)
+	{
+		return new NinjaDeathmarkEffect(
+			sourceAbility.AsEffectSource(),
+			target.GetCurrentBoardSquare(),
+			target,
+			caster,
+			m_deathMarkEffectData,
+			this,
+			m_deathmarkOnTriggerDamage,
+			m_deathmarkOnTriggerCasterHeal,
+			m_deathmarkOnTriggerCasterEnergyGain,
+			m_effectOnTargetOnDetonate,
+			m_effectOnCasterOnDetonate,
+			m_deathmarkOnTriggerSequencePrefab,
+			m_deathmarkPersistentSequencePrefab);
+	}
+
+	// added in rogues
+	public static void IncrementDeathmarkTotalDamage(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		Ninja_SyncComponent component = caster.GetComponent<Ninja_SyncComponent>();
+		if (component != null && results.FinalDamage > 0 && results.m_hitParameters.Effect is NinjaDeathmarkEffect)
+		{
+			Ninja_SyncComponent ninja_SyncComponent = component;
+			ninja_SyncComponent.Networkm_totalDeathmarkDamage = ninja_SyncComponent.m_totalDeathmarkDamage + results.FinalDamage;
+		}
+	}
+#endif
+	
 	private bool ShouldShowRangeIndicator(out float dashToUnmarkedRange)
 	{
 		bool result = false;
@@ -236,10 +305,11 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 	}
 
-	private void UNetVersion()
+	private void UNetVersion() // MirrorProcessed in rogues
 	{
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_deathmarkedActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -250,11 +320,13 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		((Ninja_SyncComponent)obj).m_deathmarkedActorIndices.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	private void Awake()
 	{
 		m_deathmarkedActorIndices.InitializeBehaviour(this, kListm_deathmarkedActorIndices);
 	}
 
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -329,6 +401,7 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

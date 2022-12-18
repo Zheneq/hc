@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// identical in reactor & rogues
 public class NinjaDeathMarkSequence : TempSatelliteSequence
 {
 	[AnimEventPicker]

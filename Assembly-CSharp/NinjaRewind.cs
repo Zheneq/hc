@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NinjaRewind : Ability
@@ -13,6 +15,15 @@ public class NinjaRewind : Ability
 	public GameObject m_castSequencePrefab;
 
 	private Ninja_SyncComponent m_syncComp;
+	
+#if SERVER
+	// added in rogues
+	private Passive_Ninja m_passive;
+	// added in rogues
+	private AbilityData m_abilityData;
+	// added in rogues
+	private AbilityData.ActionType m_myActionType;
+#endif
 
 	private void Start()
 	{
@@ -29,6 +40,25 @@ public class NinjaRewind : Ability
 		{
 			m_syncComp = GetComponent<Ninja_SyncComponent>();
 		}
+#if SERVER
+		// added in rogues
+		if (m_passive == null)
+		{
+			PassiveData component = GetComponent<PassiveData>();
+			if (component != null)
+			{
+				m_passive = component.GetPassiveOfType(typeof(Passive_Ninja)) as Passive_Ninja;
+			}
+		}
+		if (m_abilityData == null)
+		{
+			m_abilityData = GetComponent<AbilityData>();
+		}
+		if (m_abilityData != null)
+		{
+			m_myActionType = m_abilityData.GetActionTypeOfAbility(this);
+		}
+#endif
 		AbilityUtil_Targeter_Shape targeter = new AbilityUtil_Targeter_Shape(
 			this,
 			AbilityAreaShape.SingleSquare,
@@ -111,4 +141,118 @@ public class NinjaRewind : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		if (m_syncComp != null)
+		{
+			BoardSquare squareForRewind = m_syncComp.GetSquareForRewind();
+			if (squareForRewind != null)
+			{
+				return squareForRewind;
+			}
+		}
+		return base.GetModifiedMoveStartSquare(caster, targets);
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			BoardSquare squareForRewind = m_syncComp.GetSquareForRewind();
+			if (squareForRewind != null)
+			{
+				ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[2];
+				array[0] = new ServerEvadeUtils.ChargeSegment
+				{
+					m_pos = caster.GetCurrentBoardSquare(),
+					m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+					m_end = BoardSquarePathInfo.ChargeEndType.Impact
+				};
+				array[1] = new ServerEvadeUtils.ChargeSegment
+				{
+					m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+					m_pos = squareForRewind
+				};
+				float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+				array[0].m_segmentMovementSpeed = segmentMovementSpeed;
+				array[1].m_segmentMovementSpeed = segmentMovementSpeed;
+				return array;
+			}
+		}
+		Debug.LogError("Ninja rewind failed to find destination square");
+		return base.GetChargePath(targets, caster, additionalData);
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				caster.GetSquareAtPhaseStart(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()))
+		{
+			CanBeReactedTo = false
+		};
+		if (m_syncComp != null && m_syncComp.m_rewindHToHp > 0)
+		{
+			int hitPoints = caster.HitPoints;
+			int rewindHToHp = m_syncComp.m_rewindHToHp;
+			if (hitPoints > rewindHToHp && m_setHealthIfLosing)
+			{
+				actorHitResults.AddBaseDamage(hitPoints - rewindHToHp);
+			}
+			if (hitPoints < rewindHToHp && m_setHealthIfGaining)
+			{
+				actorHitResults.AddBaseHealing(rewindHToHp - hitPoints);
+			}
+			if (m_setCooldowns && m_passive != null)
+			{
+				for (int i = 1; i < 4; i++)
+				{
+					AbilityData.ActionType actionType = (AbilityData.ActionType)i;
+					if (actionType == m_myActionType)
+					{
+						continue;
+					}
+					int remainingCooldownForRewind = m_passive.GetRemainingCooldownForRewind(i);
+					Ability abilityOfActionType = m_abilityData.GetAbilityOfActionType(actionType);
+					if (abilityOfActionType == null || abilityOfActionType.GetModdedCooldown() <= 0)
+					{
+						continue;
+					}
+					int cooldownRemaining = m_abilityData.GetCooldownRemaining(actionType);
+					if ((cooldownRemaining > 0 && cooldownRemaining != remainingCooldownForRewind + 1)
+					    || (cooldownRemaining == 0 && remainingCooldownForRewind > 0))
+					{
+						actorHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(actionType, remainingCooldownForRewind));
+					}
+				}
+			}
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+#endif
 }

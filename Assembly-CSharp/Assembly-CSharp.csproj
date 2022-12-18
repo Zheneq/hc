@@ -1716,6 +1716,7 @@
     <Compile Include="NinjaBasicAttackSequence.cs" />
     <Compile Include="NinjaCloneSatellite.cs" />
     <Compile Include="NinjaDarts.cs" />
+    <Compile Include="NinjaDeathmarkEffect.cs" />
     <Compile Include="NinjaDeathMarkSequence.cs" />
     <Compile Include="NinjaMultiAttackSequence.cs" />
     <Compile Include="NinjaOmnidash.cs" />
@@ -1723,6 +1724,7 @@
     <Compile Include="NinjaSetRotationToTargetSequence.cs" />
     <Compile Include="NinjaShurikenOrDash.cs" />
     <Compile Include="NinjaVanish.cs" />
+    <Compile Include="NinjaVanishGroundEffect.cs" />
     <Compile Include="Ninja_SyncComponent.cs" />
     <Compile Include="NonActorTargetInfo.cs" />
     <Compile Include="NonActorTargetInfo_BarrierBlock.cs" />

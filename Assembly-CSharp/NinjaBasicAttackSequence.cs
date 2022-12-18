@@ -1,6 +1,9 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// identical in reactor & rogues
 public class NinjaBasicAttackSequence : Sequence
 {
 	public class HitInfo

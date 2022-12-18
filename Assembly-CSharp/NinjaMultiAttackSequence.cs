@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
+// same in reactor & rogues
 public class NinjaMultiAttackSequence : Sequence
 {
 	public class ExtraParams : IExtraSequenceParams
 	{
 		public Dictionary<ActorData, int> actorToHits;
 
+		// NetworkWriter in rogues
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
 			int count = actorToHits?.Count ?? 0;
@@ -21,6 +25,7 @@ public class NinjaMultiAttackSequence : Sequence
 			}
 		}
 
+		// NetworkReader in rogues
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
 			int count = 0;

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +50,12 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		NinjaVanish ninjaVanish = GetTargetAbilityOnAbilityData(abilityData) as NinjaVanish;
+		// rogues
+		// NinjaVanish ninjaVanish = targetAbility as NinjaVanish;
 		bool isValid = ninjaVanish != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_canQueueMoveAfterEvadeMod, "[CanQueueMoveAfterEvade]", isValid, isValid && ninjaVanish.m_canQueueMoveAfterEvade);
