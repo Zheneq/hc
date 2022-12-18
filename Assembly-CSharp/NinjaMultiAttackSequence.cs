@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class NinjaMultiAttackSequence : Sequence
@@ -9,53 +9,31 @@ public class NinjaMultiAttackSequence : Sequence
 
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
-			int num;
-			if (actorToHits != null)
-			{
-				num = actorToHits.Count;
-			}
-			else
-			{
-				num = 0;
-			}
-			int value = num;
-			stream.Serialize(ref value);
+			int count = actorToHits?.Count ?? 0;
+			stream.Serialize(ref count);
 			foreach (KeyValuePair<ActorData, int> actorToHit in actorToHits)
 			{
-				ActorData key = actorToHit.Key;
-				int num2;
-				if (key != null)
-				{
-					num2 = key.ActorIndex;
-				}
-				else
-				{
-					num2 = ActorData.s_invalidActorIndex;
-				}
-				int value2 = num2;
-				int value3 = actorToHit.Value;
-				stream.Serialize(ref value2);
-				stream.Serialize(ref value3);
+				ActorData actor = actorToHit.Key;
+				int actorIndex = actor != null ? actor.ActorIndex : ActorData.s_invalidActorIndex;
+				int hits = actorToHit.Value;
+				stream.Serialize(ref actorIndex);
+				stream.Serialize(ref hits);
 			}
 		}
 
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
-			int value = 0;
-			stream.Serialize(ref value);
-			actorToHits = new Dictionary<ActorData, int>(value);
-			for (int i = 0; i < value; i++)
+			int count = 0;
+			stream.Serialize(ref count);
+			actorToHits = new Dictionary<ActorData, int>(count);
+			for (int i = 0; i < count; i++)
 			{
-				int value2 = ActorData.s_invalidActorIndex;
-				int value3 = 0;
-				stream.Serialize(ref value2);
-				stream.Serialize(ref value3);
-				ActorData key = GameFlowData.Get().FindActorByActorIndex(value2);
-				actorToHits.Add(key, value3);
-			}
-			while (true)
-			{
-				return;
+				int actorIndex = ActorData.s_invalidActorIndex;
+				int hits = 0;
+				stream.Serialize(ref actorIndex);
+				stream.Serialize(ref hits);
+				ActorData actor = GameFlowData.Get().FindActorByActorIndex(actorIndex);
+				actorToHits.Add(actor, hits);
 			}
 		}
 	}
@@ -63,132 +41,80 @@ public class NinjaMultiAttackSequence : Sequence
 	private class HitInfo
 	{
 		public GameObject m_spawnedSatellite;
-
 		public float m_spawnTime = -1f;
-
 		public BoardSquare m_boardSquare;
-
 		public ActorData m_target;
-
 		public JointPopupProperty m_hitJoint;
-
 		public int m_numHits;
-
 		public int m_numHitsReceived;
-
 		public bool m_didSpawnSatellite;
 	}
 
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	public Object m_startEvent;
-
 	[Tooltip("Animation event (if any) to wait for playing a hitreact. Search project for EventObjects.")]
 	[AnimEventPicker]
 	public Object m_hitEvent;
-
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxHitPrefab;
-
 	[JointPopup("hit FX attach joint")]
 	public JointPopupProperty m_hitFxJoint;
-
 	public float m_spawnDelay = 0.5f;
-
 	public float m_attackDelay = 0.1f;
-
 	public GameObject m_tempSatellitePrefab;
 
 	private Dictionary<ActorData, int> m_actorsToHits;
-
 	private List<GameObject> m_hitFXInstances;
-
 	private float m_lastTempSatelliteSpawnTime = -1f;
-
 	private List<HitInfo> m_hitInfos;
 
 	public override void FinishSetup()
 	{
-		if (!(m_startEvent == null))
-		{
-			return;
-		}
-		while (true)
+		if (m_startEvent == null)
 		{
 			SetupHitInfoList();
 			SpawnTempSatellite();
-			return;
 		}
 	}
 
 	private bool Finished()
 	{
-		bool result = false;
-		if (m_hitInfos != null)
+		if (m_hitInfos == null)
 		{
-			result = true;
-			int num = 0;
-			while (true)
+			return false;
+		}
+		foreach (HitInfo hitInfo in m_hitInfos)
+		{
+			if (hitInfo.m_numHits > hitInfo.m_numHitsReceived)
 			{
-				if (num < m_hitInfos.Count)
-				{
-					HitInfo hitInfo = m_hitInfos[num];
-					if (hitInfo.m_numHits > hitInfo.m_numHitsReceived)
-					{
-						result = false;
-						break;
-					}
-					num++;
-					continue;
-				}
-				break;
+				return false;
 			}
 		}
-		return result;
+		return true;
 	}
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
-			if (extraParams2 != null)
+			if (extraSequenceParams is ExtraParams extraParams2)
 			{
 				m_actorsToHits = extraParams2.actorToHits;
-			}
-		}
-		while (true)
-		{
-			switch (5)
-			{
-			default:
-				return;
-			case 0:
-				break;
 			}
 		}
 	}
 
 	private bool SpawnedAllTempSatellites()
 	{
-		bool result = true;
-		int num = 0;
-		while (true)
+		foreach (HitInfo hitInfo in m_hitInfos)
 		{
-			if (num < m_hitInfos.Count)
+			if (hitInfo.m_numHitsReceived < hitInfo.m_numHits)
 			{
-				HitInfo hitInfo = m_hitInfos[num];
-				if (hitInfo.m_numHitsReceived < hitInfo.m_numHits)
-				{
-					result = false;
-					break;
-				}
-				num++;
-				continue;
+				return false;
 			}
-			break;
 		}
-		return result;
+		return true;
 	}
 
 	private void Update()
@@ -197,49 +123,34 @@ public class NinjaMultiAttackSequence : Sequence
 		{
 			return;
 		}
-		while (true)
+		if (m_lastTempSatelliteSpawnTime > 0f && GameTime.time > m_lastTempSatelliteSpawnTime + m_spawnDelay && !SpawnedAllTempSatellites())
 		{
-			if (m_lastTempSatelliteSpawnTime > 0f && GameTime.time > m_lastTempSatelliteSpawnTime + m_spawnDelay && !SpawnedAllTempSatellites())
+			SpawnTempSatellite();
+		}
+		foreach (HitInfo hitInfo in m_hitInfos)
+		{
+			if (hitInfo.m_didSpawnSatellite && hitInfo.m_spawnedSatellite == null)
 			{
-				SpawnTempSatellite();
-			}
-			for (int i = 0; i < m_hitInfos.Count; i++)
-			{
-				if (!m_hitInfos[i].m_didSpawnSatellite)
+				int num = hitInfo.m_numHits - hitInfo.m_numHitsReceived;
+				for (int j = 0; j < num; j++)
 				{
-					continue;
-				}
-				if (m_hitInfos[i].m_spawnedSatellite == null)
-				{
-					int num = m_hitInfos[i].m_numHits - m_hitInfos[i].m_numHitsReceived;
-					for (int j = 0; j < num; j++)
-					{
-						SpawnHitFX(m_hitInfos[i]);
-					}
+					SpawnHitFX(hitInfo);
 				}
 			}
-			return;
 		}
 	}
 
 	private bool SquareInUseByTempSatellite(BoardSquare square)
 	{
 		bool result = false;
-		for (int i = 0; i < m_hitInfos.Count; i++)
+		foreach (HitInfo hitInfo in m_hitInfos)
 		{
-			if (!(m_hitInfos[i].m_boardSquare == square))
-			{
-				continue;
-			}
-			if (m_hitInfos[i].m_spawnedSatellite != null)
+			if (hitInfo.m_boardSquare == square && hitInfo.m_spawnedSatellite != null)
 			{
 				result = true;
 			}
 		}
-		while (true)
-		{
-			return result;
-		}
+		return result;
 	}
 
 	private BoardSquare GetClosestUnoccupiedSquare(BoardSquare center)
@@ -247,37 +158,23 @@ public class NinjaMultiAttackSequence : Sequence
 		BoardSquare boardSquare = null;
 		for (int i = 1; i < 3; i++)
 		{
-			int num = -i;
-			while (true)
+			for (int j = -i; j <= i; j += i * 2)
 			{
-				if (num <= i)
+				BoardSquare square = Board.Get().GetSquareFromIndex(center.x + j, center.y);
+				if (CanUseSquareForTempSatellite(square))
 				{
-					BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(center.x + num, center.y);
-					if (CanUseSquareForTempSatellite(boardSquare2))
-					{
-						boardSquare = boardSquare2;
-						break;
-					}
-					num += i * 2;
-					continue;
+					boardSquare = square;
+					break;
 				}
-				break;
 			}
-			int num2 = -i;
-			while (true)
+			for (int j = -i; j <= i; j += i * 2)
 			{
-				if (num2 <= i)
+				BoardSquare square = Board.Get().GetSquareFromIndex(center.x, center.y + j);
+				if (CanUseSquareForTempSatellite(square))
 				{
-					BoardSquare boardSquare3 = Board.Get().GetSquareFromIndex(center.x, center.y + num2);
-					if (CanUseSquareForTempSatellite(boardSquare3))
-					{
-						boardSquare = boardSquare3;
-						break;
-					}
-					num2 += i * 2;
-					continue;
+					boardSquare = square;
+					break;
 				}
-				break;
 			}
 			if (boardSquare != null)
 			{
@@ -293,41 +190,22 @@ public class NinjaMultiAttackSequence : Sequence
 
 	private bool CanUseSquareForTempSatellite(BoardSquare square)
 	{
-		int result;
-		if (square != null)
-		{
-			if (square.IsValidForGameplay() && square.occupant == null)
-			{
-				result = ((!SquareInUseByTempSatellite(square)) ? 1 : 0);
-				goto IL_004d;
-			}
-		}
-		result = 0;
-		goto IL_004d;
-		IL_004d:
-		return (byte)result != 0;
+		return square != null
+		       && square.IsValidForGameplay()
+		       && square.occupant == null
+		       && !SquareInUseByTempSatellite(square);
 	}
 
 	private HitInfo GetNextTarget()
 	{
-		HitInfo result = null;
-		int num = 0;
-		while (true)
+		foreach (HitInfo hitInfo in m_hitInfos)
 		{
-			if (num < m_hitInfos.Count)
+			if (!hitInfo.m_didSpawnSatellite)
 			{
-				HitInfo hitInfo = m_hitInfos[num];
-				if (!hitInfo.m_didSpawnSatellite)
-				{
-					result = hitInfo;
-					break;
-				}
-				num++;
-				continue;
+				return hitInfo;
 			}
-			break;
 		}
-		return result;
+		return null;
 	}
 
 	private void SpawnTempSatellite()
@@ -338,80 +216,56 @@ public class NinjaMultiAttackSequence : Sequence
 		{
 			return;
 		}
-		while (true)
+		BoardSquare closestUnoccupiedSquare = GetClosestUnoccupiedSquare(nextTarget.m_target.GetCurrentBoardSquare());
+		Vector3 forward = Vector3.forward;
+		if (closestUnoccupiedSquare != nextTarget.m_target.GetCurrentBoardSquare())
 		{
-			BoardSquare closestUnoccupiedSquare = GetClosestUnoccupiedSquare(nextTarget.m_target.GetCurrentBoardSquare());
-			Vector3 forward = Vector3.forward;
-			if (closestUnoccupiedSquare != nextTarget.m_target.GetCurrentBoardSquare())
-			{
-				forward = nextTarget.m_target.GetCurrentBoardSquare().ToVector3() - closestUnoccupiedSquare.ToVector3();
-			}
-			GameObject gameObject = InstantiateFX(m_tempSatellitePrefab, closestUnoccupiedSquare.ToVector3(), Quaternion.LookRotation(forward));
-			gameObject.GetComponent<NinjaCloneSatellite>().Setup(this);
-			gameObject.GetComponent<NinjaCloneSatellite>().TriggerMultiAttack(nextTarget.m_target.gameObject, nextTarget.m_numHits, m_attackDelay);
-			nextTarget.m_spawnedSatellite = gameObject;
-			nextTarget.m_spawnTime = GameTime.time;
-			nextTarget.m_boardSquare = closestUnoccupiedSquare;
-			nextTarget.m_didSpawnSatellite = true;
-			return;
+			forward = nextTarget.m_target.GetCurrentBoardSquare().ToVector3() - closestUnoccupiedSquare.ToVector3();
 		}
+		GameObject fxObject = InstantiateFX(m_tempSatellitePrefab, closestUnoccupiedSquare.ToVector3(), Quaternion.LookRotation(forward));
+		fxObject.GetComponent<NinjaCloneSatellite>().Setup(this);
+		fxObject.GetComponent<NinjaCloneSatellite>().TriggerMultiAttack(nextTarget.m_target.gameObject, nextTarget.m_numHits, m_attackDelay);
+		nextTarget.m_spawnedSatellite = fxObject;
+		nextTarget.m_spawnTime = GameTime.time;
+		nextTarget.m_boardSquare = closestUnoccupiedSquare;
+		nextTarget.m_didSpawnSatellite = true;
 	}
 
 	private void SetupHitInfoList()
 	{
 		m_hitFXInstances = new List<GameObject>();
 		m_hitInfos = new List<HitInfo>();
-		using (Dictionary<ActorData, int>.Enumerator enumerator = m_actorsToHits.GetEnumerator())
+		foreach (KeyValuePair<ActorData, int> current in m_actorsToHits)
 		{
-			while (enumerator.MoveNext())
+			HitInfo hitInfo = new HitInfo
 			{
-				KeyValuePair<ActorData, int> current = enumerator.Current;
-				HitInfo hitInfo = new HitInfo();
-				hitInfo.m_numHits = current.Value;
-				hitInfo.m_target = current.Key;
-				hitInfo.m_spawnedSatellite = null;
-				hitInfo.m_didSpawnSatellite = false;
-				hitInfo.m_numHitsReceived = 0;
-				JointPopupProperty jointPopupProperty = new JointPopupProperty();
-				jointPopupProperty.m_joint = m_hitFxJoint.m_joint;
-				jointPopupProperty.m_jointCharacter = m_hitFxJoint.m_jointCharacter;
-				jointPopupProperty.Initialize(hitInfo.m_target.gameObject);
-				hitInfo.m_hitJoint = jointPopupProperty;
-				m_hitInfos.Add(hitInfo);
-			}
-			while (true)
+				m_numHits = current.Value,
+				m_target = current.Key,
+				m_spawnedSatellite = null,
+				m_didSpawnSatellite = false,
+				m_numHitsReceived = 0
+			};
+			JointPopupProperty jointPopupProperty = new JointPopupProperty
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+				m_joint = m_hitFxJoint.m_joint,
+				m_jointCharacter = m_hitFxJoint.m_jointCharacter
+			};
+			jointPopupProperty.Initialize(hitInfo.m_target.gameObject);
+			hitInfo.m_hitJoint = jointPopupProperty;
+			m_hitInfos.Add(hitInfo);
 		}
 	}
 
 	private HitInfo GetHitInfoFromTempSatellite(GameObject tempSatellite)
 	{
-		HitInfo result = null;
-		int num = 0;
-		while (true)
+		foreach (HitInfo hitInfo in m_hitInfos)
 		{
-			if (num < m_hitInfos.Count)
+			if (hitInfo.m_spawnedSatellite == tempSatellite)
 			{
-				HitInfo hitInfo = m_hitInfos[num];
-				if (hitInfo.m_spawnedSatellite == tempSatellite)
-				{
-					result = hitInfo;
-					break;
-				}
-				num++;
-				continue;
+				return hitInfo;
 			}
-			break;
 		}
-		return result;
+		return null;
 	}
 
 	private void SpawnHitFX(HitInfo hitInfo)
@@ -428,25 +282,20 @@ public class NinjaMultiAttackSequence : Sequence
 		ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, hitDirection);
 		if (hitInfo.m_numHits > hitInfo.m_numHitsReceived)
 		{
-			base.Source.OnSequenceHit(this, hitInfo.m_target, impulseInfo, ActorModelData.RagdollActivation.None);
+			Source.OnSequenceHit(this, hitInfo.m_target, impulseInfo, ActorModelData.RagdollActivation.None);
 		}
 		else
 		{
-			base.Source.OnSequenceHit(this, hitInfo.m_target, impulseInfo);
+			Source.OnSequenceHit(this, hitInfo.m_target, impulseInfo);
 		}
 	}
 
 	private void SpawnHitFX(GameObject sourceObject)
 	{
 		HitInfo hitInfoFromTempSatellite = GetHitInfoFromTempSatellite(sourceObject);
-		if (hitInfoFromTempSatellite == null)
-		{
-			return;
-		}
-		while (true)
+		if (hitInfoFromTempSatellite != null)
 		{
 			SpawnHitFX(hitInfoFromTempSatellite);
-			return;
 		}
 	}
 
@@ -454,27 +303,12 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (m_startEvent == parameter)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					SetupHitInfoList();
-					SpawnTempSatellite();
-					return;
-				}
-			}
+			SetupHitInfoList();
+			SpawnTempSatellite();
 		}
-		if (!(m_hitEvent == parameter))
-		{
-			return;
-		}
-		while (true)
+		else if (m_hitEvent == parameter)
 		{
 			SpawnHitFX(sourceObject);
-			return;
 		}
 	}
 
@@ -482,9 +316,9 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		if (m_hitFXInstances != null)
 		{
-			for (int i = 0; i < m_hitFXInstances.Count; i++)
+			foreach (GameObject hitFx in m_hitFXInstances)
 			{
-				Object.Destroy(m_hitFXInstances[i]);
+				Destroy(hitFx);
 			}
 			m_hitFXInstances = null;
 		}
