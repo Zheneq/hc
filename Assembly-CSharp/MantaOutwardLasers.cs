@@ -6,42 +6,26 @@ public class MantaOutwardLasers : Ability
 {
 	[Header("-- Targeting")]
 	public int m_numLasers = 5;
-
 	public float m_totalAngleForLaserFan = 288f;
-
 	public float m_width = 1f;
-
 	public float m_maxDistancePerBounce = 15f;
-
 	public float m_maxTotalDistance = 50f;
-
 	public int m_maxBounces = 1;
-
 	public int m_maxTargetsHit = 1;
-
 	[Header("-- Damage")]
 	public int m_damageAmount = 20;
-
 	public int m_damageAmountForAdditionalHits = 10;
-
 	public int m_bonusDamagePerBounce;
-
 	public int m_techPointGainPerLaserHit;
-
 	public StandardEffectInfo m_effectOnEnemy;
-
 	public StandardEffectInfo m_effectForMultiHitsOnEnemy;
-
 	[Tooltip("For when we want to apply 2 statuses that have different durations")]
 	public StandardEffectInfo m_additionalEffectForMultiHitsOnEnemy;
-
 	[Header("-- Sequences")]
 	public GameObject m_projectileSequence;
 
 	private StandardEffectInfo m_cachedEffectData;
-
 	private StandardEffectInfo m_cachedMultiHitEffectData;
-
 	private StandardEffectInfo m_cachedAdditionalMultiHitEffectData;
 
 	private void Start()
@@ -97,35 +81,17 @@ public class MantaOutwardLasers : Ability
 
 	private StandardEffectInfo GetEnemyEffectData()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectData == null)
-		{
-			result = m_effectOnEnemy;
-		}
-		else
-		{
-			result = m_cachedEffectData;
-		}
-		return result;
+		return m_cachedEffectData ?? m_effectOnEnemy;
 	}
 
 	private StandardEffectInfo GetMultiHitEnemyEffectData()
 	{
-		StandardEffectInfo result;
-		if (m_cachedMultiHitEffectData == null)
-		{
-			result = m_effectForMultiHitsOnEnemy;
-		}
-		else
-		{
-			result = m_cachedMultiHitEffectData;
-		}
-		return result;
+		return m_cachedMultiHitEffectData ?? m_effectForMultiHitsOnEnemy;
 	}
 
 	private StandardEffectInfo GetAdditionalMultiHitEnemyEffectData()
 	{
-		return (m_cachedAdditionalMultiHitEffectData != null) ? m_cachedAdditionalMultiHitEffectData : m_additionalEffectForMultiHitsOnEnemy;
+		return m_cachedAdditionalMultiHitEffectData ?? m_additionalEffectForMultiHitsOnEnemy;
 	}
 
 	public int GetBaseDamage()
@@ -146,7 +112,15 @@ public class MantaOutwardLasers : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_FanOfBouncingLasers(this, GetFanAngle(), GetDistancePerBounce(), GetMaxTotalDistance(), GetLaserWidth(), GetMaxBounces(), GetMaxTargetHits(), GetLaserCount());
+		Targeter = new AbilityUtil_Targeter_FanOfBouncingLasers(
+			this,
+			GetFanAngle(),
+			GetDistancePerBounce(),
+			GetMaxTotalDistance(),
+			GetLaserWidth(),
+			GetMaxBounces(),
+			GetMaxTargetHits(),
+			GetLaserCount());
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -159,122 +133,42 @@ public class MantaOutwardLasers : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		ReadOnlyCollection<AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext> hitActorContext = (base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_FanOfBouncingLasers).GetHitActorContext();
-		for (int i = 0; i < hitActorContext.Count; i++)
+		ReadOnlyCollection<AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext> hitActorContext =
+			(Targeters[currentTargeterIndex] as AbilityUtil_Targeter_FanOfBouncingLasers).GetHitActorContext();
+		foreach (AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext hit in hitActorContext)
 		{
-			AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext hitActorContext2 = hitActorContext[i];
-			if (!(hitActorContext2.actor == targetActor))
+			if (hit.actor == targetActor)
 			{
-				continue;
-			}
-			int bonusDamagePerBounce = GetBonusDamagePerBounce();
-			AbilityUtil_Targeter_FanOfBouncingLasers.HitActorContext hitActorContext3 = hitActorContext[i];
-			int num = bonusDamagePerBounce * hitActorContext3.segmentIndex;
-			int value = GetBaseDamage() + num;
-			int num2 = GetDamageForAdditionalHit() + num;
-			if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] += num2;
-			}
-			else
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = value;
+				int bonusDamage = GetBonusDamagePerBounce() * hit.segmentIndex;
+				int firstHitDamage = GetBaseDamage() + bonusDamage;
+				int additionalHitDamage = GetDamageForAdditionalHit() + bonusDamage;
+				if (dictionary.ContainsKey(AbilityTooltipSymbol.Damage))
+				{
+					dictionary[AbilityTooltipSymbol.Damage] += additionalHitDamage;
+				}
+				else
+				{
+					dictionary[AbilityTooltipSymbol.Damage] = firstHitDamage;
+				}
 			}
 		}
-		while (true)
-		{
-			return dictionary;
-		}
+		return dictionary;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (m_techPointGainPerLaserHit > 0)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int tooltipSubjectCountTotalWithDuplicates = base.Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary);
-					return m_techPointGainPerLaserHit * tooltipSubjectCountTotalWithDuplicates;
-				}
-				}
-			}
-		}
-		return 0;
+		return m_techPointGainPerLaserHit > 0
+			? m_techPointGainPerLaserHit * Targeter.GetTooltipSubjectCountTotalWithDuplicates(AbilityTooltipSubject.Primary)
+			: 0;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		string empty = string.Empty;
-		int val;
-		if ((bool)modAsBase)
-		{
-			val = 0;
-		}
-		else
-		{
-			val = m_damageAmount;
-		}
-		AddTokenInt(tokens, "DamageAmount", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)modAsBase)
-		{
-			val2 = 0;
-		}
-		else
-		{
-			val2 = m_damageAmountForAdditionalHits;
-		}
-		AddTokenInt(tokens, "DamageAdditionalHit", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)modAsBase)
-		{
-			val3 = 0;
-		}
-		else
-		{
-			val3 = m_bonusDamagePerBounce;
-		}
-		AddTokenInt(tokens, "BonusDamagePerBounce", empty3, val3);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)modAsBase)
-		{
-			val4 = 0;
-		}
-		else
-		{
-			val4 = m_numLasers;
-		}
-		AddTokenInt(tokens, "NumLasers", empty4, val4);
-		string empty5 = string.Empty;
-		int val5;
-		if ((bool)modAsBase)
-		{
-			val5 = 0;
-		}
-		else
-		{
-			val5 = m_maxBounces;
-		}
-		AddTokenInt(tokens, "MaxBounces", empty5, val5);
-		string empty6 = string.Empty;
-		int val6;
-		if ((bool)modAsBase)
-		{
-			val6 = 0;
-		}
-		else
-		{
-			val6 = m_maxTargetsHit;
-		}
-		AddTokenInt(tokens, "MaxTargetsHit", empty6, val6);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, modAsBase != null ? 0 : m_damageAmount);
+		AddTokenInt(tokens, "DamageAdditionalHit", string.Empty, modAsBase != null ? 0 : m_damageAmountForAdditionalHits);
+		AddTokenInt(tokens, "BonusDamagePerBounce", string.Empty, modAsBase != null ? 0 : m_bonusDamagePerBounce);
+		AddTokenInt(tokens, "NumLasers", string.Empty, modAsBase != null ? 0 : m_numLasers);
+		AddTokenInt(tokens, "MaxBounces", string.Empty, modAsBase != null ? 0 : m_maxBounces);
+		AddTokenInt(tokens, "MaxTargetsHit", string.Empty, modAsBase != null ? 0 : m_maxTargetsHit);
 	}
 }
