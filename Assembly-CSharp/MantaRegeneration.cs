@@ -5,29 +5,19 @@ public class MantaRegeneration : Ability
 {
 	[Header("-- Healing --")]
 	public int m_maxRegeneration = 500;
-
 	public int m_turnsOfRegeneration = 2;
-
 	public float m_damageToHealRatio = 1f;
-
 	public int m_techPointGainPerIncomingHit;
-
 	public AbilityPriority m_healInPhase = AbilityPriority.Combat_Damage;
-
 	[Header("  (( base effect data for healing, no need to specify healing here ))")]
 	public StandardActorEffectData m_healEffectData;
-
 	public StandardEffectInfo m_otherSelfEffect;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_incomingHitImpactSequencePrefab;
-
+	
 	private AbilityMod_MantaRegeneration m_abilityMod;
-
 	private StandardActorEffectData m_cachedHealEffectData;
-
 	private StandardEffectInfo m_cachedOtherSelfEffect;
 
 	private void Start()
@@ -42,8 +32,15 @@ public class MantaRegeneration : Ability
 	private void Setup()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
-		base.Targeter.SetShowArcToShape(false);
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			true,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Always);
+		Targeter.SetShowArcToShape(false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -55,110 +52,65 @@ public class MantaRegeneration : Ability
 
 	private void SetCachedFields()
 	{
-		StandardActorEffectData cachedHealEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedHealEffectData = m_abilityMod.m_healEffectDataMod.GetModifiedValue(m_healEffectData);
-		}
-		else
-		{
-			cachedHealEffectData = m_healEffectData;
-		}
-		m_cachedHealEffectData = cachedHealEffectData;
-		StandardEffectInfo cachedOtherSelfEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedOtherSelfEffect = m_abilityMod.m_otherSelfEffectMod.GetModifiedValue(m_otherSelfEffect);
-		}
-		else
-		{
-			cachedOtherSelfEffect = m_otherSelfEffect;
-		}
-		m_cachedOtherSelfEffect = cachedOtherSelfEffect;
+		m_cachedHealEffectData = m_abilityMod != null
+			? m_abilityMod.m_healEffectDataMod.GetModifiedValue(m_healEffectData)
+			: m_healEffectData;
+		m_cachedOtherSelfEffect = m_abilityMod != null
+			? m_abilityMod.m_otherSelfEffectMod.GetModifiedValue(m_otherSelfEffect)
+			: m_otherSelfEffect;
 	}
 
 	public int GetMaxRegeneration()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxRegenerationMod.GetModifiedValue(m_maxRegeneration);
-		}
-		else
-		{
-			result = m_maxRegeneration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxRegenerationMod.GetModifiedValue(m_maxRegeneration)
+			: m_maxRegeneration;
 	}
 
 	public int GetTurnsOfRegeneration()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_turnsOfRegenerationMod.GetModifiedValue(m_turnsOfRegeneration);
-		}
-		else
-		{
-			result = m_turnsOfRegeneration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_turnsOfRegenerationMod.GetModifiedValue(m_turnsOfRegeneration)
+			: m_turnsOfRegeneration;
 	}
 
 	public float GetDamageToHealRatio()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageToHealRatioMod.GetModifiedValue(m_damageToHealRatio);
-		}
-		else
-		{
-			result = m_damageToHealRatio;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageToHealRatioMod.GetModifiedValue(m_damageToHealRatio)
+			: m_damageToHealRatio;
 	}
 
 	public int GetTechPointGainPerHit()
 	{
-		return (!m_abilityMod) ? m_techPointGainPerIncomingHit : m_abilityMod.m_techPointGainPerIncomingHit.GetModifiedValue(m_techPointGainPerIncomingHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerIncomingHit.GetModifiedValue(m_techPointGainPerIncomingHit)
+			: m_techPointGainPerIncomingHit;
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionOnNoDamage()
 	{
-		object result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cooldownReductionsWhenNoHits;
-		}
-		else
-		{
-			result = null;
-		}
-		return (AbilityModCooldownReduction)result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownReductionsWhenNoHits
+			: null;
 	}
 
 	public StandardActorEffectData GetHealEffectData()
 	{
-		return (m_cachedHealEffectData == null) ? m_healEffectData : m_cachedHealEffectData;
+		return m_cachedHealEffectData ?? m_healEffectData;
 	}
 
 	public StandardEffectInfo GetOtherSelfEffect()
 	{
-		return (m_cachedOtherSelfEffect == null) ? m_otherSelfEffect : m_cachedOtherSelfEffect;
+		return m_cachedOtherSelfEffect ?? m_otherSelfEffect;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_MantaRegeneration))
+		if (abilityMod.GetType() == typeof(AbilityMod_MantaRegeneration))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_MantaRegeneration);
+			m_abilityMod = abilityMod as AbilityMod_MantaRegeneration;
 			Setup();
-			return;
 		}
 	}
 

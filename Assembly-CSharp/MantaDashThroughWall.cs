@@ -5,64 +5,38 @@ public class MantaDashThroughWall : Ability
 {
 	[Header("-- Charge Targeting")]
 	public float m_aoeConeWidth = 180f;
-
 	public float m_aoeConeLength = 2f;
-
 	public float m_aoeThroughWallConeWidth = 180f;
-
 	public float m_aoeThroughWallConeLength = 2f;
-
 	public float m_width = 1f;
-
 	public float m_maxRange = 10f;
-
 	public float m_maxWidthOfWall = 1f;
-
 	public Color m_normalHighlightColor = Color.green;
-
 	public Color m_throughWallsHighlightColor = Color.yellow;
-
 	public float m_extraTotalDistanceIfThroughWalls = 1.5f;
-
 	public bool m_clampConeToWall = true;
-
 	public bool m_aoeWithMiss;
-
 	[Tooltip("backward offset not used for through-walls case")]
 	public float m_coneBackwardOffset = 0.5f;
-
 	[Header("-- Normal On Hit Damage, Effect, etc")]
 	public int m_directHitDamage = 20;
-
 	public StandardEffectInfo m_directEnemyHitEffect;
-
 	public bool m_directHitIgnoreCover = true;
-
 	[Space(10f)]
 	public int m_aoeDamage = 10;
-
 	public StandardEffectInfo m_aoeEnemyHitEffect;
-
 	[Space(10f)]
 	public int m_aoeThroughWallsDamage = 10;
-
 	public StandardEffectInfo m_aoeThroughWallsEffect;
-
 	[Header("-- Sequences")]
 	public GameObject m_aoeHitSequencePrefab;
 
 	private const int c_maxTargetsHit = 1;
-
 	private const bool c_penetrateLoS = false;
-
 	private Manta_SyncComponent m_syncComp;
-
 	private AbilityMod_MantaDashThroughWall m_abilityMod;
-
 	private StandardEffectInfo m_cachedDirectEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedAoeEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedAoeThroughWallsEffect;
 
 	private void Start()
@@ -78,7 +52,20 @@ public class MantaDashThroughWall : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_DashThroughWall(this, GetWidth(), GetMaxRange(), GetMaxWidthOfWall(), GetAoeConeWidth(), GetAoeThroughWallConeWidth(), GetAoeConeLength(), GetAoeThroughWallConeLength(), m_extraTotalDistanceIfThroughWalls, m_coneBackwardOffset, DirectHitIgnoreCover(), m_clampConeToWall, m_aoeWithMiss);
+		Targeter = new AbilityUtil_Targeter_DashThroughWall(
+			this,
+			GetWidth(),
+			GetMaxRange(),
+			GetMaxWidthOfWall(),
+			GetAoeConeWidth(),
+			GetAoeThroughWallConeWidth(),
+			GetAoeConeLength(),
+			GetAoeThroughWallConeLength(),
+			m_extraTotalDistanceIfThroughWalls,
+			m_coneBackwardOffset,
+			DirectHitIgnoreCover(),
+			m_clampConeToWall,
+			m_aoeWithMiss);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -93,225 +80,143 @@ public class MantaDashThroughWall : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedDirectEnemyHitEffect = ((!m_abilityMod) ? m_directEnemyHitEffect : m_abilityMod.m_directEnemyHitEffectMod.GetModifiedValue(m_directEnemyHitEffect));
-		StandardEffectInfo cachedAoeEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAoeEnemyHitEffect = m_abilityMod.m_aoeEnemyHitEffectMod.GetModifiedValue(m_aoeEnemyHitEffect);
-		}
-		else
-		{
-			cachedAoeEnemyHitEffect = m_aoeEnemyHitEffect;
-		}
-		m_cachedAoeEnemyHitEffect = cachedAoeEnemyHitEffect;
-		m_cachedAoeThroughWallsEffect = ((!m_abilityMod) ? m_aoeThroughWallsEffect : m_abilityMod.m_aoeThroughWallsEffectMod.GetModifiedValue(m_aoeThroughWallsEffect));
+		m_cachedDirectEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_directEnemyHitEffectMod.GetModifiedValue(m_directEnemyHitEffect)
+			: m_directEnemyHitEffect;
+		m_cachedAoeEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_aoeEnemyHitEffectMod.GetModifiedValue(m_aoeEnemyHitEffect)
+			: m_aoeEnemyHitEffect;
+		m_cachedAoeThroughWallsEffect = m_abilityMod != null
+			? m_abilityMod.m_aoeThroughWallsEffectMod.GetModifiedValue(m_aoeThroughWallsEffect)
+			: m_aoeThroughWallsEffect;
 	}
 
 	public float GetAoeConeWidth()
 	{
-		return (!m_abilityMod) ? m_aoeConeWidth : m_abilityMod.m_aoeConeWidthMod.GetModifiedValue(m_aoeConeWidth);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeConeWidthMod.GetModifiedValue(m_aoeConeWidth)
+			: m_aoeConeWidth;
 	}
 
 	public float GetAoeConeLength()
 	{
-		return (!m_abilityMod) ? m_aoeConeLength : m_abilityMod.m_aoeConeLengthMod.GetModifiedValue(m_aoeConeLength);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeConeLengthMod.GetModifiedValue(m_aoeConeLength)
+			: m_aoeConeLength;
 	}
 
 	public float GetAoeThroughWallConeWidth()
 	{
-		return (!m_abilityMod) ? m_aoeThroughWallConeWidth : m_abilityMod.m_aoeThroughWallConeWidthMod.GetModifiedValue(m_aoeThroughWallConeWidth);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeThroughWallConeWidthMod.GetModifiedValue(m_aoeThroughWallConeWidth)
+			: m_aoeThroughWallConeWidth;
 	}
 
 	public float GetAoeThroughWallConeLength()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_aoeThroughWallConeLengthMod.GetModifiedValue(m_aoeThroughWallConeLength);
-		}
-		else
-		{
-			result = m_aoeThroughWallConeLength;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeThroughWallConeLengthMod.GetModifiedValue(m_aoeThroughWallConeLength)
+			: m_aoeThroughWallConeLength;
 	}
 
 	public float GetWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
-		}
-		else
-		{
-			result = m_width;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_widthMod.GetModifiedValue(m_width)
+			: m_width;
 	}
 
 	public float GetMaxRange()
 	{
-		return (!m_abilityMod) ? m_maxRange : m_abilityMod.m_maxRangeMod.GetModifiedValue(m_maxRange);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxRangeMod.GetModifiedValue(m_maxRange)
+			: m_maxRange;
 	}
 
 	public float GetMaxWidthOfWall()
 	{
-		return (!m_abilityMod) ? m_maxWidthOfWall : m_abilityMod.m_maxWidthOfWallMod.GetModifiedValue(m_maxWidthOfWall);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxWidthOfWallMod.GetModifiedValue(m_maxWidthOfWall)
+			: m_maxWidthOfWall;
 	}
 
 	public float GetExtraTotalDistanceIfThroughWalls()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraTotalDistanceIfThroughWallsMod.GetModifiedValue(m_extraTotalDistanceIfThroughWalls);
-		}
-		else
-		{
-			result = m_extraTotalDistanceIfThroughWalls;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraTotalDistanceIfThroughWallsMod.GetModifiedValue(m_extraTotalDistanceIfThroughWalls)
+			: m_extraTotalDistanceIfThroughWalls;
 	}
 
 	public bool ClampConeToWall()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_clampConeToWallMod.GetModifiedValue(m_clampConeToWall);
-		}
-		else
-		{
-			result = m_clampConeToWall;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_clampConeToWallMod.GetModifiedValue(m_clampConeToWall)
+			: m_clampConeToWall;
 	}
 
 	public bool AoeWithMiss()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_aoeWithMissMod.GetModifiedValue(m_aoeWithMiss);
-		}
-		else
-		{
-			result = m_aoeWithMiss;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeWithMissMod.GetModifiedValue(m_aoeWithMiss)
+			: m_aoeWithMiss;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
-		}
-		else
-		{
-			result = m_coneBackwardOffset;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset)
+			: m_coneBackwardOffset;
 	}
 
 	public int GetDirectHitDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_directHitDamageMod.GetModifiedValue(m_directHitDamage);
-		}
-		else
-		{
-			result = m_directHitDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_directHitDamageMod.GetModifiedValue(m_directHitDamage)
+			: m_directHitDamage;
 	}
 
 	public StandardEffectInfo GetDirectEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedDirectEnemyHitEffect != null)
-		{
-			result = m_cachedDirectEnemyHitEffect;
-		}
-		else
-		{
-			result = m_directEnemyHitEffect;
-		}
-		return result;
+		return m_cachedDirectEnemyHitEffect ?? m_directEnemyHitEffect;
 	}
 
 	public bool DirectHitIgnoreCover()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_directHitIgnoreCoverMod.GetModifiedValue(m_directHitIgnoreCover);
-		}
-		else
-		{
-			result = m_directHitIgnoreCover;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_directHitIgnoreCoverMod.GetModifiedValue(m_directHitIgnoreCover)
+			: m_directHitIgnoreCover;
 	}
 
 	public int GetAoeDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_aoeDamageMod.GetModifiedValue(m_aoeDamage);
-		}
-		else
-		{
-			result = m_aoeDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeDamageMod.GetModifiedValue(m_aoeDamage)
+			: m_aoeDamage;
 	}
 
 	public StandardEffectInfo GetAoeEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAoeEnemyHitEffect != null)
-		{
-			result = m_cachedAoeEnemyHitEffect;
-		}
-		else
-		{
-			result = m_aoeEnemyHitEffect;
-		}
-		return result;
+		return m_cachedAoeEnemyHitEffect ?? m_aoeEnemyHitEffect;
 	}
 
 	public int GetAoeThroughWallsDamage()
 	{
-		return (!m_abilityMod) ? m_aoeThroughWallsDamage : m_abilityMod.m_aoeThroughWallsDamageMod.GetModifiedValue(m_aoeThroughWallsDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeThroughWallsDamageMod.GetModifiedValue(m_aoeThroughWallsDamage)
+			: m_aoeThroughWallsDamage;
 	}
 
 	public StandardEffectInfo GetAoeThroughWallsEffect()
 	{
-		return (m_cachedAoeThroughWallsEffect == null) ? m_aoeThroughWallsEffect : m_cachedAoeThroughWallsEffect;
+		return m_cachedAoeThroughWallsEffect ?? m_aoeThroughWallsEffect;
 	}
 
 	public StandardEffectInfo GetAdditionalDirtyFightingExplosionEffect()
 	{
-		if ((bool)m_abilityMod && m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
-				}
-			}
-		}
-		return null;
+		return m_abilityMod != null
+		       && m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override
+				? m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo
+				: null;
 	}
 
 	public int GetMaxTargets()
@@ -321,15 +226,10 @@ public class MantaDashThroughWall : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_MantaDashThroughWall))
+		if (abilityMod.GetType() == typeof(AbilityMod_MantaDashThroughWall))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_MantaDashThroughWall);
+			m_abilityMod = abilityMod as AbilityMod_MantaDashThroughWall;
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -364,77 +264,49 @@ public class MantaDashThroughWall : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			int num = 0;
+			int damage = 0;
 			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				num += GetDirectHitDamage();
+				damage += GetDirectHitDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
 			{
-				num += GetAoeDamage();
+				damage += GetAoeDamage();
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Tertiary))
 			{
-				num += GetAoeThroughWallsDamage();
+				damage += GetAoeThroughWallsDamage();
 			}
-			dictionary[AbilityTooltipSymbol.Damage] = num;
+			dictionary[AbilityTooltipSymbol.Damage] = damage;
 		}
 		return dictionary;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (m_syncComp != null)
+		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num = 0;
-					List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
-					using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
-							num += m_syncComp.GetDirtyFightingExtraTP(current.m_actor);
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								return num;
-							}
-						}
-					}
-				}
-				}
-			}
+			return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 		}
-		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
+		
+		int energy = 0;
+		foreach (AbilityUtil_Targeter.ActorTarget actorTarget in Targeters[currentTargeterIndex].GetActorsInRange())
+		{
+			energy += m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
+		}
+		return energy;
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		if (symbolType == AbilityTooltipSymbol.Damage)
-		{
-			if (m_syncComp != null)
-			{
-				return m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
-			}
-		}
-		return null;
+		return symbolType == AbilityTooltipSymbol.Damage
+		       && m_syncComp != null
+			? m_syncComp.GetAccessoryStringForDamage(targetActor, ActorData, this)
+			: null;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -442,69 +314,61 @@ public class MantaDashThroughWall : Ability
 		return ActorData.MovementType.Charge;
 	}
 
-	internal static BoardSquare GetSquareBeyondWall(Vector3 startPos, Vector3 endPos, ActorData targetingActor, float penetrationDistance, ref Vector3 coneStartPos, ref Vector3 perpendicularFromWall)
+	internal static BoardSquare GetSquareBeyondWall(
+		Vector3 startPos,
+		Vector3 endPos,
+		ActorData targetingActor,
+		float penetrationDistance,
+		ref Vector3 coneStartPos,
+		ref Vector3 perpendicularFromWall)
 	{
-		float num = 0.25f * Board.Get().squareSize;
-		int num2 = Mathf.CeilToInt(penetrationDistance / num);
+		float quarter = 0.25f * Board.Get().squareSize;
+		int steps = Mathf.CeilToInt(penetrationDistance / quarter);
 		Vector3 vector = endPos - startPos;
-		float magnitude = vector.magnitude;
+		float dist = vector.magnitude;
 		vector.Normalize();
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, vector, magnitude, false, targetingActor);
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(startPos, vector, dist, false, targetingActor);
 		Vector3 vector2D = laserEndPoint;
 		BoardSquare boardSquare = null;
-		int num3 = 0;
-		do
+		int i = 0;
+		while (boardSquare == null)
 		{
-			if (boardSquare == null)
+			vector2D += quarter * vector;
+			boardSquare = Board.Get().GetSquareFromVec3(vector2D);
+			if (boardSquare != null && !boardSquare.IsValidForGameplay())
 			{
-				vector2D += num * vector;
-				boardSquare = Board.Get().GetSquareFromVec3(vector2D);
-				if (!(boardSquare != null))
-				{
-					continue;
-				}
-				if (!boardSquare.IsValidForGameplay())
-				{
-					boardSquare = null;
-				}
-				continue;
+				boardSquare = null;
 			}
-			break;
-		}
-		while (++num3 <= num2);
-		if (!(boardSquare == null))
-		{
-			if (boardSquare.IsValidForGameplay())
+			if (++i > steps)
 			{
-				goto IL_0113;
+				break;
 			}
 		}
-		boardSquare = Board.Get().GetSquareFromVec3(laserEndPoint);
-		coneStartPos = endPos;
-		goto IL_0113;
-		IL_0113:
+		if (boardSquare == null || !boardSquare.IsValidForGameplay())
+		{
+			boardSquare = Board.Get().GetSquareFromVec3(laserEndPoint);
+			coneStartPos = endPos;
+		}
+
 		if (boardSquare != null)
 		{
-			Vector3 worldPositionForLoS = boardSquare.GetOccupantLoSPos();
-			Vector3 normalized = (worldPositionForLoS - startPos).normalized;
-			normalized.y = 0f;
-			if (Mathf.Abs(normalized.x) > 0.3f)
+			Vector3 occupantLoSPos = boardSquare.GetOccupantLoSPos();
+			Vector3 direction = (occupantLoSPos - startPos).normalized;
+			direction.y = 0f;
+			if (Mathf.Abs(direction.x) > 0.3f && Mathf.Abs(direction.z) > 0.3f)
 			{
-				if (Mathf.Abs(normalized.z) > 0.3f)
+				float x = direction.x;
+				direction.x = 0f;
+				if (!VectorUtils.RaycastInDirection(occupantLoSPos, -1f * direction.normalized, Board.Get().squareSize, out _))
 				{
-					float x = normalized.x;
-					normalized.x = 0f;
-					if (!VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out RaycastHit hit))
-					{
-						normalized.z = 0f;
-						normalized.x = x;
-						bool flag = VectorUtils.RaycastInDirection(worldPositionForLoS, -1f * normalized.normalized, Board.Get().squareSize, out hit);
-					}
+					direction.z = 0f;
+					direction.x = x;
+					VectorUtils.RaycastInDirection(occupantLoSPos, -1f * direction.normalized, Board.Get().squareSize, out _);
 				}
 			}
-			int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(normalized));
+			int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(direction));
 			perpendicularFromWall = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
-			coneStartPos = worldPositionForLoS - perpendicularFromWall * 0.5f;
+			coneStartPos = occupantLoSPos - perpendicularFromWall * 0.5f;
 		}
 		return boardSquare;
 	}

@@ -5,47 +5,29 @@ public class MantaConeDirtyFighting : Ability
 {
 	[Header("-- Targeting")]
 	public float m_coneRange = 4f;
-
 	public float m_coneWidth = 60f;
-
 	public bool m_penetrateLoS;
-
 	public int m_maxTargets = 5;
-
 	public float m_coneBackwardOffset;
-
 	[Header("-- Hit Damage/Effects")]
 	public int m_onCastDamageAmount;
-
 	public StandardActorEffectData m_dirtyFightingEffectData;
-
 	public StandardEffectInfo m_enemyHitEffectData;
-
 	public StandardEffectInfo m_effectOnTargetFromExplosion;
-
 	[Header("-- On Reaction Hit/Explosion Triggered")]
 	public int m_effectExplosionDamage = 30;
-
 	[Tooltip("whether allies other than yourself should be able to trigger the explosion")]
 	public bool m_explodeOnlyFromSelfDamage;
-
 	public int m_techPointGainPerExplosion = 5;
-
 	public int m_healAmountPerExplosion;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_effectOnExplosionSequencePrefab;
 
 	private AbilityMod_MantaConeDirtyFighting m_abilityMod;
-
 	private StandardActorEffectData m_cachedDirtyFightingEffectData;
-
 	private StandardEffectInfo m_cachedEnemyHitEffectData;
-
 	private StandardEffectInfo m_cachedEffectOnTargetFromExplosion;
-
 	private StandardEffectInfo m_cachedEffectOnTargetWhenExpiresWithoutExplosion;
 
 	private void Start()
@@ -69,222 +51,119 @@ public class MantaConeDirtyFighting : Ability
 
 	private void SetCachedFields()
 	{
-		StandardActorEffectData cachedDirtyFightingEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedDirtyFightingEffectData = m_abilityMod.m_dirtyFightingEffectDataMod.GetModifiedValue(m_dirtyFightingEffectData);
-		}
-		else
-		{
-			cachedDirtyFightingEffectData = m_dirtyFightingEffectData;
-		}
-		m_cachedDirtyFightingEffectData = cachedDirtyFightingEffectData;
-		StandardEffectInfo cachedEnemyHitEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffectData = m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData);
-		}
-		else
-		{
-			cachedEnemyHitEffectData = m_enemyHitEffectData;
-		}
-		m_cachedEnemyHitEffectData = cachedEnemyHitEffectData;
-		StandardEffectInfo cachedEffectOnTargetFromExplosion;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnTargetFromExplosion = m_abilityMod.m_effectOnTargetFromExplosionMod.GetModifiedValue(m_effectOnTargetFromExplosion);
-		}
-		else
-		{
-			cachedEffectOnTargetFromExplosion = m_effectOnTargetFromExplosion;
-		}
-		m_cachedEffectOnTargetFromExplosion = cachedEffectOnTargetFromExplosion;
-		m_cachedEffectOnTargetWhenExpiresWithoutExplosion = ((!m_abilityMod) ? null : m_abilityMod.m_effectOnTargetWhenExpiresWithoutExplosionMod.GetModifiedValue(null));
+		m_cachedDirtyFightingEffectData = m_abilityMod != null
+			? m_abilityMod.m_dirtyFightingEffectDataMod.GetModifiedValue(m_dirtyFightingEffectData)
+			: m_dirtyFightingEffectData;
+		m_cachedEnemyHitEffectData = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectDataMod.GetModifiedValue(m_enemyHitEffectData)
+			: m_enemyHitEffectData;
+		m_cachedEffectOnTargetFromExplosion = m_abilityMod != null
+			? m_abilityMod.m_effectOnTargetFromExplosionMod.GetModifiedValue(m_effectOnTargetFromExplosion)
+			: m_effectOnTargetFromExplosion;
+		m_cachedEffectOnTargetWhenExpiresWithoutExplosion = m_abilityMod != null
+			? m_abilityMod.m_effectOnTargetWhenExpiresWithoutExplosionMod.GetModifiedValue(null)
+			: null;
 	}
 
 	public float GetConeRange()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneRangeMod.GetModifiedValue(m_coneRange);
-		}
-		else
-		{
-			result = m_coneRange;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneRangeMod.GetModifiedValue(m_coneRange)
+			: m_coneRange;
 	}
 
 	public float GetConeWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneWidthMod.GetModifiedValue(m_coneWidth);
-		}
-		else
-		{
-			result = m_coneWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthMod.GetModifiedValue(m_coneWidth)
+			: m_coneWidth;
 	}
 
 	public bool PenetrateLoS()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
-		}
-		else
-		{
-			result = m_penetrateLoS;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS)
+			: m_penetrateLoS;
 	}
 
 	public int GetMaxTargets()
 	{
-		return (!m_abilityMod) ? m_maxTargets : m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
-		}
-		else
-		{
-			result = m_coneBackwardOffset;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset)
+			: m_coneBackwardOffset;
 	}
 
 	public int GetOnCastDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount);
-		}
-		else
-		{
-			result = m_onCastDamageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_onCastDamageAmountMod.GetModifiedValue(m_onCastDamageAmount)
+			: m_onCastDamageAmount;
 	}
 
 	public StandardActorEffectData GetDirtyFightingEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedDirtyFightingEffectData != null)
-		{
-			result = m_cachedDirtyFightingEffectData;
-		}
-		else
-		{
-			result = m_dirtyFightingEffectData;
-		}
-		return result;
+		return m_cachedDirtyFightingEffectData ?? m_dirtyFightingEffectData;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffectData()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffectData != null)
-		{
-			result = m_cachedEnemyHitEffectData;
-		}
-		else
-		{
-			result = m_enemyHitEffectData;
-		}
-		return result;
+		return m_cachedEnemyHitEffectData ?? m_enemyHitEffectData;
 	}
 
 	public StandardEffectInfo GetEffectOnTargetFromExplosion()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnTargetFromExplosion != null)
-		{
-			result = m_cachedEffectOnTargetFromExplosion;
-		}
-		else
-		{
-			result = m_effectOnTargetFromExplosion;
-		}
-		return result;
+		return m_cachedEffectOnTargetFromExplosion ?? m_effectOnTargetFromExplosion;
 	}
 
 	public StandardActorEffectData GetEffectOnTargetWhenExpiresWithoutExplosion()
 	{
-		object result;
-		if (m_cachedEffectOnTargetWhenExpiresWithoutExplosion != null)
-		{
-			if (m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_applyEffect)
-			{
-				result = m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_effectData;
-				goto IL_0036;
-			}
-		}
-		result = null;
-		goto IL_0036;
-		IL_0036:
-		return (StandardActorEffectData)result;
+		return m_cachedEffectOnTargetWhenExpiresWithoutExplosion != null
+		       && m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_applyEffect
+			? m_cachedEffectOnTargetWhenExpiresWithoutExplosion.m_effectData
+			: null;
 	}
 
 	public int GetEffectExplosionDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage);
-		}
-		else
-		{
-			result = m_effectExplosionDamage;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_effectExplosionDamageMod.GetModifiedValue(m_effectExplosionDamage) 
+			: m_effectExplosionDamage;
 	}
 
 	public bool ExplodeOnlyFromSelfDamage()
 	{
-		return (!m_abilityMod) ? m_explodeOnlyFromSelfDamage : m_abilityMod.m_explodeOnlyFromSelfDamageMod.GetModifiedValue(m_explodeOnlyFromSelfDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_explodeOnlyFromSelfDamageMod.GetModifiedValue(m_explodeOnlyFromSelfDamage)
+			: m_explodeOnlyFromSelfDamage;
 	}
 
 	public int GetTechPointGainPerExplosion()
 	{
-		return (!m_abilityMod) ? m_techPointGainPerExplosion : m_abilityMod.m_techPointGainPerExplosionMod.GetModifiedValue(m_techPointGainPerExplosion);
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerExplosionMod.GetModifiedValue(m_techPointGainPerExplosion)
+			: m_techPointGainPerExplosion;
 	}
 
 	public int GetHealAmountPerExplosion()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healPerExplosionMod.GetModifiedValue(m_healAmountPerExplosion);
-		}
-		else
-		{
-			result = m_healAmountPerExplosion;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healPerExplosionMod.GetModifiedValue(m_healAmountPerExplosion)
+			: m_healAmountPerExplosion;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_MantaConeDirtyFighting))
+		if (abilityMod.GetType() == typeof(AbilityMod_MantaConeDirtyFighting))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_MantaConeDirtyFighting);
+			m_abilityMod = abilityMod as AbilityMod_MantaConeDirtyFighting;
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -297,7 +176,17 @@ public class MantaConeDirtyFighting : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, GetConeWidth(), GetConeRange(), m_coneBackwardOffset, PenetrateLoS(), true, true, false, false, GetMaxTargets());
+		Targeter = new AbilityUtil_Targeter_DirectionCone(
+			this,
+			GetConeWidth(),
+			GetConeRange(),
+			m_coneBackwardOffset,
+			PenetrateLoS(),
+			true,
+			true,
+			false,
+			false,
+			GetMaxTargets());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)

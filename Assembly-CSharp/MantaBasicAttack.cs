@@ -5,33 +5,21 @@ public class MantaBasicAttack : Ability
 {
 	[Header("-- Targeting")]
 	public float m_coneWidthAngle = 180f;
-
 	public float m_coneBackwardOffset;
-
 	public float m_coneLengthInner = 1.5f;
-
 	public float m_coneLengthThroughWalls = 2.5f;
-
 	[Header("-- Damage")]
 	public int m_damageAmountInner = 28;
-
 	public int m_damageAmountThroughWalls = 10;
-
 	public StandardEffectInfo m_effectInner;
-
 	public StandardEffectInfo m_effectOuter;
-
 	[Header("-- Sequences")]
 	public GameObject m_throughWallsConeSequence;
 
 	private Manta_SyncComponent m_syncComp;
-
 	private AbilityMod_MantaBasicAttack m_abilityMod;
-
 	private int c_innerConeIdentifier = 1;
-
 	private StandardEffectInfo m_cachedEffectInner;
-
 	private StandardEffectInfo m_cachedEffectOuter;
 
 	private void Start()
@@ -48,15 +36,23 @@ public class MantaBasicAttack : Ability
 	{
 		SetCachedFields();
 		float coneWidthAngle = GetConeWidthAngle();
-		List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, GetConeLengthInner()));
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, GetConeLengthThroughWalls()));
-		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, list, m_coneBackwardOffset, true, true);
+		Targeter = new AbilityUtil_Targeter_MultipleCones(
+			this, 
+			new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>
+			{
+				new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, GetConeLengthInner()),
+				new AbilityUtil_Targeter_MultipleCones.ConeDimensions(coneWidthAngle, GetConeLengthThroughWalls())
+			},
+			m_coneBackwardOffset,
+			true,
+			true);
 	}
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\nOn Sequence, for HitActorGroupOnAnimEventSequence components, use:\n" + c_innerConeIdentifier + " for Inner cone group identifier\n";
+		return "<color=cyan>-- For Art --</color>\n" +
+		       "On Sequence, for HitActorGroupOnAnimEventSequence components, use:\n"
+		       + c_innerConeIdentifier + " for Inner cone group identifier\n";
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -71,164 +67,92 @@ public class MantaBasicAttack : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedEffectInner = ((!m_abilityMod) ? m_effectInner : m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner));
-		m_cachedEffectOuter = ((!m_abilityMod) ? m_effectOuter : m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter));
+		m_cachedEffectInner = m_abilityMod != null
+			? m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner)
+			: m_effectInner;
+		m_cachedEffectOuter = m_abilityMod != null
+			? m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter)
+			: m_effectOuter;
 	}
 
 	public float GetConeWidthAngle()
 	{
-		return (!m_abilityMod) ? m_coneWidthAngle : m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
-		}
-		else
-		{
-			result = m_coneBackwardOffset;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset) 
+			: m_coneBackwardOffset;
 	}
 
 	public float GetConeLengthInner()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(m_coneLengthInner);
-		}
-		else
-		{
-			result = m_coneLengthInner;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_coneLengthInnerMod.GetModifiedValue(m_coneLengthInner) 
+			: m_coneLengthInner;
 	}
 
 	public float GetConeLengthThroughWalls()
 	{
-		return (!m_abilityMod) ? m_coneLengthThroughWalls : m_abilityMod.m_coneLengthThroughWallsMod.GetModifiedValue(m_coneLengthThroughWalls);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneLengthThroughWallsMod.GetModifiedValue(m_coneLengthThroughWalls)
+			: m_coneLengthThroughWalls;
 	}
 
 	public int GetDamageAmountInner()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(m_damageAmountInner);
-		}
-		else
-		{
-			result = m_damageAmountInner;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_damageAmountInnerMod.GetModifiedValue(m_damageAmountInner) 
+			: m_damageAmountInner;
 	}
 
 	public int GetDamageAmountThroughWalls()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageAmountThroughWallsMod.GetModifiedValue(m_damageAmountThroughWalls);
-		}
-		else
-		{
-			result = m_damageAmountThroughWalls;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_damageAmountThroughWallsMod.GetModifiedValue(m_damageAmountThroughWalls) 
+			: m_damageAmountThroughWalls;
 	}
 
 	public int GetExtraDamageNoLoS()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageNoLoSMod.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null 
+			? m_abilityMod.m_extraDamageNoLoSMod.GetModifiedValue(0) 
+			: 0;
 	}
 
 	public StandardEffectInfo GetEffectInner()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectInner != null)
-		{
-			result = m_cachedEffectInner;
-		}
-		else
-		{
-			result = m_effectInner;
-		}
-		return result;
+		return m_cachedEffectInner ?? m_effectInner;
 	}
 
 	public StandardEffectInfo GetEffectOuter()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOuter != null)
-		{
-			result = m_cachedEffectOuter;
-		}
-		else
-		{
-			result = m_effectOuter;
-		}
-		return result;
+		return m_cachedEffectOuter ?? m_effectOuter;
 	}
 
 	public StandardEffectInfo GetAdditionalDirtyFightingExplosionEffect()
 	{
-		if ((bool)m_abilityMod)
-		{
-			if (m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo;
-					}
-				}
-			}
-		}
-		return null;
+		return m_abilityMod != null
+		       && m_abilityMod.m_additionalDirtyFightingExplosionEffect.operation == AbilityModPropertyEffectInfo.ModOp.Override
+				? m_abilityMod.m_additionalDirtyFightingExplosionEffect.effectInfo
+				: null;
 	}
 
 	public bool ShouldDisruptBrushInCone()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = (m_abilityMod.m_disruptBrushInConeMod.GetModifiedValue(false) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_disruptBrushInConeMod.GetModifiedValue(false);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_MantaBasicAttack))
+		if (abilityMod.GetType() == typeof(AbilityMod_MantaBasicAttack))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_MantaBasicAttack);
+			m_abilityMod = abilityMod as AbilityMod_MantaBasicAttack;
 			Setup();
-			return;
 		}
 	}
 
@@ -270,21 +194,21 @@ public class MantaBasicAttack : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			int num = 0;
-			if (!base.ActorData.CurrentBoardSquare.GetLOS(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
+			int extraDamage = 0;
+			if (!ActorData.CurrentBoardSquare.GetLOS(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 			{
-				num += GetExtraDamageNoLoS();
+				extraDamage += GetExtraDamageNoLoS();
 			}
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
-				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountInner() + num;
+				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountInner() + extraDamage;
 			}
 			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountThroughWalls() + num;
+				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountThroughWalls() + extraDamage;
 			}
 		}
 		return dictionary;
@@ -292,112 +216,64 @@ public class MantaBasicAttack : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (m_syncComp != null)
+		if (m_syncComp == null)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num = 0;
-					List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeters[currentTargeterIndex].GetActorsInRange();
-					using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
-							num += m_syncComp.GetDirtyFightingExtraTP(current.m_actor);
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								return num;
-							}
-						}
-					}
-				}
-				}
-			}
+			return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 		}
-		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
+		
+		int num = 0;
+		foreach (AbilityUtil_Targeter.ActorTarget actorTarget in Targeters[currentTargeterIndex].GetActorsInRange())
+		{
+			num += m_syncComp.GetDirtyFightingExtraTP(actorTarget.m_actor);
+		}
+		return num;
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		if (symbolType == AbilityTooltipSymbol.Damage)
-		{
-			if (m_syncComp != null)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return m_syncComp.GetAccessoryStringForDamage(targetActor, base.ActorData, this);
-					}
-				}
-			}
-		}
-		return null;
+		return symbolType == AbilityTooltipSymbol.Damage && m_syncComp != null
+			? m_syncComp.GetAccessoryStringForDamage(targetActor, ActorData, this)
+			: null;
 	}
 
 	public override bool ForceIgnoreCover(ActorData targetActor)
 	{
-		if (targetActor != null)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, base.ActorData.GetFreePos(), base.ActorData);
-				}
-			}
-		}
-		return false;
+		return targetActor != null
+		       && DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject.Far, targetActor, ActorData.GetFreePos(), ActorData);
 	}
 
 	private bool InsideNearRadius(ActorData targetActor, Vector3 damageOrigin)
 	{
-		float num = GetConeLengthInner() * Board.Get().squareSize;
+		float radius = GetConeLengthInner() * Board.Get().squareSize;
 		Vector3 vector = targetActor.GetFreePos() - damageOrigin;
 		vector.y = 0f;
-		float num2 = vector.magnitude;
+		float dist = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
+			dist -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
-		return num2 <= num;
+		return dist <= radius;
 	}
 
-	public override bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
+	public override bool DoesTargetActorMatchTooltipSubject(
+		AbilityTooltipSubject subjectType,
+		ActorData targetActor,
+		Vector3 damageOrigin,
+		ActorData targetingActor)
 	{
-		if (subjectType != AbilityTooltipSubject.Near)
+		if (subjectType != AbilityTooltipSubject.Near && subjectType != AbilityTooltipSubject.Far)
 		{
-			if (subjectType != AbilityTooltipSubject.Far)
-			{
-				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-			}
+			return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 		}
-		if (targetingActor.CurrentBoardSquare.GetLOS(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
+		else if (targetingActor.CurrentBoardSquare.GetLOS(targetActor.CurrentBoardSquare.x, targetActor.CurrentBoardSquare.y))
 		{
-			if (InsideNearRadius(targetActor, damageOrigin))
-			{
-				return subjectType == AbilityTooltipSubject.Near;
-			}
+			return InsideNearRadius(targetActor, damageOrigin)
+				? subjectType == AbilityTooltipSubject.Near
+				: subjectType == AbilityTooltipSubject.Far;
+		}
+		else
+		{
 			return subjectType == AbilityTooltipSubject.Far;
 		}
-		return subjectType == AbilityTooltipSubject.Far;
 	}
 }

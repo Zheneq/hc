@@ -4,9 +4,7 @@ public class MantaCreateBarriersChainFinal : Ability
 {
 	[Header("-- Ground effect")]
 	public StandardGroundEffectInfo m_groundEffectInfo;
-
 	public int m_damageOnCast = 30;
-
 	[Header("-- Sequences -------------------------------------------------")]
 	public GameObject m_castSequencePrefab;
 
