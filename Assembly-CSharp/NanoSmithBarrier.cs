@@ -99,5 +99,60 @@ public class NanoSmithBarrier : Ability
 		return m_abilityMod != null ? m_cachedBarrierData : m_barrierData;
 	}
 	
-	// TODO HELIO server side
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetBarrierLocation(targets, out Vector3 center, out Vector3 aimDirection);
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			center,
+			Quaternion.LookRotation(aimDirection),
+			null,
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		GetBarrierLocation(targets, out Vector3 pos, out Vector3 aimDirection);
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(pos));
+		StandardBarrierData barrierData = GetBarrierData();
+		Barrier barrier = new Barrier(m_abilityName, pos, aimDirection, caster, barrierData);
+		barrier.SetSourceAbility(this);
+		positionHitResults.AddBarrier(barrier);
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+	
+	// custom
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.NanoSmithStats.BarrierHits);
+		}
+	}
+	
+	// custom
+	private void GetBarrierLocation(List<AbilityTarget> targets, out Vector3 center, out Vector3 aimDirection)
+	{
+		aimDirection = Vector3.forward;
+		center = targets[0].FreePos;
+		if (m_snapToGrid)
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			if (square != null)
+			{
+				center = square.ToVector3();
+				Vector3 freePos = targets[1].FreePos;
+				aimDirection = VectorUtils.GetDirectionAndOffsetToClosestSide(square, freePos, false, out Vector3 offset);
+				center += offset;
+			}
+		}
+	}
+#endif
 }
