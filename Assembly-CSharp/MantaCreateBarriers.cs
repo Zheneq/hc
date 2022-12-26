@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -88,6 +90,11 @@ public class MantaCreateBarriers : Ability
 
 	private void SetCachedFields()
 	{
+		// added in rogues
+		// if (m_prisonBarrierData == null)
+		// {
+		// 	m_prisonBarrierData = ScriptableObject.CreateInstance<StandardBarrierData>();
+		// }
 		m_cachedPrisonBarrierData = m_abilityMod != null
 			? m_abilityMod.m_prisonBarrierDataMod.GetModifiedValue(m_prisonBarrierData)
 			: m_prisonBarrierData;
@@ -231,6 +238,13 @@ public class MantaCreateBarriers : Ability
 		{
 			damage += GetGroundEffectInfo().m_groundEffectData.damageAmount;
 		}
+// #if SERVER
+// 		// added in rogues
+// 		if (m_syncComp != null)
+// 		{
+// 			damage += m_syncComp.GetDirtyFightingExtraDamage(targetActor);
+// 		}
+// #endif
 		dictionary[AbilityTooltipSymbol.Damage] = damage;
 		return dictionary;
 	}
@@ -250,6 +264,7 @@ public class MantaCreateBarriers : Ability
 		return energy;
 	}
 
+	// removed in rogues
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
 		return symbolType == AbilityTooltipSymbol.Damage && m_syncComp != null
@@ -281,4 +296,122 @@ public class MantaCreateBarriers : Ability
 	{
 		return true;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> abilityRunSequenceStartDataList =
+			base.GetAbilityRunSequenceStartDataList(targets, caster, additionalData);
+		Vector3 targetPos = Board.Get().GetSquare(targets[0].GridPos).ToVector3();
+		targetPos.y = Board.Get().BaselineHeight;
+		abilityRunSequenceStartDataList.Add(new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targetPos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource));
+		return abilityRunSequenceStartDataList;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		Vector3 targetPos = targetSquare != null
+			? targetSquare.ToVector3()
+			: targets[0].FreePos;
+		targetPos.y = Board.Get().BaselineHeight;
+		float squareSize = Board.Get().squareSize;
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(targetPos));
+		List<BarrierPoseInfo> barrierPosesForRegularPolygon =
+			BarrierPoseInfo.GetBarrierPosesForRegularPolygon(targetPos, m_prisonSides, m_prisonRadius * squareSize);
+		GetPrisonBarrierData().m_width = barrierPosesForRegularPolygon[0].widthInWorld / squareSize + 0.25f;
+		foreach (BarrierPoseInfo barrierPose in barrierPosesForRegularPolygon)
+		{
+			Barrier barrier = new Barrier(
+				m_abilityName, barrierPose.midpoint, -1f * barrierPose.facingDirection, caster, GetPrisonBarrierData());
+			barrier.SetSourceAbility(this);
+			positionHitResults.AddBarrier(barrier);
+		}
+		if (ShouldAddVisionProvider())
+		{
+			PositionVisionProviderEffect effect = new PositionVisionProviderEffect(
+				AsEffectSource(),
+				targetSquare,
+				caster,
+				GetPrisonBarrierData().m_maxDuration,
+				m_prisonRadius + 0.5f,
+				VisionProviderInfo.BrushRevealType.Always,
+				true,
+				null);
+			positionHitResults.AddEffect(effect);
+		}
+		abilityResults.StorePositionHit(positionHitResults);
+		StandardGroundEffectInfo groundEffectInfo = GetGroundEffectInfo();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		GroundEffectField groundEffectData = groundEffectInfo.m_groundEffectData;
+		List<Team> affectedTeams = new List<Team>();
+		affectedTeams.AddRange(caster.GetOtherTeams());
+		if (IncludeAllies())
+		{
+			affectedTeams.Add(caster.GetTeam());
+		}
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			groundEffectInfo.m_groundEffectData.shape, targets[0], true, caster, affectedTeams, nonActorTargetInfo);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(groundEffectData.shape, targets[0]);
+		centerOfShape.y = Board.Get().m_baselineHeight;
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		foreach (ActorData actorData in actorsInShape)
+		{
+			bool isNotCaster = true;
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+			if (groundEffectInfo.m_applyGroundEffect)
+			{
+				groundEffectInfo.SetupActorHitResult(ref actorHitResults, caster, actorData.GetCurrentBoardSquare());
+			}
+			if (actorData.GetTeam() == caster.GetTeam())
+			{
+				if (actorData == caster && groundEffectInfo.m_applyGroundEffect)
+				{
+					casterHitResults.SetBaseHealing(GetAllyHealOnCast());
+					casterHitResults.AddStandardEffectInfo(GetEffectOnAlliesOnCast());
+					isNotCaster = false;
+				}
+				else
+				{
+					actorHitResults.SetBaseHealing(GetAllyHealOnCast());
+					actorHitResults.AddStandardEffectInfo(GetEffectOnAlliesOnCast());
+				}
+			}
+			else if (GetDamageOnCast() > 0)
+			{
+				actorHitResults.AddBaseDamage(GetDamageOnCast());
+			}
+			if (isNotCaster)
+			{
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		if (groundEffectInfo.m_applyGroundEffect)
+		{
+			StandardGroundEffect standardGroundEffect =
+				new StandardGroundEffect(AsEffectSource(), targetSquare, centerOfShape, null, caster, groundEffectData);
+			standardGroundEffect.AddToActorsHitThisTurn(actorsInShape);
+			casterHitResults.AddEffect(standardGroundEffect);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.MantaStats.NumEnemiesHitByUltCast);
+		}
+	}
+#endif
 }

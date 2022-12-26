@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -208,4 +210,75 @@ public class MantaConeDirtyFighting : Ability
 		GetEnemyHitEffectData().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Tertiary);
 		return numbers;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetHitActors(targets, caster, null);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (ActorData actorData in GetHitActors(targets, caster, nonActorTargetInfo))
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(GetOnCastDamageAmount());
+			MantaDirtyFightingEffect effect = new MantaDirtyFightingEffect(
+				AsEffectSource(),
+				actorData.GetCurrentBoardSquare(),
+				actorData,
+				caster,
+				GetDirtyFightingEffectData(),
+				GetEffectExplosionDamage(),
+				GetEffectOnTargetFromExplosion().m_applyEffect
+					? GetEffectOnTargetFromExplosion().m_effectData
+					: null,
+				m_effectOnExplosionSequencePrefab,
+				ExplodeOnlyFromSelfDamage(),
+				GetTechPointGainPerExplosion(),
+				GetHealAmountPerExplosion(),
+				GetEffectOnTargetWhenExpiresWithoutExplosion());
+			actorHitResults.AddEffect(effect);
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffectData());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		return AreaEffectUtils.GetActorsInCone(
+			laserCoords.start,
+			VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+			GetConeWidth(),
+			GetConeRange(),
+			m_coneBackwardOffset,
+			PenetrateLoS(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.MantaStats.NumDamagingPutridSprayHits);
+		}
+	}
+#endif
 }

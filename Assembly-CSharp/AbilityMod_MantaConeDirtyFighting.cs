@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,9 +49,13 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		MantaConeDirtyFighting mantaConeDirtyFighting = GetTargetAbilityOnAbilityData(abilityData) as MantaConeDirtyFighting;
+		// rogues
+		// MantaConeDirtyFighting mantaConeDirtyFighting = targetAbility as MantaConeDirtyFighting;
+		
 		bool isValid = mantaConeDirtyFighting != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneRangeMod, "[ConeRange]", isValid, isValid ? mantaConeDirtyFighting.m_coneRange : 0f);

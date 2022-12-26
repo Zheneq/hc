@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -281,6 +283,13 @@ public class MantaDashThroughWall : Ability
 			{
 				damage += GetAoeThroughWallsDamage();
 			}
+
+			// added in rogues
+			// if (m_syncComp != null)
+			// {
+			// 	damage += m_syncComp.GetDirtyFightingExtraDamage(targetActor);
+			// }
+
 			dictionary[AbilityTooltipSymbol.Damage] = damage;
 		}
 		return dictionary;
@@ -301,6 +310,7 @@ public class MantaDashThroughWall : Ability
 		return energy;
 	}
 
+	// removed in rogues
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
 		return symbolType == AbilityTooltipSymbol.Damage
@@ -372,4 +382,340 @@ public class MantaDashThroughWall : Ability
 		}
 		return boardSquare;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 coneStartPos = Vector3.zero;
+		Vector3 perpendicularFromWall = Vector3.right;
+		BoardSquare pathDestination = GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<ActorData> chargeHitActors = GetChargeHitActors(
+			targets, loSCheckPos, caster, out _, null, out bool traveledFullDistance);
+		ServerEvadeUtils.ChargeSegment[] chargeSegments = new ServerEvadeUtils.ChargeSegment[2];
+		chargeSegments[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_end = BoardSquarePathInfo.ChargeEndType.None
+		};
+		chargeSegments[1] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement
+		};
+		if (!traveledFullDistance && chargeHitActors.Count == 0)
+		{
+			chargeSegments[1].m_end = BoardSquarePathInfo.ChargeEndType.Recovery;
+		}
+		else if (chargeHitActors.Count > 0 || m_aoeWithMiss)
+		{
+			chargeSegments[1].m_end = BoardSquarePathInfo.ChargeEndType.Impact;
+		}
+		else
+		{
+			chargeSegments[1].m_end = BoardSquarePathInfo.ChargeEndType.Miss;
+		}
+		chargeSegments[1].m_pos = pathDestination;
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
+		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		return chargeSegments;
+	}
+
+	// added in rogues
+	public override BoardSquare GetIdealDestination(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 coneStartPos = Vector3.zero;
+		Vector3 perpendicularFromWall = Vector3.right;
+		return GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
+	}
+
+	// added in rogues
+	private BoardSquare GetPathDestination(List<AbilityTarget> targets, ActorData caster, ref Vector3 coneStartPos, ref Vector3 perpendicularFromWall)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<ActorData> chargeHitActors = GetChargeHitActors(
+			targets, loSCheckPos, caster, out Vector3 chargeEndPoint, null, out bool traveledFullDistance);
+		Vector3 vector2 = chargeEndPoint - loSCheckPos;
+		float magnitude = vector2.magnitude;
+		vector2.Normalize();
+		BoardSquare result;
+		if (GetMaxTargets() > 0 && chargeHitActors.Count >= GetMaxTargets())
+		{
+			result = chargeHitActors[chargeHitActors.Count - 1].GetCurrentBoardSquare();
+		}
+		else
+		{
+			BoardSquare boardSquare = null;
+			if (!traveledFullDistance)
+			{
+				float num = GetMaxWidthOfWall() * Board.Get().squareSize;
+				num = Mathf.Min(num, (GetMaxRange() + m_extraTotalDistanceIfThroughWalls) * Board.Get().squareSize - magnitude);
+				Vector3 endPos = chargeEndPoint + vector2 * num;
+				boardSquare = GetSquareBeyondWall(loSCheckPos, endPos, caster, num, ref coneStartPos, ref perpendicularFromWall);
+			}
+			if (boardSquare == null)
+			{
+				float num2 = Mathf.Min(0.5f, magnitude / 2f);
+				chargeEndPoint -= vector2 * num2;
+				boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(loSCheckPos, chargeEndPoint, true);
+				if (boardSquare == null)
+				{
+					boardSquare = caster.GetSquareAtPhaseStart();
+				}
+				if (Board.Get().GetSquareFromVec3(chargeEndPoint) == null)
+				{
+					coneStartPos = boardSquare.ToVector3();
+				}
+			}
+			result = boardSquare;
+		}
+		return result;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<ActorData> chargeHitActors = GetChargeHitActors(
+			targets, loSCheckPos, caster, out Vector3 chargeEndPoint, null, out bool traveledFullDistance);
+		List<ActorData> hitActors = additionalData.m_abilityResults.HitActorList();
+		bool hitEnv = chargeHitActors.Count == 0 && !traveledFullDistance;
+		Vector3 targetPos = Vector3.zero;
+		Vector3 direction = (chargeEndPoint - loSCheckPos).normalized;
+		if (hitEnv)
+		{
+			Vector3 perpendicularFromWall = direction;
+			GetPathDestination(targets, caster, ref targetPos, ref perpendicularFromWall);
+			if (m_clampConeToWall)
+			{
+				direction = perpendicularFromWall.normalized;
+			}
+		}
+		else
+		{
+			targetPos = chargeEndPoint - direction * m_coneBackwardOffset * Board.Get().squareSize;
+		}
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_aoeHitSequencePrefab, targetPos, hitActors.ToArray(), caster, additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> chargeHitActors = GetChargeHitActors(targets, loSCheckPos, caster, out var vector, nonActorTargetInfo, out var flag);
+		int num = 0;
+		List<ActorData> aoeHitActors = null;
+		bool flag2 = !flag && chargeHitActors.Count == 0;
+		if (m_aoeWithMiss || flag2 || chargeHitActors.Count > 0)
+		{
+			Vector3 coneStartPos = Vector3.zero;
+			Vector3 direction = (vector - loSCheckPos).normalized;
+			if (flag2)
+			{
+				Vector3 perpendicularFromWall = direction;
+				GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
+				if (m_clampConeToWall)
+				{
+					direction = perpendicularFromWall.normalized;
+				}
+			}
+			else
+			{
+				coneStartPos = vector - direction * m_coneBackwardOffset * Board.Get().squareSize;
+				if (Board.Get().GetSquareFromVec3(coneStartPos) == null)
+				{
+					Vector3 zero = Vector3.zero;
+					coneStartPos = GetPathDestination(targets, caster, ref coneStartPos, ref zero).ToVector3();
+				}
+			}
+			aoeHitActors = GetAoeHitActors(coneStartPos, direction, caster, nonActorTargetInfo, flag2);
+			foreach (ActorData item in chargeHitActors)
+			{
+				aoeHitActors.Remove(item);
+			}
+		}
+		else
+		{
+			aoeHitActors = new List<ActorData>();
+		}
+		foreach (ActorData actorData in chargeHitActors)
+		{
+			Vector3 origin = DirectHitIgnoreCover() ? actorData.GetFreePos() : loSCheckPos;
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, origin));
+			int directHitDamage = GetDirectHitDamage();
+			actorHitResults.SetBaseDamage(directHitDamage);
+			actorHitResults.AddStandardEffectInfo(GetDirectEnemyHitEffect());
+			List<Effect> effects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorData, caster, typeof(MantaDirtyFightingEffect));
+			if (!effects.IsNullOrEmpty() && (effects[0] as MantaDirtyFightingEffect).IsActive())
+			{
+				StandardEffectInfo dirtyFightingEffect = GetAdditionalDirtyFightingExplosionEffect();
+				if (dirtyFightingEffect != null)
+				{
+					actorHitResults.AddStandardEffectInfo(dirtyFightingEffect);
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+			num++;
+		}
+		foreach (ActorData actorData in aoeHitActors)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (chargeHitActors.Count > 0)
+			{
+				actorHitResults2.SetBaseDamage(GetAoeDamage());
+				actorHitResults2.AddStandardEffectInfo(GetAoeEnemyHitEffect());
+			}
+			else
+			{
+				actorHitResults2.SetBaseDamage(GetAoeThroughWallsDamage());
+				actorHitResults2.AddStandardEffectInfo(GetAoeThroughWallsEffect());
+				actorHitResults2.AddHitResultsTag(HitResultsTags.HittingThroughWalls);
+			}
+			List<Effect> effects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorData, caster, typeof(MantaDirtyFightingEffect));
+			if (!effects.IsNullOrEmpty() && (effects[0] as MantaDirtyFightingEffect).IsActive())
+			{
+				StandardEffectInfo dirtyFightingEffect = GetAdditionalDirtyFightingExplosionEffect();
+				if (dirtyFightingEffect != null)
+				{
+					actorHitResults2.AddStandardEffectInfo(dirtyFightingEffect);
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults2);
+			num++;
+		}
+		if (num == 0
+		    && m_abilityMod != null
+		    && m_abilityMod.m_cooldownReductionsWhenNoHits.HasCooldownReduction())
+		{
+			ActorHitResults actorHitResults3 = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			actorHitResults3.SetIgnoreTechpointInteractionForHit(true);
+			m_abilityMod.m_cooldownReductionsWhenNoHits.AppendCooldownMiscEvents(actorHitResults3, true, 0, 0);
+			abilityResults.StoreActorHit(actorHitResults3);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = new List<Vector3>();
+		Vector3 casterPos = caster.GetFreePos(caster.GetSquareAtPhaseStart());
+		List<ActorData> chargeHitActors = GetChargeHitActors(targets, casterPos, caster, out var chargeEndPoint, null, out _);
+		list.Add(chargeEndPoint);
+		if (chargeHitActors != null)
+		{
+			foreach (ActorData hitActor in chargeHitActors)
+			{
+				list.Add(hitActor.GetFreePos());
+			}
+		}
+		foreach (AbilityTarget target in targets)
+		{
+			list.Add(target.FreePos);
+		}
+		return list;
+	}
+
+	// added in rogues
+	private List<ActorData> GetChargeHitActors(
+		List<AbilityTarget> targets,
+		Vector3 startPos,
+		ActorData caster,
+		out Vector3 chargeEndPoint,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out bool traveledFullDistance)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			startPos,
+			aimDirection,
+			GetMaxRange(),
+			GetWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			0,
+			false,
+			true,
+			out chargeEndPoint,
+			nonActorTargetInfo,
+			null,
+			true);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInLaser);
+		if (GetMaxTargets() > 0)
+		{
+			TargeterUtils.LimitActorsToMaxNumber(ref actorsInLaser, GetMaxTargets());
+		}
+		float magnitude;
+		if (actorsInLaser.Count > 0)
+		{
+			Vector3 vector = actorsInLaser[actorsInLaser.Count - 1].GetFreePos() - startPos;
+			vector.y = 0f;
+			magnitude = (Vector3.Dot(vector, aimDirection) * aimDirection).magnitude;
+		}
+		else
+		{
+			magnitude = (startPos - chargeEndPoint).magnitude;
+		}
+		chargeEndPoint = startPos + aimDirection * magnitude;
+		float num = (GetMaxRange() - 0.25f) * Board.Get().squareSize;
+		traveledFullDistance = magnitude >= num;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	private List<ActorData> GetAoeHitActors(
+		Vector3 coneStart, Vector3 aimDirection, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, bool throughWall)
+	{
+		float coneWidthDegrees = GetAoeConeWidth();
+		float coneLengthRadiusInSquares = GetAoeConeLength();
+		if (throughWall)
+		{
+			coneWidthDegrees = GetAoeThroughWallConeWidth();
+			coneLengthRadiusInSquares = GetAoeThroughWallConeLength();
+		}
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			coneStart,
+			VectorUtils.HorizontalAngle_Deg(aimDirection),
+			coneWidthDegrees,
+			coneLengthRadiusInSquares,
+			0f,
+			false,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		actorsInCone.Remove(caster);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInCone);
+		return actorsInCone;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage > 0 && results.HasHitResultsTag(HitResultsTags.HittingThroughWalls))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.MantaStats.NumHitsThroughWalls);
+		}
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -202,6 +204,13 @@ public class MantaBasicAttack : Ability
 			{
 				extraDamage += GetExtraDamageNoLoS();
 			}
+// #if SERVER
+// 			// added in rogues
+// 			if (m_syncComp != null)
+// 			{
+// 				extraDamage += m_syncComp.GetDirtyFightingExtraDamage(targetActor);
+// 			}
+// #endif
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
 				dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmountInner() + extraDamage;
@@ -229,6 +238,7 @@ public class MantaBasicAttack : Ability
 		return num;
 	}
 
+	// removed in rogues
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
 		return symbolType == AbilityTooltipSymbol.Damage && m_syncComp != null
@@ -276,4 +286,142 @@ public class MantaBasicAttack : Ability
 			return subjectType == AbilityTooltipSubject.Far;
 		}
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare squareFromVec = Board.Get().GetSquareFromVec3(caster.GetLoSCheckPos());
+		List<ActorData> hitActors = FindHitActorsForConeLength(targets, caster, GetConeLengthInner(), false, null);
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_throughWallsConeSequence,
+				squareFromVec,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[]
+				{
+					new HitActorGroupOnAnimEventSequence.ActorParams
+					{
+						m_groupIdentifier = (sbyte)c_innerConeIdentifier,
+						m_hitActors = hitActors
+					}
+				})
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActorsInner = FindHitActorsForConeLength(targets, caster, GetConeLengthInner(), false, nonActorTargetInfo);
+		List<ActorData> hitActorsThroughWalls = FindHitActorsForConeLength(targets, caster, GetConeLengthThroughWalls(), true, null);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		foreach (ActorData actorData in hitActorsThroughWalls)
+		{
+			int extraDamage = 0;
+			bool los = caster.CurrentBoardSquare.GetLOS(actorData.CurrentBoardSquare.x, actorData.CurrentBoardSquare.y);
+			if (!los)
+			{
+				extraDamage += GetExtraDamageNoLoS();
+			}
+			ActorHitResults actorHitResults;
+			if (hitActorsInner.Contains(actorData))
+			{
+				actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, loSCheckPos));
+				actorHitResults.SetBaseDamage(GetDamageAmountInner() + extraDamage);
+				actorHitResults.AddStandardEffectInfo(GetEffectInner());
+				if (!los)
+				{
+					actorHitResults.AddHitResultsTag(HitResultsTags.HittingThroughWalls);
+				}
+			}
+			else
+			{
+				actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetLoSCheckPos()));
+				actorHitResults.SetBaseDamage(GetDamageAmountThroughWalls() + extraDamage);
+				actorHitResults.AddStandardEffectInfo(GetEffectOuter());
+				if (!los)
+				{
+					actorHitResults.AddHitResultsTag(HitResultsTags.HittingThroughWalls);
+				}
+			}
+			List<Effect> effectsOnTargetByCaster = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorData, caster, typeof(MantaDirtyFightingEffect));
+			if (!effectsOnTargetByCaster.IsNullOrEmpty() && (effectsOnTargetByCaster[0] as MantaDirtyFightingEffect).IsActive())
+			{
+				StandardEffectInfo additionalDirtyFightingExplosionEffect = GetAdditionalDirtyFightingExplosionEffect();
+				if (additionalDirtyFightingExplosionEffect != null)
+				{
+					actorHitResults.AddStandardEffectInfo(additionalDirtyFightingExplosionEffect);
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override List<int> GetAdditionalBrushRegionsToDisrupt(ActorData caster, List<AbilityTarget> targets)
+	{
+		List<int> list = new List<int>();
+		if (ShouldDisruptBrushInCone())
+		{
+			Vector3 aimDirection = targets[0].AimDirection;
+			Vector3 loSCheckPos = caster.GetLoSCheckPos();
+			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+			List<BoardSquare> squaresInCone = AreaEffectUtils.GetSquaresInCone(
+				loSCheckPos,
+				coneCenterAngleDegrees,
+				GetConeWidthAngle(),
+				GetConeLengthThroughWalls(),
+				GetConeBackwardOffset(),
+				true,
+				caster);
+			foreach (BoardSquare boardSquare in squaresInCone)
+			{
+				if (boardSquare.IsInBrush() && !list.Contains(boardSquare.BrushRegion))
+				{
+					list.Add(boardSquare.BrushRegion);
+				}
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActorsForConeLength(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		float coneLength,
+		bool penetrateLoS,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			loSCheckPos,
+			coneCenterAngleDegrees,
+			GetConeWidthAngle(),
+			coneLength,
+			m_coneBackwardOffset,
+			penetrateLoS,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		return actorsInCone ?? new List<ActorData>();
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.BaseDamage > 0 && results.HasHitResultsTag(HitResultsTags.HittingThroughWalls))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.MantaStats.NumHitsThroughWalls);
+		}
+	}
+#endif
 }

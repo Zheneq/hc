@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -60,9 +62,13 @@ public class AbilityMod_MantaDashThroughWall : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		MantaDashThroughWall mantaDashThroughWall = GetTargetAbilityOnAbilityData(abilityData) as MantaDashThroughWall;
+		// rogues
+		// MantaDashThroughWall mantaDashThroughWall = targetAbility as MantaDashThroughWall;
+		
 		bool isValid = mantaDashThroughWall != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_aoeConeWidthMod, "[AoeConeWidth]", isValid, isValid ? mantaDashThroughWall.m_aoeConeWidth : 0f);

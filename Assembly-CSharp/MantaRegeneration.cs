@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -128,4 +130,50 @@ public class MantaRegeneration : Ability
 		m_healEffectData.AddTooltipTokens(tokens, "HealEffectData");
 		AbilityMod.AddToken_EffectInfo(tokens, m_otherSelfEffect, "OtherSelfEffect", m_otherSelfEffect);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		foreach (var hitActor in additionalData.m_abilityResults.HitActorList())
+		{
+			ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab, hitActor.GetFreePos(), hitActor.AsArray(), caster, additionalData.m_sequenceSource);
+			list.Add(item);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		MantaRegenerationEffect mantaRegenerationEffect = new MantaRegenerationEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			caster,
+			caster,
+			GetHealEffectData(),
+			GetMaxRegeneration(),
+			GetTurnsOfRegeneration(),
+			GetDamageToHealRatio(),
+			GetTechPointGainPerHit(),
+			m_incomingHitImpactSequencePrefab);
+		mantaRegenerationEffect.SetHitPhaseBeforeStart(m_healInPhase);
+		actorHitResults.AddEffect(mantaRegenerationEffect);
+		actorHitResults.AddStandardEffectInfo(GetOtherSelfEffect());
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.MantaStats.HealingFromSelfHeal, results.FinalHealing);
+		}
+	}
+#endif
 }

@@ -1565,8 +1565,10 @@
     <Compile Include="MantaCreateBarriers.cs" />
     <Compile Include="MantaCreateBarriersChainFinal.cs" />
     <Compile Include="MantaDashThroughWall.cs" />
+    <Compile Include="MantaDirtyFightingEffect.cs" />
     <Compile Include="MantaOutwardLasers.cs" />
     <Compile Include="MantaRegeneration.cs" />
+    <Compile Include="MantaRegenerationEffect.cs" />
     <Compile Include="Manta_SyncComponent.cs" />
     <Compile Include="MapData.cs" />
     <Compile Include="MartyrAoeOnReactHit.cs" />

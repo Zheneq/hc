@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,9 +36,13 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		MantaRegeneration mantaRegeneration = GetTargetAbilityOnAbilityData(abilityData) as MantaRegeneration;
+		// rogues
+		// MantaRegeneration mantaRegeneration = targetAbility as MantaRegeneration;
+		
 		bool isValid = mantaRegeneration != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_maxRegenerationMod, "[MaxRegeneration]", isValid, isValid ? mantaRegeneration.m_maxRegeneration : 0);

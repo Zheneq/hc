@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,9 +44,13 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		MantaCreateBarriers mantaCreateBarriers = GetTargetAbilityOnAbilityData(abilityData) as MantaCreateBarriers;
+		// rogues
+		// MantaCreateBarriers mantaCreateBarriers = targetAbility as MantaCreateBarriers;
+		
 		bool isValid = mantaCreateBarriers != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_requireCasterInShapeMod, "[RequireCasterInShape]", isValid, isValid && mantaCreateBarriers.m_requireCasterInShape);
