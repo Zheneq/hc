@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,34 +18,22 @@ public class SoldierGrenade : Ability
 
 	[Header("-- Targeting --")]
 	public AbilityAreaShape m_shape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_penetrateLos;
-
 	[Header("-- On Hit Stuff --")]
 	public int m_damageAmount = 10;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Space(10f)]
 	public int m_allyHealAmount;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_SoldierGrenade m_abilityMod;
-
 	private AbilityData m_abilityData;
-
 	private SoldierStimPack m_stimAbility;
-
 	private List<ShapeToDamage> m_cachedShapeToDamage = new List<ShapeToDamage>();
-
 	private List<AbilityAreaShape> m_shapes = new List<AbilityAreaShape>();
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
 
 	private void Start()
@@ -65,184 +53,99 @@ public class SoldierGrenade : Ability
 		}
 		if (m_stimAbility == null && m_abilityData != null)
 		{
-			m_stimAbility = (m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
+			m_stimAbility = m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack;
 		}
 		SetCachedFields();
 		m_cachedShapeToDamage.Clear();
 		m_cachedShapeToDamage.Add(new ShapeToDamage(GetShape(), GetDamageAmount()));
-		if (m_abilityMod != null)
+		if (m_abilityMod != null && m_abilityMod.m_useAdditionalShapeOverride)
 		{
-			if (m_abilityMod.m_useAdditionalShapeOverride)
+			foreach (ShapeToDamage shapeToDamage in m_abilityMod.m_additionalShapeToDamageOverride)
 			{
-				for (int i = 0; i < m_abilityMod.m_additionalShapeToDamageOverride.Count; i++)
-				{
-					ShapeToDamage shapeToDamage = m_abilityMod.m_additionalShapeToDamageOverride[i];
-					m_cachedShapeToDamage.Add(new ShapeToDamage(shapeToDamage.m_shape, shapeToDamage.m_damage));
-				}
+				m_cachedShapeToDamage.Add(new ShapeToDamage(shapeToDamage.m_shape, shapeToDamage.m_damage));
 			}
 		}
 		m_cachedShapeToDamage.Sort();
 		m_shapes.Clear();
-		for (int j = 0; j < m_cachedShapeToDamage.Count; j++)
+		foreach (ShapeToDamage shapeToDamage in m_cachedShapeToDamage)
 		{
-			m_shapes.Add(m_cachedShapeToDamage[j].m_shape);
+			m_shapes.Add(shapeToDamage.m_shape);
 		}
-		while (true)
-		{
-			List<AbilityTooltipSubject> list = new List<AbilityTooltipSubject>();
-			list.Add(AbilityTooltipSubject.Primary);
-			List<AbilityTooltipSubject> subjects = list;
-			base.Targeter = new AbilityUtil_Targeter_MultipleShapes(this, m_shapes, subjects, PenetrateLos(), IncludeEnemies(), IncludeAllies());
-			return;
-		}
+
+		Targeter = new AbilityUtil_Targeter_MultipleShapes(
+			this, 
+			m_shapes, 
+			new List<AbilityTooltipSubject> { AbilityTooltipSubject.Primary },
+			PenetrateLos(),
+			IncludeEnemies(),
+			IncludeAllies());
 	}
 
 	public int GetDamageForShapeIndex(int shapeIndex)
 	{
-		if (m_cachedShapeToDamage != null)
+		if (m_cachedShapeToDamage != null && shapeIndex < m_cachedShapeToDamage.Count)
 		{
-			if (shapeIndex < m_cachedShapeToDamage.Count)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return m_cachedShapeToDamage[shapeIndex].m_damage;
-					}
-				}
-			}
+			return m_cachedShapeToDamage[shapeIndex].m_damage;
 		}
 		return GetDamageAmount();
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		StandardEffectInfo cachedAllyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			cachedAllyHitEffect = m_allyHitEffect;
-		}
-		m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
+		m_cachedAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
 	}
 
 	public AbilityAreaShape GetShape()
 	{
-		AbilityAreaShape result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_shapeMod.GetModifiedValue(m_shape);
-		}
-		else
-		{
-			result = m_shape;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shapeMod.GetModifiedValue(m_shape)
+			: m_shape;
 	}
 
 	public bool PenetrateLos()
 	{
-		return (!m_abilityMod) ? m_penetrateLos : m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos)
+			: m_penetrateLos;
 	}
 
 	public int GetDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			result = m_damageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public int GetAllyHealAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
-		}
-		else
-		{
-			result = m_allyHealAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount)
+			: m_allyHealAmount;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public bool IncludeEnemies()
 	{
-		int result;
-		if (GetDamageAmount() <= 0)
-		{
-			result = (GetEnemyHitEffect().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetDamageAmount() > 0 || GetEnemyHitEffect().m_applyEffect;
 	}
 
 	public bool IncludeAllies()
 	{
-		int result;
-		if (GetAllyHealAmount() <= 0)
-		{
-			result = (GetAllyHitEffect().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetAllyHealAmount() > 0 || GetAllyHitEffect().m_applyEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -256,107 +159,61 @@ public class SoldierGrenade : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> result = null;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
-		ActorData actorData = base.ActorData;
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
+		ActorData actorData = ActorData;
+		if (tooltipSubjectTypes != null && actorData != null)
 		{
-			if (actorData != null)
+			Dictionary<AbilityTooltipSymbol, int> result = new Dictionary<AbilityTooltipSymbol, int>();
+			List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
+			foreach (AbilityUtil_Targeter_MultipleShapes.HitActorContext item in hitActorContext)
 			{
-				result = new Dictionary<AbilityTooltipSymbol, int>();
-				List<AbilityUtil_Targeter_MultipleShapes.HitActorContext> hitActorContext = (base.Targeter as AbilityUtil_Targeter_MultipleShapes).GetHitActorContext();
+				if (item.m_actor == targetActor && targetActor.GetTeam() != actorData.GetTeam())
 				{
-					foreach (AbilityUtil_Targeter_MultipleShapes.HitActorContext item in hitActorContext)
-					{
-						if (item.m_actor == targetActor && targetActor.GetTeam() != actorData.GetTeam())
-						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									break;
-								default:
-									result[AbilityTooltipSymbol.Damage] = GetDamageForShapeIndex(item.m_hitShapeIndex);
-									return result;
-								}
-							}
-						}
-					}
-					return result;
+					result[AbilityTooltipSymbol.Damage] = GetDamageForShapeIndex(item.m_hitShapeIndex);
+					break;
 				}
 			}
+			return result;
 		}
-		return result;
+		return null;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SoldierGrenade abilityMod_SoldierGrenade = modAsBase as AbilityMod_SoldierGrenade;
-		AddTokenInt(tokens, "DamageAmount", string.Empty, (!abilityMod_SoldierGrenade) ? m_damageAmount : abilityMod_SoldierGrenade.m_damageAmountMod.GetModifiedValue(m_damageAmount));
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_SoldierGrenade)
-		{
-			effectInfo = abilityMod_SoldierGrenade.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			effectInfo = m_enemyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EnemyHitEffect", m_enemyHitEffect);
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SoldierGrenade)
-		{
-			val = abilityMod_SoldierGrenade.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount);
-		}
-		else
-		{
-			val = m_allyHealAmount;
-		}
-		AddTokenInt(tokens, "AllyHealAmount", empty, val);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_SoldierGrenade)
-		{
-			effectInfo2 = abilityMod_SoldierGrenade.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			effectInfo2 = m_allyHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "AllyHitEffect", m_allyHitEffect);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, abilityMod_SoldierGrenade != null
+			? abilityMod_SoldierGrenade.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SoldierGrenade != null
+			? abilityMod_SoldierGrenade.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "AllyHealAmount", string.Empty, abilityMod_SoldierGrenade != null
+			? abilityMod_SoldierGrenade.m_allyHealAmountMod.GetModifiedValue(m_allyHealAmount)
+			: m_allyHealAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SoldierGrenade != null
+			? abilityMod_SoldierGrenade.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect, "AllyHitEffect", m_allyHitEffect);
 	}
 
 	public override float GetRangeInSquares(int targetIndex)
 	{
-		float num = base.GetRangeInSquares(targetIndex);
-		if (m_abilityData != null)
+		float range = base.GetRangeInSquares(targetIndex);
+		if (m_abilityData != null
+		    && m_stimAbility != null
+		    && m_stimAbility.GetGrenadeExtraRange() > 0f
+		    && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)))
 		{
-			if (m_stimAbility != null)
-			{
-				if (m_stimAbility.GetGrenadeExtraRange() > 0f)
-				{
-					if (m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)))
-					{
-						num += m_stimAbility.GetGrenadeExtraRange();
-					}
-				}
-			}
+			range += m_stimAbility.GetGrenadeExtraRange();
 		}
-		return num;
+		return range;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SoldierGrenade))
+		if (abilityMod.GetType() == typeof(AbilityMod_SoldierGrenade))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SoldierGrenade);
+			m_abilityMod = abilityMod as AbilityMod_SoldierGrenade;
 			Setup();
-			return;
 		}
 	}
 

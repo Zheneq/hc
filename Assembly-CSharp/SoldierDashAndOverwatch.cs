@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierDashAndOverwatch : Ability
@@ -32,6 +32,7 @@ public class SoldierDashAndOverwatch : Ability
 	[Header("-- Sequences: for shooting in combat, assuming similar to basic attack cone")]
 	public GameObject m_overwatchConeSequencePrefab;
 	public GameObject m_overwatchLaserSequencePrefab;
+	
 	private AbilityMod_SoldierDashAndOverwatch m_abilityMod;
 	private Soldier_SyncComponent m_syncComp;
 	private AbilityData m_abilityData;
@@ -60,8 +61,8 @@ public class SoldierDashAndOverwatch : Ability
 		}
 		if (m_abilityData != null)
 		{
-			m_stimAbility = (GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
-			m_primaryAbility = (GetAbilityOfType(typeof(SoldierConeOrLaser)) as SoldierConeOrLaser);
+			m_stimAbility = GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack;
+			m_primaryAbility = GetAbilityOfType(typeof(SoldierConeOrLaser)) as SoldierConeOrLaser;
 		}
 		if (m_syncComp == null)
 		{
@@ -69,13 +70,16 @@ public class SoldierDashAndOverwatch : Ability
 		}
 		SetCachedFields();
 		ClearTargeters();
-		AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, 0f, GetOnCastAllyHitRadiusAroundDest(), 0f, -1, false, false);
+		AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(
+			this, 0f, GetOnCastAllyHitRadiusAroundDest(), 0f, -1, false, false);
 		abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(false, true, false);
 		abilityUtil_Targeter_ChargeAoE.ForceAddTargetingActor = GetSelfHitEffect().m_applyEffect;
-		abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate = ((ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability) => actorToConsider != caster);
+		abilityUtil_Targeter_ChargeAoE.m_shouldAddTargetDelegate =
+			(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability) => actorToConsider != caster;
 		Targeters.Add(abilityUtil_Targeter_ChargeAoE);
 
-		AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = new AbilityUtil_Targeter_ConeOrLaser(this, GetConeInfo(), GetLaserInfo(), m_coneDistThreshold);
+		AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = new AbilityUtil_Targeter_ConeOrLaser(
+			this, GetConeInfo(), GetLaserInfo(), m_coneDistThreshold);
 		abilityUtil_Targeter_ConeOrLaser.SetUseMultiTargetUpdate(true);
 		Targeters.Add(abilityUtil_Targeter_ConeOrLaser);
 	}
@@ -92,41 +96,55 @@ public class SoldierDashAndOverwatch : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedConeInfo = m_abilityMod ? m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo) : m_coneInfo;
-		m_cachedLaserInfo = m_abilityMod ? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo) : m_laserInfo;
-		m_cachedSelfHitEffect = m_abilityMod ? m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect) : m_selfHitEffect;
-		m_cachedOverwatchHitEffect = m_abilityMod ? m_abilityMod.m_overwatchHitEffectMod.GetModifiedValue(m_overwatchHitEffect) : m_overwatchHitEffect;
-		m_cachedOnCastAllyHitEffect = m_abilityMod ? m_abilityMod.m_onCastAllyHitEffectMod.GetModifiedValue(m_onCastAllyHitEffect) : m_onCastAllyHitEffect;
+		m_cachedConeInfo = m_abilityMod != null
+			? m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo)
+			: m_coneInfo;
+		m_cachedLaserInfo = m_abilityMod != null
+			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
+			: m_laserInfo;
+		m_cachedSelfHitEffect = m_abilityMod != null
+			? m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect;
+		m_cachedOverwatchHitEffect = m_abilityMod != null
+			? m_abilityMod.m_overwatchHitEffectMod.GetModifiedValue(m_overwatchHitEffect)
+			: m_overwatchHitEffect;
+		m_cachedOnCastAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_onCastAllyHitEffectMod.GetModifiedValue(m_onCastAllyHitEffect)
+			: m_onCastAllyHitEffect;
 	}
 
 	public bool OnlyDashNextToCover()
 	{
-		return m_abilityMod ? m_abilityMod.m_onlyDashNextToCoverMod.GetModifiedValue(m_onlyDashNextToCover) : m_onlyDashNextToCover;
+		return m_abilityMod != null
+			? m_abilityMod.m_onlyDashNextToCoverMod.GetModifiedValue(m_onlyDashNextToCover)
+			: m_onlyDashNextToCover;
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
-		return m_cachedConeInfo != null ? m_cachedConeInfo : m_coneInfo;
+		return m_cachedConeInfo ?? m_coneInfo;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		return m_cachedLaserInfo != null ? m_cachedLaserInfo : m_laserInfo;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		return m_cachedSelfHitEffect != null ? m_cachedSelfHitEffect : m_selfHitEffect;
+		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public float GetOnCastAllyHitRadiusAroundDest()
 	{
-		return m_abilityMod ? m_abilityMod.m_onCastAllyHitRadiusAroundDestMod.GetModifiedValue(m_onCastAllyHitRadiusAroundDest) : m_onCastAllyHitRadiusAroundDest;
+		return m_abilityMod != null
+			? m_abilityMod.m_onCastAllyHitRadiusAroundDestMod.GetModifiedValue(m_onCastAllyHitRadiusAroundDest)
+			: m_onCastAllyHitRadiusAroundDest;
 	}
 
 	public StandardEffectInfo GetOnCastAllyHitEffect()
 	{
-		return m_cachedOnCastAllyHitEffect != null ? m_cachedOnCastAllyHitEffect : m_onCastAllyHitEffect;
+		return m_cachedOnCastAllyHitEffect ?? m_onCastAllyHitEffect;
 	}
 
 	public int GetConeDamage()
@@ -135,7 +153,9 @@ public class SoldierDashAndOverwatch : Ability
 		{
 			return m_primaryAbility.m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage);
 		}
-		return (!m_abilityMod) ? m_coneDamage : m_abilityMod.m_overwatchDamageMod.GetModifiedValue(m_coneDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_overwatchDamageMod.GetModifiedValue(m_coneDamage)
+			: m_coneDamage;
 	}
 
 	public int GetLaserDamage()
@@ -149,7 +169,7 @@ public class SoldierDashAndOverwatch : Ability
 
 	public StandardEffectInfo GetOverwatchHitEffect()
 	{
-		return m_cachedOverwatchHitEffect == null ? m_overwatchHitEffect : m_cachedOverwatchHitEffect;
+		return m_cachedOverwatchHitEffect ?? m_overwatchHitEffect;
 	}
 
 	public float GetNearDistThreshold()
@@ -158,7 +178,9 @@ public class SoldierDashAndOverwatch : Ability
 		{
 			return m_primaryAbility.m_abilityMod.m_closeDistThresholdMod.GetModifiedValue(m_nearDistThreshold);
 		}
-		return m_abilityMod ? m_abilityMod.m_nearDistThresholdMod.GetModifiedValue(m_nearDistThreshold) : m_nearDistThreshold;
+		return m_abilityMod != null
+			? m_abilityMod.m_nearDistThresholdMod.GetModifiedValue(m_nearDistThreshold)
+			: m_nearDistThreshold;
 	}
 
 	public int GetExtraDamageForNearTargets()
@@ -167,7 +189,9 @@ public class SoldierDashAndOverwatch : Ability
 		{
 			return m_primaryAbility.m_abilityMod.m_extraDamageForNearTargetMod.GetModifiedValue(m_extraDamageForNearTargets);
 		}
-		return (!m_abilityMod) ? m_extraDamageForNearTargets : m_abilityMod.m_extraDamageForNearTargetsMod.GetModifiedValue(m_extraDamageForNearTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForNearTargetsMod.GetModifiedValue(m_extraDamageForNearTargets)
+			: m_extraDamageForNearTargets;
 	}
 
 	public int GetExtraDamageToEvaders()
@@ -217,20 +241,18 @@ public class SoldierDashAndOverwatch : Ability
 
 	public override bool ForceIgnoreCover(ActorData targetActor)
 	{
-		if (m_abilityData != null && m_stimAbility != null && m_stimAbility.BasicAttackIgnoreCover())
-		{
-			return m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
-		}
-		return false;
+		return m_abilityData != null
+		       && m_stimAbility != null
+		       && m_stimAbility.BasicAttackIgnoreCover()
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)); // , true in rogues
 	}
 
 	public override bool ForceReduceCoverEffectiveness(ActorData targetActor)
 	{
-		if (m_abilityData != null && m_stimAbility != null && m_stimAbility.BasicAttackReduceCoverEffectiveness())
-		{
-			return m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
-		}
-		return false;
+		return m_abilityData != null
+		       && m_stimAbility != null
+		       && m_stimAbility.BasicAttackReduceCoverEffectiveness()
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)); // , true in rogues
 	}
 
 	private bool ShouldUseCone(Vector3 cursorFreePos, Vector3 startPos)
@@ -272,26 +294,25 @@ public class SoldierDashAndOverwatch : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		ActorData actorData = ActorData;
 		if (ActorData == null || currentTargeterIndex != 1 || currentTargeterIndex >= Targeters.Count)
 		{
 			return false;
 		}
 
-		AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[0];
-		AbilityUtil_Targeter abilityUtil_Targeter2 = base.Targeters[currentTargeterIndex];
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(abilityUtil_Targeter.LastUpdatingGridPos);
+		AbilityUtil_Targeter targeterCharge = Targeters[0];
+		AbilityUtil_Targeter targeterShoot = Targeters[currentTargeterIndex];
+		BoardSquare boardSquareSafe = Board.Get().GetSquare(targeterCharge.LastUpdatingGridPos);
 
-		if (abilityUtil_Targeter2.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) <= 0)
+		if (targeterShoot.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) <= 0)
 		{
 			return false;
 		}
 
 		int damage = 0;
-		if (abilityUtil_Targeter2.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
+		if (targeterShoot.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary) > 0)
 		{
 			damage = GetConeDamage();
-			if (GetExtraDamageForAlternating() > 0 && m_syncComp && m_syncComp.m_lastPrimaryUsedMode == 2)
+			if (GetExtraDamageForAlternating() > 0 && m_syncComp != null && m_syncComp.m_lastPrimaryUsedMode == 2)
 			{
 				damage += GetExtraDamageForAlternating();
 			}
@@ -299,7 +320,7 @@ public class SoldierDashAndOverwatch : Ability
 		else
 		{
 			damage = GetLaserDamage();
-			if (GetExtraDamageForAlternating() > 0 && m_syncComp && m_syncComp.m_lastPrimaryUsedMode == 1)
+			if (GetExtraDamageForAlternating() > 0 && m_syncComp != null && m_syncComp.m_lastPrimaryUsedMode == 1)
 			{
 				damage += GetExtraDamageForAlternating();
 			}
@@ -323,25 +344,22 @@ public class SoldierDashAndOverwatch : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (currentTargeterIndex <= 0 || base.Targeters.Count <= 1)
+		if (currentTargeterIndex <= 0 || Targeters.Count <= 1)
 		{
 			return 0;
 		}
-
 		if (GetExtraEnergyForCone() <= 0 && GetExtraEnergyForLaser() <= 0)
 		{
 			return 0;
 		}
 
-		AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[1];
-		if (!(abilityUtil_Targeter is AbilityUtil_Targeter_ConeOrLaser))
+		AbilityUtil_Targeter abilityUtil_Targeter = Targeters[1];
+		if (!(abilityUtil_Targeter is AbilityUtil_Targeter_ConeOrLaser targeter))
 		{
 			return 0;
 		}
-
-		AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = abilityUtil_Targeter as AbilityUtil_Targeter_ConeOrLaser;
-		int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_ConeOrLaser.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-		if (abilityUtil_Targeter_ConeOrLaser.m_updatingWithCone)
+		int visibleActorsCountByTooltipSubject = targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+		if (targeter.m_updatingWithCone)
 		{
 			return visibleActorsCountByTooltipSubject * GetExtraEnergyForCone();
 		}
@@ -374,9 +392,9 @@ public class SoldierDashAndOverwatch : Ability
 			if (OnlyDashNextToCover())
 			{
 				ActorCover.CalcCoverLevelGeoOnly(out bool[] hasCover, boardSquareSafe);
-				for (int i = 0; i < hasCover.Length; i++)
+				foreach (bool cover in hasCover)
 				{
-					if (hasCover[i])
+					if (cover)
 					{
 						isAllowedDashTarget = true;
 						break;
@@ -385,7 +403,8 @@ public class SoldierDashAndOverwatch : Ability
 			}
 			if (isAllowedDashTarget)
 			{
-				return KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out var numSquaresInPath);
+				return KnockbackUtils.CanBuildStraightLineChargePath(
+					caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out _);
 			}
 		}
 		return false;
@@ -395,7 +414,7 @@ public class SoldierDashAndOverwatch : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_SoldierDashAndOverwatch))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_SoldierDashAndOverwatch);
+			m_abilityMod = abilityMod as AbilityMod_SoldierDashAndOverwatch;
 			Setup();
 		}
 	}

@@ -8,15 +8,9 @@ public class Soldier_SyncComponent : NetworkBehaviour
 
 	public sbyte Networkm_lastPrimaryUsedMode
 	{
-		get
-		{
-			return m_lastPrimaryUsedMode;
-		}
+		get => m_lastPrimaryUsedMode;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_lastPrimaryUsedMode, 1u);
-		}
+		set => SetSyncVar(value, ref m_lastPrimaryUsedMode, 1u);
 	}
 
 	private void UNetVersion()
@@ -31,18 +25,18 @@ public class Soldier_SyncComponent : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_lastPrimaryUsedMode);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -51,17 +45,8 @@ public class Soldier_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_lastPrimaryUsedMode = (sbyte)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)

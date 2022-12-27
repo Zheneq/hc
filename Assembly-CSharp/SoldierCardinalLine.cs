@@ -1,46 +1,31 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierCardinalLine : Ability
 {
 	[Header("-- Targeting (shape for position targeter, line width for strafe hit area --")]
 	public bool m_useBothCardinalDir;
-
 	public AbilityAreaShape m_positionShape = AbilityAreaShape.Two_x_Two;
-
 	public float m_lineWidth = 2f;
-
 	public bool m_penetrateLos = true;
-
 	[Header("-- On Hit Stuff --")]
 	public int m_damageAmount = 10;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Header("-- Extra Damage for near center")]
 	public float m_nearCenterDistThreshold;
-
 	public int m_extraDamageForNearCenterTargets;
-
 	[Header("-- AoE around targets --")]
 	public AbilityAreaShape m_aoeShape = AbilityAreaShape.Three_x_Three;
-
 	public int m_aoeDamage;
-
 	[Header("-- Subsequent Turn Hits --")]
 	public int m_numSubsequentTurns;
-
 	public int m_damageOnSubsequentTurns;
-
 	public StandardEffectInfo m_enemyEffectOnSubsequentTurns;
-
 	[Header("-- Sequences --")]
 	public GameObject m_projectileSequencePrefab;
-
+	
 	private AbilityMod_SoldierCardinalLine m_abilityMod;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedEnemyEffectOnSubsequentTurns;
 
 	private void Start()
@@ -56,12 +41,26 @@ public class SoldierCardinalLine : Ability
 	{
 		SetCachedFields();
 		ClearTargeters();
-		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(this, GetPositionShape(), true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Never);
-		base.Targeters.Add(item);
-		AbilityUtil_Targeter_SoldierCardinalLines abilityUtil_Targeter_SoldierCardinalLines = new AbilityUtil_Targeter_SoldierCardinalLines(this, GetPositionShape(), GetLineWidth(), PenetrateLos(), UseBothCardinalDir(), GetAoeDamage() > 0, GetAoeShape());
+		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(
+			this,
+			GetPositionShape(),
+			true,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Never);
+		Targeters.Add(item);
+		AbilityUtil_Targeter_SoldierCardinalLines abilityUtil_Targeter_SoldierCardinalLines = new AbilityUtil_Targeter_SoldierCardinalLines(
+			this,
+			GetPositionShape(),
+			GetLineWidth(),
+			PenetrateLos(),
+			UseBothCardinalDir(),
+			GetAoeDamage() > 0,
+			GetAoeShape());
 		abilityUtil_Targeter_SoldierCardinalLines.SetUseMultiTargetUpdate(true);
 		abilityUtil_Targeter_SoldierCardinalLines.SetAffectedGroups(true, false, false);
-		base.Targeters.Add(abilityUtil_Targeter_SoldierCardinalLines);
+		Targeters.Add(abilityUtil_Targeter_SoldierCardinalLines);
 	}
 
 	public override int GetExpectedNumberOfTargeters()
@@ -73,16 +72,7 @@ public class SoldierCardinalLine : Ability
 	{
 		if (targetIndex == 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return TargetingParadigm.Direction;
-				}
-			}
+			return TargetingParadigm.Direction;
 		}
 		return base.GetControlpadTargetingParadigm(targetIndex);
 	}
@@ -101,181 +91,108 @@ public class SoldierCardinalLine : Ability
 	{
 		if (targetIndex == 1)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					min = 1f;
-					max = 1f;
-					return true;
-				}
-			}
+			min = 1f;
+			max = 1f;
+			return true;
 		}
 		return base.HasRestrictedFreePosDistance(aimingActor, targetIndex, targetsSoFar, out min, out max);
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
-		m_cachedEnemyEffectOnSubsequentTurns = ((!m_abilityMod) ? m_enemyEffectOnSubsequentTurns : m_abilityMod.m_enemyEffectOnSubsequentTurnsMod.GetModifiedValue(m_enemyEffectOnSubsequentTurns));
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
+		m_cachedEnemyEffectOnSubsequentTurns = m_abilityMod != null
+			? m_abilityMod.m_enemyEffectOnSubsequentTurnsMod.GetModifiedValue(m_enemyEffectOnSubsequentTurns)
+			: m_enemyEffectOnSubsequentTurns;
 	}
 
 	public bool UseBothCardinalDir()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_useBothCardinalDirMod.GetModifiedValue(m_useBothCardinalDir);
-		}
-		else
-		{
-			result = m_useBothCardinalDir;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_useBothCardinalDirMod.GetModifiedValue(m_useBothCardinalDir)
+			: m_useBothCardinalDir;
 	}
 
 	public AbilityAreaShape GetPositionShape()
 	{
-		AbilityAreaShape result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_positionShapeMod.GetModifiedValue(m_positionShape);
-		}
-		else
-		{
-			result = m_positionShape;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_positionShapeMod.GetModifiedValue(m_positionShape)
+			: m_positionShape;
 	}
 
 	public float GetLineWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_lineWidthMod.GetModifiedValue(m_lineWidth);
-		}
-		else
-		{
-			result = m_lineWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_lineWidthMod.GetModifiedValue(m_lineWidth)
+			: m_lineWidth;
 	}
 
 	public bool PenetrateLos()
 	{
-		return (!m_abilityMod) ? m_penetrateLos : m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos)
+			: m_penetrateLos;
 	}
 
 	public int GetDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			result = m_damageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		return (m_cachedEnemyHitEffect == null) ? m_enemyHitEffect : m_cachedEnemyHitEffect;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public float GetNearCenterDistThreshold()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_nearCenterDistThresholdMod.GetModifiedValue(m_nearCenterDistThreshold);
-		}
-		else
-		{
-			result = m_nearCenterDistThreshold;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_nearCenterDistThresholdMod.GetModifiedValue(m_nearCenterDistThreshold)
+			: m_nearCenterDistThreshold;
 	}
 
 	public int GetExtraDamageForNearCenterTargets()
 	{
-		return (!m_abilityMod) ? m_extraDamageForNearCenterTargets : m_abilityMod.m_extraDamageForNearCenterTargetsMod.GetModifiedValue(m_extraDamageForNearCenterTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForNearCenterTargetsMod.GetModifiedValue(m_extraDamageForNearCenterTargets)
+			: m_extraDamageForNearCenterTargets;
 	}
 
 	public AbilityAreaShape GetAoeShape()
 	{
-		AbilityAreaShape result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape);
-		}
-		else
-		{
-			result = m_aoeShape;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape)
+			: m_aoeShape;
 	}
 
 	public int GetAoeDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_aoeDamageMod.GetModifiedValue(m_aoeDamage);
-		}
-		else
-		{
-			result = m_aoeDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeDamageMod.GetModifiedValue(m_aoeDamage)
+			: m_aoeDamage;
 	}
 
 	public int GetNumSubsequentTurns()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_numSubsequentTurnsMod.GetModifiedValue(m_numSubsequentTurns);
-		}
-		else
-		{
-			result = m_numSubsequentTurns;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_numSubsequentTurnsMod.GetModifiedValue(m_numSubsequentTurns)
+			: m_numSubsequentTurns;
 	}
 
 	public int GetDamageOnSubsequentTurns()
 	{
-		return (!m_abilityMod) ? m_damageOnSubsequentTurns : m_abilityMod.m_damageOnSubsequentTurnsMod.GetModifiedValue(m_damageOnSubsequentTurns);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageOnSubsequentTurnsMod.GetModifiedValue(m_damageOnSubsequentTurns)
+			: m_damageOnSubsequentTurns;
 	}
 
 	public StandardEffectInfo GetEnemyEffectOnSubsequentTurns()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyEffectOnSubsequentTurns != null)
-		{
-			result = m_cachedEnemyEffectOnSubsequentTurns;
-		}
-		else
-		{
-			result = m_enemyEffectOnSubsequentTurns;
-		}
-		return result;
+		return m_cachedEnemyEffectOnSubsequentTurns ?? m_enemyEffectOnSubsequentTurns;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -288,36 +205,29 @@ public class SoldierCardinalLine : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		if (currentTargeterIndex > 0)
+		if (currentTargeterIndex > 0
+		    && currentTargeterIndex < Targeters.Count
+		    && Targeters[currentTargeterIndex] is AbilityUtil_Targeter_SoldierCardinalLines targeter)
 		{
-			if (currentTargeterIndex < base.Targeters.Count)
+			List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
+			if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 			{
-				AbilityUtil_Targeter_SoldierCardinalLines abilityUtil_Targeter_SoldierCardinalLines = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SoldierCardinalLines;
-				if (abilityUtil_Targeter_SoldierCardinalLines != null)
+				dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+				int damage = 0;
+				if (targeter.m_directHitActorToCenterDist.ContainsKey(targetActor))
 				{
-					List<AbilityTooltipSubject> tooltipSubjectTypes = abilityUtil_Targeter_SoldierCardinalLines.GetTooltipSubjectTypes(targetActor);
-					if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+					damage += GetDamageAmount();
+					if (GetExtraDamageForNearCenterTargets() > 0
+					    && targeter.m_directHitActorToCenterDist[targetActor] <= GetNearCenterDistThreshold() * Board.Get().squareSize)
 					{
-						dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-						int num = 0;
-						if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist.ContainsKey(targetActor))
-						{
-							num += GetDamageAmount();
-							if (GetExtraDamageForNearCenterTargets() > 0)
-							{
-								if (abilityUtil_Targeter_SoldierCardinalLines.m_directHitActorToCenterDist[targetActor] <= GetNearCenterDistThreshold() * Board.Get().squareSize)
-								{
-									num += GetExtraDamageForNearCenterTargets();
-								}
-							}
-						}
-						if (abilityUtil_Targeter_SoldierCardinalLines.m_aoeHitActors.Contains(targetActor))
-						{
-							num += GetAoeDamage();
-						}
-						dictionary[AbilityTooltipSymbol.Damage] = num;
+						damage += GetExtraDamageForNearCenterTargets();
 					}
 				}
+				if (targeter.m_aoeHitActors.Contains(targetActor))
+				{
+					damage += GetAoeDamage();
+				}
+				dictionary[AbilityTooltipSymbol.Damage] = damage;
 			}
 		}
 		return dictionary;
@@ -326,66 +236,35 @@ public class SoldierCardinalLine : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SoldierCardinalLine abilityMod_SoldierCardinalLine = modAsBase as AbilityMod_SoldierCardinalLine;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SoldierCardinalLine)
-		{
-			val = abilityMod_SoldierCardinalLine.m_damageAmountMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			val = m_damageAmount;
-		}
-		AddTokenInt(tokens, "DamageAmount", empty, val);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SoldierCardinalLine) ? m_enemyHitEffect : abilityMod_SoldierCardinalLine.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect), "EnemyHitEffect", m_enemyHitEffect);
-		AddTokenInt(tokens, "AoeDamage", string.Empty, (!abilityMod_SoldierCardinalLine) ? m_aoeDamage : abilityMod_SoldierCardinalLine.m_aoeDamageMod.GetModifiedValue(m_aoeDamage));
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_SoldierCardinalLine)
-		{
-			val2 = abilityMod_SoldierCardinalLine.m_extraDamageForNearCenterTargetsMod.GetModifiedValue(m_extraDamageForNearCenterTargets);
-		}
-		else
-		{
-			val2 = m_extraDamageForNearCenterTargets;
-		}
-		AddTokenInt(tokens, "ExtraDamageForNearCenterTargets", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_SoldierCardinalLine)
-		{
-			val3 = abilityMod_SoldierCardinalLine.m_numSubsequentTurnsMod.GetModifiedValue(m_numSubsequentTurns);
-		}
-		else
-		{
-			val3 = m_numSubsequentTurns;
-		}
-		AddTokenInt(tokens, "NumSubsequentTurns", empty3, val3);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_SoldierCardinalLine)
-		{
-			val4 = abilityMod_SoldierCardinalLine.m_damageOnSubsequentTurnsMod.GetModifiedValue(m_damageOnSubsequentTurns);
-		}
-		else
-		{
-			val4 = m_damageOnSubsequentTurns;
-		}
-		AddTokenInt(tokens, "DamageOnSubsequentTurns", empty4, val4);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SoldierCardinalLine) ? m_enemyEffectOnSubsequentTurns : abilityMod_SoldierCardinalLine.m_enemyEffectOnSubsequentTurnsMod.GetModifiedValue(m_enemyEffectOnSubsequentTurns), "EnemyEffectOnSubsequentTurns", m_enemyEffectOnSubsequentTurns);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect, "EnemyHitEffect", m_enemyHitEffect);
+		AddTokenInt(tokens, "AoeDamage", string.Empty, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_aoeDamageMod.GetModifiedValue(m_aoeDamage)
+			: m_aoeDamage);
+		AddTokenInt(tokens, "ExtraDamageForNearCenterTargets", string.Empty, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_extraDamageForNearCenterTargetsMod.GetModifiedValue(m_extraDamageForNearCenterTargets)
+			: m_extraDamageForNearCenterTargets);
+		AddTokenInt(tokens, "NumSubsequentTurns", string.Empty, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_numSubsequentTurnsMod.GetModifiedValue(m_numSubsequentTurns)
+			: m_numSubsequentTurns);
+		AddTokenInt(tokens, "DamageOnSubsequentTurns", string.Empty, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_damageOnSubsequentTurnsMod.GetModifiedValue(m_damageOnSubsequentTurns)
+			: m_damageOnSubsequentTurns);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SoldierCardinalLine != null
+			? abilityMod_SoldierCardinalLine.m_enemyEffectOnSubsequentTurnsMod.GetModifiedValue(m_enemyEffectOnSubsequentTurns)
+			: m_enemyEffectOnSubsequentTurns, "EnemyEffectOnSubsequentTurns", m_enemyEffectOnSubsequentTurns);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SoldierCardinalLine))
+		if (abilityMod.GetType() == typeof(AbilityMod_SoldierCardinalLine))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SoldierCardinalLine);
+			m_abilityMod = abilityMod as AbilityMod_SoldierCardinalLine;
 			Setup();
-			return;
 		}
 	}
 

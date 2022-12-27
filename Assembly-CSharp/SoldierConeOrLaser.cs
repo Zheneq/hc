@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierConeOrLaser : Ability
@@ -10,67 +10,43 @@ public class SoldierConeOrLaser : Ability
 		Laser
 	}
 
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_coneDistThreshold = 4f;
-
 	[Header("  Targeting: For Cone")]
 	public ConeTargetingInfo m_coneInfo;
-
 	[Header("  Targeting: For Laser")]
 	public LaserTargetingInfo m_laserInfo;
-
-	[Separator("On Hit", true)]
+	[Separator("On Hit")]
 	public int m_coneDamage = 10;
-
 	public StandardEffectInfo m_coneEnemyHitEffect;
-
 	[Space(10f)]
 	public int m_laserDamage = 20;
-
 	public StandardEffectInfo m_laserEnemyHitEffect;
-
-	[Separator("Extra Damage", true)]
+	[Separator("Extra Damage")]
 	public int m_extraDamageForAlternating;
-
 	[Space(5f)]
 	public float m_closeDistThreshold = -1f;
-
 	public int m_extraDamageForNearTarget;
-
 	public int m_extraDamageForFromCover;
-
 	[Space(5f)]
 	public int m_extraDamageToEvaders;
-
-	[Separator("Extra Energy (per target hit)", true)]
+	[Separator("Extra Energy (per target hit)")]
 	public int m_extraEnergyForCone;
-
 	public int m_extraEnergyForLaser;
-
-	[Separator("Animation Indices", true)]
+	[Separator("Animation Indices")]
 	public int m_onCastLaserAnimIndex = 1;
-
 	public int m_onCastConeAnimIndex = 6;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_coneSequencePrefab;
-
 	public GameObject m_laserSequencePrefab;
-
 	public AbilityMod_SoldierConeOrLaser m_abilityMod;
 
 	private Soldier_SyncComponent m_syncComp;
-
 	private AbilityData m_abilityData;
-
 	private SoldierStimPack m_stimAbility;
-
 	private ConeTargetingInfo m_cachedConeInfo;
-
 	private LaserTargetingInfo m_cachedLaserInfo;
-
 	private StandardEffectInfo m_cachedConeEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedLaserEnemyHitEffect;
 
 	private void Start()
@@ -94,10 +70,10 @@ public class SoldierConeOrLaser : Ability
 		}
 		if (m_abilityData != null && m_stimAbility == null)
 		{
-			m_stimAbility = (m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack);
+			m_stimAbility = m_abilityData.GetAbilityOfType(typeof(SoldierStimPack)) as SoldierStimPack;
 		}
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_ConeOrLaser(this, GetConeInfo(), GetLaserInfo(), m_coneDistThreshold);
+		Targeter = new AbilityUtil_Targeter_ConeOrLaser(this, GetConeInfo(), GetLaserInfo(), m_coneDistThreshold);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -112,279 +88,132 @@ public class SoldierConeOrLaser : Ability
 
 	private void SetCachedFields()
 	{
-		ConeTargetingInfo cachedConeInfo;
-		if ((bool)m_abilityMod)
-		{
-			cachedConeInfo = m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo);
-		}
-		else
-		{
-			cachedConeInfo = m_coneInfo;
-		}
-		m_cachedConeInfo = cachedConeInfo;
-		LaserTargetingInfo cachedLaserInfo;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
-		}
-		else
-		{
-			cachedLaserInfo = m_laserInfo;
-		}
-		m_cachedLaserInfo = cachedLaserInfo;
-		StandardEffectInfo cachedConeEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedConeEnemyHitEffect = m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect);
-		}
-		else
-		{
-			cachedConeEnemyHitEffect = m_coneEnemyHitEffect;
-		}
-		m_cachedConeEnemyHitEffect = cachedConeEnemyHitEffect;
-		StandardEffectInfo cachedLaserEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserEnemyHitEffect = m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect);
-		}
-		else
-		{
-			cachedLaserEnemyHitEffect = m_laserEnemyHitEffect;
-		}
-		m_cachedLaserEnemyHitEffect = cachedLaserEnemyHitEffect;
+		m_cachedConeInfo = m_abilityMod != null
+			? m_abilityMod.m_coneInfoMod.GetModifiedValue(m_coneInfo)
+			: m_coneInfo;
+		m_cachedLaserInfo = m_abilityMod != null
+			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
+			: m_laserInfo;
+		m_cachedConeEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_coneEnemyHitEffectMod.GetModifiedValue(m_coneEnemyHitEffect)
+			: m_coneEnemyHitEffect;
+		m_cachedLaserEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_laserEnemyHitEffectMod.GetModifiedValue(m_laserEnemyHitEffect)
+			: m_laserEnemyHitEffect;
 	}
 
 	public ConeTargetingInfo GetConeInfo()
 	{
-		ConeTargetingInfo result;
-		if (m_cachedConeInfo != null)
-		{
-			result = m_cachedConeInfo;
-		}
-		else
-		{
-			result = m_coneInfo;
-		}
-		return result;
+		return m_cachedConeInfo ?? m_coneInfo;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		LaserTargetingInfo result;
-		if (m_cachedLaserInfo != null)
-		{
-			result = m_cachedLaserInfo;
-		}
-		else
-		{
-			result = m_laserInfo;
-		}
-		return result;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public int GetConeDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage);
-		}
-		else
-		{
-			result = m_coneDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneDamageMod.GetModifiedValue(m_coneDamage)
+			: m_coneDamage;
 	}
 
 	public StandardEffectInfo GetConeEnemyHitEffect()
 	{
-		return (m_cachedConeEnemyHitEffect == null) ? m_coneEnemyHitEffect : m_cachedConeEnemyHitEffect;
+		return m_cachedConeEnemyHitEffect ?? m_coneEnemyHitEffect;
 	}
 
 	public int GetLaserDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamage);
-		}
-		else
-		{
-			result = m_laserDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserDamageMod.GetModifiedValue(m_laserDamage)
+			: m_laserDamage;
 	}
 
 	public StandardEffectInfo GetLaserEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedLaserEnemyHitEffect != null)
-		{
-			result = m_cachedLaserEnemyHitEffect;
-		}
-		else
-		{
-			result = m_laserEnemyHitEffect;
-		}
-		return result;
+		return m_cachedLaserEnemyHitEffect ?? m_laserEnemyHitEffect;
 	}
 
 	public int GetExtraDamageForAlternating()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageForAlternatingMod.GetModifiedValue(m_extraDamageForAlternating);
-		}
-		else
-		{
-			result = m_extraDamageForAlternating;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForAlternatingMod.GetModifiedValue(m_extraDamageForAlternating)
+			: m_extraDamageForAlternating;
 	}
 
 	public float GetCloseDistThreshold()
 	{
-		return (!m_abilityMod) ? m_closeDistThreshold : m_abilityMod.m_closeDistThresholdMod.GetModifiedValue(m_closeDistThreshold);
+		return m_abilityMod != null
+			? m_abilityMod.m_closeDistThresholdMod.GetModifiedValue(m_closeDistThreshold)
+			: m_closeDistThreshold;
 	}
 
 	public int GetExtraDamageForNearTarget()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageForNearTargetMod.GetModifiedValue(m_extraDamageForNearTarget);
-		}
-		else
-		{
-			result = m_extraDamageForNearTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForNearTargetMod.GetModifiedValue(m_extraDamageForNearTarget)
+			: m_extraDamageForNearTarget;
 	}
 
 	public int GetExtraDamageForFromCover()
 	{
-		return (!m_abilityMod) ? m_extraDamageForFromCover : m_abilityMod.m_extraDamageForFromCoverMod.GetModifiedValue(m_extraDamageForFromCover);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForFromCoverMod.GetModifiedValue(m_extraDamageForFromCover)
+			: m_extraDamageForFromCover;
 	}
 
 	public int GetExtraDamageToEvaders()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageToEvadersMod.GetModifiedValue(m_extraDamageToEvaders);
-		}
-		else
-		{
-			result = m_extraDamageToEvaders;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageToEvadersMod.GetModifiedValue(m_extraDamageToEvaders)
+			: m_extraDamageToEvaders;
 	}
 
 	public int GetExtraEnergyForCone()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraEnergyForConeMod.GetModifiedValue(m_extraEnergyForCone);
-		}
-		else
-		{
-			result = m_extraEnergyForCone;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraEnergyForConeMod.GetModifiedValue(m_extraEnergyForCone)
+			: m_extraEnergyForCone;
 	}
 
 	public int GetExtraEnergyForLaser()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraEnergyForLaserMod.GetModifiedValue(m_extraEnergyForLaser);
-		}
-		else
-		{
-			result = m_extraEnergyForLaser;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraEnergyForLaserMod.GetModifiedValue(m_extraEnergyForLaser)
+			: m_extraEnergyForLaser;
 	}
 
 	public bool ShouldUseExtraDamageForNearTarget(ActorData target, ActorData caster)
 	{
 		if (GetExtraDamageForNearTarget() > 0)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-				{
-					Vector3 vector = target.GetFreePos() - caster.GetFreePos();
-					vector.y = 0f;
-					return vector.magnitude < GetCloseDistThreshold() * Board.Get().squareSize;
-				}
-				}
-			}
+			Vector3 vector = target.GetFreePos() - caster.GetFreePos();
+			vector.y = 0f;
+			return vector.magnitude < GetCloseDistThreshold() * Board.Get().squareSize;
 		}
 		return false;
 	}
 
 	public bool HasConeDamageMod()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = ((m_abilityMod.m_coneDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_coneDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore;
 	}
 
 	public bool HasLaserDamageMod()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = ((m_abilityMod.m_laserDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_laserDamageMod.operation != AbilityModPropertyInt.ModOp.Ignore;
 	}
 
 	public bool HasNearDistThresholdMod()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = ((m_abilityMod.m_closeDistThresholdMod.operation != AbilityModPropertyFloat.ModOp.Ignore) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_closeDistThresholdMod.operation != AbilityModPropertyFloat.ModOp.Ignore;
 	}
 
 	public bool HasExtraDamageForNearTargetMod()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = ((m_abilityMod.m_extraDamageForNearTargetMod.operation != AbilityModPropertyInt.ModOp.Ignore) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_extraDamageForNearTargetMod.operation != AbilityModPropertyInt.ModOp.Ignore;
 	}
 
 	public bool HasConeEnergyMod()
@@ -408,80 +237,60 @@ public class SoldierConeOrLaser : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
 		{
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+			int damage = 0;
+			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 			{
-				dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-				int num = 0;
-				if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
+				damage = GetConeDamage();
+				if (GetExtraDamageForAlternating() > 0
+				    && m_syncComp != null
+				    && m_syncComp.m_lastPrimaryUsedMode == 2)
 				{
-					num = GetConeDamage();
-					if (GetExtraDamageForAlternating() > 0)
-					{
-						if ((bool)m_syncComp)
-						{
-							if (m_syncComp.m_lastPrimaryUsedMode == 2)
-							{
-								num += GetExtraDamageForAlternating();
-							}
-						}
-					}
+					damage += GetExtraDamageForAlternating();
 				}
-				else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
-				{
-					num = GetLaserDamage();
-					if (GetExtraDamageForAlternating() > 0)
-					{
-						if ((bool)m_syncComp && m_syncComp.m_lastPrimaryUsedMode == 1)
-						{
-							num += GetExtraDamageForAlternating();
-						}
-					}
-				}
-				ActorData actorData = base.ActorData;
-				if (actorData != null)
-				{
-					if (ShouldUseExtraDamageForNearTarget(targetActor, actorData))
-					{
-						num += GetExtraDamageForNearTarget();
-					}
-					if (GetExtraDamageForFromCover() > 0)
-					{
-						if (actorData.GetActorCover().HasAnyCover())
-						{
-							num += GetExtraDamageForFromCover();
-						}
-					}
-				}
-				dictionary[AbilityTooltipSymbol.Damage] = num;
 			}
+			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Secondary))
+			{
+				damage = GetLaserDamage();
+				if (GetExtraDamageForAlternating() > 0
+				    && m_syncComp != null
+				    && m_syncComp.m_lastPrimaryUsedMode == 1)
+				{
+					damage += GetExtraDamageForAlternating();
+				}
+			}
+			if (ActorData != null)
+			{
+				if (ShouldUseExtraDamageForNearTarget(targetActor, ActorData))
+				{
+					damage += GetExtraDamageForNearTarget();
+				}
+				if (GetExtraDamageForFromCover() > 0 && ActorData.GetActorCover().HasAnyCover())
+				{
+					damage += GetExtraDamageForFromCover();
+				}
+			}
+			dictionary[AbilityTooltipSymbol.Damage] = damage;
 		}
 		return dictionary;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if ((GetExtraEnergyForCone() > 0 || GetExtraEnergyForLaser() > 0) && base.Targeter is AbilityUtil_Targeter_ConeOrLaser)
+		if ((GetExtraEnergyForCone() > 0 || GetExtraEnergyForLaser() > 0)
+		    && Targeter is AbilityUtil_Targeter_ConeOrLaser targeter)
 		{
-			while (true)
+			int enemies = targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+			if (targeter.m_updatingWithCone)
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					AbilityUtil_Targeter_ConeOrLaser abilityUtil_Targeter_ConeOrLaser = base.Targeter as AbilityUtil_Targeter_ConeOrLaser;
-					int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_ConeOrLaser.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-					if (abilityUtil_Targeter_ConeOrLaser.m_updatingWithCone)
-					{
-						return visibleActorsCountByTooltipSubject * GetExtraEnergyForCone();
-					}
-					return visibleActorsCountByTooltipSubject * GetExtraEnergyForLaser();
-				}
-				}
+				return enemies * GetExtraEnergyForCone();
+			}
+			else
+			{
+				return enemies * GetExtraEnergyForLaser();
 			}
 		}
 		return 0;
@@ -510,41 +319,18 @@ public class SoldierConeOrLaser : Ability
 
 	public override bool ForceIgnoreCover(ActorData targetActor)
 	{
-		if (m_abilityData != null)
-		{
-			if (m_stimAbility != null)
-			{
-				if (m_stimAbility.BasicAttackIgnoreCover())
-				{
-					return m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
-				}
-			}
-		}
-		return false;
+		return m_abilityData != null
+		       && m_stimAbility != null
+		       && m_stimAbility.BasicAttackIgnoreCover()
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
 	}
 
 	public override bool ForceReduceCoverEffectiveness(ActorData targetActor)
 	{
-		if (m_abilityData != null)
-		{
-			if (m_stimAbility != null)
-			{
-				if (m_stimAbility.BasicAttackReduceCoverEffectiveness())
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							return m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
-						}
-					}
-				}
-			}
-		}
-		return false;
+		return m_abilityData != null
+		       && m_stimAbility != null
+		       && m_stimAbility.BasicAttackReduceCoverEffectiveness()
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
 	}
 
 	private bool ShouldUseCone(Vector3 freePos, ActorData caster)
@@ -557,50 +343,25 @@ public class SoldierConeOrLaser : Ability
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		int result;
-		if (animIndex != m_onCastConeAnimIndex)
-		{
-			result = ((animIndex == m_onCastLaserAnimIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return animIndex == m_onCastConeAnimIndex || animIndex == m_onCastLaserAnimIndex;
 	}
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType(List<AbilityTarget> targets, ActorData caster)
 	{
-		if (targets != null)
+		if (targets != null && caster != null)
 		{
-			if (caster != null)
-			{
-				int result;
-				if (ShouldUseCone(targets[0].FreePos, caster))
-				{
-					result = m_onCastConeAnimIndex;
-				}
-				else
-				{
-					result = m_onCastLaserAnimIndex;
-				}
-				return (ActorModelData.ActionAnimationType)result;
-			}
+			int animIndex = ShouldUseCone(targets[0].FreePos, caster) ? m_onCastConeAnimIndex : m_onCastLaserAnimIndex;
+			return (ActorModelData.ActionAnimationType)animIndex;
 		}
 		return base.GetActionAnimType();
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SoldierConeOrLaser))
+		if (abilityMod.GetType() == typeof(AbilityMod_SoldierConeOrLaser))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SoldierConeOrLaser);
+			m_abilityMod = abilityMod as AbilityMod_SoldierConeOrLaser;
 			Setup();
-			return;
 		}
 	}
 
