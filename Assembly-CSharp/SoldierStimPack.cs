@@ -1,39 +1,27 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierStimPack : Ability
 {
-	[Separator("On Hit", true)]
+	[Separator("On Hit")]
 	public int m_selfHealAmount;
-
 	public StandardEffectInfo m_selfHitEffect;
-
-	[Separator("For other abilities when active", true)]
+	[Separator("For other abilities when active")]
 	public bool m_basicAttackIgnoreCover;
-
 	public bool m_basicAttackReduceCoverEffectiveness;
-
 	public float m_grenadeExtraRange;
-
 	public StandardEffectInfo m_dashShootExtraEffect;
-
-	[Separator("CDR - Health threshold to trigger cooldown reset, value:(0-1)", true)]
+	[Separator("CDR - Health threshold to trigger cooldown reset, value:(0-1)")]
 	public float m_cooldownResetHealthThreshold = -1f;
-
 	[Header("-- CDR - if dash and shoot used on same turn")]
 	public int m_cdrIfDashAndShootUsed;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_SoldierStimPack m_abilityMod;
-
 	private AbilityData m_abilityData;
-
 	private SoldierGrenade m_grenadeAbility;
-
 	private StandardEffectInfo m_cachedSelfHitEffect;
-
 	private StandardEffectInfo m_cachedDashShootExtraEffect;
 
 	private void Start()
@@ -53,102 +41,80 @@ public class SoldierStimPack : Ability
 		}
 		if (m_abilityData != null && m_grenadeAbility == null)
 		{
-			m_grenadeAbility = (m_abilityData.GetAbilityOfType(typeof(SoldierGrenade)) as SoldierGrenade);
+			m_grenadeAbility = m_abilityData.GetAbilityOfType(typeof(SoldierGrenade)) as SoldierGrenade;
 		}
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
-		base.Targeter.ShowArcToShape = false;
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			true,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Always);
+		Targeter.ShowArcToShape = false;
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedSelfHitEffect = ((!m_abilityMod) ? m_selfHitEffect : m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect));
-		StandardEffectInfo cachedDashShootExtraEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedDashShootExtraEffect = m_abilityMod.m_dashShootExtraEffectMod.GetModifiedValue(m_dashShootExtraEffect);
-		}
-		else
-		{
-			cachedDashShootExtraEffect = m_dashShootExtraEffect;
-		}
-		m_cachedDashShootExtraEffect = cachedDashShootExtraEffect;
+		m_cachedSelfHitEffect = m_abilityMod != null
+			? m_abilityMod.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect;
+		m_cachedDashShootExtraEffect = m_abilityMod != null
+			? m_abilityMod.m_dashShootExtraEffectMod.GetModifiedValue(m_dashShootExtraEffect)
+			: m_dashShootExtraEffect;
 	}
 
 	public int GetSelfHealAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
-		}
-		else
-		{
-			result = m_selfHealAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount)
+			: m_selfHealAmount;
 	}
 
 	public StandardEffectInfo GetSelfHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedSelfHitEffect != null)
-		{
-			result = m_cachedSelfHitEffect;
-		}
-		else
-		{
-			result = m_selfHitEffect;
-		}
-		return result;
+		return m_cachedSelfHitEffect ?? m_selfHitEffect;
 	}
 
 	public bool BasicAttackIgnoreCover()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_basicAttackIgnoreCoverMod.GetModifiedValue(m_basicAttackIgnoreCover);
-		}
-		else
-		{
-			result = m_basicAttackIgnoreCover;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_basicAttackIgnoreCoverMod.GetModifiedValue(m_basicAttackIgnoreCover)
+			: m_basicAttackIgnoreCover;
 	}
 
 	public bool BasicAttackReduceCoverEffectiveness()
 	{
-		return (!m_abilityMod) ? m_basicAttackReduceCoverEffectiveness : m_abilityMod.m_basicAttackReduceCoverEffectivenessMod.GetModifiedValue(m_basicAttackReduceCoverEffectiveness);
+		return m_abilityMod != null
+			? m_abilityMod.m_basicAttackReduceCoverEffectivenessMod.GetModifiedValue(m_basicAttackReduceCoverEffectiveness)
+			: m_basicAttackReduceCoverEffectiveness;
 	}
 
 	public float GetGrenadeExtraRange()
 	{
-		return (!m_abilityMod) ? m_grenadeExtraRange : m_abilityMod.m_grenadeExtraRangeMod.GetModifiedValue(m_grenadeExtraRange);
+		return m_abilityMod != null
+			? m_abilityMod.m_grenadeExtraRangeMod.GetModifiedValue(m_grenadeExtraRange)
+			: m_grenadeExtraRange;
 	}
 
 	public StandardEffectInfo GetDashShootExtraEffect()
 	{
-		return (m_cachedDashShootExtraEffect == null) ? m_dashShootExtraEffect : m_cachedDashShootExtraEffect;
+		return m_cachedDashShootExtraEffect ?? m_dashShootExtraEffect;
 	}
 
 	public float GetCooldownResetHealthThreshold()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(m_cooldownResetHealthThreshold);
-		}
-		else
-		{
-			result = m_cooldownResetHealthThreshold;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownResetHealthThresholdMod.GetModifiedValue(m_cooldownResetHealthThreshold)
+			: m_cooldownResetHealthThreshold;
 	}
 
 	public int GetCdrIfDashAndShootUsed()
 	{
-		return (!m_abilityMod) ? m_cdrIfDashAndShootUsed : m_abilityMod.m_cdrIfDashAndShootUsedMod.GetModifiedValue(m_cdrIfDashAndShootUsed);
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfDashAndShootUsedMod.GetModifiedValue(m_cdrIfDashAndShootUsed)
+			: m_cdrIfDashAndShootUsed;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -162,42 +128,24 @@ public class SoldierStimPack : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_SoldierStimPack abilityMod_SoldierStimPack = modAsBase as AbilityMod_SoldierStimPack;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_SoldierStimPack)
-		{
-			val = abilityMod_SoldierStimPack.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount);
-		}
-		else
-		{
-			val = m_selfHealAmount;
-		}
-		AddTokenInt(tokens, "SelfHealAmount", empty, val);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_SoldierStimPack)
-		{
-			effectInfo = abilityMod_SoldierStimPack.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect);
-		}
-		else
-		{
-			effectInfo = m_selfHitEffect;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "SelfHitEffect", m_selfHitEffect);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_SoldierStimPack) ? m_dashShootExtraEffect : abilityMod_SoldierStimPack.m_dashShootExtraEffectMod.GetModifiedValue(m_dashShootExtraEffect), "DashShootExtraEffect", m_dashShootExtraEffect);
+		AddTokenInt(tokens, "SelfHealAmount", string.Empty, abilityMod_SoldierStimPack != null
+			? abilityMod_SoldierStimPack.m_selfHealAmountMod.GetModifiedValue(m_selfHealAmount)
+			: m_selfHealAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SoldierStimPack != null
+			? abilityMod_SoldierStimPack.m_selfHitEffectMod.GetModifiedValue(m_selfHitEffect)
+			: m_selfHitEffect, "SelfHitEffect", m_selfHitEffect);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_SoldierStimPack != null
+			? abilityMod_SoldierStimPack.m_dashShootExtraEffectMod.GetModifiedValue(m_dashShootExtraEffect)
+			: m_dashShootExtraEffect, "DashShootExtraEffect", m_dashShootExtraEffect);
 		AddTokenInt(tokens, "CdrIfDashAndShootUsed", string.Empty, m_cdrIfDashAndShootUsed);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SoldierStimPack))
+		if (abilityMod.GetType() == typeof(AbilityMod_SoldierStimPack))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SoldierStimPack);
+			m_abilityMod = abilityMod as AbilityMod_SoldierStimPack;
 			Setup();
-			return;
 		}
 	}
 
