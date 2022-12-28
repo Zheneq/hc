@@ -5,43 +5,28 @@ public class ArcherShieldingArrow : Ability
 {
 	[Header("-- Targeting Properties --")]
 	public int m_laserCount = 2;
-
 	public float m_targeterMinAngle;
-
 	public float m_targeterMaxAngle = 100f;
-
 	public float m_targeterMinInterpDistance = 0.5f;
-
 	public float m_targeterMaxInterpDistance = 4f;
-
 	public LaserTargetingInfo m_laserTargetingInfo;
-
 	[Header("-- On Hit --")]
 	public float m_laserEnergyGainPerHit;
-
 	[Header("-- Enemy Single Hit Effect")]
 	public StandardEffectInfo m_enemySingleHitEffect;
-
 	[Header("-- Enemy Multi Hit Effect")]
 	public StandardEffectInfo m_enemyMultiHitEffect;
-
 	[Header("-- Ally Single Hit Effect")]
 	public StandardEffectInfo m_allySingleHitEffect;
-
 	[Header("-- Ally Multi Hit Effect")]
 	public StandardEffectInfo m_allyMultiHitEffect;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
+	
 	private LaserTargetingInfo m_cachedLaserTargetingInfo;
-
 	private StandardEffectInfo m_cachedEnemySingleEffect;
-
 	private StandardEffectInfo m_cachedEnemyMultiEffect;
-
 	private StandardEffectInfo m_cachedAllySingleEffect;
-
 	private StandardEffectInfo m_cachedAllyMultiEffect;
 
 	private void Start()
@@ -58,8 +43,23 @@ public class ArcherShieldingArrow : Ability
 		SetCachedFields();
 		m_targeterMinAngle = Mathf.Max(0f, m_targeterMinAngle);
 		LaserTargetingInfo laserTargetingInfo = GetLaserTargetingInfo();
-		base.Targeter = new AbilityUtil_Targeter_ThiefFanLaser(this, GetTargeterMinAngle(), GetTargeterMaxAngle(), m_targeterMinInterpDistance, m_targeterMaxInterpDistance, laserTargetingInfo.range, laserTargetingInfo.width, laserTargetingInfo.maxTargets, GetLaserCount(), laserTargetingInfo.penetrateLos, false, false, false, true, 0);
-		base.Targeter.SetAffectedGroups(laserTargetingInfo.affectsEnemies, laserTargetingInfo.affectsAllies, false);
+		Targeter = new AbilityUtil_Targeter_ThiefFanLaser(
+			this,
+			GetTargeterMinAngle(),
+			GetTargeterMaxAngle(),
+			m_targeterMinInterpDistance,
+			m_targeterMaxInterpDistance,
+			laserTargetingInfo.range,
+			laserTargetingInfo.width,
+			laserTargetingInfo.maxTargets,
+			GetLaserCount(),
+			laserTargetingInfo.penetrateLos,
+			false,
+			false,
+			false,
+			true,
+			0);
+		Targeter.SetAffectedGroups(laserTargetingInfo.affectsEnemies, laserTargetingInfo.affectsAllies, false);
 	}
 
 	private void SetCachedFields()
@@ -73,63 +73,27 @@ public class ArcherShieldingArrow : Ability
 
 	public LaserTargetingInfo GetLaserTargetingInfo()
 	{
-		LaserTargetingInfo result;
-		if (m_cachedLaserTargetingInfo != null)
-		{
-			result = m_cachedLaserTargetingInfo;
-		}
-		else
-		{
-			result = m_laserTargetingInfo;
-		}
-		return result;
+		return m_cachedLaserTargetingInfo ?? m_laserTargetingInfo;
 	}
 
 	public StandardEffectInfo GetAllySingleHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllySingleEffect != null)
-		{
-			result = m_cachedAllySingleEffect;
-		}
-		else
-		{
-			result = m_allySingleHitEffect;
-		}
-		return result;
+		return m_cachedAllySingleEffect ?? m_allySingleHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyMultiHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyMultiEffect != null)
-		{
-			result = m_cachedAllyMultiEffect;
-		}
-		else
-		{
-			result = m_allyMultiHitEffect;
-		}
-		return result;
+		return m_cachedAllyMultiEffect ?? m_allyMultiHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemySingleHitEffect()
 	{
-		return (m_cachedEnemySingleEffect == null) ? m_enemySingleHitEffect : m_cachedEnemySingleEffect;
+		return m_cachedEnemySingleEffect ?? m_enemySingleHitEffect;
 	}
 
 	public StandardEffectInfo GetEnemyMultiHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyMultiEffect != null)
-		{
-			result = m_cachedEnemyMultiEffect;
-		}
-		else
-		{
-			result = m_enemyMultiHitEffect;
-		}
-		return result;
+		return m_cachedEnemyMultiEffect ?? m_enemyMultiHitEffect;
 	}
 
 	private int GetLaserCount()
@@ -174,7 +138,14 @@ public class ArcherShieldingArrow : Ability
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		int absorbAmount = m_allySingleHitEffect.m_effectData.m_absorbAmount;
 		int subsequentAmount = m_allyMultiHitEffect.m_effectData.m_absorbAmount - absorbAmount;
-		Ability.AddNameplateValueForOverlap(ref symbolToValue, base.Targeter, targetActor, currentTargeterIndex, absorbAmount, subsequentAmount, AbilityTooltipSymbol.Absorb);
+		AddNameplateValueForOverlap(
+			ref symbolToValue,
+			Targeter,
+			targetActor,
+			currentTargeterIndex,
+			absorbAmount,
+			subsequentAmount,
+			AbilityTooltipSymbol.Absorb);
 		return symbolToValue;
 	}
 
@@ -187,6 +158,7 @@ public class ArcherShieldingArrow : Ability
 
 	public float CalculateDistanceFromFanAngleDegrees(float fanAngleDegrees)
 	{
-		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, GetTargeterMaxAngle(), m_targeterMinInterpDistance, m_targeterMaxInterpDistance);
+		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(
+			fanAngleDegrees, GetTargeterMaxAngle(), m_targeterMinInterpDistance, m_targeterMaxInterpDistance);
 	}
 }
