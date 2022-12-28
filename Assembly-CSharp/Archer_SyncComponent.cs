@@ -7,106 +7,57 @@ public class Archer_SyncComponent : NetworkBehaviour
 	[SyncVar]
 	[HideInInspector]
 	public int m_healReactionTargetActor = -1;
-
+	
 	private SyncListUInt m_usedHealReactionActorIndices = new SyncListUInt();
-
 	private SyncListUInt m_expendedHealReactionActorIndices = new SyncListUInt();
-
 	private SyncListUInt m_vfxChangedHealReactionActorIndices = new SyncListUInt();
-
 	private SyncListUInt m_shieldGeneratorTargetActorIndices = new SyncListUInt();
-
+	
 	[HideInInspector]
 	[SyncVar]
 	public int m_extraAbsorbForShieldGenerator;
-
-	private static int kListm_usedHealReactionActorIndices;
-
-	private static int kListm_expendedHealReactionActorIndices;
-
-	private static int kListm_vfxChangedHealReactionActorIndices;
-
-	private static int kListm_shieldGeneratorTargetActorIndices;
+	
+	private static int kListm_usedHealReactionActorIndices = -338768934;
+	private static int kListm_expendedHealReactionActorIndices = 1068514778;
+	private static int kListm_vfxChangedHealReactionActorIndices = 90460605;
+	private static int kListm_shieldGeneratorTargetActorIndices = 215859;
 
 	public int Networkm_healReactionTargetActor
 	{
-		get
-		{
-			return m_healReactionTargetActor;
-		}
+		get => m_healReactionTargetActor;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_healReactionTargetActor, 1u);
-		}
+		set => SetSyncVar(value, ref m_healReactionTargetActor, 1u);
 	}
 
 	public int Networkm_extraAbsorbForShieldGenerator
 	{
-		get
-		{
-			return m_extraAbsorbForShieldGenerator;
-		}
+		get => m_extraAbsorbForShieldGenerator;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_extraAbsorbForShieldGenerator, 32u);
-		}
+		set => SetSyncVar(value, ref m_extraAbsorbForShieldGenerator, 32u);
 	}
 
 	static Archer_SyncComponent()
 	{
-		kListm_usedHealReactionActorIndices = -338768934;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_usedHealReactionActorIndices, InvokeSyncListm_usedHealReactionActorIndices);
-		kListm_expendedHealReactionActorIndices = 1068514778;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_expendedHealReactionActorIndices, InvokeSyncListm_expendedHealReactionActorIndices);
-		kListm_vfxChangedHealReactionActorIndices = 904606057;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_vfxChangedHealReactionActorIndices, InvokeSyncListm_vfxChangedHealReactionActorIndices);
-		kListm_shieldGeneratorTargetActorIndices = 215859;
-		NetworkBehaviour.RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_shieldGeneratorTargetActorIndices, InvokeSyncListm_shieldGeneratorTargetActorIndices);
+		RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_usedHealReactionActorIndices, InvokeSyncListm_usedHealReactionActorIndices);
+		RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_expendedHealReactionActorIndices, InvokeSyncListm_expendedHealReactionActorIndices);
+		RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_vfxChangedHealReactionActorIndices, InvokeSyncListm_vfxChangedHealReactionActorIndices);
+		RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_shieldGeneratorTargetActorIndices, InvokeSyncListm_shieldGeneratorTargetActorIndices);
 		NetworkCRC.RegisterBehaviour("Archer_SyncComponent", 0);
 	}
 
 	public bool ActorHasUsedHealReaction(ActorData actor)
 	{
-		int result;
-		if (actor != null)
-		{
-			result = (m_usedHealReactionActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return actor != null && m_usedHealReactionActorIndices.Contains((uint)actor.ActorIndex);
 	}
 
 	public bool ActorHasExpendedHealReaction(ActorData actor)
 	{
-		int result;
-		if (actor != null)
-		{
-			result = (m_expendedHealReactionActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return actor != null && m_expendedHealReactionActorIndices.Contains((uint)actor.ActorIndex);
 	}
 
 	public bool ActorShouldSwapVfxForHealReaction(ActorData actor)
 	{
-		int result;
-		if (actor != null)
-		{
-			result = (m_vfxChangedHealReactionActorIndices.Contains((uint)actor.ActorIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return actor != null && m_vfxChangedHealReactionActorIndices.Contains((uint)actor.ActorIndex);
 	}
 
 	public void AddUsedHealReactionActor(ActorData actor)
@@ -155,28 +106,17 @@ public class Archer_SyncComponent : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_usedHealReactionActorIndices called on server.");
+			return;
 		}
-		else
-		{
-			((Archer_SyncComponent)obj).m_usedHealReactionActorIndices.HandleMsg(reader);
-		}
+		((Archer_SyncComponent)obj).m_usedHealReactionActorIndices.HandleMsg(reader);
 	}
 
 	protected static void InvokeSyncListm_expendedHealReactionActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("SyncList m_expendedHealReactionActorIndices called on server.");
-					return;
-				}
-			}
+			Debug.LogError("SyncList m_expendedHealReactionActorIndices called on server.");
+			return;
 		}
 		((Archer_SyncComponent)obj).m_expendedHealReactionActorIndices.HandleMsg(reader);
 	}
@@ -186,11 +126,9 @@ public class Archer_SyncComponent : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_vfxChangedHealReactionActorIndices called on server.");
+			return;
 		}
-		else
-		{
-			((Archer_SyncComponent)obj).m_vfxChangedHealReactionActorIndices.HandleMsg(reader);
-		}
+		((Archer_SyncComponent)obj).m_vfxChangedHealReactionActorIndices.HandleMsg(reader);
 	}
 
 	protected static void InvokeSyncListm_shieldGeneratorTargetActorIndices(NetworkBehaviour obj, NetworkReader reader)
@@ -198,11 +136,9 @@ public class Archer_SyncComponent : NetworkBehaviour
 		if (!NetworkClient.active)
 		{
 			Debug.LogError("SyncList m_shieldGeneratorTargetActorIndices called on server.");
+			return;
 		}
-		else
-		{
-			((Archer_SyncComponent)obj).m_shieldGeneratorTargetActorIndices.HandleMsg(reader);
-		}
+		((Archer_SyncComponent)obj).m_shieldGeneratorTargetActorIndices.HandleMsg(reader);
 	}
 
 	private void Awake()
@@ -226,63 +162,63 @@ public class Archer_SyncComponent : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_healReactionTargetActor);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_usedHealReactionActorIndices);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_expendedHealReactionActorIndices);
 		}
-		if ((base.syncVarDirtyBits & 8) != 0)
+		if ((syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_vfxChangedHealReactionActorIndices);
 		}
-		if ((base.syncVarDirtyBits & 0x10) != 0)
+		if ((syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			SyncListUInt.WriteInstance(writer, m_shieldGeneratorTargetActorIndices);
 		}
-		if ((base.syncVarDirtyBits & 0x20) != 0)
+		if ((syncVarDirtyBits & 0x20) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_extraAbsorbForShieldGenerator);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
