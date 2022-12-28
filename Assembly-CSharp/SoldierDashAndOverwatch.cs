@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierDashAndOverwatch : Ability
@@ -43,6 +45,11 @@ public class SoldierDashAndOverwatch : Ability
 	private StandardEffectInfo m_cachedSelfHitEffect;
 	private StandardEffectInfo m_cachedOverwatchHitEffect;
 	private StandardEffectInfo m_cachedOnCastAllyHitEffect;
+	
+#if SERVER
+	// added in rogues
+	private bool m_lastGatherUsedCone;
+#endif
 
 	private void Start()
 	{
@@ -391,6 +398,7 @@ public class SoldierDashAndOverwatch : Ability
 			bool isAllowedDashTarget = !OnlyDashNextToCover();
 			if (OnlyDashNextToCover())
 			{
+				// reactor
 				ActorCover.CalcCoverLevelGeoOnly(out bool[] hasCover, boardSquareSafe);
 				foreach (bool cover in hasCover)
 				{
@@ -400,6 +408,17 @@ public class SoldierDashAndOverwatch : Ability
 						break;
 					}
 				}
+				// rogues
+				// ThinCover.CoverType[] hasCover;
+				// ActorCover.CalcCoverLevelGeoOnly(out hasCover, square);
+				// foreach (ThinCover.CoverType cover in hasCover)
+				// {
+				// 	if (cover != ThinCover.CoverType.None)
+				// 	{
+				// 		flag = true;
+				// 		break;
+				// 	}
+				// }
 			}
 			if (isAllowedDashTarget)
 			{
@@ -424,4 +443,137 @@ public class SoldierDashAndOverwatch : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			if (m_lastGatherUsedCone)
+			{
+				m_syncComp.Networkm_lastPrimaryUsedMode = 1;
+			}
+			else
+			{
+				m_syncComp.Networkm_lastPrimaryUsedMode = 2;
+			}
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				caster.GetFreePos(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults casterHitResult = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		Vector3 facingDir = Vector3.forward;
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (targets.Count > 1)
+		{
+			facingDir = targets[1].FreePos - square.ToVector3();
+			facingDir.y = 0f;
+			facingDir.Normalize();
+		}
+		StandardEffectInfo stimPackExtraEffect = m_stimAbility != null ? m_stimAbility.GetDashShootExtraEffect() : null;
+		bool flag = ShouldUseCone(targets[1].FreePos, square.ToVector3());
+		int damage = flag ? GetConeDamage() : GetLaserDamage();
+		if (GetExtraDamageForAlternating() > 0
+		    && m_syncComp != null
+		    && ((!flag && m_syncComp.m_lastPrimaryUsedMode == 1) || (flag && m_syncComp.m_lastPrimaryUsedMode == 2)))
+		{
+			damage += GetExtraDamageForAlternating();
+		}
+		if (GetExtraDamageForFromCover() > 0 && caster.GetActorCover().HasAnyCover(true))
+		{
+			damage += GetExtraDamageForFromCover();
+		}
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_lastGatherUsedCone = flag;
+		}
+		BoardSquare boardSquare;
+		Vector3 loSCheckPos;
+		if (GameFlowData.Get().gameState == GameState.BothTeams_Decision)
+		{
+			boardSquare = square;
+			loSCheckPos = caster.GetLoSCheckPos(boardSquare);
+		}
+		else
+		{
+			boardSquare = caster.GetCurrentBoardSquare();
+			loSCheckPos = caster.GetLoSCheckPos();
+		}
+		SoldierOverwatchEffect effect = new SoldierOverwatchEffect(
+			AsEffectSource(),
+			boardSquare,
+			caster,
+			flag,
+			GetConeInfo(),
+			GetLaserInfo(),
+			loSCheckPos,
+			facingDir,
+			damage,
+			GetOverwatchHitEffect(),
+			GetNearDistThreshold(),
+			GetExtraDamageForNearTargets(),
+			GetExtraDamageToEvaders(),
+			GetExtraEnergyForCone(),
+			GetExtraEnergyForLaser(),
+			m_hitPhase,
+			m_overwatchConeTriggerAnim,
+			m_overwatchLaserTriggerAnim,
+			abilityResults.CinematicRequested,
+			stimPackExtraEffect,
+			m_overwatchConeSequencePrefab,
+			m_overwatchLaserSequencePrefab);
+		casterHitResult.AddEffect(effect);
+		casterHitResult.AddStandardEffectInfo(GetSelfHitEffect());
+		abilityResults.StoreActorHit(casterHitResult);
+		if (GetOnCastAllyHitEffect().m_applyEffect && GetOnCastAllyHitRadiusAroundDest() > 0f)
+		{
+			Vector3 vector = square.ToVector3();
+			List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+			List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(
+				vector, GetOnCastAllyHitRadiusAroundDest(), false, caster, caster.GetTeam(), nonActorTargetInfo);
+			actorsInRadius.Remove(caster);
+			ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadius);
+			foreach (ActorData actorInRadius in actorsInRadius)
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorInRadius, vector));
+				actorHitResults.AddStandardEffectInfo(GetOnCastAllyHitEffect());
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SoldierStats.DamageDealtPlusDodgedByDash, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SoldierStats.DamageDealtPlusDodgedByDash, results.FinalDamage);
+		}
+	}
+#endif
 }

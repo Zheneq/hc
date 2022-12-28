@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,9 +38,13 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SoldierStimPack soldierStimPack = GetTargetAbilityOnAbilityData(abilityData) as SoldierStimPack;
+		// rogues
+		// SoldierStimPack soldierStimPack = targetAbility as SoldierStimPack;
+		
 		bool isValid = soldierStimPack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_selfHealAmountMod, "[SelfHealAmount]", isValid, isValid ? soldierStimPack.m_selfHealAmount : 0);

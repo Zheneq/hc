@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -201,7 +203,7 @@ public class SoldierGrenade : Ability
 		if (m_abilityData != null
 		    && m_stimAbility != null
 		    && m_stimAbility.GetGrenadeExtraRange() > 0f
-		    && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)))
+		    && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack))) // , true in rogues
 		{
 			range += m_stimAbility.GetGrenadeExtraRange();
 		}
@@ -222,4 +224,71 @@ public class SoldierGrenade : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				AreaEffectUtils.GetCenterOfShape(GetShape(), targets[0]),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetShape(), targets[0]);
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AreaEffectUtils.GetActorsInShapeLayers(
+			m_shapes,
+			targets[0].FreePos,
+			Board.Get().GetSquare(targets[0].GridPos),
+			PenetrateLos(),
+			caster,
+			relevantTeams,
+			out List<List<ActorData>> actorsInLayers,
+			nonActorTargetInfo);
+		for (int i = 0; i < actorsInLayers.Count; i++)
+		{
+			foreach (ActorData actorData in actorsInLayers[i])
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+				if (actorData.GetTeam() != caster.GetTeam())
+				{
+					actorHitResults.SetBaseDamage(GetDamageForShapeIndex(i));
+					actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+				}
+				else
+				{
+					actorHitResults.SetBaseHealing(GetAllyHealAmount());
+					actorHitResults.AddStandardEffectInfo(GetAllyHitEffect());
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0 && caster.CurrentBoardSquare != null)
+		{
+			Vector3 origin = results.m_hitParameters.Origin;
+			BoardSquare squareFromVec = Board.Get().GetSquareFromVec3(origin);
+			if (squareFromVec != null && !caster.CurrentBoardSquare.GetLOS(squareFromVec.x, squareFromVec.y))
+			{
+				caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SoldierStats.DamageFromGrenadesThrownOverWalls, results.FinalDamage);
+			}
+		}
+	}
+#endif
 }

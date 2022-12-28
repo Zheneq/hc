@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class SoldierStimPack : Ability
 {
@@ -24,6 +27,11 @@ public class SoldierStimPack : Ability
 	private StandardEffectInfo m_cachedSelfHitEffect;
 	private StandardEffectInfo m_cachedDashShootExtraEffect;
 
+#if SERVER
+	// added in rogues
+	private AbilityData.ActionType m_myActionType;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -39,9 +47,16 @@ public class SoldierStimPack : Ability
 		{
 			m_abilityData = GetComponent<AbilityData>();
 		}
-		if (m_abilityData != null && m_grenadeAbility == null)
+		if (m_abilityData != null)
 		{
-			m_grenadeAbility = m_abilityData.GetAbilityOfType(typeof(SoldierGrenade)) as SoldierGrenade;
+			if (m_grenadeAbility == null)
+			{
+				m_grenadeAbility = m_abilityData.GetAbilityOfType(typeof(SoldierGrenade)) as SoldierGrenade;
+			}
+#if SERVER
+			// added in rogues
+			m_myActionType = m_abilityData.GetActionTypeOfAbility(this);
+#endif
 		}
 		SetCachedFields();
 		Targeter = new AbilityUtil_Targeter_Shape(
@@ -154,4 +169,71 @@ public class SoldierStimPack : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<AbilityData.ActionType> GetOtherActionsToCancelOnAbilityUnqueue(ActorData caster)
+	{
+		if (!NetworkServer.active || m_abilityData == null || m_grenadeAbility == null)
+		{
+			return null;
+		}
+		AbilityData.ActionType actionTypeOfAbility = m_abilityData.GetActionTypeOfAbility(m_grenadeAbility);
+		if (!m_abilityData.HasQueuedAbilityOfType(typeof(SoldierGrenade))) // , true in rogues
+		{
+			return null;
+		}
+		List<AbilityData.ActionType> list = new List<AbilityData.ActionType>();
+		List<AbilityRequest> allStoredAbilityRequests = ServerActionBuffer.Get().GetAllStoredAbilityRequests();
+		foreach (AbilityRequest abilityRequest in allStoredAbilityRequests)
+		{
+			if (abilityRequest != null
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.GetType() == typeof(SoldierGrenade)
+			    && abilityRequest.m_targets.Count > 0)
+			{
+				if (!m_abilityData.IsAbilityTargetInRange(m_grenadeAbility, abilityRequest.m_targets[0], 0))
+				{
+					list.Add(actionTypeOfAbility);
+				}
+				break;
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				Board.Get().GetSquare(targets[0].GridPos),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = MakeActorHitRes(caster, caster.GetFreePos());
+		actorHitResults.SetBaseHealing(GetSelfHealAmount());
+		actorHitResults.AddStandardEffectInfo(GetSelfHitEffect());
+		if (GetCdrIfDashAndShootUsed() > 0 && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierDashAndOverwatch))) // , true in rogues
+		{
+			actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_myActionType, -1 * GetCdrIfDashAndShootUsed()));
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	// added in rogues
+	public override void OnCalculatedExtraDamageFromEmpoweredGrantedByMyEffect(ActorData effectCaster, ActorData empoweredActor, int extraDamage)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SoldierStats.DamageAddedByStimMight, extraDamage);
+	}
+#endif
 }

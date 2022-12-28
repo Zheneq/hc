@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierCardinalLine : Ability
@@ -273,4 +275,275 @@ public class SoldierCardinalLine : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		GetHitActors(targets, caster, out _, out List<List<ActorData>> actorsInDirs, out List<Vector3> dirStartPosList, out List<Vector3> dirEndPosList, nonActorTargetInfo);
+		for (int i = 0; i < actorsInDirs.Count; i++)
+		{
+			SoldierProjectilesInLineSequence.HitAreaExtraParams hitAreaExtraParams = new SoldierProjectilesInLineSequence.HitAreaExtraParams
+				{
+					fromPos = dirStartPosList[i],
+					toPos = dirEndPosList[i],
+					areaWidthInSquares = GetLineWidth()
+				};
+			if (i == 0
+			    && additionalData.m_abilityResults.HitActorList().Contains(caster)
+			    && !actorsInDirs[i].Contains(caster))
+			{
+				actorsInDirs[i].Add(caster);
+			}
+			ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
+				m_projectileSequencePrefab,
+				caster.GetFreePos(),
+				actorsInDirs[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				hitAreaExtraParams.ToArray());
+			list.Add(item);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> hitActors = GetHitActors(
+			targets, caster, out Dictionary<ActorData, Vector3> actorToHitOrigin, out _, out _, out _, nonActorTargetInfo);
+		foreach (ActorData actorData in hitActors.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorToHitOrigin[actorData]));
+			actorHitResults.SetBaseDamage(hitActors[actorData]);
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (GetNumSubsequentTurns() > 0)
+		{
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetPositionShape(), targets[0]);
+			List<Vector3> lineDirections = GetLineDirections(targets);
+			SoldierCardinalLineEffect effect = new SoldierCardinalLineEffect(
+				AsEffectSource(),
+				caster,
+				GetNumSubsequentTurns(),
+				GetLineWidth(),
+				PenetrateLos(),
+				centerOfShape,
+				lineDirections,
+				GetDamageOnSubsequentTurns(),
+				GetEnemyEffectOnSubsequentTurns(),
+				m_projectileSequencePrefab);
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.AddEffect(effect);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> actorToHitOrigin,
+		out List<List<ActorData>> actorsInDirs,
+		out List<Vector3> dirStartPosList,
+		out List<Vector3> dirEndPosList,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		return GetActorToDamageStatic(
+			AreaEffectUtils.GetCenterOfShape(GetPositionShape(), targets[0]),
+			GetLineDirections(targets),
+			caster,
+			out actorToHitOrigin,
+			out actorsInDirs,
+			out dirStartPosList,
+			out dirEndPosList,
+			nonActorTargetInfo,
+			GetLineWidth(),
+			PenetrateLos(),
+			GetDamageAmount(),
+			GetNearCenterDistThreshold(),
+			GetExtraDamageForNearCenterTargets(),
+			GetAoeShape(),
+			GetAoeDamage());
+	}
+
+	// added in rogues
+	public static Dictionary<ActorData, int> GetActorToDamageStatic(
+		Vector3 shapeCenter,
+		List<Vector3> lineDirs,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> actorToHitOrigin,
+		out List<List<ActorData>> actorsInDirs,
+		out List<Vector3> dirStartPosList,
+		out List<Vector3> dirEndPosList,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		float lineWidth,
+		bool ignoreLos,
+		int baseDamage,
+		float nearCenterDist,
+		int extraDamageNearCenter,
+		AbilityAreaShape aoeShape,
+		int aoeDamage)
+	{
+		actorToHitOrigin = new Dictionary<ActorData, Vector3>();
+		actorsInDirs = new List<List<ActorData>>();
+		dirStartPosList = new List<Vector3>();
+		dirEndPosList = new List<Vector3>();
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		HashSet<ActorData> actorsInAoE = new HashSet<ActorData>();
+		int maxX = Board.Get().GetMaxX();
+		int maxY = Board.Get().GetMaxY();
+		float num = Mathf.Max(maxX, maxY) + 10f;
+		float squareSize = Board.Get().squareSize;
+		float num2 = num * squareSize;
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, true);
+		for (int i = 0; i < lineDirs.Count; i++)
+		{
+			Vector3 vector = lineDirs[i];
+			Vector3 vector2 = 0.5f * num2 * vector;
+			Vector3 vector3 = shapeCenter - vector2;
+			vector3.x = Mathf.Clamp(vector3.x, 0f, maxX * squareSize);
+			vector3.z = Mathf.Clamp(vector3.z, 0f, maxY * squareSize);
+			Vector3 vector4 = shapeCenter + vector2;
+			vector4.x = Mathf.Clamp(vector4.x, -1f, maxX * squareSize + 1f);
+			vector4.z = Mathf.Clamp(vector4.z, -1f, maxY * squareSize + 1f);
+			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(
+				vector3, vector4, 0f, 0f, 0.5f * lineWidth, ignoreLos, caster, relevantTeams, nonActorTargetInfo);
+			actorsInDirs.Add(new List<ActorData>(actorsInRadiusOfLine));
+			dirStartPosList.Add(vector3);
+			dirEndPosList.Add(vector4);
+			foreach (ActorData actor in actorsInRadiusOfLine)
+			{
+				int num3 = baseDamage;
+				if (extraDamageNearCenter > 0 && AreaEffectUtils.PointToLineDistance2D(
+					    actor.GetFreePos(), vector3, vector4) <= nearCenterDist * Board.Get().squareSize)
+				{
+					num3 += extraDamageNearCenter;
+				}
+				if (!dictionary.ContainsKey(actor) || dictionary[actor] < num3)
+				{
+					dictionary[actor] = num3;
+				}
+				if (!actorToHitOrigin.ContainsKey(actor))
+				{
+					actorToHitOrigin[actor] = vector3;
+				}
+				else if (actor.GetActorCover().IsInCoverWrt(actorToHitOrigin[actor]))  // , out HitChanceBracketType hitChanceBracketType in rogues
+				{
+					actorToHitOrigin[actor] = vector3;
+				}
+			}
+			if (aoeDamage > 0)
+			{
+				foreach (ActorData actor in actorsInRadiusOfLine)
+				{
+					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+						aoeShape, actor.GetFreePos(), actor.GetCurrentBoardSquare(), ignoreLos, caster, relevantTeams, null);
+					actorsInShape.Remove(actor);
+					foreach (ActorData actorInShape in actorsInShape)
+					{
+						actorsInAoE.Add(actorInShape);
+						actorsInDirs[i].Add(actorInShape);
+						if (!actorToHitOrigin.ContainsKey(actorInShape))
+						{
+							actorToHitOrigin[actorInShape] = vector3;
+						}
+					}
+				}
+			}
+		}
+		foreach (ActorData actor in actorsInAoE)
+		{
+			if (!dictionary.ContainsKey(actor))
+			{
+				dictionary[actor] = aoeDamage;
+			}
+			else
+			{
+				dictionary[actor] += aoeDamage;
+			}
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	private List<Vector3> GetLineDirections(List<AbilityTarget> targets)
+	{
+		AbilityTarget target = targets[0];
+		AbilityTarget abilityTarget = targets[1];
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetPositionShape(), target);
+		Vector3 vector = abilityTarget.FreePos - centerOfShape;
+		vector.y = 0f;
+		Vector3 vector2 = Vector3.forward;
+		if (vector.magnitude > 0.1f)
+		{
+			vector2 = vector.normalized;
+		}
+		List<Vector3> list = new List<Vector3>();
+		if (UseBothCardinalDir())
+		{
+			float angle = 0f;
+			if (vector2.x < 0f)
+			{
+				angle = 180f;
+			}
+			list.Add(VectorUtils.AngleDegreesToVector(angle));
+			float angle2 = 90f;
+			if (vector2.z < 0f)
+			{
+				angle2 = 270f;
+			}
+			list.Add(VectorUtils.AngleDegreesToVector(angle2));
+		}
+		else
+		{
+			Vector3 item = VectorUtils.HorizontalAngleToClosestCardinalDirection(Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(vector2)));
+			list.Add(item);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = base.CalcPointsOfInterestForCamera(targets, caster);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetPositionShape(), targets[0]);
+		List<Vector3> lineDirections = GetLineDirections(targets);
+		int maxX = Board.Get().GetMaxX();
+		int maxY = Board.Get().GetMaxY();
+		float squareSize = Board.Get().squareSize;
+		float num = 10f * squareSize;
+		for (int i = 0; i < lineDirections.Count; i++)
+		{
+			Vector3 vector = lineDirections[i];
+			Vector3 vector2 = 0.5f * num * vector;
+			Vector3 vector3 = centerOfShape - vector2;
+			vector3.x = Mathf.Clamp(vector3.x, 0f, maxX * squareSize);
+			vector3.z = Mathf.Clamp(vector3.z, 0f, maxY * squareSize);
+			Vector3 vector4 = centerOfShape + vector2;
+			vector4.x = Mathf.Clamp(vector4.x, -1f, maxX * squareSize + 1f);
+			vector4.z = Mathf.Clamp(vector4.z, -1f, maxY * squareSize + 1f);
+			list.Add(vector3);
+			list.Add(vector4);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SoldierStats.TargetsHitByUlt);
+		}
+	}
+#endif
 }

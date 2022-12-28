@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,9 +47,13 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SoldierCardinalLine soldierCardinalLine = GetTargetAbilityOnAbilityData(abilityData) as SoldierCardinalLine;
+		// rogues
+		// SoldierCardinalLine soldierCardinalLine = targetAbility as SoldierCardinalLine;
+		
 		bool isValid = soldierCardinalLine != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_useBothCardinalDirMod, "[UseBothCardinalDir]", isValid, isValid && soldierCardinalLine.m_useBothCardinalDir);

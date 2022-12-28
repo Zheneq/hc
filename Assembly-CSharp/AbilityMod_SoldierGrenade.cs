@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,9 +49,13 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SoldierGrenade soldierGrenade = GetTargetAbilityOnAbilityData(abilityData) as SoldierGrenade;
+		// rogues
+		// SoldierGrenade soldierGrenade = targetAbility as SoldierGrenade;
+		
 		bool isValid = soldierGrenade != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_shapeMod, "[Shape]", isValid, isValid ? soldierGrenade.m_shape : AbilityAreaShape.SingleSquare);

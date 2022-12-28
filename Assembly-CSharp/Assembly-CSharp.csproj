@@ -2202,9 +2202,11 @@
     <Compile Include="SocialComponent.cs" />
     <Compile Include="SoldierBurstConeSequence.cs" />
     <Compile Include="SoldierCardinalLine.cs" />
+    <Compile Include="SoldierCardinalLineEffect.cs" />
     <Compile Include="SoldierConeOrLaser.cs" />
     <Compile Include="SoldierDashAndOverwatch.cs" />
     <Compile Include="SoldierGrenade.cs" />
+    <Compile Include="SoldierOverwatchEffect.cs" />
     <Compile Include="SoldierProjectilesInLineSequence.cs" />
     <Compile Include="SoldierStimPack.cs" />
     <Compile Include="Soldier_SyncComponent.cs" />

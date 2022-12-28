@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,9 +52,13 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		SoldierConeOrLaser soldierConeOrLaser = GetTargetAbilityOnAbilityData(abilityData) as SoldierConeOrLaser;
+		// rogues
+		// SoldierConeOrLaser soldierConeOrLaser = targetAbility as SoldierConeOrLaser;
+		
 		bool isValid = soldierConeOrLaser != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneInfoMod, "[ConeInfo]", isValid, isValid ? soldierConeOrLaser.m_coneInfo : null);

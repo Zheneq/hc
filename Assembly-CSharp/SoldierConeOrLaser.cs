@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SoldierConeOrLaser : Ability
@@ -322,7 +324,7 @@ public class SoldierConeOrLaser : Ability
 		return m_abilityData != null
 		       && m_stimAbility != null
 		       && m_stimAbility.BasicAttackIgnoreCover()
-		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)); // , true in rogues
 	}
 
 	public override bool ForceReduceCoverEffectiveness(ActorData targetActor)
@@ -330,7 +332,7 @@ public class SoldierConeOrLaser : Ability
 		return m_abilityData != null
 		       && m_stimAbility != null
 		       && m_stimAbility.BasicAttackReduceCoverEffectiveness()
-		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack));
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SoldierStimPack)); // , true in rogues
 	}
 
 	private bool ShouldUseCone(Vector3 freePos, ActorData caster)
@@ -370,4 +372,147 @@ public class SoldierConeOrLaser : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			if (ShouldUseCone(targets[0].FreePos, caster))
+			{
+				m_syncComp.Networkm_lastPrimaryUsedMode = 1;
+			}
+			else
+			{
+				m_syncComp.Networkm_lastPrimaryUsedMode = 2;
+			}
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		bool useCone = ShouldUseCone(targets[0].FreePos, caster);
+		GetHitActors(targets, caster, useCone, null, out Vector3 endPosIfLaser);
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				useCone
+					? m_coneSequencePrefab
+					: m_laserSequencePrefab,
+				endPosIfLaser,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new BlasterStretchConeSequence.ExtraParams
+				{
+					forwardAngle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+					angleInDegrees = GetConeInfo().m_widthAngleDeg,
+					lengthInSquares = GetConeInfo().m_radiusInSquares
+				}.ToArray())
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		bool useCone = ShouldUseCone(targets[0].FreePos, caster);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		List<ActorData> hitActors = GetHitActors(targets, caster, useCone, nonActorTargetInfo, out _);
+		int baseDamage = useCone ? GetConeDamage() : GetLaserDamage();
+		if (GetExtraDamageForAlternating() > 0
+		    && m_syncComp != null
+		    && ((!useCone && m_syncComp.m_lastPrimaryUsedMode == 1) || (useCone && m_syncComp.m_lastPrimaryUsedMode == 2)))
+		{
+			baseDamage += GetExtraDamageForAlternating();
+		}
+		if (GetExtraDamageForFromCover() > 0 && caster.GetActorCover().HasAnyCover(true))
+		{
+			baseDamage += GetExtraDamageForFromCover();
+		}
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, loSCheckPos));
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				int bonusDamage = 0;
+				if (ShouldUseExtraDamageForNearTarget(actorData, caster))
+				{
+					bonusDamage += GetExtraDamageForNearTarget();
+				}
+				if (GetExtraDamageToEvaders() > 0 && ServerActionBuffer.Get().ActorIsEvading(actorData))
+				{
+					bonusDamage += GetExtraDamageToEvaders();
+				}
+				actorHitResults.SetBaseDamage(baseDamage + bonusDamage);
+				if (useCone && GetExtraEnergyForCone() > 0)
+				{
+					actorHitResults.AddTechPointGainOnCaster(GetExtraEnergyForCone());
+				}
+				else if (!useCone && GetExtraEnergyForLaser() > 0)
+				{
+					actorHitResults.AddTechPointGainOnCaster(GetExtraEnergyForLaser());
+				}
+				actorHitResults.AddStandardEffectInfo(useCone ? GetConeEnemyHitEffect() : GetLaserEnemyHitEffect());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		bool useCone,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out Vector3 endPosIfLaser)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		ConeTargetingInfo coneInfo = GetConeInfo();
+		List<Team> affectedTeams = coneInfo.GetAffectedTeams(caster);
+		List<ActorData> result;
+		if (useCone)
+		{
+			result = AreaEffectUtils.GetActorsInCone(
+				loSCheckPos,
+				coneCenterAngleDegrees,
+				coneInfo.m_widthAngleDeg,
+				coneInfo.m_radiusInSquares,
+				coneInfo.m_backwardsOffset,
+				coneInfo.m_penetrateLos,
+				caster,
+				affectedTeams,
+				nonActorTargetInfo);
+			endPosIfLaser = targets[0].FreePos;
+		}
+		else
+		{
+			LaserTargetingInfo laserInfo = GetLaserInfo();
+			VectorUtils.LaserCoords laserCoords;
+			laserCoords.start = loSCheckPos;
+			result = AreaEffectUtils.GetActorsInLaser(
+				laserCoords.start,
+				targets[0]
+					.AimDirection,
+				laserInfo.range,
+				laserInfo.width,
+				caster,
+				affectedTeams,
+				laserInfo.penetrateLos,
+				laserInfo.maxTargets,
+				false,
+				true,
+				out laserCoords.end,
+				nonActorTargetInfo);
+			endPosIfLaser = laserCoords.end;
+		}
+		return result;
+	}
+#endif
 }
