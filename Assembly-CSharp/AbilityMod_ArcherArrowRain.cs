@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 
@@ -47,9 +49,13 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ArcherArrowRain archerArrowRain = GetTargetAbilityOnAbilityData(abilityData) as ArcherArrowRain;
+		// rogues
+		// ArcherArrowRain archerArrowRain = targetAbility as ArcherArrowRain;
+		
 		bool isValid = archerArrowRain != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_startRadiusMod, "[StartRadius]", isValid, isValid ? archerArrowRain.m_startRadius : 0f);

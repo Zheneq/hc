@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,9 +47,13 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ArcherHealingDebuffArrow archerHealingDebuffArrow = GetTargetAbilityOnAbilityData(abilityData) as ArcherHealingDebuffArrow;
+		// rogues
+		// ArcherHealingDebuffArrow archerHealingDebuffArrow = targetAbility as ArcherHealingDebuffArrow;
+		
 		bool isValid = archerHealingDebuffArrow != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserHitEffectMod, "[LaserHitEffect]", isValid, isValid ? archerHealingDebuffArrow.m_laserHitEffect : null);

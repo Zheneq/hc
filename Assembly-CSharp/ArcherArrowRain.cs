@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ArcherArrowRain : Ability
@@ -281,4 +284,99 @@ public class ArcherArrowRain : Ability
 		}
 		return false;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		ActorData[] targetActorArray = m_hitAreaSequencePrefab != null
+			? null
+			: additionalData.m_abilityResults.HitActorsArray();
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab, targets[0].FreePos, targetActorArray, caster, additionalData.m_sequenceSource);
+		list.Add(item);
+		if (m_hitAreaSequencePrefab != null)
+		{
+			for (int i = 1; i < targets.Count; i++)
+			{
+				BoardSquare square = Board.Get().GetSquare(targets[i - 1].GridPos);
+				Vector3 vector = Board.Get().GetSquare(targets[i].GridPos).ToVector3() - square.ToVector3();
+				vector.y = 0f;
+				float magnitude = vector.magnitude;
+				vector.Normalize();
+				Sequence.FxAttributeParam fxAttributeParam = new Sequence.FxAttributeParam();
+				fxAttributeParam.SetValues(Sequence.FxAttributeParam.ParamTarget.MainVfx, Sequence.FxAttributeParam.ParamNameCode.AbilityAreaLength, magnitude);
+				ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(m_hitAreaSequencePrefab, square.ToVector3(), Quaternion.LookRotation(vector), additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, fxAttributeParam.ToArray());
+				list.Add(item2);
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
+			int damage = actorData.GetHpPortionInServerResolution() <= GetHealthThresholdForBonusDamage()
+				? GetDamageBelowHealthThreshold()
+				: GetDamage();
+			if (ServerEffectManager.Get().HasEffectByCaster(actorData, caster, typeof(ArcherHealingReactionEffect)) && !m_syncComp.ActorHasUsedHealReaction(caster))
+			{
+				damage += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
+			}
+			actorHitResults.AddBaseDamage(damage);
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			actorHitResults.AddStandardEffectInfo(GetAdditionalEnemyHitEffect());
+			if (hitActors.Count == 1)
+			{
+				actorHitResults.AddStandardEffectInfo(GetSingleEnemyHitEffect());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (GetTechPointRefundNoHits() != 0 && hitActors.IsNullOrEmpty())
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.AddTechPointGain(GetTechPointRefundNoHits());
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> hitActors = new List<ActorData>();
+		for (int i = 1; i < targets.Count; i++)
+		{
+			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(
+				Board.Get().GetSquare(targets[i - 1].GridPos).ToVector3(),
+				Board.Get().GetSquare(targets[i].GridPos).ToVector3(),
+				GetStartRadius(),
+				GetEndRadius(),
+				GetLineRadius(),
+				AoePenetrateLoS(),
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			actorsInRadiusOfLine.RemoveAll(a => hitActors.Contains(a));
+			hitActors.AddRange(actorsInRadiusOfLine);
+		}
+		return hitActors;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.AppliedStatus(StatusType.Rooted))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ArcherStats.ArrowRainNumEnemiesRooted);
+		}
+	}
+#endif
 }

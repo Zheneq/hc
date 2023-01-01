@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,10 +19,12 @@ public class Archer_SyncComponent : NetworkBehaviour
 	[SyncVar]
 	public int m_extraAbsorbForShieldGenerator;
 	
+	// removed in rogues
 	private static int kListm_usedHealReactionActorIndices = -338768934;
 	private static int kListm_expendedHealReactionActorIndices = 1068514778;
 	private static int kListm_vfxChangedHealReactionActorIndices = 90460605;
 	private static int kListm_shieldGeneratorTargetActorIndices = 215859;
+	// end removed in rogues
 
 	public int Networkm_healReactionTargetActor
 	{
@@ -33,9 +37,10 @@ public class Archer_SyncComponent : NetworkBehaviour
 	{
 		get => m_extraAbsorbForShieldGenerator;
 		[param: In]
-		set => SetSyncVar(value, ref m_extraAbsorbForShieldGenerator, 32u);
+		set => SetSyncVar(value, ref m_extraAbsorbForShieldGenerator, 32u); // 2UL in rogues
 	}
-
+	
+	// reactor
 	static Archer_SyncComponent()
 	{
 		RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_usedHealReactionActorIndices, InvokeSyncListm_usedHealReactionActorIndices);
@@ -44,6 +49,14 @@ public class Archer_SyncComponent : NetworkBehaviour
 		RegisterSyncListDelegate(typeof(Archer_SyncComponent), kListm_shieldGeneratorTargetActorIndices, InvokeSyncListm_shieldGeneratorTargetActorIndices);
 		NetworkCRC.RegisterBehaviour("Archer_SyncComponent", 0);
 	}
+	// rogues
+	// public Archer_SyncComponent()
+	// {
+	// 	base.InitSyncObject(m_usedHealReactionActorIndices);
+	// 	base.InitSyncObject(m_expendedHealReactionActorIndices);
+	// 	base.InitSyncObject(m_vfxChangedHealReactionActorIndices);
+	// 	base.InitSyncObject(m_shieldGeneratorTargetActorIndices);
+	// }
 
 	public bool ActorHasUsedHealReaction(ActorData actor)
 	{
@@ -97,10 +110,16 @@ public class Archer_SyncComponent : NetworkBehaviour
 		m_shieldGeneratorTargetActorIndices.Clear();
 	}
 
+	// reactor
 	private void UNetVersion()
 	{
 	}
+	// rogues
+	// private void MirrorProcessed()
+	// {
+	// }
 
+	// removed in rogues
 	protected static void InvokeSyncListm_usedHealReactionActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -111,6 +130,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 		((Archer_SyncComponent)obj).m_usedHealReactionActorIndices.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_expendedHealReactionActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -121,6 +141,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 		((Archer_SyncComponent)obj).m_expendedHealReactionActorIndices.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_vfxChangedHealReactionActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -131,6 +152,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 		((Archer_SyncComponent)obj).m_vfxChangedHealReactionActorIndices.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	protected static void InvokeSyncListm_shieldGeneratorTargetActorIndices(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -141,6 +163,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 		((Archer_SyncComponent)obj).m_shieldGeneratorTargetActorIndices.HandleMsg(reader);
 	}
 
+	// removed in rogues
 	private void Awake()
 	{
 		m_usedHealReactionActorIndices.InitializeBehaviour(this, kListm_usedHealReactionActorIndices);
@@ -149,6 +172,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 		m_shieldGeneratorTargetActorIndices.InitializeBehaviour(this, kListm_shieldGeneratorTargetActorIndices);
 	}
 
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -223,6 +247,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

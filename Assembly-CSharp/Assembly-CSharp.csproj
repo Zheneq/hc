@@ -464,11 +464,13 @@
     <Compile Include="AppState_Shutdown.cs" />
     <Compile Include="AppState_Startup.cs" />
     <Compile Include="AppState_WaitingForGame.cs" />
+    <Compile Include="ArcherAbsorbGroundEffect.cs" />
     <Compile Include="ArcherArrowRain.cs" />
     <Compile Include="ArcherBendingArrow.cs" />
     <Compile Include="ArcherDashAndGroundArrow.cs" />
     <Compile Include="ArcherDashAndShoot.cs" />
     <Compile Include="ArcherHealingDebuffArrow.cs" />
+    <Compile Include="ArcherHealingReactionEffect.cs" />
     <Compile Include="ArcherHealingReactionSequence.cs" />
     <Compile Include="ArcherHealProjectileSequence.cs" />
     <Compile Include="ArcherShieldGeneratorArrow.cs" />

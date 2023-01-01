@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,9 +47,13 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ArcherDashAndShoot archerDashAndShoot = GetTargetAbilityOnAbilityData(abilityData) as ArcherDashAndShoot;
+		// rogues
+		// ArcherDashAndShoot archerDashAndShoot = targetAbility as ArcherDashAndShoot;
+		
 		bool isValid = archerDashAndShoot != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_maxAngleForLaserMod, "[MaxAngleForLaser]", isValid, isValid ? archerDashAndShoot.m_maxAngleForLaser : 0f);

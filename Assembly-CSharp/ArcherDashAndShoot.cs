@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -324,4 +326,134 @@ public class ArcherDashAndShoot : Ability
 			? m_abilityMod.m_healthThresholdForCooldownOverride.GetModifiedValue(0f)
 			: 0f;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetHitActors(targets, caster, null, out _, out _, out Vector3 targetPos);
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_arrowProjectileSequencePrefab,
+			targetPos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource));
+		if (m_dashSequencePrefab != null)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_dashSequencePrefab,
+				Board.Get().GetSquare(targets[0].GridPos),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> list = new List<NonActorTargetInfo>();
+		GetHitActors(targets, caster, list, out List<ActorData> directHitActors, out List<ActorData> aoeHitActors, out Vector3 laserEnd);
+		foreach (ActorData target in directHitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetCurrentBoardSquare().ToVector3()));
+			int damage = GetDirectDamage();
+			if (ServerEffectManager.Get().HasEffectByCaster(target, caster, typeof(ArcherHealingReactionEffect))
+			    && !m_syncComp.ActorHasUsedHealReaction(caster))
+			{
+				damage += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
+				actorHitResults.AddStandardEffectInfo(GetHealingDebuffTargetEffect());
+			}
+			actorHitResults.AddBaseDamage(damage);
+			actorHitResults.AddStandardEffectInfo(GetDirectTargetEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		foreach (ActorData target in aoeHitActors)
+		{
+			ActorHitResults actorAoeHitResults = new ActorHitResults(new ActorHitParameters(target, laserEnd));
+			int damage = GetAoeDamage();
+			if (ServerEffectManager.Get().HasEffectByCaster(target, caster, typeof(ArcherHealingReactionEffect))
+			    && !m_syncComp.ActorHasUsedHealReaction(caster))
+			{
+				damage += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
+				actorAoeHitResults.AddStandardEffectInfo(GetHealingDebuffTargetEffect());
+			}
+			actorAoeHitResults.AddBaseDamage(damage);
+			actorAoeHitResults.AddStandardEffectInfo(GetAoeTargetEffect());
+			abilityResults.StoreActorHit(actorAoeHitResults);
+		}
+		if (m_shieldGenAbility != null && m_shieldGenAbility.GetCooldownReductionOnDash() != 0)
+		{
+			ActorHitResults casterHeatResult = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHeatResult.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
+				GetComponent<AbilityData>().GetActionTypeOfAbility(m_shieldGenAbility),
+				m_shieldGenAbility.GetCooldownReductionOnDash()));
+			abilityResults.StoreActorHit(casterHeatResult);
+		}
+		abilityResults.StoreNonActorTargetInfo(list);
+	}
+
+	// added in rogues
+	private void GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargets,
+		out List<ActorData> directHitActors,
+		out List<ActorData> aoeHitActors,
+		out Vector3 laserEnd)
+	{
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		Vector3 neutralDir = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart()) - loSCheckPos;
+		Vector3 clampedLaserDirection = GetClampedLaserDirection(targets[0], targets[1], neutralDir);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = loSCheckPos;
+		List<ActorData> evaders = ServerAbilityUtils.GetEvaders();
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			clampedLaserDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			1,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargets,
+			evaders);
+		directHitActors = hitActors;
+		aoeHitActors = AreaEffectUtils.GetActorsInCone(
+			laserCoords.end,
+			0f,
+			360f,
+			GetAoeRadius(),
+			0f,
+			AoePenetratesLoS(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargets);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref aoeHitActors);
+		aoeHitActors.RemoveAll(a => hitActors.Contains(a));
+		laserEnd = laserCoords.end;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ArcherStats.DashAndShootDamageDealtAndDodged, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ArcherStats.DashAndShootDamageDealtAndDodged, results.FinalDamage);
+		}
+	}
+#endif
 }

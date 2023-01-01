@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -402,4 +404,175 @@ public class ArcherBendingArrow : Ability
 			? m_abilityMod.m_extraHealingFromHealingDebuffTarget.GetModifiedValue(0)
 			: 0;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		base.Run(targets, caster, additionalData);
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_extraAbsorbForShieldGenerator = Mathf.Min(
+				m_syncComp.m_extraAbsorbForShieldGenerator + GetExtraAbsorbForShieldGeneratorPerHit() * additionalData.m_abilityResults.HitActorList().Count,
+				GetExtraAbsorbForShieldGeneratorMax());
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out List<Vector3> endPoints, out List<ActorData> actorsHitAfterBounce, nonActorTargetInfo);
+		if (hitActors.Count > 1)
+		{
+			ActorData value = hitActors[0];
+			hitActors[0] = hitActors[hitActors.Count - 1];
+			hitActors[hitActors.Count - 1] = value;
+		}
+		BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams();
+		extraParams.segmentPts = new List<Vector3>();
+		extraParams.segmentPts.AddRange(endPoints);
+		extraParams.segmentPts.RemoveAt(0);
+		extraParams.laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
+		foreach (ActorData actorData in hitActors)
+		{
+			if (actorsHitAfterBounce.Contains(actorData))
+			{
+				extraParams.laserTargets[actorData] = new AreaEffectUtils.BouncingLaserInfo(endPoints[0], 1);
+			}
+			else
+			{
+				extraParams.laserTargets[actorData] = new AreaEffectUtils.BouncingLaserInfo(caster.GetLoSCheckPos(), 0);
+			}
+		}
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			endPoints[endPoints.Count - 1],
+			hitActors.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				extraParams
+			});
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out List<Vector3> endPoints, out List<ActorData> actorsHitAfterBounce, nonActorTargetInfo);
+		for (int i = 0; i < hitActors.Count; i++)
+		{
+			ActorData hitActor = hitActors[i];
+			Vector3 loSCheckPos = caster.GetLoSCheckPos();
+			bool flag = false;
+			int num = i == 0
+				? GetLaserDamageAmount()
+				: GetDamageAfterPierce();
+			if (actorsHitAfterBounce.Contains(hitActor))
+			{
+				loSCheckPos = endPoints[1];
+				flag = true;
+				if (Board.Get().GetSquareFromVec3(loSCheckPos) == hitActor.GetCurrentBoardSquare())
+				{
+					loSCheckPos = caster.GetLoSCheckPos();
+				}
+				num += GetExtraDamageAfterBend();
+			}
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, loSCheckPos);
+			ActorHitResults actorHitResults = new ActorHitResults(GetLaserHitEffect(), hitParams);
+			if (ServerEffectManager.Get().HasEffectByCaster(hitActor, caster, typeof(ArcherHealingReactionEffect))
+			    && !m_syncComp.ActorHasUsedHealReaction(caster))
+			{
+				num += GetExtraDamageToHealingDebuffTarget();
+				num += m_healArrowAbility.GetExtraDamageToThisTargetFromCaster();
+				actorHitResults.AddStandardEffectInfo(GetEffectToHealingDebuffTarget());
+			}
+			actorHitResults.SetBaseDamage(num);
+			if (flag)
+			{
+				actorHitResults.SetIgnoreCoverMinDist(true);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<Vector3> endPoints,
+		out List<ActorData> actorsHitAfterBounce,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, true);
+		endPoints = new List<Vector3> { caster.GetLoSCheckPos() };
+		float laserRangeInSquares = GetClampedRangeInSquares(caster, targets[0]);
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			endPoints[0],
+			targets[0].AimDirection,
+			laserRangeInSquares,
+			GetLaserWidth(),
+			caster,
+			relevantTeams,
+			PenetrateLoS(),
+			GetMaxTargets(),
+			false,
+			true,
+			out Vector3 laserEndPos,
+			nonActorTargetInfo);
+		endPoints.Add(laserEndPos);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInLaser, endPoints[0]);
+		if (actorsInLaser.Count < GetMaxTargets()
+		    && (laserEndPos - endPoints[0]).magnitude > laserRangeInSquares * Board.Get().squareSize - 0.1f)
+		{
+			laserRangeInSquares = GetDistanceRemaining(caster, targets[0], out Vector3 adjustedStartPosWithOffset);
+			Vector3 vector2 = targets[1].FreePos;
+			if ((targets[1].FreePos - targets[0].FreePos).magnitude < Mathf.Epsilon)
+			{
+				vector2 += targets[0].AimDirection * 10f;
+			}
+			Vector3 targeterClampedAimDirection = GetTargeterClampedAimDirection((vector2 - adjustedStartPosWithOffset).normalized, targets);
+			adjustedStartPosWithOffset = VectorUtils.GetAdjustedStartPosWithOffset(
+				adjustedStartPosWithOffset, 
+				adjustedStartPosWithOffset + targeterClampedAimDirection,
+				-0.2f);
+			endPoints[1] = adjustedStartPosWithOffset;
+			actorsHitAfterBounce = AreaEffectUtils.GetActorsInLaser(
+				adjustedStartPosWithOffset,
+				targeterClampedAimDirection,
+				laserRangeInSquares,
+				GetLaserWidth(),
+				caster,
+				relevantTeams,
+				PenetrateLoS(),
+				GetMaxTargets(),
+				false,
+				true,
+				out Vector3 endPos,
+				nonActorTargetInfo);
+			TargeterUtils.SortActorsByDistanceToPos(ref actorsHitAfterBounce, endPos);
+			for (int i = actorsHitAfterBounce.Count - 1; i >= 0; i--)
+			{
+				ActorData item = actorsHitAfterBounce[i];
+				if (!actorsInLaser.Contains(item) && actorsInLaser.Count < GetMaxTargets())
+				{
+					actorsInLaser.Add(item);
+				}
+				else
+				{
+					actorsHitAfterBounce.Remove(item);
+				}
+			}
+			endPoints.Add(endPos);
+		}
+		else
+		{
+			actorsHitAfterBounce = new List<ActorData>();
+		}
+		return actorsInLaser;
+	}
+#endif
 }

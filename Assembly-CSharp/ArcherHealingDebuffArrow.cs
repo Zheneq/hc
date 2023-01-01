@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ArcherHealingDebuffArrow : Ability
@@ -193,4 +195,74 @@ public class ArcherHealingDebuffArrow : Ability
 			? m_abilityMod.m_extraDamageToThisTargetFromCasterMod.GetModifiedValue(0)
 			: 0;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targetSquare.ToVector3(),
+			hitActors.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		for (int i = 0; i < hitActors.Count; i++)
+		{
+			ActorData hitActor = hitActors[i];
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, caster.GetFreePos());
+			ActorHitResults actorHitResults = new ActorHitResults(new ArcherHealingReactionEffect(
+				AsEffectSource(),
+				hitActor.GetCurrentBoardSquare(),
+				hitActor,
+				caster,
+				GetLaserHitEffect().m_effectData,
+				GetReactionHealing(),
+				GetReactionHealingOnSelf(),
+				GetLessHealingOnSubsequentReactions(),
+				GetExtraHealBelowHealthThreshold(),
+				GetHealthThresholdForExtraHeal(),
+				GetReactionEffect(),
+				GetHealsPerAlly(),
+				GetTechPointsPerHeal(),
+				m_reactionProjectilePrefab),
+				hitParams);
+			actorHitResults.AddStandardEffectInfo(GetExtraModEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		ActorData currentBestActorTarget = targets[0].GetCurrentBestActorTarget();
+		List<ActorData> list = new List<ActorData>();
+		if (currentBestActorTarget != null)
+		{
+			list.Add(currentBestActorTarget);
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ArcherStats.HealArrowHealTotal, results.FinalHealing);
+		}
+	}
+#endif
 }
