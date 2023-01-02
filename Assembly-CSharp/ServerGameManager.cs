@@ -497,6 +497,11 @@ public class ServerGameManager : MonoBehaviour
 
 	public void SendGameSummaryNotification()
 	{
+		// custom
+		SaveReplay();
+		m_replayRecorder?.StopRecording();
+		// end custom
+		
 		if (m_monitorGameServerInterface != null)
 		{
 			Log.Info("Sending game summary to lobby server");
@@ -512,7 +517,11 @@ public class ServerGameManager : MonoBehaviour
 				}
 			}
 		}
-		// custom
+	}
+
+	// custom
+	public void SaveReplay()
+	{
 		m_replayRecorder?.SaveReplay();
 	}
 

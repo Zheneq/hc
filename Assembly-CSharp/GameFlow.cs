@@ -1215,6 +1215,9 @@ public class GameFlow : NetworkBehaviour
 		//{
 		//	PveDialogueManager.Get().OnTurnStart();
 		//}
+		
+		// custom
+		ServerGameManager.Get()?.SaveReplay();
 	}
 
 	// added in rogues

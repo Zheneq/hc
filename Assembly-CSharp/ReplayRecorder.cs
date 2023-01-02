@@ -12,11 +12,13 @@ public class ReplayRecorder
     private readonly Replay m_replay;
     private readonly ServerPlayerState m_recorderPlayerState;
     private MyNetworkClient m_client;
+    private readonly DateTime m_time;
 
     public ReplayRecorder(ServerPlayerState playerState)
     {
         m_replay = new Replay();
         m_recorderPlayerState = playerState;
+        m_time = DateTime.Now;
         Connect();
     }
 
@@ -30,10 +32,14 @@ public class ReplayRecorder
 
     public void SaveReplay()
     {
-        string filename = $"{DateTime.Now:yyyy_MM_dd__HH_mm_ss}__" +
+        string filename = $"{m_time:yyyy_MM_dd__HH_mm_ss}__" +
                           $"{GameManager.Get().GameInfo.GameServerProcessCode}__" +
                           $"{BuildVersion.MiniVersionString}.arr";
         SaveReplayToFile(Path.Combine(HydrogenConfig.Get().ReplaysPath, filename));
+    }
+
+    public void StopRecording()
+    {
         if (m_client.connection is ReplayRecorderNetworkConnection conn)
         {
             conn.OnMessage -= m_replay.RecordRawNetworkMessage;
