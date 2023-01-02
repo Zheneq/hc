@@ -1,5 +1,8 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
 [Serializable]
 public class LobbyGameSummary
@@ -13,9 +16,14 @@ public class LobbyGameSummary
 	public int TeamBPoints;
 	public TimeSpan MatchTime;
 	public List<PlayerGameSummary> PlayerGameSummaryList = new List<PlayerGameSummary>();
+	
+	// TODO LOW serialize?
+	// removed in rogues
 	public Dictionary<Team, Dictionary<int, ELODancecard>> m_ELODancecard = new Dictionary<Team, Dictionary<int, ELODancecard>>();
+	
 	public List<BadgeAndParticipantInfo> BadgeAndParticipantsInfo;
 
+	// removed in rogues
 	public ELODancecard GetEloDancecardByAccountId(long accountId)
 	{
 		foreach (Dictionary<int, ELODancecard> eloDancecards in m_ELODancecard.Values)
@@ -32,6 +40,7 @@ public class LobbyGameSummary
 		return null;
 	}
 
+	// removed in rogues
 	public ELODancecard GetEloDancecardByPlayerId(int playerId)
 	{
 		foreach (Dictionary<int, ELODancecard> eloDancecards in m_ELODancecard.Values)
@@ -45,6 +54,7 @@ public class LobbyGameSummary
 		return null;
 	}
 
+	// removed in rogues
 	public void CreateELODancecard(int playerId, Team teamId, long accountId, long groupId, byte groupSize)
 	{
 		if (m_ELODancecard.TryGetValue(teamId, out Dictionary<int, ELODancecard> value))
@@ -58,6 +68,7 @@ public class LobbyGameSummary
 		}
 	}
 
+	// removed in rogues
 	public void UpdateELODancecard(int playerId, Team teamId, long accountId, bool isBot, BotDifficulty difficulty)
 	{
 		if (m_ELODancecard.TryGetValue(teamId, out Dictionary<int, ELODancecard> value))
@@ -77,4 +88,44 @@ public class LobbyGameSummary
 			m_ELODancecard[teamId].Add(playerId, ELODancecard.Create(accountId, isBot, difficulty));
 		}
 	}
+
+#if SERVER
+	// added in rogues
+	public void Deserialize(NetworkReader reader)
+	{
+		GameResult = (GameResult)reader.ReadInt16();
+		GameResultFraction = reader.ReadSingle();
+		TimeText = reader.ReadString();
+		NumOfTurns = reader.ReadInt32();
+		TeamAPoints = reader.ReadInt32();
+		TeamBPoints = reader.ReadInt32();
+		MatchTime = new TimeSpan(reader.ReadInt64());
+		int num = reader.ReadInt32();
+		PlayerGameSummaryList = new List<PlayerGameSummary>(num);
+		for (int i = 0; i < num; i++)
+		{
+			PlayerGameSummary playerGameSummary = new PlayerGameSummary();
+			playerGameSummary.Deserialize(reader);
+			PlayerGameSummaryList.Add(playerGameSummary);
+		}
+	}
+
+	// added in rogues
+	public void Serialize(NetworkWriter writer)
+	{
+		writer.Write((short)GameResult);
+		writer.Write(GameResultFraction);
+		writer.Write(TimeText);
+		writer.Write(NumOfTurns);
+		writer.Write(TeamAPoints);
+		writer.Write(TeamBPoints);
+		writer.Write(MatchTime.Ticks);
+		int count = PlayerGameSummaryList.Count;
+		writer.Write(count);
+		foreach (PlayerGameSummary playerGameSummary in PlayerGameSummaryList)
+		{
+			playerGameSummary.Serialize(writer);
+		}
+	}
+#endif
 }
