@@ -250,12 +250,14 @@ public class PlayerAction_Ability : PlayerAction
 		//{
 		//	SetupForEvadesPostGathering();
 		//}
-		//foreach (AbilityRequest abilityRequest4 in m_requests)
-		//{
-		//	ServerActionBuffer.Get().RunAbilityRequest_FCFS(abilityRequest4);
-		//	// rogues
-		//	//abilityRequest4.m_caster.GetActorTurnSM().MarkPveAbilityFlagAtIndex((int)abilityRequest4.m_actionType);
-		//}
+		foreach (AbilityRequest abilityRequest4 in m_requests)
+		{
+			// reactor
+			ServerActionBuffer.Get().TryRunAbilityRequest(abilityRequest4);
+			// rogues
+			// ServerActionBuffer.Get().RunAbilityRequest_FCFS(abilityRequest4);
+			//abilityRequest4.m_caster.GetActorTurnSM().MarkPveAbilityFlagAtIndex((int)abilityRequest4.m_actionType);
+		}
 		return list;
 	}
 
