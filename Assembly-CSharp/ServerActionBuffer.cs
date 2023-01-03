@@ -1580,6 +1580,9 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				request.m_caster.GetPassiveData().OnBreakInvisibility();
 			}
+			
+			// custom
+			request.m_caster.SetServerLastKnownPosSquare(request.m_caster.CurrentBoardSquare, "RunAbilityRequest");
 		}
 		if (BrushCoordinator.Get() != null)
 		{
