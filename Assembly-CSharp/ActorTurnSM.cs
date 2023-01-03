@@ -1379,6 +1379,8 @@ public class ActorTurnSM : NetworkBehaviour
 			&& msgEnum != (int)TurnMessage.DONE_BUTTON_CLICKED
 			&& msgEnum != (int)TurnMessage.MOVE_BUTTON_CLICKED
 			&& msgEnum != (int)TurnMessage.CANCEL_BUTTON_CLICKED // custom
+			&& msgEnum != (int)TurnMessage.CANCEL_MOVEMENT // custom
+			&& msgEnum != (int)TurnMessage.CANCEL_SINGLE_ABILITY // custom
 			&& msgEnum != (int)TurnMessage.PICK_RESPAWN)
 		{
 			Debug.LogError(string.Format("HACK ATTEMPT: Client sent invalid TurnMessage enum value for CmdGUITurnMessage - {0}", msgEnum));

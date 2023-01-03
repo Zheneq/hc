@@ -362,6 +362,15 @@ public class ServerActorController : MonoBehaviour
 			// }
 
 			ServerActionBuffer.Get().CancelAbilityRequest(actorData, ability, true, false);
+			
+			// custom
+			// TODO hack? Is there a better way to recalculate this flag?
+			if (ability.m_movementAdjustment != Ability.MovementAdjustment.FullMovement)
+			{
+				actorData.QueuedMovementAllowsAbility = true;
+			}
+			// end custom
+			
 			BoardSquare initialMoveStartSquare = actorData.InitialMoveStartSquare;
 			if (actorData.GetServerMoveRequestStartSquare() != initialMoveStartSquare)
 			{
