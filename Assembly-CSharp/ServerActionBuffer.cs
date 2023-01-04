@@ -1977,6 +1977,15 @@ public class ServerActionBuffer : NetworkBehaviour
 						}
 					}
 				}
+				
+				// custom
+				int techPointCost = request.m_ability.GetModdedCost();
+				if (techPointCost > 0)
+				{
+					fromCaster.ReservedTechPoints = Math.Max(0, fromCaster.ReservedTechPoints - techPointCost);
+					fromCaster.SetTechPoints(fromCaster.TechPoints + techPointCost);
+				}
+				// end custom
 			}
 		}
 	}
