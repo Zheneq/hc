@@ -193,7 +193,7 @@ public class TimeBank : NetworkBehaviour
 		{
 			return;
 		}
-		Log.Info($"Timebank {actorData.m_displayName} before resolve: " +
+		Log.Debug($"Timebank {actorData.m_displayName} before resolve: " +
 		         $"m_reserveUsed={m_reserveUsed} " +
 		         $"m_reserveRemaining={m_reserveRemaining} " +
 		         $"m_clientConsumableUsed={m_clientConsumableUsed} " +
@@ -201,11 +201,11 @@ public class TimeBank : NetworkBehaviour
 		if ((m_reserveUsed > m_reserveRemaining || m_clientConsumableUsed)
 		    && m_consumablesRemaining > 0)
 		{
-			Log.Info($"Timebank {actorData.m_displayName} used");
+			Log.Debug($"Timebank {actorData.m_displayName} used");
 			if (m_clientConsumableUsed)
 			{
 				Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
-				Log.Info($"Timebank {actorData.m_displayName} decreased");
+				Log.Debug($"Timebank {actorData.m_displayName} decreased");
 			}
 #if SERVER
 			// added in rogues
@@ -216,11 +216,11 @@ public class TimeBank : NetworkBehaviour
 		float recharge = Mathf.Min(m_reserveRemaining + GameWideData.Get().m_tbRecharge, GameWideData.Get().m_tbRechargeCap);
 		Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining, recharge);
 		Networkm_resolved = true;
-		Log.Info($"Timebank {actorData.m_displayName} after resolve: " +
-		         $"m_reserveUsed={m_reserveUsed} " +
-		         $"m_reserveRemaining={m_reserveRemaining} " +
-		         $"m_clientConsumableUsed={m_clientConsumableUsed} " +
-		         $"m_consumablesRemaining={m_consumablesRemaining}");
+		Log.Debug($"Timebank {actorData.m_displayName} after resolve: " +
+		          $"m_reserveUsed={m_reserveUsed} " +
+		          $"m_reserveRemaining={m_reserveRemaining} " +
+		          $"m_clientConsumableUsed={m_clientConsumableUsed} " +
+		          $"m_consumablesRemaining={m_consumablesRemaining}");
 	}
 
 	private void UNetVersion()

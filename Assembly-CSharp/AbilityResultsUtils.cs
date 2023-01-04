@@ -112,7 +112,7 @@ public static class AbilityResultsUtils
 	{
 		sbyte effectStartNum = effects != null ? (sbyte)effects.Count : (sbyte)0;
 		writer.Write(effectStartNum);
-		Log.Info($"SerializeEffectsToStartToStream:: effectStartNum={effectStartNum}");
+		Log.Debug($"SerializeEffectsToStartToStream:: effectStartNum={effectStartNum}");
 		for (int i = 0; i < effectStartNum; i++)
 		{
 			int position = writer.Position;
@@ -126,22 +126,22 @@ public static class AbilityResultsUtils
 			//	text = effect2.EffectTemplate.ShortGUID();
 			//}
 			writer.WritePackedUInt32(effectGUID);
-			Log.Info($"SerializeEffectsToStartToStream:: effectGUID={effectGUID}");
+			Log.Debug($"SerializeEffectsToStartToStream:: effectGUID={effectGUID}");
 			//writer.Write(text);
 			List<ServerClientUtils.SequenceStartData> effectStartSeqDataList = effect.GetEffectStartSeqDataList();
 			sbyte seqStartNum = (sbyte)effectStartSeqDataList.Count;
 			writer.Write(seqStartNum);
-			Log.Info($"SerializeEffectsToStartToStream:: seqStartNum={seqStartNum}");
+			Log.Debug($"SerializeEffectsToStartToStream:: seqStartNum={seqStartNum}");
 			for (int j = 0; j < seqStartNum; j++)
 			{
 				effectStartSeqDataList[j].SequenceStartData_SerializeToStream(writer);
-				Log.Info($"SerializeEffectsToStartToStream:: SequenceStartData_SerializeToStream");
+				Log.Debug($"SerializeEffectsToStartToStream:: SequenceStartData_SerializeToStream");
 			}
 			writer.Write((sbyte)effect.CasterActorIndex);
-			Log.Info($"SerializeEffectsToStartToStream:: CasterActorIndex={effect.CasterActorIndex}");
+			Log.Debug($"SerializeEffectsToStartToStream:: CasterActorIndex={effect.CasterActorIndex}");
 			sbyte targetActorIndex = (sbyte)(effect.Target != null ? effect.Target.ActorIndex : ActorData.s_invalidActorIndex);
 			writer.Write(targetActorIndex);
-			Log.Info($"SerializeEffectsToStartToStream:: targetActorIndex={targetActorIndex}");
+			Log.Debug($"SerializeEffectsToStartToStream:: targetActorIndex={targetActorIndex}");
 			if (targetActorIndex != ActorData.s_invalidActorIndex)
 			{
 				List<StatusType> statuses = effect.GetStatuses();
@@ -163,11 +163,11 @@ public static class AbilityResultsUtils
 					statusNum = 0;
 				}
 				writer.Write(statusNum);
-				Log.Info($"SerializeEffectsToStartToStream:: statusNum={statusNum}");
+				Log.Debug($"SerializeEffectsToStartToStream:: statusNum={statusNum}");
 				for (int j = 0; j < statusNum; j++)
 				{
 					writer.Write((byte)statuses[j]);
-					Log.Info($"SerializeEffectsToStartToStream:: status={statuses[j]} ({(byte)statuses[j]})");
+					Log.Debug($"SerializeEffectsToStartToStream:: status={statuses[j]} ({(byte)statuses[j]})");
 				}
 			}
 			if (targetActorIndex != ActorData.s_invalidActorIndex)
@@ -190,11 +190,11 @@ public static class AbilityResultsUtils
 					statusOnTurnStartNum = 0;
 				}
 				writer.Write(statusOnTurnStartNum);
-				Log.Info($"SerializeEffectsToStartToStream:: statusOnTurnStartNum={statusOnTurnStartNum}");
+				Log.Debug($"SerializeEffectsToStartToStream:: statusOnTurnStartNum={statusOnTurnStartNum}");
 				for (int j = 0; j < statusOnTurnStartNum; j++)
 				{
 					writer.Write((byte)statusesOnTurnStart[j]);
-					Log.Info($"SerializeEffectsToStartToStream:: statusOnTurnStart={statusesOnTurnStart[j]} ({(byte)statusesOnTurnStart[j]})");
+					Log.Debug($"SerializeEffectsToStartToStream:: statusOnTurnStart={statusesOnTurnStart[j]} ({(byte)statusesOnTurnStart[j]})");
 				}
 			}
 			short expectedHoT = 0;
@@ -209,16 +209,16 @@ public static class AbilityResultsUtils
 			bool hasExpectedHoT = expectedHoT > 0;
 			byte bitField = ServerClientUtils.CreateBitfieldFromBools(isBuff, isDebuff, hasMovementDebuff, hasAbsorb, hasExpectedHoT, false, false, false);
 			writer.Write(bitField);
-			Log.Info($"SerializeEffectsToStartToStream:: bitField={bitField}");
+			Log.Debug($"SerializeEffectsToStartToStream:: bitField={bitField}");
 			if (hasAbsorb)
 			{
 				writer.Write((short)effect.Absorbtion.m_absorbAmount);
-				Log.Info($"SerializeEffectsToStartToStream:: m_absorbAmount={effect.Absorbtion.m_absorbAmount}");
+				Log.Debug($"SerializeEffectsToStartToStream:: m_absorbAmount={effect.Absorbtion.m_absorbAmount}");
 			}
 			if (hasExpectedHoT)
 			{
 				writer.Write(expectedHoT);
-				Log.Info($"SerializeEffectsToStartToStream:: expectedHoT={expectedHoT}");
+				Log.Debug($"SerializeEffectsToStartToStream:: expectedHoT={expectedHoT}");
 			}
 			// rogues
 			//if (effect != null && effect.Parent != null && effect.Parent.Ability != null)

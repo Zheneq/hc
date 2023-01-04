@@ -1632,15 +1632,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		
 		foreach (ActorData actorData in GetActors())
 		{
-			Log.Info($"UpdateTimeRemainingOverflow {actorData.m_displayName} " +
-			         $"{actorData.GetTimeBank().GetPermittedOverflowTime()} " +
-			         $"{actorData.GetActorTurnSM()?.CurrentState}");
+			Log.Debug($"UpdateTimeRemainingOverflow {actorData.m_displayName} " +
+			          $"{actorData.GetTimeBank().GetPermittedOverflowTime()} " +
+			          $"{actorData.GetActorTurnSM()?.CurrentState}");
 			if (actorData != null
 			    && actorData.IsHumanControlled()
 			    && actorData.GetActorTurnSM()?.CurrentState != TurnStateEnum.CONFIRMED)
 			{
 				overflow = Mathf.Max(overflow, actorData.GetTimeBank().GetPermittedOverflowTime());
-				Log.Info($"UpdateTimeRemainingOverflow Waiting for {actorData.m_displayName} ");
+				Log.Debug($"UpdateTimeRemainingOverflow Waiting for {actorData.m_displayName} ");
 			}
 		}
 		Networkm_timeRemainingInDecisionOverflow = overflow;
