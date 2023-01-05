@@ -5181,7 +5181,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		// custom
 		BoardSquare prevLastKnownSquare = ServerLastKnownPosSquare;
 		ServerLastKnownPosSquare = GetSquareAtPhaseStart();
-		if (ServerLastKnownPosSquare != null && prevLastKnownSquare != ServerLastKnownPosSquare)
+		if (ServerLastKnownPosSquare != null)
 		{
 			TeamSensitiveData_hostile.BroadcastMovement(
 				GameEventManager.EventType.ClientResolutionStarted,
