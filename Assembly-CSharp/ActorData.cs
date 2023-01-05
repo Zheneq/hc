@@ -529,6 +529,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					value ? value.ToString() : "null"
 				}));
 			}
+			
+			// custom
+#if SERVER
+			Log.Info($"ServerLastKnownPosSquare {DisplayName} " +
+			         $"{m_serverLastKnownPosSquare?.GetGridPos().ToString() ?? "null"} -> {value?.GetGridPos().ToString() ?? "null"}");
+#endif
+			// end custom
+			
 			m_serverLastKnownPosSquare = value;
 		}
 	}

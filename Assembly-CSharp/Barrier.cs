@@ -587,11 +587,12 @@ public class Barrier
 			{
 				actorData3.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 			}
-			foreach (ActorData actorData4 in GameFlowData.Get().GetActors())
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
 			{
-				if (actorData4.IsActorVisibleToAnyEnemy())
+				if (actorData.IsActorVisibleToAnyEnemy())
 				{
-					actorData4.SynchronizeTeamSensitiveData();
+					Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData} for being visible to an enemy after a barrier update"); // custom
+					actorData.SynchronizeTeamSensitiveData();
 				}
 			}
 		}

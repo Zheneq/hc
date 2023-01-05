@@ -1018,11 +1018,12 @@ public class ActorHitResults
 				{
 					actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 				}
-				foreach (ActorData actorData2 in GameFlowData.Get().GetActors())
+				foreach (ActorData actorData in GameFlowData.Get().GetActors())
 				{
-					if (actorData2.IsActorVisibleToAnyEnemy())
+					if (actorData.IsActorVisibleToAnyEnemy())
 					{
-						actorData2.SynchronizeTeamSensitiveData();
+						Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData} for being visible to an enemy during actor hit result execution"); // custom
+						actorData.SynchronizeTeamSensitiveData();
 					}
 				}
 			}

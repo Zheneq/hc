@@ -209,18 +209,20 @@ public class ServerActionBuffer : NetworkBehaviour
 			Log.Error("Calling SynchronizePositionActorsParticipatingInPhase for the 'INVALID' phase.");
 			return;
 		}
+		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} BEGIN"); // custom
 		foreach (AbilityRequest abilityRequest in ServerActionBuffer.Get().GetAllStoredAbilityRequests())
 		{
 			if (abilityRequest.m_ability.RunPriority == phase)
 			{
 				if (abilityRequest.m_caster != null)
 				{
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName} for using ability {abilityRequest.m_ability.m_abilityName}"); // custom
 					abilityRequest.m_caster.SynchronizeTeamSensitiveData();
 				}
-				ActorData[] array = abilityRequest.m_additionalData.m_abilityResults.HitActorsArray();
-				for (int i = 0; i < array.Length; i++)
+				foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
 				{
-					array[i].SynchronizeTeamSensitiveData();
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
+					hitActor.SynchronizeTeamSensitiveData();
 				}
 			}
 		}
@@ -232,44 +234,49 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					if (effect.Caster != null)
 					{
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using effect {effect.m_effectName}"); // custom
 						effect.Caster.SynchronizeTeamSensitiveData();
 					}
 					if (effect.Target != null)
 					{
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} for being the target of {effect.Caster.DisplayName}'s effect {effect.m_effectName}"); // custom
 						effect.Target.SynchronizeTeamSensitiveData();
 					}
-					ActorData[] array2 = effect.GetResultsForPhase(phase, true).HitActorsArray();
-					for (int j = 0; j < array2.Length; j++)
+					foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 					{
-						array2[j].SynchronizeTeamSensitiveData();
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s effect {effect.m_effectName}"); // custom
+						hitActor.SynchronizeTeamSensitiveData();
 					}
 				}
 			}
 		}
-		foreach (Effect effect2 in ServerEffectManager.Get().GetWorldEffects())
+		foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
 		{
-			if (effect2.HasResolutionAction(phase))
+			if (effect.HasResolutionAction(phase))
 			{
-				if (effect2.Caster != null)
+				if (effect.Caster != null)
 				{
-					effect2.Caster.SynchronizeTeamSensitiveData();
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using world effect {effect.m_effectName}"); // custom
+					effect.Caster.SynchronizeTeamSensitiveData();
 				}
-				ActorData[] array3 = effect2.GetResultsForPhase(phase, true).HitActorsArray();
-				for (int k = 0; k < array3.Length; k++)
+				foreach (var hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 				{
-					array3[k].SynchronizeTeamSensitiveData();
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s world effect {effect.m_effectName}"); // custom
+					hitActor.SynchronizeTeamSensitiveData();
 				}
 			}
 		}
+		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} END"); // custom
 	}
 
 	public void SynchronizePositionsOfActorsThatWillBeSeen(List<ActorData> actorsThatWillBeSeenButArentMoving)
 	{
 		if (actorsThatWillBeSeenButArentMoving != null)
 		{
-			for (int i = 0; i < actorsThatWillBeSeenButArentMoving.Count; i++)
+			foreach (ActorData actor in actorsThatWillBeSeenButArentMoving)
 			{
-				actorsThatWillBeSeenButArentMoving[i].SynchronizeTeamSensitiveData();
+				Log.Info($"Requesting SynchronizeTeamSensitiveData for {actor.DisplayName} that is not moving but will be seen"); // custom
+				actor.SynchronizeTeamSensitiveData();
 			}
 		}
 	}
