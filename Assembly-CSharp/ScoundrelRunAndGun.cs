@@ -283,6 +283,7 @@ public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 			caster,
 			caster.GetOtherTeams(),
 			nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actors);
 		int damage = ModdedDamageAmount();
 		foreach (ActorData hitActor in actors)
 		{
