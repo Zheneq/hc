@@ -221,7 +221,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				}
 				foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
 					hitActor.SynchronizeTeamSensitiveData();
 				}
 			}
@@ -239,12 +239,12 @@ public class ServerActionBuffer : NetworkBehaviour
 					}
 					if (effect.Target != null)
 					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} for being the target of {effect.Caster.DisplayName}'s effect {effect.m_effectName}"); // custom
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
 						effect.Target.SynchronizeTeamSensitiveData();
 					}
 					foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s effect {effect.m_effectName}"); // custom
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
 						hitActor.SynchronizeTeamSensitiveData();
 					}
 				}
@@ -261,7 +261,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				}
 				foreach (var hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s world effect {effect.m_effectName}"); // custom
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}"); // custom
 					hitActor.SynchronizeTeamSensitiveData();
 				}
 			}

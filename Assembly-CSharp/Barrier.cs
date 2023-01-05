@@ -591,7 +591,7 @@ public class Barrier
 			{
 				if (actorData.IsActorVisibleToAnyEnemy())
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData} for being visible to an enemy after a barrier update"); // custom
+					Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData.DisplayName} for being visible to an enemy after a barrier update"); // custom
 					actorData.SynchronizeTeamSensitiveData();
 				}
 			}

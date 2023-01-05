@@ -439,7 +439,7 @@ public class ActorStatus : NetworkBehaviour
 					FogOfWar.ImmediateUpdateVisibilityForTeam(actorData.GetEnemyTeam());
 					if (actorData.IsActorVisibleToAnyEnemy())
 					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData} for being visible to an enemy after a status update {status}"); // custom
+						Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData.DisplayName} for being visible to an enemy after a status update {status}"); // custom
 						actorData.SynchronizeTeamSensitiveData();
 					}
 				}
@@ -484,7 +484,7 @@ public class ActorStatus : NetworkBehaviour
 				// server-only
 				if (NetworkServer.active && statusGained && actorData.IsActorVisibleToAnyEnemy())
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData} for being visible to an enemy after a status update {status}"); // custom
+					Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData.DisplayName} for being visible to an enemy after a status update {status}"); // custom
 					actorData.SynchronizeTeamSensitiveData();
 				}
 #endif

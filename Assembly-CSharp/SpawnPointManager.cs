@@ -562,7 +562,7 @@ public class SpawnPointManager : MonoBehaviour
 								ActorData actorData3 = enumerator.Current;
 								if (actorData3.IsActorVisibleToAnyEnemy())
 								{
-									Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData3} for being visible to an enemy during respawn"); // custom
+									Log.Info($"Requesting SynchronizeTeamSensitiveData for {actorData3.DisplayName} for being visible to an enemy during respawn"); // custom
 									actorData3.SynchronizeTeamSensitiveData();
 								}
 							}
