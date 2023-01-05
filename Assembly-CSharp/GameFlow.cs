@@ -644,6 +644,7 @@ public class GameFlow : NetworkBehaviour
 				var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
 				turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
 			}
+			ServerCombatManager.Get().ResolveHitPoints();
 			List<MovementRequest> movementRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing());
 			Log.Info($"Running {movementRequests.Count} non-chase movement requests");
 			new PlayerAction_Movement(movementRequests, false).ExecuteAction();
