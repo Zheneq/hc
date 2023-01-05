@@ -2513,6 +2513,13 @@ public class Ability : MonoBehaviour
 		additionalData.m_abilityResults.StoreAbilityRunSequenceStartData(list);
 		additionalData.m_abilityResults.FinalizeAbilityResults();
 		additionalData.m_abilityResults.GatheredResults = true;
+		
+		// custom
+		AbilityResults res = additionalData.m_abilityResults;
+		Log.Info($"ABILITY RESULTS: {res.Caster} with {res.Ability.GetDebugIdentifier()}\n" +
+		         $"ACTOR HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_actorToHitResults)}\n" +
+		         $"POSITION HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_positionToHitResults)}");
+		
 		return additionalData.m_abilityResults.DamageResults;
 	}
 #endif

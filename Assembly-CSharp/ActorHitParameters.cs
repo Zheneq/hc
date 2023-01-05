@@ -1,6 +1,8 @@
 ﻿// ROGUES
 // SERVER
 //using EffectSystem;
+
+using Newtonsoft.Json;
 using UnityEngine;
 
 // server-only
@@ -35,6 +37,7 @@ public class ActorHitParameters
 
 	public ActorData Caster { get; set; }
 
+	[JsonIgnore]
 	public AbilityResults AbilityResults { get; set; }
 
 	public Ability Ability
