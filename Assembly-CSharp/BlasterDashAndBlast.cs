@@ -598,28 +598,26 @@ public class BlasterDashAndBlast : Ability
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		float angleNow;
-		float radiusInSquares;
-		List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo, out angleNow, out radiusInSquares);
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out float angleNow, out float radiusInSquares);
 		Vector3 loSCheckPos = caster.GetLoSCheckPos();
-		foreach (ActorData target in list)
+		foreach (ActorData target in hitActors)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, loSCheckPos));
-			int num = 0;
+			int bonusDamage = 0;
 			if (m_primaryAbility != null)
 			{
-				num = m_primaryAbility.GetExtraDamageFromAngle(angleNow) + m_primaryAbility.GetExtraDamageFromRadius(radiusInSquares);
+				bonusDamage = m_primaryAbility.GetExtraDamageFromAngle(angleNow) + m_primaryAbility.GetExtraDamageFromRadius(radiusInSquares);
 			}
-			int num2 = GetCurrentModdedDamage() + num;
-			if (list.Count == 1)
+			int damage = GetCurrentModdedDamage() + bonusDamage;
+			if (hitActors.Count == 1)
 			{
-				num2 += GetExtraDamageForSingleHit();
+				damage += GetExtraDamageForSingleHit();
 				if (UseConeParamFromPrimary())
 				{
 					actorHitResults.AddStandardEffectInfo(m_primaryAbility.GetSingleEnemyHitEffect());
 				}
 			}
-			actorHitResults.SetBaseDamage(num2);
+			actorHitResults.SetBaseDamage(damage);
 			if (AmOvercharged(caster))
 			{
 				actorHitResults.AddStandardEffectInfo(GetEnemyEffectOvercharged());
@@ -667,7 +665,12 @@ public class BlasterDashAndBlast : Ability
 	}
 
 	// added in rogues
-	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, out float angleNow, out float radiusInSquares)
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out float angleNow,
+		out float radiusInSquares)
 	{
 		if (targets.Count < 2)
 		{
@@ -677,24 +680,35 @@ public class BlasterDashAndBlast : Ability
 		}
 		AbilityTarget abilityTarget = targets[targets.Count - 1];
 		AbilityTarget abilityTarget2 = targets[targets.Count - 2];
-		BoardSquare square = Board.Get().GetSquare(abilityTarget2.GridPos);
+		BoardSquare targetSquare = Board.Get().GetSquare(abilityTarget2.GridPos);
 		Vector3 freePos = abilityTarget.FreePos;
-		Vector3 occupantLoSPos = square.GetOccupantLoSPos();
-		Vector3 vec = freePos - occupantLoSPos;
-		vec.y = 0f;
-		vec.Normalize();
-		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
-		float minLength = GetMinLength();
-		float maxLength = GetMaxLength();
-		float minAngle = GetMinAngle();
-		float maxAngle = GetMaxAngle();
-		float num;
-		float num2;
-		AreaEffectUtils.GatherStretchConeDimensions(freePos, occupantLoSPos, minLength, maxLength, minAngle, maxAngle, m_stretchStyle, out num, out num2);
-		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(occupantLoSPos, coneCenterAngleDegrees, num2, num, GetConeBackwardOffset(), PenetrateLineOfSight(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		Vector3 occupantLoSPos = targetSquare.GetOccupantLoSPos();
+		Vector3 dir = freePos - occupantLoSPos;
+		dir.y = 0f;
+		dir.Normalize();
+		AreaEffectUtils.GatherStretchConeDimensions(
+			freePos,
+			occupantLoSPos,
+			GetMinLength(),
+			GetMaxLength(),
+			GetMinAngle(),
+			GetMaxAngle(),
+			m_stretchStyle,
+			out float lengthInSquares,
+			out float angleInDegrees);
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			occupantLoSPos,
+			VectorUtils.HorizontalAngle_Deg(dir),
+			angleInDegrees,
+			lengthInSquares,
+			GetConeBackwardOffset(),
+			PenetrateLineOfSight(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInCone);
-		angleNow = num2;
-		radiusInSquares = num;
+		angleNow = angleInDegrees;
+		radiusInSquares = lengthInSquares;
 		return actorsInCone;
 	}
 
