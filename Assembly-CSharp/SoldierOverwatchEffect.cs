@@ -208,7 +208,11 @@ public class SoldierOverwatchEffect : Effect
 		base.OnActorAnimEntryPlay();
 		if (BrushCoordinator.Get() != null && Caster != null && Caster.IsInBrush())
 		{
-			BrushCoordinator.Get().DisruptBrush(Caster.GetBrushRegion());
+			int brushRegion = Caster.GetBrushRegion();
+			BrushCoordinator.Get().DisruptBrush(brushRegion);
+		
+			// custom
+			Log.Info($"Brush {brushRegion} disrupted because {Caster.DisplayName} {Caster.GetTravelBoardSquare().GetGridPos()} used OverwatchEffect");
 		}
 	}
 

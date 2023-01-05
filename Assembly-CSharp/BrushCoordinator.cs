@@ -323,15 +323,15 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		if (GameFlowData.Get() != null)
 		{
 			int currentTurn = GameFlowData.Get().CurrentTurn;
-			for (int i = 0; i < this.m_regionsLastDisruptionTurn.Count; i++)
+			for (int i = 0; i < m_regionsLastDisruptionTurn.Count; i++)
 			{
-				int num = this.m_regionsLastDisruptionTurn[i];
+				int num = m_regionsLastDisruptionTurn[i];
 				if (num > 0 && currentTurn - num + 1 == GameplayData.Get().m_brushDisruptionTurns)
 				{
-					this.m_regionsLastDisruptionTurn[i] = -1;
+					m_regionsLastDisruptionTurn[i] = -1;
 				}
 			}
-			this.CallRpcUpdateClientFog();
+			CallRpcUpdateClientFog();
 		}
 	}
 #endif
@@ -340,20 +340,27 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 #if SERVER
 	public void OnDamaged_HandleConcealment(ActorData target, ActorData caster, DamageSource src, int appliedDamage, ServerCombatManager.DamageType damageType)
 	{
-		bool flag = damageType == ServerCombatManager.DamageType.Ability || (damageType == ServerCombatManager.DamageType.Effect && AbilityUtils.AbilityHasTag(src.Ability, AbilityTags.EffectDmgDisruptsCasterBrush));
-		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
-		if (squareAtPhaseStart != null && flag)
+		bool shouldDisruptCasterBrush = damageType == ServerCombatManager.DamageType.Ability
+		            || (damageType == ServerCombatManager.DamageType.Effect && AbilityUtils.AbilityHasTag(src.Ability, AbilityTags.EffectDmgDisruptsCasterBrush));
+		BoardSquare casterSquare = caster.GetSquareAtPhaseStart();
+		if (casterSquare != null && shouldDisruptCasterBrush)
 		{
-			int brushRegion = squareAtPhaseStart.BrushRegion;
-			if (brushRegion >= 0 && this.IsRegionFunctioning(brushRegion))
+			int brushRegion = casterSquare.BrushRegion;
+			if (brushRegion >= 0 && IsRegionFunctioning(brushRegion))
 			{
-				this.DisruptBrush(brushRegion);
+				DisruptBrush(brushRegion);
+		
+				// custom
+				Log.Info($"Brush {brushRegion} disrupted because {caster.DisplayName} {casterSquare.GetGridPos()} dealt {appliedDamage} {damageType} damage to {target.DisplayName}");
 			}
 		}
 		if (target.IsInBrush())
 		{
-			int brushRegion2 = target.GetBrushRegion();
-			this.DisruptBrush(brushRegion2);
+			int brushRegion = target.GetBrushRegion();
+			DisruptBrush(brushRegion);
+		
+			// custom
+			Log.Info($"Brush {brushRegion} disrupted because {target.DisplayName} {target.GetTravelBoardSquare().GetGridPos()} took {appliedDamage} {damageType} damage from {caster.DisplayName}");
 		}
 	}
 #endif
@@ -367,7 +374,10 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		if (target != null && target.GetTeam() != caster.GetTeam() && target.IsInBrush())
 		{
 			int brushRegion = target.GetBrushRegion();
-			this.DisruptBrush(brushRegion);
+			DisruptBrush(brushRegion);
+		
+			// custom
+			Log.Info($"Brush {brushRegion} disrupted because {target.DisplayName} {target.GetTravelBoardSquare().GetGridPos()} received {caster.DisplayName}'s effect {effect.GetDisplayString()}");
 		}
 	}
 #endif
@@ -381,16 +391,22 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			if (caster.IsInBrush())
 			{
 				int brushRegion = caster.GetBrushRegion();
-				this.DisruptBrush(brushRegion);
+				DisruptBrush(brushRegion);
+		
+				// custom
+				Log.Info($"Brush {brushRegion} disrupted because {caster.DisplayName} {caster.GetTravelBoardSquare().GetGridPos()} casted {ability.m_abilityName}");
 			}
 			if (ability != null)
 			{
 				List<int> additionalBrushRegionsToDisrupt = ability.GetAdditionalBrushRegionsToDisrupt(caster, targets);
 				if (additionalBrushRegionsToDisrupt != null)
 				{
-					for (int i = 0; i < additionalBrushRegionsToDisrupt.Count; i++)
+					foreach (int brushRegion in additionalBrushRegionsToDisrupt)
 					{
-						this.DisruptBrush(additionalBrushRegionsToDisrupt[i]);
+						DisruptBrush(brushRegion);
+		
+						// custom
+						Log.Info($"Brush {brushRegion} additionally disrupted because {caster.DisplayName} casted {ability.m_abilityName}");
 					}
 				}
 			}
@@ -408,16 +424,12 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 			Debug.LogWarning("[Server] function 'System.Void BrushCoordinator::DisruptBrush(System.Int32)' called on client");
 			return;
 		}
-		if (regionIndex >= 0 && regionIndex < this.m_regions.Length)
+		if (regionIndex >= 0 && regionIndex < m_regions.Length)
 		{
-			bool flag = false;
-			if (this.IsRegionFunctioning(regionIndex))
+			bool flag = IsRegionFunctioning(regionIndex);
+			if (m_regionsLastDisruptionTurn[regionIndex] != GameFlowData.Get().CurrentTurn)
 			{
-				flag = true;
-			}
-			if (this.m_regionsLastDisruptionTurn[regionIndex] != GameFlowData.Get().CurrentTurn)
-			{
-				this.m_regionsLastDisruptionTurn[regionIndex] = GameFlowData.Get().CurrentTurn;
+				m_regionsLastDisruptionTurn[regionIndex] = GameFlowData.Get().CurrentTurn;
 			}
 			if (flag)
 			{
@@ -427,7 +439,10 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					if (actorData != null && actorData.GetBrushRegion() == regionIndex)
 					{
 						actorData.CallRpcMarkForRecalculateClientVisibility();
-						if (!actorData.IsDead() && actorData.GetCurrentBoardSquare() != null && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare() && actorData.IsActorVisibleToAnyEnemy())
+						if (!actorData.IsDead()
+						    && actorData.GetCurrentBoardSquare() != null
+						    && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare()
+						    && actorData.IsActorVisibleToAnyEnemy())
 						{
 							actorData.SetServerLastKnownPosSquare(actorData.CurrentBoardSquare, "DisruptBrush");
 						}
