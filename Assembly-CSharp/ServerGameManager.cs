@@ -21,9 +21,6 @@ using Random = UnityEngine.Random;
 public class ServerGameManager : MonoBehaviour
 {
 #if SERVER
-	// artemis
-	public static int s_port = 6061;
-
 	private static ServerGameManager s_instance;
 	public static readonly string FirewallRuleName = "Atlas Reactor Game Server"; //  "Atlas Rogues Co-Op Game Server" in rogues
 
@@ -290,11 +287,11 @@ public class ServerGameManager : MonoBehaviour
 		NetworkManager.singleton.networkAddress = "0.0.0.0";
 
 		// artemis
-		ListenPort = s_port;
+		ListenPort = HydrogenConfig.Get().PublicPort;
 		Log.Info("Starting Server...");
 		UIFrontendLoadingScreen.Get().StartDisplayError("Starting Server...");
 		NetworkManager.singleton.useWebSockets = true;
-		NetworkManager.singleton.networkPort = s_port;
+		NetworkManager.singleton.networkPort = HydrogenConfig.Get().PublicPort;
 		NetworkManager.singleton.StartServer();
 		// new networking lib
 		//TelepathyTransport telepathyTransport = Transport.activeTransport as TelepathyTransport;

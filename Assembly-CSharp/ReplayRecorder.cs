@@ -73,7 +73,7 @@ public class ReplayRecorder
         MyNetworkManager.Get().m_OnClientConnect += HandleConnected;
         m_client.RegisterHandler((short)MyMsgType.LoginResponse, HandleLoginResponse);
         NetworkManager.singleton.networkAddress = "127.0.0.1";
-        m_client.Connect("127.0.0.1", ServerGameManager.s_port);
+        m_client.Connect("127.0.0.1", HydrogenConfig.Get().PublicPort);
     }
 
     private void HandleConnected(NetworkConnection conn)

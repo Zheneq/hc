@@ -127,6 +127,7 @@ public class HydrogenConfig : JsonConfig
 	// TODO LOW use CommonServerConfig? It is not loaded now
 	// custom
 	public string PublicAddress = "127.0.0.1";
+	public int PublicPort = 6061;
 	// end custom
 
 	public HydrogenConfig()

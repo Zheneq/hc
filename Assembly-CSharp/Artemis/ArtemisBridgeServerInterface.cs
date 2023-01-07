@@ -86,7 +86,7 @@ namespace ArtemisServer.BridgeServer
             
             // custom
             Log.Info($"ArtemisBridgeServerInterface initialized for {processType} {lobbyServerAddress} - {processCode}");
-            m_sessionInfo.ConnectionAddress = HydrogenConfig.Get().PublicAddress + ":" + ServerGameManager.s_port;
+            m_sessionInfo.ConnectionAddress = HydrogenConfig.Get().PublicAddress + ":" + HydrogenConfig.Get().PublicPort;
         }
 
         protected override void OnConnecting()
