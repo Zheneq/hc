@@ -624,7 +624,7 @@ public class GameFlow : NetworkBehaviour
 						//TheatricsManager.Get().InitPhaseClient_FCFS(currentPhase);
 
 						ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
-						// ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
+						ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 						break;
 					}
 					else

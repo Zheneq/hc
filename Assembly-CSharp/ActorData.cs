@@ -5179,19 +5179,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public void SynchronizeTeamSensitiveData()
 	{
 		// custom
-		BoardSquare prevLastKnownSquare = ServerLastKnownPosSquare;
-		ServerLastKnownPosSquare = GetSquareAtPhaseStart();
-		if (ServerLastKnownPosSquare != null && prevLastKnownSquare != ServerLastKnownPosSquare)
-		{
-			TeamSensitiveData_hostile.BroadcastMovement(
-				GameEventManager.EventType.ClientResolutionStarted,
-				ServerLastKnownPosSquare.GetGridPos(),
-				ServerLastKnownPosSquare,
-				MovementType.None,
-				TeleportType.Reappear,
-				null);
-		}
-		Log.Info($"SynchronizeTeamSensitiveData {DisplayName} {prevLastKnownSquare?.GetGridPos().ToString() ?? "null"} -> {ServerLastKnownPosSquare?.GetGridPos().ToString() ?? "null"}");
+		TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
 	}
 #endif
 
@@ -7233,6 +7221,20 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		        || ServerLastKnownPosSquare.y != square.y))
 		{
 			ServerLastKnownPosSquare = square;
+			
+			// TODO LOW It doesn't look like this is how it was handled in the original server,
+			//  but otherwise position is updated on the client too late
+			//  (e.g. player gets hit, plays damage animation while standing on wrong square, and then teleports)
+			if (ServerLastKnownPosSquare != null)
+			{
+				TeamSensitiveData_hostile.BroadcastMovement(
+					GameEventManager.EventType.ClientResolutionStarted,
+					ServerLastKnownPosSquare.GetGridPos(),
+					ServerLastKnownPosSquare,
+					MovementType.None,
+					TeleportType.Reappear,
+					null);
+			}
 		}
 
 		// TODO LOW check m_serverLastKnownPosX/Y
