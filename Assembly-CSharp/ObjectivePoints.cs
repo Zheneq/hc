@@ -335,9 +335,6 @@ public class ObjectivePoints : NetworkBehaviour
             return;
         }
 		
-        // custom
-        CheckForEndOfGame();
-		
         // rogues?
         foreach (PointsForCharacter pointsForCharacter in m_passivePointsForTeamWithCharacter)
         {
@@ -404,6 +401,9 @@ public class ObjectivePoints : NetworkBehaviour
 		        AdjustPoints(teamBAdjustAmount, Team.TeamB);
 	        }
         }
+		
+        // custom
+        CheckForEndOfGame();
     }
 #endif
 
@@ -811,10 +811,8 @@ public class ObjectivePoints : NetworkBehaviour
 					team = teamToAdjust
 				});
 
-			// added in rogues
-#if SERVER
-			CheckForEndOfGame();
-#endif
+			// rogues -- needs to happen on end of turn only in reactor
+			// CheckForEndOfGame();
 		}
 	}
 
