@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Newtonsoft.Json;
+using UnityEngine;
 using WebSocketSharp;
 
 namespace ArtemisServer.BridgeServer
@@ -133,11 +134,19 @@ namespace ArtemisServer.BridgeServer
             //         ErrorMessage = "connection failure"
             //     });
             // }
+            
+            // custom
+            Log.Info("Shutting down");
+            Application.Quit();
         }
         
         protected override void OnError(ErrorEventArgs e)
         {
             UIFrontendLoadingScreen.Get().StartDisplayError("network error", e.Message);
+
+            // custom
+            Log.Info("Shutting down");
+            Application.Quit();
         }
 
         public void Update()

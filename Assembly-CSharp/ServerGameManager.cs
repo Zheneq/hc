@@ -1850,6 +1850,10 @@ public class ServerGameManager : MonoBehaviour
 	{
 		Log.Info("Received shutdown game request");
 		GameManager.Get().StopGame();
+		
+		// custom
+		Log.Info("Shutting down");
+		Application.Quit();
 	}
 
 	public bool IsServer()
