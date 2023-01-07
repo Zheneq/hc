@@ -1,7 +1,6 @@
-using LobbyGameClientMessages;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading;
+using LobbyGameClientMessages;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -11,11 +10,8 @@ public class GameManager : MonoBehaviour
 	public class LoginRequest : MessageBase
 	{
 		public string AccountId;
-
 		public string SessionToken;
-
 		public int PlayerId;
-
 		public uint LastReceivedMsgSeqNum;
 
 		public override void Serialize(NetworkWriter writer)
@@ -38,11 +34,8 @@ public class GameManager : MonoBehaviour
 	public class LoginResponse : MessageBase
 	{
 		public bool Success;
-
 		public bool Reconnecting;
-
 		public string ErrorMessage;
-
 		public uint LastReceivedMsgSeqNum;
 
 		public override void Serialize(NetworkWriter writer)
@@ -65,9 +58,7 @@ public class GameManager : MonoBehaviour
 	public class ReplayManagerFile : MessageBase
 	{
 		public string Fragment;
-
 		public bool Restart;
-
 		public bool Save;
 
 		public override void Serialize(NetworkWriter writer)
@@ -88,7 +79,6 @@ public class GameManager : MonoBehaviour
 	public class AssetsLoadedNotification : MessageBase
 	{
 		public long AccountId;
-
 		public int PlayerId;
 
 		public override void Serialize(NetworkWriter writer)
@@ -107,7 +97,6 @@ public class GameManager : MonoBehaviour
 	public class PlayerObjectStartedOnClientNotification : MessageBase
 	{
 		public long AccountId;
-
 		public int PlayerId;
 
 		public override void Serialize(NetworkWriter writer)
@@ -126,17 +115,11 @@ public class GameManager : MonoBehaviour
 	public class AssetsLoadingProgress : MessageBase
 	{
 		public long AccountId;
-
 		public int PlayerId;
-
 		public byte TotalLoadingProgress;
-
 		public byte LevelLoadingProgress;
-
 		public byte CharacterLoadingProgress;
-
 		public byte VfxLoadingProgress;
-
 		public byte SpawningProgress;
 
 		public override void Serialize(NetworkWriter writer)
@@ -165,7 +148,6 @@ public class GameManager : MonoBehaviour
 	public class SpawningObjectsNotification : MessageBase
 	{
 		public int PlayerId;
-
 		public int SpawnableObjectCount;
 
 		public override void Serialize(NetworkWriter writer)
@@ -184,9 +166,7 @@ public class GameManager : MonoBehaviour
 	public class LeaveGameNotification : MessageBase
 	{
 		public int PlayerId;
-
 		public bool IsPermanent;
-
 		public GameResult GameResult;
 
 		public override void Serialize(NetworkWriter writer)
@@ -256,7 +236,6 @@ public class GameManager : MonoBehaviour
 	public class FakeActionResponse : MessageBase
 	{
 		public int msgSize;
-
 		public byte[] msgData;
 
 		public override void Serialize(NetworkWriter writer)
@@ -272,359 +251,46 @@ public class GameManager : MonoBehaviour
 	}
 
 	private static GameManager s_instance;
-
+	
 	private bool s_quitting;
-
 	private GameStatus m_gameStatus;
-
 	private LobbyGameplayOverrides m_gameplayOverrides;
-
 	private LobbyGameplayOverrides m_gameplayOverridesForCurrentGame;
 
 	public Dictionary<int, ForbiddenDevKnowledge> ForbiddenDevKnowledge;
 
-	public LobbyGameInfo GameInfo
-	{
-		get;
-		private set;
-	}
+	public LobbyGameInfo GameInfo { get; private set; }
 
-	public LobbyTeamInfo TeamInfo
-	{
-		get;
-		private set;
-	}
+	public LobbyTeamInfo TeamInfo { get; private set; }
 
 	public LobbyGameConfig GameConfig => GameInfo.GameConfig;
 
-	public LobbyGameplayOverrides GameplayOverrides
-	{
-		get
-		{
-			LobbyGameplayOverrides result;
-			if (m_gameplayOverridesForCurrentGame != null)
-			{
-				result = m_gameplayOverridesForCurrentGame;
-			}
-			else
-			{
-				result = m_gameplayOverrides;
-			}
-			return result;
-		}
-	}
+	public LobbyGameplayOverrides GameplayOverrides => m_gameplayOverridesForCurrentGame ?? m_gameplayOverrides;
 
-	public LobbyMatchmakingQueueInfo QueueInfo
-	{
-		get;
-		private set;
-	}
+	public LobbyMatchmakingQueueInfo QueueInfo { get; private set; }
 
-	public List<LobbyPlayerInfo> TeamPlayerInfo
-	{
-		get;
-		private set;
-	}
+	public List<LobbyPlayerInfo> TeamPlayerInfo { get; private set; }
 
-	public LobbyPlayerInfo PlayerInfo
-	{
-		get;
-		private set;
-	}
+	public LobbyPlayerInfo PlayerInfo { get; private set; }
 
-	public LobbyGameSummary GameSummary
-	{
-		get;
-		private set;
-	}
+	public LobbyGameSummary GameSummary { get; private set; }
 
-	public LobbyGameSummaryOverrides GameSummaryOverrides
-	{
-		get;
-		private set;
-	}
+	public LobbyGameSummaryOverrides GameSummaryOverrides { get; private set; }
 
-	public bool EnableHiddenGameItems
-	{
-		get;
-		set;
-	}
+	public bool EnableHiddenGameItems { get; set; }
 
 	public GameStatus GameStatus => m_gameStatus;
 
-	public float GameStatusTime
-	{
-		get;
-		private set;
-	}
-
-	private Action OnGameAssemblingHolder;
-	public event Action OnGameAssembling
-	{
-		add
-		{
-			Action action = this.OnGameAssemblingHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssemblingHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-		remove
-		{
-			Action action = this.OnGameAssemblingHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameAssemblingHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	private Action OnGameSelectingHolder;
-	public event Action OnGameSelecting
-	{
-		add
-		{
-			Action action = this.OnGameSelectingHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameSelectingHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-		}
-		remove
-		{
-			Action action = this.OnGameSelectingHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameSelectingHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	private Action OnGameLoadoutSelectingHolder;
-	public event Action OnGameLoadoutSelecting
-	{
-		add
-		{
-			Action action = this.OnGameLoadoutSelectingHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoadoutSelectingHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-		remove
-		{
-			Action action = this.OnGameLoadoutSelectingHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoadoutSelectingHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	private Action<GameType> OnGameLaunchedHolder;
-	public event Action<GameType> OnGameLaunched
-	{
-		add
-		{
-			Action<GameType> action = this.OnGameLaunchedHolder;
-			Action<GameType> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLaunchedHolder, (Action<GameType>)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-		remove
-		{
-			Action<GameType> action = this.OnGameLaunchedHolder;
-			Action<GameType> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLaunchedHolder, (Action<GameType>)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	private Action OnGameLoadedHolder;
-	public event Action OnGameLoaded
-	{
-		add
-		{
-			Action action = this.OnGameLoadedHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoadedHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-		remove
-		{
-			Action action = this.OnGameLoadedHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameLoadedHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-		}
-	}
-
-	private Action OnGameStartedHolder;
-	public event Action OnGameStarted
-	{
-		add
-		{
-			Action action = this.OnGameStartedHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStartedHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-		}
-		remove
-		{
-			Action action = this.OnGameStartedHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStartedHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	private Action<GameResult> OnGameStoppedHolder;
-	public event Action<GameResult> OnGameStopped
-	{
-		add
-		{
-			Action<GameResult> action = this.OnGameStoppedHolder;
-			Action<GameResult> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStoppedHolder, (Action<GameResult>)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-		remove
-		{
-			Action<GameResult> action = this.OnGameStoppedHolder;
-			Action<GameResult> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref this.OnGameStoppedHolder, (Action<GameResult>)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	private Action<GameStatus> OnGameStatusChangedHolder;
-	public event Action<GameStatus> OnGameStatusChanged;
-
-	public GameManager()
-	{
-		
-		this.OnGameAssemblingHolder = delegate
-			{
-			};
-		this.OnGameSelectingHolder = delegate
-		{
-		};
-		this.OnGameLoadoutSelectingHolder = delegate
-		{
-		};
-		this.OnGameLaunchedHolder = delegate
-		{
-		};
-		this.OnGameLoadedHolder = delegate
-		{
-		};
-		
-		this.OnGameStartedHolder = delegate
-			{
-			};
-		this.OnGameStoppedHolder = delegate
-		{
-		};
-		
-		this.OnGameStatusChangedHolder = delegate
-			{
-			};
-		
-	}
+	public float GameStatusTime { get; private set; }
+	
+	public event Action OnGameAssembling = delegate {};
+	public event Action OnGameSelecting = delegate {};
+	public event Action OnGameLoadoutSelecting = delegate {};
+	public event Action<GameType> OnGameLaunched = delegate {};
+	public event Action OnGameLoaded = delegate {};
+	public event Action OnGameStarted = delegate {};
+	public event Action<GameResult> OnGameStopped = delegate {};
+	public event Action<GameStatus> OnGameStatusChanged = delegate {};
 
 	public static GameManager Get()
 	{
@@ -655,14 +321,9 @@ public class GameManager : MonoBehaviour
 		m_gameStatus = GameStatus.Stopped;
 		QueueInfo = null;
 		ForbiddenDevKnowledge = null;
-		if (!(GameWideData.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (GameWideData.Get() != null)
 		{
 			GameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
-			return;
 		}
 	}
 
@@ -684,60 +345,46 @@ public class GameManager : MonoBehaviour
 		}
 		m_gameStatus = gameStatus;
 		GameStatusTime = Time.unscaledTime;
-		if (s_quitting)
+		if (s_quitting || !notify)
 		{
 			return;
 		}
-		while (true)
+		if (!GameInfo.GameServerProcessCode.IsNullOrEmpty() && GameInfo.GameConfig != null)
 		{
-			if (!notify)
+			if (gameResult == GameResult.NoResult)
 			{
-				return;
+				Log.Info("Game {0} is {1}", GameInfo.Name, gameStatus.ToString().ToLower());
 			}
-			while (true)
+			else
 			{
-				if (!GameInfo.GameServerProcessCode.IsNullOrEmpty())
-				{
-					if (GameInfo.GameConfig != null)
-					{
-						if (gameResult == GameResult.NoResult)
-						{
-							Log.Info("Game {0} is {1}", GameInfo.Name, gameStatus.ToString().ToLower());
-						}
-						else
-						{
-							Log.Info("Game {0} is {1} with result {2}", GameInfo.Name, gameStatus.ToString().ToLower(), gameResult.ToString());
-						}
-					}
-				}
-				switch (gameStatus)
-				{
-				case GameStatus.Assembling:
-					this.OnGameAssemblingHolder();
-					break;
-				case GameStatus.FreelancerSelecting:
-					this.OnGameSelectingHolder();
-					break;
-				case GameStatus.LoadoutSelecting:
-					this.OnGameLoadoutSelectingHolder();
-					break;
-				case GameStatus.Launched:
-					this.OnGameLaunchedHolder(GameInfo.GameConfig.GameType);
-					break;
-				case GameStatus.Loaded:
-					this.OnGameLoadedHolder();
-					break;
-				case GameStatus.Started:
-					this.OnGameStartedHolder();
-					break;
-				case GameStatus.Stopped:
-					this.OnGameStoppedHolder(gameResult);
-					break;
-				}
-				this.OnGameStatusChangedHolder(gameStatus);
-				return;
+				Log.Info("Game {0} is {1} with result {2}", GameInfo.Name, gameStatus.ToString().ToLower(), gameResult.ToString());
 			}
 		}
+		switch (gameStatus)
+		{
+			case GameStatus.Assembling:
+				OnGameAssembling();
+				break;
+			case GameStatus.FreelancerSelecting:
+				OnGameSelecting();
+				break;
+			case GameStatus.LoadoutSelecting:
+				OnGameLoadoutSelecting();
+				break;
+			case GameStatus.Launched:
+				OnGameLaunched(GameInfo.GameConfig.GameType);
+				break;
+			case GameStatus.Loaded:
+				OnGameLoaded();
+				break;
+			case GameStatus.Started:
+				OnGameStarted();
+				break;
+			case GameStatus.Stopped:
+				OnGameStopped(gameResult);
+				break;
+		}
+		OnGameStatusChanged(gameStatus);
 	}
 
 	public void SetGameInfo(LobbyGameInfo gameInfo)
@@ -790,38 +437,24 @@ public class GameManager : MonoBehaviour
 			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
 		}
 		m_gameplayOverrides = gameplayOverrides;
-		foreach (string current in oldOverrides.GetDifferences(GameplayOverrides))
+		foreach (string message in oldOverrides.GetDifferences(GameplayOverrides))
 		{
-			Log.Notice(current);
+			Log.Notice(message);
 		}
 	}
 
 	public void SetGameplayOverridesForCurrentGame(LobbyGameplayOverrides gameplayOverrides)
 	{
-		LobbyGameplayOverrides gameplayOverrides2 = GameplayOverrides;
+		LobbyGameplayOverrides oldGameplayOverrides = GameplayOverrides;
 		if (gameplayOverrides != null)
 		{
 			gameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
 			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
 		}
 		m_gameplayOverridesForCurrentGame = gameplayOverrides;
-		using (List<string>.Enumerator enumerator = gameplayOverrides2.GetDifferences(GameplayOverrides).GetEnumerator())
+		foreach (string message in oldGameplayOverrides.GetDifferences(GameplayOverrides))
 		{
-			while (enumerator.MoveNext())
-			{
-				string current = enumerator.Current;
-				Log.Notice(current);
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
+			Log.Notice(message);
 		}
 	}
 
@@ -840,7 +473,8 @@ public class GameManager : MonoBehaviour
 		return GameplayOverrides.IsValidForHumanPreGameSelection(characterType);
 	}
 
-	public bool IsCharacterAllowedForGameType(CharacterType characterType, GameType gameType, GameSubType gameSubType, IFreelancerSetQueryInterface qi)
+	public bool IsCharacterAllowedForGameType(
+		CharacterType characterType, GameType gameType, GameSubType gameSubType, IFreelancerSetQueryInterface qi)
 	{
 		return GameplayOverrides.IsCharacterAllowedForGameType(characterType, gameType, gameSubType, qi);
 	}
@@ -852,155 +486,84 @@ public class GameManager : MonoBehaviour
 
 	public bool IsGameLoading()
 	{
-		bool result = false;
-		if (GameInfo != null)
-		{
-			if (GameInfo.GameConfig != null)
-			{
-				if (GameInfo.GameStatus != GameStatus.Stopped)
-				{
-					if (GameInfo.GameConfig.GameType != 0)
-					{
-						if (GameInfo.GameStatus >= GameStatus.Assembling)
-						{
-							result = true;
-						}
-					}
-					else if (GameInfo.GameStatus.IsPostLaunchStatus())
-					{
-						result = true;
-					}
-				}
-			}
-		}
-		return result;
+		return GameInfo != null
+		       && GameInfo.GameConfig != null
+		       && GameInfo.GameStatus != GameStatus.Stopped
+		       && (GameInfo.GameConfig.GameType != GameType.Custom
+			       ? GameInfo.GameStatus >= GameStatus.Assembling
+			       : GameInfo.GameStatus.IsPostLaunchStatus());
 	}
 
 	public static bool IsGameTypeValidForGGPack(GameType gameType)
 	{
-		int result;
-		if (gameType != GameType.Tutorial)
-		{
-			if (gameType != GameType.Practice)
-			{
-				result = ((gameType != GameType.Custom) ? 1 : 0);
-				goto IL_0025;
-			}
-		}
-		result = 0;
-		goto IL_0025;
-		IL_0025:
-		return (byte)result != 0;
+		return gameType != GameType.Tutorial
+		       && gameType != GameType.Practice
+		       && gameType != GameType.Custom;
 	}
 
 	public bool IsAllowingPlayerRequestedPause()
 	{
-		if (GameConfig != null)
+		if (GameConfig == null)
 		{
-			while (true)
-			{
-				int result;
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					{
-						if (GameConfig.GameType == GameType.Custom)
-						{
-							if (GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowPausing))
-							{
-								goto IL_00cb;
-							}
-						}
-						if (GameConfig.GameType == GameType.Practice || GameConfig.GameType == GameType.Solo)
-						{
-							goto IL_00cb;
-						}
-						if (GameConfig.GameType == GameType.Coop)
-						{
-							if (GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-							{
-								goto IL_00cb;
-							}
-						}
-						result = ((GameConfig.GameType == GameType.NewPlayerSolo) ? 1 : 0);
-						goto IL_00cc;
-					}
-					IL_00cc:
-					return (byte)result != 0;
-					IL_00cb:
-					result = 1;
-					goto IL_00cc;
-				}
-			}
+			return false;
 		}
-		return false;
+		if (GameConfig.GameType == GameType.Custom && GameConfig.GameOptionFlags.HasGameOption(GameOptionFlag.AllowPausing))
+		{
+			return true;
+		}
+		if (GameConfig.GameType == GameType.Practice || GameConfig.GameType == GameType.Solo)
+		{
+			return true;
+		}
+		if (GameConfig.GameType == GameType.Coop && GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
+		{
+			return true;
+		}
+		return GameConfig.GameType == GameType.NewPlayerSolo;
 	}
 
 	public bool IsBotMasqueradingAsHuman(int playerId)
 	{
-		return TeamInfo.TeamPlayerInfo.Exists(delegate(LobbyPlayerInfo p)
-		{
-			int result;
-			if (p.PlayerId == playerId)
-			{
-				result = (p.BotsMasqueradeAsHumans ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
-		});
+		return TeamInfo.TeamPlayerInfo.Exists(p => p.PlayerId == playerId && p.BotsMasqueradeAsHumans);
 	}
 
 	public bool IsFreelancerConflictPossible(bool sameTeam)
 	{
 		if (GameConfig == null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					throw new Exception("GameConfig not set");
-				}
-			}
+			throw new Exception("GameConfig not set");
 		}
 		if (GameConfig.HasGameOption(GameOptionFlag.AllowDuplicateCharacters))
 		{
 			return false;
 		}
-		bool flag = false;
+		bool isRankedSelection;
 		FreelancerDuplicationRuleTypes freelancerDuplicationRuleTypes = FreelancerDuplicationRuleTypes.byGameType;
 		if (GameConfig.HasSelectedSubType)
 		{
-			flag = GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection);
+			isRankedSelection = GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection);
 			freelancerDuplicationRuleTypes = GameConfig.InstanceSubType.DuplicationRule;
 		}
 		else
 		{
-			flag = (GameConfig.GameType == GameType.Ranked);
+			isRankedSelection = GameConfig.GameType == GameType.Ranked;
 		}
 		switch (freelancerDuplicationRuleTypes)
 		{
-		case FreelancerDuplicationRuleTypes.byGameType:
-			return sameTeam || flag;
-		case FreelancerDuplicationRuleTypes.noneInGame:
-			return true;
-		case FreelancerDuplicationRuleTypes.noneInTeam:
-			return sameTeam;
-		case FreelancerDuplicationRuleTypes.allow:
-			return false;
-		case FreelancerDuplicationRuleTypes.alwaysDupAcrossTeam:
-			return !sameTeam;
-		case FreelancerDuplicationRuleTypes.alwaysDupAcrossGame:
-			return false;
-		default:
-			throw new Exception($"Unhandled FreelancerDuplicationRuleTypes {freelancerDuplicationRuleTypes}");
+			case FreelancerDuplicationRuleTypes.byGameType:
+				return sameTeam || isRankedSelection;
+			case FreelancerDuplicationRuleTypes.noneInGame:
+				return true;
+			case FreelancerDuplicationRuleTypes.noneInTeam:
+				return sameTeam;
+			case FreelancerDuplicationRuleTypes.allow:
+				return false;
+			case FreelancerDuplicationRuleTypes.alwaysDupAcrossTeam:
+				return !sameTeam;
+			case FreelancerDuplicationRuleTypes.alwaysDupAcrossGame:
+				return false;
+			default:
+				throw new Exception($"Unhandled FreelancerDuplicationRuleTypes {freelancerDuplicationRuleTypes}");
 		}
 	}
 }
