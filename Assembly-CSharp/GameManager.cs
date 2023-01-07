@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using LobbyGameClientMessages;
 using Unity;
@@ -55,6 +57,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	// removed in rogues
 	public class ReplayManagerFile : MessageBase
 	{
 		public string Fragment;
@@ -188,6 +191,7 @@ public class GameManager : MonoBehaviour
 	{
 	}
 
+	// removed in rogues
 	public class ReconnectReplayStatus : MessageBase
 	{
 		public bool WithinReconnectReplay;
@@ -203,6 +207,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	// removed in rogues
 	public class ObserverMessage : MessageBase
 	{
 		public Replay.Message Message;
@@ -263,7 +268,10 @@ public class GameManager : MonoBehaviour
 
 	public LobbyTeamInfo TeamInfo { get; private set; }
 
+	// reactor
 	public LobbyGameConfig GameConfig => GameInfo.GameConfig;
+	// rogues
+	// public MissionData GameMission => GameInfo.GameMission;
 
 	public LobbyGameplayOverrides GameplayOverrides => m_gameplayOverridesForCurrentGame ?? m_gameplayOverrides;
 
@@ -321,6 +329,12 @@ public class GameManager : MonoBehaviour
 		m_gameStatus = GameStatus.Stopped;
 		QueueInfo = null;
 		ForbiddenDevKnowledge = null;
+		
+#if SERVER
+		// added in rogues
+		GameplayRandom.SetSeedFromSystemTime();
+#endif
+		
 		if (GameWideData.Get() != null)
 		{
 			GameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
@@ -349,7 +363,7 @@ public class GameManager : MonoBehaviour
 		{
 			return;
 		}
-		if (!GameInfo.GameServerProcessCode.IsNullOrEmpty() && GameInfo.GameConfig != null)
+		if (!GameInfo.GameServerProcessCode.IsNullOrEmpty() && GameInfo.GameConfig != null)  // GameMission in rogues
 		{
 			if (gameResult == GameResult.NoResult)
 			{
@@ -372,7 +386,10 @@ public class GameManager : MonoBehaviour
 				OnGameLoadoutSelecting();
 				break;
 			case GameStatus.Launched:
+				// reactor
 				OnGameLaunched(GameInfo.GameConfig.GameType);
+				// rogues
+				// OnGameLaunched(GameType.Custom);
 				break;
 			case GameStatus.Loaded:
 				OnGameLoaded();
@@ -425,6 +442,17 @@ public class GameManager : MonoBehaviour
 	public void StopGame(GameResult gameResult = GameResult.NoResult)
 	{
 		SetGameStatus(GameStatus.Stopped, gameResult);
+		
+		// rogues
+		// if (gameResult != GameResult.TeamAWon)
+		// {
+		// 	PointOfInterestManager pointOfInterestManager = PointOfInterestManager.Get();
+		// 	if (pointOfInterestManager != null)
+		// 	{
+		// 		pointOfInterestManager.ClearInvalidActiveNodes();
+		// 	}
+		// }
+		
 		GameTime.scale = 1f;
 	}
 
@@ -434,7 +462,7 @@ public class GameManager : MonoBehaviour
 		if (gameplayOverrides != null)
 		{
 			gameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
-			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
+			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());  // removed in rogues
 		}
 		m_gameplayOverrides = gameplayOverrides;
 		foreach (string message in oldOverrides.GetDifferences(GameplayOverrides))
@@ -449,7 +477,7 @@ public class GameManager : MonoBehaviour
 		if (gameplayOverrides != null)
 		{
 			gameplayOverrides.SetBaseCharacterConfigs(GameWideData.Get());
-			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());
+			gameplayOverrides.SetFactionConfigs(FactionWideData.Get());  // removed in rogues
 		}
 		m_gameplayOverridesForCurrentGame = gameplayOverrides;
 		foreach (string message in oldGameplayOverrides.GetDifferences(GameplayOverrides))
@@ -473,17 +501,25 @@ public class GameManager : MonoBehaviour
 		return GameplayOverrides.IsValidForHumanPreGameSelection(characterType);
 	}
 
+	// reactor
 	public bool IsCharacterAllowedForGameType(
 		CharacterType characterType, GameType gameType, GameSubType gameSubType, IFreelancerSetQueryInterface qi)
 	{
 		return GameplayOverrides.IsCharacterAllowedForGameType(characterType, gameType, gameSubType, qi);
 	}
+	// rogues
+	// public bool IsCharacterAllowedForGameType(
+	// 	CharacterType characterType, MissionData mission, IFreelancerSetQueryInterface qi)
+	// {
+	// 	return GameplayOverrides.IsCharacterAllowedForGameType(characterType, mission, qi);
+	// }
 
 	public bool IsCharacterVisible(CharacterType characterType)
 	{
 		return GameplayOverrides.IsCharacterVisible(characterType);
 	}
 
+	// reactor
 	public bool IsGameLoading()
 	{
 		return GameInfo != null
@@ -493,14 +529,25 @@ public class GameManager : MonoBehaviour
 			       ? GameInfo.GameStatus >= GameStatus.Assembling
 			       : GameInfo.GameStatus.IsPostLaunchStatus());
 	}
+	// rogues
+	// public bool IsGameLoading()
+	// {
+	// 	return GameInfo != null
+	// 	       && GameInfo.GameMission != null
+	// 	       && GameInfo.GameStatus != GameStatus.Stopped
+	// 	       && GameInfo.GameStatus.IsPostLaunchStatus();
+	// }
 
 	public static bool IsGameTypeValidForGGPack(GameType gameType)
 	{
 		return gameType != GameType.Tutorial
 		       && gameType != GameType.Practice
-		       && gameType != GameType.Custom;
+		       && gameType != GameType.Custom
+		       // added in rogues
+		       && gameType != GameType.None;
 	}
 
+	// always true in rogues
 	public bool IsAllowingPlayerRequestedPause()
 	{
 		if (GameConfig == null)
@@ -527,6 +574,7 @@ public class GameManager : MonoBehaviour
 		return TeamInfo.TeamPlayerInfo.Exists(p => p.PlayerId == playerId && p.BotsMasqueradeAsHumans);
 	}
 
+	// reactor
 	public bool IsFreelancerConflictPossible(bool sameTeam)
 	{
 		if (GameConfig == null)
@@ -566,4 +614,13 @@ public class GameManager : MonoBehaviour
 				throw new Exception($"Unhandled FreelancerDuplicationRuleTypes {freelancerDuplicationRuleTypes}");
 		}
 	}
+	// rogues
+	// public bool IsFreelancerConflictPossible(bool sameTeam)
+	// {
+	// 	if (GameMission == null)
+	// 	{
+	// 		throw new Exception("GameConfig not set");
+	// 	}
+	// 	return !GameMission.IsMissionTagActive(MissionData.s_missionTagAllowDuplicateCharacters) && sameTeam;
+	// }
 }
