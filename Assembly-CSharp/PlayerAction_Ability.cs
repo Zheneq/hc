@@ -258,6 +258,14 @@ public class PlayerAction_Ability : PlayerAction
 			// ServerActionBuffer.Get().RunAbilityRequest_FCFS(abilityRequest4);
 			//abilityRequest4.m_caster.GetActorTurnSM().MarkPveAbilityFlagAtIndex((int)abilityRequest4.m_actionType);
 		}
+		
+		// custom
+		if (isEvasionPhase)
+		{
+			UpdatePositionsForEvades();
+		}
+		// end custom
+		 
 		return list;
 	}
 
@@ -301,6 +309,21 @@ public class PlayerAction_Ability : PlayerAction
 				actorData.GetPassiveData().OnEvadesProcessed();
 			}
 		}
+		// List<ActorData> actorsThatWillBeSeenButArentMoving;
+		// evadeManager.GatherGameplayResultsInResponseToEvades(out actorsThatWillBeSeenButArentMoving);
+		// ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+		// evadeManager.SwapEvaderSquaresWithDestinations();
+		// if (evadeManager.HasEvades())
+		// {
+		// 	ServerActionBuffer.Get().ImmediateUpdateAllFogOfWar();
+		// }
+	}
+	
+	// custom
+	private void UpdatePositionsForEvades()
+	{
+		// moved from SetupForEvadesPreGathering
+		ServerEvadeManager evadeManager = ServerActionBuffer.Get().GetEvadeManager();
 		evadeManager.GatherGameplayResultsInResponseToEvades(out List<ActorData> actorsThatWillBeSeenButArentMoving);
 		ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
 		evadeManager.SwapEvaderSquaresWithDestinations();

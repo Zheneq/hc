@@ -95,7 +95,6 @@ public class ServerActionBuffer : NetworkBehaviour
 				SynchronizeSharedData();
 				
 				m_waitingForPlayPhaseEnded = true; // custom
-				OnAbilityPhaseStart(m_abilityPhase); // custom
 			}
 			m_lastAbilityPhaseSet = Time.time;
 		}
@@ -456,13 +455,6 @@ public class ServerActionBuffer : NetworkBehaviour
 		// rogues
 		//m_storedAbilityRequestsForNextTurn.RemoveAll((AbilityRequest r) => r.m_caster.GetTeam() == actingTeam);
     }
-
-	// custom
-	public void OnAbilityPhaseStart(AbilityPriority phase)
-	{
-		SetSquareAtPhaseStartForActors();
-		OnPhaseStartForRequestedAbilities(phase);
-	}
 
 	public void ClearNormalMovementResults()
 	{

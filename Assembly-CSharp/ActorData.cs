@@ -532,16 +532,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			
 			// custom
 #if SERVER
-			if (ServerLastKnownPosSquare != null)
-			{
-				TeamSensitiveData_hostile.BroadcastMovement(
-					GameEventManager.EventType.ClientResolutionStarted,
-					ServerLastKnownPosSquare.GetGridPos(),
-					ServerLastKnownPosSquare,
-					MovementType.None,
-					TeleportType.Reappear,
-					null);
-			}
 			Log.Info($"ServerLastKnownPosSquare {DisplayName} " +
 			         $"{m_serverLastKnownPosSquare?.GetGridPos().ToString() ?? "null"} -> {value?.GetGridPos().ToString() ?? "null"}");
 #endif
@@ -5190,9 +5180,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		// custom
 		BoardSquare prevLastKnownSquare = ServerLastKnownPosSquare;
-		if (prevLastKnownSquare != CurrentBoardSquare) // TODO this check shouldn't be here but without BB's dash breaks for example
+		ServerLastKnownPosSquare = GetSquareAtPhaseStart();
+		if (ServerLastKnownPosSquare != null)
 		{
-			ServerLastKnownPosSquare = GetSquareAtPhaseStart();
+			TeamSensitiveData_hostile.BroadcastMovement(
+				GameEventManager.EventType.ClientResolutionStarted,
+				ServerLastKnownPosSquare.GetGridPos(),
+				ServerLastKnownPosSquare,
+				MovementType.None,
+				TeleportType.Reappear,
+				null);
 		}
 		Log.Info($"SynchronizeTeamSensitiveData {DisplayName} {prevLastKnownSquare?.GetGridPos().ToString() ?? "null"} -> {ServerLastKnownPosSquare?.GetGridPos().ToString() ?? "null"}");
 	}
