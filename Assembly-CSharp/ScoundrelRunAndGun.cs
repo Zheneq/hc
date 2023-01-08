@@ -284,13 +284,36 @@ public class ScoundrelRunAndGun : Ability  // GenericAbility_Container in rogues
 			caster.GetOtherTeams(),
 			nonActorTargetInfo);
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actors);
-		int damage = ModdedDamageAmount();
-		foreach (ActorData hitActor in actors)
+		
+		if (actors.Count > 0)
 		{
-			ActorHitParameters hitParams = new ActorHitParameters(hitActor, startPos);
-			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
-			abilityResults.StoreActorHit(hitResults);
+			int damage = ModdedDamageAmount();
+			foreach (ActorData hitActor in actors)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(hitActor, startPos);
+				ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
+				abilityResults.StoreActorHit(hitResults);
+			}
 		}
+		else
+		{
+			int techPointGainWithNoHits = GetTechPointGainWithNoHits();
+			if (techPointGainWithNoHits > 0)
+			{
+				ActorHitParameters hitParams = new ActorHitParameters(caster, startPos);
+				ActorHitResults hitResults = new ActorHitResults(hitParams);
+				if (m_energyRefundAffectedByBuff)
+				{
+					hitResults.SetTechPointGain(techPointGainWithNoHits);
+				}
+				else
+				{
+					hitResults.AddDirectTechPointGainOnCaster(techPointGainWithNoHits);
+				}
+				abilityResults.StoreActorHit(hitResults);
+			}
+		}
+
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 
