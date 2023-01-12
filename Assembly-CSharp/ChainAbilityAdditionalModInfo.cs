@@ -1,7 +1,10 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+// identical in reactor and rogues
 [Serializable]
 public class ChainAbilityAdditionalModInfo
 {
