@@ -1,11 +1,9 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ChainAbility_EffectOnCaster : Ability
 {
 	public bool m_applyEffect = true;
-
 	public StandardActorEffectData m_effect;
-
 	[Header("-- Sequences ----------------------------------------------")]
 	public GameObject m_castSequencePrefab;
 
