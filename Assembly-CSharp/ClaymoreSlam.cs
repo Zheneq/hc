@@ -361,9 +361,14 @@ public class ClaymoreSlam : Ability
 				actorsInOuterLaser.Add(item);
 			}
 		}
+		
+		List<ActorData> hitActors = new List<ActorData>();
+		hitActors.AddRange(actorsInMiddleLaser);
+		hitActors.AddRange(actorsInOuterLaser);
+		
 		int numPrimary = actorsInMiddleLaser.Count;
 		int numSecondary = actorsInOuterLaser.Count;
-		foreach (ActorData targetActor in actorsInLaser)
+		foreach (ActorData targetActor in hitActors)
 		{
 			int damage = 0;
 			StandardEffectInfo effect;
