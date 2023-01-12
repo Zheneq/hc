@@ -131,6 +131,14 @@ public class BazookaGirlStickyBomb : Ability
 	
 #if SERVER
 	// custom
+	private StandardEffectInfo GetEnemyOnExplosionHitEffect()
+	{
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyOnExplosionEffectOverride.GetModifiedValue(null)
+			: null;
+	}
+	
+	// custom
 	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
 		List<AbilityTarget> targets,
 		ActorData caster,
@@ -200,6 +208,10 @@ public class BazookaGirlStickyBomb : Ability
 				caster,
 				m_bombInfo,
 				m_spoilSpawnOnExplosion);
+			if (GetEnemyOnExplosionHitEffect() != null)
+			{
+				effect.OverrideOnExplosionEffectInfo(GetEnemyOnExplosionHitEffect());
+			}
 			foreach (ActorData target in targetActors)
 			{
 				ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
