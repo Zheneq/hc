@@ -212,6 +212,11 @@ public class BazookaGirlStickyBomb : Ability
 			{
 				effect.OverrideOnExplosionEffectInfo(GetEnemyOnExplosionHitEffect());
 			}
+			if (HasCooldownModification())
+			{
+				effect.AddMiscEventForExplosionHit(new MiscHitEventData_AddToCasterCooldown(
+					m_abilityMod.m_cooldownModOnAction, m_abilityMod.m_cooldownAddAmount));
+			}
 			foreach (ActorData target in targetActors)
 			{
 				ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
