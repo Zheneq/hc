@@ -273,6 +273,14 @@ public class BazookaGirlDelayedMissile : Ability
 	
 #if SERVER
 	// custom
+	public AbilityModCooldownReduction GetCooldownReductionsWhenNoHits()
+	{
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownReductionsWhenNoHits
+			: null;
+	}
+	
+	// custom
 	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
 		List<AbilityTarget> targets,
 		ActorData caster,

@@ -328,6 +328,13 @@ public class BazookaGirlExplodingLaser : Ability
 				abilityResults.StoreActorHit(hitResults);
 			}
 		}
+
+		if (actorsInLaser.Count > 0 && GetCdrOnDirectHit() > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(AbilityData.ActionType.ABILITY_2, -1));
+			abilityResults.StoreActorHit(casterHitResults);
+		}
 		
 		Vector3 coneStart = adjustedCoords.end;
 		Vector3 losOverridePos = coneStart;
@@ -357,7 +364,8 @@ public class BazookaGirlExplodingLaser : Ability
 				if (target != null && target.GetTeam() != caster.GetTeam())
 				{
 					ActorHitParameters hitParams = new ActorHitParameters(target, coneStart);
-					ActorHitResults hitResults = new ActorHitResults(GetExplosionDamage(), HitActionType.Damage, GetExplosionHitEffect(), hitParams);
+					ActorHitResults hitResults = new ActorHitResults(
+						GetExplosionDamage(), HitActionType.Damage, GetExplosionHitEffect(), hitParams);
 					abilityResults.StoreActorHit(hitResults);
 				}
 			}

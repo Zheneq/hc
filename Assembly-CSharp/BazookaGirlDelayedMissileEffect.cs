@@ -141,6 +141,12 @@ public class BazookaGirlDelayedMissileEffect : Effect
         if (processedActors.Count == 0)
         {
             ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Caster, m_targetSquare.ToVector3()));
+            if (Parent.Ability is BazookaGirlDelayedMissile ability
+                && ability.GetCooldownReductionsWhenNoHits() != null
+                && ability.GetCooldownReductionsWhenNoHits().HasCooldownReduction())
+            {
+                ability.GetCooldownReductionsWhenNoHits().AppendCooldownMiscEvents(actorHitResults, true, 0, 0);
+            }
             effectResults.StoreActorHit(actorHitResults);
         }
         
