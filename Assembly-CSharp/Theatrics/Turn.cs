@@ -568,7 +568,10 @@ namespace Theatrics
 			// reactor
 			// phase.SetHitActorIds(hitActorIds);
 			// custom
-			phase.SetHitActorIds(new HashSet<int>(phase.HitActorIndexToDeltaHP.Keys));
+			if (hitActorIds.IsNullOrEmpty())
+			{
+				phase.SetHitActorIds(new HashSet<int>(phase.HitActorIndexToDeltaHP.Keys));
+			}
 			
 			m_abilityPhases.Add(phase);
 			AssignAnimationPlayOrderAndCinematicsForPhase(phasePriority, false, false);

@@ -560,52 +560,7 @@ public class GameFlow : NetworkBehaviour
 					ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
-					// from QueuedPlayerActionsContainer::InitEffectsForExecution
-					List<Effect> executingEffects = new List<Effect>();
-					foreach (List<Effect> effectsOnActor in ServerEffectManager.Get().GetAllActorEffects().Values)
-					{
-						foreach (Effect effect in effectsOnActor)
-						{
-							if (effect.HitPhase == actionBuffer.AbilityPhase)
-							{
-								EffectResults resultsForPhase = effect.GetResultsForPhase(actionBuffer.AbilityPhase, true);
-								if (effect.HitPhase == actionBuffer.AbilityPhase && (resultsForPhase == null || !resultsForPhase.GatheredResults))
-								{
-									effect.Resolve();
-									executingEffects.Add(effect);
-								}
-							}
-						}
-					}
-					foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
-					{
-						if (effect.HitPhase == actionBuffer.AbilityPhase)
-						{
-							EffectResults resultsForPhase = effect.GetResultsForPhase(actionBuffer.AbilityPhase, true);
-							if (effect.HitPhase == actionBuffer.AbilityPhase && (resultsForPhase == null || !resultsForPhase.GatheredResults))
-							{
-								effect.Resolve();
-								executingEffects.Add(effect);
-							}
-						}
-					}
-					bool hasActionsThisPhase = false;
-					List<ActorAnimation> anims = new List<ActorAnimation>();
-					if (executingEffects.Count > 0)
-					{
-						Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
-						PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, actionBuffer.AbilityPhase);
-						anims.AddRange(action.PrepareResults());
-						hasActionsThisPhase = true;
-					}
-
-					List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests().FindAll(r => r?.m_ability?.RunPriority == actionBuffer.AbilityPhase);
-					if (requestsThisPhase.Count > 0)
-					{
-						Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-						anims.AddRange(new PlayerAction_Ability(requestsThisPhase, actionBuffer.AbilityPhase).PrepareResults());
-						hasActionsThisPhase = true;
-					}
+					bool hasActionsThisPhase = GatherActionsInPhase(actionBuffer, actionBuffer.AbilityPhase);
 
 					theatrics.SetupTurnAbilityPhase(
 						actionBuffer.AbilityPhase,
@@ -676,7 +631,7 @@ public class GameFlow : NetworkBehaviour
 			{
 				foreach (ActorData actor in GameFlowData.Get().GetActors())
 				{
-					var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+					ActorTurnSM turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
 					turnSm.OnMessage(TurnMessage.MOVEMENT_RESOLVED);
 				}
 				actionBuffer.ActionPhase = ActionBufferPhase.MovementWait;
@@ -709,6 +664,66 @@ public class GameFlow : NetworkBehaviour
 			}
 		}
 	}
+	
+#if SERVER
+	// custom
+	private static bool GatherActionsInPhase(ServerActionBuffer actionBuffer, AbilityPriority phase)
+	{
+		// from QueuedPlayerActionsContainer::InitEffectsForExecution
+		List<Effect> executingEffects = new List<Effect>();
+		foreach (List<Effect> effectsOnActor in ServerEffectManager.Get().GetAllActorEffects().Values)
+		{
+			foreach (Effect effect in effectsOnActor)
+			{
+				if (effect.HitPhase == phase)
+				{
+					EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
+					if (effect.HitPhase == phase &&
+					    (resultsForPhase == null || !resultsForPhase.GatheredResults))
+					{
+						effect.Resolve();
+						executingEffects.Add(effect);
+					}
+				}
+			}
+		}
+
+		foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
+		{
+			if (effect.HitPhase == phase)
+			{
+				EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
+				if (effect.HitPhase == phase &&
+				    (resultsForPhase == null || !resultsForPhase.GatheredResults))
+				{
+					effect.Resolve();
+					executingEffects.Add(effect);
+				}
+			}
+		}
+
+		bool hasActionsThisPhase = false;
+		List<ActorAnimation> anims = new List<ActorAnimation>();
+		if (executingEffects.Count > 0)
+		{
+			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+			anims.AddRange(action.PrepareResults());
+			hasActionsThisPhase = true;
+		}
+
+		List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests()
+			.FindAll(r => r?.m_ability?.RunPriority == phase);
+		if (requestsThisPhase.Count > 0)
+		{
+			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
+			anims.AddRange(new PlayerAction_Ability(requestsThisPhase, phase).PrepareResults());
+			hasActionsThisPhase = true;
+		}
+
+		return hasActionsThisPhase;
+	}
+#endif
 
 #if SERVER
 	// added in rogues
