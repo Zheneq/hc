@@ -793,30 +793,33 @@ public class ActorStats : NetworkBehaviour
 
 	// added in rogues
 #if SERVER
-	public int CalculateIncomingDamage(int baseDamage, out int baseDamageAfterStatus, out int modifiedDamageNormal, out int modifiedDamageVulnerable, out int modifiedDamageArmored)
+	public int CalculateIncomingDamage(
+		int baseDamage,
+		out int baseDamageAfterStatus,
+		out int modifiedDamageNormal,
+		out int modifiedDamageVulnerable,
+		out int modifiedDamageArmored)
 	{
 		baseDamageAfterStatus = baseDamage;
 		float vulnerableDamageMultiplier = GameWideData.Get().m_vulnerableDamageMultiplier;
 		int vulnerableDamageFlatAdd = GameWideData.Get().m_vulnerableDamageFlatAdd;
-		int num = baseDamage;
+		
+		int baseDamageVulnerable = baseDamage;
 		if (vulnerableDamageMultiplier > 0f)
 		{
-			num = Mathf.RoundToInt(baseDamage * vulnerableDamageMultiplier);
+			baseDamageVulnerable = Mathf.RoundToInt(baseDamage * vulnerableDamageMultiplier);
 		}
 		if (vulnerableDamageFlatAdd > 0 && baseDamage > 0)
 		{
-			num += vulnerableDamageFlatAdd;
+			baseDamageVulnerable += vulnerableDamageFlatAdd;
 		}
-		AbilityModPropertyInt armoredIncomingDamageMod;
-		if (GameplayMutators.Get() == null || !GameplayMutators.Get().m_useArmoredOverride)
-		{
-			armoredIncomingDamageMod = GameWideData.Get().m_armoredIncomingDamageMod;
-		}
-		else
-		{
-			armoredIncomingDamageMod = GameplayMutators.Get().m_armoredIncomingDamageMod;
-		}
-		int modifiedValue = armoredIncomingDamageMod.GetModifiedValue(baseDamage);
+		
+		AbilityModPropertyInt armoredIncomingDamageMod =
+			GameplayMutators.Get() == null || !GameplayMutators.Get().m_useArmoredOverride 
+				? GameWideData.Get().m_armoredIncomingDamageMod 
+				: GameplayMutators.Get().m_armoredIncomingDamageMod;
+		int baseDamageArmored = armoredIncomingDamageMod.GetModifiedValue(baseDamage);
+		
 		if (!NetworkServer.active)
 		{
 			if (NetworkClient.active)
@@ -828,49 +831,55 @@ public class ActorStats : NetworkBehaviour
 			modifiedDamageArmored = baseDamage;
 			return baseDamage;
 		}
-		ActorStatus component = GetComponent<ActorStatus>();
-		bool flag = component.HasStatus(StatusType.Vulnerable, true);
-		bool flag2 = component.HasStatus(StatusType.Armored, true);
-		if (flag && !flag2)
+		
+		ActorStatus actorStatus = GetComponent<ActorStatus>();
+		bool isVulnerable = actorStatus.HasStatus(StatusType.Vulnerable, true);
+		bool isArmored = actorStatus.HasStatus(StatusType.Armored, true);
+		if (isVulnerable && !isArmored)
 		{
-			baseDamageAfterStatus = Mathf.Max(0, num);
+			baseDamageAfterStatus = Mathf.Max(0, baseDamageVulnerable);
 		}
-		else if (!flag && flag2)
+		else if (!isVulnerable && isArmored)
 		{
-			baseDamageAfterStatus = Mathf.Max(0, modifiedValue);
+			baseDamageAfterStatus = Mathf.Max(0, baseDamageArmored);
 		}
 		else
 		{
 			baseDamageAfterStatus = Mathf.Max(0, baseDamage);
 		}
-		float num2 = 0f;
-		float num3 = 0f;
-		float num4 = 1f;
-		float num5 = 1f;
-		CalculateAdjustments(StatType.IncomingDamage, ref num2, ref num3, ref num4, ref num5);
-		float num6 = baseDamage;
-		num6 += num2;
-		num6 *= num4;
-		num6 *= num5;
-		num6 += num3;
-		modifiedDamageNormal = Mathf.RoundToInt(num6);
-		float num7 = num;
-		num7 += num2;
-		num7 *= num4;
-		num7 *= num5;
-		num7 += num3;
-		modifiedDamageVulnerable = Mathf.RoundToInt(num7);
-		float num8 = modifiedValue;
-		num8 += num2;
-		num8 *= num4;
-		num8 *= num5;
-		num8 += num3;
-		modifiedDamageArmored = Mathf.RoundToInt(num8);
-		if (flag && !flag2)
+		
+		float baseAdd = 0f;
+		float bonusAdd = 0f;
+		float percentAdd = 1f;
+		float multipliers = 1f;
+		CalculateAdjustments(StatType.IncomingDamage, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		
+		float _modifiedDamageNormal = baseDamage;
+		_modifiedDamageNormal += baseAdd;
+		_modifiedDamageNormal *= percentAdd;
+		_modifiedDamageNormal *= multipliers;
+		_modifiedDamageNormal += bonusAdd;
+		modifiedDamageNormal = Mathf.RoundToInt(_modifiedDamageNormal);
+		
+		float _modifiedDamageVulnerable = baseDamageVulnerable;
+		_modifiedDamageVulnerable += baseAdd;
+		_modifiedDamageVulnerable *= percentAdd;
+		_modifiedDamageVulnerable *= multipliers;
+		_modifiedDamageVulnerable += bonusAdd;
+		modifiedDamageVulnerable = Mathf.RoundToInt(_modifiedDamageVulnerable);
+		
+		float _modifiedDamageArmored = baseDamageArmored;
+		_modifiedDamageArmored += baseAdd;
+		_modifiedDamageArmored *= percentAdd;
+		_modifiedDamageArmored *= multipliers;
+		_modifiedDamageArmored += bonusAdd;
+		modifiedDamageArmored = Mathf.RoundToInt(_modifiedDamageArmored);
+		
+		if (isVulnerable && !isArmored)
 		{
 			return Mathf.RoundToInt(modifiedDamageVulnerable);
 		}
-		if (!flag && flag2)
+		if (!isVulnerable && isArmored)
 		{
 			return Mathf.RoundToInt(modifiedDamageArmored);
 		}
