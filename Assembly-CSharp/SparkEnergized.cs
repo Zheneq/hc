@@ -543,23 +543,62 @@ public class SparkEnergized : Ability
 				}
 			}
 		}
+
+		bool bothTethers = m_beamSyncComp.HasBothTethers(); // custom
+		
 		foreach (ActorData actorData in list)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
 			if (actorData.GetTeam() == caster.GetTeam() && GetAllyBuffEffect() != null)
 			{
-				SparkEnergizedEffect effect = new SparkEnergizedEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), actorData, caster, GetAllyBuffEffect(), abilityResults.CinematicRequested);
-				actorHitResults.AddEffect(effect);
+				actorHitResults.AddEffect(new SparkEnergizedEffect(
+					AsEffectSource(),
+					caster.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetAllyBuffEffect(),
+					abilityResults.CinematicRequested));
+			
+				// custom
+				if (bothTethers)
+				{
+					actorHitResults.AddStandardEffectInfo(GetBothTetherAllyEffect());
+					actorHitResults.AddBaseHealing(GetBothTetherExtraHeal());
+				}
+				// end custom
 			}
 			else if (actorData.GetTeam() != caster.GetTeam() && GetEnemyDebuffEffect() != null)
 			{
-				SparkEnergizedEffect effect2 = new SparkEnergizedEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), actorData, caster, GetEnemyDebuffEffect(), abilityResults.CinematicRequested);
-				actorHitResults.AddEffect(effect2);
+				actorHitResults.AddEffect(new SparkEnergizedEffect(
+					AsEffectSource(),
+					caster.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEnemyDebuffEffect(),
+					abilityResults.CinematicRequested));
+			
+				// custom
+				if (bothTethers)
+				{
+					actorHitResults.AddStandardEffectInfo(GetBothTetherEnemyEffect());
+					actorHitResults.AddBaseHealing(GetBothTetherExtraDamage());
+				}
+				// end custom
 			}
+			
 			abilityResults.StoreActorHit(actorHitResults);
 		}
+		
 		ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
 		ActorHitResults hitResults = new ActorHitResults(GetHealAmtPerBeam() * component.GetNumTethers(), HitActionType.Healing, hitParams);
+		
+		// custom
+		if (bothTethers)
+		{
+			hitResults.AddStandardEffectInfo(GetBothTetherExtraEffectOnSelf());
+		}
+		// end custom
+		
 		abilityResults.StoreActorHit(hitResults);
 	}
 #endif

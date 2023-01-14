@@ -289,7 +289,21 @@ public class SparkBasicAttack : Ability
 	public SparkBasicAttackEffect CreateDamageTetherEffect(ActorData caster, ActorData hitActor)
 	{
 		StandardActorEffectData enemyTetherEffectData = GetEnemyTetherEffectData();
-		return new SparkBasicAttackEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), hitActor, caster, enemyTetherEffectData, GetTetherDistance(), GetHealOnCasterPerTurn(), GetAdditionalDamageOnRadiated(), GetEnergyOnCasterPerTurn(), m_pulseAnimIndex, m_energizedPulseAnimIndex, m_pulseSequence, m_energizedPulseSequence);
+		return new SparkBasicAttackEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			hitActor,
+			caster,
+			enemyTetherEffectData,
+			GetTetherDistance(),
+			GetTetherDuration(), // custom
+			GetHealOnCasterPerTurn(),
+			GetAdditionalDamageOnRadiated(),
+			GetEnergyOnCasterPerTurn(),
+			m_pulseAnimIndex,
+			m_energizedPulseAnimIndex,
+			m_pulseSequence,
+			m_energizedPulseSequence);
 	}
 #endif
 

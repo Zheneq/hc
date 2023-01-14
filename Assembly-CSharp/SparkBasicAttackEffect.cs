@@ -23,6 +23,9 @@ public class SparkBasicAttackEffect : StandardActorEffect
 	private SparkEnergized m_energizedAbility;
 	private GameObject m_pulseSequencePrefab;
 	private GameObject m_energizedPulseSequencePrefab;
+	
+	// custom 
+	private int m_tetherDuration;
 
 	public SparkBasicAttackEffect(
 		EffectSource parent,
@@ -31,6 +34,7 @@ public class SparkBasicAttackEffect : StandardActorEffect
         ActorData caster,
         StandardActorEffectData standardActorEffectData,
         float tetherDistance,
+		int tetherDuration, // custom
         int healOnCaster,
         int additionalDamage,
         int energyOnCasterPerTurn,
@@ -54,6 +58,9 @@ public class SparkBasicAttackEffect : StandardActorEffect
 		m_damageAbility = (Caster.GetAbilityData().GetAbilityOfType(typeof(SparkBasicAttack)) as SparkBasicAttack);
 		m_energizedAbility = (Caster.GetAbilityData().GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
 		m_syncComp = Caster.GetComponent<SparkBeamTrackerComponent>();
+		
+		// custom
+		m_tetherDuration = tetherDuration;
 	}
 
 	public void SetEnergized(bool energized)
@@ -205,8 +212,8 @@ public class SparkBasicAttackEffect : StandardActorEffect
 
 	public bool IsAbilityQueued()
 	{
-        return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkDash))
-			&& ServerActionBuffer.Get().GetGatheredActorsOfStoredAbility(Caster, typeof(SparkDash)).Contains(Target) || ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkBasicAttack));
+        return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkDash)) && ServerActionBuffer.Get().GetGatheredActorsOfStoredAbility(Caster, typeof(SparkDash)).Contains(Target)
+			|| ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkBasicAttack));
 	}
 
 	public bool IsSkippingGatheringResults()
@@ -259,6 +266,13 @@ public class SparkBasicAttackEffect : StandardActorEffect
 	{
 		base.OnTurnEnd();
 		CheckTetherDistance();
+		
+		// custom
+		// TODO SPARK depending on how you define tether duration, might be off by one turn (is it even used?)
+		if (m_tetherDuration > 0 && m_time.age >= m_tetherDuration)
+		{
+			m_shouldEnd = true;
+		}
 	}
 
 	public void RemoveRevealedStatusForEvadeOutOfRange()

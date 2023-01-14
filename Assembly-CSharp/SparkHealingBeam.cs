@@ -23,7 +23,6 @@ public class SparkHealingBeam : Ability
 	public float m_tetherDistance = 5f;
 	public bool m_checkTetherRemovalBetweenPhases;
 	// removed in rogues
-	// TODO GAMEPLAY check this works on server (tether duration mod?)
 	[Header("-- Tether Duration")]
 	public int m_tetherDuration;
 	[Header("-- Healing")]
@@ -318,7 +317,23 @@ public class SparkHealingBeam : Ability
 	public SparkHealingBeamEffect CreateHealTetherEffect(ActorData caster, ActorData hitActor)
 	{
 		StandardActorEffectData allyTetherEffectData = GetAllyTetherEffectData();
-		return new SparkHealingBeamEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), hitActor, caster, allyTetherEffectData, m_healingPhase, GetTetherDistance(), m_checkTetherRemovalBetweenPhases, GetHealOnSelfPerTurn(), GetAdditionalHealOnRadiated(), GetEnergyOnCasterPerTurn(), m_pulseAnimIndex, m_energizedPulseAnimIndex, m_pulseSequence, m_energizedPulseSequence);
+		return new SparkHealingBeamEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			hitActor,
+			caster,
+			allyTetherEffectData,
+			m_healingPhase,
+			GetTetherDistance(),
+			GetTetherDuration(), // custom
+			m_checkTetherRemovalBetweenPhases,
+			GetHealOnSelfPerTurn(),
+			GetAdditionalHealOnRadiated(),
+			GetEnergyOnCasterPerTurn(),
+			m_pulseAnimIndex,
+			m_energizedPulseAnimIndex,
+			m_pulseSequence,
+			m_energizedPulseSequence);
 	}
 #endif
 

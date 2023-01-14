@@ -22,8 +22,31 @@ public class SparkHealingBeamEffect : StandardActorEffect
 	private SparkEnergized m_energizedAbility;
 	private GameObject m_pulseSequencePrefab;
 	private GameObject m_energizedPulseSequencePrefab;
+	
+	// custom 
+	private int m_tetherDuration;
 
-	public SparkHealingBeamEffect(EffectSource parent, BoardSquare targetSquare, ActorData target, ActorData caster, StandardActorEffectData standardActorEffectData, AbilityPriority hitPhase, float tetherDistance, bool checkTetherRemovalBetweenPhases, int healingOnCaster, int additionalHealing, int energyOnCasterPerTurn, int pulseAnimIndex, int energizedPulseAnimIndex, GameObject pulseSequencePrefab, GameObject energizedPulseSequencePrefab) : base(parent, targetSquare, target, caster, standardActorEffectData)
+	public SparkHealingBeamEffect(
+		EffectSource parent,
+		BoardSquare targetSquare,
+		ActorData target,
+		ActorData caster,
+		StandardActorEffectData standardActorEffectData,
+		AbilityPriority hitPhase,
+		float tetherDistance,
+		int tetherDuration, // custom
+		bool checkTetherRemovalBetweenPhases,
+		int healingOnCaster,
+		int additionalHealing,
+		int energyOnCasterPerTurn,
+		int pulseAnimIndex,
+		int energizedPulseAnimIndex,
+		GameObject pulseSequencePrefab,
+		GameObject energizedPulseSequencePrefab) : base(parent,
+		targetSquare,
+		target,
+		caster,
+		standardActorEffectData)
 	{
         HitPhase = hitPhase;
         SetPerTurnHitDelay(1);
@@ -40,6 +63,9 @@ public class SparkHealingBeamEffect : StandardActorEffect
 		m_passive = Caster.GetComponent<Passive_Spark>();
 		m_healAbility = (Caster.GetAbilityData().GetAbilityOfType(typeof(SparkHealingBeam)) as SparkHealingBeam);
 		m_energizedAbility = (Caster.GetAbilityData().GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
+		
+		// custom
+		m_tetherDuration = tetherDuration;
 	}
 
 	public void SetEnergized(bool energized)
@@ -241,6 +267,13 @@ public class SparkHealingBeamEffect : StandardActorEffect
 			{
 				m_passive.SetPulseAnimIndexOnFirstBeams();
 			}
+		}
+		
+		// custom
+		// TODO SPARK depending on how you define tether duration, might be off by one turn (is it even used?)
+		if (m_tetherDuration > 0 && m_time.age >= m_tetherDuration)
+		{
+			m_shouldEnd = true;
 		}
 	}
 
