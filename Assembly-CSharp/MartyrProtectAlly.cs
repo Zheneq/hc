@@ -64,13 +64,22 @@ public class MartyrProtectAlly : MartyrLaserBase
 	{
 		m_syncComponent = GetComponent<Martyr_SyncComponent>();
 		SetCachedFields();
-		AbilityUtil_Targeter_Shape targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, PenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, AffectsEnemies(), AffectsAllies(), AbilityUtil_Targeter.AffectsActor.Possible, AbilityUtil_Targeter.AffectsActor.Always);
-		targeter.m_affectCasterDelegate = delegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			PenetratesLoS(),
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			AffectsEnemies(),
+			AffectsAllies(),
+			AbilityUtil_Targeter.AffectsActor.Possible,
+			AbilityUtil_Targeter.AffectsActor.Always)
 		{
-			int currentAbsorb = GetCurrentAbsorb(caster);
-			return currentAbsorb > 0;
+			m_affectCasterDelegate = delegate(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
+			{
+				int currentAbsorb = GetCurrentAbsorb(caster);
+				return currentAbsorb > 0;
+			}
 		};
-		Targeter = targeter;
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -208,7 +217,7 @@ public class MartyrProtectAlly : MartyrLaserBase
 	private int GetCurrentAbsorb(ActorData caster)
 	{
 		MartyrProtectAllyThreshold martyrProtectAllyThreshold = GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
-		int additionalAbsorb = martyrProtectAllyThreshold != null ? martyrProtectAllyThreshold.m_additionalAbsorb : 0;
+		int additionalAbsorb = martyrProtectAllyThreshold?.m_additionalAbsorb ?? 0;
 		return GetBaseAbsorb()
 			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbPerCrystalSpent()
 			+ additionalAbsorb;
@@ -217,7 +226,7 @@ public class MartyrProtectAlly : MartyrLaserBase
 	private int GetCurrentAbsorbForAlly(ActorData caster)
 	{
 		MartyrProtectAllyThreshold martyrProtectAllyThreshold = GetCurrentPowerEntry(caster) as MartyrProtectAllyThreshold;
-		int additionalAbsorbOnAlly = martyrProtectAllyThreshold != null ? martyrProtectAllyThreshold.m_additionalAbsorbOnAlly : 0;
+		int additionalAbsorbOnAlly = martyrProtectAllyThreshold?.m_additionalAbsorbOnAlly ?? 0;
 		return GetBaseAbsorbOnAlly()
 			+ m_syncComponent.SpentDamageCrystals(caster) * GetAbsorbOnAllyPerCrystalSpent()
 			+ additionalAbsorbOnAlly;
@@ -346,18 +355,28 @@ public class MartyrProtectAlly : MartyrLaserBase
 
 #if SERVER
 	// added in rogues
-	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
 		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
-		list.Add(new ServerClientUtils.SequenceStartData(m_projectileSequence, laserCoords.end, hitActors.ToArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_projectileSequence,
+			laserCoords.end,
+			hitActors.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]));
 		if (GetEffectOnSelf().m_applyEffect || GetCurrentAbsorb(caster) > 0)
 		{
-			list.Add(new ServerClientUtils.SequenceStartData(m_selfShieldSequence, laserCoords.end, new ActorData[]
-			{
-				caster
-			}, caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[0]));
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_selfShieldSequence,
+				laserCoords.end,
+				new[] { caster },
+				caster,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[0]));
 		}
 		return list;
 	}
@@ -366,30 +385,60 @@ public class MartyrProtectAlly : MartyrLaserBase
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, nonActorTargetInfo);
+		List<ActorData> hitActors = GetHitActors(targets, caster, out _, nonActorTargetInfo);
 		foreach (ActorData hitActor in hitActors)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
 			StandardActorEffectData effectData = GetLaserHitEffect().m_effectData;
 			effectData.m_absorbAmount = 0;
-			MartyrDamageRedirectEffect damageRedirectEffect = new MartyrDamageRedirectEffect(AsEffectSource(), hitActor.GetCurrentBoardSquare(), hitActor, caster, true, new List<ActorData>
-			{
-				caster
-			}, effectData, GetDamageReductionOnTarget(), GetDamageRedirectToCaster(), GetTechPointGainPerRedirect(), 0f, m_allyShieldSequence, m_redirectProjectileSequence);
+			MartyrDamageRedirectEffect damageRedirectEffect = new MartyrDamageRedirectEffect(
+				AsEffectSource(),
+				hitActor.GetCurrentBoardSquare(),
+				hitActor,
+				caster,
+				true,
+				new List<ActorData> { caster },
+				effectData,
+				GetDamageReductionOnTarget(),
+				GetDamageRedirectToCaster(),
+				GetTechPointGainPerRedirect(),
+				0f,
+				m_allyShieldSequence,
+				m_redirectProjectileSequence);
 			actorHitResults.AddEffect(damageRedirectEffect);
 
 			if (GetCurrentAbsorbForAlly(caster) > 0)
 			{
 				StandardActorEffectData standardActorEffectData = new StandardActorEffectData();
-				standardActorEffectData.SetValues("Martyr Ally Shield", effectData.m_duration, 0, 0, 0, ServerCombatManager.HealingType.Effect, 0, GetCurrentAbsorbForAlly(caster), new AbilityStatMod[0], new StatusType[0], StandardActorEffectData.StatusDelayMode.DefaultBehavior);
-				StandardActorEffect allyShieldEffect = new StandardActorEffect(AsEffectSource(), hitActor.GetCurrentBoardSquare(), hitActor, caster, standardActorEffectData);
+				standardActorEffectData.SetValues(
+					"Martyr Ally Shield",
+					effectData.m_duration,
+					0,
+					0,
+					0,
+					ServerCombatManager.HealingType.Effect,
+					0,
+					GetCurrentAbsorbForAlly(caster),
+					new AbilityStatMod[0],
+					new StatusType[0],
+					StandardActorEffectData.StatusDelayMode.DefaultBehavior);
+				StandardActorEffect allyShieldEffect = new StandardActorEffect(
+					AsEffectSource(), hitActor.GetCurrentBoardSquare(), hitActor, caster, standardActorEffectData);
 				actorHitResults.AddEffect(allyShieldEffect);
 			}
 
 			StandardEffectInfo thornsEffectInfo = GetThornsEffect();
 			if (thornsEffectInfo != null && thornsEffectInfo.m_applyEffect)
 			{
-				BattleMonkThornsEffect thornsEffect = new BattleMonkThornsEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), hitActor, caster, thornsEffectInfo.m_effectData, GetThornsDamagePerHit(), GetReturnEffectOnEnemy(), m_thornsProjectileSequence);
+				BattleMonkThornsEffect thornsEffect = new BattleMonkThornsEffect(
+					AsEffectSource(),
+					caster.GetCurrentBoardSquare(),
+					hitActor,
+					caster,
+					thornsEffectInfo.m_effectData,
+					GetThornsDamagePerHit(),
+					GetReturnEffectOnEnemy(),
+					m_thornsProjectileSequence);
 				actorHitResults.AddEffect(thornsEffect);
 			}
 			abilityResults.StoreActorHit(actorHitResults);
@@ -408,7 +457,11 @@ public class MartyrProtectAlly : MartyrLaserBase
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 
-	protected List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, out VectorUtils.LaserCoords endPoints, List<NonActorTargetInfo> nonActorTargetInfo)
+	protected List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out VectorUtils.LaserCoords endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		endPoints = default(VectorUtils.LaserCoords);
 		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
