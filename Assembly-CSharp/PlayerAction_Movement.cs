@@ -138,20 +138,23 @@ public class PlayerAction_Movement : PlayerAction
 		return validRequests.Count > 0;
 	}
 
-	public override void OnExecutionComplete(bool isLastAction)
-	{
-		foreach (MovementRequest movementRequest in m_moveRequests)
-		{
-			ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
-		}
-		if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
-		{
-			ServerCombatManager.Get().ResolveHitPoints();
-		}
-		if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
-		{
-			ServerCombatManager.Get().ResolveTechPoints();
-		}
-	}
+	// public override void OnExecutionComplete(bool isLastAction)
+	// {
+	// 	// rogues, requests are reset on turn start in reactor
+	// 	// foreach (MovementRequest movementRequest in m_moveRequests)
+	// 	// {
+	// 	// 	ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
+	// 	// }
+	// 	//
+	// 	// rogues, not to be handled after every action in reactor
+	// 	// if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+	// 	// {
+	// 	// 	ServerCombatManager.Get().ResolveHitPoints();
+	// 	// }
+	// 	// if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
+	// 	// {
+	// 	// 	ServerCombatManager.Get().ResolveTechPoints();
+	// 	// }
+	// }
 }
 #endif

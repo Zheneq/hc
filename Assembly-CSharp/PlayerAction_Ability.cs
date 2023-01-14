@@ -261,34 +261,37 @@ public class PlayerAction_Ability : PlayerAction
 		return list;
 	}
 
-	public override void OnExecutionComplete(bool isLastAction)
-	{
-		if (m_requests != null)
-		{
-			foreach (AbilityRequest abilityRequest in m_requests)
-			{
-				abilityRequest.m_resolveState = AbilityRequest.AbilityResolveState.QUEUED;
-				ServerActionBuffer.Get().CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true, true);
-				// rogues
-				//if (isLastAction && !PlayerActionStateMachine.ConstructPlayerActionOnExecution())
-				//{
-				//	abilityRequest.m_caster.GetActorTurnSM().OnMessage(TurnMessage.EXECUTE_ACTION_DONE, true);
-				//}
-			}
-			if (m_phase == AbilityPriority.Combat_Knockback)
-			{
-				ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
-			}
-			if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
-			{
-				ServerCombatManager.Get().ResolveHitPoints();
-			}
-			if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
-			{
-				ServerCombatManager.Get().ResolveTechPoints();
-			}
-		}
-	}
+	// public override void OnExecutionComplete(bool isLastAction)
+	// {
+	// 	if (m_requests != null)
+	// 	{
+	// 		foreach (AbilityRequest abilityRequest in m_requests)
+	// 		{
+	// 			// rogues, requests are reset on turn start in reactor
+	// 			// abilityRequest.m_resolveState = AbilityRequest.AbilityResolveState.QUEUED;
+	// 			// ServerActionBuffer.Get().CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true, true);
+	// 			// rogues
+	// 			//if (isLastAction && !PlayerActionStateMachine.ConstructPlayerActionOnExecution())
+	// 			//{
+	// 			//	abilityRequest.m_caster.GetActorTurnSM().OnMessage(TurnMessage.EXECUTE_ACTION_DONE, true);
+	// 			//}
+	// 		}
+	// 		
+	// 		// rogues, not to be handled after every action in reactor
+	// 		// if (m_phase == AbilityPriority.Combat_Knockback)
+	// 		// {
+	// 		// 	ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
+	// 		// }
+	// 		// if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+	// 		// {
+	// 		// 	ServerCombatManager.Get().ResolveHitPoints();
+	// 		// }
+	// 		// if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
+	// 		// {
+	// 		// 	ServerCombatManager.Get().ResolveTechPoints();
+	// 		// }
+	// 	}
+	// }
 
 	private void SetupForEvadesPreGathering(List<AbilityRequest> requests)
 	{

@@ -128,6 +128,8 @@ public class GameFlow : NetworkBehaviour
 	private int m_nextPlayerIndexToSpawn;
 	// added in rogues
 	private const float c_startWaitTimeoutTime = 120f;
+	// custom
+	private List<PlayerAction> m_executingPlayerActions = new List<PlayerAction>();
 #endif
 
 	static GameFlow()
@@ -281,6 +283,12 @@ public class GameFlow : NetworkBehaviour
 				//		HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.ClearUsedActionsDisplay();
 				//	}
 				//	break;
+#if SERVER
+			// custom
+			case GameState.EndingTurn:
+				HandleUpdateTurnEnd();
+				break;
+#endif
 		}
 	}
 
@@ -545,6 +553,10 @@ public class GameFlow : NetworkBehaviour
 			{
 				while (true)
 				{
+					if (actionBuffer.AbilityPhase == AbilityPriority.Combat_Knockback)
+					{
+						ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
+					}
 					ServerEffectManager.Get().OnAbilityPhaseEnd(actionBuffer.AbilityPhase);
 					if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
 					{
@@ -560,7 +572,8 @@ public class GameFlow : NetworkBehaviour
 					ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
-					bool hasActionsThisPhase = GatherActionsInPhase(actionBuffer, actionBuffer.AbilityPhase);
+					bool hasActionsThisPhase = GatherActionsInPhase(actionBuffer, actionBuffer.AbilityPhase, out List<PlayerAction> executingPlayerActions);
+					m_executingPlayerActions.AddRange(executingPlayerActions);
 
 					theatrics.SetupTurnAbilityPhase(
 						actionBuffer.AbilityPhase,
@@ -599,14 +612,20 @@ public class GameFlow : NetworkBehaviour
 				var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
 				turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
 			}
-			ServerCombatManager.Get().ResolveHitPoints();
+			if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+			{
+				ServerCombatManager.Get().ResolveHitPoints();
+			}
 			List<MovementRequest> movementRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing());
 			Log.Info($"Running {movementRequests.Count} non-chase movement requests");
-			new PlayerAction_Movement(movementRequests, false).ExecuteAction();
+			PlayerAction_Movement action = new PlayerAction_Movement(movementRequests, false);
+			m_executingPlayerActions.Add(action);
+			action.ExecuteAction();
 			actionBuffer.ActionPhase = ActionBufferPhase.Movement;
 		}
 		else if (actionBuffer.ActionPhase == ActionBufferPhase.Movement)
 		{
+			CompleteExecutingPlayerActions();
 			ServerMovementManager manager = ServerMovementManager.Get();
 			if (!manager.WaitingOnClients)
 			{
@@ -614,7 +633,9 @@ public class GameFlow : NetworkBehaviour
 				if (numChaseRequests > 0)
 				{
 					Log.Info($"Running {numChaseRequests} chase movement requests");
-					new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests(), true).ExecuteAction();
+					PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests(), true);
+					m_executingPlayerActions.Add(action);
+					action.ExecuteAction();
 				}
 				else
 				{
@@ -625,6 +646,7 @@ public class GameFlow : NetworkBehaviour
 		}
 		else if (actionBuffer.ActionPhase == ActionBufferPhase.MovementChase)
 		{
+			CompleteExecutingPlayerActions();
 			//ServerEvadeManager manager = ServerEvadeManager.Get();
 			ServerMovementManager manager = ServerMovementManager.Get();
 			if (!manager.WaitingOnClients)
@@ -641,6 +663,8 @@ public class GameFlow : NetworkBehaviour
 		{
 			theatrics.MarkPhasesOnActionsDone();
 			actionBuffer.ActionPhase = ActionBufferPhase.Done;
+			
+			// TODO we kinda do it in HandleUpdateTurnEnd tho...
 			ServerCombatManager.Get().ResolveHitPoints();
 			ServerCombatManager.Get().ResolveTechPoints();
 
@@ -667,8 +691,9 @@ public class GameFlow : NetworkBehaviour
 	
 #if SERVER
 	// custom
-	private static bool GatherActionsInPhase(ServerActionBuffer actionBuffer, AbilityPriority phase)
+	private static bool GatherActionsInPhase(ServerActionBuffer actionBuffer, AbilityPriority phase, out List<PlayerAction> executingPlayerActions)
 	{
+		executingPlayerActions = new List<PlayerAction>();
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
 		List<Effect> executingEffects = new List<Effect>();
 		foreach (List<Effect> effectsOnActor in ServerEffectManager.Get().GetAllActorEffects().Values)
@@ -708,6 +733,7 @@ public class GameFlow : NetworkBehaviour
 		{
 			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
 			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+			executingPlayerActions.Add(action);
 			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
@@ -717,11 +743,29 @@ public class GameFlow : NetworkBehaviour
 		if (requestsThisPhase.Count > 0)
 		{
 			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-			anims.AddRange(new PlayerAction_Ability(requestsThisPhase, phase).PrepareResults());
+			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
+			executingPlayerActions.Add(action);
+			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
 
 		return hasActionsThisPhase;
+	}
+#endif
+
+#if SERVER
+// custom
+	private void CompleteExecutingPlayerActions()
+	{
+		if (!m_executingPlayerActions.IsNullOrEmpty())
+		{
+			foreach (PlayerAction action in m_executingPlayerActions)
+			{
+				action.OnExecutionComplete(false);
+			}
+
+			m_executingPlayerActions = new List<PlayerAction>();
+		}
 	}
 #endif
 
@@ -1175,7 +1219,6 @@ public class GameFlow : NetworkBehaviour
 
 	// added in rogues, but not used in rogues
 	[Server]
-	// TODO call when going into desicion
 	private void SetupTeamsForDecision()
 	{
 		if (!NetworkServer.active)
@@ -1473,12 +1516,11 @@ public class GameFlow : NetworkBehaviour
 					{
 						MatchLogger.Get().ResetMatchStartTime();
 						GameFlow.Get().SendMatchTime(0f);
-						gameFlowData.gameState = GameState.BothTeams_Decision;  // TODO LOW check. GameState.PVE_TeamTurnStart in rogues
+						gameFlowData.gameState = GameState.BothTeams_Decision;
 
 						return;
 					}
 					break;
-				// TODO some code might be missing in EndingGame, BothTeams_Decision, BothTeams_Resolve
 				case GameState.EndingGame:
 				case GameState.BothTeams_Decision:
 					break;
@@ -1490,7 +1532,20 @@ public class GameFlow : NetworkBehaviour
 				case GameState.EndingTurn:
 					if (gameFlowData.GetTimeInState() > 2.0f)
 					{
-						HandleUpdateTurnEnd();
+						OnTurnEnd();
+						switch (GameFlowData.Get().gameState)
+						{
+							case GameState.EndingTurn:
+								GameFlowData.Get().gameState = GameState.BothTeams_Decision;
+								break;
+							case GameState.EndingGame:
+								// TODO
+								break;
+							default:
+								Log.Error($"Unexpected game state on turn end: {GameFlowData.Get().gameState}");
+								GameFlowData.Get().gameState = GameState.BothTeams_Decision; // fallback
+								break;
+						}
 					}
 					break;
 				//	rogues
@@ -1640,23 +1695,8 @@ public class GameFlow : NetworkBehaviour
 			ServerCombatManager.Get().ResolveTechPoints();
 		}
 		//Team nextActingTeam_FCFS = this.GetNextActingTeam_FCFS();
-
-		// custom
-		OnTurnEnd();
-		switch (GameFlowData.Get().gameState)
-		{
-			case GameState.EndingTurn:
-				GameFlowData.Get().gameState = GameState.BothTeams_Decision;
-				break;
-			case GameState.EndingGame:
-				// TODO
-				break;
-			default:
-				Log.Error($"Unexpected game state on turn end: {GameFlowData.Get().gameState}");
-				GameFlowData.Get().gameState = GameState.BothTeams_Decision; // fallback
-				break;
-		}
-		// rogues
+		
+		// rogues, similar logic for reactor in Update_FCFS EndingTurn
 		//OnTeamTurnEnd(nextActingTeam_FCFS == Team.TeamA);
 		//GameFlowData.Get().gameState = GameState.PVE_TeamTurnStart;
 	}

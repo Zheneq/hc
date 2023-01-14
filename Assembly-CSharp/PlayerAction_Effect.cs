@@ -147,18 +147,20 @@ public class PlayerAction_Effect : PlayerAction
 			//}
 			effectResults.OnExecutionComplete();
 		}
-		if (this.m_phase == AbilityPriority.Combat_Knockback)
-		{
-			ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
-		}
-		if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
-		{
-			ServerCombatManager.Get().ResolveHitPoints();
-		}
-		if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
-		{
-			ServerCombatManager.Get().ResolveTechPoints();
-		}
+		
+		// rogues, not to be handled after every action in reactor
+		// if (m_phase == AbilityPriority.Combat_Knockback)
+		// {
+		// 	ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
+		// }
+		// if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+		// {
+		// 	ServerCombatManager.Get().ResolveHitPoints();
+		// }
+		// if (ServerCombatManager.Get().HasUnresolvedTechPointsEntries())
+		// {
+		// 	ServerCombatManager.Get().ResolveTechPoints();
+		// }
 	}
 }
 #endif
