@@ -227,10 +227,10 @@ public class ServerCombatManager : MonoBehaviour
 			damageCalcScratch.m_damageAfterOutgoingMod = damageOutgoingModified;
 			int damageIncomingModified = actorStats.CalculateIncomingDamage(
 				damageOutgoingModified,
-				out var damageAfterIncomingBuffDebuff,
-				out var damageIncomingNormal,
-				out var damageIncomingVulnerable,
-				out var damageIncomingArmored);
+				out int damageAfterIncomingBuffDebuff,
+				out int damageIncomingNormal,
+				out int damageIncomingVulnerable,
+				out int damageIncomingArmored);
 			int damageOutgoingNormal = actorStats.CalculateIncomingDamage(
 				modifiedDamageNormal,
 				out _,
@@ -256,11 +256,17 @@ public class ServerCombatManager : MonoBehaviour
 				bool reducedCoverEffectiveness = src.Ability != null && AbilityUtils.AbilityReduceCoverEffectiveness(src.Ability, target);
 				damageIncomingModifiedWithCover = AbilityUtils.ApplyCoverDamageReduction(actorStats, damageIncomingModified, reducedCoverEffectiveness);
 			}
+			int damageAfterIncomingBuffDebuffWithCover = damageAfterIncomingBuffDebuff;
+			if (targetInCoverWrtDamage)
+			{
+				bool reducedCoverEffectiveness = src.Ability != null && AbilityUtils.AbilityReduceCoverEffectiveness(src.Ability, target);
+				damageAfterIncomingBuffDebuffWithCover = AbilityUtils.ApplyCoverDamageReduction(actorStats, damageAfterIncomingBuffDebuff, reducedCoverEffectiveness);
+			}
 			// end custom
 			damageCalcScratch.m_damageAfterIncomingBuffDebuff = damageAfterIncomingBuffDebuff;
 			
 			// custom
-			damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageIncomingModifiedWithCover;
+			damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageAfterIncomingBuffDebuffWithCover;
 			// rogues
 			// damageCalcScratch.m_damageAfterIncomingBuffDebuffWithCover = damageAfterIncomingBuffDebuff;
 			
