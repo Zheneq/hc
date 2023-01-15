@@ -288,6 +288,7 @@ public class SparkBasicAttack : Ability
 #if SERVER
 	public SparkBasicAttackEffect CreateDamageTetherEffect(ActorData caster, ActorData hitActor)
 	{
+		Log.Info($"SPARK creating damage effect with {m_pulseAnimIndex} pulse anim index");
 		StandardActorEffectData enemyTetherEffectData = GetEnemyTetherEffectData();
 		return new SparkBasicAttackEffect(
 			AsEffectSource(),

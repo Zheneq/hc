@@ -124,67 +124,78 @@ public class SparkBasicAttackEffect : StandardActorEffect
 
 	public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
 	{
-		if (!IsAbilityQueued() && m_time.age >= m_perTurnHitDelay)
+		if (IsAbilityQueued() || m_time.age < m_perTurnHitDelay)
 		{
-			if (m_passive != null && m_passive.GetDamageBeamPulseAnimIndex() > 0)
+			Log.Info($"SPARK {Caster.DisplayName} not gathering effect results IsAbilityQueued()={IsAbilityQueued()} m_time.age={m_time.age} m_perTurnHitDelay={m_perTurnHitDelay}");
+			return;
+		}
+		if (m_passive != null && m_passive.GetDamageBeamPulseAnimIndex() > 0)
+		{
+			if (m_pulseAnimIndex > 0)
 			{
-				if (m_pulseAnimIndex > 0)
+				foreach (Effect effect in ServerEffectManager.Get().GetAllActorEffectsByCaster(Caster, typeof(SparkBasicAttackEffect)))
 				{
-					foreach (Effect effect in ServerEffectManager.Get().GetAllActorEffectsByCaster(Caster, typeof(SparkBasicAttackEffect)))
+					SparkBasicAttackEffect sparkBasicAttackEffect = effect as SparkBasicAttackEffect;
+					if (!sparkBasicAttackEffect.IsSkippingGatheringResults())
 					{
-						SparkBasicAttackEffect sparkBasicAttackEffect = effect as SparkBasicAttackEffect;
-						if (!sparkBasicAttackEffect.IsSkippingGatheringResults())
+						ActorHitResults actorHitResults = sparkBasicAttackEffect.BuildMainTargetHitResults();
+						if (actorHitResults != null)
 						{
-							ActorHitResults actorHitResults = sparkBasicAttackEffect.BuildMainTargetHitResults();
-							if (actorHitResults != null)
-							{
-								effectResults.StoreActorHit(actorHitResults);
-							}
+							effectResults.StoreActorHit(actorHitResults);
 						}
+					}
+					else
+					{
+						Log.Info($"SPARK {Caster.DisplayName} skipping gathering effect results");
 					}
 				}
 			}
 			else
 			{
-				base.GatherEffectResults(ref effectResults, isReal);
+				Log.Info($"SPARK {Caster.DisplayName} not gathering effect results m_pulseAnimIndex={m_pulseAnimIndex}");
 			}
-			int num = 1;
-			int num2 = 0;
-			if (m_damageAbility != null)
+		}
+		else
+		{
+			Log.Info($"SPARK {Caster.DisplayName} not gathering effect results m_passive == null={m_passive == null} m_passive.GetDamageBeamPulseAnimIndex()={m_passive?.GetDamageBeamPulseAnimIndex()}");
+			base.GatherEffectResults(ref effectResults, isReal);
+		}
+		int energyGainCyclePeriod = 1;  // TODO SPARK unused
+		int techPointOnCasterOnTick = 0;
+		if (m_damageAbility != null)
+		{
+			if (m_time.age > 0 && (m_time.age + 1) % energyGainCyclePeriod == 0)
 			{
-				if (m_time.age > 0 && (m_time.age + 1) % num == 0)
-				{
-					num = Mathf.Max(1, m_damageAbility.GetEnergyGainCyclePeriod());
-					num2 = m_damageAbility.GetEnergyGainPerCycle();
-				}
-				int num3 = 0;
-				int maxBonusEnergyFromGrowingGain = m_damageAbility.GetMaxBonusEnergyFromGrowingGain();
-				int bonusEnergyGrowthRate = m_damageAbility.GetBonusEnergyGrowthRate();
-				if (bonusEnergyGrowthRate > 0)
-				{
-					num3 = m_time.age * bonusEnergyGrowthRate;
-				}
-				if (maxBonusEnergyFromGrowingGain > 0)
-				{
-					num3 = Mathf.Min(num3, maxBonusEnergyFromGrowingGain);
-				}
-				num2 += num3;
+				energyGainCyclePeriod = Mathf.Max(1, m_damageAbility.GetEnergyGainCyclePeriod());
+				techPointOnCasterOnTick = m_damageAbility.GetEnergyGainPerCycle();
 			}
-			num2 += m_energyOnCasterPerTurn;
-			int healOnCasterOnTick = m_healOnCasterOnTick;
-			if (healOnCasterOnTick > 0 || num2 > 0)
+			int bonusEnergyFromGrowingGain = 0;
+			int maxBonusEnergyFromGrowingGain = m_damageAbility.GetMaxBonusEnergyFromGrowingGain();
+			int bonusEnergyGrowthRate = m_damageAbility.GetBonusEnergyGrowthRate();
+			if (bonusEnergyGrowthRate > 0)
 			{
-				ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
-				if (healOnCasterOnTick > 0)
-				{
-					actorHitResults2.SetBaseHealing(healOnCasterOnTick);
-				}
-				if (num2 > 0)
-				{
-					actorHitResults2.SetTechPointGain(num2);
-				}
-				effectResults.StoreActorHit(actorHitResults2);
+				bonusEnergyFromGrowingGain = m_time.age * bonusEnergyGrowthRate;
 			}
+			if (maxBonusEnergyFromGrowingGain > 0)
+			{
+				bonusEnergyFromGrowingGain = Mathf.Min(bonusEnergyFromGrowingGain, maxBonusEnergyFromGrowingGain);
+			}
+			techPointOnCasterOnTick += bonusEnergyFromGrowingGain;
+		}
+		techPointOnCasterOnTick += m_energyOnCasterPerTurn;
+		int healOnCasterOnTick = m_healOnCasterOnTick;
+		if (healOnCasterOnTick > 0 || techPointOnCasterOnTick > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
+			if (healOnCasterOnTick > 0)
+			{
+				casterHitResults.SetBaseHealing(healOnCasterOnTick);
+			}
+			if (techPointOnCasterOnTick > 0)
+			{
+				casterHitResults.SetTechPointGain(techPointOnCasterOnTick);
+			}
+			effectResults.StoreActorHit(casterHitResults);
 		}
 	}
 
@@ -212,8 +223,11 @@ public class SparkBasicAttackEffect : StandardActorEffect
 
 	public bool IsAbilityQueued()
 	{
-        return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkDash)) && ServerActionBuffer.Get().GetGatheredActorsOfStoredAbility(Caster, typeof(SparkDash)).Contains(Target)
-			|| ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkBasicAttack));
+		bool dashingAtCurrentTarget = ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkDash))
+		                              && ServerActionBuffer.Get().GetGatheredActorsOfStoredAbility(Caster, typeof(SparkDash)).Contains(Target);
+		bool creatingNewTether = ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(SparkBasicAttack));
+		Log.Info($"SPARK {Caster.DisplayName} dashingAtCurrentTarget={dashingAtCurrentTarget} creatingNewTether={creatingNewTether}");
+        return dashingAtCurrentTarget || creatingNewTether;
 	}
 
 	public bool IsSkippingGatheringResults()

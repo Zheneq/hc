@@ -99,39 +99,50 @@ public class Passive_Spark : Passive
 	public void SetPulseAnimIndexOnFirstBeams()
 	{
 		List<int> beamActorIndices = m_syncComp.GetBeamActorIndices();
-		bool flag = false;
-		bool flag2 = false;
-		for (int i = 0; i < beamActorIndices.Count; i++)
+		bool processedAllyBeam = false;
+		bool processedEnemyBeam = false;
+		foreach (int beamActorIndex in beamActorIndices)
 		{
-			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(beamActorIndices[i]);
-			if (actorOfActorIndex != null)
+			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(beamActorIndex);
+			if (actorOfActorIndex == null)
 			{
-				List<Effect> effectsOnTargetByCaster = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkHealingBeamEffect));
-				if (effectsOnTargetByCaster.Count > 0)
+				continue;
+			}
+			List<Effect> allyEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkHealingBeamEffect));
+			if (allyEffects.Count > 0)
+			{
+				Log.Info($"SPARK got {allyEffects.Count} ally effects");
+				foreach (Effect effect in allyEffects)
 				{
-					foreach (Effect effect in effectsOnTargetByCaster)
+					SparkHealingBeamEffect sparkHealingBeamEffect = effect as SparkHealingBeamEffect;
+					bool isSkippingAllyBeam = sparkHealingBeamEffect.IsSkippingGatheringResults();
+					int animIndex = processedAllyBeam || isSkippingAllyBeam
+						? 0
+						: m_healBeamAbility.m_pulseAnimIndex;
+					Log.Info($"SPARK setting ally effect pulse anim index to {animIndex} (processedAllyBeam={processedAllyBeam}, isSkippingAllyBeam={isSkippingAllyBeam}");
+					sparkHealingBeamEffect.SetPulseAnimIndex(animIndex);
+					if (!isSkippingAllyBeam)
 					{
-						SparkHealingBeamEffect sparkHealingBeamEffect = effect as SparkHealingBeamEffect;
-						bool flag3 = sparkHealingBeamEffect.IsSkippingGatheringResults();
-						sparkHealingBeamEffect.SetPulseAnimIndex((flag || flag3) ? 0 : m_healBeamAbility.m_pulseAnimIndex);
-						if (!flag3)
-						{
-							flag = true;
-						}
+						processedAllyBeam = true;
 					}
 				}
-				List<Effect> effectsOnTargetByCaster2 = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkBasicAttackEffect));
-				if (effectsOnTargetByCaster2.Count > 0)
+			}
+			List<Effect> enemyEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkBasicAttackEffect));
+			if (enemyEffects.Count > 0)
+			{
+				foreach (Effect effect in enemyEffects)
 				{
-					foreach (Effect effect2 in effectsOnTargetByCaster2)
+					Log.Info($"SPARK got {enemyEffects.Count} enemy effects");
+					SparkBasicAttackEffect sparkBasicAttackEffect = effect as SparkBasicAttackEffect;
+					bool isSkippingEnemyBeam = sparkBasicAttackEffect.IsSkippingGatheringResults();
+					int animIndex = processedEnemyBeam || isSkippingEnemyBeam
+						? 0
+						: m_damageBeamAbility.m_pulseAnimIndex;
+					Log.Info($"SPARK setting enemy effect pulse anim index to {animIndex} (processedEnemyBeam={processedEnemyBeam}, isSkippingEnemyBeam={isSkippingEnemyBeam}");
+					sparkBasicAttackEffect.SetPulseAnimIndex(animIndex);
+					if (!isSkippingEnemyBeam)
 					{
-						SparkBasicAttackEffect sparkBasicAttackEffect = effect2 as SparkBasicAttackEffect;
-						bool flag4 = sparkBasicAttackEffect.IsSkippingGatheringResults();
-						sparkBasicAttackEffect.SetPulseAnimIndex((flag2 || flag4) ? 0 : m_damageBeamAbility.m_pulseAnimIndex);
-						if (!flag4)
-						{
-							flag2 = true;
-						}
+						processedEnemyBeam = true;
 					}
 				}
 			}
