@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,9 +44,13 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RageBeastBasicAttack rageBeastBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as RageBeastBasicAttack;
+		// rogues
+		// RageBeastBasicAttack rageBeastBasicAttack = targetAbility as RageBeastBasicAttack;
+		
 		bool isValid = rageBeastBasicAttack != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_coneAngleMod, "[Cone Angle]", isValid, isValid ? rageBeastBasicAttack.m_coneWidthAngle : 0f);

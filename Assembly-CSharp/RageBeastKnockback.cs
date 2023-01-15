@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -156,4 +158,94 @@ public class RageBeastKnockback : Ability
 				? knockbackDistMax
 				: knockbackDistInSquares;
 	}
+	
+#if SERVER
+	// added in rogues
+	private List<ActorData> GetHitTargets(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Vector3 zoneEndPoint,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			ModdedLaserLength(),
+			ModdedLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			m_penetrateLineOfSight,
+			ModdedMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		zoneEndPoint = laserCoords.end;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 casterPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		Vector3 aimDirection = targets[0].AimDirection;
+		float maxDistanceInWorld = ModdedLaserLength() * Board.Get().squareSize;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(caster.GetLoSCheckPos(), aimDirection, maxDistanceInWorld, m_penetrateLineOfSight, caster);
+		Vector3 targetPos = laserEndPoint;
+		ActorData[] hitActorsArray = additionalData.m_abilityResults.HitActorsArray();
+		if (hitActorsArray.Length != 0)
+		{
+			Vector3 vector = hitActorsArray[0].transform.position - casterPos;
+			Vector3 vector2 = laserEndPoint - casterPos;
+			if (vector.magnitude < vector2.magnitude)
+			{
+				targetPos = hitActorsArray[0].transform.position;
+			}
+		}
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			targetPos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, out Vector3 knockbackStartPos, nonActorTargetInfo);
+		float knockbackDist = GetKnockbackDist(targets[0], caster.GetLoSCheckPos(), knockbackStartPos);
+		foreach (ActorData target in hitTargets)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults actorHitResults = new ActorHitResults(ModdedOnHitDamage(), HitActionType.Damage, m_onHitEffect, hitParams);
+			if (knockbackDist != 0f)
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					target,
+					caster,
+					m_knockbackType,
+					targets[0].AimDirection,
+					caster.GetFreePos(),
+					knockbackDist);
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnAbilityAssistedKill(ActorData caster, ActorData target)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.RageBeastStats.KnockbackAssists);
+	}
+#endif
 }

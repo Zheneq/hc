@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,8 +14,11 @@ public class RageBeastUltimate : Ability
 	public int m_plasmaDuration = 2;
 	public int m_spillingStateDuration = 2;
 	public bool m_penetrateLineOfSight;
+	
+	// removed in rogues
 	[Separator("Direct vs Indirect Damage")]
 	public bool m_isDirectDamageOnCast;
+	
 	[Separator("Self Hit on Cast")]
 	public int m_selfHealOnCast;
 	public StandardEffectInfo m_extraEffectOnSelf;
@@ -132,4 +137,90 @@ public class RageBeastUltimate : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override int GetTechPointRegenContribution()
+	{
+		if (!(m_abilityMod == null) && m_abilityMod.m_passiveTechPointRegen > 0)
+		{
+			return m_abilityMod.m_passiveTechPointRegen;
+		}
+		return 0;
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_castExplosionShape,
+			caster.GetFreePos(),
+			caster.GetCurrentBoardSquare(),
+			m_penetrateLineOfSight,
+			caster,
+			caster.GetOtherTeams(),
+			null);
+		actorsInShape.Add(caster);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			actorsInShape.ToArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_castExplosionShape,
+			caster.GetFreePos(),
+			caster.GetCurrentBoardSquare(),
+			m_penetrateLineOfSight,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		foreach (ActorData target in actorsInShape)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults actorHitResults = new ActorHitResults(GetPlasmaDamage(), HitActionType.Damage, hitParams);
+			// TODO RAGEBEAST use m_isDirectDamageOnCast
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		Effect effect = new RageBeastPlasmaEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			caster,
+			GetPlasmaDamage(),
+			GetPlasmaDuration(),
+			m_spillingStateDuration,
+			m_castExplosionShape,
+			m_walkingSpillShape,
+			m_penetrateLineOfSight,
+			m_resetCooldowns,
+			actorsInShape,
+			m_plasmaSequencePrefab,
+			m_hitByPlasmaSequencePrefab,
+			m_buffSequencePrefab,
+			GetPlasmaHealing(),
+			GetPlasmaTechPointGain());
+		ActorHitParameters casterHitParams = new ActorHitParameters(caster, caster.GetFreePos());
+		ActorHitResults casterHitResults = new ActorHitResults(effect, casterHitParams);
+		casterHitResults.SetBaseHealing(GetSelfHealOnCast());
+		casterHitResults.AddStandardEffectInfo(GetExtraEffectOnSelf());
+		if (m_resetCooldowns)
+		{
+			casterHitResults.AddMiscHitEvent(new MiscHitEventData(MiscHitEventType.ClearCharacterAbilityCooldowns));
+		}
+		abilityResults.StoreActorHit(casterHitResults);
+	}
+#endif
 }

@@ -1854,6 +1854,7 @@
     <Compile Include="PKFxRenderingPlugin.cs" />
     <Compile Include="PKFxSceneMeshBuilder.cs" />
     <Compile Include="PKFxSoundManager.cs" />
+    <Compile Include="PlasmaSquareEntry.cs" />
     <Compile Include="PlatformConfig.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerAbilityVfxSwapData.cs" />
@@ -1972,7 +1973,9 @@
     <Compile Include="RageBeastBasicAttack.cs" />
     <Compile Include="RageBeastCharge.cs" />
     <Compile Include="RageBeastKnockback.cs" />
+    <Compile Include="RageBeastPlasmaEffect.cs" />
     <Compile Include="RageBeastSelfHeal.cs" />
+    <Compile Include="RagebeastSelfHealEffect.cs" />
     <Compile Include="RageBeastUltimate.cs" />
     <Compile Include="RampartAimShield.cs" />
     <Compile Include="RampartAoeBuffDebuff.cs" />

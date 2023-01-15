@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,9 +35,13 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RageBeastSelfHeal rageBeastSelfHeal = GetTargetAbilityOnAbilityData(abilityData) as RageBeastSelfHeal;
+		// rogues
+		// RageBeastSelfHeal rageBeastSelfHeal = targetAbility as RageBeastSelfHeal;
+		
 		bool isValid = rageBeastSelfHeal != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_standardActorEffectDataMod, "[Base Effect on Self]", isValid, isValid ? rageBeastSelfHeal.m_standardActorEffectData : null);

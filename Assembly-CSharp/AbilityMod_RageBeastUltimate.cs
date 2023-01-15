@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,9 +35,13 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RageBeastUltimate rageBeastUltimate = GetTargetAbilityOnAbilityData(abilityData) as RageBeastUltimate;
+		// rogues
+		// RageBeastUltimate rageBeastUltimate = targetAbility as RageBeastUltimate;
+		
 		bool isValid = rageBeastUltimate != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_plasmaDamageMod, "[Plasma Damage]", isValid, isValid ? rageBeastUltimate.m_plasmaDamage : 0);

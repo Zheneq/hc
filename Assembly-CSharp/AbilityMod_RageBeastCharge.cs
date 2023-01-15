@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,9 +34,13 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		RageBeastCharge rageBeastCharge = GetTargetAbilityOnAbilityData(abilityData) as RageBeastCharge;
+		// rogues
+		// RageBeastCharge rageBeastCharge = targetAbility as RageBeastCharge;
+		
 		bool isValid = rageBeastCharge != null;
 		string desc = string.Empty;
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage Mod]", isValid, isValid ? rageBeastCharge.m_damageAmount : 0);

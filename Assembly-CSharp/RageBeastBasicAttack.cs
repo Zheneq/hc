@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RageBeastBasicAttack : Ability
@@ -275,4 +277,68 @@ public class RageBeastBasicAttack : Ability
 		bool isNear = dist <= innerRadiusInWorld;
 		return subjectType == AbilityTooltipSubject.Near ? isNear : !isNear;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_sequencePrefab,
+			Board.Get().GetSquareFromVec3(caster.GetLoSCheckPos()),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActorOuter = FindHitActorsForConeLength(targets, caster, ModdedOuterRadius(), nonActorTargetInfo);
+		List<ActorData> hitActorsInner = FindHitActorsForConeLength(targets, caster, ModdedInnerRadius(), null);
+		GetExtraDamageAndTPForCurrentLocation(false, out int damageAmount, out int techPointAmount);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		foreach (ActorData actorData in hitActorOuter)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, loSCheckPos));
+			if (hitActorsInner.Contains(actorData))
+			{
+				actorHitResults.SetBaseDamage(ModdedInnerDamage() + damageAmount);
+				actorHitResults.AddStandardEffectInfo(GetEffectInner());
+				actorHitResults.SetTechPointGainOnCaster(ModdedInnerTpGain() + techPointAmount);
+			}
+			else
+			{
+				actorHitResults.SetBaseDamage(ModdedOuterDamage() + damageAmount);
+				actorHitResults.AddStandardEffectInfo(GetEffectOuter());
+				actorHitResults.SetTechPointGainOnCaster(ModdedOuterTpGain() + techPointAmount);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActorsForConeLength(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		float coneLength,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			caster.GetLoSCheckPos(),
+			VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+			ModdedConeAngle(),
+			coneLength,
+			m_coneBackwardOffset,
+			m_penetrateLineOfSight,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		return actorsInCone ?? new List<ActorData>();
+	}
+#endif
 }

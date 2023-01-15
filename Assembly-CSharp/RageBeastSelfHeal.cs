@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -178,4 +180,57 @@ public class RageBeastSelfHeal : Ability
 			return ModdedHealOnCastIfOver();
 		}
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			AsEffectSource().GetSequencePrefab(),
+			caster.GetFreePos(),
+			new[] { caster },
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		int healingForCurrentHealth = GetHealingForCurrentHealth(caster);
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		actorHitResults.SetBaseHealing(healingForCurrentHealth);
+		if (ShouldHealOverTime())
+		{
+			if (ServerEffectManager.Get().GetEffect(caster, typeof(RagebeastSelfHealEffect)) is RagebeastSelfHealEffect selfHealEffect)
+			{
+				selfHealEffect.SetSkipGatherResultsAndHits(true);
+				actorHitResults.AddEffectForRemoval(selfHealEffect, ServerEffectManager.Get().GetActorEffects(caster));
+			}
+
+			actorHitResults.AddEffect(new RagebeastSelfHealEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				GetStandardActorEffectData(),
+				RunPriority));
+		}
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster == target && results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.RageBeastStats.HealingFromSelfHeal, results.FinalHealing);
+		}
+	}
+#endif
 }
