@@ -4,31 +4,18 @@ using UnityEngine;
 public class RageBeastKnockback : Ability
 {
 	public float m_laserWidth;
-
 	public float m_laserDistance;
-
 	public bool m_penetrateLineOfSight;
-
 	public int m_maxTargets;
-
 	public float m_knockbackDistanceMin;
-
 	public float m_knockbackDistanceMax;
-
 	public KnockbackType m_knockbackType;
-
 	public int m_damageAmount;
-
 	public StandardEffectInfo m_onHitEffect;
-
 	public int m_damageToMoverOnCollision = 2;
-
 	public int m_damageToOtherOnCollision;
-
 	public int m_damageCollisionWithGeo = 2;
-
 	public GameObject m_hitActorSequencePrefab;
-
 	public GameObject m_hitGeoSequencePrefab;
 
 	private AbilityMod_RageBeastKnockback m_abilityMod;
@@ -44,7 +31,16 @@ public class RageBeastKnockback : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_KnockbackLaser(this, ModdedLaserWidth(), ModdedLaserLength(), m_penetrateLineOfSight, ModdedMaxTargets(), ModdedKnockbackDistanceMin(), ModdedKnockbackDistanceMax(), m_knockbackType, false);
+		Targeter = new AbilityUtil_Targeter_KnockbackLaser(
+			this,
+			ModdedLaserWidth(),
+			ModdedLaserLength(),
+			m_penetrateLineOfSight,
+			ModdedMaxTargets(),
+			ModdedKnockbackDistanceMin(),
+			ModdedKnockbackDistanceMax(),
+			m_knockbackType,
+			false);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -59,63 +55,42 @@ public class RageBeastKnockback : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount)
+		};
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, ModdedOnHitDamage()));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, ModdedOnHitDamage())
+		};
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RageBeastKnockback abilityMod_RageBeastKnockback = modAsBase as AbilityMod_RageBeastKnockback;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_RageBeastKnockback)
-		{
-			val = abilityMod_RageBeastKnockback.m_maxTargetMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			val = m_maxTargets;
-		}
-		AddTokenInt(tokens, "MaxTargets", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_RageBeastKnockback)
-		{
-			val2 = abilityMod_RageBeastKnockback.m_onHitDamageMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			val2 = m_damageAmount;
-		}
-		AddTokenInt(tokens, "DamageAmount", empty2, val2);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, abilityMod_RageBeastKnockback != null
+			? abilityMod_RageBeastKnockback.m_maxTargetMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, abilityMod_RageBeastKnockback != null
+			? abilityMod_RageBeastKnockback.m_onHitDamageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastKnockback))
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_RageBeastKnockback);
-					SetupTargeter();
-					return;
-				}
-			}
+			m_abilityMod = abilityMod as AbilityMod_RageBeastKnockback;
+			SetupTargeter();
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		else
+		{
+			Debug.LogError("Trying to apply wrong type of ability mod");
+		}
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -126,87 +101,59 @@ public class RageBeastKnockback : Ability
 
 	public int ModdedMaxTargets()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_maxTargets;
-		}
-		else
-		{
-			result = m_abilityMod.m_maxTargetMod.GetModifiedValue(m_maxTargets);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public float ModdedLaserWidth()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_targeterWidthMod.GetModifiedValue(m_laserWidth) : m_laserWidth;
+		return m_abilityMod != null
+			? m_abilityMod.m_targeterWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public float ModdedLaserLength()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_laserDistance;
-		}
-		else
-		{
-			result = m_abilityMod.m_targeterLengthMod.GetModifiedValue(m_laserDistance);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_targeterLengthMod.GetModifiedValue(m_laserDistance)
+			: m_laserDistance;
 	}
 
 	public int ModdedOnHitDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageAmount;
-		}
-		else
-		{
-			result = m_abilityMod.m_onHitDamageMod.GetModifiedValue(m_damageAmount);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_onHitDamageMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public float ModdedKnockbackDistanceMin()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_knockbackDistanceMinMod.GetModifiedValue(m_knockbackDistanceMin) : m_knockbackDistanceMin;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackDistanceMinMod.GetModifiedValue(m_knockbackDistanceMin)
+			: m_knockbackDistanceMin;
 	}
 
 	public float ModdedKnockbackDistanceMax()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_knockbackDistanceMaxMod.GetModifiedValue(m_knockbackDistanceMax) : m_knockbackDistanceMax;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackDistanceMaxMod.GetModifiedValue(m_knockbackDistanceMax)
+			: m_knockbackDistanceMax;
 	}
 
 	private float GetKnockbackDist(AbilityTarget target, Vector3 casterPos, Vector3 knockbackStartPos)
 	{
-		Vector3 vector = target.FreePos - casterPos;
-		Vector3 vector2 = knockbackStartPos - casterPos;
-		vector.y = 0f;
-		vector2.y = 0f;
-		float num = (vector.magnitude - vector2.magnitude) / Board.SquareSizeStatic;
-		float num2 = ModdedKnockbackDistanceMin();
-		float num3 = ModdedKnockbackDistanceMax();
-		if (num < num2)
-		{
-			return num2;
-		}
-		if (num > num3)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return num3;
-				}
-			}
-		}
-		return num;
+		Vector3 vecToTarget = target.FreePos - casterPos;
+		Vector3 vecToKnockback = knockbackStartPos - casterPos;
+		vecToTarget.y = 0f;
+		vecToKnockback.y = 0f;
+		float knockbackDistInSquares = (vecToTarget.magnitude - vecToKnockback.magnitude) / Board.SquareSizeStatic;
+		float knockbackDistMin = ModdedKnockbackDistanceMin();
+		float knockbackDistMax = ModdedKnockbackDistanceMax();
+		return knockbackDistInSquares < knockbackDistMin
+			? knockbackDistMin
+			: knockbackDistInSquares > knockbackDistMax
+				? knockbackDistMax
+				: knockbackDistInSquares;
 	}
 }

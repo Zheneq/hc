@@ -1,34 +1,22 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class RageBeastBasicAttack : Ability
 {
 	public float m_coneWidthAngle = 180f;
-
 	public float m_coneBackwardOffset;
-
 	public float m_coneLengthInner = 1.5f;
-
 	public float m_coneLengthOuter = 2.5f;
-
 	public int m_damageAmountInner = 5;
-
 	public int m_damageAmountOuter = 3;
-
 	public StandardEffectInfo m_effectInner;
-
 	public StandardEffectInfo m_effectOuter;
-
 	public int m_tpGainInner;
-
 	public int m_tpGainOuter;
-
 	public bool m_penetrateLineOfSight;
 
 	private AbilityMod_RageBeastBasicAttack m_abilityMod;
-
 	private StandardEffectInfo m_cachedEffectInner;
-
 	private StandardEffectInfo m_cachedEffectOuter;
 
 	private void Start()
@@ -44,10 +32,16 @@ public class RageBeastBasicAttack : Ability
 	{
 		SetCachedFields();
 		float angle = ModdedConeAngle();
-		List<AbilityUtil_Targeter_MultipleCones.ConeDimensions> list = new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>();
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedInnerRadius()));
-		list.Add(new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedOuterRadius()));
-		base.Targeter = new AbilityUtil_Targeter_MultipleCones(this, list, m_coneBackwardOffset, m_penetrateLineOfSight, true);
+		Targeter = new AbilityUtil_Targeter_MultipleCones(
+			this, 
+			new List<AbilityUtil_Targeter_MultipleCones.ConeDimensions>
+			{
+				new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedInnerRadius()),
+				new AbilityUtil_Targeter_MultipleCones.ConeDimensions(angle, ModdedOuterRadius())
+			},
+			m_coneBackwardOffset,
+			m_penetrateLineOfSight,
+			true);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -62,144 +56,85 @@ public class RageBeastBasicAttack : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedEffectInner = ((!m_abilityMod) ? m_effectInner : m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner));
-		StandardEffectInfo cachedEffectOuter;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOuter = m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter);
-		}
-		else
-		{
-			cachedEffectOuter = m_effectOuter;
-		}
-		m_cachedEffectOuter = cachedEffectOuter;
+		m_cachedEffectInner = m_abilityMod != null
+			? m_abilityMod.m_effectInnerMod.GetModifiedValue(m_effectInner)
+			: m_effectInner;
+		m_cachedEffectOuter = m_abilityMod != null
+			? m_abilityMod.m_effectOuterMod.GetModifiedValue(m_effectOuter)
+			: m_effectOuter;
 	}
 
 	public StandardEffectInfo GetEffectInner()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectInner != null)
-		{
-			result = m_cachedEffectInner;
-		}
-		else
-		{
-			result = m_effectInner;
-		}
-		return result;
+		return m_cachedEffectInner ?? m_effectInner;
 	}
 
 	public StandardEffectInfo GetEffectOuter()
 	{
-		return (m_cachedEffectOuter == null) ? m_effectOuter : m_cachedEffectOuter;
+		return m_cachedEffectOuter ?? m_effectOuter;
 	}
 
 	private float ModdedConeAngle()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneWidthAngle;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	private float ModdedInnerRadius()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneLengthInner;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneInnerRadiusMod.GetModifiedValue(m_coneLengthInner);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneInnerRadiusMod.GetModifiedValue(m_coneLengthInner)
+			: m_coneLengthInner;
 	}
 
 	private float ModdedOuterRadius()
 	{
-		float result;
-		if (m_abilityMod == null)
-		{
-			result = m_coneLengthOuter;
-		}
-		else
-		{
-			result = m_abilityMod.m_coneOuterRadiusMod.GetModifiedValue(m_coneLengthOuter);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneOuterRadiusMod.GetModifiedValue(m_coneLengthOuter)
+			: m_coneLengthOuter;
 	}
 
 	private int ModdedInnerDamage()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_damageAmountInner;
-		}
-		else
-		{
-			result = m_abilityMod.m_innerDamageMod.GetModifiedValue(m_damageAmountInner);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_innerDamageMod.GetModifiedValue(m_damageAmountInner)
+			: m_damageAmountInner;
 	}
 
 	private int ModdedOuterDamage()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter) : m_damageAmountOuter;
+		return m_abilityMod != null
+			? m_abilityMod.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter)
+			: m_damageAmountOuter;
 	}
 
 	private int ModdedDamagePerAdjacentEnemy()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_extraDamagePerAdjacentEnemy;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamagePerAdjacentEnemy
+			: 0;
 	}
 
 	private int ModdedTechPointsPerAdjacentEnemy()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = m_abilityMod.m_extraTechPointsPerAdjacentEnemy;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraTechPointsPerAdjacentEnemy
+			: 0;
 	}
 
 	private int ModdedInnerTpGain()
 	{
-		int result;
-		if (m_abilityMod == null)
-		{
-			result = m_tpGainInner;
-		}
-		else
-		{
-			result = m_abilityMod.m_innerTpGain.GetModifiedValue(m_tpGainInner);
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_innerTpGain.GetModifiedValue(m_tpGainInner)
+			: m_tpGainInner;
 	}
 
 	private int ModdedOuterTpGain()
 	{
-		return (!(m_abilityMod == null)) ? m_abilityMod.m_outerTpGain.GetModifiedValue(m_tpGainOuter) : m_tpGainOuter;
+		return m_abilityMod != null
+			? m_abilityMod.m_outerTpGain.GetModifiedValue(m_tpGainOuter)
+			: m_tpGainOuter;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -226,83 +161,32 @@ public class RageBeastBasicAttack : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_RageBeastBasicAttack abilityMod_RageBeastBasicAttack = modAsBase as AbilityMod_RageBeastBasicAttack;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_RageBeastBasicAttack)
-		{
-			val = abilityMod_RageBeastBasicAttack.m_innerDamageMod.GetModifiedValue(m_damageAmountInner);
-		}
-		else
-		{
-			val = m_damageAmountInner;
-		}
-		AddTokenInt(tokens, "DamageAmountInner", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_RageBeastBasicAttack)
-		{
-			val2 = abilityMod_RageBeastBasicAttack.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter);
-		}
-		else
-		{
-			val2 = m_damageAmountOuter;
-		}
-		AddTokenInt(tokens, "DamageAmountOuter", empty2, val2);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_RageBeastBasicAttack)
-		{
-			effectInfo = abilityMod_RageBeastBasicAttack.m_effectInnerMod.GetModifiedValue(m_effectInner);
-		}
-		else
-		{
-			effectInfo = m_effectInner;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectInner", m_effectInner);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_RageBeastBasicAttack)
-		{
-			effectInfo2 = abilityMod_RageBeastBasicAttack.m_effectOuterMod.GetModifiedValue(m_effectOuter);
-		}
-		else
-		{
-			effectInfo2 = m_effectOuter;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOuter", m_effectOuter);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_RageBeastBasicAttack)
-		{
-			val3 = abilityMod_RageBeastBasicAttack.m_innerTpGain.GetModifiedValue(m_tpGainInner);
-		}
-		else
-		{
-			val3 = m_tpGainInner;
-		}
-		AddTokenInt(tokens, "TpGainInner", empty3, val3);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_RageBeastBasicAttack)
-		{
-			val4 = abilityMod_RageBeastBasicAttack.m_outerTpGain.GetModifiedValue(m_tpGainOuter);
-		}
-		else
-		{
-			val4 = m_tpGainOuter;
-		}
-		AddTokenInt(tokens, "TpGainOuter", empty4, val4);
+		AddTokenInt(tokens, "DamageAmountInner", string.Empty, abilityMod_RageBeastBasicAttack != null
+			? abilityMod_RageBeastBasicAttack.m_innerDamageMod.GetModifiedValue(m_damageAmountInner)
+			: m_damageAmountInner);
+		AddTokenInt(tokens, "DamageAmountOuter", string.Empty, abilityMod_RageBeastBasicAttack != null
+			? abilityMod_RageBeastBasicAttack.m_outerDamageMod.GetModifiedValue(m_damageAmountOuter)
+			: m_damageAmountOuter);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RageBeastBasicAttack != null
+			? abilityMod_RageBeastBasicAttack.m_effectInnerMod.GetModifiedValue(m_effectInner)
+			: m_effectInner, "EffectInner", m_effectInner);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_RageBeastBasicAttack != null
+			? abilityMod_RageBeastBasicAttack.m_effectOuterMod.GetModifiedValue(m_effectOuter)
+			: m_effectOuter, "EffectOuter", m_effectOuter);
+		AddTokenInt(tokens, "TpGainInner", string.Empty, abilityMod_RageBeastBasicAttack != null
+			? abilityMod_RageBeastBasicAttack.m_innerTpGain.GetModifiedValue(m_tpGainInner)
+			: m_tpGainInner);
+		AddTokenInt(tokens, "TpGainOuter", string.Empty, abilityMod_RageBeastBasicAttack != null
+			? abilityMod_RageBeastBasicAttack.m_outerTpGain.GetModifiedValue(m_tpGainOuter)
+			: m_tpGainOuter);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_RageBeastBasicAttack))
+		if (abilityMod.GetType() == typeof(AbilityMod_RageBeastBasicAttack))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_RageBeastBasicAttack);
+			m_abilityMod = abilityMod as AbilityMod_RageBeastBasicAttack;
 			Setup();
-			return;
 		}
 	}
 
@@ -316,38 +200,21 @@ public class RageBeastBasicAttack : Ability
 	{
 		damageAmount = ModdedDamagePerAdjacentEnemy();
 		techPointAmount = ModdedTechPointsPerAdjacentEnemy();
-		if (damageAmount == 0)
+		if (damageAmount == 0 && techPointAmount == 0)
 		{
-			if (techPointAmount == 0)
-			{
-				return;
-			}
+			return;
 		}
 		int num = 0;
 		List<BoardSquare> result = new List<BoardSquare>();
-		Board.Get().GetAllAdjacentSquares(base.ActorData.GetCurrentBoardSquare().x, base.ActorData.GetCurrentBoardSquare().y, ref result);
-		using (List<BoardSquare>.Enumerator enumerator = result.GetEnumerator())
+		Board.Get().GetAllAdjacentSquares(ActorData.GetCurrentBoardSquare().x, ActorData.GetCurrentBoardSquare().y, ref result);
+		foreach (BoardSquare square in result)
 		{
-			while (enumerator.MoveNext())
+			if (square.OccupantActor != null
+			    && square.OccupantActor.GetTeam() != ActorData.GetTeam()
+			    && !square.OccupantActor.IgnoreForAbilityHits
+			    && (!visibleActorsOnly || square.OccupantActor.IsActorVisibleToClient()))
 			{
-				BoardSquare current = enumerator.Current;
-				if (current.OccupantActor != null)
-				{
-					if (current.OccupantActor.GetTeam() != base.ActorData.GetTeam())
-					{
-						if (!current.OccupantActor.IgnoreForAbilityHits)
-						{
-							if (visibleActorsOnly)
-							{
-								if (!current.OccupantActor.IsActorVisibleToClient())
-								{
-									continue;
-								}
-							}
-							num++;
-						}
-					}
-				}
+				num++;
 			}
 		}
 		damageAmount *= num;
@@ -357,12 +224,10 @@ public class RageBeastBasicAttack : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			int damageAmount = 0;
-			int techPointAmount = 0;
-			GetExtraDamageAndTPForCurrentLocation(true, out damageAmount, out techPointAmount);
+			GetExtraDamageAndTPForCurrentLocation(true, out int damageAmount, out _);
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
 				dictionary[AbilityTooltipSymbol.Damage] = ModdedInnerDamage() + damageAmount;
@@ -377,62 +242,37 @@ public class RageBeastBasicAttack : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		int damageAmount = 0;
-		int techPointAmount = 0;
-		GetExtraDamageAndTPForCurrentLocation(true, out damageAmount, out techPointAmount);
+		GetExtraDamageAndTPForCurrentLocation(true, out _, out int techPointAmount);
 		int num = 0;
 		if (ModdedInnerTpGain() > 0 || techPointAmount > 0)
 		{
-			List<ActorData> visibleActorsInRangeByTooltipSubject = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Near);
-			num += visibleActorsInRangeByTooltipSubject.Count * (ModdedInnerTpGain() + techPointAmount);
+			List<ActorData> nearNum = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Near);
+			num += nearNum.Count * (ModdedInnerTpGain() + techPointAmount);
 		}
 		if (ModdedOuterTpGain() > 0 || techPointAmount > 0)
 		{
-			List<ActorData> visibleActorsInRangeByTooltipSubject2 = base.Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Far);
-			num += visibleActorsInRangeByTooltipSubject2.Count * (ModdedOuterTpGain() + techPointAmount);
+			List<ActorData> farNum = Targeter.GetVisibleActorsInRangeByTooltipSubject(AbilityTooltipSubject.Far);
+			num += farNum.Count * (ModdedOuterTpGain() + techPointAmount);
 		}
 		return num;
 	}
 
 	public override bool DoesTargetActorMatchTooltipSubject(AbilityTooltipSubject subjectType, ActorData targetActor, Vector3 damageOrigin, ActorData targetingActor)
 	{
-		if (subjectType != AbilityTooltipSubject.Near)
+		if (subjectType != AbilityTooltipSubject.Near && subjectType != AbilityTooltipSubject.Far)
 		{
-			if (subjectType != AbilityTooltipSubject.Far)
-			{
-				return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
-			}
+			return base.DoesTargetActorMatchTooltipSubject(subjectType, targetActor, damageOrigin, targetingActor);
 		}
-		float num = ModdedInnerRadius() * Board.Get().squareSize;
+		float innerRadiusInWorld = ModdedInnerRadius() * Board.Get().squareSize;
 		Vector3 vector = targetActor.GetFreePos() - damageOrigin;
 		vector.y = 0f;
-		float num2 = vector.magnitude;
+		float dist = vector.magnitude;
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
-			num2 -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
+			dist -= GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
 		}
-		bool flag;
-		if (num2 > num)
-		{
-			flag = false;
-		}
-		else
-		{
-			flag = true;
-		}
-		if (subjectType == AbilityTooltipSubject.Near)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return flag;
-				}
-			}
-		}
-		return !flag;
+
+		bool isNear = dist <= innerRadiusInWorld;
+		return subjectType == AbilityTooltipSubject.Near ? isNear : !isNear;
 	}
 }

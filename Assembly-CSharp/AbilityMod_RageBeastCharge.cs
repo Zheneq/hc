@@ -6,17 +6,12 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 {
 	[Header("-- Damage Mod")]
 	public AbilityModPropertyInt m_damageMod;
-
 	public AbilityModPropertyInt m_damageNearChargeEndMod;
-
 	[Header("-- On Hit Effect")]
 	public StandardEffectInfo m_effectOnTargetsHit;
-
 	public AbilityModPropertyEffectInfo m_enemyHitEffectNearChargeEndMod;
-
 	[Header("-- Targeting Mod")]
 	public AbilityModPropertyFloat m_chargeLineRadiusMod;
-
 	public AbilityModPropertyFloat m_chargeEndRadius;
 
 	public override Type GetTargetAbilityType()
@@ -27,64 +22,26 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		RageBeastCharge rageBeastCharge = targetAbility as RageBeastCharge;
-		if (!(rageBeastCharge != null))
+		if (rageBeastCharge != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, rageBeastCharge.m_damageAmount);
-			AbilityMod.AddToken(tokens, m_damageNearChargeEndMod, "DamageNearChargeEnd", string.Empty, rageBeastCharge.m_damageNearChargeEnd);
-			AbilityMod.AddToken(tokens, m_chargeLineRadiusMod, "DamageRadius", string.Empty, rageBeastCharge.m_damageRadius);
-			AbilityMod.AddToken(tokens, m_chargeEndRadius, "RadiusBeyondEnd", string.Empty, rageBeastCharge.m_radiusBeyondEnd);
-			AbilityMod.AddToken_EffectMod(tokens, m_enemyHitEffectNearChargeEndMod, "EnemyHitEffectNearChargeEnd", rageBeastCharge.m_enemyHitEffectNearChargeEnd);
-			return;
+			AddToken(tokens, m_damageMod, "DamageAmount", string.Empty, rageBeastCharge.m_damageAmount);
+			AddToken(tokens, m_damageNearChargeEndMod, "DamageNearChargeEnd", string.Empty, rageBeastCharge.m_damageNearChargeEnd);
+			AddToken(tokens, m_chargeLineRadiusMod, "DamageRadius", string.Empty, rageBeastCharge.m_damageRadius);
+			AddToken(tokens, m_chargeEndRadius, "RadiusBeyondEnd", string.Empty, rageBeastCharge.m_radiusBeyondEnd);
+			AddToken_EffectMod(tokens, m_enemyHitEffectNearChargeEndMod, "EnemyHitEffectNearChargeEnd", rageBeastCharge.m_enemyHitEffectNearChargeEnd);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		RageBeastCharge rageBeastCharge = GetTargetAbilityOnAbilityData(abilityData) as RageBeastCharge;
-		bool flag = rageBeastCharge != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyInt damageMod = m_damageMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = rageBeastCharge.m_damageAmount;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(damageMod, "[Damage Mod]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyInt damageNearChargeEndMod = m_damageNearChargeEndMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = rageBeastCharge.m_damageNearChargeEnd;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(damageNearChargeEndMod, "[Damage Near Charge End Mod]", flag, baseVal2);
-		empty += AbilityModHelper.GetModPropertyDesc(m_chargeLineRadiusMod, "[Charge Line Radius/Half-Width Mod]", flag, (!flag) ? 0f : rageBeastCharge.m_damageRadius);
-		empty += AbilityModHelper.GetModPropertyDesc(m_chargeEndRadius, "[Charge End Radius Mod]", flag, (!flag) ? 0f : rageBeastCharge.m_radiusBeyondEnd);
-		empty += AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", string.Empty, flag);
-		string str3 = empty;
-		AbilityModPropertyEffectInfo enemyHitEffectNearChargeEndMod = m_enemyHitEffectNearChargeEndMod;
-		object baseVal3;
-		if (flag)
-		{
-			baseVal3 = rageBeastCharge.m_enemyHitEffectNearChargeEnd;
-		}
-		else
-		{
-			baseVal3 = null;
-		}
-		return str3 + PropDesc(enemyHitEffectNearChargeEndMod, "[EnemyHitEffectNearChargeEnd]", flag, (StandardEffectInfo)baseVal3);
+		bool isValid = rageBeastCharge != null;
+		string desc = string.Empty;
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage Mod]", isValid, isValid ? rageBeastCharge.m_damageAmount : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_damageNearChargeEndMod, "[Damage Near Charge End Mod]", isValid, isValid ? rageBeastCharge.m_damageNearChargeEnd : 0);
+		desc += AbilityModHelper.GetModPropertyDesc(m_chargeLineRadiusMod, "[Charge Line Radius/Half-Width Mod]", isValid, isValid ? rageBeastCharge.m_damageRadius : 0f);
+		desc += AbilityModHelper.GetModPropertyDesc(m_chargeEndRadius, "[Charge End Radius Mod]", isValid, isValid ? rageBeastCharge.m_radiusBeyondEnd : 0f);
+		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", string.Empty, isValid);
+		return desc + PropDesc(m_enemyHitEffectNearChargeEndMod, "[EnemyHitEffectNearChargeEnd]", isValid, isValid ? rageBeastCharge.m_enemyHitEffectNearChargeEnd : null);
 	}
 }
