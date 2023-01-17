@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ExoAnchorLaser : Ability
@@ -6,75 +6,46 @@ public class ExoAnchorLaser : Ability
 	[Space(20f)]
 	[Header("-- First Cast Damage (non-anchored)")]
 	public int m_laserDamageAmount = 25;
-
 	public LaserTargetingInfo m_laserInfo;
-
 	[Header("-- Barrier For Beam")]
 	public StandardBarrierData m_laserBarrier;
-
 	[Header("-- Cone to Sweep Across")]
 	public int m_sweepDamageAmount = 25;
-
 	public float m_sweepConeBackwardOffset;
-
 	public float m_minConeAngle;
-
 	public float m_maxConeAngle = 180f;
-
 	public ActorModelData.ActionAnimationType m_anchoredActionAnimType;
-
 	public float m_turnToTargetSweepDegreesPerSecond = 90f;
-
 	[Header("-- Extra Damage: for anchored turns")]
 	public int m_extraDamagePerTurnAnchored;
-
 	public int m_maxExtraDamageForAnchored;
-
 	[Header("-- Extra Damage: for distance")]
 	public float m_extraDamageAtZeroDist;
-
 	public float m_extraDamageChangePerDist;
-
 	[Header("-- Effect while anchored and cooldown when finished")]
 	public StandardEffectInfo m_effectOnCaster;
-
 	public int m_cooldownOnEnd;
-
 	public int m_anchoredTechPointCost;
-
 	public StandardEffectInfo m_effectOnAnchorEnd;
-
 	[Header("-- Pending Status for Anchored and NOT using sweep")]
 	public List<StatusType> m_statusWhenAnchoredAndNotSweeping;
-
 	[Header("-- Alternate Tooltip while anchored")]
 	public string m_anchoredToolTip;
-
 	[HideInInspector]
 	public string m_anchoredFinalFullTooltip;
-
 	[Header("-- Animation --")]
 	public int m_animIndexForSweep = 6;
-
 	[Header("-- Sequences")]
 	public GameObject m_laserExtendSequencePrefab;
-
 	public GameObject m_sweepSequencePrefab;
-
 	public GameObject m_unanchorAnimSequencePrefab;
-
 	public GameObject m_persistentLaserBarrierSequence;
 
 	private Exo_SyncComponent m_syncComponent;
-
 	private AbilityMod_ExoAnchorLaser m_abilityMod;
-
 	private LaserTargetingInfo m_cachedLaserInfo;
-
 	private StandardBarrierData m_cachedLaserBarrier;
-
 	private StandardEffectInfo m_cachedEffectOnCaster;
-
 	private StandardEffectInfo m_cachedEffectOnAnchorEnd;
 
 	private void Start()
@@ -111,14 +82,30 @@ public class ExoAnchorLaser : Ability
 		{
 			Log.Error("Missing Exo_SyncComponent on Exo's actorData prefab. ExoAnchorLaser won't function!");
 		}
-		AbilityUtil_Targeter abilityUtil_Targeter = new AbilityUtil_Targeter_SweepSingleClickCone(this, GetMinConeAngle(), GetMaxConeAngle(), GetLaserInfo().range, m_sweepConeBackwardOffset, 0.2f, GetLaserInfo(), m_syncComponent);
-		abilityUtil_Targeter.SetAffectedGroups(true, false, false);
-		base.Targeter = abilityUtil_Targeter;
+		AbilityUtil_Targeter targeter = new AbilityUtil_Targeter_SweepSingleClickCone(
+			this,
+			GetMinConeAngle(),
+			GetMaxConeAngle(),
+			GetLaserInfo().range,
+			m_sweepConeBackwardOffset,
+			0.2f,
+			GetLaserInfo(),
+			m_syncComponent);
+		targeter.SetAffectedGroups(true, false, false);
+		Targeter = targeter;
 	}
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\n" + Ability.SetupNoteVarName("Laser Extend Sequence Prefab") + "\nFor initial cast, when laser is not already out. Only for gameplay hits and timing of when actual visual show up, no vfx spawned.\n\n" + Ability.SetupNoteVarName("Sweep Sequence Prefab") + "\nfor laser visual, rotation of the actor, removing the previous laser, and gameplay hit timing when sweeping\n\n" + Ability.SetupNoteVarName("Unanchor Anim Sequence Prefab") + "\nfor setting idle type when un-anchoring and removing the previous laser vfx\n\n" + Ability.SetupNoteVarName("Persistent Laser Barrier Sequence") + "\nfor persistent laser visuals (which is a barrier internally), and optionally ExoLaserHittingWallSequence for a continuing impact vfx\n\n";
+		return "<color=cyan>-- For Art --</color>\n"
+		       + SetupNoteVarName("Laser Extend Sequence Prefab")
+		       + "\nFor initial cast, when laser is not already out. Only for gameplay hits and timing of when actual visual show up, no vfx spawned.\n\n"
+		       + SetupNoteVarName("Sweep Sequence Prefab")
+		       + "\nfor laser visual, rotation of the actor, removing the previous laser, and gameplay hit timing when sweeping\n\n"
+		       + SetupNoteVarName("Unanchor Anim Sequence Prefab")
+		       + "\nfor setting idle type when un-anchoring and removing the previous laser vfx\n\n"
+		       + SetupNoteVarName("Persistent Laser Barrier Sequence")
+		       + "\nfor persistent laser visuals (which is a barrier internally), and optionally ExoLaserHittingWallSequence for a continuing impact vfx\n\n";
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -138,245 +125,134 @@ public class ExoAnchorLaser : Ability
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType(List<AbilityTarget> targets, ActorData caster)
 	{
-		if (m_syncComponent != null)
+		if (m_syncComponent != null && m_syncComponent.m_anchored)
 		{
-			if (m_syncComponent.m_anchored)
-			{
-				return (ActorModelData.ActionAnimationType)m_animIndexForSweep;
-			}
+			return (ActorModelData.ActionAnimationType)m_animIndexForSweep;
 		}
 		return base.GetActionAnimType();
 	}
 
 	private void SetCachedFields()
 	{
-		LaserTargetingInfo cachedLaserInfo;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
-		}
-		else
-		{
-			cachedLaserInfo = m_laserInfo;
-		}
-		m_cachedLaserInfo = cachedLaserInfo;
-		StandardBarrierData cachedLaserBarrier;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserBarrier = m_abilityMod.m_laserBarrierMod.GetModifiedValue(m_laserBarrier);
-		}
-		else
-		{
-			cachedLaserBarrier = m_laserBarrier;
-		}
-		m_cachedLaserBarrier = cachedLaserBarrier;
-		StandardEffectInfo cachedEffectOnCaster;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnCaster = m_abilityMod.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster);
-		}
-		else
-		{
-			cachedEffectOnCaster = m_effectOnCaster;
-		}
-		m_cachedEffectOnCaster = cachedEffectOnCaster;
-		m_cachedEffectOnAnchorEnd = ((!m_abilityMod) ? m_effectOnAnchorEnd : m_abilityMod.m_effectOnAnchorEndMod.GetModifiedValue(m_effectOnAnchorEnd));
+		m_cachedLaserInfo = m_abilityMod != null
+			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
+			: m_laserInfo;
+		m_cachedLaserBarrier = m_abilityMod != null
+			? m_abilityMod.m_laserBarrierMod.GetModifiedValue(m_laserBarrier)
+			: m_laserBarrier;
+		m_cachedEffectOnCaster = m_abilityMod != null
+			? m_abilityMod.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster)
+			: m_effectOnCaster;
+		m_cachedEffectOnAnchorEnd = m_abilityMod != null
+			? m_abilityMod.m_effectOnAnchorEndMod.GetModifiedValue(m_effectOnAnchorEnd)
+			: m_effectOnAnchorEnd;
 	}
 
 	public int GetLaserDamageAmount()
 	{
-		return (!m_abilityMod) ? m_laserDamageAmount : m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		LaserTargetingInfo result;
-		if (m_cachedLaserInfo != null)
-		{
-			result = m_cachedLaserInfo;
-		}
-		else
-		{
-			result = m_laserInfo;
-		}
-		return result;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public StandardBarrierData GetLaserBarrier()
 	{
-		StandardBarrierData result;
-		if (m_cachedLaserBarrier != null)
-		{
-			result = m_cachedLaserBarrier;
-		}
-		else
-		{
-			result = m_laserBarrier;
-		}
-		return result;
+		return m_cachedLaserBarrier ?? m_laserBarrier;
 	}
 
 	public int GetSweepDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_sweepDamageAmountMod.GetModifiedValue(m_sweepDamageAmount);
-		}
-		else
-		{
-			result = m_sweepDamageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_sweepDamageAmountMod.GetModifiedValue(m_sweepDamageAmount)
+			: m_sweepDamageAmount;
 	}
 
 	public float GetSweepConeBackwardOffset()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_sweepConeBackwardOffsetMod.GetModifiedValue(m_sweepConeBackwardOffset);
-		}
-		else
-		{
-			result = m_sweepConeBackwardOffset;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_sweepConeBackwardOffsetMod.GetModifiedValue(m_sweepConeBackwardOffset)
+			: m_sweepConeBackwardOffset;
 	}
 
 	public float GetMinConeAngle()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minConeAngleMod.GetModifiedValue(m_minConeAngle);
-		}
-		else
-		{
-			result = m_minConeAngle;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_minConeAngleMod.GetModifiedValue(m_minConeAngle)
+			: m_minConeAngle;
 	}
 
 	public float GetMaxConeAngle()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxConeAngleMod.GetModifiedValue(m_maxConeAngle);
-		}
-		else
-		{
-			result = m_maxConeAngle;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxConeAngleMod.GetModifiedValue(m_maxConeAngle)
+			: m_maxConeAngle;
 	}
 
 	public int GetExtraDamagePerTurnAnchored()
 	{
-		return (!m_abilityMod) ? m_extraDamagePerTurnAnchored : m_abilityMod.m_extraDamagePerTurnAnchoredMod.GetModifiedValue(m_extraDamagePerTurnAnchored);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamagePerTurnAnchoredMod.GetModifiedValue(m_extraDamagePerTurnAnchored)
+			: m_extraDamagePerTurnAnchored;
 	}
 
 	public int GetMaxExtraDamageForAnchored()
 	{
-		return (!m_abilityMod) ? m_maxExtraDamageForAnchored : m_abilityMod.m_maxExtraDamageForAnchoredMod.GetModifiedValue(m_maxExtraDamageForAnchored);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxExtraDamageForAnchoredMod.GetModifiedValue(m_maxExtraDamageForAnchored)
+			: m_maxExtraDamageForAnchored;
 	}
 
 	public float GetExtraDamageAtZeroDist()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageAtZeroDistMod.GetModifiedValue(m_extraDamageAtZeroDist);
-		}
-		else
-		{
-			result = m_extraDamageAtZeroDist;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageAtZeroDistMod.GetModifiedValue(m_extraDamageAtZeroDist)
+			: m_extraDamageAtZeroDist;
 	}
 
 	public float GetExtraDamageChangePerDist()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageChangePerDistMod.GetModifiedValue(m_extraDamageChangePerDist);
-		}
-		else
-		{
-			result = m_extraDamageChangePerDist;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageChangePerDistMod.GetModifiedValue(m_extraDamageChangePerDist)
+			: m_extraDamageChangePerDist;
 	}
 
 	public StandardEffectInfo GetEffectOnCaster()
 	{
-		return (m_cachedEffectOnCaster == null) ? m_effectOnCaster : m_cachedEffectOnCaster;
+		return m_cachedEffectOnCaster ?? m_effectOnCaster;
 	}
 
 	public int GetCooldownOnEnd()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cooldownOnEndMod.GetModifiedValue(m_cooldownOnEnd);
-		}
-		else
-		{
-			result = m_cooldownOnEnd;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownOnEndMod.GetModifiedValue(m_cooldownOnEnd)
+			: m_cooldownOnEnd;
 	}
 
 	public int GetAnchoredTechPointCost()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_anchoredTechPointCostMod.GetModifiedValue(m_anchoredTechPointCost);
-		}
-		else
-		{
-			result = m_anchoredTechPointCost;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_anchoredTechPointCostMod.GetModifiedValue(m_anchoredTechPointCost)
+			: m_anchoredTechPointCost;
 	}
 
 	public StandardEffectInfo GetEffectOnAnchorEnd()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnAnchorEnd != null)
-		{
-			result = m_cachedEffectOnAnchorEnd;
-		}
-		else
-		{
-			result = m_effectOnAnchorEnd;
-		}
-		return result;
+		return m_cachedEffectOnAnchorEnd ?? m_effectOnAnchorEnd;
 	}
 
 	public bool ShouldUpdateMovementOnAnchorChange()
 	{
 		List<StatusType> list = m_statusWhenAnchoredAndNotSweeping;
-		if (m_abilityMod != null)
+		if (m_abilityMod != null && m_abilityMod.m_useStatusWhenAnchoredAndNotSweepingOverride)
 		{
-			if (m_abilityMod.m_useStatusWhenAnchoredAndNotSweepingOverride)
-			{
-				list = m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
-			}
+			list = m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
 		}
-		int result;
-		if (list != null)
-		{
-			result = ((list.Count > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return list != null && list.Count > 0;
 	}
 
 	public bool HasPendingStatusTurnOfAnchorEnd(StatusType status)
@@ -386,58 +262,36 @@ public class ExoAnchorLaser : Ability
 		{
 			list = m_abilityMod.m_statusWhenAnchoredAndNotSweepingOverride;
 		}
-		if (list != null)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return list.Contains(status);
-				}
-			}
-		}
-		return false;
+		return list != null && list.Contains(status);
 	}
 
 	public int GetTotalDamage(Vector3 startPos, Vector3 hitPos, int baseDamage, bool checkDurationBonus)
 	{
-		int num = baseDamage;
+		int damage = baseDamage;
 		if (m_syncComponent != null)
 		{
-			if (GetExtraDamagePerTurnAnchored() > 0)
+			if (GetExtraDamagePerTurnAnchored() > 0 && checkDurationBonus)
 			{
-				if (checkDurationBonus)
+				int turnsAnchored = m_syncComponent.m_turnsAnchored;
+				int extraDamageForAnchor = Mathf.Max(0, turnsAnchored) * GetExtraDamagePerTurnAnchored();
+				if (GetMaxExtraDamageForAnchored() > 0)
 				{
-					int turnsAnchored = m_syncComponent.m_turnsAnchored;
-					int num2 = Mathf.Max(0, turnsAnchored) * GetExtraDamagePerTurnAnchored();
-					if (GetMaxExtraDamageForAnchored() > 0)
-					{
-						num2 = Mathf.Min(num2, GetMaxExtraDamageForAnchored());
-					}
-					num += num2;
+					extraDamageForAnchor = Mathf.Min(extraDamageForAnchor, GetMaxExtraDamageForAnchored());
 				}
+				damage += extraDamageForAnchor;
 			}
-			if (!(GetExtraDamageAtZeroDist() > 0f))
+			if (GetExtraDamageAtZeroDist() > 0f || GetExtraDamageChangePerDist() > 0f)
 			{
-				if (!(GetExtraDamageChangePerDist() > 0f))
+				float extraDamageAtZeroDist = GetExtraDamageAtZeroDist();
+				float distAdjusted = VectorUtils.HorizontalPlaneDistInSquares(startPos, hitPos) - 1.4f;
+				if (distAdjusted > 0f)
 				{
-					goto IL_010a;
+					extraDamageAtZeroDist += GetExtraDamageChangePerDist() * distAdjusted;
 				}
+				damage += Mathf.Max(0, Mathf.RoundToInt(extraDamageAtZeroDist));
 			}
-			float num3 = GetExtraDamageAtZeroDist();
-			float num4 = VectorUtils.HorizontalPlaneDistInSquares(startPos, hitPos) - 1.4f;
-			if (num4 > 0f)
-			{
-				num3 += GetExtraDamageChangePerDist() * num4;
-			}
-			num += Mathf.Max(0, Mathf.RoundToInt(num3));
 		}
-		goto IL_010a;
-		IL_010a:
-		return num;
+		return damage;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -450,229 +304,98 @@ public class ExoAnchorLaser : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
-		ActorData actorData = base.ActorData;
-		int totalDamage;
-		if (m_syncComponent != null && m_syncComponent.m_anchored)
-		{
-			totalDamage = GetTotalDamage(actorData.GetFreePos(), targetActor.GetFreePos(), GetSweepDamageAmount(), true);
-		}
-		else
-		{
-			totalDamage = GetTotalDamage(actorData.GetFreePos(), targetActor.GetFreePos(), GetLaserDamageAmount(), false);
-		}
-		Ability.AddNameplateValueForSingleHit(ref symbolToValue, base.Targeter, targetActor, totalDamage);
+		int totalDamage = m_syncComponent != null && m_syncComponent.m_anchored
+			? GetTotalDamage(ActorData.GetFreePos(), targetActor.GetFreePos(), GetSweepDamageAmount(), true)
+			: GetTotalDamage(ActorData.GetFreePos(), targetActor.GetFreePos(), GetLaserDamageAmount(), false);
+		AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, totalDamage);
 		return symbolToValue;
 	}
 
 	public override int GetModdedCost()
 	{
-		if (m_syncComponent != null)
-		{
-			if (m_syncComponent.m_wasAnchoredOnTurnStart)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return GetAnchoredTechPointCost();
-					}
-				}
-			}
-		}
-		return base.GetModdedCost();
+		return m_syncComponent != null && m_syncComponent.m_wasAnchoredOnTurnStart
+			? GetAnchoredTechPointCost()
+			: base.GetModdedCost();
 	}
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		if (m_syncComponent != null)
-		{
-			if (m_syncComponent.m_anchored)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return m_anchoredActionAnimType;
-					}
-				}
-			}
-		}
-		return base.GetActionAnimType();
+		return m_syncComponent != null && m_syncComponent.m_anchored
+			? m_anchoredActionAnimType
+			: base.GetActionAnimType();
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ExoAnchorLaser abilityMod_ExoAnchorLaser = modAsBase as AbilityMod_ExoAnchorLaser;
-		float num;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			num = abilityMod_ExoAnchorLaser.m_maxConeAngleMod.GetModifiedValue(m_maxConeAngle);
-		}
-		else
-		{
-			num = m_maxConeAngle;
-		}
-		int val = (int)num;
-		AddTokenInt(tokens, "Sweep_Angle", "max angle from the previous direction to sweep the laser", val);
-		string empty = string.Empty;
-		int val2;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			val2 = abilityMod_ExoAnchorLaser.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
-		}
-		else
-		{
-			val2 = m_laserDamageAmount;
-		}
-		AddTokenInt(tokens, "Damage_Laser", empty, val2);
-		StandardBarrierData standardBarrierData;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			standardBarrierData = abilityMod_ExoAnchorLaser.m_laserBarrierMod.GetModifiedValue(m_laserBarrier);
-		}
-		else
-		{
-			standardBarrierData = m_laserBarrier;
-		}
-		StandardBarrierData standardBarrierData2 = standardBarrierData;
-		standardBarrierData2.AddTooltipTokens(tokens, "Laser_Barrier", abilityMod_ExoAnchorLaser != null, m_laserBarrier);
-		string empty2 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			val3 = abilityMod_ExoAnchorLaser.m_sweepDamageAmountMod.GetModifiedValue(m_sweepDamageAmount);
-		}
-		else
-		{
-			val3 = m_sweepDamageAmount;
-		}
-		AddTokenInt(tokens, "Damage_Sweep", empty2, val3);
-		AddTokenInt(tokens, "ExtraDamagePerTurnAnchored", string.Empty, (!abilityMod_ExoAnchorLaser) ? m_extraDamagePerTurnAnchored : abilityMod_ExoAnchorLaser.m_extraDamagePerTurnAnchoredMod.GetModifiedValue(m_extraDamagePerTurnAnchored));
-		string empty3 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			val4 = abilityMod_ExoAnchorLaser.m_maxExtraDamageForAnchoredMod.GetModifiedValue(m_maxExtraDamageForAnchored);
-		}
-		else
-		{
-			val4 = m_maxExtraDamageForAnchored;
-		}
-		AddTokenInt(tokens, "MaxExtraDamageForAnchored", empty3, val4);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			effectInfo = abilityMod_ExoAnchorLaser.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster);
-		}
-		else
-		{
-			effectInfo = m_effectOnCaster;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectOnCaster", m_effectOnCaster);
-		string empty4 = string.Empty;
-		int val5;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			val5 = abilityMod_ExoAnchorLaser.m_cooldownOnEndMod.GetModifiedValue(m_cooldownOnEnd);
-		}
-		else
-		{
-			val5 = m_cooldownOnEnd;
-		}
-		AddTokenInt(tokens, "Cooldown", empty4, val5);
-		string empty5 = string.Empty;
-		int val6;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			val6 = abilityMod_ExoAnchorLaser.m_anchoredTechPointCostMod.GetModifiedValue(m_anchoredTechPointCost);
-		}
-		else
-		{
-			val6 = m_anchoredTechPointCost;
-		}
-		AddTokenInt(tokens, "AnchoredTechPointCost", empty5, val6);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_ExoAnchorLaser)
-		{
-			effectInfo2 = abilityMod_ExoAnchorLaser.m_effectOnAnchorEndMod.GetModifiedValue(m_effectOnAnchorEnd);
-		}
-		else
-		{
-			effectInfo2 = m_effectOnAnchorEnd;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectOnAnchorEnd", m_effectOnAnchorEnd);
+		AddTokenInt(tokens, "Sweep_Angle", "max angle from the previous direction to sweep the laser", (int)(abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_maxConeAngleMod.GetModifiedValue(m_maxConeAngle)
+			: m_maxConeAngle));
+		AddTokenInt(tokens, "Damage_Laser", string.Empty, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount);
+		StandardBarrierData standardBarrierData = abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_laserBarrierMod.GetModifiedValue(m_laserBarrier)
+			: m_laserBarrier;
+		standardBarrierData.AddTooltipTokens(tokens, "Laser_Barrier", abilityMod_ExoAnchorLaser != null, m_laserBarrier);
+		AddTokenInt(tokens, "Damage_Sweep", string.Empty, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_sweepDamageAmountMod.GetModifiedValue(m_sweepDamageAmount)
+			: m_sweepDamageAmount);
+		AddTokenInt(tokens, "ExtraDamagePerTurnAnchored", string.Empty, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_extraDamagePerTurnAnchoredMod.GetModifiedValue(m_extraDamagePerTurnAnchored)
+			: m_extraDamagePerTurnAnchored);
+		AddTokenInt(tokens, "MaxExtraDamageForAnchored", string.Empty, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_maxExtraDamageForAnchoredMod.GetModifiedValue(m_maxExtraDamageForAnchored)
+			: m_maxExtraDamageForAnchored);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_effectOnCasterMod.GetModifiedValue(m_effectOnCaster)
+			: m_effectOnCaster, "EffectOnCaster", m_effectOnCaster);
+		AddTokenInt(tokens, "Cooldown", string.Empty, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_cooldownOnEndMod.GetModifiedValue(m_cooldownOnEnd)
+			: m_cooldownOnEnd);
+		AddTokenInt(tokens, "AnchoredTechPointCost", string.Empty, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_anchoredTechPointCostMod.GetModifiedValue(m_anchoredTechPointCost)
+			: m_anchoredTechPointCost);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ExoAnchorLaser != null
+			? abilityMod_ExoAnchorLaser.m_effectOnAnchorEndMod.GetModifiedValue(m_effectOnAnchorEnd)
+			: m_effectOnAnchorEnd, "EffectOnAnchorEnd", m_effectOnAnchorEnd);
 	}
 
 	public override string GetFullTooltip()
 	{
-		if (m_syncComponent != null)
-		{
-			if (m_syncComponent.m_anchored && !string.IsNullOrEmpty(m_anchoredToolTip))
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						if (string.IsNullOrEmpty(m_anchoredFinalFullTooltip))
-						{
-							return TooltipTokenEntry.GetTooltipWithSubstitutes(m_anchoredToolTip, null);
-						}
-						return TooltipTokenEntry.GetTooltipWithSubstitutes(m_anchoredFinalFullTooltip, null);
-					}
-				}
-			}
-		}
-		return base.GetFullTooltip();
+		return m_syncComponent != null
+		       && m_syncComponent.m_anchored
+		       && !string.IsNullOrEmpty(m_anchoredToolTip)
+			? TooltipTokenEntry.GetTooltipWithSubstitutes(string.IsNullOrEmpty(m_anchoredFinalFullTooltip)
+				? m_anchoredToolTip
+				: m_anchoredFinalFullTooltip, 
+				null)
+			: base.GetFullTooltip();
 	}
 
 	public override void SetUnlocalizedTooltipAndStatusTypes(AbilityMod mod = null)
 	{
 		if (!string.IsNullOrEmpty(m_anchoredToolTip))
 		{
-			List<TooltipTokenEntry> tooltipTokenEntries = GetTooltipTokenEntries(mod);
-			m_anchoredFinalFullTooltip = TooltipTokenEntry.GetTooltipWithSubstitutes(m_anchoredToolTip, tooltipTokenEntries);
+			m_anchoredFinalFullTooltip = TooltipTokenEntry.GetTooltipWithSubstitutes(m_anchoredToolTip, GetTooltipTokenEntries(mod));
 		}
 		base.SetUnlocalizedTooltipAndStatusTypes(mod);
 	}
 
 	public override bool HasPassivePendingStatus(StatusType status, ActorData owner)
 	{
-		if (m_syncComponent != null && m_syncComponent.m_wasAnchoredOnTurnStart)
-		{
-			if (owner != null)
-			{
-				if (!owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4))
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return HasPendingStatusTurnOfAnchorEnd(status);
-						}
-					}
-				}
-			}
-		}
-		return false;
+		return m_syncComponent != null
+		       && m_syncComponent.m_wasAnchoredOnTurnStart
+		       && owner != null
+		       && !owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4)
+		       && HasPendingStatusTurnOfAnchorEnd(status);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ExoAnchorLaser))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_ExoAnchorLaser);
+			m_abilityMod = abilityMod as AbilityMod_ExoAnchorLaser;
 			SetupTargeter();
 		}
 	}
@@ -685,40 +408,17 @@ public class ExoAnchorLaser : Ability
 
 	public float GetRotateToTargetDuration(float sweepAngle)
 	{
-		if (m_syncComponent != null)
-		{
-			if (m_syncComponent.m_anchored)
-			{
-				if (m_syncComponent.m_turnsAnchored > 0)
-				{
-					return sweepAngle / m_turnToTargetSweepDegreesPerSecond;
-				}
-			}
-		}
-		return 0.2f;
+		return m_syncComponent != null
+		       && m_syncComponent.m_anchored
+		       && m_syncComponent.m_turnsAnchored > 0
+			? sweepAngle / m_turnToTargetSweepDegreesPerSecond
+			: 0.2f;
 	}
 
 	public override bool ShouldRotateToTargetPos()
 	{
-		if (m_syncComponent != null)
-		{
-			if (m_syncComponent.m_anchored)
-			{
-				if (m_syncComponent.m_turnsAnchored > 0)
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return false;
-						}
-					}
-				}
-			}
-		}
-		return true;
+		return m_syncComponent == null
+		       || !m_syncComponent.m_anchored
+		       || m_syncComponent.m_turnsAnchored <= 0;
 	}
 }

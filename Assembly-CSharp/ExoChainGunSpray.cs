@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,24 +7,15 @@ public class ExoChainGunSpray : Ability
 	[Space(20f)]
 	[Header("-- Cone to Sweep Across")]
 	public float m_coneBackwardOffset;
-
 	public float m_coneLength = 2.5f;
-
 	public float m_minConeAngle = 10f;
-
 	public float m_maxConeAngle = 90f;
-
 	public int m_maxTargets;
-
 	public float m_multiClickConeEdgeWidth = 0.2f;
-
 	public bool m_penetrateLineOfSight;
-
 	[Header("-- Damage and Effects")]
 	public int m_minDamageAmount = 15;
-
 	public int m_maxDamageAmount = 35;
-
 	public StandardEffectInfo m_targetHitEffect;
 
 	private void Start()
@@ -38,38 +29,27 @@ public class ExoChainGunSpray : Ability
 
 	private void SetupTargeter()
 	{
-		if (GetExpectedNumberOfTargeters() > 1)
+		if (GetExpectedNumberOfTargeters() <= 1)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-				{
-					ClearTargeters();
-					for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
-					{
-						AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, GetMinConeAngle(), GetMaxConeAngle(), GetConeLength(), m_coneBackwardOffset, m_multiClickConeEdgeWidth, m_penetrateLineOfSight, GetMaxTargets());
-						abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(true, false, false);
-						base.Targeters.Add(abilityUtil_Targeter_SweepMultiClickCone);
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
-				}
-				}
-			}
+			Log.Error("ExoChainGunSpray requires 2 targeters, please update the Target Data array in the character prefab.");
+			return;
 		}
-		Log.Error("ExoChainGunSpray requires 2 targeters, please update the Target Data array in the character prefab.");
+		
+		ClearTargeters();
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+		{
+			AbilityUtil_Targeter_SweepMultiClickCone targeter = new AbilityUtil_Targeter_SweepMultiClickCone(
+				this,
+				GetMinConeAngle(),
+				GetMaxConeAngle(),
+				GetConeLength(),
+				m_coneBackwardOffset,
+				m_multiClickConeEdgeWidth,
+				m_penetrateLineOfSight,
+				GetMaxTargets());
+			targeter.SetAffectedGroups(true, false, false);
+			Targeters.Add(targeter);
+		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
@@ -80,14 +60,11 @@ public class ExoChainGunSpray : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-		for (int i = 0; i < targets.Count; i++)
+		foreach (AbilityTarget target in targets)
 		{
-			list.Add(targets[i].FreePos);
+			list.Add(target.FreePos);
 		}
-		while (true)
-		{
-			return list;
-		}
+		return list;
 	}
 
 	private float GetMinConeAngle()
@@ -132,9 +109,9 @@ public class ExoChainGunSpray : Ability
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 		if (currentTargeterIndex > 0)
 		{
-			AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
+			AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
 			int damageForSweepAngle = GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
-			Ability.AddNameplateValueForSingleHit(ref symbolToValue, abilityUtil_Targeter_SweepMultiClickCone, targetActor, damageForSweepAngle);
+			AddNameplateValueForSingleHit(ref symbolToValue, abilityUtil_Targeter_SweepMultiClickCone, targetActor, damageForSweepAngle);
 		}
 		return symbolToValue;
 	}
@@ -154,22 +131,16 @@ public class ExoChainGunSpray : Ability
 		sweepAngle = Vector3.Angle(startAimDirection, endAimDirection);
 		float maxConeAngle = GetMaxConeAngle();
 		float minConeAngle = GetMinConeAngle();
-		if (maxConeAngle > 0f)
+		if (maxConeAngle > 0f && sweepAngle > maxConeAngle)
 		{
-			if (sweepAngle > maxConeAngle)
-			{
-				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - maxConeAngle), 0f);
-				sweepAngle = maxConeAngle;
-				goto IL_00a5;
-			}
+			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - maxConeAngle), 0f);
+			sweepAngle = maxConeAngle;
 		}
-		if (minConeAngle > 0f && sweepAngle < minConeAngle)
+		else if (minConeAngle > 0f && sweepAngle < minConeAngle)
 		{
 			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - minConeAngle), 0f);
 			sweepAngle = minConeAngle;
 		}
-		goto IL_00a5;
-		IL_00a5:
 		coneCenterDegrees = num;
 		Vector3 vector = Vector3.Cross(startAimDirection, endAimDirection);
 		if (vector.y > 0f)
@@ -185,10 +156,10 @@ public class ExoChainGunSpray : Ability
 
 	private int GetDamageForSweepAngle(float sweepAngle)
 	{
-		float num = GetMaxDamageAmount() - GetMinDamageAmount();
-		float num2 = GetMaxConeAngle() - GetMinConeAngle();
-		float value = 1f - (sweepAngle - GetMinConeAngle()) / num2;
-		value = Mathf.Clamp(value, 0f, 1f);
-		return GetMinDamageAmount() + Mathf.RoundToInt(num * value);
+		float damageRange = GetMaxDamageAmount() - GetMinDamageAmount();
+		float angleRange = GetMaxConeAngle() - GetMinConeAngle();
+		float share = 1f - (sweepAngle - GetMinConeAngle()) / angleRange;
+		share = Mathf.Clamp(share, 0f, 1f);
+		return GetMinDamageAmount() + Mathf.RoundToInt(damageRange * share);
 	}
 }

@@ -1,4 +1,4 @@
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -6,134 +6,81 @@ public class Exo_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	internal bool m_anchored;
-
 	[SyncVar(hook = "HookSetWasAnchoredOnTurnStart")]
 	internal bool m_wasAnchoredOnTurnStart;
-
 	[SyncVar]
 	internal bool m_laserBarrierIsUp;
-
 	[SyncVar]
-	internal Vector3 m_anchoredLaserAimDirection = default(Vector3);
-
+	internal Vector3 m_anchoredLaserAimDirection;
 	[SyncVar]
 	internal short m_turnsAnchored;
-
 	[SyncVar]
 	internal short m_lastBasicAttackUsedTurn = -1;
 
 	private ExoAnchorLaser m_anchorLaserAbility;
-
-	private static readonly int animIdleType;
-
-	private static readonly int animExitAnchor;
-
+	private static readonly int animIdleType = Animator.StringToHash("IdleType");
+	private static readonly int animExitAnchor = Animator.StringToHash("ExitAnchor");
 	private ActorData m_owner;
-
-	private static int kRpcRpcSetIdleType;
-
-	private static int kRpcRpcSetFacingDirection;
-
-	private static int kRpcRpcSetSweepingRight;
+	private static int kRpcRpcSetIdleType = 497885915;
+	private static int kRpcRpcSetFacingDirection = -1163602312;
+	private static int kRpcRpcSetSweepingRight = 162886841;
 
 	public bool Networkm_anchored
 	{
-		get
-		{
-			return m_anchored;
-		}
+		get => m_anchored;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_anchored, 1u);
-		}
+		set => SetSyncVar(value, ref m_anchored, 1u);
 	}
 
 	public bool Networkm_wasAnchoredOnTurnStart
 	{
-		get
-		{
-			return m_wasAnchoredOnTurnStart;
-		}
+		get => m_wasAnchoredOnTurnStart;
 		[param: In]
 		set
 		{
-			ref bool wasAnchoredOnTurnStart = ref m_wasAnchoredOnTurnStart;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					HookSetWasAnchoredOnTurnStart(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				HookSetWasAnchoredOnTurnStart(value);
+				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref wasAnchoredOnTurnStart, 2u);
+			SetSyncVar(value, ref m_wasAnchoredOnTurnStart, 2u);
 		}
 	}
 
 	public bool Networkm_laserBarrierIsUp
 	{
-		get
-		{
-			return m_laserBarrierIsUp;
-		}
+		get => m_laserBarrierIsUp;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_laserBarrierIsUp, 4u);
-		}
+		set => SetSyncVar(value, ref m_laserBarrierIsUp, 4u);
 	}
 
 	public Vector3 Networkm_anchoredLaserAimDirection
 	{
-		get
-		{
-			return m_anchoredLaserAimDirection;
-		}
+		get => m_anchoredLaserAimDirection;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_anchoredLaserAimDirection, 8u);
-		}
+		set => SetSyncVar(value, ref m_anchoredLaserAimDirection, 8u);
 	}
 
 	public short Networkm_turnsAnchored
 	{
-		get
-		{
-			return m_turnsAnchored;
-		}
+		get => m_turnsAnchored;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_turnsAnchored, 16u);
-		}
+		set => SetSyncVar(value, ref m_turnsAnchored, 16u);
 	}
 
 	public short Networkm_lastBasicAttackUsedTurn
 	{
-		get
-		{
-			return m_lastBasicAttackUsedTurn;
-		}
+		get => m_lastBasicAttackUsedTurn;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_lastBasicAttackUsedTurn, 32u);
-		}
+		set => SetSyncVar(value, ref m_lastBasicAttackUsedTurn, 32u);
 	}
 
 	static Exo_SyncComponent()
 	{
-		animIdleType = Animator.StringToHash("IdleType");
-		animExitAnchor = Animator.StringToHash("ExitAnchor");
-		kRpcRpcSetIdleType = 497885915;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetIdleType, InvokeRpcRpcSetIdleType);
-		kRpcRpcSetFacingDirection = -1163602312;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetFacingDirection, InvokeRpcRpcSetFacingDirection);
-		kRpcRpcSetSweepingRight = 162886841;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetSweepingRight, InvokeRpcRpcSetSweepingRight);
+		RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetIdleType, InvokeRpcRpcSetIdleType);
+		RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetFacingDirection, InvokeRpcRpcSetFacingDirection);
+		RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetSweepingRight, InvokeRpcRpcSetSweepingRight);
 		NetworkCRC.RegisterBehaviour("Exo_SyncComponent", 0);
 	}
 
@@ -148,48 +95,29 @@ public class Exo_SyncComponent : NetworkBehaviour
 
 	private void Start()
 	{
-		AbilityData component = GetComponent<AbilityData>();
-		if (!(component != null))
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_anchorLaserAbility = (component.GetAbilityOfType(typeof(ExoAnchorLaser)) as ExoAnchorLaser);
-			return;
+			m_anchorLaserAbility = abilityData.GetAbilityOfType(typeof(ExoAnchorLaser)) as ExoAnchorLaser;
 		}
 	}
 
 	public bool UsedBasicAttackLastTurn()
 	{
-		if (GameFlowData.Get() != null)
-		{
-			if (m_lastBasicAttackUsedTurn > 0)
-			{
-				return GameFlowData.Get().CurrentTurn - m_lastBasicAttackUsedTurn == 1;
-			}
-		}
-		return false;
+		return GameFlowData.Get() != null
+		       && m_lastBasicAttackUsedTurn > 0
+		       && GameFlowData.Get().CurrentTurn - m_lastBasicAttackUsedTurn == 1;
 	}
 
 	private void HookSetWasAnchoredOnTurnStart(bool value)
 	{
 		Networkm_wasAnchoredOnTurnStart = value;
-		if (!NetworkClient.active)
+		if (NetworkClient.active
+		    && !NetworkServer.active
+		    && m_anchorLaserAbility != null
+		    && m_anchorLaserAbility.ShouldUpdateMovementOnAnchorChange())
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!NetworkServer.active && m_anchorLaserAbility != null && m_anchorLaserAbility.ShouldUpdateMovementOnAnchorChange())
-			{
-				while (true)
-				{
-					GetOwner().GetActorMovement().UpdateSquaresCanMoveTo();
-					return;
-				}
-			}
-			return;
+			GetOwner().GetActorMovement().UpdateSquaresCanMoveTo();
 		}
 	}
 
@@ -201,27 +129,16 @@ public class Exo_SyncComponent : NetworkBehaviour
 			return;
 		}
 		ActorData owner = GetOwner();
-		if (!(owner != null) || !(owner.GetModelAnimator() != null))
+		if (owner != null && owner.GetModelAnimator() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			int integer = owner.GetModelAnimator().GetInteger(animIdleType);
-			if (integer != idleType)
+			if (owner.GetModelAnimator().GetInteger(animIdleType) != idleType)
 			{
 				owner.GetModelAnimator().SetInteger(animIdleType, idleType);
 				if (idleType == 0)
 				{
-					while (true)
-					{
-						owner.GetModelAnimator().SetTrigger(animExitAnchor);
-						return;
-					}
+					owner.GetModelAnimator().SetTrigger(animExitAnchor);
 				}
-				return;
 			}
-			return;
 		}
 	}
 
@@ -232,14 +149,10 @@ public class Exo_SyncComponent : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		ActorData owner = GetOwner();
+		if (owner != null)
 		{
-			ActorData owner = GetOwner();
-			if (owner != null)
-			{
-				owner.TurnToDirection(facing);
-			}
-			return;
+			owner.TurnToDirection(facing);
 		}
 	}
 
@@ -250,14 +163,10 @@ public class Exo_SyncComponent : NetworkBehaviour
 		{
 			return;
 		}
-		while (true)
+		ActorData owner = GetOwner();
+		if (owner != null && owner.GetModelAnimator() != null)
 		{
-			ActorData owner = GetOwner();
-			if (owner != null && owner.GetModelAnimator() != null)
-			{
-				owner.GetModelAnimator().SetBool("SweepingRight", sweepingToTheRight);
-			}
-			return;
+			owner.GetModelAnimator().SetBool("SweepingRight", sweepingToTheRight);
 		}
 	}
 
@@ -269,17 +178,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetIdleType called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetIdleType called on server.");
+			return;
 		}
 		((Exo_SyncComponent)obj).RpcSetIdleType((int)reader.ReadPackedUInt32());
 	}
@@ -288,17 +188,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetFacingDirection called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetFacingDirection called on server.");
+			return;
 		}
 		((Exo_SyncComponent)obj).RpcSetFacingDirection(reader.ReadVector3());
 	}
@@ -307,17 +198,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetSweepingRight called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetSweepingRight called on server.");
+			return;
 		}
 		((Exo_SyncComponent)obj).RpcSetSweepingRight(reader.ReadBoolean());
 	}
@@ -326,17 +208,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetIdleType called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetIdleType called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -351,17 +224,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetFacingDirection called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -376,17 +240,8 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkServer.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC Function RpcSetSweepingRight called on client.");
-					return;
-				}
-			}
+			Debug.LogError("RPC Function RpcSetSweepingRight called on client.");
+			return;
 		}
 		NetworkWriter networkWriter = new NetworkWriter();
 		networkWriter.Write((short)0);
@@ -410,63 +265,63 @@ public class Exo_SyncComponent : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_anchored);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_wasAnchoredOnTurnStart);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_laserBarrierIsUp);
 		}
-		if ((base.syncVarDirtyBits & 8) != 0)
+		if ((syncVarDirtyBits & 8) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_anchoredLaserAimDirection);
 		}
-		if ((base.syncVarDirtyBits & 0x10) != 0)
+		if ((syncVarDirtyBits & 0x10) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_turnsAnchored);
 		}
-		if ((base.syncVarDirtyBits & 0x20) != 0)
+		if ((syncVarDirtyBits & 0x20) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_lastBasicAttackUsedTurn);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -475,22 +330,13 @@ public class Exo_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					m_anchored = reader.ReadBoolean();
-					m_wasAnchoredOnTurnStart = reader.ReadBoolean();
-					m_laserBarrierIsUp = reader.ReadBoolean();
-					m_anchoredLaserAimDirection = reader.ReadVector3();
-					m_turnsAnchored = (short)reader.ReadPackedUInt32();
-					m_lastBasicAttackUsedTurn = (short)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_anchored = reader.ReadBoolean();
+			m_wasAnchoredOnTurnStart = reader.ReadBoolean();
+			m_laserBarrierIsUp = reader.ReadBoolean();
+			m_anchoredLaserAimDirection = reader.ReadVector3();
+			m_turnsAnchored = (short)reader.ReadPackedUInt32();
+			m_lastBasicAttackUsedTurn = (short)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
