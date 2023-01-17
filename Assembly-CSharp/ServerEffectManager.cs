@@ -767,9 +767,7 @@ public class ServerEffectManager : MonoBehaviour
 	// custom
 	private bool ValidateEffectLifetime(Effect effect)
 	{
-		EffectDuration time = effect.m_time;
-		time.age++;
-		return time.ReadyToEnd();
+		return effect.m_time.ReadyToEnd();
 	}
 	// rogues
 	//private bool ValidateEffectLifetime(global::Effect effect, bool isEnd)
@@ -829,6 +827,9 @@ public class ServerEffectManager : MonoBehaviour
 			//{
 			//	flag = (effect2.EffectLifecycle == EffectLifecycle.OnEnd && !effect2.pendingEffectResults.Any<EffectResults>());
 			//}
+			
+			effect.m_time.age++; // custom
+			// RageBeastPlasmaEffect expects age to be 1 by the fist OnTurnEnd call
 
 			if (effect.ShouldEndEarly())
 			{
