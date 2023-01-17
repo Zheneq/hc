@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ExoSweepLaserSequence : Sequence
@@ -22,53 +22,36 @@ public class ExoSweepLaserSequence : Sequence
 
 	[Tooltip("Main FX prefab.")]
 	public GameObject m_fxPrefab;
-
 	[JointPopup("FX attach joint on the caster")]
 	public JointPopupProperty m_fxCasterJoint;
-
 	[Header("-- Impact Fx --")]
 	public GameObject m_hitFxPrefab;
-
 	[Header("-- Start and Stop Anim Events --")]
 	[AnimEventPicker]
 	public Object m_startEvent;
-
 	[AnimEventPicker]
 	public Object m_stopEvent;
-
 	[AnimEventPicker]
 	public Object m_hitFailsafeEvent;
-
 	[AnimEventPicker]
 	public Object m_rotationStartEvent;
-
 	[AnimEventPicker]
 	public Object m_removePreviousLaserEvent;
-
 	[Header("-- Audio Events --")]
 	[AudioEvent(false)]
 	public string m_audioEvent;
-
 	[AudioEvent(false)]
 	public string m_impactAudioEvent;
-
 	[Space(10f)]
 	public float m_maxProjectileDistInWorld = 8f;
-
 	public PhaseTimingParameters m_phaseTimingParameters;
 
 	private GameObject m_fx;
-
 	private List<GameObject> m_hitFxInstances = new List<GameObject>();
-
 	private List<ActorData> m_actorsToHit = new List<ActorData>();
-
 	private Vector3 m_lastLaserDir;
-
 	private float m_actorRotationDuration = 1f;
-
 	private bool m_actorRotationStarted;
-
 	private static readonly int animTimeToRotationGoal = Animator.StringToHash("TimeToRotationGoal");
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
@@ -76,56 +59,32 @@ public class ExoSweepLaserSequence : Sequence
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
-			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
-			if (extraParams2 == null)
+			if (extraSequenceParams is ExtraParams extraParams2)
 			{
-				continue;
-			}
-			if (extraParams2.lengthInSquares > 0f)
-			{
-				m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
-			}
-			if (extraParams2.rotationDuration > 0f)
-			{
-				m_actorRotationDuration = extraParams2.rotationDuration;
+				if (extraParams2.lengthInSquares > 0f)
+				{
+					m_maxProjectileDistInWorld = extraParams2.lengthInSquares * Board.Get().squareSize;
+				}
+				if (extraParams2.rotationDuration > 0f)
+				{
+					m_actorRotationDuration = extraParams2.rotationDuration;
+				}
 			}
 		}
-		while (true)
+		if (Targets != null)
 		{
-			if (base.Targets == null)
+			foreach (ActorData target in Targets)
 			{
-				return;
-			}
-			while (true)
-			{
-				for (int j = 0; j < base.Targets.Length; j++)
-				{
-					m_actorsToHit.Add(base.Targets[j]);
-				}
-				while (true)
-				{
-					switch (4)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
+				m_actorsToHit.Add(target);
 			}
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		if (!(m_startEvent == null) || !m_phaseTimingParameters.ShouldSequenceBeActive())
-		{
-			return;
-		}
-		while (true)
+		if (m_startEvent == null && m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
 			SpawnFX();
-			return;
 		}
 	}
 
@@ -137,103 +96,72 @@ public class ExoSweepLaserSequence : Sequence
 	internal override void OnAbilityPhaseStart(AbilityPriority abilityPhase)
 	{
 		m_phaseTimingParameters.OnAbilityPhaseStart(abilityPhase);
-		if (m_startEvent == null)
+		if (m_startEvent == null && m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
 		{
-			if (m_phaseTimingParameters.ShouldSpawnSequence(abilityPhase))
-			{
-				SpawnFX();
-			}
+			SpawnFX();
 		}
-		if (!m_phaseTimingParameters.ShouldStopSequence(abilityPhase))
+		if (m_phaseTimingParameters.ShouldStopSequence(abilityPhase)
+		    && m_fx != null
+		    && m_fx != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(m_fx != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if ((bool)m_fx)
-				{
-					while (true)
-					{
-						m_fx.SetActive(false);
-						return;
-					}
-				}
-				return;
-			}
+			m_fx.SetActive(false);
 		}
 	}
 
 	private void Update()
 	{
-		if (!m_initialized)
+		if (!m_initialized || !m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
 			return;
 		}
-		while (true)
+		if (m_fx != null && Caster != null)
 		{
-			if (!m_phaseTimingParameters.ShouldSequenceBeActive())
+			FriendlyEnemyVFXSelector component = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
+			if (m_fx != null && component != null)
 			{
-				return;
+				component.Setup(Caster.GetTeam());
 			}
-			while (true)
+		}
+		ProcessSequenceVisibility();
+		if (m_fxCasterJoint.m_jointObject != null)
+		{
+			Vector3 position = m_fxCasterJoint.m_jointObject.transform.position;
+			SetAttribute(m_fx, "startPoint", position);
+			Vector3 forward = m_fxCasterJoint.m_jointObject.transform.forward;
+			forward.y = 0f;
+			forward.Normalize();
+			float projectileDistance = GetProjectileDistance(position, forward, m_maxProjectileDistInWorld);
+			SetAttribute(m_fx, "endPoint", position + projectileDistance * forward);
+			if (m_actorsToHit.Count > 0)
 			{
-				if (m_fx != null && base.Caster != null)
+				Vector3 forward2 = m_fxCasterJoint.m_jointObject.transform.forward;
+				float num = Vector3.Angle(m_lastLaserDir, forward2);
+				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(m_lastLaserDir + forward2);
+				float coneLengthRadiusInSquares = m_maxProjectileDistInWorld / Board.Get().squareSize + 2f;
+				for (int i = m_actorsToHit.Count - 1; i >= 0; i--)
 				{
-					FriendlyEnemyVFXSelector component = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
-					if (m_fx != null && component != null)
+					BoardSquare currentBoardSquare = m_actorsToHit[i].GetCurrentBoardSquare();
+					bool isSquareInConeByActorRadius = AreaEffectUtils.IsSquareInConeByActorRadius(
+						currentBoardSquare,
+						Caster.GetLoSCheckPos(),
+						coneCenterAngleDegrees,
+						num + 1f,
+						coneLengthRadiusInSquares,
+						0f,
+						true,
+						Caster);
+					if (currentBoardSquare != null && isSquareInConeByActorRadius)
 					{
-						component.Setup(base.Caster.GetTeam());
+						DoActorHit(m_actorsToHit[i]);
+						m_actorsToHit.RemoveAt(i);
 					}
 				}
-				ProcessSequenceVisibility();
-				if (!(m_fxCasterJoint.m_jointObject != null))
-				{
-					return;
-				}
-				while (true)
-				{
-					Vector3 position = m_fxCasterJoint.m_jointObject.transform.position;
-					Sequence.SetAttribute(m_fx, "startPoint", position);
-					Vector3 forward = m_fxCasterJoint.m_jointObject.transform.forward;
-					forward.y = 0f;
-					forward.Normalize();
-					float projectileDistance = GetProjectileDistance(position, forward, m_maxProjectileDistInWorld);
-					Sequence.SetAttribute(m_fx, "endPoint", position + projectileDistance * forward);
-					if (m_actorsToHit.Count > 0)
-					{
-						Vector3 forward2 = m_fxCasterJoint.m_jointObject.transform.forward;
-						float num = Vector3.Angle(m_lastLaserDir, forward2);
-						Vector3 vec = m_lastLaserDir + forward2;
-						float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
-						float coneLengthRadiusInSquares = m_maxProjectileDistInWorld / Board.Get().squareSize + 2f;
-						for (int num2 = m_actorsToHit.Count - 1; num2 >= 0; num2--)
-						{
-							BoardSquare currentBoardSquare = m_actorsToHit[num2].GetCurrentBoardSquare();
-							if (currentBoardSquare != null && AreaEffectUtils.IsSquareInConeByActorRadius(currentBoardSquare, base.Caster.GetLoSCheckPos(), coneCenterAngleDegrees, num + 1f, coneLengthRadiusInSquares, 0f, true, base.Caster))
-							{
-								DoActorHit(m_actorsToHit[num2]);
-								m_actorsToHit.RemoveAt(num2);
-							}
-						}
-					}
-					m_lastLaserDir = m_fxCasterJoint.m_jointObject.transform.forward;
-					if (m_actorRotationStarted)
-					{
-						while (true)
-						{
-							Animator modelAnimator = base.Caster.GetModelAnimator();
-							modelAnimator.SetFloat(animTimeToRotationGoal, base.Caster.GetTurnToPositionTimeRemaining());
-							return;
-						}
-					}
-					return;
-				}
+			}
+
+			m_lastLaserDir = m_fxCasterJoint.m_jointObject.transform.forward;
+			if (m_actorRotationStarted)
+			{
+				Caster.GetModelAnimator().SetFloat(animTimeToRotationGoal, Caster.GetTurnToPositionTimeRemaining());
 			}
 		}
 	}
@@ -241,8 +169,8 @@ public class ExoSweepLaserSequence : Sequence
 	private float GetProjectileDistance(Vector3 start, Vector3 forward, float maxDist)
 	{
 		Vector3 vector = start;
-		vector.y = (float)Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
-		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, base.Caster);
+		vector.y = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(vector, forward, maxDist, false, Caster);
 		return (vector - laserEndPoint).magnitude;
 	}
 
@@ -250,20 +178,11 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (m_fx != null)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
 		if (!m_fxCasterJoint.IsInitialized())
 		{
-			GameObject referenceModel = GetReferenceModel(base.Caster, ReferenceModelType.Actor);
+			GameObject referenceModel = GetReferenceModel(Caster, ReferenceModelType.Actor);
 			if (referenceModel != null)
 			{
 				m_fxCasterJoint.Initialize(referenceModel);
@@ -281,22 +200,17 @@ public class ExoSweepLaserSequence : Sequence
 				}
 				else
 				{
-					Log.Error(base.gameObject.name + " - m_fxCasterJoint.m_jointObject is NULL! Caster: {0} Target: {1}", base.Caster.DisplayName, base.Target.DisplayName);
+					Log.Error(gameObject.name + " - m_fxCasterJoint.m_jointObject is NULL! Caster: {0} Target: {1}", Caster.DisplayName, Target.DisplayName);
 				}
 			}
 			else
 			{
-				Log.Error(base.gameObject.name + " - m_fxCasterJoint is NULL! Caster: {0} Target: {1}", base.Caster.DisplayName, base.Target.DisplayName);
+				Log.Error(gameObject.name + " - m_fxCasterJoint is NULL! Caster: {0} Target: {1}", Caster.DisplayName, Target.DisplayName);
 			}
 		}
-		if (string.IsNullOrEmpty(m_audioEvent))
+		if (!string.IsNullOrEmpty(m_audioEvent))
 		{
-			return;
-		}
-		while (true)
-		{
-			AudioManager.PostEvent(m_audioEvent, base.Caster.gameObject);
-			return;
+			AudioManager.PostEvent(m_audioEvent, Caster.gameObject);
 		}
 	}
 
@@ -306,27 +220,13 @@ public class ExoSweepLaserSequence : Sequence
 		{
 			m_fx.SetActive(false);
 		}
-		if (m_hitFxInstances == null)
+		if (m_hitFxInstances != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			for (int i = 0; i < m_hitFxInstances.Count; i++)
+			foreach (GameObject fx in m_hitFxInstances)
 			{
-				if (m_hitFxInstances[i] != null)
+				if (fx != null)
 				{
-					m_hitFxInstances[i].SetActive(false);
-				}
-			}
-			while (true)
-			{
-				switch (1)
-				{
-				default:
-					return;
-				case 0:
-					break;
+					fx.SetActive(false);
 				}
 			}
 		}
@@ -338,65 +238,49 @@ public class ExoSweepLaserSequence : Sequence
 		{
 			return;
 		}
-		while (true)
+		if (m_startEvent == parameter)
 		{
-			if (m_startEvent == parameter)
+			SpawnFX();
+		}
+		if (m_stopEvent == parameter)
+		{
+			StopFX();
+		}
+		if (m_rotationStartEvent == parameter && !m_actorRotationStarted)
+		{
+			Caster.TurnToPosition(TargetPos, m_actorRotationDuration);
+			m_actorRotationStarted = true;
+		}
+		if (m_removePreviousLaserEvent == parameter)
+		{
+			Source.OnSequenceHit(this, Caster, null);
+		}
+		if (m_hitFailsafeEvent == parameter)
+		{
+			foreach (ActorData actor in m_actorsToHit)
 			{
-				SpawnFX();
+				DoActorHit(actor);
 			}
-			if (m_stopEvent == parameter)
-			{
-				StopFX();
-			}
-			if (m_rotationStartEvent == parameter)
-			{
-				if (!m_actorRotationStarted)
-				{
-					base.Caster.TurnToPosition(base.TargetPos, m_actorRotationDuration);
-					m_actorRotationStarted = true;
-				}
-			}
-			if (m_removePreviousLaserEvent == parameter)
-			{
-				base.Source.OnSequenceHit(this, base.Caster, null);
-			}
-			if (!(m_hitFailsafeEvent == parameter))
-			{
-				return;
-			}
-			while (true)
-			{
-				for (int i = 0; i < m_actorsToHit.Count; i++)
-				{
-					DoActorHit(m_actorsToHit[i]);
-				}
-				base.Source.OnSequenceHit(this, base.TargetPos);
-				return;
-			}
+			Source.OnSequenceHit(this, TargetPos);
 		}
 	}
 
 	private void DoActorHit(ActorData actor)
 	{
 		Vector3 position = actor.transform.position;
-		Vector3 vector = position - base.Caster.transform.position;
+		Vector3 vector = position - Caster.transform.position;
 		vector.y = 0f;
 		vector.Normalize();
 		ActorModelData.ImpulseInfo impulseInfo = new ActorModelData.ImpulseInfo(position, vector);
-		base.Source.OnSequenceHit(this, actor, impulseInfo);
-		if ((bool)m_hitFxPrefab)
+		Source.OnSequenceHit(this, actor, impulseInfo);
+		if (m_hitFxPrefab != null)
 		{
 			Quaternion rotation = Quaternion.LookRotation(vector);
 			m_hitFxInstances.Add(InstantiateFX(m_hitFxPrefab, position, rotation));
 		}
-		if (string.IsNullOrEmpty(m_impactAudioEvent))
-		{
-			return;
-		}
-		while (true)
+		if (!string.IsNullOrEmpty(m_impactAudioEvent))
 		{
 			AudioManager.PostEvent(m_impactAudioEvent, actor.gameObject);
-			return;
 		}
 	}
 
@@ -404,26 +288,20 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		if (m_fx != null)
 		{
-			Object.Destroy(m_fx.gameObject);
+			Destroy(m_fx.gameObject);
 			m_fx = null;
 		}
-		if (m_hitFxInstances == null)
+		if (m_hitFxInstances != null)
 		{
-			return;
-		}
-		for (int num = m_hitFxInstances.Count - 1; num >= 0; num--)
-		{
-			GameObject gameObject = m_hitFxInstances[num];
-			if (gameObject != null)
+			for (int i = m_hitFxInstances.Count - 1; i >= 0; i--)
 			{
-				Object.Destroy(gameObject);
-				gameObject = null;
+				GameObject fx = m_hitFxInstances[i];
+				if (fx != null)
+				{
+					Destroy(fx);
+				}
 			}
-		}
-		while (true)
-		{
 			m_hitFxInstances.Clear();
-			return;
 		}
 	}
 }
