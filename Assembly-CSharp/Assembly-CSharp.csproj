@@ -2038,8 +2038,10 @@
     <Compile Include="SamuraiBuffNotifySequence.cs" />
     <Compile Include="SamuraiDashAndAimedSlash.cs" />
     <Compile Include="SamuraiDoubleSlash.cs" />
+    <Compile Include="SamuraiMarkEffect.cs" />
     <Compile Include="SamuraiRotateToTargetPosSequence.cs" />
     <Compile Include="SamuraiSelfBuff.cs" />
+    <Compile Include="SamuraiSelfBuffEffect.cs" />
     <Compile Include="SamuraiSwordBuffSequence.cs" />
     <Compile Include="SamuraiSwordDash.cs" />
     <Compile Include="SamuraiWindBlade.cs" />

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -197,7 +199,15 @@ public class SamuraiDashAndAimedSlash : Ability
 			results.m_damage = GetDamageAmount();
 			if (m_syncComponent != null)
 			{
+				// reactor
 				results.m_damage += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
+				// rogues (inlined)
+				// int num = 0;
+				// if (m_syncComponent.IsSelfBuffActive(ref num))
+				// {
+				// 	results.m_damage += num;
+				// }
+				// results.m_damage += m_syncComponent.GetExtraDamageFromQueuedSelfBuff();
 			}
 			if (GetExtraDamageIfSingleTarget() > 0 && targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 1)
 			{
@@ -227,4 +237,121 @@ public class SamuraiDashAndAimedSlash : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null)
+		{
+			return square;
+		}
+		return base.GetModifiedMoveStartSquare(caster, targets);
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetHitActors(targets, caster, null, out _, out Vector3 targetPos);
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_slashSequencePrefab,
+				targetPos,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+		if (m_dashSequencePrefab != null)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(m_dashSequencePrefab,
+				Board.Get().GetSquare(targets[0].GridPos),
+				GetEffectOnSelf().m_applyEffect ? caster.AsArray() : null,
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargets = new List<NonActorTargetInfo>();
+		GetHitActors(targets, caster, nonActorTargets, out List<ActorData> directHitActors, out _);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		int enemyCount = AbilityUtils.GetEnemyCount(directHitActors, caster);
+		foreach (ActorData target in directHitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, loSCheckPos));
+			int damage = GetDamageAmount();
+			if (m_syncComponent != null)
+			{
+				damage += m_syncComponent.GetExtraDamageFromQueuedSelfBuff();
+			}
+			if (GetExtraDamageIfSingleTarget() > 0 && enemyCount == 1)
+			{
+				damage += GetExtraDamageIfSingleTarget();
+			}
+			actorHitResults.AddBaseDamage(damage);
+			actorHitResults.AddStandardEffectInfo(GetTargetEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (GetEffectOnSelf().m_applyEffect)
+		{
+			ActorHitResults casterHitResults = MakeActorHitRes(caster, caster.GetFreePos());
+			casterHitResults.AddStandardEffectInfo(GetEffectOnSelf());
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargets);
+	}
+
+	// added in rogues
+	private void GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargets,
+		out List<ActorData> directHitActors,
+		out Vector3 laserEnd)
+	{
+		Vector3 targetPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		Vector3 neutralDir = targetPos - caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		Vector3 clampedLaserDirection = GetClampedLaserDirection(targets[0], targets[1], neutralDir);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = targetPos;
+		directHitActors = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			clampedLaserDirection,
+			GetLaserRange(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargets);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref directHitActors);
+		laserEnd = laserCoords.end;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SamuraiStats.DamageDealtAndDodged_RushingSteel, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SamuraiStats.DamageDealtAndDodged_RushingSteel, results.FinalDamage);
+		}
+	}
+#endif
 }

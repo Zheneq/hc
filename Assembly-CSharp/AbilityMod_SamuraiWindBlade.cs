@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,9 +46,13 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility) in rogues
 	{
+		// reactor
 		SamuraiWindBlade samuraiWindBlade = GetTargetAbilityOnAbilityData(abilityData) as SamuraiWindBlade;
+		// rogues
+		// SamuraiWindBlade samuraiWindBlade = targetAbility as SamuraiWindBlade;
+		
 		bool isValid = samuraiWindBlade != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserWidthMod, "[LaserWidth]", isValid, isValid ? samuraiWindBlade.m_laserWidth : 0f);

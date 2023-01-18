@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -214,7 +216,16 @@ public class SamuraiDoubleSlash : Ability
 		}
 		if (m_syncComponent != null && symbolToValue.ContainsKey(AbilityTooltipSymbol.Damage))
 		{
+			// reactor
 			symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
+			// rogues (inlined)
+			// int num = 0;
+			// if (m_syncComponent.IsSelfBuffActive(ref num))
+			// {
+			// 	symbolToValue[AbilityTooltipSymbol.Damage] += num;
+			// }
+			//
+			// symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.GetExtraDamageFromQueuedSelfBuff();
 		}
 		return symbolToValue;
 	}
@@ -245,4 +256,123 @@ public class SamuraiDoubleSlash : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	private List<List<ActorData>> GetHitTargets(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref Dictionary<ActorData, int> actorDamageMap,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<List<ActorData>> list = new List<List<ActorData>>();
+		for (int i = 0; i < targets.Count; i++)
+		{
+			Vector3 vector = i == 0 ? targets[i].AimDirection : GetTargeterClampedAimDirection(targets[i].AimDirection, targets[i - 1].AimDirection);
+			Vector3 loSCheckPos = caster.GetLoSCheckPos();
+			List<ActorData> list2;
+			if (i == 0 && m_coneFirstSlash || i == 1 && m_coneSecondSlash)
+			{
+				float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector);
+				list2 = AreaEffectUtils.GetActorsInCone(loSCheckPos, coneCenterAngleDegrees, GetConeWidthAngle(), GetConeLength(), GetConeBackwardOffset(), PenetrateLineOfSight(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+			}
+			else
+			{
+				list2 = AreaEffectUtils.GetActorsInLaser(loSCheckPos, vector, GetLaserLength(), GetLaserWidth(), caster, caster.GetOtherTeams(), PenetrateLineOfSight(), -1, PenetrateLineOfSight(), true, out _, nonActorTargetInfo);
+			}
+			list.Add(list2);
+			foreach (ActorData actorData in list2)
+			{
+				if (i == 0 || !list[i - 1].Contains(actorData))
+				{
+					actorDamageMap[actorData] = GetDamageAmount();
+				}
+				else
+				{
+					Dictionary<ActorData, int> dictionary = actorDamageMap;
+					ActorData key = actorData;
+					dictionary[key] += GetOverlapExtraDamage();
+				}
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		List<List<ActorData>> hitTargets = GetHitTargets(targets, caster, ref dictionary, null);
+		for (int i = 0; i < targets.Count; i++)
+		{
+			Vector3 vector;
+			if (i == 0)
+			{
+				vector = targets[i].AimDirection;
+			}
+			else
+			{
+				vector = GetTargeterClampedAimDirection(targets[i].AimDirection, targets[i - 1].AimDirection);
+			}
+			if (i == 0 && m_coneFirstSlash || i == 1 && m_coneSecondSlash)
+			{
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_coneCastSequencePrefab,
+					caster.GetFreePos() +
+					vector * GetConeLength() * Board.Get().squareSize,
+					hitTargets[i].ToArray(),
+					caster,
+					additionalData.m_sequenceSource));
+			}
+			else
+			{
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_laserCastSequencePrefab,
+					caster.GetFreePos() +
+					vector * GetLaserLength() * Board.Get().squareSize,
+					hitTargets[i].ToArray(),
+					caster,
+					additionalData.m_sequenceSource));
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<List<ActorData>> hitTargets = GetHitTargets(targets, caster, ref dictionary, nonActorTargetInfo);
+		List<ActorData> list = new List<ActorData>();
+		foreach (List<ActorData> list2 in hitTargets)
+		{
+			foreach (ActorData actorData in list2)
+			{
+				if (!list.Contains(actorData))
+				{
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+					int num = dictionary[actorData];
+					if (m_syncComponent != null)
+					{
+						num += m_syncComponent.GetExtraDamageFromQueuedSelfBuff();
+					}
+					actorHitResults.SetBaseDamage(num);
+					actorHitResults.AddStandardEffectInfo(GetTargetHitEffect());
+					if (GetExtraEnemyHitEffectIfSelfBuffed().m_applyEffect && ServerActionBuffer.Get().HasStoredAbilityRequestOfType(caster, typeof(SamuraiSelfBuff)))
+					{
+						actorHitResults.AddStandardEffectInfo(GetExtraEnemyHitEffectIfSelfBuffed());
+					}
+					abilityResults.StoreActorHit(actorHitResults);
+					list.Add(actorData);
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

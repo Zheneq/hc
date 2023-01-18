@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -18,6 +20,11 @@ public class Samurai_SyncComponent : NetworkBehaviour
 
 	private AbilityData m_abilityData;
 	private SamuraiSelfBuff m_selfBuffAbility;
+	
+#if SERVER
+	// added in rogues
+	internal Effect m_afterimageVfxEffect;
+#endif
 
 	public int Networkm_lastSelfBuffTurn
 	{
@@ -64,8 +71,8 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		bool isActiveImmediately = effectData.m_perTurnHitDelayTurns <= 0;
 		bool isStillActive = m_selfBuffAbility.m_selfBuffLastsUntilYouDealDamage
 		             || m_lastSelfBuffTurn > currentTurn - effectData.m_duration;
-		if (m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)) && isActiveImmediately
-		    || m_lastSelfBuffTurn >= 0 && isStillActive && currentTurn > m_lastSelfBuffTurn)
+		if (m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)) && isActiveImmediately  // HasQueuedAbilityOfType(typeof(SamuraiSelfBuff), true) in rogues
+		    || m_lastSelfBuffTurn >= 0 && isStillActive && currentTurn > m_lastSelfBuffTurn)  //  && currentTurn > m_lastSelfBuffTurn removed in rogues
 		{
 			float damageBuff = 0f;
 			if (!effectData.m_statMods.IsNullOrEmpty())
@@ -83,16 +90,17 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		return false;
 	}
 
-	private int GetExtraDamageFromQueuedSelfBuff()
+	public int GetExtraDamageFromQueuedSelfBuff()  // private in reactor
 	{
 		return m_abilityData != null
 		       && m_selfBuffAbility != null
 		       && m_selfBuffAbility.GetExtraDamageIfQueued() > 0
-		       && m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff))
+		       && m_abilityData.HasQueuedAbilityOfType(typeof(SamuraiSelfBuff)) // , true in rogues
 			? m_selfBuffAbility.GetExtraDamageIfQueued()
 			: 0;
 	}
 
+	// missing in rogues
 	public int CalcExtraDamageFromSelfBuffAbility()
 	{
 		int damageIncrease = 0;
@@ -100,10 +108,11 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		return damageIncrease + GetExtraDamageFromQueuedSelfBuff();
 	}
 
-	private void UNetVersion()
+	private void UNetVersion()  // MirrorProcessed in rogues
 	{
 	}
 
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -158,6 +167,7 @@ public class Samurai_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

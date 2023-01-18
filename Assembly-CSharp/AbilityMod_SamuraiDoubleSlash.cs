@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -44,9 +46,13 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility) in rogues
 	{
+		// reactor
 		SamuraiDoubleSlash samuraiDoubleSlash = GetTargetAbilityOnAbilityData(abilityData) as SamuraiDoubleSlash;
+		// rogues
+		// SamuraiDoubleSlash samuraiDoubleSlash = targetAbility as SamuraiDoubleSlash;
+		
 		bool isValid = samuraiDoubleSlash != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isValid, isValid && samuraiDoubleSlash.m_penetrateLineOfSight);

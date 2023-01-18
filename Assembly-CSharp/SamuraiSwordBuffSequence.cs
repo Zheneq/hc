@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿// ROGUES
+// SERVER
+using UnityEngine;
 
+// identical in reactor and rogues
 public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 {
 	[Separator("Samurai-specific FX Prefab for Decision of the turn buff becomes active")]

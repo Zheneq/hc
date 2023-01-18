@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -64,9 +66,13 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility) in rogues
 	{
+		// reactor
 		SamuraiSwordDash samuraiSwordDash = GetTargetAbilityOnAbilityData(abilityData) as SamuraiSwordDash;
+		// rogues
+		// SamuraiSwordDash samuraiSwordDash = targetAbility as SamuraiSwordDash;
+		
 		bool isValid = samuraiSwordDash != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_damageRadiusMod, "[DamageRadius]", isValid, isValid ? samuraiSwordDash.m_damageRadius : 0f);

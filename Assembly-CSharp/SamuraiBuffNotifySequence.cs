@@ -1,5 +1,8 @@
-﻿using UnityEngine;
+﻿// ROGUES
+// SERVER
+using UnityEngine;
 
+// identical in reactor and rogues
 public class SamuraiBuffNotifySequence : SimpleTimingSequence
 {
 	public bool m_finalTurnVfx;

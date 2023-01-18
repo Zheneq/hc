@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,9 +52,13 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility) in rogues
 	{
+		// reactor
 		SamuraiSelfBuff samuraiSelfBuff = GetTargetAbilityOnAbilityData(abilityData) as SamuraiSelfBuff;
+		// rogues
+		// SamuraiSelfBuff samuraiSelfBuff = targetAbility as SamuraiSelfBuff;
+		
 		bool isValid = samuraiSelfBuff != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_selfBuffLastsUntilYouDealDamageMod, "[SelfBuffLastsUntilYouDealDamage]", isValid, isValid && samuraiSelfBuff.m_selfBuffLastsUntilYouDealDamage);

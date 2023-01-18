@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// identical in reactor and rogues
 public class SamuraiRotateToTargetPosSequence : Sequence
 {
 	[AnimEventPicker]

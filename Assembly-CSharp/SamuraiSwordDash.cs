@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SamuraiSwordDash : Ability
@@ -44,6 +46,11 @@ public class SamuraiSwordDash : Ability
 	private StandardEffectInfo m_cachedDashEnemyHitEffect;
 	private StandardEffectInfo m_cachedDashSelfHitEffect;
 	private StandardEffectInfo m_cachedMarkEffectInfo;
+	
+#if SERVER
+	// added in rogues
+	private List<ActorData> m_lastGatheredHitActors = new List<ActorData>();
+#endif
 
 	private void Start()
 	{
@@ -288,7 +295,15 @@ public class SamuraiSwordDash : Ability
 				AddNameplateValueForSingleHit(ref symbolToValue, Targeter, targetActor, damage);
 				if (m_syncComponent != null)
 				{
+					// reactor
 					symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
+					// rogues (inlined)
+					// int num4 = 0;
+					// if (m_syncComponent.IsSelfBuffActive(ref num4))
+					// {
+					// 	symbolToValue[AbilityTooltipSymbol.Damage] += num4;
+					// }
+					// symbolToValue[AbilityTooltipSymbol.Damage] += m_syncComponent.GetExtraDamageFromQueuedSelfBuff();
 				}
 				BoardSquare targeterSquare = Board.Get().GetSquare(Targeter.LastUpdatingGridPos);
 				BoardSquare casterSquare = ActorData.CurrentBoardSquare;
@@ -368,4 +383,267 @@ public class SamuraiSwordDash : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public List<ActorData> GetLastGatheredHitActors()
+	{
+		return m_lastGatheredHitActors;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return -1f * base.GetChargeBestSquareTestVector(chargeSegments);
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return false;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[2];
+		array[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetSquareAtPhaseStart(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_end = BoardSquarePathInfo.ChargeEndType.None
+		};
+		array[1] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = Board.Get().GetSquare(targets[0].GridPos),
+			m_end = BoardSquarePathInfo.ChargeEndType.Impact
+		};
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+		array[0].m_segmentMovementSpeed = segmentMovementSpeed;
+		array[1].m_segmentMovementSpeed = segmentMovementSpeed;
+		return array;
+	}
+	
+	// added in rogues
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		return square != null
+			? square
+			: base.GetModifiedMoveStartSquare(caster, targets);
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		base.Run(targets, caster, additionalData);
+		m_syncComponent.m_afterimagePosition = caster.GetSquareAtPhaseStart();
+		m_syncComponent.Networkm_afterimageX = m_syncComponent.m_afterimagePosition.x;
+		m_syncComponent.Networkm_afterimageY = m_syncComponent.m_afterimagePosition.y;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 targetPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				targetPos,
+				Quaternion.LookRotation(targets[0].AimDirection),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource),
+			new ServerClientUtils.SequenceStartData(
+				SequenceLookup.Get().GetSimpleHitSequencePrefab(),
+				caster.GetSquareAtPhaseStart().ToVector3(),
+				Quaternion.LookRotation(targets[0].AimDirection),
+				null,
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(
+			targets,
+			caster,
+			out Dictionary<ActorData, Vector3> actorToDamageOrigin,
+			nonActorTargetInfo,
+			out List<ActorData> actorsInRangeInEvasion);
+		if (abilityResults.IsReal)
+		{
+			m_lastGatheredHitActors = actorsInRangeInEvasion;
+		}
+		int damage = GetDashDamage() - (hitActors.Count - 1) * GetDashLessDamagePerTarget();
+		damage = Mathf.Max(0, damage);
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorToDamageOrigin[actorData]));
+			actorHitResults.SetBaseDamage(damage);
+			if (GetMarkEffectInfo().m_applyEffect)
+			{
+				actorHitResults.AddEffect(new SamuraiMarkEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetMarkEffectInfo().m_effectData));
+			}
+			actorHitResults.AddStandardEffectInfo(GetDashEnemyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		foreach (ActorData actorData in actorsInRangeInEvasion)
+		{
+			if (!hitActors.Contains(actorData))
+			{
+				ActorHitResults actorHitResults = MakeActorHitRes(actorData, caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart()));
+				actorHitResults.SetIgnoreTechpointInteractionForHit(true);
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		bool flag = false;
+		if (hitActors.Count == 0
+		    && GetEnergyRefundIfTargetDashedAway() > 0
+		    && GameFlowData.Get().IsInResolveState())
+		{
+			Vector3 casterStartPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+			Vector3 targetPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				if (actorData != null
+				    && actorData.GetTeam() != caster.GetTeam()
+				    && AreaEffectUtils.IsActorTargetable(actorData)
+				    && ServerActionBuffer.Get().ActorIsEvading(actorData))
+				{
+					BoardSquare squareAtPhaseStart = actorData.GetSquareAtPhaseStart();
+					if (squareAtPhaseStart != null
+					    && (AreaEffectUtils.IsSquareInBoxByActorRadius(squareAtPhaseStart, casterStartPos, targetPos, 2f * GetDamageRadius())
+					        || AreaEffectUtils.IsSquareInConeByActorRadius(squareAtPhaseStart, casterStartPos, 0f, 360f, GetDamageRadiusAtStart(), 0f, PenetrateLineOfSight(), caster)
+					        || AreaEffectUtils.IsSquareInConeByActorRadius(squareAtPhaseStart, targetPos, 0f, 360f, GetDamageRadiusAtEnd(), 0f, PenetrateLineOfSight(), caster)))
+					{
+						flag = true;
+						break;
+					}
+				}
+			}
+		}
+		if (GetDashSelfHitEffect().m_applyEffect || flag)
+		{
+			ActorHitResults actorHitResults3 = MakeActorHitRes(caster, caster.GetFreePos());
+			if (GetDashSelfHitEffect().m_applyEffect)
+			{
+				actorHitResults3.AddStandardEffectInfo(GetDashSelfHitEffect());
+			}
+			if (flag)
+			{
+				if (m_energyRefundIgnoreBuff)
+				{
+					actorHitResults3.AddDirectTechPointGainOnCaster(GetEnergyRefundIfTargetDashedAway());
+				}
+				else
+				{
+					actorHitResults3.AddTechPointGainOnCaster(GetEnergyRefundIfTargetDashedAway());
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults3);
+		}
+		PositionHitResults positionHitResults = MakePosHitRes(caster.GetSquareAtPhaseStart().ToVector3());
+		
+		// custom
+		GroundEffectField groundEffectField = new GroundEffectField
+		{
+			persistentSequencePrefab = m_afterimageSequencePrefab,
+			duration = 1,
+			shape = AbilityAreaShape.SingleSquare,
+			effectOnAllies = new StandardEffectInfo(),
+			effectOnEnemies = new StandardEffectInfo()
+		};
+		// rogues
+		// GroundEffectField groundEffectField = ScriptableObject.CreateInstance<GroundEffectField>();
+		// groundEffectField.persistentSequencePrefab = m_afterimageSequencePrefab;
+		// groundEffectField.duration = 1;
+		// groundEffectField.shape = AbilityAreaShape.SingleSquare;
+		// groundEffectField.effectOnAllies = new StandardEffectInfo();
+		// groundEffectField.effectOnEnemies = new StandardEffectInfo();
+		
+		StandardGroundEffect standardGroundEffect = new StandardGroundEffect(
+			AsEffectSource(),
+			caster.GetSquareAtPhaseStart(),
+			caster.GetSquareAtPhaseStart().ToVector3(),
+			null,
+			caster,
+			groundEffectField);
+		Vector3 vector = caster.GetCurrentBoardSquare().ToVector3() - caster.GetSquareAtPhaseStart().ToVector3();
+		standardGroundEffect.SetSequenceOrientation(Quaternion.LookRotation(vector));
+		positionHitResults.AddEffect(standardGroundEffect);
+		abilityResults.StorePositionHit(positionHitResults);
+		if (GameFlowData.Get().IsInResolveState() && !ServerActionBuffer.Get().GatheringFakeResults)
+		{
+			m_syncComponent.m_afterimageVfxEffect = standardGroundEffect;
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> actorToDamageOrigin,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out List<ActorData> actorsInRangeInEvasion)
+	{
+		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+		List<ActorData> list = new List<ActorData>();
+		actorToDamageOrigin = new Dictionary<ActorData, Vector3>();
+		Vector3 startPos = caster.GetLoSCheckPos(squareAtPhaseStart);
+		Vector3 endPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(
+			startPos,
+			endPos,
+			GetDamageRadiusAtStart(),
+			GetDamageRadiusAtEnd(),
+			GetDamageRadius(),
+			PenetrateLineOfSight(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadiusOfLine);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadiusOfLine, caster.GetFreePos(caster.GetSquareAtPhaseStart()));
+		actorsInRangeInEvasion = new List<ActorData>(actorsInRadiusOfLine);
+		TargeterUtils.LimitActorsToMaxNumber(ref actorsInRangeInEvasion, GetMaxTargets());
+		TargeterUtils.LimitActorsToMaxNumber(ref actorsInRadiusOfLine, GetMaxDamageTargets());
+		foreach (ActorData actorData in actorsInRadiusOfLine)
+		{
+			if (!list.Contains(actorData))
+			{
+				list.Add(actorData);
+				actorToDamageOrigin[actorData] = startPos;
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SamuraiStats.DamageDealtAndDodged_Ult, damageDodged);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SamuraiStats.DamageDealtAndDodged_Ult, results.FinalDamage);
+		}
+	}
+#endif
 }

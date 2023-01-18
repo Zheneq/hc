@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 
@@ -36,9 +38,13 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility) in rogues
 	{
+		// reactor
 		SamuraiDashAndAimedSlash samuraiDashAndAimedSlash = GetTargetAbilityOnAbilityData(abilityData) as SamuraiDashAndAimedSlash;
+		// rogues
+		// SamuraiDashAndAimedSlash samuraiDashAndAimedSlash = targetAbility as SamuraiDashAndAimedSlash;
+		
 		bool isValid = samuraiDashAndAimedSlash != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_maxAngleForLaserMod, "[MaxAngleForLaser]", isValid, isValid ? samuraiDashAndAimedSlash.m_maxAngleForLaser : 0f);

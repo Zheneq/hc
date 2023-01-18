@@ -1,4 +1,7 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SamuraiSelfBuff : Ability
@@ -61,7 +64,12 @@ public class SamuraiSelfBuff : Ability
 			0f,
 			PenetrateLoS());
 		targeter.InitKnockbackData(GetKnockbackDist(), KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
+		
+		// reactor
 		targeter.m_includeCaster = true;
+		// rogues
+		// targeter.SetAffectedGroups(false, false, true);
+		
 		Targeter = targeter;
 	}
 
@@ -242,7 +250,7 @@ public class SamuraiSelfBuff : Ability
 		{
 			for (int i = 0; i <= 4; i++)
 			{
-				if (i != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)i))
+				if (i != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)i)) // , true in rogues
 				{
 					return true;
 				}
@@ -250,4 +258,114 @@ public class SamuraiSelfBuff : Ability
 		}
 		return false;
 	}
+
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComponent != null)
+		{
+			m_syncComponent.Networkm_lastSelfBuffTurn = GameFlowData.Get().CurrentTurn;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		StandardEffectInfo selfBuffEffect = GetSelfBuffEffect();
+		AbilityStatMod buffFromFirstIncomingHit = new AbilityStatMod
+		{
+			stat = StatType.OutgoingDamage,
+			modType = ModType.BaseAdd,
+			modValue = GetDamageIncreaseFirstHit()
+		};
+		AbilityStatMod buffPerIncomingHit = new AbilityStatMod
+		{
+			stat = StatType.OutgoingDamage,
+			modType = ModType.BaseAdd,
+			modValue = GetDamageIncreaseSubseqHits()
+		};
+		SamuraiSelfBuffEffect samuraiSelfBuffEffect = new SamuraiSelfBuffEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			caster,
+			caster,
+			selfBuffEffect.m_effectData,
+			buffFromFirstIncomingHit,
+			buffPerIncomingHit,
+			GetTechPointGainPerIncomingHit(),
+			BuffInResponseToIndirectDamage(),
+			GetCdrIfNotHit(),
+			m_myActionType,
+			m_hitReactionSequencePrefab,
+			m_buffStartSequencePrefab);
+		if (SelfBuffLastsUntilYouDealDamage())
+		{
+			samuraiSelfBuffEffect.SetDurationBeforeStart(0);
+		}
+		casterHitResults.AddEffect(samuraiSelfBuffEffect);
+		if (GetGeneralEffectOnSelf().m_applyEffect)
+		{
+			StandardActorEffect standardActorEffect = GetGeneralEffectOnSelf().CreateEffect(AsEffectSource(), caster, caster);
+			int num = GetBaseShielding();
+			if (GetExtraShieldingIfOnlyAbility() > 0 && !HasOtherQueuedAbilities())
+			{
+				num += GetExtraShieldingIfOnlyAbility();
+			}
+			standardActorEffect.InitAbsorbtion(num);
+			casterHitResults.AddEffect(standardActorEffect);
+		}
+		abilityResults.StoreActorHit(casterHitResults);
+		if (GetAoeRadius() > 0f && (GetDamageAmount() > 0 || GetKnockbackDist() > 0f))
+		{
+			List<NonActorTargetInfo> nonActorTargets = new List<NonActorTargetInfo>();
+			List<ActorData> actors = caster
+				.GetOtherTeams()
+				.SelectMany(otherTeam => AreaEffectUtils.GetActorsInRadius(
+					caster.GetFreePos(),
+					GetAoeRadius(),
+					PenetrateLoS(),
+					caster,
+					otherTeam,
+					nonActorTargets))
+				.ToList();
+			foreach (ActorData target in actors)
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, caster.GetFreePos()));
+				actorHitResults.AddBaseDamage(GetDamageAmount());
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					target,
+					caster,
+					KnockbackType.AwayFromSource,
+					Vector3.forward,
+					caster.GetFreePos(),
+					GetKnockbackDist());
+				actorHitResults.AddKnockbackData(knockbackData);
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargets);
+		}
+	}
+
+	// added in rogues
+	public override void OnEffectAbsorbedDamage(ActorData effectCaster, int damageAbsorbed)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SamuraiStats.EffectiveShielding_RensFury, damageAbsorbed);
+	}
+#endif
 }
