@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿// ROGUES
+// SERVER
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -18,12 +20,19 @@ public class Exo_SyncComponent : NetworkBehaviour
 	internal short m_lastBasicAttackUsedTurn = -1;
 
 	private ExoAnchorLaser m_anchorLaserAbility;
+	
+	// removed in rogues
 	private static readonly int animIdleType = Animator.StringToHash("IdleType");
 	private static readonly int animExitAnchor = Animator.StringToHash("ExitAnchor");
+	// end removed in rogues
+	
 	private ActorData m_owner;
+	
+	// removed in rogues
 	private static int kRpcRpcSetIdleType = 497885915;
 	private static int kRpcRpcSetFacingDirection = -1163602312;
 	private static int kRpcRpcSetSweepingRight = 162886841;
+	// end removed in rogues
 
 	public bool Networkm_anchored
 	{
@@ -78,10 +87,16 @@ public class Exo_SyncComponent : NetworkBehaviour
 
 	static Exo_SyncComponent()
 	{
+		// reactor
 		RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetIdleType, InvokeRpcRpcSetIdleType);
 		RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetFacingDirection, InvokeRpcRpcSetFacingDirection);
 		RegisterRpcDelegate(typeof(Exo_SyncComponent), kRpcRpcSetSweepingRight, InvokeRpcRpcSetSweepingRight);
 		NetworkCRC.RegisterBehaviour("Exo_SyncComponent", 0);
+		// rogues
+		// RegisterRpcDelegate(typeof(Exo_SyncComponent), "RpcSetIdleType", new CmdDelegate(InvokeRpcRpcSetIdleType));
+		// RegisterRpcDelegate(typeof(Exo_SyncComponent), "RpcSetFacingDirection", new CmdDelegate(InvokeRpcRpcSetFacingDirection));
+		// RegisterRpcDelegate(typeof(Exo_SyncComponent), "RpcSetSweepingRight", new CmdDelegate(InvokeRpcRpcSetSweepingRight));
+		// RegisterRpcDelegate(typeof(Exo_SyncComponent), "RpcClearExitAnchorTrigger", new CmdDelegate(InvokeRpcRpcClearExitAnchorTrigger));
 	}
 
 	private ActorData GetOwner()
@@ -170,7 +185,27 @@ public class Exo_SyncComponent : NetworkBehaviour
 		}
 	}
 
+	// rogues
+	// [ClientRpc]
+	// public void RpcClearExitAnchorTrigger()
+	// {
+	// 	if (NetworkServer.active)
+	// 	{
+	// 		return;
+	// 	}
+	// 	ActorData owner = GetOwner();
+	// 	if (owner != null && owner.GetModelAnimator() != null)
+	// 	{
+	// 		owner.GetModelAnimator().ResetTrigger("ExitAnchor");
+	// 	}
+	// }
+
+	// reactor
 	private void UNetVersion()
+	{
+	}
+	// rogues
+	private void MirrorProcessed()
 	{
 	}
 
@@ -181,7 +216,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 			Debug.LogError("RPC RpcSetIdleType called on server.");
 			return;
 		}
-		((Exo_SyncComponent)obj).RpcSetIdleType((int)reader.ReadPackedUInt32());
+		((Exo_SyncComponent)obj).RpcSetIdleType((int)reader.ReadPackedUInt32());  // different type in rogues
 	}
 
 	protected static void InvokeRpcRpcSetFacingDirection(NetworkBehaviour obj, NetworkReader reader)
@@ -204,6 +239,18 @@ public class Exo_SyncComponent : NetworkBehaviour
 		((Exo_SyncComponent)obj).RpcSetSweepingRight(reader.ReadBoolean());
 	}
 
+	// rogues
+	// protected static void InvokeRpcRpcClearExitAnchorTrigger(NetworkBehaviour obj, NetworkReader reader)
+	// {
+	// 	if (!NetworkClient.active)
+	// 	{
+	// 		Debug.LogError("RPC RpcClearExitAnchorTrigger called on server.");
+	// 		return;
+	// 	}
+	// 	((Exo_SyncComponent)obj).RpcClearExitAnchorTrigger();
+	// }
+
+	// changed in rogues
 	public void CallRpcSetIdleType(int idleType)
 	{
 		if (!NetworkServer.active)
@@ -220,6 +267,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcSetIdleType");
 	}
 
+	// changed in rogues
 	public void CallRpcSetFacingDirection(Vector3 facing)
 	{
 		if (!NetworkServer.active)
@@ -236,6 +284,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcSetFacingDirection");
 	}
 
+	// changed in rogues
 	public void CallRpcSetSweepingRight(bool sweepingToTheRight)
 	{
 		if (!NetworkServer.active)
@@ -252,6 +301,14 @@ public class Exo_SyncComponent : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcSetSweepingRight");
 	}
 
+	// rogues
+	// public void CallRpcClearExitAnchorTrigger()
+	// {
+	// 	NetworkWriter networkWriter = new NetworkWriter();
+	// 	this.SendRPCInternal(typeof(Exo_SyncComponent), "RpcClearExitAnchorTrigger", networkWriter, 0);
+	// }
+
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -326,6 +383,7 @@ public class Exo_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

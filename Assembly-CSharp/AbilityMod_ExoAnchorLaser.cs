@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,9 +59,13 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ExoAnchorLaser exoAnchorLaser = GetTargetAbilityOnAbilityData(abilityData) as ExoAnchorLaser;
+		// rogues
+		// ExoAnchorLaser exoAnchorLaser = targetAbility as ExoAnchorLaser;
+		
 		bool isValid = exoAnchorLaser != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", isValid, isValid ? exoAnchorLaser.m_laserDamageAmount : 0);

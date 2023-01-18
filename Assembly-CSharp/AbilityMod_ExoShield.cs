@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +19,8 @@ public class AbilityMod_ExoShield : AbilityMod
 	public AbilityModPropertyInt m_maxTechPointsCostMod;
 	public AbilityModPropertyInt m_minTechPointsForCastMod;
 	public AbilityModPropertyBool m_freeActionWhileAnchoredMod;
+	
+	// removed in rogues
 	[Header("-- Targeter shape - use for doing stuff to nearby actors")]
 	public AbilityModPropertyShape m_targeterShapeMod;
 
@@ -40,9 +44,13 @@ public class AbilityMod_ExoShield : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ExoShield exoShield = GetTargetAbilityOnAbilityData(abilityData) as ExoShield;
+		// rogues
+		// ExoShield exoShield = targetAbility as ExoShield;
+		
 		bool isValid = exoShield != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_absorbEffectMod, "[AbsorbEffect]", isValid, isValid ? exoShield.m_absorbEffect : null);
@@ -53,6 +61,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		desc += PropDesc(m_maxTechPointsCostMod, "[MaxTechPointsCost]", isValid, isValid ? exoShield.m_maxTechPointsCost : 0);
 		desc += PropDesc(m_minTechPointsForCastMod, "[MinTechPointsForCast]", isValid, isValid ? exoShield.m_minTechPointsForCast : 0);
 		desc += PropDesc(m_freeActionWhileAnchoredMod, "[FreeActionWhileAnchored]", isValid, isValid && exoShield.m_freeActionWhileAnchored);
-		return desc + PropDesc(m_targeterShapeMod, "[TargeterShape]", isValid, isValid ? exoShield.m_targeterShape : AbilityAreaShape.SingleSquare);
+		return desc + PropDesc(m_targeterShapeMod, "[TargeterShape]", isValid, isValid ? exoShield.m_targeterShape : AbilityAreaShape.SingleSquare);  // removed in rouges
 	}
 }

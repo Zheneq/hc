@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ExoTetherTrap : Ability
@@ -204,4 +206,120 @@ public class ExoTetherTrap : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public ExoTetherEffect CreateDamageTetherEffect(ActorData caster, ActorData hitActor)
+	{
+		return new ExoTetherEffect(
+			AsEffectSource(),
+			hitActor.GetCurrentBoardSquare(),
+			hitActor,
+			caster,
+			GetBaseEffectData(),
+			GetTetherDistance(),
+			GetTetherBreakDamage(),
+			GetExtraDamagePerMoveDist(),
+			GetMaxExtraDamageFromMoveDist(),
+			GetTetherBreakEffect(),
+			BreakTetherOnNonGroundBasedMovement(),
+			m_tetherBreakHitSequence);
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, null);
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequence,
+				laserCoords.end,
+				hitActors.ToArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (ActorData actorData in GetHitActors(targets, caster, out _, nonActorTargetInfo))
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(actorData, caster.GetFreePos());
+			ActorHitResults actorHitResults = new ActorHitResults(GetLaserDamageAmount(), HitActionType.Damage, hitParams);
+			SetExistingEffectsForRemoval(caster, actorHitResults);
+			ExoTetherEffect effect = CreateDamageTetherEffect(caster, actorData);
+			actorHitResults.AddEffect(effect);
+			actorHitResults.AddStandardEffectInfo(GetLaserOnHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+			caster.GetComponent<SparkBeamTrackerComponent>().SetTetherRadiusPosition(actorData.GetFreePos());
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	protected virtual List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out VectorUtils.LaserCoords endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, GetLaserInfo().affectsAllies, GetLaserInfo().affectsEnemies);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		LaserTargetingInfo laserInfo = GetLaserInfo();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			laserInfo.range,
+			laserInfo.width,
+			caster,
+			relevantTeams,
+			laserInfo.penetrateLos,
+			laserInfo.maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public void SetExistingEffectsForRemoval(ActorData caster, ActorHitResults hitResult)
+	{
+		foreach (int actorIndex in caster.GetComponent<SparkBeamTrackerComponent>().GetBeamActorIndices())
+		{
+			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(actorIndex);
+			if (actorOfActorIndex != null)
+			{
+				List<Effect> effectsOnTargetByCaster = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, caster, typeof(ExoTetherEffect));
+				if (effectsOnTargetByCaster.Count > 0)
+				{
+					foreach (Effect effect in effectsOnTargetByCaster)
+					{
+						ExoTetherEffect exoTetherEffect = effect as ExoTetherEffect;
+						exoTetherEffect.SetAbilityQueued(true);
+						hitResult.AddEffectForRemoval(exoTetherEffect, ServerEffectManager.Get().GetActorEffects(actorOfActorIndex));
+					}
+				}
+			}
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ExoStats.TetherTrapTriggers);
+		}
+	}
+#endif
 }

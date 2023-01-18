@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -162,4 +164,138 @@ public class ExoChainGunSpray : Ability
 		share = Mathf.Clamp(share, 0f, 1f);
 		return GetMinDamageAmount() + Mathf.RoundToInt(damageRange * share);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetSweepHitActorsAndDamage(targets, caster, out _, out _, out List<ActorData> sequenceHitActors, null);
+		BlasterStretchConeSequence.ExtraParams extraParams = new BlasterStretchConeSequence.ExtraParams();
+		GetTargeterClampedAimDirection(
+			targets[0].AimDirection,
+			targets[targets.Count - 1].AimDirection,
+			out extraParams.angleInDegrees,
+			out extraParams.forwardAngle);
+		extraParams.lengthInSquares = GetConeLength();
+		return new ServerClientUtils.SequenceStartData(
+			m_sequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			sequenceHitActors.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[] { extraParams }
+		);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> sweepHitActorsAndDamage = GetSweepHitActorsAndDamage(
+			targets,
+			caster,
+			out Dictionary<ActorData, Vector3> dictionary,
+			out _,
+			out _,
+			nonActorTargetInfo);
+		foreach (ActorData actorData in sweepHitActorsAndDamage.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, dictionary[actorData]));
+			actorHitResults.SetBaseDamage(sweepHitActorsAndDamage[actorData]);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public Dictionary<ActorData, int> GetSweepHitActorsAndDamage(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> damageOrigins,
+		out List<Vector3> sweepEndPoints,
+		out List<ActorData> sequenceHitActors,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		damageOrigins = new Dictionary<ActorData, Vector3>();
+		sweepEndPoints = new List<Vector3>();
+		sequenceHitActors = new List<ActorData>();
+		float sweepAngle = 5f;
+		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+		{
+			sweepEndPoints.Add(targets[i].FreePos);
+		}
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		if (targets.Count > 1)
+		{
+			GetTargeterClampedAimDirection(
+				targets[0].AimDirection,
+				targets[targets.Count - 1].AimDirection,
+				out sweepAngle,
+				out coneCenterAngleDegrees);
+		}
+		List<Team> otherTeams = caster.GetOtherTeams();
+		Vector3 aimDirection = targets[0].AimDirection;
+		Vector3 aimDirection2 = targets[targets.Count - 1].AimDirection;
+		List<NonActorTargetInfo> nonActorTargets = new List<NonActorTargetInfo>();
+		List<NonActorTargetInfo> nonActorTargets2 = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			caster.GetLoSCheckPos(),
+			aimDirection,
+			GetConeLength(),
+			m_multiClickConeEdgeWidth,
+			caster,
+			otherTeams,
+			m_penetrateLineOfSight,
+			0,
+			m_penetrateLineOfSight,
+			true,
+			out _,
+			nonActorTargets);
+		List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(
+			caster.GetLoSCheckPos(),
+			aimDirection2,
+			GetConeLength(),
+			m_multiClickConeEdgeWidth,
+			caster,
+			otherTeams,
+			m_penetrateLineOfSight,
+			0,
+			m_penetrateLineOfSight,
+			true,
+			out _,
+			nonActorTargets2);
+		sequenceHitActors = AreaEffectUtils.GetActorsInCone(
+			caster.GetFreePos(),
+			coneCenterAngleDegrees,
+			sweepAngle,
+			GetConeLength(),
+			m_coneBackwardOffset,
+			m_penetrateLineOfSight,
+			caster,
+			otherTeams,
+			nonActorTargetInfo);
+		foreach (ActorData item in actorsInLaser)
+		{
+			if (!sequenceHitActors.Contains(item))
+			{
+				sequenceHitActors.Add(item);
+			}
+		}
+		foreach (ActorData item2 in actorsInLaser2)
+		{
+			if (!sequenceHitActors.Contains(item2))
+			{
+				sequenceHitActors.Add(item2);
+			}
+		}
+		int damageForSweepAngle = GetDamageForSweepAngle(sweepAngle);
+		foreach (ActorData key in sequenceHitActors)
+		{
+			dictionary[key] = damageForSweepAngle;
+			damageOrigins[key] = caster.GetFreePos();
+		}
+		return dictionary;
+	}
+#endif
 }

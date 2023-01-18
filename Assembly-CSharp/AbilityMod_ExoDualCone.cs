@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,9 +60,13 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ExoDualCone exoDualCone = GetTargetAbilityOnAbilityData(abilityData) as ExoDualCone;
+		// rogues
+		// ExoDualCone exoDualCone = targetAbility as ExoDualCone;
+		
 		bool isValid = exoDualCone != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneInfoMod, "[ConeInfo]", isValid, isValid ? exoDualCone.m_coneInfo : null);

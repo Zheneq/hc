@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ExoShield : Ability
@@ -22,8 +24,11 @@ public class ExoShield : Ability
 	public int m_maxTechPointsCost;
 	public int m_minTechPointsForCast;
 	public bool m_freeActionWhileAnchored = true;
+	
+	// removed in rogues
 	[Header("-- Targeter shape - use for mods to effect nearby actors")]
 	public AbilityAreaShape m_targeterShape;
+	
 	[Header("-- Animation --")]
 	public int m_animIndexWhenAnchored = 7;
 	[Header("-- Sequences")]
@@ -32,6 +37,11 @@ public class ExoShield : Ability
 	private Exo_SyncComponent m_syncComponent;
 	private AbilityMod_ExoShield m_abilityMod;
 	private StandardActorEffectData m_cachedAbsorbEffect;
+
+#if SERVER
+	// added in rogues
+	private AbilityData.ActionType m_actionType = AbilityData.ActionType.INVALID_ACTION;
+#endif
 
 	private void Start()
 	{
@@ -46,13 +56,21 @@ public class ExoShield : Ability
 	{
 		SetCachedFields();
 		m_syncComponent = GetComponent<Exo_SyncComponent>();
+#if SERVER
+		// added in rogues
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (abilityData != null)
+		{
+			m_actionType = abilityData.GetActionTypeOfAbility(this);
+		}
+#endif
 		Targeter = new AbilityUtil_Targeter_Shape(
 			this,
-			GetTargeterShape(),
+			GetTargeterShape(),  // AbilityAreaShape.SingleSquare, in rogues
 			false,
 			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
 			false,
-			true,
+			true,  // false in rogues
 			AbilityUtil_Targeter.AffectsActor.Always);
 		Targeter.ShowArcToShape = false;
 	}
@@ -130,6 +148,7 @@ public class ExoShield : Ability
 			: m_freeActionWhileAnchored;
 	}
 
+	// removed in rogues
 	public AbilityAreaShape GetTargeterShape()
 	{
 		return m_abilityMod != null
@@ -140,14 +159,14 @@ public class ExoShield : Ability
 	private bool WillBeAnchoredDuringCombat()
 	{
 		return m_syncComponent != null && m_syncComponent.m_anchored
-		       || ActorData.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
+		       || ActorData.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser)); // , true in rogues
 	}
 
 	private bool IsSiegingThisTurn(ActorData caster)
 	{
 		return caster != null
 		       && caster.GetAbilityData() != null
-		       && caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));
+		       && caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ExoAnchorLaser));  // , true in rogues
 	}
 
 	private float GetTechPointToAbsorbConversionRate(bool anchoredAmount)
@@ -179,27 +198,35 @@ public class ExoShield : Ability
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
-		GetAbsorbEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		GetAbsorbEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);  // AbilityTooltipSubject.Primary in rogues
 		if (m_enableTechPointToAbsorbConversion)
 		{
-			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 100);
-			AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Self, -100);
+			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 100);  // AbilityTooltipSubject.Primary in rogues
+			AbilityTooltipHelper.ReportEnergy(ref numbers, AbilityTooltipSubject.Self, -100);  // AbilityTooltipSubject.Primary in rogues
 		}
+		
+		// removed in rogues
 		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
 		if (moddedEffectForAllies != null && moddedEffectForAllies.m_applyEffect)
 		{
 			moddedEffectForAllies.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		}
+		// end removed in rogues
+		
 		return numbers;
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
+		
+		// removed in rogues
 		if (targetActor != ActorData)
 		{
 			return symbolToValue;
 		}
+		// end removed in rogues
+		
 		int num = GetAbsorbEffect().m_absorbAmount;
 		if (m_enableTechPointToAbsorbConversion)
 		{
@@ -282,4 +309,58 @@ public class ExoShield : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_shieldSequencePrefab,
+			caster.GetFreePos(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (GetAbsorbEffect() != null)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			StandardActorEffectData shallowCopy = GetAbsorbEffect().GetShallowCopy();
+			if (m_enableTechPointToAbsorbConversion)
+			{
+				shallowCopy.m_absorbAmount = GetAbsorbForEnergyToAbsorbConversion(caster, WillBeAnchoredDuringCombat());
+				shallowCopy.m_techPointLossPerTurn = GetTechPointForShieldConversion(caster);
+			}
+			if (GetExtraAbsorbIfSieging() > 0 && IsSiegingThisTurn(caster))
+			{
+				shallowCopy.m_absorbAmount += GetExtraAbsorbIfSieging();
+			}
+			ExoShieldEffect effect = new ExoShieldEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				shallowCopy,
+				this,
+				GetCdrIfShieldNotUsed(),
+				GetShieldLostPerEnergyGain(),
+				GetMaxShieldLostForEnergyGain(),
+				m_actionType);
+			actorHitResults.AddEffect(effect);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	public override void OnEffectAbsorbedDamage(ActorData effectCaster, int damageAbsorbed)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ExoStats.EffectiveShieldingFromSelfShield, damageAbsorbed);
+	}
+#endif
 }

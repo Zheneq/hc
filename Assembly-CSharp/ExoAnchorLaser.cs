@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ExoAnchorLaser : Ability
@@ -48,6 +50,13 @@ public class ExoAnchorLaser : Ability
 	private StandardEffectInfo m_cachedEffectOnCaster;
 	private StandardEffectInfo m_cachedEffectOnAnchorEnd;
 
+#if SERVER
+	// added in rogues
+	private Passive_Exo m_passive;
+	private List<ActorData> m_lastGatheredHitEnemiesList;
+	private Barrier m_barrierInstance;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -74,6 +83,14 @@ public class ExoAnchorLaser : Ability
 	public void SetupTargeter()
 	{
 		SetCachedFields();
+#if SERVER
+		// added in rogues
+		PassiveData component = GetComponent<PassiveData>();
+		if (component != null)
+		{
+			m_passive = (component.GetPassiveOfType(typeof(Passive_Exo)) as Passive_Exo);
+		}
+#endif
 		if (m_syncComponent == null)
 		{
 			m_syncComponent = GetComponent<Exo_SyncComponent>();
@@ -137,6 +154,11 @@ public class ExoAnchorLaser : Ability
 		m_cachedLaserInfo = m_abilityMod != null
 			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
 			: m_laserInfo;
+		// rogues
+		// if (m_laserBarrier == null)
+		// {
+		// 	m_laserBarrier = ScriptableObject.CreateInstance<StandardBarrierData>();
+		// }
 		m_cachedLaserBarrier = m_abilityMod != null
 			? m_abilityMod.m_laserBarrierMod.GetModifiedValue(m_laserBarrier)
 			: m_laserBarrier;
@@ -361,6 +383,7 @@ public class ExoAnchorLaser : Ability
 			: m_effectOnAnchorEnd, "EffectOnAnchorEnd", m_effectOnAnchorEnd);
 	}
 
+	// removed in rogues
 	public override string GetFullTooltip()
 	{
 		return m_syncComponent != null
@@ -373,6 +396,7 @@ public class ExoAnchorLaser : Ability
 			: base.GetFullTooltip();
 	}
 
+	// removed in rogues
 	public override void SetUnlocalizedTooltipAndStatusTypes(AbilityMod mod = null)
 	{
 		if (!string.IsNullOrEmpty(m_anchoredToolTip))
@@ -387,7 +411,7 @@ public class ExoAnchorLaser : Ability
 		return m_syncComponent != null
 		       && m_syncComponent.m_wasAnchoredOnTurnStart
 		       && owner != null
-		       && !owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4)
+		       && !owner.GetAbilityData().HasQueuedAction(AbilityData.ActionType.ABILITY_4)  // , true in rogues
 		       && HasPendingStatusTurnOfAnchorEnd(status);
 	}
 
@@ -421,4 +445,371 @@ public class ExoAnchorLaser : Ability
 		       || !m_syncComponent.m_anchored
 		       || m_syncComponent.m_turnsAnchored <= 0;
 	}
+
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		bool isAnchored = false;
+		if (m_passive != null)
+		{
+			isAnchored = m_passive.IsAnchored();
+			m_passive.SetAnchored(true);
+			m_passive.m_laserLastCastTurn = GameFlowData.Get().CurrentTurn;
+			m_passive.m_persistingBarrierInstance = m_barrierInstance;
+			m_passive.m_anchorLaserHitActorsThisTurn = m_lastGatheredHitEnemiesList;
+			m_passive.ClearExitAnchorAnimTrigger();
+		}
+		if (m_syncComponent != null)
+		{
+			if (isAnchored)
+			{
+				bool laserSweepAnimDirection = Vector3.Cross(m_syncComponent.m_anchoredLaserAimDirection, targets[0].AimDirection).y > 0f;
+				m_passive.SetLaserSweepAnimDirection(laserSweepAnimDirection);
+				m_syncComponent.Networkm_anchoredLaserAimDirection = GetTargeterClampedAimDirection(
+					m_syncComponent.m_anchoredLaserAimDirection,
+					targets[0].AimDirection,
+					out _,
+					out _);
+				m_passive.m_currentConsecutiveSweeps++;
+				return;
+			}
+			m_syncComponent.Networkm_anchoredLaserAimDirection = targets[0].AimDirection;
+			m_passive.m_currentConsecutiveSweeps = 0;
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		float sweepAngle = 0f;
+		float forwardAngle = 0f;
+		Vector3 aimDirection = targets[0].AimDirection;
+		bool isAnchored = false;
+		if (m_passive != null)
+		{
+			isAnchored = m_passive.IsAnchored();
+		}
+		if (m_syncComponent != null && isAnchored)
+		{
+			aimDirection = GetTargeterClampedAimDirection(
+				m_syncComponent.m_anchoredLaserAimDirection,
+				targets[0].AimDirection,
+				out sweepAngle,
+				out forwardAngle);
+		}
+		GetBarrierPosAndFacing(aimDirection, caster, out var targetPos, out _, out _);
+		if (m_syncComponent != null && isAnchored)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_sweepSequencePrefab,
+				caster.GetLoSCheckPos() + aimDirection,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new ExoSweepLaserSequence.ExtraParams
+				{
+					angleInDegrees = sweepAngle,
+					forwardAngle = forwardAngle,
+					lengthInSquares = GetLaserInfo().range,
+					rotationDuration = GetRotateToTargetDuration(sweepAngle)
+				}.ToArray()));
+			list.Add(new ServerClientUtils.SequenceStartData(
+				SequenceLookup.Get().GetSimpleHitSequencePrefab(),
+				targetPos,
+				new ActorData[0],
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		else
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_laserExtendSequencePrefab,
+				targetPos,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> list = new List<NonActorTargetInfo>();
+		Vector3 aimDirection = targets[0].AimDirection;
+		bool isAnchored = false;
+		if (m_passive != null)
+		{
+			isAnchored = m_passive.IsAnchored();
+		}
+		bool isSweeping = m_syncComponent != null && isAnchored;
+		List<ActorData> sweepHitActors;
+		if (isSweeping)
+		{
+			aimDirection = GetTargeterClampedAimDirection(
+				m_syncComponent.m_anchoredLaserAimDirection,
+				targets[0].AimDirection,
+				out _,
+				out _);
+			sweepHitActors = GetSweepHitActors(
+				m_syncComponent.m_anchoredLaserAimDirection,
+				aimDirection,
+				caster,
+				list);
+		}
+		else
+		{
+			sweepHitActors = AreaEffectUtils.GetActorsInLaser(
+				caster.GetLoSCheckPos(),
+				aimDirection,
+				GetLaserInfo().range,
+				GetLaserInfo().width,
+				caster,
+				caster.GetOtherTeams(),
+				GetLaserInfo().penetrateLos,
+				GetLaserInfo().maxTargets,
+				false,
+				true,
+				out _,
+				list);
+		}
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_lastGatheredHitEnemiesList = sweepHitActors;
+		}
+		int baseDamage = isSweeping ? GetSweepDamageAmount() : GetLaserDamageAmount();
+		foreach (ActorData actorData in sweepHitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetLoSCheckPos()));
+			int totalDamage = GetTotalDamage(caster.GetFreePos(), actorData.GetFreePos(), baseDamage, isSweeping);
+			actorHitResults.SetBaseDamage(totalDamage);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		casterHitResults.SetIgnoreTechpointInteractionForHit(true);
+		if (isAnchored)
+		{
+			casterHitResults.AddBarrierForRemoval(m_passive.m_persistingBarrierInstance, true);
+		}
+		if (!ServerEffectManager.Get().HasEffect(caster, typeof(ExoAnchoredLaserCooldownEffect)))
+		{
+			ExoAnchoredLaserCooldownEffect effect = new ExoAnchoredLaserCooldownEffect(
+				AsEffectSource(),
+				null,
+				caster,
+				caster,
+				GetEffectOnCaster().m_effectData,
+				GetCooldownOnEnd(),
+				GetEffectOnAnchorEnd(),
+				m_unanchorAnimSequencePrefab);
+			casterHitResults.AddEffect(effect);
+		}
+		MiscHitEventData_OverrideCooldown hitEvent = new MiscHitEventData_OverrideCooldown(caster.GetAbilityData().GetActionTypeOfAbility(this), 0);
+		casterHitResults.AddMiscHitEvent(hitEvent);
+		abilityResults.StoreActorHit(casterHitResults);
+		abilityResults.StoreNonActorTargetInfo(list);
+		CreateBarrierForLaser(aimDirection, caster, ref abilityResults);
+	}
+
+	// added in rogues
+	private void CreateBarrierForLaser(Vector3 aimDirection, ActorData caster, ref AbilityResults abilityResults)
+	{
+		GetBarrierPosAndFacing(aimDirection, caster, out Vector3 barrierPos, out Vector3 barrierFacing, out float barrierSizeInSquares);
+		StandardBarrierData laserBarrier = GetLaserBarrier();
+		LinkedBarrierData linkData = new LinkedBarrierData();
+		List<Barrier> list = new List<Barrier>();
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(barrierPos));
+		for (int i = 0; i < 3; i++)
+		{
+			float num2 = 0f;
+			if (i == 1)
+			{
+				num2 = -GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
+			}
+			else if (i == 2)
+			{
+				num2 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize;
+			}
+			Vector3 vector3 = barrierFacing.normalized * num2;
+			string abilityName = m_abilityName;
+			Vector3 center = barrierPos + vector3;
+			Vector3 facingDir = (i == 1) ? (-barrierFacing) : barrierFacing;
+			float width = barrierSizeInSquares;
+			bool bidirectional = i == 0;
+			BlockingRules blocksVision = laserBarrier.m_blocksVision;
+			BlockingRules blocksAbilities = laserBarrier.m_blocksAbilities;
+			BlockingRules blocksMovement = laserBarrier.m_blocksMovement;
+			BlockingRules blocksPositionTargeting = laserBarrier.m_blocksPositionTargeting;
+			int maxDuration = laserBarrier.m_maxDuration;
+			List<GameObject> barrierSequencePrefabs;
+			if (i != 0)
+			{
+				barrierSequencePrefabs = new List<GameObject>();
+			}
+			else
+			{
+				barrierSequencePrefabs = new List<GameObject> { m_persistentLaserBarrierSequence };
+			}
+			Barrier barrier = new Barrier(
+				abilityName,
+				center,
+				facingDir,
+				width,
+				bidirectional,
+				blocksVision,
+				blocksAbilities,
+				blocksMovement,
+				blocksPositionTargeting,
+				maxDuration,
+				caster,
+				barrierSequencePrefabs,
+				true,
+				laserBarrier.m_onEnemyMovedThrough,
+				laserBarrier.m_onAllyMovedThrough,
+				laserBarrier.m_maxHits,
+				laserBarrier.m_endOnCasterDeath,
+				abilityResults.SequenceSource)
+				{
+					m_removeAtPhaseEndIfCasterKnockedBack = false
+				};
+			barrier.SetSourceAbility(this);
+			list.Add(barrier);
+			if (ServerAbilityUtils.CurrentlyGatheringRealResults() && i == 0)
+			{
+				m_barrierInstance = barrier;
+			}
+			positionHitResults.AddBarrier(barrier);
+		}
+		BarrierManager.Get().LinkBarriers(list, linkData);
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+
+	// added in rogues
+	public override bool ShouldBarrierHitThisMover(ActorData mover)
+	{
+		return m_passive == null
+		       || m_passive.m_anchorLaserHitActorsThisTurn == null
+		       || !m_passive.m_anchorLaserHitActorsThisTurn.Contains(mover);
+	}
+
+	// added in rogues
+	public override int GetBarrierDamageForActor(int baseDamage, ActorData mover, Vector3 hitPos, Barrier barrier)
+	{
+		int result = baseDamage;
+		if (barrier != null && barrier.Caster != null && !barrier.Caster.IsDead() && mover != null)
+		{
+			Vector3 endPos = barrier.GetEndPos2();
+			result = GetTotalDamage(endPos, hitPos, baseDamage, true);
+		}
+		return result;
+	}
+
+	// added in rogues
+	private void GetBarrierPosAndFacing(
+		Vector3 aimDirection,
+		ActorData caster,
+		out Vector3 barrierPos,
+		out Vector3 barrierFacing,
+		out float barrierSizeInSquares)
+	{
+		Vector3 laserEndPoint = VectorUtils.GetLaserEndPoint(
+			caster.GetLoSCheckPos(),
+			aimDirection,
+			GetLaserBarrier().m_width * Board.Get().m_squareSize,
+			GetLaserInfo().penetrateLos,
+			caster);
+		barrierSizeInSquares = (caster.GetFreePos() - laserEndPoint).magnitude / Board.Get().m_squareSize;
+		barrierPos = (caster.GetFreePos() + laserEndPoint) / 2f;
+		barrierPos.y = caster.GetFreePos().y;
+		barrierFacing = Vector3.Cross(Vector3.up, aimDirection);
+	}
+
+	// added in rogues
+	private Vector3 GetTargeterClampedAimDirection(Vector3 startAimDirection, Vector3 endAimDirection, out float sweepAngle, out float coneCenterDegrees)
+	{
+		float num = VectorUtils.HorizontalAngle_Deg(startAimDirection);
+		sweepAngle = Vector3.Angle(startAimDirection, endAimDirection);
+		float maxConeAngle = GetMaxConeAngle();
+		float minConeAngle = GetMinConeAngle();
+		if (maxConeAngle > 0f && sweepAngle > maxConeAngle)
+		{
+			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - maxConeAngle), 0f);
+			sweepAngle = maxConeAngle;
+		}
+		else if (minConeAngle > 0f && sweepAngle < minConeAngle)
+		{
+			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, 0.0174532924f * (sweepAngle - minConeAngle), 0f);
+			sweepAngle = minConeAngle;
+		}
+		coneCenterDegrees = num;
+		if (Vector3.Cross(startAimDirection, endAimDirection).y > 0f)
+		{
+			coneCenterDegrees -= sweepAngle * 0.5f;
+		}
+		else
+		{
+			coneCenterDegrees += sweepAngle * 0.5f;
+		}
+		return endAimDirection;
+	}
+
+	// added in rogues
+	public List<ActorData> GetSweepHitActors(Vector3 sweepStartAimDirection, Vector3 sweepEndAimDirection, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		float num = VectorUtils.HorizontalAngle_Deg(sweepStartAimDirection);
+		float num2 = Vector3.Angle(sweepStartAimDirection, sweepEndAimDirection);
+		if (Vector3.Cross(sweepStartAimDirection, sweepEndAimDirection).y > 0f)
+		{
+			num -= num2 * 0.5f;
+		}
+		else
+		{
+			num += num2 * 0.5f;
+		}
+		List<ActorData> list = AreaEffectUtils.GetActorsInCone(
+			caster.GetFreePos(),
+			num,
+			num2,
+			GetLaserInfo().range,
+			GetSweepConeBackwardOffset(),
+			GetLaserInfo().penetrateLos,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		if (m_passive != null && m_passive.m_persistingBarrierInstance != null)
+		{
+			for (int i = list.Count - 1; i >= 0; i--)
+			{
+				if (m_passive.m_persistingBarrierInstance.ActorMovedThroughThisTurn(list[i]))
+				{
+					list.RemoveAt(i);
+				}
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ExoStats.UltDamage, results.FinalDamage);
+		}
+		if (caster == target && m_passive != null)
+		{
+			int valueOfStat = caster.GetFreelancerStats().GetValueOfStat(FreelancerStats.ExoStats.MaxConsecutiveUltSweeps);
+			int currentConsecutiveSweeps = m_passive.m_currentConsecutiveSweeps;
+			if (currentConsecutiveSweeps > valueOfStat)
+			{
+				caster.GetFreelancerStats().SetValueOfStat(FreelancerStats.ExoStats.MaxConsecutiveUltSweeps, currentConsecutiveSweeps);
+			}
+		}
+	}
+#endif
 }

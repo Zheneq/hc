@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -209,4 +211,80 @@ public class ExoPunch : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	private List<ActorData> GetHitTargets(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		return AreaEffectUtils.GetActorsInCone(
+			caster.GetLoSCheckPos(),
+			VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+			GetConeWidthAngle(),
+			GetConeLength(),
+			GetConeBackwardOffset(),
+			PenetrateLineOfSight(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitTargets = GetHitTargets(targets, caster, nonActorTargetInfo);
+		int damageAmount = GetDamageAmount();
+		float knockbackDistance = GetKnockbackDistance();
+		float num = GetNearDistThreshold() * Board.Get().squareSize;
+		foreach (ActorData actorData in hitTargets)
+		{
+			bool flag = false;
+			int num2 = 0;
+			if (num > 0f)
+			{
+				Vector3 vector = actorData.GetFreePos() - caster.GetFreePos();
+				vector.y = 0f;
+				if (vector.magnitude < num)
+				{
+					num2 = GetNearEnemyExtraDamage();
+					flag = true;
+				}
+			}
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(damageAmount + num2);
+			actorHitResults.AddStandardEffectInfo(GetTargetHitEffect());
+			if (flag)
+			{
+				actorHitResults.AddStandardEffectInfo(GetNearEnemyExtraEffect());
+			}
+			if (knockbackDistance != 0f)
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					actorData,
+					caster,
+					GetKnockbackType(),
+					targets[0].AimDirection,
+					caster.GetFreePos(),
+					knockbackDistance);
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

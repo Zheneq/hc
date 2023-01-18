@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -362,4 +364,161 @@ public class ExoDualCone : Ability
 		m_abilityMod = null;
 		SetupTargeter();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_lastBasicAttackUsedTurn = (short)GameFlowData.Get().CurrentTurn;
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetHitActorsAndDamage(targets, caster, out List<List<ActorData>> actorsInCones, out List<VectorUtils.LaserCoords> laserCoordsList, null);
+		Vector3 freePosForAim = GetFreePosForAim(targets[0], caster);
+		List<Vector3> coneDirections = GetConeDirections(targets[0], freePosForAim, caster);
+		List<GameObject> prefabs = new List<GameObject>
+		{
+			m_projectileRightSequencePrefab,
+			m_projectileLeftSequencePrefab
+		};
+		for (int i = 0; i < laserCoordsList.Count; i++)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				prefabs[i],
+				laserCoordsList[i].end,
+				actorsInCones[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new BlasterStretchConeSequence.ExtraParams
+				{
+					lengthInSquares = GetConeInfo().m_radiusInSquares,
+					angleInDegrees = GetConeInfo().m_widthAngleDeg,
+					forwardAngle = VectorUtils.HorizontalAngle_Deg(coneDirections[i])
+				}.ToArray()));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> hitActorsAndDamage = GetHitActorsAndDamage(targets, caster, out List<List<ActorData>> actorsInCones, out _, nonActorTargetInfo);
+		foreach (ActorData actorData in hitActorsAndDamage.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(hitActorsAndDamage[actorData]);
+			actorHitResults.AddStandardEffectInfo(GetEffectOnHit());
+			if (GetEffectOnOverlapHit().m_applyEffect)
+			{
+				short num = 0;
+				for (int i = 0; i < 2; i++)
+				{
+					if (actorsInCones[i].Contains(actorData))
+					{
+						num += 1;
+					}
+				}
+				if (num > 1)
+				{
+					actorHitResults.AddStandardEffectInfo(GetEffectOnOverlapHit());
+				}
+			}
+			if (m_syncComp != null && m_syncComp.UsedBasicAttackLastTurn() && GetExtraEnergyForConsecutiveUse() > 0)
+			{
+				actorHitResults.SetTechPointGainOnCaster(GetExtraEnergyForConsecutiveUse());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetHitActorsAndDamage(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<List<ActorData>> actorsInCones,
+		out List<VectorUtils.LaserCoords> endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		actorsInCones = new List<List<ActorData>>();
+		endPoints = new List<VectorUtils.LaserCoords>();
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		Dictionary<ActorData, int> dictionary2 = new Dictionary<ActorData, int>();
+		Vector3 freePosForAim = GetFreePosForAim(targets[0], caster);
+		List<Vector3> coneOrigins = GetConeOrigins(targets[0], freePosForAim, caster);
+		List<Vector3> coneDirections = GetConeDirections(targets[0], freePosForAim, caster);
+		ConeTargetingInfo coneInfo = GetConeInfo();
+		for (int i = 0; i < 2; i++)
+		{
+			Vector3 vector = coneOrigins[i];
+			Vector3 vector2 = coneDirections[i];
+			vector2.y = 0f;
+			vector2.Normalize();
+			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector2);
+			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+				vector,
+				coneCenterAngleDegrees,
+				coneInfo.m_widthAngleDeg,
+				coneInfo.m_radiusInSquares,
+				coneInfo.m_backwardsOffset,
+				coneInfo.m_penetrateLos,
+				caster,
+				TargeterUtils.GetRelevantTeams(caster, coneInfo.m_affectsAllies, coneInfo.m_affectsEnemies),
+				nonActorTargetInfo);
+			actorsInCones.Add(actorsInCone);
+			float num = -1f;
+			Vector3 end = vector + coneInfo.m_radiusInSquares * Board.Get().squareSize * vector2;
+			foreach (ActorData actorData in actorsInCone)
+			{
+				if (!dictionary2.ContainsKey(actorData))
+				{
+					dictionary2[actorData] = 1;
+				}
+				else
+				{
+					dictionary2[actorData]++;
+				}
+				float num2 = Vector3.Distance(actorData.GetLoSCheckPos(), caster.GetLoSCheckPos());
+				if (num2 > num)
+				{
+					num = num2;
+					end = actorData.GetLoSCheckPos();
+				}
+			}
+			VectorUtils.LaserCoords item;
+			item.start = vector;
+			item.end = end;
+			endPoints.Add(item);
+		}
+		foreach (ActorData key2 in dictionary2.Keys)
+		{
+			int num3 = dictionary2[key2];
+			int num4 = GetDamageAmount();
+			if (GetExtraDamageForConsecitiveHit() > 0 && m_syncComp != null && m_syncComp.UsedBasicAttackLastTurn())
+			{
+				num4 += GetExtraDamageForConsecitiveHit();
+			}
+			if (num3 == 1)
+			{
+				num4 += GetExtraDamageForSingleHit();
+			}
+			else if (num3 > 1)
+			{
+				num4 += (num3 - 1) * GetExtraDamageForOverlap();
+			}
+			dictionary[key2] = num4;
+		}
+		return dictionary;
+	}
+#endif
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ExoSweepLaserSequence : Sequence
@@ -7,12 +9,14 @@ public class ExoSweepLaserSequence : Sequence
 	{
 		public float rotationDuration;
 
+		// changed in rogues
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
 			base.XSP_SerializeToStream(stream);
 			stream.Serialize(ref rotationDuration);
 		}
 
+		// changed in rogues
 		public override void XSP_DeserializeFromStream(IBitStream stream)
 		{
 			base.XSP_DeserializeFromStream(stream);
@@ -52,6 +56,8 @@ public class ExoSweepLaserSequence : Sequence
 	private Vector3 m_lastLaserDir;
 	private float m_actorRotationDuration = 1f;
 	private bool m_actorRotationStarted;
+	
+	// removed in rogues
 	private static readonly int animTimeToRotationGoal = Animator.StringToHash("TimeToRotationGoal");
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
@@ -161,7 +167,7 @@ public class ExoSweepLaserSequence : Sequence
 			m_lastLaserDir = m_fxCasterJoint.m_jointObject.transform.forward;
 			if (m_actorRotationStarted)
 			{
-				Caster.GetModelAnimator().SetFloat(animTimeToRotationGoal, Caster.GetTurnToPositionTimeRemaining());
+				Caster.GetModelAnimator().SetFloat(animTimeToRotationGoal, Caster.GetTurnToPositionTimeRemaining());  // string id in rogues
 			}
 		}
 	}

@@ -869,13 +869,17 @@
     <Compile Include="EventLogger.cs" />
     <Compile Include="EventLogMessage.cs" />
     <Compile Include="ExampleAbility_Flash.cs" />
+    <Compile Include="ExoAnchoredLaserCooldownEffect.cs" />
     <Compile Include="ExoAnchorLaser.cs" />
     <Compile Include="ExoChainGunSpray.cs" />
     <Compile Include="ExoDualCone.cs" />
     <Compile Include="ExoLaserHittingWallSequence.cs" />
+    <Compile Include="ExoPreventRagdollEffect.cs" />
     <Compile Include="ExoPunch.cs" />
     <Compile Include="ExoShield.cs" />
+    <Compile Include="ExoShieldEffect.cs" />
     <Compile Include="ExoSweepLaserSequence.cs" />
+    <Compile Include="ExoTetherEffect.cs" />
     <Compile Include="ExoTetherTrap.cs" />
     <Compile Include="Exo_SyncComponent.cs" />
     <Compile Include="ExperienceComponent.cs" />
