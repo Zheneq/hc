@@ -355,6 +355,32 @@ public class ExoShield : Ability
 			actorHitResults.AddEffect(effect);
 			abilityResults.StoreActorHit(actorHitResults);
 		}
+		
+		// custom
+		StandardEffectInfo moddedEffectForAllies = GetModdedEffectForAllies();
+		if (moddedEffectForAllies != null && moddedEffectForAllies.m_applyEffect)
+		{
+			List<ActorData> actors = AreaEffectUtils.GetActorsInShape(
+				GetTargeterShape(),
+				caster.GetFreePos(),
+				caster.GetCurrentBoardSquare(),
+				false,
+				caster,
+				caster.GetTeam(),
+				null);
+			foreach (ActorData actor in actors)
+			{
+				if (actor == caster)
+				{
+					continue;
+				}
+
+				ActorHitParameters actorHitParameters = new ActorHitParameters(actor, caster.GetFreePos());
+				// We just need to register a hit here. Effect for allies will be applied automagically.
+				ActorHitResults actorHitResults = new ActorHitResults(actorHitParameters);
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
 	}
 
 	// added in rogues
