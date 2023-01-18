@@ -6,38 +6,24 @@ public class SamuraiWindBlade : Ability
 {
 	[Header("-- Targeting")]
 	public float m_laserWidth = 0.6f;
-
 	public float m_minRangeBeforeBend = 1f;
-
 	public float m_maxRangeBeforeBend = 5.5f;
-
 	public float m_maxTotalRange = 7.5f;
-
 	public float m_maxBendAngle = 45f;
-
 	public bool m_penetrateLoS;
-
 	public int m_maxTargets = 1;
-
 	[Header("-- Damage")]
 	public int m_laserDamageAmount = 5;
-
 	public int m_damageChangePerTarget;
-
 	public StandardEffectInfo m_laserHitEffect;
-
 	[Header("-- Shielding per enemy hit on start of Next Turn")]
 	public int m_shieldingPerEnemyHitNextTurn;
-
 	public int m_shieldingDuration = 1;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_SamuraiWindBlade m_abilityMod;
-
 	private Samurai_SyncComponent m_syncComponent;
-
 	private StandardEffectInfo m_cachedLaserHitEffect;
 
 	private void Start()
@@ -52,33 +38,32 @@ public class SamuraiWindBlade : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
+		m_syncComponent = ActorData.GetComponent<Samurai_SyncComponent>();
 		ClearTargeters();
 		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = new AbilityUtil_Targeter_BendingLaser(this, GetLaserWidth(), GetMinRangeBeforeBend(), GetMaxRangeBeforeBend(), GetMaxTotalRange(), GetMaxBendAngle(), PenetrateLoS(), GetMaxTargets());
-			abilityUtil_Targeter_BendingLaser.SetUseMultiTargetUpdate(true);
-			base.Targeters.Add(abilityUtil_Targeter_BendingLaser);
+			AbilityUtil_Targeter_BendingLaser targeter = new AbilityUtil_Targeter_BendingLaser(
+				this,
+				GetLaserWidth(),
+				GetMinRangeBeforeBend(),
+				GetMaxRangeBeforeBend(),
+				GetMaxTotalRange(),
+				GetMaxBendAngle(),
+				PenetrateLoS(),
+				GetMaxTargets());
+			targeter.SetUseMultiTargetUpdate(true);
+			Targeters.Add(targeter);
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (!base.Targeters.IsNullOrEmpty())
+		if (!Targeters.IsNullOrEmpty())
 		{
-			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
-			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
+			AbilityUtil_Targeter_BendingLaser targeter = Targeters[0] as AbilityUtil_Targeter_BendingLaser;
+			if (targeter.DidStopShort())
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
-				}
+				return 1;
 			}
 		}
 		return 2;
@@ -101,184 +86,119 @@ public class SamuraiWindBlade : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedLaserHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserHitEffect = m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect);
-		}
-		else
-		{
-			cachedLaserHitEffect = m_laserHitEffect;
-		}
-		m_cachedLaserHitEffect = cachedLaserHitEffect;
+		m_cachedLaserHitEffect = m_abilityMod != null
+			? m_abilityMod.m_laserHitEffectMod.GetModifiedValue(m_laserHitEffect)
+			: m_laserHitEffect;
 	}
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
-		}
-		else
-		{
-			result = m_laserWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public float GetMinRangeBeforeBend()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_minRangeBeforeBendMod.GetModifiedValue(m_minRangeBeforeBend);
-		}
-		else
-		{
-			result = m_minRangeBeforeBend;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_minRangeBeforeBendMod.GetModifiedValue(m_minRangeBeforeBend)
+			: m_minRangeBeforeBend;
 	}
 
 	public float GetMaxRangeBeforeBend()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxRangeBeforeBendMod.GetModifiedValue(m_maxRangeBeforeBend);
-		}
-		else
-		{
-			result = m_maxRangeBeforeBend;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxRangeBeforeBendMod.GetModifiedValue(m_maxRangeBeforeBend)
+			: m_maxRangeBeforeBend;
 	}
 
 	public float GetMaxTotalRange()
 	{
-		return (!m_abilityMod) ? m_maxTotalRange : m_abilityMod.m_maxTotalRangeMod.GetModifiedValue(m_maxTotalRange);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTotalRangeMod.GetModifiedValue(m_maxTotalRange)
+			: m_maxTotalRange;
 	}
 
 	public float GetMaxBendAngle()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxBendAngleMod.GetModifiedValue(m_maxBendAngle);
-		}
-		else
-		{
-			result = m_maxBendAngle;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxBendAngleMod.GetModifiedValue(m_maxBendAngle)
+			: m_maxBendAngle;
 	}
 
 	public bool PenetrateLoS()
 	{
-		return (!m_abilityMod) ? m_penetrateLoS : m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS)
+			: m_penetrateLoS;
 	}
 
 	public int GetMaxTargets()
 	{
-		return (!m_abilityMod) ? m_maxTargets : m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public int GetLaserDamageAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount);
-		}
-		else
-		{
-			result = m_laserDamageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount;
 	}
 
 	public int GetDamageChangePerTarget()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageChangePerTargetMod.GetModifiedValue(m_damageChangePerTarget);
-		}
-		else
-		{
-			result = m_damageChangePerTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageChangePerTargetMod.GetModifiedValue(m_damageChangePerTarget)
+			: m_damageChangePerTarget;
 	}
 
 	public StandardEffectInfo GetLaserHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedLaserHitEffect != null)
-		{
-			result = m_cachedLaserHitEffect;
-		}
-		else
-		{
-			result = m_laserHitEffect;
-		}
-		return result;
+		return m_cachedLaserHitEffect ?? m_laserHitEffect;
 	}
 
 	public int GetShieldingPerEnemyHitNextTurn()
 	{
-		return (!m_abilityMod) ? m_shieldingPerEnemyHitNextTurn : m_abilityMod.m_shieldingPerEnemyHitNextTurnMod.GetModifiedValue(m_shieldingPerEnemyHitNextTurn);
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldingPerEnemyHitNextTurnMod.GetModifiedValue(m_shieldingPerEnemyHitNextTurn)
+			: m_shieldingPerEnemyHitNextTurn;
 	}
 
 	public int GetShieldingDuration()
 	{
-		return (!m_abilityMod) ? m_shieldingDuration : m_abilityMod.m_shieldingDurationMod.GetModifiedValue(m_shieldingDuration);
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldingDurationMod.GetModifiedValue(m_shieldingDuration)
+			: m_shieldingDuration;
 	}
 
 	public int CalcDamage(int hitOrder)
 	{
-		int num = GetLaserDamageAmount();
-		if (GetDamageChangePerTarget() > 0)
+		int damage = GetLaserDamageAmount();
+		if (GetDamageChangePerTarget() > 0 && hitOrder > 0)
 		{
-			if (hitOrder > 0)
-			{
-				num += GetDamageChangePerTarget() * hitOrder;
-			}
+			damage += GetDamageChangePerTarget() * hitOrder;
 		}
-		return num;
+		return damage;
 	}
 
 	public int GetHitOrderIndexFromTargeters(ActorData actor, int currentTargetIndex)
 	{
 		int num = 0;
-		if (base.Targeters != null)
+		if (Targeters != null)
 		{
-			for (int i = 0; i < base.Targeters.Count && i <= currentTargetIndex; i++)
+			for (int i = 0; i < Targeters.Count && i <= currentTargetIndex; i++)
 			{
-				AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[i] as AbilityUtil_Targeter_BendingLaser;
-				if (abilityUtil_Targeter_BendingLaser != null)
+				if (Targeters[i] is AbilityUtil_Targeter_BendingLaser targeter)
 				{
-					using (List<ActorData>.Enumerator enumerator = abilityUtil_Targeter_BendingLaser.m_ordererdHitActors.GetEnumerator())
+					foreach (ActorData current in targeter.m_ordererdHitActors)
 					{
-						while (enumerator.MoveNext())
+						if (current == actor)
 						{
-							ActorData current = enumerator.Current;
-							if (current == actor)
-							{
-								while (true)
-								{
-									switch (5)
-									{
-									case 0:
-										break;
-									default:
-										return num;
-									}
-								}
-							}
-							num++;
+							return num;
 						}
+						num++;
 					}
 				}
 			}
@@ -311,42 +231,22 @@ public class SamuraiWindBlade : Ability
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
-		if (magnitude < GetMinRangeBeforeBend() * Board.Get().squareSize)
+		float dist = (currentTarget.FreePos - targetingActor.GetLoSCheckPos()).magnitude;
+		if (dist < GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return GetMinRangeBeforeBend();
-				}
-			}
+			return GetMinRangeBeforeBend();
 		}
-		if (magnitude > GetMaxRangeBeforeBend() * Board.Get().squareSize)
+		if (dist > GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return GetMaxRangeBeforeBend();
-				}
-			}
+			return GetMaxRangeBeforeBend();
 		}
-		return magnitude / Board.Get().squareSize;
+		return dist / Board.Get().squareSize;
 	}
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		float clampedRangeInSquares = GetClampedRangeInSquares(targetingActor, previousTarget);
-		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
+		bendPos = targetingActor.GetLoSCheckPos() + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
 		return GetMaxTotalRange() - clampedRangeInSquares;
 	}
 
@@ -366,32 +266,27 @@ public class SamuraiWindBlade : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (m_laserDamageAmount > 0)
 		{
-			int num = GetLaserDamageAmount();
+			int damage = GetLaserDamageAmount();
 			if (GetDamageChangePerTarget() > 0)
 			{
 				int hitOrderIndexFromTargeters = GetHitOrderIndexFromTargeters(targetActor, currentTargeterIndex);
-				num = CalcDamage(hitOrderIndexFromTargeters);
+				damage = CalcDamage(hitOrderIndexFromTargeters);
 			}
 			if (m_syncComponent != null)
 			{
-				num += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
+				damage += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
 			}
-			dictionary[AbilityTooltipSymbol.Damage] = num;
+			dictionary[AbilityTooltipSymbol.Damage] = damage;
 		}
 		return dictionary;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SamuraiWindBlade))
+		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiWindBlade))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SamuraiWindBlade);
+			m_abilityMod = abilityMod as AbilityMod_SamuraiWindBlade;
 			SetupTargeter();
-			return;
 		}
 	}
 

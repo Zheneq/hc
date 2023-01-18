@@ -6,29 +6,18 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 {
 	[Header("-- Targeting")]
 	public AbilityModPropertyFloat m_laserWidthMod;
-
 	public AbilityModPropertyFloat m_minRangeBeforeBendMod;
-
 	public AbilityModPropertyFloat m_maxRangeBeforeBendMod;
-
 	public AbilityModPropertyFloat m_maxTotalRangeMod;
-
 	public AbilityModPropertyFloat m_maxBendAngleMod;
-
 	public AbilityModPropertyBool m_penetrateLoSMod;
-
 	public AbilityModPropertyInt m_maxTargetsMod;
-
 	[Header("-- Damage")]
 	public AbilityModPropertyInt m_laserDamageAmountMod;
-
 	public AbilityModPropertyInt m_damageChangePerTargetMod;
-
 	public AbilityModPropertyEffectInfo m_laserHitEffectMod;
-
 	[Header("-- Shielding per enemy hit on start of Next Turn")]
 	public AbilityModPropertyInt m_shieldingPerEnemyHitNextTurnMod;
-
 	public AbilityModPropertyInt m_shieldingDurationMod;
 
 	public override Type GetTargetAbilityType()
@@ -39,120 +28,38 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SamuraiWindBlade samuraiWindBlade = targetAbility as SamuraiWindBlade;
-		if (!(samuraiWindBlade != null))
+		if (samuraiWindBlade != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, samuraiWindBlade.m_laserWidth);
-			AbilityMod.AddToken(tokens, m_minRangeBeforeBendMod, "MinRangeBeforeBend", string.Empty, samuraiWindBlade.m_minRangeBeforeBend);
-			AbilityMod.AddToken(tokens, m_maxRangeBeforeBendMod, "MaxRangeBeforeBend", string.Empty, samuraiWindBlade.m_maxRangeBeforeBend);
-			AbilityMod.AddToken(tokens, m_maxTotalRangeMod, "MaxTotalRange", string.Empty, samuraiWindBlade.m_maxTotalRange);
-			AbilityMod.AddToken(tokens, m_maxBendAngleMod, "MaxBendAngle", string.Empty, samuraiWindBlade.m_maxBendAngle);
-			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, samuraiWindBlade.m_maxTargets);
-			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, samuraiWindBlade.m_laserDamageAmount);
-			AbilityMod.AddToken(tokens, m_damageChangePerTargetMod, "DamageChangePerTarget", string.Empty, samuraiWindBlade.m_damageChangePerTarget);
-			AbilityMod.AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", samuraiWindBlade.m_laserHitEffect);
-			AbilityMod.AddToken(tokens, m_shieldingPerEnemyHitNextTurnMod, "ShieldingPerEnemyHitNextTurn", string.Empty, samuraiWindBlade.m_shieldingPerEnemyHitNextTurn);
-			AbilityMod.AddToken(tokens, m_shieldingDurationMod, "ShieldingDuration", string.Empty, samuraiWindBlade.m_shieldingDuration);
-			return;
+			AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, samuraiWindBlade.m_laserWidth);
+			AddToken(tokens, m_minRangeBeforeBendMod, "MinRangeBeforeBend", string.Empty, samuraiWindBlade.m_minRangeBeforeBend);
+			AddToken(tokens, m_maxRangeBeforeBendMod, "MaxRangeBeforeBend", string.Empty, samuraiWindBlade.m_maxRangeBeforeBend);
+			AddToken(tokens, m_maxTotalRangeMod, "MaxTotalRange", string.Empty, samuraiWindBlade.m_maxTotalRange);
+			AddToken(tokens, m_maxBendAngleMod, "MaxBendAngle", string.Empty, samuraiWindBlade.m_maxBendAngle);
+			AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, samuraiWindBlade.m_maxTargets);
+			AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, samuraiWindBlade.m_laserDamageAmount);
+			AddToken(tokens, m_damageChangePerTargetMod, "DamageChangePerTarget", string.Empty, samuraiWindBlade.m_damageChangePerTarget);
+			AddToken_EffectMod(tokens, m_laserHitEffectMod, "LaserHitEffect", samuraiWindBlade.m_laserHitEffect);
+			AddToken(tokens, m_shieldingPerEnemyHitNextTurnMod, "ShieldingPerEnemyHitNextTurn", string.Empty, samuraiWindBlade.m_shieldingPerEnemyHitNextTurn);
+			AddToken(tokens, m_shieldingDurationMod, "ShieldingDuration", string.Empty, samuraiWindBlade.m_shieldingDuration);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SamuraiWindBlade samuraiWindBlade = GetTargetAbilityOnAbilityData(abilityData) as SamuraiWindBlade;
-		bool flag = samuraiWindBlade != null;
-		string empty = string.Empty;
-		empty += PropDesc(m_laserWidthMod, "[LaserWidth]", flag, (!flag) ? 0f : samuraiWindBlade.m_laserWidth);
-		empty += PropDesc(m_minRangeBeforeBendMod, "[MinRangeBeforeBend]", flag, (!flag) ? 0f : samuraiWindBlade.m_minRangeBeforeBend);
-		string str = empty;
-		AbilityModPropertyFloat maxRangeBeforeBendMod = m_maxRangeBeforeBendMod;
-		float baseVal;
-		if (flag)
-		{
-			baseVal = samuraiWindBlade.m_maxRangeBeforeBend;
-		}
-		else
-		{
-			baseVal = 0f;
-		}
-		empty = str + PropDesc(maxRangeBeforeBendMod, "[MaxRangeBeforeBend]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyFloat maxTotalRangeMod = m_maxTotalRangeMod;
-		float baseVal2;
-		if (flag)
-		{
-			baseVal2 = samuraiWindBlade.m_maxTotalRange;
-		}
-		else
-		{
-			baseVal2 = 0f;
-		}
-		empty = str2 + PropDesc(maxTotalRangeMod, "[MaxTotalRange]", flag, baseVal2);
-		string str3 = empty;
-		AbilityModPropertyFloat maxBendAngleMod = m_maxBendAngleMod;
-		float baseVal3;
-		if (flag)
-		{
-			baseVal3 = samuraiWindBlade.m_maxBendAngle;
-		}
-		else
-		{
-			baseVal3 = 0f;
-		}
-		empty = str3 + PropDesc(maxBendAngleMod, "[MaxBendAngle]", flag, baseVal3);
-		string str4 = empty;
-		AbilityModPropertyBool penetrateLoSMod = m_penetrateLoSMod;
-		int baseVal4;
-		if (flag)
-		{
-			baseVal4 = (samuraiWindBlade.m_penetrateLoS ? 1 : 0);
-		}
-		else
-		{
-			baseVal4 = 0;
-		}
-		empty = str4 + PropDesc(penetrateLoSMod, "[PenetrateLoS]", flag, (byte)baseVal4 != 0);
-		empty += PropDesc(m_maxTargetsMod, "[MaxTargets]", flag, flag ? samuraiWindBlade.m_maxTargets : 0);
-		empty += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", flag, flag ? samuraiWindBlade.m_laserDamageAmount : 0);
-		string str5 = empty;
-		AbilityModPropertyInt damageChangePerTargetMod = m_damageChangePerTargetMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = samuraiWindBlade.m_damageChangePerTarget;
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str5 + PropDesc(damageChangePerTargetMod, "[DamageChangePerTarget]", flag, baseVal5);
-		string str6 = empty;
-		AbilityModPropertyEffectInfo laserHitEffectMod = m_laserHitEffectMod;
-		object baseVal6;
-		if (flag)
-		{
-			baseVal6 = samuraiWindBlade.m_laserHitEffect;
-		}
-		else
-		{
-			baseVal6 = null;
-		}
-		empty = str6 + PropDesc(laserHitEffectMod, "[LaserHitEffect]", flag, (StandardEffectInfo)baseVal6);
-		string str7 = empty;
-		AbilityModPropertyInt shieldingPerEnemyHitNextTurnMod = m_shieldingPerEnemyHitNextTurnMod;
-		int baseVal7;
-		if (flag)
-		{
-			baseVal7 = samuraiWindBlade.m_shieldingPerEnemyHitNextTurn;
-		}
-		else
-		{
-			baseVal7 = 0;
-		}
-		empty = str7 + PropDesc(shieldingPerEnemyHitNextTurnMod, "[ShieldingPerEnemyHitNextTurn]", flag, baseVal7);
-		return empty + PropDesc(m_shieldingDurationMod, "[ShieldingDuration]", flag, flag ? samuraiWindBlade.m_shieldingDuration : 0);
+		bool isValid = samuraiWindBlade != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_laserWidthMod, "[LaserWidth]", isValid, isValid ? samuraiWindBlade.m_laserWidth : 0f);
+		desc += PropDesc(m_minRangeBeforeBendMod, "[MinRangeBeforeBend]", isValid, isValid ? samuraiWindBlade.m_minRangeBeforeBend : 0f);
+		desc += PropDesc(m_maxRangeBeforeBendMod, "[MaxRangeBeforeBend]", isValid, isValid ? samuraiWindBlade.m_maxRangeBeforeBend : 0f);
+		desc += PropDesc(m_maxTotalRangeMod, "[MaxTotalRange]", isValid, isValid ? samuraiWindBlade.m_maxTotalRange : 0f);
+		desc += PropDesc(m_maxBendAngleMod, "[MaxBendAngle]", isValid, isValid ? samuraiWindBlade.m_maxBendAngle : 0f);
+		desc += PropDesc(m_penetrateLoSMod, "[PenetrateLoS]", isValid, isValid && samuraiWindBlade.m_penetrateLoS);
+		desc += PropDesc(m_maxTargetsMod, "[MaxTargets]", isValid, isValid ? samuraiWindBlade.m_maxTargets : 0);
+		desc += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", isValid, isValid ? samuraiWindBlade.m_laserDamageAmount : 0);
+		desc += PropDesc(m_damageChangePerTargetMod, "[DamageChangePerTarget]", isValid, isValid ? samuraiWindBlade.m_damageChangePerTarget : 0);
+		desc += PropDesc(m_laserHitEffectMod, "[LaserHitEffect]", isValid, isValid ? samuraiWindBlade.m_laserHitEffect : null);
+		desc += PropDesc(m_shieldingPerEnemyHitNextTurnMod, "[ShieldingPerEnemyHitNextTurn]", isValid, isValid ? samuraiWindBlade.m_shieldingPerEnemyHitNextTurn : 0);
+		return desc + PropDesc(m_shieldingDurationMod, "[ShieldingDuration]", isValid, isValid ? samuraiWindBlade.m_shieldingDuration : 0);
 	}
 }
