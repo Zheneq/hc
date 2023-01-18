@@ -6,51 +6,32 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 {
 	[Header("-- Targeting")]
 	public AbilityModPropertyFloat m_damageRadiusMod;
-
 	public AbilityModPropertyFloat m_damageRadiusAtStartMod;
-
 	public AbilityModPropertyFloat m_damageRadiusAtEndMod;
-
 	public AbilityModPropertyBool m_penetrateLineOfSightMod;
-
 	public AbilityModPropertyBool m_canMoveAfterEvadeMod;
-
 	public AbilityModPropertyInt m_maxTargetsMod;
-
 	[Header("-- How many targets can be damaged")]
 	public AbilityModPropertyInt m_maxDamageTargetsMod;
-
 	[Header("-- Enemy Hits, Dash Phase")]
 	public AbilityModPropertyInt m_dashDamageMod;
-
 	public AbilityModPropertyInt m_dashLessDamagePerTargetMod;
-
 	public AbilityModPropertyEffectInfo m_dashEnemyHitEffectMod;
-
 	[Header("-- Effect on Self")]
 	public AbilityModPropertyEffectInfo m_dashSelfHitEffectMod;
-
 	[Header("-- Mark data")]
 	public AbilityModPropertyEffectInfo m_markEffectInfoMod;
-
 	[Header("-- Energy Refund if target dashed away")]
 	public AbilityModPropertyInt m_energyRefundIfTargetDashedAwayMod;
-
-	[Separator("For Chain Ability (Knockback phase)", true)]
+	[Separator("For Chain Ability (Knockback phase)")]
 	public AbilityModPropertyInt m_knockbackDamageMod;
-
 	public AbilityModPropertyInt m_knockbackLessDamagePerTargetMod;
-
 	public AbilityModPropertyFloat m_knockbackExtraDamageFromDamageTakenMultMod;
-
 	[Space(10f)]
 	public AbilityModPropertyInt m_knockbackExtraDamageByDistMod;
-
 	public AbilityModPropertyInt m_knockbackExtraDamageChangePerDistMod;
-
 	[Header("-- Knockback")]
 	public AbilityModPropertyFloat m_knockbackDistMod;
-
 	public AbilityModPropertyKnockbackType m_knockbackTypeMod;
 
 	public override Type GetTargetAbilityType()
@@ -61,233 +42,52 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		SamuraiSwordDash samuraiSwordDash = targetAbility as SamuraiSwordDash;
-		if (!(samuraiSwordDash != null))
+		if (samuraiSwordDash != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_damageRadiusMod, "DamageRadius", string.Empty, samuraiSwordDash.m_damageRadius);
-			AbilityMod.AddToken(tokens, m_damageRadiusAtStartMod, "DamageRadiusAtStart", string.Empty, samuraiSwordDash.m_damageRadiusAtStart);
-			AbilityMod.AddToken(tokens, m_damageRadiusAtEndMod, "DamageRadiusAtEnd", string.Empty, samuraiSwordDash.m_damageRadiusAtEnd);
-			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, samuraiSwordDash.m_maxTargets);
-			AbilityMod.AddToken(tokens, m_maxDamageTargetsMod, "MaxDamageTargets", string.Empty, samuraiSwordDash.m_maxDamageTargets);
-			AbilityMod.AddToken(tokens, m_dashDamageMod, "DamageAmount", string.Empty, samuraiSwordDash.m_dashDamage);
-			AbilityMod.AddToken(tokens, m_dashLessDamagePerTargetMod, "LessDamagePerTarget", string.Empty, samuraiSwordDash.m_dashLessDamagePerTarget);
-			AbilityMod.AddToken_EffectMod(tokens, m_dashEnemyHitEffectMod, "DashEnemyHitEffect", samuraiSwordDash.m_dashEnemyHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_dashSelfHitEffectMod, "DashSelfHitEffect", samuraiSwordDash.m_dashSelfHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_markEffectInfoMod, "MarkEffectInfo", samuraiSwordDash.m_markEffectInfo);
-			AbilityMod.AddToken(tokens, m_energyRefundIfTargetDashedAwayMod, "EnergyRefundIfTargetDashedAway", string.Empty, samuraiSwordDash.m_energyRefundIfTargetDashedAway);
-			AbilityMod.AddToken(tokens, m_knockbackDamageMod, "KnockbackDamage", string.Empty, samuraiSwordDash.m_knockbackDamage);
-			AbilityMod.AddToken(tokens, m_knockbackLessDamagePerTargetMod, "KnockbackLessDamagePerTarget", string.Empty, samuraiSwordDash.m_knockbackLessDamagePerTarget);
-			AbilityMod.AddToken(tokens, m_knockbackExtraDamageFromDamageTakenMultMod, "KnockbackExtraDamageFromDamageTakenMult", string.Empty, samuraiSwordDash.m_knockbackExtraDamageFromDamageTakenMult, true, false, true);
-			AbilityMod.AddToken(tokens, m_knockbackExtraDamageByDistMod, "KnockbackExtraDamageByDist", string.Empty, samuraiSwordDash.m_knockbackExtraDamageByDist);
-			AbilityMod.AddToken(tokens, m_knockbackExtraDamageChangePerDistMod, "KnockbackExtraDamageChangePerDist", string.Empty, samuraiSwordDash.m_knockbackExtraDamageChangePerDist);
-			AbilityMod.AddToken(tokens, m_knockbackDistMod, "KnockbackDist", string.Empty, samuraiSwordDash.m_knockbackDist);
-			return;
+			AddToken(tokens, m_damageRadiusMod, "DamageRadius", string.Empty, samuraiSwordDash.m_damageRadius);
+			AddToken(tokens, m_damageRadiusAtStartMod, "DamageRadiusAtStart", string.Empty, samuraiSwordDash.m_damageRadiusAtStart);
+			AddToken(tokens, m_damageRadiusAtEndMod, "DamageRadiusAtEnd", string.Empty, samuraiSwordDash.m_damageRadiusAtEnd);
+			AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, samuraiSwordDash.m_maxTargets);
+			AddToken(tokens, m_maxDamageTargetsMod, "MaxDamageTargets", string.Empty, samuraiSwordDash.m_maxDamageTargets);
+			AddToken(tokens, m_dashDamageMod, "DamageAmount", string.Empty, samuraiSwordDash.m_dashDamage);
+			AddToken(tokens, m_dashLessDamagePerTargetMod, "LessDamagePerTarget", string.Empty, samuraiSwordDash.m_dashLessDamagePerTarget);
+			AddToken_EffectMod(tokens, m_dashEnemyHitEffectMod, "DashEnemyHitEffect", samuraiSwordDash.m_dashEnemyHitEffect);
+			AddToken_EffectMod(tokens, m_dashSelfHitEffectMod, "DashSelfHitEffect", samuraiSwordDash.m_dashSelfHitEffect);
+			AddToken_EffectMod(tokens, m_markEffectInfoMod, "MarkEffectInfo", samuraiSwordDash.m_markEffectInfo);
+			AddToken(tokens, m_energyRefundIfTargetDashedAwayMod, "EnergyRefundIfTargetDashedAway", string.Empty, samuraiSwordDash.m_energyRefundIfTargetDashedAway);
+			AddToken(tokens, m_knockbackDamageMod, "KnockbackDamage", string.Empty, samuraiSwordDash.m_knockbackDamage);
+			AddToken(tokens, m_knockbackLessDamagePerTargetMod, "KnockbackLessDamagePerTarget", string.Empty, samuraiSwordDash.m_knockbackLessDamagePerTarget);
+			AddToken(tokens, m_knockbackExtraDamageFromDamageTakenMultMod, "KnockbackExtraDamageFromDamageTakenMult", string.Empty, samuraiSwordDash.m_knockbackExtraDamageFromDamageTakenMult, true, false, true);
+			AddToken(tokens, m_knockbackExtraDamageByDistMod, "KnockbackExtraDamageByDist", string.Empty, samuraiSwordDash.m_knockbackExtraDamageByDist);
+			AddToken(tokens, m_knockbackExtraDamageChangePerDistMod, "KnockbackExtraDamageChangePerDist", string.Empty, samuraiSwordDash.m_knockbackExtraDamageChangePerDist);
+			AddToken(tokens, m_knockbackDistMod, "KnockbackDist", string.Empty, samuraiSwordDash.m_knockbackDist);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SamuraiSwordDash samuraiSwordDash = GetTargetAbilityOnAbilityData(abilityData) as SamuraiSwordDash;
-		bool flag = samuraiSwordDash != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyFloat damageRadiusMod = m_damageRadiusMod;
-		float baseVal;
-		if (flag)
-		{
-			baseVal = samuraiSwordDash.m_damageRadius;
-		}
-		else
-		{
-			baseVal = 0f;
-		}
-		empty = str + PropDesc(damageRadiusMod, "[DamageRadius]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyFloat damageRadiusAtStartMod = m_damageRadiusAtStartMod;
-		float baseVal2;
-		if (flag)
-		{
-			baseVal2 = samuraiSwordDash.m_damageRadiusAtStart;
-		}
-		else
-		{
-			baseVal2 = 0f;
-		}
-		empty = str2 + PropDesc(damageRadiusAtStartMod, "[DamageRadiusAtStart]", flag, baseVal2);
-		string str3 = empty;
-		AbilityModPropertyFloat damageRadiusAtEndMod = m_damageRadiusAtEndMod;
-		float baseVal3;
-		if (flag)
-		{
-			baseVal3 = samuraiSwordDash.m_damageRadiusAtEnd;
-		}
-		else
-		{
-			baseVal3 = 0f;
-		}
-		empty = str3 + PropDesc(damageRadiusAtEndMod, "[DamageRadiusAtEnd]", flag, baseVal3);
-		string str4 = empty;
-		AbilityModPropertyBool penetrateLineOfSightMod = m_penetrateLineOfSightMod;
-		int baseVal4;
-		if (flag)
-		{
-			baseVal4 = (samuraiSwordDash.m_penetrateLineOfSight ? 1 : 0);
-		}
-		else
-		{
-			baseVal4 = 0;
-		}
-		empty = str4 + PropDesc(penetrateLineOfSightMod, "[PenetrateLineOfSight]", flag, (byte)baseVal4 != 0);
-		string str5 = empty;
-		AbilityModPropertyBool canMoveAfterEvadeMod = m_canMoveAfterEvadeMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = (samuraiSwordDash.m_canMoveAfterEvade ? 1 : 0);
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str5 + PropDesc(canMoveAfterEvadeMod, "[CanMoveAfterEvade]", flag, (byte)baseVal5 != 0);
-		string str6 = empty;
-		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
-		int baseVal6;
-		if (flag)
-		{
-			baseVal6 = samuraiSwordDash.m_maxTargets;
-		}
-		else
-		{
-			baseVal6 = 0;
-		}
-		empty = str6 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal6);
-		string str7 = empty;
-		AbilityModPropertyInt maxDamageTargetsMod = m_maxDamageTargetsMod;
-		int baseVal7;
-		if (flag)
-		{
-			baseVal7 = samuraiSwordDash.m_maxDamageTargets;
-		}
-		else
-		{
-			baseVal7 = 0;
-		}
-		empty = str7 + PropDesc(maxDamageTargetsMod, "[MaxDamageTargets]", flag, baseVal7);
-		string str8 = empty;
-		AbilityModPropertyInt dashDamageMod = m_dashDamageMod;
-		int baseVal8;
-		if (flag)
-		{
-			baseVal8 = samuraiSwordDash.m_dashDamage;
-		}
-		else
-		{
-			baseVal8 = 0;
-		}
-		empty = str8 + PropDesc(dashDamageMod, "[DamageAmount]", flag, baseVal8);
-		string str9 = empty;
-		AbilityModPropertyInt dashLessDamagePerTargetMod = m_dashLessDamagePerTargetMod;
-		int baseVal9;
-		if (flag)
-		{
-			baseVal9 = samuraiSwordDash.m_dashLessDamagePerTarget;
-		}
-		else
-		{
-			baseVal9 = 0;
-		}
-		empty = str9 + PropDesc(dashLessDamagePerTargetMod, "[LessDamagePerTarget]", flag, baseVal9);
-		string str10 = empty;
-		AbilityModPropertyEffectInfo dashEnemyHitEffectMod = m_dashEnemyHitEffectMod;
-		object baseVal10;
-		if (flag)
-		{
-			baseVal10 = samuraiSwordDash.m_dashEnemyHitEffect;
-		}
-		else
-		{
-			baseVal10 = null;
-		}
-		empty = str10 + PropDesc(dashEnemyHitEffectMod, "[DashEnemyHitEffect]", flag, (StandardEffectInfo)baseVal10);
-		string str11 = empty;
-		AbilityModPropertyEffectInfo dashSelfHitEffectMod = m_dashSelfHitEffectMod;
-		object baseVal11;
-		if (flag)
-		{
-			baseVal11 = samuraiSwordDash.m_dashSelfHitEffect;
-		}
-		else
-		{
-			baseVal11 = null;
-		}
-		empty = str11 + PropDesc(dashSelfHitEffectMod, "[DashSelfHitEffect]", flag, (StandardEffectInfo)baseVal11);
-		string str12 = empty;
-		AbilityModPropertyEffectInfo markEffectInfoMod = m_markEffectInfoMod;
-		object baseVal12;
-		if (flag)
-		{
-			baseVal12 = samuraiSwordDash.m_markEffectInfo;
-		}
-		else
-		{
-			baseVal12 = null;
-		}
-		empty = str12 + PropDesc(markEffectInfoMod, "[MarkEffectInfo]", flag, (StandardEffectInfo)baseVal12);
-		empty += PropDesc(m_energyRefundIfTargetDashedAwayMod, "[EnergyRefundIfTargetDashedAway]", flag, flag ? samuraiSwordDash.m_energyRefundIfTargetDashedAway : 0);
-		empty += PropDesc(m_knockbackDamageMod, "[KnockbackDamage]", flag, flag ? samuraiSwordDash.m_knockbackDamage : 0);
-		string str13 = empty;
-		AbilityModPropertyInt knockbackLessDamagePerTargetMod = m_knockbackLessDamagePerTargetMod;
-		int baseVal13;
-		if (flag)
-		{
-			baseVal13 = samuraiSwordDash.m_knockbackLessDamagePerTarget;
-		}
-		else
-		{
-			baseVal13 = 0;
-		}
-		empty = str13 + PropDesc(knockbackLessDamagePerTargetMod, "[KnockbackLessDamagePerTarget]", flag, baseVal13);
-		string str14 = empty;
-		AbilityModPropertyFloat knockbackExtraDamageFromDamageTakenMultMod = m_knockbackExtraDamageFromDamageTakenMultMod;
-		float baseVal14;
-		if (flag)
-		{
-			baseVal14 = samuraiSwordDash.m_knockbackExtraDamageFromDamageTakenMult;
-		}
-		else
-		{
-			baseVal14 = 0f;
-		}
-		empty = str14 + PropDesc(knockbackExtraDamageFromDamageTakenMultMod, "[KnockbackExtraDamageFromDamageTakenMult]", flag, baseVal14);
-		string str15 = empty;
-		AbilityModPropertyInt knockbackExtraDamageByDistMod = m_knockbackExtraDamageByDistMod;
-		int baseVal15;
-		if (flag)
-		{
-			baseVal15 = samuraiSwordDash.m_knockbackExtraDamageByDist;
-		}
-		else
-		{
-			baseVal15 = 0;
-		}
-		empty = str15 + PropDesc(knockbackExtraDamageByDistMod, "[KnockbackExtraDamageByDist]", flag, baseVal15);
-		empty += PropDesc(m_knockbackExtraDamageChangePerDistMod, "[KnockbackExtraDamageChangePerDist]", flag, flag ? samuraiSwordDash.m_knockbackExtraDamageChangePerDist : 0);
-		string str16 = empty;
-		AbilityModPropertyFloat knockbackDistMod = m_knockbackDistMod;
-		float baseVal16;
-		if (flag)
-		{
-			baseVal16 = samuraiSwordDash.m_knockbackDist;
-		}
-		else
-		{
-			baseVal16 = 0f;
-		}
-		empty = str16 + PropDesc(knockbackDistMod, "[KnockbackDist]", flag, baseVal16);
-		return empty + PropDesc(m_knockbackTypeMod, "[KnockbackType]", flag, (!flag) ? KnockbackType.AwayFromSource : samuraiSwordDash.m_knockbackType);
+		bool isValid = samuraiSwordDash != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_damageRadiusMod, "[DamageRadius]", isValid, isValid ? samuraiSwordDash.m_damageRadius : 0f);
+		desc += PropDesc(m_damageRadiusAtStartMod, "[DamageRadiusAtStart]", isValid, isValid ? samuraiSwordDash.m_damageRadiusAtStart : 0f);
+		desc += PropDesc(m_damageRadiusAtEndMod, "[DamageRadiusAtEnd]", isValid, isValid ? samuraiSwordDash.m_damageRadiusAtEnd : 0f);
+		desc += PropDesc(m_penetrateLineOfSightMod, "[PenetrateLineOfSight]", isValid, isValid && samuraiSwordDash.m_penetrateLineOfSight);
+		desc += PropDesc(m_canMoveAfterEvadeMod, "[CanMoveAfterEvade]", isValid, isValid && samuraiSwordDash.m_canMoveAfterEvade);
+		desc += PropDesc(m_maxTargetsMod, "[MaxTargets]", isValid, isValid ? samuraiSwordDash.m_maxTargets : 0);
+		desc += PropDesc(m_maxDamageTargetsMod, "[MaxDamageTargets]", isValid, isValid ? samuraiSwordDash.m_maxDamageTargets : 0);
+		desc += PropDesc(m_dashDamageMod, "[DamageAmount]", isValid, isValid ? samuraiSwordDash.m_dashDamage : 0);
+		desc += PropDesc(m_dashLessDamagePerTargetMod, "[LessDamagePerTarget]", isValid, isValid ? samuraiSwordDash.m_dashLessDamagePerTarget : 0);
+		desc += PropDesc(m_dashEnemyHitEffectMod, "[DashEnemyHitEffect]", isValid, isValid ? samuraiSwordDash.m_dashEnemyHitEffect : null);
+		desc += PropDesc(m_dashSelfHitEffectMod, "[DashSelfHitEffect]", isValid, isValid ? samuraiSwordDash.m_dashSelfHitEffect : null);
+		desc += PropDesc(m_markEffectInfoMod, "[MarkEffectInfo]", isValid, isValid ? samuraiSwordDash.m_markEffectInfo : null);
+		desc += PropDesc(m_energyRefundIfTargetDashedAwayMod, "[EnergyRefundIfTargetDashedAway]", isValid, isValid ? samuraiSwordDash.m_energyRefundIfTargetDashedAway : 0);
+		desc += PropDesc(m_knockbackDamageMod, "[KnockbackDamage]", isValid, isValid ? samuraiSwordDash.m_knockbackDamage : 0);
+		desc += PropDesc(m_knockbackLessDamagePerTargetMod, "[KnockbackLessDamagePerTarget]", isValid, isValid ? samuraiSwordDash.m_knockbackLessDamagePerTarget : 0);
+		desc += PropDesc(m_knockbackExtraDamageFromDamageTakenMultMod, "[KnockbackExtraDamageFromDamageTakenMult]", isValid, isValid ? samuraiSwordDash.m_knockbackExtraDamageFromDamageTakenMult : 0f);
+		desc += PropDesc(m_knockbackExtraDamageByDistMod, "[KnockbackExtraDamageByDist]", isValid, isValid ? samuraiSwordDash.m_knockbackExtraDamageByDist : 0);
+		desc += PropDesc(m_knockbackExtraDamageChangePerDistMod, "[KnockbackExtraDamageChangePerDist]", isValid, isValid ? samuraiSwordDash.m_knockbackExtraDamageChangePerDist : 0);
+		desc += PropDesc(m_knockbackDistMod, "[KnockbackDist]", isValid, isValid ? samuraiSwordDash.m_knockbackDist : 0f);
+		return desc + PropDesc(m_knockbackTypeMod, "[KnockbackType]", isValid, isValid ? samuraiSwordDash.m_knockbackType : KnockbackType.AwayFromSource);
 	}
 }

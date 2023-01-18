@@ -1,41 +1,28 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SamuraiDashAndAimedSlash : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_maxAngleForLaser = 30f;
-
 	public float m_laserWidth = 0.5f;
-
 	public float m_laserRange = 5.5f;
-
 	public int m_maxTargets = 5;
-
 	public bool m_canMoveAfterEvade;
-
-	[Separator("Enemy hits", true)]
+	[Separator("Enemy hits")]
 	public int m_damageAmount;
-
 	public int m_extraDamageIfSingleTarget;
-
 	public StandardEffectInfo m_targetEffect;
-
-	[Separator("Self Hit", true)]
+	[Separator("Self Hit")]
 	public StandardEffectInfo m_effectOnSelf;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_dashSequencePrefab;
-
 	public GameObject m_slashSequencePrefab;
 
 	private AbilityMod_SamuraiDashAndAimedSlash m_abilityMod;
-
 	private Samurai_SyncComponent m_syncComponent;
-
 	private StandardEffectInfo m_cachedTargetEffect;
-
 	private StandardEffectInfo m_cachedEffectOnSelf;
 
 	private void Start()
@@ -44,7 +31,7 @@ public class SamuraiDashAndAimedSlash : Ability
 		{
 			m_abilityName = "SamuraiDashAndAimedSlash";
 		}
-		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
+		m_syncComponent = ActorData.GetComponent<Samurai_SyncComponent>();
 		Setup();
 	}
 
@@ -54,11 +41,21 @@ public class SamuraiDashAndAimedSlash : Ability
 		ClearTargeters();
 		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = new AbilityUtil_Targeter_DashAndAim(this, 0f, false, GetLaserWidth(), GetLaserRange(), GetMaxAngleForLaser(), GetClampedLaserDirection, false, false, GetMaxTargets());
-			abilityUtil_Targeter_DashAndAim.SetUseMultiTargetUpdate(true);
-			abilityUtil_Targeter_DashAndAim.SetAffectedGroups(true, false, true);
-			abilityUtil_Targeter_DashAndAim.AllowChargeThroughInvalidSquares = false;
-			base.Targeters.Add(abilityUtil_Targeter_DashAndAim);
+			AbilityUtil_Targeter_DashAndAim targeter = new AbilityUtil_Targeter_DashAndAim(
+				this,
+				0f,
+				false,
+				GetLaserWidth(),
+				GetLaserRange(),
+				GetMaxAngleForLaser(),
+				GetClampedLaserDirection,
+				false,
+				false,
+				GetMaxTargets());
+			targeter.SetUseMultiTargetUpdate(true);
+			targeter.SetAffectedGroups(true, false, true);
+			targeter.AllowChargeThroughInvalidSquares = false;
+			Targeters.Add(targeter);
 		}
 	}
 
@@ -84,12 +81,17 @@ public class SamuraiDashAndAimedSlash : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = true;
+		bool isValidDash = true;
 		if (targetIndex == 0)
 		{
-			flag = (KnockbackUtils.BuildStraightLineChargePath(caster, Board.Get().GetSquare(target.GridPos), caster.GetCurrentBoardSquare(), false) != null);
+			BoardSquarePathInfo dashPath = KnockbackUtils.BuildStraightLineChargePath(
+				caster,
+				Board.Get().GetSquare(target.GridPos),
+				caster.GetCurrentBoardSquare(),
+				false);
+			isValidDash = dashPath != null;
 		}
-		return flag && base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
+		return isValidDash && base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 	}
 
 	internal Vector3 GetClampedLaserDirection(AbilityTarget dashTarget, AbilityTarget shootTarget, Vector3 neutralDir)
@@ -107,111 +109,64 @@ public class SamuraiDashAndAimedSlash : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedTargetEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedTargetEffect = m_abilityMod.m_targetEffectMod.GetModifiedValue(m_targetEffect);
-		}
-		else
-		{
-			cachedTargetEffect = m_targetEffect;
-		}
-		m_cachedTargetEffect = cachedTargetEffect;
-		StandardEffectInfo cachedEffectOnSelf;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
-		}
-		else
-		{
-			cachedEffectOnSelf = m_effectOnSelf;
-		}
-		m_cachedEffectOnSelf = cachedEffectOnSelf;
+		m_cachedTargetEffect = m_abilityMod != null
+			? m_abilityMod.m_targetEffectMod.GetModifiedValue(m_targetEffect)
+			: m_targetEffect;
+		m_cachedEffectOnSelf = m_abilityMod != null
+			? m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf)
+			: m_effectOnSelf;
 	}
 
 	public float GetMaxAngleForLaser()
 	{
-		return (!m_abilityMod) ? m_maxAngleForLaser : m_abilityMod.m_maxAngleForLaserMod.GetModifiedValue(m_maxAngleForLaser);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxAngleForLaserMod.GetModifiedValue(m_maxAngleForLaser)
+			: m_maxAngleForLaser;
 	}
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
-		}
-		else
-		{
-			result = m_laserWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public float GetLaserRange()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange);
-		}
-		else
-		{
-			result = m_laserRange;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange)
+			: m_laserRange;
 	}
 
 	public int GetMaxTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			result = m_maxTargets;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public int GetExtraDamageIfSingleTarget()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageIfSingleTargetMod.GetModifiedValue(m_extraDamageIfSingleTarget);
-		}
-		else
-		{
-			result = m_extraDamageIfSingleTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageIfSingleTargetMod.GetModifiedValue(m_extraDamageIfSingleTarget)
+			: m_extraDamageIfSingleTarget;
 	}
 
 	public StandardEffectInfo GetTargetEffect()
 	{
-		return (m_cachedTargetEffect == null) ? m_targetEffect : m_cachedTargetEffect;
+		return m_cachedTargetEffect ?? m_targetEffect;
 	}
 
 	public StandardEffectInfo GetEffectOnSelf()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnSelf != null)
-		{
-			result = m_cachedEffectOnSelf;
-		}
-		else
-		{
-			result = m_effectOnSelf;
-		}
-		return result;
+		return m_cachedEffectOnSelf ?? m_effectOnSelf;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -233,63 +188,37 @@ public class SamuraiDashAndAimedSlash : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		AbilityUtil_Targeter_DashAndAim abilityUtil_Targeter_DashAndAim = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_DashAndAim;
-		if (abilityUtil_Targeter_DashAndAim != null)
+		if (!(Targeters[currentTargeterIndex] is AbilityUtil_Targeter_DashAndAim targeter))
 		{
-			while (true)
+			return false;
+		}
+		if (targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		{
+			results.m_damage = GetDamageAmount();
+			if (m_syncComponent != null)
 			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
-					{
-						results.m_damage = GetDamageAmount();
-						if (m_syncComponent != null)
-						{
-							results.m_damage += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
-						}
-						if (GetExtraDamageIfSingleTarget() > 0)
-						{
-							int visibleActorsCountByTooltipSubject = abilityUtil_Targeter_DashAndAim.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-							if (visibleActorsCountByTooltipSubject == 1)
-							{
-								results.m_damage += GetExtraDamageIfSingleTarget();
-							}
-						}
-					}
-					else if (abilityUtil_Targeter_DashAndAim.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
-					{
-						int absorb;
-						if (GetEffectOnSelf().m_applyEffect)
-						{
-							absorb = GetEffectOnSelf().m_effectData.m_absorbAmount;
-						}
-						else
-						{
-							absorb = 0;
-						}
-						results.m_absorb = absorb;
-					}
-					return true;
-				}
+				results.m_damage += m_syncComponent.CalcExtraDamageFromSelfBuffAbility();
+			}
+			if (GetExtraDamageIfSingleTarget() > 0 && targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy) == 1)
+			{
+				results.m_damage += GetExtraDamageIfSingleTarget();
 			}
 		}
-		return false;
+		else if (targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
+		{
+			results.m_absorb = GetEffectOnSelf().m_applyEffect
+				? GetEffectOnSelf().m_effectData.m_absorbAmount
+				: 0;
+		}
+		return true;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SamuraiDashAndAimedSlash))
+		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiDashAndAimedSlash))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SamuraiDashAndAimedSlash);
+			m_abilityMod = abilityMod as AbilityMod_SamuraiDashAndAimedSlash;
 			Setup();
-			return;
 		}
 	}
 

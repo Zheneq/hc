@@ -5,57 +5,35 @@ public class SamuraiSelfBuff : Ability
 {
 	[Header("-- Buffs")]
 	public bool m_selfBuffLastsUntilYouDealDamage;
-
 	public StandardEffectInfo m_selfBuffEffect;
-
 	[Header("-- Extra damage to other abilities if this ability is queued")]
 	public int m_extraDamageIfQueued;
-
 	[Header("-- Shielding")]
 	public int m_baseShielding = 30;
-
 	public int m_extraShieldingIfOnlyAbility;
-
 	public StandardEffectInfo m_generalEffectOnSelf;
-
 	[Header("-- AoE")]
 	public float m_aoeRadius = 1.5f;
-
 	public float m_knockbackDist = 2f;
-
 	public int m_damageAmount;
-
 	public bool m_penetrateLoS;
-
 	[Header("-- Damage reactions")]
 	public int m_damageIncreaseFirstHit = 10;
-
 	public int m_damageIncreaseSubseqHits;
-
 	public int m_techPointGainPerIncomingHit;
-
 	public bool m_buffInResponseToIndirectDamage = true;
-
 	[Space(10f)]
 	public int m_cdrIfNotHit;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_hitReactionSequencePrefab;
-
 	public GameObject m_buffStartSequencePrefab;
 
 	private AbilityMod_SamuraiSelfBuff m_abilityMod;
-
 	private Samurai_SyncComponent m_syncComponent;
-
 	private AbilityData.ActionType m_myActionType;
-
 	private AbilityData m_abilityData;
-
 	private StandardEffectInfo m_cachedSelfBuffEffect;
-
 	private StandardEffectInfo m_cachedGeneralEffectOnSelf;
 
 	private void Start()
@@ -71,210 +49,131 @@ public class SamuraiSelfBuff : Ability
 	{
 		m_abilityData = GetComponent<AbilityData>();
 		m_myActionType = GetActionTypeOfAbility(this);
-		m_syncComponent = base.ActorData.GetComponent<Samurai_SyncComponent>();
+		m_syncComponent = ActorData.GetComponent<Samurai_SyncComponent>();
 		SetCachedFields();
-		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetAoeRadius(), GetAoeRadius(), 360f, 360f, AreaEffectUtils.StretchConeStyle.Linear, 0f, PenetrateLoS());
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDist(), KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
-		abilityUtil_Targeter_StretchCone.m_includeCaster = true;
-		base.Targeter = abilityUtil_Targeter_StretchCone;
+		AbilityUtil_Targeter_StretchCone targeter = new AbilityUtil_Targeter_StretchCone(
+			this,
+			GetAoeRadius(),
+			GetAoeRadius(),
+			360f,
+			360f,
+			AreaEffectUtils.StretchConeStyle.Linear,
+			0f,
+			PenetrateLoS());
+		targeter.InitKnockbackData(GetKnockbackDist(), KnockbackType.AwayFromSource, 0f, KnockbackType.AwayFromSource);
+		targeter.m_includeCaster = true;
+		Targeter = targeter;
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedSelfBuffEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedSelfBuffEffect = m_abilityMod.m_selfBuffEffectMod.GetModifiedValue(m_selfBuffEffect);
-		}
-		else
-		{
-			cachedSelfBuffEffect = m_selfBuffEffect;
-		}
-		m_cachedSelfBuffEffect = cachedSelfBuffEffect;
-		StandardEffectInfo cachedGeneralEffectOnSelf;
-		if ((bool)m_abilityMod)
-		{
-			cachedGeneralEffectOnSelf = m_abilityMod.m_generalEffectOnSelfMod.GetModifiedValue(m_generalEffectOnSelf);
-		}
-		else
-		{
-			cachedGeneralEffectOnSelf = m_generalEffectOnSelf;
-		}
-		m_cachedGeneralEffectOnSelf = cachedGeneralEffectOnSelf;
+		m_cachedSelfBuffEffect = m_abilityMod != null
+			? m_abilityMod.m_selfBuffEffectMod.GetModifiedValue(m_selfBuffEffect)
+			: m_selfBuffEffect;
+		m_cachedGeneralEffectOnSelf = m_abilityMod != null
+			? m_abilityMod.m_generalEffectOnSelfMod.GetModifiedValue(m_generalEffectOnSelf)
+			: m_generalEffectOnSelf;
 	}
 
 	public StandardEffectInfo GetSelfBuffEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedSelfBuffEffect != null)
-		{
-			result = m_cachedSelfBuffEffect;
-		}
-		else
-		{
-			result = m_selfBuffEffect;
-		}
-		return result;
+		return m_cachedSelfBuffEffect ?? m_selfBuffEffect;
 	}
 
 	public StandardEffectInfo GetGeneralEffectOnSelf()
 	{
-		StandardEffectInfo result;
-		if (m_cachedGeneralEffectOnSelf != null)
-		{
-			result = m_cachedGeneralEffectOnSelf;
-		}
-		else
-		{
-			result = m_generalEffectOnSelf;
-		}
-		return result;
+		return m_cachedGeneralEffectOnSelf ?? m_generalEffectOnSelf;
 	}
 
 	public int GetExtraDamageIfQueued()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageIfQueuedMod.GetModifiedValue(m_extraDamageIfQueued);
-		}
-		else
-		{
-			result = m_extraDamageIfQueued;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageIfQueuedMod.GetModifiedValue(m_extraDamageIfQueued)
+			: m_extraDamageIfQueued;
 	}
 
 	public int GetBaseShielding()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_baseShieldingMod.GetModifiedValue(m_baseShielding);
-		}
-		else
-		{
-			result = m_baseShielding;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_baseShieldingMod.GetModifiedValue(m_baseShielding)
+			: m_baseShielding;
 	}
 
 	public int GetExtraShieldingIfOnlyAbility()
 	{
-		return (!m_abilityMod) ? m_extraShieldingIfOnlyAbility : m_abilityMod.m_extraShieldingIfOnlyAbilityMod.GetModifiedValue(m_extraShieldingIfOnlyAbility);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraShieldingIfOnlyAbilityMod.GetModifiedValue(m_extraShieldingIfOnlyAbility)
+			: m_extraShieldingIfOnlyAbility;
 	}
 
 	public bool SelfBuffLastsUntilYouDealDamage()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfBuffLastsUntilYouDealDamageMod.GetModifiedValue(m_selfBuffLastsUntilYouDealDamage);
-		}
-		else
-		{
-			result = m_selfBuffLastsUntilYouDealDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfBuffLastsUntilYouDealDamageMod.GetModifiedValue(m_selfBuffLastsUntilYouDealDamage)
+			: m_selfBuffLastsUntilYouDealDamage;
 	}
 
 	public float GetAoeRadius()
 	{
-		return (!m_abilityMod) ? m_aoeRadius : m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius)
+			: m_aoeRadius;
 	}
 
 	public float GetKnockbackDist()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_knockbackDistMod.GetModifiedValue(m_knockbackDist);
-		}
-		else
-		{
-			result = m_knockbackDist;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackDistMod.GetModifiedValue(m_knockbackDist)
+			: m_knockbackDist;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public bool PenetrateLoS()
 	{
-		return (!m_abilityMod) ? m_penetrateLoS : m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS)
+			: m_penetrateLoS;
 	}
 
 	public int GetDamageIncreaseFirstHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageIncreaseFirstHitMod.GetModifiedValue(m_damageIncreaseFirstHit);
-		}
-		else
-		{
-			result = m_damageIncreaseFirstHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageIncreaseFirstHitMod.GetModifiedValue(m_damageIncreaseFirstHit)
+			: m_damageIncreaseFirstHit;
 	}
 
 	public int GetDamageIncreaseSubseqHits()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageIncreaseSubseqHitsMod.GetModifiedValue(m_damageIncreaseSubseqHits);
-		}
-		else
-		{
-			result = m_damageIncreaseSubseqHits;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageIncreaseSubseqHitsMod.GetModifiedValue(m_damageIncreaseSubseqHits)
+			: m_damageIncreaseSubseqHits;
 	}
 
 	public int GetTechPointGainPerIncomingHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_techPointGainPerIncomingHitMod.GetModifiedValue(m_techPointGainPerIncomingHit);
-		}
-		else
-		{
-			result = m_techPointGainPerIncomingHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerIncomingHitMod.GetModifiedValue(m_techPointGainPerIncomingHit)
+			: m_techPointGainPerIncomingHit;
 	}
 
 	public bool BuffInResponseToIndirectDamage()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_buffInResponseToIndirectDamageMod.GetModifiedValue(m_buffInResponseToIndirectDamage);
-		}
-		else
-		{
-			result = m_buffInResponseToIndirectDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_buffInResponseToIndirectDamageMod.GetModifiedValue(m_buffInResponseToIndirectDamage)
+			: m_buffInResponseToIndirectDamage;
 	}
 
 	public int GetCdrIfNotHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrIfNotHitMod.GetModifiedValue(m_cdrIfNotHit);
-		}
-		else
-		{
-			result = m_cdrIfNotHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfNotHitMod.GetModifiedValue(m_cdrIfNotHit)
+			: m_cdrIfNotHit;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -302,59 +201,32 @@ public class SamuraiSelfBuff : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (targetActor == base.ActorData)
+		if (targetActor != ActorData)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num = GetBaseShielding();
-					if (GetExtraShieldingIfOnlyAbility() > 0 && !HasOtherQueuedAbilities())
-					{
-						num += GetExtraShieldingIfOnlyAbility();
-					}
-					results.m_absorb = num;
-					return true;
-				}
-				}
-			}
+			return false;
 		}
-		return false;
+		int absorb = GetBaseShielding();
+		if (GetExtraShieldingIfOnlyAbility() > 0 && !HasOtherQueuedAbilities())
+		{
+			absorb += GetExtraShieldingIfOnlyAbility();
+		}
+		results.m_absorb = absorb;
+		return true;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (m_syncComponent != null)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_syncComponent.m_lastSelfBuffTurn == -1;
-				}
-			}
-		}
-		return base.CustomCanCastValidation(caster);
+		return m_syncComponent != null
+			? m_syncComponent.m_lastSelfBuffTurn == -1
+			: base.CustomCanCastValidation(caster);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SamuraiSelfBuff))
+		if (abilityMod.GetType() == typeof(AbilityMod_SamuraiSelfBuff))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SamuraiSelfBuff);
+			m_abilityMod = abilityMod as AbilityMod_SamuraiSelfBuff;
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -366,25 +238,16 @@ public class SamuraiSelfBuff : Ability
 
 	public bool HasOtherQueuedAbilities()
 	{
-		bool result = false;
 		if (m_abilityData != null)
 		{
-			int num = 0;
-			while (true)
+			for (int i = 0; i <= 4; i++)
 			{
-				if (num <= 4)
+				if (i != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)i))
 				{
-					if (num != (int)m_myActionType && m_abilityData.HasQueuedAction((AbilityData.ActionType)num))
-					{
-						result = true;
-						break;
-					}
-					num++;
-					continue;
+					return true;
 				}
-				break;
 			}
 		}
-		return result;
+		return false;
 	}
 }
