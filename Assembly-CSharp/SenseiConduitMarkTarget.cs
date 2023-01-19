@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,4 +89,60 @@ public class SenseiConduitMarkTarget : Ability
 			!GetPenetratesLoS(),
 			false);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitActors = GetHitActors(targets, caster);
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				targets[0].FreePos,
+				hitActors.ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[0])
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<ActorData> hitActors = GetHitActors(targets, caster);
+		foreach (ActorData target in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(new SenseiConduitReactionEffect(
+				AsEffectSource(),
+				target,
+				caster,
+				GetConduitEffectOnEnemy().m_effectData,
+				GetReactionHealAmount(),
+				GetReactionEffectOnAlliesHittingTarget(),
+				m_reactionProjectilePrefab),
+				hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null
+		    && square.OccupantActor != null
+		    && !square.OccupantActor.IgnoreForAbilityHits
+		    && square.OccupantActor.GetTeam() != caster.GetTeam())
+		{
+			return new List<ActorData>
+			{
+				square.OccupantActor
+			};
+		}
+		return new List<ActorData>();
+	}
+#endif
 }

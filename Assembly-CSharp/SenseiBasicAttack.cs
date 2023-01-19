@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SenseiBasicAttack : Ability
@@ -37,7 +39,11 @@ public class SenseiBasicAttack : Ability
 	[Separator("Shielding on turn start per enemy hit")]
 	public int m_absorbPerEnemyHitOnTurnStart;
 	public int m_absorbShieldDuration = 1;
+	
+	// TODO SENSEI
+	// removed in rogues
 	public int m_absorbAmountIfTriggeredHitCount;
+	
 	[Header("-- Animation Indices --")]
 	public int m_onCastLaserAnimIndex = 1;
 	public int m_onCastCircleAnimIndex = 6;
@@ -51,6 +57,12 @@ public class SenseiBasicAttack : Ability
 	private StandardEffectInfo m_cachedCircleEnemyHitEffect;
 	private StandardEffectInfo m_cachedLaserEnemyHitEffect;
 
+#if SERVER
+	// added in rogues
+	private AbilityData m_abilityData;
+	private Passive_Sensei m_passive;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -62,6 +74,12 @@ public class SenseiBasicAttack : Ability
 
 	private void Setup()
 	{
+#if SERVER
+		// added in rogues
+		m_abilityData = GetComponent<AbilityData>();
+		m_passive = GetPassiveOfType(typeof(Passive_Sensei)) as Passive_Sensei;
+#endif
+		
 		if (m_syncComp == null)
 		{
 			m_syncComp = GetComponent<Sensei_SyncComponent>();
@@ -73,7 +91,13 @@ public class SenseiBasicAttack : Ability
 			{
 				m_affectsAllies = GetLaserInfo().affectsAllies,
 				m_affectsEnemies = GetLaserInfo().affectsEnemies,
+				
+				// TODO SENSEI
+				// reactor
 				m_affectsCaster = GetHealPerEnemyHit() > 0 || GetAbsorbAmountIfTriggeredHitCount() > 0,
+				// rogues
+				// m_affectsCaster = GetHealPerEnemyHit() > 0,
+				
 				m_penetrateLos = false,
 				m_radiusInSquares = GetCircleRadius(),
 				m_widthAngleDeg = 360f
@@ -97,8 +121,12 @@ public class SenseiBasicAttack : Ability
 
 	private bool ShouldAddCasterForTargeter(ActorData caster, List<ActorData> actorsSoFar)
 	{
+		// TODO SENSEI
+		// reactor
 		return GetHealPerEnemyHit() > 0 && actorsSoFar.Count > 0
 		       || GetAbsorbAmountIfTriggeredHitCount() > 0 && actorsSoFar.Count >= GetCdrMinTriggerHitCount();
+		// rogues
+		// return GetHealPerEnemyHit() > 0 && actorsSoFar.Count > 0;
 	}
 
 	private void SetCachedFields()
@@ -213,6 +241,8 @@ public class SenseiBasicAttack : Ability
 			: m_absorbPerEnemyHitOnTurnStart;
 	}
 
+	// TODO SENSEI
+	// removed in rogues
 	public int GetAbsorbAmountIfTriggeredHitCount()
 	{
 		return m_abilityMod != null
@@ -256,7 +286,11 @@ public class SenseiBasicAttack : Ability
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, GetCircleDamage());
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Secondary, GetLaserDamage());
 		AbilityTooltipHelper.ReportHealing(ref numbers, AbilityTooltipSubject.Self, GetHealPerEnemyHit());
+		
+		// TODO SENSEI
+		// removed in rogues
 		AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
+		
 		return numbers;
 	}
 
@@ -294,6 +328,9 @@ public class SenseiBasicAttack : Ability
 				healing = enemyNum * GetHealPerEnemyHit();
 			}
 			results.m_healing = healing;
+			
+			// TODO SENSEI
+			// removed in rogues
 			if (GetAbsorbAmountIfTriggeredHitCount() > 0)
 			{
 				int enemyNum = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
@@ -302,6 +339,7 @@ public class SenseiBasicAttack : Ability
 					results.m_absorb = GetAbsorbAmountIfTriggeredHitCount();
 				}
 			}
+			// end removed in rogues
 		}
 		return true;
 	}
@@ -350,4 +388,148 @@ public class SenseiBasicAttack : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> list = additionalData.m_abilityResults.HitActorList();
+		list.Remove(caster);
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_lastPrimaryUsedMode = ShouldUseCircle(targets[0].FreePos, caster)
+				? (sbyte)1
+				: (sbyte)2;
+		}
+		if (m_passive != null && GetAbsorbPerEnemyHitOnTurnStart() > 0)
+		{
+			m_passive.m_lastBasicAttackShieldOnTurnStart = list.Count * GetAbsorbPerEnemyHitOnTurnStart();
+		}
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		bool isCircle = ShouldUseCircle(targets[0].FreePos, caster);
+		GetHitActors(targets, caster, isCircle, null, out Vector3 endPosIfLaser);
+		Sequence.IExtraSequenceParams[] extraParams = null;
+		if (!isCircle)
+		{
+			Vector3 vector = endPosIfLaser - caster.GetFreePos();
+			vector.y = 0f;
+			float value = vector.magnitude / Board.Get().squareSize;
+			Sequence.FxAttributeParam fxAttributeParam = new Sequence.FxAttributeParam();
+			fxAttributeParam.SetValues(Sequence.FxAttributeParam.ParamTarget.MainVfx, Sequence.FxAttributeParam.ParamNameCode.LengthInSquares, value);
+			extraParams = fxAttributeParam.ToArray();
+		}
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				isCircle ? m_circleSequencePrefab : m_laserSequencePrefab,
+				endPosIfLaser,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				extraParams)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		bool isCircle = ShouldUseCircle(targets[0].FreePos, caster);
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		List<ActorData> hitActors = GetHitActors(targets, caster, isCircle, nonActorTargetInfo, out _);
+		int damage = isCircle ? GetCircleDamage() : GetLaserDamage();
+		if (GetExtraDamageForAlternating() > 0
+		    && m_syncComp != null
+		    && ((!isCircle && m_syncComp.m_lastPrimaryUsedMode == 1) || (isCircle && m_syncComp.m_lastPrimaryUsedMode == 2)))
+		{
+			damage += GetExtraDamageForAlternating();
+		}
+		bool isCdr = GetCdrMinTriggerHitCount() > 0 && hitActors.Count < GetCdrMinTriggerHitCount();
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, casterPos));
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				int extraDamageForFarTarget = GetExtraDamageForFarTarget(actorData, caster, isCircle);
+				actorHitResults.SetBaseDamage(damage + extraDamageForFarTarget);
+				actorHitResults.AddStandardEffectInfo(isCircle ? GetCircleEnemyHitEffect() : GetLaserEnemyHitEffect());
+				if (!isCdr
+				    && GetCdrOnAbility() > 0
+				    && m_abilityData != null)
+				{
+					actorHitResults.AddMiscHitEvent(
+						new MiscHitEventData_AddToCasterCooldown(m_cdrAbilityTarget, -1 * GetCdrOnAbility()));
+					isCdr = true;
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		int healing = GetHealPerEnemyHit() * hitActors.Count;
+		if (!isCdr || healing > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			if (healing > 0)
+			{
+				casterHitResults.SetBaseHealing(healing);
+			}
+			if (!isCdr)
+			{
+				casterHitResults.AddMiscHitEvent(
+					new MiscHitEventData_AddToCasterCooldown(m_cdrAbilityTarget, -1 * GetCdrOnAbility()));
+			}
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		bool useCircle,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out Vector3 endPosIfLaser)
+	{
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		LaserTargetingInfo laserInfo = GetLaserInfo();
+		List<Team> affectedTeams = laserInfo.GetAffectedTeams(caster);
+		List<ActorData> result;
+		if (useCircle)
+		{
+			result = AreaEffectUtils.GetActorsInRadius(
+				casterPos,
+				GetCircleRadius(),
+				false,
+				caster,
+				affectedTeams,
+				nonActorTargetInfo);
+			endPosIfLaser = targets[0].FreePos;
+		}
+		else
+		{
+			VectorUtils.LaserCoords laserCoords;
+			laserCoords.start = casterPos;
+			result = AreaEffectUtils.GetActorsInLaser(
+				laserCoords.start,
+				targets[0].AimDirection,
+				laserInfo.range,
+				laserInfo.width,
+				caster,
+				affectedTeams,
+				laserInfo.penetrateLos,
+				laserInfo.maxTargets,
+				false,
+				true,
+				out laserCoords.end,
+				nonActorTargetInfo);
+			endPosIfLaser = laserCoords.end;
+		}
+		return result;
+	}
+#endif
 }

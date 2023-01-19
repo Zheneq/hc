@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +11,11 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 	[Separator("For Second Dash", "cyan")]
 	public AbilityModPropertyInt m_secondCastTurnsMod;
 	public AbilityModPropertyBool m_secondDashAllowBothTeamsMod;
+	
+	// rogues
+	// [Separator("On Hit Data Mod", "cyan")]
+	// public OnHitDataMod m_onHitDataMod;
+	
 	[Separator("On Enemy Hit")]
 	public AbilityModPropertyInt m_damageMod;
 	public AbilityModPropertyEffectInfo m_enemyHitEffectMod;
@@ -52,9 +59,13 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SenseiYingYangDash senseiYingYangDash = GetTargetAbilityOnAbilityData(abilityData) as SenseiYingYangDash;
+		// rogues
+		// SenseiYingYangDash senseiYingYangDash = targetAbility as SenseiYingYangDash;
+		
 		bool isValid = senseiYingYangDash != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_chooseDestShapeMod, "[ChooseDestShape]", isValid, isValid ? senseiYingYangDash.m_chooseDestShape : AbilityAreaShape.SingleSquare);

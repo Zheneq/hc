@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SenseiDash : Ability
@@ -247,4 +249,74 @@ public class SenseiDash : Ability
 		
 		return canDashToTarget && isTargetValid;
 	}
+	
+#if SERVER
+	// added in rogues
+	private new List<ActorData> GetHitActors(
+		List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(
+			caster.GetSquareAtPhaseStart().ToVector3(),
+			targetSquare.ToVector3(),
+			GetRadiusAroundStartToHit(),
+			GetRadiusAroundEndToHit(),
+			0.5f * GetChargeHitWidth(),
+			ChargeHitPenetrateLos(),
+			caster,
+			TargeterUtils.GetRelevantTeams(caster, CanHitAlly(), CanHitEnemy()),
+			nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadiusOfLine);
+		return actorsInRadiusOfLine;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_hitSequencePrefab,
+				targets[0].FreePos + new Vector3(0f, 1f, 0f),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetChooseDestinationShape(), targets[0]);
+		StandardEffectInfo effectOnTargetAlly = GetEffectOnTargetAlly();
+		StandardEffectInfo effectOnTargetEnemy = GetEffectOnTargetEnemy();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (ActorData actorData in GetHitActors(targets, caster, nonActorTargetInfo))
+		{
+			if (actorData != caster)
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+				if (actorData.GetTeam() == caster.GetTeam())
+				{
+					if (effectOnTargetAlly.m_applyEffect)
+					{
+						actorHitResults.AddStandardEffectInfo(effectOnTargetAlly);
+					}
+					actorHitResults.AddBaseHealing(GetHealAmount());
+				}
+				else if (actorData.GetTeam() != caster.GetTeam())
+				{
+					if (effectOnTargetEnemy.m_applyEffect)
+					{
+						actorHitResults.AddStandardEffectInfo(effectOnTargetEnemy);
+					}
+					actorHitResults.AddBaseDamage(GetDamageAmount());
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		}
+	}
+#endif
 }

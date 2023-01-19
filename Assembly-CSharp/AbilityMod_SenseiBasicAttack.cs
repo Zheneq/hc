@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +31,9 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 	public AbilityModPropertyInt m_cdrMinTriggerHitCountMod;
 	[Separator("Shielding on turn start per enemy hit")]
 	public AbilityModPropertyInt m_absorbPerEnemyHitOnTurnStartMod;
+	
+	// TODO SENSEI
+	// removed in rogues
 	public AbilityModPropertyInt m_absorbAmountIfTriggeredHitCountMod;
 
 	public override Type GetTargetAbilityType()
@@ -56,13 +61,19 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 			AddToken(tokens, m_cdrOnAbilityMod, "CdrOnAbility", string.Empty, senseiBasicAttack.m_cdrOnAbility);
 			AddToken(tokens, m_cdrMinTriggerHitCountMod, "CdrMinTriggerHitCount", string.Empty, senseiBasicAttack.m_cdrMinTriggerHitCount);
 			AddToken(tokens, m_absorbPerEnemyHitOnTurnStartMod, "AbsorbPerEnemyHitOnTurnStart", string.Empty, senseiBasicAttack.m_absorbPerEnemyHitOnTurnStart);
+			
+			// removed in rogues
 			AddToken(tokens, m_absorbAmountIfTriggeredHitCountMod, "AbsorbAmountIfTriggeredHitCount", string.Empty, senseiBasicAttack.m_absorbAmountIfTriggeredHitCount);
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SenseiBasicAttack senseiBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as SenseiBasicAttack;
+		// rogues
+		// SenseiBasicAttack senseiBasicAttack = targetAbility as SenseiBasicAttack;
+		
 		bool isValid = senseiBasicAttack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_circleDistThresholdMod, "[CircleDistThreshold]", isValid, isValid ? senseiBasicAttack.m_circleDistThreshold : 0f);
@@ -80,6 +91,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		desc += PropDesc(m_cdrOnAbilityMod, "[CdrOnAbility]", isValid, isValid ? senseiBasicAttack.m_cdrOnAbility : 0);
 		desc += PropDesc(m_cdrMinTriggerHitCountMod, "[CdrMinTriggerHitCount]", isValid, isValid ? senseiBasicAttack.m_cdrMinTriggerHitCount : 0);
 		desc += PropDesc(m_absorbPerEnemyHitOnTurnStartMod, "[AbsorbPerEnemyHitOnTurnStart]", isValid, isValid ? senseiBasicAttack.m_absorbPerEnemyHitOnTurnStart : 0);
-		return desc + PropDesc(m_absorbAmountIfTriggeredHitCountMod, "[AbsorbAmountIfTriggeredHitCount]", isValid, isValid ? senseiBasicAttack.m_absorbAmountIfTriggeredHitCount : 0);
+		return desc + PropDesc(m_absorbAmountIfTriggeredHitCountMod, "[AbsorbAmountIfTriggeredHitCount]", isValid, isValid ? senseiBasicAttack.m_absorbAmountIfTriggeredHitCount : 0);  // removed in rogues
 	}
 }

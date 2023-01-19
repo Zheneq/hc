@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SenseiBide : Ability
@@ -35,6 +37,11 @@ public class SenseiBide : Ability
 	private StandardEffectInfo m_cachedAdditionalTargetHitEffect;
 	private StandardEffectInfo m_cachedEnemyHitEffect;
 
+#if SERVER
+	// added in rogues
+	private Passive_Sensei m_passive;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -47,6 +54,11 @@ public class SenseiBide : Ability
 	private void Setup()
 	{
 		SetCachedFields();
+#if SERVER
+		// added in rogues
+		m_passive = GetPassiveOfType(typeof(Passive_Sensei)) as Passive_Sensei;
+#endif
+		
 		AbilityUtil_Targeter_AoE_AroundActor abilityUtil_Targeter_AoE_AroundActor = new AbilityUtil_Targeter_AoE_AroundActor(this, GetExplosionRadius(), IgnoreLos());
 		abilityUtil_Targeter_AoE_AroundActor.SetAffectedGroups(true, false, false);
 		abilityUtil_Targeter_AoE_AroundActor.m_allyOccupantSubject = AbilityTooltipSubject.Tertiary;
@@ -202,4 +214,77 @@ public class SenseiBide : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				targets[0].FreePos,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorData hitActor = GetHitActor(targets, caster);
+		if (hitActor != null)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, hitActor.GetFreePos()));
+			actorHitResults.AddEffect(new SenseiBideEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				hitActor,
+				caster,
+				GetOnCastTargetEffectData(),
+				m_passive,
+				GetExplosionRadius(),
+				IgnoreLos(),
+				GetMaxDamage(),
+				GetBaseDamage(),
+				GetDamageMult(),
+				GetEnemyHitEffect(),
+				GetAbsorbMultForHeal(),
+				GetMultOnInitialDamageForSubseqHits(),
+				m_onExplosionSequencePrefab));
+			actorHitResults.AddEffect(new SenseiBideAbsorbShieldEffect(
+				AsEffectSource(),
+				hitActor.GetCurrentBoardSquare(),
+				hitActor,
+				caster,
+				GetAdditionalTargetHitEffect().m_effectData,
+				m_passive));
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	private ActorData GetHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		if (targetSquare != null
+		    && targetSquare.OccupantActor != null
+		    && !targetSquare.OccupantActor.IgnoreForAbilityHits)
+		{
+			return targetSquare.OccupantActor;
+		}
+		return null;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.SenseiStats.DamageDoneByUlt, results.FinalDamage);
+		}
+	}
+#endif
 }

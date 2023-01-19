@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -74,9 +76,13 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SenseiHealAoE senseiHealAoE = GetTargetAbilityOnAbilityData(abilityData) as SenseiHealAoE;
+		// rogues
+		// SenseiHealAoE senseiHealAoE = targetAbility as SenseiHealAoE;
+		
 		bool isValid = senseiHealAoE != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_circleRadiusMod, "[CircleRadius]", isValid, isValid ? senseiHealAoE.m_circleRadius : 0f);

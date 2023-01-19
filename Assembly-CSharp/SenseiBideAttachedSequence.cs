@@ -1,6 +1,9 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// identical in reactor in rogues
 public class SenseiBideAttachedSequence : Sequence
 {
 	[Header("-- Whether switch between different levels after spawn --", order = 1)]

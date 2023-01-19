@@ -1,3 +1,6 @@
+﻿// ROGUES
+// SERVER
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +29,11 @@ public class SenseiHomingOrbs : Ability
 	private StandardEffectInfo m_cachedAllyHitEffect;
 	private StandardEffectInfo m_cachedEnemyHitEffect;
 
+#if SERVER
+	// added in rogues
+	private Sensei_SyncComponent m_syncComp;
+#endif
+	
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -38,6 +46,15 @@ public class SenseiHomingOrbs : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
+		
+#if SERVER
+		// added in rogues
+		if (m_syncComp == null)
+		{
+			m_syncComp = GetComponent<Sensei_SyncComponent>();
+		}
+#endif
+		
 		AbilityUtil_Targeter_AoE_Smooth targeter = new AbilityUtil_Targeter_AoE_Smooth(
 			this,
 			GetHomingRadius(),
@@ -153,4 +170,49 @@ public class SenseiHomingOrbs : Ability
 	{
 		return animIndex == m_orbLaunchAnimIndex || base.CanTriggerAnimAtIndexForTaunt(animIndex);
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetFreePos(),
+			caster.AsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		actorHitResults.AddEffect(new SenseiHomingOrbsEffect(
+			AsEffectSource(),
+			caster.GetCurrentBoardSquare(),
+			caster,
+			m_abilityName,
+			m_syncComp,
+			GetHomingRadius(),
+			false,
+			false,
+			CanHitEnemies(),
+			CanHitAllies(),
+			GetEnemyDamageAmount(),
+			GetAllyHealAmount(),
+			GetSelfHealPerHit(),
+			GetAllyHitEffect(),
+			GetEnemyHitEffect(),
+			GetNumHomingOrbs(),
+			GetMaxOrbsPerVolley(),
+			GetOrbDuration(),
+			m_persistentOnCasterSequencePrefab,
+			m_orbSequence,
+			m_orbLaunchAnimIndex,
+			abilityResults.CinematicRequested));
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+#endif
 }

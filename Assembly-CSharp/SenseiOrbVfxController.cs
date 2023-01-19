@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
+// identical in reactor and rogues
 public class SenseiOrbVfxController : CopyableVfxControllerComponent
 {
 	public bool m_showOrbsInFrontEnd;

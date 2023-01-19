@@ -1,8 +1,11 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// same in reactor and rogues
 public class Sensei_SyncComponent : NetworkBehaviour
 {
 	[Header("-- Vfx Prefabs --")]
@@ -203,10 +206,11 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		}
 	}
 
-	private void UNetVersion()
+	private void UNetVersion()  // MirrorProcessed in rogues
 	{
 	}
 
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -271,6 +275,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

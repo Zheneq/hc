@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,13 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SenseiAppendStatus senseiAppendStatus = GetTargetAbilityOnAbilityData(abilityData) as SenseiAppendStatus;
+		// rogues
+		// SenseiAppendStatus senseiAppendStatus = targetAbility as SenseiAppendStatus;
+		
 		bool isValid = senseiAppendStatus != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_canTargetAllyMod, "[CanTargetAlly]", isValid, isValid && senseiAppendStatus.m_canTargetAlly);

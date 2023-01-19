@@ -1,6 +1,9 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO SENSEI response effect instantly wears off
 public class SenseiAppendStatus : Ability
 {
 	public enum TargetingMode
@@ -47,6 +50,11 @@ public class SenseiAppendStatus : Ability
 	private StandardEffectInfo m_cachedEffectAddedOnEnemyAttack;
 	private StandardEffectInfo m_cachedEffectAddedOnAllyAttack;
 
+#if SERVER
+	// added in rogues
+	private Passive_Sensei m_passive;
+#endif
+
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -58,6 +66,11 @@ public class SenseiAppendStatus : Ability
 
 	private void Setup()
 	{
+#if SERVER
+		// added in rogues
+		m_passive = GetPassiveOfType(typeof(Passive_Sensei)) as Passive_Sensei;
+#endif
+		
 		SetCachedFields();
 		if (m_targetingMode == TargetingMode.ActorSquare)
 		{
@@ -249,4 +262,130 @@ public class SenseiAppendStatus : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitActors = GetHitActors(targets, caster, null, out Vector3 endPos);
+		if (m_targetingMode == TargetingMode.ActorSquare)
+		{
+			endPos = Board.Get().GetSquare(targets[0].GridPos).ToVector3();
+		}
+		GameObject prefab = m_castOnEnemySequencePrefab;
+		if (hitActors.Count > 0 && hitActors[0].GetTeam() == caster.GetTeam())
+		{
+			prefab = m_castOnAllySequencePrefab;
+		}
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				prefab,
+				endPos,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		foreach (ActorData actorData in GetHitActors(targets, caster, nonActorTargetInfo, out _))
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
+			bool isAlly = actorData.GetTeam() == caster.GetTeam();
+			StandardActorEffectData data = isAlly ? GetAllyCastHitEffectData() : GetEnemyCastHitEffectData();
+			SenseiAppendStatusEffect effect = new SenseiAppendStatusEffect(
+				AsEffectSource(),
+				actorData.GetCurrentBoardSquare(),
+				actorData,
+				caster,
+				data,
+				m_passive,
+				GetEffectAddedOnAllyAttack(),
+				GetEffectAddedOnEnemyAttack(),
+				GetEnergyGainOnAllyAppendHit(),
+				EndEffectIfAppendedStatus(),
+				m_earliestPriorityToConsider,
+				m_delayEffectApply,
+				m_requireDamageToTransfer,
+				m_statusApplyOnAllySequencePrefab,
+				m_statusApplyOnEnemySequencePrefab);
+			actorHitResults.AddEffect(effect);
+			if (isAlly)
+			{
+				actorHitResults.SetTechPointGain(GetEnergyToAllyTargetOnCast());
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, out Vector3 endPos)
+	{
+		if (m_targetingMode == TargetingMode.ActorSquare)
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+			endPos = square.ToVector3();
+			ActorData targetableActorOnSquare = AreaEffectUtils.GetTargetableActorOnSquare(square, CanTargetEnemy(), CanTargetAlly(), caster);
+			List<ActorData> list = new List<ActorData>();
+			if (m_checkBarrierForLosIfTargetEnemy
+			    && !TargetingIgnoreLos()
+			    && targetableActorOnSquare != null
+			    && targetableActorOnSquare.GetTeam() != caster.GetTeam())
+			{
+				BarrierManager.Get().GetAbilityLineEndpoint(
+					caster,
+					caster.GetFreePos(),
+					targetableActorOnSquare.GetFreePos(),
+					out bool flag,
+					out Vector3 vector,
+					nonActorTargetInfo);
+				if (!flag)
+				{
+					list.Add(targetableActorOnSquare);
+				}
+				else
+				{
+					vector.y = endPos.y;
+					endPos = vector;
+				}
+			}
+			else
+			{
+				list.Add(targetableActorOnSquare);
+			}
+			return list;
+		}
+		else
+		{
+			LaserTargetingInfo laserInfo = GetLaserInfo();
+			return AreaEffectUtils.GetActorsInLaser(
+				caster.GetLoSCheckPos(),
+				targets[0].AimDirection,
+				laserInfo.range,
+				laserInfo.width,
+				caster,
+				laserInfo.GetAffectedTeams(caster),
+				laserInfo.penetrateLos,
+				laserInfo.maxTargets,
+				false,
+				true,
+				out endPos,
+				nonActorTargetInfo);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.IsReaction)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SenseiStats.NumBuffsPlusDebuffsFromAppendStatus);
+		}
+	}
+#endif
 }

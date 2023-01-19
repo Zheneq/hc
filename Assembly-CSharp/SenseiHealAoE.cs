@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -300,7 +302,7 @@ public class SenseiHealAoE : Ability
 		int num = 0;
 		if (m_bideAbility != null
 		    && m_bideAbility.GetExtraHealOnHealAoeIfQueued() > 0
-		    && m_abilityData.HasQueuedAction(m_bideActionType))
+		    && m_abilityData.HasQueuedAction(m_bideActionType))  // , true in rogues
 		{
 			num += m_bideAbility.GetExtraHealOnHealAoeIfQueued();
 		}
@@ -414,4 +416,107 @@ public class SenseiHealAoE : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_hitSequencePrefab,
+				caster.GetLoSCheckPos(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		int otherActorsNum = hitActors.Count;
+		if (hitActors.Contains(caster))
+		{
+			otherActorsNum--;
+		}
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetLoSCheckPos()));
+			int baseHealing;
+			if (actorData != caster)
+			{
+				baseHealing = CalcTotalAllyHeal(actorData, caster.GetFreePos(), otherActorsNum);
+				actorHitResults.SetTechPointGain(GetAllyEnergyGain());
+			}
+			else
+			{
+				baseHealing = CalcTotalSelfHeal(caster);
+			}
+			actorHitResults.SetBaseHealing(baseHealing);
+			actorHitResults.AddStandardEffectInfo(GetAllyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+			if (actorData == caster
+			    && GetTurnsAfterInitialCast() > 0
+			    && (GetAllyHealOnSubsequentTurns() > 0 || GetAllyEffectOnSubsequentTurns().m_applyEffect))
+			{
+				actorHitResults.AddEffect(new SenseiDelayedHealAoeEffect(
+					AsEffectSource(),
+					caster.GetCurrentBoardSquare(),
+					caster,
+					caster,
+					GetTurnsAfterInitialCast() + 1,
+					1,
+					0,
+					null,
+					GetAllyHealOnSubsequentTurns(),
+					GetAllyEffectOnSubsequentTurns(),
+					GetSelfHealOnSubsequentTurns(),
+					GetAllyEffectOnSubsequentTurns(),
+					IgnoreDefaultEnergyOnSubseqTurns(),
+					0,
+					GetEnergyPerAllyHitOnSubseqTurns(),
+					GetEnergyOnSelfHitOnSubseqTurns(),
+					GetCircleRadius(),
+					PenetrateLoS(),
+					(int)GetActionAnimType(),
+					m_persistentSeqOnSubsequentTurnsPrefab,
+					m_hitSequencePrefab));
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		if (m_penetrateEnemyBarriers)
+		{
+			BarrierManager.Get().SuppressAbilityBlocks_Start();
+		}
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(
+			caster.GetLoSCheckPos(), GetCircleRadius(), PenetrateLoS(), caster, caster.GetTeam(), nonActorTargetInfo);
+		if (m_penetrateEnemyBarriers)
+		{
+			BarrierManager.Get().SuppressAbilityBlocks_End();
+		}
+		if (!IncludeSelf())
+		{
+			actorsInRadius.Remove(caster);
+		}
+		return actorsInRadius;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster != target && caster.GetTeam() == target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.SenseiStats.NumAlliesHitByHeal);
+		}
+	}
+#endif
 }

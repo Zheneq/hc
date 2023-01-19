@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// identical in reactor and rogues
 public class SenseiOrbProjectileSequence : ArcingProjectileSequence
 {
 	internal override Vector3 GetStartPos()

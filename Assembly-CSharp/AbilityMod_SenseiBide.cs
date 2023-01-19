@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +50,13 @@ public class AbilityMod_SenseiBide : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		SenseiBide senseiBide = GetTargetAbilityOnAbilityData(abilityData) as SenseiBide;
+		// rogues
+		// SenseiBide senseiBide = targetAbility as SenseiBide;
+		
 		bool isValid = senseiBide != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_targetingIgnoreLosMod, "[TargetingIgnoreLos]", isValid, isValid && senseiBide.m_targetingIgnoreLos);

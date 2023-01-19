@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -142,4 +144,57 @@ public class SenseiStatusOrbs : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				Board.Get().GetSquare(targets[0].GridPos),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorData hitActor = GetHitActor(targets, caster);
+		if (hitActor != null)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, hitActor.GetFreePos()));
+			StandardActorEffectData data = hitActor.GetTeam() == caster.GetTeam() ? m_allyCastHitEffectData : m_enemyCastHitEffectData;
+			actorHitResults.AddEffect(new SenseiStatusOrbEffect(
+				AsEffectSource(),
+				hitActor.GetCurrentBoardSquare(),
+				hitActor,
+				caster,
+				data,
+				m_numOrbs,
+				m_orbHitRadius,
+				m_orbHitIgnoreLos,
+				m_fromAllyDamageOnHit,
+				m_fromAllySelfHealPerHit,
+				m_fromAllyEnemyHitEffect,
+				m_fromEnemyHealOnHit,
+				m_fromEnemySelfDamagePerHit,
+				m_fromEnemyAllyHitEffect,
+				m_orbToAllySequencePrefab,
+				m_orbToEnemySequencePrefab,
+				m_hitOnEffectTargetSequencePrefab));
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	private ActorData GetHitActor(List<AbilityTarget> targets, ActorData caster)
+	{
+		return AreaEffectUtils.GetTargetableActorOnSquare(Board.Get().GetSquare(targets[0].GridPos), m_canTargetEnemy, m_canTargetAlly, caster);
+	}
+#endif
 }
