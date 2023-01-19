@@ -871,7 +871,9 @@ public class ServerEffectManager : MonoBehaviour
 	private void OnAbilityPhaseStart(List<Effect> effectList, AbilityPriority phase)
 	{
 		List<Effect> effectsToRemove = new List<Effect>();
-		foreach (Effect effect in effectList)
+		// NOTE: effects can execute results in OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
+		// and add new effect thus modifying the collection
+		foreach (Effect effect in new List<Effect>(effectList))
 		{
 			effect.OnAbilityPhaseStart(phase);
 
@@ -900,7 +902,7 @@ public class ServerEffectManager : MonoBehaviour
 	private void OnAbilityPhaseEnd(List<Effect> effectList, AbilityPriority phase)
 	{
 		List<Effect> effectsToRemove = new List<Effect>();
-		foreach (Effect effect in effectList)
+		foreach (Effect effect in new List<Effect>(effectList))
 		{
 			effect.OnAbilityPhaseEnd(phase);
 
