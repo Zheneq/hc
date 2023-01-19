@@ -1,68 +1,43 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SenseiYingYangDash : Ability
 {
-	[Separator("Custom colors for Ability Bar Icon", true)]
+	[Separator("Custom colors for Ability Bar Icon")]
 	public Color m_colorForAllyDash = new Color(0f, 1f, 1f);
-
 	public Color m_colorForEnemyDash = new Color(1f, 0f, 1f);
-
 	[Separator("Targeting Info", "cyan")]
 	public bool m_chooseDestination;
-
 	public AbilityAreaShape m_chooseDestShape = AbilityAreaShape.Three_x_Three;
-
 	public bool m_useActorAtSquareBeforeEvadeIfMiss = true;
-
 	[Separator("For Second Dash", "cyan")]
 	public int m_secondCastTurns = 1;
-
 	public bool m_secondDashAllowBothTeams;
-
-	[Separator("On Enemy Hit", true)]
+	[Separator("On Enemy Hit")]
 	public int m_damage = 10;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public int m_extraDamageForDiffTeamSecondDash;
-
 	public int m_extraDamageForLowHealth;
-
 	public float m_enemyLowHealthThresh;
-
 	public bool m_reverseHealthThreshForEnemy;
-
-	[Separator("On Ally Hit", true)]
+	[Separator("On Ally Hit")]
 	public int m_healOnAlly = 10;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	public int m_extraHealOnAllyForDiffTeamSecondDash;
-
 	public int m_extraHealOnAllyForLowHealth;
-
 	public float m_allyLowHealthThresh;
-
 	public bool m_reverseHealthThreshForAlly;
-
 	[Header("-- whether to heal allies who dashed away")]
 	public bool m_healAllyWhoDashedAway;
-
 	[Header("-- Cooldown reduction")]
 	public int m_cdrIfNoSecondDash;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castOnAllySequencePrefab;
-
 	public GameObject m_castOnEnemySequencePrefab;
 
 	private AbilityMod_SenseiYingYangDash m_abilityMod;
-
 	private Sensei_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
 
 	private void Start()
@@ -78,50 +53,38 @@ public class SenseiYingYangDash : Ability
 	{
 		SetCachedFields();
 		m_syncComp = GetComponent<Sensei_SyncComponent>();
-		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, true, true);
-		abilityUtil_Targeter_Charge.m_affectCasterDelegate = IncludeCasterInTargeter;
+		AbilityUtil_Targeter_Charge targeter = new AbilityUtil_Targeter_Charge(
+			this,
+			AbilityAreaShape.SingleSquare,
+			false,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos,
+			true,
+			true)
+			{
+				m_affectCasterDelegate = IncludeCasterInTargeter
+			};
 		if (ChooseDestinaton())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-				{
-					base.Targeters.Add(abilityUtil_Targeter_Charge);
-					AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge2 = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false);
-					abilityUtil_Targeter_Charge2.SetUseMultiTargetUpdate(true);
-					base.Targeters.Add(abilityUtil_Targeter_Charge2);
-					return;
-				}
-				}
-			}
+			Targeters.Add(targeter);
+			AbilityUtil_Targeter_Charge targeter2 = new AbilityUtil_Targeter_Charge(
+				this,
+				AbilityAreaShape.SingleSquare,
+				true,
+				AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos,
+				false);
+			targeter2.SetUseMultiTargetUpdate(true);
+			Targeters.Add(targeter2);
 		}
-		base.Targeter = abilityUtil_Targeter_Charge;
+		else
+		{
+			Targeter = targeter;
+		}
 	}
 
 	private bool IncludeCasterInTargeter(ActorData caster, List<ActorData> actorsSoFar, bool casterInShape)
 	{
 		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
-		if (moddedEffectForSelf != null)
-		{
-			if (moddedEffectForSelf.m_applyEffect)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+		return moddedEffectForSelf != null && moddedEffectForSelf.m_applyEffect;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -131,30 +94,12 @@ public class SenseiYingYangDash : Ability
 
 	public bool ChooseDestinaton()
 	{
-		int result;
-		if (m_chooseDestination)
-		{
-			result = ((m_targetData.Length > 1) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_chooseDestination && m_targetData.Length > 1;
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		int result;
-		if (ChooseDestinaton())
-		{
-			result = 2;
-		}
-		else
-		{
-			result = 1;
-		}
-		return result;
+		return ChooseDestinaton() ? 2 : 1;
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -164,228 +109,141 @@ public class SenseiYingYangDash : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedEnemyHitEffect = ((!m_abilityMod) ? m_enemyHitEffect : m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect));
-		StandardEffectInfo cachedAllyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			cachedAllyHitEffect = m_allyHitEffect;
-		}
-		m_cachedAllyHitEffect = cachedAllyHitEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
+		m_cachedAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
 	}
 
 	public AbilityAreaShape GetChooseDestShape()
 	{
-		AbilityAreaShape result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_chooseDestShapeMod.GetModifiedValue(m_chooseDestShape);
-		}
-		else
-		{
-			result = m_chooseDestShape;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_chooseDestShapeMod.GetModifiedValue(m_chooseDestShape)
+			: m_chooseDestShape;
 	}
 
 	public int GetSecondCastTurns()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_secondCastTurnsMod.GetModifiedValue(m_secondCastTurns);
-		}
-		else
-		{
-			result = m_secondCastTurns;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_secondCastTurnsMod.GetModifiedValue(m_secondCastTurns)
+			: m_secondCastTurns;
 	}
 
 	public bool SecondDashAllowBothTeams()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_secondDashAllowBothTeamsMod.GetModifiedValue(m_secondDashAllowBothTeams);
-		}
-		else
-		{
-			result = m_secondDashAllowBothTeams;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_secondDashAllowBothTeamsMod.GetModifiedValue(m_secondDashAllowBothTeams)
+			: m_secondDashAllowBothTeams;
 	}
 
 	public int GetDamage()
 	{
-		return (!m_abilityMod) ? m_damage : m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public int GetExtraDamageForDiffTeamSecondDash()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraDamageForDiffTeamSecondDashMod.GetModifiedValue(m_extraDamageForDiffTeamSecondDash);
-		}
-		else
-		{
-			result = m_extraDamageForDiffTeamSecondDash;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForDiffTeamSecondDashMod.GetModifiedValue(m_extraDamageForDiffTeamSecondDash)
+			: m_extraDamageForDiffTeamSecondDash;
 	}
 
 	public int GetExtraDamageForLowHealth()
 	{
-		return (!m_abilityMod) ? m_extraDamageForLowHealth : m_abilityMod.m_extraDamageForLowHealthMod.GetModifiedValue(m_extraDamageForLowHealth);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForLowHealthMod.GetModifiedValue(m_extraDamageForLowHealth)
+			: m_extraDamageForLowHealth;
 	}
 
 	public float GetEnemyLowHealthThresh()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_enemyLowHealthThreshMod.GetModifiedValue(m_enemyLowHealthThresh);
-		}
-		else
-		{
-			result = m_enemyLowHealthThresh;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyLowHealthThreshMod.GetModifiedValue(m_enemyLowHealthThresh)
+			: m_enemyLowHealthThresh;
 	}
 
 	public bool ReverseHealthThreshForEnemy()
 	{
-		return (!m_abilityMod) ? m_reverseHealthThreshForEnemy : m_abilityMod.m_reverseHealthThreshForEnemyMod.GetModifiedValue(m_reverseHealthThreshForEnemy);
+		return m_abilityMod != null
+			? m_abilityMod.m_reverseHealthThreshForEnemyMod.GetModifiedValue(m_reverseHealthThreshForEnemy)
+			: m_reverseHealthThreshForEnemy;
 	}
 
 	public int GetHealOnAlly()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healOnAllyMod.GetModifiedValue(m_healOnAlly);
-		}
-		else
-		{
-			result = m_healOnAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healOnAllyMod.GetModifiedValue(m_healOnAlly)
+			: m_healOnAlly;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public int GetExtraHealOnAllyForDiffTeamSecondDash()
 	{
-		return (!m_abilityMod) ? m_extraHealOnAllyForDiffTeamSecondDash : m_abilityMod.m_extraHealOnAllyForDiffTeamSecondDashMod.GetModifiedValue(m_extraHealOnAllyForDiffTeamSecondDash);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealOnAllyForDiffTeamSecondDashMod.GetModifiedValue(m_extraHealOnAllyForDiffTeamSecondDash)
+			: m_extraHealOnAllyForDiffTeamSecondDash;
 	}
 
 	public int GetExtraHealOnAllyForLowHealth()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraHealOnAllyForLowHealthMod.GetModifiedValue(m_extraHealOnAllyForLowHealth);
-		}
-		else
-		{
-			result = m_extraHealOnAllyForLowHealth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealOnAllyForLowHealthMod.GetModifiedValue(m_extraHealOnAllyForLowHealth)
+			: m_extraHealOnAllyForLowHealth;
 	}
 
 	public float GetAllyLowHealthThresh()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_allyLowHealthThreshMod.GetModifiedValue(m_allyLowHealthThresh);
-		}
-		else
-		{
-			result = m_allyLowHealthThresh;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyLowHealthThreshMod.GetModifiedValue(m_allyLowHealthThresh)
+			: m_allyLowHealthThresh;
 	}
 
 	public bool ReverseHealthThreshForAlly()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_reverseHealthThreshForAllyMod.GetModifiedValue(m_reverseHealthThreshForAlly);
-		}
-		else
-		{
-			result = m_reverseHealthThreshForAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_reverseHealthThreshForAllyMod.GetModifiedValue(m_reverseHealthThreshForAlly)
+			: m_reverseHealthThreshForAlly;
 	}
 
 	public int GetCdrIfNoSecondDash()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrIfNoSecondDashMod.GetModifiedValue(m_cdrIfNoSecondDash);
-		}
-		else
-		{
-			result = m_cdrIfNoSecondDash;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfNoSecondDashMod.GetModifiedValue(m_cdrIfNoSecondDash)
+			: m_cdrIfNoSecondDash;
 	}
 
 	public int GetCurrentAllyHeal(ActorData allyActor, ActorData caster)
 	{
 		int num = GetHealOnAlly();
-		if (allyActor != null)
+		if (allyActor == null)
 		{
-			bool flag = allyActor.GetHitPointPercent() < GetAllyLowHealthThresh();
-			if (ReverseHealthThreshForAlly())
-			{
-				flag = (allyActor.GetHitPointPercent() > GetAllyLowHealthThresh());
-			}
-			if (GetExtraHealOnAllyForLowHealth() > 0 && GetAllyLowHealthThresh() > 0f)
-			{
-				if (flag)
-				{
-					num += GetExtraHealOnAllyForLowHealth();
-				}
-			}
-			if (ShouldApplyBonusForDiffTeam(allyActor, caster) && GetExtraHealOnAllyForDiffTeamSecondDash() > 0)
-			{
-				num += GetExtraHealOnAllyForDiffTeamSecondDash();
-			}
+			return num;
+		}
+		bool isAllyLowHealth = allyActor.GetHitPointPercent() < GetAllyLowHealthThresh();
+		if (ReverseHealthThreshForAlly())
+		{
+			isAllyLowHealth = allyActor.GetHitPointPercent() > GetAllyLowHealthThresh();
+		}
+		if (GetExtraHealOnAllyForLowHealth() > 0 && GetAllyLowHealthThresh() > 0f && isAllyLowHealth)
+		{
+			num += GetExtraHealOnAllyForLowHealth();
+		}
+		if (ShouldApplyBonusForDiffTeam(allyActor, caster) && GetExtraHealOnAllyForDiffTeamSecondDash() > 0)
+		{
+			num += GetExtraHealOnAllyForDiffTeamSecondDash();
 		}
 		return num;
 	}
@@ -393,98 +251,40 @@ public class SenseiYingYangDash : Ability
 	public int GetCurrentDamage(ActorData enemyActor, ActorData caster)
 	{
 		int num = GetDamage();
-		if (enemyActor != null)
+		if (enemyActor == null)
 		{
-			bool flag = enemyActor.GetHitPointPercent() < GetEnemyLowHealthThresh();
-			if (ReverseHealthThreshForEnemy())
-			{
-				flag = (enemyActor.GetHitPointPercent() > GetEnemyLowHealthThresh());
-			}
-			if (GetExtraDamageForLowHealth() > 0)
-			{
-				if (GetEnemyLowHealthThresh() > 0f)
-				{
-					if (flag)
-					{
-						num += GetExtraDamageForLowHealth();
-					}
-				}
-			}
-			if (ShouldApplyBonusForDiffTeam(enemyActor, caster) && GetExtraDamageForDiffTeamSecondDash() > 0)
-			{
-				num += GetExtraDamageForDiffTeamSecondDash();
-			}
+			return num;
+		}
+		bool isEnemyLowHealth = enemyActor.GetHitPointPercent() < GetEnemyLowHealthThresh();
+		if (ReverseHealthThreshForEnemy())
+		{
+			isEnemyLowHealth = enemyActor.GetHitPointPercent() > GetEnemyLowHealthThresh();
+		}
+		if (GetExtraDamageForLowHealth() > 0 && GetEnemyLowHealthThresh() > 0f && isEnemyLowHealth)
+		{
+			num += GetExtraDamageForLowHealth();
+		}
+		if (ShouldApplyBonusForDiffTeam(enemyActor, caster) && GetExtraDamageForDiffTeamSecondDash() > 0)
+		{
+			num += GetExtraDamageForDiffTeamSecondDash();
 		}
 		return num;
 	}
 
 	public bool CanTargetEnemy()
 	{
-		int result;
-		if (m_syncComp != null)
-		{
-			bool flag = IsForSecondDash();
-			if (flag)
-			{
-				if (!SecondDashAllowBothTeams())
-				{
-					if (flag)
-					{
-						result = (m_syncComp.m_syncLastYingYangDashedToAlly ? 1 : 0);
-					}
-					else
-					{
-						result = 0;
-					}
-					goto IL_0061;
-				}
-			}
-			result = 1;
-			goto IL_0061;
-		}
-		return true;
-		IL_0061:
-		return (byte)result != 0;
+		return m_syncComp == null
+		       || !IsForSecondDash()
+		       || SecondDashAllowBothTeams()
+		       || m_syncComp.m_syncLastYingYangDashedToAlly;
 	}
 
 	public bool CanTargetAlly()
 	{
-		if (m_syncComp != null)
-		{
-			while (true)
-			{
-				int result;
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					{
-						bool flag = IsForSecondDash();
-						if (flag)
-						{
-							if (!SecondDashAllowBothTeams())
-							{
-								if (flag)
-								{
-									result = ((!m_syncComp.m_syncLastYingYangDashedToAlly) ? 1 : 0);
-								}
-								else
-								{
-									result = 0;
-								}
-								goto IL_006e;
-							}
-						}
-						result = 1;
-						goto IL_006e;
-					}
-					IL_006e:
-					return (byte)result != 0;
-				}
-			}
-		}
-		return true;
+		return m_syncComp == null
+		       || !IsForSecondDash()
+		       || SecondDashAllowBothTeams()
+		       || !m_syncComp.m_syncLastYingYangDashedToAlly;
 	}
 
 	private bool IsForSecondDash()
@@ -496,19 +296,8 @@ public class SenseiYingYangDash : Ability
 	{
 		if (IsForSecondDash())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-				{
-					bool flag = targetActor.GetTeam() == caster.GetTeam();
-					return m_syncComp.m_syncLastYingYangDashedToAlly != flag;
-				}
-				}
-			}
+			bool isAlly = targetActor.GetTeam() == caster.GetTeam();
+			return m_syncComp.m_syncLastYingYangDashedToAlly != isAlly;
 		}
 		return false;
 	}
@@ -525,14 +314,13 @@ public class SenseiYingYangDash : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		ActorData actorData = base.ActorData;
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0)
 		{
-			results.m_healing = GetCurrentAllyHeal(targetActor, actorData);
+			results.m_healing = GetCurrentAllyHeal(targetActor, ActorData);
 		}
-		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		else if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			results.m_damage = GetCurrentDamage(targetActor, actorData);
+			results.m_damage = GetCurrentDamage(targetActor, ActorData);
 		}
 		return true;
 	}
@@ -553,15 +341,10 @@ public class SenseiYingYangDash : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SenseiYingYangDash))
+		if (abilityMod.GetType() == typeof(AbilityMod_SenseiYingYangDash))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SenseiYingYangDash);
+			m_abilityMod = abilityMod as AbilityMod_SenseiYingYangDash;
 			Setup();
-			return;
 		}
 	}
 
@@ -573,101 +356,79 @@ public class SenseiYingYangDash : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return HasTargetableActorsInDecision(caster, CanTargetEnemy(), CanTargetAlly(), false, ValidateCheckPath.CanBuildPath, true, false);
+		return HasTargetableActorsInDecision(
+			caster,
+			CanTargetEnemy(),
+			CanTargetAlly(),
+			false,
+			ValidateCheckPath.CanBuildPath,
+			true,
+			false);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = false;
-		bool flag2 = false;
+		bool isTargetValid = false;
+		bool isDashValid = false;
 		if (targetIndex == 0)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-			if (boardSquareSafe != null)
+			BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+			if (targetSquare != null && targetSquare.OccupantActor != null)
 			{
-				if (boardSquareSafe.OccupantActor != null)
+				bool canTargetActorInDecision = CanTargetActorInDecision(
+					caster,
+					targetSquare.OccupantActor,
+					CanTargetEnemy(),
+					CanTargetAlly(),
+					false,
+					ValidateCheckPath.CanBuildPath,
+					true,
+					false);
+				if (canTargetActorInDecision)
 				{
-					if (CanTargetActorInDecision(caster, boardSquareSafe.OccupantActor, CanTargetEnemy(), CanTargetAlly(), false, ValidateCheckPath.CanBuildPath, true, false))
-					{
-						flag = true;
-						flag2 = true;
-					}
+					isTargetValid = true;
+					isDashValid = true;
 				}
 			}
 		}
 		else
 		{
-			flag = true;
-			BoardSquare boardSquareSafe2 = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
-			BoardSquare boardSquareSafe3 = Board.Get().GetSquare(target.GridPos);
-			if (boardSquareSafe3 != null && boardSquareSafe3.IsValidForGameplay())
+			isTargetValid = true;
+			BoardSquare prevTargetSquare = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
+			BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+			if (targetSquare != null
+			    && targetSquare.IsValidForGameplay()
+			    && targetSquare != prevTargetSquare
+			    && targetSquare != caster.GetCurrentBoardSquare())
 			{
-				if (boardSquareSafe3 != boardSquareSafe2)
+				bool isSquareInShape = AreaEffectUtils.IsSquareInShape(
+					targetSquare, GetChooseDestShape(), target.FreePos, prevTargetSquare, false, caster);
+				if (isSquareInShape)
 				{
-					if (boardSquareSafe3 != caster.GetCurrentBoardSquare())
-					{
-						if (AreaEffectUtils.IsSquareInShape(boardSquareSafe3, GetChooseDestShape(), target.FreePos, boardSquareSafe2, false, caster))
-						{
-							flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe3, boardSquareSafe2, false, out int _);
-						}
-					}
+					isDashValid = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out _);
 				}
 			}
 		}
-		int result;
-		if (flag2)
-		{
-			result = (flag ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+
+		return isDashValid && isTargetValid;
 	}
 
 	public override bool UseCustomAbilityIconColor()
 	{
-		int result;
-		if (m_syncComp != null)
-		{
-			result = ((m_syncComp.m_syncTurnsForSecondYingYangDash > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_syncComp != null && m_syncComp.m_syncTurnsForSecondYingYangDash > 0;
 	}
 
 	public override Color GetCustomAbilityIconColor(ActorData actor)
 	{
-		if (m_syncComp != null)
+		if (m_syncComp != null && m_syncComp.m_syncTurnsForSecondYingYangDash > 0)
 		{
-			if (m_syncComp.m_syncTurnsForSecondYingYangDash > 0)
+			if (CanTargetAlly())
 			{
-				bool flag = CanTargetAlly();
-				bool flag2 = CanTargetEnemy();
-				if (flag)
-				{
-					while (true)
-					{
-						return m_colorForAllyDash;
-					}
-				}
-				if (flag2)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return m_colorForEnemyDash;
-						}
-					}
-				}
+				return m_colorForAllyDash;
+			}
+			if (CanTargetEnemy())
+			{
+				return m_colorForEnemyDash;
 			}
 		}
 		return Color.white;

@@ -1,55 +1,38 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SenseiBide : Ability
 {
 	[Header("-- Targeting --")]
 	public bool m_targetingIgnoreLos;
-
 	[Separator("Effect on Cast Target", "cyan")]
 	public StandardActorEffectData m_onCastTargetEffectData;
-
 	[Header("-- Additional Effect on targeted actor, for shielding, etc")]
 	public StandardEffectInfo m_additionalTargetHitEffect;
-
 	[Separator("For Explosion Hits", "cyan")]
 	public float m_explosionRadius = 1.5f;
-
 	public bool m_ignoreLos;
-
 	[Header("-- Explosion Hit --")]
 	public int m_maxDamage = 50;
-
 	public int m_baseDamage;
-
 	public float m_damageMult = 1f;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	[Header("-- Heal portion of absorb remaining")]
 	public float m_absorbMultForHeal;
-
 	[Header("-- Damage portion of initial damage, on turns after")]
 	public float m_multOnInitialDamageForSubseqHits;
-
-	[Separator("Extra Heal on Heal AoE Ability", true)]
+	[Separator("Extra Heal on Heal AoE Ability")]
 	public int m_extraHealOnHealAoeIfQueued;
-
 	[Header("-- Animation --")]
 	public int m_explosionAnimIndex;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
-
 	[Header("    Used by effect when actual explosion happens")]
 	public GameObject m_onExplosionSequencePrefab;
 
 	private AbilityMod_SenseiBide m_abilityMod;
-
 	private StandardActorEffectData m_cachedOnCastTargetEffectData;
-
 	private StandardEffectInfo m_cachedAdditionalTargetHitEffect;
-
 	private StandardEffectInfo m_cachedEnemyHitEffect;
 
 	private void Start()
@@ -68,13 +51,14 @@ public class SenseiBide : Ability
 		abilityUtil_Targeter_AoE_AroundActor.SetAffectedGroups(true, false, false);
 		abilityUtil_Targeter_AoE_AroundActor.m_allyOccupantSubject = AbilityTooltipSubject.Tertiary;
 		abilityUtil_Targeter_AoE_AroundActor.m_enemyOccupantSubject = AbilityTooltipSubject.Quaternary;
-		base.Targeter = abilityUtil_Targeter_AoE_AroundActor;
-		base.Targeter.SetShowArcToShape(true);
+		Targeter = abilityUtil_Targeter_AoE_AroundActor;
+		Targeter.SetShowArcToShape(true);
 	}
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\nFor Persistent sequence, specify on " + Ability.SetupNoteVarName("On Cast Target Effect Data") + "'s sequence field";
+		return "<color=cyan>-- For Art --</color>\nFor Persistent sequence, specify on " +
+		       SetupNoteVarName("On Cast Target Effect Data") + "'s sequence field";
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -84,168 +68,93 @@ public class SenseiBide : Ability
 
 	private void SetCachedFields()
 	{
-		StandardActorEffectData cachedOnCastTargetEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedOnCastTargetEffectData = m_abilityMod.m_onCastTargetEffectDataMod.GetModifiedValue(m_onCastTargetEffectData);
-		}
-		else
-		{
-			cachedOnCastTargetEffectData = m_onCastTargetEffectData;
-		}
-		m_cachedOnCastTargetEffectData = cachedOnCastTargetEffectData;
-		StandardEffectInfo cachedAdditionalTargetHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAdditionalTargetHitEffect = m_abilityMod.m_additionalTargetHitEffectMod.GetModifiedValue(m_additionalTargetHitEffect);
-		}
-		else
-		{
-			cachedAdditionalTargetHitEffect = m_additionalTargetHitEffect;
-		}
-		m_cachedAdditionalTargetHitEffect = cachedAdditionalTargetHitEffect;
-		StandardEffectInfo cachedEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyHitEffect = m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect);
-		}
-		else
-		{
-			cachedEnemyHitEffect = m_enemyHitEffect;
-		}
-		m_cachedEnemyHitEffect = cachedEnemyHitEffect;
+		m_cachedOnCastTargetEffectData = m_abilityMod != null
+			? m_abilityMod.m_onCastTargetEffectDataMod.GetModifiedValue(m_onCastTargetEffectData)
+			: m_onCastTargetEffectData;
+		m_cachedAdditionalTargetHitEffect = m_abilityMod != null
+			? m_abilityMod.m_additionalTargetHitEffectMod.GetModifiedValue(m_additionalTargetHitEffect)
+			: m_additionalTargetHitEffect;
+		m_cachedEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyHitEffectMod.GetModifiedValue(m_enemyHitEffect)
+			: m_enemyHitEffect;
 	}
 
 	public bool TargetingIgnoreLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
-		}
-		else
-		{
-			result = m_targetingIgnoreLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos)
+			: m_targetingIgnoreLos;
 	}
 
 	public StandardActorEffectData GetOnCastTargetEffectData()
 	{
-		return (m_cachedOnCastTargetEffectData == null) ? m_onCastTargetEffectData : m_cachedOnCastTargetEffectData;
+		return m_cachedOnCastTargetEffectData ?? m_onCastTargetEffectData;
 	}
 
 	public StandardEffectInfo GetAdditionalTargetHitEffect()
 	{
-		return (m_cachedAdditionalTargetHitEffect == null) ? m_additionalTargetHitEffect : m_cachedAdditionalTargetHitEffect;
+		return m_cachedAdditionalTargetHitEffect ?? m_additionalTargetHitEffect;
 	}
 
 	public float GetExplosionRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_explosionRadiusMod.GetModifiedValue(m_explosionRadius);
-		}
-		else
-		{
-			result = m_explosionRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_explosionRadiusMod.GetModifiedValue(m_explosionRadius)
+			: m_explosionRadius;
 	}
 
 	public bool IgnoreLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
-		}
-		else
-		{
-			result = m_ignoreLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos)
+			: m_ignoreLos;
 	}
 
 	public int GetMaxDamage()
 	{
-		return (!m_abilityMod) ? m_maxDamage : m_abilityMod.m_maxDamageMod.GetModifiedValue(m_maxDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxDamageMod.GetModifiedValue(m_maxDamage)
+			: m_maxDamage;
 	}
 
 	public int GetBaseDamage()
 	{
-		return (!m_abilityMod) ? m_baseDamage : m_abilityMod.m_baseDamageMod.GetModifiedValue(m_baseDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_baseDamageMod.GetModifiedValue(m_baseDamage)
+			: m_baseDamage;
 	}
 
 	public float GetDamageMult()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageMultMod.GetModifiedValue(m_damageMult);
-		}
-		else
-		{
-			result = m_damageMult;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMultMod.GetModifiedValue(m_damageMult)
+			: m_damageMult;
 	}
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public float GetAbsorbMultForHeal()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_absorbMultForHealMod.GetModifiedValue(m_absorbMultForHeal);
-		}
-		else
-		{
-			result = m_absorbMultForHeal;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_absorbMultForHealMod.GetModifiedValue(m_absorbMultForHeal)
+			: m_absorbMultForHeal;
 	}
 
 	public float GetMultOnInitialDamageForSubseqHits()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_multOnInitialDamageForSubseqHitsMod.GetModifiedValue(m_multOnInitialDamageForSubseqHits);
-		}
-		else
-		{
-			result = m_multOnInitialDamageForSubseqHits;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_multOnInitialDamageForSubseqHitsMod.GetModifiedValue(m_multOnInitialDamageForSubseqHits)
+			: m_multOnInitialDamageForSubseqHits;
 	}
 
 	public int GetExtraHealOnHealAoeIfQueued()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraHealOnHealAoeIfQueuedMod.GetModifiedValue(m_extraHealOnHealAoeIfQueued);
-		}
-		else
-		{
-			result = m_extraHealOnHealAoeIfQueued;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealOnHealAoeIfQueuedMod.GetModifiedValue(m_extraHealOnHealAoeIfQueued)
+			: m_extraHealOnHealAoeIfQueued;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -268,22 +177,23 @@ public class SenseiBide : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = false;
-		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return CanTargetActorInDecision(caster, currentBestActorTarget, false, true, true, ValidateCheckPath.Ignore, TargetingIgnoreLos(), true);
+		return CanTargetActorInDecision(
+			caster,
+			target.GetCurrentBestActorTarget(),
+			false,
+			true,
+			true,
+			ValidateCheckPath.Ignore,
+			TargetingIgnoreLos(),
+			true);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SenseiBide))
+		if (abilityMod.GetType() == typeof(AbilityMod_SenseiBide))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SenseiBide);
+			m_abilityMod = abilityMod as AbilityMod_SenseiBide;
 			Setup();
-			return;
 		}
 	}
 

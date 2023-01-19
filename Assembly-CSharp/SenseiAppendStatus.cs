@@ -9,67 +9,42 @@ public class SenseiAppendStatus : Ability
 		Laser
 	}
 
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public TargetingMode m_targetingMode;
-
 	[Header("    (( Targeting: If using ActorSquare mode ))")]
 	public bool m_canTargetAlly = true;
-
 	public bool m_canTargetEnemy = true;
-
 	public bool m_canTagetSelf;
-
 	public bool m_targetingIgnoreLos;
-
 	[Header("-- Whether to check barriers for enemy targeting")]
 	public bool m_checkBarrierForLosIfTargetEnemy = true;
-
 	[Header("    (( Targeting: If using Laser mode ))")]
 	public LaserTargetingInfo m_laserInfo;
-
-	[Separator("On Cast Hit Stuff", true)]
+	[Separator("On Cast Hit Stuff")]
 	public int m_energyToAllyTargetOnCast;
-
 	public StandardActorEffectData m_enemyCastHitEffectData;
-
 	public StandardActorEffectData m_allyCastHitEffectData;
-
-	[Separator("For Append Effect", true)]
+	[Separator("For Append Effect")]
 	public bool m_endEffectIfAppendedStatus = true;
-
 	public AbilityPriority m_earliestPriorityToConsider;
-
 	public bool m_delayEffectApply = true;
-
 	public bool m_requireDamageToTransfer = true;
-
 	[Header("-- Effect to append --")]
 	public StandardEffectInfo m_effectAddedOnEnemyAttack;
-
 	public StandardEffectInfo m_effectAddedOnAllyAttack;
-
 	[Space(10f)]
 	public int m_energyGainOnAllyAppendHit;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castOnEnemySequencePrefab;
-
 	public GameObject m_castOnAllySequencePrefab;
-
 	public GameObject m_statusApplyOnAllySequencePrefab;
-
 	public GameObject m_statusApplyOnEnemySequencePrefab;
 
 	private AbilityMod_SenseiAppendStatus m_abilityMod;
-
 	private LaserTargetingInfo m_cachedLaserInfo;
-
 	private StandardActorEffectData m_cachedEnemyCastHitEffectData;
-
 	private StandardActorEffectData m_cachedAllyCastHitEffectData;
-
 	private StandardEffectInfo m_cachedEffectAddedOnEnemyAttack;
-
 	private StandardEffectInfo m_cachedEffectAddedOnAllyAttack;
 
 	private void Start()
@@ -86,36 +61,30 @@ public class SenseiAppendStatus : Ability
 		SetCachedFields();
 		if (m_targetingMode == TargetingMode.ActorSquare)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-				{
-					int num;
-					if (CanTagetSelf())
-					{
-						num = 1;
-					}
-					else
-					{
-						num = 0;
-					}
-					AbilityUtil_Targeter.AffectsActor affectsCaster = (AbilityUtil_Targeter.AffectsActor)num;
-					base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, CanTargetAlly(), CanTargetEnemy(), affectsCaster);
-					return;
-				}
-				}
-			}
+			Targeter = new AbilityUtil_Targeter_Shape(
+				this,
+				AbilityAreaShape.SingleSquare,
+				true,
+				AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+				CanTargetAlly(),
+				CanTargetEnemy(),
+				CanTagetSelf()
+					? AbilityUtil_Targeter.AffectsActor.Possible
+					: AbilityUtil_Targeter.AffectsActor.Never);
 		}
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserInfo());
+		else
+		{
+			Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserInfo());
+		}
 	}
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\n" + Ability.SetupNoteVarName("Cast On Enemy Sequence Prefab") + "\nFor initial cast, it targeting Enemy\n\n" + Ability.SetupNoteVarName("Cast On Ally Sequence Prefab") + "\nFor initial casst, if targeting Ally ...\n\n" + Ability.SetupNoteVarName("Status Apply On Ally Sequence Prefab") + "\nFor impact on target that actually adds buff/debuff\n\n" + Ability.SetupNoteVarName("Status Apply On Enemy Sequence Prefab") + "\nFor impact on target that actually adds buff/debuff\n\n";
+		return "<color=cyan>-- For Art --</color>\n" + SetupNoteVarName("Cast On Enemy Sequence Prefab") +
+		       "\nFor initial cast, it targeting Enemy\n\n" + SetupNoteVarName("Cast On Ally Sequence Prefab") +
+		       "\nFor initial casst, if targeting Ally ...\n\n" + SetupNoteVarName("Status Apply On Ally Sequence Prefab") +
+		       "\nFor impact on target that actually adds buff/debuff\n\n" + SetupNoteVarName("Status Apply On Enemy Sequence Prefab") +
+		       "\nFor impact on target that actually adds buff/debuff\n\n";
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
@@ -125,179 +94,95 @@ public class SenseiAppendStatus : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedLaserInfo = ((!m_abilityMod) ? m_laserInfo : m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo));
-		StandardActorEffectData cachedEnemyCastHitEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyCastHitEffectData = m_abilityMod.m_enemyCastHitEffectDataMod.GetModifiedValue(m_enemyCastHitEffectData);
-		}
-		else
-		{
-			cachedEnemyCastHitEffectData = m_enemyCastHitEffectData;
-		}
-		m_cachedEnemyCastHitEffectData = cachedEnemyCastHitEffectData;
-		StandardActorEffectData cachedAllyCastHitEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyCastHitEffectData = m_abilityMod.m_allyCastHitEffectDataMod.GetModifiedValue(m_allyCastHitEffectData);
-		}
-		else
-		{
-			cachedAllyCastHitEffectData = m_allyCastHitEffectData;
-		}
-		m_cachedAllyCastHitEffectData = cachedAllyCastHitEffectData;
-		m_cachedEffectAddedOnEnemyAttack = ((!m_abilityMod) ? m_effectAddedOnEnemyAttack : m_abilityMod.m_effectAddedOnEnemyAttackMod.GetModifiedValue(m_effectAddedOnEnemyAttack));
-		StandardEffectInfo cachedEffectAddedOnAllyAttack;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectAddedOnAllyAttack = m_abilityMod.m_effectAddedOnAllyAttackMod.GetModifiedValue(m_effectAddedOnAllyAttack);
-		}
-		else
-		{
-			cachedEffectAddedOnAllyAttack = m_effectAddedOnAllyAttack;
-		}
-		m_cachedEffectAddedOnAllyAttack = cachedEffectAddedOnAllyAttack;
+		m_cachedLaserInfo = m_abilityMod != null
+			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
+			: m_laserInfo;
+		m_cachedEnemyCastHitEffectData = m_abilityMod != null
+			? m_abilityMod.m_enemyCastHitEffectDataMod.GetModifiedValue(m_enemyCastHitEffectData)
+			: m_enemyCastHitEffectData;
+		m_cachedAllyCastHitEffectData = m_abilityMod != null
+			? m_abilityMod.m_allyCastHitEffectDataMod.GetModifiedValue(m_allyCastHitEffectData)
+			: m_allyCastHitEffectData;
+		m_cachedEffectAddedOnEnemyAttack = m_abilityMod != null
+			? m_abilityMod.m_effectAddedOnEnemyAttackMod.GetModifiedValue(m_effectAddedOnEnemyAttack)
+			: m_effectAddedOnEnemyAttack;
+		m_cachedEffectAddedOnAllyAttack = m_abilityMod != null
+			? m_abilityMod.m_effectAddedOnAllyAttackMod.GetModifiedValue(m_effectAddedOnAllyAttack)
+			: m_effectAddedOnAllyAttack;
 	}
 
 	public bool CanTargetAlly()
 	{
-		return (!m_abilityMod) ? m_canTargetAlly : m_abilityMod.m_canTargetAllyMod.GetModifiedValue(m_canTargetAlly);
+		return m_abilityMod != null
+			? m_abilityMod.m_canTargetAllyMod.GetModifiedValue(m_canTargetAlly)
+			: m_canTargetAlly;
 	}
 
 	public bool CanTargetEnemy()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(m_canTargetEnemy);
-		}
-		else
-		{
-			result = m_canTargetEnemy;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_canTargetEnemyMod.GetModifiedValue(m_canTargetEnemy)
+			: m_canTargetEnemy;
 	}
 
 	public bool CanTagetSelf()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canTagetSelfMod.GetModifiedValue(m_canTagetSelf);
-		}
-		else
-		{
-			result = m_canTagetSelf;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_canTagetSelfMod.GetModifiedValue(m_canTagetSelf)
+			: m_canTagetSelf;
 	}
 
 	public bool TargetingIgnoreLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos);
-		}
-		else
-		{
-			result = m_targetingIgnoreLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_targetingIgnoreLosMod.GetModifiedValue(m_targetingIgnoreLos)
+			: m_targetingIgnoreLos;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		return (m_cachedLaserInfo == null) ? m_laserInfo : m_cachedLaserInfo;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public StandardActorEffectData GetEnemyCastHitEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedEnemyCastHitEffectData != null)
-		{
-			result = m_cachedEnemyCastHitEffectData;
-		}
-		else
-		{
-			result = m_enemyCastHitEffectData;
-		}
-		return result;
+		return m_cachedEnemyCastHitEffectData ?? m_enemyCastHitEffectData;
 	}
 
 	public StandardActorEffectData GetAllyCastHitEffectData()
 	{
-		return (m_cachedAllyCastHitEffectData == null) ? m_allyCastHitEffectData : m_cachedAllyCastHitEffectData;
+		return m_cachedAllyCastHitEffectData ?? m_allyCastHitEffectData;
 	}
 
 	public int GetEnergyToAllyTargetOnCast()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyToAllyTargetOnCastMod.GetModifiedValue(m_energyToAllyTargetOnCast);
-		}
-		else
-		{
-			result = m_energyToAllyTargetOnCast;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyToAllyTargetOnCastMod.GetModifiedValue(m_energyToAllyTargetOnCast)
+			: m_energyToAllyTargetOnCast;
 	}
 
 	public bool EndEffectIfAppendedStatus()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_endEffectIfAppendedStatusMod.GetModifiedValue(m_endEffectIfAppendedStatus);
-		}
-		else
-		{
-			result = m_endEffectIfAppendedStatus;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_endEffectIfAppendedStatusMod.GetModifiedValue(m_endEffectIfAppendedStatus)
+			: m_endEffectIfAppendedStatus;
 	}
 
 	public StandardEffectInfo GetEffectAddedOnEnemyAttack()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectAddedOnEnemyAttack != null)
-		{
-			result = m_cachedEffectAddedOnEnemyAttack;
-		}
-		else
-		{
-			result = m_effectAddedOnEnemyAttack;
-		}
-		return result;
+		return m_cachedEffectAddedOnEnemyAttack ?? m_effectAddedOnEnemyAttack;
 	}
 
 	public StandardEffectInfo GetEffectAddedOnAllyAttack()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectAddedOnAllyAttack != null)
-		{
-			result = m_cachedEffectAddedOnAllyAttack;
-		}
-		else
-		{
-			result = m_effectAddedOnAllyAttack;
-		}
-		return result;
+		return m_cachedEffectAddedOnAllyAttack ?? m_effectAddedOnAllyAttack;
 	}
 
 	public int GetEnergyGainOnAllyAppendHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyGainOnAllyAppendHitMod.GetModifiedValue(m_energyGainOnAllyAppendHit);
-		}
-		else
-		{
-			result = m_energyGainOnAllyAppendHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyGainOnAllyAppendHitMod.GetModifiedValue(m_energyGainOnAllyAppendHit)
+			: m_energyGainOnAllyAppendHit;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -309,42 +194,35 @@ public class SenseiAppendStatus : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		if (m_targetingMode == TargetingMode.ActorSquare)
+		if (m_targetingMode != TargetingMode.ActorSquare)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-				{
-					bool flag = false;
-					ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-					return CanTargetActorInDecision(caster, currentBestActorTarget, CanTargetEnemy(), CanTargetAlly(), CanTagetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
-				}
-				}
-			}
+			return true;
 		}
-		return true;
+		return CanTargetActorInDecision(
+			caster,
+			target.GetCurrentBestActorTarget(),
+			CanTargetEnemy(),
+			CanTargetAlly(),
+			CanTagetSelf(),
+			ValidateCheckPath.Ignore,
+			!TargetingIgnoreLos(),
+			true);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (m_targetingMode == TargetingMode.ActorSquare)
+		if (m_targetingMode != TargetingMode.ActorSquare)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return HasTargetableActorsInDecision(caster, CanTargetEnemy(), CanTargetAlly(), CanTagetSelf(), ValidateCheckPath.Ignore, !TargetingIgnoreLos(), true);
-				}
-			}
+			return true;
 		}
-		return true;
+		return HasTargetableActorsInDecision(
+			caster,
+			CanTargetEnemy(),
+			CanTargetAlly(),
+			CanTagetSelf(),
+			ValidateCheckPath.Ignore,
+			!TargetingIgnoreLos(),
+			true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -359,15 +237,10 @@ public class SenseiAppendStatus : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SenseiAppendStatus))
+		if (abilityMod.GetType() == typeof(AbilityMod_SenseiAppendStatus))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SenseiAppendStatus);
+			m_abilityMod = abilityMod as AbilityMod_SenseiAppendStatus;
 			Setup();
-			return;
 		}
 	}
 
