@@ -4,20 +4,14 @@ using UnityEngine;
 public class SenseiConduitMarkTarget : Ability
 {
 	public bool m_penetratesLoS;
-
 	public StandardEffectInfo m_conduitEffectOnEnemy;
-
 	public StandardEffectInfo m_reactionEffectOnAlliesHittingTarget;
-
 	public int m_healAmountOnAlliesHittingTarget = 10;
-
 	[Header("-- Sequences --")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_reactionProjectilePrefab;
 
 	private StandardEffectInfo m_cachedConduitEffectOnEnemy;
-
 	private StandardEffectInfo m_cachedReactionEffectOnAlliesHittingTarget;
 
 	private void Start()
@@ -32,7 +26,15 @@ public class SenseiConduitMarkTarget : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, GetPenetratesLoS(), AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, true, false, AbilityUtil_Targeter.AffectsActor.Never, AbilityUtil_Targeter.AffectsActor.Always);
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			GetPenetratesLoS(),
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			true,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Never,
+			AbilityUtil_Targeter.AffectsActor.Always);
 	}
 
 	private void SetCachedFields()
@@ -43,30 +45,12 @@ public class SenseiConduitMarkTarget : Ability
 
 	public StandardEffectInfo GetConduitEffectOnEnemy()
 	{
-		StandardEffectInfo result;
-		if (m_cachedConduitEffectOnEnemy != null)
-		{
-			result = m_cachedConduitEffectOnEnemy;
-		}
-		else
-		{
-			result = m_conduitEffectOnEnemy;
-		}
-		return result;
+		return m_cachedConduitEffectOnEnemy ?? m_conduitEffectOnEnemy;
 	}
 
 	public StandardEffectInfo GetReactionEffectOnAlliesHittingTarget()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReactionEffectOnAlliesHittingTarget != null)
-		{
-			result = m_cachedReactionEffectOnAlliesHittingTarget;
-		}
-		else
-		{
-			result = m_reactionEffectOnAlliesHittingTarget;
-		}
-		return result;
+		return m_cachedReactionEffectOnAlliesHittingTarget ?? m_reactionEffectOnAlliesHittingTarget;
 	}
 
 	public bool GetPenetratesLoS()
@@ -81,13 +65,26 @@ public class SenseiConduitMarkTarget : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return HasTargetableActorsInDecision(caster, true, false, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
+		return HasTargetableActorsInDecision(
+			caster,
+			true,
+			false,
+			false,
+			ValidateCheckPath.Ignore,
+			!GetPenetratesLoS(),
+			false);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		bool flag = false;
-		ActorData currentBestActorTarget = target.GetCurrentBestActorTarget();
-		return CanTargetActorInDecision(caster, currentBestActorTarget, true, false, false, ValidateCheckPath.Ignore, !GetPenetratesLoS(), false);
+		return CanTargetActorInDecision(
+			caster,
+			target.GetCurrentBestActorTarget(),
+			true,
+			false,
+			false,
+			ValidateCheckPath.Ignore,
+			!GetPenetratesLoS(),
+			false);
 	}
 }

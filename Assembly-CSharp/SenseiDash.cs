@@ -1,40 +1,27 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SenseiDash : Ability
 {
 	[Header("-- Targeting")]
 	public bool m_canTargetAlly = true;
-
 	public bool m_canTargetEnemy;
-
 	public AbilityAreaShape m_chooseDestinationShape = AbilityAreaShape.Three_x_Three;
-
 	[Header("-- On Hit")]
 	public int m_damageAmount = 20;
-
 	public int m_healAmount = 20;
-
 	public StandardEffectInfo m_effectOnTargetEnemy;
-
 	public StandardEffectInfo m_effectOnTargetAlly;
-
 	[Header("-- If Hitting Targets In Between")]
 	public bool m_hitActorsInBetween = true;
-
 	public float m_chargeHitWidth = 1f;
-
 	public float m_radiusAroundStartToHit;
-
 	public float m_radiusAroundEndToHit = 1.5f;
-
 	public bool m_chargeHitPenetrateLos;
-
 	[Header("-- Sequences --")]
 	public GameObject m_hitSequencePrefab;
 
 	private StandardEffectInfo m_cachedEffectOnTargetEnemy;
-
 	private StandardEffectInfo m_cachedEffectOnTargetAlly;
 
 	private void Start()
@@ -46,43 +33,36 @@ public class SenseiDash : Ability
 	{
 		SetCachedFields();
 		ClearTargeters();
-		AbilityUtil_Targeter abilityUtil_Targeter = null;
 		if (ShouldHitActorsInBetween())
 		{
-			abilityUtil_Targeter = new AbilityUtil_Targeter_ChargeAoE(this, GetRadiusAroundStartToHit(), GetRadiusAroundEndToHit(), 0.5f * GetChargeHitWidth(), -1, false, ChargeHitPenetrateLos());
-			abilityUtil_Targeter.SetAffectedGroups(CanHitEnemy(), CanHitAlly(), false);
-			AbilityUtil_Targeter_ChargeAoE obj = abilityUtil_Targeter as AbilityUtil_Targeter_ChargeAoE;
-			
-			obj.m_shouldAddTargetDelegate = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
-				{
-					bool result = false;
-					SenseiDash senseiDash = ability as SenseiDash;
-					if (senseiDash != null)
-					{
-						if (senseiDash.CanHitEnemy() && actorToConsider.GetTeam() != caster.GetTeam())
-						{
-							result = true;
-						}
-						if (senseiDash.CanHitAlly())
-						{
-							if (actorToConsider.GetTeam() == caster.GetTeam())
-							{
-								result = true;
-							}
-						}
-					}
-					else
-					{
-						result = true;
-					}
-					return result;
-				};
+			AbilityUtil_Targeter_ChargeAoE targeter = new AbilityUtil_Targeter_ChargeAoE(
+				this,
+				GetRadiusAroundStartToHit(),
+				GetRadiusAroundEndToHit(),
+				0.5f * GetChargeHitWidth(),
+				-1,
+				false,
+				ChargeHitPenetrateLos());
+			targeter.SetAffectedGroups(CanHitEnemy(), CanHitAlly(), false);
+			targeter.m_shouldAddTargetDelegate = delegate(ActorData actorToConsider, AbilityTarget abilityTarget, List<ActorData> hitActors, ActorData caster, Ability ability)
+			{
+				SenseiDash senseiDash = ability as SenseiDash;
+				return senseiDash == null
+				       || senseiDash.CanHitEnemy() && actorToConsider.GetTeam() != caster.GetTeam()
+				       || senseiDash.CanHitAlly() && actorToConsider.GetTeam() == caster.GetTeam();
+			};
+			Targeter = targeter;
 		}
 		else
 		{
-			abilityUtil_Targeter = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, CanHitEnemy(), CanHitAlly());
+			Targeter = new AbilityUtil_Targeter_Charge(
+				this,
+				AbilityAreaShape.SingleSquare,
+				false,
+				AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos,
+				CanHitEnemy(),
+				CanHitAlly());
 		}
-		base.Targeter = abilityUtil_Targeter;
 	}
 
 	private void SetCachedFields()
@@ -103,16 +83,7 @@ public class SenseiDash : Ability
 
 	public bool CanHitAlly()
 	{
-		int result;
-		if (GetHealAmount() <= 0)
-		{
-			result = (GetEffectOnTargetAlly().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetHealAmount() > 0 || GetEffectOnTargetAlly().m_applyEffect;
 	}
 
 	public bool CanHitEnemy()
@@ -137,30 +108,12 @@ public class SenseiDash : Ability
 
 	public StandardEffectInfo GetEffectOnTargetEnemy()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnTargetEnemy != null)
-		{
-			result = m_cachedEffectOnTargetEnemy;
-		}
-		else
-		{
-			result = m_effectOnTargetEnemy;
-		}
-		return result;
+		return m_cachedEffectOnTargetEnemy ?? m_effectOnTargetEnemy;
 	}
 
 	public StandardEffectInfo GetEffectOnTargetAlly()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnTargetAlly != null)
-		{
-			result = m_cachedEffectOnTargetAlly;
-		}
-		else
-		{
-			result = m_effectOnTargetAlly;
-		}
-		return result;
+		return m_cachedEffectOnTargetAlly ?? m_effectOnTargetAlly;
 	}
 
 	public bool ShouldHitActorsInBetween()
@@ -216,92 +169,82 @@ public class SenseiDash : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			bool flag = true;
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
-			{
-				dictionary[AbilityTooltipSymbol.Damage] = (flag ? GetDamageAmount() : 0);
-			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
-			{
-				Dictionary<AbilityTooltipSymbol, int> dictionary2 = dictionary;
-				int value;
-				if (flag)
-				{
-					value = GetHealAmount();
-				}
-				else
-				{
-					value = 0;
-				}
-				dictionary2[AbilityTooltipSymbol.Healing] = value;
-			}
+			return null;
+		}
+		
+		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		{
+			dictionary[AbilityTooltipSymbol.Damage] = GetDamageAmount();
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
+		{
+			dictionary[AbilityTooltipSymbol.Healing] = GetHealAmount();
 		}
 		return dictionary;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return HasTargetableActorsInDecision(caster, CanTargetEnemy(), CanTargetAlly(), false, ValidateCheckPath.CanBuildPath, true, false);
+		return HasTargetableActorsInDecision(
+			caster,
+			CanTargetEnemy(),
+			CanTargetAlly(),
+			false,
+			ValidateCheckPath.CanBuildPath,
+			true,
+			false);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (!(boardSquareSafe == null))
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null
+		    || !targetSquare.IsValidForGameplay()
+		    || targetSquare == caster.GetCurrentBoardSquare())
 		{
-			if (boardSquareSafe.IsValidForGameplay())
+			return false;
+		}
+		
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			GetChooseDestinationShape(),
+			target,
+			false,
+			caster,
+			TargeterUtils.GetRelevantTeams(caster, CanTargetAlly(), CanTargetEnemy()),
+			null);
+			
+		bool isTargetValid = false;
+		foreach (ActorData actor in actorsInShape)
+		{
+			bool canTargetActorInDecision = CanTargetActorInDecision(
+				caster,
+				actor,
+				CanTargetEnemy(),
+				CanTargetAlly(),
+				false,
+				ValidateCheckPath.Ignore,
+				true,
+				false);
+			if (canTargetActorInDecision)
 			{
-				if (!(boardSquareSafe == caster.GetCurrentBoardSquare()))
-				{
-					bool flag = false;
-					bool flag2 = false;
-					List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetChooseDestinationShape(), target, false, caster, TargeterUtils.GetRelevantTeams(caster, CanTargetAlly(), CanTargetEnemy()), null);
-					using (List<ActorData>.Enumerator enumerator = actorsInShape.GetEnumerator())
-					{
-						while (true)
-						{
-							if (!enumerator.MoveNext())
-							{
-								break;
-							}
-							ActorData current = enumerator.Current;
-							if (CanTargetActorInDecision(caster, current, CanTargetEnemy(), CanTargetAlly(), false, ValidateCheckPath.Ignore, true, false))
-							{
-								while (true)
-								{
-									switch (1)
-									{
-									case 0:
-										break;
-									default:
-										flag = true;
-										goto end_IL_0093;
-									}
-								}
-							}
-						}
-						end_IL_0093:;
-					}
-					BoardSquare boardSquareSafe2 = Board.Get().GetSquare(target.GridPos);
-					if (boardSquareSafe2 != null)
-					{
-						if (boardSquareSafe2.IsValidForGameplay())
-						{
-							if (boardSquareSafe2 != caster.GetCurrentBoardSquare())
-							{
-								flag2 = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe2, caster.GetCurrentBoardSquare(), false, out int _);
-							}
-						}
-					}
-					return flag2 && flag;
-				}
+				isTargetValid = true;
+				break;
 			}
 		}
-		return false;
+		
+		bool canDashToTarget = false;
+		if (targetSquare != null
+		    && targetSquare.IsValidForGameplay()
+		    && targetSquare != caster.GetCurrentBoardSquare())
+		{
+			canDashToTarget = KnockbackUtils.CanBuildStraightLineChargePath(
+				caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+		}
+		
+		return canDashToTarget && isTargetValid;
 	}
 }

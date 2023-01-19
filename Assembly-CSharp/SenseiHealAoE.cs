@@ -3,83 +3,52 @@ using UnityEngine;
 
 public class SenseiHealAoE : Ability
 {
-	[Separator("Targeting Info", true)]
+	[Separator("Targeting Info")]
 	public float m_circleRadius = 3f;
-
 	public bool m_penetrateLoS;
-
 	public bool m_penetrateEnemyBarriers = true;
-
 	[Space(10f)]
 	public bool m_includeSelf;
-
-	[Separator("Self Hit", true)]
+	[Separator("Self Hit")]
 	public int m_selfHeal = 20;
-
 	[Space(10f)]
 	public float m_selfLowHealthThresh;
-
 	public int m_extraSelfHealForLowHealth;
-
-	[Separator("Ally Hit", true)]
+	[Separator("Ally Hit")]
 	public int m_allyHeal = 20;
-
 	public int m_extraAllyHealIfSingleHit;
-
 	[Space(10f)]
 	public int m_extraHealForAdjacent;
-
 	public float m_healChangeStartDist;
-
 	public float m_healChangePerDist;
-
 	[Header("-- Extra Ally Heal for low health")]
 	public float m_allyLowHealthThresh;
-
 	public int m_extraAllyHealForLowHealth;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	[Space(10f)]
 	public int m_allyEnergyGain;
-
 	[Header("-- Cooldown Reduction for damaging hits")]
 	public int m_cdrForAnyDamage;
-
 	public int m_cdrForDamagePerUniqueAbility = 1;
-
-	[Separator("For trigger on Subsequent Turns", true)]
+	[Separator("For trigger on Subsequent Turns")]
 	public int m_turnsAfterInitialCast;
-
 	public int m_allyHealOnSubsequentTurns;
-
 	public int m_selfHealOnSubsequentTurns;
-
 	public StandardEffectInfo m_allyEffectOnSubsequentTurns;
-
 	[Header("-- Energy gain on subsequent turns")]
 	public bool m_ignoreDefaultEnergyOnSubseqTurns = true;
-
 	public int m_energyPerAllyHitOnSubseqTurns;
-
 	public int m_energyOnSelfHitOnSubseqTurns;
-
 	[Header("-- Sequences --")]
 	public GameObject m_hitSequencePrefab;
-
 	[Header("    Only used if has heal on subsequent turns")]
 	public GameObject m_persistentSeqOnSubsequentTurnsPrefab;
 
 	private AbilityMod_SenseiHealAoE m_abilityMod;
-
 	private AbilityData m_abilityData;
-
 	private SenseiBide m_bideAbility;
-
 	private AbilityData.ActionType m_bideActionType = AbilityData.ActionType.INVALID_ACTION;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
-
 	private StandardEffectInfo m_cachedAllyEffectOnSubsequentTurns;
 
 	private void Start()
@@ -97,17 +66,22 @@ public class SenseiHealAoE : Ability
 		m_abilityData = GetComponent<AbilityData>();
 		if (m_abilityData != null)
 		{
-			m_bideAbility = (m_abilityData.GetAbilityOfType(typeof(SenseiBide)) as SenseiBide);
+			m_bideAbility = m_abilityData.GetAbilityOfType(typeof(SenseiBide)) as SenseiBide;
 			m_bideActionType = m_abilityData.GetActionTypeOfAbility(m_bideAbility);
 		}
-		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, GetCircleRadius(), PenetrateLoS(), false, true);
-		abilityUtil_Targeter_AoE_Smooth.SetAffectedGroups(false, true, m_includeSelf);
-		abilityUtil_Targeter_AoE_Smooth.m_adjustPosInConfirmedTargeting = true;
-		abilityUtil_Targeter_AoE_Smooth.m_customCenterPosDelegate = GetCenterPosForTargeter;
-		abilityUtil_Targeter_AoE_Smooth.m_affectCasterDelegate = CanIncludeSelfForTargeter;
-		abilityUtil_Targeter_AoE_Smooth.m_penetrateEnemyBarriers = m_penetrateEnemyBarriers;
-		base.Targeter = abilityUtil_Targeter_AoE_Smooth;
-		base.Targeter.ShowArcToShape = false;
+		AbilityUtil_Targeter_AoE_Smooth targeter = new AbilityUtil_Targeter_AoE_Smooth(
+			this,
+			GetCircleRadius(),
+			PenetrateLoS(),
+			false,
+			true);
+		targeter.SetAffectedGroups(false, true, m_includeSelf);
+		targeter.m_adjustPosInConfirmedTargeting = true;
+		targeter.m_customCenterPosDelegate = GetCenterPosForTargeter;
+		targeter.m_affectCasterDelegate = CanIncludeSelfForTargeter;
+		targeter.m_penetrateEnemyBarriers = m_penetrateEnemyBarriers;
+		Targeter = targeter;
+		Targeter.ShowArcToShape = false;
 	}
 
 	private bool CanIncludeSelfForTargeter(ActorData caster, List<ActorData> actorsSoFar)
@@ -120,10 +94,10 @@ public class SenseiHealAoE : Ability
 		Vector3 result = caster.GetFreePos();
 		if (caster.GetActorTargeting() != null && GetRunPriority() > AbilityPriority.Evasion)
 		{
-			BoardSquare evadeDestinationForTargeter = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
-			if (evadeDestinationForTargeter != null)
+			BoardSquare dest = caster.GetActorTargeting().GetEvadeDestinationForTargeter();
+			if (dest != null)
 			{
-				result = evadeDestinationForTargeter.ToVector3();
+				result = dest.ToVector3();
 			}
 		}
 		return result;
@@ -131,308 +105,192 @@ public class SenseiHealAoE : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedAllyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyHitEffect = m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect);
-		}
-		else
-		{
-			cachedAllyHitEffect = m_allyHitEffect;
-		}
-		m_cachedAllyHitEffect = cachedAllyHitEffect;
-		StandardEffectInfo cachedAllyEffectOnSubsequentTurns;
-		if ((bool)m_abilityMod)
-		{
-			cachedAllyEffectOnSubsequentTurns = m_abilityMod.m_allyEffectOnSubsequentTurnsMod.GetModifiedValue(m_allyEffectOnSubsequentTurns);
-		}
-		else
-		{
-			cachedAllyEffectOnSubsequentTurns = m_allyEffectOnSubsequentTurns;
-		}
-		m_cachedAllyEffectOnSubsequentTurns = cachedAllyEffectOnSubsequentTurns;
+		m_cachedAllyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_allyHitEffectMod.GetModifiedValue(m_allyHitEffect)
+			: m_allyHitEffect;
+		m_cachedAllyEffectOnSubsequentTurns = m_abilityMod != null
+			? m_abilityMod.m_allyEffectOnSubsequentTurnsMod.GetModifiedValue(m_allyEffectOnSubsequentTurns)
+			: m_allyEffectOnSubsequentTurns;
 	}
 
 	public float GetCircleRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_circleRadiusMod.GetModifiedValue(m_circleRadius);
-		}
-		else
-		{
-			result = m_circleRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_circleRadiusMod.GetModifiedValue(m_circleRadius)
+			: m_circleRadius;
 	}
 
 	public bool PenetrateLoS()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS);
-		}
-		else
-		{
-			result = m_penetrateLoS;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLoSMod.GetModifiedValue(m_penetrateLoS)
+			: m_penetrateLoS;
 	}
 
 	public bool IncludeSelf()
 	{
-		return (!m_abilityMod) ? m_includeSelf : m_abilityMod.m_includeSelfMod.GetModifiedValue(m_includeSelf);
+		return m_abilityMod != null
+			? m_abilityMod.m_includeSelfMod.GetModifiedValue(m_includeSelf)
+			: m_includeSelf;
 	}
 
 	public int GetSelfHeal()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealMod.GetModifiedValue(m_selfHeal);
-		}
-		else
-		{
-			result = m_selfHeal;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealMod.GetModifiedValue(m_selfHeal)
+			: m_selfHeal;
 	}
 
 	public float GetSelfLowHealthThresh()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfLowHealthThreshMod.GetModifiedValue(m_selfLowHealthThresh);
-		}
-		else
-		{
-			result = m_selfLowHealthThresh;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfLowHealthThreshMod.GetModifiedValue(m_selfLowHealthThresh)
+			: m_selfLowHealthThresh;
 	}
 
 	public int GetExtraSelfHealForLowHealth()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraSelfHealForLowHealthMod.GetModifiedValue(m_extraSelfHealForLowHealth);
-		}
-		else
-		{
-			result = m_extraSelfHealForLowHealth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraSelfHealForLowHealthMod.GetModifiedValue(m_extraSelfHealForLowHealth)
+			: m_extraSelfHealForLowHealth;
 	}
 
 	public int GetAllyHeal()
 	{
-		return (!m_abilityMod) ? m_allyHeal : m_abilityMod.m_allyHealMod.GetModifiedValue(m_allyHeal);
+		return m_abilityMod != null
+			? m_abilityMod.m_allyHealMod.GetModifiedValue(m_allyHeal)
+			: m_allyHeal;
 	}
 
 	public int GetExtraAllyHealIfSingleHit()
 	{
-		return (!m_abilityMod) ? m_extraAllyHealIfSingleHit : m_abilityMod.m_extraAllyHealIfSingleHitMod.GetModifiedValue(m_extraAllyHealIfSingleHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraAllyHealIfSingleHitMod.GetModifiedValue(m_extraAllyHealIfSingleHit)
+			: m_extraAllyHealIfSingleHit;
 	}
 
 	public int GetExtraHealForAdjacent()
 	{
-		return (!m_abilityMod) ? m_extraHealForAdjacent : m_abilityMod.m_extraHealForAdjacentMod.GetModifiedValue(m_extraHealForAdjacent);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealForAdjacentMod.GetModifiedValue(m_extraHealForAdjacent)
+			: m_extraHealForAdjacent;
 	}
 
 	public float GetHealChangeStartDist()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healChangeStartDistMod.GetModifiedValue(m_healChangeStartDist);
-		}
-		else
-		{
-			result = m_healChangeStartDist;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healChangeStartDistMod.GetModifiedValue(m_healChangeStartDist)
+			: m_healChangeStartDist;
 	}
 
 	public float GetHealChangePerDist()
 	{
-		return (!m_abilityMod) ? m_healChangePerDist : m_abilityMod.m_healChangePerDistMod.GetModifiedValue(m_healChangePerDist);
+		return m_abilityMod != null
+			? m_abilityMod.m_healChangePerDistMod.GetModifiedValue(m_healChangePerDist)
+			: m_healChangePerDist;
 	}
 
 	public float GetAllyLowHealthThresh()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_allyLowHealthThreshMod.GetModifiedValue(m_allyLowHealthThresh);
-		}
-		else
-		{
-			result = m_allyLowHealthThresh;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyLowHealthThreshMod.GetModifiedValue(m_allyLowHealthThresh)
+			: m_allyLowHealthThresh;
 	}
 
 	public int GetExtraAllyHealForLowHealth()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraAllyHealForLowHealthMod.GetModifiedValue(m_extraAllyHealForLowHealth);
-		}
-		else
-		{
-			result = m_extraAllyHealForLowHealth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraAllyHealForLowHealthMod.GetModifiedValue(m_extraAllyHealForLowHealth)
+			: m_extraAllyHealForLowHealth;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	public int GetAllyEnergyGain()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain);
-		}
-		else
-		{
-			result = m_allyEnergyGain;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_allyEnergyGainMod.GetModifiedValue(m_allyEnergyGain)
+			: m_allyEnergyGain;
 	}
 
 	public int GetCdrForAnyDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrForAnyDamageMod.GetModifiedValue(m_cdrForAnyDamage);
-		}
-		else
-		{
-			result = m_cdrForAnyDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrForAnyDamageMod.GetModifiedValue(m_cdrForAnyDamage)
+			: m_cdrForAnyDamage;
 	}
 
 	public int GetCdrForDamagePerUniqueAbility()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_cdrForDamagePerUniqueAbilityMod.GetModifiedValue(m_cdrForDamagePerUniqueAbility);
-		}
-		else
-		{
-			result = m_cdrForDamagePerUniqueAbility;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrForDamagePerUniqueAbilityMod.GetModifiedValue(m_cdrForDamagePerUniqueAbility)
+			: m_cdrForDamagePerUniqueAbility;
 	}
 
 	public int GetTurnsAfterInitialCast()
 	{
-		return (!m_abilityMod) ? m_turnsAfterInitialCast : m_abilityMod.m_turnsAfterInitialCastMod.GetModifiedValue(m_turnsAfterInitialCast);
+		return m_abilityMod != null
+			? m_abilityMod.m_turnsAfterInitialCastMod.GetModifiedValue(m_turnsAfterInitialCast)
+			: m_turnsAfterInitialCast;
 	}
 
 	public int GetAllyHealOnSubsequentTurns()
 	{
-		return (!m_abilityMod) ? m_allyHealOnSubsequentTurns : m_abilityMod.m_allyHealOnSubsequentTurnsMod.GetModifiedValue(m_allyHealOnSubsequentTurns);
+		return m_abilityMod != null
+			? m_abilityMod.m_allyHealOnSubsequentTurnsMod.GetModifiedValue(m_allyHealOnSubsequentTurns)
+			: m_allyHealOnSubsequentTurns;
 	}
 
 	public int GetSelfHealOnSubsequentTurns()
 	{
-		return (!m_abilityMod) ? m_selfHealOnSubsequentTurns : m_abilityMod.m_selfHealOnSubsequentTurnsMod.GetModifiedValue(m_selfHealOnSubsequentTurns);
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealOnSubsequentTurnsMod.GetModifiedValue(m_selfHealOnSubsequentTurns)
+			: m_selfHealOnSubsequentTurns;
 	}
 
 	public StandardEffectInfo GetAllyEffectOnSubsequentTurns()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyEffectOnSubsequentTurns != null)
-		{
-			result = m_cachedAllyEffectOnSubsequentTurns;
-		}
-		else
-		{
-			result = m_allyEffectOnSubsequentTurns;
-		}
-		return result;
+		return m_cachedAllyEffectOnSubsequentTurns ?? m_allyEffectOnSubsequentTurns;
 	}
 
 	public bool IgnoreDefaultEnergyOnSubseqTurns()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_ignoreDefaultEnergyOnSubseqTurnsMod.GetModifiedValue(m_ignoreDefaultEnergyOnSubseqTurns);
-		}
-		else
-		{
-			result = m_ignoreDefaultEnergyOnSubseqTurns;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_ignoreDefaultEnergyOnSubseqTurnsMod.GetModifiedValue(m_ignoreDefaultEnergyOnSubseqTurns)
+			: m_ignoreDefaultEnergyOnSubseqTurns;
 	}
 
 	public int GetEnergyPerAllyHitOnSubseqTurns()
 	{
-		return (!m_abilityMod) ? m_energyPerAllyHitOnSubseqTurns : m_abilityMod.m_energyPerAllyHitOnSubseqTurnsMod.GetModifiedValue(m_energyPerAllyHitOnSubseqTurns);
+		return m_abilityMod != null
+			? m_abilityMod.m_energyPerAllyHitOnSubseqTurnsMod.GetModifiedValue(m_energyPerAllyHitOnSubseqTurns)
+			: m_energyPerAllyHitOnSubseqTurns;
 	}
 
 	public int GetEnergyOnSelfHitOnSubseqTurns()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_energyOnSelfHitOnSubseqTurnsMod.GetModifiedValue(m_energyOnSelfHitOnSubseqTurns);
-		}
-		else
-		{
-			result = m_energyOnSelfHitOnSubseqTurns;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyOnSelfHitOnSubseqTurnsMod.GetModifiedValue(m_energyOnSelfHitOnSubseqTurns)
+			: m_energyOnSelfHitOnSubseqTurns;
 	}
 
 	public int CalcExtraHealFromDist(ActorData targetActor, Vector3 centerPos)
 	{
 		if (GetExtraHealForAdjacent() > 0)
 		{
-			while (true)
+			Vector3 vector = targetActor.GetFreePos() - centerPos;
+			vector.y = 0f;
+			float dist = vector.magnitude;
+			if (GetHealChangeStartDist() > 0f)
 			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-				{
-					Vector3 vector = targetActor.GetFreePos() - centerPos;
-					vector.y = 0f;
-					float num = vector.magnitude;
-					if (GetHealChangeStartDist() > 0f)
-					{
-						num -= GetHealChangeStartDist();
-						num = Mathf.Max(0f, num / Board.Get().squareSize);
-					}
-					int num2 = Mathf.RoundToInt(GetHealChangePerDist() * num);
-					return Mathf.Max(0, GetExtraHealForAdjacent() + num2);
-				}
-				}
+				dist -= GetHealChangeStartDist();
+				dist = Mathf.Max(0f, dist / Board.Get().squareSize);
 			}
+			int healingForDist = Mathf.RoundToInt(GetHealChangePerDist() * dist);
+			return Mathf.Max(0, GetExtraHealForAdjacent() + healingForDist);
 		}
 		return 0;
 	}
@@ -440,12 +298,11 @@ public class SenseiHealAoE : Ability
 	public int CalcExtraHealFromBide()
 	{
 		int num = 0;
-		if (m_bideAbility != null && m_bideAbility.GetExtraHealOnHealAoeIfQueued() > 0)
+		if (m_bideAbility != null
+		    && m_bideAbility.GetExtraHealOnHealAoeIfQueued() > 0
+		    && m_abilityData.HasQueuedAction(m_bideActionType))
 		{
-			if (m_abilityData.HasQueuedAction(m_bideActionType))
-			{
-				num += m_bideAbility.GetExtraHealOnHealAoeIfQueued();
-			}
+			num += m_bideAbility.GetExtraHealOnHealAoeIfQueued();
 		}
 		return num;
 	}
@@ -453,24 +310,17 @@ public class SenseiHealAoE : Ability
 	public int CalcTotalAllyHeal(ActorData targetActor, Vector3 centerPos, int numAllies)
 	{
 		int num = GetAllyHeal();
-		if (GetExtraAllyHealIfSingleHit() > 0)
+		if (GetExtraAllyHealIfSingleHit() > 0 && numAllies == 1)
 		{
-			if (numAllies == 1)
-			{
-				num += GetExtraAllyHealIfSingleHit();
-			}
+			num += GetExtraAllyHealIfSingleHit();
 		}
 		num += CalcExtraHealFromDist(targetActor, centerPos);
 		num += CalcExtraHealFromBide();
-		if (GetExtraAllyHealForLowHealth() > 0)
+		if (GetExtraAllyHealForLowHealth() > 0
+		    && GetAllyLowHealthThresh() > 0f
+		    && targetActor.GetHitPointPercent() < GetAllyLowHealthThresh())
 		{
-			if (GetAllyLowHealthThresh() > 0f)
-			{
-				if (targetActor.GetHitPointPercent() < GetAllyLowHealthThresh())
-				{
-					num += GetExtraAllyHealForLowHealth();
-				}
-			}
+			num += GetExtraAllyHealForLowHealth();
 		}
 		return num;
 	}
@@ -479,15 +329,11 @@ public class SenseiHealAoE : Ability
 	{
 		int selfHeal = GetSelfHeal();
 		selfHeal += CalcExtraHealFromBide();
-		if (GetExtraSelfHealForLowHealth() > 0)
+		if (GetExtraSelfHealForLowHealth() > 0
+		    && GetSelfLowHealthThresh() > 0f
+		    && caster.GetHitPointPercent() < GetSelfLowHealthThresh())
 		{
-			if (GetSelfLowHealthThresh() > 0f)
-			{
-				if (caster.GetHitPointPercent() < GetSelfLowHealthThresh())
-				{
-					selfHeal += GetExtraSelfHealForLowHealth();
-				}
-			}
+			selfHeal += GetExtraSelfHealForLowHealth();
 		}
 		return selfHeal;
 	}
@@ -530,46 +376,36 @@ public class SenseiHealAoE : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		bool flag = base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0;
-		bool flag2 = targetActor == base.ActorData;
-		if (!flag)
+		bool hasAllies = Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Ally) > 0;
+		bool hasSelf = targetActor == ActorData;
+		if (!hasAllies && !hasSelf)
 		{
-			if (!flag2)
-			{
-				goto IL_00c9;
-			}
+			return true;
 		}
 		int healing = 0;
-		if (flag)
+		if (hasAllies)
 		{
-			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
-			if (base.Targeter is AbilityUtil_Targeter_AoE_Smooth)
+			int allyNum = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
+			if (Targeter is AbilityUtil_Targeter_AoE_Smooth)
 			{
-				AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = base.Targeter as AbilityUtil_Targeter_AoE_Smooth;
-				healing = CalcTotalAllyHeal(targetActor, abilityUtil_Targeter_AoE_Smooth.m_lastUpdatedCenterPos, visibleActorsCountByTooltipSubject);
+				AbilityUtil_Targeter_AoE_Smooth targeter = Targeter as AbilityUtil_Targeter_AoE_Smooth;
+				healing = CalcTotalAllyHeal(targetActor, targeter.m_lastUpdatedCenterPos, allyNum);
 			}
 		}
-		else if (flag2)
+		else if (hasSelf)
 		{
-			healing = CalcTotalSelfHeal(base.ActorData);
+			healing = CalcTotalSelfHeal(ActorData);
 		}
 		results.m_healing = healing;
-		goto IL_00c9;
-		IL_00c9:
 		return true;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_SenseiHealAoE))
+		if (abilityMod.GetType() == typeof(AbilityMod_SenseiHealAoE))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_SenseiHealAoE);
+			m_abilityMod = abilityMod as AbilityMod_SenseiHealAoE;
 			Setup();
-			return;
 		}
 	}
 
