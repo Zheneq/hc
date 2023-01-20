@@ -696,18 +696,21 @@ public class GameFlow : NetworkBehaviour
 		executingPlayerActions = new List<PlayerAction>();
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
 		List<Effect> executingEffects = new List<Effect>();
-		foreach (List<Effect> effectsOnActor in ServerEffectManager.Get().GetAllActorEffects().Values)
+		foreach (KeyValuePair<ActorData,List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
 		{
-			foreach (Effect effect in effectsOnActor)
+			if (!actorAndEffects.Key.IsDead()) // TODO EFFECTS Should effects persist through lancer's death?
 			{
-				if (effect.HitPhase == phase)
+				foreach (Effect effect in actorAndEffects.Value)
 				{
-					EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
-					if (effect.HitPhase == phase &&
-					    (resultsForPhase == null || !resultsForPhase.GatheredResults))
+					if (effect.HitPhase == phase)
 					{
-						effect.Resolve();
-						executingEffects.Add(effect);
+						EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
+						if (effect.HitPhase == phase &&
+						    (resultsForPhase == null || !resultsForPhase.GatheredResults))
+						{
+							effect.Resolve();
+							executingEffects.Add(effect);
+						}
 					}
 				}
 			}
