@@ -569,11 +569,12 @@ public class GameFlow : NetworkBehaviour
 					actionBuffer.AbilityPhase = actionBuffer.AbilityPhase == AbilityPriority.INVALID
 						? AbilityUtils.GetHighestAbilityPriority()
 						: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
-					ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
 					bool hasActionsThisPhase = GatherActionsInPhase(actionBuffer, actionBuffer.AbilityPhase, out List<PlayerAction> executingPlayerActions);
 					m_executingPlayerActions.AddRange(executingPlayerActions);
+					// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
+					ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 
 					theatrics.SetupTurnAbilityPhase(
 						actionBuffer.AbilityPhase,
