@@ -838,6 +838,7 @@ public class ServerGameManager : MonoBehaviour
 		int playerId = 0;
 		LobbyServerPlayerInfo lobbyServerPlayerInfo = new LobbyServerPlayerInfo()
 		{
+			AccountId = ReplayRecorderAccountId,
 			PlayerId = playerId,
 			TeamId = Team.Spectator,
 			Handle = "replay_generator",
@@ -1798,7 +1799,14 @@ public class ServerGameManager : MonoBehaviour
 	{
 		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 		{
-			if ((serverPlayerState.ConnectionPersistent != null && serverPlayerState.ConnectionPersistent.connectionId > 0) || serverPlayerState.LocalClient)
+			if ((serverPlayerState.ConnectionPersistent != null
+			     && serverPlayerState.ConnectionPersistent.connectionId > 0
+			     // TODO HACK
+			     // custom
+			     && serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId != ReplayRecorderAccountId
+			     && !(GameManager.Get().GameStatus >= GameStatus.Loaded && serverPlayerState.GameResult > GameResult.Requeued))
+			     // end custom
+			    || serverPlayerState.LocalClient)
 			{
 				return true;
 			}
