@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public static class DefaultJsonSerializer
 {
@@ -33,6 +34,7 @@ public static class DefaultJsonSerializer
 			s_serializer.Converters.Add(new BoardSquareJsonConverter());
 			s_serializer.Converters.Add(new BoardSquarePathInfoJsonConverter());
 			s_serializer.Converters.Add(new ClientEffectDataJsonConverter());
+			s_serializer.Converters.Add(new NetworkConnectionJsonConverter());
 			// end custom
 		}
 		return s_serializer;
@@ -310,6 +312,33 @@ public static class DefaultJsonSerializer
 		public override bool CanConvert(Type objectType)
 		{
 			return typeof(ClientEffectData) == objectType;
+		}
+	}
+
+	// custom
+	public class NetworkConnectionJsonConverter : JsonWriterConverter
+	{
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			NetworkConnection v = (NetworkConnection)value;
+
+			JObject res = new JObject
+			{
+				{ "hostId", JToken.FromObject(v.hostId) },
+				{ "connectionId", JToken.FromObject(v.connectionId) },
+				{ "isReady", JToken.FromObject(v.isReady) },
+				{ "address", JToken.FromObject(v.address) },
+				{ "lastMessageTime", JToken.FromObject(v.lastMessageTime) },
+				{ "closeStatusCode", JToken.FromObject(v.closeStatusCode) },
+				{ "isConnected", JToken.FromObject(v.isConnected) },
+				{ "lastError", JToken.FromObject(v.lastError) }
+			};
+			res.WriteTo(writer);
+		}
+
+		public override bool CanConvert(Type objectType)
+		{
+			return typeof(NetworkConnection) == objectType;
 		}
 	}
 }
