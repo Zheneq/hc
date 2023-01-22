@@ -6489,6 +6489,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	}
 #endif
 
+#if SERVER
+	// custom
+	public void PingOnClient(int teamIndex, LocalizationArg_AbilityPing localizedPing, bool spam)
+	{
+		if (m_teamSensitiveData_friendly != null)
+		{
+			m_teamSensitiveData_friendly.CallRpcReceivedAbilityPingInfo(teamIndex, localizedPing, spam);
+		}
+	}
+#endif
+
 	public void SendPingRequestToServer(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType)
 	{
 		if (GetActorController() != null)

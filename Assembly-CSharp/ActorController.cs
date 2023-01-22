@@ -191,16 +191,40 @@ public class ActorController : NetworkBehaviour
 		if (num == -1)
 		{
 			m_actor.PingOnClient(teamIndex, worldPosition, pingType, true);
-			return;
 		}
-		m_lastPings[num] = Time.time;
-		m_actor.PingOnClient(teamIndex, worldPosition, pingType, false);
+		else
+		{
+			m_lastPings[num] = Time.time;
+			m_actor.PingOnClient(teamIndex, worldPosition, pingType, false);
+		}
 #endif
 	}
 
 	[Command]
+	// was empty in reactor
 	internal void CmdSendAbilityPing(int teamIndex, LocalizationArg_AbilityPing localizedPing)
 	{
+#if SERVER
+		// custom
+		int num = -1;
+		for (int i = 0; i < m_lastPings.Length; i++)
+		{
+			if (m_lastPings[i] + 10f < Time.time)
+			{
+				num = i;
+				break;
+			}
+		}
+		if (num == -1)
+		{
+			m_actor.PingOnClient(teamIndex, localizedPing, true);
+		}
+		else
+		{
+			m_lastPings[num] = Time.time;
+			m_actor.PingOnClient(teamIndex, localizedPing, false);
+		}
+#endif
 	}
 
 	public void ClearHighlights()
