@@ -1281,6 +1281,15 @@ public class GameFlow : NetworkBehaviour
 		
 		// custom
 		ServerGameManager.Get()?.SaveReplay();
+		// TODO HACK update visibility on turn start after gameplay updates
+		foreach (ActorData player in GameFlowData.Get().GetActors())
+		{
+			player.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
+		}
+		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
+			new MovementCollection(MovementStage.INVALID, new List<MovementInstance>()),
+			out _,
+			out _);
 	}
 
 	// added in rogues
