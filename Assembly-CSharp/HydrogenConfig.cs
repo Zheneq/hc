@@ -128,6 +128,7 @@ public class HydrogenConfig : JsonConfig
 	// custom
 	public string PublicAddress = "127.0.0.1";
 	public int PublicPort = 6061;
+	public int MonitorServerPort = 6060;
 	// end custom
 
 	public HydrogenConfig()

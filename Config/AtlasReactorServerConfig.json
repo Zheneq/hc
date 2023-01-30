@@ -3,6 +3,10 @@
     "GameServerClientReconnectTimeout": "00:01:00",
     "AllowReconnectingToGameInstantly" : true,
     "CoOpSessionHostListenPort": 6090,
-	"MinLogLevel": "Everything",
-	"EnableLogging": true
+    "MinLogLevel": "Everything",
+    "EnableLogging": true,
+    "PublicAddress": "127.0.0.1",
+    "PublicPort": 6061,
+    "MonitorServerAddress": "127.0.0.1",
+    "MonitorServerPort": 6060
 }

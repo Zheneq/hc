@@ -205,7 +205,7 @@ public class ServerGameManager : MonoBehaviour
 		// }
 		// custom temp
 		m_heartBeatDuration = TimeSpan.FromMinutes(1);
-		ConnectToMonitorServer("ws://127.0.0.1:6060/BridgeServer", 6060);
+		ConnectToMonitorServer($"ws://{HydrogenConfig.Get().MonitorServerAddress}:{HydrogenConfig.Get().MonitorServerPort}/BridgeServer", -1);
 	}
 
 	protected void Update()
