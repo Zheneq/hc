@@ -189,6 +189,17 @@ public class ScoundrelBlindFire : Ability
 			{
 				ActorHitParameters hitParams = new ActorHitParameters(hitActor, casterPos);
 				ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
+				if (m_abilityMod != null 
+				    && m_abilityMod.m_effectOnTargetsHit != null
+				    && m_abilityMod.m_effectOnTargetsHit.m_applyEffect)
+				{
+					hitResults.AddEffect(new StandardActorEffect(
+						AsEffectSource(),
+						hitActor.GetCurrentBoardSquare(),
+						hitActor,
+						caster,
+						m_abilityMod.m_effectOnTargetsHit.m_effectData));
+				}
 				abilityResults.StoreActorHit(hitResults);
 			}
 		}
