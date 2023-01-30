@@ -7,20 +7,20 @@ public static class BuildVersion
 	private const int s_releaseNumber = 122;
 	private const int s_buildNumber = 100;
 	private const string s_buildLetter = "k";
-	private const string s_changelistNumber = "265834";
+	private const string s_changelistNumber = ThisAssembly.Git.Tag;
 
-	public static int ReleaseNumber => 122;
-	public static int BuildNumber => 100;
-	public static string BuildLetter => "k".ToUpper();
+	public static int ReleaseNumber => s_releaseNumber;
+	public static int BuildNumber => s_buildNumber;
+	public static string BuildLetter => s_buildLetter.ToUpper();
 	public static string BranchName => BuildBranch.BranchName;
-	public static string ChangelistNumber => "265834";
+	public static string ChangelistNumber => s_changelistNumber;
 	public static string MiniVersionString => $"{BranchName}-{ReleaseNumber}";
 	public static string ShortVersionString => $"{BranchName}-{ReleaseNumber}-{BuildNumber}";
 	public static string FullVersionString => $"{BranchName}-{ReleaseNumber}-{BuildNumber}-{BuildLetter}-{ChangelistNumber}";
 
 	public static string GetBuildDescriptionString(DateTime buildDate = default(DateTime), string buildHostName = null)
 	{
-		string text = $"Hydrogen Version: {FullVersionString}";
+		string text = $"{BuildDescriptionPrefixString}{FullVersionString}";
 		if (buildDate != DateTime.MinValue)
 		{
 			TimeSpan timeSpan = DateTime.UtcNow - buildDate;

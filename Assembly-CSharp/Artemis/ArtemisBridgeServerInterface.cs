@@ -70,7 +70,13 @@ namespace ArtemisServer.BridgeServer
         public void Initialize(string lobbyServerAddress, short port, ProcessType processType, string processCode, long accountId = 0L)
         {
             networkAddress = lobbyServerAddress;
-            m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
+            
+            // custom
+            m_sessionInfo.BuildVersion = BuildVersion.FullVersionString;
+            m_sessionInfo.UserName = HydrogenConfig.Get().ServerName;
+            // rogues
+            // m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
+            
             m_sessionInfo.ProtocolVersion = "";
             m_sessionInfo.ProcessType = processType;
             m_sessionInfo.ProcessCode = processCode;

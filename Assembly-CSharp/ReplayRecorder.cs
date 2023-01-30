@@ -18,7 +18,8 @@ public class ReplayRecorder
     {
         m_replay = new Replay();
         m_recorderPlayerState = playerState;
-        m_time = DateTime.Now;
+        long? timestamp = GameManager.Get().GameInfo?.CreateTimestamp;
+        m_time = timestamp.HasValue ? new DateTime(timestamp.Value) : DateTime.Now;
         Connect();
     }
 
