@@ -1850,7 +1850,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				else
 				{
 					abilityRequest.CancelCinematic();
-					ability.ClearAbilityMod(abilityRequest.m_caster);
+					// ability.ClearAbilityMod(abilityRequest.m_caster);
 				}
 				result = true;
 			}
