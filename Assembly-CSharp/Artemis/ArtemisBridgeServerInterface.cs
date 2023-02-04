@@ -72,7 +72,7 @@ namespace ArtemisServer.BridgeServer
             networkAddress = lobbyServerAddress;
             
             // custom
-            m_sessionInfo.BuildVersion = BuildVersion.FullVersionString;
+            m_sessionInfo.BuildVersion = BuildVersion.BuildTag;
             m_sessionInfo.UserName = HydrogenConfig.Get().ServerName;
             // rogues
             // m_sessionInfo.BuildVersion = BuildVersion.ShortVersionString;
