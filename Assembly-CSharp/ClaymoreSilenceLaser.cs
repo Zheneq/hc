@@ -269,7 +269,9 @@ public class ClaymoreSilenceLaser : Ability
 				GetEnemyHitEffectData(),
 				explosionDamage,
 				m_effectOnExplosionSequencePrefab,
-				CanExplodeOncePerTurn()
+				CanExplodeOncePerTurn(),
+				GetExplosionCooldownReduction(),
+				ExplosionReduceCooldownOnlyIfHitByAlly()
 			);
 			ActorHitParameters hitParams = new ActorHitParameters(hitActor, laserCoords.start);
 			ActorHitResults hitResults = new ActorHitResults(GetOnCastDamageAmount(), HitActionType.Damage, effect, hitParams);

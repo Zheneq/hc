@@ -17,7 +17,11 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 	private bool m_explosionDone;
 
 	// custom
+	private int m_explosionCooldownReduction;
+	private bool m_explosionReduceCooldownOnlyIfHitByAlly;
 	private Claymore_SyncComponent m_syncComp;
+	private Passive_Claymore m_passive;
+	// end custom
 
 	public ClaymoreDirtyFightingTargetEffect(
 		EffectSource parent,
@@ -27,7 +31,9 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 		StandardActorEffectData effectData,
 		int damageOnDetonation,  // float in rogues
 		GameObject explosionSequencePrefab,
-		bool explodeUpToOncePerTurn)
+		bool explodeUpToOncePerTurn,
+		int explosionCooldownReduction, // custom
+		bool explosionReduceCooldownOnlyIfHitByAlly) // custom
 		: base(parent, targetSquare, target, caster, effectData)
 	{
 		m_effectName = "Claymore Dirty Fighting Target Effect";
@@ -36,7 +42,11 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 		m_explosionSequencePrefab = explosionSequencePrefab;
 		
 		// custom
+		m_explosionCooldownReduction = explosionCooldownReduction;
+		m_explosionReduceCooldownOnlyIfHitByAlly = explosionReduceCooldownOnlyIfHitByAlly;
 		m_syncComp = parent.Ability.GetComponent<Claymore_SyncComponent>();
+		m_passive = parent.Ability.GetComponent<Passive_Claymore>();
+		// end custom
 	}
 
 	public override void OnTurnStart()
@@ -69,6 +79,23 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 		{
 			m_explosionDone = true;
 		}
+		
+		// custom
+		bool applyCdr = m_explosionReduceCooldownOnlyIfHitByAlly
+			? GetWasHitByNonCasterAllyThisTurn(true)
+			: GetWasHitThisTurn(true);
+		if (applyCdr)
+		{
+			m_passive.SetPendingCdrDaggerTrigger(m_explosionCooldownReduction, AbilityData.ActionType.ABILITY_3);
+		}
+		// end custom
+	}
+
+	// custom
+	public override bool ShouldEndEarly()
+	{
+		return base.ShouldEndEarly()
+		       || m_explosionDone && !m_explodeUpToOncePerTurn;
 	}
 
 	public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
@@ -151,7 +178,7 @@ public class ClaymoreDirtyFightingTargetEffect : StandardActorEffect
 	public override void OnEnd()
 	{
 		base.OnEnd();
-		m_syncComp.ResetDirtyFightingData();  // TODO TITUS Reset self only?
+		m_syncComp.ResetDirtyFightingData();
 	}
 }
 #endif
