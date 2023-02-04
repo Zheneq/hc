@@ -1683,7 +1683,11 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (LoginRewardNotification != null)
 			{
-				UINewReward.Get().NotifyNewTrustReward(LoginRewardNotification.LogInRewardsGiven, -1, string.Empty, true);
+				UINewReward.Get().NotifyNewTrustReward(
+					LoginRewardNotification.LogInRewardsGiven,
+					-1, 
+					string.Empty,
+					true);
 				LoginRewardNotification = null;
 			}
 			if (LoginQuestCompleteNotifications.Count > 0)
@@ -1711,19 +1715,21 @@ public class ClientGameManager : MonoBehaviour
 		ServerLockState = ServerLockState.Unknown;
 		ConnectionQueueInfo = new ConnectionQueueInfo();
 		CommerceURL = string.Empty;
-		ServerMessageOverrides = new ServerMessageOverrides();
-		ServerMessageOverrides.MOTDText = string.Empty;
-		ServerMessageOverrides.MOTDPopUpText = string.Empty;
-		ServerMessageOverrides.ReleaseNotesText = string.Empty;
-		ServerMessageOverrides.ReleaseNotesHeader = string.Empty;
-		ServerMessageOverrides.ReleaseNotesDescription = string.Empty;
-		ServerMessageOverrides.WhatsNewText = string.Empty;
-		ServerMessageOverrides.WhatsNewHeader = string.Empty;
-		ServerMessageOverrides.WhatsNewDescription = string.Empty;
-		ServerMessageOverrides.LockScreenText = string.Empty;
-		ServerMessageOverrides.LockScreenButtonText = string.Empty;
-		ServerMessageOverrides.FreeUpsellExternalBrowserUrl = string.Empty;
-		ServerMessageOverrides.FreeUpsellExternalBrowserSteamUrl = string.Empty;
+		ServerMessageOverrides = new ServerMessageOverrides
+		{
+			MOTDText = string.Empty,
+			MOTDPopUpText = string.Empty,
+			ReleaseNotesText = string.Empty,
+			ReleaseNotesHeader = string.Empty,
+			ReleaseNotesDescription = string.Empty,
+			WhatsNewText = string.Empty,
+			WhatsNewHeader = string.Empty,
+			WhatsNewDescription = string.Empty,
+			LockScreenText = string.Empty,
+			LockScreenButtonText = string.Empty,
+			FreeUpsellExternalBrowserUrl = string.Empty,
+			FreeUpsellExternalBrowserSteamUrl = string.Empty
+		};
 		m_discordConnecting = false;
 		m_discordJoinSuggested = false;
 	}
@@ -1743,24 +1749,19 @@ public class ClientGameManager : MonoBehaviour
 				ushort num = HydrogenConfig.Get().GetSavedSubTypes(gameType, gameTypeSubTypes);
 				if (num == 0)
 				{
-					using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
+					foreach (KeyValuePair<ushort, GameSubType> keyValuePair in gameTypeSubTypes)
 					{
-						while (enumerator.MoveNext())
+						if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.Exclusive))
 						{
-							KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-							if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.Exclusive))
-							{
-								num = keyValuePair.Key;
-								goto IL_E8;
-							}
-							if (!keyValuePair.Value.HasMod(GameSubType.SubTypeMods.NotCheckedByDefault))
-							{
-								num |= keyValuePair.Key;
-							}
+							num = keyValuePair.Key;
+							break;
+						}
+						if (!keyValuePair.Value.HasMod(GameSubType.SubTypeMods.NotCheckedByDefault))
+						{
+							num |= keyValuePair.Key;
 						}
 					}
 				}
-				IL_E8:
 				SoloSubTypeMask[gameType] = num;
 			}
 			else
@@ -1791,20 +1792,24 @@ public class ClientGameManager : MonoBehaviour
 				}
 				if (hydrogenConfig.Ticket == null)
 				{
-					if (hydrogenConfig.PlatformConfig.AllowRequestTickets)
+					if (hydrogenConfig.PlatformConfig.AllowRequestTickets
+					    && !hydrogenConfig.PlatformUserName.IsNullOrEmpty()
+					    && !hydrogenConfig.PlatformPassword.IsNullOrEmpty())
 					{
-						if (!hydrogenConfig.PlatformUserName.IsNullOrEmpty() && !hydrogenConfig.PlatformPassword.IsNullOrEmpty())
-						{
-							hydrogenConfig.Ticket = AuthTicket.CreateRequestTicket(hydrogenConfig.PlatformUserName, hydrogenConfig.PlatformPassword, "Client");
-							goto IL_126;
-						}
+						hydrogenConfig.Ticket = AuthTicket.CreateRequestTicket(
+							hydrogenConfig.PlatformUserName,
+							hydrogenConfig.PlatformPassword,
+							"Client");
 					}
-					if (hydrogenConfig.PlatformConfig.AllowFakeTickets)
+					else if (hydrogenConfig.PlatformConfig.AllowFakeTickets)
 					{
-						hydrogenConfig.Ticket = AuthTicket.CreateFakeTicket(hydrogenConfig.SystemUserName, "Client", 0, "ADMIN_ACCESS;GAME_OWNERSHIP");
+						hydrogenConfig.Ticket = AuthTicket.CreateFakeTicket(
+							hydrogenConfig.SystemUserName,
+							"Client",
+							0,
+							"ADMIN_ACCESS;GAME_OWNERSHIP");
 					}
 				}
-				IL_126:;
 			}
 			catch (Exception exception)
 			{
@@ -1816,11 +1821,21 @@ public class ClientGameManager : MonoBehaviour
 		{
 			throw new Exception("Could not load auth ticket");
 		}
-		Log.Info("Connecting to lobby server from {0} as {1} / {2} [{3}]", hydrogenConfig.HostName, hydrogenConfig.Ticket.UserName, hydrogenConfig.Ticket.Handle, hydrogenConfig.Ticket.AccountId);
+		Log.Info("Connecting to lobby server from {0} as {1} / {2} [{3}]", 
+			hydrogenConfig.HostName,
+			hydrogenConfig.Ticket.UserName,
+			hydrogenConfig.Ticket.Handle,
+			hydrogenConfig.Ticket.AccountId);
 		ClearLobbyState();
 		Region region = Options_UI.GetRegion();
 		m_lobbyGameClientInterface = new LobbyGameClientInterface();
-		m_lobbyGameClientInterface.Initialize(hydrogenConfig.DirectoryServerAddress, hydrogenConfig.Ticket, region, hydrogenConfig.Language, hydrogenConfig.ProcessType, hydrogenConfig.PreferredLobbyServerIndex);
+		m_lobbyGameClientInterface.Initialize(
+			hydrogenConfig.DirectoryServerAddress,
+			hydrogenConfig.Ticket,
+			region,
+			hydrogenConfig.Language,
+			hydrogenConfig.ProcessType,
+			hydrogenConfig.PreferredLobbyServerIndex);
 		m_lobbyGameClientInterface.OnConnected += HandleConnectedToLobbyServer;
 		m_lobbyGameClientInterface.OnDisconnected += HandleDisconnectedFromLobbyServer;
 		m_lobbyGameClientInterface.OnLobbyServerReadyNotification += HandleLobbyServerReadyNotification;
@@ -1921,49 +1936,31 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UnsubscribeFromCustomGames()
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
-			{
-				m_lobbyGameClientInterface.UnsubscribeFromCustomGames();
-			}
+			m_lobbyGameClientInterface.UnsubscribeFromCustomGames();
 		}
 	}
 
-	public void JoinQueue(GameType gameType, BotDifficulty? allyDifficulty, BotDifficulty? enemyDifficulty, Action<JoinMatchmakingQueueResponse> onResponseCallback)
+	public void JoinQueue(
+		GameType gameType,
+		BotDifficulty? allyDifficulty,
+		BotDifficulty? enemyDifficulty,
+		Action<JoinMatchmakingQueueResponse> onResponseCallback)
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			BotDifficulty botDifficulty;
-			if (allyDifficulty != null)
-			{
-				botDifficulty = allyDifficulty.Value;
-			}
-			else
-			{
-				botDifficulty = BotDifficulty.Hard;
-			}
-			BotDifficulty allyBotDifficulty = botDifficulty;
-			BotDifficulty botDifficulty2;
-			if (enemyDifficulty != null)
-			{
-				botDifficulty2 = enemyDifficulty.Value;
-			}
-			else
-			{
-				botDifficulty2 = BotDifficulty.Easy;
-			}
-			BotDifficulty enemyBotDifficulty = botDifficulty2;
+			BotDifficulty allyBotDifficulty = allyDifficulty ?? BotDifficulty.Hard;
+			BotDifficulty enemyBotDifficulty = enemyDifficulty ?? BotDifficulty.Easy;
 			m_lobbyGameClientInterface.JoinQueue(gameType, allyBotDifficulty, enemyBotDifficulty, onResponseCallback);
 		}
 		else
 		{
-			JoinMatchmakingQueueResponse obj = new JoinMatchmakingQueueResponse
+			onResponseCallback(new JoinMatchmakingQueueResponse
 			{
 				Success = false,
 				ErrorMessage = "Not connected to Lobby.\nPlease restart client."
-			};
-			onResponseCallback(obj);
+			});
 		}
 	}
 
@@ -1975,47 +1972,92 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	public void CreateGame(LobbyGameConfig gameConfig, ReadyState readyState, BotDifficulty selectedBotSkillTeamA, BotDifficulty selectedBotSkillTeamB, Action<CreateGameResponse> onResponseCallback)
+	public void CreateGame(
+		LobbyGameConfig gameConfig,
+		ReadyState readyState,
+		BotDifficulty selectedBotSkillTeamA,
+		BotDifficulty selectedBotSkillTeamB,
+		Action<CreateGameResponse> onResponseCallback)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null)
 		{
-			string processCode = null;
-			if (gameConfig.InstanceSubTypeBit == 0)
+			return;
+		}
+		string processCode = null;
+		if (gameConfig.InstanceSubTypeBit == 0)
+		{
+			Dictionary<ushort, GameSubType> gameTypeSubTypes = GetGameTypeSubTypes(gameConfig.GameType);
+			if (!gameTypeSubTypes.IsNullOrEmpty())
 			{
-				Dictionary<ushort, GameSubType> gameTypeSubTypes = GetGameTypeSubTypes(gameConfig.GameType);
-				if (!gameTypeSubTypes.IsNullOrEmpty())
+				if (gameTypeSubTypes.Count == 1)
 				{
-					if (gameTypeSubTypes.Count == 1)
-					{
-						gameConfig.InstanceSubTypeBit = gameTypeSubTypes.First().Key;
-						Log.Warning("CreateGame() called without setting InstanceSubTypeIndex. Forcing it to use the only viable one ({0}: 0x{1:x4}: {2}), but the calling code should consult all possible choices, because although it might currently be configured to only have one choice, that list can be changed dynamically on a running server to be any length.", gameConfig.GameType, gameConfig.InstanceSubTypeBit, gameTypeSubTypes.First().Value.GetNameAsPayload().ToString());
-						m_lobbyGameClientInterface.CreateGame(gameConfig, readyState, processCode, onResponseCallback, selectedBotSkillTeamA, selectedBotSkillTeamB);
-					}
-					else
-					{
-						List<KeyValuePair<ushort, GameSubType>> pstAsList = gameTypeSubTypes.ToList();
-						UIDialogPopupManager.OpenTwoButtonDialog("Brutal Hack", "TODO: The calling code did not pick a sub-type for this game type. Please chose:", StringUtil.TR(pstAsList[0].Value.LocalizedName), StringUtil.TR(pstAsList[1].Value.LocalizedName), delegate
-						{
-							gameConfig.InstanceSubTypeBit = pstAsList[0].Key;
-							m_lobbyGameClientInterface.CreateGame(gameConfig, readyState, processCode, onResponseCallback, selectedBotSkillTeamA, selectedBotSkillTeamB);
-						}, delegate
-						{
-							gameConfig.InstanceSubTypeBit = pstAsList[1].Key;
-							m_lobbyGameClientInterface.CreateGame(gameConfig, readyState, processCode, onResponseCallback, selectedBotSkillTeamA, selectedBotSkillTeamB);
-						});
-					}
+					gameConfig.InstanceSubTypeBit = gameTypeSubTypes.First().Key;
+					Log.Warning("CreateGame() called without setting InstanceSubTypeIndex. " +
+					            "Forcing it to use the only viable one " +
+					            $"({gameConfig.GameType}: 0x{gameConfig.InstanceSubTypeBit:x4}: {gameTypeSubTypes.First().Value.GetNameAsPayload()}), " +
+					            "but the calling code should consult all possible choices, " +
+					            "because although it might currently be configured to only have one choice, " +
+					            "that list can be changed dynamically on a running server to be any length.");
+					m_lobbyGameClientInterface.CreateGame(gameConfig,
+						readyState,
+						processCode,
+						onResponseCallback,
+						selectedBotSkillTeamA,
+						selectedBotSkillTeamB);
 				}
 				else
 				{
-					Log.Warning("Huh, why do we not know about the sub-types of game type {0}?", gameConfig.GameType);
-					gameConfig.InstanceSubTypeBit = 1;
-					m_lobbyGameClientInterface.CreateGame(gameConfig, readyState, processCode, onResponseCallback, selectedBotSkillTeamA, selectedBotSkillTeamB);
+					List<KeyValuePair<ushort, GameSubType>> pstAsList = gameTypeSubTypes.ToList();
+					UIDialogPopupManager.OpenTwoButtonDialog(
+						"Brutal Hack",
+						"TODO: The calling code did not pick a sub-type for this game type. Please chose:",
+						StringUtil.TR(pstAsList[0].Value.LocalizedName),
+						StringUtil.TR(pstAsList[1].Value.LocalizedName),
+						delegate
+					{
+						gameConfig.InstanceSubTypeBit = pstAsList[0].Key;
+						m_lobbyGameClientInterface.CreateGame(
+							gameConfig,
+							readyState,
+							processCode,
+							onResponseCallback,
+							selectedBotSkillTeamA,
+							selectedBotSkillTeamB);
+					}, delegate
+					{
+						gameConfig.InstanceSubTypeBit = pstAsList[1].Key;
+						m_lobbyGameClientInterface.CreateGame(
+							gameConfig,
+							readyState,
+							processCode,
+							onResponseCallback,
+							selectedBotSkillTeamA,
+							selectedBotSkillTeamB);
+					});
 				}
 			}
 			else
 			{
-				m_lobbyGameClientInterface.CreateGame(gameConfig, readyState, processCode, onResponseCallback, selectedBotSkillTeamA, selectedBotSkillTeamB);
+				Log.Warning($"Huh, why do we not know about the sub-types of game type {gameConfig.GameType}?");
+				gameConfig.InstanceSubTypeBit = 1;
+				m_lobbyGameClientInterface.CreateGame(
+					gameConfig,
+					readyState,
+					processCode,
+					onResponseCallback,
+					selectedBotSkillTeamA,
+					selectedBotSkillTeamB);
 			}
+		}
+		else
+		{
+			m_lobbyGameClientInterface.CreateGame(
+				gameConfig,
+				readyState,
+				processCode,
+				onResponseCallback,
+				selectedBotSkillTeamA,
+				selectedBotSkillTeamB);
 		}
 	}
 
