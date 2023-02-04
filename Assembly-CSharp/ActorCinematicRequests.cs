@@ -195,7 +195,15 @@ public class ActorCinematicRequests : NetworkBehaviour
 		// rogues
 		//bool flag = component.m_tauntRequestedForNextAbility == (int)actionType || (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AlwaysTauntAutomatically"));
 
-		if (((GameManager.Get() != null && GameManager.Get().GameplayOverrides.IsTauntAllowed(actorData.m_characterType, (int)actionType, tauntUniqueId)) || flag) && actorData != null && component != null && abilityOfActionType != null && actionType >= AbilityData.ActionType.ABILITY_0 && actionType < (AbilityData.ActionType)m_abilityRequested.Count && requested != m_abilityRequested[(int)actionType] && (NumRequestsLeft(tauntUniqueId) > 0 || !requested))
+		if (((GameManager.Get() != null
+		      && GameManager.Get().GameplayOverrides.IsTauntAllowed(actorData.m_characterType, (int)actionType, tauntUniqueId)) || flag)
+		    && actorData != null
+		    && component != null
+		    && abilityOfActionType != null
+		    && actionType >= AbilityData.ActionType.ABILITY_0
+		    && actionType < (AbilityData.ActionType)m_abilityRequested.Count
+		    && requested != m_abilityRequested[(int)actionType]
+		    && (NumRequestsLeft(tauntUniqueId) > 0 || !requested))
 		{
 			if (requested)
 			{
@@ -203,19 +211,11 @@ public class ActorCinematicRequests : NetworkBehaviour
 				{
 					if (actorData.GetCharacterResourceLink().m_taunts.Find((CharacterTaunt t) => t.m_actionForTaunt == actionType && t.m_uniqueID == tauntUniqueId) == null)
 					{
-						Log.Warning(string.Concat(new object[]
-						{
-							"Taunt entry not found ",
-							animTauntIndex,
-							" uniqueId: ",
-							tauntUniqueId
-						}));
-						return;
+						Log.Warning($"Taunt entry not found {animTauntIndex} uniqueId: {tauntUniqueId}");
 					}
-					if (ServerActionBuffer.Get().AbilityCinematicRequest(actorData, abilityOfActionType, requested, animTauntIndex, tauntUniqueId))
+					else if (ServerActionBuffer.Get().AbilityCinematicRequest(actorData, abilityOfActionType, requested, animTauntIndex, tauntUniqueId))
 					{
 						m_abilityRequested[(int)actionType] = requested;
-						return;
 					}
 				}
 			}
