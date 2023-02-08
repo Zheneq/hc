@@ -331,7 +331,7 @@ public class BattleMonkHamstring : Ability
 		}
 		else
 		{
-			GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords laserCoordinates, null);
+			GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords laserCoordinates, out _, null);
 			if (GetMaxTargets() <= 0)
 			{
 				float maxDistanceInWorld = GetLaserRange() * Board.Get().squareSize;
@@ -368,10 +368,19 @@ public class BattleMonkHamstring : Ability
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		List<ActorData> laserHitActors = GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords _, nonActorTargetInfo);
+		List<ActorData> laserHitActors = GetLaserHitActors(targets, caster, out _, out var bouncingLaserInfo, nonActorTargetInfo);
 		for (int i = 0; i < laserHitActors.Count; i++)
 		{
-			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(laserHitActors[i], caster.GetFreePos()));
+			Vector3 damageOrigin = caster.GetFreePos();
+			
+			// custom
+			if (bouncingLaserInfo.TryGetValue(laserHitActors[i], out AreaEffectUtils.BouncingLaserInfo hitInfo))
+			{
+				damageOrigin = hitInfo.m_segmentOrigin;
+			}
+			// end custom
+			
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(laserHitActors[i], damageOrigin));
 			int addAmount = CalcDamageForOrderIndex(i);
 			actorHitResults.AddBaseDamage(addAmount);
 			if (m_abilityMod != null && m_abilityMod.m_useLaserHitEffectOverride)
@@ -413,13 +422,15 @@ public class BattleMonkHamstring : Ability
 		List<AbilityTarget> targets,
 		ActorData caster,
 		out VectorUtils.LaserCoords endPoints,
+		out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bouncingLaserInfo, // custom
 		List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_laserInfo.affectsAllies, m_laserInfo.affectsEnemies);
 		if (GetMaxBounces() > 0)
 		{
 			List<List<NonActorTargetInfo>> nonActorTargetInfos = new List<List<NonActorTargetInfo>>();
-			FindBouncingLaserTargets(
+			bouncingLaserInfo =  // custom
+				FindBouncingLaserTargets(
 				targets[0],
 				caster,
 				relevantTeams,
@@ -457,6 +468,7 @@ public class BattleMonkHamstring : Ability
 			out laserCoords.end,
 			nonActorTargetInfo);
 		endPoints = laserCoords;
+		bouncingLaserInfo = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>(); // custom
 		return actorsInLaser;
 	}
 
@@ -490,7 +502,7 @@ public class BattleMonkHamstring : Ability
 	// added in rogues
 	private List<ActorData> GetExplosionHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		List<ActorData> laserHitActors = GetLaserHitActors(targets, caster, out VectorUtils.LaserCoords _, null);
+		List<ActorData> laserHitActors = GetLaserHitActors(targets, caster, out _, out _, null);
 		List<ActorData> result;
 		if (laserHitActors.Count > 0)
 		{
