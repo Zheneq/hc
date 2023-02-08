@@ -439,6 +439,7 @@ public class BlasterStretchingCone : Ability
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, loSCheckPos));
 			int num = GetCurrentModdedDamage() + GetExtraDamageFromAngle(angleNow) + GetExtraDamageFromRadius(radiusInSquares);
+			num += GetExtraDamageForEnemy(ActorData, target); // custom
 			if (list.Count == 1)
 			{
 				num += GetExtraDamageForSingleHit();
