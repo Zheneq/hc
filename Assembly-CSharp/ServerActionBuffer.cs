@@ -35,7 +35,10 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	internal bool m_gatheringFakeResults;
 
-	internal List<BoardSquare> m_tempReservedSquaresForAbilitySpoil = new List<BoardSquare>();
+	// custom
+	internal Dictionary<Team, List<BoardSquare>> m_tempReservedSquaresForAbilitySpoil = new Dictionary<Team, List<BoardSquare>>();
+	// rogues
+	// internal List<BoardSquare> m_tempReservedSquaresForAbilitySpoil = new List<BoardSquare>();
 
 	private float m_lastAbilityPhaseSet;
 

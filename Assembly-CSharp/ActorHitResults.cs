@@ -1374,7 +1374,15 @@ public class ActorHitResults
 						BoardSquare desiredSpawnSquare = spoilSpawnDataForAbilityHit.GetDesiredSpawnSquare();
 						if (desiredSpawnSquare != null && spoilSpawnDataForAbilityHit.CanSpawnSpoils())
 						{
-							foreach (BoardSquare boardSquare in SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSpawnSquare, m_hitParameters.Caster.GetTeam(), spoilSpawnDataForAbilityHit.m_numToSpawn, spoilSpawnDataForAbilityHit.m_canSpawnOnEnemyOccupiedSquare, spoilSpawnDataForAbilityHit.m_canSpawnOnAllyOccupiedSquare, 4, ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil))
+							List<BoardSquare> squaresToSpawnSpoil = SpoilsManager.Get().FindSquaresToSpawnSpoil(
+								desiredSpawnSquare,
+								m_hitParameters.Caster.GetTeam(),
+								spoilSpawnDataForAbilityHit.m_numToSpawn,
+								spoilSpawnDataForAbilityHit.m_canSpawnOnEnemyOccupiedSquare,
+								spoilSpawnDataForAbilityHit.m_canSpawnOnAllyOccupiedSquare,
+								4,
+								ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil.TryGetValue(m_hitParameters.Caster.GetTeam())); // custom, no team in rogues
+							foreach (BoardSquare boardSquare in squaresToSpawnSpoil)
 							{
 								PowerUp powerUp = spoilSpawnDataForAbilityHit.ChooseRandomPowerupComponent();
 								if (powerUp != null)
@@ -1389,7 +1397,17 @@ public class ActorHitResults
 									shallowCopy.m_boardSquare = boardSquare;
 									shallowCopy.m_ignoreSpawnSplineForSequence = true;
 									list2.Add(shallowCopy);
-									ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil.Add(boardSquare);
+
+									// custom
+									Team team = m_hitParameters.Caster.GetTeam();
+									if (!ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil.ContainsKey(team))
+									{
+										ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil.Add(team, new List<BoardSquare>());
+									}
+									ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil[team].Add(boardSquare);
+									// rogues
+									// ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil.Add(boardSquare);
+									
 									list.Add(new TempSpoilVfxEffect.VfxSpawnData(boardSquare, powerUp.m_sequencePrefab, powerUp.m_restrictPickupByTeam));
 								}
 								else if (Application.isEditor)

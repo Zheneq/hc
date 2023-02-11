@@ -2480,6 +2480,11 @@ public class Ability : MonoBehaviour
 #if SERVER
 	public Dictionary<ActorData, int> GatherResults_Base(AbilityPriority phaseIndex, List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
 	{
+		// custom
+		// before if a spoil spawned on a square, the square was locked for further spoils for the rest of the game
+		ServerActionBuffer.Get().m_tempReservedSquaresForAbilitySpoil = new Dictionary<Team, List<BoardSquare>>(); 
+		// end custom
+		
 		Log.Info($"Gathering results for {caster.DisplayName}'s {m_abilityName} in phase {phaseIndex}");
 		if (additionalData.m_abilityResults.GatheredResults)
 		{

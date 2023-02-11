@@ -695,7 +695,11 @@ public class ServerCombatManager : MonoBehaviour
 				{
 					actorData.GetComponent<PassiveData>().OnDied(m_unresolvedHealthChanges[actorData]);
 				}
-				if (SpoilsManager.Get() != null && SpoilsManager.Get().GetPowerUpInPos(boardSquare) != null)
+				
+				// custom
+				if (SpoilsManager.Get() != null && SpoilsManager.Get().GetPowerUpInPos(boardSquare, actorData.GetEnemyTeam()) != null)
+				// rogues
+				// if (SpoilsManager.Get() != null && SpoilsManager.Get().GetPowerUpInPos(boardSquare) != null)
 				{
 					dictionary2.Add(actorData, boardSquare);
 				}

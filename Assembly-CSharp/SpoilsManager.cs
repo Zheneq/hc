@@ -196,7 +196,11 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 				}
 
 				if (!square.IsValidForGameplay()
+#if SERVER
+				    || Get().GetPowerUpInPos(square, forTeam) != null
+#else
 				    || Get().GetPowerUpInPos(square) != null
+#endif
 				    || (squaresToExclude != null && squaresToExclude.Contains(square)))
 				{
 					continue;
@@ -236,6 +240,23 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 	{
 	}
 
+#if SERVER
+	// custom
+	public PowerUp GetPowerUpInPos(BoardSquare square, Team team)
+	{
+		foreach (PowerUp activePowerUp in m_activePowerUps)
+		{
+			if (activePowerUp.boardSquare == square)
+			{
+				return (team != Team.TeamA && team != Team.TeamB) || activePowerUp.TeamAllowedForPickUp(team)
+					? activePowerUp
+					: null;
+			}
+		}
+		return null;
+	}
+#else
+	// reactor
 	public PowerUp GetPowerUpInPos(BoardSquare square)
 	{
 		PowerUp result = null;
@@ -248,6 +269,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		}
 		return result;
 	}
+#endif
 
 	void PowerUp.IPowerUpListener.OnTurnTick()
 	{
