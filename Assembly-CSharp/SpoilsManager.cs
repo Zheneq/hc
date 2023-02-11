@@ -12,11 +12,9 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 	}
 
 	public PowerUp[] m_heroSpoils;
-
 	public PowerUp[] m_minionSpoils;
 
 	private List<PowerUp> m_activePowerUps;
-
 	private static SpoilsManager s_instance;
 
 	private void Awake()
@@ -42,28 +40,15 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 
 	private PowerUp PickRandomPowerUpPrefab(SpoilsType spoilsType)
 	{
-		PowerUp result = null;
-		if (spoilsType != SpoilsType.Hero)
+		switch (spoilsType)
 		{
-			if (spoilsType != SpoilsType.Minion)
-			{
-			}
-			else if (m_heroSpoils != null)
-			{
-				if (m_heroSpoils.Length > 0)
-				{
-					result = m_minionSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
-				}
-			}
+			case SpoilsType.Hero when m_heroSpoils != null && m_heroSpoils.Length > 0:
+				return m_heroSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+			case SpoilsType.Minion when m_heroSpoils != null && m_heroSpoils.Length > 0:
+				return m_minionSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+			default:
+				return null;
 		}
-		else if (m_heroSpoils != null)
-		{
-			if (m_heroSpoils.Length > 0)
-			{
-				result = m_heroSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
-			}
-		}
-		return result;
 	}
 
 	internal PowerUp SpawnSpoils(BoardSquare square, SpoilsType spoilsType, Team pickupTeam)
@@ -71,18 +56,18 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		PowerUp powerUp = null;
 		if (NetworkServer.active)
 		{
-			PowerUp powerUp2 = PickRandomPowerUpPrefab(spoilsType);
-			if ((bool)powerUp2)
+			PowerUp prefab = PickRandomPowerUpPrefab(spoilsType);
+			if (prefab != null)
 			{
 				Vector3 position = square.ToVector3();
-				GameObject gameObject = Object.Instantiate(powerUp2.gameObject, position, Quaternion.identity);
-				powerUp = gameObject.GetComponent<PowerUp>();
+				GameObject powerUpGameObject = Instantiate(prefab.gameObject, position, Quaternion.identity);
+				powerUp = powerUpGameObject.GetComponent<PowerUp>();
 				powerUp.PickupTeam = pickupTeam;
 				powerUp.powerUpListener = this;
 				m_activePowerUps.Add(powerUp);
-				powerUp.transform.parent = base.transform;
+				powerUp.transform.parent = transform;
 				powerUp.Networkm_isSpoil = true;
-				NetworkServer.Spawn(gameObject);
+				NetworkServer.Spawn(powerUpGameObject);
 				powerUp.CalculateBoardSquare();
 				powerUp.CheckForPickupOnSpawn();
 			}
@@ -93,174 +78,137 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 	internal PowerUp SpawnSpoils(BoardSquare square, PowerUp spoilsPrefab, Team pickupTeam, bool ignoreSpawnSplineForSequence)
 	{
 		PowerUp powerUp = null;
-		if (NetworkServer.active && (bool)spoilsPrefab)
+		if (NetworkServer.active && spoilsPrefab != null)
 		{
 			Vector3 position = square.ToVector3();
-			GameObject gameObject = Object.Instantiate(spoilsPrefab.gameObject, position, Quaternion.identity);
-			powerUp = gameObject.GetComponent<PowerUp>();
+			GameObject powerUpGameObject = Instantiate(spoilsPrefab.gameObject, position, Quaternion.identity);
+			powerUp = powerUpGameObject.GetComponent<PowerUp>();
 			powerUp.PickupTeam = pickupTeam;
 			powerUp.powerUpListener = this;
 			m_activePowerUps.Add(powerUp);
-			powerUp.transform.parent = base.transform;
+			powerUp.transform.parent = transform;
 			powerUp.Networkm_isSpoil = true;
 			powerUp.Networkm_ignoreSpawnSplineForSequence = ignoreSpawnSplineForSequence;
-			NetworkServer.Spawn(gameObject);
+			NetworkServer.Spawn(powerUpGameObject);
 			powerUp.CalculateBoardSquare();
 			powerUp.CheckForPickupOnSpawn();
 		}
 		return powerUp;
 	}
 
-	internal List<PowerUp> SpawnSpoilsAroundSquare(BoardSquare centerSquare, Team forTeam, int numToSpawn, List<GameObject> powerUpPrefabsToChooseFrom, bool canSpawnOnEnemyOccupiedSquare, bool canSpawnOnAllyOccupiedSquare, StandardPowerUpAbilityModData standardSpoilModData, bool ignoreSpawnSplineForSequence, int maxBorderSearchLayers = 4)
+	internal List<PowerUp> SpawnSpoilsAroundSquare(
+		BoardSquare centerSquare,
+		Team forTeam,
+		int numToSpawn,
+		List<GameObject> powerUpPrefabsToChooseFrom,
+		bool canSpawnOnEnemyOccupiedSquare,
+		bool canSpawnOnAllyOccupiedSquare,
+		StandardPowerUpAbilityModData standardSpoilModData,
+		bool ignoreSpawnSplineForSequence,
+		int maxBorderSearchLayers = 4)
 	{
 		List<PowerUp> list = new List<PowerUp>();
-		if (numToSpawn >= 1)
+		if (numToSpawn < 1
+		    || powerUpPrefabsToChooseFrom.Count == 0
+		    || centerSquare == null)
 		{
-			if (powerUpPrefabsToChooseFrom.Count != 0)
+			return list;
+		}
+		List<BoardSquare> squaresToSpawn = Get().FindSquaresToSpawnSpoil(
+			centerSquare,
+			forTeam,
+			numToSpawn,
+			canSpawnOnEnemyOccupiedSquare,
+			canSpawnOnAllyOccupiedSquare,
+			maxBorderSearchLayers);
+					
+		foreach (BoardSquare square in squaresToSpawn)
+		{
+			int index = GameplayRandom.Range(0, powerUpPrefabsToChooseFrom.Count);
+			if (powerUpPrefabsToChooseFrom[index] == null)
 			{
-				if (!(centerSquare == null))
+				continue;
+			}
+			
+			PowerUp prefab = powerUpPrefabsToChooseFrom[index].GetComponent<PowerUp>();
+			if (prefab == null)
+			{
+				continue;
+			}
+			
+			PowerUp powerUp = Get().SpawnSpoils(square, prefab, forTeam, ignoreSpawnSplineForSequence);
+			if (powerUp == null)
+			{
+				continue;
+			}
+			
+			if (standardSpoilModData != null)
+			{
+				PowerUp_Standard_Ability ability = powerUp.GetComponent<PowerUp_Standard_Ability>();
+				if (ability != null)
 				{
-					List<BoardSquare> list2 = Get().FindSquaresToSpawnSpoil(centerSquare, forTeam, numToSpawn, canSpawnOnEnemyOccupiedSquare, canSpawnOnAllyOccupiedSquare, maxBorderSearchLayers);
-					using (List<BoardSquare>.Enumerator enumerator = list2.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							BoardSquare current = enumerator.Current;
-							int index = GameplayRandom.Range(0, powerUpPrefabsToChooseFrom.Count);
-							if (powerUpPrefabsToChooseFrom[index] != null)
-							{
-								PowerUp component = powerUpPrefabsToChooseFrom[index].GetComponent<PowerUp>();
-								if (component != null)
-								{
-									PowerUp powerUp = Get().SpawnSpoils(current, component, forTeam, ignoreSpawnSplineForSequence);
-									if (powerUp != null)
-									{
-										if (standardSpoilModData != null)
-										{
-											PowerUp_Standard_Ability component2 = powerUp.GetComponent<PowerUp_Standard_Ability>();
-											if (component2 != null)
-											{
-												component2.SetHealAmount(standardSpoilModData.m_healMod.GetModifiedValue(component2.m_healAmount));
-												component2.SetTechPointAmount(standardSpoilModData.m_techPointMod.GetModifiedValue(component2.m_techPointsAmount));
-											}
-										}
-										powerUp.CalculateBoardSquare();
-										list.Add(powerUp);
-									}
-								}
-							}
-						}
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								return list;
-							}
-						}
-					}
+					ability.SetHealAmount(standardSpoilModData.m_healMod.GetModifiedValue(ability.m_healAmount));
+					ability.SetTechPointAmount(standardSpoilModData.m_techPointMod.GetModifiedValue(ability.m_techPointsAmount));
 				}
 			}
+			powerUp.CalculateBoardSquare();
+			list.Add(powerUp);
 		}
 		return list;
 	}
 
-	internal List<BoardSquare> FindSquaresToSpawnSpoil(BoardSquare desiredCenterSquare, Team forTeam, int numToSpawn, bool canSpawnOnEnemyOccupiedSquare, bool canSpawnOnAllyOccupiedSquare, int maxBorderSearchLayers, List<BoardSquare> squaresToExclude = null)
+	internal List<BoardSquare> FindSquaresToSpawnSpoil(
+		BoardSquare desiredCenterSquare,
+		Team forTeam,
+		int numToSpawn,
+		bool canSpawnOnEnemyOccupiedSquare,
+		bool canSpawnOnAllyOccupiedSquare,
+		int maxBorderSearchLayers,
+		List<BoardSquare> squaresToExclude = null)
 	{
 		List<BoardSquare> list = new List<BoardSquare>();
 		if (desiredCenterSquare == null)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return list;
-				}
-			}
+			return list;
 		}
 		int num = 0;
 		for (int i = 0; i < maxBorderSearchLayers; i++)
 		{
-			if (num < numToSpawn)
+			if (num >= numToSpawn)
 			{
-				List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(desiredCenterSquare, i, true);
-				for (int j = 0; j < squaresInBorderLayer.Count; j++)
-				{
-					BoardSquare boardSquare;
-					int num2;
-					bool flag;
-					if (num < numToSpawn)
-					{
-						boardSquare = squaresInBorderLayer[j];
-						if (!boardSquare.IsValidForGameplay())
-						{
-							continue;
-						}
-						if (!(Get().GetPowerUpInPos(boardSquare) == null))
-						{
-							continue;
-						}
-						if (squaresToExclude != null)
-						{
-							if (squaresToExclude.Contains(boardSquare))
-							{
-								continue;
-							}
-						}
-						flag = false;
-						if (boardSquare.occupant != null)
-						{
-							ActorData component = boardSquare.occupant.GetComponent<ActorData>();
-							if (!(component == null))
-							{
-								if (!component.IgnoreForAbilityHits)
-								{
-									if (canSpawnOnEnemyOccupiedSquare)
-									{
-										if (component.GetTeam() != forTeam)
-										{
-											goto IL_013e;
-										}
-									}
-									if (canSpawnOnAllyOccupiedSquare)
-									{
-										num2 = ((component.GetTeam() == forTeam) ? 1 : 0);
-									}
-									else
-									{
-										num2 = 0;
-									}
-									goto IL_013f;
-								}
-							}
-							goto IL_013e;
-						}
-						flag = true;
-						goto IL_0146;
-					}
-					break;
-					IL_0146:
-					if (flag)
-					{
-						list.Add(boardSquare);
-						num++;
-					}
-					continue;
-					IL_013e:
-					num2 = 1;
-					goto IL_013f;
-					IL_013f:
-					flag = ((byte)num2 != 0);
-					goto IL_0146;
-				}
-				continue;
+				break;
 			}
-			break;
+			List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(desiredCenterSquare, i, true);
+			foreach (BoardSquare square in squaresInBorderLayer)
+			{
+				if (num >= numToSpawn)
+				{
+					break;
+				}
+
+				if (!square.IsValidForGameplay()
+				    || Get().GetPowerUpInPos(square) != null
+				    || (squaresToExclude != null && squaresToExclude.Contains(square)))
+				{
+					continue;
+				}
+				
+				bool isValidSquare = true;
+				if (square.occupant != null)
+				{
+					ActorData actorData = square.occupant.GetComponent<ActorData>();
+					isValidSquare = actorData == null
+					                || actorData.IgnoreForAbilityHits
+					                || canSpawnOnEnemyOccupiedSquare && actorData.GetTeam() != forTeam
+					                || canSpawnOnAllyOccupiedSquare && actorData.GetTeam() == forTeam;
+				}
+
+				if (isValidSquare)
+				{
+					list.Add(square);
+					num++;
+				}
+			}
 		}
 		return list;
 	}
@@ -296,9 +244,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 	{
 		if (NetworkServer.active)
 		{
-			PowerUp[] array = m_activePowerUps.ToArray();
-			PowerUp[] array2 = array;
-			foreach (PowerUp powerUp in array2)
+			foreach (PowerUp powerUp in m_activePowerUps.ToArray())
 			{
 				powerUp.OnTurnTick();
 			}
