@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -44,8 +46,15 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 		{
 			case SpoilsType.Hero when m_heroSpoils != null && m_heroSpoils.Length > 0:
 				return m_heroSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+#if PURE_REACTOR
+			// reactor
 			case SpoilsType.Minion when m_heroSpoils != null && m_heroSpoils.Length > 0:
 				return m_minionSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+#else
+			// rogues bugfix
+			case SpoilsType.Minion when m_minionSpoils != null && m_minionSpoils.Length > 0:
+				return m_minionSpoils[GameplayRandom.Range(0, m_minionSpoils.Length)];
+#endif
 			default:
 				return null;
 		}
@@ -198,7 +207,7 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 				{
 					ActorData actorData = square.occupant.GetComponent<ActorData>();
 					isValidSquare = actorData == null
-					                || actorData.IgnoreForAbilityHits
+					                || actorData.IgnoreForAbilityHits  // removed in rogues
 					                || canSpawnOnEnemyOccupiedSquare && actorData.GetTeam() != forTeam
 					                || canSpawnOnAllyOccupiedSquare && actorData.GetTeam() == forTeam;
 				}
@@ -258,5 +267,15 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 
 	public void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
 	{
+#if SERVER
+		// added in rogues
+		foreach (PowerUp powerUp in m_activePowerUps)
+		{
+			if (powerUp != null && powerUp.boardSquare != null)
+			{
+				squaresToAvoid.Add(powerUp.boardSquare);
+			}
+		}
+#endif
 	}
 }
