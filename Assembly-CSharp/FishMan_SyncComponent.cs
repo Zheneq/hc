@@ -15,54 +15,30 @@ public class FishMan_SyncComponent : NetworkBehaviour
 
 	public int Networkm_turnRoamingShapeWasCast
 	{
-		get
-		{
-			return m_turnRoamingShapeWasCast;
-		}
+		get => m_turnRoamingShapeWasCast;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_turnRoamingShapeWasCast, 1u);
-		}
+		set => SetSyncVar(value, ref m_turnRoamingShapeWasCast, 1u);
 	}
 
 	public int Networkm_lastTurnCanRepositionRoamingShape
 	{
-		get
-		{
-			return m_lastTurnCanRepositionRoamingShape;
-		}
+		get => m_lastTurnCanRepositionRoamingShape;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_lastTurnCanRepositionRoamingShape, 2u);
-		}
+		set => SetSyncVar(value, ref m_lastTurnCanRepositionRoamingShape, 2u);
 	}
 
 	public sbyte Networkm_lastBasicAttackEnemyHitCount
 	{
-		get
-		{
-			return m_lastBasicAttackEnemyHitCount;
-		}
+		get => m_lastBasicAttackEnemyHitCount;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_lastBasicAttackEnemyHitCount, 4u);
-		}
+		set => SetSyncVar(value, ref m_lastBasicAttackEnemyHitCount, 4u);
 	}
 
 	public Vector3 Networkm_roamingShapeCurPos
 	{
-		get
-		{
-			return m_roamingShapeCurPos;
-		}
+		get => m_roamingShapeCurPos;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_roamingShapeCurPos, 8u);
-		}
+		set => SetSyncVar(value, ref m_roamingShapeCurPos, 8u);
 	}
 
 	private void UNetVersion()

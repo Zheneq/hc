@@ -13,66 +13,40 @@ public class FishManCone : Ability
 
 	[Header("-- Cone Data")]
 	public ConeTargetingMode m_coneMode = ConeTargetingMode.MultiClick;
-
 	public float m_coneWidthAngle = 60f;
-
 	public float m_coneWidthAngleMin = 5f;
-
 	public float m_coneLength = 5f;
-
 	public float m_coneBackwardOffset;
-
 	public bool m_penetrateLineOfSight;
-
 	public int m_maxTargets;
-
 	public float m_multiClickConeEdgeWidth = 0.2f;
-
 	[Header("-- (for stretch cone only)")]
 	public bool m_useDiscreteAngleChange;
-
 	public float m_stretchInterpMinDist = 2.5f;
-
 	public float m_stretchInterpRange = 4f;
-
 	[Header("-- On Hit Target")]
 	public int m_damageToEnemies;
-
 	public int m_damageToEnemiesMax;
-
 	public StandardEffectInfo m_effectToEnemies;
-
 	[Header("-- Ally Healing")]
 	public int m_healingToAllies = 15;
-
 	public int m_healingToAlliesMax = 30;
-
 	public StandardEffectInfo m_effectToAllies;
-
 	[Header("-- Self-Healing")]
 	public int m_healToCasterOnCast;
-
 	public int m_healToCasterPerEnemyHit;
-
 	public int m_healToCasterPerAllyHit;
-
 	[Header("-- Bonus Healing on Heal Cone ability")]
 	public int m_extraHealPerEnemyHitForNextHealCone;
-
 	[Header("-- Extra Energy")]
 	public int m_extraEnergyForSingleEnemyHit;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_FishManCone m_abilityMod;
-
 	private FishMan_SyncComponent m_syncComp;
-
 	private AreaEffectUtils.StretchConeStyle m_stretchConeStyle;
-
 	private StandardEffectInfo m_cachedEffectToEnemies;
-
 	private StandardEffectInfo m_cachedEffectToAllies;
 
 	private void Start()
@@ -87,56 +61,66 @@ public class FishManCone : Ability
 		{
 			m_syncComp = GetComponent<FishMan_SyncComponent>();
 		}
-		if (m_coneMode == ConeTargetingMode.MultiClick)
+		switch (m_coneMode)
 		{
-			ClearTargeters();
-			for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+			case ConeTargetingMode.MultiClick:
 			{
-				AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = new AbilityUtil_Targeter_SweepMultiClickCone(this, GetConeWidthAngleMin(), GetConeWidthAngle(), GetConeLength(), GetConeBackwardOffset(), m_multiClickConeEdgeWidth, PenetrateLineOfSight(), GetMaxTargets());
-				abilityUtil_Targeter_SweepMultiClickCone.SetAffectedGroups(AffectsEnemies(), AffectsAllies(), AffectsCaster());
-				base.Targeters.Add(abilityUtil_Targeter_SweepMultiClickCone);
-			}
-			while (true)
-			{
-				switch (2)
+				ClearTargeters();
+				for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 				{
-				default:
-					return;
-				case 0:
-					break;
+					AbilityUtil_Targeter_SweepMultiClickCone targeter = new AbilityUtil_Targeter_SweepMultiClickCone(
+						this,
+						GetConeWidthAngleMin(),
+						GetConeWidthAngle(),
+						GetConeLength(),
+						GetConeBackwardOffset(),
+						m_multiClickConeEdgeWidth,
+						PenetrateLineOfSight(),
+						GetMaxTargets());
+					targeter.SetAffectedGroups(AffectsEnemies(), AffectsAllies(), AffectsCaster());
+					Targeters.Add(targeter);
 				}
+				break;
 			}
-		}
-		if (m_coneMode == ConeTargetingMode.Stretch)
-		{
-			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetConeLength(), GetConeLength(), GetConeWidthAngleMin(), GetConeWidthAngle(), m_stretchConeStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
-			abilityUtil_Targeter_StretchCone.m_includeEnemies = AffectsEnemies();
-			abilityUtil_Targeter_StretchCone.m_includeAllies = AffectsAllies();
-			abilityUtil_Targeter_StretchCone.m_includeCaster = AffectsCaster();
-			abilityUtil_Targeter_StretchCone.m_interpMinDistOverride = m_stretchInterpMinDist;
-			abilityUtil_Targeter_StretchCone.m_interpRangeOverride = m_stretchInterpRange;
-			abilityUtil_Targeter_StretchCone.m_discreteWidthAngleChange = m_useDiscreteAngleChange;
-			abilityUtil_Targeter_StretchCone.m_numDiscreteWidthChanges = GetMaxDamageToEnemies() - GetDamageToEnemies();
-			base.Targeter = abilityUtil_Targeter_StretchCone;
-		}
-		else
-		{
-			base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, GetConeWidthAngle(), GetConeLength(), GetConeBackwardOffset(), PenetrateLineOfSight(), true, AffectsEnemies(), AffectsAllies(), AffectsCaster(), GetMaxTargets());
+			case ConeTargetingMode.Stretch:
+				Targeter = new AbilityUtil_Targeter_StretchCone(
+					this,
+					GetConeLength(),
+					GetConeLength(),
+					GetConeWidthAngleMin(),
+					GetConeWidthAngle(),
+					m_stretchConeStyle,
+					GetConeBackwardOffset(),
+					PenetrateLineOfSight())
+				{
+					m_includeEnemies = AffectsEnemies(),
+					m_includeAllies = AffectsAllies(),
+					m_includeCaster = AffectsCaster(),
+					m_interpMinDistOverride = m_stretchInterpMinDist,
+					m_interpRangeOverride = m_stretchInterpRange,
+					m_discreteWidthAngleChange = m_useDiscreteAngleChange,
+					m_numDiscreteWidthChanges = GetMaxDamageToEnemies() - GetDamageToEnemies()
+				};
+				break;
+			default:
+				Targeter = new AbilityUtil_Targeter_DirectionCone(
+					this,
+					GetConeWidthAngle(),
+					GetConeLength(),
+					GetConeBackwardOffset(),
+					PenetrateLineOfSight(),
+					true,
+					AffectsEnemies(),
+					AffectsAllies(),
+					AffectsCaster(),
+					GetMaxTargets());
+				break;
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		int result;
-		if (m_coneMode == ConeTargetingMode.MultiClick)
-		{
-			result = 2;
-		}
-		else
-		{
-			result = 1;
-		}
-		return result;
+		return m_coneMode == ConeTargetingMode.MultiClick ? 2 : 1;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -149,38 +133,25 @@ public class FishManCone : Ability
 		return GetConeLength();
 	}
 
-	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
+	public override bool HasRestrictedFreePosDistance(
+		ActorData aimingActor,
+		int targetIndex,
+		List<AbilityTarget> targetsSoFar,
+		out float min,
+		out float max)
 	{
 		if (m_coneMode == ConeTargetingMode.Stretch)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					min = m_stretchInterpMinDist * Board.Get().squareSize;
-					max = (m_stretchInterpMinDist + m_stretchInterpRange) * Board.Get().squareSize;
-					return true;
-				}
-			}
+			min = m_stretchInterpMinDist * Board.Get().squareSize;
+			max = (m_stretchInterpMinDist + m_stretchInterpRange) * Board.Get().squareSize;
+			return true;
 		}
 		return base.HasRestrictedFreeAimDegrees(aimingActor, targetIndex, targetsSoFar, out min, out max);
 	}
 
 	private bool AffectsEnemies()
 	{
-		int result;
-		if (GetDamageToEnemies() <= 0)
-		{
-			result = (GetEffectToEnemies().m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return GetDamageToEnemies() > 0 || GetEffectToEnemies().m_applyEffect;
 	}
 
 	private bool AffectsAllies()
@@ -190,246 +161,146 @@ public class FishManCone : Ability
 
 	private bool AffectsCaster()
 	{
-		return GetHealToCasterOnCast() > 0 || GetHealToCasterPerAllyHit() > 0 || GetHealToCasterPerEnemyHit() > 0;
+		return GetHealToCasterOnCast() > 0
+		       || GetHealToCasterPerAllyHit() > 0
+		       || GetHealToCasterPerEnemyHit() > 0;
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEffectToEnemies;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectToEnemies = m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies);
-		}
-		else
-		{
-			cachedEffectToEnemies = m_effectToEnemies;
-		}
-		m_cachedEffectToEnemies = cachedEffectToEnemies;
-		m_cachedEffectToAllies = ((!m_abilityMod) ? m_effectToAllies : m_abilityMod.m_effectToAlliesMod.GetModifiedValue(m_effectToAllies));
+		m_cachedEffectToEnemies = m_abilityMod != null
+			? m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies)
+			: m_effectToEnemies;
+		m_cachedEffectToAllies = m_abilityMod != null
+			? m_abilityMod.m_effectToAlliesMod.GetModifiedValue(m_effectToAllies)
+			: m_effectToAllies;
 	}
 
 	public float GetConeWidthAngle()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
-		}
-		else
-		{
-			result = m_coneWidthAngle;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	public float GetConeWidthAngleMin()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneWidthAngleMinMod.GetModifiedValue(m_coneWidthAngleMin);
-		}
-		else
-		{
-			result = m_coneWidthAngleMin;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthAngleMinMod.GetModifiedValue(m_coneWidthAngleMin)
+			: m_coneWidthAngleMin;
 	}
 
 	public float GetConeLength()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength);
-		}
-		else
-		{
-			result = m_coneLength;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneLengthMod.GetModifiedValue(m_coneLength)
+			: m_coneLength;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
-		}
-		else
-		{
-			result = m_coneBackwardOffset;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset)
+			: m_coneBackwardOffset;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
-		}
-		else
-		{
-			result = m_penetrateLineOfSight;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight)
+			: m_penetrateLineOfSight;
 	}
 
 	public int GetMaxTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			result = m_maxTargets;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public int GetDamageToEnemies()
 	{
-		return (!m_abilityMod) ? m_damageToEnemies : m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies)
+			: m_damageToEnemies;
 	}
 
 	public int GetMaxDamageToEnemies()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageToEnemiesMaxMod.GetModifiedValue(m_damageToEnemiesMax);
-		}
-		else
-		{
-			result = m_damageToEnemiesMax;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageToEnemiesMaxMod.GetModifiedValue(m_damageToEnemiesMax)
+			: m_damageToEnemiesMax;
 	}
 
 	public StandardEffectInfo GetEffectToEnemies()
 	{
-		return (m_cachedEffectToEnemies == null) ? m_effectToEnemies : m_cachedEffectToEnemies;
+		return m_cachedEffectToEnemies ?? m_effectToEnemies;
 	}
 
 	public int GetHealingToAllies()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies);
-		}
-		else
-		{
-			result = m_healingToAllies;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies)
+			: m_healingToAllies;
 	}
 
 	public int GetMaxHealingToAllies()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healingToAlliesMaxMod.GetModifiedValue(m_healingToAlliesMax);
-		}
-		else
-		{
-			result = m_healingToAlliesMax;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healingToAlliesMaxMod.GetModifiedValue(m_healingToAlliesMax)
+			: m_healingToAlliesMax;
 	}
 
 	public StandardEffectInfo GetEffectToAllies()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectToAllies != null)
-		{
-			result = m_cachedEffectToAllies;
-		}
-		else
-		{
-			result = m_effectToAllies;
-		}
-		return result;
+		return m_cachedEffectToAllies ?? m_effectToAllies;
 	}
 
 	public int GetHealToCasterOnCast()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healToCasterOnCastMod.GetModifiedValue(m_healToCasterOnCast);
-		}
-		else
-		{
-			result = m_healToCasterOnCast;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healToCasterOnCastMod.GetModifiedValue(m_healToCasterOnCast)
+			: m_healToCasterOnCast;
 	}
 
 	public int GetHealToCasterPerEnemyHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healToCasterPerEnemyHitMod.GetModifiedValue(m_healToCasterPerEnemyHit);
-		}
-		else
-		{
-			result = m_healToCasterPerEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healToCasterPerEnemyHitMod.GetModifiedValue(m_healToCasterPerEnemyHit)
+			: m_healToCasterPerEnemyHit;
 	}
 
 	public int GetHealToCasterPerAllyHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healToCasterPerAllyHitMod.GetModifiedValue(m_healToCasterPerAllyHit);
-		}
-		else
-		{
-			result = m_healToCasterPerAllyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healToCasterPerAllyHitMod.GetModifiedValue(m_healToCasterPerAllyHit)
+			: m_healToCasterPerAllyHit;
 	}
 
 	public int GetExtraHealPerEnemyHitForNextHealCone()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(m_extraHealPerEnemyHitForNextHealCone);
-		}
-		else
-		{
-			result = m_extraHealPerEnemyHitForNextHealCone;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(m_extraHealPerEnemyHitForNextHealCone)
+			: m_extraHealPerEnemyHitForNextHealCone;
 	}
 
 	public int GetExtraEnergyForSingleEnemyHit()
 	{
-		return (!m_abilityMod) ? m_extraEnergyForSingleEnemyHit : m_abilityMod.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(m_extraEnergyForSingleEnemyHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(m_extraEnergyForSingleEnemyHit)
+			: m_extraEnergyForSingleEnemyHit;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_FishManCone))
-		{
-			m_abilityMod = (abilityMod as AbilityMod_FishManCone);
-			Setup();
-		}
-		else
+		if (abilityMod.GetType() != typeof(AbilityMod_FishManCone))
 		{
 			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
+		
+		m_abilityMod = abilityMod as AbilityMod_FishManCone;
+		Setup();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -441,133 +312,48 @@ public class FishManCone : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_FishManCone abilityMod_FishManCone = modAsBase as AbilityMod_FishManCone;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val = abilityMod_FishManCone.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies);
-		}
-		else
-		{
-			val = m_damageToEnemies;
-		}
-		AddTokenInt(tokens, "DamageToEnemies", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val2 = abilityMod_FishManCone.m_damageToEnemiesMaxMod.GetModifiedValue(m_damageToEnemiesMax);
-		}
-		else
-		{
-			val2 = m_damageToEnemiesMax;
-		}
-		AddTokenInt(tokens, "DamageToEnemiesMax", empty2, val2);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_FishManCone)
-		{
-			effectInfo = abilityMod_FishManCone.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies);
-		}
-		else
-		{
-			effectInfo = m_effectToEnemies;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectToEnemies", m_effectToEnemies);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val3 = abilityMod_FishManCone.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies);
-		}
-		else
-		{
-			val3 = m_healingToAllies;
-		}
-		AddTokenInt(tokens, "HealingToAllies", empty3, val3);
-		StandardEffectInfo effectInfo2;
-		if ((bool)abilityMod_FishManCone)
-		{
-			effectInfo2 = abilityMod_FishManCone.m_effectToAlliesMod.GetModifiedValue(m_effectToAllies);
-		}
-		else
-		{
-			effectInfo2 = m_effectToAllies;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo2, "EffectToAllies", m_effectToAllies);
-		string empty4 = string.Empty;
-		int val4;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val4 = abilityMod_FishManCone.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			val4 = m_maxTargets;
-		}
-		AddTokenInt(tokens, "MaxTargets", empty4, val4);
-		string empty5 = string.Empty;
-		int val5;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val5 = abilityMod_FishManCone.m_healToCasterOnCastMod.GetModifiedValue(m_healToCasterOnCast);
-		}
-		else
-		{
-			val5 = m_healToCasterOnCast;
-		}
-		AddTokenInt(tokens, "HealToCasterOnCast", empty5, val5);
-		string empty6 = string.Empty;
-		int val6;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val6 = abilityMod_FishManCone.m_healToCasterPerEnemyHitMod.GetModifiedValue(m_healToCasterPerEnemyHit);
-		}
-		else
-		{
-			val6 = m_healToCasterPerEnemyHit;
-		}
-		AddTokenInt(tokens, "HealToCasterPerEnemyHit", empty6, val6);
-		string empty7 = string.Empty;
-		int val7;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val7 = abilityMod_FishManCone.m_healToCasterPerAllyHitMod.GetModifiedValue(m_healToCasterPerAllyHit);
-		}
-		else
-		{
-			val7 = m_healToCasterPerAllyHit;
-		}
-		AddTokenInt(tokens, "HealToCasterPerAllyHit", empty7, val7);
-		string empty8 = string.Empty;
-		int val8;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val8 = abilityMod_FishManCone.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(m_extraHealPerEnemyHitForNextHealCone);
-		}
-		else
-		{
-			val8 = m_extraHealPerEnemyHitForNextHealCone;
-		}
-		AddTokenInt(tokens, "ExtraHealPerEnemyHitForNextHealCone", empty8, val8);
-		string empty9 = string.Empty;
-		int val9;
-		if ((bool)abilityMod_FishManCone)
-		{
-			val9 = abilityMod_FishManCone.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(m_extraEnergyForSingleEnemyHit);
-		}
-		else
-		{
-			val9 = m_extraEnergyForSingleEnemyHit;
-		}
-		AddTokenInt(tokens, "ExtraEnergyForSingleEnemyHit", empty9, val9);
+		AddTokenInt(tokens, "DamageToEnemies", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_damageToEnemiesMod.GetModifiedValue(m_damageToEnemies)
+			: m_damageToEnemies);
+		AddTokenInt(tokens, "DamageToEnemiesMax", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_damageToEnemiesMaxMod.GetModifiedValue(m_damageToEnemiesMax)
+			: m_damageToEnemiesMax);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies)
+			: m_effectToEnemies, "EffectToEnemies", m_effectToEnemies);
+		AddTokenInt(tokens, "HealingToAllies", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_healingToAlliesMod.GetModifiedValue(m_healingToAllies)
+			: m_healingToAllies);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_effectToAlliesMod.GetModifiedValue(m_effectToAllies)
+			: m_effectToAllies, "EffectToAllies", m_effectToAllies);
+		AddTokenInt(tokens, "MaxTargets", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets);
+		AddTokenInt(tokens, "HealToCasterOnCast", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_healToCasterOnCastMod.GetModifiedValue(m_healToCasterOnCast)
+			: m_healToCasterOnCast);
+		AddTokenInt(tokens, "HealToCasterPerEnemyHit", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_healToCasterPerEnemyHitMod.GetModifiedValue(m_healToCasterPerEnemyHit)
+			: m_healToCasterPerEnemyHit);
+		AddTokenInt(tokens, "HealToCasterPerAllyHit", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_healToCasterPerAllyHitMod.GetModifiedValue(m_healToCasterPerAllyHit)
+			: m_healToCasterPerAllyHit);
+		AddTokenInt(tokens, "ExtraHealPerEnemyHitForNextHealCone", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_extraHealPerEnemyHitForNextHealConeMod.GetModifiedValue(m_extraHealPerEnemyHitForNextHealCone)
+			: m_extraHealPerEnemyHitForNextHealCone);
+		AddTokenInt(tokens, "ExtraEnergyForSingleEnemyHit", string.Empty, abilityMod_FishManCone != null
+			? abilityMod_FishManCone.m_extraEnergyForSingleEnemyHitMod.GetModifiedValue(m_extraEnergyForSingleEnemyHit)
+			: m_extraEnergyForSingleEnemyHit);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetDamageToEnemies()));
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, GetHealingToAllies()));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, GetDamageToEnemies()),
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, GetHealingToAllies())
+		};
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
@@ -581,84 +367,70 @@ public class FishManCone : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
-		if (currentTargeterIndex <= 0)
+		if (currentTargeterIndex <= 0 && m_coneMode == ConeTargetingMode.MultiClick)
 		{
+			return null;
+		}
+		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
+		{
+			return null;
+		}
+		
+		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = Targeter as AbilityUtil_Targeter_StretchCone;
+		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+		{
+			int enemyNum = Targeters[currentTargeterIndex].GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+			int allyNum = Targeters[currentTargeterIndex].GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
+			int healing = GetHealToCasterOnCast() + GetHealToCasterPerEnemyHit() * enemyNum + GetHealToCasterPerAllyHit() * allyNum;
+			dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt(healing);
+		}
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		{
+			int damage = GetDamageToEnemies();
 			if (m_coneMode == ConeTargetingMode.MultiClick)
 			{
-				goto IL_0204;
+				AbilityUtil_Targeter_SweepMultiClickCone targeter = Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
+				damage = GetDamageForSweepAngle(targeter.sweepAngle);
 			}
+			else if (m_coneMode == ConeTargetingMode.Stretch && abilityUtil_Targeter_StretchCone != null)
+			{
+				damage = GetDamageForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
+			}
+			dictionary[AbilityTooltipSymbol.Damage] = damage;
 		}
-		List<AbilityTooltipSubject> tooltipSubjectTypes = base.Targeters[currentTargeterIndex].GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
 		{
-			AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = base.Targeter as AbilityUtil_Targeter_StretchCone;
-			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Self))
+			int healing = GetHealingToAllies();
+			if (m_coneMode == ConeTargetingMode.MultiClick)
 			{
-				int visibleActorsCountByTooltipSubject = base.Targeters[currentTargeterIndex].GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-				int visibleActorsCountByTooltipSubject2 = base.Targeters[currentTargeterIndex].GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
-				int num = GetHealToCasterOnCast() + GetHealToCasterPerEnemyHit() * visibleActorsCountByTooltipSubject + GetHealToCasterPerAllyHit() * visibleActorsCountByTooltipSubject2;
-				dictionary[AbilityTooltipSymbol.Healing] = Mathf.RoundToInt(num);
+				AbilityUtil_Targeter_SweepMultiClickCone targeter = Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
+				healing = GetHealingForSweepAngle(targeter.sweepAngle);
 			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+			else if (m_coneMode == ConeTargetingMode.Stretch && abilityUtil_Targeter_StretchCone != null)
 			{
-				int value = GetDamageToEnemies();
-				if (m_coneMode == ConeTargetingMode.MultiClick)
-				{
-					AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
-					value = GetDamageForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone.sweepAngle);
-				}
-				else if (m_coneMode == ConeTargetingMode.Stretch)
-				{
-					if (abilityUtil_Targeter_StretchCone != null)
-					{
-						value = GetDamageForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
-					}
-				}
-				dictionary[AbilityTooltipSymbol.Damage] = value;
+				healing = GetHealingForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
 			}
-			else if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Ally))
-			{
-				int value2 = GetHealingToAllies();
-				if (m_coneMode == ConeTargetingMode.MultiClick)
-				{
-					AbilityUtil_Targeter_SweepMultiClickCone abilityUtil_Targeter_SweepMultiClickCone2 = base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SweepMultiClickCone;
-					value2 = GetHealingForSweepAngle(abilityUtil_Targeter_SweepMultiClickCone2.sweepAngle);
-				}
-				else if (m_coneMode == ConeTargetingMode.Stretch && abilityUtil_Targeter_StretchCone != null)
-				{
-					value2 = GetHealingForSweepAngle(abilityUtil_Targeter_StretchCone.LastConeAngle);
-				}
-				dictionary[AbilityTooltipSymbol.Healing] = value2;
-			}
+			dictionary[AbilityTooltipSymbol.Healing] = healing;
 		}
-		goto IL_0204;
-		IL_0204:
 		return dictionary;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (GetExtraEnergyForSingleEnemyHit() > 0 && (currentTargeterIndex > 0 || m_coneMode != ConeTargetingMode.MultiClick))
+		if (GetExtraEnergyForSingleEnemyHit() <= 0 ||
+		    (currentTargeterIndex <= 0 && m_coneMode == ConeTargetingMode.MultiClick))
 		{
-			AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[currentTargeterIndex];
-			if (abilityUtil_Targeter != null)
+			return 0;
+		}
+		AbilityUtil_Targeter targeter = Targeters[currentTargeterIndex];
+		if (targeter != null)
+		{
+			int enemyNum = targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+			if (enemyNum == 1)
 			{
-				int visibleActorsCountByTooltipSubject = abilityUtil_Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-				if (visibleActorsCountByTooltipSubject == 1)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							return GetExtraEnergyForSingleEnemyHit();
-						}
-					}
-				}
+				return GetExtraEnergyForSingleEnemyHit();
 			}
 		}
 		return 0;
@@ -666,27 +438,29 @@ public class FishManCone : Ability
 
 	private Vector3 GetTargeterClampedAimDirection(Vector3 startAimDirection, Vector3 endAimDirection, out float sweepAngle, out float coneCenterDegrees)
 	{
-		float num = VectorUtils.HorizontalAngle_Deg(startAimDirection);
 		sweepAngle = Vector3.Angle(startAimDirection, endAimDirection);
 		float coneWidthAngle = GetConeWidthAngle();
 		float coneWidthAngleMin = GetConeWidthAngleMin();
-		if (coneWidthAngle > 0f)
+		if (coneWidthAngle > 0f && sweepAngle > coneWidthAngle)
 		{
-			if (sweepAngle > coneWidthAngle)
-			{
-				endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - coneWidthAngle), 0f);
-				sweepAngle = coneWidthAngle;
-				goto IL_00a3;
-			}
+			endAimDirection = Vector3.RotateTowards(
+				endAimDirection, 
+				startAimDirection,
+				(float)Math.PI / 180f * (sweepAngle - coneWidthAngle),
+				0f);
+			sweepAngle = coneWidthAngle;
 		}
-		if (coneWidthAngleMin > 0f && sweepAngle < coneWidthAngleMin)
+		else if (coneWidthAngleMin > 0f && sweepAngle < coneWidthAngleMin)
 		{
-			endAimDirection = Vector3.RotateTowards(endAimDirection, startAimDirection, (float)Math.PI / 180f * (sweepAngle - coneWidthAngleMin), 0f);
+			endAimDirection = Vector3.RotateTowards(
+				endAimDirection, 
+				startAimDirection, 
+				(float)Math.PI / 180f * (sweepAngle - coneWidthAngleMin),
+				0f);
 			sweepAngle = coneWidthAngleMin;
 		}
-		goto IL_00a3;
-		IL_00a3:
-		coneCenterDegrees = num;
+
+		coneCenterDegrees = VectorUtils.HorizontalAngle_Deg(startAimDirection);
 		Vector3 vector = Vector3.Cross(startAimDirection, endAimDirection);
 		if (vector.y > 0f)
 		{
@@ -703,62 +477,40 @@ public class FishManCone : Ability
 	{
 		if (m_coneMode == ConeTargetingMode.MultiClick)
 		{
-			while (true)
+			float sweepAngle = GetConeWidthAngleMin();
+			float coneCenterDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+			if (targets.Count > 1)
 			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-				{
-					float sweepAngle = GetConeWidthAngleMin();
-					float num = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
-					float coneCenterDegrees = num;
-					if (targets.Count > 1)
-					{
-						GetTargeterClampedAimDirection(targets[0].AimDirection, targets[targets.Count - 1].AimDirection, out sweepAngle, out coneCenterDegrees);
-					}
-					return caster.GetFreePos() + VectorUtils.AngleDegreesToVector(coneCenterDegrees);
-				}
-				}
+				GetTargeterClampedAimDirection(
+					targets[0].AimDirection,
+					targets[targets.Count - 1].AimDirection,
+					out sweepAngle,
+					out coneCenterDegrees);
 			}
+			return caster.GetFreePos() + VectorUtils.AngleDegreesToVector(coneCenterDegrees);
 		}
 		return base.GetRotateToTargetPos(targets, caster);
 	}
 
 	private int GetDamageForSweepAngle(float sweepAngle)
 	{
-		float num = GetMaxDamageToEnemies() - GetDamageToEnemies();
-		float num2 = GetConeWidthAngle() - GetConeWidthAngleMin();
-		float num3;
-		if (num2 > 0f)
-		{
-			num3 = 1f - (sweepAngle - GetConeWidthAngleMin()) / num2;
-		}
-		else
-		{
-			num3 = 1f;
-		}
-		float value = num3;
-		value = Mathf.Clamp(value, 0f, 1f);
-		return GetDamageToEnemies() + Mathf.RoundToInt(num * value);
+		float damageRange = GetMaxDamageToEnemies() - GetDamageToEnemies();
+		float angleRange = GetConeWidthAngle() - GetConeWidthAngleMin();
+		float share = angleRange > 0f
+			? 1f - (sweepAngle - GetConeWidthAngleMin()) / angleRange
+			: 1f;
+		share = Mathf.Clamp(share, 0f, 1f);
+		return GetDamageToEnemies() + Mathf.RoundToInt(damageRange * share);
 	}
 
 	private int GetHealingForSweepAngle(float sweepAngle)
 	{
-		float num = GetMaxHealingToAllies() - GetHealingToAllies();
-		float num2 = GetConeWidthAngle() - GetConeWidthAngleMin();
-		float num3;
-		if (num2 > 0f)
-		{
-			num3 = 1f - (sweepAngle - GetConeWidthAngleMin()) / num2;
-		}
-		else
-		{
-			num3 = 1f;
-		}
-		float value = num3;
-		value = Mathf.Clamp(value, 0f, 1f);
-		return GetHealingToAllies() + Mathf.RoundToInt(num * value);
+		float healingRange = GetMaxHealingToAllies() - GetHealingToAllies();
+		float angleRange = GetConeWidthAngle() - GetConeWidthAngleMin();
+		float share = angleRange > 0f
+			? 1f - (sweepAngle - GetConeWidthAngleMin()) / angleRange
+			: 1f;
+		share = Mathf.Clamp(share, 0f, 1f);
+		return GetHealingToAllies() + Mathf.RoundToInt(healingRange * share);
 	}
 }
