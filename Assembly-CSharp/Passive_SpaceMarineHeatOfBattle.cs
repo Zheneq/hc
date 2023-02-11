@@ -40,15 +40,15 @@ public class Passive_SpaceMarineHeatOfBattle : Passive
 	}
 
 	// added in rogues
-	public override void OnDamagedOther(ActorData damageTarget, DamageSource damageSource, int damageAmount)
-	{
-		base.OnDamagedOther(damageTarget, damageSource, damageAmount);
-		if (!m_addedStatModsThisTurn)
-		{
-			StandardActorEffect effect = new StandardActorEffect(AsEffectSource(), Owner.GetCurrentBoardSquare(), Owner, Owner, m_buffEffectData);
-			ServerEffectManager.Get().ApplyEffect(effect);
-			m_addedStatModsThisTurn = true;
-		}
-	}
+	// public override void OnDamagedOther(ActorData damageTarget, DamageSource damageSource, int damageAmount)
+	// {
+	// 	base.OnDamagedOther(damageTarget, damageSource, damageAmount);
+	// 	if (!m_addedStatModsThisTurn)
+	// 	{
+	// 		StandardActorEffect effect = new StandardActorEffect(AsEffectSource(), Owner.GetCurrentBoardSquare(), Owner, Owner, m_buffEffectData);
+	// 		ServerEffectManager.Get().ApplyEffect(effect);
+	// 		m_addedStatModsThisTurn = true;
+	// 	}
+	// }
 #endif
 }
