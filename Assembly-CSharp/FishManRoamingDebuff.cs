@@ -16,57 +16,35 @@ public class FishManRoamingDebuff : Ability
 
 	[Header("-- Laser Targeting")]
 	public LaserTargetingInfo m_laserInfo;
-
 	[Header("-- Effect Data")]
 	public StandardEffectInfo m_effectWhileOnEnemy;
-
 	public StandardEffectInfo m_effectWhileOnAlly;
-
 	[Header("-- Jump Criteria")]
 	public float m_jumpRadius;
-
 	public bool m_jumpIgnoresLineOfSight;
-
 	public int m_numJumps = 2;
-
 	public bool m_canJumpToEnemies = true;
-
 	public bool m_canJumpToAllies;
-
 	public bool m_canJumpToInvisibleTargets;
-
 	public RoamingDebuffJumpPreference m_primaryJumpPreference;
-
 	public RoamingDebuffJumpPreference m_secondaryJumpPreference = RoamingDebuffJumpPreference.DontCare;
-
 	public RoamingDebuffJumpPreference m_tiebreakerJumpPreference = RoamingDebuffJumpPreference.DontCare;
-
 	[Header("-- Damage/Healing on initial hit")]
 	public int m_damageToEnemyOnInitialHit;
-
 	public int m_healingToAllyOnInitialHit;
-
 	[Header("-- Damage/Healing on jump")]
 	public int m_damageToEnemiesOnJump;
-
 	public int m_healingToAlliesOnJump;
-
 	public int m_damageIncreasePerJump;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequence;
-
 	public GameObject m_jumpSequence;
-
 	[Header("-- Anim")]
 	public int m_jumpAnimationIndex;
 
 	private AbilityMod_FishManRoamingDebuff m_abilityMod;
-
 	private LaserTargetingInfo m_cachedLaserInfo;
-
 	private StandardEffectInfo m_cachedEffectWhileOnEnemy;
-
 	private StandardEffectInfo m_cachedEffectWhileOnAlly;
 
 	private void Start()
@@ -77,7 +55,7 @@ public class FishManRoamingDebuff : Ability
 	private void Setup()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, m_cachedLaserInfo);
+		Targeter = new AbilityUtil_Targeter_Laser(this, m_cachedLaserInfo);
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -92,194 +70,126 @@ public class FishManRoamingDebuff : Ability
 
 	private void SetCachedFields()
 	{
-		LaserTargetingInfo cachedLaserInfo;
-		if ((bool)m_abilityMod)
-		{
-			cachedLaserInfo = m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo);
-		}
-		else
-		{
-			cachedLaserInfo = m_laserInfo;
-		}
-		m_cachedLaserInfo = cachedLaserInfo;
-		StandardEffectInfo cachedEffectWhileOnEnemy;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectWhileOnEnemy = m_abilityMod.m_effectWhileOnEnemyMod.GetModifiedValue(m_effectWhileOnEnemy);
-		}
-		else
-		{
-			cachedEffectWhileOnEnemy = m_effectWhileOnEnemy;
-		}
-		m_cachedEffectWhileOnEnemy = cachedEffectWhileOnEnemy;
-		StandardEffectInfo cachedEffectWhileOnAlly;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectWhileOnAlly = m_abilityMod.m_effectWhileOnAllyMod.GetModifiedValue(m_effectWhileOnAlly);
-		}
-		else
-		{
-			cachedEffectWhileOnAlly = m_effectWhileOnAlly;
-		}
-		m_cachedEffectWhileOnAlly = cachedEffectWhileOnAlly;
+		m_cachedLaserInfo = m_abilityMod != null
+			? m_abilityMod.m_laserInfoMod.GetModifiedValue(m_laserInfo)
+			: m_laserInfo;
+		m_cachedEffectWhileOnEnemy = m_abilityMod != null
+			? m_abilityMod.m_effectWhileOnEnemyMod.GetModifiedValue(m_effectWhileOnEnemy)
+			: m_effectWhileOnEnemy;
+		m_cachedEffectWhileOnAlly = m_abilityMod != null
+			? m_abilityMod.m_effectWhileOnAllyMod.GetModifiedValue(m_effectWhileOnAlly)
+			: m_effectWhileOnAlly;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		LaserTargetingInfo result;
-		if (m_cachedLaserInfo != null)
-		{
-			result = m_cachedLaserInfo;
-		}
-		else
-		{
-			result = m_laserInfo;
-		}
-		return result;
+		return m_cachedLaserInfo ?? m_laserInfo;
 	}
 
 	public StandardEffectInfo GetEffectWhileOnEnemy()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectWhileOnEnemy != null)
-		{
-			result = m_cachedEffectWhileOnEnemy;
-		}
-		else
-		{
-			result = m_effectWhileOnEnemy;
-		}
-		return result;
+		return m_cachedEffectWhileOnEnemy ?? m_effectWhileOnEnemy;
 	}
 
 	public StandardEffectInfo GetEffectWhileOnAlly()
 	{
-		return (m_cachedEffectWhileOnAlly == null) ? m_effectWhileOnAlly : m_cachedEffectWhileOnAlly;
+		return m_cachedEffectWhileOnAlly ?? m_effectWhileOnAlly;
 	}
 
 	public float GetJumpRadius()
 	{
-		return (!m_abilityMod) ? m_jumpRadius : m_abilityMod.m_jumpRadiusMod.GetModifiedValue(m_jumpRadius);
+		return m_abilityMod != null
+			? m_abilityMod.m_jumpRadiusMod.GetModifiedValue(m_jumpRadius)
+			: m_jumpRadius;
 	}
 
 	public bool GetJumpIgnoresLoS()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_jumpIgnoresLineOfSightMod.GetModifiedValue(m_jumpIgnoresLineOfSight);
-		}
-		else
-		{
-			result = m_jumpIgnoresLineOfSight;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_jumpIgnoresLineOfSightMod.GetModifiedValue(m_jumpIgnoresLineOfSight)
+			: m_jumpIgnoresLineOfSight;
 	}
 
 	public int GetNumJumps()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_numJumpsMod.GetModifiedValue(m_numJumps);
-		}
-		else
-		{
-			result = m_numJumps;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_numJumpsMod.GetModifiedValue(m_numJumps)
+			: m_numJumps;
 	}
 
 	public bool CanJumpToEnemies()
 	{
-		return (!m_abilityMod) ? m_canJumpToEnemies : m_abilityMod.m_canJumpToEnemiesMod.GetModifiedValue(m_canJumpToEnemies);
+		return m_abilityMod != null
+			? m_abilityMod.m_canJumpToEnemiesMod.GetModifiedValue(m_canJumpToEnemies)
+			: m_canJumpToEnemies;
 	}
 
 	public bool CanJumpToAllies()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_canJumpToAlliesMod.GetModifiedValue(m_canJumpToAllies);
-		}
-		else
-		{
-			result = m_canJumpToAllies;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_canJumpToAlliesMod.GetModifiedValue(m_canJumpToAllies)
+			: m_canJumpToAllies;
 	}
 
 	public bool CanJumpToInvisibleTargets()
 	{
-		return (!m_abilityMod) ? m_canJumpToInvisibleTargets : m_abilityMod.m_canJumpToInvisibleTargetsMod.GetModifiedValue(m_canJumpToInvisibleTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_canJumpToInvisibleTargetsMod.GetModifiedValue(m_canJumpToInvisibleTargets)
+			: m_canJumpToInvisibleTargets;
 	}
 
 	public int GetDamageToEnemiesOnJump()
 	{
-		return (!m_abilityMod) ? m_damageToEnemiesOnJump : m_abilityMod.m_damageToEnemiesOnJumpMod.GetModifiedValue(m_damageToEnemiesOnJump);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageToEnemiesOnJumpMod.GetModifiedValue(m_damageToEnemiesOnJump)
+			: m_damageToEnemiesOnJump;
 	}
 
 	public int GetHealingToAlliesOnJump()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healingToAlliesOnJumpMod.GetModifiedValue(m_healingToAlliesOnJump);
-		}
-		else
-		{
-			result = m_healingToAlliesOnJump;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healingToAlliesOnJumpMod.GetModifiedValue(m_healingToAlliesOnJump)
+			: m_healingToAlliesOnJump;
 	}
 
 	public int GetDamageIncreasePerJump()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageIncreasePerJumpMod.GetModifiedValue(m_damageIncreasePerJump);
-		}
-		else
-		{
-			result = m_damageIncreasePerJump;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageIncreasePerJumpMod.GetModifiedValue(m_damageIncreasePerJump)
+			: m_damageIncreasePerJump;
 	}
 
 	public int GetDamageToEnemyOnInitialHit()
 	{
-		return (!m_abilityMod) ? m_damageToEnemyOnInitialHit : m_abilityMod.m_damageToEnemyOnInitialHitMod.GetModifiedValue(m_damageToEnemyOnInitialHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageToEnemyOnInitialHitMod.GetModifiedValue(m_damageToEnemyOnInitialHit)
+			: m_damageToEnemyOnInitialHit;
 	}
 
 	public int GetHealingToAllyOnInitialHit()
 	{
-		return (!m_abilityMod) ? m_healingToAllyOnInitialHit : m_abilityMod.m_healingToAllyOnInitialHitMod.GetModifiedValue(m_healingToAllyOnInitialHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_healingToAllyOnInitialHitMod.GetModifiedValue(m_healingToAllyOnInitialHit)
+			: m_healingToAllyOnInitialHit;
 	}
 
 	public int GetJumpAnimationIndex()
 	{
-		return (!m_abilityMod) ? m_jumpAnimationIndex : m_abilityMod.m_jumpAnimationIndexMod.GetModifiedValue(m_jumpAnimationIndex);
+		return m_abilityMod != null
+			? m_abilityMod.m_jumpAnimationIndexMod.GetModifiedValue(m_jumpAnimationIndex)
+			: m_jumpAnimationIndex;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() == typeof(AbilityMod_FishManRoamingDebuff))
+		if (abilityMod.GetType() != typeof(AbilityMod_FishManRoamingDebuff))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					m_abilityMod = (abilityMod as AbilityMod_FishManRoamingDebuff);
-					Setup();
-					return;
-				}
-			}
+			Debug.LogError("Trying to apply wrong type of ability mod");
+			return;
 		}
-		Debug.LogError("Trying to apply wrong type of ability mod");
+		
+		m_abilityMod = abilityMod as AbilityMod_FishManRoamingDebuff;
+		Setup();
 	}
 
 	protected override void OnRemoveAbilityMod()
@@ -291,62 +201,27 @@ public class FishManRoamingDebuff : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_FishManRoamingDebuff abilityMod_FishManRoamingDebuff = modAsBase as AbilityMod_FishManRoamingDebuff;
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_FishManRoamingDebuff) ? m_effectWhileOnEnemy : abilityMod_FishManRoamingDebuff.m_effectWhileOnEnemyMod.GetModifiedValue(m_effectWhileOnEnemy), "EffectWhileOnEnemy", m_effectWhileOnEnemy);
-		StandardEffectInfo effectInfo;
-		if ((bool)abilityMod_FishManRoamingDebuff)
-		{
-			effectInfo = abilityMod_FishManRoamingDebuff.m_effectWhileOnAllyMod.GetModifiedValue(m_effectWhileOnAlly);
-		}
-		else
-		{
-			effectInfo = m_effectWhileOnAlly;
-		}
-		AbilityMod.AddToken_EffectInfo(tokens, effectInfo, "EffectWhileOnAlly", m_effectWhileOnAlly);
-		AddTokenInt(tokens, "DamageToEnemiesOnJump", string.Empty, (!abilityMod_FishManRoamingDebuff) ? m_damageToEnemiesOnJump : abilityMod_FishManRoamingDebuff.m_damageToEnemiesOnJumpMod.GetModifiedValue(m_damageToEnemiesOnJump));
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_FishManRoamingDebuff)
-		{
-			val = abilityMod_FishManRoamingDebuff.m_healingToAlliesOnJumpMod.GetModifiedValue(m_healingToAlliesOnJump);
-		}
-		else
-		{
-			val = m_healingToAlliesOnJump;
-		}
-		AddTokenInt(tokens, "HealingToAlliesOnJump", empty, val);
-		string empty2 = string.Empty;
-		int val2;
-		if ((bool)abilityMod_FishManRoamingDebuff)
-		{
-			val2 = abilityMod_FishManRoamingDebuff.m_damageToEnemyOnInitialHitMod.GetModifiedValue(m_damageToEnemyOnInitialHit);
-		}
-		else
-		{
-			val2 = m_damageToEnemyOnInitialHit;
-		}
-		AddTokenInt(tokens, "DamageToEnemyOnInitialHit", empty2, val2);
-		string empty3 = string.Empty;
-		int val3;
-		if ((bool)abilityMod_FishManRoamingDebuff)
-		{
-			val3 = abilityMod_FishManRoamingDebuff.m_healingToAllyOnInitialHitMod.GetModifiedValue(m_healingToAllyOnInitialHit);
-		}
-		else
-		{
-			val3 = m_healingToAllyOnInitialHit;
-		}
-		AddTokenInt(tokens, "HealingToAllyOnInitialHit", empty3, val3);
-		string empty4 = string.Empty;
-		float val4;
-		if ((bool)abilityMod_FishManRoamingDebuff)
-		{
-			val4 = abilityMod_FishManRoamingDebuff.m_jumpRadiusMod.GetModifiedValue(m_jumpRadius);
-		}
-		else
-		{
-			val4 = m_jumpRadius;
-		}
-		AddTokenFloatRounded(tokens, "JumpRadius_Rounded", empty4, val4);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_effectWhileOnEnemyMod.GetModifiedValue(m_effectWhileOnEnemy)
+			: m_effectWhileOnEnemy, "EffectWhileOnEnemy", m_effectWhileOnEnemy);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_effectWhileOnAllyMod.GetModifiedValue(m_effectWhileOnAlly)
+			: m_effectWhileOnAlly, "EffectWhileOnAlly", m_effectWhileOnAlly);
+		AddTokenInt(tokens, "DamageToEnemiesOnJump", string.Empty, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_damageToEnemiesOnJumpMod.GetModifiedValue(m_damageToEnemiesOnJump)
+			: m_damageToEnemiesOnJump);
+		AddTokenInt(tokens, "HealingToAlliesOnJump", string.Empty, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_healingToAlliesOnJumpMod.GetModifiedValue(m_healingToAlliesOnJump)
+			: m_healingToAlliesOnJump);
+		AddTokenInt(tokens, "DamageToEnemyOnInitialHit", string.Empty, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_damageToEnemyOnInitialHitMod.GetModifiedValue(m_damageToEnemyOnInitialHit)
+			: m_damageToEnemyOnInitialHit);
+		AddTokenInt(tokens, "HealingToAllyOnInitialHit", string.Empty, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_healingToAllyOnInitialHitMod.GetModifiedValue(m_healingToAllyOnInitialHit)
+			: m_healingToAllyOnInitialHit);
+		AddTokenFloatRounded(tokens, "JumpRadius_Rounded", string.Empty, abilityMod_FishManRoamingDebuff != null
+			? abilityMod_FishManRoamingDebuff.m_jumpRadiusMod.GetModifiedValue(m_jumpRadius)
+			: m_jumpRadius);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
