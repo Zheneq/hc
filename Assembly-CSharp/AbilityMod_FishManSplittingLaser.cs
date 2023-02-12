@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,9 +58,13 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		FishManSplittingLaser fishManSplittingLaser = GetTargetAbilityOnAbilityData(abilityData) as FishManSplittingLaser;
+		// rogues
+		// FishManSplittingLaser fishManSplittingLaser = targetAbility as FishManSplittingLaser;
+		
 		bool isValid = fishManSplittingLaser != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_primaryLaserCanHitEnemiesMod, "[PrimaryLaserCanHitEnemies]", isValid, isValid && fishManSplittingLaser.m_primaryLaserCanHitEnemies);

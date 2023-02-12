@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -50,9 +52,13 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		FishManRoamingDebuff fishManRoamingDebuff = GetTargetAbilityOnAbilityData(abilityData) as FishManRoamingDebuff;
+		// rogues
+		// FishManRoamingDebuff fishManRoamingDebuff = targetAbility as FishManRoamingDebuff;
+		
 		bool isValid = fishManRoamingDebuff != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserInfoMod, "[LaserInfo]", isValid, isValid ? fishManRoamingDebuff.m_laserInfo : null);

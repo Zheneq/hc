@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -239,4 +241,125 @@ public class FishManRoamingDebuff : Ability
 		GetEffectWhileOnAlly().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Ally);
 		return numbers;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ActorData> hitActors = GetHitActors(targets, caster, out VectorUtils.LaserCoords laserCoords, null);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequence,
+			laserCoords.end,
+			hitActors.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[0]);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out _, nonActorTargetInfo);
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (actorData.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.AddBaseHealing(GetHealingToAllyOnInitialHit());
+				actorHitResults.AddEffect(new FishManRoamingDebuffEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEffectWhileOnAlly().m_effectData,
+					GetJumpRadius(),
+					GetJumpIgnoresLoS(),
+					GetNumJumps(),
+					m_jumpSequence,
+					GetJumpAnimationIndex(),
+					CanJumpToEnemies(),
+					CanJumpToAllies(),
+					CanJumpToInvisibleTargets(),
+					m_primaryJumpPreference,
+					m_secondaryJumpPreference,
+					m_tiebreakerJumpPreference,
+					GetDamageToEnemiesOnJump() + GetDamageIncreasePerJump(),
+					GetHealingToAlliesOnJump(),
+					0,
+					GetEffectWhileOnEnemy(),
+					GetEffectWhileOnAlly(),
+					true));
+			}
+			else
+			{
+				actorHitResults.AddBaseDamage(GetDamageToEnemyOnInitialHit());
+				actorHitResults.AddEffect(new FishManRoamingDebuffEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEffectWhileOnEnemy().m_effectData,
+					GetJumpRadius(),
+					GetJumpIgnoresLoS(),
+					GetNumJumps(),
+					m_jumpSequence,
+					GetJumpAnimationIndex(),
+					CanJumpToEnemies(),
+					CanJumpToAllies(),
+					CanJumpToInvisibleTargets(),
+					m_primaryJumpPreference,
+					m_secondaryJumpPreference,
+					m_tiebreakerJumpPreference,
+					GetDamageToEnemiesOnJump() + GetDamageIncreasePerJump(),
+					GetHealingToAlliesOnJump(),
+					0,
+					GetEffectWhileOnEnemy(),
+					GetEffectWhileOnAlly(),
+					true));
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out VectorUtils.LaserCoords endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, m_cachedLaserInfo.affectsAllies, m_cachedLaserInfo.affectsEnemies);
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserInfo().range,
+			GetLaserInfo().width,
+			caster,
+			relevantTeams,
+			GetLaserInfo().penetrateLos,
+			GetLaserInfo().maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.FishManStats.EelDamage, results.FinalDamage);
+		}
+	}
+#endif
 }

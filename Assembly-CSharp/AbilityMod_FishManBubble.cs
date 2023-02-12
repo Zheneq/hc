@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,9 +51,13 @@ public class AbilityMod_FishManBubble : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		FishManBubble fishManBubble = GetTargetAbilityOnAbilityData(abilityData) as FishManBubble;
+		// rogues
+		// FishManBubble fishManBubble = targetAbility as FishManBubble;
+		
 		bool isValid = fishManBubble != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_targetShapeMod, "[TargetShape]", isValid, isValid ? fishManBubble.m_targetShape : AbilityAreaShape.SingleSquare);

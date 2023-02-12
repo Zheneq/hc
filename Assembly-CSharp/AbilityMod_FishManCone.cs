@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -57,9 +59,13 @@ public class AbilityMod_FishManCone : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		FishManCone fishManCone = GetTargetAbilityOnAbilityData(abilityData) as FishManCone;
+		// rogues
+		// FishManCone fishManCone = targetAbility as FishManCone;
+		
 		bool isValid = fishManCone != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneWidthAngleMod, "[ConeWidthAngle]", isValid, isValid ? fishManCone.m_coneWidthAngle : 0f);

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,9 +49,13 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		FishManBubbleLaser fishManBubbleLaser = GetTargetAbilityOnAbilityData(abilityData) as FishManBubbleLaser;
+		// rogues
+		// FishManBubbleLaser fishManBubbleLaser = targetAbility as FishManBubbleLaser;
+		
 		bool isValid = fishManBubbleLaser != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserInfoMod, "[LaserInfo]", isValid, isValid ? fishManBubbleLaser.m_laserInfo : null);

@@ -918,10 +918,13 @@
     <Compile Include="Fireborg_SyncComponent.cs" />
     <Compile Include="FirstTurnMovement.cs" />
     <Compile Include="FishManBubble.cs" />
+    <Compile Include="FishManBubbleEffect.cs" />
     <Compile Include="FishManBubbleLaser.cs" />
     <Compile Include="FishManCone.cs" />
     <Compile Include="FishManGeyser.cs" />
+    <Compile Include="FishManGeyserEffect.cs" />
     <Compile Include="FishManRoamingDebuff.cs" />
+    <Compile Include="FishManRoamingDebuffEffect.cs" />
     <Compile Include="FishManSplittingLaser.cs" />
     <Compile Include="FishManStaticCone.cs" />
     <Compile Include="FishMan_SyncComponent.cs" />

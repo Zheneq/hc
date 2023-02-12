@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -219,4 +221,102 @@ public class FishManBubbleLaser : Ability
 		GetEffectOnAllies().ReportAbilityTooltipNumbers(ref number, AbilityTooltipSubject.Ally);
 		return number;
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			Board.Get().GetSquare(targets[0].GridPos),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = GetHitActors(targets, caster, out _, nonActorTargetInfo);
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (actorData.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.AddBaseHealing(GetInitialHitHealingToAllies());
+				actorHitResults.AddEffect(new FishManBubbleEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEffectOnAllies().m_effectData,
+					GetNumTurnsBeforeFirstExplosion(),
+					GetNumExplosionsBeforeEnding(),
+					m_bubbleSequencePrefab,
+					0f,
+					GetExplosionShape(),
+					ExplosionIgnoresLineOfSight(),
+					ExplosionCanAffectEffectHolder(),
+					m_explosionSequencePrefab,
+					GetExplosionHealingToAllies(),
+					GetExplosionDamageToEnemies(),
+					GetExplosionEffectToAllies(),
+					GetExplosionEffectToEnemies()));
+			}
+			else
+			{
+				actorHitResults.AddBaseDamage(GetInitialHitDamageToEnemies());
+				actorHitResults.AddEffect(new FishManBubbleEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEffectOnEnemies().m_effectData,
+					GetNumTurnsBeforeFirstExplosion(),
+					GetNumExplosionsBeforeEnding(),
+					m_bubbleSequencePrefab,
+					0f,
+					GetExplosionShape(),
+					ExplosionIgnoresLineOfSight(),
+					ExplosionCanAffectEffectHolder(),
+					m_explosionSequencePrefab,
+					GetExplosionHealingToAllies(),
+					GetExplosionDamageToEnemies(),
+					GetExplosionEffectToAllies(),
+					GetExplosionEffectToEnemies()));
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out VectorUtils.LaserCoords endPoints,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			targets[0].AimDirection,
+			GetLaserInfo().range,
+			GetLaserInfo().width,
+			caster,
+			TargeterUtils.GetRelevantTeams(caster, m_cachedLaserInfo.affectsAllies, m_cachedLaserInfo.affectsEnemies),
+			GetLaserInfo().penetrateLos,
+			GetLaserInfo().maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		endPoints = laserCoords;
+		return actorsInLaser;
+	}
+#endif
 }

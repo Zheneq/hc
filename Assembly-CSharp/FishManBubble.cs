@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +51,7 @@ public class FishManBubble : Ability
 			this,
 			GetExplosionShape(),
 			false,
-			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, // CasterPos in rogues
 			ExplosionAffectEnemies(),
 			ExplosionAffectAllies(),
 			AbilityUtil_Targeter.AffectsActor.Never,
@@ -311,4 +313,102 @@ public class FishManBubble : Ability
 			true,
 			true);
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			Board.Get().GetSquare(targets[0].GridPos),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<Team> list = new List<Team>();
+		if (CanTargetAllies())
+		{
+			list.Add(caster.GetTeam());
+		}
+		if (CanTargetEnemies())
+		{
+			list.AddRange(caster.GetOtherTeams());
+		}
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(GetTargetShape(), targets[0], false, caster, list, nonActorTargetInfo);
+		if (!CanTargetSelf() && actorsInShape.Contains(caster))
+		{
+			actorsInShape.Remove(caster);
+		}
+		foreach (ActorData actorData in actorsInShape)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			if (actorData.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.AddBaseHealing(GetInitialHitHealingToAllies());
+				actorHitResults.AddEffect(new FishManBubbleEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEffectOnAllies().m_effectData,
+					GetNumTurnsBeforeFirstExplosion(),
+					GetNumExplosionsBeforeEnding(),
+					m_bubbleSequencePrefab,
+					m_persistentSequenceRemoveDelay,
+					GetExplosionShape(),
+					ExplosionIgnoresLineOfSight(),
+					ExplosionCanAffectEffectHolder(),
+					m_explosionSequencePrefab,
+					GetExplosionHealingToAllies(),
+					GetExplosionDamageToEnemies(),
+					GetExplosionEffectToAllies(),
+					GetExplosionEffectToEnemies()));
+			}
+			else
+			{
+				actorHitResults.AddBaseDamage(GetInitialHitDamageToEnemies());
+				actorHitResults.AddEffect(new FishManBubbleEffect(
+					AsEffectSource(),
+					actorData.GetCurrentBoardSquare(),
+					actorData,
+					caster,
+					GetEffectOnEnemies().m_effectData,
+					GetNumTurnsBeforeFirstExplosion(),
+					GetNumExplosionsBeforeEnding(),
+					m_bubbleSequencePrefab,
+					m_persistentSequenceRemoveDelay,
+					GetExplosionShape(),
+					ExplosionIgnoresLineOfSight(),
+					ExplosionCanAffectEffectHolder(),
+					m_explosionSequencePrefab,
+					GetExplosionHealingToAllies(),
+					GetExplosionDamageToEnemies(),
+					GetExplosionEffectToAllies(),
+					GetExplosionEffectToEnemies()));
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam())
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.FishManStats.EnemiesHitByBubbleAoe);
+		}
+	}
+#endif
 }

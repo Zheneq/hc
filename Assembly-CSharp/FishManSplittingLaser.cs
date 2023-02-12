@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FishManSplittingLaser : Ability
@@ -278,4 +280,269 @@ public class FishManSplittingLaser : Ability
 		GetSecondaryTargetAllyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Quaternary);
 		return numbers;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		Vector3 aimDirection = targets[0].AimDirection;
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			aimDirection,
+			GetPrimaryTargetingInfo().range,
+			GetPrimaryTargetingInfo().width,
+			caster,
+			GetPrimaryLaserAffectedTeams(caster),
+			GetPrimaryTargetingInfo().penetrateLos,
+			GetPrimaryTargetingInfo().maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			null);
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_castSequence,
+			laserCoords.end,
+			actorsInLaser.ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new HealLaserSequence.ExtraParams
+			{
+				endPos = laserCoords.end
+			}.ToArray()));
+		if (AlwaysSplit() || actorsInLaser.Count > 0)
+		{
+			float num = CalculateSplitAngleDegrees(targets[0], caster);
+			float num2 = VectorUtils.HorizontalAngle_Deg(aimDirection);
+			int numSplitBeamPairs = GetNumSplitBeamPairs();
+			for (int i = 0; i < numSplitBeamPairs; i++)
+			{
+				float angle = num2 + num * (i + 1);
+				float angle2 = num2 - num * (i + 1);
+				Vector3 dir = VectorUtils.AngleDegreesToVector(angle);
+				Vector3 dir2 = VectorUtils.AngleDegreesToVector(angle2);
+				VectorUtils.LaserCoords laserCoords2;
+				laserCoords2.start = laserCoords.end;
+				VectorUtils.LaserCoords laserCoords3;
+				laserCoords3.start = laserCoords.end;
+				List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(
+					laserCoords2.start,
+					dir,
+					GetSecondaryTargetingInfo().range,
+					GetSecondaryTargetingInfo().width,
+					caster,
+					GetSplitLaserAffectedTeams(caster),
+					GetSecondaryTargetingInfo().penetrateLos,
+					GetSecondaryTargetingInfo().maxTargets,
+					false,
+					false,
+					out laserCoords2.end,
+					null,
+					actorsInLaser);
+				List<ActorData> actorsInLaser3 = AreaEffectUtils.GetActorsInLaser(
+					laserCoords3.start,
+					dir2,
+					GetSecondaryTargetingInfo().range,
+					GetSecondaryTargetingInfo().width,
+					caster,
+					GetSplitLaserAffectedTeams(caster),
+					GetSecondaryTargetingInfo().penetrateLos,
+					GetSecondaryTargetingInfo().maxTargets,
+					false,
+					false,
+					out laserCoords3.end,
+					null,
+					actorsInLaser);
+				HealLaserSequence.ExtraParams extraParams2 = new HealLaserSequence.ExtraParams();
+				HealLaserSequence.ExtraParams extraParams3 = new HealLaserSequence.ExtraParams();
+				extraParams2.endPos = laserCoords2.end;
+				extraParams3.endPos = laserCoords3.end;
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_splitProjectileSequence,
+					laserCoords2.start,
+					actorsInLaser2.ToArray(),
+					caster,
+					additionalData.m_sequenceSource,
+					extraParams2.ToArray()));
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_splitProjectileSequence,
+					laserCoords3.start,
+					actorsInLaser3.ToArray(),
+					caster,
+					additionalData.m_sequenceSource,
+					extraParams3.ToArray()));
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	private List<Team> GetPrimaryLaserAffectedTeams(ActorData caster)
+	{
+		List<Team> list = new List<Team>();
+		if (caster != null)
+		{
+			if (PrimaryLaserCanHitEnemies())
+			{
+				list.AddRange(caster.GetOtherTeams());
+			}
+			if (PrimaryLaserCanHitAllies())
+			{
+				list.Add(caster.GetTeam());
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	private List<Team> GetSplitLaserAffectedTeams(ActorData caster)
+	{
+		List<Team> list = new List<Team>();
+		if (caster != null)
+		{
+			if (SecondaryLasersCanHitEnemies())
+			{
+				list.AddRange(caster.GetOtherTeams());
+			}
+			if (SecondaryLasersCanHitAllies())
+			{
+				list.Add(caster.GetTeam());
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		VectorUtils.LaserCoords laserCoords;
+		laserCoords.start = caster.GetLoSCheckPos();
+		Vector3 aimDirection = targets[0].AimDirection;
+		List<NonActorTargetInfo> list = new List<NonActorTargetInfo>();
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			aimDirection,
+			GetPrimaryTargetingInfo().range,
+			GetPrimaryTargetingInfo().width,
+			caster,
+			GetPrimaryLaserAffectedTeams(caster),
+			GetPrimaryTargetingInfo().penetrateLos,
+			GetPrimaryTargetingInfo().maxTargets,
+			false,
+			true,
+			out laserCoords.end,
+			list);
+		foreach (ActorData actor in actorsInLaser)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(actor, laserCoords.start);
+			if (actor.GetTeam() == caster.GetTeam())
+			{
+				abilityResults.StoreActorHit(new ActorHitResults(
+					GetPrimaryTargetHealingAmount(), HitActionType.Healing, GetPrimaryTargetAllyHitEffect(), hitParams));
+			}
+			else
+			{
+				abilityResults.StoreActorHit(new ActorHitResults(
+					GetPrimaryTargetDamageAmount(), HitActionType.Damage, GetPrimaryTargetEnemyHitEffect(), hitParams));
+			}
+		}
+		if (AlwaysSplit() || actorsInLaser.Count > 0)
+		{
+			float num = CalculateSplitAngleDegrees(targets[0], caster);
+			float num2 = VectorUtils.HorizontalAngle_Deg(aimDirection);
+			int numSplitBeamPairs = GetNumSplitBeamPairs();
+			for (int j = 0; j < numSplitBeamPairs; j++)
+			{
+				float angle = num2 + num * (j + 1);
+				float angle2 = num2 - num * (j + 1);
+				Vector3 dir = VectorUtils.AngleDegreesToVector(angle);
+				Vector3 dir2 = VectorUtils.AngleDegreesToVector(angle2);
+				VectorUtils.LaserCoords laserCoords2;
+				laserCoords2.start = laserCoords.end;
+				VectorUtils.LaserCoords laserCoords3;
+				laserCoords3.start = laserCoords.end;
+				List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(
+					laserCoords2.start,
+					dir,
+					GetSecondaryTargetingInfo().range,
+					GetSecondaryTargetingInfo().width,
+					caster,
+					GetSplitLaserAffectedTeams(caster),
+					GetSecondaryTargetingInfo().penetrateLos,
+					GetSecondaryTargetingInfo().maxTargets,
+					false,
+					false,
+					out laserCoords2.end,
+					list,
+					actorsInLaser);
+				List<ActorData> actorsInLaser3 = AreaEffectUtils.GetActorsInLaser(
+					laserCoords3.start,
+					dir2,
+					GetSecondaryTargetingInfo().range,
+					GetSecondaryTargetingInfo().width,
+					caster,
+					GetSplitLaserAffectedTeams(caster),
+					GetSecondaryTargetingInfo().penetrateLos,
+					GetSecondaryTargetingInfo().maxTargets,
+					false,
+					false,
+					out laserCoords3.end,
+					list,
+					actorsInLaser);
+				foreach (ActorData actor in actorsInLaser2)
+				{
+					ActorHitParameters hitParams2 = new ActorHitParameters(actor, laserCoords2.start);
+					if (actor.GetTeam() == caster.GetTeam())
+					{
+						abilityResults.StoreActorHit(new ActorHitResults(
+							GetSecondaryTargetHealingAmount(), HitActionType.Healing, GetSecondaryTargetAllyHitEffect(), hitParams2));
+					}
+					else
+					{
+						abilityResults.StoreActorHit(new ActorHitResults(
+							GetSecondaryTargetDamageAmount(), HitActionType.Damage, GetSecondaryTargetEnemyHitEffect(), hitParams2));
+					}
+				}
+				foreach (ActorData actor in actorsInLaser3)
+				{
+					ActorHitParameters hitParams3 = new ActorHitParameters(actor, laserCoords3.start);
+					if (actor.GetTeam() == caster.GetTeam())
+					{
+						abilityResults.StoreActorHit(new ActorHitResults(
+							GetSecondaryTargetHealingAmount(), HitActionType.Healing, GetSecondaryTargetAllyHitEffect(), hitParams3));
+					}
+					else
+					{
+						abilityResults.StoreActorHit(new ActorHitResults(
+							GetSecondaryTargetDamageAmount(), HitActionType.Damage, GetSecondaryTargetEnemyHitEffect(), hitParams3));
+					}
+				}
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(list);
+	}
+
+	// added in rogues
+	private float CalculateSplitAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
+	{
+		float lengthRange = GetLengthForMaxAngle() - GetLengthForMinAngle();
+		float angleRange = GetMaxSplitAngle() - GetMinSplitAngle();
+		if (lengthRange <= 0f)
+		{
+			return GetMinSplitAngle();
+		}
+		float length = Mathf.Clamp(
+			(currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize,
+			GetLengthForMinAngle(),
+			GetLengthForMaxAngle());
+		float share = 1f - (length - GetLengthForMinAngle()) / lengthRange;
+		return GetMinSplitAngle() + angleRange * share;
+	}
+#endif
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -67,6 +69,11 @@ public class FishManGeyser : Ability
 	private StandardEffectInfo m_cachedEffectToAlliesOnExplode;
 	private List<ShapeToDamage> m_cachedShapeToDamage = new List<ShapeToDamage>();
 
+#if SERVER
+	// added in rogues
+	private FishManRoamingDebuff m_eelAbility;
+#endif
+
 	private void Start()
 	{
 		Setup();
@@ -75,6 +82,19 @@ public class FishManGeyser : Ability
 	private void Setup()
 	{
 		SetCachedFields();
+		
+#if SERVER
+		// added in rogues
+		if (m_eelAbility == null)
+		{
+			AbilityData abilityData = GetComponent<AbilityData>();
+			if (abilityData != null)
+			{
+				m_eelAbility = abilityData.GetAbilityOfType(typeof(FishManRoamingDebuff)) as FishManRoamingDebuff;
+			}
+		}
+#endif
+		
 		if (ApplyKnockbackOnCast() && RunPriority != AbilityPriority.Combat_Knockback)
 		{
 			Debug.LogError("Authoring error on FishManGeyser-- ability's run priority is " + RunPriority + ", but it does knockback on cast.");
@@ -231,6 +251,7 @@ public class FishManGeyser : Ability
 		return m_cachedEffectToAlliesOnCast ?? m_effectToAlliesOnCast;
 	}
 
+	// TODO FISHMAN unused
 	public StandardEffectInfo GetEnemyEffectOnNextTurn()
 	{
 		return m_cachedEnemyEffectOnNextTurn ?? m_enemyEffectOnNextTurn;
@@ -341,6 +362,7 @@ public class FishManGeyser : Ability
 		       || GetEffectToAlliesOnCast().m_applyEffect;
 	}
 
+	// TODO FISHMAN unused
 	private bool ExplosionCanAffectEnemies()
 	{
 		return GetDamageToEnemiesOnExplode() > 0
@@ -348,6 +370,7 @@ public class FishManGeyser : Ability
 		       || ApplyKnockbackOnExplode();
 	}
 
+	// TODO FISHMAN unused
 	private bool ExplosionCanAffectAllies()
 	{
 		return GetHealingToAlliesOnExplode() > 0
@@ -460,4 +483,163 @@ public class FishManGeyser : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequence,
+			AreaEffectUtils.GetCenterOfShape(GetCastShape(), targets[0]),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<Team> affectedTeams = new List<Team>();
+		if (CastCanAffectAllies())
+		{
+			affectedTeams.Add(caster.GetTeam());
+		}
+		if (CastCanAffectEnemies())
+		{
+			affectedTeams.AddRange(caster.GetOtherTeams());
+		}
+		List<AbilityAreaShape> shapes = new List<AbilityAreaShape>();
+		foreach (ShapeToDamage shapeToDamage in m_cachedShapeToDamage)
+		{
+			shapes.Add(shapeToDamage.m_shape);
+		}
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetCastShape(), targets[0]);
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			shapes[shapes.Count - 1],
+			targets[0],
+			CastPenetratesLoS(),
+			caster,
+			affectedTeams,
+			null);
+		int hitEnemiesNum = 0;
+		foreach (ActorData actor in actorsInShape)
+		{
+			if (actor.GetTeam() != caster.GetTeam())
+			{
+				hitEnemiesNum++;
+			}
+		}
+		bool appliedHealOnCaster = false;
+		AreaEffectUtils.GetActorsInShapeLayers(
+			shapes,
+			targets[0].FreePos,
+			Board.Get().GetSquare(targets[0].GridPos),
+			CastPenetratesLoS(),
+			caster,
+			caster.GetOtherTeams(),
+			out List<List<ActorData>> actorsInLayers,
+			nonActorTargetInfo);
+		for (int i = 0; i < actorsInLayers.Count; i++)
+		{
+			foreach (ActorData actorData in actorsInLayers[i])
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, centerOfShape));
+				if (actorData.GetTeam() == caster.GetTeam())
+				{
+					actorHitResults.AddBaseHealing(GetHealingToAlliesOnCast());
+					actorHitResults.AddStandardEffectInfo(GetEffectToAlliesOnCast());
+					if (actorData == caster)
+					{
+						actorHitResults.AddBaseHealing(hitEnemiesNum * GetHealOnCasterPerEnemyHit());
+						appliedHealOnCaster = true;
+					}
+				}
+				else
+				{
+					actorHitResults.AddBaseDamage(GetDamageForShapeIndex(i));
+					actorHitResults.AddStandardEffectInfo(GetEffectToEnemiesOnCast());
+					if (ApplyKnockbackOnCast())
+					{
+						actorHitResults.AddKnockbackData(new KnockbackHitData(
+							actorData,
+							caster,
+							GetKnockbackTypeOnCast(),
+							targets[0].AimDirection,
+							centerOfShape,
+							GetKnockbackDistOnCast()));
+					}
+					if (ApplyEelEffectOnEnemies())
+					{
+						actorHitResults.AddEffect(new FishManRoamingDebuffEffect(
+							AsEffectSource(),
+							actorData.GetCurrentBoardSquare(),
+							actorData,
+							caster,
+							GetEelEffectOnEnemies().m_effectData,
+							GetEelRadius(),
+							false,
+							1,
+							m_eelAbility.m_jumpSequence,
+							0,
+							true,
+							false,
+							false,
+							FishManRoamingDebuff.RoamingDebuffJumpPreference.Closest,
+							FishManRoamingDebuff.RoamingDebuffJumpPreference.DontCare,
+							FishManRoamingDebuff.RoamingDebuffJumpPreference.DontCare,
+							GetEelDamage(),
+							0,
+							0,
+							GetEelEffectOnEnemies(),
+							GetEelEffectOnEnemies(),
+							false));
+					}
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		if (!appliedHealOnCaster && GetHealOnCasterPerEnemyHit() > 0 && hitEnemiesNum > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.SetBaseHealing(hitEnemiesNum * GetHealOnCasterPerEnemyHit());
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+		if (GetNumExplosionsBeforeEnding() > 0)
+		{
+			Effect effect = new FishManGeyserEffect(AsEffectSource(),
+				caster,
+				targets[0],
+				GetExplodeShape(),
+				ExplodePenetratesLoS(),
+				GetDamageToEnemiesOnExplode(),
+				GetHealingToAlliesOnExplode(),
+				ApplyKnockbackOnExplode(),
+				GetKnockbackDistOnExplode(),
+				m_knockbackTypeOnExplode,
+				GetEffectToEnemiesOnExplode(),
+				GetEffectToAlliesOnExplode(),
+				GetTurnsTillFirstExplosion(),
+				GetNumExplosionsBeforeEnding(),
+				m_hittingEnemySequence,
+				m_hittingAllySequence,
+				m_groundEffectPersistentSequence,
+				m_groundEffectExplodeSequence,
+				abilityResults.SequenceSource);
+			PositionHitParameters hitParams = new PositionHitParameters(centerOfShape);
+			PositionHitResults hitResults = new PositionHitResults(effect, hitParams);
+			abilityResults.StorePositionHit(hitResults);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster.GetTeam() != target.GetTeam() && results.HasKnockback && !target.GetActorStatus().HasStatus(StatusType.Unstoppable))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.FishManStats.EnemiesKnockbackedByUlt);
+		}
+	}
+#endif
 }

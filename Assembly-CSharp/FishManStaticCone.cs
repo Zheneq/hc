@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,9 +72,13 @@ public class FishManStaticCone : Ability
 			GetConeBackwardOffset(),
 			PenetrateLineOfSight())
 		{
+			// reactor
 			m_includeEnemies = AffectsEnemies(),
 			m_includeAllies = AffectsAllies(),
 			m_includeCaster = AffectsCaster(),
+			// rogues (down the line)
+			// Targeter.SetAffectedGroups(AffectsEnemies(), AffectsAllies(), AffectsCaster());
+			
 			m_interpMinDistOverride = m_stretchInterpMinDist,
 			m_interpRangeOverride = m_stretchInterpRange,
 			m_discreteWidthAngleChange = m_useDiscreteAngleChange,
@@ -157,6 +163,7 @@ public class FishManStaticCone : Ability
 			: m_penetrateLineOfSight;
 	}
 
+	// TODO FISHMAN unused
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null
@@ -342,6 +349,171 @@ public class FishManStaticCone : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_lastBasicAttackEnemyHitCount = 0;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		AreaEffectUtils.GatherStretchConeDimensions(
+			targets[0].FreePos,
+			casterPos,
+			GetConeLength(),
+			GetConeLength(),
+			GetConeWidthAngleMin(),
+			GetConeWidthAngle(),
+			m_stretchConeStyle,
+			out _,
+			out float angleInDegrees,
+			m_useDiscreteAngleChange,
+			GetMaxHealingToAllies() - GetHealingToAllies(),
+			m_stretchInterpMinDist,
+			m_stretchInterpRange);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[] {
+				new BlasterStretchConeSequence.ExtraParams
+				{
+					angleInDegrees = angleInDegrees,
+					forwardAngle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+					lengthInSquares = GetConeLength()
+				}
+			});
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out int damageAmount, out int healAmount);
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		int healToCaster = GetHealToCasterOnCast();
+		int alliesHit = 0;
+		foreach (ActorData actorData in hitActors)
+		{
+			if (actorData.GetTeam() == caster.GetTeam() && actorData != caster)
+			{
+				alliesHit++;
+			}
+		}
+		bool appliedExtraEffectToClosestAlly = false;
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, casterPos));
+			if (!(actorData == caster))
+			{
+				if (actorData.GetTeam() != caster.GetTeam())
+				{
+					actorHitResults.SetBaseDamage(damageAmount);
+					actorHitResults.AddStandardEffectInfo(GetEffectToEnemies());
+					healToCaster += GetHealToCasterPerEnemyHit();
+				}
+				else
+				{
+					int healing = healAmount + GetExtraAllyHealFromBasicAttack();
+					if (alliesHit == 1)
+					{
+						healing += GetExtraAllyHealForSingleHit();
+					}
+					actorHitResults.SetBaseHealing(healing);
+					actorHitResults.AddStandardEffectInfo(GetEffectToAllies());
+					if (!appliedExtraEffectToClosestAlly)
+					{
+						actorHitResults.AddStandardEffectInfo(GetExtraEffectOnClosestAlly());
+						appliedExtraEffectToClosestAlly = true;
+					}
+					healToCaster += GetHealToCasterPerAllyHit();
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		if (healToCaster > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.SetBaseHealing(healToCaster);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out int damageAmount,
+		out int healAmount)
+	{
+		AreaEffectUtils.GatherStretchConeDimensions(
+			targets[0].FreePos,
+			caster.GetLoSCheckPos(),
+			GetConeLength(),
+			GetConeLength(),
+			GetConeWidthAngleMin(),
+			GetConeWidthAngle(),
+			m_stretchConeStyle,
+			out _,
+			out float coneWidthDegrees,
+			m_useDiscreteAngleChange,
+			GetMaxHealingToAllies() - GetHealingToAllies(),
+			m_stretchInterpMinDist,
+			m_stretchInterpRange);
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			caster.GetLoSCheckPos(),
+			VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+			coneWidthDegrees,
+			GetConeLength(),
+			GetConeBackwardOffset(),
+			PenetrateLineOfSight(),
+			caster,
+			TargeterUtils.GetRelevantTeams(caster, AffectsAllies(), AffectsEnemies()),
+			nonActorTargetInfo);
+		damageAmount = GetDamageForSweepAngle(coneWidthDegrees);
+		healAmount = GetHealingForSweepAngle(coneWidthDegrees);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, caster.GetLoSCheckPos());
+		if (m_maxTargets > 0)
+		{
+			TargeterUtils.LimitActorsToMaxNumber(ref actorsInCone, m_maxTargets);
+		}
+		return actorsInCone;
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		float angle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		return new List<Vector3>
+		{
+			caster.GetFreePos(),
+			caster.GetFreePos() + GetConeLength() * Board.Get().squareSize * VectorUtils.AngleDegreesToVector(angle)
+		};
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.FishManStats.HealingFromHealCone, results.FinalHealing);
+		}
+	}
+#endif
 
 	private int GetDamageForSweepAngle(float sweepAngle)
 	{

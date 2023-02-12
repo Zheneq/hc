@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,9 +79,13 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		FishManGeyser fishManGeyser = GetTargetAbilityOnAbilityData(abilityData) as FishManGeyser;
+		// rogues
+		// FishManGeyser fishManGeyser = targetAbility as FishManGeyser;
+		
 		bool isValid = fishManGeyser != null;
 		string desc = string.Empty;
 		if (m_useAdditionalShapeOverride && m_additionalShapeToDamageOverride != null)

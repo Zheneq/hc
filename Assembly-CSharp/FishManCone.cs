@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -93,9 +95,13 @@ public class FishManCone : Ability
 					GetConeBackwardOffset(),
 					PenetrateLineOfSight())
 				{
+					// reactor
 					m_includeEnemies = AffectsEnemies(),
 					m_includeAllies = AffectsAllies(),
 					m_includeCaster = AffectsCaster(),
+					// rogues (down the line)
+					// Targeter.SetAffectedGroups(AffectsEnemies(), AffectsAllies(), AffectsCaster());
+
 					m_interpMinDistOverride = m_stretchInterpMinDist,
 					m_interpRangeOverride = m_stretchInterpRange,
 					m_discreteWidthAngleChange = m_useDiscreteAngleChange,
@@ -492,6 +498,299 @@ public class FishManCone : Ability
 		return base.GetRotateToTargetPos(targets, caster);
 	}
 
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_syncComp == null)
+		{
+			return;
+		}
+		sbyte num = 0;
+		List<ActorData> hitActors = additionalData.m_abilityResults.HitActorList();
+		foreach (ActorData hitActor in hitActors)
+		{
+			if (hitActor.GetTeam() != caster.GetTeam())
+			{
+				num += 1;
+			}
+		}
+		if (m_syncComp.m_lastBasicAttackEnemyHitCount != num)
+		{
+			m_syncComp.Networkm_lastBasicAttackEnemyHitCount = num;
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Sequence.IExtraSequenceParams[] array = null;
+		if (m_coneMode == ConeTargetingMode.MultiClick)
+		{
+			BlasterStretchConeSequence.ExtraParams extraParams = new BlasterStretchConeSequence.ExtraParams();
+			GetTargeterClampedAimDirection(
+				targets[0].AimDirection,
+				targets[1].AimDirection,
+				out extraParams.angleInDegrees,
+				out extraParams.forwardAngle);
+			extraParams.lengthInSquares = GetConeLength();
+			array = new Sequence.IExtraSequenceParams[]
+			{
+				extraParams
+			};
+		}
+		else if (m_coneMode == ConeTargetingMode.Stretch)
+		{
+			Vector3 loSCheckPos = caster.GetLoSCheckPos();
+			AreaEffectUtils.GatherStretchConeDimensions(
+				targets[0].FreePos,
+				loSCheckPos,
+				GetConeLength(),
+				GetConeLength(),
+				GetConeWidthAngleMin(),
+				GetConeWidthAngle(),
+				m_stretchConeStyle,
+				out _,
+				out var angleInDegrees,
+				m_useDiscreteAngleChange,
+				GetMaxDamageToEnemies() - GetDamageToEnemies(),
+				m_stretchInterpMinDist,
+				m_stretchInterpRange);
+			array = new Sequence.IExtraSequenceParams[]
+			{
+				new BlasterStretchConeSequence.ExtraParams
+				{
+					angleInDegrees = angleInDegrees,
+					forwardAngle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection),
+					lengthInSquares = GetConeLength()
+				}
+			};
+		}
+
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			array);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out int baseDamage, out int baseHealing);
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		int healToCaster = GetHealToCasterOnCast();
+		int hitEnemiesNum = 0;
+		foreach (ActorData hitActor in hitActors)
+		{
+			if (hitActor.GetTeam() != caster.GetTeam())
+			{
+				hitEnemiesNum++;
+			}
+		}
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, casterPos));
+			if (actorData != caster)
+			{
+				if (actorData.GetTeam() != caster.GetTeam())
+				{
+					actorHitResults.SetBaseDamage(baseDamage);
+					actorHitResults.AddStandardEffectInfo(GetEffectToEnemies());
+					healToCaster += GetHealToCasterPerEnemyHit();
+					if (hitEnemiesNum == 1 && GetExtraEnergyForSingleEnemyHit() > 0)
+					{
+						actorHitResults.SetTechPointGainOnCaster(GetExtraEnergyForSingleEnemyHit());
+					}
+				}
+				else
+				{
+					actorHitResults.SetBaseHealing(baseHealing);
+					actorHitResults.AddStandardEffectInfo(GetEffectToAllies());
+					healToCaster += GetHealToCasterPerAllyHit();
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		if (healToCaster > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.SetBaseHealing(healToCaster);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out int damageAmount,
+		out int healAmount)
+	{
+		Vector3 aimDirection = targets[0].AimDirection;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+		List<Team> affectedTeams = new List<Team>();
+		if (AffectsAllies())
+		{
+			affectedTeams.Add(caster.GetTeam());
+		}
+		if (AffectsEnemies())
+		{
+			affectedTeams.AddRange(caster.GetOtherTeams());
+		}
+		List<ActorData> actorsInCone;
+		switch (m_coneMode)
+		{
+			case ConeTargetingMode.MultiClick:
+			{
+				float coneWidthAngleMin = GetConeWidthAngleMin();
+				float coneCenterAngleDegrees2 = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+				if (targets.Count > 1)
+				{
+					GetTargeterClampedAimDirection(
+						targets[0].AimDirection,
+						targets[targets.Count - 1].AimDirection,
+						out coneWidthAngleMin,
+						out coneCenterAngleDegrees2);
+				}
+				Vector3 aimDirection2 = targets[targets.Count - 1].AimDirection;
+				List<NonActorTargetInfo> nonActorTargets = new List<NonActorTargetInfo>();
+				List<NonActorTargetInfo> nonActorTargets2 = new List<NonActorTargetInfo>();
+				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+					caster.GetLoSCheckPos(),
+					aimDirection,
+					GetConeLength(),
+					m_multiClickConeEdgeWidth,
+					caster,
+					affectedTeams,
+					PenetrateLineOfSight(),
+					0,
+					PenetrateLineOfSight(),
+					true,
+					out _,
+					nonActorTargets);
+				List<ActorData> actorsInLaser2 = AreaEffectUtils.GetActorsInLaser(
+					caster.GetLoSCheckPos(),
+					aimDirection2,
+					GetConeLength(),
+					m_multiClickConeEdgeWidth,
+					caster,
+					affectedTeams,
+					PenetrateLineOfSight(),
+					0,
+					PenetrateLineOfSight(),
+					true,
+					out _,
+					nonActorTargets2);
+				actorsInCone = AreaEffectUtils.GetActorsInCone(
+					caster.GetFreePos(),
+					coneCenterAngleDegrees2,
+					coneWidthAngleMin,
+					GetConeLength(),
+					GetConeBackwardOffset(),
+					PenetrateLineOfSight(),
+					caster,
+					affectedTeams,
+					nonActorTargetInfo);
+				foreach (ActorData actor in actorsInLaser)
+				{
+					if (!actorsInCone.Contains(actor))
+					{
+						actorsInCone.Add(actor);
+					}
+				}
+				foreach (ActorData actor in actorsInLaser2)
+				{
+					if (!actorsInCone.Contains(actor))
+					{
+						actorsInCone.Add(actor);
+					}
+				}
+				damageAmount = GetDamageForSweepAngle(coneWidthAngleMin);
+				healAmount = GetHealingForSweepAngle(coneWidthAngleMin);
+				break;
+			}
+			case ConeTargetingMode.Stretch:
+				AreaEffectUtils.GatherStretchConeDimensions(
+					targets[0].FreePos,
+					casterPos,
+					GetConeLength(),
+					GetConeLength(),
+					GetConeWidthAngleMin(),
+					GetConeWidthAngle(),
+					m_stretchConeStyle,
+					out _,
+					out var num2,
+					m_useDiscreteAngleChange,
+					GetMaxDamageToEnemies() - GetDamageToEnemies(),
+					m_stretchInterpMinDist,
+					m_stretchInterpRange);
+				actorsInCone = AreaEffectUtils.GetActorsInCone(
+					casterPos,
+					coneCenterAngleDegrees,
+					num2,
+					GetConeLength(),
+					GetConeBackwardOffset(),
+					PenetrateLineOfSight(),
+					caster,
+					affectedTeams,
+					nonActorTargetInfo);
+				damageAmount = GetDamageForSweepAngle(num2);
+				healAmount = GetHealingForSweepAngle(num2);
+				break;
+			default:
+				actorsInCone = AreaEffectUtils.GetActorsInCone(
+					casterPos,
+					coneCenterAngleDegrees,
+					GetConeWidthAngle(),
+					GetConeLength(),
+					GetConeBackwardOffset(),
+					PenetrateLineOfSight(),
+					caster,
+					affectedTeams,
+					nonActorTargetInfo);
+				damageAmount = GetDamageToEnemies();
+				healAmount = GetHealingToAllies();
+				break;
+		}
+		if (m_maxTargets > 0)
+		{
+			TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, casterPos);
+			TargeterUtils.LimitActorsToMaxNumber(ref actorsInCone, m_maxTargets);
+		}
+		return actorsInCone;
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		float angle = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		if (targets.Count > 1)
+		{
+			GetTargeterClampedAimDirection(
+				targets[0].AimDirection,
+				targets[targets.Count - 1].AimDirection,
+				out _, 
+				out angle);
+		}
+
+		return new List<Vector3>
+		{
+			caster.GetFreePos(),
+			caster.GetFreePos() + GetConeLength() * Board.Get().squareSize * VectorUtils.AngleDegreesToVector(angle)
+		};
+	}
+#endif
+	
 	private int GetDamageForSweepAngle(float sweepAngle)
 	{
 		float damageRange = GetMaxDamageToEnemies() - GetDamageToEnemies();
