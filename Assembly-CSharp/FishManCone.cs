@@ -217,6 +217,7 @@ public class FishManCone : Ability
 			: m_penetrateLineOfSight;
 	}
 
+	// TODO FISHMAN unused in ability results
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null

@@ -20,6 +20,9 @@ public class FishManRoamingDebuffEffect : StandardActorEffect
 	private FishManRoamingDebuff.RoamingDebuffJumpPreference m_tiebreakerJumpPreference;
 	private int m_damageToEnemiesOnJump;
 	private int m_healingToAlliesOnJump;
+	// TODO FISHMAN always 0, actual value pre-added to m_damageToEnemiesOnJump.
+	// Actual logic matches in-game description:
+	//	Deals an additional [DamageIncreasePerJump_Final] damage when it jumps.
 	private int m_damageIncreasePerJump;
 	private StandardEffectInfo m_effectWhileOnEnemy;
 	private StandardEffectInfo m_effectWhileOnAlly;
