@@ -270,7 +270,11 @@ public class ServerGameManager : MonoBehaviour
 		if (m_heartBeat.IsRunning && m_heartBeat.Elapsed > m_heartBeatDuration)
 		{
 			m_monitorGameServerInterface.SendMonitorHeartbeatNotification();
-			m_heartBeat.Reset(); // m_heartBeat.Restart(); in rogues
+			// custom
+			m_heartBeat.Reset();
+			m_heartBeat.Start();
+			// rogues
+			// m_heartBeat.Restart();
 		}
 	}
 

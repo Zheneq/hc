@@ -39,6 +39,7 @@ namespace ArtemisServer.BridgeServer
         public const float callbackTimeout = 30f;
 
         public bool isConnected => ws != null && ws.ReadyState == WebSocketState.Open;
+        public bool isReconnecting => m_reconnectDelayTimer.IsRunning;
 
         protected abstract List<Type> GetMessageTypes();
         protected abstract void OnConnecting();
@@ -51,6 +52,7 @@ namespace ArtemisServer.BridgeServer
 
         public void Connect()
         {
+            Log.Info("ArtemisClientBase::Connect");
             if (isConnected)
             {
                 return;
@@ -76,15 +78,23 @@ namespace ArtemisServer.BridgeServer
             // rogues
             m_overallConnectionTimer.Reset();
             // custom
-            if (isConnected && ws != null)
+            if (ws != null)
             {
-                ws.Close();
+                ws.OnMessage -= Ws_OnMessage;
+                ws.OnError -= Ws_OnError;
+                ws.OnOpen -= Ws_OnOpen;
+                ws.OnClose -= Ws_OnClose;
+                if (isConnected)
+                {
+                    ws.Close();
+                }
                 ws = null;
             }
         }
 
         public void Reconnect()
         {
+            Log.Info("ArtemisClientBase::Reconnect");
             m_reconnectDelayTimer.Reset();
             m_reconnectDelayTimer.Start();
             Disconnect();
@@ -198,11 +208,14 @@ namespace ArtemisServer.BridgeServer
 
         private void Ws_OnOpen(object sender, EventArgs e)
         {
+            m_reconnectDelayTimer.Reset();
             OnConnected();
         }
 
         private void Ws_OnClose(object sender, CloseEventArgs e)
         {
+            Log.Info("--- Websocket Disconnection ---");
+            Log.Info($"Disconnect: code {e.Code}, reason {e.Reason}, clean {e.WasClean}");
             OnDisconnected();
         }
 

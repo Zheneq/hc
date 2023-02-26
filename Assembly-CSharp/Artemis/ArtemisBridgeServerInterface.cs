@@ -110,38 +110,45 @@ namespace ArtemisServer.BridgeServer
             RegisterGameServer();
         }
 
+        // custom
         protected override void OnDisconnected()
         {
             Log.Info("ArtemisBridgeServerInterface::OnDisconnected");
             UIFrontendLoadingScreen.Get().StartDisplayError("Disconnected");
+
+            if (m_registered)
+            {
+                Log.Info($"Disconnected from {networkAddress}");
+                UIFrontendLoadingScreen.Get().StartDisplayError("Disconnected");
+            }
             
-            // if (m_registered)
-            // {
-            //     Log.Info($"Disconnected from {networkAddress}");
-            //     UIFrontendLoadingScreen.Get().StartDisplayError("Disconnected");
-            //     OnDisconnectedHandler("");
-            //     return;
-            // }
-            // if (m_overallConnectionTimer.IsRunning)
-            // {
-            //     if (m_overallConnectionTimer.Elapsed.TotalSeconds < ConnectionTimeout)
-            //     {
-            //         Log.Info($"Retrying connection to {networkAddress}");
-            //         UIFrontendLoadingScreen.Get().StartDisplayError("Retrying connection");
-            //         Reconnect();
-            //         return;
-            //     }
-            //     Log.Info($"Failed to connect to {networkAddress}");
-            //     UIFrontendLoadingScreen.Get().StartDisplayError("Failed to connect");
-            //     m_overallConnectionTimer.Reset();
-            //     OnConnectedHandler(new RegisterGameServerResponse
-            //     {
-            //         Success = false,
-            //         ErrorMessage = "connection failure"
-            //     });
-            // }
+            if (m_registered || GameManager.Get().GameStatus != GameStatus.Stopped)
+            {
+                Log.Info($"Retrying connection to {networkAddress}");
+                UIFrontendLoadingScreen.Get().StartDisplayError("Retrying connection");
+                Reconnect();
+                return;
+            }
             
-            // custom
+            if (m_overallConnectionTimer.IsRunning)
+            {
+                if (m_overallConnectionTimer.Elapsed.TotalSeconds < ConnectionTimeout)
+                {
+                    Log.Info($"Retrying connection to {networkAddress}");
+                    UIFrontendLoadingScreen.Get().StartDisplayError("Retrying connection");
+                    Reconnect();
+                    return;
+                }
+                Log.Info($"Failed to connect to {networkAddress}");
+                UIFrontendLoadingScreen.Get().StartDisplayError("Failed to connect");
+                m_overallConnectionTimer.Reset();
+                OnConnectedHandler(new RegisterGameServerResponse
+                {
+                    Success = false,
+                    ErrorMessage = "connection failure"
+                });
+            }
+            
             Log.Info("Shutting down");
             Application.Quit();
         }
@@ -151,15 +158,21 @@ namespace ArtemisServer.BridgeServer
             UIFrontendLoadingScreen.Get().StartDisplayError("network error", e.Message);
 
             // custom
-            Log.Info("Shutting down");
-            Application.Quit();
+            Reconnect();
         }
 
         public void Update()
         {
-            // TODO handle connection loss?
-
             // custom
+            if (!isConnected
+                && !isReconnecting
+                && m_registered
+                && GameManager.Get().GameStatus != GameStatus.None
+                && GameManager.Get().GameStatus != GameStatus.Stopped)
+            {
+                Reconnect();
+            }
+                
             if (pendingLaunchGameRequest != null)
             {
                 OnLaunchGameRequest(pendingLaunchGameRequest);
@@ -195,7 +208,7 @@ namespace ArtemisServer.BridgeServer
             RegisterGameServerRequest registerGameServerRequest = new RegisterGameServerRequest
             {
                 SessionInfo = m_sessionInfo,
-                isPrivate = false
+                isPrivate = GameManager.Get().GameStatus != GameStatus.Stopped
             };
             CallbackHandler callback = delegate(CallbackStatus status, AllianceMessageBase msg)
             {
