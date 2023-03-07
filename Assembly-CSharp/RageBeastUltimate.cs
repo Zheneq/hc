@@ -142,7 +142,7 @@ public class RageBeastUltimate : Ability
 	// added in rogues
 	public override int GetTechPointRegenContribution()
 	{
-		if (!(m_abilityMod == null) && m_abilityMod.m_passiveTechPointRegen > 0)
+		if (m_abilityMod != null && m_abilityMod.m_passiveTechPointRegen > 0)
 		{
 			return m_abilityMod.m_passiveTechPointRegen;
 		}
@@ -190,8 +190,10 @@ public class RageBeastUltimate : Ability
 		foreach (ActorData target in actorsInShape)
 		{
 			ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
-			ActorHitResults actorHitResults = new ActorHitResults(GetPlasmaDamage(), HitActionType.Damage, hitParams);
-			// TODO RAGEBEAST use m_isDirectDamageOnCast
+			ActorHitResults actorHitResults = new ActorHitResults(GetPlasmaDamage(), HitActionType.Damage, hitParams)
+			{
+				CanBeReactedTo = m_isDirectDamageOnCast
+			};
 			abilityResults.StoreActorHit(actorHitResults);
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);

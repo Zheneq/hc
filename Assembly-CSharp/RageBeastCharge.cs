@@ -24,6 +24,11 @@ public class RageBeastCharge : Ability
 			m_abilityName = "Pain Train";
 		}
 		SetupTargeter();
+		
+#if SERVER
+		// custom
+		SetCachedFields();
+#endif
 	}
 
 	private void SetupTargeter()
