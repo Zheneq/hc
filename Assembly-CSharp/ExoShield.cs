@@ -290,7 +290,7 @@ public class ExoShield : Ability
 		{
 			return true;
 		}
-		return m_freeActionWhileAnchored
+		return FreeActionWhileAnchored()  // m_freeActionWhileAnchored in rogues
 		       && m_syncComponent != null
 		       && m_syncComponent.m_anchored;
 	}

@@ -19,7 +19,7 @@ public class ExoAnchoredLaserCooldownEffect : StandardActorEffect
 		ActorData target,
 		ActorData caster,
 		StandardActorEffectData data,
-		int cooldownToAdd,
+		int cooldownToAdd, // TODO EXO unused
 		StandardEffectInfo effectOnAnchorEnd,
 		GameObject unanchorAnimSequence)
 		: base(parent, targetSquare, target, caster, data)

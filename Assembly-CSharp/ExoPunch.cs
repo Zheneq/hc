@@ -101,6 +101,7 @@ public class ExoPunch : Ability
 			: m_penetrateLineOfSight;
 	}
 
+	// TODO EXO unused
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null

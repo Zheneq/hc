@@ -11,6 +11,7 @@ public class AbilityMod_ExoPunch : AbilityMod
 	public AbilityModPropertyFloat m_coneBackwardOffsetMod;
 	public AbilityModPropertyFloat m_coneLengthMod;
 	public AbilityModPropertyBool m_penetrateLineOfSightMod;
+	// TODO EXO not actually used (set to ignore in all assets)
 	public AbilityModPropertyInt m_maxTargetsMod;
 	[Header("-- Knockback")]
 	public AbilityModPropertyFloat m_knockbackDistanceMod;

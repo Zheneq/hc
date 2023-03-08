@@ -24,6 +24,7 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 	public AbilityModPropertyFloat m_extraDamageChangePerDistMod;
 	[Header("-- Effect while anchored and cooldown when finished")]
 	public AbilityModPropertyEffectInfo m_effectOnCasterMod;
+	// TODO EXO not actually used (set to ignore in all assets)
 	public AbilityModPropertyInt m_cooldownOnEndMod;
 	public AbilityModPropertyInt m_anchoredTechPointCostMod;
 	public AbilityModPropertyEffectInfo m_effectOnAnchorEndMod;

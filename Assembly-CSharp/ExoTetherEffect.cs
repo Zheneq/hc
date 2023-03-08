@@ -127,6 +127,7 @@ public class ExoTetherEffect : StandardActorEffect
 		}
 	}
 
+	// TODO EXO unused
 	public float GetTotalDistanceFromTarget()
 	{
 		return Target.GetCurrentBoardSquare().HorizontalDistanceInSquaresTo(TargetSquare);
@@ -146,6 +147,7 @@ public class ExoTetherEffect : StandardActorEffect
 		m_abilityQueued = queued;
 	}
 
+	// TODO EXO unused
 	public bool IsSkippingGatheringResults()
 	{
 		return m_abilityQueued;
