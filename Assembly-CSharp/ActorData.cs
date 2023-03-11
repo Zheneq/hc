@@ -3139,14 +3139,16 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		return false;
 	}
 
-	public bool IsActorVisibleToActor(ActorData observer, bool forceViewingTeam = false)
+	public bool IsActorVisibleToActor(ActorData observer, bool forceViewingTeam = false, bool debugLog = false) // custom debug log
 	{
 		if (this == observer)
 		{
+			if (debugLog) Log.Info($"{DisplayName} is visible to self");
 			return true;
 		}
 		if (!NetworkServer.active && observer == GameFlowData.Get().activeOwnedActorData)
 		{
+			if (debugLog) Log.Info($"{DisplayName} is {(IsActorVisibleToClient() ? "" : "not ")} visible to client");
 			return IsActorVisibleToClient();
 		}
 		if (!NetworkServer.active)
@@ -3155,20 +3157,27 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (IsAlwaysVisibleTo(observer.PlayerData))
 		{
+			if (debugLog) Log.Info($"{DisplayName} is always visible to {observer.DisplayName}");
 			return true;
 		}
 		if (IsNeverVisibleTo(observer.PlayerData, true, forceViewingTeam))
 		{
+			if (debugLog) Log.Info($"{DisplayName} is never visible to {observer.DisplayName}");
 			return false;
 		}
-		return observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
+
+		bool isActorVisibleToActor = observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
+		if (debugLog) Log.Info($"{DisplayName} ({GetTravelBoardSquare()?.GetGridPos()}) is " +
+		                       $"{(isActorVisibleToActor ? "" : "not ")} " +
+		                       $"visible to {observer.DisplayName} in fog of war");
+		return isActorVisibleToActor;
 	}
 
-	public bool IsActorVisibleToAnyEnemy()
+	public bool IsActorVisibleToAnyEnemy(bool debugLog = false) // custom debug log
 	{
 		foreach (ActorData enemy in GameFlowData.Get().GetAllTeamMembers(GetEnemyTeam()))
 		{
-			if (!enemy.IsDead() && IsActorVisibleToActor(enemy, true))
+			if (!enemy.IsDead() && IsActorVisibleToActor(enemy, true, debugLog))
 			{
 				return true;
 			}

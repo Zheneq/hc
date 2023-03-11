@@ -6,6 +6,6 @@ public static class EffectDebugConfig
 
 	public static bool TracingAddAndRemove()
 	{
-		return false;
+		return true;
 	}
 }

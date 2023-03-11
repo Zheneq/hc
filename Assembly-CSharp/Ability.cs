@@ -2492,6 +2492,13 @@ public class Ability : MonoBehaviour
 			return additionalData.m_abilityResults.DamageResults;
 		}
 		GatherAbilityResults(targets, caster, ref additionalData.m_abilityResults);
+		
+		// custom
+		AbilityResults res = additionalData.m_abilityResults;
+		Log.Info($"RAW ABILITY RESULTS: {res.Caster} with {res.Ability.GetDebugIdentifier()}\n" +
+		         $"RAW ACTOR HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_actorToHitResults)}\n" +
+		         $"RAW POSITION HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_positionToHitResults)}");
+		
 		List<ServerClientUtils.SequenceStartData> list = GetAbilityRunSequenceStartDataList(targets, caster, additionalData);
 		if (list == null)
 		{
@@ -2515,12 +2522,23 @@ public class Ability : MonoBehaviour
 			ChainAbilityAdditionalModInfo chainModInfo = additionalData.m_chainModInfo;
 			AppendBaseModData(this, additionalData, ref additionalData.m_abilityResults, list, caster, chainModInfo.m_effectOnSelf, chainModInfo.m_effectOnAlly, chainModInfo.m_effectOnEnemy, false, 1f, chainModInfo.m_cooldownReductionsOnSelf, chainModInfo.m_timingSequencePrefab);
 		}
+		
+		// custom
+		Log.Info($"MODDED ABILITY RESULTS: {res.Caster} with {res.Ability.GetDebugIdentifier()}\n" +
+		         $"MODDED ACTOR HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_actorToHitResults)}\n" +
+		         $"MODDED POSITION HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_positionToHitResults)}");
+		
 		additionalData.m_abilityResults.StoreAbilityRunSequenceStartData(list);
+		
+		// custom
+		Log.Info($"PRE-FINALIZE ABILITY RESULTS: {res.Caster} with {res.Ability.GetDebugIdentifier()}\n" +
+		         $"PRE-FINALIZE ACTOR HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_actorToHitResults)}\n" +
+		         $"PRE-FINALIZE POSITION HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_positionToHitResults)}");
+		
 		additionalData.m_abilityResults.FinalizeAbilityResults();
 		additionalData.m_abilityResults.GatheredResults = true;
 		
 		// custom
-		AbilityResults res = additionalData.m_abilityResults;
 		Log.Info($"ABILITY RESULTS: {res.Caster} with {res.Ability.GetDebugIdentifier()}\n" +
 		         $"ACTOR HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_actorToHitResults)}\n" +
 		         $"POSITION HIT RESULTS: {DefaultJsonSerializer.Serialize(res.m_positionToHitResults)}");
