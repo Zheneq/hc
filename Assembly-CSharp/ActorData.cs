@@ -2617,6 +2617,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							{
 								HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.UpdateNameplateUntargeted(actor);
 							}
+#if SERVER
+							// custom
+							ActorBehavior actorBehavior = actor.GetComponent<ActorBehavior>();
+							ActorTurnSM actorTurnSm = actor.GetActorTurnSM();
+							if (actorBehavior != null && actorTurnSm != null)
+							{
+								actorBehavior.OnResolutionStart(actorTurnSm.TimeToLockIn.Seconds);
+							}
+#endif
 						}
 					}
 					return;
