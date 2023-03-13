@@ -5,37 +5,23 @@ public class ValkyrieGuard : Ability
 {
 	[Header("-- Shield effect")]
 	public StandardEffectInfo m_shieldEffectInfo;
-
 	[Header("-- Hit reactions")]
 	public int m_techPointGainPerCoveredHit = 5;
-
 	public int m_techPointGainPerTooCloseForCoverHit;
-
 	public StandardEffectInfo m_coveredHitReactionEffect;
-
 	public StandardEffectInfo m_tooCloseForCoverHitReactionEffect;
-
 	[Header("-- Duration --")]
 	public int m_coverDuration = 1;
-
 	public bool m_coverLastsForever = true;
-
 	[Header("-- Cover Ignore Min Dist?")]
 	public bool m_coverIgnoreMinDist = true;
-
 	[Header("-- Sequences")]
 	public GameObject m_removeShieldSequencePrefab;
-
 	public GameObject m_applyShieldSequencePrefab;
-
 	private Valkyrie_SyncComponent m_syncComponent;
-
 	private AbilityMod_ValkyrieGuard m_abilityMod;
-
 	private StandardEffectInfo m_cachedShieldEffectInfo;
-
 	private StandardEffectInfo m_cachedCoveredHitReactionEffect;
-
 	private StandardEffectInfo m_cachedTooCloseForCoverHitReactionEffect;
 
 	private void Start()
@@ -49,120 +35,73 @@ public class ValkyrieGuard : Ability
 
 	private void Setup()
 	{
-		m_syncComponent = GetComponent<Valkyrie_SyncComponent>();
-		AbilityUtil_Targeter_ValkyrieGuard abilityUtil_Targeter_ValkyrieGuard = new AbilityUtil_Targeter_ValkyrieGuard(this, 1f, true, false, false);
-		abilityUtil_Targeter_ValkyrieGuard.m_addCasterToActorsInRange = true;
-		base.Targeter = abilityUtil_Targeter_ValkyrieGuard;
+		m_syncComponent = base.GetComponent<Valkyrie_SyncComponent>();
+		base.Targeter = new AbilityUtil_Targeter_ValkyrieGuard(this, 1f, true, false, false)
+		{
+			m_addCasterToActorsInRange = true
+		};
 		SetCachedFields();
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedShieldEffectInfo = ((!m_abilityMod) ? m_shieldEffectInfo : m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo));
-		StandardEffectInfo cachedCoveredHitReactionEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedCoveredHitReactionEffect = m_abilityMod.m_coveredHitReactionEffectMod.GetModifiedValue(m_coveredHitReactionEffect);
-		}
-		else
-		{
-			cachedCoveredHitReactionEffect = m_coveredHitReactionEffect;
-		}
-		m_cachedCoveredHitReactionEffect = cachedCoveredHitReactionEffect;
-		StandardEffectInfo cachedTooCloseForCoverHitReactionEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedTooCloseForCoverHitReactionEffect = m_abilityMod.m_tooCloseForCoverHitReactionEffectMod.GetModifiedValue(m_tooCloseForCoverHitReactionEffect);
-		}
-		else
-		{
-			cachedTooCloseForCoverHitReactionEffect = m_tooCloseForCoverHitReactionEffect;
-		}
-		m_cachedTooCloseForCoverHitReactionEffect = cachedTooCloseForCoverHitReactionEffect;
+		m_cachedShieldEffectInfo = (m_abilityMod ? m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo) : m_shieldEffectInfo);
+		m_cachedCoveredHitReactionEffect = (m_abilityMod ? m_abilityMod.m_coveredHitReactionEffectMod.GetModifiedValue(m_coveredHitReactionEffect) : m_coveredHitReactionEffect);
+		m_cachedTooCloseForCoverHitReactionEffect = (m_abilityMod ? m_abilityMod.m_tooCloseForCoverHitReactionEffectMod.GetModifiedValue(m_tooCloseForCoverHitReactionEffect) : m_tooCloseForCoverHitReactionEffect);
 	}
 
 	public StandardEffectInfo GetShieldEffectInfo()
 	{
-		StandardEffectInfo result;
-		if (m_cachedShieldEffectInfo != null)
+		if (m_cachedShieldEffectInfo == null)
 		{
-			result = m_cachedShieldEffectInfo;
+			return m_shieldEffectInfo;
 		}
-		else
-		{
-			result = m_shieldEffectInfo;
-		}
-		return result;
+		return m_cachedShieldEffectInfo;
 	}
 
 	public int GetTechPointGainPerCoveredHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
+			return m_techPointGainPerCoveredHit;
 		}
-		else
-		{
-			result = m_techPointGainPerCoveredHit;
-		}
-		return result;
+		return m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
 	}
 
 	public int GetTechPointGainPerTooCloseForCoverHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
+			return m_techPointGainPerTooCloseForCoverHit;
 		}
-		else
-		{
-			result = m_techPointGainPerTooCloseForCoverHit;
-		}
-		return result;
+		return m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
 	}
 
 	public StandardEffectInfo GetCoveredHitReactionEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedCoveredHitReactionEffect != null)
+		if (m_cachedCoveredHitReactionEffect == null)
 		{
-			result = m_cachedCoveredHitReactionEffect;
+			return m_coveredHitReactionEffect;
 		}
-		else
-		{
-			result = m_coveredHitReactionEffect;
-		}
-		return result;
+		return m_cachedCoveredHitReactionEffect;
 	}
 
 	public StandardEffectInfo GetTooCloseForCoverHitReactionEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedTooCloseForCoverHitReactionEffect != null)
+		if (m_cachedTooCloseForCoverHitReactionEffect == null)
 		{
-			result = m_cachedTooCloseForCoverHitReactionEffect;
+			return m_tooCloseForCoverHitReactionEffect;
 		}
-		else
-		{
-			result = m_tooCloseForCoverHitReactionEffect;
-		}
-		return result;
+		return m_cachedTooCloseForCoverHitReactionEffect;
 	}
 
 	public int GetExtraDamageNextShieldThrowPerCoveredHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_extraDamageNextShieldThrowPerCoveredHitMod.GetModifiedValue(0);
+			return 0;
 		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod.m_extraDamageNextShieldThrowPerCoveredHitMod.GetModifiedValue(0);
 	}
 
 	public int GetMaxExtraDamageNextShieldThrow()
@@ -177,60 +116,36 @@ public class ValkyrieGuard : Ability
 
 	public bool CoverLastsForever()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_coverLastsForeverMod.GetModifiedValue(m_coverLastsForever);
+			return m_coverLastsForever;
 		}
-		else
-		{
-			result = m_coverLastsForever;
-		}
-		return result;
+		return m_abilityMod.m_coverLastsForeverMod.GetModifiedValue(m_coverLastsForever);
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionOnNoBlock()
 	{
-		object result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_cooldownReductionNoBlocks;
+			return null;
 		}
-		else
-		{
-			result = null;
-		}
-		return (AbilityModCooldownReduction)result;
+		return m_abilityMod.m_cooldownReductionNoBlocks;
 	}
 
 	public bool CoverIgnoreMinDist()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
+			return m_coverIgnoreMinDist;
 		}
-		else
-		{
-			result = m_coverIgnoreMinDist;
-		}
-		return result;
+		return m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
 	}
 
 	public int GetExtraAbsorb()
 	{
-		if ((bool)m_syncComponent)
+		if (m_syncComponent)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_syncComponent.m_extraAbsorbForGuard;
-				}
-			}
+			return m_syncComponent.m_extraAbsorbForGuard;
 		}
 		return 0;
 	}
@@ -278,41 +193,19 @@ public class ValkyrieGuard : Ability
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(targets[0].GridPos);
-		if (boardSquareSafe != null)
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					VectorUtils.GetDirectionAndOffsetToClosestSide(boardSquareSafe, targets[0].FreePos, false, out Vector3 offset);
-					return boardSquareSafe.ToVector3() + offset;
-				}
-				}
-			}
+			Vector3 vector;
+			VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out vector);
+			return square.ToVector3() + vector;
 		}
 		return base.GetRotateToTargetPos(targets, caster);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		int result;
-		if (caster != null)
-		{
-			if (caster.GetAbilityData() != null)
-			{
-				result = ((!caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE))) ? 1 : 0);
-				goto IL_0059;
-			}
-		}
-		result = 0;
-		goto IL_0059;
-		IL_0059:
-		return (byte)result != 0;
+		return caster != null && caster.GetAbilityData() != null && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
 	}
 
 	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
@@ -326,4 +219,78 @@ public class ValkyrieGuard : Ability
 		max = 1f;
 		return true;
 	}
+
+#if SERVER
+	//Added in rouges
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
+		if (m_syncComponent != null)
+		{
+			m_syncComponent.Networkm_coverDirection = coverFacing;
+			m_syncComponent.Networkm_extraAbsorbForGuard = 0;
+		}
+	}
+
+	//Added in rouges
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		ValkyrieDirectionalShieldSequence.ExtraParams extraParams = new ValkyrieDirectionalShieldSequence.ExtraParams();
+		extraParams.m_aimDirection = (sbyte)GetCoverFacing(targets);
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_applyShieldSequencePrefab, caster.GetFreePos(), caster.AsArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[]
+		{
+			extraParams
+		});
+		list.Add(item);
+		return list;
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = ServerEffectManager.Get().GetEffect(caster, typeof(ValkyrieGuardEndingEffect)) as ValkyrieGuardEndingEffect;
+		if (valkyrieGuardEndingEffect != null)
+		{
+			actorHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
+		}
+		ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
+		valkyrieGuardEndingEffect = CreateGuardEffect(coverFacing, CoverIgnoreMinDist(), caster, GetShieldEffectInfo(), GetCoverDuration(), GetTechPointGainPerCoveredHit(), GetTechPointGainPerTooCloseForCoverHit(), GetExtraAbsorb());
+		actorHitResults.AddEffect(valkyrieGuardEndingEffect);
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	//Added in rouges
+	public ValkyrieGuardEndingEffect CreateGuardEffect(ActorCover.CoverDirections coverDir, bool ignoreMinDist, ActorData caster, StandardEffectInfo shieldEffectInfo, int coverDuration, int techPointGainPerCoveredHit, int techPointGainPerTooCloseForCoverHit, int extraAbsorb)
+	{
+		StandardActorEffectData shallowCopy = shieldEffectInfo.m_effectData.GetShallowCopy();
+		shallowCopy.m_absorbAmount += extraAbsorb;
+		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = new ValkyrieGuardEndingEffect(base.AsEffectSource(), null, caster, caster, shallowCopy, m_removeShieldSequencePrefab, coverDir, ignoreMinDist, techPointGainPerCoveredHit, techPointGainPerTooCloseForCoverHit, GetCoveredHitReactionEffect(), GetTooCloseForCoverHitReactionEffect());
+		if (m_coverLastsForever)
+		{
+			valkyrieGuardEndingEffect.SetDurationBeforeStart(0);
+		}
+		else
+		{
+			valkyrieGuardEndingEffect.SetDurationBeforeStart(coverDuration);
+		}
+		return valkyrieGuardEndingEffect;
+	}
+
+	//Added in rouges
+	private ActorCover.CoverDirections GetCoverFacing(List<AbilityTarget> targets)
+	{
+		ActorCover.CoverDirections result = ActorCover.CoverDirections.INVALID;
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null)
+		{
+			Vector3 vector;
+			VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out vector);
+			Vector3 vec = square.ToVector3() + vector * 2f;
+			result = ActorCover.GetCoverDirection(square, Board.Get().GetSquareFromVec3(vec));
+		}
+		return result;
+	}
+#endif
 }

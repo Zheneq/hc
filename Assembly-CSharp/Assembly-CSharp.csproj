@@ -2934,6 +2934,7 @@
     <Compile Include="ValkyrieDashAoE.cs" />
     <Compile Include="ValkyrieDirectionalShieldSequence.cs" />
     <Compile Include="ValkyrieGuard.cs" />
+    <Compile Include="ValkyrieGuardEndingEffect.cs" />
     <Compile Include="ValkyrieNarrowingProjectileSequence.cs" />
     <Compile Include="ValkyriePullToConeCenter.cs" />
     <Compile Include="ValkyriePullToLaserCenter.cs" />

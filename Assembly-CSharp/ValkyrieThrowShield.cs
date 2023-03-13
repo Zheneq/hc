@@ -1,35 +1,25 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 public class ValkyrieThrowShield : Ability
 {
 	[Header("-- Targeting")]
 	public float m_width = 1f;
-
 	public float m_maxDistancePerBounce = 15f;
-
 	public float m_maxTotalDistance = 50f;
-
 	public int m_maxBounces = 1;
-
 	public int m_maxTargetsHit = 1;
-
 	[Header("-- Damage")]
 	public int m_damageAmount = 20;
-
 	public int m_bonusDamagePerBounce;
-
 	[Header("-- Knockback")]
 	public float m_knockbackDistance;
-
 	public KnockbackType m_knockbackType;
-
 	[Header("-- Sequences")]
 	public GameObject m_projectileSequence;
-
 	private Valkyrie_SyncComponent m_syncComp;
-
 	private AbilityMod_ValkyrieThrowShield m_abilityMod;
 
 	private void Start()
@@ -54,16 +44,11 @@ public class ValkyrieThrowShield : Ability
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
+			return m_width;
 		}
-		else
-		{
-			result = m_width;
-		}
-		return result;
+		return m_abilityMod.m_widthMod.GetModifiedValue(m_width);
 	}
 
 	public float GetMaxDistancePerBounce()
@@ -73,58 +58,34 @@ public class ValkyrieThrowShield : Ability
 
 	public float GetMaxTotalDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(m_maxTotalDistance);
+			return m_maxTotalDistance;
 		}
-		else
-		{
-			result = m_maxTotalDistance;
-		}
-		return result;
+		return m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(m_maxTotalDistance);
 	}
 
 	public int GetMaxBounces()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces);
+			return m_maxBounces;
 		}
-		else
-		{
-			result = m_maxBounces;
-		}
-		return result;
+		return m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces);
 	}
 
 	public int GetMaxTargetsHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_maxTargetsHitMod.GetModifiedValue(m_maxTargetsHit);
+			return m_maxTargetsHit;
 		}
-		else
-		{
-			result = m_maxTargetsHit;
-		}
-		return result;
+		return m_abilityMod.m_maxTargetsHitMod.GetModifiedValue(m_maxTargetsHit);
 	}
 
 	public bool BounceOnHitActor()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = (m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod && m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false);
 	}
 
 	public int GetBaseDamage()
@@ -134,44 +95,29 @@ public class ValkyrieThrowShield : Ability
 
 	public int GetBonusDamagePerBounce()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_bonusDamagePerBounceMod.GetModifiedValue(m_bonusDamagePerBounce);
+			return m_bonusDamagePerBounce;
 		}
-		else
-		{
-			result = m_bonusDamagePerBounce;
-		}
-		return result;
+		return m_abilityMod.m_bonusDamagePerBounceMod.GetModifiedValue(m_bonusDamagePerBounce);
 	}
 
 	public int GetLessDamagePerTarget()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(0);
+			return 0;
 		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(0);
 	}
 
 	public float GetKnockbackDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
+			return m_knockbackDistance;
 		}
-		else
-		{
-			result = m_knockbackDistance;
-		}
-		return result;
+		return m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
 	}
 
 	public float GetBonusKnockbackPerBounce()
@@ -181,30 +127,20 @@ public class ValkyrieThrowShield : Ability
 
 	public KnockbackType GetKnockbackType()
 	{
-		KnockbackType result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
+			return m_knockbackType;
 		}
-		else
-		{
-			result = m_knockbackType;
-		}
-		return result;
+		return m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
 	}
 
 	public int GetMaxKnockbackTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
+		if (!m_abilityMod)
 		{
-			result = m_abilityMod.m_maxKnockbackTargetsMod.GetModifiedValue(0);
+			return 0;
 		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod.m_maxKnockbackTargetsMod.GetModifiedValue(0);
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionOnLaserHitCaster()
@@ -216,16 +152,7 @@ public class ValkyrieThrowShield : Ability
 	{
 		if (m_syncComp != null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_syncComp.m_extraDamageNextShieldThrow;
-				}
-			}
+			return m_syncComp.m_extraDamageNextShieldThrow;
 		}
 		return 0;
 	}
@@ -236,26 +163,13 @@ public class ValkyrieThrowShield : Ability
 		if (abilityUtil_Targeter_BounceLaser != null)
 		{
 			ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceLaser.GetHitActorContext();
-			if (!hitActorContext.IsNullOrEmpty())
+			if (!hitActorContext.IsNullOrEmpty<AbilityUtil_Targeter_BounceLaser.HitActorContext>())
 			{
-				using (IEnumerator<AbilityUtil_Targeter_BounceLaser.HitActorContext> enumerator = hitActorContext.GetEnumerator())
+				foreach (AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext2 in hitActorContext)
 				{
-					while (enumerator.MoveNext())
+					if (hitActorContext2.actor == hitActor)
 					{
-						AbilityUtil_Targeter_BounceLaser.HitActorContext current = enumerator.Current;
-						if (current.actor == hitActor)
-						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									break;
-								default:
-									return GetBonusKnockbackPerBounce() * (float)current.segmentIndex;
-								}
-							}
-						}
+						return GetBonusKnockbackPerBounce() * (float)hitActorContext2.segmentIndex;
 					}
 				}
 			}
@@ -265,15 +179,10 @@ public class ValkyrieThrowShield : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ValkyrieThrowShield))
-		{
-			return;
-		}
-		while (true)
+		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieThrowShield))
 		{
 			m_abilityMod = (abilityMod as AbilityMod_ValkyrieThrowShield);
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -304,19 +213,14 @@ public class ValkyrieThrowShield : Ability
 		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = (base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
 		for (int i = 0; i < hitActorContext.Count; i++)
 		{
-			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext2 = hitActorContext[i];
-			if (hitActorContext2.actor == targetActor)
+			if (hitActorContext[i].actor == targetActor)
 			{
-				int bonusDamagePerBounce = GetBonusDamagePerBounce();
-				AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext3 = hitActorContext[i];
-				int num = bonusDamagePerBounce * hitActorContext3.segmentIndex;
-				int num3 = dictionary[AbilityTooltipSymbol.Damage] = GetBaseDamage() + num + GetExtraDamage() - i * GetLessDamagePerTarget();
+				int num = GetBonusDamagePerBounce() * hitActorContext[i].segmentIndex;
+				int value = GetBaseDamage() + num + GetExtraDamage() - i * GetLessDamagePerTarget();
+				dictionary[AbilityTooltipSymbol.Damage] = value;
 			}
 		}
-		while (true)
-		{
-			return dictionary;
-		}
+		return dictionary;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -331,4 +235,194 @@ public class ValkyrieThrowShield : Ability
 	{
 		return ActorData.MovementType.Normal;
 	}
+
+#if SERVER
+	//Added in rouges
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		base.Run(targets, caster, additionalData);
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_extraDamageNextShieldThrow = 0;
+		}
+	}
+
+	//Added in rouges
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		bool flag = GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
+        Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary = FindLaserTargets(targets[0], caster, flag, out List<Vector3> segmentPts, out List<ActorData> list2, null, out bool flag2);
+        BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams();
+		extraParams.laserTargets = dictionary;
+		extraParams.segmentPts = segmentPts;
+		extraParams.segmentPts.Add(caster.GetLoSCheckPos());
+		extraParams.doPositionHitOnBounce = true;
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
+			m_projectileSequence,
+			caster.GetCurrentBoardSquare(), 
+			dictionary.Keys.ToArray<ActorData>(), 
+			caster, 
+			additionalData.m_sequenceSource,
+			extraParams.ToArray());
+		list.Add(item);
+		if (flag2 && flag)
+		{
+			ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(null, caster.GetCurrentBoardSquare(), new ActorData[]
+			{
+				caster
+			}, caster, additionalData.m_sequenceSource, null);
+			list.Add(item2);
+		}
+		return list;
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Dictionary<ActorData, ActorHitResults> dictionary = new Dictionary<ActorData, ActorHitResults>();
+		List<Barrier> list = new List<Barrier>();
+		List<List<NonActorTargetInfo>> list2 = new List<List<NonActorTargetInfo>>();
+		bool flag = GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
+        Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary2 = FindLaserTargets(targets[0], caster, flag, out List<Vector3> list3, out List<ActorData> list4, list2, out bool flag2);
+        float knockbackDistance = GetKnockbackDistance();
+		int maxKnockbackTargets = GetMaxKnockbackTargets();
+		for (int i = 0; i < list4.Count; i++)
+		{
+			ActorData actorData = list4[i];
+			Vector3 segmentOrigin = dictionary2[actorData].m_segmentOrigin;
+			int endpointIndex = dictionary2[actorData].m_endpointIndex;
+			int num = GetBaseDamage();
+			int num2 = GetBonusDamagePerBounce() * endpointIndex;
+			num += num2 + GetExtraDamage() - i * GetLessDamagePerTarget();
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, segmentOrigin));
+			actorHitResults.SetBaseDamage(num);
+			actorHitResults.SetBounceCount(endpointIndex);
+			if (endpointIndex > 0)
+			{
+				actorHitResults.SetIgnoreCoverMinDist(true);
+			}
+			float num3 = GetBonusKnockbackPerBounce() * (float)endpointIndex;
+			if ((knockbackDistance > 0f || num3 > 0f) && (maxKnockbackTargets <= 0 || i < maxKnockbackTargets))
+			{
+				Vector3 aimDir = list3[endpointIndex] - segmentOrigin;
+				KnockbackHitData knockbackData = new KnockbackHitData(actorData, caster, GetKnockbackType(), aimDir, segmentOrigin, knockbackDistance + num3);
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			dictionary[actorData] = actorHitResults;
+		}
+		for (int j = 0; j < list3.Count; j++)
+		{
+			Vector3 pos = list3[j];
+			List<NonActorTargetInfo> list5 = list2[j];
+			for (int k = list5.Count - 1; k >= 0; k--)
+			{
+				NonActorTargetInfo nonActorTargetInfo = list5[k];
+				if (nonActorTargetInfo is NonActorTargetInfo_BarrierBlock)
+				{
+					NonActorTargetInfo_BarrierBlock nonActorTargetInfo_BarrierBlock = nonActorTargetInfo as NonActorTargetInfo_BarrierBlock;
+					if (nonActorTargetInfo_BarrierBlock.m_barrier != null && !list.Contains(nonActorTargetInfo_BarrierBlock.m_barrier))
+					{
+						PositionHitResults posHitRes = new PositionHitResults(new PositionHitParameters(pos));
+						nonActorTargetInfo_BarrierBlock.AddPositionReactionHitToAbilityResults(caster, posHitRes, abilityResults, true);
+						list.Add(nonActorTargetInfo_BarrierBlock.m_barrier);
+					}
+					list5.RemoveAt(k);
+				}
+			}
+		}
+		foreach (List<NonActorTargetInfo> nonActorTargetInfo2 in list2)
+		{
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo2);
+		}
+		foreach (ActorHitResults hitResults in dictionary.Values)
+		{
+			abilityResults.StoreActorHit(hitResults);
+		}
+		if (flag2 && flag)
+		{
+			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, caster.GetLoSCheckPos()));
+			GetCooldownReductionOnLaserHitCaster().AppendCooldownMiscEvents(actorHitResults2, true, 0, 0);
+			abilityResults.StoreActorHit(actorHitResults2);
+		}
+	}
+
+	//Added in rouges
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = new List<Vector3>();
+        List<ActorData> list2;
+        bool flag;
+		this.FindLaserTargets(targets[0], caster, false, out List<Vector3> collection, out list2, null, out flag);
+		list.AddRange(collection);
+		for (int i = 0; i < list2.Count; i++)
+		{
+			list.Add(list2[i].GetFreePos());
+		}
+		for (int j = 0; j < targets.Count; j++)
+		{
+			list.Add(targets[j].FreePos);
+		}
+		return list;
+	}
+
+	//Added in rouges
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindLaserTargets(AbilityTarget targeter, ActorData caster, bool pierceTargetsToHitCaster, out List<Vector3> laserEndPoints, out List<ActorData> orderedHitActors, List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment, out bool hitCaster)
+	{
+		hitCaster = false;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+        laserEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(
+			loSCheckPos, 
+			targeter.AimDirection, 
+			GetMaxDistancePerBounce(), 
+			GetMaxTotalDistance(), 
+			GetMaxBounces(), 
+			caster, 
+			GetLaserWidth(), 
+			GetMaxTargetsHit(), 
+			true, 
+			caster.GetOtherTeams(), 
+			BounceOnHitActor(), 
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> result, 
+			out orderedHitActors, 
+			nonActorTargetInfoInSegment, 
+			pierceTargetsToHitCaster, 
+			true);
+        if (pierceTargetsToHitCaster && laserEndPoints.Count > 1)
+		{
+			float totalMaxDistanceInSquares = GetMaxTotalDistance() - (laserEndPoints[0] - loSCheckPos).magnitude / Board.Get().squareSize;
+			Vector3 normalized = (laserEndPoints[1] - laserEndPoints[0]).normalized;
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
+			List<ActorData> list;
+			VectorUtils.CalculateBouncingLaserEndpoints(
+				laserEndPoints[0], 
+				normalized, 
+				GetMaxDistancePerBounce(), 
+				totalMaxDistanceInSquares, 
+				GetMaxBounces(), 
+				caster, 
+				m_width,
+				0,
+				false, 
+				caster.GetTeamAsList(), 
+				BounceOnHitActor(), 
+				out dictionary, 
+				out list, 
+				null, 
+				false, 
+				false);
+			hitCaster = list.Contains(caster);
+		}
+		return result;
+	}
+
+	//Added in rouges
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ValkyrieStats.DamageDoneByThrowShieldAndKnockback, results.FinalDamage);
+		}
+	}
+#endif
 }

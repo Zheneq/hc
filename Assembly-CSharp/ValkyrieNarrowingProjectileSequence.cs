@@ -11,36 +11,20 @@ public class ValkyrieNarrowingProjectileSequence : ArcingProjectileSequence
 		base.Initialize(extraParams);
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (!(extraSequenceParams is FxAttributeParam))
+			if (extraSequenceParams is FxAttributeParam)
 			{
-				continue;
-			}
-			FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
-			if (fxAttributeParam == null)
-			{
-				continue;
-			}
-			if (fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.None || fxAttributeParam.m_paramTarget != FxAttributeParam.ParamTarget.MainVfx)
-			{
-				continue;
-			}
-			if (fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.LengthInSquares)
-			{
-				m_totalLengthInSquares = fxAttributeParam.m_paramValue;
-			}
-			else if (fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.WidthInSquares)
-			{
-				m_totalWidthInSquares = fxAttributeParam.m_paramValue;
-			}
-		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
+                FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
+				if (fxAttributeParam != null && fxAttributeParam.m_paramNameCode != Sequence.FxAttributeParam.ParamNameCode.None && fxAttributeParam.m_paramTarget == Sequence.FxAttributeParam.ParamTarget.MainVfx)
+				{
+					if (fxAttributeParam.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.LengthInSquares)
+					{
+						this.m_totalLengthInSquares = fxAttributeParam.m_paramValue;
+					}
+					else if (fxAttributeParam.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.WidthInSquares)
+					{
+						this.m_totalWidthInSquares = fxAttributeParam.m_paramValue;
+					}
+				}
 			}
 		}
 	}
@@ -48,30 +32,11 @@ public class ValkyrieNarrowingProjectileSequence : ArcingProjectileSequence
 	protected override void OnUpdate()
 	{
 		base.OnUpdate();
-		if (!(m_fx != null) || !m_fx.activeSelf)
+		if (m_fx != null && m_fx.activeSelf && m_totalTravelDist2D > 0f && m_totalLengthInSquares > 0f && m_totalWidthInSquares > 0f)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(m_totalTravelDist2D > 0f))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (m_totalLengthInSquares > 0f && m_totalWidthInSquares > 0f)
-				{
-					while (true)
-					{
-						float num = Mathf.Min(1f, VectorUtils.HorizontalPlaneDistInWorld(m_fxSpawnPos, m_fx.transform.position) / m_totalTravelDist2D);
-						float value = (1f - num) * m_totalLengthInSquares * (m_totalWidthInSquares / m_totalLengthInSquares);
-						Sequence.SetAttribute(m_fx, "widthInSquares", value);
-						return;
-					}
-				}
-				return;
-			}
+			float num = Mathf.Min(1f, VectorUtils.HorizontalPlaneDistInWorld(m_fxSpawnPos, m_fx.transform.position) / m_totalTravelDist2D);
+			float value = (1f - num) * m_totalLengthInSquares * (m_totalWidthInSquares / m_totalLengthInSquares);
+			Sequence.SetAttribute(m_fx, "widthInSquares", value);
 		}
 	}
 }
