@@ -252,8 +252,8 @@ public class ValkyrieThrowShield : Ability
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		bool flag = GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
-        Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary = FindLaserTargets(targets[0], caster, flag, out List<Vector3> segmentPts, out List<ActorData> list2, null, out bool flag2);
-        BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams();
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary = FindLaserTargets(targets[0], caster, flag, out List<Vector3> segmentPts, out List<ActorData> list2, null, out bool flag2);
+		BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams();
 		extraParams.laserTargets = dictionary;
 		extraParams.segmentPts = segmentPts;
 		extraParams.segmentPts.Add(caster.GetLoSCheckPos());
@@ -284,8 +284,8 @@ public class ValkyrieThrowShield : Ability
 		List<Barrier> list = new List<Barrier>();
 		List<List<NonActorTargetInfo>> list2 = new List<List<NonActorTargetInfo>>();
 		bool flag = GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
-        Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary2 = FindLaserTargets(targets[0], caster, flag, out List<Vector3> list3, out List<ActorData> list4, list2, out bool flag2);
-        float knockbackDistance = GetKnockbackDistance();
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary2 = FindLaserTargets(targets[0], caster, flag, out List<Vector3> list3, out List<ActorData> list4, list2, out bool flag2);
+		float knockbackDistance = GetKnockbackDistance();
 		int maxKnockbackTargets = GetMaxKnockbackTargets();
 		for (int i = 0; i < list4.Count; i++)
 		{
@@ -351,10 +351,8 @@ public class ValkyrieThrowShield : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-        List<ActorData> list2;
-        bool flag;
-		this.FindLaserTargets(targets[0], caster, false, out List<Vector3> collection, out list2, null, out flag);
-		list.AddRange(collection);
+        FindLaserTargets(targets[0], caster, false, out List<Vector3> collection, out List<ActorData> list2, null, out bool flag);
+        list.AddRange(collection);
 		for (int i = 0; i < list2.Count; i++)
 		{
 			list.Add(list2[i].GetFreePos());
@@ -367,7 +365,14 @@ public class ValkyrieThrowShield : Ability
 	}
 
 	//Added in rouges
-	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindLaserTargets(AbilityTarget targeter, ActorData caster, bool pierceTargetsToHitCaster, out List<Vector3> laserEndPoints, out List<ActorData> orderedHitActors, List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment, out bool hitCaster)
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindLaserTargets(
+		AbilityTarget targeter, 
+		ActorData caster, 
+		bool pierceTargetsToHitCaster, 
+		out List<Vector3> laserEndPoints, 
+		out List<ActorData> orderedHitActors, 
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment, 
+		out bool hitCaster)
 	{
 		hitCaster = false;
 		Vector3 loSCheckPos = caster.GetLoSCheckPos();
@@ -392,26 +397,24 @@ public class ValkyrieThrowShield : Ability
 		{
 			float totalMaxDistanceInSquares = GetMaxTotalDistance() - (laserEndPoints[0] - loSCheckPos).magnitude / Board.Get().squareSize;
 			Vector3 normalized = (laserEndPoints[1] - laserEndPoints[0]).normalized;
-			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary;
-			List<ActorData> list;
-			VectorUtils.CalculateBouncingLaserEndpoints(
-				laserEndPoints[0], 
-				normalized, 
-				GetMaxDistancePerBounce(), 
-				totalMaxDistanceInSquares, 
-				GetMaxBounces(), 
-				caster, 
-				m_width,
-				0,
-				false, 
-				caster.GetTeamAsList(), 
-				BounceOnHitActor(), 
-				out dictionary, 
-				out list, 
-				null, 
-				false, 
-				false);
-			hitCaster = list.Contains(caster);
+            VectorUtils.CalculateBouncingLaserEndpoints(
+                laserEndPoints[0],
+                normalized,
+                GetMaxDistancePerBounce(),
+                totalMaxDistanceInSquares,
+                GetMaxBounces(),
+                caster,
+                m_width,
+                0,
+                false,
+                caster.GetTeamAsList(),
+                BounceOnHitActor(),
+                out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary,
+                out List<ActorData> list,
+                null,
+                false,
+                false);
+            hitCaster = list.Contains(caster);
 		}
 		return result;
 	}

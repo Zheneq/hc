@@ -13,16 +13,16 @@ public class ValkyrieNarrowingProjectileSequence : ArcingProjectileSequence
 		{
 			if (extraSequenceParams is FxAttributeParam)
 			{
-                FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
+				FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
 				if (fxAttributeParam != null && fxAttributeParam.m_paramNameCode != Sequence.FxAttributeParam.ParamNameCode.None && fxAttributeParam.m_paramTarget == Sequence.FxAttributeParam.ParamTarget.MainVfx)
 				{
 					if (fxAttributeParam.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.LengthInSquares)
 					{
-						this.m_totalLengthInSquares = fxAttributeParam.m_paramValue;
+						m_totalLengthInSquares = fxAttributeParam.m_paramValue;
 					}
 					else if (fxAttributeParam.m_paramNameCode == Sequence.FxAttributeParam.ParamNameCode.WidthInSquares)
 					{
-						this.m_totalWidthInSquares = fxAttributeParam.m_paramValue;
+						m_totalWidthInSquares = fxAttributeParam.m_paramValue;
 					}
 				}
 			}

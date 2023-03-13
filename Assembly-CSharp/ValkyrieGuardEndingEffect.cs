@@ -17,7 +17,20 @@ public class ValkyrieGuardEndingEffect : StandardActorEffect
 	private bool m_triggeredReactionOnce;
 	private bool m_readyToEnd;
 
-	public ValkyrieGuardEndingEffect(EffectSource parent, BoardSquare targetSquare, ActorData target, ActorData caster, StandardActorEffectData data, GameObject removeShieldSequencePrefab, ActorCover.CoverDirections shieldFacing, bool shieldCoverIgnoreMinDist, int techPointGain, int techPointGainTooNearForCover, StandardEffectInfo reactionEffect, StandardEffectInfo reactionEffectTooNearForCover) : base(parent, targetSquare, target, caster, data)
+	public ValkyrieGuardEndingEffect(
+		EffectSource parent, 
+		BoardSquare targetSquare, 
+		ActorData target, 
+		ActorData caster, 
+		StandardActorEffectData data, 
+		GameObject removeShieldSequencePrefab, 
+		ActorCover.CoverDirections shieldFacing, 
+		bool shieldCoverIgnoreMinDist, 
+		int techPointGain, 
+		int techPointGainTooNearForCover, 
+		StandardEffectInfo reactionEffect, 
+		StandardEffectInfo reactionEffectTooNearForCover
+		) : base(parent, targetSquare, target, caster, data)
 	{
 		base.HitPhase = AbilityPriority.Combat_Final;
 		m_removeShieldSequencePrefab = removeShieldSequencePrefab;

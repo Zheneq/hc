@@ -337,9 +337,8 @@ public class ValkyrieDashAoE : Ability
 	//Added in rouges
 	internal override Vector3 GetFacingDirAfterMovement(ServerEvadeUtils.EvadeInfo evade)
 	{
-		Vector3 result;
-		this.GetConeFacing(evade.m_request.m_targets, evade.GetMover(), out result);
-		return result;
+        GetConeFacing(evade.m_request.m_targets, evade.GetMover(), out Vector3 result);
+        return result;
 	}
 
 	//Added in rouges
@@ -417,7 +416,7 @@ public class ValkyrieDashAoE : Ability
 				abilityResults.StoreActorHit(new ActorHitResults(GetAllyBuff(), hitParams));
 			}
 		}
-		if (this.GetSelfBuff().m_applyEffect || this.m_dashTargetingMode == DashTargetingMode.AimShieldCone)
+		if (GetSelfBuff().m_applyEffect || m_dashTargetingMode == DashTargetingMode.AimShieldCone)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
 			actorHitResults.AddStandardEffectInfo(GetSelfBuff());
@@ -460,8 +459,8 @@ public class ValkyrieDashAoE : Ability
 			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
 			if (square != null)
 			{
-                facing = VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[1].FreePos, false, out Vector3 vector);
-            }
+				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[1].FreePos, false, out Vector3 vector);
+			}
 		}
 	}
 
@@ -474,8 +473,8 @@ public class ValkyrieDashAoE : Ability
 			BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
 			if (square != null)
 			{
-                VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[1].FreePos, false, out Vector3 vector);
-                Vector3 vec = square.ToVector3() + vector * 2f;
+				VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[1].FreePos, false, out Vector3 vector);
+				Vector3 vec = square.ToVector3() + vector * 2f;
 				result = ActorCover.GetCoverDirection(square, Board.Get().GetSquareFromVec3(vec));
 			}
 		}

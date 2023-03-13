@@ -36,7 +36,15 @@ public class ValkyrieStab : Ability
 	{
 		m_syncComp = GetComponent<Valkyrie_SyncComponent>();
 		SetCachedFields();
-		AbilityUtil_Targeter_ReverseStretchCone targeter = new AbilityUtil_Targeter_ReverseStretchCone(this, GetConeMinLength(), GetConeMaxLength(), GetConeWidthMinAngle(), GetConeWidthMaxAngle(), m_coneStretchStyle, GetConeBackwardOffset(), PenetrateLineOfSight());
+		AbilityUtil_Targeter_ReverseStretchCone targeter = new AbilityUtil_Targeter_ReverseStretchCone(
+			this, 
+			GetConeMinLength(), 
+			GetConeMaxLength(), 
+			GetConeWidthMinAngle(), 
+			GetConeWidthMaxAngle(), 
+			m_coneStretchStyle, 
+			GetConeBackwardOffset(), 
+			PenetrateLineOfSight());
 		base.Targeter = targeter;
 	}
 
@@ -252,14 +260,14 @@ public class ValkyrieStab : Ability
 	{
 		base.Run(targets, caster, additionalData);
 		int count = additionalData.m_abilityResults.HitActorList().Count;
-		if (this.m_syncComp != null)
+		if (m_syncComp != null)
 		{
-			Valkyrie_SyncComponent syncComp = this.m_syncComp;
-			syncComp.Networkm_extraAbsorbForGuard = syncComp.m_extraAbsorbForGuard + this.GetExtraAbsorbNextShieldBlockPerHit() * count;
-			int maxExtraAbsorbNextShieldBlock = this.GetMaxExtraAbsorbNextShieldBlock();
+			Valkyrie_SyncComponent syncComp = m_syncComp;
+			syncComp.Networkm_extraAbsorbForGuard = syncComp.m_extraAbsorbForGuard + GetExtraAbsorbNextShieldBlockPerHit() * count;
+			int maxExtraAbsorbNextShieldBlock = GetMaxExtraAbsorbNextShieldBlock();
 			if (maxExtraAbsorbNextShieldBlock > 0)
 			{
-				this.m_syncComp.Networkm_extraAbsorbForGuard = Mathf.Min(this.m_syncComp.m_extraAbsorbForGuard, maxExtraAbsorbNextShieldBlock);
+				m_syncComp.Networkm_extraAbsorbForGuard = Mathf.Min(m_syncComp.m_extraAbsorbForGuard, maxExtraAbsorbNextShieldBlock);
 			}
 		}
 	}
@@ -268,25 +276,48 @@ public class ValkyrieStab : Ability
 	private List<ActorData> GetHitTargets(List<AbilityTarget> targets, ActorData caster, Dictionary<ActorData, int> actorToDamage, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		Vector3 vector = -1f * targets[0].AimDirection.normalized;
-		float num;
-		float coneWidthDegrees;
-		AreaEffectUtils.GatherStretchConeDimensions(targets[0].FreePos, caster.GetLoSCheckPos(), this.GetConeMinLength(), this.GetConeMaxLength(), this.GetConeWidthMinAngle(), this.GetConeWidthMaxAngle(), this.m_coneStretchStyle, out num, out coneWidthDegrees, false, 0, -1f, -1f);
-		Vector3 vector2 = caster.GetLoSCheckPos() - num * Board.Get().squareSize * vector;
+        AreaEffectUtils.GatherStretchConeDimensions(
+            targets[0].FreePos, 
+			caster.GetLoSCheckPos(), 
+			GetConeMinLength(), 
+			GetConeMaxLength(), 
+			GetConeWidthMinAngle(), 
+			GetConeWidthMaxAngle(), 
+			m_coneStretchStyle, 
+			out float num, 
+			out float coneWidthDegrees, 
+			false, 
+			0, 
+			-1f, 
+			-1f);
+        Vector3 vector2 = caster.GetLoSCheckPos() - num * Board.Get().squareSize * vector;
 		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector);
-		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(vector2, coneCenterAngleDegrees, coneWidthDegrees, num - this.GetConeBackwardOffset(), this.GetConeBackwardOffset(), true, caster, caster.GetOtherTeams(), nonActorTargetInfo);
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			vector2, 
+			coneCenterAngleDegrees, 
+			coneWidthDegrees, 
+			num - GetConeBackwardOffset(), 
+			GetConeBackwardOffset(), 
+			true, 
+			caster,
+			caster.GetOtherTeams(), 
+			nonActorTargetInfo);
 		TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, caster.GetLoSCheckPos() - vector);
 		List<ActorData> list = new List<ActorData>();
 		float num2 = GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize * (GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize);
-		Vector3 vector3 = vector2 - vector * this.GetConeBackwardOffset() * Board.Get().squareSize;
-		int num3 = this.GetDamageAmount();
+		Vector3 vector3 = vector2 - vector * GetConeBackwardOffset() * Board.Get().squareSize;
+		int num3 = GetDamageAmount();
 		bool flag = true;
-		num3 += this.GetExtraDamageFirstTarget();
+		num3 += GetExtraDamageFirstTarget();
 		foreach (ActorData actorData in actorsInCone)
 		{
-			if (!this.PenetrateLineOfSight())
+			if (!PenetrateLineOfSight())
 			{
 				BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-				if (caster.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y) && !BarrierManager.Get().AreAbilitiesBlocked(caster, caster.GetCurrentBoardSquare(), actorData.GetCurrentBoardSquare(), nonActorTargetInfo))
+				if (caster.GetCurrentBoardSquare().GetLOS(
+					currentBoardSquare.x, 
+					currentBoardSquare.y) && 
+					!BarrierManager.Get().AreAbilitiesBlocked(caster, caster.GetCurrentBoardSquare(), actorData.GetCurrentBoardSquare(), nonActorTargetInfo))
 				{
 					list.Add(actorData);
 				}
@@ -298,17 +329,17 @@ public class ValkyrieStab : Ability
 			int num4 = 0;
 			if ((vector3 - actorData.GetLoSCheckPos()).sqrMagnitude <= num2)
 			{
-				num4 = this.GetExtraDamageOnSpearTip();
+				num4 = GetExtraDamageOnSpearTip();
 			}
 			actorToDamage[actorData] = num3 + num4;
-			if (this.m_syncComp == null || !this.m_syncComp.m_skipDamageReductionForNextStab)
+			if (m_syncComp == null || !m_syncComp.m_skipDamageReductionForNextStab)
 			{
-				num3 = Mathf.Max(0, num3 - this.GetLessDamagePerTarget());
+				num3 = Mathf.Max(0, num3 - GetLessDamagePerTarget());
 			}
 			if (flag)
 			{
 				flag = false;
-				num3 -= this.GetExtraDamageFirstTarget();
+				num3 -= GetExtraDamageFirstTarget();
 			}
 		}
 		return list;
@@ -333,7 +364,7 @@ public class ValkyrieStab : Ability
 			-1f, 
 			-1f);
 		float num3 = num * Board.Get().squareSize;
-		float num4 = this.GetConeBackwardOffset() * Board.Get().squareSize;
+		float num4 = GetConeBackwardOffset() * Board.Get().squareSize;
 		Vector3 vector2 = caster.GetLoSCheckPos() - num3 * vector - vector * num4;
 		Vector3 vector3 = Quaternion.AngleAxis(-0.5f * num2, Vector3.up) * vector;
 		Vector3 vector4 = Quaternion.AngleAxis(0.5f * num2, Vector3.up) * vector;

@@ -21,7 +21,7 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 		base.UpdateProjectileFX();
 		if (m_fx != null && !m_segmentPts.IsNullOrEmpty<Vector3>())
 		{
-			base.Caster.GetModelAnimator().SetFloat("DistToGoal", m_totalTravelDistance - this.m_distanceTraveled);
+			base.Caster.GetModelAnimator().SetFloat("DistToGoal", m_totalTravelDistance - m_distanceTraveled);
 			if (m_curSegment != curSegment && m_curSegment == m_segmentPts.Count - 2)
 			{
 				if (m_returnProjectileVfxPrefab != null)
@@ -46,7 +46,7 @@ public class ValkyrieBouncingShotSequence : BouncingShotSequence
 						goto IL_18D;
 					}
 				}
-                SetAttribute(m_fx, "projectileReturning", 1);
+				SetAttribute(m_fx, "projectileReturning", 1);
 			IL_18D:
 				if (!string.IsNullOrEmpty(m_beginReturnAudioEvent))
 				{

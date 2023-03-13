@@ -228,7 +228,22 @@ public class ValkyriePullToLaserCenter : Ability
 	//Added in rouges
 	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, out Vector3 endPos)
 	{
-		return AreaEffectUtils.GetActorsInLaser(caster.GetLoSCheckPos(), targets[0].AimDirection, GetLaserRangeInSquares(), GetLaserWidth(), caster, caster.GetOtherTeams(), false, m_maxTargets, m_lengthIgnoreLos, true, out endPos, nonActorTargetInfo, null, false, true);
+		return AreaEffectUtils.GetActorsInLaser(
+			caster.GetLoSCheckPos(), 
+			targets[0].AimDirection, 
+			GetLaserRangeInSquares(), 
+			GetLaserWidth(), 
+			caster, 
+			caster.GetOtherTeams(), 
+			false, 
+			m_maxTargets, 
+			m_lengthIgnoreLos, 
+			true, 
+			out endPos, 
+			nonActorTargetInfo, 
+			null, 
+			false, 
+			true);
 	}
 
 	//Added in rouges

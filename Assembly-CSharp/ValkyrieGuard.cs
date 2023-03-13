@@ -238,7 +238,13 @@ public class ValkyrieGuard : Ability
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		ValkyrieDirectionalShieldSequence.ExtraParams extraParams = new ValkyrieDirectionalShieldSequence.ExtraParams();
 		extraParams.m_aimDirection = (sbyte)GetCoverFacing(targets);
-		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(m_applyShieldSequencePrefab, caster.GetFreePos(), caster.AsArray(), caster, additionalData.m_sequenceSource, new Sequence.IExtraSequenceParams[]
+		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
+			m_applyShieldSequencePrefab, 
+			caster.GetFreePos(), 
+			caster.AsArray(), 
+			caster, 
+			additionalData.m_sequenceSource, 
+			new Sequence.IExtraSequenceParams[]
 		{
 			extraParams
 		});
@@ -256,17 +262,45 @@ public class ValkyrieGuard : Ability
 			actorHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
 		}
 		ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
-		valkyrieGuardEndingEffect = CreateGuardEffect(coverFacing, CoverIgnoreMinDist(), caster, GetShieldEffectInfo(), GetCoverDuration(), GetTechPointGainPerCoveredHit(), GetTechPointGainPerTooCloseForCoverHit(), GetExtraAbsorb());
+		valkyrieGuardEndingEffect = CreateGuardEffect(
+			coverFacing, 
+			CoverIgnoreMinDist(), 
+			caster, 
+			GetShieldEffectInfo(), 
+			GetCoverDuration(), 
+			GetTechPointGainPerCoveredHit(), 
+			GetTechPointGainPerTooCloseForCoverHit(), 
+			GetExtraAbsorb());
 		actorHitResults.AddEffect(valkyrieGuardEndingEffect);
 		abilityResults.StoreActorHit(actorHitResults);
 	}
 
 	//Added in rouges
-	public ValkyrieGuardEndingEffect CreateGuardEffect(ActorCover.CoverDirections coverDir, bool ignoreMinDist, ActorData caster, StandardEffectInfo shieldEffectInfo, int coverDuration, int techPointGainPerCoveredHit, int techPointGainPerTooCloseForCoverHit, int extraAbsorb)
+	public ValkyrieGuardEndingEffect CreateGuardEffect(
+		ActorCover.CoverDirections coverDir,
+		bool ignoreMinDist, 
+		ActorData caster, 
+		StandardEffectInfo shieldEffectInfo, 
+		int coverDuration, 
+		int techPointGainPerCoveredHit, 
+		int techPointGainPerTooCloseForCoverHit, 
+		int extraAbsorb)
 	{
 		StandardActorEffectData shallowCopy = shieldEffectInfo.m_effectData.GetShallowCopy();
 		shallowCopy.m_absorbAmount += extraAbsorb;
-		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = new ValkyrieGuardEndingEffect(base.AsEffectSource(), null, caster, caster, shallowCopy, m_removeShieldSequencePrefab, coverDir, ignoreMinDist, techPointGainPerCoveredHit, techPointGainPerTooCloseForCoverHit, GetCoveredHitReactionEffect(), GetTooCloseForCoverHitReactionEffect());
+		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = new ValkyrieGuardEndingEffect(
+			base.AsEffectSource(), 
+			null, 
+			caster, 
+			caster, 
+			shallowCopy,
+			m_removeShieldSequencePrefab, 
+			coverDir, 
+			ignoreMinDist, 
+			techPointGainPerCoveredHit, 
+			techPointGainPerTooCloseForCoverHit, 
+			GetCoveredHitReactionEffect(), 
+			GetTooCloseForCoverHitReactionEffect());
 		if (m_coverLastsForever)
 		{
 			valkyrieGuardEndingEffect.SetDurationBeforeStart(0);
@@ -285,9 +319,8 @@ public class ValkyrieGuard : Ability
 		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
 		if (square != null)
 		{
-			Vector3 vector;
-			VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out vector);
-			Vector3 vec = square.ToVector3() + vector * 2f;
+            VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out Vector3 vector);
+            Vector3 vec = square.ToVector3() + vector * 2f;
 			result = ActorCover.GetCoverDirection(square, Board.Get().GetSquareFromVec3(vec));
 		}
 		return result;
