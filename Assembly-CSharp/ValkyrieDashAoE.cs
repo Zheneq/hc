@@ -337,8 +337,8 @@ public class ValkyrieDashAoE : Ability
 	//Added in rouges
 	internal override Vector3 GetFacingDirAfterMovement(ServerEvadeUtils.EvadeInfo evade)
 	{
-        GetConeFacing(evade.m_request.m_targets, evade.GetMover(), out Vector3 result);
-        return result;
+		GetConeFacing(evade.m_request.m_targets, evade.GetMover(), out Vector3 result);
+		return result;
 	}
 
 	//Added in rouges

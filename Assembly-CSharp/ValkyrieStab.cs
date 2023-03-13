@@ -276,8 +276,8 @@ public class ValkyrieStab : Ability
 	private List<ActorData> GetHitTargets(List<AbilityTarget> targets, ActorData caster, Dictionary<ActorData, int> actorToDamage, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		Vector3 vector = -1f * targets[0].AimDirection.normalized;
-        AreaEffectUtils.GatherStretchConeDimensions(
-            targets[0].FreePos, 
+		AreaEffectUtils.GatherStretchConeDimensions(
+			targets[0].FreePos, 
 			caster.GetLoSCheckPos(), 
 			GetConeMinLength(), 
 			GetConeMaxLength(), 

@@ -351,8 +351,8 @@ public class ValkyrieThrowShield : Ability
 	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
 	{
 		List<Vector3> list = new List<Vector3>();
-        FindLaserTargets(targets[0], caster, false, out List<Vector3> collection, out List<ActorData> list2, null, out bool flag);
-        list.AddRange(collection);
+		FindLaserTargets(targets[0], caster, false, out List<Vector3> collection, out List<ActorData> list2, null, out bool flag);
+		list.AddRange(collection);
 		for (int i = 0; i < list2.Count; i++)
 		{
 			list.Add(list2[i].GetFreePos());
@@ -397,23 +397,23 @@ public class ValkyrieThrowShield : Ability
 		{
 			float totalMaxDistanceInSquares = GetMaxTotalDistance() - (laserEndPoints[0] - loSCheckPos).magnitude / Board.Get().squareSize;
 			Vector3 normalized = (laserEndPoints[1] - laserEndPoints[0]).normalized;
-            VectorUtils.CalculateBouncingLaserEndpoints(
-                laserEndPoints[0],
-                normalized,
-                GetMaxDistancePerBounce(),
-                totalMaxDistanceInSquares,
-                GetMaxBounces(),
-                caster,
-                m_width,
-                0,
-                false,
-                caster.GetTeamAsList(),
-                BounceOnHitActor(),
-                out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary,
-                out List<ActorData> list,
-                null,
-                false,
-                false);
+			VectorUtils.CalculateBouncingLaserEndpoints(
+				laserEndPoints[0],
+				normalized,
+				GetMaxDistancePerBounce(),
+				totalMaxDistanceInSquares,
+				GetMaxBounces(),
+				caster,
+				m_width,
+				0,
+				false,
+				caster.GetTeamAsList(),
+				BounceOnHitActor(),
+				out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> dictionary,
+				out List<ActorData> list,
+				null,
+				false,
+				false);
             hitCaster = list.Contains(caster);
 		}
 		return result;

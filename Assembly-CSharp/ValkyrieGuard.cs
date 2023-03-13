@@ -319,8 +319,8 @@ public class ValkyrieGuard : Ability
 		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
 		if (square != null)
 		{
-            VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out Vector3 vector);
-            Vector3 vec = square.ToVector3() + vector * 2f;
+			VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out Vector3 vector);
+			Vector3 vec = square.ToVector3() + vector * 2f;
 			result = ActorCover.GetCoverDirection(square, Board.Get().GetSquareFromVec3(vec));
 		}
 		return result;
