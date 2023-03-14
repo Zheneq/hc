@@ -414,7 +414,7 @@ public class ValkyrieThrowShield : Ability
 				null,
 				false,
 				false);
-            hitCaster = list.Contains(caster);
+			hitCaster = list.Contains(caster);
 		}
 		return result;
 	}

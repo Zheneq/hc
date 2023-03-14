@@ -373,7 +373,7 @@ public class ValkyrieDashAoE : Ability
 		{
 			Vector3 coneStart = Board.Get().GetSquare(targets[0].GridPos).ToVector3();
 			GetConeFacing(targets, caster, out Vector3 vec);
-            list2 = AreaEffectUtils.GetActorsInCone(coneStart, VectorUtils.HorizontalAngle_Deg(vec), GetConeWidthAngle(), GetConeRadius(), 0f, false, caster, list, nonActorTargetInfo);
+			list2 = AreaEffectUtils.GetActorsInCone(coneStart, VectorUtils.HorizontalAngle_Deg(vec), GetConeWidthAngle(), GetConeRadius(), 0f, false, caster, list, nonActorTargetInfo);
 			list2.Remove(caster);
 		}
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref list2);
@@ -393,7 +393,7 @@ public class ValkyrieDashAoE : Ability
 			return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
 		}
 		GetConeFacing(targets, caster, out Vector3 vec);
-        BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
 		BlasterStretchConeSequence.ExtraParams extraParams = new BlasterStretchConeSequence.ExtraParams();
 		extraParams.angleInDegrees = GetConeWidthAngle();
 		extraParams.lengthInSquares = GetConeRadius();
