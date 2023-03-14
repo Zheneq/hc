@@ -44,6 +44,8 @@ public class ValkyrieDashAoE : Ability
 
 #if SERVER
 	//Added in rouges
+	private AbilityData m_abilityData;
+	//Added in rouges
 	private ValkyrieGuard m_guardAbility;
 	//Added in rouges
 	private AbilityData.ActionType m_guardAbilityActionType = AbilityData.ActionType.INVALID_ACTION;
@@ -60,6 +62,12 @@ public class ValkyrieDashAoE : Ability
 
 	private void SetupTargeter()
 	{
+		m_abilityData = base.GetComponent<AbilityData>();
+		if (m_abilityData != null)
+		{
+			m_guardAbility = (m_abilityData.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard);
+			m_guardAbilityActionType = m_abilityData.GetActionTypeOfAbility(m_guardAbility);
+		}
 		SetCachedFields();
 		base.Targeters.Clear();
 		if (m_dashTargetingMode == DashTargetingMode.Aoe)
@@ -357,16 +365,15 @@ public class ValkyrieDashAoE : Ability
 			list.Add(caster.GetTeam());
 		}
 		List<ActorData> list2 = null;
-		if (m_dashTargetingMode == ValkyrieDashAoE.DashTargetingMode.Aoe)
+		if (m_dashTargetingMode == DashTargetingMode.Aoe)
 		{
 			list2 = AreaEffectUtils.GetActorsInShape(GetAoeShape(), targets[0], AoePenetratesLoS(), caster, list, nonActorTargetInfo);
 		}
 		else
 		{
 			Vector3 coneStart = Board.Get().GetSquare(targets[0].GridPos).ToVector3();
-			Vector3 vec;
-			GetConeFacing(targets, caster, out vec);
-			list2 = AreaEffectUtils.GetActorsInCone(coneStart, VectorUtils.HorizontalAngle_Deg(vec), GetConeWidthAngle(), GetConeRadius(), 0f, false, caster, list, nonActorTargetInfo);
+			GetConeFacing(targets, caster, out Vector3 vec);
+            list2 = AreaEffectUtils.GetActorsInCone(coneStart, VectorUtils.HorizontalAngle_Deg(vec), GetConeWidthAngle(), GetConeRadius(), 0f, false, caster, list, nonActorTargetInfo);
 			list2.Remove(caster);
 		}
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref list2);
@@ -385,9 +392,8 @@ public class ValkyrieDashAoE : Ability
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetAoeShape(), targets[0]);
 			return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
 		}
-		Vector3 vec;
-		GetConeFacing(targets, caster, out vec);
-		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		GetConeFacing(targets, caster, out Vector3 vec);
+        BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
 		BlasterStretchConeSequence.ExtraParams extraParams = new BlasterStretchConeSequence.ExtraParams();
 		extraParams.angleInDegrees = GetConeWidthAngle();
 		extraParams.lengthInSquares = GetConeRadius();
