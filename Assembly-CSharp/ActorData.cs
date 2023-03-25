@@ -5196,9 +5196,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 #if SERVER
 	public void SynchronizeTeamSensitiveData()
 	{
-		// custom
-		TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
-	}
+        // custom
+        TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
+
+		// Update current position to enemy players (does not update last known position marker)
+		// without this, if we use an ability and we are invisible to the enemy team, they will see the origin of the ability as the last known position marker (which is incorrect)
+		// if the origin is wrong, the direction of the shoot can look like you received an attack but no damage was dealt.
+		TeamSensitiveData_hostile.BroadcastMovement(GameEventManager.EventType.NormalMovementStart, GetGridPos(), GetCurrentBoardSquare(), MovementType.Teleport, TeleportType.Evasion_DontAdjustToVision, m_serverMovementPath);
+		
+
+    }
+
 #endif
 
 
