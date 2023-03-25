@@ -1,4 +1,4 @@
-﻿// ROGUES
+// ROGUES
 // SERVER
 using System;
 using System.Collections.Generic;
@@ -226,6 +226,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
 					hitActor.SynchronizeTeamSensitiveData();
+					hitActor.TeamSensitiveData_hostile.SynchronizeMovementDataTo(hitActor.TeamSensitiveData_authority);
 				}
 			}
 		}
