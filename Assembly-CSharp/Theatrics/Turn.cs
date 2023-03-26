@@ -551,28 +551,25 @@ namespace Theatrics
 #if SERVER
 		internal void SetupAbilityPhase(AbilityPriority phasePriority, List<AbilityRequest> abilityRequests, HashSet<int> hitActorIds, bool hasHitsWithoutAnimEntry)
 		{
-			using (List<Phase>.Enumerator enumerator = m_abilityPhases.GetEnumerator())
+			foreach (Phase oldPhase in m_abilityPhases)
 			{
-				while (enumerator.MoveNext())
+				if (oldPhase.Index == phasePriority)
 				{
-					if (enumerator.Current.Index == phasePriority)
-					{
-						Debug.LogError("Setting up ability phase " + phasePriority.ToString() + ", but it's already been set up.");
-						return;
-					}
+					Debug.LogError("Setting up ability phase " + phasePriority + ", but it's already been set up.");
+					return;
 				}
 			}
 			Phase phase = new Phase(this, phasePriority, abilityRequests);
 			
 			// TODO HACK
-			// reactor
-			// phase.SetHitActorIds(hitActorIds);
 			// custom
 			if (hitActorIds.IsNullOrEmpty())
 			{
-				phase.SetHitActorIds(new HashSet<int>(phase.HitActorIndexToDeltaHP.Keys));
+				hitActorIds = new HashSet<int>(phase.HitActorIndexToDeltaHP.Keys);
 			}
+			// end custom
 			
+			phase.SetHitActorIds(hitActorIds);
 			m_abilityPhases.Add(phase);
 			AssignAnimationPlayOrderAndCinematicsForPhase(phasePriority, false, false);
 		}
