@@ -698,7 +698,6 @@ public class GameFlow : NetworkBehaviour
 				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 				if (m_nonEmptyPhases.Contains(phase))
 				{
-					ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 					break;
 				}
 				else
@@ -706,7 +705,8 @@ public class GameFlow : NetworkBehaviour
 					Log.Info($"No requests in this phase, going to the next one");
 				}
 			}
-
+			
+			ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 			theatrics.SetDirtyBit(uint.MaxValue);
 			theatrics.PlayPhase(actionBuffer.AbilityPhase);
 		}
