@@ -678,30 +678,14 @@ public class GameFlow : NetworkBehaviour
 					? AbilityUtils.GetHighestAbilityPriority()
 					: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
 				Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
-
-				List<AbilityRequest> allStoredAbilityRequests = actionBuffer.GetAllStoredAbilityRequests();
+				
 				AbilityPriority phase = actionBuffer.AbilityPhase;
-				bool hasActionsThisPhase = GatherActionsInPhase(
-					allStoredAbilityRequests,
-					phase,
-					out List<PlayerAction> executingPlayerActions);
-				m_executingPlayerActions.AddRange(executingPlayerActions);
-				if (hasActionsThisPhase)
+				
+				List<AbilityRequest> allStoredAbilityRequests = actionBuffer.GetAllStoredAbilityRequests();
+				SetupPhase(phase, allStoredAbilityRequests);
+				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
+				if (m_nonEmptyPhases.Contains(phase))
 				{
-					m_nonEmptyPhases.Add(phase);
-				}
-				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
-				ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
-
-				theatrics.SetupTurnAbilityPhase(
-					actionBuffer.AbilityPhase,
-					actionBuffer.GetAllStoredAbilityRequests(),
-					new HashSet<int>() { },  // TODO LOW (hacked inside)
-					false);
-
-				if (hasActionsThisPhase)
-				{
-					ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 					ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 					break;
 				}
@@ -714,6 +698,26 @@ public class GameFlow : NetworkBehaviour
 			theatrics.SetDirtyBit(uint.MaxValue);
 			theatrics.PlayPhase(actionBuffer.AbilityPhase);
 		}
+	}
+
+	private void SetupPhase(AbilityPriority phase, List<AbilityRequest> allStoredAbilityRequests)
+	{
+		TheatricsManager theatrics = TheatricsManager.Get();
+		bool hasActionsThisPhase = GatherActionsInPhase(
+			allStoredAbilityRequests,
+			phase,
+			out List<PlayerAction> executingPlayerActions);
+		m_executingPlayerActions.AddRange(executingPlayerActions);
+		if (hasActionsThisPhase)
+		{
+			m_nonEmptyPhases.Add(phase);
+		}
+
+		theatrics.SetupTurnAbilityPhase(
+			phase,
+			allStoredAbilityRequests,
+			new HashSet<int>() { },  // TODO LOW (hacked inside)
+			false);
 	}
 #endif
 	
