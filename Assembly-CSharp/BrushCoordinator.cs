@@ -1,4 +1,4 @@
-﻿// ROGUES
+// ROGUES
 // SERVER
 using System.Collections.Generic;
 using UnityEngine;
@@ -388,9 +388,9 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 	{
 		if (!AbilityUtils.AbilityHasTag(ability, AbilityTags.DontDisruptBrush))
 		{
-			if (caster.IsInBrush())
+			if (caster.GetSquareAtPhaseStart().IsInBrush())
 			{
-				int brushRegion = caster.GetBrushRegion();
+				int brushRegion = caster.GetSquareAtPhaseStart().BrushRegion;
 				DisruptBrush(brushRegion);
 		
 				// custom
