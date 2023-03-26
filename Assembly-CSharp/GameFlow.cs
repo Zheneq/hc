@@ -130,6 +130,8 @@ public class GameFlow : NetworkBehaviour
 	private const float c_startWaitTimeoutTime = 120f;
 	// custom
 	private List<PlayerAction> m_executingPlayerActions = new List<PlayerAction>();
+	// custom
+	private HashSet<AbilityPriority> m_nonEmptyPhases = new HashSet<AbilityPriority>();
 #endif
 
 	static GameFlow()
@@ -677,8 +679,17 @@ public class GameFlow : NetworkBehaviour
 					: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
 				Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
 
-				bool hasActionsThisPhase = GatherActionsInPhase(actionBuffer, actionBuffer.AbilityPhase, out List<PlayerAction> executingPlayerActions);
+				List<AbilityRequest> allStoredAbilityRequests = actionBuffer.GetAllStoredAbilityRequests();
+				AbilityPriority phase = actionBuffer.AbilityPhase;
+				bool hasActionsThisPhase = GatherActionsInPhase(
+					allStoredAbilityRequests,
+					phase,
+					out List<PlayerAction> executingPlayerActions);
 				m_executingPlayerActions.AddRange(executingPlayerActions);
+				if (hasActionsThisPhase)
+				{
+					m_nonEmptyPhases.Add(phase);
+				}
 				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
 				ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 
@@ -708,7 +719,10 @@ public class GameFlow : NetworkBehaviour
 	
 #if SERVER
 	// custom
-	private static bool GatherActionsInPhase(ServerActionBuffer actionBuffer, AbilityPriority phase, out List<PlayerAction> executingPlayerActions)
+	private static bool GatherActionsInPhase(
+		List<AbilityRequest> allStoredAbilityRequests,
+		AbilityPriority phase,
+		out List<PlayerAction> executingPlayerActions)
 	{
 		executingPlayerActions = new List<PlayerAction>();
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
@@ -757,8 +771,8 @@ public class GameFlow : NetworkBehaviour
 			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
-
-		List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests()
+		
+		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
 			.FindAll(r => r?.m_ability?.RunPriority == phase);
 		if (requestsThisPhase.Count > 0)
 		{
@@ -785,6 +799,7 @@ public class GameFlow : NetworkBehaviour
 			}
 
 			m_executingPlayerActions = new List<PlayerAction>();
+			m_nonEmptyPhases = new HashSet<AbilityPriority>();
 		}
 	}
 #endif
