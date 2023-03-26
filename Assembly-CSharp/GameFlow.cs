@@ -682,7 +682,19 @@ public class GameFlow : NetworkBehaviour
 				AbilityPriority phase = actionBuffer.AbilityPhase;
 				
 				List<AbilityRequest> allStoredAbilityRequests = actionBuffer.GetAllStoredAbilityRequests();
-				SetupPhase(phase, allStoredAbilityRequests);
+				if (phase < AbilityPriority.Combat_Damage)
+				{
+					SetupPhase(phase, allStoredAbilityRequests);
+				}
+				else if (phase == AbilityPriority.Combat_Damage)
+				{
+					for (AbilityPriority i = AbilityPriority.Combat_Damage;
+					     i < AbilityPriority.NumAbilityPriorities;
+					     ++i)
+					{
+						SetupPhase(i, allStoredAbilityRequests);
+					}
+				}
 				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 				if (m_nonEmptyPhases.Contains(phase))
 				{
