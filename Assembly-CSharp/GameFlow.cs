@@ -695,6 +695,8 @@ public class GameFlow : NetworkBehaviour
 						SetupPhase(i, allStoredAbilityRequests);
 					}
 				}
+				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
+				ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
 				if (m_nonEmptyPhases.Contains(phase))
 				{
