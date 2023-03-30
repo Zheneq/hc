@@ -564,6 +564,13 @@ public class GameFlow : NetworkBehaviour
 				{
 					ServerCombatManager.Get().ResolveHitPoints();
 				}
+				foreach (ActorData actorData in GameFlowData.Get().GetActors())
+				{
+					if (actorData != null && actorData.GetPassiveData() != null)
+					{
+						actorData.GetPassiveData().OnAbilitiesDone();
+					}
+				}
 				List<MovementRequest> movementRequests = ServerActionBuffer.Get()
 					.GetAllStoredMovementRequests()
 					.FindAll(req => !req.IsChasing());
@@ -696,8 +703,8 @@ public class GameFlow : NetworkBehaviour
 					}
 				}
 				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
-				ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
-				ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
+				ServerEffectManager.Get().OnAbilityPhaseStart(phase);
+				ServerResolutionManager.Get().OnAbilityPhaseStart(phase);
 				if (m_nonEmptyPhases.Contains(phase))
 				{
 					break;
