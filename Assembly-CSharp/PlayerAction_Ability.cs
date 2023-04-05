@@ -120,12 +120,12 @@ public class PlayerAction_Ability : PlayerAction
 		//{
 		//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
 		//}
-		if (isKnockbackPhase)
-		{
-			List<ActorData> actorsThatWillBeSeenButArentMoving;
-			ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(m_requests, out actorsThatWillBeSeenButArentMoving);
-			ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
-		}
+		// if (isKnockbackPhase)
+		// {
+		// 	List<ActorData> actorsThatWillBeSeenButArentMoving;
+		// 	ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(m_requests, out actorsThatWillBeSeenButArentMoving);
+		// 	ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+		// }
 		//ServerResolutionManager.Get().SendActionsToClients_FCFS(m_requests, list, phase);
 		//if (isEvasionPhase)
 		//{
@@ -239,12 +239,12 @@ public class PlayerAction_Ability : PlayerAction
 		//{
 		//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
 		//}
-		if (isKnockbackPhase)
-		{
-			List<ActorData> actorsThatWillBeSeenButArentMoving;
-			ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(m_requests, out actorsThatWillBeSeenButArentMoving);
-			ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
-		}
+		// if (isKnockbackPhase)
+		// {
+		// 	List<ActorData> actorsThatWillBeSeenButArentMoving;
+		// 	ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(m_requests, out actorsThatWillBeSeenButArentMoving);
+		// 	ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+		// }
 		//ServerResolutionManager.Get().SendActionsToClients_FCFS(m_requests, list, phase);
 		//if (isEvasionPhase)
 		//{

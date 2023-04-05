@@ -702,6 +702,22 @@ public class GameFlow : NetworkBehaviour
 						SetupPhase(i, allStoredAbilityRequests);
 					}
 				}
+				else if (phase == AbilityPriority.Combat_Knockback)
+				{
+					// in case something changed since pre-gathering
+					List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
+					if (executingEffects.Count > 0)
+					{
+						Log.Info($"Have {executingEffects.Count} additional effects in this phase, playing them...");
+						PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+						m_executingPlayerActions.Add(action);
+						action.PrepareResults();
+					}
+			
+					// we are only gathering responses to knockbacks here
+					ServerActionBuffer.Get().GetKnockbackManager().GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
+					ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+				}
 				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
 				ServerEffectManager.Get().OnAbilityPhaseStart(phase);
 				ServerResolutionManager.Get().OnAbilityPhaseStart(phase);
@@ -728,6 +744,10 @@ public class GameFlow : NetworkBehaviour
 			allStoredAbilityRequests,
 			phase,
 			out List<PlayerAction> executingPlayerActions);
+		if (phase == AbilityPriority.Combat_Knockback)
+		{
+			ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(allStoredAbilityRequests);
+		}
 		m_executingPlayerActions.AddRange(executingPlayerActions);
 		if (hasActionsThisPhase)
 		{
@@ -750,9 +770,39 @@ public class GameFlow : NetworkBehaviour
 		out List<PlayerAction> executingPlayerActions)
 	{
 		executingPlayerActions = new List<PlayerAction>();
+		List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
+
+		bool hasActionsThisPhase = false;
+		List<ActorAnimation> anims = new List<ActorAnimation>();
+		if (executingEffects.Count > 0)
+		{
+			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+			executingPlayerActions.Add(action);
+			anims.AddRange(action.PrepareResults());
+			hasActionsThisPhase = true;
+		}
+		
+		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
+			.FindAll(r => r?.m_ability?.RunPriority == phase);
+		if (requestsThisPhase.Count > 0)
+		{
+			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
+			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
+			executingPlayerActions.Add(action);
+			anims.AddRange(action.PrepareResults());
+			hasActionsThisPhase = true;
+		}
+
+		return hasActionsThisPhase;
+	}
+
+	// custom
+	private static List<Effect> GatherEffectResultsInPhase(AbilityPriority phase)
+	{
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
 		List<Effect> executingEffects = new List<Effect>();
-		foreach (KeyValuePair<ActorData,List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
+		foreach (KeyValuePair<ActorData, List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
 		{
 			if (!actorAndEffects.Key.IsDead()) // TODO EFFECTS Should effects persist through lancer's death?
 			{
@@ -786,29 +836,7 @@ public class GameFlow : NetworkBehaviour
 			}
 		}
 
-		bool hasActionsThisPhase = false;
-		List<ActorAnimation> anims = new List<ActorAnimation>();
-		if (executingEffects.Count > 0)
-		{
-			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
-			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-			executingPlayerActions.Add(action);
-			anims.AddRange(action.PrepareResults());
-			hasActionsThisPhase = true;
-		}
-		
-		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
-			.FindAll(r => r?.m_ability?.RunPriority == phase);
-		if (requestsThisPhase.Count > 0)
-		{
-			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
-			executingPlayerActions.Add(action);
-			anims.AddRange(action.PrepareResults());
-			hasActionsThisPhase = true;
-		}
-
-		return hasActionsThisPhase;
+		return executingEffects;
 	}
 #endif
 

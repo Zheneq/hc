@@ -50,7 +50,7 @@ public class ServerKnockbackManager
 		return m_knockedbackActorToSources.TryGetValue(target, out List<ActorData> onTarget) ? onTarget : null;
 	}
 
-	public void ProcessKnockbacks(List<AbilityRequest> allRequests, out List<ActorData> actorsThatWillBeSeenButArentMoving)
+	public void ProcessKnockbacks(List<AbilityRequest> allRequests) // , out List<ActorData> actorsThatWillBeSeenButArentMoving in rogues
 	{
 		m_knockedBackActors.Clear();
 		m_mostRecentRelevantEventTime = Time.time;
@@ -231,7 +231,7 @@ public class ServerKnockbackManager
 			}
 		}
 		m_knockbackStabilizer.StabilizeKnockbacks(m_actorIncomingKnockbacks, invalidSquares);
-		GatherGameplayResultsInResponseToKnockbacks(out actorsThatWillBeSeenButArentMoving);
+		// GatherGameplayResultsInResponseToKnockbacks(out actorsThatWillBeSeenButArentMoving); // rogues
 	}
 
 	private List<BoardSquare> GetPotentialDestinationForKnockback(ActorData mover, BoardSquare center, int borderRadius, List<BoardSquare> destinationsSoFar, List<BoardSquare> invalidSquares, List<ActorData> knockbackedActors, bool requireLosToCenter)
