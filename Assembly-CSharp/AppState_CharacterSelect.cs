@@ -30,40 +30,19 @@ public class AppState_CharacterSelect : AppState
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (gameManager.GameInfo == null)
 		{
-			while (true)
-			{
-				throw new Exception("GameInfo must be set before entering app state");
-			}
+			throw new Exception("GameInfo must be set before entering app state");
 		}
 		if (gameManager.GameConfig == null)
 		{
-			while (true)
-			{
-				throw new Exception("GameConfig must be set before entering app state");
-			}
+			throw new Exception("GameConfig must be set before entering app state");
 		}
 		if (gameManager.TeamInfo == null)
 		{
 			Log.Warning("Team Info is null");
 		}
-		bool flag = true;
-		if (gameManager.GameConfig.GameType != GameType.Tutorial)
-		{
-			if (!gameManager.GameConfig.HasGameOption(GameOptionFlag.AutoLaunch))
-			{
-				if (hydrogenConfig.AutoLaunchGameType.IsAutoLaunchable())
-				{
-					if (hydrogenConfig.CanAutoLaunchGame())
-					{
-						goto IL_00e4;
-					}
-				}
-				goto IL_00e6;
-			}
-		}
-		goto IL_00e4;
-		IL_00e6:
-		if (flag)
+		if (gameManager.GameConfig.GameType != GameType.Tutorial
+		    && !gameManager.GameConfig.HasGameOption(GameOptionFlag.AutoLaunch)
+		    && (!hydrogenConfig.AutoLaunchGameType.IsAutoLaunchable() || !hydrogenConfig.CanAutoLaunchGame()))
 		{
 			UIFrontEnd.Get().ShowScreen(FrontEndScreenState.CharacterSelect);
 			CharacterType charType = CharacterType.None;
@@ -80,7 +59,7 @@ public class AppState_CharacterSelect : AppState
 			UICharacterSelectScreenController.Get().UpdateCharacters(gameManager.PlayerInfo, gameManager.TeamPlayerInfo, gameManager.GameplayOverrides);
 			UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 			{
-				CustomGamePartyListVisible = (gameManager.GameInfo.GameConfig.GameType == GameType.Custom)
+				CustomGamePartyListVisible = gameManager.GameInfo.GameConfig.GameType == GameType.Custom
 			});
 			UICharacterScreen.Get().DoRefreshFunctions(ushort.MaxValue);
 		}
@@ -89,25 +68,14 @@ public class AppState_CharacterSelect : AppState
 		clientGameManager.OnGameInfoNotification += HandleGameInfoNotification;
 		clientGameManager.OnDisconnectedFromLobbyServer += HandleDisconnectedFromLobbyServer;
 		RefreshUI();
-		if (gameManager.GameConfig.GameType == GameType.Custom)
+		if (gameManager.GameConfig.GameType == GameType.Custom && UIPlayCategoryMenu.Get() != null)
 		{
-			if (UIPlayCategoryMenu.Get() != null)
-			{
-				UIManager.SetGameObjectActive(UIPlayCategoryMenu.Get(), false);
-			}
+			UIManager.SetGameObjectActive(UIPlayCategoryMenu.Get(), false);
 		}
-		if (!(HighlightUtils.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (HighlightUtils.Get() != null)
 		{
 			HighlightUtils.Get().HideCursorHighlights();
-			return;
 		}
-		IL_00e4:
-		flag = false;
-		goto IL_00e6;
 	}
 
 	protected override void OnLeave()
@@ -119,27 +87,18 @@ public class AppState_CharacterSelect : AppState
 		clientGameManager.OnDisconnectedFromLobbyServer -= HandleDisconnectedFromLobbyServer;
 		if (UICharacterScreen.Get() != null)
 		{
-			UICharacterScreen.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-			{
-				CustomGamePartyListVisible = false
-			});
+			UICharacterScreen.Get().HandleNewSceneStateParameter(
+				new UICharacterScreen.CharacterSelectSceneStateParameters
+				{
+					CustomGamePartyListVisible = false
+				});
 			UICharacterScreen.Get().DoRefreshFunctions(ushort.MaxValue);
 		}
-		if (ClientGameManager.Get().GroupInfo == null)
+		if (ClientGameManager.Get().GroupInfo != null && UICharacterSelectScreenController.Get() != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (UICharacterSelectScreenController.Get() != null)
-			{
-				while (true)
-				{
-					UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, ClientGameManager.Get().GameTypeAvailabilies[ClientGameManager.Get().GroupInfo.SelectedQueueType].MaxWillFillPerTeam > 0);
-					return;
-				}
-			}
-			return;
+			UIManager.SetGameObjectActive(
+				UICharacterSelectScreenController.Get().m_miscCharSelectButtons,
+				ClientGameManager.Get().GameTypeAvailabilies[ClientGameManager.Get().GroupInfo.SelectedQueueType].MaxWillFillPerTeam > 0);
 		}
 	}
 
@@ -149,102 +108,79 @@ public class AppState_CharacterSelect : AppState
 		{
 			return;
 		}
-		while (true)
+		if (!AssetBundleManager.Get().SceneExistsInBundle("maps", notification.GameInfo.GameConfig.Map)
+		    && !AssetBundleManager.Get().SceneExistsInBundle("testing", notification.GameInfo.GameConfig.Map))
 		{
-			if (!AssetBundleManager.Get().SceneExistsInBundle("maps", notification.GameInfo.GameConfig.Map))
+			UICharacterSelectScreenController uICharacterSelectScreenController = UICharacterSelectScreenController.Get();
+			if (uICharacterSelectScreenController != null)
 			{
-				if (!AssetBundleManager.Get().SceneExistsInBundle("testing", notification.GameInfo.GameConfig.Map))
-				{
-					UICharacterSelectScreenController uICharacterSelectScreenController = UICharacterSelectScreenController.Get();
-					if (uICharacterSelectScreenController != null)
+				uICharacterSelectScreenController.OpenOneButtonDialog(
+					string.Empty, 
+					GameManager.Get().PlayerInfo.IsGameOwner
+						? StringUtil.TR("NoAccessToThisMap", "Frontend")
+						: StringUtil.TR("LeaderSelectedMapNoAccessTo", "Frontend"),
+					delegate
 					{
-						string message = (!GameManager.Get().PlayerInfo.IsGameOwner) ? StringUtil.TR("LeaderSelectedMapNoAccessTo", "Frontend") : StringUtil.TR("NoAccessToThisMap", "Frontend");
-						string empty = string.Empty;
-						
-						uICharacterSelectScreenController.OpenOneButtonDialog(empty, message, delegate
-							{
-								AppState_GameTeardown.Get().Enter();
-							});
-					}
-					goto IL_011c;
-				}
-			}
-			RefreshUI();
-			goto IL_011c;
-			IL_011c:
-			if (notification.GameInfo.GameConfig.GameType == GameType.Coop)
-			{
-				while (true)
-				{
-					UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-					{
-						SelectedEnemyBotDifficulty = (int)notification.GameInfo.SelectedBotSkillTeamB
+						AppState_GameTeardown.Get().Enter();
 					});
-					return;
-				}
 			}
-			return;
+		}
+		else
+		{
+			RefreshUI();
+		}
+		if (notification.GameInfo.GameConfig.GameType == GameType.Coop)
+		{
+			UIManager.Get().HandleNewSceneStateParameter(
+				new UICharacterScreen.CharacterSelectSceneStateParameters
+				{
+					SelectedEnemyBotDifficulty = (int)notification.GameInfo.SelectedBotSkillTeamB
+				});
 		}
 	}
 
 	public bool NeedForceUpdateCharacters(LobbyPlayerInfo playerInfo, List<LobbyPlayerInfo> teamPlayerInfos, LobbyGameplayOverrides gameplayOverrides)
 	{
 		bool result = false;
-		if (GameManager.Get().GameConfig != null && GameManager.Get().GameConfig.GameType == GameType.PvP)
+		if (GameManager.Get().GameConfig == null
+		    || GameManager.Get().GameConfig.GameType != GameType.PvP
+		    || playerInfo == null
+		    || playerInfo.TeamId == Team.Spectator)
 		{
-			if (playerInfo != null)
+			return false;
+		}
+		int num = UICharacterSelectWorldObjects.Get().m_ringAnimations.Length;
+		if (teamPlayerInfos == null)
+		{
+			return false;
+		}
+		int num2 = 1;
+		foreach (LobbyPlayerInfo teamPlayerInfo in teamPlayerInfos)
+		{
+			if (teamPlayerInfo.CharacterType == CharacterType.None)
 			{
-				if (playerInfo.TeamId != Team.Spectator)
+				continue;
+			}
+			if (teamPlayerInfo.PlayerId == playerInfo.PlayerId)
+			{
+				if (UICharacterSelectWorldObjects.Get().CharacterTypeInSlot(0) != playerInfo.CharacterInfo.CharacterType)
 				{
-					int num = UICharacterSelectWorldObjects.Get().m_ringAnimations.Length;
-					if (teamPlayerInfos != null)
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-							{
-								int num2 = 1;
-								{
-									foreach (LobbyPlayerInfo teamPlayerInfo in teamPlayerInfos)
-									{
-										if (teamPlayerInfo.CharacterType == CharacterType.None)
-										{
-										}
-										else
-										{
-											if (teamPlayerInfo.PlayerId == playerInfo.PlayerId)
-											{
-												if (UICharacterSelectWorldObjects.Get().CharacterTypeInSlot(0) != playerInfo.CharacterInfo.CharacterType)
-												{
-													result = true;
-												}
-											}
-											else
-											{
-												if (UICharacterSelectWorldObjects.Get().CharacterTypeInSlot(num2) != teamPlayerInfo.CharacterInfo.CharacterType)
-												{
-													result = true;
-												}
-												num2++;
-											}
-											if (num2 >= num)
-											{
-												return result;
-											}
-										}
-									}
-									return result;
-								}
-							}
-							}
-						}
-					}
-					return result;
+					result = true;
 				}
+			}
+			else
+			{
+				if (UICharacterSelectWorldObjects.Get().CharacterTypeInSlot(num2) != teamPlayerInfo.CharacterInfo.CharacterType)
+				{
+					result = true;
+				}
+
+				num2++;
+			}
+
+			if (num2 >= num)
+			{
+				break;
 			}
 		}
 		return result;
@@ -253,143 +189,84 @@ public class AppState_CharacterSelect : AppState
 	private void Update()
 	{
 		GameStatus gameStatus = GameManager.Get().GameStatus;
-		if (IsReady())
+		if (IsReady()
+		    && gameStatus >= GameStatus.Launched
+		    && gameStatus != GameStatus.Stopped)
 		{
-			if (gameStatus >= GameStatus.Launched)
-			{
-				if (gameStatus != GameStatus.Stopped)
-				{
-					AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
-				}
-			}
+			AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
 		}
 		GameManager gameManager = GameManager.Get();
-		if (!(gameManager != null) || !NeedForceUpdateCharacters(gameManager.PlayerInfo, gameManager.TeamPlayerInfo, gameManager.GameplayOverrides))
+		if (gameManager != null
+		    && NeedForceUpdateCharacters(gameManager.PlayerInfo, gameManager.TeamPlayerInfo, gameManager.GameplayOverrides))
 		{
-			return;
-		}
-		while (true)
-		{
-			UICharacterSelectScreenController.Get().UpdateCharacters(gameManager.PlayerInfo, gameManager.TeamPlayerInfo, gameManager.GameplayOverrides);
-			return;
+			UICharacterSelectScreenController.Get().UpdateCharacters(
+				gameManager.PlayerInfo,
+				gameManager.TeamPlayerInfo,
+				gameManager.GameplayOverrides);
+			
 		}
 	}
 
 	private void HandleGameLoadoutSelecting()
 	{
-		if (!(UICharacterSelectScreenController.Get() != null))
+		if (UICharacterSelectScreenController.Get() == null)
 		{
 			return;
 		}
-		while (true)
+		CharacterType characterType = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.m_characterType;
+		if (!characterType.IsWillFill())
 		{
-			CharacterType characterType = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.m_characterType;
-			int num;
-			int num2;
-			bool flag2;
-			if (!characterType.IsWillFill())
+			if (GameManager.Get() == null || GameManager.Get().PlayerInfo.TeamId != Team.Spectator)
 			{
-				if (!(GameManager.Get() == null))
-				{
-					if (GameManager.Get().PlayerInfo.TeamId == Team.Spectator)
-					{
-						goto IL_01ac;
-					}
-				}
 				CharacterComponent characterComponent = ClientGameManager.Get().GetPlayerCharacterData(characterType).CharacterComponent;
-				bool flag = AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked;
-				flag2 = false;
-				if (flag)
+				bool isRanked = AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked;
+				bool areModsSelected = false;
+				if (isRanked)
 				{
-					CharacterModInfo lastRankedMods = characterComponent.LastRankedMods;
-					if (lastRankedMods.ModForAbility0 <= 0)
-					{
-						CharacterModInfo lastRankedMods2 = characterComponent.LastRankedMods;
-						if (lastRankedMods2.ModForAbility1 <= 0)
-						{
-							CharacterModInfo lastRankedMods3 = characterComponent.LastRankedMods;
-							if (lastRankedMods3.ModForAbility2 <= 0)
-							{
-								CharacterModInfo lastRankedMods4 = characterComponent.LastRankedMods;
-								if (lastRankedMods4.ModForAbility3 <= 0)
-								{
-									CharacterModInfo lastRankedMods5 = characterComponent.LastRankedMods;
-									num = ((lastRankedMods5.ModForAbility4 > 0) ? 1 : 0);
-									goto IL_0121;
-								}
-							}
-						}
-					}
-					num = 1;
-					goto IL_0121;
+					areModsSelected = characterComponent.LastRankedMods.ModForAbility0 > 0
+					        || characterComponent.LastRankedMods.ModForAbility1 > 0
+					        || characterComponent.LastRankedMods.ModForAbility2 > 0
+					        || characterComponent.LastRankedMods.ModForAbility3 > 0
+					        || characterComponent.LastRankedMods.ModForAbility4 > 0;
 				}
-				CharacterModInfo lastMods = characterComponent.LastMods;
-				if (lastMods.ModForAbility0 <= 0)
+				else
 				{
-					CharacterModInfo lastMods2 = characterComponent.LastMods;
-					if (lastMods2.ModForAbility1 <= 0)
-					{
-						CharacterModInfo lastMods3 = characterComponent.LastMods;
-						if (lastMods3.ModForAbility2 <= 0)
-						{
-							CharacterModInfo lastMods4 = characterComponent.LastMods;
-							if (lastMods4.ModForAbility3 <= 0)
-							{
-								CharacterModInfo lastMods5 = characterComponent.LastMods;
-								num2 = ((lastMods5.ModForAbility4 > 0) ? 1 : 0);
-								goto IL_019c;
-							}
-						}
-					}
+					areModsSelected = characterComponent.LastMods.ModForAbility0 > 0
+					        || characterComponent.LastMods.ModForAbility1 > 0
+					        || characterComponent.LastMods.ModForAbility2 > 0
+					        || characterComponent.LastMods.ModForAbility3 > 0
+					        || characterComponent.LastMods.ModForAbility4 > 0;
 				}
-				num2 = 1;
-				goto IL_019c;
+
+				if (!areModsSelected)
+				{
+					UICharacterSelectScreen.Get().ShowPleaseEquipModsDialog();
+				}
 			}
-			goto IL_01ac;
-			IL_01ac:
-			UICharacterSelectScreen.Get().SetGameSettingsButtonVisibility(false);
-			return;
-			IL_019d:
-			if (!flag2)
-			{
-				UICharacterSelectScreen.Get().ShowPleaseEquipModsDialog();
-			}
-			goto IL_01ac;
-			IL_0121:
-			flag2 = ((byte)num != 0);
-			goto IL_019d;
-			IL_019c:
-			flag2 = ((byte)num2 != 0);
-			goto IL_019d;
 		}
+		UICharacterSelectScreen.Get().SetGameSettingsButtonVisibility(false);
 	}
 
 	private void HandleGameStopped(GameResult gameResult)
 	{
 		string text = null;
-		if (gameResult == GameResult.Requeued)
+		switch (gameResult)
 		{
+			case GameResult.Requeued:
+				break;
+			case GameResult.OwnerLeft:
+				text = StringUtil.TR("OwnerOfThisGameLeft", "Frontend");
+				break;
+			case GameResult.ClientKicked:
+				text = StringUtil.TR("KickedFromThisGame", "Frontend");
+				break;
+			case GameResult.ServerCrashed:
+				text = StringUtil.TR("FailedStartGameServer", "Frontend");
+				break;
 		}
-		else if (gameResult == GameResult.OwnerLeft)
-		{
-			text = StringUtil.TR("OwnerOfThisGameLeft", "Frontend");
-		}
-		else if (gameResult == GameResult.ClientKicked)
-		{
-			text = StringUtil.TR("KickedFromThisGame", "Frontend");
-		}
-		else if (gameResult == GameResult.ServerCrashed)
-		{
-			text = StringUtil.TR("FailedStartGameServer", "Frontend");
-		}
-		if (text.IsNullOrEmpty() || !(UICharacterSelectScreenController.Get() != null))
-		{
-			return;
-		}
-		while (true)
+		if (!text.IsNullOrEmpty() && UICharacterSelectScreenController.Get() != null)
 		{
 			UICharacterSelectScreenController.Get().OpenOneButtonDialog(string.Empty, text);
-			return;
 		}
 	}
 
@@ -404,107 +281,79 @@ public class AppState_CharacterSelect : AppState
 		LobbyGameInfo gameInfo = gameManager.GameInfo;
 		LobbyPlayerInfo playerInfo = gameManager.PlayerInfo;
 		LobbyTeamInfo teamInfo = gameManager.TeamInfo;
-		if (gameInfo == null || playerInfo == null)
+		if (gameInfo == null
+		    || playerInfo == null
+		    || teamInfo == null
+		    || UIFrontEnd.Get() == null
+		    || UICharacterSelectScreen.Get() == null
+		    || gameManager.PlayerInfo.IsRemoteControlled)
 		{
 			return;
 		}
-		if (teamInfo == null)
+		Team team = gameManager.PlayerInfo.TeamId;
+		if (team == Team.Spectator)
 		{
-			while (true)
+			team = Team.TeamA;
+		}
+		List<LobbyPlayerInfo> teamPlayerInfos = (
+			from ti in gameManager.TeamInfo.TeamInfo(team)
+			orderby ti.PlayerId != playerInfo.PlayerId ? 1 : 0
+			select ti).ToList();
+		List<LobbyPlayerInfo> list = gameManager.TeamInfo.TeamInfo(Team.Spectator).ToList();
+		UICharacterSelectScreenController controller = UICharacterSelectScreenController.Get();
+		controller.UpdateCharacters(
+			gameManager.PlayerInfo,
+			teamPlayerInfos,
+			gameManager.GameplayOverrides);
+		UIManager.SetGameObjectActive(controller.m_charSettingsPanel.m_skinsSubPanel.m_purchasePanel, false);
+		UIManager.SetGameObjectActive(controller.m_charSettingsPanel.m_tauntsSubPanel.m_purchasePanel, false);
+		UICharacterScreen.Get().m_partyListPanel.UpdateCharacterList(playerInfo, teamInfo, gameInfo);
+		UICharacterSelectScreen.Get().m_simplePartyListPanel.UpdateCharacterList(playerInfo, teamInfo, gameInfo);
+		UIGameSettingsPanel.Get().UpdateCharacterList(playerInfo, teamInfo, gameInfo);
+		if (UIMatchStartPanel.Get() != null)
+		{
+			UIMatchStartPanel.Get().UpdateCharacterList();
+		}
+		if (UICharacterSelectScreen.Get().m_spectatorPartyListPanel != null)
+		{
+			if (list.Count > 0)
 			{
-				switch (7)
+				UIManager.SetGameObjectActive(UICharacterSelectScreen.Get().m_spectatorPartyListPanel, true);
+				UICharacterSelectScreen.Get().m_spectatorPartyListPanel.UpdateCharacterList(list);
+			}
+			else
+			{
+				UIManager.SetGameObjectActive(UICharacterSelectScreen.Get().m_spectatorPartyListPanel, false);
+			}
+		}
+		if (playerInfo.IsNPCBot)
+		{
+			if (playerInfo.TeamId == Team.TeamA)
+			{
+				if (gameInfo.GameConfig.GameType == GameType.Solo
+				    || gameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 				{
-				case 0:
-					break;
-				default:
-					return;
+					UIManager.Get().HandleNewSceneStateParameter(
+						new UICharacterScreen.CharacterSelectSceneStateParameters
+						{
+							SelectedAllyBotDifficulty = (int)playerInfo.Difficulty
+						});
+				}
+			}
+			else if (playerInfo.TeamId == Team.TeamB)
+			{
+				if (gameInfo.GameConfig.GameType == GameType.Solo
+				    || gameInfo.GameConfig.GameType == GameType.Coop)
+				{
+					UIManager.Get().HandleNewSceneStateParameter(
+						new UICharacterScreen.CharacterSelectSceneStateParameters
+						{
+							SelectedEnemyBotDifficulty = (int)playerInfo.Difficulty
+						});
 				}
 			}
 		}
-		if (!(UIFrontEnd.Get() != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			if (!(UICharacterSelectScreen.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (gameManager.PlayerInfo.IsRemoteControlled)
-				{
-					return;
-				}
-				while (true)
-				{
-					Team team = gameManager.PlayerInfo.TeamId;
-					if (team == Team.Spectator)
-					{
-						team = Team.TeamA;
-					}
-					List<LobbyPlayerInfo> teamPlayerInfos = (from ti in gameManager.TeamInfo.TeamInfo(team)
-						orderby (ti.PlayerId != playerInfo.PlayerId) ? 1 : 0
-						select ti).ToList();
-					List<LobbyPlayerInfo> list = gameManager.TeamInfo.TeamInfo(Team.Spectator).ToList();
-					UICharacterSelectScreenController uICharacterSelectScreenController = UICharacterSelectScreenController.Get();
-					uICharacterSelectScreenController.UpdateCharacters(gameManager.PlayerInfo, teamPlayerInfos, gameManager.GameplayOverrides);
-					UIManager.SetGameObjectActive(uICharacterSelectScreenController.m_charSettingsPanel.m_skinsSubPanel.m_purchasePanel, false);
-					UIManager.SetGameObjectActive(uICharacterSelectScreenController.m_charSettingsPanel.m_tauntsSubPanel.m_purchasePanel, false);
-					UICharacterScreen.Get().m_partyListPanel.UpdateCharacterList(playerInfo, teamInfo, gameInfo);
-					UICharacterSelectScreen.Get().m_simplePartyListPanel.UpdateCharacterList(playerInfo, teamInfo, gameInfo);
-					UIGameSettingsPanel.Get().UpdateCharacterList(playerInfo, teamInfo, gameInfo);
-					if (UIMatchStartPanel.Get() != null)
-					{
-						UIMatchStartPanel.Get().UpdateCharacterList();
-					}
-					if (UICharacterSelectScreen.Get().m_spectatorPartyListPanel != null)
-					{
-						if (list.Count > 0)
-						{
-							UIManager.SetGameObjectActive(UICharacterSelectScreen.Get().m_spectatorPartyListPanel, true);
-							UICharacterSelectScreen.Get().m_spectatorPartyListPanel.UpdateCharacterList(list);
-						}
-						else
-						{
-							UIManager.SetGameObjectActive(UICharacterSelectScreen.Get().m_spectatorPartyListPanel, false);
-						}
-					}
-					if (playerInfo.IsNPCBot)
-					{
-						if (playerInfo.TeamId == Team.TeamA)
-						{
-							if (gameInfo.GameConfig.GameType == GameType.Solo || gameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-							{
-								UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-								{
-									SelectedAllyBotDifficulty = (int)playerInfo.Difficulty
-								});
-							}
-						}
-						else if (playerInfo.TeamId == Team.TeamB)
-						{
-							if (gameInfo.GameConfig.GameType != GameType.Solo)
-							{
-								if (gameInfo.GameConfig.GameType != GameType.Coop)
-								{
-									goto IL_031b;
-								}
-							}
-							UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-							{
-								SelectedEnemyBotDifficulty = (int)playerInfo.Difficulty
-							});
-						}
-					}
-					goto IL_031b;
-					IL_031b:
-					UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, false);
-					return;
-				}
-			}
-		}
+		UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, false);
 	}
 
 	public void UpdateSelectedSkin(CharacterVisualInfo selectedCharacterSkin)
@@ -529,150 +378,77 @@ public class AppState_CharacterSelect : AppState
 
 	public void UpdateReadyState(bool ready)
 	{
-		UpdateReadyState(ready, (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay, (BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay);
+		UpdateReadyState(
+			ready,
+			(BotDifficulty)UICharacterScreen.GetCurrentSpecificState().AllyBotDifficultyToDisplay,
+			(BotDifficulty)UICharacterScreen.GetCurrentSpecificState().EnemyBotDifficultyToDisplay);
 	}
 
 	public void UpdateReadyState(bool ready, BotDifficulty? allyDifficulty, BotDifficulty? enemyDifficulty)
 	{
-		ClientGameManager clientGameManager = ClientGameManager.Get();
-		int readyState;
-		if (ready)
-		{
-			readyState = 3;
-		}
-		else
-		{
-			readyState = 1;
-		}
-		clientGameManager.UpdateReadyState((ReadyState)readyState, allyDifficulty, enemyDifficulty, HandlePlayerInfoUpdateResponse);
+		ReadyState readyState = ready ? ReadyState.Ready : ReadyState.Accepted;
+		ClientGameManager.Get().UpdateReadyState(readyState, allyDifficulty, enemyDifficulty, HandlePlayerInfoUpdateResponse);
 	}
 
 	public static bool IsReady()
 	{
-		if (ClientGameManager.Get() == null)
-		{
-			return false;
-		}
-		if (ClientGameManager.Get().PlayerInfo == null)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		if (ClientGameManager.Get().PlayerInfo.TeamId != Team.Spectator)
-		{
-			if (!ClientGameManager.Get().PlayerInfo.IsReady)
-			{
-				return false;
-			}
-		}
-		return true;
+		return ClientGameManager.Get() != null
+		       && ClientGameManager.Get().PlayerInfo != null
+		       && (ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator
+		           || ClientGameManager.Get().PlayerInfo.IsReady);
 	}
 
 	public void HandlePlayerInfoUpdateResponse(PlayerInfoUpdateResponse response)
 	{
-		if (!response.Success)
+		if (response.Success)
 		{
-			while (true)
+			if (response.PlayerInfo != null
+			    && response.PlayerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId
+			    && UICharacterSelectScreenController.Get() != null)
 			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					if (response.ErrorMessage != null)
-					{
-						while (true)
-						{
-							switch (7)
-							{
-							case 0:
-								break;
-							default:
-								UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.ErrorMessage, StringUtil.TR("Ok", "Global"));
-								return;
-							}
-						}
-					}
-					if (response.LocalizedFailure != null)
-					{
-						UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"));
-					}
-					return;
-				}
+				UICharacterSelectScreenController.Get()
+					.UpdateCharacters(response.PlayerInfo, null, GameManager.Get().GameplayOverrides);
 			}
 		}
-		if (response.PlayerInfo == null)
+		else if (response.ErrorMessage != null)
 		{
-			return;
+			UIDialogPopupManager.OpenOneButtonDialog(
+				string.Empty, 
+				response.ErrorMessage,
+				StringUtil.TR("Ok", "Global"));
 		}
-		while (true)
+		else if (response.LocalizedFailure != null)
 		{
-			if (response.PlayerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId && UICharacterSelectScreenController.Get() != null)
-			{
-				while (true)
-				{
-					UICharacterSelectScreenController.Get().UpdateCharacters(response.PlayerInfo, null, GameManager.Get().GameplayOverrides);
-					return;
-				}
-			}
-			return;
+			UIDialogPopupManager.OpenOneButtonDialog(
+				string.Empty, 
+				response.LocalizedFailure.ToString(),
+				StringUtil.TR("Ok", "Global"));
 		}
 	}
 
 	public void OnShowGameSettingsClicked()
 	{
 		GameManager gameManager = GameManager.Get();
-		if (!(gameManager != null) || gameManager.GameConfig == null)
+		if (gameManager != null
+		    && gameManager.GameConfig != null
+		    && gameManager.GameConfig.GameType == GameType.Custom
+		    && gameManager.PlayerInfo != null
+		    && UICharacterSelectScreen.Get() != null
+		    && gameManager.PlayerInfo.IsGameOwner)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (gameManager.GameConfig.GameType != 0)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (gameManager.PlayerInfo == null)
-				{
-					return;
-				}
-				while (true)
-				{
-					if (!(UICharacterSelectScreen.Get() != null))
-					{
-						return;
-					}
-					while (true)
-					{
-						if (gameManager.PlayerInfo.IsGameOwner)
-						{
-							while (true)
-							{
-								UICharacterSelectScreen.Get().ShowGameSettingsPanel(gameManager.GameConfig, gameManager.TeamInfo, gameManager.PlayerInfo);
-								return;
-							}
-						}
-						return;
-					}
-				}
-			}
+			UICharacterSelectScreen.Get().ShowGameSettingsPanel(
+				gameManager.GameConfig,
+				gameManager.TeamInfo,
+				gameManager.PlayerInfo);
 		}
 	}
 
 	public void OnUpdateGameSettingsClicked(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo, bool closeSettingsWindow = true)
 	{
-		LobbyGameInfo lobbyGameInfo = new LobbyGameInfo();
-		lobbyGameInfo.GameConfig = gameConfig;
+		LobbyGameInfo lobbyGameInfo = new LobbyGameInfo
+		{
+			GameConfig = gameConfig
+		};
 		ClientGameManager.Get().UpdateGameInfo(lobbyGameInfo, teamInfo);
 		if (closeSettingsWindow)
 		{
