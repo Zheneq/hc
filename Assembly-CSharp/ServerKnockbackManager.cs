@@ -47,11 +47,7 @@ public class ServerKnockbackManager
 
 	public List<ActorData> GetKnockbackSourceActorsOnTarget(ActorData target)
 	{
-		if (m_knockedbackActorToSources.ContainsKey(target))
-		{
-			return m_knockedbackActorToSources[target];
-		}
-		return null;
+		return m_knockedbackActorToSources.TryGetValue(target, out List<ActorData> onTarget) ? onTarget : null;
 	}
 
 	public void ProcessKnockbacks(List<AbilityRequest> allRequests, out List<ActorData> actorsThatWillBeSeenButArentMoving)
@@ -61,160 +57,167 @@ public class ServerKnockbackManager
 		List<ActorData> list = ServerActionBuffer.Get().IdentifyActorsDyingBeforeKnockbackMovement();
 		foreach (AbilityRequest abilityRequest in allRequests)
 		{
-			if (abilityRequest.m_ability.RunPriority == AbilityPriority.Combat_Knockback)
+			if (abilityRequest.m_ability.RunPriority != AbilityPriority.Combat_Knockback)
 			{
-				foreach (KeyValuePair<ActorData, Vector2> keyValuePair in abilityRequest.m_additionalData.m_abilityResults.GetKnockbackTargets())
+				continue;
+			}
+			foreach (KeyValuePair<ActorData, Vector2> target in abilityRequest.m_additionalData.m_abilityResults.GetKnockbackTargets())
+			{
+				ActorData actor = target.Key;
+				Vector2 knockbackVector = target.Value;
+				if (actor == null
+				    || actor.GetActorStatus().IsKnockbackImmune(true)
+				    || list.Contains(actor))
 				{
-					ActorData key = keyValuePair.Key;
-					Vector2 value = keyValuePair.Value;
-					if (key != null && !key.GetActorStatus().IsKnockbackImmune(true) && !list.Contains(key))
-					{
-						if (!m_actorIncomingKnockbacks.ContainsKey(key))
-						{
-							KnockbackHits value2 = new KnockbackHits();
-							m_actorIncomingKnockbacks.Add(key, value2);
-						}
-						m_actorIncomingKnockbacks[key].OnKnockbackProcessed(value);
-						if (!m_actorOutgoingKnockbacks.ContainsKey(abilityRequest.m_caster))
-						{
-							KnockbackHits value3 = new KnockbackHits();
-							m_actorOutgoingKnockbacks.Add(abilityRequest.m_caster, value3);
-						}
-						m_actorOutgoingKnockbacks[abilityRequest.m_caster].OnKnockbackProcessed(value);
-						if (!m_knockedbackActorToSources.ContainsKey(key))
-						{
-							m_knockedbackActorToSources[key] = new List<ActorData>();
-						}
-						if (!m_knockedbackActorToSources[key].Contains(abilityRequest.m_caster))
-						{
-							m_knockedbackActorToSources[key].Add(abilityRequest.m_caster);
-						}
-						if (key.GetActorBehavior() != null)
-						{
-							key.GetActorBehavior().AddRootOrKnockbackSourceActor(abilityRequest.m_caster);
-						}
-					}
+					continue;
+				}
+				if (!m_actorIncomingKnockbacks.ContainsKey(actor))
+				{
+					m_actorIncomingKnockbacks.Add(actor, new KnockbackHits());
+				}
+				m_actorIncomingKnockbacks[actor].OnKnockbackProcessed(knockbackVector);
+				if (!m_actorOutgoingKnockbacks.ContainsKey(abilityRequest.m_caster))
+				{
+					m_actorOutgoingKnockbacks.Add(abilityRequest.m_caster, new KnockbackHits());
+				}
+				m_actorOutgoingKnockbacks[abilityRequest.m_caster].OnKnockbackProcessed(knockbackVector);
+				if (!m_knockedbackActorToSources.ContainsKey(actor))
+				{
+					m_knockedbackActorToSources[actor] = new List<ActorData>();
+				}
+				if (!m_knockedbackActorToSources[actor].Contains(abilityRequest.m_caster))
+				{
+					m_knockedbackActorToSources[actor].Add(abilityRequest.m_caster);
+				}
+				if (actor.GetActorBehavior() != null)
+				{
+					actor.GetActorBehavior().AddRootOrKnockbackSourceActor(abilityRequest.m_caster);
 				}
 			}
 		}
 		foreach (Effect.EffectKnockbackTargets effectKnockbackTargets in ServerEffectManager.Get().FindKnockbackTargetSets())
 		{
 			ActorData sourceActor = effectKnockbackTargets.m_sourceActor;
-			foreach (KeyValuePair<ActorData, Vector2> keyValuePair2 in effectKnockbackTargets.m_knockbackTargets)
+			foreach (KeyValuePair<ActorData, Vector2> target in effectKnockbackTargets.m_knockbackTargets)
 			{
-				ActorData key2 = keyValuePair2.Key;
-				Vector2 value4 = keyValuePair2.Value;
-				if (key2 != null && !key2.GetActorStatus().IsKnockbackImmune(true) && !list.Contains(key2))
+				ActorData actor = target.Key;
+				Vector2 knockbackVector = target.Value;
+				if (actor == null
+				    || actor.GetActorStatus().IsKnockbackImmune(true)
+				    || list.Contains(actor))
 				{
-					if (!m_actorIncomingKnockbacks.ContainsKey(key2))
-					{
-						KnockbackHits value5 = new KnockbackHits();
-						m_actorIncomingKnockbacks.Add(key2, value5);
-					}
-					m_actorIncomingKnockbacks[key2].OnKnockbackProcessed(value4);
-					if (!m_actorOutgoingKnockbacks.ContainsKey(sourceActor))
-					{
-						KnockbackHits value6 = new KnockbackHits();
-						m_actorOutgoingKnockbacks.Add(sourceActor, value6);
-					}
-					m_actorOutgoingKnockbacks[sourceActor].OnKnockbackProcessed(value4);
-					if (key2.GetActorBehavior() != null)
-					{
-						key2.GetActorBehavior().AddRootOrKnockbackSourceActor(sourceActor);
-					}
+					continue;
+				}
+				if (!m_actorIncomingKnockbacks.ContainsKey(actor))
+				{
+					m_actorIncomingKnockbacks.Add(actor, new KnockbackHits());
+				}
+				m_actorIncomingKnockbacks[actor].OnKnockbackProcessed(knockbackVector);
+				if (!m_actorOutgoingKnockbacks.ContainsKey(sourceActor))
+				{
+					m_actorOutgoingKnockbacks.Add(sourceActor, new KnockbackHits());
+				}
+				m_actorOutgoingKnockbacks[sourceActor].OnKnockbackProcessed(knockbackVector);
+				if (actor.GetActorBehavior() != null)
+				{
+					actor.GetActorBehavior().AddRootOrKnockbackSourceActor(sourceActor);
 				}
 			}
 		}
-		foreach (KeyValuePair<ActorData, KnockbackHits> keyValuePair3 in m_actorIncomingKnockbacks)
+		foreach (KeyValuePair<ActorData, KnockbackHits> actorKnockbackHits in m_actorIncomingKnockbacks)
 		{
-			keyValuePair3.Value.CalculateTotalKnockback(keyValuePair3.Key);
+			actorKnockbackHits.Value.CalculateTotalKnockback(actorKnockbackHits.Key);
 		}
-		List<BoardSquare> list2 = new List<BoardSquare>();
+		List<BoardSquare> invalidSquares = new List<BoardSquare>();
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
 			if (!actorData.IsDead() && actorData.GetPassiveData() != null)
 			{
-				actorData.GetPassiveData().AddInvalidKnockbackDestinations(m_actorIncomingKnockbacks, list2);
+				actorData.GetPassiveData().AddInvalidKnockbackDestinations(m_actorIncomingKnockbacks, invalidSquares);
 			}
 		}
-		List<KnockbackHits> list3 = new List<KnockbackHits>(m_actorIncomingKnockbacks.Values);
-		for (int i = list3.Count - 1; i >= 0; i--)
+		List<KnockbackHits> allKnockbackHits = new List<KnockbackHits>(m_actorIncomingKnockbacks.Values);
+		for (int i = allKnockbackHits.Count - 1; i >= 0; i--)
 		{
-			if (list3[i].GetKnockbackPath() == null)
+			if (allKnockbackHits[i].GetKnockbackPath() == null)
 			{
-				list3.RemoveAt(i);
+				allKnockbackHits.RemoveAt(i);
 			}
 		}
-		if (list3.Count > 0)
+		if (allKnockbackHits.Count > 0)
 		{
 			List<ActorData> knockbackedActors = new List<ActorData>(m_actorIncomingKnockbacks.Keys);
-			List<BoardSquare> list4 = new List<BoardSquare>();
-			list3.Sort(delegate(KnockbackHits knockback1, KnockbackHits knockback2)
+			List<BoardSquare> destinationsSoFar = new List<BoardSquare>();
+			allKnockbackHits.Sort(delegate(KnockbackHits knockback1, KnockbackHits knockback2)
 			{
-				float num5 = knockback1.GetKnockbackPath().FindDistanceToEnd();
-				float value7 = knockback2.GetKnockbackPath().FindDistanceToEnd();
-				return num5.CompareTo(value7);
+				float dist1 = knockback1.GetKnockbackPath().FindDistanceToEnd();
+				float dist2 = knockback2.GetKnockbackPath().FindDistanceToEnd();
+				return dist1.CompareTo(dist2);
 			});
-			foreach (KnockbackHits knockbackHits in list3)
+			foreach (KnockbackHits knockbackHits in allKnockbackHits)
 			{
 				ActorData knockbackedActor = knockbackHits.GetKnockbackedActor();
 				BoardSquare knockbackEndSquare = knockbackHits.GetKnockbackEndSquare();
-				List<BoardSquare> list5 = new List<BoardSquare>();
-				int num = 0;
-				while (num <= 2 || (list5.Count == 0 && num <= 4))
+				List<BoardSquare> potentialDestinations = new List<BoardSquare>();
+				int borderRadius = 0;
+				while (borderRadius <= 2 || (potentialDestinations.Count == 0 && borderRadius <= 4))
 				{
-					List<BoardSquare> potentialDestinationForKnockback = GetPotentialDestinationForKnockback(knockbackedActor, knockbackEndSquare, num, list4, list2, knockbackedActors, true);
-					list5.AddRange(potentialDestinationForKnockback);
-					if (potentialDestinationForKnockback.Count > 0 && num == 0)
+					List<BoardSquare> potentialDestinationForKnockback = GetPotentialDestinationForKnockback(
+						knockbackedActor,
+						knockbackEndSquare,
+						borderRadius, 
+						destinationsSoFar,
+						invalidSquares,
+						knockbackedActors,
+						true);
+					potentialDestinations.AddRange(potentialDestinationForKnockback);
+					if (potentialDestinationForKnockback.Count > 0 && borderRadius == 0)
 					{
 						break;
 					}
-					num++;
+					borderRadius++;
 				}
 				BoardSquare boardSquare = null;
-				float num2 = -100f;
-				Vector3 vector = knockbackedActor.GetCurrentBoardSquare().ToVector3();
-				Vector3 vector2 = knockbackEndSquare.ToVector3() - vector;
-				vector2.y = 0f;
-				vector2.Normalize();
-				Vector3 vector3 = -vector2;
-				foreach (BoardSquare boardSquare2 in list5)
+				float maxWeight = -100f;
+				Vector3 src = knockbackedActor.GetCurrentBoardSquare().ToVector3();
+				Vector3 desiredVector = knockbackEndSquare.ToVector3() - src;
+				desiredVector.y = 0f;
+				desiredVector.Normalize();
+				Vector3 backVector = -desiredVector;
+				foreach (BoardSquare dst in potentialDestinations)
 				{
-					float num3;
-					if (boardSquare2 == knockbackEndSquare)
+					float weight;
+					if (dst == knockbackEndSquare)
 					{
-						num3 = 10000f;
+						weight = 10000f;
 					}
 					else
 					{
-						Vector3 vector4 = boardSquare2.ToVector3() - knockbackEndSquare.ToVector3();
-						vector4.y = 0f;
-						vector4.Normalize();
-						float num4 = Vector3.Angle(vector3, vector4);
-						Vector3 vector5 = boardSquare2.ToVector3() - vector;
-						vector5.y = 0f;
-						bool flag = Vector3.Dot(vector2, vector5) >= 0f;
-						num3 = 0.45f * Vector3.Dot(vector3, vector4);
-						if (flag)
+						Vector3 offset = dst.ToVector3() - knockbackEndSquare.ToVector3();
+						offset.y = 0f;
+						offset.Normalize();
+						float angleFromSource = Vector3.Angle(backVector, offset);
+						Vector3 vector = dst.ToVector3() - src;
+						vector.y = 0f;
+						bool isDesiredDirection = Vector3.Dot(desiredVector, vector) >= 0f;
+						weight = 0.45f * Vector3.Dot(backVector, offset);
+						if (!isDesiredDirection)
 						{
-							if (num4 <= 15f)
-							{
-								num3 += 0.2f;
-							}
+							weight -= 2f;
 						}
-						else
+						else if (angleFromSource <= 15f)
 						{
-							num3 -= 2f;
+							weight += 0.2f;
 						}
-						if (Board.Get().GetSquaresAreAdjacent(boardSquare2, knockbackEndSquare))
+						if (Board.Get().GetSquaresAreAdjacent(dst, knockbackEndSquare))
 						{
-							num3 += 1f;
+							weight += 1f;
 						}
 					}
-					if (boardSquare == null || num3 > num2)
+					if (boardSquare == null || weight > maxWeight)
 					{
-						boardSquare = boardSquare2;
-						num2 = num3;
+						boardSquare = dst;
+						maxWeight = weight;
 					}
 				}
 				if (boardSquare != null)
@@ -223,11 +226,11 @@ public class ServerKnockbackManager
 					{
 						knockbackHits.ReassignDestinationBeforeStabilization(boardSquare);
 					}
-					list4.Add(boardSquare);
+					destinationsSoFar.Add(boardSquare);
 				}
 			}
 		}
-		m_knockbackStabilizer.StabilizeKnockbacks(m_actorIncomingKnockbacks, list2);
+		m_knockbackStabilizer.StabilizeKnockbacks(m_actorIncomingKnockbacks, invalidSquares);
 		GatherGameplayResultsInResponseToKnockbacks(out actorsThatWillBeSeenButArentMoving);
 	}
 
@@ -285,8 +288,10 @@ public class ServerKnockbackManager
 		//}
 		if (m_actorIncomingKnockbacks.Count > 0)
 		{
-			List<ActorData> list;
-			ServerGameplayUtils.SetServerLastKnownPositionsForMovement(movementCollection, out actorsThatWillBeSeenButArentMoving, out list);
+			ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
+				movementCollection,
+				out actorsThatWillBeSeenButArentMoving,
+				out _);
 		}
 		else
 		{
