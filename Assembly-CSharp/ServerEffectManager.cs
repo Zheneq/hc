@@ -1270,16 +1270,16 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void GatherAllEffectResultsInResponseToKnockbacks(MovementCollection knockbackCollection)
 	{
-		foreach (List<Effect> list in m_actorEffects.Values)
+		foreach (List<Effect> actorEffects in m_actorEffects.Values)
 		{
-			foreach (Effect effect in list)
+			foreach (Effect effect in actorEffects)
 			{
 				effect.GatherResultsInResponseToKnockbacks(knockbackCollection);
 			}
 		}
-		foreach (Effect effect2 in m_worldEffects)
+		foreach (Effect effect in m_worldEffects)
 		{
-			effect2.GatherResultsInResponseToKnockbacks(knockbackCollection);
+			effect.GatherResultsInResponseToKnockbacks(knockbackCollection);
 		}
 	}
 
