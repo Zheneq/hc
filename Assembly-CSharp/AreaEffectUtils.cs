@@ -1452,35 +1452,24 @@ public static class AreaEffectUtils
 		return GetActorsInBox(startPos, endPos, boxWidthInSquares, list, caster, onlyValidTeams);
 	}
 
-	public static List<ActorData> GetActorsInBox(Vector3 startPos, Vector3 endPos, float boxWidthInSquares, List<Vector3> losCheckPoints, ActorData caster, List<Team> onlyValidTeams)
+	public static List<ActorData> GetActorsInBox(
+		Vector3 startPos,
+		Vector3 endPos,
+		float boxWidthInSquares,
+		List<Vector3> losCheckPoints,
+		ActorData caster,
+		List<Team> onlyValidTeams)
 	{
 		List<ActorData> list = new List<ActorData>();
 		if (boxWidthInSquares > 0f)
 		{
 			List<BoardSquare> squaresInBox = GetSquaresInBox(startPos, endPos, boxWidthInSquares / 2f, losCheckPoints, caster);
-			using (List<BoardSquare>.Enumerator enumerator = squaresInBox.GetEnumerator())
+			foreach (BoardSquare square in squaresInBox)
 			{
-				while (enumerator.MoveNext())
+				ActorData occupantActor = square.OccupantActor;
+				if (IsActorTargetable(occupantActor, onlyValidTeams) && !list.Contains(occupantActor))
 				{
-					BoardSquare current = enumerator.Current;
-					ActorData occupantActor = current.OccupantActor;
-					if (IsActorTargetable(occupantActor, onlyValidTeams))
-					{
-						if (!list.Contains(occupantActor))
-						{
-							list.Add(occupantActor);
-						}
-					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return list;
-					}
+					list.Add(occupantActor);
 				}
 			}
 		}
