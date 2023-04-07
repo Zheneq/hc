@@ -2143,11 +2143,21 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (abilityRequest != null && abilityRequest.m_ability.RunPriority == forPhase)
 			{
-				int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(abilityRequest.m_ability, AbilityInteractionType.Cast, true, false, false);
+				int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(
+					abilityRequest.m_ability,
+					AbilityInteractionType.Cast,
+					true,
+					false,
+					false);
 				ActorData caster = abilityRequest.m_caster;
 				if (techPointRewardForInteraction > 0)
 				{
-					ServerCombatManager.Get().TechPointGain(abilityRequest.m_ability, caster, caster, techPointRewardForInteraction, ServerCombatManager.TechPointChangeType.AbilityInteraction);
+					ServerCombatManager.Get().TechPointGain(
+						abilityRequest.m_ability,
+						caster,
+						caster,
+						techPointRewardForInteraction,
+						ServerCombatManager.TechPointChangeType.AbilityInteraction);
 				}
 				if (abilityRequest.m_ability.GetModdedCost() > 0)
 				{
@@ -2157,7 +2167,9 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					abilityRequest.m_additionalData.m_abilityResults.ExecuteUnexecutedAbilityHits(asFailsafe);
 				}
-				if (caster.GetAbilityData() != null && !caster.HasBotController && !AbilityData.IsChain(caster.GetAbilityData().GetActionTypeOfAbility(abilityRequest.m_ability)))
+				if (caster.GetAbilityData() != null
+				    && !caster.HasBotController
+				    && !AbilityData.IsChain(caster.GetAbilityData().GetActionTypeOfAbility(abilityRequest.m_ability)))
 				{
 					abilityRequest.m_additionalData.m_abilityResults.GenerateAbilityEvent();
 				}
