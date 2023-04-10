@@ -243,6 +243,32 @@ public class ServerGameManager : MonoBehaviour
 							SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
 						}
 						serverPlayerState.ConnectionReady = true;
+
+						// Patch: allow players on reconnect to do anything turn 2
+						// This prevents crash popup, fixes positions for players
+						// This has no negative impact for anyone else there is no visual showing that they teleport etc
+						// TODO: fix it for turn 1 `RespawnOnSquare` does fix for turn 1 but has to
+						// many other issues, but something allows it for turn one abilitys use
+						// TODO: Find a better way? not sure this is the ideal way
+						// TODO: Try to fix rotation of players so they do not shoot true there ass
+						// TODO: Bushes are weird to while they work fine, visualy it has an issue for the reconected player
+						// TODO: Mines/traps are not shown for the reconected player to
+						List<GameObject> playerObjects = GameFlowData.Get().GetPlayers();
+						foreach (GameObject playerObject in playerObjects)
+						{
+							ActorData actorData = playerObject.GetComponent<ActorData>();
+							BoardSquare spawnSquare = Board.Get().GetSquareFromVec3(actorData.transform.position);
+							actorData.TeleportToBoardSquare(
+								spawnSquare,
+								actorData.transform.localRotation.eulerAngles,
+								ActorData.TeleportType.Failsafe,
+								null,
+								20f,
+								ActorData.MovementType.Teleport,
+								GameEventManager.EventType.Invalid,
+								null
+							);
+						}
 					}
 					catch (Exception ex)
 					{
