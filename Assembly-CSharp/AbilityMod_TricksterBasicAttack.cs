@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,9 +43,12 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		TricksterBasicAttack tricksterBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as TricksterBasicAttack;
+		// rogues
+		// TricksterBasicAttack tricksterBasicAttack = targetAbility as TricksterBasicAttack;
 		bool isValid = tricksterBasicAttack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserInfoMod, "[LaserInfo]", isValid, isValid ? tricksterBasicAttack.m_laserInfo : null);

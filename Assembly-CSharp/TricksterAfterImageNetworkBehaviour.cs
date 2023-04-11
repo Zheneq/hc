@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -20,35 +21,42 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	private const string c_materialKeywordAfterImageFriend = "_EMISSIONNOISEON_FRIEND";
 	private const string c_materialKeywordAfterImageEnemy = "_EMISSIONNOISEON_ENEMY";
 
+	// removed in rogues
 	private static readonly int animIdleType = Animator.StringToHash("IdleType");
 	private static readonly int animAttack = Animator.StringToHash("Attack");
 	private static readonly int animCinematicCam = Animator.StringToHash("CinematicCam");
 	private static readonly int animStartAttack = Animator.StringToHash("StartAttack");
+	// end removed in rogues
 
+#if SERVER
+	private Passive_TricksterAfterImage m_passive; // added in rogues
+#endif
+	
 	[SyncVar]
 	public int m_maxAfterImageCount = 2;
 
+	// removed in rogues
 	private static int kListm_afterImages = 660840369;
 	private static int kRpcRpcTurnToPosition = -535042778;
 	private static int kRpcRpcSetPose = -691096658;
 	private static int kRpcRpcFreezeActor = 2107190201;
 	private static int kRpcRpcUnfreezeActor = -239134528;
-
-	public int Networkm_maxAfterImageCount
-	{
-		get => m_maxAfterImageCount;
-		[param: In]
-		set => SetSyncVar(value, ref m_maxAfterImageCount, 2u);
-	}
+	// end removed in rogues
 
 	static TricksterAfterImageNetworkBehaviour()
 	{
+		// reactor
 		RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcTurnToPosition, InvokeRpcRpcTurnToPosition);
 		RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcSetPose, InvokeRpcRpcSetPose);
 		RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcFreezeActor, InvokeRpcRpcFreezeActor);
 		RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), kRpcRpcUnfreezeActor, InvokeRpcRpcUnfreezeActor);
 		RegisterSyncListDelegate(typeof(TricksterAfterImageNetworkBehaviour), kListm_afterImages, InvokeSyncListm_afterImages);
 		NetworkCRC.RegisterBehaviour("TricksterAfterImageNetworkBehaviour", 0);
+		// rogues
+		// RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), "RpcTurnToPosition", new CmdDelegate(InvokeRpcRpcTurnToPosition));
+		// RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), "RpcSetPose", new CmdDelegate(InvokeRpcRpcSetPose));
+		// RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), "RpcFreezeActor", new CmdDelegate(InvokeRpcRpcFreezeActor));
+		// RegisterRpcDelegate(typeof(TricksterAfterImageNetworkBehaviour), "RpcUnfreezeActor", new CmdDelegate(InvokeRpcRpcUnfreezeActor));
 	}
 
 	public int GetMaxAfterImageCount()
@@ -59,6 +67,9 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	private void Start()
 	{
 		m_owner = GetComponent<ActorData>();
+#if SERVER
+		m_passive = GetComponent<Passive_TricksterAfterImage>(); // added in rogues
+#endif
 		GameFlowData.s_onActiveOwnedActorChange += OnActiveOwnedActorChange;
 		if (HighlightUtils.Get() != null && m_targeterFreePosMaxRange > 0f)
 		{
@@ -126,6 +137,17 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	public Vector3 CalcTargetingFreePosCenter(ActorData caster, List<ActorData> allTargetingActors, bool useSquareAtResolveStart)
 	{
 		Vector3 result = caster.GetFreePos();
+#if SERVER
+		// added in rogues
+		if (NetworkServer.active && useSquareAtResolveStart)
+		{
+			BoardSquare boardSquare = m_passive != null ? m_passive.GetTricksterSquareOnResolveStart() : null;
+			if (boardSquare != null)
+			{
+				result = boardSquare.ToVector3();
+			}
+		}
+#endif
 		if (m_targeterFreePosUseAvgPos)
 		{
 			Vector3 zero = Vector3.zero;
@@ -298,12 +320,18 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			Animator modelAnimator = actorData.GetModelAnimator();
 			if (modelAnimator != null)
 			{
+				// reactor
 				modelAnimator.SetInteger(animAttack, unfreezeAnimIndex);
 				modelAnimator.SetInteger(animIdleType, 0);
 				modelAnimator.SetBool(animCinematicCam, false);
 				modelAnimator.SetTrigger(animStartAttack);
+				// rogues
+				// modelAnimator.SetInteger("Attack", unfreezeAnimIndex);
+				// modelAnimator.SetInteger("IdleType", 0);
+				// modelAnimator.SetBool("CinematicCam", false);
+				// modelAnimator.SetTrigger("StartAttack");
 			}
-
+			// reactor
 			Team team = GameFlowData.Get().LocalPlayerData != null
 				? GameFlowData.Get().LocalPlayerData.GetTeamViewing()
 				: Team.Invalid;
@@ -316,6 +344,15 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 					m_afterImageAlpha,
 					m_afterImageShader, true);
 			}
+			// rogues
+			// ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
+			// if (actorData.GetActorModelData() != null
+			//     && activeOwnedActorData != null
+			//     && m_owner != null)
+			// {
+			// 	bool sameTeamAsClientActor = activeOwnedActorData.GetTeam() == m_owner.GetTeam();
+			// 	InitializeAfterImageMaterial(actorData.GetActorModelData(), sameTeamAsClientActor, m_afterImageAlpha, m_afterImageShader, true);
+			// }
 		}
 	}
 
@@ -327,6 +364,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		SetMaterialKeywordsForTeam(actorModelData, sameTeamAsClientActor);
 	}
 
+	// reactor
 	internal static void SetMaterialKeywordsForTeam(ActorModelData actorModelData, bool sameTeamAsClientActor)
 	{
 		if (sameTeamAsClientActor)
@@ -342,6 +380,24 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			actorModelData.SetMaterialKeywordOnAllCachedMaterials(c_materialKeywordAfterImageEnemy, true);
 		}
 	}
+	
+	// rogues
+	// inlined in rogues
+	// internal static void SetMaterialKeywordsForTeam(ActorModelData actorModelData, bool sameTeamAsClientActor)
+	// {
+	// 	if (sameTeamAsClientActor)
+	// 	{
+	// 		actorModelData.DisableMaterialKeyword(c_materialKeywordAfterImageNone);
+	// 		actorModelData.DisableMaterialKeyword(c_materialKeywordAfterImageEnemy);
+	// 		actorModelData.EnableMaterialKeyword(c_materialKeywordAfterImageFriend);
+	// 	}
+	// 	else
+	// 	{
+	// 		actorModelData.DisableMaterialKeyword(c_materialKeywordAfterImageNone);
+	// 		actorModelData.DisableMaterialKeyword(c_materialKeywordAfterImageFriend);
+	// 		actorModelData.EnableMaterialKeyword(c_materialKeywordAfterImageEnemy);
+	// 	}
+	// }
 
 	internal static void DisableAfterImageMaterial(ActorModelData actorModelData)
 	{
@@ -361,14 +417,22 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		{
 			return;
 		}
+		// reactor
 		Team team = GameFlowData.Get().LocalPlayerData != null
 			? GameFlowData.Get().LocalPlayerData.GetTeamViewing()
 			: Team.Invalid;
+		// rogues
+		// ActorData actorData = GameFlowData.Get() != null ? GameFlowData.Get().activeOwnedActorData : null;
 		if (desiredEnable)
 		{
-			if (afterImage.GetActorModelData() != null && realTrickster != null)
+			if (afterImage.GetActorModelData() != null
+			    // && actorData != null // added in rogues
+			    && realTrickster != null)
 			{
+				// reactor
 				bool sameTeamAsClientActor = team == realTrickster.GetTeam();
+				// rogues
+				// bool sameTeamAsClientActor = actorData.GetTeam() == realTrickster.GetTeam();
 				TricksterAfterImageNetworkBehaviour component = realTrickster.GetComponent<TricksterAfterImageNetworkBehaviour>();
 				if (component != null)
 				{
@@ -449,6 +513,8 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 	{
 	}
 
+	// TODO TRICKSTER
+	// removed in rogues
 	protected static void InvokeSyncListm_afterImages(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -459,6 +525,14 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		((TricksterAfterImageNetworkBehaviour)obj).m_afterImages.HandleMsg(reader);
 	}
 
+	// added in rogues
+	// public int Networkm_maxAfterImageCount
+	// {
+	// 	get => m_maxAfterImageCount;
+	// 	[param: In]
+	// 	set => base.SetSyncVar<int>(value, ref m_maxAfterImageCount, 1UL);
+	// }
+
 	protected static void InvokeRpcRpcTurnToPosition(NetworkBehaviour obj, NetworkReader reader)
 	{
 		if (!NetworkClient.active)
@@ -466,7 +540,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			Debug.LogError("RPC RpcTurnToPosition called on server.");
 			return;
 		}
+		// reactor
 		((TricksterAfterImageNetworkBehaviour)obj).RpcTurnToPosition((int)reader.ReadPackedUInt32(), reader.ReadVector3());
+		// rogues
+		// ((TricksterAfterImageNetworkBehaviour)obj).RpcTurnToPosition(reader.ReadPackedInt32(), reader.ReadVector3());
 	}
 
 	protected static void InvokeRpcRpcSetPose(NetworkBehaviour obj, NetworkReader reader)
@@ -476,7 +553,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			Debug.LogError("RPC RpcSetPose called on server.");
 			return;
 		}
+		// reactor
 		((TricksterAfterImageNetworkBehaviour)obj).RpcSetPose((int)reader.ReadPackedUInt32(), reader.ReadVector3(), reader.ReadVector3(), reader.ReadBoolean());
+		// rogues
+		// ((TricksterAfterImageNetworkBehaviour)obj).RpcSetPose(reader.ReadPackedInt32(), reader.ReadVector3(), reader.ReadVector3(), reader.ReadBoolean());
 	}
 
 	protected static void InvokeRpcRpcFreezeActor(NetworkBehaviour obj, NetworkReader reader)
@@ -486,7 +566,10 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			Debug.LogError("RPC RpcFreezeActor called on server.");
 			return;
 		}
+		// reactor
 		((TricksterAfterImageNetworkBehaviour)obj).RpcFreezeActor((int)reader.ReadPackedUInt32());
+		// rogues
+		// ((TricksterAfterImageNetworkBehaviour)obj).RpcFreezeActor(reader.ReadPackedInt32());
 	}
 
 	protected static void InvokeRpcRpcUnfreezeActor(NetworkBehaviour obj, NetworkReader reader)
@@ -496,9 +579,13 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 			Debug.LogError("RPC RpcUnfreezeActor called on server.");
 			return;
 		}
+		// reactor
 		((TricksterAfterImageNetworkBehaviour)obj).RpcUnfreezeActor((int)reader.ReadPackedUInt32(), (int)reader.ReadPackedUInt32());
+		// rogues
+		// ((TricksterAfterImageNetworkBehaviour)obj).RpcUnfreezeActor(reader.ReadPackedInt32(), reader.ReadPackedInt32());
 	}
 
+	// changed in rogues
 	public void CallRpcTurnToPosition(int actorIndex, Vector3 position)
 	{
 		if (!NetworkServer.active)
@@ -516,6 +603,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcTurnToPosition");
 	}
 
+	// changed in rogues
 	public void CallRpcSetPose(int actorIndex, Vector3 position, Vector3 forward, bool enableRenderer)
 	{
 		if (!NetworkServer.active)
@@ -535,6 +623,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcSetPose");
 	}
 
+	// changed in rogues
 	public void CallRpcFreezeActor(int actorIndex)
 	{
 		if (!NetworkServer.active)
@@ -551,6 +640,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcFreezeActor");
 	}
 
+	// changed in rogues
 	public void CallRpcUnfreezeActor(int actorIndex, int unfreezeAnimIndex)
 	{
 		if (!NetworkServer.active)
@@ -568,11 +658,18 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		SendRPCInternal(networkWriter, 0, "RpcUnfreezeActor");
 	}
 
+	// reactor
 	private void Awake()
 	{
 		m_afterImages.InitializeBehaviour(this, kListm_afterImages);
 	}
+	// rogues
+	// public TricksterAfterImageNetworkBehaviour()
+	// {
+	// 	base.InitSyncObject(m_afterImages);
+	// }
 
+	// changed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -607,6 +704,7 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

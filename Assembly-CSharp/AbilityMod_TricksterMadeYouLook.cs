@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,9 +36,12 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		TricksterMadeYouLook tricksterMadeYouLook = GetTargetAbilityOnAbilityData(abilityData) as TricksterMadeYouLook;
+		// rogues
+		// TricksterMadeYouLook tricksterMadeYouLook = targetAbility as TricksterMadeYouLook;
 		bool isValid = tricksterMadeYouLook != null;
 		string desc = string.Empty;
 		if (m_spoilsSpawnDataOnDisappear != null)

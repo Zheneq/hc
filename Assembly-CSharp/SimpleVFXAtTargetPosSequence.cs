@@ -1,18 +1,20 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleVFXAtTargetPosSequence : Sequence
 {
-	public class IgnoreStartEventExtraParam : IExtraSequenceParams
+	public class IgnoreStartEventExtraParam : IExtraSequenceParams  // class ExtraParams in rogues
 	{
 		public bool ignoreStartEvent;
 
-		public override void XSP_SerializeToStream(IBitStream stream)
+		public override void XSP_SerializeToStream(IBitStream stream) // NetworkWriter writer in rogues
 		{
 			stream.Serialize(ref ignoreStartEvent);
 		}
 
-		public override void XSP_DeserializeFromStream(IBitStream stream)
+		public override void XSP_DeserializeFromStream(IBitStream stream) // NetworkReader reader in rogues
 		{
 			stream.Serialize(ref ignoreStartEvent);
 		}
@@ -22,12 +24,12 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	{
 		public Vector3 m_positionOverride;
 
-		public override void XSP_SerializeToStream(IBitStream stream)
+		public override void XSP_SerializeToStream(IBitStream stream) // NetworkWriter writer in rogues
 		{
 			stream.Serialize(ref m_positionOverride);
 		}
 
-		public override void XSP_DeserializeFromStream(IBitStream stream)
+		public override void XSP_DeserializeFromStream(IBitStream stream) // NetworkReader reader in rogues
 		{
 			stream.Serialize(ref m_positionOverride);
 		}
@@ -61,6 +63,9 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 	public string m_audioEvent;
 	[Separator("Phase-Based Timing")]
 	public PhaseTimingParameters m_phaseTimingParameters;
+	
+	// TODO TRICKSTER
+	// removed in rogues
 	[Separator("Special case handler for additional VFX at target position")]
 	public AdditionalVfxContainerBase m_additionalFxAtTargetPos;
 
@@ -82,7 +87,10 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
+			// reactor
 			if (extraSequenceParams is IgnoreStartEventExtraParam ignoreStartEventExtraParam)
+			// rogues
+			// if (extraSequenceParams is ExtraParams ignoreStartEventExtraParam)
 			{
 				m_ignoreStartEvent = ignoreStartEventExtraParam.ignoreStartEvent;
 			}
@@ -102,17 +110,19 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				}
 			}
 		}
+		// removed in rogues
 		if (m_additionalFxAtTargetPos != null)
 		{
 			m_additionalFxAtTargetPos.Initialize(this);
 		}
+		// end removed in rogues
 	}
 
 	public override void FinishSetup()
 	{
 		if (m_startEvent != null
 		    && !m_ignoreStartEvent
-		    && !ClientGameManager.Get().IsFastForward)
+		    && !ClientGameManager.Get().IsFastForward) // removed in rogues
 		{
 			return;
 		}
@@ -226,10 +236,12 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 					SetAttribute(m_fx, fxAttribute.Key, fxAttribute.Value);
 				}
 			}
+			// removed in rogues
 			if (m_fx != null && m_additionalFxAtTargetPos != null)
 			{
 				m_additionalFxAtTargetPos.SpawnFX(m_fx.transform.position, m_fx.transform.rotation, this);
 			}
+			// end removed in rogues
 		}
 		if (!string.IsNullOrEmpty(m_audioEvent))
 		{
@@ -256,17 +268,21 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		{
 			m_fx.SetActive(false);
 		}
+		// removed in rogues
 		if (m_additionalFxAtTargetPos != null)
 		{
 			m_additionalFxAtTargetPos.SetAsInactive();
 		}
+		// end removed in rogues
 	}
 
+	// reactor
 	private void Update()
 	{
 		OnUpdate();
 	}
 
+	// reactor
 	protected virtual void OnUpdate()
 	{
 		if (!m_initialized)
@@ -308,6 +324,28 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			m_additionalFxAtTargetPos.OnUpdate(LastDesiredVisible(), Caster);
 		}
 	}
+	// rogues
+	// private void Update()
+	// {
+	// 	if (m_phaseTimingParameters.ShouldSequenceBeActive())
+	// 	{
+	// 		if (m_timeToSpawnVfx > 0f && GameTime.time >= m_timeToSpawnVfx)
+	// 		{
+	// 			m_timeToSpawnVfx = -1f;
+	// 			SpawnFX();
+	// 		}
+	// 		if (m_callOnHitForGameplay && !m_sequenceHitCalled && m_initialized && (m_fxPrefab == null || (m_timeToHit > 0f && GameTime.time >= m_timeToHit)))
+	// 		{
+	// 			CallHitSequenceOnTargets(TargetPos);
+	// 			m_sequenceHitCalled = true;
+	// 		}
+	// 		if (m_fx != null && m_fxFoFSelectComp != null && Caster != null)
+	// 		{
+	// 			m_fxFoFSelectComp.Setup(Caster.GetTeam());
+	// 		}
+	// 		ProcessSequenceVisibility();
+	// 	}
+	// }
 
 	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
@@ -330,12 +368,14 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		if (m_fx != null)
 		{
 			Destroy(m_fx.gameObject);
-			m_fx = null;
+			m_fx = null; // removed in rogues
 		}
+		// removed in rogues
 		if (m_additionalFxAtTargetPos != null)
 		{
 			m_additionalFxAtTargetPos.DestroyFX();
 		}
+		// end removed in rogues
 	}
 
 	public override string GetVisibilityDescription()

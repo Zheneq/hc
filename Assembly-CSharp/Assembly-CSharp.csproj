@@ -1045,6 +1045,7 @@
     <Compile Include="GridPosProp.cs" />
     <Compile Include="GroundEffectField.cs" />
     <Compile Include="GroundEffectFieldModData.cs" />
+    <Compile Include="GroundFieldActorHitInfo.cs" />
     <Compile Include="GroundLineSequence.cs" />
     <Compile Include="GroupInviteResponseType.cs" />
     <Compile Include="GroupJoinManager.cs" />
@@ -2287,6 +2288,7 @@
     <Compile Include="StandardEffectInfo.cs" />
     <Compile Include="StandardGroundEffect.cs" />
     <Compile Include="StandardGroundEffectInfo.cs" />
+    <Compile Include="StandardMultiAreaGroundEffect.cs" />
     <Compile Include="StandardPowerUpAbilityModData.cs" />
     <Compile Include="StatDisplaySettings.cs" />
     <Compile Include="StateEntry.cs" />

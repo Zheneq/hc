@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections;
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public static class GameplayUtils
 {
@@ -62,17 +63,58 @@ public static class GameplayUtils
 
 	public static void SetActiveIfNeeded(this GameObject obj, bool desiredActive)
 	{
-		if (obj.activeSelf != desiredActive)
+		if (obj != null // added in rogues
+		    && obj.activeSelf != desiredActive)
 		{
 			obj.SetActive(desiredActive);
 		}
 	}
+	
+#if SERVER
+	// added in rogues
+	public static void PlayAnimSafe(this Animator a, string stateName)
+	{
+		if (a != null && a.isActiveAndEnabled)
+		{
+			a.Play(stateName);
+		}
+	}
 
+	// added in rogues
+	public static void PlayAnimSafe(this Animator a, int stateNameHash)
+	{
+		if (a != null && a.isActiveAndEnabled)
+		{
+			a.Play(stateNameHash);
+		}
+	}
+
+	// added in rogues
+	public static void PlayAnimSafe(this Animator a, string stateName, int layer)
+	{
+		if (a != null && a.isActiveAndEnabled)
+		{
+			a.Play(stateName, layer);
+		}
+	}
+
+	// added in rogues
+	public static void PlayAnimSafe(this Animator a, string stateName, int layer, float normalizedTime)
+	{
+		if (a != null && a.isActiveAndEnabled)
+		{
+			a.Play(stateName, layer, normalizedTime);
+		}
+	}
+#endif
+
+	// removed in rogues
 	public static bool IsMinion(MonoBehaviour entity)
 	{
 		return entity.GetComponent<MinionData>() != null;
 	}
 
+	// removed in rogues
 	public static bool IsMinion(GameObject obj)
 	{
 		return obj.GetComponent<MinionData>() != null;
@@ -137,6 +179,36 @@ public static class GameplayUtils
 		       && actor.PlayerIndex != PlayerData.s_invalidPlayerIndex;
 	}
 
+#if SERVER
+	// added in rogues
+	public static void DestroyActor(GameObject obj)
+	{
+		ActorData actorData = obj.GetComponent<ActorData>();
+		if (actorData != null && UIActorDebugPanel.Get() != null)
+		{
+			UIActorDebugPanel.Get().OnActorDestroyed(actorData);
+		}
+		if (actorData)
+		{
+			if (ServerActionBuffer.Get() != null)
+			{
+				ServerActionBuffer.Get().CancelActionRequests(actorData, false);
+			}
+			if (GameFlowData.Get() != null)
+			{
+				GameFlowData.Get().RemoveReferencesToDestroyedActor(actorData);
+			}
+			actorData.DespawnTeamSensitiveDataNetObjects();
+		}
+		PlayerData playerData = obj.GetComponent<PlayerData>();
+		if (playerData != null && playerData.GetPlayer().m_valid)
+		{
+			ServerGameManager.DestroyPlayersForConnection(playerData.GetPlayer().m_connectionId);
+		}
+		NetworkServer.Destroy(obj);
+	}
+#endif
+	
 	public static List<Team> GetOtherTeamsThan(Team team)
 	{
 		List<Team> list = new List<Team>();
@@ -168,6 +240,7 @@ public static class GameplayUtils
 		return num;
 	}
 
+	// removed in rogues
 	public static int GetTotalTeamCredits(Team team)
 	{
 		int num = 0;

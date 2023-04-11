@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterMadeYouLook : Ability
@@ -22,11 +24,17 @@ public class TricksterMadeYouLook : Ability
 	private AbilityMod_TricksterMadeYouLook m_abilityMod;
 	private StandardEffectInfo m_cachedEnemyOnHitEffect;
 
+#if SERVER
+	private Passive_TricksterAfterImage m_tricksterPassive; // added in rogues
+#endif
+	
+	// removed in rogues
 	private static readonly int animDistToGoal = Animator.StringToHash("DistToGoal");
 	private static readonly int animStartDamageReaction = Animator.StringToHash("StartDamageReaction");
 	private static readonly int animAttack = Animator.StringToHash("Attack");
 	private static readonly int animCinematicCam = Animator.StringToHash("CinematicCam");
 	private static readonly int animStartAttack = Animator.StringToHash("StartAttack");
+	// end removed in rogues
 
 	private void Start()
 	{
@@ -40,6 +48,14 @@ public class TricksterMadeYouLook : Ability
 	private void Setup()
 	{
 		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
+#if SERVER
+		// added in rogues
+		PassiveData component = GetComponent<PassiveData>();
+		if (component != null)
+		{
+			m_tricksterPassive = component.GetPassiveOfType(typeof(Passive_TricksterAfterImage)) as Passive_TricksterAfterImage;
+		}
+#endif
 		SetCachedFields();
 		bool hasSelfEffectFromBaseMod = HasSelfEffectFromBaseMod();
 		if (HitActorsInBetween())
@@ -150,7 +166,7 @@ public class TricksterMadeYouLook : Ability
 		       && caster != null
 		       && caster.GetAbilityData() != null
 		       && m_afterImageSyncComp.GetValidAfterImages().Count > 0
-		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan)); // , true in rogues
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
@@ -224,11 +240,18 @@ public class TricksterMadeYouLook : Ability
 			}
 			m_afterImageSyncComp.TurnToPosition(afterImage, caster.GetFreePos());
 			Animator modelAnimator = afterImage.GetModelAnimator();
+			// reactor
 			modelAnimator.SetFloat(animDistToGoal, 10f);
 			modelAnimator.ResetTrigger(animStartDamageReaction);
 			modelAnimator.SetInteger(animAttack, animationIndex);
 			modelAnimator.SetBool(animCinematicCam, false);
 			modelAnimator.SetTrigger(animStartAttack);
+			// rogues
+			// modelAnimator.SetFloat("DistToGoal", 10f);
+			// modelAnimator.ResetTrigger("StartDamageReaction");
+			// modelAnimator.SetInteger("Attack", animationIndex);
+			// modelAnimator.SetBool("CinematicCam", false);
+			// modelAnimator.SetTrigger("StartAttack");
 		}
 	}
 
@@ -241,8 +264,12 @@ public class TricksterMadeYouLook : Ability
 				continue;
 			}
 			Animator modelAnimator = afterImage.GetModelAnimator();
+			// reactor
 			modelAnimator.SetInteger(animAttack, 0);
 			modelAnimator.SetBool(animCinematicCam, false);
+			// rogues
+			// modelAnimator.SetInteger("Attack", 0);
+			// modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
 
@@ -260,4 +287,210 @@ public class TricksterMadeYouLook : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		ActorData afterImageForSwap = GetAfterImageForSwap(targets, caster);
+		if (afterImageForSwap != null && afterImageForSwap.GetCurrentBoardSquare() != null)
+		{
+			return afterImageForSwap.GetCurrentBoardSquare();
+		}
+		return base.GetModifiedMoveStartSquare(caster, targets);
+	}
+
+	// added in rogues
+	internal override bool IsEvadeDestinationReserved()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (IsSimpleAction())
+		{
+			ActorData afterImageForSwap = GetAfterImageForSwap(targets, caster);
+			if (afterImageForSwap != null)
+			{
+				ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[2];
+				array[0] = new ServerEvadeUtils.ChargeSegment
+				{
+					m_pos = caster.GetCurrentBoardSquare(),
+					m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+					m_end = BoardSquarePathInfo.ChargeEndType.Impact
+				};
+				array[1] = new ServerEvadeUtils.ChargeSegment
+				{
+					m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+					m_pos = afterImageForSwap.GetSquareAtPhaseStart()
+				};
+				float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+				array[0].m_segmentMovementSpeed = segmentMovementSpeed;
+				array[1].m_segmentMovementSpeed = segmentMovementSpeed;
+				return array;
+			}
+			else
+			{
+				Log.Error("Trickster swap ability did not find clone to swap with, when in single target mode");
+			}
+		}
+		return base.GetChargePath(targets, caster, additionalData);
+	}
+
+	// added in rogues
+	internal override List<ServerEvadeUtils.NonPlayerEvadeData> GetNonPlayerEvades(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerEvadeUtils.NonPlayerEvadeData> list = new List<ServerEvadeUtils.NonPlayerEvadeData>();
+		ActorData afterImageForSwap = GetAfterImageForSwap(targets, caster);
+		if (afterImageForSwap != null)
+		{
+			BoardSquare src = afterImageForSwap.GetSquareAtPhaseStart();
+			BoardSquare dst = caster.GetSquareAtPhaseStart();
+			float dist = src.HorizontalDistanceOnBoardTo(dst);
+			float moveSpeed = m_movementDuration > 0f
+				? dist / m_movementDuration
+				: m_movementSpeed;
+			Vector3 facingDirection = dst.ToVector3() - src.ToVector3();
+			facingDirection.y = 0f;
+			facingDirection.Normalize();
+			list.Add(new ServerEvadeUtils.NonPlayerEvadeData(
+				afterImageForSwap,
+				src,
+				dst,
+				ActorData.MovementType.Flight,
+				moveSpeed,
+				facingDirection,
+				true));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_tricksterPassive != null && m_stayForNextTurn)
+		{
+			ActorData afterImageForSwap = GetAfterImageForSwap(targets, caster);
+			if (afterImageForSwap != null)
+			{
+				m_tricksterPassive.ReduceSpawnedDurationCounter(afterImageForSwap.ActorIndex);
+			}
+		}
+	}
+
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetSquareAtPhaseStart(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		if (!HitActorsInBetween() && !HasCooldownReductionForPassingThrough())
+		{
+			return;
+		}
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<ActorData> hitActors = GetHitActors(targets, caster, nonActorTargetInfo);
+		int numEnemies = 0;
+		foreach (ActorData actorData in hitActors)
+		{
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				numEnemies++;
+			}
+			if (HitActorsInBetween())
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, loSCheckPos));
+				actorHitResults.SetBaseDamage(GetDamageAmount());
+				actorHitResults.AddStandardEffectInfo(GetEnemyOnHitEffect());
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		if (HasCooldownReductionForPassingThrough())
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			m_abilityMod.m_cooldownReductionForTravelHit.AppendCooldownMiscEvents(casterHitResults, false, 0, numEnemies);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private new List<ActorData> GetHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		ActorData afterImageForSwap = GetAfterImageForSwap(targets, caster);
+		if (afterImageForSwap == null)
+		{
+			return new List<ActorData>();
+		}
+		List<ActorData> result = AreaEffectUtils.GetActorsInRadiusOfLine(
+			caster.GetSquareAtPhaseStart().ToVector3(),
+			afterImageForSwap.GetSquareAtPhaseStart().ToVector3(),
+			GetRadiusAroundEnds(),
+			GetRadiusAroundEnds(),
+			GetRadiusFromLine(),
+			PenetrateLos(),
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo);
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref result);
+		return result;
+	}
+
+	// added in rogues
+	private ActorData GetAfterImageForSwap(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		if (validAfterImages.Count == 1)
+		{
+			return validAfterImages[0];
+		}
+		if (targets.Count > 0)
+		{
+			BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+			foreach (ActorData afterImage in validAfterImages)
+			{
+				if (targetSquare == afterImage.GetSquareAtPhaseStart())
+				{
+					return afterImage;
+				}
+			}
+		}
+		return null;
+	}
+
+	// added in rogues
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.TricksterStats.DamageDodgedWithSwap, damageDodged);
+	}
+#endif
 }

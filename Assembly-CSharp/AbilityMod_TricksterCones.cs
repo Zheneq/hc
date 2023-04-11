@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,9 +60,12 @@ public class AbilityMod_TricksterCones : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		TricksterCones tricksterCones = GetTargetAbilityOnAbilityData(abilityData) as TricksterCones;
+		// rogues
+		// TricksterCones tricksterCones = targetAbility as TricksterCones;
 		bool isValid = tricksterCones != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneInfoMod, "[ConeInfo]", isValid, isValid ? tricksterCones.m_coneInfo : null);

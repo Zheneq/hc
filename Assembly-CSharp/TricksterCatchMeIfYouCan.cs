@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -44,11 +46,17 @@ public class TricksterCatchMeIfYouCan : Ability
 	private StandardEffectInfo m_cachedAllyMultipleHitEffect;
 	private StandardEffectInfo m_cachedSelfHitEffect;
 
+#if SERVER
+	private Passive_TricksterAfterImage m_afterImagePassive;  // added in rogues
+#endif
+	
+	// removed in rogues
 	private static readonly int animDistToGoal = Animator.StringToHash("DistToGoal");
 	private static readonly int animStartDamageReaction = Animator.StringToHash("StartDamageReaction");
 	private static readonly int animAttack = Animator.StringToHash("Attack");
 	private static readonly int animCinematicCam = Animator.StringToHash("CinematicCam");
 	private static readonly int animStartAttack = Animator.StringToHash("StartAttack");
+	// end removed in rogues
 
 	private void Start()
 	{
@@ -66,6 +74,9 @@ public class TricksterCatchMeIfYouCan : Ability
 		{
 			Debug.LogError("TricksterAfterImageNetworkBehavior not found");
 		}
+#if SERVER
+		m_afterImagePassive = Passive_TricksterAfterImage.GetFromActor(GetComponent<ActorData>()); // added in rogues
+#endif
 		SetCachedFields();
 		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
 		if (expectedNumberOfTargeters < 2)
@@ -352,7 +363,7 @@ public class TricksterCatchMeIfYouCan : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterMadeYouLook));
+		return !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterMadeYouLook)); // , true in rogues
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
@@ -432,11 +443,18 @@ public class TricksterCatchMeIfYouCan : Ability
 				continue;
 			}
 			Animator modelAnimator = afterImage.GetModelAnimator();
+			// reactor
 			modelAnimator.SetFloat(animDistToGoal, 10f);
 			modelAnimator.ResetTrigger(animStartDamageReaction);
 			modelAnimator.SetInteger(animAttack, animationIndex);
 			modelAnimator.SetBool(animCinematicCam, false);
 			modelAnimator.SetTrigger(animStartAttack);
+			// rogues
+			// modelAnimator.SetFloat("DistToGoal", 10f);
+			// modelAnimator.ResetTrigger("StartDamageReaction");
+			// modelAnimator.SetInteger("Attack", animationIndex);
+			// modelAnimator.SetBool("CinematicCam", false);
+			// modelAnimator.SetTrigger("StartAttack");
 		}
 	}
 
@@ -449,8 +467,12 @@ public class TricksterCatchMeIfYouCan : Ability
 				continue;
 			}
 			Animator modelAnimator = afterImage.GetModelAnimator();
+			// reactor
 			modelAnimator.SetInteger(animAttack, 0);
 			modelAnimator.SetBool(animCinematicCam, false);
+			// rogues
+			// modelAnimator.SetInteger("Attack", 0);
+			// modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
 
@@ -507,4 +529,261 @@ public class TricksterCatchMeIfYouCan : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return m_chargeThroughInvalidSquares;
+	}
+
+	// added in rogues
+	public override bool UseAbilitySequenceSourceForEvadeOrKnockbackTaunt()
+	{
+		return true;
+	}
+
+	// added in rogues
+	internal override List<ServerEvadeUtils.NonPlayerEvadeData> GetNonPlayerEvades(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerEvadeUtils.NonPlayerEvadeData> list = new List<ServerEvadeUtils.NonPlayerEvadeData>();
+		List<ActorData> preAllocatedActors = m_afterImagePassive.GetPreAllocatedActors();
+		for (int i = 0; i < GetExpectedNumberOfTargeters() - 1 && i < preAllocatedActors.Count; i++)
+		{
+			int index = i + 1;
+			ActorData actorData = preAllocatedActors[i];
+			if (actorData != null)
+			{
+				BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+				BoardSquare targetSquare = Board.Get().GetSquare(targets[index].GridPos);
+				float distance = squareAtPhaseStart.HorizontalDistanceOnBoardTo(targetSquare);
+				float moveSpeed = m_movementDuration > 0f
+					? distance / m_movementDuration
+					: m_movementSpeed;
+				Vector3 facingDirection = targetSquare.ToVector3() - squareAtPhaseStart.ToVector3();
+				facingDirection.y = 0f;
+				facingDirection.Normalize();
+				list.Add(new ServerEvadeUtils.NonPlayerEvadeData(
+					actorData,
+					squareAtPhaseStart,
+					targetSquare,
+					ActorData.MovementType.Flight,
+					moveSpeed,
+					facingDirection,
+					false));
+			}
+			
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		if (m_vfxOnCasterAndCloneSequencePrefab != null)
+		{
+			List<ActorData> list2 = new List<ActorData> { caster };
+			List<ActorData> preAllocatedActors = m_afterImagePassive.GetPreAllocatedActors();
+			int num = 0;
+			while (num < GetExpectedNumberOfTargeters() - 1 && num < preAllocatedActors.Count)
+			{
+				list2.Add(preAllocatedActors[num]);
+				num++;
+			}
+
+			GetHitActors(
+				targets,
+				caster,
+				out List<List<ActorData>> hitActorsList,
+				out _,
+				out Dictionary<ActorData, int> actorToHitCount,
+				null);
+			hitActorsList = new List<List<ActorData>>();
+			for (int i = 0; i < 3; i++)
+			{
+				hitActorsList.Add(new List<ActorData>());
+			}
+			foreach (ActorData actorData in actorToHitCount.Keys)
+			{
+				int num2 = Mathf.Clamp(actorToHitCount[actorData] - 1, 0, 2);
+				for (int i = 0; i <= num2; i++)
+				{
+					hitActorsList[i].Add(actorData);
+				}
+			}
+			for (int i = 0; i < list2.Count; i++)
+			{
+				ActorData actorData2 = list2[i];
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_vfxOnCasterAndCloneSequencePrefab,
+					actorData2.GetFreePos(),
+					hitActorsList[i].ToArray(),
+					actorData2,
+					additionalData.m_sequenceSource));
+			}
+		}
+
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetFreePos(),
+			m_vfxOnCasterAndCloneSequencePrefab == null
+				? additionalData.m_abilityResults.HitActorsArray()
+				: null,
+			caster,
+			additionalData.m_sequenceSource));
+		return list;
+	}
+
+	// added in rogues
+	public override void OnPhaseStartWhenRequested(List<AbilityTarget> targets, ActorData caster)
+	{
+		m_afterImagePassive.ClearAllAfterImages(false);
+		List<ActorData> preAllocatedActors = m_afterImagePassive.GetPreAllocatedActors();
+		
+		for (int i = 0; i < GetExpectedNumberOfTargeters() - 1 && i < preAllocatedActors.Count; i++)
+		{
+			int index = i + 1;
+			BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+			Vector3 forwardDirection = Board.Get().GetSquare(targets[index].GridPos).ToVector3() - squareAtPhaseStart.ToVector3();
+			forwardDirection.y = 0f;
+			forwardDirection.Normalize();
+			if (forwardDirection.sqrMagnitude == 0f)
+			{
+				forwardDirection = caster.transform.forward;
+			}
+			m_afterImagePassive.CreateAfterImageOnSquareWithoutTeleport(caster.GetSquareAtPhaseStart(), forwardDirection, true, false);
+			
+		}
+		caster.OccupyCurrentBoardSquare();
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		if (!HitActorsInPath())
+		{
+			return;
+		}
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		GetHitActors(
+			targets,
+			caster,
+			out List<List<ActorData>> hitActorsList,
+			out _,
+			out Dictionary<ActorData, int> actorToHitCount,
+			nonActorTargetInfo);
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		List<ActorData> processed = new List<ActorData>();
+		foreach (List<ActorData> hitActors in hitActorsList)
+		{
+			foreach (ActorData hitActor in hitActors)
+			{
+				if (processed.Contains(hitActor))
+				{
+					continue;
+				}
+				processed.Add(hitActor);
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, loSCheckPos));
+				int hitCount = actorToHitCount[hitActor];
+				if (hitActor == caster)
+				{
+					actorHitResults.SetBaseHealing(GetSelfHealingAmount());
+					actorHitResults.AddStandardEffectInfo(GetSelfHitEffect());
+				}
+				else if (hitActor.GetTeam() == caster.GetTeam())
+				{
+					actorHitResults.SetBaseHealing(GetAllyHealAmountForHitCount(hitCount));
+					actorHitResults.SetTechPointGain(GetAllyEnergyGain());
+					actorHitResults.AddStandardEffectInfo(actorToHitCount[hitActor] > 1 && UseAllyMultiHitEffect()
+						? GetAllyMultipleHitEffect()
+						: GetAllyHitEffect());
+				}
+				else
+				{
+					actorHitResults.SetBaseDamage(GetDamageAmountForHitCount(hitCount));
+					actorHitResults.AddStandardEffectInfo(actorToHitCount[hitActor] > 1 && UseEnemyMultiHitEffect()
+						? GetEnemyMultipleHitEffect()
+						: GetEnemyHitEffect());
+				}
+				abilityResults.StoreActorHit(actorHitResults);
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private void GetHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<List<ActorData>> hitActorsList,
+		out List<Vector3> endPoints,
+		out Dictionary<ActorData, int> actorToHitCount,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		hitActorsList = new List<List<ActorData>>();
+		endPoints = new List<Vector3>();
+		actorToHitCount = new Dictionary<ActorData, int>();
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		int expectedNumberOfTargeters = GetExpectedNumberOfTargeters();
+		for (int i = 0; i < expectedNumberOfTargeters; i++)
+		{
+			List<ActorData> hitActors = new List<ActorData>();
+			BoardSquare square = Board.Get().GetSquare(targets[i].GridPos);
+			if (square == null)
+			{
+				Debug.LogWarning("Trickster Ult target square is null");
+				hitActorsList.Add(hitActors);
+				endPoints.Add(caster.GetFreePos());
+				continue;
+			}
+			
+			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(
+				loSCheckPos,
+				square.ToVector3(),
+				GetPathStartRadius(),
+				GetPathEndRadius(),
+				GetPathRadius(),
+				PenetrateLos(),
+				caster,
+				TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies()),
+				nonActorTargetInfo);
+			ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadiusOfLine);
+			if (IncludeSelf() && !actorsInRadiusOfLine.Contains(caster) && i == 0)
+			{
+				actorsInRadiusOfLine.Add(caster);
+				actorToHitCount[caster] = 1;
+			}
+
+			if (!IncludeSelf() && actorsInRadiusOfLine.Contains(caster))
+			{
+				actorsInRadiusOfLine.Remove(caster);
+			}
+
+			foreach (ActorData actorData in actorsInRadiusOfLine)
+			{
+				hitActors.Add(actorData);
+				if (!actorToHitCount.ContainsKey(actorData))
+				{
+					actorToHitCount[actorData] = 1;
+				}
+				else
+				{
+					Dictionary<ActorData, int> dictionary = actorToHitCount;
+					ActorData key = actorData;
+					dictionary[key]++;
+				}
+			}
+
+			hitActorsList.Add(hitActors);
+			endPoints.Add(square.ToVector3());
+		}
+	}
+#endif
 }

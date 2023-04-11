@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterMakeBarriers : Ability
@@ -90,11 +92,24 @@ public class TricksterMakeBarriers : Ability
 		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 		for (int i = 0; i < validAfterImages.Count; i++)
 		{
+#if SERVER
+			// added in rogues
+			m_afterImageSyncComp.TurnToPosition(
+				i == 0 ? caster : validAfterImages[i - 1],
+				validAfterImages[i].GetFreePos());
+#endif
 			Animator modelAnimator = validAfterImages[i].GetModelAnimator();
 			modelAnimator.SetInteger("Attack", animationIndex);
 			modelAnimator.SetBool("CinematicCam", cinecam);
 			modelAnimator.SetTrigger("StartAttack");
 		}
+#if SERVER
+		// added in rogues
+		if (validAfterImages.Count > 0)
+		{
+			m_afterImageSyncComp.TurnToPosition(validAfterImages[validAfterImages.Count - 1], caster.GetFreePos());
+		}
+#endif
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
@@ -110,4 +125,70 @@ public class TricksterMakeBarriers : Ability
 			modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
+
+#if SERVER
+	// added in rogues
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(m_castSequencePrefab,
+			targets[0].FreePos,
+			null,
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(targets[0].FreePos));
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		float squareSize = Board.Get().squareSize;
+		List<Barrier> list = new List<Barrier>();
+		int num = validAfterImages.Count > 1
+			? validAfterImages.Count
+			: validAfterImages.Count - 1;
+		for (int i = 0; i <= num; i++)
+		{
+			BoardSquare src = null;
+			BoardSquare dst = null;
+			if (i == 0)
+			{
+				src = caster.GetCurrentBoardSquare();
+				dst = validAfterImages[i].GetCurrentBoardSquare();
+			}
+			else if (i == validAfterImages.Count)
+			{
+				src = validAfterImages[i - 1].GetCurrentBoardSquare();
+				dst = caster.GetCurrentBoardSquare();
+			}
+			else if (i < validAfterImages.Count)
+			{
+				src = validAfterImages[i - 1].GetCurrentBoardSquare();
+				dst = validAfterImages[i].GetCurrentBoardSquare();
+			}
+			Vector3 vector = dst.ToVector3() - src.ToVector3();
+			vector.y = 0f;
+			float magnitude = vector.magnitude;
+			vector.Normalize();
+			Vector3 center = src.ToVector3() + 0.5f * magnitude * vector;
+			center.y = Board.Get().BaselineHeight;
+			Vector3 facingDir = Vector3.Cross(vector, Vector3.up);
+			m_barrierData.m_width = magnitude / squareSize + 0.05f;
+			Barrier barrier = new Barrier(m_abilityName, center, facingDir, caster, m_barrierData);
+			barrier.SetSourceAbility(this);
+			barrier.m_spoilsSpawnOnEnemyMovedThrough = m_spoilsSpawnOnEnemyMovedThrough;
+			barrier.m_spoilsSpawnOnAllyMovedThrough = m_spoilsSpawnOnAllyMovedThrough;
+			positionHitResults.AddBarrier(barrier);
+			list.Add(barrier);
+		}
+		if (m_linkBarriers)
+		{
+			BarrierManager.Get().LinkBarriers(list, new LinkedBarrierData());
+		}
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+#endif
 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterCones : Ability
@@ -409,4 +411,305 @@ public class TricksterCones : Ability
 			modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<int> GetAdditionalBrushRegionsToDisrupt(ActorData caster, List<AbilityTarget> targets)
+	{
+		List<int> list = new List<int>();
+		if (m_afterImageSyncComp == null)
+		{
+			return list;
+		}
+		foreach (ActorData afterImage in m_afterImageSyncComp.GetValidAfterImages())
+		{
+			if (afterImage.IsInBrush())
+			{
+				list.Add(afterImage.GetBrushRegion());
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetActorToHpDeltaMap(
+			targets,
+			caster,
+			out List<VectorUtils.LaserCoords> endPoints,
+			out Dictionary<ActorData, List<ActorData>> actorToHittingActors,
+			out _, 
+			out _,
+			out _,
+			null);
+		List<List<ActorData>> targetActorLists = new List<List<ActorData>>();
+		for (int i = 0; i < 3; i++)
+		{
+			targetActorLists.Add(new List<ActorData>());
+		}
+		foreach (ActorData actorData in actorToHittingActors.Keys)
+		{
+			int num = Mathf.Clamp(actorToHittingActors[actorData].Count - 1, 0, 2);
+			for (int j = 0; j <= num; j++)
+			{
+				targetActorLists[j].Add(actorData);
+			}
+		}
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_projectileSequencePrefab,
+			endPoints[0].end,
+			targetActorLists[0].ToArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new ScoundrelBlindFireSequence.ConeExtraParams
+			{
+				halfAngleDegrees = 0.5f * GetConeInfo().m_widthAngleDeg,
+				maxDistInSquares = GetConeInfo().m_radiusInSquares
+			}.ToArray()));
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		int index = 1;
+		foreach (ActorData afterImage in validAfterImages)
+		{
+			if (index >= endPoints.Count)
+			{
+				Debug.LogError("number of end points did not match number of after images");
+				break;
+			}
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_projectileSequencePrefab,
+				endPoints[index].end,
+				targetActorLists[index].ToArray(),
+				afterImage,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[]
+				{
+					new ScoundrelBlindFireSequence.ConeExtraParams
+					{
+						halfAngleDegrees = 0.5f * GetConeInfo().m_widthAngleDeg,
+						maxDistInSquares = GetConeInfo().m_radiusInSquares
+					}
+				}));
+			index++;
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> actorToHpDeltaMap = GetActorToHpDeltaMap(
+			targets,
+			caster,
+			out _,
+			out Dictionary<ActorData, List<ActorData>> actorToHittingActors,
+			out Dictionary<ActorData, int> actorToCoverCount,
+			out int numConesWithHits,
+			out int numActorsHitByClones,
+			nonActorTargetInfo);
+		foreach (ActorData actorData in actorToHpDeltaMap.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
+			List<ActorData> hittingActors = actorToHittingActors[actorData];
+			int numHits = hittingActors.Count;
+			bool isSpawningSpoil = !OnlySpawnSpoilOnMultiHit() || numHits > 1;
+			StandardEffectInfo standardEffectInfo;
+			if (actorData == caster)
+			{
+				actorHitResults.SetBaseHealing(actorToHpDeltaMap[actorData]);
+				standardEffectInfo = GetSelfHitEffect();
+				if (numConesWithHits > 1)
+				{
+					actorHitResults.AddStandardEffectInfo(GetSelfEffectForMultiHit());
+				}
+				int cooldownReduction = GetCooldownReductionPerHitByClone() * numActorsHitByClones;
+				if (cooldownReduction > 0)
+				{
+					actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_cooldownReductionActionType, -1 * cooldownReduction));
+				}
+			}
+			else if (actorData.GetTeam() == caster.GetTeam())
+			{
+				actorHitResults.SetBaseHealing(actorToHpDeltaMap[actorData]);
+				standardEffectInfo = numHits > 1 && UseAllyMultiHitEffect() ? GetAllyMultipleHitEffect() : GetAllyHitEffect();
+				if (isSpawningSpoil && SpawnSpoilForAllyHit())
+				{
+					actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(actorData, caster.GetTeam(), GetSpoilSpawnInfo()));
+				}
+			}
+			else
+			{
+				actorHitResults.SetBaseDamage(actorToHpDeltaMap[actorData]);
+				standardEffectInfo = numHits > 1 && UseEnemyMultiHitEffect() ? GetEnemyMultipleHitEffect() : GetEnemyHitEffect();
+				if (isSpawningSpoil && SpawnSpoilForEnemyHit())
+				{
+					actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(actorData, caster.GetTeam(), GetSpoilSpawnInfo()));
+				}
+				foreach (ActorData hittingActor in hittingActors)
+				{
+					actorHitResults.AddActorToReveal(hittingActor);
+				}
+			}
+			if (standardEffectInfo != null)
+			{
+				actorHitResults.AddStandardEffectInfo(standardEffectInfo);
+			}
+			if (actorToCoverCount[actorData] > 0)
+			{
+				actorHitResults.OverrideAsInCover();
+			}
+			if (numHits >= 3)
+			{
+				actorHitResults.AddHitResultsTag(HitResultsTags.TripleHit);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetActorToHpDeltaMap(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<VectorUtils.LaserCoords> endPoints,
+		out Dictionary<ActorData, List<ActorData>> actorToHittingActors,
+		out Dictionary<ActorData, int> actorToCoverCount,
+		out int numConesWithHits,
+		out int numActorsHitByClones,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		endPoints = new List<VectorUtils.LaserCoords>();
+		actorToHittingActors = new Dictionary<ActorData, List<ActorData>>();
+		actorToCoverCount = new Dictionary<ActorData, int>();
+		numConesWithHits = 0;
+		numActorsHitByClones = 0;
+		List<ActorData> list = new List<ActorData>();
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		List<ActorData> allTargetingActors = new List<ActorData>();
+		allTargetingActors.Add(caster);
+		allTargetingActors.AddRange(validAfterImages);
+		m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(
+			targets[0].FreePos,
+			caster,
+			allTargetingActors, 
+			true,
+			out _,
+			out Vector3 freePosForAim);
+		ConeTargetingInfo coneInfo = GetConeInfo();
+		for (int i = 0; i < allTargetingActors.Count; i++)
+		{
+			ActorData targetingActor = allTargetingActors[i];
+			Vector3 loSCheckPos = targetingActor.GetLoSCheckPos();
+			Vector3 aimDir = freePosForAim - targetingActor.GetFreePos();
+			aimDir.y = 0f;
+			aimDir.Normalize();
+			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDir);
+			List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+				loSCheckPos,
+				coneCenterAngleDegrees,
+				coneInfo.m_widthAngleDeg,
+				coneInfo.m_radiusInSquares,
+				coneInfo.m_backwardsOffset,
+				coneInfo.m_penetrateLos,
+				caster,
+				TargeterUtils.GetRelevantTeams(caster, coneInfo.m_affectsAllies, coneInfo.m_affectsEnemies),
+				nonActorTargetInfo);
+			actorsInCone.Remove(caster);
+			VectorUtils.LaserCoords laserCoords;
+			laserCoords.start = loSCheckPos;
+			laserCoords.end = loSCheckPos + aimDir;
+			endPoints.Add(laserCoords);
+			if (actorsInCone.Count > 0)
+			{
+				numConesWithHits++;
+			}
+			foreach (ActorData hitActor in actorsInCone)
+			{
+				if (i > 0 && !list.Contains(hitActor))
+				{
+					list.Add(hitActor);
+				}
+				// custom
+				bool isInCover = hitActor.GetActorCover().IsInCoverWrt(laserCoords.start);
+				// rogues
+				// bool isInCover = actorData2.GetActorCover().IsInCoverWrt(laserCoords.start, out hitChanceBracketType);
+				if (actorToHittingActors.TryGetValue(hitActor, out List<ActorData> hittingActors))
+				{
+					hittingActors.Add(targetingActor);
+					actorToCoverCount[hitActor] += isInCover ? 1 : 0;
+				}
+				else
+				{
+					actorToHittingActors[hitActor] = new List<ActorData> { targetingActor };
+					actorToCoverCount[hitActor] = isInCover ? 1 : 0;
+				}
+			}
+		}
+		foreach (ActorData hitActor in actorToHittingActors.Keys)
+		{
+			int numHits = actorToHittingActors[hitActor].Count;
+			int numFromCover = actorToCoverCount[hitActor];
+			if (hitActor.GetTeam() != caster.GetTeam())
+			{
+				dictionary[hitActor] = CalcDamageFromNumHits(numHits, numFromCover);
+			}
+			else
+			{
+				dictionary[hitActor] = GetAllyHealAmount() + (numHits - 1) * GetAllySubsequentHealAmount();
+			}
+		}
+		numActorsHitByClones = list.Count;
+		if (GetSelfHealAmount() > 0
+		    || GetSelfHitEffect().m_applyEffect
+		    || (GetSelfEffectForMultiHit().m_applyEffect && numConesWithHits > 1)
+		    || GetCooldownReductionPerHitByClone() * numActorsHitByClones > 0)
+		{
+			dictionary[caster] = GetSelfHealAmount();
+			actorToHittingActors[caster] = new List<ActorData> { caster };
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = base.CalcPointsOfInterestForCamera(targets, caster);
+		if (m_afterImageSyncComp == null)
+		{
+			return list;
+		}
+		foreach (ActorData afterImage in m_afterImageSyncComp.GetValidAfterImages())
+		{
+			if (afterImage.GetCurrentBoardSquare() != null)
+			{
+				list.Add(afterImage.GetCurrentBoardSquare().ToVector3());
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster != target)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TricksterStats.TargetsHitByPhotonSpray);
+		}
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_General(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.HasHitResultsTag(HitResultsTags.TripleHit))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.TricksterStats.TargetsHitByThreeImages);
+		}
+	}
+#endif
 }

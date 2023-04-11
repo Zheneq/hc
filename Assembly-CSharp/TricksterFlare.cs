@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterFlare : Ability
@@ -135,4 +137,185 @@ public class TricksterFlare : Ability
 			modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
+
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetActorToHpDeltaMap(targets, caster, out _, out List<BoardSquare> centerSquares, out _, out _, out _, null);
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		for (int i = 0; i < centerSquares.Count; i++)
+		{
+			ActorData targetingActor = caster;
+			if (i > 0 && i <= validAfterImages.Count)
+			{
+				targetingActor = validAfterImages[i - 1];
+			}
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				centerSquares[i].ToVector3(),
+				i == 0 ? additionalData.m_abilityResults.HitActorsArray() : null,
+				targetingActor,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetActorToHpDeltaMap(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<List<ActorData>> actorsForSequences,
+		out List<BoardSquare> centerSquares,
+		out Dictionary<ActorData, Vector3> actorToDamageOrigin,
+		out Dictionary<ActorData, int> actorToHitCount,
+		out int numShapesWithHits,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		actorsForSequences = new List<List<ActorData>>();
+		centerSquares = new List<BoardSquare>();
+		actorToDamageOrigin = new Dictionary<ActorData, Vector3>();
+		actorToHitCount = new Dictionary<ActorData, int>();
+		numShapesWithHits = 0;
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		if (m_flareAroundSelf)
+		{
+			centerSquares.Add(caster.GetCurrentBoardSquare());
+		}
+		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
+		foreach (ActorData afterImage in validAfterImages)
+		{
+			centerSquares.Add(afterImage.GetCurrentBoardSquare());
+		}
+		for (int i = 0; i < centerSquares.Count; i++)
+		{
+			actorsForSequences.Add(new List<ActorData>());
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_flareShape,
+				centerSquares[i].ToVector3(),
+				centerSquares[i]);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_flareShape,
+				centerOfShape,
+				centerSquares[i],
+				m_flarePenetrateLos,
+				caster,
+				null,
+				nonActorTargetInfo);
+			if ((actorsInShape.Contains(caster) ? actorsInShape.Count - 1 : actorsInShape.Count) > 0)
+			{
+				numShapesWithHits++;
+			}
+			foreach (ActorData hitActor in actorsInShape)
+			{
+				bool isAlly = hitActor.GetTeam() == caster.GetTeam();
+				if (!isAlly && m_includeEnemies)
+				{
+					if (dictionary.ContainsKey(hitActor))
+					{
+						dictionary[hitActor] += m_flareSubsequentDamageAmount;
+						actorToHitCount[hitActor]++;
+					}
+					else
+					{
+						dictionary[hitActor] = m_flareDamageAmount;
+						actorToDamageOrigin[hitActor] = centerSquares[i].ToVector3();
+						actorsForSequences[i].Add(hitActor);
+						actorToHitCount[hitActor] = 1;
+					}
+				}
+				else if (isAlly
+				         && m_includeAllies
+				         && hitActor != caster
+				         && !validAfterImages.Contains(hitActor))
+				{
+					Vector3 centerSquare = centerSquares[i].ToVector3();
+					if (dictionary.ContainsKey(hitActor))
+					{
+						dictionary[hitActor] += m_flareSubsequentHealAmount;
+						actorToHitCount[hitActor]++;
+						ActorCover actorCover = hitActor.GetActorCover();
+						if (actorCover != null
+						    && actorCover.IsInCoverWrt(actorToDamageOrigin[hitActor]) // , out HitChanceBracketType _ in rogues
+						    && !actorCover.IsInCoverWrt(centerSquare)) // , out HitChanceBracketType _ in rogues
+						{
+							actorToDamageOrigin[hitActor] = centerSquare;
+						}
+					}
+					else
+					{
+						dictionary[hitActor] = m_flareHealAmount;
+						actorToDamageOrigin[hitActor] = centerSquare;
+						actorsForSequences[i].Add(hitActor);
+						actorToHitCount[hitActor] = 1;
+					}
+				}
+			}
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> actorToHpDeltaMap = GetActorToHpDeltaMap(
+			targets,
+			caster,
+			out _,
+			out _,
+			out Dictionary<ActorData, Vector3> actorToDamageOrigin,
+			out Dictionary<ActorData, int> actorToHitCount,
+			out int numShapesWithHits,
+			nonActorTargetInfo);
+		bool casterProcessed = false;
+		foreach (ActorData hitActor in actorToHpDeltaMap.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, actorToDamageOrigin[hitActor]));
+			bool isSpawningSpoil = !m_onlySpawnSpoilOnMultiHit || actorToHitCount[hitActor] > 1;
+			if (hitActor.GetTeam() != caster.GetTeam())
+			{
+				actorHitResults.SetBaseDamage(actorToHpDeltaMap[hitActor]);
+				actorHitResults.AddStandardEffectInfo(actorToHitCount[hitActor] > 1 && m_useEnemyMultiHitEffect
+					? m_enemyMultipleHitEffect
+					: m_enemyHitEffect);
+				if (isSpawningSpoil && m_spawnSpoilForEnemyHit)
+				{
+					actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(hitActor, caster.GetTeam(), m_spoilSpawnInfo));
+				}
+			}
+			else
+			{
+				if (hitActor == caster)
+				{
+					if (numShapesWithHits > 1)
+					{
+						actorHitResults.AddStandardEffectInfo(m_selfHitEffectForMultiHit);
+					}
+					casterProcessed = true;
+				}
+				actorHitResults.SetBaseHealing(actorToHpDeltaMap[hitActor]);
+				actorHitResults.AddStandardEffectInfo(actorToHitCount[hitActor] > 1 && m_useAllyMultiHitEffect
+					? m_allyMultipleHitEffect
+					: m_allyHitEffect);
+				if (isSpawningSpoil && m_spawnSpoilForAllyHit)
+				{
+					actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(hitActor, caster.GetTeam(), m_spoilSpawnInfo));
+				}
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		if (!casterProcessed
+		    && m_selfHitEffectForMultiHit.m_applyEffect
+		    && numShapesWithHits > 1)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.AddStandardEffectInfo(m_selfHitEffectForMultiHit);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

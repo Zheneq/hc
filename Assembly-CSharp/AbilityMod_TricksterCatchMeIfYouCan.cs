@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,9 +58,12 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		TricksterCatchMeIfYouCan tricksterCatchMeIfYouCan = GetTargetAbilityOnAbilityData(abilityData) as TricksterCatchMeIfYouCan;
+		// rogues
+		// TricksterCatchMeIfYouCan tricksterCatchMeIfYouCan = targetAbility as TricksterCatchMeIfYouCan;
 		bool isValid = tricksterCatchMeIfYouCan != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_hitActorsInPathMod, "[HitActorsInPath]", isValid, isValid && tricksterCatchMeIfYouCan.m_hitActorsInPath);
