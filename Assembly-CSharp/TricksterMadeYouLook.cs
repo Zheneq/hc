@@ -1,45 +1,31 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterMadeYouLook : Ability
 {
 	[Header("-- Whether can queue movement evade")]
 	public bool m_canQueueMoveAfterEvade;
-
 	[Header("-- Target Actors In-Between")]
 	public bool m_hitActorsInBetween;
-
 	public float m_radiusFromLine = 1f;
-
 	public float m_radiusAroundEnds = 1f;
-
 	public bool m_penetrateLos;
-
 	[Header("-- Enemy Hit Damage and Effect")]
 	public int m_damageAmount = 5;
-
 	public StandardEffectInfo m_enemyOnHitEffect;
-
 	[Header("-- Whether to stay up till next turn")]
 	public bool m_stayForNextTurn = true;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private TricksterAfterImageNetworkBehaviour m_afterImageSyncComp;
-
 	private AbilityMod_TricksterMadeYouLook m_abilityMod;
-
 	private StandardEffectInfo m_cachedEnemyOnHitEffect;
 
 	private static readonly int animDistToGoal = Animator.StringToHash("DistToGoal");
-
 	private static readonly int animStartDamageReaction = Animator.StringToHash("StartDamageReaction");
-
 	private static readonly int animAttack = Animator.StringToHash("Attack");
-
 	private static readonly int animCinematicCam = Animator.StringToHash("CinematicCam");
-
 	private static readonly int animStartAttack = Animator.StringToHash("StartAttack");
 
 	private void Start()
@@ -55,33 +41,38 @@ public class TricksterMadeYouLook : Ability
 	{
 		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
 		SetCachedFields();
-		bool flag = HasSelfEffectFromBaseMod();
+		bool hasSelfEffectFromBaseMod = HasSelfEffectFromBaseMod();
 		if (HitActorsInBetween())
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-				{
-					AbilityUtil_Targeter_ChargeAoE abilityUtil_Targeter_ChargeAoE = new AbilityUtil_Targeter_ChargeAoE(this, GetRadiusAroundEnds(), GetRadiusAroundEnds(), GetRadiusFromLine(), -1, true, PenetrateLos());
-					abilityUtil_Targeter_ChargeAoE.SetAffectedGroups(true, false, flag);
-					abilityUtil_Targeter_ChargeAoE.AllowChargeThroughInvalidSquares = true;
-					base.Targeter = abilityUtil_Targeter_ChargeAoE;
-					return;
-				}
-				}
-			}
+			AbilityUtil_Targeter_ChargeAoE targeter = new AbilityUtil_Targeter_ChargeAoE(
+				this,
+				GetRadiusAroundEnds(),
+				GetRadiusAroundEnds(),
+				GetRadiusFromLine(),
+				-1,
+				true,
+				PenetrateLos());
+			targeter.SetAffectedGroups(true, false, hasSelfEffectFromBaseMod);
+			targeter.AllowChargeThroughInvalidSquares = true;
+			Targeter = targeter;
 		}
-		AbilityUtil_Targeter_Charge abilityUtil_Targeter_Charge = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
-		abilityUtil_Targeter_Charge.AllowChargeThroughInvalidSquares = true;
-		if (flag)
+		else
 		{
-			abilityUtil_Targeter_Charge.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
+			AbilityUtil_Targeter_Charge targeter = new AbilityUtil_Targeter_Charge(
+				this,
+				AbilityAreaShape.SingleSquare,
+				true,
+				AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+				false)
+			{
+				AllowChargeThroughInvalidSquares = true
+			};
+			if (hasSelfEffectFromBaseMod)
+			{
+				targeter.m_affectsCaster = AbilityUtil_Targeter.AffectsActor.Always;
+			}
+			Targeter = targeter;
 		}
-		base.Targeter = abilityUtil_Targeter_Charge;
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -91,122 +82,75 @@ public class TricksterMadeYouLook : Ability
 
 	public override bool CanOverrideMoveStartSquare()
 	{
-		int result;
-		if (m_canQueueMoveAfterEvade)
-		{
-			result = ((m_afterImageSyncComp != null) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_canQueueMoveAfterEvade && m_afterImageSyncComp != null;
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedEnemyOnHitEffect = ((!m_abilityMod) ? m_enemyOnHitEffect : m_abilityMod.m_enemyOnHitEffectMod.GetModifiedValue(m_enemyOnHitEffect));
+		m_cachedEnemyOnHitEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyOnHitEffectMod.GetModifiedValue(m_enemyOnHitEffect)
+			: m_enemyOnHitEffect;
 	}
 
 	public bool HitActorsInBetween()
 	{
-		return (!m_abilityMod) ? m_hitActorsInBetween : m_abilityMod.m_hitActorsInBetweenMod.GetModifiedValue(m_hitActorsInBetween);
+		return m_abilityMod != null
+			? m_abilityMod.m_hitActorsInBetweenMod.GetModifiedValue(m_hitActorsInBetween)
+			: m_hitActorsInBetween;
 	}
 
 	public float GetRadiusFromLine()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_radiusFromLineMod.GetModifiedValue(m_radiusFromLine);
-		}
-		else
-		{
-			result = m_radiusFromLine;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_radiusFromLineMod.GetModifiedValue(m_radiusFromLine)
+			: m_radiusFromLine;
 	}
 
 	public float GetRadiusAroundEnds()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_radiusAroundEndsMod.GetModifiedValue(m_radiusAroundEnds);
-		}
-		else
-		{
-			result = m_radiusAroundEnds;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_radiusAroundEndsMod.GetModifiedValue(m_radiusAroundEnds)
+			: m_radiusAroundEnds;
 	}
 
 	public bool PenetrateLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos);
-		}
-		else
-		{
-			result = m_penetrateLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLosMod.GetModifiedValue(m_penetrateLos)
+			: m_penetrateLos;
 	}
 
 	public int GetDamageAmount()
 	{
-		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public StandardEffectInfo GetEnemyOnHitEffect()
 	{
-		return (m_cachedEnemyOnHitEffect == null) ? m_enemyOnHitEffect : m_cachedEnemyOnHitEffect;
+		return m_cachedEnemyOnHitEffect ?? m_enemyOnHitEffect;
 	}
 
 	public SpoilsSpawnData GetSpoilsSpawnDataOnDisappear(SpoilsSpawnData defaultValue)
 	{
-		SpoilsSpawnData result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_spoilsSpawnDataOnDisappear.GetModifiedValue(defaultValue);
-		}
-		else
-		{
-			result = defaultValue;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_spoilsSpawnDataOnDisappear.GetModifiedValue(defaultValue)
+			: defaultValue;
 	}
 
 	public bool HasCooldownReductionForPassingThrough()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = (m_abilityMod.m_cooldownReductionForTravelHit.HasCooldownReduction() ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null && m_abilityMod.m_cooldownReductionForTravelHit.HasCooldownReduction();
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (!(m_afterImageSyncComp == null))
-		{
-			if (!(caster == null))
-			{
-				if (!(caster.GetAbilityData() == null))
-				{
-					List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
-					return validAfterImages.Count > 0 && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
-				}
-			}
-		}
-		return false;
+		return m_afterImageSyncComp != null
+		       && caster != null
+		       && caster.GetAbilityData() != null
+		       && m_afterImageSyncComp.GetValidAfterImages().Count > 0
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(TricksterCatchMeIfYouCan));
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
@@ -216,32 +160,16 @@ public class TricksterMadeYouLook : Ability
 		{
 			return true;
 		}
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (!(boardSquareSafe == null))
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null || !targetSquare.IsValidForGameplay())
 		{
-			if (boardSquareSafe.IsValidForGameplay())
+			return false;
+		}
+		foreach (ActorData afterImage in validAfterImages)
+		{
+			if (afterImage.GetCurrentBoardSquare() == targetSquare)
 			{
-				using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						ActorData current = enumerator.Current;
-						if (current.GetCurrentBoardSquare() == boardSquareSafe)
-						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									break;
-								default:
-									return true;
-								}
-							}
-						}
-					}
-				}
-				return false;
+				return true;
 			}
 		}
 		return false;
@@ -249,22 +177,9 @@ public class TricksterMadeYouLook : Ability
 
 	public override TargetData[] GetTargetData()
 	{
-		if (m_afterImageSyncComp != null)
+		if (m_afterImageSyncComp != null && m_afterImageSyncComp.GetValidAfterImages().Count == 1)
 		{
-			List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
-			if (validAfterImages.Count == 1)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return new TargetData[0];
-					}
-				}
-			}
+			return new TargetData[0];
 		}
 		return base.GetTargetData();
 	}
@@ -276,19 +191,7 @@ public class TricksterMadeYouLook : Ability
 			List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
 			if (validAfterImages.Count == 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-					{
-						ActorData casterActor = validAfterImages[0];
-						return AbilityTarget.CreateSimpleAbilityTarget(casterActor);
-					}
-					}
-				}
+				return AbilityTarget.CreateSimpleAbilityTarget(validAfterImages[0]);
 			}
 		}
 		return base.CreateAbilityTargetForSimpleAction(caster);
@@ -297,92 +200,49 @@ public class TricksterMadeYouLook : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_TricksterMadeYouLook abilityMod_TricksterMadeYouLook = modAsBase as AbilityMod_TricksterMadeYouLook;
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_TricksterMadeYouLook)
-		{
-			val = abilityMod_TricksterMadeYouLook.m_damageAmountMod.GetModifiedValue(m_damageAmount);
-		}
-		else
-		{
-			val = m_damageAmount;
-		}
-		AddTokenInt(tokens, "DamageAmount", empty, val);
-		AbilityMod.AddToken_EffectInfo(tokens, (!abilityMod_TricksterMadeYouLook) ? m_enemyOnHitEffect : abilityMod_TricksterMadeYouLook.m_enemyOnHitEffectMod.GetModifiedValue(m_enemyOnHitEffect), "EnemyOnHitEffect", m_enemyOnHitEffect);
+		AddTokenInt(tokens, "DamageAmount", string.Empty, abilityMod_TricksterMadeYouLook != null
+			? abilityMod_TricksterMadeYouLook.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount);
+		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_TricksterMadeYouLook != null
+			? abilityMod_TricksterMadeYouLook.m_enemyOnHitEffectMod.GetModifiedValue(m_enemyOnHitEffect)
+			: m_enemyOnHitEffect, "EnemyOnHitEffect", m_enemyOnHitEffect);
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
 	{
 		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
-		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(targetPos);
-		bool flag = validAfterImages.Count > 1;
-		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
+		BoardSquare targetSquare = Board.Get().GetSquareFromVec3(targetPos);
+		bool hasValidAfterimages = validAfterImages.Count > 1;
+		foreach (ActorData afterImage in validAfterImages)
 		{
-			while (enumerator.MoveNext())
+			if (afterImage == null
+			    || afterImage.IsDead()
+			    || afterImage.GetCurrentBoardSquare() == null
+			    || (hasValidAfterimages && afterImage.GetCurrentBoardSquare() != targetSquare))
 			{
-				ActorData current = enumerator.Current;
-				if (current != null)
-				{
-					if (!current.IsDead())
-					{
-						if (current.GetCurrentBoardSquare() != null)
-						{
-							if (flag)
-							{
-								if (!(current.GetCurrentBoardSquare() == boardSquare))
-								{
-									continue;
-								}
-							}
-							m_afterImageSyncComp.TurnToPosition(current, caster.GetFreePos());
-							Animator modelAnimator = current.GetModelAnimator();
-							modelAnimator.SetFloat(animDistToGoal, 10f);
-							modelAnimator.ResetTrigger(animStartDamageReaction);
-							modelAnimator.SetInteger(animAttack, animationIndex);
-							modelAnimator.SetBool(animCinematicCam, false);
-							modelAnimator.SetTrigger(animStartAttack);
-						}
-					}
-				}
+				continue;
 			}
-			while (true)
-			{
-				switch (5)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
+			m_afterImageSyncComp.TurnToPosition(afterImage, caster.GetFreePos());
+			Animator modelAnimator = afterImage.GetModelAnimator();
+			modelAnimator.SetFloat(animDistToGoal, 10f);
+			modelAnimator.ResetTrigger(animStartDamageReaction);
+			modelAnimator.SetInteger(animAttack, animationIndex);
+			modelAnimator.SetBool(animCinematicCam, false);
+			modelAnimator.SetTrigger(animStartAttack);
 		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages(false);
-		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
+		foreach (ActorData afterImage in m_afterImageSyncComp.GetValidAfterImages(false))
 		{
-			while (enumerator.MoveNext())
+			if (afterImage == null || afterImage.IsDead())
 			{
-				ActorData current = enumerator.Current;
-				if (current != null && !current.IsDead())
-				{
-					Animator modelAnimator = current.GetModelAnimator();
-					modelAnimator.SetInteger(animAttack, 0);
-					modelAnimator.SetBool(animCinematicCam, false);
-				}
+				continue;
 			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			Animator modelAnimator = afterImage.GetModelAnimator();
+			modelAnimator.SetInteger(animAttack, 0);
+			modelAnimator.SetBool(animCinematicCam, false);
 		}
 	}
 
@@ -390,7 +250,7 @@ public class TricksterMadeYouLook : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_TricksterMadeYouLook))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_TricksterMadeYouLook);
+			m_abilityMod = abilityMod as AbilityMod_TricksterMadeYouLook;
 			Setup();
 		}
 	}

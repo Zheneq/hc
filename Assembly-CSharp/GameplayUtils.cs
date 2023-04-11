@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,35 +10,21 @@ public static class GameplayUtils
 	{
 		if (layerBitMask == 0)
 		{
-			int num;
-			if (Camera.main == null)
-			{
-				num = -1;
-			}
-			else
-			{
-				num = Camera.main.cullingMask;
-			}
-			layerBitMask = num;
+			layerBitMask = Camera.main == null ? -1 : Camera.main.cullingMask;
 		}
 		List<GameObject> list = new List<GameObject>();
-		GameObject gameObject = go.FindInChildrenRecursive(name, layerBitMask, false, list);
-		GameObject result;
-		if (gameObject == null)
-		{
-			if (list.Count > 0)
-			{
-				result = list[0];
-				goto IL_008d;
-			}
-		}
-		result = gameObject;
-		goto IL_008d;
-		IL_008d:
-		return result;
+		GameObject result = go.FindInChildrenRecursive(name, layerBitMask, false, list);
+		return result == null && list.Count > 0
+			? list[0]
+			: result;
 	}
 
-	private static GameObject FindInChildrenRecursive(this GameObject obj, string name, int layerBitMask, bool ignoreRootJnt, List<GameObject> potentialRetVals)
+	private static GameObject FindInChildrenRecursive(
+		this GameObject obj,
+		string name,
+		int layerBitMask,
+		bool ignoreRootJnt,
+		List<GameObject> potentialRetVals)
 	{
 		if (obj.name == name)
 		{
@@ -48,52 +34,19 @@ public static class GameplayUtils
 			}
 			potentialRetVals.Add(obj);
 		}
-		bool flag = obj.name == "root_JNT";
-		if (ignoreRootJnt && flag)
+		bool isRootJnt = obj.name == "root_JNT";
+		if (ignoreRootJnt && isRootJnt)
 		{
 			return null;
 		}
-		int num;
-		if (!ignoreRootJnt)
+		bool ignoreRootJnt2 = ignoreRootJnt || isRootJnt;
+		foreach (Transform transform in obj.transform)
 		{
-			num = (flag ? 1 : 0);
-		}
-		else
-		{
-			num = 1;
-		}
-		bool ignoreRootJnt2 = (byte)num != 0;
-		IEnumerator enumerator = obj.transform.GetEnumerator();
-		try
-		{
-			while (enumerator.MoveNext())
+			GameObject result = transform.gameObject.FindInChildrenRecursive(name, layerBitMask, ignoreRootJnt2, potentialRetVals);
+			if (result != null)
 			{
-				Transform transform = (Transform)enumerator.Current;
-				GameObject gameObject = transform.gameObject.FindInChildrenRecursive(name, layerBitMask, ignoreRootJnt2, potentialRetVals);
-				if (gameObject != null)
-				{
-					return gameObject;
-				}
+				return result;
 			}
-		}
-		finally
-		{
-			IDisposable disposable;
-			if ((disposable = (enumerator as IDisposable)) != null)
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						disposable.Dispose();
-						goto end_IL_00b5;
-					}
-				}
-			}
-			end_IL_00b5:;
 		}
 		return null;
 	}
@@ -101,43 +54,9 @@ public static class GameplayUtils
 	public static void SetLayerRecursively(this GameObject obj, LayerMask layer)
 	{
 		obj.layer = layer;
-		IEnumerator enumerator = obj.transform.GetEnumerator();
-		try
+		foreach (Transform transform in obj.transform)
 		{
-			while (enumerator.MoveNext())
-			{
-				Transform transform = (Transform)enumerator.Current;
-				transform.gameObject.SetLayerRecursively(layer);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-		finally
-		{
-			IDisposable disposable;
-			if ((disposable = (enumerator as IDisposable)) != null)
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						disposable.Dispose();
-						goto end_IL_0055;
-					}
-				}
-			}
-			end_IL_0055:;
+			transform.gameObject.SetLayerRecursively(layer);
 		}
 	}
 
@@ -164,7 +83,7 @@ public static class GameplayUtils
 		bool result = false;
 		if (actor != null)
 		{
-			result = (actor.GetComponent<BotController>() != null);
+			result = actor.GetComponent<BotController>() != null;
 		}
 		return result;
 	}
@@ -176,45 +95,30 @@ public static class GameplayUtils
 
 	public static bool IsBot(GameObject obj)
 	{
-		ActorData component = obj.GetComponent<ActorData>();
-		return IsBot(component);
+		return IsBot(obj.GetComponent<ActorData>());
 	}
 
 	public static bool IsPlayerControlled(ActorData actor)
 	{
-		bool result = false;
-		if (actor != null)
-		{
-			result = (actor.PlayerIndex != PlayerData.s_invalidPlayerIndex);
-		}
-		return result;
+		return actor != null
+		       && actor.PlayerIndex != PlayerData.s_invalidPlayerIndex;
 	}
 
 	public static bool IsPlayerControlled(MonoBehaviour entity)
 	{
-		bool result = false;
-		ActorData component = entity.GetComponent<ActorData>();
-		if (component != null)
-		{
-			result = (component.PlayerIndex != PlayerData.s_invalidPlayerIndex);
-		}
-		return result;
+		ActorData actorData = entity.GetComponent<ActorData>();
+		return actorData != null
+		       && actorData.PlayerIndex != PlayerData.s_invalidPlayerIndex;
 	}
 
 	public static bool IsPlayerControlled(GameObject obj)
 	{
-		ActorData component = obj.GetComponent<ActorData>();
-		return IsPlayerControlled(component);
+		return IsPlayerControlled(obj.GetComponent<ActorData>());
 	}
 
 	public static bool IsHumanControlled(ActorData actor)
 	{
-		bool result = false;
-		if (actor != null)
-		{
-			result = actor.IsHumanControlled();
-		}
-		return result;
+		return actor != null && actor.IsHumanControlled();
 	}
 
 	public static bool IsHumanControlled(MonoBehaviour entity)
@@ -224,28 +128,19 @@ public static class GameplayUtils
 
 	public static bool IsHumanControlled(GameObject obj)
 	{
-		ActorData component = obj.GetComponent<ActorData>();
-		return IsHumanControlled(component);
+		return IsHumanControlled(obj.GetComponent<ActorData>());
 	}
 
 	public static bool IsValidPlayer(ActorData actor)
 	{
-		int result;
-		if (actor != null)
-		{
-			result = ((actor.PlayerIndex != PlayerData.s_invalidPlayerIndex) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return actor != null
+		       && actor.PlayerIndex != PlayerData.s_invalidPlayerIndex;
 	}
 
 	public static List<Team> GetOtherTeamsThan(Team team)
 	{
 		List<Team> list = new List<Team>();
-		if (team != 0)
+		if (team != Team.TeamA)
 		{
 			list.Add(Team.TeamA);
 		}
@@ -263,161 +158,82 @@ public static class GameplayUtils
 	public static int GetTotalTeamDeaths(Team team)
 	{
 		int num = 0;
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(team);
-		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
+		foreach (ActorData actorData in GameFlowData.Get().GetAllTeamMembers(team))
 		{
-			while (enumerator.MoveNext())
+			if (IsPlayerControlled(actorData))
 			{
-				ActorData current = enumerator.Current;
-				if (IsPlayerControlled(current))
-				{
-					ActorBehavior actorBehavior = current.GetActorBehavior();
-					num += actorBehavior.totalDeaths;
-				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return num;
-				}
+				num += actorData.GetActorBehavior().totalDeaths;
 			}
 		}
+		return num;
 	}
 
 	public static int GetTotalTeamCredits(Team team)
 	{
 		int num = 0;
-		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(team);
-		using (List<ActorData>.Enumerator enumerator = allTeamMembers.GetEnumerator())
+		foreach (ActorData actorData in GameFlowData.Get().GetAllTeamMembers(team))
 		{
-			while (enumerator.MoveNext())
+			if (IsPlayerControlled(actorData))
 			{
-				ActorData current = enumerator.Current;
-				if (IsPlayerControlled(current))
-				{
-					ItemData component = current.GetComponent<ItemData>();
-					num += component.GetNetWorth();
-				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return num;
-				}
+				num += actorData.GetComponent<ItemData>().GetNetWorth();
 			}
 		}
+		return num;
 	}
 
 	public static int GetScoreForVariableType(ActorData actor, TargeterUtils.VariableType variableType)
 	{
 		switch (variableType)
 		{
-		case TargeterUtils.VariableType.Energy:
-			return actor.TechPoints;
-		case TargeterUtils.VariableType.HitPoints:
-			return actor.HitPoints;
-		case TargeterUtils.VariableType.MechanicPoints:
-			return actor.MechanicPoints;
-		default:
-			return 0;
+			case TargeterUtils.VariableType.Energy:
+				return actor.TechPoints;
+			case TargeterUtils.VariableType.HitPoints:
+				return actor.HitPoints;
+			case TargeterUtils.VariableType.MechanicPoints:
+				return actor.MechanicPoints;
+			default:
+				return 0;
 		}
 	}
 
 	public static int GetActorIndexOfActor(ActorData actor)
 	{
-		if (actor == null)
-		{
-			return ActorData.s_invalidActorIndex;
-		}
-		return actor.ActorIndex;
+		return actor != null
+			? actor.ActorIndex
+			: ActorData.s_invalidActorIndex;
 	}
 
 	public static ActorData GetActorOfActorIndex(int actorIndex)
 	{
-		if (actorIndex == ActorData.s_invalidActorIndex)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
-		}
-		return GameFlowData.Get().FindActorByActorIndex(actorIndex);
+		return actorIndex != ActorData.s_invalidActorIndex
+			? GameFlowData.Get().FindActorByActorIndex(actorIndex)
+			: null;
 	}
 
 	public static MatchResultsStats GenerateStatsFromGame(Team perspectiveTeam, int perspectivePlayerId)
 	{
-		Team team = (perspectiveTeam == Team.TeamB) ? Team.TeamB : Team.TeamA;
-		int num;
-		if (perspectiveTeam == Team.TeamB)
+		Team us = perspectiveTeam == Team.TeamB ? Team.TeamB : Team.TeamA;
+		Team them = perspectiveTeam == Team.TeamB ? Team.TeamA : Team.TeamB;
+		return new MatchResultsStats
 		{
-			num = 0;
-		}
-		else
-		{
-			num = 1;
-		}
-		Team team2 = (Team)num;
-		MatchResultsStats matchResultsStats = new MatchResultsStats();
-		matchResultsStats.FriendlyStatlines = (from actorData in GameFlowData.Get().GetPlayerAndBotTeamMembers(team)
-			select GenerateStatlineFromGame(actorData, perspectiveTeam, perspectivePlayerId)).ToArray();
-		matchResultsStats.EnemyStatlines = (from actorData in GameFlowData.Get().GetPlayerAndBotTeamMembers(team2)
-			select GenerateStatlineFromGame(actorData, perspectiveTeam, perspectivePlayerId)).ToArray();
-		int redScore;
-		if (ObjectivePoints.Get() != null)
-		{
-			redScore = ObjectivePoints.Get().GetPointsForTeam(Team.TeamA);
-		}
-		else
-		{
-			redScore = 0;
-		}
-		matchResultsStats.RedScore = redScore;
-		int blueScore;
-		if (ObjectivePoints.Get() != null)
-		{
-			blueScore = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB);
-		}
-		else
-		{
-			blueScore = 0;
-		}
-		matchResultsStats.BlueScore = blueScore;
-		matchResultsStats.GameTime = GameFlowData.Get().GetGameTime();
-		object victoryCondition;
-		if (ObjectivePoints.Get() != null)
-		{
-			victoryCondition = ObjectivePoints.Get().m_victoryCondition;
-		}
-		else
-		{
-			victoryCondition = "TurnsLeft@GameModes";
-		}
-		matchResultsStats.VictoryCondition = (string)victoryCondition;
-		int victoryConditionTurns;
-		if (ObjectivePoints.Get() != null)
-		{
-			victoryConditionTurns = ObjectivePoints.Get().m_timeLimitTurns;
-		}
-		else
-		{
-			victoryConditionTurns = 20;
-		}
-		matchResultsStats.VictoryConditionTurns = victoryConditionTurns;
-		return matchResultsStats;
+			FriendlyStatlines = (from actorData in GameFlowData.Get().GetPlayerAndBotTeamMembers(us)
+				select GenerateStatlineFromGame(actorData, perspectiveTeam, perspectivePlayerId)).ToArray(),
+			EnemyStatlines = (from actorData in GameFlowData.Get().GetPlayerAndBotTeamMembers(them)
+				select GenerateStatlineFromGame(actorData, perspectiveTeam, perspectivePlayerId)).ToArray(),
+			RedScore = ObjectivePoints.Get() != null
+				? ObjectivePoints.Get().GetPointsForTeam(Team.TeamA)
+				: 0,
+			BlueScore = ObjectivePoints.Get() != null
+				? ObjectivePoints.Get().GetPointsForTeam(Team.TeamB)
+				: 0,
+			GameTime = GameFlowData.Get().GetGameTime(),
+			VictoryCondition = ObjectivePoints.Get() != null
+				? ObjectivePoints.Get().m_victoryCondition
+				: "TurnsLeft@GameModes",
+			VictoryConditionTurns = ObjectivePoints.Get() != null
+				? ObjectivePoints.Get().m_timeLimitTurns
+				: 20
+		};
 	}
 
 	public static MatchResultsStatline GenerateStatlineFromGame(ActorData actorData, Team perspectiveTeam, int perspectivePlayerId)
@@ -432,145 +248,50 @@ public static class GameplayUtils
 		{
 			lobbyPlayerInfoId = playerDetails.m_lobbyPlayerInfoId;
 		}
-		LobbyTeamInfo teamInfo = GameManager.Get().TeamInfo;
-		LobbyPlayerInfo lobbyPlayerInfo = teamInfo.TeamPlayerInfo.FirstOrDefault((LobbyPlayerInfo element) => element.PlayerId == lobbyPlayerInfoId);
+		LobbyPlayerInfo lobbyPlayerInfo = GameManager.Get().TeamInfo.TeamPlayerInfo.FirstOrDefault(element => element.PlayerId == lobbyPlayerInfoId);
 		ActorBehavior actorBehavior = actorData.GetActorBehavior();
 		AbilityData abilityData = actorData.GetAbilityData();
-		MatchResultsStatline matchResultsStatline = new MatchResultsStatline();
-		matchResultsStatline.Actor = actorData;
-		matchResultsStatline.PlayerId = lobbyPlayerInfoId;
-		matchResultsStatline.DisplayName = actorData.GetDisplayName();
-		matchResultsStatline.Character = actorData.m_characterType;
-		matchResultsStatline.IsPerspective = (lobbyPlayerInfoId == perspectivePlayerId);
-		matchResultsStatline.IsAlly = (perspectiveTeam == actorData.GetTeam());
-		int isHumanControlled;
-		if (playerDetails != null)
+		return new MatchResultsStatline
 		{
-			isHumanControlled = (playerDetails.IsHumanControlled ? 1 : 0);
-		}
-		else
-		{
-			isHumanControlled = 0;
-		}
-		matchResultsStatline.IsHumanControlled = ((byte)isHumanControlled != 0);
-		matchResultsStatline.IsBotMasqueradingAsHuman = (playerDetails?.m_botsMasqueradeAsHumans ?? false);
-		int humanReplacedByBot;
-		if (playerDetails != null)
-		{
-			humanReplacedByBot = (playerDetails.ReplacedWithBots ? 1 : 0);
-		}
-		else
-		{
-			humanReplacedByBot = 0;
-		}
-		matchResultsStatline.HumanReplacedByBot = ((byte)humanReplacedByBot != 0);
-		matchResultsStatline.AccountID = actorData.GetOriginalAccountId();
-		int titleID;
-		if (lobbyPlayerInfo != null)
-		{
-			titleID = lobbyPlayerInfo.TitleID;
-		}
-		else
-		{
-			titleID = 0;
-		}
-		matchResultsStatline.TitleID = titleID;
-		matchResultsStatline.TitleLevel = (lobbyPlayerInfo?.TitleLevel ?? 0);
-		matchResultsStatline.BannerID = (lobbyPlayerInfo?.BannerID ?? 0);
-		int emblemID;
-		if (lobbyPlayerInfo != null)
-		{
-			emblemID = lobbyPlayerInfo.EmblemID;
-		}
-		else
-		{
-			emblemID = 0;
-		}
-		matchResultsStatline.EmblemID = emblemID;
-		int ribbonID;
-		if (lobbyPlayerInfo != null)
-		{
-			ribbonID = lobbyPlayerInfo.RibbonID;
-		}
-		else
-		{
-			ribbonID = 0;
-		}
-		matchResultsStatline.RibbonID = ribbonID;
-		AbilityData.AbilityEntry[] abilityEntries = abilityData.abilityEntries;
-		
-		matchResultsStatline.AbilityEntries = abilityEntries.Select(delegate(AbilityData.AbilityEntry entry)
+			Actor = actorData,
+			PlayerId = lobbyPlayerInfoId,
+			DisplayName = actorData.GetDisplayName(),
+			Character = actorData.m_characterType,
+			IsPerspective = lobbyPlayerInfoId == perspectivePlayerId,
+			IsAlly = perspectiveTeam == actorData.GetTeam(),
+			IsHumanControlled = playerDetails != null && playerDetails.IsHumanControlled,
+			IsBotMasqueradingAsHuman = playerDetails?.m_botsMasqueradeAsHumans ?? false,
+			HumanReplacedByBot = playerDetails != null && playerDetails.ReplacedWithBots,
+			AccountID = actorData.GetOriginalAccountId(),
+			TitleID = lobbyPlayerInfo?.TitleID ?? 0,
+			TitleLevel = lobbyPlayerInfo?.TitleLevel ?? 0,
+			BannerID = lobbyPlayerInfo?.BannerID ?? 0,
+			EmblemID = lobbyPlayerInfo?.EmblemID ?? 0,
+			RibbonID = lobbyPlayerInfo?.RibbonID ?? 0,
+			AbilityEntries = abilityData.abilityEntries.Select(entry => new MatchResultsStatline.AbilityEntry
 			{
-				MatchResultsStatline.AbilityEntry result4 = default(MatchResultsStatline.AbilityEntry);
-				int abilityModId;
-				if (entry != null)
-				{
-					if (entry.ability != null)
-					{
-						if (entry.ability.CurrentAbilityMod != null)
-						{
-							abilityModId = entry.ability.CurrentAbilityMod.m_abilityScopeId;
-							goto IL_006e;
-						}
-					}
-				}
-				abilityModId = -1;
-				goto IL_006e;
-				IL_006e:
-				result4.AbilityModId = abilityModId;
-				return result4;
-			}).ToArray();
-		IEnumerable<Card> activeCards = abilityData.GetActiveCards();
-		
-		matchResultsStatline.CatalystHasPrepPhase = activeCards.ContainsWhere(delegate(Card card)
-			{
-				int result3;
-				if (card != null)
-				{
-					result3 = ((card.GetAbilityRunPhase() == AbilityRunPhase.Prep) ? 1 : 0);
-				}
-				else
-				{
-					result3 = 0;
-				}
-				return (byte)result3 != 0;
-			});
-		matchResultsStatline.CatalystHasDashPhase = abilityData.GetActiveCards().ContainsWhere(delegate(Card card)
-		{
-			int result2;
-			if (card != null)
-			{
-				result2 = ((card.GetAbilityRunPhase() == AbilityRunPhase.Dash) ? 1 : 0);
-			}
-			else
-			{
-				result2 = 0;
-			}
-			return (byte)result2 != 0;
-		});
-		matchResultsStatline.CatalystHasBlastPhase = abilityData.GetActiveCards().ContainsWhere(delegate(Card card)
-		{
-			int result;
-			if (card != null)
-			{
-				result = ((card.GetAbilityRunPhase() == AbilityRunPhase.Combat) ? 1 : 0);
-			}
-			else
-			{
-				result = 0;
-			}
-			return (byte)result != 0;
-		});
-		matchResultsStatline.TotalPlayerKills = actorBehavior.totalPlayerKills;
-		matchResultsStatline.TotalDeaths = actorBehavior.totalDeaths;
-		matchResultsStatline.TotalPlayerDamage = actorBehavior.totalPlayerDamage;
-		matchResultsStatline.TotalPlayerAssists = actorBehavior.totalPlayerAssists;
-		matchResultsStatline.TotalPlayerHealingFromAbility = actorBehavior.totalPlayerHealingFromAbility;
-		matchResultsStatline.TotalPlayerAbsorb = actorBehavior.totalPlayerAbsorb;
-		matchResultsStatline.TotalPlayerDamageReceived = actorBehavior.totalPlayerDamageReceived;
-		matchResultsStatline.TotalPlayerTurns = actorBehavior.totalPlayerTurns;
-		matchResultsStatline.TotalPlayerLockInTime = actorBehavior.totalPlayerLockInTime;
-		matchResultsStatline.TotalPlayerContribution = actorBehavior.totalPlayerContribution;
-		return matchResultsStatline;
+				AbilityModId = entry != null
+				               && entry.ability != null
+				               && entry.ability.CurrentAbilityMod != null
+					? entry.ability.CurrentAbilityMod.m_abilityScopeId
+					: -1
+			}).ToArray(),
+			CatalystHasPrepPhase = abilityData.GetActiveCards().ContainsWhere(card =>
+				card != null && card.GetAbilityRunPhase() == AbilityRunPhase.Prep),
+			CatalystHasDashPhase = abilityData.GetActiveCards().ContainsWhere(card =>
+				card != null && card.GetAbilityRunPhase() == AbilityRunPhase.Dash),
+			CatalystHasBlastPhase = abilityData.GetActiveCards().ContainsWhere(card =>
+				card != null && card.GetAbilityRunPhase() == AbilityRunPhase.Combat),
+			TotalPlayerKills = actorBehavior.totalPlayerKills,
+			TotalDeaths = actorBehavior.totalDeaths,
+			TotalPlayerDamage = actorBehavior.totalPlayerDamage,
+			TotalPlayerAssists = actorBehavior.totalPlayerAssists,
+			TotalPlayerHealingFromAbility = actorBehavior.totalPlayerHealingFromAbility,
+			TotalPlayerAbsorb = actorBehavior.totalPlayerAbsorb,
+			TotalPlayerDamageReceived = actorBehavior.totalPlayerDamageReceived,
+			TotalPlayerTurns = actorBehavior.totalPlayerTurns,
+			TotalPlayerLockInTime = actorBehavior.totalPlayerLockInTime,
+			TotalPlayerContribution = actorBehavior.totalPlayerContribution
+		};
 	}
 }

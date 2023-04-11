@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class SimpleVFXAtTargetPosSequence : Sequence
@@ -33,164 +33,100 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 	}
 
-	[Separator("FX To Spawn", true)]
+	[Separator("FX To Spawn")]
 	public GameObject m_fxPrefab;
-
-	[Separator("Height", true)]
+	[Separator("Height")]
 	public float m_yOffset;
-
 	public bool m_useGroundHeight;
-
 	private GameObject m_fx;
-
 	private FriendlyEnemyVFXSelector m_fxFoFSelectComp;
-
-	[Separator("Start delay time (ignored if has Start Event)", true)]
+	[Separator("Start delay time (ignored if has Start Event)")]
 	public float m_startDelayTime;
-
 	private float m_timeToSpawnVfx = -1f;
-
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before starting the sequence. Search project for EventObjects.")]
 	[Separator("Anim Events -- ( start / stop )", "orange")]
 	public Object m_startEvent;
-
 	private bool m_ignoreStartEvent;
-
 	[AnimEventPicker]
 	[Tooltip("Animation event (if any) to wait for before stopping the sequence. Search project for EventObjects.")]
 	public Object m_stopEvent;
-
-	[Separator("Gameplay Hits", true)]
+	[Separator("Gameplay Hits")]
 	public bool m_callOnHitForGameplay;
-
 	public float m_hitDelayTime;
-
 	private float m_timeToHit = -1f;
-
 	private bool m_sequenceHitCalled;
-
 	[Separator("Audio Event -- ( on FX spawn )", "orange")]
 	[AudioEvent(false)]
 	public string m_audioEvent;
-
-	[Separator("Phase-Based Timing", true)]
+	[Separator("Phase-Based Timing")]
 	public PhaseTimingParameters m_phaseTimingParameters;
-
-	[Separator("Special case handler for additional VFX at target position", true)]
+	[Separator("Special case handler for additional VFX at target position")]
 	public AdditionalVfxContainerBase m_additionalFxAtTargetPos;
 
 	private int m_initialTimerControllerValue;
-
 	private int m_timeControllerValueNow = -100;
-
 	private Dictionary<string, float> m_fxAttributes = new Dictionary<string, float>();
-
 	private Vector3 m_fxSpawnPosition;
 
 	internal override Vector3 GetSequencePos()
 	{
-		if (m_fx != null)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return m_fx.transform.position;
-				}
-			}
-		}
-		return Vector3.zero;
+		return m_fx != null
+			? m_fx.transform.position
+			: Vector3.zero;
 	}
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
 	{
-		m_fxSpawnPosition = base.TargetPos;
+		m_fxSpawnPosition = TargetPos;
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
-			IgnoreStartEventExtraParam ignoreStartEventExtraParam = extraSequenceParams as IgnoreStartEventExtraParam;
-			if (ignoreStartEventExtraParam != null)
+			if (extraSequenceParams is IgnoreStartEventExtraParam ignoreStartEventExtraParam)
 			{
 				m_ignoreStartEvent = ignoreStartEventExtraParam.ignoreStartEvent;
 			}
-			if (extraSequenceParams is PositionOverrideParam)
+			if (extraSequenceParams is PositionOverrideParam positionOverrideParam)
 			{
-				PositionOverrideParam positionOverrideParam = extraSequenceParams as PositionOverrideParam;
 				m_fxSpawnPosition = positionOverrideParam.m_positionOverride;
 			}
-			if (!(extraSequenceParams is FxAttributeParam))
+			if (extraSequenceParams is FxAttributeParam fxAttributeParam
+			    && fxAttributeParam.m_paramNameCode != FxAttributeParam.ParamNameCode.None)
 			{
-				continue;
-			}
-			FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
-			if (fxAttributeParam == null)
-			{
-				continue;
-			}
-			if (fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.None)
-			{
-				continue;
-			}
-			string attributeName = fxAttributeParam.GetAttributeName();
-			float paramValue = fxAttributeParam.m_paramValue;
-			if (fxAttributeParam.m_paramTarget != FxAttributeParam.ParamTarget.MainVfx)
-			{
-				continue;
-			}
-			if (!m_fxAttributes.ContainsKey(attributeName))
-			{
-				m_fxAttributes.Add(attributeName, paramValue);
+				string attributeName = fxAttributeParam.GetAttributeName();
+				float paramValue = fxAttributeParam.m_paramValue;
+				if (fxAttributeParam.m_paramTarget == FxAttributeParam.ParamTarget.MainVfx
+				    && !m_fxAttributes.ContainsKey(attributeName))
+				{
+					m_fxAttributes.Add(attributeName, paramValue);
+				}
 			}
 		}
-		if (!(m_additionalFxAtTargetPos != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_additionalFxAtTargetPos != null)
 		{
 			m_additionalFxAtTargetPos.Initialize(this);
-			return;
 		}
 	}
 
 	public override void FinishSetup()
 	{
-		if (!(m_startEvent == null))
+		if (m_startEvent != null
+		    && !m_ignoreStartEvent
+		    && !ClientGameManager.Get().IsFastForward)
 		{
-			if (!m_ignoreStartEvent)
-			{
-				if (!ClientGameManager.Get().IsFastForward)
-				{
-					return;
-				}
-			}
+			return;
 		}
 		if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
 			return;
 		}
-		while (true)
+		if (m_startDelayTime <= 0f)
 		{
-			if (m_startDelayTime <= 0f)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						SpawnFX();
-						return;
-					}
-				}
-			}
+			SpawnFX();
+		}
+		else
+		{
 			m_timeToSpawnVfx = GameTime.time + m_startDelayTime;
-			return;
 		}
 	}
 
@@ -206,97 +142,56 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 
 	internal override void SetTimerController(int value)
 	{
-		if (m_fx != null)
+		if (m_fx == null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					if (value != m_timeControllerValueNow)
-					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								break;
-							default:
-								m_timeControllerValueNow = value;
-								if (value >= 4)
-								{
-									Sequence.SetAttribute(m_fx, "timerControl01", 0);
-									Sequence.SetAttribute(m_fx, "timerControl02", 0);
-									Sequence.SetAttribute(m_fx, "timerControl03", 0);
-									Sequence.SetAttribute(m_fx, "timerControl04", 0);
-								}
-								else
-								{
-									if (value == 3)
-									{
-										while (true)
-										{
-											switch (4)
-											{
-											case 0:
-												break;
-											default:
-												Sequence.SetAttribute(m_fx, "timerControl01", 0);
-												Sequence.SetAttribute(m_fx, "timerControl02", 0);
-												Sequence.SetAttribute(m_fx, "timerControl03", 0);
-												Sequence.SetAttribute(m_fx, "timerControl04", 1);
-												return;
-											}
-										}
-									}
-									if (value == 2)
-									{
-										Sequence.SetAttribute(m_fx, "timerControl01", 0);
-										Sequence.SetAttribute(m_fx, "timerControl02", 0);
-										Sequence.SetAttribute(m_fx, "timerControl03", 1);
-										Sequence.SetAttribute(m_fx, "timerControl04", 1);
-									}
-									else if (value == 1)
-									{
-										Sequence.SetAttribute(m_fx, "timerControl01", 0);
-										Sequence.SetAttribute(m_fx, "timerControl02", 1);
-										Sequence.SetAttribute(m_fx, "timerControl03", 1);
-										Sequence.SetAttribute(m_fx, "timerControl04", 1);
-									}
-									else if (value <= 0)
-									{
-										while (true)
-										{
-											switch (1)
-											{
-											case 0:
-												break;
-											default:
-												Sequence.SetAttribute(m_fx, "timerControl01", 1);
-												Sequence.SetAttribute(m_fx, "timerControl02", 1);
-												Sequence.SetAttribute(m_fx, "timerControl03", 1);
-												Sequence.SetAttribute(m_fx, "timerControl04", 1);
-												return;
-											}
-										}
-									}
-								}
-								return;
-							}
-						}
-					}
-					return;
-				}
-			}
+			m_initialTimerControllerValue = value;
+			return;
 		}
-		m_initialTimerControllerValue = value;
+		if (value == m_timeControllerValueNow)
+		{
+			return;
+		}
+		m_timeControllerValueNow = value;
+		if (value >= 4)
+		{
+			SetAttribute(m_fx, "timerControl01", 0);
+			SetAttribute(m_fx, "timerControl02", 0);
+			SetAttribute(m_fx, "timerControl03", 0);
+			SetAttribute(m_fx, "timerControl04", 0);
+		}
+		else if (value == 3)
+		{
+			SetAttribute(m_fx, "timerControl01", 0);
+			SetAttribute(m_fx, "timerControl02", 0);
+			SetAttribute(m_fx, "timerControl03", 0);
+			SetAttribute(m_fx, "timerControl04", 1);
+		}
+		else if (value == 2)
+		{
+			SetAttribute(m_fx, "timerControl01", 0);
+			SetAttribute(m_fx, "timerControl02", 0);
+			SetAttribute(m_fx, "timerControl03", 1);
+			SetAttribute(m_fx, "timerControl04", 1);
+		}
+		else if (value == 1)
+		{
+			SetAttribute(m_fx, "timerControl01", 0);
+			SetAttribute(m_fx, "timerControl02", 1);
+			SetAttribute(m_fx, "timerControl03", 1);
+			SetAttribute(m_fx, "timerControl04", 1);
+		}
+		else if (value <= 0)
+		{
+			SetAttribute(m_fx, "timerControl01", 1);
+			SetAttribute(m_fx, "timerControl02", 1);
+			SetAttribute(m_fx, "timerControl03", 1);
+			SetAttribute(m_fx, "timerControl04", 1);
+		}
 	}
 
 	private void SpawnFX()
 	{
-		if ((bool)m_fxPrefab)
+		if (m_fxPrefab != null)
 		{
 			Vector3 fxSpawnPosition = m_fxSpawnPosition;
 			if (m_useGroundHeight)
@@ -304,16 +199,13 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				fxSpawnPosition.y = Board.Get().BaselineHeight;
 			}
 			fxSpawnPosition.y += m_yOffset;
-			Quaternion targetRotation = base.TargetRotation;
+			Quaternion targetRotation = TargetRotation;
 			m_fx = InstantiateFX(m_fxPrefab, fxSpawnPosition, targetRotation);
 			SetTimerController(m_initialTimerControllerValue);
 			m_fxFoFSelectComp = m_fx.GetComponent<FriendlyEnemyVFXSelector>();
-			if (m_fxFoFSelectComp != null)
+			if (m_fxFoFSelectComp != null && Caster != null)
 			{
-				if (base.Caster != null)
-				{
-					m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
-				}
+				m_fxFoFSelectComp.Setup(Caster.GetTeam());
 			}
 			if (!m_sequenceHitCalled && m_callOnHitForGameplay)
 			{
@@ -323,19 +215,15 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				}
 				else if (m_hitDelayTime <= 0f)
 				{
-					CallHitSequenceOnTargets(base.TargetPos);
+					CallHitSequenceOnTargets(TargetPos);
 					m_sequenceHitCalled = true;
 				}
 			}
 			if (m_fx != null && m_fxAttributes != null)
 			{
-				using (Dictionary<string, float>.Enumerator enumerator = m_fxAttributes.GetEnumerator())
+				foreach (KeyValuePair<string, float> fxAttribute in m_fxAttributes)
 				{
-					while (enumerator.MoveNext())
-					{
-						KeyValuePair<string, float> current = enumerator.Current;
-						Sequence.SetAttribute(m_fx, current.Key, current.Value);
-					}
+					SetAttribute(m_fx, fxAttribute.Key, fxAttribute.Value);
 				}
 			}
 			if (m_fx != null && m_additionalFxAtTargetPos != null)
@@ -343,22 +231,22 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 				m_additionalFxAtTargetPos.SpawnFX(m_fx.transform.position, m_fx.transform.rotation, this);
 			}
 		}
-		if (string.IsNullOrEmpty(m_audioEvent))
+		if (!string.IsNullOrEmpty(m_audioEvent))
 		{
-			return;
-		}
-		GameObject gameObject = null;
-		if (m_fx != null)
-		{
-			gameObject = m_fx;
-		}
-		else if (base.Caster != null)
-		{
-			gameObject = base.Caster.gameObject;
-		}
-		if (gameObject != null)
-		{
-			AudioManager.PostEvent(m_audioEvent, gameObject);
+			GameObject eventParentGameObject = null;
+			if (m_fx != null)
+			{
+				eventParentGameObject = m_fx;
+			}
+			else if (Caster != null)
+			{
+				eventParentGameObject = Caster.gameObject;
+			}
+
+			if (eventParentGameObject != null)
+			{
+				AudioManager.PostEvent(m_audioEvent, eventParentGameObject);
+			}
 		}
 	}
 
@@ -368,14 +256,9 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		{
 			m_fx.SetActive(false);
 		}
-		if (!m_additionalFxAtTargetPos)
-		{
-			return;
-		}
-		while (true)
+		if (m_additionalFxAtTargetPos != null)
 		{
 			m_additionalFxAtTargetPos.SetAsInactive();
-			return;
 		}
 	}
 
@@ -390,84 +273,39 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		{
 			return;
 		}
-		while (true)
+
+		if (!m_phaseTimingParameters.ShouldSequenceBeActive())
 		{
-			if (m_phaseTimingParameters.ShouldSequenceBeActive())
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						{
-							if (m_timeToSpawnVfx > 0f)
-							{
-								if (GameTime.time >= m_timeToSpawnVfx)
-								{
-									m_timeToSpawnVfx = -1f;
-									SpawnFX();
-								}
-							}
-							if (m_callOnHitForGameplay)
-							{
-								if (!m_sequenceHitCalled)
-								{
-									if (m_initialized)
-									{
-										if (m_fxPrefab == null)
-										{
-											goto IL_00f7;
-										}
-										if (m_timeToHit > 0f)
-										{
-											if (GameTime.time >= m_timeToHit)
-											{
-												goto IL_00f7;
-											}
-										}
-									}
-								}
-							}
-							goto IL_0113;
-						}
-						IL_00f7:
-						CallHitSequenceOnTargets(base.TargetPos);
-						m_sequenceHitCalled = true;
-						goto IL_0113;
-						IL_0113:
-						if (m_fx != null)
-						{
-							if (m_fxFoFSelectComp != null)
-							{
-								if (base.Caster != null)
-								{
-									m_fxFoFSelectComp.Setup(base.Caster.GetTeam());
-								}
-							}
-						}
-						ProcessSequenceVisibility();
-						if (m_additionalFxAtTargetPos != null)
-						{
-							while (true)
-							{
-								switch (4)
-								{
-								case 0:
-									break;
-								default:
-									m_additionalFxAtTargetPos.OnUpdate(LastDesiredVisible(), base.Caster);
-									return;
-								}
-							}
-						}
-						return;
-					}
-				}
-			}
 			SetSequenceVisibility(false);
 			return;
+		}
+		
+		if (m_timeToSpawnVfx > 0f && GameTime.time >= m_timeToSpawnVfx)
+		{
+			m_timeToSpawnVfx = -1f;
+			SpawnFX();
+		}
+		
+		if (m_callOnHitForGameplay
+		    && !m_sequenceHitCalled
+		    && m_initialized
+		    && (m_fxPrefab == null || (m_timeToHit > 0f && GameTime.time >= m_timeToHit)))
+		{
+			CallHitSequenceOnTargets(TargetPos);
+			m_sequenceHitCalled = true;
+		}
+
+		if (m_fx != null
+		    && m_fxFoFSelectComp != null
+		    && Caster != null)
+		{
+			m_fxFoFSelectComp.Setup(Caster.GetTeam());
+		}
+
+		ProcessSequenceVisibility();
+		if (m_additionalFxAtTargetPos != null)
+		{
+			m_additionalFxAtTargetPos.OnUpdate(LastDesiredVisible(), Caster);
 		}
 	}
 
@@ -477,45 +315,26 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		{
 			return;
 		}
-		while (true)
+		if (m_startEvent == parameter)
 		{
-			if (m_startEvent == parameter)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						SpawnFX();
-						return;
-					}
-				}
-			}
-			if (m_stopEvent == parameter)
-			{
-				StopFX();
-			}
-			return;
+			SpawnFX();
+		}
+		else if (m_stopEvent == parameter)
+		{
+			StopFX();
 		}
 	}
 
 	private void OnDisable()
 	{
-		if ((bool)m_fx)
+		if (m_fx != null)
 		{
-			Object.Destroy(m_fx.gameObject);
+			Destroy(m_fx.gameObject);
 			m_fx = null;
 		}
-		if (!(m_additionalFxAtTargetPos != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_additionalFxAtTargetPos != null)
 		{
 			m_additionalFxAtTargetPos.DestroyFX();
-			return;
 		}
 	}
 
@@ -536,8 +355,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			str += "<color=cyan>Can do Gameplay Hits</color>\n";
 			if (m_hitDelayTime > 0f)
 			{
-				string text = str;
-				str = text + "Gameplay Hit happens " + m_hitDelayTime + " second(s) after VFX start.\n\n";
+				str += "Gameplay Hit happens " + m_hitDelayTime + " second(s) after VFX start.\n\n";
 			}
 		}
 		else
@@ -553,8 +371,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		else if (m_startDelayTime > 0f)
 		{
-			string text = str;
-			str = text + "Starts " + m_startDelayTime + " second(s) after sequence spawn.";
+			str += "Starts " + m_startDelayTime + " second(s) after sequence spawn.";
 		}
 		return str;
 	}

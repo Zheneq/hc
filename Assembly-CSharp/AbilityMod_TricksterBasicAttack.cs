@@ -6,27 +6,18 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 {
 	[Header("-- Laser Targeting")]
 	public AbilityModPropertyLaserInfo m_laserInfoMod;
-
 	[Header("-- Damage and Effect")]
 	public AbilityModPropertyInt m_laserDamageAmountMod;
-
 	public AbilityModPropertyInt m_laserSubsequentDamageAmountMod;
-
 	public AbilityModPropertyInt m_extraDamageForSingleHitMod;
-
 	public AbilityModPropertyEffectInfo m_enemySingleHitHitEffectMod;
-
 	public AbilityModPropertyEffectInfo m_enemyMultiHitEffectMod;
-
 	[Header("-- Effect on Self for Multi Hit")]
 	public AbilityModPropertyEffectInfo m_selfEffectForMultiHitMod;
-
 	[Header("-- Energy Gain --")]
 	public AbilityModPropertyInt m_energyGainPerLaserHitMod;
-
 	[Header("-- For spawning spoils")]
 	public AbilityModPropertySpoilsSpawnData m_spoilSpawnInfoMod;
-
 	public AbilityModPropertyBool m_onlySpawnSpoilOnMultiHitMod;
 
 	public override Type GetTargetAbilityType()
@@ -37,137 +28,33 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TricksterBasicAttack tricksterBasicAttack = targetAbility as TricksterBasicAttack;
-		if (!(tricksterBasicAttack != null))
+		if (tricksterBasicAttack != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", tricksterBasicAttack.m_laserInfo);
-			AbilityMod.AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, tricksterBasicAttack.m_laserDamageAmount);
-			AbilityMod.AddToken(tokens, m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, tricksterBasicAttack.m_laserSubsequentDamageAmount);
-			AbilityMod.AddToken(tokens, m_extraDamageForSingleHitMod, "ExtraDamageForSingleHit", string.Empty, tricksterBasicAttack.m_extraDamageForSingleHit);
-			AbilityMod.AddToken_EffectMod(tokens, m_enemySingleHitHitEffectMod, "EnemySingleHitHitEffect", tricksterBasicAttack.m_enemySingleHitHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_enemyMultiHitEffectMod, "EnemyMultiHitEffect", tricksterBasicAttack.m_enemyMultiHitEffect);
-			AbilityMod.AddToken_EffectMod(tokens, m_selfEffectForMultiHitMod, "SelfEffectForMultiHit", tricksterBasicAttack.m_selfEffectForMultiHit);
-			AbilityMod.AddToken(tokens, m_energyGainPerLaserHitMod, "EnergyGainPerLaserHit", string.Empty, tricksterBasicAttack.m_energyGainPerLaserHit);
-			return;
+			AddToken_LaserInfo(tokens, m_laserInfoMod, "LaserInfo", tricksterBasicAttack.m_laserInfo);
+			AddToken(tokens, m_laserDamageAmountMod, "LaserDamageAmount", string.Empty, tricksterBasicAttack.m_laserDamageAmount);
+			AddToken(tokens, m_laserSubsequentDamageAmountMod, "LaserSubsequentDamageAmount", string.Empty, tricksterBasicAttack.m_laserSubsequentDamageAmount);
+			AddToken(tokens, m_extraDamageForSingleHitMod, "ExtraDamageForSingleHit", string.Empty, tricksterBasicAttack.m_extraDamageForSingleHit);
+			AddToken_EffectMod(tokens, m_enemySingleHitHitEffectMod, "EnemySingleHitHitEffect", tricksterBasicAttack.m_enemySingleHitHitEffect);
+			AddToken_EffectMod(tokens, m_enemyMultiHitEffectMod, "EnemyMultiHitEffect", tricksterBasicAttack.m_enemyMultiHitEffect);
+			AddToken_EffectMod(tokens, m_selfEffectForMultiHitMod, "SelfEffectForMultiHit", tricksterBasicAttack.m_selfEffectForMultiHit);
+			AddToken(tokens, m_energyGainPerLaserHitMod, "EnergyGainPerLaserHit", string.Empty, tricksterBasicAttack.m_energyGainPerLaserHit);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		TricksterBasicAttack tricksterBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as TricksterBasicAttack;
-		bool flag = tricksterBasicAttack != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyLaserInfo laserInfoMod = m_laserInfoMod;
-		object baseLaserInfo;
-		if (flag)
-		{
-			baseLaserInfo = tricksterBasicAttack.m_laserInfo;
-		}
-		else
-		{
-			baseLaserInfo = null;
-		}
-		empty = str + PropDesc(laserInfoMod, "[LaserInfo]", flag, (LaserTargetingInfo)baseLaserInfo);
-		string str2 = empty;
-		AbilityModPropertyInt laserDamageAmountMod = m_laserDamageAmountMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = tricksterBasicAttack.m_laserDamageAmount;
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		empty = str2 + PropDesc(laserDamageAmountMod, "[LaserDamageAmount]", flag, baseVal);
-		string str3 = empty;
-		AbilityModPropertyInt laserSubsequentDamageAmountMod = m_laserSubsequentDamageAmountMod;
-		int baseVal2;
-		if (flag)
-		{
-			baseVal2 = tricksterBasicAttack.m_laserSubsequentDamageAmount;
-		}
-		else
-		{
-			baseVal2 = 0;
-		}
-		empty = str3 + PropDesc(laserSubsequentDamageAmountMod, "[LaserSubsequentDamageAmount]", flag, baseVal2);
-		string str4 = empty;
-		AbilityModPropertyInt extraDamageForSingleHitMod = m_extraDamageForSingleHitMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = tricksterBasicAttack.m_extraDamageForSingleHit;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str4 + PropDesc(extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", flag, baseVal3);
-		string str5 = empty;
-		AbilityModPropertyEffectInfo enemySingleHitHitEffectMod = m_enemySingleHitHitEffectMod;
-		object baseVal4;
-		if (flag)
-		{
-			baseVal4 = tricksterBasicAttack.m_enemySingleHitHitEffect;
-		}
-		else
-		{
-			baseVal4 = null;
-		}
-		empty = str5 + PropDesc(enemySingleHitHitEffectMod, "[EnemySingleHitHitEffect]", flag, (StandardEffectInfo)baseVal4);
-		string str6 = empty;
-		AbilityModPropertyEffectInfo enemyMultiHitEffectMod = m_enemyMultiHitEffectMod;
-		object baseVal5;
-		if (flag)
-		{
-			baseVal5 = tricksterBasicAttack.m_enemyMultiHitEffect;
-		}
-		else
-		{
-			baseVal5 = null;
-		}
-		empty = str6 + PropDesc(enemyMultiHitEffectMod, "[EnemyMultiHitEffect]", flag, (StandardEffectInfo)baseVal5);
-		string str7 = empty;
-		AbilityModPropertyEffectInfo selfEffectForMultiHitMod = m_selfEffectForMultiHitMod;
-		object baseVal6;
-		if (flag)
-		{
-			baseVal6 = tricksterBasicAttack.m_selfEffectForMultiHit;
-		}
-		else
-		{
-			baseVal6 = null;
-		}
-		empty = str7 + PropDesc(selfEffectForMultiHitMod, "[SelfEffectForMultiHit]", flag, (StandardEffectInfo)baseVal6);
-		string str8 = empty;
-		AbilityModPropertyInt energyGainPerLaserHitMod = m_energyGainPerLaserHitMod;
-		int baseVal7;
-		if (flag)
-		{
-			baseVal7 = tricksterBasicAttack.m_energyGainPerLaserHit;
-		}
-		else
-		{
-			baseVal7 = 0;
-		}
-		empty = str8 + PropDesc(energyGainPerLaserHitMod, "[EnergyGainPerLaserHit]", flag, baseVal7);
-		string str9 = empty;
-		AbilityModPropertySpoilsSpawnData spoilSpawnInfoMod = m_spoilSpawnInfoMod;
-		object baseVal8;
-		if (flag)
-		{
-			baseVal8 = tricksterBasicAttack.m_spoilSpawnInfo;
-		}
-		else
-		{
-			baseVal8 = null;
-		}
-		empty = str9 + PropDesc(spoilSpawnInfoMod, "[SpoilSpawnInfo]", flag, (SpoilsSpawnData)baseVal8);
-		return empty + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", flag, flag && tricksterBasicAttack.m_onlySpawnSpoilOnMultiHit);
+		bool isValid = tricksterBasicAttack != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_laserInfoMod, "[LaserInfo]", isValid, isValid ? tricksterBasicAttack.m_laserInfo : null);
+		desc += PropDesc(m_laserDamageAmountMod, "[LaserDamageAmount]", isValid, isValid ? tricksterBasicAttack.m_laserDamageAmount : 0);
+		desc += PropDesc(m_laserSubsequentDamageAmountMod, "[LaserSubsequentDamageAmount]", isValid, isValid ? tricksterBasicAttack.m_laserSubsequentDamageAmount : 0);
+		desc += PropDesc(m_extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", isValid, isValid ? tricksterBasicAttack.m_extraDamageForSingleHit : 0);
+		desc += PropDesc(m_enemySingleHitHitEffectMod, "[EnemySingleHitHitEffect]", isValid, isValid ? tricksterBasicAttack.m_enemySingleHitHitEffect : null);
+		desc += PropDesc(m_enemyMultiHitEffectMod, "[EnemyMultiHitEffect]", isValid, isValid ? tricksterBasicAttack.m_enemyMultiHitEffect : null);
+		desc += PropDesc(m_selfEffectForMultiHitMod, "[SelfEffectForMultiHit]", isValid, isValid ? tricksterBasicAttack.m_selfEffectForMultiHit : null);
+		desc += PropDesc(m_energyGainPerLaserHitMod, "[EnergyGainPerLaserHit]", isValid, isValid ? tricksterBasicAttack.m_energyGainPerLaserHit : 0);
+		desc += PropDesc(m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", isValid, isValid ? tricksterBasicAttack.m_spoilSpawnInfo : null);
+		return desc + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterBasicAttack.m_onlySpawnSpoilOnMultiHit);
 	}
 }

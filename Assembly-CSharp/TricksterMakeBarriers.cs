@@ -1,24 +1,19 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterMakeBarriers : Ability
 {
 	[Header("-- Barrier Info")]
 	public bool m_linkBarriers = true;
-
 	public StandardBarrierData m_barrierData;
-
 	[Header("-- Spoils Spawn on Ally Moved Through")]
 	public SpoilsSpawnData m_spoilsSpawnOnEnemyMovedThrough;
-
 	[Header("-- Spoils Spawn on Enemy Moved Through")]
 	public SpoilsSpawnData m_spoilsSpawnOnAllyMovedThrough;
-
 	[Header("-- Sequences -----------------------------")]
 	public GameObject m_castSequencePrefab;
 
 	private TricksterAfterImageNetworkBehaviour m_afterImageSyncComp;
-
 	private TricksterMakeBarriers_Damage m_chainAbility;
 
 	private void Start()
@@ -33,12 +28,18 @@ public class TricksterMakeBarriers : Ability
 		if (chainAbilities.Length > 0)
 		{
 			Ability ability = chainAbilities[0];
-			if (ability != null && ability is TricksterMakeBarriers_Damage)
+			if (ability != null && ability is TricksterMakeBarriers_Damage tricksterMakeBarriersDamage)
 			{
-				m_chainAbility = (ability as TricksterMakeBarriers_Damage);
+				m_chainAbility = tricksterMakeBarriersDamage;
 			}
 		}
-		base.Targeter = new AbilityUtil_Targeter_TricksterBarriers(this, m_afterImageSyncComp, GetRangeFromLine(), GetLineEndOffset(), GetRadiusAroundOrigin(), GetCapsulePenetrateLos());
+		Targeter = new AbilityUtil_Targeter_TricksterBarriers(
+			this,
+			m_afterImageSyncComp,
+			GetRangeFromLine(),
+			GetLineEndOffset(),
+			GetRadiusAroundOrigin(),
+			GetCapsulePenetrateLos());
 		ResetTooltipAndTargetingNumbers();
 	}
 
@@ -55,55 +56,33 @@ public class TricksterMakeBarriers : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
-		return validAfterImages.Count > 0;
+		return m_afterImageSyncComp.GetValidAfterImages().Count > 0;
 	}
 
 	public float GetRangeFromLine()
 	{
-		float result;
-		if (m_chainAbility == null)
-		{
-			result = 0f;
-		}
-		else
-		{
-			result = m_chainAbility.m_rangeFromLine;
-		}
-		return result;
+		return m_chainAbility != null
+			? m_chainAbility.m_rangeFromLine
+			: 0f;
 	}
 
 	public float GetLineEndOffset()
 	{
-		return (!(m_chainAbility == null)) ? m_chainAbility.m_lineEndOffset : 0f;
+		return m_chainAbility != null
+			? m_chainAbility.m_lineEndOffset
+			: 0f;
 	}
 
 	public float GetRadiusAroundOrigin()
 	{
-		float result;
-		if (m_chainAbility == null)
-		{
-			result = 0f;
-		}
-		else
-		{
-			result = m_chainAbility.m_radiusAroundOrigin;
-		}
-		return result;
+		return m_chainAbility != null
+			? m_chainAbility.m_radiusAroundOrigin
+			: 0f;
 	}
 
 	public bool GetCapsulePenetrateLos()
 	{
-		int result;
-		if (m_chainAbility == null)
-		{
-			result = 0;
-		}
-		else
-		{
-			result = (m_chainAbility.m_capsulePenetrateLos ? 1 : 0);
-		}
-		return (byte)result != 0;
+		return m_chainAbility != null && m_chainAbility.m_capsulePenetrateLos;
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
@@ -116,40 +95,19 @@ public class TricksterMakeBarriers : Ability
 			modelAnimator.SetBool("CinematicCam", cinecam);
 			modelAnimator.SetTrigger("StartAttack");
 		}
-		while (true)
-		{
-			return;
-		}
 	}
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
-		using (List<ActorData>.Enumerator enumerator = validAfterImages.GetEnumerator())
+		foreach (ActorData afterImage in m_afterImageSyncComp.GetValidAfterImages())
 		{
-			while (enumerator.MoveNext())
+			if (afterImage == null || afterImage.IsDead())
 			{
-				ActorData current = enumerator.Current;
-				if (current != null)
-				{
-					if (!current.IsDead())
-					{
-						Animator modelAnimator = current.GetModelAnimator();
-						modelAnimator.SetInteger("Attack", 0);
-						modelAnimator.SetBool("CinematicCam", false);
-					}
-				}
+				continue;
 			}
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
+			Animator modelAnimator = afterImage.GetModelAnimator();
+			modelAnimator.SetInteger("Attack", 0);
+			modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
 }
