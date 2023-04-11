@@ -6,25 +6,17 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 {
 	[Header("-- Targeting --")]
 	public AbilityModPropertyBool m_addFieldAroundSelfMod;
-
 	public AbilityModPropertyBool m_useInitialShapeOverrideMod;
-
 	public AbilityModPropertyShape m_initialShapeOverrideMod;
-
 	[Header("-- Ground Field Info --")]
 	public AbilityModPropertyGroundEffectField m_groundFieldInfoMod;
-
 	[Header("-- Self Effect for Multi Hit")]
 	public AbilityModPropertyEffectInfo m_selfEffectForMultiHitMod;
-
 	[Header("-- Extra Enemy Hit Effect On Cast")]
 	public AbilityModPropertyEffectInfo m_extraEnemyEffectOnCastMod;
-
 	[Header("-- Spoil spawn info")]
 	public AbilityModPropertyBool m_spawnSpoilForEnemyHitMod;
-
 	public AbilityModPropertyBool m_spawnSpoilForAllyHitMod;
-
 	public AbilityModPropertyBool m_onlySpawnSpoilOnMultiHitMod;
 
 	public override Type GetTargetAbilityType()
@@ -35,110 +27,32 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TricksterCreateDamageFields tricksterCreateDamageFields = targetAbility as TricksterCreateDamageFields;
-		if (!(tricksterCreateDamageFields != null))
+		if (tricksterCreateDamageFields != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken_GroundFieldMod(tokens, m_groundFieldInfoMod, "GroundFieldInfo", tricksterCreateDamageFields.m_groundFieldInfo);
-			AbilityMod.AddToken_EffectMod(tokens, m_selfEffectForMultiHitMod, "SelfEffectForMultiHit", tricksterCreateDamageFields.m_selfEffectForMultiHit);
-			AbilityMod.AddToken_EffectMod(tokens, m_extraEnemyEffectOnCastMod, "ExtraEnemyEffectOnCast", tricksterCreateDamageFields.m_extraEnemyEffectOnCast);
-			return;
+			AddToken_GroundFieldMod(tokens, m_groundFieldInfoMod, "GroundFieldInfo", tricksterCreateDamageFields.m_groundFieldInfo);
+			AddToken_EffectMod(tokens, m_selfEffectForMultiHitMod, "SelfEffectForMultiHit", tricksterCreateDamageFields.m_selfEffectForMultiHit);
+			AddToken_EffectMod(tokens, m_extraEnemyEffectOnCastMod, "ExtraEnemyEffectOnCast", tricksterCreateDamageFields.m_extraEnemyEffectOnCast);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		TricksterCreateDamageFields tricksterCreateDamageFields = GetTargetAbilityOnAbilityData(abilityData) as TricksterCreateDamageFields;
-		bool flag = tricksterCreateDamageFields != null;
-		string empty = string.Empty;
-		empty += PropDesc(m_addFieldAroundSelfMod, "[AddFieldAroundSelf]", flag, flag && tricksterCreateDamageFields.m_addFieldAroundSelf);
-		int num;
-		if (m_useInitialShapeOverrideMod != null)
+		bool isValid = tricksterCreateDamageFields != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_addFieldAroundSelfMod, "[AddFieldAroundSelf]", isValid, isValid && tricksterCreateDamageFields.m_addFieldAroundSelf);
+		bool useInitialShapeOverride = m_useInitialShapeOverrideMod != null
+		             && m_useInitialShapeOverrideMod.GetModifiedValue(isValid && tricksterCreateDamageFields.m_useInitialShapeOverride);
+		desc += PropDesc(m_useInitialShapeOverrideMod, "[UseInitialShapeOverride]", isValid, isValid && tricksterCreateDamageFields.m_useInitialShapeOverride);
+		if (useInitialShapeOverride)
 		{
-			AbilityModPropertyBool useInitialShapeOverrideMod = m_useInitialShapeOverrideMod;
-			int input;
-			if (flag)
-			{
-				input = (tricksterCreateDamageFields.m_useInitialShapeOverride ? 1 : 0);
-			}
-			else
-			{
-				input = 0;
-			}
-			num = (useInitialShapeOverrideMod.GetModifiedValue((byte)input != 0) ? 1 : 0);
+			desc += PropDesc(m_initialShapeOverrideMod, "[InitialShapeOverride]", isValid, isValid ? tricksterCreateDamageFields.m_initialShapeOverride : AbilityAreaShape.SingleSquare);
 		}
-		else
-		{
-			num = 0;
-		}
-		bool flag2 = (byte)num != 0;
-		empty += PropDesc(m_useInitialShapeOverrideMod, "[UseInitialShapeOverride]", flag, flag && tricksterCreateDamageFields.m_useInitialShapeOverride);
-		if (flag2)
-		{
-			string str = empty;
-			AbilityModPropertyShape initialShapeOverrideMod = m_initialShapeOverrideMod;
-			int baseVal;
-			if (flag)
-			{
-				baseVal = (int)tricksterCreateDamageFields.m_initialShapeOverride;
-			}
-			else
-			{
-				baseVal = 0;
-			}
-			empty = str + PropDesc(initialShapeOverrideMod, "[InitialShapeOverride]", flag, (AbilityAreaShape)baseVal);
-		}
-		empty += PropDescGroundFieldMod(m_groundFieldInfoMod, "{ GroundFieldInfo }", tricksterCreateDamageFields.m_groundFieldInfo);
-		string str2 = empty;
-		AbilityModPropertyEffectInfo selfEffectForMultiHitMod = m_selfEffectForMultiHitMod;
-		object baseVal2;
-		if (flag)
-		{
-			baseVal2 = tricksterCreateDamageFields.m_selfEffectForMultiHit;
-		}
-		else
-		{
-			baseVal2 = null;
-		}
-		empty = str2 + PropDesc(selfEffectForMultiHitMod, "[SelfEffectForMultiHit]", flag, (StandardEffectInfo)baseVal2);
-		string str3 = empty;
-		AbilityModPropertyEffectInfo extraEnemyEffectOnCastMod = m_extraEnemyEffectOnCastMod;
-		object baseVal3;
-		if (flag)
-		{
-			baseVal3 = tricksterCreateDamageFields.m_extraEnemyEffectOnCast;
-		}
-		else
-		{
-			baseVal3 = null;
-		}
-		empty = str3 + PropDesc(extraEnemyEffectOnCastMod, "[ExtraEnemyEffectOnCast]", flag, (StandardEffectInfo)baseVal3);
-		string str4 = empty;
-		AbilityModPropertyBool spawnSpoilForEnemyHitMod = m_spawnSpoilForEnemyHitMod;
-		int baseVal4;
-		if (flag)
-		{
-			baseVal4 = (tricksterCreateDamageFields.m_spawnSpoilForEnemyHit ? 1 : 0);
-		}
-		else
-		{
-			baseVal4 = 0;
-		}
-		empty = str4 + PropDesc(spawnSpoilForEnemyHitMod, "[SpawnSpoilForEnemyHit]", flag, (byte)baseVal4 != 0);
-		string str5 = empty;
-		AbilityModPropertyBool spawnSpoilForAllyHitMod = m_spawnSpoilForAllyHitMod;
-		int baseVal5;
-		if (flag)
-		{
-			baseVal5 = (tricksterCreateDamageFields.m_spawnSpoilForAllyHit ? 1 : 0);
-		}
-		else
-		{
-			baseVal5 = 0;
-		}
-		empty = str5 + PropDesc(spawnSpoilForAllyHitMod, "[SpawnSpoilForAllyHit]", flag, (byte)baseVal5 != 0);
-		return empty + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", flag, flag && tricksterCreateDamageFields.m_onlySpawnSpoilOnMultiHit);
+		desc += PropDescGroundFieldMod(m_groundFieldInfoMod, "{ GroundFieldInfo }", tricksterCreateDamageFields.m_groundFieldInfo);
+		desc += PropDesc(m_selfEffectForMultiHitMod, "[SelfEffectForMultiHit]", isValid, isValid ? tricksterCreateDamageFields.m_selfEffectForMultiHit : null);
+		desc += PropDesc(m_extraEnemyEffectOnCastMod, "[ExtraEnemyEffectOnCast]", isValid, isValid ? tricksterCreateDamageFields.m_extraEnemyEffectOnCast : null);
+		desc += PropDesc(m_spawnSpoilForEnemyHitMod, "[SpawnSpoilForEnemyHit]", isValid, isValid && tricksterCreateDamageFields.m_spawnSpoilForEnemyHit);
+		desc += PropDesc(m_spawnSpoilForAllyHitMod, "[SpawnSpoilForAllyHit]", isValid, isValid && tricksterCreateDamageFields.m_spawnSpoilForAllyHit);
+		return desc + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterCreateDamageFields.m_onlySpawnSpoilOnMultiHit);
 	}
 }

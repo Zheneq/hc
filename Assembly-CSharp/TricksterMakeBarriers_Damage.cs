@@ -1,22 +1,16 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class TricksterMakeBarriers_Damage : Ability
 {
 	[Header("-- Capsule AOE")]
 	public float m_rangeFromLine = 1f;
-
 	public float m_lineEndOffset;
-
 	public float m_radiusAroundOrigin = 1f;
-
 	public bool m_capsulePenetrateLos;
-
 	[Header("-- Enemy Hit Damage and Effect")]
 	public int m_damageAmount = 5;
-
 	public StandardEffectInfo m_enemyOnHitEffect;
-
 	[Header("-- Sequences -----------------------------")]
 	public GameObject m_castSequencePrefab;
 
@@ -30,7 +24,14 @@ public class TricksterMakeBarriers_Damage : Ability
 		}
 		m_sequencePrefab = m_castSequencePrefab;
 		m_afterImageSyncComp = GetComponent<TricksterAfterImageNetworkBehaviour>();
-		base.Targeter = new AbilityUtil_Targeter_TricksterBarriers(this, m_afterImageSyncComp, GetRangeFromLine(), GetLineEndOffset(), GetRadiusAroundOrigin(), GetPenetrateLos(), false);
+		Targeter = new AbilityUtil_Targeter_TricksterBarriers(
+			this,
+			m_afterImageSyncComp,
+			GetRangeFromLine(),
+			GetLineEndOffset(),
+			GetRadiusAroundOrigin(),
+			GetPenetrateLos(),
+			false);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -43,8 +44,7 @@ public class TricksterMakeBarriers_Damage : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
-		return validAfterImages.Count > 0;
+		return m_afterImageSyncComp.GetValidAfterImages().Count > 0;
 	}
 
 	public override void OnAbilityAnimationRequest(ActorData caster, int animationIndex, bool cinecam, Vector3 targetPos)
@@ -61,15 +61,15 @@ public class TricksterMakeBarriers_Damage : Ability
 
 	public override void OnAbilityAnimationRequestProcessed(ActorData caster)
 	{
-		List<ActorData> validAfterImages = m_afterImageSyncComp.GetValidAfterImages();
-		foreach (ActorData item in validAfterImages)
+		foreach (ActorData afterImage in m_afterImageSyncComp.GetValidAfterImages())
 		{
-			if (item != null && !item.IsDead())
+			if (afterImage == null || afterImage.IsDead())
 			{
-				Animator modelAnimator = item.GetModelAnimator();
-				modelAnimator.SetInteger("Attack", 0);
-				modelAnimator.SetBool("CinematicCam", false);
+				continue;
 			}
+			Animator modelAnimator = afterImage.GetModelAnimator();
+			modelAnimator.SetInteger("Attack", 0);
+			modelAnimator.SetBool("CinematicCam", false);
 		}
 	}
 
