@@ -5,32 +5,21 @@ public class ValkyriePullToLaserCenter : Ability
 {
 	[Header("-- Targeting")]
 	public float m_laserWidth = 5f;
-
 	public float m_laserRangeInSquares = 6.5f;
-
 	public int m_maxTargets = 5;
-
 	public bool m_lengthIgnoreLos = true;
-
 	[Header("-- Damage & effects")]
 	public int m_damage = 40;
-
 	public StandardEffectInfo m_effectToEnemies;
-
 	public int m_extraDamageForCenterHits;
-
 	public float m_centerHitWidth = 0.1f;
-
 	[Header("-- Knockback on Cast")]
 	public float m_maxKnockbackDist = 3f;
-
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularPullToAimDir;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private AbilityMod_ValkyriePullToLaserCenter m_abilityMod;
-
 	private StandardEffectInfo m_cachedEffectToEnemies;
 
 	private void Start()
@@ -45,9 +34,19 @@ public class ValkyriePullToLaserCenter : Ability
 	private void Setup()
 	{
 		SetCachedFields();
-		AbilityUtil_Targeter_KnockbackLaser abilityUtil_Targeter_KnockbackLaser = new AbilityUtil_Targeter_KnockbackLaser(this, GetLaserWidth(), GetLaserRangeInSquares(), false, m_maxTargets, GetMaxKnockbackDist(), GetMaxKnockbackDist(), m_knockbackType, false);
-		abilityUtil_Targeter_KnockbackLaser.LengthIgnoreWorldGeo = m_lengthIgnoreLos;
-		base.Targeter = abilityUtil_Targeter_KnockbackLaser;
+		Targeter = new AbilityUtil_Targeter_KnockbackLaser(
+			this,
+			GetLaserWidth(),
+			GetLaserRangeInSquares(),
+			false,
+			m_maxTargets,
+			GetMaxKnockbackDist(),
+			GetMaxKnockbackDist(),
+			m_knockbackType,
+			false)
+		{
+			LengthIgnoreWorldGeo = m_lengthIgnoreLos
+		};
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -62,16 +61,9 @@ public class ValkyriePullToLaserCenter : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEffectToEnemies;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectToEnemies = m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies);
-		}
-		else
-		{
-			cachedEffectToEnemies = m_effectToEnemies;
-		}
-		m_cachedEffectToEnemies = cachedEffectToEnemies;
+		m_cachedEffectToEnemies = m_abilityMod != null
+			? m_abilityMod.m_effectToEnemiesMod.GetModifiedValue(m_effectToEnemies)
+			: m_effectToEnemies;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -92,216 +84,127 @@ public class ValkyriePullToLaserCenter : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int num = GetDamage();
+		int damage = GetDamage();
 		int extraDamageIfKnockedInPlace = GetExtraDamageIfKnockedInPlace();
 		if (extraDamageIfKnockedInPlace != 0 && !targetActor.GetActorStatus().IsMovementDebuffImmune())
 		{
-			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
-			using (List<AbilityUtil_Targeter.ActorTarget>.Enumerator enumerator = actorsInRange.GetEnumerator())
+			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeter.GetActorsInRange();
+			foreach (AbilityUtil_Targeter.ActorTarget target in actorsInRange)
 			{
-				while (true)
+				if (target.m_actor != targetActor)
 				{
-					if (!enumerator.MoveNext())
-					{
-						break;
-					}
-					AbilityUtil_Targeter.ActorTarget current = enumerator.Current;
-					if (current.m_actor == targetActor)
-					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								if (current.m_subjectTypes.Contains(AbilityTooltipSubject.HighHP))
-								{
-									while (true)
-									{
-										switch (4)
-										{
-										case 0:
-											break;
-										default:
-											num += extraDamageIfKnockedInPlace;
-											goto end_IL_0049;
-										}
-									}
-								}
-								goto end_IL_0049;
-							}
-						}
-					}
+					continue;
 				}
-				end_IL_0049:;
+				if (target.m_subjectTypes.Contains(AbilityTooltipSubject.HighHP))
+				{
+					damage += extraDamageIfKnockedInPlace;
+				}
+				break;
 			}
 		}
 		int extraDamageForCenterHits = GetExtraDamageForCenterHits();
-		if (extraDamageForCenterHits > 0 && base.Targeter is AbilityUtil_Targeter_KnockbackLaser)
+		if (extraDamageForCenterHits > 0 && Targeter is AbilityUtil_Targeter_KnockbackLaser targeter)
 		{
-			AbilityUtil_Targeter_KnockbackLaser abilityUtil_Targeter_KnockbackLaser = base.Targeter as AbilityUtil_Targeter_KnockbackLaser;
-			if (AreaEffectUtils.IsSquareInBoxByActorRadius(targetActor.GetCurrentBoardSquare(), base.ActorData.GetLoSCheckPos(), abilityUtil_Targeter_KnockbackLaser.GetLastLaserEndPos(), GetCenterHitWidth()))
+			if (AreaEffectUtils.IsSquareInBoxByActorRadius(
+				    targetActor.GetCurrentBoardSquare(),
+				    ActorData.GetLoSCheckPos(),
+				    targeter.GetLastLaserEndPos(),
+				    GetCenterHitWidth()))
 			{
-				num += extraDamageForCenterHits;
+				damage += extraDamageForCenterHits;
 			}
 		}
-		dictionary[AbilityTooltipSymbol.Damage] = num;
+		dictionary[AbilityTooltipSymbol.Damage] = damage;
 		return dictionary;
 	}
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
-		}
-		else
-		{
-			result = m_laserWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public float GetLaserRangeInSquares()
 	{
-		return (!m_abilityMod) ? m_laserRangeInSquares : m_abilityMod.m_laserRangeInSquaresMod.GetModifiedValue(m_laserRangeInSquares);
+		return m_abilityMod != null
+			? m_abilityMod.m_laserRangeInSquaresMod.GetModifiedValue(m_laserRangeInSquares)
+			: m_laserRangeInSquares;
 	}
 
 	public int GetMaxTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			result = m_maxTargets;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public bool LengthIgnoreLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_lengthIgnoreLosMod.GetModifiedValue(m_lengthIgnoreLos);
-		}
-		else
-		{
-			result = m_lengthIgnoreLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_lengthIgnoreLosMod.GetModifiedValue(m_lengthIgnoreLos)
+			: m_lengthIgnoreLos;
 	}
 
 	public int GetDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
-		}
-		else
-		{
-			result = m_damage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
 	public int GetExtraDamageIfKnockedInPlace()
 	{
-		return m_abilityMod ? m_abilityMod.m_extraDamageIfKnockedInPlaceMod.GetModifiedValue(0) : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageIfKnockedInPlaceMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public StandardEffectInfo GetEffectToEnemies()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectToEnemies != null)
-		{
-			result = m_cachedEffectToEnemies;
-		}
-		else
-		{
-			result = m_effectToEnemies;
-		}
-		return result;
+		return m_cachedEffectToEnemies ?? m_effectToEnemies;
 	}
 
 	public int GetExtraDamageForCenterHits()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_extraDamageForCenterHitsMod.GetModifiedValue(m_extraDamageForCenterHits);
-		}
-		else
-		{
-			result = m_extraDamageForCenterHits;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForCenterHitsMod.GetModifiedValue(m_extraDamageForCenterHits)
+			: m_extraDamageForCenterHits;
 	}
 
 	public float GetCenterHitWidth()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_centerHitWidthMod.GetModifiedValue(m_centerHitWidth);
-		}
-		else
-		{
-			result = m_centerHitWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_centerHitWidthMod.GetModifiedValue(m_centerHitWidth)
+			: m_centerHitWidth;
 	}
 
 	public float GetMaxKnockbackDist()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist);
-		}
-		else
-		{
-			result = m_maxKnockbackDist;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist)
+			: m_maxKnockbackDist;
 	}
 
 	public KnockbackType GetKnockbackType()
 	{
-		return (!m_abilityMod) ? m_knockbackType : m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType)
+			: m_knockbackType;
 	}
 
 	public bool ShouldSkipDamageReductionOnNextTurnStab()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = (m_abilityMod.m_nextTurnStabSkipsDamageReduction.GetModifiedValue(false) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null
+		       && m_abilityMod.m_nextTurnStabSkipsDamageReduction.GetModifiedValue(false);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ValkyriePullToLaserCenter))
+		if (abilityMod.GetType() == typeof(AbilityMod_ValkyriePullToLaserCenter))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ValkyriePullToLaserCenter);
+			m_abilityMod = abilityMod as AbilityMod_ValkyriePullToLaserCenter;
 			Setup();
-			return;
 		}
 	}
 

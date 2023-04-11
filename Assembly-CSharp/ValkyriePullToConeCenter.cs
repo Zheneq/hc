@@ -5,23 +5,15 @@ public class ValkyriePullToConeCenter : Ability
 {
 	[Header("-- Targeting")]
 	public float m_coneAngleWidth = 60f;
-
 	public float m_coneLengthInSquares = 5.5f;
-
 	public float m_coneBackwardOffset;
-
 	public bool m_penetratesLoS;
-
 	[Header("-- Damage & effects")]
 	public int m_damage = 40;
-
 	public StandardEffectInfo m_effectToEnemies;
-
 	[Header("-- Knockback on Cast")]
 	public float m_maxKnockbackDist = 3f;
-
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularPullToAimDir;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -36,9 +28,17 @@ public class ValkyriePullToConeCenter : Ability
 
 	private void Setup()
 	{
-		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetConeLength(), GetConeLength(), GetConeWidth(), GetConeWidth(), AreaEffectUtils.StretchConeStyle.Linear, m_coneBackwardOffset, GetPenetrateLoS());
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, 0f, m_knockbackType);
-		base.Targeter = abilityUtil_Targeter_StretchCone;
+		AbilityUtil_Targeter_StretchCone targeter = new AbilityUtil_Targeter_StretchCone(
+			this,
+			GetConeLength(),
+			GetConeLength(),
+			GetConeWidth(),
+			GetConeWidth(),
+			AreaEffectUtils.StretchConeStyle.Linear,
+			m_coneBackwardOffset,
+			GetPenetrateLoS());
+		targeter.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, 0f, m_knockbackType);
+		Targeter = targeter;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()

@@ -6,30 +6,20 @@ public class ValkyrieThrowShield : Ability
 {
 	[Header("-- Targeting")]
 	public float m_width = 1f;
-
 	public float m_maxDistancePerBounce = 15f;
-
 	public float m_maxTotalDistance = 50f;
-
 	public int m_maxBounces = 1;
-
 	public int m_maxTargetsHit = 1;
-
 	[Header("-- Damage")]
 	public int m_damageAmount = 20;
-
 	public int m_bonusDamagePerBounce;
-
 	[Header("-- Knockback")]
 	public float m_knockbackDistance;
-
 	public KnockbackType m_knockbackType;
-
 	[Header("-- Sequences")]
 	public GameObject m_projectileSequence;
 
 	private Valkyrie_SyncComponent m_syncComp;
-
 	private AbilityMod_ValkyrieThrowShield m_abilityMod;
 
 	private void Start()
@@ -54,209 +44,122 @@ public class ValkyrieThrowShield : Ability
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_widthMod.GetModifiedValue(m_width);
-		}
-		else
-		{
-			result = m_width;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_widthMod.GetModifiedValue(m_width)
+			: m_width;
 	}
 
 	public float GetMaxDistancePerBounce()
 	{
-		return (!m_abilityMod) ? m_maxDistancePerBounce : m_abilityMod.m_maxDistancePerBounceMod.GetModifiedValue(m_maxDistancePerBounce);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxDistancePerBounceMod.GetModifiedValue(m_maxDistancePerBounce)
+			: m_maxDistancePerBounce;
 	}
 
 	public float GetMaxTotalDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(m_maxTotalDistance);
-		}
-		else
-		{
-			result = m_maxTotalDistance;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTotalDistanceMod.GetModifiedValue(m_maxTotalDistance)
+			: m_maxTotalDistance;
 	}
 
 	public int GetMaxBounces()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces);
-		}
-		else
-		{
-			result = m_maxBounces;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxBouncesMod.GetModifiedValue(m_maxBounces)
+			: m_maxBounces;
 	}
 
 	public int GetMaxTargetsHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTargetsHitMod.GetModifiedValue(m_maxTargetsHit);
-		}
-		else
-		{
-			result = m_maxTargetsHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsHitMod.GetModifiedValue(m_maxTargetsHit)
+			: m_maxTargetsHit;
 	}
 
 	public bool BounceOnHitActor()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = (m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_abilityMod != null
+		       && m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false);
 	}
 
 	public int GetBaseDamage()
 	{
-		return (!m_abilityMod) ? m_damageAmount : m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public int GetBonusDamagePerBounce()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_bonusDamagePerBounceMod.GetModifiedValue(m_bonusDamagePerBounce);
-		}
-		else
-		{
-			result = m_bonusDamagePerBounce;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_bonusDamagePerBounceMod.GetModifiedValue(m_bonusDamagePerBounce)
+			: m_bonusDamagePerBounce;
 	}
 
 	public int GetLessDamagePerTarget()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public float GetKnockbackDistance()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance);
-		}
-		else
-		{
-			result = m_knockbackDistance;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackDistanceMod.GetModifiedValue(m_knockbackDistance)
+			: m_knockbackDistance;
 	}
 
 	public float GetBonusKnockbackPerBounce()
 	{
-		return (!m_abilityMod) ? 0f : m_abilityMod.m_bonusKnockbackDistancePerBounceMod.GetModifiedValue(0f);
+		return m_abilityMod != null
+			? m_abilityMod.m_bonusKnockbackDistancePerBounceMod.GetModifiedValue(0f)
+			: 0f;
 	}
 
 	public KnockbackType GetKnockbackType()
 	{
-		KnockbackType result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType);
-		}
-		else
-		{
-			result = m_knockbackType;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_knockbackTypeMod.GetModifiedValue(m_knockbackType)
+			: m_knockbackType;
 	}
 
 	public int GetMaxKnockbackTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxKnockbackTargetsMod.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxKnockbackTargetsMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionOnLaserHitCaster()
 	{
-		return (!m_abilityMod) ? null : m_abilityMod.m_cooldownReductionOnLaserHitCaster;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownReductionOnLaserHitCaster
+			: null;
 	}
 
 	public int GetExtraDamage()
 	{
-		if (m_syncComp != null)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return m_syncComp.m_extraDamageNextShieldThrow;
-				}
-			}
-		}
-		return 0;
+		return m_syncComp != null
+			? m_syncComp.m_extraDamageNextShieldThrow
+			: 0;
 	}
 
 	public float GetExtraKnockbackDistance(ActorData hitActor)
 	{
-		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = base.Targeter as AbilityUtil_Targeter_BounceLaser;
-		if (abilityUtil_Targeter_BounceLaser != null)
+		if (!(Targeter is AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser))
 		{
-			ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceLaser.GetHitActorContext();
-			if (!hitActorContext.IsNullOrEmpty())
+			return 0f;
+		}
+		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = abilityUtil_Targeter_BounceLaser.GetHitActorContext();
+		if (!hitActorContext.IsNullOrEmpty())
+		{
+			foreach (AbilityUtil_Targeter_BounceLaser.HitActorContext current in hitActorContext)
 			{
-				using (IEnumerator<AbilityUtil_Targeter_BounceLaser.HitActorContext> enumerator = hitActorContext.GetEnumerator())
+				if (current.actor == hitActor)
 				{
-					while (enumerator.MoveNext())
-					{
-						AbilityUtil_Targeter_BounceLaser.HitActorContext current = enumerator.Current;
-						if (current.actor == hitActor)
-						{
-							while (true)
-							{
-								switch (5)
-								{
-								case 0:
-									break;
-								default:
-									return GetBonusKnockbackPerBounce() * (float)current.segmentIndex;
-								}
-							}
-						}
-					}
+					return GetBonusKnockbackPerBounce() * current.segmentIndex;
 				}
 			}
 		}
@@ -265,15 +168,10 @@ public class ValkyrieThrowShield : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ValkyrieThrowShield))
+		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieThrowShield))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ValkyrieThrowShield);
+			m_abilityMod = abilityMod as AbilityMod_ValkyrieThrowShield;
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -285,10 +183,22 @@ public class ValkyrieThrowShield : Ability
 
 	private void SetupTargeter()
 	{
-		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = new AbilityUtil_Targeter_BounceLaser(this, GetLaserWidth(), GetMaxDistancePerBounce(), GetMaxTotalDistance(), GetMaxBounces(), GetMaxTargetsHit(), BounceOnHitActor());
-		abilityUtil_Targeter_BounceLaser.InitKnockbackData(GetKnockbackDistance(), GetKnockbackType(), GetMaxKnockbackTargets(), GetExtraKnockbackDistance);
-		abilityUtil_Targeter_BounceLaser.m_penetrateTargetsAndHitCaster = (GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction());
-		base.Targeter = abilityUtil_Targeter_BounceLaser;
+		AbilityUtil_Targeter_BounceLaser targeter = new AbilityUtil_Targeter_BounceLaser(
+			this,
+			GetLaserWidth(),
+			GetMaxDistancePerBounce(),
+			GetMaxTotalDistance(),
+			GetMaxBounces(),
+			GetMaxTargetsHit(),
+			BounceOnHitActor());
+		targeter.InitKnockbackData(
+			GetKnockbackDistance(),
+			GetKnockbackType(),
+			GetMaxKnockbackTargets(),
+			GetExtraKnockbackDistance);
+		targeter.m_penetrateTargetsAndHitCaster = GetCooldownReductionOnLaserHitCaster() != null
+		                                          && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
+		Targeter = targeter;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -301,22 +211,20 @@ public class ValkyrieThrowShield : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContext = (base.Targeters[currentTargeterIndex] as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
-		for (int i = 0; i < hitActorContext.Count; i++)
+		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContexts = (Targeters[currentTargeterIndex] as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
+		for (int i = 0; i < hitActorContexts.Count; i++)
 		{
-			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext2 = hitActorContext[i];
-			if (hitActorContext2.actor == targetActor)
+			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext = hitActorContexts[i];
+			if (hitActorContext.actor == targetActor)
 			{
-				int bonusDamagePerBounce = GetBonusDamagePerBounce();
-				AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext3 = hitActorContext[i];
-				int num = bonusDamagePerBounce * hitActorContext3.segmentIndex;
-				int num3 = dictionary[AbilityTooltipSymbol.Damage] = GetBaseDamage() + num + GetExtraDamage() - i * GetLessDamagePerTarget();
+				dictionary[AbilityTooltipSymbol.Damage] =
+					GetBaseDamage()
+					+ GetBonusDamagePerBounce() * hitActorContext.segmentIndex
+					+ GetExtraDamage()
+					- i * GetLessDamagePerTarget();
 			}
 		}
-		while (true)
-		{
-			return dictionary;
-		}
+		return dictionary;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
