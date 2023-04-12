@@ -1598,7 +1598,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 			
 			// custom
-			request.m_caster.SetServerLastKnownPosSquare(request.m_caster.CurrentBoardSquare, "RunAbilityRequest");
+			request.m_caster.SetServerLastKnownPosSquare(request.m_caster.GetSquareAtPhaseStart(), "RunAbilityRequest");
 		}
 		if (BrushCoordinator.Get() != null)
 		{
