@@ -7,7 +7,7 @@ using UnityEngine;
 public class AbilityMod_SenseiBasicAttack : AbilityMod
 {
 	[Separator("Targeting Info", "cyan")]
-	public AbilityModPropertyFloat m_circleDistThresholdMod;
+	public AbilityModPropertyFloat m_circleDistThresholdMod;  // unused
 	[Header("  Targeting: For Circle")]
 	public AbilityModPropertyFloat m_circleRadiusMod;
 	[Header("  Targeting: For Laser")]
@@ -32,7 +32,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 	[Separator("Shielding on turn start per enemy hit")]
 	public AbilityModPropertyInt m_absorbPerEnemyHitOnTurnStartMod;
 	
-	// TODO SENSEI
 	// removed in rogues
 	public AbilityModPropertyInt m_absorbAmountIfTriggeredHitCountMod;
 

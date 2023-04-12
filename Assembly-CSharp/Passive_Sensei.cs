@@ -127,13 +127,21 @@ public class Passive_Sensei : Passive
 	// added in rogues
 	private void HandleOnTurnStart_YingYangDash()
 	{
-		if (m_syncComp != null && m_syncComp.m_syncTurnsForSecondYingYangDash > 0 && m_dashAbility != null && m_abilityData != null)
+		if (m_syncComp != null
+		    && m_syncComp.m_syncTurnsForSecondYingYangDash > 0
+		    && m_dashAbility != null
+		    && m_abilityData != null)
 		{
 			Sensei_SyncComponent syncComp = m_syncComp;
 			syncComp.Networkm_syncTurnsForSecondYingYangDash = (sbyte)(syncComp.m_syncTurnsForSecondYingYangDash - 1);
 			if (m_syncComp.m_syncTurnsForSecondYingYangDash == 0)
 			{
-				int cooldownRemainingOverride = Mathf.Max(0, m_dashAbility.GetModdedCooldown() - m_dashAbility.GetSecondCastTurns() - m_dashAbility.GetCdrIfNoSecondDash() + DashCooldownAdjust);
+				int cooldownRemainingOverride = Mathf.Max(
+					0, 
+					m_dashAbility.GetModdedCooldown()
+					- m_dashAbility.GetSecondCastTurns()
+					- m_dashAbility.GetCdrIfNoSecondDash()
+					+ DashCooldownAdjust);
 				m_abilityData.OverrideCooldown(m_dashActionType, cooldownRemainingOverride);
 				DashCooldownAdjust = 0;
 			}

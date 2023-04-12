@@ -461,7 +461,9 @@ public class SenseiHealAoE : Ability
 			abilityResults.StoreActorHit(actorHitResults);
 			if (actorData == caster
 			    && GetTurnsAfterInitialCast() > 0
-			    && (GetAllyHealOnSubsequentTurns() > 0 || GetAllyEffectOnSubsequentTurns().m_applyEffect))
+			    && (GetAllyHealOnSubsequentTurns() > 0
+			        || GetSelfHealOnSubsequentTurns() > 0 // custom
+			        || GetAllyEffectOnSubsequentTurns().m_applyEffect))
 			{
 				actorHitResults.AddEffect(new SenseiDelayedHealAoeEffect(
 					AsEffectSource(),

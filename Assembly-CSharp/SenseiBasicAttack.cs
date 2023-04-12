@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SenseiBasicAttack : Ability
@@ -142,6 +143,8 @@ public class SenseiBasicAttack : Ability
 			: m_laserEnemyHitEffect;
 	}
 
+	// TODO SENSEI unused
+	// It doesn't really make sense to have it moddable as it's basically an input config variable
 	public float GetCircleDistThreshold()
 	{
 		return m_abilityMod != null
@@ -241,7 +244,6 @@ public class SenseiBasicAttack : Ability
 			: m_absorbPerEnemyHitOnTurnStart;
 	}
 
-	// TODO SENSEI
 	// removed in rogues
 	public int GetAbsorbAmountIfTriggeredHitCount()
 	{
@@ -403,7 +405,10 @@ public class SenseiBasicAttack : Ability
 		}
 		if (m_passive != null && GetAbsorbPerEnemyHitOnTurnStart() > 0)
 		{
-			m_passive.m_lastBasicAttackShieldOnTurnStart = list.Count * GetAbsorbPerEnemyHitOnTurnStart();
+			// custom
+			m_passive.m_lastBasicAttackShieldOnTurnStart += list.Count * GetAbsorbPerEnemyHitOnTurnStart();
+			// rogues
+			// m_passive.m_lastBasicAttackShieldOnTurnStart = list.Count * GetAbsorbPerEnemyHitOnTurnStart();
 		}
 	}
 
@@ -449,7 +454,7 @@ public class SenseiBasicAttack : Ability
 		{
 			damage += GetExtraDamageForAlternating();
 		}
-		bool isCdr = GetCdrMinTriggerHitCount() > 0 && hitActors.Count < GetCdrMinTriggerHitCount();
+		bool notPendingCdr = GetCdrMinTriggerHitCount() > 0 && hitActors.Count < GetCdrMinTriggerHitCount();
 		foreach (ActorData actorData in hitActors)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, casterPos));
@@ -458,26 +463,47 @@ public class SenseiBasicAttack : Ability
 				int extraDamageForFarTarget = GetExtraDamageForFarTarget(actorData, caster, isCircle);
 				actorHitResults.SetBaseDamage(damage + extraDamageForFarTarget);
 				actorHitResults.AddStandardEffectInfo(isCircle ? GetCircleEnemyHitEffect() : GetLaserEnemyHitEffect());
-				if (!isCdr
+				if (!notPendingCdr
 				    && GetCdrOnAbility() > 0
 				    && m_abilityData != null)
 				{
 					actorHitResults.AddMiscHitEvent(
 						new MiscHitEventData_AddToCasterCooldown(m_cdrAbilityTarget, -1 * GetCdrOnAbility()));
-					isCdr = true;
+					notPendingCdr = true;
 				}
 			}
 			abilityResults.StoreActorHit(actorHitResults);
 		}
 		int healing = GetHealPerEnemyHit() * hitActors.Count;
-		if (!isCdr || healing > 0)
+		
+		// custom
+		int absorb = 0;
+		if (GetAbsorbAmountIfTriggeredHitCount() > 0)
+		{
+			int enemyNum = hitActors.Select(actor => actor.GetTeam() != caster.GetTeam()).Count();
+			if (enemyNum >= GetCdrMinTriggerHitCount())
+			{
+				absorb = GetAbsorbAmountIfTriggeredHitCount();
+			}
+		}
+		// end custom
+		
+		if (!notPendingCdr
+		    || healing > 0
+		    || absorb > 0)  // custom
 		{
 			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
 			if (healing > 0)
 			{
 				casterHitResults.SetBaseHealing(healing);
 			}
-			if (!isCdr)
+			// custom
+			if (absorb > 0 && m_passive != null)
+			{
+				m_passive.m_lastBasicAttackShieldOnTurnStart += absorb;
+			}
+			// end custom
+			if (!notPendingCdr)
 			{
 				casterHitResults.AddMiscHitEvent(
 					new MiscHitEventData_AddToCasterCooldown(m_cdrAbilityTarget, -1 * GetCdrOnAbility()));

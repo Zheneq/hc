@@ -25,7 +25,7 @@ public class AbilityMod_SenseiBide : AbilityMod
 	[Header("-- Damage portion of initial damage, on turns after")]
 	public AbilityModPropertyFloat m_multOnInitialDamageForSubseqHitsMod;
 	[Separator("Extra Heal on Heal AoE Ability")]
-	public AbilityModPropertyInt m_extraHealOnHealAoeIfQueuedMod;
+	public AbilityModPropertyInt m_extraHealOnHealAoeIfQueuedMod;  // unused
 
 	public override Type GetTargetAbilityType()
 	{
