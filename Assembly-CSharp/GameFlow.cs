@@ -1191,7 +1191,7 @@ public class GameFlow : NetworkBehaviour
 
 					// TODO probably will break fourlancer
 					actorData.PlayerIndex = playerInfo.PlayerId;
-					actorData.ActorIndex = playerInfo.PlayerId;
+					// actorData.ActorIndex = playerInfo.PlayerId;
 
 					actorData.UpdateDisplayName(playerInfo.Handle);
 					//end custom
