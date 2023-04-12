@@ -382,6 +382,12 @@ public class ServerActionBuffer : NetworkBehaviour
 			actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 		}
 	}
+	
+	// custom
+	public void OnAbilityPhaseStart()
+	{
+		OnPhaseStartForRequestedAbilities(AbilityPhase);
+	}
 
 	private void OnAbilityPhaseEnd(AbilityPriority oldPhase)
 	{

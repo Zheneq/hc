@@ -728,6 +728,7 @@ public class GameFlow : NetworkBehaviour
 						actorData.GetPassiveData().OnAbilityPhaseStart(phase);
 					}
 				}
+				ServerActionBuffer.Get().OnAbilityPhaseStart();
 				if (m_nonEmptyPhases.Contains(phase))
 				{
 					break;
