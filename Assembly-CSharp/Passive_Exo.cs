@@ -167,7 +167,18 @@ public class Passive_Exo : Passive
 		{
 			return;
 		}
-		if (ability != null && !(ability is ExoAnchorLaser) && !(ability is ExoShield) && IsAnchored())
+
+		AbilityData abilityData = GetComponent<AbilityData>();
+		if (ability != null
+		    && !(ability is ExoAnchorLaser)
+		    && !(ability is ExoShield)
+		    && IsAnchored()
+		    // custom -- might cata should not turn the laser off
+		    && !(abilityData != null
+		         && AbilityData.IsCard(abilityData.GetActionTypeOfAbility(ability))
+		         && ability.IsFreeAction())
+			// end custom
+		   ) 
 		{
 			RemoveAnchoredLaser();
 		}

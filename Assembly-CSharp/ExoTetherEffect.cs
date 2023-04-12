@@ -88,43 +88,45 @@ public class ExoTetherEffect : StandardActorEffect
 
 	private void SetUpMovementHit(BoardSquarePathInfo destPathNode, MovementStage movementStage, ref List<MovementResults> movementResultsList)
 	{
-		if (destPathNode.square.HorizontalDistanceInSquaresTo(TargetSquare) > m_tetherDistance || (m_breakTetherOnNonGroundMovment && m_moveLeftGround))
+		if (!(destPathNode.square.HorizontalDistanceInSquaresTo(TargetSquare) > m_tetherDistance)
+		    && (!m_breakTetherOnNonGroundMovment || !m_moveLeftGround))
 		{
-			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Target, TargetSquare.ToVector3()));
-			int num = m_baseBreakDamage;
-			if (m_extraBreakDamagePerMoveDist > 0f)
-			{
-				float num2 = destPathNode.GetPathEndpoint().square.HorizontalDistanceInSquaresTo(TargetSquare);
-				int num3 = Mathf.RoundToInt(m_extraBreakDamagePerMoveDist * num2);
-				if (m_maxExtraBreakDamage > 0)
-				{
-					num3 = Mathf.Min(m_maxExtraBreakDamage, num3);
-				}
-				num += num3;
-			}
-			if (num > 0)
-			{
-				actorHitResults.AddBaseDamage(num);
-			}
-			if (m_tetherBreakEffect != null)
-			{
-				actorHitResults.AddStandardEffectInfo(m_tetherBreakEffect);
-				foreach (GameObject sequencePrefab in m_data.m_sequencePrefabs)
-				{
-					actorHitResults.AddEffectSequenceToEnd(sequencePrefab, m_guid);
-				}
-			}
-			movementResultsList.Add(new MovementResults(
-				movementStage,
-				this,
-				actorHitResults,
-				Target,
-				destPathNode,
-				m_tetherBreakHitSequence,
-				TargetSquare,
-				SequenceSource));
-			m_hittingTarget = true;
+			return;
 		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Target, TargetSquare.ToVector3()));
+		int num = m_baseBreakDamage;
+		if (m_extraBreakDamagePerMoveDist > 0f)
+		{
+			float num2 = destPathNode.GetPathEndpoint().square.HorizontalDistanceInSquaresTo(TargetSquare);
+			int num3 = Mathf.RoundToInt(m_extraBreakDamagePerMoveDist * num2);
+			if (m_maxExtraBreakDamage > 0)
+			{
+				num3 = Mathf.Min(m_maxExtraBreakDamage, num3);
+			}
+			num += num3;
+		}
+		if (num > 0)
+		{
+			actorHitResults.AddBaseDamage(num);
+		}
+		if (m_tetherBreakEffect != null)
+		{
+			actorHitResults.AddStandardEffectInfo(m_tetherBreakEffect);
+			foreach (GameObject sequencePrefab in m_data.m_sequencePrefabs)
+			{
+				actorHitResults.AddEffectSequenceToEnd(sequencePrefab, m_guid);
+			}
+		}
+		movementResultsList.Add(new MovementResults(
+			movementStage,
+			this,
+			actorHitResults,
+			Target,
+			destPathNode,
+			m_tetherBreakHitSequence,
+			TargetSquare,
+			SequenceSource));
+		m_hittingTarget = true;
 	}
 
 	// TODO EXO unused

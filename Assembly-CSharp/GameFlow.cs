@@ -130,6 +130,8 @@ public class GameFlow : NetworkBehaviour
 	private const float c_startWaitTimeoutTime = 120f;
 	// custom
 	private List<PlayerAction> m_executingPlayerActions = new List<PlayerAction>();
+	// custom
+	private HashSet<AbilityPriority> m_nonEmptyPhases = new HashSet<AbilityPriority>();
 #endif
 
 	static GameFlow()
@@ -541,163 +543,274 @@ public class GameFlow : NetworkBehaviour
 #endif
 
 	// custom
+#if SERVER
 	private void HandleUpdateResolve()
 	{
 		ServerActionBuffer actionBuffer = ServerActionBuffer.Get();
 		TheatricsManager theatrics = TheatricsManager.Get();
-		if (actionBuffer.ActionPhase == ActionBufferPhase.Abilities)
+		switch (actionBuffer.ActionPhase)
 		{
-			ServerResolutionManager manager = ServerResolutionManager.Get();
-
-			if (manager.ActionsDoneResolving() && !actionBuffer.IsWaitingForPlayPhaseEnded())
-			{
-				while (true)
-				{
-					if (actionBuffer.AbilityPhase == AbilityPriority.Combat_Knockback)
-					{
-						ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
-					}
-					ServerEffectManager.Get().OnAbilityPhaseEnd(actionBuffer.AbilityPhase);
-					if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
-					{
-						actionBuffer.AbilityPhase = AbilityPriority.INVALID;
-						actionBuffer.ActionPhase = ActionBufferPhase.AbilitiesWait;
-						Log.Info($"Going to next action phase {actionBuffer.ActionPhase}");
-						return;
-					}
-
-					actionBuffer.AbilityPhase = actionBuffer.AbilityPhase == AbilityPriority.INVALID
-						? AbilityUtils.GetHighestAbilityPriority()
-						: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
-					Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
-
-					bool hasActionsThisPhase = GatherActionsInPhase(actionBuffer, actionBuffer.AbilityPhase, out List<PlayerAction> executingPlayerActions);
-					m_executingPlayerActions.AddRange(executingPlayerActions);
-					// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
-					ServerEffectManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
-
-					theatrics.SetupTurnAbilityPhase(
-						actionBuffer.AbilityPhase,
-						actionBuffer.GetAllStoredAbilityRequests(),
-						new HashSet<int>() { },  // TODO LOW (hacked inside)
-						false);
-
-					if (hasActionsThisPhase)
-					{
-						//foreach (ActorAnimation actorAnimation in anims)
-						//{
-						//	actorAnimation.SetTurn_FCFS(turn);
-						//}
-						//theatrics.m_turn.m_abilityPhases[(int)currentPhase].m_actorAnimations = new List<ActorAnimation>(animEntries);
-						//TheatricsManager.Get().SetTurn_FCFS(turn);
-						//TheatricsManager.Get().InitPhaseClient_FCFS(currentPhase);
-
-						ServerResolutionManager.Get().OnAbilityPhaseStart(actionBuffer.AbilityPhase);
-						ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
-						break;
-					}
-					else
-					{
-						Log.Info($"No requests in this phase, going to the next one");
-					}
-				}
-
-				theatrics.SetDirtyBit(uint.MaxValue);
-				theatrics.PlayPhase(actionBuffer.AbilityPhase);
-			}
-		}
-		else if (actionBuffer.ActionPhase == ActionBufferPhase.AbilitiesWait)
-		{
-			foreach (ActorData actor in GameFlowData.Get().GetActors())
-			{
-				var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-				turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
-			}
-			if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
-			{
-				ServerCombatManager.Get().ResolveHitPoints();
-			}
-			List<MovementRequest> movementRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => !req.IsChasing());
-			Log.Info($"Running {movementRequests.Count} non-chase movement requests");
-			PlayerAction_Movement action = new PlayerAction_Movement(movementRequests, false);
-			m_executingPlayerActions.Add(action);
-			action.ExecuteAction();
-			actionBuffer.ActionPhase = ActionBufferPhase.Movement;
-		}
-		else if (actionBuffer.ActionPhase == ActionBufferPhase.Movement)
-		{
-			CompleteExecutingPlayerActions();
-			ServerMovementManager manager = ServerMovementManager.Get();
-			if (!manager.WaitingOnClients)
-			{
-				int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing()).Count;
-				if (numChaseRequests > 0)
-				{
-					Log.Info($"Running {numChaseRequests} chase movement requests");
-					PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests(), true);
-					m_executingPlayerActions.Add(action);
-					action.ExecuteAction();
-				}
-				else
-				{
-					Log.Info("No chase requests");
-				}
-				actionBuffer.ActionPhase = ActionBufferPhase.MovementChase;
-			}
-		}
-		else if (actionBuffer.ActionPhase == ActionBufferPhase.MovementChase)
-		{
-			CompleteExecutingPlayerActions();
-			//ServerEvadeManager manager = ServerEvadeManager.Get();
-			ServerMovementManager manager = ServerMovementManager.Get();
-			if (!manager.WaitingOnClients)
+			case ActionBufferPhase.Abilities:
+				HandleUpdateResolveAbilities();
+				break;
+			case ActionBufferPhase.AbilitiesWait:
 			{
 				foreach (ActorData actor in GameFlowData.Get().GetActors())
 				{
 					ActorTurnSM turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-					turnSm.OnMessage(TurnMessage.MOVEMENT_RESOLVED);
+					turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
 				}
-				actionBuffer.ActionPhase = ActionBufferPhase.MovementWait;
+				if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+				{
+					ServerCombatManager.Get().ResolveHitPoints();
+				}
+				foreach (ActorData actorData in GameFlowData.Get().GetActors())
+				{
+					if (actorData != null && actorData.GetPassiveData() != null)
+					{
+						actorData.GetPassiveData().OnAbilitiesDone();
+					}
+				}
+				List<MovementRequest> movementRequests = ServerActionBuffer.Get()
+					.GetAllStoredMovementRequests()
+					.FindAll(req => !req.IsChasing());
+				Log.Info($"Running {movementRequests.Count} non-chase movement requests");
+				PlayerAction_Movement action = new PlayerAction_Movement(movementRequests, false);
+				m_executingPlayerActions.Add(action);
+				action.ExecuteAction();
+				actionBuffer.ActionPhase = ActionBufferPhase.Movement;
+				break;
+			}
+			case ActionBufferPhase.Movement:
+			{
+				CompleteExecutingPlayerActions();
+				ServerMovementManager manager = ServerMovementManager.Get();
+				if (!manager.WaitingOnClients)
+				{
+					int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing()).Count;
+					if (numChaseRequests > 0)
+					{
+						Log.Info($"Running {numChaseRequests} chase movement requests");
+						PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests(), true);
+						m_executingPlayerActions.Add(action);
+						action.ExecuteAction();
+					}
+					else
+					{
+						Log.Info("No chase requests");
+					}
+					actionBuffer.ActionPhase = ActionBufferPhase.MovementChase;
+				}
+				break;
+			}
+			case ActionBufferPhase.MovementChase:
+			{
+				CompleteExecutingPlayerActions();
+				ServerMovementManager manager = ServerMovementManager.Get();
+				if (!manager.WaitingOnClients)
+				{
+					foreach (ActorData actor in GameFlowData.Get().GetActors())
+					{
+						ActorTurnSM turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+						turnSm.OnMessage(TurnMessage.MOVEMENT_RESOLVED);
+					}
+					actionBuffer.ActionPhase = ActionBufferPhase.MovementWait;
+				}
+				break;
+			}
+			default:
+			{
+				theatrics.MarkPhasesOnActionsDone();
+				actionBuffer.ActionPhase = ActionBufferPhase.Done;
+			
+				// TODO we kinda do it in HandleUpdateTurnEnd tho...
+				ServerCombatManager.Get().ResolveHitPoints();
+				ServerCombatManager.Get().ResolveTechPoints();
+
+				// TODO wait a couple seconds here? (if we wait in ending turn, it can cause ui artifacts)
+				if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
+				{
+					GameFlowData.Get().gameState = GameState.EndingTurn;
+				}
+			
+				DebugPrintFreelancerStats();
+				break;
 			}
 		}
-		else
-		{
-			theatrics.MarkPhasesOnActionsDone();
-			actionBuffer.ActionPhase = ActionBufferPhase.Done;
-			
-			// TODO we kinda do it in HandleUpdateTurnEnd tho...
-			ServerCombatManager.Get().ResolveHitPoints();
-			ServerCombatManager.Get().ResolveTechPoints();
+	}
 
-			// TODO wait a couple seconds here? (if we wait in ending turn, it can cause ui artifacts)
-			if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
+	private static void DebugPrintFreelancerStats()
+	{
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			FreelancerStats freelancerStats = actorData.GetFreelancerStats();
+			if (freelancerStats != null)
 			{
-				GameFlowData.Get().gameState = GameState.EndingTurn;
-			}
-			
-			foreach (ActorData actorData in GameFlowData.Get().GetActors())
-			{
-				FreelancerStats freelancerStats = actorData.GetFreelancerStats();
-				if (freelancerStats != null)
+				for (int i = 0; i < 4; i++)
 				{
-					for (int i = 0; i < 4; i++)
-					{
-						Log.Info($"Freelancer stats {actorData.m_displayName}:" +
-						         $" {freelancerStats.GetLocalizedDescriptionOfStat(i)} = {freelancerStats.GetValueOfStat(i)}"); 
-					}
+					Log.Info($"Freelancer stats {actorData.m_displayName}:" +
+					         $" {freelancerStats.GetLocalizedDescriptionOfStat(i)} = {freelancerStats.GetValueOfStat(i)}");
 				}
 			}
 		}
 	}
+#endif
+
+#if SERVER
+	// custom
+	private void HandleUpdateResolveAbilities()
+	{
+		ServerActionBuffer actionBuffer = ServerActionBuffer.Get();
+		TheatricsManager theatrics = TheatricsManager.Get();
+		ServerResolutionManager manager = ServerResolutionManager.Get();
+
+		if (manager.ActionsDoneResolving() && !actionBuffer.IsWaitingForPlayPhaseEnded())
+		{
+			while (true)
+			{
+				if (actionBuffer.AbilityPhase == AbilityPriority.Combat_Knockback)
+				{
+					ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
+				}
+				ServerEffectManager.Get().OnAbilityPhaseEnd(actionBuffer.AbilityPhase);
+				if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
+				{
+					actionBuffer.AbilityPhase = AbilityPriority.INVALID;
+					actionBuffer.ActionPhase = ActionBufferPhase.AbilitiesWait;
+					Log.Info($"Going to next action phase {actionBuffer.ActionPhase}");
+					return;
+				}
+
+				actionBuffer.AbilityPhase = actionBuffer.AbilityPhase == AbilityPriority.INVALID
+					? AbilityUtils.GetHighestAbilityPriority()
+					: AbilityUtils.GetNextAbilityPriority(actionBuffer.AbilityPhase);
+				Log.Info($"Going to next turn ability phase {actionBuffer.AbilityPhase}");
+				
+				AbilityPriority phase = actionBuffer.AbilityPhase;
+				
+				List<AbilityRequest> allStoredAbilityRequests = actionBuffer.GetAllStoredAbilityRequests();
+				if (phase < AbilityPriority.Combat_Damage)
+				{
+					SetupPhase(phase, allStoredAbilityRequests);
+				}
+				else if (phase == AbilityPriority.Combat_Damage)
+				{
+					for (AbilityPriority i = AbilityPriority.Combat_Damage;
+					     i < AbilityPriority.NumAbilityPriorities;
+					     ++i)
+					{
+						SetupPhase(i, allStoredAbilityRequests);
+					}
+				}
+				else if (phase == AbilityPriority.Combat_Knockback)
+				{
+					// in case something changed since pre-gathering
+					List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
+					if (executingEffects.Count > 0)
+					{
+						Log.Info($"Have {executingEffects.Count} additional effects in this phase, playing them...");
+						PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+						m_executingPlayerActions.Add(action);
+						action.PrepareResults();
+					}
+			
+					// we are only gathering responses to knockbacks here
+					ServerActionBuffer.Get().GetKnockbackManager().GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
+					ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+				}
+				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
+				ServerEffectManager.Get().OnAbilityPhaseStart(phase);
+				ServerResolutionManager.Get().OnAbilityPhaseStart(phase);
+				foreach (ActorData actorData in GameFlowData.Get().GetActors())
+				{
+					if (actorData.GetPassiveData() != null)
+					{
+						actorData.GetPassiveData().OnAbilityPhaseStart(phase);
+					}
+				}
+				ServerActionBuffer.Get().OnAbilityPhaseStart();
+				if (m_nonEmptyPhases.Contains(phase))
+				{
+					break;
+				}
+				else
+				{
+					Log.Info($"No requests in this phase, going to the next one");
+				}
+			}
+			
+			ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
+			theatrics.SetDirtyBit(uint.MaxValue);
+			theatrics.PlayPhase(actionBuffer.AbilityPhase);
+		}
+	}
+
+	private void SetupPhase(AbilityPriority phase, List<AbilityRequest> allStoredAbilityRequests)
+	{
+		TheatricsManager theatrics = TheatricsManager.Get();
+		bool hasActionsThisPhase = GatherActionsInPhase(
+			allStoredAbilityRequests,
+			phase,
+			out List<PlayerAction> executingPlayerActions);
+		if (phase == AbilityPriority.Combat_Knockback)
+		{
+			ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(allStoredAbilityRequests);
+		}
+		m_executingPlayerActions.AddRange(executingPlayerActions);
+		if (hasActionsThisPhase)
+		{
+			m_nonEmptyPhases.Add(phase);
+		}
+
+		theatrics.SetupTurnAbilityPhase(
+			phase,
+			allStoredAbilityRequests,
+			new HashSet<int>() { },  // TODO LOW (hacked inside)
+			false);
+	}
+#endif
 	
 #if SERVER
 	// custom
-	private static bool GatherActionsInPhase(ServerActionBuffer actionBuffer, AbilityPriority phase, out List<PlayerAction> executingPlayerActions)
+	private static bool GatherActionsInPhase(
+		List<AbilityRequest> allStoredAbilityRequests,
+		AbilityPriority phase,
+		out List<PlayerAction> executingPlayerActions)
 	{
 		executingPlayerActions = new List<PlayerAction>();
+		List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
+
+		bool hasActionsThisPhase = false;
+		List<ActorAnimation> anims = new List<ActorAnimation>();
+		if (executingEffects.Count > 0)
+		{
+			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+			executingPlayerActions.Add(action);
+			anims.AddRange(action.PrepareResults());
+			hasActionsThisPhase = true;
+		}
+		
+		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
+			.FindAll(r => r?.m_ability?.RunPriority == phase);
+		if (requestsThisPhase.Count > 0)
+		{
+			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
+			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
+			executingPlayerActions.Add(action);
+			anims.AddRange(action.PrepareResults());
+			hasActionsThisPhase = true;
+		}
+
+		return hasActionsThisPhase;
+	}
+
+	// custom
+	private static List<Effect> GatherEffectResultsInPhase(AbilityPriority phase)
+	{
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
 		List<Effect> executingEffects = new List<Effect>();
-		foreach (KeyValuePair<ActorData,List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
+		foreach (KeyValuePair<ActorData, List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
 		{
 			if (!actorAndEffects.Key.IsDead()) // TODO EFFECTS Should effects persist through lancer's death?
 			{
@@ -731,29 +844,7 @@ public class GameFlow : NetworkBehaviour
 			}
 		}
 
-		bool hasActionsThisPhase = false;
-		List<ActorAnimation> anims = new List<ActorAnimation>();
-		if (executingEffects.Count > 0)
-		{
-			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
-			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-			executingPlayerActions.Add(action);
-			anims.AddRange(action.PrepareResults());
-			hasActionsThisPhase = true;
-		}
-
-		List<AbilityRequest> requestsThisPhase = actionBuffer.GetAllStoredAbilityRequests()
-			.FindAll(r => r?.m_ability?.RunPriority == phase);
-		if (requestsThisPhase.Count > 0)
-		{
-			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
-			executingPlayerActions.Add(action);
-			anims.AddRange(action.PrepareResults());
-			hasActionsThisPhase = true;
-		}
-
-		return hasActionsThisPhase;
+		return executingEffects;
 	}
 #endif
 
@@ -769,6 +860,7 @@ public class GameFlow : NetworkBehaviour
 			}
 
 			m_executingPlayerActions = new List<PlayerAction>();
+			m_nonEmptyPhases = new HashSet<AbilityPriority>();
 		}
 	}
 #endif
@@ -1100,7 +1192,7 @@ public class GameFlow : NetworkBehaviour
 
 					// TODO probably will break fourlancer
 					actorData.PlayerIndex = playerInfo.PlayerId;
-					actorData.ActorIndex = playerInfo.PlayerId;
+					// actorData.ActorIndex = playerInfo.PlayerId;
 
 					actorData.UpdateDisplayName(playerInfo.Handle);
 					//end custom

@@ -336,7 +336,6 @@ public class ServerResolutionManager : NetworkBehaviour
 		m_resolutionState = ServerResolutionManagerState.WaitingForClients_AbilityPhase;
 
 		// custom
-		ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(phase);
 		//if (!NetworkClient.active)
 		//{
 		//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
@@ -344,7 +343,6 @@ public class ServerResolutionManager : NetworkBehaviour
 		if (phase == AbilityPriority.Evasion)
 		{
 			ServerEvadeManager evadeManager = ServerActionBuffer.Get().GetEvadeManager();
-			ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(AbilityPriority.Evasion);
 			evadeManager.UndoEvaderDestinationsSwap();
 			if (evadeManager.HasEvades())
 			{

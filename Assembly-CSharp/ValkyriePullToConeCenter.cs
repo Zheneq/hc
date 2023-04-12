@@ -28,9 +28,17 @@ public class ValkyriePullToConeCenter : Ability
 
 	private void Setup()
 	{
-		AbilityUtil_Targeter_StretchCone abilityUtil_Targeter_StretchCone = new AbilityUtil_Targeter_StretchCone(this, GetConeLength(), GetConeLength(), GetConeWidth(), GetConeWidth(), AreaEffectUtils.StretchConeStyle.Linear, m_coneBackwardOffset, GetPenetrateLoS());
-		abilityUtil_Targeter_StretchCone.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, 0f, m_knockbackType);
-		base.Targeter = abilityUtil_Targeter_StretchCone;
+		AbilityUtil_Targeter_StretchCone targeter = new AbilityUtil_Targeter_StretchCone(
+			this,
+			GetConeLength(),
+			GetConeLength(),
+			GetConeWidth(),
+			GetConeWidth(),
+			AreaEffectUtils.StretchConeStyle.Linear,
+			m_coneBackwardOffset,
+			GetPenetrateLoS());
+		targeter.InitKnockbackData(GetKnockbackDistance(), m_knockbackType, 0f, m_knockbackType);
+		Targeter = targeter;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()

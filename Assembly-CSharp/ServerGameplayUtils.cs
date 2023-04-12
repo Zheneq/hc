@@ -434,6 +434,7 @@ public static class ServerGameplayUtils
 		}
 	}
 
+	// TODO Apparently fake results are supposed to be results without dashes -- to calculate dodged damage and stuff
 	public static Dictionary<ActorData, DamageDodgedStats> CalcDamageTakenDueToEvadesStats(AbilityPriority phase, List<AbilityRequest> storedAbilityRequests)
 	{
 		Dictionary<ActorData, DamageDodgedStats> dictionary = new Dictionary<ActorData, DamageDodgedStats>();

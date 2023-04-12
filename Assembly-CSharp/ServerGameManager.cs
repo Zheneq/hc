@@ -506,6 +506,7 @@ public class ServerGameManager : MonoBehaviour
 		if (m_monitorGameServerInterface != null)
 		{
 			Log.Info("Sending game summary to lobby server");
+			Log.Info($"{DefaultJsonSerializer.Serialize(GameManager.Get().GameSummary)}");
 			m_monitorGameServerInterface.SendGameSummaryNotification(GameManager.Get().GameSummary, GameManager.Get().GameSummaryOverrides);
 			m_sentGameSummary = true;
 			foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
@@ -989,6 +990,7 @@ public class ServerGameManager : MonoBehaviour
 
 	private void HandleJoinGameServerRequest(JoinGameServerRequest request)
 	{
+		Log.Info($"[FROMLOBBY] {request.GetType()} {DefaultJsonSerializer.Serialize(request)}");
 		bool flag = true;
 		string responseText = null;
 		try

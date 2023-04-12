@@ -5197,6 +5197,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public void SynchronizeTeamSensitiveData()
 	{
 		// custom
+		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle} {TeamSensitiveData_hostile.MoveFromBoardSquare?.GetGridPos()} -> {TeamSensitiveData_authority.MoveFromBoardSquare?.GetGridPos()}");
 		TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
 	}
 #endif

@@ -124,12 +124,12 @@ public class PlayerAction_Effect : PlayerAction
 			//{
 			//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
 			//}
-			if (isKnockbackPhase)
-			{
-				List<ActorData> actorsThatWillBeSeenButArentMoving;
-				ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(new List<AbilityRequest>(), out actorsThatWillBeSeenButArentMoving);
-				ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
-			}
+			// if (isKnockbackPhase)
+			// {
+			// 	List<ActorData> actorsThatWillBeSeenButArentMoving;
+			// 	ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(new List<AbilityRequest>(), out actorsThatWillBeSeenButArentMoving);
+			// 	ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+			// }
 			//ServerResolutionManager.Get().SendEffectActionsToClients_FCFS(this.m_requests, list, phase);
 			return list;
 		}
