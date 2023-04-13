@@ -167,9 +167,9 @@ public class BazookaGirlDelayedMissileEffect : Effect
     public override int GetCasterAnimationIndex(AbilityPriority phaseIndex)
     {
         Log.Info($"BazookaGirlDelayedMissileEffect::GetCasterAnimationIndex {phaseIndex} (HitPhase={HitPhase}, age={m_time.age})");
-        if (phaseIndex == HitPhase && m_time.age >= m_turnsBeforeExploding)
+        if (phaseIndex == HitPhase && m_time.age >= m_turnsBeforeExploding && !Caster.IsDead())
         {
-            return 0; // m_explosionAnimationIndex; // TODO ZUKI -- m_explosionAnimationIndex is unused
+            return m_explosionAnimationIndex;
         }
         return base.GetCasterAnimationIndex(phaseIndex);
     }
@@ -177,18 +177,6 @@ public class BazookaGirlDelayedMissileEffect : Effect
     public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
     {
         return true;
-    }
-    
-    public override ActorData GetActorAnimationActor()
-    {
-        foreach (ActorData actorData in m_effectResults.HitActorsArray())
-        {
-            if (actorData != null && !actorData.IsDead())
-            {
-                return actorData;
-            }
-        }
-        return Caster;
     }
 
     public override void OnTurnStart()
