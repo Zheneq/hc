@@ -8,7 +8,7 @@ public static class BuildVersion
 	private const int s_buildNumber = 100;
 	private const string s_buildLetter = "k";
 	private const string s_changelistNumber = "265834";
-	public const string s_buildTag = "0.7.2.1-dev"; // custom
+	public const string s_buildTag = ThisAssembly.Git.Tag; // custom
 
 	public static int ReleaseNumber => s_releaseNumber;
 	public static int BuildNumber => s_buildNumber;
