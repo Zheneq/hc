@@ -38,7 +38,7 @@ public class ValkyrieGuard : Ability
 	{
 		m_syncComponent = GetComponent<Valkyrie_SyncComponent>();
 		Targeter = new AbilityUtil_Targeter_ValkyrieGuard(
-			this, 
+			this,
 			1f,
 			true,
 			false,

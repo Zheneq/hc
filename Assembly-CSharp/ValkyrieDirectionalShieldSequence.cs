@@ -20,7 +20,6 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 	public bool m_useTempShieldIndicator = true;
 
 	private Vector3 m_aimDirection;
-
 	private GameObject m_placeholderShieldIndicator;
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
@@ -46,10 +45,10 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 		GameObject fxParentObject = GetFxParentObject();
 		m_placeholderShieldIndicator.transform.parent = fxParentObject.transform;
 		m_placeholderShieldIndicator.transform.localRotation = Quaternion.identity;
-		GameObject gameObject = HighlightUtils.Get().CreateConeCursor(0.7f, 360f);
-		gameObject.transform.parent = m_placeholderShieldIndicator.transform;
-		gameObject.transform.localPosition = 0.45f * Board.Get().squareSize * Vector3.forward;
-		gameObject.transform.localRotation = Quaternion.LookRotation(Vector3.up);
+		GameObject cursor = HighlightUtils.Get().CreateConeCursor(0.7f, 360f);
+		cursor.transform.parent = m_placeholderShieldIndicator.transform;
+		cursor.transform.localPosition = 0.45f * Board.Get().squareSize * Vector3.forward;
+		cursor.transform.localRotation = Quaternion.LookRotation(Vector3.up);
 	}
 
 	private void OnDisable()

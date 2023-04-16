@@ -80,7 +80,8 @@ public class ValkyrieThrowShield : Ability
 
 	public bool BounceOnHitActor()
 	{
-		return m_abilityMod!= null && m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false);
+		return m_abilityMod!= null
+		       && m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false);
 	}
 
 	public int GetBaseDamage()
@@ -191,7 +192,11 @@ public class ValkyrieThrowShield : Ability
 			GetMaxBounces(),
 			GetMaxTargetsHit(),
 			BounceOnHitActor());
-		targeter.InitKnockbackData(GetKnockbackDistance(), GetKnockbackType(), GetMaxKnockbackTargets(), GetExtraKnockbackDistance);
+		targeter.InitKnockbackData(
+			GetKnockbackDistance(),
+			GetKnockbackType(),
+			GetMaxKnockbackTargets(),
+			GetExtraKnockbackDistance);
 		targeter.m_penetrateTargetsAndHitCaster = GetCooldownReductionOnLaserHitCaster() != null
 		                                          && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
 		Targeter = targeter;
@@ -210,11 +215,14 @@ public class ValkyrieThrowShield : Ability
 		ReadOnlyCollection<AbilityUtil_Targeter_BounceLaser.HitActorContext> hitActorContexts = (Targeters[currentTargeterIndex] as AbilityUtil_Targeter_BounceLaser).GetHitActorContext();
 		for (int i = 0; i < hitActorContexts.Count; i++)
 		{
-			if (hitActorContexts[i].actor == targetActor)
+			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext = hitActorContexts[i];
+			if (hitActorContext.actor == targetActor)
 			{
-				int num = GetBonusDamagePerBounce() * hitActorContexts[i].segmentIndex;
-				int value = GetBaseDamage() + num + GetExtraDamage() - i * GetLessDamagePerTarget();
-				dictionary[AbilityTooltipSymbol.Damage] = value;
+				dictionary[AbilityTooltipSymbol.Damage] = 
+					GetBaseDamage()
+					+ GetBonusDamagePerBounce() * hitActorContext.segmentIndex
+					+ GetExtraDamage()
+					- i * GetLessDamagePerTarget();
 			}
 		}
 		return dictionary;

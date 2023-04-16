@@ -36,6 +36,7 @@ public class ValkyrieDashAoE : Ability
 	public StandardEffectInfo m_selfBuff;
 	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
+	
 	private AbilityMod_ValkyrieDashAoE m_abilityMod;
 	private StandardEffectInfo m_cachedShieldEffectInfo;
 	private StandardEffectInfo m_cachedEnemyDebuff;
@@ -173,15 +174,12 @@ public class ValkyrieDashAoE : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		if (targetActor.GetTeam() != ActorData.GetTeam())
 		{
-			int damage = GetDamage();
-			dictionary[AbilityTooltipSymbol.Damage] = damage;
+			dictionary[AbilityTooltipSymbol.Damage] = GetDamage();
 		}
 		else
 		{
-			int absorb = GetAbsorb();
-			dictionary[AbilityTooltipSymbol.Absorb] = absorb;
+			dictionary[AbilityTooltipSymbol.Absorb] = GetAbsorb();
 		}
-
 		return dictionary;
 	}
 

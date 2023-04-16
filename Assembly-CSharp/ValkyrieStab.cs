@@ -38,13 +38,13 @@ public class ValkyrieStab : Ability
 		m_syncComp = GetComponent<Valkyrie_SyncComponent>();
 		SetCachedFields();
 		Targeter = new AbilityUtil_Targeter_ReverseStretchCone(
-			this, 
-			GetConeMinLength(), 
-			GetConeMaxLength(), 
-			GetConeWidthMinAngle(), 
-			GetConeWidthMaxAngle(), 
-			m_coneStretchStyle, 
-			GetConeBackwardOffset(), 
+			this,
+			GetConeMinLength(),
+			GetConeMaxLength(),
+			GetConeWidthMinAngle(),
+			GetConeWidthMaxAngle(),
+			m_coneStretchStyle,
+			GetConeBackwardOffset(),
 			PenetrateLineOfSight());
 	}
 

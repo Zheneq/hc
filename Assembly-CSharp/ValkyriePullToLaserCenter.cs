@@ -87,17 +87,29 @@ public class ValkyriePullToLaserCenter : Ability
 		int extraDamageIfKnockedInPlace = GetExtraDamageIfKnockedInPlace();
 		if (extraDamageIfKnockedInPlace != 0 && !targetActor.GetActorStatus().IsMovementDebuffImmune())
 		{
-			foreach (AbilityUtil_Targeter.ActorTarget actorTarget in Targeter.GetActorsInRange())
+			foreach (AbilityUtil_Targeter.ActorTarget target in Targeter.GetActorsInRange())
 			{
-				if (actorTarget.m_actor != targetActor)
+				if (target.m_actor != targetActor)
 				{
 					continue;
 				}
-				if (actorTarget.m_subjectTypes.Contains(AbilityTooltipSubject.HighHP))
+				if (target.m_subjectTypes.Contains(AbilityTooltipSubject.HighHP))
 				{
 					damage += extraDamageIfKnockedInPlace;
 				}
 				break;
+			}
+		}
+		int extraDamageForCenterHits = GetExtraDamageForCenterHits();
+		if (extraDamageForCenterHits > 0 && Targeter is AbilityUtil_Targeter_KnockbackLaser targeter)
+		{
+			if (AreaEffectUtils.IsSquareInBoxByActorRadius(
+				    targetActor.GetCurrentBoardSquare(),
+				    ActorData.GetLoSCheckPos(),
+				    targeter.GetLastLaserEndPos(),
+				    GetCenterHitWidth()))
+			{
+				damage += extraDamageForCenterHits;
 			}
 		}
 		dictionary[AbilityTooltipSymbol.Damage] = damage;
@@ -187,7 +199,8 @@ public class ValkyriePullToLaserCenter : Ability
 	//Added in rouges
 	public bool ShouldSkipDamageReductionOnNextTurnStab()
 	{
-		return m_abilityMod != null && m_abilityMod.m_nextTurnStabSkipsDamageReduction.GetModifiedValue(false);
+		return m_abilityMod != null
+		       && m_abilityMod.m_nextTurnStabSkipsDamageReduction.GetModifiedValue(false);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)

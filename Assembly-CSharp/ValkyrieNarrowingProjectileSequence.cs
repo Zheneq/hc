@@ -3,7 +3,6 @@ using UnityEngine;
 public class ValkyrieNarrowingProjectileSequence : ArcingProjectileSequence
 {
 	private float m_totalLengthInSquares = -1f;
-
 	private float m_totalWidthInSquares = -1f;
 
 	internal override void Initialize(IExtraSequenceParams[] extraParams)
