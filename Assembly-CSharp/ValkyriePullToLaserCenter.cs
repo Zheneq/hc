@@ -88,8 +88,7 @@ public class ValkyriePullToLaserCenter : Ability
 		int extraDamageIfKnockedInPlace = GetExtraDamageIfKnockedInPlace();
 		if (extraDamageIfKnockedInPlace != 0 && !targetActor.GetActorStatus().IsMovementDebuffImmune())
 		{
-			List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeter.GetActorsInRange();
-			foreach (AbilityUtil_Targeter.ActorTarget target in actorsInRange)
+			foreach (AbilityUtil_Targeter.ActorTarget target in Targeter.GetActorsInRange())
 			{
 				if (target.m_actor != targetActor)
 				{

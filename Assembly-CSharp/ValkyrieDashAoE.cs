@@ -328,12 +328,12 @@ public class ValkyrieDashAoE : Ability
 
 	public override bool HasAimingOriginOverride(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out Vector3 overridePos)
 	{
-		if (targetIndex != 1)
+		if (targetIndex == 1)
 		{
-			return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
+			BoardSquare targetSquare = Board.Get().GetSquare(targetsSoFar[0].GridPos);
+			overridePos = targetSquare.ToVector3();
+			return true;
 		}
-		BoardSquare targetSquare = Board.Get().GetSquare(targetsSoFar[0].GridPos);
-		overridePos = targetSquare.ToVector3();
-		return true;
+		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
 	}
 }
