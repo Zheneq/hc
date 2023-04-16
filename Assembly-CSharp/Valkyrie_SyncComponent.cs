@@ -1,6 +1,9 @@
+// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
+// same in reactor & rogues save for serialization
 public class Valkyrie_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
