@@ -41,7 +41,7 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 			AddToken(tokens, m_damageAmountMod, "DamageAmount", string.Empty, valkyrieThrowShield.m_damageAmount);
 			AddToken(tokens, m_bonusDamagePerBounceMod, "BonusDamagePerBounce", string.Empty, valkyrieThrowShield.m_bonusDamagePerBounce);
 			AddToken(tokens, m_lessDamagePerTargetMod, "LessDamagePerTarget", string.Empty, 0);
-			tokens.Add(new TooltipTokenInt("LessDamagePerTarget_WithBaseValue", string.Empty, Mathf.FloorToInt((float)valkyrieThrowShield.m_damageAmount - m_lessDamagePerTargetMod.value)));
+			tokens.Add(new TooltipTokenInt("LessDamagePerTarget_WithBaseValue", string.Empty, Mathf.FloorToInt(valkyrieThrowShield.m_damageAmount - m_lessDamagePerTargetMod.value)));
 			AddToken(tokens, m_knockbackDistanceMod, "KnockbackDistance", string.Empty, valkyrieThrowShield.m_knockbackDistance);
 			AddToken(tokens, m_bonusKnockbackDistancePerBounceMod, "BonusKnockbackPerBounce", string.Empty, 0f);
 			m_cooldownReductionOnLaserHitCaster.AddTooltipTokens(tokens, "CooldownReductionOnLaserHitCaster");

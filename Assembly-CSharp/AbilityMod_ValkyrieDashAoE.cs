@@ -62,7 +62,7 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		string desc = string.Empty;
 		desc += PropDesc(m_shieldEffectInfoMod, "[ShieldEffectInfo]", isValid, isValid ? valkyrieDashAoE.m_shieldEffectInfo : null);
 		desc += PropDesc(m_aoeShapeMod, "[AoeShape]", isValid, isValid ? valkyrieDashAoE.m_aoeShape : AbilityAreaShape.SingleSquare);
-		desc += PropDesc(m_aoePenetratesLoSMod, "[AoePenetratesLoS]", isValid, isValid ? valkyrieDashAoE.m_aoePenetratesLoS : false);
+		desc += PropDesc(m_aoePenetratesLoSMod, "[AoePenetratesLoS]", isValid, isValid && valkyrieDashAoE.m_aoePenetratesLoS);
 		desc += PropDesc(m_coneWidthAngleMod, "[ConeWidthAngle]", isValid, isValid ? valkyrieDashAoE.m_coneWidthAngle : 0f);
 		desc += PropDesc(m_coneRadiusMod, "[ConeRadius]", isValid, isValid ? valkyrieDashAoE.m_coneRadius : 0f);
 		desc += PropDesc(m_triggerCooldownOnGuardAbiityMod, "[TriggerCooldownOnGuardAbiity]", isValid, isValid && valkyrieDashAoE.m_triggerCooldownOnGuardAbiity);
@@ -70,10 +70,11 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		desc += PropDesc(m_enemyDebuffMod, "[EnemyDebuff]", isValid, isValid ? valkyrieDashAoE.m_enemyDebuff : null);
 		desc += PropDesc(m_absorbMod, "[Absorb]", isValid, isValid ? valkyrieDashAoE.m_absorb : 0);
 		desc += PropDesc(m_allyBuffMod, "[AllyBuff]", isValid, isValid ? valkyrieDashAoE.m_allyBuff : null);
-		desc += PropDesc(m_selfBuffMod, "[SelfBuff]", isValid, isValid ? valkyrieDashAoE.m_selfBuff : null); 
+		desc += PropDesc(m_selfBuffMod, "[SelfBuff]", isValid, isValid ? valkyrieDashAoE.m_selfBuff : null);
 		desc += PropDesc(m_techPointGainPerCoveredHitMod, "[TechPointGainPerCoveredHit]", isValid, isValid ? valkyrieDashAoE.m_techPointGainPerCoveredHit : 0);
 		desc += PropDesc(m_techPointGainPerTooCloseForCoverHitMod, "[TechPointGainPerTooCloseForCoverHit]", isValid, isValid ? valkyrieDashAoE.m_techPointGainPerTooCloseForCoverHit : 0);
 		desc += PropDesc(m_cooldownReductionIfDamagedThisTurnMod, "[CooldownReductionIfDamagedThisTurn]", isValid, isValid ? valkyrieDashAoE.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount : 0);
-		return desc + PropDesc(m_coverDurationMod, "[CoverDuration]", isValid, isValid ? valkyrieDashAoE.m_coverDuration : 0);
+		desc += PropDesc(m_coverDurationMod, "[CoverDuration]", isValid, isValid ? valkyrieDashAoE.m_coverDuration : 0);
+		return desc + PropDesc(m_coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", isValid, isValid && valkyrieDashAoE.m_coverIgnoreMinDist);
 	}
 }

@@ -18,6 +18,7 @@ public class ValkyrieGuard : Ability
 	[Header("-- Sequences")]
 	public GameObject m_removeShieldSequencePrefab;
 	public GameObject m_applyShieldSequencePrefab;
+	
 	private Valkyrie_SyncComponent m_syncComponent;
 	private AbilityMod_ValkyrieGuard m_abilityMod;
 	private StandardEffectInfo m_cachedShieldEffectInfo;
@@ -35,8 +36,13 @@ public class ValkyrieGuard : Ability
 
 	private void Setup()
 	{
-		m_syncComponent = base.GetComponent<Valkyrie_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_ValkyrieGuard(this, 1f, true, false, false)
+		m_syncComponent = GetComponent<Valkyrie_SyncComponent>();
+		Targeter = new AbilityUtil_Targeter_ValkyrieGuard(
+			this, 
+			1f,
+			true,
+			false,
+			false)
 		{
 			m_addCasterToActorsInRange = true
 		};
@@ -45,116 +51,100 @@ public class ValkyrieGuard : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedShieldEffectInfo = (m_abilityMod ? m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo) : m_shieldEffectInfo);
-		m_cachedCoveredHitReactionEffect = (m_abilityMod ? m_abilityMod.m_coveredHitReactionEffectMod.GetModifiedValue(m_coveredHitReactionEffect) : m_coveredHitReactionEffect);
-		m_cachedTooCloseForCoverHitReactionEffect = (m_abilityMod ? m_abilityMod.m_tooCloseForCoverHitReactionEffectMod.GetModifiedValue(m_tooCloseForCoverHitReactionEffect) : m_tooCloseForCoverHitReactionEffect);
+		m_cachedShieldEffectInfo = m_abilityMod != null
+			? m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo)
+			: m_shieldEffectInfo;
+		m_cachedCoveredHitReactionEffect = m_abilityMod != null
+			? m_abilityMod.m_coveredHitReactionEffectMod.GetModifiedValue(m_coveredHitReactionEffect)
+			: m_coveredHitReactionEffect;
+		m_cachedTooCloseForCoverHitReactionEffect = m_abilityMod != null
+			? m_abilityMod.m_tooCloseForCoverHitReactionEffectMod.GetModifiedValue(m_tooCloseForCoverHitReactionEffect)
+			: m_tooCloseForCoverHitReactionEffect;
 	}
 
 	public StandardEffectInfo GetShieldEffectInfo()
 	{
-		if (m_cachedShieldEffectInfo == null)
-		{
-			return m_shieldEffectInfo;
-		}
-		return m_cachedShieldEffectInfo;
+		return m_cachedShieldEffectInfo ?? m_shieldEffectInfo;
 	}
 
 	public int GetTechPointGainPerCoveredHit()
 	{
-		if (!m_abilityMod)
-		{
-			return m_techPointGainPerCoveredHit;
-		}
-		return m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit)
+			: m_techPointGainPerCoveredHit;
 	}
 
 	public int GetTechPointGainPerTooCloseForCoverHit()
 	{
-		if (!m_abilityMod)
-		{
-			return m_techPointGainPerTooCloseForCoverHit;
-		}
-		return m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit)
+			: m_techPointGainPerTooCloseForCoverHit;
 	}
 
 	public StandardEffectInfo GetCoveredHitReactionEffect()
 	{
-		if (m_cachedCoveredHitReactionEffect == null)
-		{
-			return m_coveredHitReactionEffect;
-		}
-		return m_cachedCoveredHitReactionEffect;
+		return m_cachedCoveredHitReactionEffect ?? m_coveredHitReactionEffect;
 	}
 
 	public StandardEffectInfo GetTooCloseForCoverHitReactionEffect()
 	{
-		if (m_cachedTooCloseForCoverHitReactionEffect == null)
-		{
-			return m_tooCloseForCoverHitReactionEffect;
-		}
-		return m_cachedTooCloseForCoverHitReactionEffect;
+		return m_cachedTooCloseForCoverHitReactionEffect ?? m_tooCloseForCoverHitReactionEffect;
 	}
 
 	public int GetExtraDamageNextShieldThrowPerCoveredHit()
 	{
-		if (!m_abilityMod)
-		{
-			return 0;
-		}
-		return m_abilityMod.m_extraDamageNextShieldThrowPerCoveredHitMod.GetModifiedValue(0);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageNextShieldThrowPerCoveredHitMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetMaxExtraDamageNextShieldThrow()
 	{
-		return m_abilityMod ? m_abilityMod.m_maxExtraDamageNextShieldThrow.GetModifiedValue(0) : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxExtraDamageNextShieldThrow.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetCoverDuration()
 	{
-		return (!m_abilityMod) ? m_coverDuration : m_abilityMod.m_coverDurationMod.GetModifiedValue(m_coverDuration);
+		return m_abilityMod != null
+			? m_abilityMod.m_coverDurationMod.GetModifiedValue(m_coverDuration)
+			: m_coverDuration;
 	}
 
 	public bool CoverLastsForever()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coverLastsForever;
-		}
-		return m_abilityMod.m_coverLastsForeverMod.GetModifiedValue(m_coverLastsForever);
+		return m_abilityMod != null
+			? m_abilityMod.m_coverLastsForeverMod.GetModifiedValue(m_coverLastsForever)
+			: m_coverLastsForever;
 	}
 
 	public AbilityModCooldownReduction GetCooldownReductionOnNoBlock()
 	{
-		if (!m_abilityMod)
-		{
-			return null;
-		}
-		return m_abilityMod.m_cooldownReductionNoBlocks;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownReductionNoBlocks
+			: null;
 	}
 
 	public bool CoverIgnoreMinDist()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coverIgnoreMinDist;
-		}
-		return m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
+		return m_abilityMod != null
+			? m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist)
+			: m_coverIgnoreMinDist;
 	}
 
 	public int GetExtraAbsorb()
 	{
-		if (m_syncComponent)
-		{
-			return m_syncComponent.m_extraAbsorbForGuard;
-		}
-		return 0;
+		return m_syncComponent != null
+			? m_syncComponent.m_extraAbsorbForGuard
+			: 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieGuard))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_ValkyrieGuard);
+			m_abilityMod = abilityMod as AbilityMod_ValkyrieGuard;
 			Setup();
 		}
 	}
@@ -184,7 +174,7 @@ public class ValkyrieGuard : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor == base.ActorData)
+		if (targetActor == ActorData)
 		{
 			dictionary[AbilityTooltipSymbol.Absorb] = GetExtraAbsorb();
 		}
@@ -193,19 +183,20 @@ public class ValkyrieGuard : Ability
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
-		if (square != null)
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		if (targetSquare == null)
 		{
-			Vector3 vector;
-			VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out vector);
-			return square.ToVector3() + vector;
+			return base.GetRotateToTargetPos(targets, caster);
 		}
-		return base.GetRotateToTargetPos(targets, caster);
+		VectorUtils.GetDirectionAndOffsetToClosestSide(targetSquare, targets[0].FreePos, false, out Vector3 offset);
+		return targetSquare.ToVector3() + offset;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return caster != null && caster.GetAbilityData() != null && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
+		return caster != null
+		       && caster.GetAbilityData() != null
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
 	}
 
 	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
@@ -289,7 +280,7 @@ public class ValkyrieGuard : Ability
 		StandardActorEffectData shallowCopy = shieldEffectInfo.m_effectData.GetShallowCopy();
 		shallowCopy.m_absorbAmount += extraAbsorb;
 		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = new ValkyrieGuardEndingEffect(
-			base.AsEffectSource(), 
+			AsEffectSource(), 
 			null, 
 			caster, 
 			caster, 

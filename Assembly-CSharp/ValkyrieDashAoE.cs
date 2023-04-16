@@ -62,38 +62,61 @@ public class ValkyrieDashAoE : Ability
 
 	private void SetupTargeter()
 	{
-		m_abilityData = base.GetComponent<AbilityData>();
+		m_abilityData = GetComponent<AbilityData>();
 		if (m_abilityData != null)
 		{
-			m_guardAbility = (m_abilityData.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard);
+			m_guardAbility = m_abilityData.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard;
 			m_guardAbilityActionType = m_abilityData.GetActionTypeOfAbility(m_guardAbility);
 		}
 		SetCachedFields();
-		base.Targeters.Clear();
+		Targeters.Clear();
 		if (m_dashTargetingMode == DashTargetingMode.Aoe)
 		{
-			base.Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(this, GetAoeShape(), AoePenetratesLoS(), GetAoeShape(), AoePenetratesLoS(), true);
-			bool affectsEnemies = IncludeEnemies();
-			bool affectsAllies = IncludeAllies();
-			bool affectsCaster = IncludeSelf();
-			base.Targeter.SetAffectedGroups(affectsEnemies, affectsAllies, affectsCaster);
-			return;
+			Targeter = new AbilityUtil_Targeter_BattleMonkUltimate(
+				this,
+				GetAoeShape(),
+				AoePenetratesLoS(),
+				GetAoeShape(),
+				AoePenetratesLoS(),
+				true);
+			Targeter.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
 		}
-		AbilityUtil_Targeter_Charge item = new AbilityUtil_Targeter_Charge(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false);
-		AbilityUtil_Targeter_ValkyrieGuard abilityUtil_Targeter_ValkyrieGuard = new AbilityUtil_Targeter_ValkyrieGuard(this, 1f, true, false, false);
-		abilityUtil_Targeter_ValkyrieGuard.SetConeParams(true, GetConeWidthAngle(), GetConeRadius(), false);
-		abilityUtil_Targeter_ValkyrieGuard.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
-		abilityUtil_Targeter_ValkyrieGuard.SetUseMultiTargetUpdate(true);
-		base.Targeters.Add(item);
-		base.Targeters.Add(abilityUtil_Targeter_ValkyrieGuard);
+		else
+		{
+			AbilityUtil_Targeter_Charge targeterCharge = new AbilityUtil_Targeter_Charge(
+				this,
+				AbilityAreaShape.SingleSquare,
+				true,
+				AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+				false);
+			AbilityUtil_Targeter_ValkyrieGuard targeterGuard = new AbilityUtil_Targeter_ValkyrieGuard(
+				this,
+				1f,
+				true,
+				false,
+				false);
+			targeterGuard.SetConeParams(true, GetConeWidthAngle(), GetConeRadius(), false);
+			targeterGuard.SetAffectedGroups(IncludeEnemies(), IncludeAllies(), IncludeSelf());
+			targeterGuard.SetUseMultiTargetUpdate(true);
+			Targeters.Add(targeterCharge);
+			Targeters.Add(targeterGuard);
+		}
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedShieldEffectInfo = (m_abilityMod ? m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo) : m_shieldEffectInfo);
-		m_cachedEnemyDebuff = (m_abilityMod ? m_abilityMod.m_enemyDebuffMod.GetModifiedValue(m_enemyDebuff) : m_enemyDebuff);
-		m_cachedAllyBuff = (m_abilityMod ? m_abilityMod.m_allyBuffMod.GetModifiedValue(m_allyBuff) : m_allyBuff);
-		m_cachedSelfBuff = (m_abilityMod ? m_abilityMod.m_selfBuffMod.GetModifiedValue(m_selfBuff) : m_selfBuff);
+		m_cachedShieldEffectInfo = m_abilityMod != null
+			? m_abilityMod.m_shieldEffectInfoMod.GetModifiedValue(m_shieldEffectInfo)
+			: m_shieldEffectInfo;
+		m_cachedEnemyDebuff = m_abilityMod != null
+			? m_abilityMod.m_enemyDebuffMod.GetModifiedValue(m_enemyDebuff)
+			: m_enemyDebuff;
+		m_cachedAllyBuff = m_abilityMod != null
+			? m_abilityMod.m_allyBuffMod.GetModifiedValue(m_allyBuff)
+			: m_allyBuff;
+		m_cachedSelfBuff = m_abilityMod != null
+			? m_abilityMod.m_selfBuffMod.GetModifiedValue(m_selfBuff)
+			: m_selfBuff;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -108,11 +131,9 @@ public class ValkyrieDashAoE : Ability
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (m_dashTargetingMode == DashTargetingMode.Aoe)
-		{
-			return 1;
-		}
-		return Mathf.Min(GetTargetData().Length, 2);
+		return m_dashTargetingMode == DashTargetingMode.Aoe
+			? 1
+			: Mathf.Min(GetTargetData().Length, 2);
 	}
 
 	public bool IncludeEnemies()
@@ -150,16 +171,17 @@ public class ValkyrieDashAoE : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (targetActor.GetTeam() == base.ActorData.GetTeam())
-		{
-			int absorb = GetAbsorb();
-			dictionary[AbilityTooltipSymbol.Absorb] = absorb;
-		}
-		else
+		if (targetActor.GetTeam() != ActorData.GetTeam())
 		{
 			int damage = GetDamage();
 			dictionary[AbilityTooltipSymbol.Damage] = damage;
 		}
+		else
+		{
+			int absorb = GetAbsorb();
+			dictionary[AbilityTooltipSymbol.Absorb] = absorb;
+		}
+
 		return dictionary;
 	}
 
@@ -170,128 +192,121 @@ public class ValkyrieDashAoE : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare square = Board.Get().GetSquare(target.GridPos);
-		return targetIndex != 0 || (square != null && square.IsValidForGameplay() && square != caster.GetCurrentBoardSquare() && KnockbackUtils.BuildStraightLineChargePath(caster, square) != null);
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetIndex != 0)
+		{
+			return true;
+		}
+		return targetSquare != null
+		       && targetSquare.IsValidForGameplay()
+		       && targetSquare != caster.GetCurrentBoardSquare()
+		       && KnockbackUtils.BuildStraightLineChargePath(caster, targetSquare) != null;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		return caster != null && caster.GetAbilityData() != null && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard));
+		return caster != null
+		       && caster.GetAbilityData() != null
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard));
 	}
 
 	public StandardEffectInfo GetShieldEffectInfo()
 	{
-		return (m_cachedShieldEffectInfo == null) ? m_shieldEffectInfo : m_cachedShieldEffectInfo;
+		return m_cachedShieldEffectInfo ?? m_shieldEffectInfo;
 	}
 
 	public AbilityAreaShape GetAoeShape()
 	{
-		return (!m_abilityMod) ? m_aoeShape : m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeShapeMod.GetModifiedValue(m_aoeShape)
+			: m_aoeShape;
 	}
 
 	public bool AoePenetratesLoS()
 	{
-		if (!m_abilityMod)
-		{
-			return m_aoePenetratesLoS;
-		}
-		return m_abilityMod.m_aoePenetratesLoSMod.GetModifiedValue(m_aoePenetratesLoS);
+		return m_abilityMod != null
+			? m_abilityMod.m_aoePenetratesLoSMod.GetModifiedValue(m_aoePenetratesLoS)
+			: m_aoePenetratesLoS;
 	}
 
 	public float GetConeWidthAngle()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coneWidthAngle;
-		}
-		return m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthAngleMod.GetModifiedValue(m_coneWidthAngle)
+			: m_coneWidthAngle;
 	}
 
 	public float GetConeRadius()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coneRadius;
-		}
-		return m_abilityMod.m_coneRadiusMod.GetModifiedValue(m_coneRadius);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneRadiusMod.GetModifiedValue(m_coneRadius)
+			: m_coneRadius;
 	}
 
 	public int GetCoverDuration()
 	{
-		return (!m_abilityMod) ? m_coverDuration : m_abilityMod.m_coverDurationMod.GetModifiedValue(m_coverDuration);
+		return m_abilityMod != null
+			? m_abilityMod.m_coverDurationMod.GetModifiedValue(m_coverDuration)
+			: m_coverDuration;
 	}
 
 	public bool CoverIgnoreMinDist()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coverIgnoreMinDist;
-		}
-		return m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist);
+		return m_abilityMod != null
+			? m_abilityMod.m_coverIgnoreMinDistMod.GetModifiedValue(m_coverIgnoreMinDist)
+			: m_coverIgnoreMinDist;
 	}
 
+	// TODO unused
 	public bool TriggerCooldownOnGuardAbiity()
 	{
-		if (!m_abilityMod)
-		{
-			return m_triggerCooldownOnGuardAbiity;
-		}
-		return m_abilityMod.m_triggerCooldownOnGuardAbiityMod.GetModifiedValue(m_triggerCooldownOnGuardAbiity);
+		return m_abilityMod != null
+			? m_abilityMod.m_triggerCooldownOnGuardAbiityMod.GetModifiedValue(m_triggerCooldownOnGuardAbiity)
+			: m_triggerCooldownOnGuardAbiity;
 	}
 
 	public int GetTechPointGainPerCoveredHit()
 	{
-		if (!m_abilityMod)
-		{
-			return m_techPointGainPerCoveredHit;
-		}
-		return m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerCoveredHitMod.GetModifiedValue(m_techPointGainPerCoveredHit)
+			: m_techPointGainPerCoveredHit;
 	}
 
 	public int GetTechPointGainPerTooCloseForCoverHit()
 	{
-		if (!m_abilityMod)
-		{
-			return m_techPointGainPerTooCloseForCoverHit;
-		}
-		return m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerTooCloseForCoverHitMod.GetModifiedValue(m_techPointGainPerTooCloseForCoverHit)
+			: m_techPointGainPerTooCloseForCoverHit;
 	}
 
 	public int GetDamage()
 	{
-		if (!m_abilityMod)
-		{
-			return m_damage;
-		}
-		return m_abilityMod.m_damageMod.GetModifiedValue(m_damage);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageMod.GetModifiedValue(m_damage)
+			: m_damage;
 	}
 
+	// TODO unused
 	public StandardEffectInfo GetEnemyDebuff()
 	{
-		return (m_cachedEnemyDebuff == null) ? m_enemyDebuff : m_cachedEnemyDebuff;
+		return m_cachedEnemyDebuff ?? m_enemyDebuff;
 	}
 
 	public int GetAbsorb()
 	{
-		if (!m_abilityMod)
-		{
-			return m_absorb;
-		}
-		return m_abilityMod.m_absorbMod.GetModifiedValue(m_absorb);
+		return m_abilityMod != null
+			? m_abilityMod.m_absorbMod.GetModifiedValue(m_absorb)
+			: m_absorb;
 	}
 
 	public StandardEffectInfo GetAllyBuff()
 	{
-		if (m_cachedAllyBuff == null)
-		{
-			return m_allyBuff;
-		}
-		return m_cachedAllyBuff;
+		return m_cachedAllyBuff ?? m_allyBuff;
 	}
 
 	public StandardEffectInfo GetSelfBuff()
 	{
-		return (m_cachedSelfBuff == null) ? m_selfBuff : m_cachedSelfBuff;
+		return m_cachedSelfBuff ?? m_selfBuff;
 	}
 
 	public int GetCooldownReductionOnHitAmount()
@@ -308,7 +323,7 @@ public class ValkyrieDashAoE : Ability
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieDashAoE))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_ValkyrieDashAoE);
+			m_abilityMod = abilityMod as AbilityMod_ValkyrieDashAoE;
 			SetupTargeter();
 		}
 	}
@@ -390,7 +405,7 @@ public class ValkyrieDashAoE : Ability
 		if (m_dashTargetingMode == DashTargetingMode.Aoe)
 		{
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetAoeShape(), targets[0]);
-			return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource, null);
+			return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
 		}
 		GetConeFacing(targets, caster, out Vector3 vec);
 		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);

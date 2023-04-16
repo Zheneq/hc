@@ -19,6 +19,7 @@ public class ValkyrieStab : Ability
 	[Header("-- Sequences")]
 	public GameObject m_centerProjectileSequencePrefab;
 	public GameObject m_sideProjectileSequencePrefab;
+	
 	private Valkyrie_SyncComponent m_syncComp;
 	private AbilityMod_ValkyrieStab m_abilityMod;
 	private StandardEffectInfo m_cachedTargetHitEffect;
@@ -36,7 +37,7 @@ public class ValkyrieStab : Ability
 	{
 		m_syncComp = GetComponent<Valkyrie_SyncComponent>();
 		SetCachedFields();
-		AbilityUtil_Targeter_ReverseStretchCone targeter = new AbilityUtil_Targeter_ReverseStretchCone(
+		Targeter = new AbilityUtil_Targeter_ReverseStretchCone(
 			this, 
 			GetConeMinLength(), 
 			GetConeMaxLength(), 
@@ -45,7 +46,6 @@ public class ValkyrieStab : Ability
 			m_coneStretchStyle, 
 			GetConeBackwardOffset(), 
 			PenetrateLineOfSight());
-		base.Targeter = targeter;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -60,124 +60,113 @@ public class ValkyrieStab : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedTargetHitEffect = (m_abilityMod ? m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect) : m_targetHitEffect);
+		m_cachedTargetHitEffect = m_abilityMod != null
+			? m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect)
+			: m_targetHitEffect;
 	}
 
 	public float GetConeWidthMinAngle()
 	{
-		return (!m_abilityMod) ? m_coneWidthMinAngle : m_abilityMod.m_coneWidthMinAngleMod.GetModifiedValue(m_coneWidthMinAngle);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthMinAngleMod.GetModifiedValue(m_coneWidthMinAngle)
+			: m_coneWidthMinAngle;
 	}
 
 	public float GetConeWidthMaxAngle()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coneWidthMaxAngle;
-		}
-		return m_abilityMod.m_coneWidthMaxAngleMod.GetModifiedValue(m_coneWidthMaxAngle);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneWidthMaxAngleMod.GetModifiedValue(m_coneWidthMaxAngle)
+			: m_coneWidthMaxAngle;
 	}
 
 	public float GetConeBackwardOffset()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coneBackwardOffset;
-		}
-		return m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset)
+			: m_coneBackwardOffset;
 	}
 
 	public float GetConeMinLength()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coneMinLength;
-		}
-		return m_abilityMod.m_coneMinLengthMod.GetModifiedValue(m_coneMinLength);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneMinLengthMod.GetModifiedValue(m_coneMinLength)
+			: m_coneMinLength;
 	}
 
 	public float GetConeMaxLength()
 	{
-		if (!m_abilityMod)
-		{
-			return m_coneMaxLength;
-		}
-		return m_abilityMod.m_coneMaxLengthMod.GetModifiedValue(m_coneMaxLength);
+		return m_abilityMod != null
+			? m_abilityMod.m_coneMaxLengthMod.GetModifiedValue(m_coneMaxLength)
+			: m_coneMaxLength;
 	}
 
 	public bool PenetrateLineOfSight()
 	{
-		return (!m_abilityMod) ? m_penetrateLineOfSight : m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight);
+		return m_abilityMod != null
+			? m_abilityMod.m_penetrateLineOfSightMod.GetModifiedValue(m_penetrateLineOfSight)
+			: m_penetrateLineOfSight;
 	}
 
+	// TODO unused
 	public int GetMaxTargets()
 	{
-		if (!m_abilityMod)
-		{
-			return m_maxTargets;
-		}
-		return m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public int GetDamageAmount()
 	{
-		if (!m_abilityMod)
-		{
-			return m_damageAmount;
-		}
-		return m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_damageAmountMod.GetModifiedValue(m_damageAmount)
+			: m_damageAmount;
 	}
 
 	public int GetLessDamagePerTarget()
 	{
-		if (!m_abilityMod)
-		{
-			return m_lessDamagePerTarget;
-		}
-		return m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(m_lessDamagePerTarget);
+		return m_abilityMod != null
+			? m_abilityMod.m_lessDamagePerTargetMod.GetModifiedValue(m_lessDamagePerTarget)
+			: m_lessDamagePerTarget;
 	}
 
 	public int GetExtraDamageOnSpearTip()
 	{
-		if (!m_abilityMod)
-		{
-			return 0;
-		}
-		return m_abilityMod.m_extraDamageOnSpearTip.GetModifiedValue(0);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageOnSpearTip.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetExtraDamageFirstTarget()
 	{
-		if (!m_abilityMod)
-		{
-			return 0;
-		}
-		return m_abilityMod.m_extraDamageFirstTarget.GetModifiedValue(0);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageFirstTarget.GetModifiedValue(0)
+			: 0;
 	}
 
 	public StandardEffectInfo GetTargetHitEffect()
 	{
-		return (m_cachedTargetHitEffect == null) ? m_targetHitEffect : m_cachedTargetHitEffect;
+		return m_cachedTargetHitEffect ?? m_targetHitEffect;
 	}
 
 	public int GetExtraAbsorbNextShieldBlockPerHit()
 	{
-		return m_abilityMod ? m_abilityMod.m_perHitExtraAbsorbNextShieldBlock.GetModifiedValue(0) : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_perHitExtraAbsorbNextShieldBlock.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetMaxExtraAbsorbNextShieldBlock()
 	{
-		if (!m_abilityMod)
-		{
-			return 0;
-		}
-		return m_abilityMod.m_maxExtraAbsorbNextShieldBlock.GetModifiedValue(0);
+		return m_abilityMod != null
+			? m_abilityMod.m_maxExtraAbsorbNextShieldBlock.GetModifiedValue(0)
+			: 0;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ValkyrieStab))
 		{
-			m_abilityMod = (abilityMod as AbilityMod_ValkyrieStab);
+			m_abilityMod = abilityMod as AbilityMod_ValkyrieStab;
 			SetupTargeter();
 		}
 	}
@@ -198,38 +187,35 @@ public class ValkyrieStab : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		List<AbilityUtil_Targeter.ActorTarget> actorsInRange = base.Targeter.GetActorsInRange();
-		List<ActorData> list = new List<ActorData>();
-		int num = 0;
-		foreach (AbilityUtil_Targeter.ActorTarget actorTarget in actorsInRange)
+		List<AbilityUtil_Targeter.ActorTarget> actorsInRange = Targeter.GetActorsInRange();
+		List<ActorData> hitActors = new List<ActorData>();
+		int extraDamage = 0;
+		foreach (AbilityUtil_Targeter.ActorTarget target in actorsInRange)
 		{
-			list.Add(actorTarget.m_actor);
-			if (actorTarget.m_actor == targetActor && actorTarget.m_subjectTypes.Contains(AbilityTooltipSubject.Far))
+			hitActors.Add(target.m_actor);
+			if (target.m_actor == targetActor && target.m_subjectTypes.Contains(AbilityTooltipSubject.Far))
 			{
-				num = GetExtraDamageOnSpearTip();
+				extraDamage = GetExtraDamageOnSpearTip();
 			}
 		}
-		int num2 = GetDamageAmount();
-		bool flag = true;
-		num2 += GetExtraDamageFirstTarget();
-		using (List<ActorData>.Enumerator enumerator2 = list.GetEnumerator())
+		int damageAmount = GetDamageAmount();
+		bool reducedDamage = true;
+		damageAmount += GetExtraDamageFirstTarget();
+		foreach (ActorData item in hitActors)
 		{
-			while (enumerator2.MoveNext())
+			if (item == targetActor)
 			{
-				if (enumerator2.Current == targetActor)
-				{
-					dictionary[AbilityTooltipSymbol.Damage] = num2 + num;
-					break;
-				}
-				if (m_syncComp == null || !m_syncComp.m_skipDamageReductionForNextStab)
-				{
-					num2 = Mathf.Max(0, num2 - GetLessDamagePerTarget());
-				}
-				if (flag)
-				{
-					flag = false;
-					num2 -= GetExtraDamageFirstTarget();
-				}
+				dictionary[AbilityTooltipSymbol.Damage] = damageAmount + extraDamage;
+				break;
+			}
+			if (m_syncComp == null || !m_syncComp.m_skipDamageReductionForNextStab)
+			{
+				damageAmount = Mathf.Max(0, damageAmount - GetLessDamagePerTarget());
+			}
+			if (reducedDamage)
+			{
+				reducedDamage = false;
+				damageAmount -= GetExtraDamageFirstTarget();
 			}
 		}
 		return dictionary;
@@ -285,11 +271,7 @@ public class ValkyrieStab : Ability
 			GetConeWidthMaxAngle(), 
 			m_coneStretchStyle, 
 			out float num, 
-			out float coneWidthDegrees, 
-			false, 
-			0, 
-			-1f, 
-			-1f);
+			out float coneWidthDegrees);
         Vector3 vector2 = caster.GetLoSCheckPos() - num * Board.Get().squareSize * vector;
 		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vector);
 		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
@@ -358,11 +340,7 @@ public class ValkyrieStab : Ability
 			GetConeWidthMaxAngle(), 
 			m_coneStretchStyle, 
 			out float num, 
-			out float num2, 
-			false, 
-			0, 
-			-1f, 
-			-1f);
+			out float num2);
 		float num3 = num * Board.Get().squareSize;
 		float num4 = GetConeBackwardOffset() * Board.Get().squareSize;
 		Vector3 vector2 = caster.GetLoSCheckPos() - num3 * vector - vector * num4;
