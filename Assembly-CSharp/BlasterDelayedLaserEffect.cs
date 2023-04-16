@@ -214,14 +214,20 @@ public class BlasterDelayedLaserEffect : Effect
 
 	public override ServerClientUtils.SequenceStartData GetEffectStartSeqData()
 	{
-		HealLaserSequence.ExtraParams extraParams = new HealLaserSequence.ExtraParams
-		{
-			endPos = GetLaserEndPos()
-		};
-		return new ServerClientUtils.SequenceStartData(m_groundSequencePrefab, m_laserStartPos, Quaternion.LookRotation(GetLaserAimDir()), null, Caster, SequenceSource, new Sequence.IExtraSequenceParams[]
-		{
-			extraParams
-		});
+		return new ServerClientUtils.SequenceStartData(
+			m_groundSequencePrefab,
+			m_laserStartPos,
+			Quaternion.LookRotation(GetLaserAimDir()),
+			null,
+			Caster,
+			SequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				new HealLaserSequence.ExtraParams
+				{
+					endPos = GetLaserEndPos()
+				}
+			});
 	}
 
 	public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()

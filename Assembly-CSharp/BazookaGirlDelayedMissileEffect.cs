@@ -19,6 +19,8 @@ public class BazookaGirlDelayedMissileEffect : Effect
     
     private HashSet<BoardSquare> m_affectedSquares;
     private List<ActorData> m_targetsOnHitTurnStart;
+    
+    private BazookaGirl_SyncComponent m_syncComponent;
 
     public BazookaGirlDelayedMissileEffect(
         EffectSource parent,
@@ -50,6 +52,7 @@ public class BazookaGirlDelayedMissileEffect : Effect
 
     public override void OnStart()
     {
+        m_syncComponent = Caster.GetComponent<BazookaGirl_SyncComponent>();
         foreach (BazookaGirlDelayedMissile.ShapeToHitInfo shapeToHitInfo in m_shapeToHitInfo)
         {
             List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(
@@ -167,9 +170,9 @@ public class BazookaGirlDelayedMissileEffect : Effect
     public override int GetCasterAnimationIndex(AbilityPriority phaseIndex)
     {
         Log.Info($"BazookaGirlDelayedMissileEffect::GetCasterAnimationIndex {phaseIndex} (HitPhase={HitPhase}, age={m_time.age})");
-        if (phaseIndex == HitPhase && m_time.age >= m_turnsBeforeExploding)
+        if (phaseIndex == HitPhase && m_time.age >= m_turnsBeforeExploding && !Caster.IsDead())
         {
-            return 0; // m_explosionAnimationIndex; // TODO ZUKI -- m_explosionAnimationIndex is unused
+            return m_explosionAnimationIndex;
         }
         return base.GetCasterAnimationIndex(phaseIndex);
     }
@@ -178,17 +181,14 @@ public class BazookaGirlDelayedMissileEffect : Effect
     {
         return true;
     }
-    
-    public override ActorData GetActorAnimationActor()
+
+    public override int GetCinematicRequested(AbilityPriority phaseIndex)
     {
-        foreach (ActorData actorData in m_effectResults.HitActorsArray())
-        {
-            if (actorData != null && !actorData.IsDead())
-            {
-                return actorData;
-            }
-        }
-        return Caster;
+        return phaseIndex == HitPhase
+               && m_time.age >= m_turnsBeforeExploding
+               && m_syncComponent != null
+            ? m_syncComponent.m_lastCinematicRequested
+            : -1;
     }
 
     public override void OnTurnStart()
