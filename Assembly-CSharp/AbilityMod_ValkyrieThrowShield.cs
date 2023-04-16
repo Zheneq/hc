@@ -53,8 +53,7 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		ValkyrieThrowShield valkyrieThrowShield = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieThrowShield;
 		bool isValid = valkyrieThrowShield != null;
 		string desc = string.Empty;
-		AbilityModPropertyFloat widthMod = m_widthMod;
-		desc += PropDesc(widthMod, "[Width]", isValid, isValid ? valkyrieThrowShield.m_width : 0f);
+		desc += PropDesc(m_widthMod, "[Width]", isValid, isValid ? valkyrieThrowShield.m_width : 0f);
 		desc += PropDesc(m_maxDistancePerBounceMod, "[MaxDistancePerBounce]", isValid, isValid ? valkyrieThrowShield.m_maxDistancePerBounce : 0f);
 		desc += PropDesc(m_maxTotalDistanceMod, "[MaxTotalDistance]", isValid, isValid ? valkyrieThrowShield.m_maxTotalDistance : 0f);
 		desc += PropDesc(m_maxBouncesMod, "[MaxBounces]", isValid, isValid ? valkyrieThrowShield.m_maxBounces : 0);
