@@ -19,6 +19,8 @@ public class BazookaGirlDelayedMissileEffect : Effect
     
     private HashSet<BoardSquare> m_affectedSquares;
     private List<ActorData> m_targetsOnHitTurnStart;
+    
+    private BazookaGirl_SyncComponent m_syncComponent;
 
     public BazookaGirlDelayedMissileEffect(
         EffectSource parent,
@@ -50,6 +52,7 @@ public class BazookaGirlDelayedMissileEffect : Effect
 
     public override void OnStart()
     {
+        m_syncComponent = Caster.GetComponent<BazookaGirl_SyncComponent>();
         foreach (BazookaGirlDelayedMissile.ShapeToHitInfo shapeToHitInfo in m_shapeToHitInfo)
         {
             List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(
@@ -177,6 +180,15 @@ public class BazookaGirlDelayedMissileEffect : Effect
     public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
     {
         return true;
+    }
+
+    public override int GetCinematicRequested(AbilityPriority phaseIndex)
+    {
+        return phaseIndex == HitPhase
+               && m_time.age >= m_turnsBeforeExploding
+               && m_syncComponent != null
+            ? m_syncComponent.m_lastCinematicRequested
+            : -1;
     }
 
     public override void OnTurnStart()

@@ -39,7 +39,11 @@ public class BazookaGirlDelayedMissile : Ability
 	private List<AbilityAreaShape> m_additionalShapes = new List<AbilityAreaShape>();
 	private List<ShapeToHitInfo> m_cachedShapeToHitInfo = new List<ShapeToHitInfo>();
 	private StandardEffectInfo m_cachedOnExplosionEffect;
-
+	
+#if SERVER
+	private BazookaGirl_SyncComponent m_syncComponent; // custom
+#endif
+	
 	private void Start()
 	{
 		SetupTargeter();
@@ -99,6 +103,10 @@ public class BazookaGirlDelayedMissile : Ability
 
 	private void SetupTargeter()
 	{
+#if SERVER
+		// custom
+		m_syncComponent = GetComponent<BazookaGirl_SyncComponent>();
+#endif
 		SetCachedFields();
 		if (m_abilityMod != null && m_abilityMod.m_useAdditionalShapeToHitInfoOverride)
 		{
@@ -311,6 +319,10 @@ public class BazookaGirlDelayedMissile : Ability
 		else
 		{
 			GatherAbilityResultsDirectionCone(targets, caster, ref abilityResults);
+		}
+		if (ServerAbilityUtils.CurrentlyGatheringRealResults())
+		{
+			m_syncComponent.m_lastCinematicRequested = abilityResults.CinematicRequested;
 		}
 	}
 	
