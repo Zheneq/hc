@@ -12,38 +12,34 @@ public class Passive_Valkyrie : Passive
 	private int m_lastUltCastTurn = -1;
 	private int m_lastGuardCastTurn = -1;
 
-	public int DamageThroughGuardCoverThisTurn
-	{
-		get;
-		private set;
-	}
+	public int DamageThroughGuardCoverThisTurn { get; private set; }
 
 #if SERVER
 	//Added in rouges
 	protected override void OnStartup()
 	{
 		base.OnStartup();
-		m_syncComp = base.Owner.GetComponent<Valkyrie_SyncComponent>();
-		AbilityData component = base.Owner.GetComponent<AbilityData>();
+		m_syncComp = Owner.GetComponent<Valkyrie_SyncComponent>();
+		AbilityData component = Owner.GetComponent<AbilityData>();
 		if (component != null)
 		{
 			m_guardAbility = (component.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard);
 			m_dashAbility = (component.GetAbilityOfType(typeof(ValkyrieDashAoE)) as ValkyrieDashAoE);
 			m_ultAbility = (component.GetAbilityOfType(typeof(ValkyriePullToLaserCenter)) as ValkyriePullToLaserCenter);
 		}
-		base.Owner.OnKnockbackHitExecutedDelegate += OnKnockbackMovementHitExecuted;
+		Owner.OnKnockbackHitExecutedDelegate += OnKnockbackMovementHitExecuted;
 	}
 
 	//Added in rouges
 	private void OnDestroy()
 	{
-		base.Owner.OnKnockbackHitExecutedDelegate -= OnKnockbackMovementHitExecuted;
+		Owner.OnKnockbackHitExecutedDelegate -= OnKnockbackMovementHitExecuted;
 	}
 
 	//Added in rouges
 	public override void OnDamaged(ActorData damageCaster, DamageSource damageSource, int damageAmount)
 	{
-		AbilityData abilityData = base.Owner.GetAbilityData();
+		AbilityData abilityData = Owner.GetAbilityData();
 		if (abilityData != null && damageAmount > 0)
 		{
 			if (IsCoverGuardActive(abilityData))
@@ -62,9 +58,9 @@ public class Passive_Valkyrie : Passive
 			}
 			if (abilityData.HasQueuedAbilityOfType(typeof(ValkyrieDashAoE)) && !m_tookDamageThisTurn && m_dashAbility != null && m_dashAbility.GetCooldownReductionOnHitAmount() != 0)
 			{
-				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(base.Owner, base.Owner.GetFreePos()));
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
 				actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_dashAbility.m_cooldownReductionIfDamagedThisTurn.abilitySlot, m_dashAbility.GetCooldownReductionOnHitAmount()));
-				MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(base.Owner, base.Owner, actorHitResults, m_dashAbility, true, null, null);
+				MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(Owner, Owner, actorHitResults, m_dashAbility);
 			}
 			m_tookDamageThisTurn = true;
 		}
@@ -80,9 +76,9 @@ public class Passive_Valkyrie : Passive
 	public bool IsDamageCoveredByGuard(DamageSource damageSource, ref bool tooNearForCover)
 	{
 		ActorCover.CoverDirections coverDirection = m_syncComp.m_coverDirection;
-		tooNearForCover = (GameplayData.Get().m_coverMinDistance * Board.Get().squareSize > (damageSource.DamageSourceLocation - base.Owner.GetFreePos()).magnitude);
-		float num = VectorUtils.HorizontalAngle_Deg(damageSource.DamageSourceLocation - base.Owner.GetFreePos());
-		float num2 = VectorUtils.HorizontalAngle_Deg(base.Owner.GetActorCover().GetCoverOffset(coverDirection));
+		tooNearForCover = (GameplayData.Get().m_coverMinDistance * Board.Get().squareSize > (damageSource.DamageSourceLocation - Owner.GetFreePos()).magnitude);
+		float num = VectorUtils.HorizontalAngle_Deg(damageSource.DamageSourceLocation - Owner.GetFreePos());
+		float num2 = VectorUtils.HorizontalAngle_Deg(Owner.GetActorCover().GetCoverOffset(coverDirection));
 		return Mathf.Abs(num - num2) <= GameplayData.Get().m_coverProtectionAngle * 0.5f;
 	}
 
@@ -109,9 +105,9 @@ public class Passive_Valkyrie : Passive
 			AbilityModCooldownReduction cooldownReductionOnNoBlock = m_guardAbility.GetCooldownReductionOnNoBlock();
 			if (cooldownReductionOnNoBlock != null && cooldownReductionOnNoBlock.HasCooldownReduction())
 			{
-				ActorHitResults hitRes = new ActorHitResults(new ActorHitParameters(base.Owner, base.Owner.GetFreePos()));
+				ActorHitResults hitRes = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
 				cooldownReductionOnNoBlock.AppendCooldownMiscEvents(hitRes, true, 0, 0);
-				MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(base.Owner, base.Owner, hitRes, m_guardAbility, true, null, null);
+				MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(Owner, Owner, hitRes, m_guardAbility);
 			}
 		}
 		DamageThroughGuardCoverThisTurn = 0;
@@ -131,7 +127,6 @@ public class Passive_Valkyrie : Passive
 			if (ability is ValkyrieGuard)
 			{
 				m_lastGuardCastTurn = GameFlowData.Get().CurrentTurn;
-				return;
 			}
 		}
 		else if (ability is ValkyriePullToLaserCenter && m_ultAbility != null)
@@ -144,21 +139,21 @@ public class Passive_Valkyrie : Passive
 	//Added in rouges
 	public override void OnMovementResultsGathered(MovementCollection stabilizedMovements)
 	{
-		if (ServerEffectManager.Get().HasEffectByCaster(base.Owner, base.Owner, typeof(ValkyrieGuardEndingEffect)))
+		if (ServerEffectManager.Get().HasEffectByCaster(Owner, Owner, typeof(ValkyrieGuardEndingEffect)))
 		{
 			int statIndex = 0;
-			int serverIncomingDamageReducedByCoverThisTurn = base.Owner.GetActorBehavior().serverIncomingDamageReducedByCoverThisTurn;
-			base.Owner.GetFreelancerStats().AddToValueOfStat(statIndex, serverIncomingDamageReducedByCoverThisTurn);
+			int serverIncomingDamageReducedByCoverThisTurn = Owner.GetActorBehavior().serverIncomingDamageReducedByCoverThisTurn;
+			Owner.GetFreelancerStats().AddToValueOfStat(statIndex, serverIncomingDamageReducedByCoverThisTurn);
 		}
 	}
 
 	//Added in rouges
 	private void OnKnockbackMovementHitExecuted(ActorData target, ActorHitResults hitRes)
 	{
-		if (hitRes.HasDamage && ServerActionBuffer.Get().HasStoredAbilityRequestOfType(base.Owner, typeof(ValkyrieThrowShield)))
+		if (hitRes.HasDamage && ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Owner, typeof(ValkyrieThrowShield)))
 		{
 			int statIndex = 1;
-			base.Owner.GetFreelancerStats().AddToValueOfStat(statIndex, hitRes.FinalDamage);
+			Owner.GetFreelancerStats().AddToValueOfStat(statIndex, hitRes.FinalDamage);
 		}
 	}
 #endif

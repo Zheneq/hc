@@ -80,7 +80,7 @@ public class ValkyrieThrowShield : Ability
 
 	public bool BounceOnHitActor()
 	{
-		return m_abilityMod!= null
+		return m_abilityMod != null
 		       && m_abilityMod.m_bounceOnHitActorMod.GetModifiedValue(false);
 	}
 
@@ -218,7 +218,7 @@ public class ValkyrieThrowShield : Ability
 			AbilityUtil_Targeter_BounceLaser.HitActorContext hitActorContext = hitActorContexts[i];
 			if (hitActorContext.actor == targetActor)
 			{
-				dictionary[AbilityTooltipSymbol.Damage] = 
+				dictionary[AbilityTooltipSymbol.Damage] =
 					GetBaseDamage()
 					+ GetBonusDamagePerBounce() * hitActorContext.segmentIndex
 					+ GetExtraDamage()

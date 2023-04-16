@@ -63,12 +63,15 @@ public class ValkyrieDashAoE : Ability
 
 	private void SetupTargeter()
 	{
+#if SERVER
+		// added in rogues
 		m_abilityData = GetComponent<AbilityData>();
 		if (m_abilityData != null)
 		{
 			m_guardAbility = m_abilityData.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard;
 			m_guardAbilityActionType = m_abilityData.GetActionTypeOfAbility(m_guardAbility);
 		}
+#endif
 		SetCachedFields();
 		Targeters.Clear();
 		if (m_dashTargetingMode == DashTargetingMode.Aoe)
