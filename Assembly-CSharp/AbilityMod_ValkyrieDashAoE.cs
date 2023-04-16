@@ -80,6 +80,6 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		desc += PropDesc(m_techPointGainPerTooCloseForCoverHitMod, "[TechPointGainPerTooCloseForCoverHit]", isValid, isValid ? valkyrieDashAoE.m_techPointGainPerTooCloseForCoverHit : 0);
 		desc += PropDesc(m_cooldownReductionIfDamagedThisTurnMod, "[CooldownReductionIfDamagedThisTurn]", isValid, isValid ? valkyrieDashAoE.m_cooldownReductionIfDamagedThisTurn.cooldownAddAmount : 0);
 		desc += PropDesc(m_coverDurationMod, "[CoverDuration]", isValid, isValid ? valkyrieDashAoE.m_coverDuration : 0);
-		return desc +PropDesc(m_coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", isValid, isValid && valkyrieDashAoE.m_coverIgnoreMinDist);
+		return desc + PropDesc(m_coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", isValid, isValid && valkyrieDashAoE.m_coverIgnoreMinDist);
 	}
 }
