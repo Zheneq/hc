@@ -11,28 +11,16 @@ public class BazookaGirl_SyncComponent : NetworkBehaviour
 
 	public int Networkm_basicAttackLastCastTurn
 	{
-		get
-		{
-			return m_basicAttackLastCastTurn;
-		}
+		get => m_basicAttackLastCastTurn;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_basicAttackLastCastTurn, 1u);
-		}
+		set => SetSyncVar(value, ref m_basicAttackLastCastTurn, 1u);
 	}
 
 	public int Networkm_basicAttackConsecutiveTurns
 	{
-		get
-		{
-			return m_basicAttackConsecutiveTurns;
-		}
+		get => m_basicAttackConsecutiveTurns;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_basicAttackConsecutiveTurns, 2u);
-		}
+		set => SetSyncVar(value, ref m_basicAttackConsecutiveTurns, 2u);
 	}
 
 	private void UNetVersion()  // MirrorProcessed in rogues

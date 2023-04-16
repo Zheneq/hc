@@ -275,7 +275,7 @@ public class ServerCombatManager : MonoBehaviour
 			damageReduced = damage_incomingModified < baseDamage;
 			
 			// custom
-			int damage_actual = Mathf.Max(damageIncomingModifiedWithCover, 0);
+			int damage_actual = Mathf.Max(damageIncomingModifiedWithCover, 0);  // TODO shouldn't it be damageAfterIncomingBuffDebuffWithCover?
 			// rogues
 			// int damage_actual = damage_incomingModified;
 			
@@ -329,14 +329,14 @@ public class ServerCombatManager : MonoBehaviour
 		ActorData caster = actorHitResults.m_hitParameters.Caster;
 		ActorData target = actorHitResults.m_hitParameters.Target;
 		DamageSource damageSource = actorHitResults.m_hitParameters.DamageSource;
-		int num = damageType == DamageType.Thorns
+		int finalDamageAmount = damageType == DamageType.Thorns
 			? actorHitResults.ThornsDamage
 			: actorHitResults.FinalDamage;
-		if (num != 0)
+		if (finalDamageAmount != 0)
 		{
-			target.UnresolvedDamage += num;
+			target.UnresolvedDamage += finalDamageAmount;
 			UnresolvedHealthChange item = default(UnresolvedHealthChange);
-			item.InitAsDamage(caster, damageSource, num);
+			item.InitAsDamage(caster, damageSource, finalDamageAmount);
 			item.SetActorHitResults(actorHitResults);
 			if (!m_unresolvedHealthChanges.ContainsKey(target))
 			{
@@ -348,13 +348,13 @@ public class ServerCombatManager : MonoBehaviour
 				ActorBehavior actorBehavior = caster.GetActorBehavior();
 				if (actorBehavior != null)
 				{
-					actorBehavior.CurrentTurn.RecordDamageToActor(target, num, damageSource);
+					actorBehavior.CurrentTurn.RecordDamageToActor(target, finalDamageAmount, damageSource);
 				}
 			}
 		}
 		if (BrushCoordinator.Get() != null && caster != null)
 		{
-			BrushCoordinator.Get().OnDamaged_HandleConcealment(target, caster, damageSource, num, damageType);
+			BrushCoordinator.Get().OnDamaged_HandleConcealment(target, caster, damageSource, finalDamageAmount, damageType);
 		}
 		ServerEffectManager.Get().OnUnresolvedDamage(actorHitResults);
 		// TODO CTF CTC
