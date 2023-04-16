@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -196,7 +198,7 @@ public class ValkyrieGuard : Ability
 	{
 		return caster != null
 		       && caster.GetAbilityData() != null
-		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE)); // , true in rogues
 	}
 
 	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
@@ -224,43 +226,47 @@ public class ValkyrieGuard : Ability
 	}
 
 	//Added in rouges
-	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
-		ValkyrieDirectionalShieldSequence.ExtraParams extraParams = new ValkyrieDirectionalShieldSequence.ExtraParams();
-		extraParams.m_aimDirection = (sbyte)GetCoverFacing(targets);
-		ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(
-			m_applyShieldSequencePrefab, 
-			caster.GetFreePos(), 
-			caster.AsArray(), 
-			caster, 
-			additionalData.m_sequenceSource, 
-			new Sequence.IExtraSequenceParams[]
+		return new List<ServerClientUtils.SequenceStartData>
 		{
-			extraParams
-		});
-		list.Add(item);
-		return list;
+			new ServerClientUtils.SequenceStartData(
+				m_applyShieldSequencePrefab,
+				caster.GetFreePos(),
+				caster.AsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[]
+				{
+					new ValkyrieDirectionalShieldSequence.ExtraParams
+					{
+						m_aimDirection = (sbyte)GetCoverFacing(targets)
+					}
+				})
+		};
 	}
 
 	//Added in rouges
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
-		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = ServerEffectManager.Get().GetEffect(caster, typeof(ValkyrieGuardEndingEffect)) as ValkyrieGuardEndingEffect;
-		if (valkyrieGuardEndingEffect != null)
+		if (ServerEffectManager.Get().GetEffect(caster, typeof(ValkyrieGuardEndingEffect)) is ValkyrieGuardEndingEffect valkyrieGuardEndingEffect)
 		{
 			actorHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
 		}
 		ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
 		valkyrieGuardEndingEffect = CreateGuardEffect(
-			coverFacing, 
-			CoverIgnoreMinDist(), 
-			caster, 
-			GetShieldEffectInfo(), 
-			GetCoverDuration(), 
-			GetTechPointGainPerCoveredHit(), 
-			GetTechPointGainPerTooCloseForCoverHit(), 
+			coverFacing,
+			CoverIgnoreMinDist(),
+			caster,
+			GetShieldEffectInfo(),
+			GetCoverDuration(),
+			GetTechPointGainPerCoveredHit(),
+			GetTechPointGainPerTooCloseForCoverHit(),
 			GetExtraAbsorb());
 		actorHitResults.AddEffect(valkyrieGuardEndingEffect);
 		abilityResults.StoreActorHit(actorHitResults);
@@ -269,37 +275,30 @@ public class ValkyrieGuard : Ability
 	//Added in rouges
 	public ValkyrieGuardEndingEffect CreateGuardEffect(
 		ActorCover.CoverDirections coverDir,
-		bool ignoreMinDist, 
-		ActorData caster, 
-		StandardEffectInfo shieldEffectInfo, 
-		int coverDuration, 
-		int techPointGainPerCoveredHit, 
-		int techPointGainPerTooCloseForCoverHit, 
+		bool ignoreMinDist,
+		ActorData caster,
+		StandardEffectInfo shieldEffectInfo,
+		int coverDuration,
+		int techPointGainPerCoveredHit,
+		int techPointGainPerTooCloseForCoverHit,
 		int extraAbsorb)
 	{
 		StandardActorEffectData shallowCopy = shieldEffectInfo.m_effectData.GetShallowCopy();
 		shallowCopy.m_absorbAmount += extraAbsorb;
 		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = new ValkyrieGuardEndingEffect(
-			AsEffectSource(), 
-			null, 
-			caster, 
-			caster, 
+			AsEffectSource(),
+			null,
+			caster,
+			caster,
 			shallowCopy,
-			m_removeShieldSequencePrefab, 
-			coverDir, 
-			ignoreMinDist, 
-			techPointGainPerCoveredHit, 
-			techPointGainPerTooCloseForCoverHit, 
-			GetCoveredHitReactionEffect(), 
+			m_removeShieldSequencePrefab,
+			coverDir,
+			ignoreMinDist,
+			techPointGainPerCoveredHit,
+			techPointGainPerTooCloseForCoverHit,
+			GetCoveredHitReactionEffect(),
 			GetTooCloseForCoverHitReactionEffect());
-		if (m_coverLastsForever)
-		{
-			valkyrieGuardEndingEffect.SetDurationBeforeStart(0);
-		}
-		else
-		{
-			valkyrieGuardEndingEffect.SetDurationBeforeStart(coverDuration);
-		}
+		valkyrieGuardEndingEffect.SetDurationBeforeStart(m_coverLastsForever ? 0 : coverDuration);
 		return valkyrieGuardEndingEffect;
 	}
 

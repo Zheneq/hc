@@ -1,4 +1,5 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,21 +19,21 @@ public class ValkyrieGuardEndingEffect : StandardActorEffect
 	private bool m_readyToEnd;
 
 	public ValkyrieGuardEndingEffect(
-		EffectSource parent, 
-		BoardSquare targetSquare, 
-		ActorData target, 
-		ActorData caster, 
-		StandardActorEffectData data, 
-		GameObject removeShieldSequencePrefab, 
-		ActorCover.CoverDirections shieldFacing, 
-		bool shieldCoverIgnoreMinDist, 
-		int techPointGain, 
-		int techPointGainTooNearForCover, 
-		StandardEffectInfo reactionEffect, 
-		StandardEffectInfo reactionEffectTooNearForCover
-		) : base(parent, targetSquare, target, caster, data)
+		EffectSource parent,
+		BoardSquare targetSquare,
+		ActorData target,
+		ActorData caster,
+		StandardActorEffectData data,
+		GameObject removeShieldSequencePrefab,
+		ActorCover.CoverDirections shieldFacing,
+		bool shieldCoverIgnoreMinDist,
+		int techPointGain,
+		int techPointGainTooNearForCover,
+		StandardEffectInfo reactionEffect,
+		StandardEffectInfo reactionEffectTooNearForCover)
+		: base(parent, targetSquare, target, caster, data)
 	{
-		base.HitPhase = AbilityPriority.Combat_Final;
+		HitPhase = AbilityPriority.Combat_Final;
 		m_removeShieldSequencePrefab = removeShieldSequencePrefab;
 		m_shieldFacing = shieldFacing;
 		m_shieldCoverIgnoreMinDist = shieldCoverIgnoreMinDist;
@@ -43,31 +44,27 @@ public class ValkyrieGuardEndingEffect : StandardActorEffect
 		PassiveData passiveData = caster.GetPassiveData();
 		if (passiveData != null)
 		{
-			m_passive = (passiveData.GetPassiveOfType(typeof(Passive_Valkyrie)) as Passive_Valkyrie);
+			m_passive = passiveData.GetPassiveOfType(typeof(Passive_Valkyrie)) as Passive_Valkyrie;
 		}
 	}
 
 	public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
-		foreach (GameObject gameObject in m_data.m_sequencePrefabs)
+		foreach (GameObject prefab in m_data.m_sequencePrefabs)
 		{
-			ValkyrieDirectionalShieldSequence.ExtraParams extraParams = new ValkyrieDirectionalShieldSequence.ExtraParams();
-			extraParams.m_aimDirection = (sbyte)m_shieldFacing;
-			List<ServerClientUtils.SequenceStartData> list2 = list;
-			GameObject prefab = gameObject;
-			BoardSquare currentBoardSquare = base.Caster.GetCurrentBoardSquare();
-			ActorData[] targetActorArray = new ActorData[]
-			{
-				base.Caster
-			};
-			ActorData caster = base.Caster;
-			SequenceSource sequenceSource = base.SequenceSource;
-			Sequence.IExtraSequenceParams[] extraParams2 = new ValkyrieDirectionalShieldSequence.ExtraParams[]
-			{
-				extraParams
-			};
-			list2.Add(new ServerClientUtils.SequenceStartData(prefab, currentBoardSquare, targetActorArray, caster, sequenceSource, extraParams2));
+			list.Add(new ServerClientUtils.SequenceStartData(
+				prefab,
+				Caster.GetCurrentBoardSquare(),
+				new[] { Caster },
+				Caster,
+				SequenceSource,
+				new Sequence.IExtraSequenceParams[] {
+					new ValkyrieDirectionalShieldSequence.ExtraParams
+					{
+						m_aimDirection = (sbyte)m_shieldFacing
+					}
+				}));
 		}
 		return list;
 	}
@@ -77,22 +74,18 @@ public class ValkyrieGuardEndingEffect : StandardActorEffect
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		if (m_time.age == m_time.duration - 2)
 		{
-			ValkyrieDirectionalShieldSequence.ExtraParams extraParams = new ValkyrieDirectionalShieldSequence.ExtraParams();
-			extraParams.m_aimDirection = (sbyte)m_shieldFacing;
-			List<ServerClientUtils.SequenceStartData> list2 = list;
-			GameObject removeShieldSequencePrefab = m_removeShieldSequencePrefab;
-			BoardSquare currentBoardSquare = base.Caster.GetCurrentBoardSquare();
-			ActorData[] targetActorArray = new ActorData[]
-			{
-				base.Caster
-			};
-			ActorData caster = base.Caster;
-			SequenceSource sequenceSource = base.SequenceSource;
-			Sequence.IExtraSequenceParams[] extraParams2 = new ValkyrieDirectionalShieldSequence.ExtraParams[]
-			{
-				extraParams
-			};
-			list2.Add(new ServerClientUtils.SequenceStartData(removeShieldSequencePrefab, currentBoardSquare, targetActorArray, caster, sequenceSource, extraParams2));
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_removeShieldSequencePrefab,
+				Caster.GetCurrentBoardSquare(), 
+				new[] { Caster },
+				Caster,
+				SequenceSource, 
+				new Sequence.IExtraSequenceParams[] {
+					new ValkyrieDirectionalShieldSequence.ExtraParams
+					{
+						m_aimDirection = (sbyte)m_shieldFacing
+					}
+				}));
 		}
 		return list;
 	}
@@ -101,10 +94,10 @@ public class ValkyrieGuardEndingEffect : StandardActorEffect
 	{
 		if (m_time.age == m_time.duration - 2)
 		{
-			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(base.Target, base.Target.GetFreePos()));
-			if (!m_data.m_sequencePrefabs.IsNullOrEmpty<GameObject>())
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Target, Target.GetFreePos()));
+			if (!m_data.m_sequencePrefabs.IsNullOrEmpty())
 			{
-				actorHitResults.AddEffectSequenceToEnd(m_data.m_sequencePrefabs[0], base.GetEffectGuid());
+				actorHitResults.AddEffectSequenceToEnd(m_data.m_sequencePrefabs[0], GetEffectGuid());
 			}
 			effectResults.StoreActorHit(actorHitResults);
 		}
@@ -127,54 +120,63 @@ public class ValkyrieGuardEndingEffect : StandardActorEffect
 	public override void OnEnd()
 	{
 		base.OnEnd();
-		if (base.Caster.GetActorCover() != null)
+		if (Caster.GetActorCover() != null)
 		{
-			base.Caster.GetActorCover().RemoveTempCoverProvider(m_shieldFacing, m_shieldCoverIgnoreMinDist);
+			Caster.GetActorCover().RemoveTempCoverProvider(m_shieldFacing, m_shieldCoverIgnoreMinDist);
 		}
 	}
 
 	public override void OnStart()
 	{
 		base.OnStart();
-		if (base.Caster.GetActorCover() != null)
+		if (Caster.GetActorCover() != null)
 		{
-			base.Caster.GetActorCover().AddTempCoverProvider(m_shieldFacing, m_shieldCoverIgnoreMinDist);
+			Caster.GetActorCover().AddTempCoverProvider(m_shieldFacing, m_shieldCoverIgnoreMinDist);
 		}
 	}
 
 	public override void GatherResultsInResponseToActorHit(ActorHitResults incomingHit, ref List<AbilityResults_Reaction> reactions, bool isReal)
 	{
-		if (m_techPointGainPerCoveredHit != 0 && incomingHit.GetDamageCalcScratch().m_damageAfterIncomingBuffDebuffWithCover > 0)
+		if (m_techPointGainPerCoveredHit == 0
+		    || incomingHit.GetDamageCalcScratch().m_damageAfterIncomingBuffDebuffWithCover <= 0)
 		{
-			bool flag = false;
-			if (m_passive.IsDamageCoveredByGuard(incomingHit.m_hitParameters.DamageSource, ref flag))
+			return;
+		}
+		bool tooNearForCover = false;
+		if (!m_passive.IsDamageCoveredByGuard(incomingHit.m_hitParameters.DamageSource, ref tooNearForCover))
+		{
+			return;
+		}
+		AbilityResults_Reaction abilityResults = new AbilityResults_Reaction();
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
+		if (tooNearForCover)
+		{
+			actorHitResults.AddTechPointGainOnCaster(m_techPointGainPerTooCloseForCoverHit);
+			if (!m_triggeredReactionOnce)
 			{
-				AbilityResults_Reaction abilityResults_Reaction = new AbilityResults_Reaction();
-				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(base.Caster, base.Caster.GetFreePos()));
-				if (flag)
-				{
-					actorHitResults.AddTechPointGainOnCaster(m_techPointGainPerTooCloseForCoverHit);
-					if (!m_triggeredReactionOnce)
-					{
-						actorHitResults.AddStandardEffectInfo(m_reactionEffectTooNearForCover);
-					}
-				}
-				else
-				{
-					actorHitResults.AddTechPointGainOnCaster(m_techPointGainPerCoveredHit);
-					if (!m_triggeredReactionOnce)
-					{
-						actorHitResults.AddStandardEffectInfo(m_reactionEffect);
-					}
-				}
-				abilityResults_Reaction.SetupGameplayData(this, actorHitResults, incomingHit.m_reactionDepth, null, isReal, incomingHit);
-				abilityResults_Reaction.SetupSequenceData(null, base.Caster.GetCurrentBoardSquare(), base.SequenceSource, null);
-				reactions.Add(abilityResults_Reaction);
-				if (isReal && GameFlowData.Get().IsInResolveState())
-				{
-					m_triggeredReactionOnce = true;
-				}
+				actorHitResults.AddStandardEffectInfo(m_reactionEffectTooNearForCover);
 			}
+		}
+		else
+		{
+			actorHitResults.AddTechPointGainOnCaster(m_techPointGainPerCoveredHit);
+			if (!m_triggeredReactionOnce)
+			{
+				actorHitResults.AddStandardEffectInfo(m_reactionEffect);
+			}
+		}
+		abilityResults.SetupGameplayData(
+			this,
+			actorHitResults,
+			incomingHit.m_reactionDepth,
+			null,
+			isReal,
+			incomingHit);
+		abilityResults.SetupSequenceData(null, Caster.GetCurrentBoardSquare(), SequenceSource);
+		reactions.Add(abilityResults);
+		if (isReal && GameFlowData.Get().IsInResolveState())
+		{
+			m_triggeredReactionOnce = true;
 		}
 	}
 }

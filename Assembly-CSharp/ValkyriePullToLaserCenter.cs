@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +13,8 @@ public class ValkyriePullToLaserCenter : Ability
 	[Header("-- Damage & effects")]
 	public int m_damage = 40;
 	public StandardEffectInfo m_effectToEnemies;
-	public int m_extraDamageForCenterHits;
-	public float m_centerHitWidth = 0.1f;
+	public int m_extraDamageForCenterHits; // TODO VALKYRIE removed in rogues
+	public float m_centerHitWidth = 0.1f; // TODO VALKYRIE removed in rogues
 	[Header("-- Knockback on Cast")]
 	public float m_maxKnockbackDist = 3f;
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularPullToAimDir;
@@ -70,7 +72,7 @@ public class ValkyriePullToLaserCenter : Ability
 		AddTokenInt(tokens, "MaxTargets", string.Empty, m_maxTargets);
 		AddTokenInt(tokens, "Damage", string.Empty, m_damage);
 		AbilityMod.AddToken_EffectInfo(tokens, m_effectToEnemies, "EffectToEnemies", m_effectToEnemies);
-		AddTokenInt(tokens, "ExtraDamageForCenterHits", string.Empty, m_extraDamageForCenterHits);
+		AddTokenInt(tokens, "ExtraDamageForCenterHits", string.Empty, m_extraDamageForCenterHits); // removed in rogues
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -100,6 +102,8 @@ public class ValkyriePullToLaserCenter : Ability
 				break;
 			}
 		}
+		
+		// TODO VALKYRIE removed in rogues
 		int extraDamageForCenterHits = GetExtraDamageForCenterHits();
 		if (extraDamageForCenterHits > 0 && Targeter is AbilityUtil_Targeter_KnockbackLaser targeter)
 		{
@@ -112,6 +116,8 @@ public class ValkyriePullToLaserCenter : Ability
 				damage += extraDamageForCenterHits;
 			}
 		}
+		// end removed in rogues
+		
 		dictionary[AbilityTooltipSymbol.Damage] = damage;
 		return dictionary;
 	}
@@ -130,7 +136,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_laserRangeInSquares;
 	}
 
-	// TODO unused
+	// TODO VALKYRIE unused
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null
@@ -138,7 +144,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_maxTargets;
 	}
 
-	// TODO unused
+	// TODO VALKYRIE unused
 	public bool LengthIgnoreLos()
 	{
 		return m_abilityMod != null
@@ -165,7 +171,7 @@ public class ValkyriePullToLaserCenter : Ability
 		return m_cachedEffectToEnemies ?? m_effectToEnemies;
 	}
 
-	// TODO unused
+	// TODO VALKYRIE unused, removed in rogues
 	public int GetExtraDamageForCenterHits()
 	{
 		return m_abilityMod != null
@@ -173,7 +179,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_extraDamageForCenterHits;
 	}
 
-	// TODO unused
+	// TODO VALKYRIE unused, removed in rogues
 	public float GetCenterHitWidth()
 	{
 		return m_abilityMod != null
@@ -188,7 +194,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_maxKnockbackDist;
 	}
 
-	// TODO unused
+	// TODO VALKYRIE unused
 	public KnockbackType GetKnockbackType()
 	{
 		return m_abilityMod != null
@@ -196,7 +202,6 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_knockbackType;
 	}
 
-	//Added in rouges
 	public bool ShouldSkipDamageReductionOnNextTurnStab()
 	{
 		return m_abilityMod != null
@@ -220,53 +225,77 @@ public class ValkyriePullToLaserCenter : Ability
 
 #if SERVER
 	//Added in rouges
-	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo, out Vector3 endPos)
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out Vector3 endPos)
 	{
 		return AreaEffectUtils.GetActorsInLaser(
-			caster.GetLoSCheckPos(), 
-			targets[0].AimDirection, 
-			GetLaserRangeInSquares(), 
-			GetLaserWidth(), 
-			caster, 
-			caster.GetOtherTeams(), 
-			false, 
-			m_maxTargets, 
-			m_lengthIgnoreLos, 
-			true, 
-			out endPos, 
+			caster.GetLoSCheckPos(),
+			targets[0].AimDirection,
+			GetLaserRangeInSquares(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			m_maxTargets,
+			m_lengthIgnoreLos,
+			true,
+			out endPos,
 			nonActorTargetInfo);
 	}
 
 	//Added in rouges
-	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-        List<ActorData> list = FindHitActors(targets, caster, null, out Vector3 targetPos);
-        targetPos.y = Board.Get().BaselineHeight;
-		return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, targetPos, list.ToArray(), caster, additionalData.m_sequenceSource);
+		List<ActorData> list = FindHitActors(targets, caster, null, out Vector3 targetPos);
+		targetPos.y = Board.Get().BaselineHeight;
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targetPos,
+			list.ToArray(),
+			caster,
+			additionalData.m_sequenceSource);
 	}
 
 	//Added in rouges
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-        List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo, out Vector3 vector);
-        Vector3 loSCheckPos = caster.GetLoSCheckPos();
-		foreach (ActorData actorData in list)
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out _);
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		foreach (ActorData actorData in hitActors)
 		{
-			ActorHitParameters hitParams = new ActorHitParameters(actorData, loSCheckPos);
+			ActorHitParameters hitParams = new ActorHitParameters(actorData, casterPos);
 			ActorHitResults actorHitResults = new ActorHitResults(GetDamage(), HitActionType.Damage, GetEffectToEnemies(), hitParams);
 			if (GetMaxKnockbackDist() != 0f)
 			{
-				KnockbackHitData knockbackData = new KnockbackHitData(actorData, caster, m_knockbackType, targets[0].AimDirection, loSCheckPos, GetMaxKnockbackDist());
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					actorData,
+					caster,
+					m_knockbackType,
+					targets[0].AimDirection,
+					casterPos,
+					GetMaxKnockbackDist());
 				actorHitResults.AddKnockbackData(knockbackData);
 				int extraDamageIfKnockedInPlace = GetExtraDamageIfKnockedInPlace();
-				if (extraDamageIfKnockedInPlace != 0 && !actorData.GetActorStatus().IsMovementDebuffImmune() && KnockbackUtils.BuildKnockbackPath(actorData, 
-					m_knockbackType, 
-					targets[0].AimDirection, 
-					loSCheckPos, 
-					GetMaxKnockbackDist()).FindMoveCostToEnd() < 0.5f)
+				if (extraDamageIfKnockedInPlace != 0
+				    && !actorData.GetActorStatus().IsMovementDebuffImmune())
 				{
-					actorHitResults.AddBaseDamage(extraDamageIfKnockedInPlace);
+					BoardSquarePathInfo knockbackPath = KnockbackUtils.BuildKnockbackPath(
+						actorData,
+						m_knockbackType,
+						targets[0].AimDirection,
+						casterPos,
+						GetMaxKnockbackDist());
+					if (knockbackPath.FindMoveCostToEnd() < 0.5f)
+					{
+						actorHitResults.AddBaseDamage(extraDamageIfKnockedInPlace);
+					}
 				}
 			}
 			abilityResults.StoreActorHit(actorHitResults);
@@ -277,7 +306,9 @@ public class ValkyriePullToLaserCenter : Ability
 	//Added in rouges
 	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
 	{
-		if (caster.GetTeam() != target.GetTeam() && results.HasKnockback && !target.GetActorStatus().HasStatus(StatusType.Unstoppable))
+		if (caster.GetTeam() != target.GetTeam()
+		    && results.HasKnockback
+		    && !target.GetActorStatus().HasStatus(StatusType.Unstoppable))
 		{
 			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ValkyrieStats.NumKnockbackTargetsWithUlt);
 		}

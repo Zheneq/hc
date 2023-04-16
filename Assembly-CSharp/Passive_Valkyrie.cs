@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,9 +25,9 @@ public class Passive_Valkyrie : Passive
 		AbilityData component = Owner.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			m_guardAbility = (component.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard);
-			m_dashAbility = (component.GetAbilityOfType(typeof(ValkyrieDashAoE)) as ValkyrieDashAoE);
-			m_ultAbility = (component.GetAbilityOfType(typeof(ValkyriePullToLaserCenter)) as ValkyriePullToLaserCenter);
+			m_guardAbility = component.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard;
+			m_dashAbility = component.GetAbilityOfType(typeof(ValkyrieDashAoE)) as ValkyrieDashAoE;
+			m_ultAbility = component.GetAbilityOfType(typeof(ValkyriePullToLaserCenter)) as ValkyriePullToLaserCenter;
 		}
 		Owner.OnKnockbackHitExecutedDelegate += OnKnockbackMovementHitExecuted;
 	}
@@ -40,43 +42,50 @@ public class Passive_Valkyrie : Passive
 	public override void OnDamaged(ActorData damageCaster, DamageSource damageSource, int damageAmount)
 	{
 		AbilityData abilityData = Owner.GetAbilityData();
-		if (abilityData != null && damageAmount > 0)
+		if (abilityData == null || damageAmount <= 0)
 		{
-			if (IsCoverGuardActive(abilityData))
+			return;
+		}
+		if (IsCoverGuardActive(abilityData))
+		{
+			bool tooNearForCover = false;
+			if (IsDamageCoveredByGuard(damageSource, ref tooNearForCover))
 			{
-				bool flag = false;
-				if (IsDamageCoveredByGuard(damageSource, ref flag))
+				DamageThroughGuardCoverThisTurn += damageAmount;
+				if (m_syncComp != null && m_guardAbility != null)
 				{
-					DamageThroughGuardCoverThisTurn += damageAmount;
-					if (m_syncComp != null && m_guardAbility != null)
-					{
-						Valkyrie_SyncComponent syncComp = m_syncComp;
-						syncComp.Networkm_extraDamageNextShieldThrow = syncComp.m_extraDamageNextShieldThrow + m_guardAbility.GetExtraDamageNextShieldThrowPerCoveredHit();
-						m_syncComp.Networkm_extraDamageNextShieldThrow = Mathf.Min(m_syncComp.m_extraDamageNextShieldThrow, m_guardAbility.GetMaxExtraDamageNextShieldThrow());
-					}
+					Valkyrie_SyncComponent syncComp = m_syncComp;
+					syncComp.Networkm_extraDamageNextShieldThrow = syncComp.m_extraDamageNextShieldThrow + m_guardAbility.GetExtraDamageNextShieldThrowPerCoveredHit();
+					m_syncComp.Networkm_extraDamageNextShieldThrow = Mathf.Min(m_syncComp.m_extraDamageNextShieldThrow, m_guardAbility.GetMaxExtraDamageNextShieldThrow());
 				}
 			}
-			if (abilityData.HasQueuedAbilityOfType(typeof(ValkyrieDashAoE)) && !m_tookDamageThisTurn && m_dashAbility != null && m_dashAbility.GetCooldownReductionOnHitAmount() != 0)
-			{
-				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
-				actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_dashAbility.m_cooldownReductionIfDamagedThisTurn.abilitySlot, m_dashAbility.GetCooldownReductionOnHitAmount()));
-				MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(Owner, Owner, actorHitResults, m_dashAbility);
-			}
-			m_tookDamageThisTurn = true;
 		}
+		if (abilityData.HasQueuedAbilityOfType(typeof(ValkyrieDashAoE)) // , true in rogues
+		    && !m_tookDamageThisTurn
+		    && m_dashAbility != null
+		    && m_dashAbility.GetCooldownReductionOnHitAmount() != 0)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
+			actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
+				m_dashAbility.m_cooldownReductionIfDamagedThisTurn.abilitySlot,
+				m_dashAbility.GetCooldownReductionOnHitAmount()));
+			MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(Owner, Owner, actorHitResults, m_dashAbility);
+		}
+		m_tookDamageThisTurn = true;
 	}
 
 	//Added in rouges
 	public bool IsCoverGuardActive(AbilityData abilityData)
 	{
-		return abilityData.HasQueuedAbilityOfType(typeof(ValkyrieGuard)) || (m_guardAbility != null && m_guardAbility.CoverLastsForever() && m_guardIsUp);
+		return abilityData.HasQueuedAbilityOfType(typeof(ValkyrieGuard)) // , true in rogues
+		       || (m_guardAbility != null && m_guardAbility.CoverLastsForever() && m_guardIsUp);
 	}
 
 	//Added in rouges
 	public bool IsDamageCoveredByGuard(DamageSource damageSource, ref bool tooNearForCover)
 	{
 		ActorCover.CoverDirections coverDirection = m_syncComp.m_coverDirection;
-		tooNearForCover = (GameplayData.Get().m_coverMinDistance * Board.Get().squareSize > (damageSource.DamageSourceLocation - Owner.GetFreePos()).magnitude);
+		tooNearForCover = GameplayData.Get().m_coverMinDistance * Board.Get().squareSize > (damageSource.DamageSourceLocation - Owner.GetFreePos()).magnitude;
 		float num = VectorUtils.HorizontalAngle_Deg(damageSource.DamageSourceLocation - Owner.GetFreePos());
 		float num2 = VectorUtils.HorizontalAngle_Deg(Owner.GetActorCover().GetCoverOffset(coverDirection));
 		return Mathf.Abs(num - num2) <= GameplayData.Get().m_coverProtectionAngle * 0.5f;
@@ -141,9 +150,9 @@ public class Passive_Valkyrie : Passive
 	{
 		if (ServerEffectManager.Get().HasEffectByCaster(Owner, Owner, typeof(ValkyrieGuardEndingEffect)))
 		{
-			int statIndex = 0;
-			int serverIncomingDamageReducedByCoverThisTurn = Owner.GetActorBehavior().serverIncomingDamageReducedByCoverThisTurn;
-			Owner.GetFreelancerStats().AddToValueOfStat(statIndex, serverIncomingDamageReducedByCoverThisTurn);
+			Owner.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ValkyrieStats.DamageMitigatedByCoverOnTurnsWithGuard,
+				Owner.GetActorBehavior().serverIncomingDamageReducedByCoverThisTurn);
 		}
 	}
 
@@ -152,8 +161,9 @@ public class Passive_Valkyrie : Passive
 	{
 		if (hitRes.HasDamage && ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Owner, typeof(ValkyrieThrowShield)))
 		{
-			int statIndex = 1;
-			Owner.GetFreelancerStats().AddToValueOfStat(statIndex, hitRes.FinalDamage);
+			Owner.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ValkyrieStats.DamageDoneByThrowShieldAndKnockback,
+				hitRes.FinalDamage);
 		}
 	}
 #endif

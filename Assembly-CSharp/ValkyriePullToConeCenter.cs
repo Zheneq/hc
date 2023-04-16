@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -89,23 +91,33 @@ public class ValkyriePullToConeCenter : Ability
 	//Added in rouges
 	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		List<ActorData> list = FindHitActors(targets, caster, null);
-		return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, caster.GetCurrentBoardSquare(), list.ToArray(), caster, additionalData.m_sequenceSource, null);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			FindHitActors(targets, caster, null).ToArray(),
+			caster,
+			additionalData.m_sequenceSource);
 	}
 
 	//Added in rouges
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		List<ActorData> list = FindHitActors(targets, caster, nonActorTargetInfo);
-		Vector3 loSCheckPos = caster.GetLoSCheckPos();
-		foreach (ActorData target in list)
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo);
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		foreach (ActorData target in hitActors)
 		{
-			ActorHitParameters hitParams = new ActorHitParameters(target, loSCheckPos);
+			ActorHitParameters hitParams = new ActorHitParameters(target, casterPos);
 			ActorHitResults actorHitResults = new ActorHitResults(GetDamage(), HitActionType.Damage, GetEffectOnEnemy(), hitParams);
 			if (GetKnockbackDistance() != 0f)
 			{
-				KnockbackHitData knockbackData = new KnockbackHitData(target, caster, m_knockbackType, targets[0].AimDirection, loSCheckPos, GetKnockbackDistance());
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					target,
+					caster,
+					m_knockbackType,
+					targets[0].AimDirection,
+					casterPos,
+					GetKnockbackDistance());
 				actorHitResults.AddKnockbackData(knockbackData);
 			}
 			abilityResults.StoreActorHit(actorHitResults);
