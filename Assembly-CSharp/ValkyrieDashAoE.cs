@@ -350,8 +350,8 @@ public class ValkyrieDashAoE : Ability
 	{
 		if (targetIndex == 1)
 		{
-			BoardSquare square = Board.Get().GetSquare(targetsSoFar[0].GridPos);
-			overridePos = square.ToVector3();
+			BoardSquare targetSquare = Board.Get().GetSquare(targetsSoFar[0].GridPos);
+			overridePos = targetSquare.ToVector3();
 			return true;
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
