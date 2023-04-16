@@ -1577,6 +1577,9 @@ namespace Theatrics
 			m_targetPos = Effect.GetRotationTargetPos(phaseIndex);
 			m_ignoreForCameraFraming = Effect.IgnoreCameraFraming();
 			InitHitActorsToDeltaHP(phaseIndex);
+			
+			// custom
+			m_alwaysInLoS = true;
 		}
 
 		internal ActorAnimation(Turn turn, Phase phase, ActorData caster, AbilityData.ActionType actionType, short animIndex, int tauntNum, List<AbilityTarget> targeterTargets, SequenceSource source)
@@ -1585,6 +1588,14 @@ namespace Theatrics
 			Caster = caster;
 			m_turn = turn;
 			m_cinematicRequested = tauntNum;
+			
+			// custom
+			m_revealOnCast = caster?
+				.GetAbilityData()
+				.GetAbilityOfActionType(actionType)?
+				.m_tags
+				.Contains(AbilityTags.DontBreakCasterInvisibilityOnCast) != true;
+			
 			m_isAbilityOrItem = false;
 			m_ability = null;
 			m_abilityRequest = null;
