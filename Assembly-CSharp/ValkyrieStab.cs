@@ -250,7 +250,7 @@ public class ValkyrieStab : Ability
 		int hitActorNum = additionalData.m_abilityResults.HitActorList().Count;
 		if (m_syncComp != null)
 		{
-			m_syncComp.Networkm_extraAbsorbForGuard = m_syncComp.m_extraAbsorbForGuard + GetExtraAbsorbNextShieldBlockPerHit() * hitActorNum;
+			m_syncComp.Networkm_extraAbsorbForGuard += GetExtraAbsorbNextShieldBlockPerHit() * hitActorNum;
 			int maxExtraAbsorbNextShieldBlock = GetMaxExtraAbsorbNextShieldBlock();
 			if (maxExtraAbsorbNextShieldBlock > 0)
 			{

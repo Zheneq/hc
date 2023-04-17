@@ -468,16 +468,16 @@ public class ValkyrieDashAoE : Ability
 		}
 		if (GetSelfBuff().m_applyEffect || m_dashTargetingMode == DashTargetingMode.AimShieldCone)
 		{
-			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
-			actorHitResults.AddStandardEffectInfo(GetSelfBuff());
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
+			casterHitResults.AddStandardEffectInfo(GetSelfBuff());
 			if (m_dashTargetingMode == DashTargetingMode.AimShieldCone && m_guardAbility != null)
 			{
 				if (ServerEffectManager.Get().GetEffect(caster, typeof(ValkyrieGuardEndingEffect)) is ValkyrieGuardEndingEffect valkyrieGuardEndingEffect)
 				{
-					actorHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
+					casterHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
 				}
 				ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
-				valkyrieGuardEndingEffect = m_guardAbility.CreateGuardEffect(
+				casterHitResults.AddEffect(m_guardAbility.CreateGuardEffect(
 					coverFacing,
 					CoverIgnoreMinDist(),
 					caster,
@@ -485,16 +485,15 @@ public class ValkyrieDashAoE : Ability
 					GetCoverDuration(),
 					GetTechPointGainPerCoveredHit(),
 					GetTechPointGainPerTooCloseForCoverHit(),
-					0);
-				actorHitResults.AddEffect(valkyrieGuardEndingEffect);
+					0));
 				if (m_triggerCooldownOnGuardAbiity)
 				{
-					actorHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(
+					casterHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(
 						m_guardAbilityActionType,
 						m_guardAbility.GetModdedCooldown()));
 				}
 			}
-			abilityResults.StoreActorHit(actorHitResults);
+			abilityResults.StoreActorHit(casterHitResults);
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}

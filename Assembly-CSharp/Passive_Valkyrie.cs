@@ -54,9 +54,9 @@ public class Passive_Valkyrie : Passive
 				DamageThroughGuardCoverThisTurn += damageAmount;
 				if (m_syncComp != null && m_guardAbility != null)
 				{
-					Valkyrie_SyncComponent syncComp = m_syncComp;
-					syncComp.Networkm_extraDamageNextShieldThrow = syncComp.m_extraDamageNextShieldThrow + m_guardAbility.GetExtraDamageNextShieldThrowPerCoveredHit();
-					m_syncComp.Networkm_extraDamageNextShieldThrow = Mathf.Min(m_syncComp.m_extraDamageNextShieldThrow, m_guardAbility.GetMaxExtraDamageNextShieldThrow());
+					m_syncComp.Networkm_extraDamageNextShieldThrow = Mathf.Min(
+						m_syncComp.Networkm_extraDamageNextShieldThrow + m_guardAbility.GetExtraDamageNextShieldThrowPerCoveredHit(),
+						m_guardAbility.GetMaxExtraDamageNextShieldThrow());
 				}
 			}
 		}
@@ -109,7 +109,9 @@ public class Passive_Valkyrie : Passive
 	public override void OnTurnEnd()
 	{
 		base.OnTurnEnd();
-		if (DamageThroughGuardCoverThisTurn == 0 && m_lastGuardCastTurn == GameFlowData.Get().CurrentTurn && m_guardAbility != null)
+		if (DamageThroughGuardCoverThisTurn == 0
+		    && m_lastGuardCastTurn == GameFlowData.Get().CurrentTurn
+		    && m_guardAbility != null)
 		{
 			AbilityModCooldownReduction cooldownReductionOnNoBlock = m_guardAbility.GetCooldownReductionOnNoBlock();
 			if (cooldownReductionOnNoBlock != null && cooldownReductionOnNoBlock.HasCooldownReduction())

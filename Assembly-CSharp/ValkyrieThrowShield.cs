@@ -310,7 +310,7 @@ public class ValkyrieThrowShield : Ability
 			out List<Vector3> laserEndPoints,
 			out List<ActorData> orderedHitActors,
 			nonActorTargetInfoInSegment,
-			out var hitCaster);
+			out bool hitCaster);
 		float knockbackDistance = GetKnockbackDistance();
 		int maxKnockbackTargets = GetMaxKnockbackTargets();
 		for (int i = 0; i < orderedHitActors.Count; i++)
@@ -329,8 +329,8 @@ public class ValkyrieThrowShield : Ability
 			{
 				actorHitResults.SetIgnoreCoverMinDist(true);
 			}
-			float num3 = GetBonusKnockbackPerBounce() * endpointIndex;
-			if ((knockbackDistance > 0f || num3 > 0f)
+			float bonusKnockbackDistance = GetBonusKnockbackPerBounce() * endpointIndex;
+			if ((knockbackDistance > 0f || bonusKnockbackDistance > 0f)
 			    && (maxKnockbackTargets <= 0 || i < maxKnockbackTargets))
 			{
 				Vector3 aimDir = laserEndPoints[endpointIndex] - segmentOrigin;
@@ -340,7 +340,7 @@ public class ValkyrieThrowShield : Ability
 					GetKnockbackType(),
 					aimDir,
 					segmentOrigin,
-					knockbackDistance + num3));
+					knockbackDistance + bonusKnockbackDistance));
 			}
 			dictionary[actorData] = actorHitResults;
 		}
