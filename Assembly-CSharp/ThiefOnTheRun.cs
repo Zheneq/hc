@@ -165,7 +165,6 @@ public class ThiefOnTheRun : Ability
 			: m_subsequentDamage;
 	}
 
-	// TODO THIEF unused
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
@@ -192,7 +191,11 @@ public class ThiefOnTheRun : Ability
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Primary, m_damageAmount);
+#if PURE_REACTOR
 		m_enemyHitEffect.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+#else
+		GetEnemyHitEffect().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Primary);
+#endif
 		return numbers;
 	}
 
@@ -430,7 +433,12 @@ public class ThiefOnTheRun : Ability
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, actorToDamageOrigins[hitActor]));
 			int damage = GetDamageAmount() + (actorToHitCount[hitActor] - 1) * GetSubsequentDamage();
 			actorHitResults.SetBaseDamage(damage);
-			actorHitResults.AddStandardEffectInfo(m_enemyHitEffect);
+			
+			// custom
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			// rogues
+			// actorHitResults.AddStandardEffectInfo(m_enemyHitEffect);
+			
 			actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(hitActor, caster.GetTeam(), GetSpoilSpawnInfo()));
 			abilityResults.StoreActorHit(actorHitResults);
 		}
