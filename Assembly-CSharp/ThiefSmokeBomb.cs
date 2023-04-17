@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ThiefSmokeBomb : Ability
@@ -94,6 +96,11 @@ public class ThiefSmokeBomb : Ability
 		m_cachedSmokeFieldInfo = m_abilityMod != null
 			? m_abilityMod.m_smokeFieldInfoMod.GetModifiedValue(m_smokeFieldInfo)
 			: m_smokeFieldInfo;
+		// rogues
+		// if (m_barrierData == null)
+		// {
+		// 	m_barrierData = ScriptableObject.CreateInstance<StandardBarrierData>();
+		// }
 		m_cachedBarrierData = m_abilityMod != null
 			? m_abilityMod.m_barrierDataMod.GetModifiedValue(m_barrierData)
 			: m_barrierData;
@@ -142,6 +149,11 @@ public class ThiefSmokeBomb : Ability
 
 	public GroundEffectField GetSmokeFieldInfo()
 	{
+		// rogues
+		// if (m_smokeFieldInfo == null)
+		// {
+		// 	m_smokeFieldInfo = ScriptableObject.CreateInstance<GroundEffectField>();
+		// }
 		return m_cachedSmokeFieldInfo ?? m_smokeFieldInfo;
 	}
 
@@ -173,7 +185,7 @@ public class ThiefSmokeBomb : Ability
 		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
 		if (targetSquare == null
 		    || !targetSquare.IsValidForGameplay()
-		    || (targetIndex == 0 && targetSquare == caster.GetCurrentBoardSquare()))
+		    || (targetIndex == 0 && targetSquare == caster.GetCurrentBoardSquare()))  // just targetSquare == caster.GetCurrentBoardSquare() in rogues
 		{
 			return false;
 		}
@@ -299,7 +311,7 @@ public class ThiefSmokeBomb : Ability
 				BoardSquare square = Board.Get().GetSquareFromIndex(i, j);
 				if (square == null
 				    || !square.IsValidForGameplay()
-				    || !casterSquare.GetLOS(square.x, square.y)
+				    || !casterSquare.GetLOS(square.x, square.y) // removed in rogues
 				    || !abilityData.IsTargetSquareInRangeOfAbilityFromSquare(square, casterSquare, abilityMaxRange, 0f))
 				{
 					continue;
@@ -478,6 +490,11 @@ public class ThiefSmokeBomb : Ability
 		AbilityMod.AddToken_EffectInfo(tokens, abilityMod_ThiefSmokeBomb != null
 			? abilityMod_ThiefSmokeBomb.m_bombHitEffectInfoMod.GetModifiedValue(m_bombHitEffectInfo)
 			: m_bombHitEffectInfo, "BombHitEffectInfo", m_bombHitEffectInfo);
+		// rogues
+		// if (m_barrierData == null)
+		// {
+		// 	m_barrierData = ScriptableObject.CreateInstance<StandardBarrierData>();
+		// }
 		StandardBarrierData barrierData = abilityMod_ThiefSmokeBomb != null
 			? abilityMod_ThiefSmokeBomb.m_barrierDataMod.GetModifiedValue(m_barrierData)
 			: m_barrierData;
@@ -498,4 +515,215 @@ public class ThiefSmokeBomb : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetHitActorToExtraDamage(
+			targets,
+			caster,
+			out _,
+			out _,
+			out List<List<ActorData>> sequenceExplosionHitActors,
+			out List<Vector3> shapeCenters,
+			null);
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		for (int i = 0; i < sequenceExplosionHitActors.Count; i++)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				shapeCenters[i],
+				sequenceExplosionHitActors[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Dictionary<ActorData, ActorHitResults> actorToHitResults = new Dictionary<ActorData, ActorHitResults>();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> hitActorToExtraDamage = GetHitActorToExtraDamage(
+			targets,
+			caster,
+			out Dictionary<ActorData, Vector3> damageOrigins,
+			out Dictionary<ActorData, int> actorToHitCount,
+			out List<List<ActorData>> sequenceExplosionHitActors,
+			out List<Vector3> shapeCenters,
+			nonActorTargetInfo);
+		List<StandardMultiAreaGroundEffect.GroundAreaInfo> areaInfoList = new List<StandardMultiAreaGroundEffect.GroundAreaInfo>();
+		for (int i = 0; i < sequenceExplosionHitActors.Count; i++)
+		{
+			BoardSquare targetSquare = Board.Get().GetSquare(targets[i].GridPos);
+			if (targetSquare != null)
+			{
+				areaInfoList.Add(new StandardMultiAreaGroundEffect.GroundAreaInfo(
+					targetSquare,
+					targets[i].FreePos,
+					GetSmokeFieldInfo().shape));
+			}
+		}
+		ThiefSmokeBombEffect thiefSmokeBombEffect = new ThiefSmokeBombEffect(
+			AsEffectSource(),
+			areaInfoList,
+			caster,
+			GetSmokeFieldInfo());
+		bool hasBombEffects = false;
+		for (int i = 0; i < sequenceExplosionHitActors.Count; i++)
+		{
+			BoardSquare targetSquare = Board.Get().GetSquare(targets[i].GridPos);
+			foreach (ActorData hitActor in sequenceExplosionHitActors[i])
+			{
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, damageOrigins[hitActor]));
+				if (hitActor.GetTeam() != caster.GetTeam())
+				{
+					actorHitResults.SetBaseDamage(hitActorToExtraDamage[hitActor]);
+					actorHitResults.AddStandardEffectInfo(GetBombHitEffectInfo());
+				}
+				GetSmokeFieldInfo().SetupActorHitResult(ref actorHitResults, caster, targetSquare, actorToHitCount[hitActor]);
+				actorToHitResults.Add(hitActor, actorHitResults);
+			}
+			if (targetSquare != null)
+			{
+				PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(shapeCenters[i]));
+				Vector3 freePos = targets[i].FreePos;
+				List<ActorData> affectableActorsInField = GetSmokeFieldInfo().GetAffectableActorsInField(
+					targetSquare,
+					freePos,
+					caster,
+					nonActorTargetInfo);
+				Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetSmokeFieldInfo().shape, freePos, targetSquare);
+				thiefSmokeBombEffect.AddToActorsHitThisTurn(affectableActorsInField);
+				if (!hasBombEffects)
+				{
+					positionHitResults.AddEffect(thiefSmokeBombEffect);
+					hasBombEffects = true;
+				}
+				if (AddBarriers())
+				{
+					float radiusInWorld = 0.5f * GetBarrierSquareWidth() * Board.Get().squareSize;
+					List<BarrierPoseInfo> barrierPoses =
+						BarrierPoseInfo.GetBarrierPosesForRegularPolygon(centerOfShape, 4, radiusInWorld);
+					if (barrierPoses != null)
+					{
+						GetBarrierData().m_width = GetBarrierSquareWidth() + 0.05f;
+						foreach (BarrierPoseInfo barrierPoseInfo in barrierPoses)
+						{
+							Barrier barrier = new Barrier(
+								m_abilityName,
+								barrierPoseInfo.midpoint,
+								barrierPoseInfo.facingDirection,
+								caster,
+								GetBarrierData());
+							barrier.SetSourceAbility(this);
+							positionHitResults.AddBarrier(barrier);
+						}
+					}
+				}
+				abilityResults.StorePositionHit(positionHitResults);
+			}
+		}
+		foreach (ActorData key in actorToHitResults.Keys)
+		{
+			if (actorToHitCount.ContainsKey(key))
+			{
+				abilityResults.StoreActorHit(actorToHitResults[key]);
+			}
+			else
+			{
+				Debug.LogError("ThiefSmokeBomb, trying to add actor not processed");
+			}
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetHitActorToExtraDamage(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, Vector3> damageOrigins,
+		out Dictionary<ActorData, int> actorToHitCount,
+		out List<List<ActorData>> sequenceExplosionHitActors,
+		out List<Vector3> shapeCenters,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		damageOrigins = new Dictionary<ActorData, Vector3>();
+		actorToHitCount = new Dictionary<ActorData, int>();
+		sequenceExplosionHitActors = new List<List<ActorData>>();
+		shapeCenters = new List<Vector3>();
+		if (Application.isEditor && targets.Count < GetExpectedNumberOfTargeters())
+		{
+			Debug.LogError(
+				$"{GetDebugIdentifier(string.Empty)} expecting {GetExpectedNumberOfTargeters()} AbilityTarget entries, " +
+				$"only {targets.Count} entries passed in");
+		}
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, GetSmokeFieldInfo().healAmount > 0, true);
+		GroundEffectField smokeFieldInfo = GetSmokeFieldInfo();
+		
+		for (int i = 0; i < GetExpectedNumberOfTargeters() && i < targets.Count; i++)
+		{
+			BoardSquare targetSquare = Board.Get().GetSquare(targets[i].GridPos);
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetSmokeFieldInfo().shape, targets[i].FreePos, targetSquare);
+			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+				smokeFieldInfo.shape,
+				centerOfShape,
+				targetSquare,
+				PenetrateLos(),
+				caster,
+				relevantTeams,
+				nonActorTargetInfo);
+			List<ActorData> list = new List<ActorData>();
+			foreach (ActorData actorData in actorsInShape)
+			{
+				if (actorData.GetTeam() == caster.GetTeam()
+				    && !smokeFieldInfo.CanBeAffected(actorData, caster))
+				{
+					continue;
+				}
+				if (dictionary.ContainsKey(actorData))
+				{
+					actorToHitCount[actorData]++;
+				}
+				else
+				{
+					dictionary[actorData] = GetExtraDamageOnCast();
+					damageOrigins[actorData] = centerOfShape;
+					actorToHitCount[actorData] = 1;
+					list.Add(actorData);
+				}
+			}
+			shapeCenters.Add(centerOfShape);
+			sequenceExplosionHitActors.Add(list);
+		}
+		return dictionary;
+	}
+
+	// added in rogues
+	public override void OnExecutedPositionHit_Ability(ActorData caster, PositionHitResults results)
+	{
+		Passive_Thief component = caster.GetComponent<Passive_Thief>();
+		if (component == null)
+		{
+			return;
+		}
+
+		List<ActorData> hiddenAllies = new List<ActorData>();
+		foreach (ActorData actorData in component.GetAlliesVisibleAtStartOfCombat())
+		{
+			if (!actorData.IsActorVisibleToAnyEnemy())
+			{
+				hiddenAllies.Add(actorData);
+			}
+		}
+		foreach (ActorData allyActor in hiddenAllies)
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ThiefStats.TimesSmokeBombHitsHidAllies);
+			component.OnHidAlly(allyActor);
+		}
+	}
+#endif
 }

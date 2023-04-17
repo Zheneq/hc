@@ -1,6 +1,9 @@
+﻿// ROGUES
+// SERVER
 using System;
 using UnityEngine;
 
+// same in reactor & rogues
 [Serializable]
 public class ThiefPartingGiftBombInfo
 {

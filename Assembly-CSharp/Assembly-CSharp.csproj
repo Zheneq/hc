@@ -2392,7 +2392,9 @@
     <Compile Include="Theatrics\ServerPlayOrderGroup.cs" />
     <Compile Include="Theatrics\Turn.cs" />
     <Compile Include="ThiefBasicAttack.cs" />
+    <Compile Include="ThiefCreateSpoilsMarkerEffect.cs" />
     <Compile Include="ThiefHiddenTrap.cs" />
+    <Compile Include="ThiefHiddenTrapEffect.cs" />
     <Compile Include="ThiefMarkForSpoils.cs" />
     <Compile Include="ThiefOnTheRun.cs" />
     <Compile Include="ThiefPartingGift.cs" />
@@ -2400,7 +2402,9 @@
     <Compile Include="ThiefPickPocket.cs" />
     <Compile Include="ThiefPowerupReturnProjectileSequence.cs" />
     <Compile Include="ThiefSafecracker.cs" />
+    <Compile Include="ThiefSafecrackerBoomerangEffect.cs" />
     <Compile Include="ThiefSmokeBomb.cs" />
+    <Compile Include="ThiefSmokeBombEffect.cs" />
     <Compile Include="ThiefSpoilLaserUlt.cs" />
     <Compile Include="ThiefStealthGenerator.cs" />
     <Compile Include="ThinCover.cs" />

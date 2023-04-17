@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -51,9 +53,12 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ThiefSpoilLaserUlt thiefSpoilLaserUlt = GetTargetAbilityOnAbilityData(abilityData) as ThiefSpoilLaserUlt;
+		// rogues
+		// ThiefSpoilLaserUlt thiefSpoilLaserUlt = targetAbility as ThiefSpoilLaserUlt;
 		bool isValid = thiefSpoilLaserUlt != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_targeterMaxAngleMod, "[TargeterMaxAngle]", isValid, isValid ? thiefSpoilLaserUlt.m_targeterMaxAngle : 0f);

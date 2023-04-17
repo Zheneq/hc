@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ThiefOnTheRun : Ability
@@ -163,6 +165,7 @@ public class ThiefOnTheRun : Ability
 			: m_subsequentDamage;
 	}
 
+	// TODO THIEF unused
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
 		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
@@ -288,4 +291,265 @@ public class ThiefOnTheRun : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override BoardSquare GetValidChargeTestSourceSquare(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return chargeSegments[chargeSegments.Length - 1].m_pos;
+	}
+
+	// added in rogues
+	public override Vector3 GetChargeBestSquareTestVector(ServerEvadeUtils.ChargeSegment[] chargeSegments)
+	{
+		return ServerEvadeUtils.GetChargeBestSquareTestDirection(chargeSegments);
+	}
+
+	// added in rogues
+	public override bool GetChargeThroughInvalidSquares()
+	{
+		return true;
+	}
+
+	// added in rogues
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		int numChargePivots = m_numChargePiviots;
+		if (numChargePivots < 2)
+		{
+			return base.GetChargePath(targets, caster, additionalData);
+		}
+		
+		ServerEvadeUtils.ChargeSegment[] path = new ServerEvadeUtils.ChargeSegment[numChargePivots + 1];
+		path[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+			m_end = BoardSquarePathInfo.ChargeEndType.Pivot
+		};
+		for (int i = 0; i < numChargePivots; i++)
+		{
+			path[i + 1] = new ServerEvadeUtils.ChargeSegment
+			{
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+				m_pos = Board.Get().GetSquare(targets[i].GridPos)
+			};
+		}
+		path[path.Length - 1].m_end = BoardSquarePathInfo.ChargeEndType.Miss;
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(path));
+		foreach (ServerEvadeUtils.ChargeSegment segment in path)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		return path;
+	}
+
+	// added in rogues
+	public override BoardSquare GetIdealDestination(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		int numChargePivots = m_numChargePiviots;
+		if (numChargePivots < 2)
+		{
+			return base.GetIdealDestination(targets, caster, additionalData);
+		}
+		return Board.Get().GetSquare(targets[numChargePivots - 1].GridPos);
+	}
+
+	// added in rogues
+	internal override bool IsStealthEvade()
+	{
+		if (ActorData == null || !GetEffectOnSelfThroughSmokeField().m_applyEffect)
+		{
+			return false;
+		}
+		StatusType[] statusChanges = GetEffectOnSelfThroughSmokeField().m_effectData.m_statusChanges;
+		bool isInvisible = false;
+		foreach (StatusType statusType in statusChanges)
+		{
+			if (statusType == StatusType.InvisibleToEnemies)
+			{
+				isInvisible = true;
+				break;
+			}
+		}
+		return isInvisible && IsDashingOverSmokeBomb(ActorData);
+	}
+
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		Vector3 targetPos = caster.GetLoSCheckPos(Board.Get().GetSquare(targets[0].GridPos));
+		FindHitActors(targets, caster, out _, out List<List<ActorData>> actorsInSegments, out _, null);
+		for (int i = 0; i < actorsInSegments.Count; i++)
+		{
+			if (i == 0
+			    && additionalData.m_abilityResults.HitActorList().Contains(caster)
+			    && !actorsInSegments[i].Contains(caster))
+			{
+				actorsInSegments[i].Add(caster);
+			}
+			list.Add(new ServerClientUtils.SequenceStartData(m_castSequencePrefab,
+				targetPos,
+				actorsInSegments[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new SimpleAttachedVFXSequence.MultiEventExtraParams
+				{
+					eventNumberToKeyOffOf = i
+				}.ToArray()));
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(
+			targets,
+			caster,
+			out Dictionary<ActorData, int> actorToHitCount,
+			out _,
+			out Dictionary<ActorData, Vector3> actorToDamageOrigins,
+			nonActorTargetInfo);
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, actorToDamageOrigins[hitActor]));
+			int damage = GetDamageAmount() + (actorToHitCount[hitActor] - 1) * GetSubsequentDamage();
+			actorHitResults.SetBaseDamage(damage);
+			actorHitResults.AddStandardEffectInfo(m_enemyHitEffect);
+			actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(hitActor, caster.GetTeam(), GetSpoilSpawnInfo()));
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		bool affectsCaster = false;
+		if (GetCooldownReductionIfNoEnemy() > 0 && hitActors.Count == 0)
+		{
+			casterHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
+				m_cooldownReductionOnAbility, -1 * GetCooldownReductionIfNoEnemy()));
+			affectsCaster = true;
+		}
+		if (GetEffectOnSelfThroughSmokeField().m_applyEffect && IsDashingOverSmokeBomb(caster))
+		{
+			casterHitResults.AddStandardEffectInfo(GetEffectOnSelfThroughSmokeField());
+			affectsCaster = true;
+		}
+		if (affectsCaster)
+		{
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private bool IsDashingOverSmokeBomb(ActorData caster)
+	{
+		List<Effect> thiefEffects = ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(ThiefSmokeBombEffect));
+		List<ThiefSmokeBombEffect> bombEffects = new List<ThiefSmokeBombEffect>();
+		foreach (Effect effect in thiefEffects)
+		{
+			if (effect is ThiefSmokeBombEffect thiefSmokeBombEffect)
+			{
+				bombEffects.Add(thiefSmokeBombEffect);
+			}
+		}
+
+		foreach (BoardSquare square in ServerActionBuffer.Get().GetSquaresInProcessedEvade(caster))
+		{
+			foreach (ThiefSmokeBombEffect bombEffect in bombEffects)
+			{
+				if (bombEffect.IsSquareInAnyShape(square))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	// added in rogues
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out Dictionary<ActorData, int> actorToHitCount,
+		out List<List<ActorData>> actorsInSegments,
+		out Dictionary<ActorData, Vector3> actorToDamageOrigins,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+		List<ActorData> hitActors = new List<ActorData>();
+		actorToHitCount = new Dictionary<ActorData, int>();
+		actorsInSegments = new List<List<ActorData>>();
+		actorToDamageOrigins = new Dictionary<ActorData, Vector3>();
+		float dashRadius = GetDashRadius();
+		for (int i = 0; i < m_numChargePiviots; i++)
+		{
+			List<ActorData> hitActorsInSegment = new List<ActorData>();
+			BoardSquare segmentStartSquare = i > 0
+				? Board.Get().GetSquare(targets[i - 1].GridPos)
+				: squareAtPhaseStart;
+			BoardSquare segmentEndSquare = Board.Get().GetSquare(targets[i].GridPos);
+			Vector3 segmentStartPos = caster.GetLoSCheckPos(segmentStartSquare);
+			Vector3 segmentEndPos = caster.GetLoSCheckPos(segmentEndSquare);
+			List<ActorData> actorsInRadiusOfLine = AreaEffectUtils.GetActorsInRadiusOfLine(
+				segmentStartPos,
+				segmentEndPos,
+				dashRadius,
+				dashRadius,
+				dashRadius,
+				DashPenetrateLineOfSight(),
+				caster,
+				caster.GetOtherTeams(),
+				nonActorTargetInfo);
+			ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInRadiusOfLine);
+			foreach (ActorData hitActor in actorsInRadiusOfLine)
+			{
+				if (!hitActors.Contains(hitActor))
+				{
+					hitActors.Add(hitActor);
+				}
+				if (actorToHitCount.ContainsKey(hitActor))
+				{
+					if (hitActor.GetCurrentBoardSquare() != segmentStartSquare)
+					{
+						actorToHitCount[hitActor]++;
+					}
+				}
+				else
+				{
+					actorToHitCount[hitActor] = 1;
+					hitActorsInSegment.Add(hitActor);
+				}
+				if (actorToDamageOrigins.ContainsKey(hitActor))
+				{
+					ActorCover actorCover = hitActor.GetActorCover();
+					if (!actorCover.IsInCoverWrt(segmentStartPos) // , out _ in rogues
+					    && actorCover.IsInCoverWrt(actorToDamageOrigins[hitActor])) // , out _ in rogues
+					{
+						actorToDamageOrigins[hitActor] = segmentStartPos;
+					}
+				}
+				else
+				{
+					actorToDamageOrigins[hitActor] = segmentStartPos;
+				}
+			}
+			actorsInSegments.Add(hitActorsInSegment);
+		}
+		return hitActors;
+	}
+#endif
 }

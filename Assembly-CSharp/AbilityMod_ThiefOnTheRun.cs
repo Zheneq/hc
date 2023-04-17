@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,12 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ThiefOnTheRun thiefOnTheRun = GetTargetAbilityOnAbilityData(abilityData) as ThiefOnTheRun;
+		// rogues
+		// ThiefOnTheRun thiefOnTheRun = targetAbility as ThiefOnTheRun;
 		bool isValid = thiefOnTheRun != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_minDistanceBetweenStepsMod, "[MinDistanceBetweenSteps]", isValid, isValid ? thiefOnTheRun.m_minDistanceBetweenSteps : 0f);

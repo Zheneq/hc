@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// ROGUES
+// SERVER
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ThiefHiddenTrap : Ability
@@ -48,7 +50,10 @@ public class ThiefHiddenTrap : Ability
 
 	public GroundEffectField GetTrapFieldInfo()
 	{
+		// reactor
 		return m_cachedTrapFieldInfo ?? m_trapFieldInfo;
+		// rogues
+		// return m_trapFieldInfo ?? (m_trapFieldInfo = ScriptableObject.CreateInstance<GroundEffectField>());
 	}
 
 	public int GetExtraDamagePerTurn()
@@ -75,7 +80,11 @@ public class ThiefHiddenTrap : Ability
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ThiefHiddenTrap abilityMod_ThiefHiddenTrap = modAsBase as AbilityMod_ThiefHiddenTrap;
+#if PURE_REACTOR
 		m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
+#else
+		GetTrapFieldInfo().AddTooltipTokens(tokens, "GroundEffect");
+#endif
 		AddTokenInt(tokens, "ExtraDamagePerTurn", string.Empty, abilityMod_ThiefHiddenTrap != null
 			? abilityMod_ThiefHiddenTrap.m_extraDamagePerTurnMod.GetModifiedValue(m_extraDamagePerTurn)
 			: m_extraDamagePerTurn);
@@ -98,4 +107,45 @@ public class ThiefHiddenTrap : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(m_castSequencePrefab,
+				Board.Get().GetSquare(targets[0].GridPos),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(square.ToVector3()));
+		positionHitResults.AddEffect(new ThiefHiddenTrapEffect(
+			AsEffectSource(),
+			square,
+			targets[0].FreePos,
+			null,
+			caster,
+			GetTrapFieldInfo(),
+			GetExtraDamagePerTurn(),
+			GetMaxExtraDamage()));
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ThiefStats.ProximityMineHits);
+	}
+#endif
 }

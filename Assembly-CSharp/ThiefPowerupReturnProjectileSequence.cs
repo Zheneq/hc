@@ -1,18 +1,21 @@
+﻿// ROGUES
+// SERVER
 using System;
 using UnityEngine;
 
+// same in reactor & rouges save for serialization
 public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 {
 	public class PowerupTypeExtraParams : IExtraSequenceParams
 	{
 		public int powerupCategory;
 
-		public override void XSP_SerializeToStream(IBitStream stream)
+		public override void XSP_SerializeToStream(IBitStream stream) // NetworkWriter writer in rogues
 		{
 			stream.Serialize(ref powerupCategory);
 		}
 
-		public override void XSP_DeserializeFromStream(IBitStream stream)
+		public override void XSP_DeserializeFromStream(IBitStream stream) // NetworkReader reader in rogues
 		{
 			stream.Serialize(ref powerupCategory);
 		}

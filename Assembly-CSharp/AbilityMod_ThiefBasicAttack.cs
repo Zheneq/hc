@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,9 +54,12 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ThiefBasicAttack thiefBasicAttack = GetTargetAbilityOnAbilityData(abilityData) as ThiefBasicAttack;
+		// rogues
+		// ThiefBasicAttack thiefBasicAttack = targetAbility as ThiefBasicAttack;
 		bool isValid = thiefBasicAttack != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_targeterMaxAngleMod, "[TargeterMaxAngle]", isValid, isValid ? thiefBasicAttack.m_targeterMaxAngle : 0f);

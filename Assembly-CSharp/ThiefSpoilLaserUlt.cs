@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -342,4 +344,300 @@ public class ThiefSpoilLaserUlt : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// added in rogues
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		GetActorToDamage(
+			targets,
+			caster,
+			null,
+			out _,
+			out List<StatusType> buffsPresent,
+			out List<Vector3> sequenceTargetPositions,
+			out List<List<ActorData>> sequenceTargets,
+			out List<List<PowerUp>> powerupHitList);
+		bool isPlayingBuffSequence = m_onBuffCopyAudioSequencePrefab != null && buffsPresent.Count > 0;
+		for (int i = 0; i < sequenceTargetPositions.Count; i++)
+		{
+			bool isPlayingPowerupSequence = powerupHitList[i].Count > 0 && m_powerupReturnPrefab != null;
+			if (isPlayingBuffSequence || isPlayingPowerupSequence)
+			{
+				sequenceTargets[i].Remove(caster);
+			}
+			else if (additionalData.m_abilityResults.HitActorList().Contains(caster) && !sequenceTargets[i].Contains(caster))
+			{
+				sequenceTargets[i].Add(caster);
+			}
+
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_laserSequencePrefab,
+				sequenceTargetPositions[i],
+				sequenceTargets[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new SplineProjectileSequence.MultiEventExtraParams
+				{
+					eventNumberToKeyOffOf = i
+				}.ToArray()));
+			if (i == 0 && isPlayingBuffSequence)
+			{
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_onBuffCopyAudioSequencePrefab,
+					caster.GetFreePos(),
+					caster.AsArray(),
+					caster,
+					additionalData.m_sequenceSource));
+			}
+			if (isPlayingPowerupSequence)
+			{
+				foreach (PowerUp powerUp in powerupHitList[i])
+				{
+					list.Add(new ServerClientUtils.SequenceStartData(
+						m_powerupReturnPrefab,
+						caster.GetFreePos(),
+						isPlayingBuffSequence
+							? new ActorData[0]
+							: caster.AsArray(),
+						caster,
+						additionalData.m_sequenceSource,
+						new List<Sequence.IExtraSequenceParams>
+						{
+							new SplineProjectileSequence.DelayedProjectileExtraParams
+							{
+								useOverrideStartPos = true,
+								overrideStartPos = powerUp.gameObject.transform.position
+							},
+							new ThiefPowerupReturnProjectileSequence.PowerupTypeExtraParams
+							{
+								powerupCategory = (int)powerUp.m_chatterCategory
+							}
+						}.ToArray()));
+				}
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> actorToDamage = GetActorToDamage(
+			targets,
+			caster,
+			nonActorTargetInfo,
+			out HashSet<PowerUp> powerupsHitSoFar,
+			out List<StatusType> buffsPresent,
+			out _,
+			out _,
+			out _);
+		foreach (ActorData hitActor in actorToDamage.Keys)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(actorToDamage[hitActor]);
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			actorHitResults.AddSpoilSpawnData(new SpoilSpawnDataForAbilityHit(hitActor, caster.GetTeam(), GetSpoilSpawnData()));
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		bool hasPowerupHits = HitPowerups() && powerupsHitSoFar.Count > 0;
+		if (hasPowerupHits || buffsPresent.Count > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			if (hasPowerupHits)
+			{
+				foreach (PowerUp powerup in powerupsHitSoFar)
+				{
+					casterHitResults.AddPowerUpForSteal(powerup);
+				}
+			}
+			StandardActorEffectData standardActorEffectData = new StandardActorEffectData();
+			standardActorEffectData.SetValues(
+				"Thief Ult Buff Copy",
+				Mathf.Max(1, GetCopyBuffDuration()),
+				0,
+				0,
+				0,
+				ServerCombatManager.HealingType.Effect,
+				0,
+				0,
+				new AbilityStatMod[0],
+				buffsPresent.ToArray(),
+				StandardActorEffectData.StatusDelayMode.DefaultBehavior);
+			casterHitResults.AddEffect(new StandardActorEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				standardActorEffectData));
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// added in rogues
+	private Dictionary<ActorData, int> GetActorToDamage(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out HashSet<PowerUp> powerupsHitSoFar,
+		out List<StatusType> buffsPresent,
+		out List<Vector3> sequenceTargetPositions,
+		out List<List<ActorData>> sequenceTargets,
+		out List<List<PowerUp>> powerupHitList)
+	{
+		Dictionary<ActorData, int> actorToDamage = new Dictionary<ActorData, int>();
+		powerupsHitSoFar = new HashSet<PowerUp>();
+		buffsPresent = new List<StatusType>();
+		sequenceTargetPositions = new List<Vector3>();
+		sequenceTargets = new List<List<ActorData>>();
+		powerupHitList = new List<List<PowerUp>>();
+		bool isCopyingBuffs = CopyBuffsOnEnemyHit() && m_buffsToCopy != null && m_buffsToCopy.Count > 0;
+		foreach (Vector3 direction in GetLaserDirections(targets, caster))
+		{
+			List<ActorData> hitActorsInDirection = GetHitActorsInDirection(
+				direction,
+				caster,
+				powerupsHitSoFar,
+				out VectorUtils.LaserCoords endPoints,
+				out List<PowerUp> powerupsHit,
+				nonActorTargetInfo);
+			foreach (ActorData actorData in hitActorsInDirection)
+			{
+				if (!actorToDamage.ContainsKey(actorData))
+				{
+					actorToDamage[actorData] = GetLaserDamageAmount();
+				}
+				else
+				{
+					actorToDamage[actorData] += GetLaserSubsequentDamageAmount();
+				}
+				if (isCopyingBuffs)
+				{
+					foreach (StatusType buff in m_buffsToCopy)
+					{
+						if (!buffsPresent.Contains(buff) && actorData.GetActorStatus().HasStatus(buff))
+						{
+							buffsPresent.Add(buff);
+						}
+					}
+				}
+			}
+			sequenceTargets.Add(hitActorsInDirection);
+			sequenceTargetPositions.Add(endPoints.end);
+			powerupHitList.Add(powerupsHit);
+		}
+		return actorToDamage;
+	}
+
+	// added in rogues
+	private List<Vector3> GetLaserDirections(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = new List<Vector3>();
+		int laserCount = GetLaserCount();
+		if (m_targeterMultiTarget)
+		{
+			for (int i = 0; i < laserCount && i < targets.Count; i++)
+			{
+				Vector3 aimDir = targets[i].AimDirection;
+				if (i > 0 && GetTargeterMaxAngle() > 0f)
+				{
+					Vector3 prevAimDir = targets[i - 1].AimDirection;
+					float num = Vector3.Angle(aimDir, prevAimDir);
+					if (num > GetTargeterMaxAngle())
+					{
+						aimDir = Vector3.RotateTowards(
+							aimDir, 
+							prevAimDir,
+							0.0174532924f * (num - GetTargeterMaxAngle()), 0f);
+					}
+				}
+				list.Add(aimDir);
+			}
+		}
+		else
+		{
+			float angleFull = laserCount > 1 ? CalculateFanAngleDegrees(targets[0], caster) : 0f;
+			float angleStep = laserCount > 1 ? angleFull / (laserCount - 1) : 0f;
+			float angleStart = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection) - 0.5f * angleFull;
+			for (int i = 0; i < laserCount; i++)
+			{
+				Vector3 item = VectorUtils.AngleDegreesToVector(angleStart + i * angleStep);
+				list.Add(item);
+			}
+		}
+		return list;
+	}
+
+	// added in rogues
+	private List<ActorData> GetHitActorsInDirection(
+		Vector3 direction,
+		ActorData caster,
+		HashSet<PowerUp> powerupsHitPreviously,
+		out VectorUtils.LaserCoords endPoints,
+		out List<PowerUp> powerupsHit,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		return ThiefBasicAttack.GetHitActorsInDirectionStatic(
+			caster.GetLoSCheckPos(),
+			direction,
+			caster,
+			GetLaserRange(),
+			GetLaserWidth(),
+			LaserPenetrateLos(),
+			GetLaserMaxTargets(),
+			false,
+			true,
+			true,
+			GetMaxPowerupsHit(),
+			HitPowerups(),
+			HitPowerups() && StopOnPowerupHit(),
+			IncludeSpoilsPowerups(),
+			IgnorePickupTeamRestriction(),
+			powerupsHitPreviously,
+			out endPoints,
+			out powerupsHit,
+			nonActorTargetInfo,
+			false);
+	}
+
+	// added in rogues
+	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
+	{
+		float distInSquares = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
+		float share = Mathf.Clamp(distInSquares, m_targeterMinInterpDistance, m_targeterMaxInterpDistance) - m_targeterMinInterpDistance;
+		return GetTargeterMaxAngle() * (1f - share / (m_targeterMaxInterpDistance - m_targeterMinInterpDistance));
+	}
+
+	// added in rogues
+	public float CalculateDistanceFromFanAngleDegrees(float fanAngleDegrees)
+	{
+		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(
+			fanAngleDegrees,
+			GetTargeterMaxAngle(),
+			m_targeterMinInterpDistance,
+			m_targeterMaxInterpDistance);
+	}
+
+	// added in rogues
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (caster == target
+		    && results.m_powerUpsToSteal != null
+		    && results.m_powerUpsToSteal.Count > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ThiefStats.PowerUpsStolen,
+				results.m_powerUpsToSteal.Count);
+		}
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ThiefStats.UltDamage,
+				results.FinalDamage);
+		}
+	}
+#endif
 }

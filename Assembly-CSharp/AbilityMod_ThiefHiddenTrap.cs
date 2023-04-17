@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,9 +28,12 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ThiefHiddenTrap thiefHiddenTrap = GetTargetAbilityOnAbilityData(abilityData) as ThiefHiddenTrap;
+		// rogues
+		// ThiefHiddenTrap thiefHiddenTrap = targetAbility as ThiefHiddenTrap;
 		bool isValid = thiefHiddenTrap != null;
 		string desc = string.Empty;
 		desc += PropDescGroundFieldMod(m_trapFieldInfoMod, "{ TrapFieldInfo }", thiefHiddenTrap.m_trapFieldInfo);

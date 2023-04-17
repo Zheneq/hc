@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ROGUES
+// SERVER
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,9 +43,12 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData)  // , Ability targetAbility in rogues
 	{
+		// reactor
 		ThiefSmokeBomb thiefSmokeBomb = GetTargetAbilityOnAbilityData(abilityData) as ThiefSmokeBomb;
+		// rogues
+		// ThiefSmokeBomb thiefSmokeBomb = targetAbility as ThiefSmokeBomb;
 		bool isValid = thiefSmokeBomb != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_extraDamageOnCastMod, "[ExtraDamageonCast]", isValid, isValid ? thiefSmokeBomb.m_extraDamageOnCast : 0);
