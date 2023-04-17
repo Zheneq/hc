@@ -13,7 +13,14 @@ public class ThiefPartingGift : Ability
 			m_abilityName = "Parting Gift";
 		}
 		m_sequencePrefab = m_castSequencePrefab;
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, false, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, false, false, AbilityUtil_Targeter.AffectsActor.Always);
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			false,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			false,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Always);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
