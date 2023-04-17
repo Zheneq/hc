@@ -1,132 +1,114 @@
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class ThiefBasicAttack : Ability
 {
 	[Header("-- Targeter")]
 	public bool m_targeterMultiTarget = true;
-
 	public float m_targeterMaxAngle = 120f;
-
 	public float m_targeterMinInterpDistance = 1.5f;
-
 	public float m_targeterMaxInterpDistance = 6f;
-
 	[Header("-- Damage")]
 	public int m_laserDamageAmount = 3;
-
 	public int m_laserSubsequentDamageAmount = 3;
-
 	public int m_extraDamageForSingleHit;
-
 	public int m_extraDamageForHittingPowerup;
-
 	[Header("-- Healing")]
 	public int m_healOnSelfIfHitEnemyAndPowerup;
-
 	[Header("-- Energy")]
 	public int m_energyGainPerLaserHit;
-
 	public int m_energyGainPerPowerupHit;
-
 	[Header("-- Laser Properties")]
 	public float m_laserRange = 5f;
-
 	public float m_laserWidth = 0.5f;
-
 	public int m_laserMaxTargets = 1;
-
 	public int m_laserCount = 2;
-
 	public bool m_laserPenetrateLos;
-
 	[Header("-- PowerUp/Spoils Interaction")]
 	public bool m_stopOnPowerupHit = true;
-
 	public bool m_includeSpoilsPowerups = true;
-
 	public bool m_ignorePickupTeamRestriction;
-
 	[Header("-- Sequences --")]
 	public GameObject m_onCastSequencePrefab;
-
 	public GameObject m_powerupReturnPrefab;
 
 	private AbilityMod_ThiefBasicAttack m_abilityMod;
-
 	private int c_maxPowerupPerLaser = 1;
 
 	private void Start()
 	{
-		if (this.m_abilityName == "Base Ability")
+		if (m_abilityName == "Base Ability")
 		{
-			this.m_abilityName = "Strong Arms";
+			m_abilityName = "Strong Arms";
 		}
-		this.SetupTargeter();
+		SetupTargeter();
 	}
 
 	private void SetupTargeter()
 	{
-		float targeterMaxAngle = this.GetTargeterMaxAngle();
-		bool stopOnPowerUp = this.StopOnPowerupHit();
-		bool flag = this.GetHealOnSelfIfHitEnemyAndPowerup() > 0;
-		if (this.TargeterMultiTarget())
+		float targeterMaxAngle = GetTargeterMaxAngle();
+		bool stopOnPowerUp = StopOnPowerupHit();
+		bool hasHealOnSelf = GetHealOnSelfIfHitEnemyAndPowerup() > 0;
+		if (TargeterMultiTarget())
 		{
-			base.ClearTargeters();
-			for (int i = 0; i < this.GetLaserCount(); i++)
+			ClearTargeters();
+			for (int i = 0; i < GetLaserCount(); i++)
 			{
-				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = new AbilityUtil_Targeter_ThiefFanLaser(this, 0f, targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, this.GetLaserRange(), this.GetLaserWidth(), this.GetLaserMaxTargets(), this.GetLaserCount(), this.LaserPenetrateLos(), true, stopOnPowerUp, this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), this.c_maxPowerupPerLaser, 0f, 0f);
-				abilityUtil_Targeter_ThiefFanLaser.SetUseMultiTargetUpdate(true);
-				if (flag)
+				AbilityUtil_Targeter_ThiefFanLaser targeter = new AbilityUtil_Targeter_ThiefFanLaser(
+					this,
+					0f,
+					targeterMaxAngle,
+					m_targeterMinInterpDistance,
+					m_targeterMaxInterpDistance,
+					GetLaserRange(),
+					GetLaserWidth(),
+					GetLaserMaxTargets(),
+					GetLaserCount(),
+					LaserPenetrateLos(),
+					true,
+					stopOnPowerUp,
+					IncludeSpoilsPowerups(),
+					IgnorePickupTeamRestriction(),
+					c_maxPowerupPerLaser);
+				targeter.SetUseMultiTargetUpdate(true);
+				if (hasHealOnSelf)
 				{
-					AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser2 = abilityUtil_Targeter_ThiefFanLaser;
-					
-					abilityUtil_Targeter_ThiefFanLaser2.m_affectCasterDelegate = delegate(ActorData caster, bool hitEnemy, bool hitPowerup)
-						{
-							bool result;
-							if (hitEnemy)
-							{
-								result = hitPowerup;
-							}
-							else
-							{
-								result = false;
-							}
-							return result;
-						};
+					targeter.m_affectCasterDelegate = (caster, hitEnemy, hitPowerup) => hitEnemy && hitPowerup;
 				}
-				base.Targeters.Add(abilityUtil_Targeter_ThiefFanLaser);
+				Targeters.Add(targeter);
 			}
 		}
 		else
 		{
-			AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser3 = new AbilityUtil_Targeter_ThiefFanLaser(this, 0f, targeterMaxAngle, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance, this.GetLaserRange(), this.GetLaserWidth(), this.GetLaserMaxTargets(), this.GetLaserCount(), this.LaserPenetrateLos(), true, stopOnPowerUp, this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), this.c_maxPowerupPerLaser, 0f, 0f);
-			if (flag)
+			AbilityUtil_Targeter_ThiefFanLaser targeter = new AbilityUtil_Targeter_ThiefFanLaser(
+				this,
+				0f,
+				targeterMaxAngle,
+				m_targeterMinInterpDistance,
+				m_targeterMaxInterpDistance,
+				GetLaserRange(),
+				GetLaserWidth(),
+				GetLaserMaxTargets(),
+				GetLaserCount(),
+				LaserPenetrateLos(),
+				true,
+				stopOnPowerUp,
+				IncludeSpoilsPowerups(),
+				IgnorePickupTeamRestriction(),
+				c_maxPowerupPerLaser);
+			if (hasHealOnSelf)
 			{
-				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser4 = abilityUtil_Targeter_ThiefFanLaser3;
-				
-				abilityUtil_Targeter_ThiefFanLaser4.m_affectCasterDelegate = delegate(ActorData caster, bool hitEnemy, bool hitPowerup)
-					{
-						bool result;
-						if (hitEnemy)
-						{
-							result = hitPowerup;
-						}
-						else
-						{
-							result = false;
-						}
-						return result;
-					};
+				targeter.m_affectCasterDelegate = (caster, hitEnemy, hitPowerup) => hitEnemy && hitPowerup;
 			}
-			base.Targeter = abilityUtil_Targeter_ThiefFanLaser3;
+			Targeter = targeter;
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		return (!this.TargeterMultiTarget()) ? 1 : this.GetLaserCount();
+		return TargeterMultiTarget()
+			? GetLaserCount()
+			: 1;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -136,201 +118,125 @@ public class ThiefBasicAttack : Ability
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		return this.GetLaserRange();
+		return GetLaserRange();
 	}
 
 	public bool TargeterMultiTarget()
 	{
-		return this.m_targeterMultiTarget;
+		return m_targeterMultiTarget;
 	}
 
 	public float GetTargeterMaxAngle()
 	{
-		float a = 1f;
-		float b;
-		if (this.m_abilityMod)
-		{
-			b = this.m_abilityMod.m_targeterMaxAngleMod.GetModifiedValue(this.m_targeterMaxAngle);
-		}
-		else
-		{
-			b = this.m_targeterMaxAngle;
-		}
-		return Mathf.Max(a, b);
+		float targeterMaxAngle = m_abilityMod != null
+			? m_abilityMod.m_targeterMaxAngleMod.GetModifiedValue(m_targeterMaxAngle)
+			: m_targeterMaxAngle;
+		return Mathf.Max(1f, targeterMaxAngle);
 	}
 
 	public int GetLaserDamageAmount()
 	{
-		return (!this.m_abilityMod) ? this.m_laserDamageAmount : this.m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
+		return m_abilityMod != null
+			? m_abilityMod.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount;
 	}
 
 	public int GetLaserSubsequentDamageAmount()
 	{
-		int result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount);
-		}
-		else
-		{
-			result = this.m_laserSubsequentDamageAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount)
+			: m_laserSubsequentDamageAmount;
 	}
 
 	public int GetExtraDamageForSingleHit()
 	{
-		int result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
-		}
-		else
-		{
-			result = this.m_extraDamageForSingleHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit)
+			: m_extraDamageForSingleHit;
 	}
 
 	public int GetExtraDamageForHittingPowerup()
 	{
-		return (!this.m_abilityMod) ? this.m_extraDamageForHittingPowerup : this.m_abilityMod.m_extraDamageForHittingPowerupMod.GetModifiedValue(this.m_extraDamageForHittingPowerup);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageForHittingPowerupMod.GetModifiedValue(m_extraDamageForHittingPowerup)
+			: m_extraDamageForHittingPowerup;
 	}
 
 	public int GetHealOnSelfIfHitEnemyAndPowerup()
 	{
-		int result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_healOnSelfIfHitEnemyAndPowerupMod.GetModifiedValue(this.m_healOnSelfIfHitEnemyAndPowerup);
-		}
-		else
-		{
-			result = this.m_healOnSelfIfHitEnemyAndPowerup;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healOnSelfIfHitEnemyAndPowerupMod.GetModifiedValue(m_healOnSelfIfHitEnemyAndPowerup)
+			: m_healOnSelfIfHitEnemyAndPowerup;
 	}
 
 	public int GetEnergyGainPerLaserHit()
 	{
-		int result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_energyGainPerLaserHitMod.GetModifiedValue(this.m_energyGainPerLaserHit);
-		}
-		else
-		{
-			result = this.m_energyGainPerLaserHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyGainPerLaserHitMod.GetModifiedValue(m_energyGainPerLaserHit)
+			: m_energyGainPerLaserHit;
 	}
 
 	public int GetEnergyGainPerPowerupHit()
 	{
-		return (!this.m_abilityMod) ? this.m_energyGainPerPowerupHit : this.m_abilityMod.m_energyGainPerPowerupHitMod.GetModifiedValue(this.m_energyGainPerPowerupHit);
+		return m_abilityMod != null
+			? m_abilityMod.m_energyGainPerPowerupHitMod.GetModifiedValue(m_energyGainPerPowerupHit)
+			: m_energyGainPerPowerupHit;
 	}
 
 	public float GetLaserRange()
 	{
-		float result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_laserRangeMod.GetModifiedValue(this.m_laserRange);
-		}
-		else
-		{
-			result = this.m_laserRange;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserRangeMod.GetModifiedValue(m_laserRange)
+			: m_laserRange;
 	}
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_laserWidthMod.GetModifiedValue(this.m_laserWidth);
-		}
-		else
-		{
-			result = this.m_laserWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public int GetLaserMaxTargets()
 	{
-		int result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
-		}
-		else
-		{
-			result = this.m_laserMaxTargets;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets)
+			: m_laserMaxTargets;
 	}
 
 	public int GetLaserCount()
 	{
-		int result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_laserCountMod.GetModifiedValue(this.m_laserCount);
-		}
-		else
-		{
-			result = this.m_laserCount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserCountMod.GetModifiedValue(m_laserCount)
+			: m_laserCount;
 	}
 
 	public bool LaserPenetrateLos()
 	{
-		bool result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_laserPenetrateLosMod.GetModifiedValue(this.m_laserPenetrateLos);
-		}
-		else
-		{
-			result = this.m_laserPenetrateLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserPenetrateLosMod.GetModifiedValue(m_laserPenetrateLos)
+			: m_laserPenetrateLos;
 	}
 
 	public bool StopOnPowerupHit()
 	{
-		bool result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_stopOnPowerupHitMod.GetModifiedValue(this.m_stopOnPowerupHit);
-		}
-		else
-		{
-			result = this.m_stopOnPowerupHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_stopOnPowerupHitMod.GetModifiedValue(m_stopOnPowerupHit)
+			: m_stopOnPowerupHit;
 	}
 
 	public bool IncludeSpoilsPowerups()
 	{
-		bool result;
-		if (this.m_abilityMod)
-		{
-			result = this.m_abilityMod.m_includeSpoilsPowerupsMod.GetModifiedValue(this.m_includeSpoilsPowerups);
-		}
-		else
-		{
-			result = this.m_includeSpoilsPowerups;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_includeSpoilsPowerupsMod.GetModifiedValue(m_includeSpoilsPowerups)
+			: m_includeSpoilsPowerups;
 	}
 
 	public bool IgnorePickupTeamRestriction()
 	{
-		return (!this.m_abilityMod) ? this.m_ignorePickupTeamRestriction : this.m_abilityMod.m_ignorePickupTeamRestrictionMod.GetModifiedValue(this.m_ignorePickupTeamRestriction);
+		return m_abilityMod != null
+			? m_abilityMod.m_ignorePickupTeamRestrictionMod.GetModifiedValue(m_ignorePickupTeamRestriction)
+			: m_ignorePickupTeamRestriction;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -344,15 +250,15 @@ public class ThiefBasicAttack : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (this.GetExpectedNumberOfTargeters() < 2)
+		if (GetExpectedNumberOfTargeters() < 2)
 		{
-			this.AccumulateDamageFromTargeter(targetActor, base.Targeter, dictionary);
+			AccumulateDamageFromTargeter(targetActor, Targeter, dictionary);
 		}
 		else
 		{
 			for (int i = 0; i <= currentTargeterIndex; i++)
 			{
-				this.AccumulateDamageFromTargeter(targetActor, base.Targeters[i], dictionary);
+				AccumulateDamageFromTargeter(targetActor, Targeters[i], dictionary);
 			}
 		}
 		return dictionary;
@@ -360,352 +266,295 @@ public class ThiefBasicAttack : Ability
 
 	private void AccumulateDamageFromTargeter(ActorData targetActor, AbilityUtil_Targeter targeter, Dictionary<AbilityTooltipSymbol, int> symbolToDamage)
 	{
-		AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = targeter as AbilityUtil_Targeter_ThiefFanLaser;
-		bool flag;
-		if (abilityUtil_Targeter_ThiefFanLaser != null)
+		bool hitPowerups = targeter is AbilityUtil_Targeter_ThiefFanLaser targeterThiefFanLaser
+		             && targeterThiefFanLaser.m_powerupsHitSoFar != null
+		             && targeterThiefFanLaser.m_powerupsHitSoFar.Count > 0;
+		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
+		if (tooltipSubjectTypes == null)
 		{
-			if (abilityUtil_Targeter_ThiefFanLaser.m_powerupsHitSoFar != null)
+			return;
+		}
+		if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
+		{
+			int tooltipSubjectCountOnActor = targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
+			if (tooltipSubjectCountOnActor > 0)
 			{
-				flag = (abilityUtil_Targeter_ThiefFanLaser.m_powerupsHitSoFar.Count > 0);
-				goto IL_42;
+				int damage = GetLaserDamageAmount() + (tooltipSubjectCountOnActor - 1) * GetLaserSubsequentDamageAmount();
+				if (hitPowerups)
+				{
+					damage += GetExtraDamageForHittingPowerup();
+				}
+				if (tooltipSubjectCountOnActor == 1)
+				{
+					damage += GetExtraDamageForSingleHit();
+				}
+				symbolToDamage[AbilityTooltipSymbol.Damage] = damage;
 			}
 		}
-		flag = false;
-		IL_42:
-		bool flag2 = flag;
-		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
-		if (tooltipSubjectTypes != null)
+		if (targetActor == ActorData && hitPowerups)
 		{
-			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))
-			{
-				int tooltipSubjectCountOnActor = targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Primary);
-				if (tooltipSubjectCountOnActor > 0)
-				{
-					int num = this.GetLaserDamageAmount() + (tooltipSubjectCountOnActor - 1) * this.GetLaserSubsequentDamageAmount();
-					if (flag2)
-					{
-						num += this.GetExtraDamageForHittingPowerup();
-					}
-					if (tooltipSubjectCountOnActor == 1)
-					{
-						num += this.GetExtraDamageForSingleHit();
-					}
-					symbolToDamage[AbilityTooltipSymbol.Damage] = num;
-				}
-			}
-			if (targetActor == base.ActorData)
-			{
-				if (flag2)
-				{
-					symbolToDamage[AbilityTooltipSymbol.Healing] = this.GetHealOnSelfIfHitEnemyAndPowerup();
-				}
-			}
+			symbolToDamage[AbilityTooltipSymbol.Healing] = GetHealOnSelfIfHitEnemyAndPowerup();
 		}
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		int num = 0;
-		int energyGainPerLaserHit = this.GetEnergyGainPerLaserHit();
-		int energyGainPerPowerupHit = this.GetEnergyGainPerPowerupHit();
-		int i = 0;
-		while (i < base.Targeters.Count)
+		int energyGain = 0;
+		int energyGainPerLaserHit = GetEnergyGainPerLaserHit();
+		int energyGainPerPowerupHit = GetEnergyGainPerPowerupHit();
+		
+		for (int i = 0; i < Targeters.Count && i <= currentTargeterIndex; i++)
 		{
-			if (i > currentTargeterIndex)
+			if (!(Targeters[i] is AbilityUtil_Targeter_ThiefFanLaser targeter))
 			{
-				for (;;)
+				continue;
+			}
+			for (int j = 0;
+			     j < targeter.m_hitPowerupInLaser.Count
+			     && j < targeter.m_hitActorInLaser.Count;
+			     j++)
+			{
+				if (targeter.m_hitPowerupInLaser[j])
 				{
-					switch (1)
-					{
-					case 0:
-						continue;
-					}
-					return num;
+					energyGain += energyGainPerPowerupHit;
 				}
 			}
-			else
+			if (energyGainPerLaserHit > 0)
 			{
-				AbilityUtil_Targeter_ThiefFanLaser abilityUtil_Targeter_ThiefFanLaser = base.Targeters[i] as AbilityUtil_Targeter_ThiefFanLaser;
-				if (abilityUtil_Targeter_ThiefFanLaser != null)
+				int numHits = 0;
+				foreach (KeyValuePair<ActorData, int> keyValuePair in targeter.m_actorToHitCount)
 				{
-					for (int j = 0; j < abilityUtil_Targeter_ThiefFanLaser.m_hitPowerupInLaser.Count; j++)
-					{
-						if (j >= abilityUtil_Targeter_ThiefFanLaser.m_hitActorInLaser.Count)
-						{
-							break;
-						}
-						if (abilityUtil_Targeter_ThiefFanLaser.m_hitPowerupInLaser[j])
-						{
-							num += energyGainPerPowerupHit;
-						}
-					}
-					if (energyGainPerLaserHit > 0)
-					{
-						int num2 = 0;
-						foreach (KeyValuePair<ActorData, int> keyValuePair in abilityUtil_Targeter_ThiefFanLaser.m_actorToHitCount)
-						{
-							num2 += keyValuePair.Value;
-						}
-						num += num2 * energyGainPerLaserHit;
-					}
+					numHits += keyValuePair.Value;
 				}
-				i++;
+				energyGain += numHits * energyGainPerLaserHit;
 			}
 		}
-		return num;
+		return energyGain;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
 		AbilityMod_ThiefBasicAttack abilityMod_ThiefBasicAttack = modAsBase as AbilityMod_ThiefBasicAttack;
-		string name = "LaserDamageAmount";
-		string empty = string.Empty;
-		int val;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val = abilityMod_ThiefBasicAttack.m_laserDamageAmountMod.GetModifiedValue(this.m_laserDamageAmount);
-		}
-		else
-		{
-			val = this.m_laserDamageAmount;
-		}
-		base.AddTokenInt(tokens, name, empty, val, false);
-		base.AddTokenInt(tokens, "LaserSubsequentDamageAmount", string.Empty, (!abilityMod_ThiefBasicAttack) ? this.m_laserSubsequentDamageAmount : abilityMod_ThiefBasicAttack.m_laserSubsequentDamageAmountMod.GetModifiedValue(this.m_laserSubsequentDamageAmount), false);
-		base.AddTokenInt(tokens, "LaserDamageTotalCombined", string.Empty, this.m_laserDamageAmount + this.m_laserSubsequentDamageAmount, false);
-		string name2 = "ExtraDamageForSingleHit";
-		string empty2 = string.Empty;
-		int val2;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val2 = abilityMod_ThiefBasicAttack.m_extraDamageForSingleHitMod.GetModifiedValue(this.m_extraDamageForSingleHit);
-		}
-		else
-		{
-			val2 = this.m_extraDamageForSingleHit;
-		}
-		base.AddTokenInt(tokens, name2, empty2, val2, false);
-		string name3 = "ExtraDamageForHittingPowerup";
-		string empty3 = string.Empty;
-		int val3;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val3 = abilityMod_ThiefBasicAttack.m_extraDamageForHittingPowerupMod.GetModifiedValue(this.m_extraDamageForHittingPowerup);
-		}
-		else
-		{
-			val3 = this.m_extraDamageForHittingPowerup;
-		}
-		base.AddTokenInt(tokens, name3, empty3, val3, false);
-		string name4 = "HealOnSelfIfHitEnemyAndPowerup";
-		string empty4 = string.Empty;
-		int val4;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val4 = abilityMod_ThiefBasicAttack.m_healOnSelfIfHitEnemyAndPowerupMod.GetModifiedValue(this.m_healOnSelfIfHitEnemyAndPowerup);
-		}
-		else
-		{
-			val4 = this.m_healOnSelfIfHitEnemyAndPowerup;
-		}
-		base.AddTokenInt(tokens, name4, empty4, val4, false);
-		base.AddTokenInt(tokens, "EnergyGainPerLaserHit", string.Empty, (!abilityMod_ThiefBasicAttack) ? this.m_energyGainPerLaserHit : abilityMod_ThiefBasicAttack.m_energyGainPerLaserHitMod.GetModifiedValue(this.m_energyGainPerLaserHit), false);
-		string name5 = "EnergyGainPerPowerupHit";
-		string empty5 = string.Empty;
-		int val5;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val5 = abilityMod_ThiefBasicAttack.m_energyGainPerPowerupHitMod.GetModifiedValue(this.m_energyGainPerPowerupHit);
-		}
-		else
-		{
-			val5 = this.m_energyGainPerPowerupHit;
-		}
-		base.AddTokenInt(tokens, name5, empty5, val5, false);
-		string name6 = "LaserMaxTargets";
-		string empty6 = string.Empty;
-		int val6;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val6 = abilityMod_ThiefBasicAttack.m_laserMaxTargetsMod.GetModifiedValue(this.m_laserMaxTargets);
-		}
-		else
-		{
-			val6 = this.m_laserMaxTargets;
-		}
-		base.AddTokenInt(tokens, name6, empty6, val6, false);
-		string name7 = "LaserCount";
-		string empty7 = string.Empty;
-		int val7;
-		if (abilityMod_ThiefBasicAttack)
-		{
-			val7 = abilityMod_ThiefBasicAttack.m_laserCountMod.GetModifiedValue(this.m_laserCount);
-		}
-		else
-		{
-			val7 = this.m_laserCount;
-		}
-		base.AddTokenInt(tokens, name7, empty7, val7, false);
+		AddTokenInt(tokens, "LaserDamageAmount", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_laserDamageAmountMod.GetModifiedValue(m_laserDamageAmount)
+			: m_laserDamageAmount);
+		AddTokenInt(tokens, "LaserSubsequentDamageAmount", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_laserSubsequentDamageAmountMod.GetModifiedValue(m_laserSubsequentDamageAmount)
+			: m_laserSubsequentDamageAmount);
+		AddTokenInt(tokens, "LaserDamageTotalCombined", string.Empty, m_laserDamageAmount + m_laserSubsequentDamageAmount);
+		AddTokenInt(tokens, "ExtraDamageForSingleHit", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_extraDamageForSingleHitMod.GetModifiedValue(m_extraDamageForSingleHit)
+			: m_extraDamageForSingleHit);
+		AddTokenInt(tokens, "ExtraDamageForHittingPowerup", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_extraDamageForHittingPowerupMod.GetModifiedValue(m_extraDamageForHittingPowerup)
+			: m_extraDamageForHittingPowerup);
+		AddTokenInt(tokens, "HealOnSelfIfHitEnemyAndPowerup", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_healOnSelfIfHitEnemyAndPowerupMod.GetModifiedValue(m_healOnSelfIfHitEnemyAndPowerup)
+			: m_healOnSelfIfHitEnemyAndPowerup);
+		AddTokenInt(tokens, "EnergyGainPerLaserHit", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_energyGainPerLaserHitMod.GetModifiedValue(m_energyGainPerLaserHit)
+			: m_energyGainPerLaserHit);
+		AddTokenInt(tokens, "EnergyGainPerPowerupHit", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_energyGainPerPowerupHitMod.GetModifiedValue(m_energyGainPerPowerupHit)
+			: m_energyGainPerPowerupHit);
+		AddTokenInt(tokens, "LaserMaxTargets", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_laserMaxTargetsMod.GetModifiedValue(m_laserMaxTargets)
+			: m_laserMaxTargets);
+		AddTokenInt(tokens, "LaserCount", string.Empty, abilityMod_ThiefBasicAttack != null
+			? abilityMod_ThiefBasicAttack.m_laserCountMod.GetModifiedValue(m_laserCount)
+			: m_laserCount);
 	}
 
-	public override bool HasRestrictedFreePosDistance(ActorData aimingActor, int targetIndex, List<AbilityTarget> targetsSoFar, out float min, out float max)
+	public override bool HasRestrictedFreePosDistance(
+		ActorData aimingActor,
+		int targetIndex,
+		List<AbilityTarget> targetsSoFar,
+		out float min,
+		out float max)
 	{
-		min = this.m_targeterMinInterpDistance * Board.Get().squareSize;
-		max = this.m_targeterMaxInterpDistance * Board.Get().squareSize;
+		min = m_targeterMinInterpDistance * Board.Get().squareSize;
+		max = m_targeterMaxInterpDistance * Board.Get().squareSize;
 		return true;
 	}
 
-	private List<ActorData> GetHitActorsInDirection(Vector3 direction, ActorData caster, HashSet<PowerUp> powerupsHitPreviously, out VectorUtils.LaserCoords endPoints, out List<PowerUp> powerupsHit, List<NonActorTargetInfo> nonActorTargetInfo)
+	private List<ActorData> GetHitActorsInDirection(
+		Vector3 direction,
+		ActorData caster,
+		HashSet<PowerUp> powerupsHitPreviously,
+		out VectorUtils.LaserCoords endPoints,
+		out List<PowerUp> powerupsHit,
+		List<NonActorTargetInfo> nonActorTargetInfo)
 	{
-		return ThiefBasicAttack.GetHitActorsInDirectionStatic(caster.GetLoSCheckPos(), direction, caster, this.GetLaserRange(), this.GetLaserWidth(), this.LaserPenetrateLos(), this.GetLaserMaxTargets(), false, true, true, this.c_maxPowerupPerLaser, true, this.StopOnPowerupHit(), this.IncludeSpoilsPowerups(), this.IgnorePickupTeamRestriction(), powerupsHitPreviously, out endPoints, out powerupsHit, nonActorTargetInfo, false, true);
+		return GetHitActorsInDirectionStatic(
+			caster.GetLoSCheckPos(),
+			direction,
+			caster,
+			GetLaserRange(),
+			GetLaserWidth(),
+			LaserPenetrateLos(),
+			GetLaserMaxTargets(),
+			false,
+			true,
+			true,
+			c_maxPowerupPerLaser,
+			true,
+			StopOnPowerupHit(),
+			IncludeSpoilsPowerups(),
+			IgnorePickupTeamRestriction(),
+			powerupsHitPreviously,
+			out endPoints,
+			out powerupsHit,
+			nonActorTargetInfo,
+			false);
 	}
 
-	public unsafe static List<ActorData> GetHitActorsInDirectionStatic(Vector3 startLosCheckPos, Vector3 direction, ActorData caster, float distanceInSquares, float widthInSquares, bool penetrateLos, int maxActorTargets, bool includeAllies, bool includeEnemies, bool includeInvisibles, int maxPowerupsCount, bool shouldIncludePowerups, bool stopOnPowerupHit, bool includeSpoils, bool ignoreTeamRestriction, HashSet<PowerUp> powerupsHitSoFar, out VectorUtils.LaserCoords outEndPoints, out List<PowerUp> outPowerupsHit, List<NonActorTargetInfo> nonActorTargetInfo, bool forClient, bool stopEndPosOnHitActor = true)
+	public static List<ActorData> GetHitActorsInDirectionStatic(
+		Vector3 startLosCheckPos,
+		Vector3 direction,
+		ActorData caster,
+		float distanceInSquares,
+		float widthInSquares,
+		bool penetrateLos,
+		int maxActorTargets,
+		bool includeAllies,
+		bool includeEnemies,
+		bool includeInvisibles,
+		int maxPowerupsCount,
+		bool shouldIncludePowerups,
+		bool stopOnPowerupHit,
+		bool includeSpoils,
+		bool ignoreTeamRestriction,
+		HashSet<PowerUp> powerupsHitSoFar,
+		out VectorUtils.LaserCoords outEndPoints,
+		out List<PowerUp> outPowerupsHit,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		bool forClient,
+		bool stopEndPosOnHitActor = true)
 	{
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, includeAllies, includeEnemies);
-		List<PowerUp> list = new List<PowerUp>();
+		List<PowerUp> hitPowerups = new List<PowerUp>();
 		VectorUtils.LaserCoords laserCoords;
 		laserCoords.start = startLosCheckPos;
-		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(laserCoords.start, direction, distanceInSquares, widthInSquares, caster, relevantTeams, penetrateLos, maxActorTargets, false, includeInvisibles, out laserCoords.end, nonActorTargetInfo, null, false, true);
-		List<ActorData> list2 = actorsInLaser;
+		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			direction,
+			distanceInSquares,
+			widthInSquares,
+			caster,
+			relevantTeams,
+			penetrateLos,
+			maxActorTargets,
+			false,
+			includeInvisibles,
+			out laserCoords.end,
+			nonActorTargetInfo);
+		List<ActorData> hitActors = actorsInLaser;
 		Vector3 end = laserCoords.end;
-		if (maxActorTargets > 0 && actorsInLaser.Count > 0)
+		if (maxActorTargets > 0
+		    && actorsInLaser.Count > 0
+		    && stopEndPosOnHitActor)
 		{
-			if (stopEndPosOnHitActor)
-			{
-				laserCoords.end = actorsInLaser[actorsInLaser.Count - 1].GetLoSCheckPos();
-			}
+			laserCoords.end = actorsInLaser[actorsInLaser.Count - 1].GetLoSCheckPos();
 		}
 		if (shouldIncludePowerups)
 		{
-			List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(laserCoords.start, end, widthInSquares / 2f, true, caster);
-			using (List<BoardSquare>.Enumerator enumerator = squaresInBox.GetEnumerator())
+			List<BoardSquare> squaresInBox = AreaEffectUtils.GetSquaresInBox(
+				laserCoords.start,
+				end,
+				widthInSquares / 2f,
+				true,
+				caster);
+			foreach (BoardSquare square in squaresInBox)
 			{
-				while (enumerator.MoveNext())
+				PowerUp powerupHit = null;
+				List<PowerUp> powerups = forClient
+					? PowerUpManager.Get().GetClientPowerUpsOnSquare(square)
+					: PowerUpManager.Get().GetServerPowerUpsOnSquare(square);
+				foreach (PowerUp powerup in powerups)
 				{
-					BoardSquare square = enumerator.Current;
-					PowerUp powerUp = null;
-					if (!forClient)
+					if (CanPowerupBeStolen(powerup, powerupsHitSoFar, ignoreTeamRestriction, caster))
 					{
-						List<PowerUp> serverPowerUpsOnSquare = PowerUpManager.Get().GetServerPowerUpsOnSquare(square);
-						foreach (PowerUp powerUp2 in serverPowerUpsOnSquare)
-						{
-							if (ThiefBasicAttack.CanPowerupBeStolen(powerUp2, powerupsHitSoFar, ignoreTeamRestriction, caster))
-							{
-								powerUp = powerUp2;
-								break;
-							}
-						}
-					}
-					else
-					{
-						List<PowerUp> clientPowerUpsOnSquare = PowerUpManager.Get().GetClientPowerUpsOnSquare(square);
-						using (List<PowerUp>.Enumerator enumerator3 = clientPowerUpsOnSquare.GetEnumerator())
-						{
-							while (enumerator3.MoveNext())
-							{
-								PowerUp powerUp3 = enumerator3.Current;
-								if (ThiefBasicAttack.CanPowerupBeStolen(powerUp3, powerupsHitSoFar, ignoreTeamRestriction, caster))
-								{
-									powerUp = powerUp3;
-									goto IL_1B5;
-								}
-							}
-						}
-					}
-					IL_1B5:
-					if (ThiefBasicAttack.CanPowerupBeStolen(powerUp, powerupsHitSoFar, ignoreTeamRestriction, caster))
-					{
-						if (!list.Contains(powerUp))
-						{
-							if (!powerUp.m_isSpoil || includeSpoils)
-							{
-								list.Add(powerUp);
-							}
-						}
+						powerupHit = powerup;
+						break;
 					}
 				}
-			}
-			if (list.Count > 0)
-			{
-				TargeterUtils.SortPowerupsByDistanceToPos(ref list, startLosCheckPos);
-				if (maxPowerupsCount > 0 && list.Count > maxPowerupsCount)
+				if (CanPowerupBeStolen(powerupHit, powerupsHitSoFar, ignoreTeamRestriction, caster)
+				    && !hitPowerups.Contains(powerupHit)
+				    && (!powerupHit.m_isSpoil || includeSpoils))
 				{
-					int count = list.Count - maxPowerupsCount;
-					list.RemoveRange(maxPowerupsCount, count);
+					hitPowerups.Add(powerupHit);
+				}
+			}
+			if (hitPowerups.Count > 0)
+			{
+				TargeterUtils.SortPowerupsByDistanceToPos(ref hitPowerups, startLosCheckPos);
+				if (maxPowerupsCount > 0 && hitPowerups.Count > maxPowerupsCount)
+				{
+					hitPowerups.RemoveRange(maxPowerupsCount, hitPowerups.Count - maxPowerupsCount);
 				}
 				if (stopOnPowerupHit)
 				{
-					PowerUp powerUp4 = list[0];
-					float magnitude = (powerUp4.boardSquare.ToVector3() - startLosCheckPos).magnitude;
-					if (list2.Count > 0)
+					PowerUp hitPowerup = hitPowerups[0];
+					float distToPowerup = (hitPowerup.boardSquare.ToVector3() - startLosCheckPos).magnitude;
+					if (hitActors.Count > 0)
 					{
-						float magnitude2 = (list2[0].GetLoSCheckPos() - startLosCheckPos).magnitude;
-						if (magnitude < magnitude2)
+						float distToActor = (hitActors[0].GetLoSCheckPos() - startLosCheckPos).magnitude;
+						if (distToPowerup < distToActor)
 						{
-							list2.Clear();
+							hitActors.Clear();
 						}
 					}
-					laserCoords.end = powerUp4.boardSquare.ToVector3();
+					laserCoords.end = hitPowerup.boardSquare.ToVector3();
 				}
-				powerupsHitSoFar.UnionWith(list);
+				powerupsHitSoFar.UnionWith(hitPowerups);
 			}
 		}
 		outEndPoints = laserCoords;
-		outPowerupsHit = list;
-		return list2;
+		outPowerupsHit = hitPowerups;
+		return hitActors;
 	}
 
-	private static bool CanPowerupBeStolen(PowerUp powerUp, HashSet<PowerUp> powerupsHitSoFar, bool ignoreTeamRestriction, ActorData thief)
+	private static bool CanPowerupBeStolen(
+		PowerUp powerUp,
+		HashSet<PowerUp> powerupsHitSoFar,
+		bool ignoreTeamRestriction,
+		ActorData thief)
 	{
-		if (!(powerUp == null))
-		{
-			if (powerUp.boardSquare == null)
-			{
-			}
-			else
-			{
-				if (!ignoreTeamRestriction && !powerUp.TeamAllowedForPickUp(thief.GetTeam()))
-				{
-					return false;
-				}
-				if (powerupsHitSoFar.Contains(powerUp))
-				{
-					return false;
-				}
-				if (!powerUp.CanBeStolen())
-				{
-					return false;
-				}
-				return true;
-			}
-		}
-		return false;
+		return powerUp != null
+		       && powerUp.boardSquare != null
+		       && (ignoreTeamRestriction || powerUp.TeamAllowedForPickUp(thief.GetTeam()))
+		       && !powerupsHitSoFar.Contains(powerUp)
+		       && powerUp.CanBeStolen();
 	}
 
 	private float CalculateFanAngleDegrees(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		float value = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
-		float num = Mathf.Clamp(value, this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance) - this.m_targeterMinInterpDistance;
-		return this.GetTargeterMaxAngle() * (1f - num / (this.m_targeterMaxInterpDistance - this.m_targeterMinInterpDistance));
+		float distInSquares = (currentTarget.FreePos - targetingActor.GetFreePos()).magnitude / Board.Get().squareSize;
+		float share = Mathf.Clamp(distInSquares, m_targeterMinInterpDistance, m_targeterMaxInterpDistance) - m_targeterMinInterpDistance;
+		return GetTargeterMaxAngle() * (1f - share / (m_targeterMaxInterpDistance - m_targeterMinInterpDistance));
 	}
 
 	public float CalculateDistanceFromFanAngleDegrees(float fanAngleDegrees)
 	{
-		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(fanAngleDegrees, this.GetTargeterMaxAngle(), this.m_targeterMinInterpDistance, this.m_targeterMaxInterpDistance);
+		return AbilityCommon_FanLaser.CalculateDistanceFromFanAngleDegrees(
+			fanAngleDegrees,
+			GetTargeterMaxAngle(),
+			m_targeterMinInterpDistance,
+			m_targeterMaxInterpDistance);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
 		if (abilityMod.GetType() == typeof(AbilityMod_ThiefBasicAttack))
 		{
-			this.m_abilityMod = (abilityMod as AbilityMod_ThiefBasicAttack);
-			this.SetupTargeter();
+			m_abilityMod = abilityMod as AbilityMod_ThiefBasicAttack;
+			SetupTargeter();
 		}
 	}
 
 	protected override void OnRemoveAbilityMod()
 	{
-		this.m_abilityMod = null;
-		this.SetupTargeter();
+		m_abilityMod = null;
+		SetupTargeter();
 	}
 }

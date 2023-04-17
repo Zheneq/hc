@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class ThiefStealthGenerator : Ability
 {
@@ -10,20 +10,16 @@ public class ThiefStealthGenerator : Ability
 		{
 			m_abilityName = "Stealth Generator";
 		}
-		bool affectsAllies = m_stealthGeneratorInfo.IncludeAllies();
-		bool affectsEnemies = m_stealthGeneratorInfo.IncludeEnemies();
-		AbilityAreaShape shape = m_stealthGeneratorInfo.shape;
-		bool penetrateLos = m_stealthGeneratorInfo.penetrateLos;
-		int affectsCaster;
-		if (m_stealthGeneratorInfo.canIncludeCaster)
-		{
-			affectsCaster = 1;
-		}
-		else
-		{
-			affectsCaster = 0;
-		}
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, shape, penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, affectsEnemies, affectsAllies, (AbilityUtil_Targeter.AffectsActor)affectsCaster);
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			m_stealthGeneratorInfo.shape,
+			m_stealthGeneratorInfo.penetrateLos,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+			m_stealthGeneratorInfo.IncludeEnemies(),
+			m_stealthGeneratorInfo.IncludeAllies(),
+			m_stealthGeneratorInfo.canIncludeCaster
+				? AbilityUtil_Targeter.AffectsActor.Possible
+				: AbilityUtil_Targeter.AffectsActor.Never);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
