@@ -13,8 +13,8 @@ public class ValkyriePullToLaserCenter : Ability
 	[Header("-- Damage & effects")]
 	public int m_damage = 40;
 	public StandardEffectInfo m_effectToEnemies;
-	public int m_extraDamageForCenterHits; // TODO VALKYRIE removed in rogues
-	public float m_centerHitWidth = 0.1f; // TODO VALKYRIE removed in rogues
+	public int m_extraDamageForCenterHits; // removed in rogues
+	public float m_centerHitWidth = 0.1f; // removed in rogues
 	[Header("-- Knockback on Cast")]
 	public float m_maxKnockbackDist = 3f;
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularPullToAimDir;
@@ -103,7 +103,7 @@ public class ValkyriePullToLaserCenter : Ability
 			}
 		}
 		
-		// TODO VALKYRIE removed in rogues
+		// removed in rogues
 		int extraDamageForCenterHits = GetExtraDamageForCenterHits();
 		if (extraDamageForCenterHits > 0 && Targeter is AbilityUtil_Targeter_KnockbackLaser targeter)
 		{
@@ -136,7 +136,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_laserRangeInSquares;
 	}
 
-	// TODO VALKYRIE unused
+	// TODO VALKYRIE not used in code, not used in any mods, m_maxTargets used instead in desc and still does not actually limit anything
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null
@@ -144,7 +144,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_maxTargets;
 	}
 
-	// TODO VALKYRIE unused
+	// TODO VALKYRIE not used in code, not used in any mods, m_lengthIgnoreLos is actually used everywhere including client
 	public bool LengthIgnoreLos()
 	{
 		return m_abilityMod != null
@@ -171,7 +171,7 @@ public class ValkyriePullToLaserCenter : Ability
 		return m_cachedEffectToEnemies ?? m_effectToEnemies;
 	}
 
-	// TODO VALKYRIE unused, removed in rogues
+	// removed in rogues
 	public int GetExtraDamageForCenterHits()
 	{
 		return m_abilityMod != null
@@ -179,7 +179,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_extraDamageForCenterHits;
 	}
 
-	// TODO VALKYRIE unused, removed in rogues
+	// removed in rogues
 	public float GetCenterHitWidth()
 	{
 		return m_abilityMod != null
@@ -194,7 +194,7 @@ public class ValkyriePullToLaserCenter : Ability
 			: m_maxKnockbackDist;
 	}
 
-	// TODO VALKYRIE unused
+	// TODO VALKYRIE not used in code, not used in any mods, m_knockbackType is actually used everywhere including client
 	public KnockbackType GetKnockbackType()
 	{
 		return m_abilityMod != null
@@ -266,7 +266,7 @@ public class ValkyriePullToLaserCenter : Ability
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out _);
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo, out Vector3 laserEndPoint);
 		Vector3 casterPos = caster.GetLoSCheckPos();
 		foreach (ActorData actorData in hitActors)
 		{
@@ -297,6 +297,19 @@ public class ValkyriePullToLaserCenter : Ability
 						actorHitResults.AddBaseDamage(extraDamageIfKnockedInPlace);
 					}
 				}
+				
+				// custom
+				int extraDamageForCenterHits = GetExtraDamageForCenterHits();
+				if (extraDamageForCenterHits > 0
+				    && AreaEffectUtils.IsSquareInBoxByActorRadius(
+					    actorData.GetCurrentBoardSquare(),
+					    ActorData.GetLoSCheckPos(),
+					    laserEndPoint,
+					    GetCenterHitWidth()))
+				{
+					actorHitResults.AddBaseDamage(extraDamageForCenterHits);
+				}
+				// end custom
 			}
 			abilityResults.StoreActorHit(actorHitResults);
 		}

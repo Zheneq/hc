@@ -16,8 +16,8 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 	public AbilityModPropertyInt m_extraDamageIfKnockedInPlaceMod;
 	public AbilityModPropertyEffectInfo m_effectToEnemiesMod;
 	[Header("-- Extra Damage for Center")]
-	public AbilityModPropertyInt m_extraDamageForCenterHitsMod;  // TODO VALKYRIE removed in rogues
-	public AbilityModPropertyFloat m_centerHitWidthMod;  // TODO VALKYRIE removed in rogues
+	public AbilityModPropertyInt m_extraDamageForCenterHitsMod;  // removed in rogues
+	public AbilityModPropertyFloat m_centerHitWidthMod;  // removed in rogues
 	[Header("-- Knockback on Cast")]
 	public AbilityModPropertyFloat m_maxKnockbackDistMod;
 	public AbilityModPropertyKnockbackType m_knockbackTypeMod;

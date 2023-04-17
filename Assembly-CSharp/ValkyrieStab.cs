@@ -109,7 +109,7 @@ public class ValkyrieStab : Ability
 			: m_penetrateLineOfSight;
 	}
 
-	// TODO VALKYRIE unused
+	// TODO VALKYRIE not used in code, not used in any mods, m_maxTargets used instead in desc and still does not actually limit anything
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null

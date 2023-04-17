@@ -260,7 +260,6 @@ public class ValkyrieDashAoE : Ability
 			: m_coverIgnoreMinDist;
 	}
 
-	// TODO VALKYRIE unused
 	public bool TriggerCooldownOnGuardAbiity()
 	{
 		return m_abilityMod != null
@@ -289,7 +288,6 @@ public class ValkyrieDashAoE : Ability
 			: m_damage;
 	}
 
-	// TODO VALKYRIE unused
 	public StandardEffectInfo GetEnemyDebuff()
 	{
 		return m_cachedEnemyDebuff ?? m_enemyDebuff;
@@ -458,7 +456,9 @@ public class ValkyrieDashAoE : Ability
 			ActorHitParameters hitParams = new ActorHitParameters(actorData, centerOfShape);
 			if (actorData.GetTeam() != caster.GetTeam())
 			{
-				abilityResults.StoreActorHit(new ActorHitResults(GetDamage(), HitActionType.Damage, m_enemyDebuff, hitParams));
+				ActorHitResults actorHitResults = new ActorHitResults(GetDamage(), HitActionType.Damage, m_enemyDebuff, hitParams);
+				actorHitResults.AddStandardEffectInfo(GetEnemyDebuff()); // custom
+				abilityResults.StoreActorHit(actorHitResults);
 			}
 			else if (actorData != caster)
 			{
@@ -486,7 +486,7 @@ public class ValkyrieDashAoE : Ability
 					GetTechPointGainPerCoveredHit(),
 					GetTechPointGainPerTooCloseForCoverHit(),
 					0));
-				if (m_triggerCooldownOnGuardAbiity)
+				if (TriggerCooldownOnGuardAbiity()) // m_triggerCooldownOnGuardAbiity in rogues
 				{
 					casterHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(
 						m_guardAbilityActionType,
