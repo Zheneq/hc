@@ -1509,17 +1509,15 @@ public class ServerEffectManager : MonoBehaviour
 
 	public void RemoveEffectsFromActorDeath()
 	{
-		using (List<Effect>.Enumerator enumerator = m_actorEffects.SelectMany(kvp => kvp.Value).ToList().GetEnumerator())
+		foreach (Effect effect in m_actorEffects.SelectMany(kvp => kvp.Value).ToList())
 		{
-			while (enumerator.MoveNext())
-			{
-				Effect effect = enumerator.Current;
-				m_actorsPendingDeath.ForEach(delegate (ActorData actor)
-				{
-					effect.OnActorRemoved(actor);
-				});
-			}
+			m_actorsPendingDeath.ForEach(actor => effect.OnActorRemoved(actor));
 		}
+		
+		// custom
+		m_actorsPendingDeath.ForEach(RemoveEffectsOnActor);
+		// end custom
+		
 		m_actorsPendingDeath.Clear();
 	}
 

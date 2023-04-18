@@ -1876,6 +1876,13 @@ public class GameFlow : NetworkBehaviour
 		//{
 		//	NPCCoordinator.Get().OnTurnEnd();  // goingIntoNewTurn && in rogues
 		//}
+		
+		// custom
+		if (ServerEffectManager.Get().HasPendingActorDeaths())
+		{
+			ServerEffectManager.Get().RemoveEffectsFromActorDeath();
+		}
+		// end custom
 	}
 #endif
 
