@@ -31,9 +31,9 @@ public class Passive_Spark : Passive
 		AbilityData component = Owner.GetComponent<AbilityData>();
 		if (component != null)
 		{
-			m_damageBeamAbility = (component.GetAbilityOfType(typeof(SparkBasicAttack)) as SparkBasicAttack);
-			m_healBeamAbility = (component.GetAbilityOfType(typeof(SparkHealingBeam)) as SparkHealingBeam);
-			m_energizedAbility = (component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized);
+			m_damageBeamAbility = component.GetAbilityOfType(typeof(SparkBasicAttack)) as SparkBasicAttack;
+			m_healBeamAbility = component.GetAbilityOfType(typeof(SparkHealingBeam)) as SparkHealingBeam;
+			m_energizedAbility = component.GetAbilityOfType(typeof(SparkEnergized)) as SparkEnergized;
 		}
 		if (m_damageBeamAbility != null)
 		{
@@ -56,21 +56,26 @@ public class Passive_Spark : Passive
 
 	private void HandleHealTetherOnTurnStart()
 	{
-		if (m_healBeamAbility != null && m_healBeamAbility.ShouldApplyTargetEffectForXDamage() && GameFlowData.Get().CurrentTurn > 1)
+		if (m_healBeamAbility == null
+		    || !m_healBeamAbility.ShouldApplyTargetEffectForXDamage()
+		    || GameFlowData.Get().CurrentTurn <= 1)
 		{
-			List<int> beamActorIndices = m_syncComp.GetBeamActorIndices();
-			for (int i = 0; i < beamActorIndices.Count; i++)
+			return;
+		}
+
+		foreach (int beamActorIndex in m_syncComp.GetBeamActorIndices())
+		{
+			ActorData beamActor = GameplayUtils.GetActorOfActorIndex(beamActorIndex);
+			if (beamActor != null && beamActor.GetActorBehavior() != null)
 			{
-				ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(beamActorIndices[i]);
-				if (actorOfActorIndex != null && actorOfActorIndex.GetActorBehavior() != null)
+				ActorBehavior.TurnBehavior behaviorOfTurn = beamActor.GetActorBehavior().GetBehaviorOfTurn(GameFlowData.Get().CurrentTurn - 1);
+				if (behaviorOfTurn != null
+				    && behaviorOfTurn.DamageTaken >= m_healBeamAbility.GetXDamageThreshold()
+				    && ServerEffectManager.Get().GetEffectsOnTargetByCaster(beamActor, Owner, typeof(SparkHealingBeamEffect)).Count > 0)
 				{
-					ActorBehavior.TurnBehavior behaviorOfTurn = actorOfActorIndex.GetActorBehavior().GetBehaviorOfTurn(GameFlowData.Get().CurrentTurn - 1);
-					if (behaviorOfTurn != null && behaviorOfTurn.DamageTaken >= m_healBeamAbility.GetXDamageThreshold() && ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkHealingBeamEffect)).Count > 0)
-					{
-						ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorOfActorIndex, actorOfActorIndex.GetFreePos()));
-						actorHitResults.AddStandardEffectInfo(m_healBeamAbility.GetTargetEffectForXDamage());
-						MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(actorOfActorIndex, Owner, actorHitResults, m_healBeamAbility, true, null, null);
-					}
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(beamActor, beamActor.GetFreePos()));
+					actorHitResults.AddStandardEffectInfo(m_healBeamAbility.GetTargetEffectForXDamage());
+					MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(beamActor, Owner, actorHitResults, m_healBeamAbility);
 				}
 			}
 		}
@@ -78,37 +83,40 @@ public class Passive_Spark : Passive
 
 	private void HandleEnergizedOnTurnStart()
 	{
-		if (m_energizedAbility != null)
+		if (m_energizedAbility == null)
 		{
-			if (m_energizedAbility.HasEnemyEffectForTurnStart())
+			return;
+		}
+		if (m_energizedAbility.HasEnemyEffectForTurnStart())
+		{
+			foreach (ActorData actorData in m_energizedAbility.GetLastHitActors())
 			{
-				foreach (ActorData actorData in m_energizedAbility.GetLastHitActors())
+				if (actorData != null
+				    && !actorData.IsDead()
+				    && actorData.GetTeam() != Owner.GetTeam())
 				{
-					if (actorData != null && !actorData.IsDead() && actorData.GetTeam() != Owner.GetTeam())
-					{
-						ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
-						actorHitResults.AddStandardEffectInfo(m_energizedAbility.GetEnemyEffectForTurnStart());
-						MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(actorData, Owner, actorHitResults, m_energizedAbility, true, null, null);
-					}
+					ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
+					actorHitResults.AddStandardEffectInfo(m_energizedAbility.GetEnemyEffectForTurnStart());
+					MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(actorData, Owner, actorHitResults, m_energizedAbility);
 				}
 			}
-			m_energizedAbility.GetLastHitActors().Clear();
 		}
+		m_energizedAbility.GetLastHitActors().Clear();
 	}
 
 	public void SetPulseAnimIndexOnFirstBeams()
 	{
-		List<int> beamActorIndices = m_syncComp.GetBeamActorIndices();
 		bool processedAllyBeam = false;
 		bool processedEnemyBeam = false;
-		foreach (int beamActorIndex in beamActorIndices)
+		foreach (int beamActorIndex in m_syncComp.GetBeamActorIndices())
 		{
-			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(beamActorIndex);
-			if (actorOfActorIndex == null)
+			ActorData beamActor = GameplayUtils.GetActorOfActorIndex(beamActorIndex);
+			if (beamActor == null)
 			{
 				continue;
 			}
-			List<Effect> allyEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkHealingBeamEffect));
+			List<Effect> allyEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(
+				beamActor, Owner, typeof(SparkHealingBeamEffect));
 			if (allyEffects.Count > 0)
 			{
 				Log.Info($"SPARK got {allyEffects.Count} ally effects");
@@ -119,7 +127,8 @@ public class Passive_Spark : Passive
 					int animIndex = processedAllyBeam || isSkippingAllyBeam
 						? 0
 						: m_healBeamAbility.m_pulseAnimIndex;
-					Log.Info($"SPARK setting ally effect pulse anim index to {animIndex} (processedAllyBeam={processedAllyBeam}, isSkippingAllyBeam={isSkippingAllyBeam}");
+					Log.Info($"SPARK setting ally effect pulse anim index to {animIndex} " +
+					         $"(processedAllyBeam={processedAllyBeam}, isSkippingAllyBeam={isSkippingAllyBeam}");
 					sparkHealingBeamEffect.SetPulseAnimIndex(animIndex);
 					if (!isSkippingAllyBeam)
 					{
@@ -127,7 +136,8 @@ public class Passive_Spark : Passive
 					}
 				}
 			}
-			List<Effect> enemyEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex, Owner, typeof(SparkBasicAttackEffect));
+			List<Effect> enemyEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(
+				beamActor, Owner, typeof(SparkBasicAttackEffect));
 			if (enemyEffects.Count > 0)
 			{
 				foreach (Effect effect in enemyEffects)
@@ -138,7 +148,8 @@ public class Passive_Spark : Passive
 					int animIndex = processedEnemyBeam || isSkippingEnemyBeam
 						? 0
 						: m_damageBeamAbility.m_pulseAnimIndex;
-					Log.Info($"SPARK setting enemy effect pulse anim index to {animIndex} (processedEnemyBeam={processedEnemyBeam}, isSkippingEnemyBeam={isSkippingEnemyBeam}");
+					Log.Info($"SPARK setting enemy effect pulse anim index to {animIndex} " +
+					         $"(processedEnemyBeam={processedEnemyBeam}, isSkippingEnemyBeam={isSkippingEnemyBeam}");
 					sparkBasicAttackEffect.SetPulseAnimIndex(animIndex);
 					if (!isSkippingEnemyBeam)
 					{
@@ -152,59 +163,64 @@ public class Passive_Spark : Passive
 	private void RemoveDuplicateTethers()
 	{
 		List<int> beamActorIndices = m_syncComp.GetBeamActorIndices();
-		float num = 100000f;
-		int num2 = -1;
-		float num3 = 100000f;
-		int num4 = -1;
+		float minAllyDist = 100000f;
+		int closestAlly = ActorData.s_invalidActorIndex;
+		float minEnemyDist = 100000f;
+		int closestEnemy = ActorData.s_invalidActorIndex;
 		Vector3 freePos = Owner.GetFreePos();
 		foreach (int actorIndex in beamActorIndices)
 		{
-			ActorData actorOfActorIndex = GameplayUtils.GetActorOfActorIndex(actorIndex);
-			if (actorOfActorIndex != null)
+			ActorData beamActor = GameplayUtils.GetActorOfActorIndex(actorIndex);
+			if (beamActor != null)
 			{
-				float magnitude = (freePos - actorOfActorIndex.GetFreePos()).magnitude;
-				if (ServerEffectManager.Get().HasEffectByCaster(actorOfActorIndex, Owner, typeof(SparkHealingBeamEffect)))
+				float dist = (freePos - beamActor.GetFreePos()).magnitude;
+				if (ServerEffectManager.Get().HasEffectByCaster(beamActor, Owner, typeof(SparkHealingBeamEffect)))
 				{
-					if (magnitude <= num)
+					if (dist <= minAllyDist)
 					{
-						num = magnitude;
-						num2 = actorOfActorIndex.ActorIndex;
+						minAllyDist = dist;
+						closestAlly = beamActor.ActorIndex;
 					}
 				}
-				else if (ServerEffectManager.Get().HasEffectByCaster(actorOfActorIndex, Owner, typeof(SparkBasicAttackEffect)) && magnitude <= num3)
+				else if (ServerEffectManager.Get().HasEffectByCaster(beamActor, Owner, typeof(SparkBasicAttackEffect)))
 				{
-					num3 = magnitude;
-					num4 = actorOfActorIndex.ActorIndex;
+					if (dist <= minEnemyDist)
+					{
+						minEnemyDist = dist;
+						closestEnemy = beamActor.ActorIndex;
+					}
 				}
 			}
 		}
-		foreach (int actorIndex2 in beamActorIndices)
+		foreach (int actorIndex in beamActorIndices)
 		{
-			ActorData actorOfActorIndex2 = GameplayUtils.GetActorOfActorIndex(actorIndex2);
-			if (actorOfActorIndex2 != null)
+			ActorData beamActor = GameplayUtils.GetActorOfActorIndex(actorIndex);
+			if (beamActor == null)
 			{
-				if (actorOfActorIndex2.GetTeam() == Owner.GetTeam())
+				continue;
+			}
+			if (beamActor.GetTeam() == Owner.GetTeam())
+			{
+				if (closestAlly != beamActor.ActorIndex)
 				{
-					if (num2 == actorOfActorIndex2.ActorIndex)
+					List<Effect> healingBeamEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(
+						beamActor, Owner, typeof(SparkHealingBeamEffect));
+					foreach (Effect effectToRemove in healingBeamEffects)
 					{
-						continue;
-					}
-					using (List<Effect>.Enumerator enumerator2 = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex2, Owner, typeof(SparkHealingBeamEffect)).GetEnumerator())
-					{
-						while (enumerator2.MoveNext())
-						{
-							Effect effectToRemove = enumerator2.Current;
-							ServerEffectManager.Get().RemoveEffect(effectToRemove, ServerEffectManager.Get().GetActorEffects(actorOfActorIndex2));
-						}
-						continue;
+						ServerEffectManager.Get().RemoveEffect(
+							effectToRemove,
+							ServerEffectManager.Get().GetActorEffects(beamActor));
 					}
 				}
-				if (num4 != actorOfActorIndex2.ActorIndex)
+			}
+			else if (closestEnemy != beamActor.ActorIndex)
+			{
+				foreach (Effect effectToRemove in ServerEffectManager.Get().GetEffectsOnTargetByCaster(
+					         beamActor, Owner, typeof(SparkBasicAttackEffect)))
 				{
-					foreach (Effect effectToRemove2 in ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorOfActorIndex2, Owner, typeof(SparkBasicAttackEffect)))
-					{
-						ServerEffectManager.Get().RemoveEffect(effectToRemove2, ServerEffectManager.Get().GetActorEffects(actorOfActorIndex2));
-					}
+					ServerEffectManager.Get().RemoveEffect(
+						effectToRemove, 
+						ServerEffectManager.Get().GetActorEffects(beamActor));
 				}
 			}
 		}
@@ -214,33 +230,37 @@ public class Passive_Spark : Passive
 	{
 		base.OnEvadesProcessed();
 		m_syncComp.ClearActorsOutOfRangeOnEvade();
-		if (!Owner.IsDead())
+		if (Owner.IsDead())
 		{
-			List<Effect> allActorEffectsByCaster = ServerEffectManager.Get().GetAllActorEffectsByCaster(Owner, typeof(SparkBasicAttackEffect));
-			if (allActorEffectsByCaster.Count > 0)
+			return;
+		}
+		List<Effect> basicAttackEffects = ServerEffectManager.Get().GetAllActorEffectsByCaster(Owner, typeof(SparkBasicAttackEffect));
+		if (basicAttackEffects.Count <= 0)
+		{
+			return;
+		}
+		BoardSquare casterBoardSquare = ServerActionBuffer.Get().GetProcessedEvadeDestination(Owner);
+		if (casterBoardSquare == null)
+		{
+			casterBoardSquare = Owner.GetCurrentBoardSquare();
+		}
+		if (casterBoardSquare == null)
+		{
+			return;
+		}
+		foreach (Effect effect in basicAttackEffects)
+		{
+			SparkBasicAttackEffect sparkBasicAttackEffect = effect as SparkBasicAttackEffect;
+			BoardSquare targetActorSquare = ServerActionBuffer.Get().GetProcessedEvadeDestination(effect.Target);
+			if (targetActorSquare == null)
 			{
-				BoardSquare boardSquare = ServerActionBuffer.Get().GetProcessedEvadeDestination(Owner);
-				if (boardSquare == null)
-				{
-					boardSquare = Owner.GetCurrentBoardSquare();
-				}
-				if (boardSquare != null)
-				{
-					foreach (Effect effect in allActorEffectsByCaster)
-					{
-						SparkBasicAttackEffect sparkBasicAttackEffect = effect as SparkBasicAttackEffect;
-						BoardSquare boardSquare2 = ServerActionBuffer.Get().GetProcessedEvadeDestination(effect.Target);
-						if (boardSquare2 == null)
-						{
-							boardSquare2 = effect.Target.GetCurrentBoardSquare();
-						}
-						if (boardSquare2 != null && boardSquare.HorizontalDistanceInSquaresTo(boardSquare2) > sparkBasicAttackEffect.GetMaxTetherDist())
-						{
-							m_syncComp.AddActorAsOutOfRangeOnEvade(effect.Target);
-							sparkBasicAttackEffect.RemoveRevealedStatusForEvadeOutOfRange();
-						}
-					}
-				}
+				targetActorSquare = effect.Target.GetCurrentBoardSquare();
+			}
+			if (targetActorSquare != null
+			    && casterBoardSquare.HorizontalDistanceInSquaresTo(targetActorSquare) > sparkBasicAttackEffect.GetMaxTetherDist())
+			{
+				m_syncComp.AddActorAsOutOfRangeOnEvade(effect.Target);
+				sparkBasicAttackEffect.RemoveRevealedStatusForEvadeOutOfRange();
 			}
 		}
 	}
