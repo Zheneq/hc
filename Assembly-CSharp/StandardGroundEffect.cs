@@ -1,6 +1,5 @@
 ﻿// ROGUES
 // SERVER
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,33 +15,39 @@ public class StandardGroundEffect : Effect
 	public Vector3 m_shapeFreePos;
 	private Quaternion m_sequenceOrientation = Quaternion.identity;
 
-	public StandardGroundEffect(EffectSource parent, BoardSquare targetSquare, Vector3 shapeFreePos, ActorData target, ActorData caster, GroundEffectField fieldInfo)
+	public StandardGroundEffect(
+		EffectSource parent,
+		BoardSquare targetSquare,
+		Vector3 shapeFreePos,
+		ActorData target,
+		ActorData caster,
+		GroundEffectField fieldInfo)
 		: base(parent, targetSquare, target, caster)
 	{
-		this.m_time.duration = fieldInfo.duration;
-		this.m_fieldInfo = fieldInfo;
-		this.m_shapeFreePos = shapeFreePos;
-		base.HitPhase = AbilityPriority.Combat_Damage;
-		this.m_affectedSquares = new HashSet<BoardSquare>();
-		this.m_actorsHitThisTurn = new HashSet<ActorData>();
-		this.m_actorsHitThisTurn_fake = new HashSet<ActorData>();
+		m_time.duration = fieldInfo.duration;
+		m_fieldInfo = fieldInfo;
+		m_shapeFreePos = shapeFreePos;
+		HitPhase = AbilityPriority.Combat_Damage;
+		m_affectedSquares = new HashSet<BoardSquare>();
+		m_actorsHitThisTurn = new HashSet<ActorData>();
+		m_actorsHitThisTurn_fake = new HashSet<ActorData>();
 	}
 
 	public void SetLinkedGroundEffects(List<StandardGroundEffect> linkedGroundEffects)
 	{
-		this.m_linkedGroundEffects = linkedGroundEffects;
+		m_linkedGroundEffects = linkedGroundEffects;
 	}
 
 	public override void OnStart()
 	{
-		this.CalculateAffectedSquares();
+		CalculateAffectedSquares();
 	}
 
 	protected void CalculateAffectedSquares()
 	{
-		foreach (BoardSquare item in AreaEffectUtils.GetSquaresInShape(this.m_fieldInfo.shape, this.m_shapeFreePos, base.TargetSquare, this.m_fieldInfo.penetrateLos, base.Caster))
+		foreach (BoardSquare square in AreaEffectUtils.GetSquaresInShape(m_fieldInfo.shape, m_shapeFreePos, TargetSquare, m_fieldInfo.penetrateLos, Caster))
 		{
-			this.m_affectedSquares.Add(item);
+			m_affectedSquares.Add(square);
 		}
 	}
 
@@ -50,315 +55,319 @@ public class StandardGroundEffect : Effect
 	{
 		foreach (ActorData item in newActorsToExcludeThisTurn)
 		{
-			this.m_actorsHitThisTurn.Add(item);
-			this.m_actorsHitThisTurn_fake.Add(item);
+			m_actorsHitThisTurn.Add(item);
+			m_actorsHitThisTurn_fake.Add(item);
 		}
 	}
 
 	public void SetSequenceOrientation(Quaternion orientation)
 	{
-		this.m_sequenceOrientation = orientation;
+		m_sequenceOrientation = orientation;
 	}
 
 	public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
-		if (this.m_fieldInfo.perSquareSequences)
+		if (m_fieldInfo.perSquareSequences)
 		{
-			using (List<BoardSquare>.Enumerator enumerator = AreaEffectUtils.GetSquaresInShape(this.m_fieldInfo.shape, this.m_shapeFreePos, base.TargetSquare, this.m_fieldInfo.penetrateLos, base.Caster).GetEnumerator())
+			List<BoardSquare> squaresInShape = AreaEffectUtils.GetSquaresInShape(
+				m_fieldInfo.shape, m_shapeFreePos, TargetSquare, m_fieldInfo.penetrateLos, Caster);
+			foreach (BoardSquare boardSquare in squaresInShape)
 			{
-				while (enumerator.MoveNext())
-				{
-					BoardSquare boardSquare = enumerator.Current;
-					ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(this.m_fieldInfo.persistentSequencePrefab, boardSquare.ToVector3(), this.m_sequenceOrientation, null, base.Caster, base.SequenceSource, null);
-					list.Add(item);
-				}
-				return list;
+				list.Add(new ServerClientUtils.SequenceStartData(
+					m_fieldInfo.persistentSequencePrefab,
+					boardSquare.ToVector3(),
+					m_sequenceOrientation,
+					null,
+					Caster,
+					SequenceSource));
 			}
 		}
-		list.Add(new ServerClientUtils.SequenceStartData(this.m_fieldInfo.persistentSequencePrefab, this.GetShapeCenter(), this.m_sequenceOrientation, null, base.Caster, base.SequenceSource, null));
+		else
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_fieldInfo.persistentSequencePrefab,
+				GetShapeCenter(),
+				m_sequenceOrientation,
+				null,
+				Caster,
+				SequenceSource));
+		}
 		return list;
 	}
 
 	public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
-		if (this.ShouldHitThisTurn())
+		if (!ShouldHitThisTurn())
 		{
-			Vector3 shapeCenter = this.GetShapeCenter();
-			ActorData[] array = this.m_effectResults.HitActorsArray();
-			List<ActorData> list2 = new List<ActorData>();
-			List<ActorData> list3 = new List<ActorData>();
-			foreach (ActorData actorData in array)
+			return list;
+		}
+		Vector3 shapeCenter = GetShapeCenter();
+		ActorData[] hitActors = m_effectResults.HitActorsArray();
+		List<ActorData> enemiesHit = new List<ActorData>();
+		List<ActorData> alliesHit = new List<ActorData>();
+		foreach (ActorData actorData in hitActors)
+		{
+			if (actorData.GetTeam() == Caster.GetTeam())
 			{
-				if (actorData.GetTeam() == base.Caster.GetTeam())
-				{
-					list3.Add(actorData);
-				}
-				else
-				{
-					list2.Add(actorData);
-				}
+				alliesHit.Add(actorData);
 			}
-			SequenceSource shallowCopy = base.SequenceSource.GetShallowCopy();
-			if (this.AddActorAnimEntryIfHasHits(base.HitPhase))
+			else
 			{
-				shallowCopy.SetWaitForClientEnable(true);
+				enemiesHit.Add(actorData);
 			}
-			if (this.m_fieldInfo.allyHitSequencePrefab != null && list3.Count > 0)
-			{
-				ServerClientUtils.SequenceStartData item = new ServerClientUtils.SequenceStartData(this.m_fieldInfo.allyHitSequencePrefab, base.TargetSquare, list3.ToArray(), base.Caster, shallowCopy, null);
-				list.Add(item);
-			}
-			if (this.m_fieldInfo.enemyHitSequencePrefab != null && list2.Count > 0)
-			{
-				ServerClientUtils.SequenceStartData item2 = new ServerClientUtils.SequenceStartData(this.m_fieldInfo.enemyHitSequencePrefab, base.TargetSquare, list2.ToArray(), base.Caster, shallowCopy, null);
-				list.Add(item2);
-			}
-			GameObject gameObject = this.m_fieldInfo.hitPulseSequencePrefab;
-			if (gameObject == null && this.m_fieldInfo.allyHitSequencePrefab == null && this.m_fieldInfo.enemyHitSequencePrefab == null)
-			{
-				gameObject = SequenceLookup.Get().GetSimpleHitSequencePrefab();
-			}
-			if (gameObject != null && array.Length != 0)
-			{
-				ServerClientUtils.SequenceStartData item3 = new ServerClientUtils.SequenceStartData(gameObject, shapeCenter, array, base.Caster, shallowCopy, null);
-				list.Add(item3);
-			}
+		}
+		SequenceSource sequence = SequenceSource.GetShallowCopy();
+		if (AddActorAnimEntryIfHasHits(HitPhase))
+		{
+			sequence.SetWaitForClientEnable(true);
+		}
+		if (m_fieldInfo.allyHitSequencePrefab != null && alliesHit.Count > 0)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_fieldInfo.allyHitSequencePrefab, TargetSquare, alliesHit.ToArray(), Caster, sequence));
+		}
+		if (m_fieldInfo.enemyHitSequencePrefab != null && enemiesHit.Count > 0)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_fieldInfo.enemyHitSequencePrefab, TargetSquare, enemiesHit.ToArray(), Caster, sequence));
+		}
+		GameObject prefab = m_fieldInfo.hitPulseSequencePrefab;
+		if (prefab == null
+		    && m_fieldInfo.allyHitSequencePrefab == null
+		    && m_fieldInfo.enemyHitSequencePrefab == null)
+		{
+			prefab = SequenceLookup.Get().GetSimpleHitSequencePrefab();
+		}
+		if (prefab != null && hitActors.Length != 0)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(prefab, shapeCenter, hitActors, Caster, sequence));
 		}
 		return list;
 	}
 
 	public Vector3 GetShapeCenter()
 	{
-		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(this.m_fieldInfo.shape, this.m_shapeFreePos, base.TargetSquare);
-		centerOfShape.y = (float)Board.Get().BaselineHeight;
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_fieldInfo.shape, m_shapeFreePos, TargetSquare);
+		centerOfShape.y = Board.Get().BaselineHeight;
 		return centerOfShape;
 	}
 
 	public virtual bool ShouldHitThisTurn()
 	{
-		return this.m_fieldInfo.hitDelayTurns <= 0 || this.m_time.age >= this.m_fieldInfo.hitDelayTurns;
+		return m_fieldInfo.hitDelayTurns <= 0
+		       || m_time.age >= m_fieldInfo.hitDelayTurns;
 	}
 
 	public override void OnTurnStart()
 	{
 		// rogues
-		//if (base.Caster.GetTeam() == GameFlowData.Get().ActingTeam)
-		//{
-			this.m_actorsHitThisTurn.Clear();
-			this.m_actorsHitThisTurn_fake.Clear();
-		//}
+		// if (base.Caster.GetTeam() == GameFlowData.Get().ActingTeam)
+		// {
+			m_actorsHitThisTurn.Clear();
+			m_actorsHitThisTurn_fake.Clear();
+		// }
 	}
 
 	public override void OnAbilityPhaseStart(AbilityPriority phase)
 	{
+		// TODO ROGUES
 		Log.Error("Effect Phase Start called");
 	}
 
 	public virtual void SetupActorHitResults(ref ActorHitResults actorHitRes, BoardSquare targetSquare)
 	{
-		if (this.ShouldHitThisTurn())
+		if (ShouldHitThisTurn())
 		{
-			this.m_fieldInfo.SetupActorHitResult(ref actorHitRes, base.Caster, targetSquare, 1);
+			m_fieldInfo.SetupActorHitResult(ref actorHitRes, Caster, targetSquare);
 		}
 	}
 
 	public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
 	{
-		if (!this.ShouldHitThisTurn())
+		if (!ShouldHitThisTurn())
 		{
 			return;
 		}
-		bool includeEnemies = this.m_fieldInfo.IncludeEnemies();
-		bool includeAllies = this.m_fieldInfo.IncludeAllies();
-		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(base.Caster, includeAllies, includeEnemies);
-		if (relevantTeams.Count > 0)
+		bool includeEnemies = m_fieldInfo.IncludeEnemies();
+		bool includeAllies = m_fieldInfo.IncludeAllies();
+		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(Caster, includeAllies, includeEnemies);
+		if (relevantTeams.Count <= 0)
 		{
-			foreach (ActorData actorData in AreaEffectUtils.GetActorsInShape(this.m_fieldInfo.shape, this.m_shapeFreePos, base.TargetSquare, this.m_fieldInfo.penetrateLos, base.Caster, relevantTeams, null))
+			return;
+		}
+
+		List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(
+			m_fieldInfo.shape, m_shapeFreePos, TargetSquare, m_fieldInfo.penetrateLos, Caster, relevantTeams, null);
+		foreach (ActorData actorData in actorsInShape)
+		{
+			if (!IsActorHitThisTurn(actorData, isReal) && m_fieldInfo.CanBeAffected(actorData, Caster))
 			{
-				if (!this.IsActorHitThisTurn(actorData, isReal) && this.m_fieldInfo.CanBeAffected(actorData, base.Caster))
-				{
-					ActorHitResults hitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
-					this.SetupActorHitResults(ref hitResults, base.TargetSquare);
-					effectResults.StoreActorHit(hitResults);
-					this.AddActorHitThisTurn(actorData, isReal);
-				}
+				ActorHitResults hitResults = new ActorHitResults(new ActorHitParameters(actorData, actorData.GetFreePos()));
+				SetupActorHitResults(ref hitResults, TargetSquare);
+				effectResults.StoreActorHit(hitResults);
+				AddActorHitThisTurn(actorData, isReal);
 			}
 		}
 	}
 
 	public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
 	{
-		return !base.Caster.IsDead();
+		return !Caster.IsDead();
 	}
 
 	public override ActorData GetActorAnimationActor()
 	{
-		foreach (ActorData actorData in this.m_effectResults.HitActorsArray())
+		foreach (ActorData actorData in m_effectResults.HitActorsArray())
 		{
 			if (actorData != null && !actorData.IsDead())
 			{
 				return actorData;
 			}
 		}
-		return base.Caster;
+		return Caster;
 	}
 
 	public override bool ShouldEndEarly()
 	{
-		return base.ShouldEndEarly() || (this.m_fieldInfo.endIfHasDoneHits && this.m_actorsHitThisTurn.Count > 0 && ServerActionBuffer.Get().AbilityPhase >= base.HitPhase);
+		return base.ShouldEndEarly()
+		       || (m_fieldInfo.endIfHasDoneHits
+		           && m_actorsHitThisTurn.Count > 0
+		           && ServerActionBuffer.Get().AbilityPhase >= HitPhase);
 	}
 
 	public override void GatherMovementResults(MovementCollection movement, ref List<MovementResults> movementResultsList)
 	{
-		if (this.m_fieldInfo.ignoreMovementHits || !this.ShouldHitThisTurn())
+		if (m_fieldInfo.ignoreMovementHits || !ShouldHitThisTurn())
 		{
 			return;
 		}
-		bool flag = this.m_fieldInfo.IncludeEnemies();
-		bool flag2 = this.m_fieldInfo.IncludeAllies();
-		List<ServerAbilityUtils.TriggeringPathInfo> list = new List<ServerAbilityUtils.TriggeringPathInfo>();
+		bool includeEnemies = m_fieldInfo.IncludeEnemies();
+		bool includeAllies = m_fieldInfo.IncludeAllies();
+		List<ServerAbilityUtils.TriggeringPathInfo> triggeringPaths = new List<ServerAbilityUtils.TriggeringPathInfo>();
 		foreach (MovementInstance movementInstance in movement.m_movementInstances)
 		{
 			ActorData mover = movementInstance.m_mover;
-			bool flag3 = mover.GetTeam() != base.Caster.GetTeam();
-			bool flag4 = !flag3;
-			bool flag5 = this.m_fieldInfo.CanBeAffected(mover, base.Caster);
-			bool flag6 = !this.m_affectedSquares.Contains(mover.GetCurrentBoardSquare());
-			if (flag5 && flag6)
+			bool isEnemy = mover.GetTeam() != Caster.GetTeam();
+			if (m_fieldInfo.CanBeAffected(mover, Caster)
+			    && !m_affectedSquares.Contains(mover.GetCurrentBoardSquare()))
 			{
-				for (BoardSquarePathInfo boardSquarePathInfo = movementInstance.m_path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+				for (BoardSquarePathInfo step = movementInstance.m_path; step != null; step = step.next)
 				{
-					BoardSquare square = boardSquarePathInfo.square;
-					if ((movementInstance.m_groundBased || boardSquarePathInfo.IsPathEndpoint()) && !boardSquarePathInfo.IsPathStartPoint() && ((flag3 && flag) || (flag4 && flag2)) && this.m_affectedSquares.Contains(square) && !this.m_actorsHitThisTurn.Contains(mover))
+					BoardSquare square = step.square;
+					if ((movementInstance.m_groundBased || step.IsPathEndpoint())
+					    && !step.IsPathStartPoint()
+					    && ((isEnemy && includeEnemies) || (!isEnemy && includeAllies))
+					    && m_affectedSquares.Contains(square)
+					    && !m_actorsHitThisTurn.Contains(mover))
 					{
-						ServerAbilityUtils.TriggeringPathInfo item = new ServerAbilityUtils.TriggeringPathInfo(mover, boardSquarePathInfo);
-						list.Add(item);
-						this.m_actorsHitThisTurn.Add(mover);
+						triggeringPaths.Add(new ServerAbilityUtils.TriggeringPathInfo(mover, step));
+						m_actorsHitThisTurn.Add(mover);
 					}
 				}
 			}
 		}
-		foreach (ServerAbilityUtils.TriggeringPathInfo triggeringPathInfo in list)
+		foreach (ServerAbilityUtils.TriggeringPathInfo triggeringPathInfo in triggeringPaths)
 		{
 			ActorHitResults reactionHitResults = new ActorHitResults(new ActorHitParameters(triggeringPathInfo));
-			this.SetupActorHitResults(ref reactionHitResults, triggeringPathInfo.m_triggeringPathSegment.square);
-			GameObject sequencePrefab;
-			if (triggeringPathInfo.m_mover.GetTeam() != base.Caster.GetTeam())
-			{
-				sequencePrefab = this.m_fieldInfo.enemyHitSequencePrefab;
-			}
-			else
-			{
-				sequencePrefab = this.m_fieldInfo.allyHitSequencePrefab;
-			}
+			SetupActorHitResults(ref reactionHitResults, triggeringPathInfo.m_triggeringPathSegment.square);
+			GameObject sequencePrefab = triggeringPathInfo.m_mover.GetTeam() != Caster.GetTeam()
+				? m_fieldInfo.enemyHitSequencePrefab
+				: m_fieldInfo.allyHitSequencePrefab;
 			MovementResults movementResults = new MovementResults(movement.m_movementStage);
 			movementResults.SetupTriggerData(triggeringPathInfo);
 			movementResults.SetupGameplayData(this, reactionHitResults);
-			movementResults.SetupSequenceData(sequencePrefab, triggeringPathInfo.m_triggeringPathSegment.square, base.SequenceSource, null, true);
+			movementResults.SetupSequenceData(sequencePrefab, triggeringPathInfo.m_triggeringPathSegment.square, SequenceSource);
 			movementResultsList.Add(movementResults);
 		}
 	}
 
-	public override void GatherMovementResultsFromSegment(ActorData mover, MovementInstance movementInstance, MovementStage movementStage, BoardSquarePathInfo sourcePath, BoardSquarePathInfo destPath, ref List<MovementResults> movementResultsList)
+	public override void GatherMovementResultsFromSegment(
+		ActorData mover,
+		MovementInstance movementInstance,
+		MovementStage movementStage,
+		BoardSquarePathInfo sourcePath,
+		BoardSquarePathInfo destPath,
+		ref List<MovementResults> movementResultsList)
 	{
-		if (!this.m_fieldInfo.ignoreMovementHits
-			&& this.ShouldHitThisTurn()
-			&& !this.m_actorsHitThisTurn.Contains(mover)
-			&& !this.m_affectedSquares.Contains(sourcePath.square)
-			&& this.m_affectedSquares.Contains(destPath.square)
-			&& this.m_fieldInfo.CanBeAffected(mover, base.Caster)
-			&& (movementInstance.m_groundBased || destPath.IsPathEndpoint()))
+		if (m_fieldInfo.ignoreMovementHits
+		    || !ShouldHitThisTurn()
+		    || m_actorsHitThisTurn.Contains(mover)
+		    || m_affectedSquares.Contains(sourcePath.square)
+		    || !m_affectedSquares.Contains(destPath.square)
+		    || !m_fieldInfo.CanBeAffected(mover, Caster)
+		    || (!movementInstance.m_groundBased && !destPath.IsPathEndpoint()))
 		{
-			ServerAbilityUtils.TriggeringPathInfo triggeringPathInfo = new ServerAbilityUtils.TriggeringPathInfo(mover, destPath);
-			ActorHitResults reactionHitResults = new ActorHitResults(new ActorHitParameters(triggeringPathInfo));
-			this.SetupActorHitResults(ref reactionHitResults, triggeringPathInfo.m_triggeringPathSegment.square);
-			GameObject sequencePrefab;
-			if (triggeringPathInfo.m_mover.GetTeam() != base.Caster.GetTeam())
-			{
-				sequencePrefab = this.m_fieldInfo.enemyHitSequencePrefab;
-			}
-			else
-			{
-				sequencePrefab = this.m_fieldInfo.allyHitSequencePrefab;
-			}
-			MovementResults movementResults = new MovementResults(movementStage);
-			movementResults.SetupTriggerData(triggeringPathInfo);
-			movementResults.SetupGameplayData(this, reactionHitResults);
-			movementResults.SetupSequenceData(sequencePrefab, triggeringPathInfo.m_triggeringPathSegment.square, base.SequenceSource, null, true);
-			movementResultsList.Add(movementResults);
-			this.m_actorsHitThisTurn.Add(mover);
+			return;
 		}
+		ServerAbilityUtils.TriggeringPathInfo triggeringPathInfo = new ServerAbilityUtils.TriggeringPathInfo(mover, destPath);
+		ActorHitResults reactionHitResults = new ActorHitResults(new ActorHitParameters(triggeringPathInfo));
+		SetupActorHitResults(ref reactionHitResults, triggeringPathInfo.m_triggeringPathSegment.square);
+		GameObject sequencePrefab = triggeringPathInfo.m_mover.GetTeam() != Caster.GetTeam()
+			? m_fieldInfo.enemyHitSequencePrefab
+			: m_fieldInfo.allyHitSequencePrefab;
+		MovementResults movementResults = new MovementResults(movementStage);
+		movementResults.SetupTriggerData(triggeringPathInfo);
+		movementResults.SetupGameplayData(this, reactionHitResults);
+		movementResults.SetupSequenceData(sequencePrefab, triggeringPathInfo.m_triggeringPathSegment.square, SequenceSource);
+		movementResultsList.Add(movementResults);
+		m_actorsHitThisTurn.Add(mover);
 	}
 
 	public override void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
 	{
-		if (forActor.GetTeam() != base.Caster.GetTeam() && this.m_affectedSquares != null)
+		if (forActor.GetTeam() != Caster.GetTeam() && m_affectedSquares != null)
 		{
-			squaresToAvoid.UnionWith(this.m_affectedSquares);
+			squaresToAvoid.UnionWith(m_affectedSquares);
 		}
 	}
 
 	public override bool IsMovementBlockedOnEnterSquare(ActorData mover, BoardSquare movingFrom, BoardSquare movingTo)
 	{
-		if (mover.GetTeam() != base.Caster.GetTeam() && this.m_affectedSquares != null)
-		{
-			if (this.m_fieldInfo.stopMovementInField && this.m_affectedSquares.Contains(movingTo))
-			{
-				return true;
-			}
-			if (this.m_fieldInfo.stopMovementOutOfField && this.m_affectedSquares.Contains(movingFrom))
-			{
-				return true;
-			}
-		}
-		return false;
+		return mover.GetTeam() != Caster.GetTeam()
+		       && m_affectedSquares != null
+		       && (m_fieldInfo.stopMovementInField && m_affectedSquares.Contains(movingTo)
+		           || m_fieldInfo.stopMovementOutOfField && m_affectedSquares.Contains(movingFrom));
 	}
 
 	private bool IsActorHitThisTurn(ActorData actor, bool isReal)
 	{
-		bool flag = false;
-		if (isReal)
+		bool isActorHit = isReal
+			? m_actorsHitThisTurn.Contains(actor)
+			: m_actorsHitThisTurn_fake.Contains(actor);
+
+		if (isActorHit || m_linkedGroundEffects == null)
 		{
-			flag = this.m_actorsHitThisTurn.Contains(actor);
+			return isActorHit;
 		}
-		else
+		foreach (StandardGroundEffect groundEffect in m_linkedGroundEffects)
 		{
-			flag = this.m_actorsHitThisTurn_fake.Contains(actor);
-		}
-		if (!flag && this.m_linkedGroundEffects != null)
-		{
-			foreach (StandardGroundEffect standardGroundEffect in this.m_linkedGroundEffects)
+			if (groundEffect == this || groundEffect == null)
 			{
-				if (standardGroundEffect != this && standardGroundEffect != null)
-				{
-					if (isReal)
-					{
-						flag = standardGroundEffect.m_actorsHitThisTurn.Contains(actor);
-					}
-					else
-					{
-						flag = standardGroundEffect.m_actorsHitThisTurn_fake.Contains(actor);
-					}
-					if (flag)
-					{
-						break;
-					}
-				}
+				continue;
+			}
+			isActorHit = isReal
+				? groundEffect.m_actorsHitThisTurn.Contains(actor)
+				: groundEffect.m_actorsHitThisTurn_fake.Contains(actor);
+			if (isActorHit)
+			{
+				break;
 			}
 		}
-		return flag;
+		return isActorHit;
 	}
 
 	private void AddActorHitThisTurn(ActorData actor, bool isReal)
 	{
 		if (isReal)
 		{
-			this.m_actorsHitThisTurn.Add(actor);
-			return;
+			m_actorsHitThisTurn.Add(actor);
 		}
-		this.m_actorsHitThisTurn_fake.Add(actor);
+		else
+		{
+			m_actorsHitThisTurn_fake.Add(actor);
+		}
 	}
 }
 #endif
