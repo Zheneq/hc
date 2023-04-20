@@ -117,7 +117,8 @@ public class ThiefHiddenTrap : Ability
 	{
 		return new List<ServerClientUtils.SequenceStartData>
 		{
-			new ServerClientUtils.SequenceStartData(m_castSequencePrefab,
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
 				Board.Get().GetSquare(targets[0].GridPos),
 				additionalData.m_abilityResults.HitActorsArray(),
 				caster,

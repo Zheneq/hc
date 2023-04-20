@@ -819,5 +819,12 @@ public class ThiefBasicAttack : Ability
 				results.m_powerUpsToSteal.Count);
 		}
 	}
+	
+	// custom
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		GetSequencePositionAndTargets(targets, caster, out List<Vector3> positions, out _, out _);
+		return positions;
+	}
 #endif
 }
