@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,9 +50,12 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ValkyrieStab valkyrieStab = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieStab;
+		// rogues
+		// ValkyrieStab valkyrieStab = targetAbility as ValkyrieStab;
 		bool isValid = valkyrieStab != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_coneWidthMinAngleMod, "[ConeWidthMinAngle]", isValid, isValid ? valkyrieStab.m_coneWidthMinAngle : 0f);

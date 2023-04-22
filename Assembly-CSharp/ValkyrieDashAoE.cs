@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,12 +38,21 @@ public class ValkyrieDashAoE : Ability
 	public StandardEffectInfo m_selfBuff;
 	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-
+	
 	private AbilityMod_ValkyrieDashAoE m_abilityMod;
 	private StandardEffectInfo m_cachedShieldEffectInfo;
 	private StandardEffectInfo m_cachedEnemyDebuff;
 	private StandardEffectInfo m_cachedAllyBuff;
 	private StandardEffectInfo m_cachedSelfBuff;
+
+#if SERVER
+	//Added in rouges
+	private AbilityData m_abilityData;
+	//Added in rouges
+	private ValkyrieGuard m_guardAbility;
+	//Added in rouges
+	private AbilityData.ActionType m_guardAbilityActionType = AbilityData.ActionType.INVALID_ACTION;
+#endif
 
 	private void Start()
 	{
@@ -54,6 +65,15 @@ public class ValkyrieDashAoE : Ability
 
 	private void SetupTargeter()
 	{
+#if SERVER
+		// added in rogues
+		m_abilityData = GetComponent<AbilityData>();
+		if (m_abilityData != null)
+		{
+			m_guardAbility = m_abilityData.GetAbilityOfType(typeof(ValkyrieGuard)) as ValkyrieGuard;
+			m_guardAbilityActionType = m_abilityData.GetActionTypeOfAbility(m_guardAbility);
+		}
+#endif
 		SetCachedFields();
 		Targeters.Clear();
 		if (m_dashTargetingMode == DashTargetingMode.Aoe)
@@ -190,7 +210,7 @@ public class ValkyrieDashAoE : Ability
 	{
 		return caster != null
 		       && caster.GetAbilityData() != null
-		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard));
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieGuard)); // , true in rogues
 	}
 
 	public StandardEffectInfo GetShieldEffectInfo()
@@ -240,6 +260,7 @@ public class ValkyrieDashAoE : Ability
 			: m_coverIgnoreMinDist;
 	}
 
+	// TODO VALKYRIE unused
 	public bool TriggerCooldownOnGuardAbiity()
 	{
 		return m_abilityMod != null
@@ -268,6 +289,7 @@ public class ValkyrieDashAoE : Ability
 			: m_damage;
 	}
 
+	// TODO VALKYRIE unused
 	public StandardEffectInfo GetEnemyDebuff()
 	{
 		return m_cachedEnemyDebuff ?? m_enemyDebuff;
@@ -336,4 +358,191 @@ public class ValkyrieDashAoE : Ability
 		}
 		return base.HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
 	}
+
+#if SERVER
+	//Added in rouges
+	internal override Vector3 GetFacingDirAfterMovement(ServerEvadeUtils.EvadeInfo evade)
+	{
+		GetConeFacing(evade.m_request.m_targets, evade.GetMover(), out Vector3 facingDir);
+		return facingDir;
+	}
+
+	//Added in rouges
+	private List<ActorData> FindHitActors(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		bool includeEnemies = IncludeEnemies();
+		bool includeAllies = IncludeAllies();
+		bool includeSelf = IncludeSelf();
+		List<Team> affectedTeams = new List<Team>();
+		if (includeEnemies)
+		{
+			affectedTeams.AddRange(caster.GetOtherTeams());
+		}
+		if (includeAllies)
+		{
+			affectedTeams.Add(caster.GetTeam());
+		}
+		List<ActorData> hitActors = null;
+		if (m_dashTargetingMode == DashTargetingMode.Aoe)
+		{
+			hitActors = AreaEffectUtils.GetActorsInShape(
+				GetAoeShape(),
+				targets[0],
+				AoePenetratesLoS(),
+				caster,
+				affectedTeams,
+				nonActorTargetInfo);
+		}
+		else
+		{
+			Vector3 coneStart = Board.Get().GetSquare(targets[0].GridPos).ToVector3();
+			GetConeFacing(targets, caster, out Vector3 vec);
+			hitActors = AreaEffectUtils.GetActorsInCone(
+				coneStart,
+				VectorUtils.HorizontalAngle_Deg(vec),
+				GetConeWidthAngle(),
+				GetConeRadius(),
+				0f,
+				false,
+				caster,
+				affectedTeams,
+				nonActorTargetInfo);
+			hitActors.Remove(caster);
+		}
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref hitActors);
+		if (includeSelf && !hitActors.Contains(caster))
+		{
+			hitActors.Add(caster);
+		}
+		return hitActors;
+	}
+
+	//Added in rouges
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		if (m_dashTargetingMode == DashTargetingMode.Aoe)
+		{
+			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetAoeShape(), targets[0]);
+			return new ServerClientUtils.SequenceStartData(m_castSequencePrefab, centerOfShape, additionalData.m_abilityResults.HitActorsArray(), caster, additionalData.m_sequenceSource);
+		}
+		GetConeFacing(targets, caster, out Vector3 facingDir);
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targetSquare,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new BlasterStretchConeSequence.ExtraParams
+			{
+				angleInDegrees = GetConeWidthAngle(),
+				lengthInSquares = GetConeRadius(),
+				forwardAngle = VectorUtils.HorizontalAngle_Deg(facingDir)
+			}.ToArray());
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo);
+		Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetAoeShape(), targets[0]);
+		foreach (ActorData actorData in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(actorData, centerOfShape);
+			if (actorData.GetTeam() != caster.GetTeam())
+			{
+				abilityResults.StoreActorHit(new ActorHitResults(GetDamage(), HitActionType.Damage, m_enemyDebuff, hitParams));
+			}
+			else if (actorData != caster)
+			{
+				GetAllyBuff().m_effectData.m_absorbAmount = GetAbsorb();
+				abilityResults.StoreActorHit(new ActorHitResults(GetAllyBuff(), hitParams));
+			}
+		}
+		if (GetSelfBuff().m_applyEffect || m_dashTargetingMode == DashTargetingMode.AimShieldCone)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, centerOfShape));
+			casterHitResults.AddStandardEffectInfo(GetSelfBuff());
+			if (m_dashTargetingMode == DashTargetingMode.AimShieldCone && m_guardAbility != null)
+			{
+				if (ServerEffectManager.Get().GetEffect(caster, typeof(ValkyrieGuardEndingEffect)) is ValkyrieGuardEndingEffect valkyrieGuardEndingEffect)
+				{
+					casterHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
+				}
+				ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
+				casterHitResults.AddEffect(m_guardAbility.CreateGuardEffect(
+					coverFacing,
+					CoverIgnoreMinDist(),
+					caster,
+					GetShieldEffectInfo(),
+					GetCoverDuration(),
+					GetTechPointGainPerCoveredHit(),
+					GetTechPointGainPerTooCloseForCoverHit(),
+					0));
+				if (m_triggerCooldownOnGuardAbiity)
+				{
+					casterHitResults.AddMiscHitEvent(new MiscHitEventData_OverrideCooldown(
+						m_guardAbilityActionType,
+						m_guardAbility.GetModdedCooldown()));
+				}
+			}
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	//Added in rouges
+	private void GetConeFacing(List<AbilityTarget> targets, ActorData caster, out Vector3 facing)
+	{
+		facing = targets[0].AimDirection;
+		if (targets.Count > 1)
+		{
+			BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+			if (targetSquare != null)
+			{
+				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(targetSquare, targets[1].FreePos, false, out _);
+			}
+		}
+	}
+
+	//Added in rouges
+	private ActorCover.CoverDirections GetCoverFacing(List<AbilityTarget> targets)
+	{
+		if (m_dashTargetingMode != DashTargetingMode.AimShieldCone || targets.Count <= 1)
+		{
+			return ActorCover.CoverDirections.INVALID;
+		}
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		if (targetSquare == null)
+		{
+			return ActorCover.CoverDirections.INVALID;
+		}
+		VectorUtils.GetDirectionAndOffsetToClosestSide(targetSquare, targets[1].FreePos, false, out Vector3 vector);
+		Vector3 vec = targetSquare.ToVector3() + vector * 2f;
+		return ActorCover.GetCoverDirection(targetSquare, Board.Get().GetSquareFromVec3(vec));
+	}
+
+	//Added in rouges
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(
+			FreelancerStats.ValkyrieStats.DamageMitigatedFromWeakenedAndDodgedDashAoe,
+			damageDodged);
+	}
+
+	//Added in rouges
+	public override void OnCalculatedDamageReducedFromWeakenedGrantedByMyEffect(ActorData effectCaster, ActorData weakenedActor, int damageReduced)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(
+			FreelancerStats.ValkyrieStats.DamageMitigatedFromWeakenedAndDodgedDashAoe,
+			damageReduced);
+	}
+#endif
 }

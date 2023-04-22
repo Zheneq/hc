@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,9 +45,12 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ValkyrieGuard valkyrieGuard = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieGuard;
+		// rogues
+		// ValkyrieGuard valkyrieGuard = targetAbility as ValkyrieGuard;
 		bool isValid = valkyrieGuard != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_shieldEffectInfoMod, "[ShieldEffectInfo]", isValid, isValid ? valkyrieGuard.m_shieldEffectInfo : null);

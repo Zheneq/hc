@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using UnityEngine;
 
 public class ValkyrieThrowShield : Ability
@@ -18,7 +21,7 @@ public class ValkyrieThrowShield : Ability
 	public KnockbackType m_knockbackType;
 	[Header("-- Sequences")]
 	public GameObject m_projectileSequence;
-
+	
 	private Valkyrie_SyncComponent m_syncComp;
 	private AbilityMod_ValkyrieThrowShield m_abilityMod;
 
@@ -239,4 +242,230 @@ public class ValkyrieThrowShield : Ability
 	{
 		return ActorData.MovementType.Normal;
 	}
+
+#if SERVER
+	//Added in rouges
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		base.Run(targets, caster, additionalData);
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_extraDamageNextShieldThrow = 0;
+		}
+	}
+
+	//Added in rouges
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		bool pierceTargetsToHitCaster = GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> laserTargets = FindLaserTargets(
+			targets[0],
+			caster,
+			pierceTargetsToHitCaster,
+			out List<Vector3> segmentPts,
+			out _,
+			null,
+			out bool hitCaster);
+		BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams
+		{
+			laserTargets = laserTargets,
+			segmentPts = segmentPts
+		};
+		extraParams.segmentPts.Add(caster.GetLoSCheckPos());
+		extraParams.doPositionHitOnBounce = true;
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_projectileSequence,
+			caster.GetCurrentBoardSquare(), 
+			laserTargets.Keys.ToArray(), 
+			caster, 
+			additionalData.m_sequenceSource,
+			extraParams.ToArray()));
+		if (hitCaster && pierceTargetsToHitCaster)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				null,
+				caster.GetCurrentBoardSquare(),
+				new[] { caster },
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return list;
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		Dictionary<ActorData, ActorHitResults> dictionary = new Dictionary<ActorData, ActorHitResults>();
+		List<Barrier> list = new List<Barrier>();
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment = new List<List<NonActorTargetInfo>>();
+		bool pierceTargetsToHitCaster = GetCooldownReductionOnLaserHitCaster() != null && GetCooldownReductionOnLaserHitCaster().HasCooldownReduction();
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> laserTargets = FindLaserTargets(
+			targets[0],
+			caster,
+			pierceTargetsToHitCaster,
+			out List<Vector3> laserEndPoints,
+			out List<ActorData> orderedHitActors,
+			nonActorTargetInfoInSegment,
+			out bool hitCaster);
+		float knockbackDistance = GetKnockbackDistance();
+		int maxKnockbackTargets = GetMaxKnockbackTargets();
+		for (int i = 0; i < orderedHitActors.Count; i++)
+		{
+			ActorData actorData = orderedHitActors[i];
+			Vector3 segmentOrigin = laserTargets[actorData].m_segmentOrigin;
+			int endpointIndex = laserTargets[actorData].m_endpointIndex;
+			int damage = GetBaseDamage()
+				+ GetBonusDamagePerBounce() * endpointIndex
+				+ GetExtraDamage()
+				- i * GetLessDamagePerTarget();
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, segmentOrigin));
+			actorHitResults.SetBaseDamage(damage);
+			actorHitResults.SetBounceCount(endpointIndex);
+			if (endpointIndex > 0)
+			{
+				actorHitResults.SetIgnoreCoverMinDist(true);
+			}
+			float bonusKnockbackDistance = GetBonusKnockbackPerBounce() * endpointIndex;
+			if ((knockbackDistance > 0f || bonusKnockbackDistance > 0f)
+			    && (maxKnockbackTargets <= 0 || i < maxKnockbackTargets))
+			{
+				Vector3 aimDir = laserEndPoints[endpointIndex] - segmentOrigin;
+				actorHitResults.AddKnockbackData(new KnockbackHitData(
+					actorData,
+					caster,
+					GetKnockbackType(),
+					aimDir,
+					segmentOrigin,
+					knockbackDistance + bonusKnockbackDistance));
+			}
+			dictionary[actorData] = actorHitResults;
+		}
+		for (int j = 0; j < laserEndPoints.Count; j++)
+		{
+			Vector3 pos = laserEndPoints[j];
+			List<NonActorTargetInfo> nonActorTargetInfoForSegment = nonActorTargetInfoInSegment[j];
+			for (int k = nonActorTargetInfoForSegment.Count - 1; k >= 0; k--)
+			{
+				NonActorTargetInfo nonActorTargetInfo = nonActorTargetInfoForSegment[k];
+				if (nonActorTargetInfo is NonActorTargetInfo_BarrierBlock barrierBlock)
+				{
+					if (barrierBlock.m_barrier != null && !list.Contains(barrierBlock.m_barrier))
+					{
+						PositionHitResults posHitRes = new PositionHitResults(new PositionHitParameters(pos));
+						barrierBlock.AddPositionReactionHitToAbilityResults(caster, posHitRes, abilityResults, true);
+						list.Add(barrierBlock.m_barrier);
+					}
+					nonActorTargetInfoForSegment.RemoveAt(k);
+				}
+			}
+		}
+		foreach (List<NonActorTargetInfo> nonActorTargetInfo2 in nonActorTargetInfoInSegment)
+		{
+			abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo2);
+		}
+		foreach (ActorHitResults hitResults in dictionary.Values)
+		{
+			abilityResults.StoreActorHit(hitResults);
+		}
+		if (hitCaster && pierceTargetsToHitCaster)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetLoSCheckPos()));
+			GetCooldownReductionOnLaserHitCaster().AppendCooldownMiscEvents(casterHitResults, true, 0, 0);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+	}
+
+	//Added in rouges
+	public override List<Vector3> CalcPointsOfInterestForCamera(List<AbilityTarget> targets, ActorData caster)
+	{
+		List<Vector3> list = new List<Vector3>();
+		FindLaserTargets(
+			targets[0],
+			caster,
+			false,
+			out List<Vector3> laserEndPoints,
+			out List<ActorData> orderedHitActors,
+			null,
+			out _);
+		list.AddRange(laserEndPoints);
+		foreach (ActorData hitActor in orderedHitActors)
+		{
+			list.Add(hitActor.GetFreePos());
+		}
+		foreach (AbilityTarget target in targets)
+		{
+			list.Add(target.FreePos);
+		}
+		return list;
+	}
+
+	//Added in rouges
+	private Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> FindLaserTargets(
+		AbilityTarget targeter, 
+		ActorData caster, 
+		bool pierceTargetsToHitCaster, 
+		out List<Vector3> laserEndPoints, 
+		out List<ActorData> orderedHitActors, 
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegment, 
+		out bool hitCaster)
+	{
+		hitCaster = false;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+        laserEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(
+			loSCheckPos, 
+			targeter.AimDirection, 
+			GetMaxDistancePerBounce(), 
+			GetMaxTotalDistance(), 
+			GetMaxBounces(), 
+			caster, 
+			GetLaserWidth(), 
+			GetMaxTargetsHit(), 
+			true, 
+			caster.GetOtherTeams(), 
+			BounceOnHitActor(), 
+			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors, 
+			out orderedHitActors, 
+			nonActorTargetInfoInSegment, 
+			pierceTargetsToHitCaster);
+        if (pierceTargetsToHitCaster && laserEndPoints.Count > 1)
+		{
+			float totalMaxDistanceInSquares = GetMaxTotalDistance() - (laserEndPoints[0] - loSCheckPos).magnitude / Board.Get().squareSize;
+			Vector3 normalized = (laserEndPoints[1] - laserEndPoints[0]).normalized;
+			VectorUtils.CalculateBouncingLaserEndpoints(
+				laserEndPoints[0],
+				normalized,
+				GetMaxDistancePerBounce(),
+				totalMaxDistanceInSquares,
+				GetMaxBounces(),
+				caster,
+				m_width,
+				0,
+				false,
+				caster.GetTeamAsList(),
+				BounceOnHitActor(),
+				out _,
+				out List<ActorData> hitActors,
+				null,
+				false,
+				false);
+			hitCaster = hitActors.Contains(caster);
+		}
+		return bounceHitActors;
+	}
+
+	//Added in rouges
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ValkyrieStats.DamageDoneByThrowShieldAndKnockback,
+				results.FinalDamage);
+		}
+	}
+#endif
 }

@@ -1,5 +1,8 @@
+﻿// ROGUES
+// SERVER
 using UnityEngine;
 
+// same in reactor & rogues
 public class ValkyrieNarrowingProjectileSequence : ArcingProjectileSequence
 {
 	private float m_totalLengthInSquares = -1f;

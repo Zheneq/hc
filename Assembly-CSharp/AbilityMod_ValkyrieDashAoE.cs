@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,9 +57,12 @@ public class AbilityMod_ValkyrieDashAoE : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ValkyrieDashAoE valkyrieDashAoE = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieDashAoE;
+		// rogues
+		// ValkyrieDashAoE valkyrieDashAoE = targetAbility as ValkyrieDashAoE;
 		bool isValid = valkyrieDashAoE != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_shieldEffectInfoMod, "[ShieldEffectInfo]", isValid, isValid ? valkyrieDashAoE.m_shieldEffectInfo : null);

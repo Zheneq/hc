@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,7 +20,7 @@ public class ValkyrieGuard : Ability
 	[Header("-- Sequences")]
 	public GameObject m_removeShieldSequencePrefab;
 	public GameObject m_applyShieldSequencePrefab;
-
+	
 	private Valkyrie_SyncComponent m_syncComponent;
 	private AbilityMod_ValkyrieGuard m_abilityMod;
 	private StandardEffectInfo m_cachedShieldEffectInfo;
@@ -196,7 +198,7 @@ public class ValkyrieGuard : Ability
 	{
 		return caster != null
 		       && caster.GetAbilityData() != null
-		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE));
+		       && !caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ValkyrieDashAoE)); // , true in rogues
 	}
 
 	public override TargetingParadigm GetControlpadTargetingParadigm(int targetIndex)
@@ -210,4 +212,108 @@ public class ValkyrieGuard : Ability
 		max = 1f;
 		return true;
 	}
+
+#if SERVER
+	//Added in rouges
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
+		if (m_syncComponent != null)
+		{
+			m_syncComponent.Networkm_coverDirection = coverFacing;
+			m_syncComponent.Networkm_extraAbsorbForGuard = 0;
+		}
+	}
+
+	//Added in rouges
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_applyShieldSequencePrefab,
+				caster.GetFreePos(),
+				caster.AsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[]
+				{
+					new ValkyrieDirectionalShieldSequence.ExtraParams
+					{
+						m_aimDirection = (sbyte)GetCoverFacing(targets)
+					}
+				})
+		};
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		if (ServerEffectManager.Get().GetEffect(caster, typeof(ValkyrieGuardEndingEffect)) is ValkyrieGuardEndingEffect valkyrieGuardEndingEffect)
+		{
+			actorHitResults.AddEffectForRemoval(valkyrieGuardEndingEffect);
+		}
+		ActorCover.CoverDirections coverFacing = GetCoverFacing(targets);
+		valkyrieGuardEndingEffect = CreateGuardEffect(
+			coverFacing,
+			CoverIgnoreMinDist(),
+			caster,
+			GetShieldEffectInfo(),
+			GetCoverDuration(),
+			GetTechPointGainPerCoveredHit(),
+			GetTechPointGainPerTooCloseForCoverHit(),
+			GetExtraAbsorb());
+		actorHitResults.AddEffect(valkyrieGuardEndingEffect);
+		abilityResults.StoreActorHit(actorHitResults);
+	}
+
+	//Added in rouges
+	public ValkyrieGuardEndingEffect CreateGuardEffect(
+		ActorCover.CoverDirections coverDir,
+		bool ignoreMinDist,
+		ActorData caster,
+		StandardEffectInfo shieldEffectInfo,
+		int coverDuration,
+		int techPointGainPerCoveredHit,
+		int techPointGainPerTooCloseForCoverHit,
+		int extraAbsorb)
+	{
+		StandardActorEffectData shallowCopy = shieldEffectInfo.m_effectData.GetShallowCopy();
+		shallowCopy.m_absorbAmount += extraAbsorb;
+		ValkyrieGuardEndingEffect valkyrieGuardEndingEffect = new ValkyrieGuardEndingEffect(
+			AsEffectSource(),
+			null,
+			caster,
+			caster,
+			shallowCopy,
+			m_removeShieldSequencePrefab,
+			coverDir,
+			ignoreMinDist,
+			techPointGainPerCoveredHit,
+			techPointGainPerTooCloseForCoverHit,
+			GetCoveredHitReactionEffect(),
+			GetTooCloseForCoverHitReactionEffect());
+		valkyrieGuardEndingEffect.SetDurationBeforeStart(m_coverLastsForever ? 0 : coverDuration);
+		return valkyrieGuardEndingEffect;
+	}
+
+	//Added in rouges
+	private ActorCover.CoverDirections GetCoverFacing(List<AbilityTarget> targets)
+	{
+		ActorCover.CoverDirections result = ActorCover.CoverDirections.INVALID;
+		BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+		if (square != null)
+		{
+			VectorUtils.GetDirectionAndOffsetToClosestSide(square, targets[0].FreePos, false, out Vector3 vector);
+			Vector3 vec = square.ToVector3() + vector * 2f;
+			result = ActorCover.GetCoverDirection(square, Board.Get().GetSquareFromVec3(vec));
+		}
+		return result;
+	}
+#endif
 }

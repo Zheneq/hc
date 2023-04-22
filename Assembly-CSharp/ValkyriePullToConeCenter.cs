@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,4 +79,50 @@ public class ValkyriePullToConeCenter : Ability
 	{
 		return m_maxKnockbackDist;
 	}
+
+#if SERVER
+	//Added in rouges
+	private List<ActorData> FindHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		return AreaEffectUtils.GetActorsInCone(caster.GetLoSCheckPos(), coneCenterAngleDegrees, GetConeWidth(), GetConeLength(), m_coneBackwardOffset, GetPenetrateLoS(), caster, caster.GetOtherTeams(), nonActorTargetInfo);
+	}
+
+	//Added in rouges
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			caster.GetCurrentBoardSquare(),
+			FindHitActors(targets, caster, null).ToArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		List<ActorData> hitActors = FindHitActors(targets, caster, nonActorTargetInfo);
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		foreach (ActorData target in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(target, casterPos);
+			ActorHitResults actorHitResults = new ActorHitResults(GetDamage(), HitActionType.Damage, GetEffectOnEnemy(), hitParams);
+			if (GetKnockbackDistance() != 0f)
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					target,
+					caster,
+					m_knockbackType,
+					targets[0].AimDirection,
+					casterPos,
+					GetKnockbackDistance());
+				actorHitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +16,8 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 	public AbilityModPropertyInt m_extraDamageIfKnockedInPlaceMod;
 	public AbilityModPropertyEffectInfo m_effectToEnemiesMod;
 	[Header("-- Extra Damage for Center")]
-	public AbilityModPropertyInt m_extraDamageForCenterHitsMod;
-	public AbilityModPropertyFloat m_centerHitWidthMod;
+	public AbilityModPropertyInt m_extraDamageForCenterHitsMod;  // TODO VALKYRIE removed in rogues
+	public AbilityModPropertyFloat m_centerHitWidthMod;  // TODO VALKYRIE removed in rogues
 	[Header("-- Knockback on Cast")]
 	public AbilityModPropertyFloat m_maxKnockbackDistMod;
 	public AbilityModPropertyKnockbackType m_knockbackTypeMod;
@@ -38,15 +40,18 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 			AddToken(tokens, m_damageMod, "Damage", string.Empty, valkyriePullToLaserCenter.m_damage);
 			AddToken(tokens, m_extraDamageIfKnockedInPlaceMod, "ExtraDamageIfKnockedInPlace", string.Empty, 0);
 			AddToken_EffectMod(tokens, m_effectToEnemiesMod, "EffectToEnemies", valkyriePullToLaserCenter.m_effectToEnemies);
-			AddToken(tokens, m_extraDamageForCenterHitsMod, "ExtraDamageForCenterHits", string.Empty, valkyriePullToLaserCenter.m_extraDamageForCenterHits);
-			AddToken(tokens, m_centerHitWidthMod, "CenterHitWidth", string.Empty, valkyriePullToLaserCenter.m_centerHitWidth);
+			AddToken(tokens, m_extraDamageForCenterHitsMod, "ExtraDamageForCenterHits", string.Empty, valkyriePullToLaserCenter.m_extraDamageForCenterHits);  // removed in rogues
+			AddToken(tokens, m_centerHitWidthMod, "CenterHitWidth", string.Empty, valkyriePullToLaserCenter.m_centerHitWidth);  // removed in rogues
 			AddToken(tokens, m_maxKnockbackDistMod, "MaxKnockbackDist", string.Empty, valkyriePullToLaserCenter.m_maxKnockbackDist);
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ValkyriePullToLaserCenter valkyriePullToLaserCenter = GetTargetAbilityOnAbilityData(abilityData) as ValkyriePullToLaserCenter;
+		// rogues
+		// ValkyriePullToLaserCenter valkyriePullToLaserCenter = targetAbility as ValkyriePullToLaserCenter;
 		bool isValid = valkyriePullToLaserCenter != null;
 		string desc = string.Empty;
 		desc += PropDesc(m_laserWidthMod, "[LaserWidth]", isValid, isValid ? valkyriePullToLaserCenter.m_laserWidth : 0f);
@@ -56,8 +61,8 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		desc += PropDesc(m_damageMod, "[Damage]", isValid, isValid ? valkyriePullToLaserCenter.m_damage : 0);
 		desc += PropDesc(m_extraDamageIfKnockedInPlaceMod, "[ExtraDamageIfKnockedInPlace]", isValid);
 		desc += PropDesc(m_effectToEnemiesMod, "[EffectToEnemies]", isValid, isValid ? valkyriePullToLaserCenter.m_effectToEnemies : null);
-		desc += PropDesc(m_extraDamageForCenterHitsMod, "[ExtraDamageForCenterHits]", isValid, isValid ? valkyriePullToLaserCenter.m_extraDamageForCenterHits : 0);
-		desc += PropDesc(m_centerHitWidthMod, "[CenterHitWidth]", isValid, isValid ? valkyriePullToLaserCenter.m_centerHitWidth : 0f);
+		desc += PropDesc(m_extraDamageForCenterHitsMod, "[ExtraDamageForCenterHits]", isValid, isValid ? valkyriePullToLaserCenter.m_extraDamageForCenterHits : 0);  // removed in rogues
+		desc += PropDesc(m_centerHitWidthMod, "[CenterHitWidth]", isValid, isValid ? valkyriePullToLaserCenter.m_centerHitWidth : 0f);  // removed in rogues
 		desc += PropDesc(m_maxKnockbackDistMod, "[MaxKnockbackDist]", isValid, isValid ? valkyriePullToLaserCenter.m_maxKnockbackDist : 0f);
 		desc += PropDesc(m_knockbackTypeMod, "[KnockbackType]", isValid, isValid ? valkyriePullToLaserCenter.m_knockbackType : KnockbackType.AwayFromSource);
 		return desc + PropDesc(m_nextTurnStabSkipsDamageReduction, "[NextTurnStabSkipsDamageReduction]", isValid);

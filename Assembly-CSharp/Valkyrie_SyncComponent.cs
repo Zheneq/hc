@@ -1,6 +1,9 @@
+// ROGUES
+// SERVER
 using System.Runtime.InteropServices;
 using UnityEngine.Networking;
 
+// same in reactor & rogues save for serialization
 public class Valkyrie_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
@@ -64,10 +67,11 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		}
 	}
 
-	private void UNetVersion()
+	private void UNetVersion() // MirrorProcessed in rogues
 	{
 	}
 
+	// changed in rogues but reactor one is fine
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
 		if (forceAll)
@@ -122,6 +126,7 @@ public class Valkyrie_SyncComponent : NetworkBehaviour
 		return flag;
 	}
 
+	// changed in rogues but reactor one is fine
 	public override void OnDeserialize(NetworkReader reader, bool initialState)
 	{
 		if (initialState)

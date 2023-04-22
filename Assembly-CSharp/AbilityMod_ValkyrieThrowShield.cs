@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,12 +50,15 @@ public class AbilityMod_ValkyrieThrowShield : AbilityMod
 		}
 	}
 
-	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
+	protected override string ModSpecificAutogenDesc(AbilityData abilityData) // , Ability targetAbility in rogues
 	{
+		// reactor
 		ValkyrieThrowShield valkyrieThrowShield = GetTargetAbilityOnAbilityData(abilityData) as ValkyrieThrowShield;
+		// rogues
+		// ValkyrieThrowShield valkyrieThrowShield = targetAbility as ValkyrieThrowShield;
 		bool isValid = valkyrieThrowShield != null;
 		string desc = string.Empty;
-		desc += PropDesc(m_widthMod, "[Width]", isValid, isValid ? valkyrieThrowShield.m_width : 0f);
+		desc += PropDesc(m_widthMod, "[Width]", isValid, isValid ? valkyrieThrowShield.m_width : 0f); // prefix : "[ConeWidthMinAngle]" in rogues
 		desc += PropDesc(m_maxDistancePerBounceMod, "[MaxDistancePerBounce]", isValid, isValid ? valkyrieThrowShield.m_maxDistancePerBounce : 0f);
 		desc += PropDesc(m_maxTotalDistanceMod, "[MaxTotalDistance]", isValid, isValid ? valkyrieThrowShield.m_maxTotalDistance : 0f);
 		desc += PropDesc(m_maxBouncesMod, "[MaxBounces]", isValid, isValid ? valkyrieThrowShield.m_maxBounces : 0);

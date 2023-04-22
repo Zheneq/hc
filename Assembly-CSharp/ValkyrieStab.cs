@@ -1,3 +1,5 @@
+﻿// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +21,7 @@ public class ValkyrieStab : Ability
 	[Header("-- Sequences")]
 	public GameObject m_centerProjectileSequencePrefab;
 	public GameObject m_sideProjectileSequencePrefab;
-
+	
 	private Valkyrie_SyncComponent m_syncComp;
 	private AbilityMod_ValkyrieStab m_abilityMod;
 	private StandardEffectInfo m_cachedTargetHitEffect;
@@ -107,6 +109,7 @@ public class ValkyrieStab : Ability
 			: m_penetrateLineOfSight;
 	}
 
+	// TODO VALKYRIE unused
 	public int GetMaxTargets()
 	{
 		return m_abilityMod != null
@@ -238,4 +241,208 @@ public class ValkyrieStab : Ability
 		max = GetConeMaxLength() * Board.Get().squareSize;
 		return true;
 	}
+
+#if SERVER
+	//Added in rouges
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		base.Run(targets, caster, additionalData);
+		int hitActorNum = additionalData.m_abilityResults.HitActorList().Count;
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_extraAbsorbForGuard += GetExtraAbsorbNextShieldBlockPerHit() * hitActorNum;
+			int maxExtraAbsorbNextShieldBlock = GetMaxExtraAbsorbNextShieldBlock();
+			if (maxExtraAbsorbNextShieldBlock > 0)
+			{
+				m_syncComp.Networkm_extraAbsorbForGuard = Mathf.Min(m_syncComp.m_extraAbsorbForGuard, maxExtraAbsorbNextShieldBlock);
+			}
+		}
+	}
+
+	//Added in rouges
+	private List<ActorData> GetHitTargets(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		Dictionary<ActorData, int> actorToDamage,
+		List<NonActorTargetInfo> nonActorTargetInfo)
+	{
+		Vector3 backDir = -1f * targets[0].AimDirection.normalized;
+		AreaEffectUtils.GatherStretchConeDimensions(
+			targets[0].FreePos, 
+			caster.GetLoSCheckPos(), 
+			GetConeMinLength(), 
+			GetConeMaxLength(), 
+			GetConeWidthMinAngle(), 
+			GetConeWidthMaxAngle(), 
+			m_coneStretchStyle, 
+			out float lengthInSquares, 
+			out float angleInDegrees);
+		Vector3 coneStart = caster.GetLoSCheckPos() - lengthInSquares * Board.Get().squareSize * backDir;
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(backDir);
+		List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(
+			coneStart, 
+			coneCenterAngleDegrees, 
+			angleInDegrees, 
+			lengthInSquares - GetConeBackwardOffset(), 
+			GetConeBackwardOffset(), 
+			true, 
+			caster,
+			caster.GetOtherTeams(), 
+			nonActorTargetInfo);
+		TargeterUtils.SortActorsByDistanceToPos(ref actorsInCone, caster.GetLoSCheckPos() - backDir);
+		List<ActorData> hitActors = new List<ActorData>();
+		float radiusSquared = (GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize) 
+		             * (GameWideData.Get().m_actorTargetingRadiusInSquares * Board.Get().squareSize);
+		Vector3 vector3 = coneStart - backDir * GetConeBackwardOffset() * Board.Get().squareSize;
+		int damageAmount = GetDamageAmount();
+		bool applyExtraDamage = true;
+		damageAmount += GetExtraDamageFirstTarget();
+		foreach (ActorData actorData in actorsInCone)
+		{
+			if (!PenetrateLineOfSight())
+			{
+				BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+				if (caster.GetCurrentBoardSquare().GetLOS(currentBoardSquare.x, currentBoardSquare.y)
+				    && !BarrierManager.Get().AreAbilitiesBlocked(
+					    caster,
+					    caster.GetCurrentBoardSquare(),
+					    actorData.GetCurrentBoardSquare(),
+					    nonActorTargetInfo))
+				{
+					hitActors.Add(actorData);
+				}
+			}
+			else
+			{
+				hitActors.Add(actorData);
+			}
+			int extraDamage = 0;
+			if ((vector3 - actorData.GetLoSCheckPos()).sqrMagnitude <= radiusSquared)
+			{
+				extraDamage = GetExtraDamageOnSpearTip();
+			}
+			actorToDamage[actorData] = damageAmount + extraDamage;
+			if (m_syncComp == null || !m_syncComp.m_skipDamageReductionForNextStab)
+			{
+				damageAmount = Mathf.Max(0, damageAmount - GetLessDamagePerTarget());
+			}
+			if (applyExtraDamage)
+			{
+				applyExtraDamage = false;
+				damageAmount -= GetExtraDamageFirstTarget();
+			}
+		}
+		return hitActors;
+	}
+
+	//Added in rouges
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 backDir = -1f * targets[0].AimDirection.normalized;
+        AreaEffectUtils.GatherStretchConeDimensions(
+			targets[0].FreePos, 
+			caster.GetLoSCheckPos(), 
+			GetConeMinLength(), 
+			GetConeMaxLength(), 
+			GetConeWidthMinAngle(), 
+			GetConeWidthMaxAngle(), 
+			m_coneStretchStyle, 
+			out float lengthInSquares, 
+			out float angleInDegrees);
+		float length = lengthInSquares * Board.Get().squareSize;
+		float coneBackwardOffset = GetConeBackwardOffset() * Board.Get().squareSize;
+		Vector3 tipPos = caster.GetLoSCheckPos() - length * backDir - backDir * coneBackwardOffset;
+		Vector3 sideADir = Quaternion.AngleAxis(-0.5f * angleInDegrees, Vector3.up) * backDir;
+		Vector3 sideBDir = Quaternion.AngleAxis(0.5f * angleInDegrees, Vector3.up) * backDir;
+		Vector3 offsetPos = caster.GetLoSCheckPos() - backDir * coneBackwardOffset;
+		Vector3 sideAStart = tipPos + sideADir * length;
+		Vector3 sideBStart = tipPos + sideBDir * length;
+		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
+		if (m_sideProjectileSequencePrefab != null)
+		{
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_sideProjectileSequencePrefab,
+				caster.GetCurrentBoardSquare(),
+				null,
+				caster,
+				additionalData.m_sequenceSource,
+				new BouncingShotSequence.ExtraParams
+				{
+					laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>(),
+					segmentPts = new List<Vector3>
+					{
+						sideAStart,
+						tipPos
+					},
+					useOriginalSegmentStartPos = true
+				}.ToArray()));
+			list.Add(new ServerClientUtils.SequenceStartData(
+				m_sideProjectileSequencePrefab,
+				caster.GetCurrentBoardSquare(),
+				null,
+				caster,
+				additionalData.m_sequenceSource,
+				new BouncingShotSequence.ExtraParams
+				{
+					laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>(),
+					segmentPts = new List<Vector3>
+					{
+						sideBStart,
+						tipPos
+					},
+					useOriginalSegmentStartPos = true
+				}.ToArray()));
+		}
+		list.Add(new ServerClientUtils.SequenceStartData(
+			m_centerProjectileSequencePrefab,
+			tipPos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource,
+			new List<Sequence.IExtraSequenceParams>
+			{
+				new BouncingShotSequence.ExtraParams
+				{
+					laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>(),
+					segmentPts = new List<Vector3>
+					{
+						offsetPos,
+						tipPos
+					},
+					destinationHitTargets = additionalData.m_abilityResults.HitActorsArray()
+				},
+				new Sequence.FxAttributeParam
+				{
+					m_paramTarget = Sequence.FxAttributeParam.ParamTarget.MainVfx,
+					m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.LengthInSquares,
+					m_paramValue = lengthInSquares
+				},
+				new Sequence.FxAttributeParam
+				{
+					m_paramTarget = Sequence.FxAttributeParam.ParamTarget.MainVfx,
+					m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.WidthInSquares,
+					m_paramValue = 2f * Mathf.Tan(0.5f * angleInDegrees * 0.0174532924f) * lengthInSquares
+				}
+			}.ToArray()));
+		return list;
+	}
+
+	//Added in rouges
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Dictionary<ActorData, int> actorToDamage = new Dictionary<ActorData, int>();
+		foreach (ActorData actorData in GetHitTargets(targets, caster, actorToDamage, nonActorTargetInfo))
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			actorHitResults.SetBaseDamage(actorToDamage[actorData]);
+			actorHitResults.AddStandardEffectInfo(GetTargetHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }
