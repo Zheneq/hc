@@ -4,6 +4,5 @@ using System;
 public class QuestItemReward
 {
 	public int ItemTemplateId;
-
 	public int Amount;
 }
