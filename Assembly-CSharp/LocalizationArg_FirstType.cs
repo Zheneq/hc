@@ -4,49 +4,29 @@ using System;
 public class LocalizationArg_FirstType : LocalizationArg
 {
 	public int m_firstType;
-
 	public int m_id;
 
 	public static LocalizationArg_FirstType Create(int firstType, int id)
 	{
-		LocalizationArg_FirstType localizationArg_FirstType = new LocalizationArg_FirstType();
-		localizationArg_FirstType.m_firstType = firstType;
-		localizationArg_FirstType.m_id = id;
-		return localizationArg_FirstType;
+		return new LocalizationArg_FirstType
+		{
+			m_firstType = firstType,
+			m_id = id
+		};
 	}
 
 	public override string TR()
 	{
-		if (m_firstType == -1)
+		switch (m_firstType)
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return StringUtil.TR_QuestDescription(m_id);
-				}
-			}
+			case -1:
+				return StringUtil.TR_QuestDescription(m_id);
+			case -2:
+				return string.Format(
+					StringUtil.TR("ReachLevelTwenty", "FirstType"),
+					StringUtil.TR_CharacterName(((CharacterType)m_id).ToString()));
+			default:
+				return "do the unknown";
 		}
-		if (m_firstType == -2)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-				{
-					CharacterType id = (CharacterType)m_id;
-					string arg = StringUtil.TR_CharacterName(id.ToString());
-					return string.Format(StringUtil.TR("ReachLevelTwenty", "FirstType"), arg);
-				}
-				}
-			}
-		}
-		return "do the unknown";
 	}
 }

@@ -8,9 +8,10 @@ public class LocalizationArg_Int32 : LocalizationArg
 
 	public static LocalizationArg_Int32 Create(int value)
 	{
-		LocalizationArg_Int32 localizationArg_Int = new LocalizationArg_Int32();
-		localizationArg_Int.m_value = value;
-		return localizationArg_Int;
+		return new LocalizationArg_Int32
+		{
+			m_value = value
+		};
 	}
 
 	public override string TR()

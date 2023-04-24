@@ -1,15 +1,13 @@
-using NetSerializer;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using NetSerializer;
 
 [Serializable]
 public class LocalizationPayload
 {
 	public string Term = "unset";
-
 	public string Context;
-
 	public byte[][] ArgumentsAsBinaryData;
 
 	[NonSerialized]
@@ -22,8 +20,7 @@ public class LocalizationPayload
 			if (s_serializer == null)
 			{
 				s_serializer = new Serializer();
-				Type[] rootTypes = new Type[12]
-				{
+				s_serializer.AddTypes(new[] {
 					typeof(LocalizationArg_AccessLevel),
 					typeof(LocalizationArg_BroadcastMessage),
 					typeof(LocalizationArg_ChatChannel),
@@ -36,8 +33,7 @@ public class LocalizationPayload
 					typeof(LocalizationArg_Int32),
 					typeof(LocalizationArg_LocalizationPayload),
 					typeof(LocalizationArg_TimeSpan)
-				};
-				s_serializer.AddTypes(rootTypes);
+				});
 			}
 			return s_serializer;
 		}
@@ -48,42 +44,19 @@ public class LocalizationPayload
 		List<LocalizationArg> list = null;
 		try
 		{
-			if (!ArgumentsAsBinaryData.IsNullOrEmpty())
+			if (ArgumentsAsBinaryData.IsNullOrEmpty())
 			{
-				while (true)
+				return null;
+			}
+			list = new List<LocalizationArg>();
+			byte[][] argumentsAsBinaryData = ArgumentsAsBinaryData;
+			foreach (byte[] buffer in argumentsAsBinaryData)
+			{
+				MemoryStream stream = new MemoryStream(buffer);
+				Serializer.Deserialize(stream, out object ob);
+				if (ob is LocalizationArg arg)
 				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-					{
-						list = new List<LocalizationArg>();
-						byte[][] argumentsAsBinaryData = ArgumentsAsBinaryData;
-						foreach (byte[] buffer in argumentsAsBinaryData)
-						{
-							MemoryStream stream = new MemoryStream(buffer);
-							Serializer.Deserialize(stream, out object ob);
-							if (ob != null)
-							{
-								if (ob is LocalizationArg)
-								{
-									list.Add(ob as LocalizationArg);
-								}
-							}
-						}
-						while (true)
-						{
-							switch (3)
-							{
-							case 0:
-								break;
-							default:
-								return list;
-							}
-						}
-					}
-					}
+					list.Add(arg);
 				}
 			}
 			return list;
@@ -101,55 +74,19 @@ public class LocalizationPayload
 		List<LocalizationArg> list = ExtractArguments();
 		if (list.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return text;
-				}
-			}
+			return text;
 		}
 		if (list.Count == 1)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return string.Format(text, list[0].TR());
-				}
-			}
+			return string.Format(text, list[0].TR());
 		}
 		if (list.Count == 2)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return string.Format(text, list[0].TR(), list[1].TR());
-				}
-			}
+			return string.Format(text, list[0].TR(), list[1].TR());
 		}
 		if (list.Count == 3)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return string.Format(text, list[0].TR(), list[1].TR(), list[2].TR());
-				}
-			}
+			return string.Format(text, list[0].TR(), list[1].TR(), list[2].TR());
 		}
 		if (list.Count > 4)
 		{
@@ -166,33 +103,24 @@ public class LocalizationPayload
 	public static LocalizationPayload Create(string attedLocIdentifier)
 	{
 		string[] array = attedLocIdentifier.Split("@".ToCharArray(), 2);
-		if (array.Length == 2)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-				{
-					LocalizationPayload localizationPayload = new LocalizationPayload();
-					localizationPayload.Term = array[0];
-					localizationPayload.Context = array[1];
-					return localizationPayload;
-				}
-				}
-			}
+		if (array.Length != 2)
+		{ 
+			throw new Exception($"Bad argument ({attedLocIdentifier}) to LocalizationPayload, expected string with an @ in it.");
 		}
-		throw new Exception($"Bad argument ({attedLocIdentifier}) to LocalizationPayload, expected string with an @ in it.");
+		return new LocalizationPayload
+		{
+			Term = array[0],
+			Context = array[1]
+		};
 	}
 
 	public static LocalizationPayload Create(string term, string context)
 	{
-		LocalizationPayload localizationPayload = new LocalizationPayload();
-		localizationPayload.Term = term;
-		localizationPayload.Context = context;
-		return localizationPayload;
+		return new LocalizationPayload
+		{
+			Term = term,
+			Context = context
+		};
 	}
 
 	public static LocalizationPayload Create(string term, string context, params LocalizationArg[] arguments)
@@ -208,10 +136,12 @@ public class LocalizationPayload
 				list.Add(memoryStream.ToArray());
 			}
 		}
-		LocalizationPayload localizationPayload = new LocalizationPayload();
-		localizationPayload.Term = term;
-		localizationPayload.Context = context;
-		localizationPayload.ArgumentsAsBinaryData = list.ToArray();
-		return localizationPayload;
+
+		return new LocalizationPayload
+		{
+			Term = term,
+			Context = context,
+			ArgumentsAsBinaryData = list.ToArray()
+		};
 	}
 }

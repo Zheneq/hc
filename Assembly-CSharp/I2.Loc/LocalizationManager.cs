@@ -1,9 +1,9 @@
-using ArabicSupport;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Threading;
+using ArabicSupport;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace I2.Loc
 {
@@ -12,17 +12,12 @@ namespace I2.Loc
 		public delegate void OnLocalizeCallback();
 
 		private static string mCurrentLanguage;
-
 		private static string mLanguageCode;
-
-		public static bool IsRight2Left = false;
-
-		public static bool mGibberishMode = false;
-
+		public static bool IsRight2Left;
+		public static bool mGibberishMode;
 		public static List<LanguageSource> Sources = new List<LanguageSource>();
 
-		public static string[] GlobalSources = new string[15]
-		{
+		public static string[] GlobalSources = {
 			"I2Languages",
 			"QuestWideLoc",
 			"OptionsLoc",
@@ -40,8 +35,7 @@ namespace I2.Loc
 			"GameSubTypeLoc"
 		};
 
-		private static string[] LanguagesRTL = new string[20]
-		{
+		private static string[] LanguagesRTL = {
 			"ar-DZ",
 			"ar",
 			"ar-BH",
@@ -78,13 +72,9 @@ namespace I2.Loc
 				{
 					return;
 				}
-				while (true)
+				if (mCurrentLanguage != supportedLanguage)
 				{
-					if (mCurrentLanguage != supportedLanguage)
-					{
-						SetLanguageAndCode(supportedLanguage, GetLanguageCode(supportedLanguage));
-					}
-					return;
+					SetLanguageAndCode(supportedLanguage, GetLanguageCode(supportedLanguage));
 				}
 			}
 		}
@@ -98,19 +88,14 @@ namespace I2.Loc
 			}
 			set
 			{
-				if (!(mLanguageCode != value))
+				if (mLanguageCode == value)
 				{
 					return;
 				}
 				string languageFromCode = GetLanguageFromCode(value);
-				if (string.IsNullOrEmpty(languageFromCode))
-				{
-					return;
-				}
-				while (true)
+				if (!string.IsNullOrEmpty(languageFromCode))
 				{
 					SetLanguageAndCode(languageFromCode, value);
-					return;
 				}
 			}
 		}
@@ -123,25 +108,13 @@ namespace I2.Loc
 				int num = currentLanguage.IndexOfAny("/\\".ToCharArray());
 				if (num > 0)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							return currentLanguage.Substring(num + 1);
-						}
-					}
+					return currentLanguage.Substring(num + 1);
 				}
 				num = currentLanguage.IndexOfAny("[(".ToCharArray());
 				int num2 = currentLanguage.LastIndexOfAny("])".ToCharArray());
-				if (num > 0)
+				if (num > 0 && num != num2)
 				{
-					if (num != num2)
-					{
-						return currentLanguage.Substring(num + 1, num2 - num - 1);
-					}
+					return currentLanguage.Substring(num + 1, num2 - num - 1);
 				}
 				return string.Empty;
 			}
@@ -152,18 +125,17 @@ namespace I2.Loc
 				if (num > 0)
 				{
 					CurrentLanguage = text.Substring(num + 1) + value;
-					return;
 				}
-				num = text.IndexOfAny("[(".ToCharArray());
-				int num2 = text.LastIndexOfAny("])".ToCharArray());
-				if (num > 0)
+				else
 				{
-					if (num != num2)
+					num = text.IndexOfAny("[(".ToCharArray());
+					int num2 = text.LastIndexOfAny("])".ToCharArray());
+					if (num > 0 && num != num2)
 					{
 						text = text.Substring(num);
 					}
+					CurrentLanguage = text + "(" + value + ")";
 				}
-				CurrentLanguage = text + "(" + value + ")";
 			}
 		}
 
@@ -173,89 +145,48 @@ namespace I2.Loc
 			{
 				string currentLanguageCode = CurrentLanguageCode;
 				int num = currentLanguageCode.IndexOfAny(" -_/\\".ToCharArray());
-				return (num >= 0) ? currentLanguageCode.Substring(num + 1) : string.Empty;
+				return num >= 0
+					? currentLanguageCode.Substring(num + 1)
+					: string.Empty;
 			}
 			set
 			{
-				string text = CurrentLanguageCode;
-				int num = text.IndexOfAny(" -_/\\".ToCharArray());
+				string currentLanguageCode = CurrentLanguageCode;
+				int num = currentLanguageCode.IndexOfAny(" -_/\\".ToCharArray());
 				if (num > 0)
 				{
-					text = text.Substring(0, num);
+					currentLanguageCode = currentLanguageCode.Substring(0, num);
 				}
-				CurrentLanguageCode = text + "-" + value;
+				CurrentLanguageCode = currentLanguageCode + "-" + value;
 			}
 		}
 
 		public static bool GibberishMode
 		{
-			get
-			{
-				return mGibberishMode;
-			}
+			get => mGibberishMode;
 			set
 			{
 				mGibberishMode = value;
 				LocalizeAll(true);
 			}
 		}
-
-		private static OnLocalizeCallback OnLocalizeEventHolder;
-		public static event OnLocalizeCallback OnLocalizeEvent
-		{
-			add
-			{
-				OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEventHolder;
-				OnLocalizeCallback onLocalizeCallback2;
-				do
-				{
-					onLocalizeCallback2 = onLocalizeCallback;
-					onLocalizeCallback = Interlocked.CompareExchange(ref LocalizationManager.OnLocalizeEventHolder, (OnLocalizeCallback)Delegate.Combine(onLocalizeCallback2, value), onLocalizeCallback);
-				}
-				while ((object)onLocalizeCallback != onLocalizeCallback2);
-				while (true)
-				{
-					return;
-				}
-			}
-			remove
-			{
-				OnLocalizeCallback onLocalizeCallback = LocalizationManager.OnLocalizeEventHolder;
-				OnLocalizeCallback onLocalizeCallback2;
-				do
-				{
-					onLocalizeCallback2 = onLocalizeCallback;
-					onLocalizeCallback = Interlocked.CompareExchange(ref LocalizationManager.OnLocalizeEventHolder, (OnLocalizeCallback)Delegate.Remove(onLocalizeCallback2, value), onLocalizeCallback);
-				}
-				while ((object)onLocalizeCallback != onLocalizeCallback2);
-			}
-		}
+		
+		public static event OnLocalizeCallback OnLocalizeEvent;
 
 		public static void InitializeIfNeeded()
 		{
-			if (!string.IsNullOrEmpty(mCurrentLanguage))
-			{
-				return;
-			}
-			while (true)
+			if (string.IsNullOrEmpty(mCurrentLanguage))
 			{
 				UpdateSources();
 				SelectStartupLanguage();
-				return;
 			}
 		}
 
 		public static void SetLanguageAndCode(string LanguageName, string LanguageCode, bool RememberLanguage = true, bool Force = false)
 		{
-			if (!(mCurrentLanguage != LanguageName))
+			if (mCurrentLanguage == LanguageName && mLanguageCode == LanguageCode && !Force)
 			{
-				if (!(mLanguageCode != LanguageCode))
-				{
-					if (!Force)
-					{
-						return;
-					}
-				}
+				return;
 			}
 			if (RememberLanguage)
 			{
@@ -272,35 +203,26 @@ namespace I2.Loc
 			UpdateSources();
 			if (PlayerPrefs.GetInt("OptionsOverrideGlyphLanguage", 0) == 1)
 			{
-				while (true)
+				string langOverride = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
+				if (!langOverride.IsNullOrEmpty())
 				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-					{
-						string @string = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
-						if (!@string.IsNullOrEmpty())
-						{
-							CurrentLanguageCode = @string.ToLower();
-						}
-						else
-						{
-							Log.Warning("Failed to set custom language");
-							CurrentLanguageCode = glyphLanguageCode;
-						}
-						return;
-					}
-					}
+					CurrentLanguageCode = langOverride.ToLower();
+				}
+				else
+				{
+					Log.Warning("Failed to set custom language");
+					CurrentLanguageCode = glyphLanguageCode;
 				}
 			}
-			CurrentLanguageCode = glyphLanguageCode;
+			else
+			{
+				CurrentLanguageCode = glyphLanguageCode;
+			}
 		}
 
 		private static void SelectStartupLanguage()
 		{
-			string @string = PlayerPrefs.GetString("I2 Language", string.Empty);
+			string lang = PlayerPrefs.GetString("I2 Language", string.Empty);
 			string text = Application.systemLanguage.ToString();
 			if (text == "ChineseSimplified")
 			{
@@ -310,51 +232,27 @@ namespace I2.Loc
 			{
 				text = "Chinese (Traditional)";
 			}
-			if (HasLanguage(@string, true, false))
+			if (HasLanguage(lang, true, false))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						CurrentLanguage = @string;
-						return;
-					}
-				}
+				CurrentLanguage = lang;
+				return;
 			}
 			string supportedLanguage = GetSupportedLanguage(text);
 			if (!string.IsNullOrEmpty(supportedLanguage))
 			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						SetLanguageAndCode(supportedLanguage, GetLanguageCode(supportedLanguage), false);
-						return;
-					}
-				}
-			}
-			int num = 0;
-			int count = Sources.Count;
-			while (true)
-			{
-				if (num < count)
-				{
-					if (Sources[num].mLanguages.Count > 0)
-					{
-						break;
-					}
-					num++;
-					continue;
-				}
+				SetLanguageAndCode(supportedLanguage, GetLanguageCode(supportedLanguage), false);
 				return;
 			}
-			SetLanguageAndCode(Sources[num].mLanguages[0].Name, Sources[num].mLanguages[0].Code, false);
+			
+			int count = Sources.Count;
+			for (int num = 0; num < count; num++) 
+			{
+				if (Sources[num].mLanguages.Count > 0)
+				{
+					SetLanguageAndCode(Sources[num].mLanguages[0].Name, Sources[num].mLanguages[0].Code, false);
+					return;
+				}
+			}
 		}
 
 		public static string GetTermTranslation(string Term)
@@ -391,16 +289,7 @@ namespace I2.Loc
 			Translation = string.Empty;
 			if (string.IsNullOrEmpty(Term))
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return false;
-					}
-				}
+				return false;
 			}
 			InitializeIfNeeded();
 			int i = 0;
@@ -410,39 +299,17 @@ namespace I2.Loc
 				{
 					continue;
 				}
-				while (true)
+				if (IsRight2Left && FixForRTL)
 				{
-					if (IsRight2Left)
-					{
-						if (FixForRTL)
-						{
-							Translation = ApplyRTLfix(Translation, maxLineLengthForRTL);
-						}
-					}
-					if (mGibberishMode)
-					{
-						if (Term.IndexOf("@TEXTURE") == -1)
-						{
-							while (true)
-							{
-								switch (7)
-								{
-								case 0:
-									break;
-								default:
-									Translation = Term;
-									return true;
-								}
-							}
-						}
-					}
-					return true;
+					Translation = ApplyRTLfix(Translation, maxLineLengthForRTL);
 				}
+				if (mGibberishMode && Term.IndexOf("@TEXTURE") == -1)
+				{
+					Translation = Term;
+				}
+				return true;
 			}
-			while (true)
-			{
-				return false;
-			}
+			return false;
 		}
 
 		public static string ApplyRTLfix(string line)
@@ -454,16 +321,7 @@ namespace I2.Loc
 		{
 			if (maxCharacters <= 0)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return ArabicFixer.Fix(line);
-					}
-				}
+				return ArabicFixer.Fix(line);
 			}
 			Regex regex = new Regex(".{0," + maxCharacters + "}(\\s+|$)", RegexOptions.Multiline);
 			line = regex.Replace(line, "$0\n");
@@ -472,54 +330,30 @@ namespace I2.Loc
 				line = line.Substring(0, line.Length - 2);
 			}
 			string[] array = line.Split('\n');
-			int i = 0;
-			for (int num = array.Length; i < num; i++)
+			for (int i = 0; i < array.Length; i++)
 			{
 				array[i] = ArabicFixer.Fix(array[i]);
 			}
-			while (true)
-			{
-				line = string.Join("\n", array);
-				return line;
-			}
+			line = string.Join("\n", array);
+			return line;
 		}
 
 		public static string FixRTL_IfNeeded(string text, int maxCharacters = 0)
 		{
-			if (IsRight2Left)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return ApplyRTLfix(text, maxCharacters);
-					}
-				}
-			}
-			return text;
+			return IsRight2Left
+				? ApplyRTLfix(text, maxCharacters)
+				: text;
 		}
 
 		internal static void LocalizeAll(bool Force = false)
 		{
 			Localize[] array = (Localize[])Resources.FindObjectsOfTypeAll(typeof(Localize));
-			int i = 0;
-			for (int num = array.Length; i < num; i++)
+			foreach (Localize el in array)
 			{
-				Localize localize = array[i];
-				localize.OnLocalize(Force);
+				el.OnLocalize(Force);
 			}
-			while (true)
-			{
-				if (LocalizationManager.OnLocalizeEventHolder != null)
-				{
-					LocalizationManager.OnLocalizeEventHolder();
-				}
-				ResourceManager.pInstance.CleanResourceCache();
-				return;
-			}
+			OnLocalizeEvent?.Invoke();
+			ResourceManager.pInstance.CleanResourceCache();
 		}
 
 		public static bool UpdateSources()
@@ -532,21 +366,11 @@ namespace I2.Loc
 
 		private static void UnregisterDeletededSources()
 		{
-			for (int num = Sources.Count - 1; num >= 0; num--)
+			for (int i = Sources.Count - 1; i >= 0; i--)
 			{
-				if (Sources[num] == null)
+				if (Sources[i] == null)
 				{
-					RemoveSource(Sources[num]);
-				}
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				default:
-					return;
-				case 0:
-					break;
+					RemoveSource(Sources[i]);
 				}
 			}
 		}
@@ -554,53 +378,26 @@ namespace I2.Loc
 		private static void RegisterSceneSources()
 		{
 			LanguageSource[] array = (LanguageSource[])Resources.FindObjectsOfTypeAll(typeof(LanguageSource));
-			int i = 0;
-			for (int num = array.Length; i < num; i++)
+			foreach (LanguageSource src in array)
 			{
-				if (!Sources.Contains(array[i]))
+				if (!Sources.Contains(src))
 				{
-					AddSource(array[i]);
+					AddSource(src);
 				}
-			}
-			while (true)
-			{
-				return;
 			}
 		}
 
 		private static void RegisterSourceInResources()
 		{
-			string[] globalSources = GlobalSources;
-			foreach (string name in globalSources)
+			foreach (string name in GlobalSources)
 			{
 				GameObject asset = ResourceManager.pInstance.GetAsset<GameObject>(name);
-				object obj;
-				if ((bool)asset)
-				{
-					obj = asset.GetComponent<LanguageSource>();
-				}
-				else
-				{
-					obj = null;
-				}
-				LanguageSource languageSource = (LanguageSource)obj;
-				if (!languageSource)
-				{
-					continue;
-				}
-				if (!Sources.Contains(languageSource))
+				LanguageSource languageSource = asset != null
+					? asset.GetComponent<LanguageSource>()
+					: null;
+				if (languageSource != null && !Sources.Contains(languageSource))
 				{
 					AddSource(languageSource);
-				}
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
 				}
 			}
 		}
@@ -609,16 +406,7 @@ namespace I2.Loc
 		{
 			if (Sources.Contains(Source))
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
 			Sources.Add(Source);
 			Source.Import_Google();
@@ -644,154 +432,104 @@ namespace I2.Loc
 			{
 				InitializeIfNeeded();
 			}
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+
+			foreach (LanguageSource src in Sources)
 			{
-				if (Sources[i].GetLanguageIndex(Language, false) < 0)
-				{
-					continue;
-				}
-				while (true)
+				if (src.GetLanguageIndex(Language, false) >= 0)
 				{
 					return true;
 				}
 			}
+			
 			if (AllowDiscartingRegion)
 			{
-				int j = 0;
-				for (int count2 = Sources.Count; j < count2; j++)
+				foreach (LanguageSource src in Sources)
 				{
-					if (Sources[j].GetLanguageIndex(Language) < 0)
-					{
-						continue;
-					}
-					while (true)
+					if (src.GetLanguageIndex(Language) >= 0)
 					{
 						return true;
 					}
 				}
 			}
+			
 			return false;
 		}
 
 		public static string GetSupportedLanguage(string Language)
 		{
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				int languageIndex = Sources[i].GetLanguageIndex(Language, false);
-				if (languageIndex < 0)
+				int idx = src.GetLanguageIndex(Language, false);
+				if (idx >= 0)
 				{
-					continue;
-				}
-				while (true)
-				{
-					return Sources[i].mLanguages[languageIndex].Name;
+					return src.mLanguages[idx].Name;
 				}
 			}
-			while (true)
+
+			foreach (LanguageSource src in Sources)
 			{
-				int j = 0;
-				for (int count2 = Sources.Count; j < count2; j++)
+				int idx = src.GetLanguageIndex(Language);
+				if (idx >= 0)
 				{
-					int languageIndex2 = Sources[j].GetLanguageIndex(Language);
-					if (languageIndex2 < 0)
-					{
-						continue;
-					}
-					while (true)
-					{
-						return Sources[j].mLanguages[languageIndex2].Name;
-					}
-				}
-				while (true)
-				{
-					return string.Empty;
+					return src.mLanguages[idx].Name;
 				}
 			}
+			
+			return string.Empty;
 		}
 
 		public static string GetLanguageCode(string Language)
 		{
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				int languageIndex = Sources[i].GetLanguageIndex(Language);
-				if (languageIndex < 0)
+				int idx = src.GetLanguageIndex(Language);
+				if (idx >= 0)
 				{
-					continue;
-				}
-				while (true)
-				{
-					return Sources[i].mLanguages[languageIndex].Code;
+					return src.mLanguages[idx].Code;
 				}
 			}
-			while (true)
-			{
-				return string.Empty;
-			}
+
+			return string.Empty;
 		}
 
 		public static string GetLanguageFromCode(string Code)
 		{
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				int languageIndexFromCode = Sources[i].GetLanguageIndexFromCode(Code);
-				if (languageIndexFromCode >= 0)
+				int idx = src.GetLanguageIndexFromCode(Code);
+				if (idx >= 0)
 				{
-					return Sources[i].mLanguages[languageIndexFromCode].Name;
+					return src.mLanguages[idx].Name;
 				}
 			}
+
 			return string.Empty;
 		}
 
 		public static List<string> GetAllLanguages()
 		{
 			List<string> list = new List<string>();
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				int j = 0;
-				for (int count2 = Sources[i].mLanguages.Count; j < count2; j++)
+				foreach (LanguageData lang in src.mLanguages)
 				{
-					if (!list.Contains(Sources[i].mLanguages[j].Name))
+					if (!list.Contains(lang.Name))
 					{
-						list.Add(Sources[i].mLanguages[j].Name);
+						list.Add(lang.Name);
 					}
 				}
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						goto end_IL_00a3;
-					}
-					continue;
-					end_IL_00a3:
-					break;
-				}
 			}
-			while (true)
-			{
-				return list;
-			}
+			return list;
 		}
 
 		public static List<string> GetCategories()
 		{
 			List<string> list = new List<string>();
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				Sources[i].GetCategories(false, list);
+				src.GetCategories(false, list);
 			}
-			while (true)
-			{
-				return list;
-			}
+			return list;
 		}
 
 		public static List<string> GetTermsList()
@@ -802,40 +540,27 @@ namespace I2.Loc
 			}
 			if (Sources.Count == 1)
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return Sources[0].GetTermsList();
-					}
-				}
+				return Sources[0].GetTermsList();
 			}
 			HashSet<string> hashSet = new HashSet<string>();
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				hashSet.UnionWith(Sources[i].GetTermsList());
+				hashSet.UnionWith(src.GetTermsList());
 			}
-			while (true)
-			{
-				return new List<string>(hashSet);
-			}
+			return new List<string>(hashSet);
 		}
 
 		public static TermData GetTermData(string term)
 		{
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				TermData termData = Sources[i].GetTermData(term);
+				TermData termData = src.GetTermData(term);
 				if (termData != null)
 				{
 					return termData;
 				}
 			}
+
 			return null;
 		}
 
@@ -843,49 +568,32 @@ namespace I2.Loc
 		{
 			if (!string.IsNullOrEmpty(term))
 			{
-				int i = 0;
-				for (int count = Sources.Count; i < count; i++)
+				foreach (LanguageSource src in Sources)
 				{
-					if (Sources[i].GetTermData(term) != null)
+					if (src.GetTermData(term) != null)
 					{
-						return Sources[i];
+						return src;
 					}
 				}
 			}
-			object result;
-			if (fallbackToFirst)
-			{
-				if (Sources.Count > 0)
-				{
-					result = Sources[0];
-					goto IL_009c;
-				}
-			}
-			result = null;
-			goto IL_009c;
-			IL_009c:
-			return (LanguageSource)result;
+
+			return fallbackToFirst && Sources.Count > 0
+				? Sources[0]
+				: null;
 		}
 
-		public static UnityEngine.Object FindAsset(string value)
+		public static Object FindAsset(string value)
 		{
-			int i = 0;
-			for (int count = Sources.Count; i < count; i++)
+			foreach (LanguageSource src in Sources)
 			{
-				UnityEngine.Object @object = Sources[i].FindAsset(value);
-				if (!@object)
+				Object asset = src.FindAsset(value);
+				if (asset)
 				{
-					continue;
-				}
-				while (true)
-				{
-					return @object;
+					return asset;
 				}
 			}
-			while (true)
-			{
-				return null;
-			}
+
+			return null;
 		}
 
 		public static string GetVersion()

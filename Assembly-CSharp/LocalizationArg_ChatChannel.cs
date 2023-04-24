@@ -7,9 +7,10 @@ public class LocalizationArg_ChatChannel : LocalizationArg
 
 	public static LocalizationArg_ChatChannel Create(ConsoleMessageType cmt)
 	{
-		LocalizationArg_ChatChannel localizationArg_ChatChannel = new LocalizationArg_ChatChannel();
-		localizationArg_ChatChannel.m_value = cmt;
-		return localizationArg_ChatChannel;
+		return new LocalizationArg_ChatChannel
+		{
+			m_value = cmt
+		};
 	}
 
 	public override string TR()

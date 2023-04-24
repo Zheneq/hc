@@ -7,9 +7,10 @@ public class LocalizationArg_Handle : LocalizationArg
 
 	public static LocalizationArg_Handle Create(string handle)
 	{
-		LocalizationArg_Handle localizationArg_Handle = new LocalizationArg_Handle();
-		localizationArg_Handle.m_handle = handle;
-		return localizationArg_Handle;
+		return new LocalizationArg_Handle
+		{
+			m_handle = handle
+		};
 	}
 
 	public override string TR()

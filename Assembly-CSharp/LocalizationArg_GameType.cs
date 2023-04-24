@@ -7,9 +7,10 @@ public class LocalizationArg_GameType : LocalizationArg
 
 	public static LocalizationArg_GameType Create(GameType gameType)
 	{
-		LocalizationArg_GameType localizationArg_GameType = new LocalizationArg_GameType();
-		localizationArg_GameType.m_gameType = gameType;
-		return localizationArg_GameType;
+		return new LocalizationArg_GameType
+		{
+			m_gameType = gameType
+		};
 	}
 
 	public override string TR()
