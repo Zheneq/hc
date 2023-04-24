@@ -10,27 +10,21 @@ namespace I2.Loc
 	{
 		public static Dictionary<string, string> ReadTextAsset(TextAsset asset)
 		{
-			string @string = Encoding.UTF8.GetString(asset.bytes, 0, asset.bytes.Length);
-			@string = @string.Replace("\r\n", "\n");
-			@string = @string.Replace("\r", "\n");
-			StringReader stringReader = new StringReader(@string);
+			string loc = Encoding.UTF8.GetString(asset.bytes, 0, asset.bytes.Length);
+			loc = loc.Replace("\r\n", "\n").Replace("\r", "\n");
+			StringReader stringReader = new StringReader(loc);
 			Dictionary<string, string> dictionary = new Dictionary<string, string>();
 			string line;
 			while ((line = stringReader.ReadLine()) != null)
 			{
-				if (!TextAsset_ReadLine(line, out string key, out string value, out string _, out string _, out string _) || string.IsNullOrEmpty(key))
-				{
-					continue;
-				}
-				if (!string.IsNullOrEmpty(value))
+				if (TextAsset_ReadLine(line, out string key, out string value, out string _, out string _, out string _)
+				    && !string.IsNullOrEmpty(key)
+				    && !string.IsNullOrEmpty(value))
 				{
 					dictionary[key] = value;
 				}
 			}
-			while (true)
-			{
-				return dictionary;
-			}
+			return dictionary;
 		}
 
 		public static bool TextAsset_ReadLine(string line, out string key, out string value, out string category, out string comment, out string termType)
@@ -40,45 +34,35 @@ namespace I2.Loc
 			comment = string.Empty;
 			termType = string.Empty;
 			value = string.Empty;
-			int num = line.LastIndexOf("//");
-			if (num >= 0)
+			int slashPos = line.LastIndexOf("//");
+			if (slashPos >= 0)
 			{
-				comment = line.Substring(num + 2).Trim();
+				comment = line.Substring(slashPos + 2).Trim();
 				comment = DecodeString(comment);
-				line = line.Substring(0, num);
+				line = line.Substring(0, slashPos);
 			}
-			int num2 = line.IndexOf("=");
-			if (num2 < 0)
+			int equalsPos = line.IndexOf("=");
+			if (equalsPos >= 0)
 			{
-				while (true)
+				key = line.Substring(0, equalsPos).Trim();
+				value = line.Substring(equalsPos + 1).Trim();
+				value = value.Replace("\r\n", "\n").Replace("\n", "\\n");
+				value = DecodeString(value);
+				if (key.Length > 2 && key[0] == '[')
 				{
-					switch (3)
+					int endPos = key.IndexOf(']');
+					if (endPos >= 0)
 					{
-					case 0:
-						break;
-					default:
-						return false;
+						termType = key.Substring(1, endPos - 1);
+						key = key.Substring(endPos + 1);
 					}
 				}
+
+				ValidateFullTerm(ref key);
+				return true;
 			}
-			key = line.Substring(0, num2).Trim();
-			value = line.Substring(num2 + 1).Trim();
-			value = value.Replace("\r\n", "\n").Replace("\n", "\\n");
-			value = DecodeString(value);
-			if (key.Length > 2)
-			{
-				if (key[0] == '[')
-				{
-					int num3 = key.IndexOf(']');
-					if (num3 >= 0)
-					{
-						termType = key.Substring(1, num3 - 1);
-						key = key.Substring(num3 + 1);
-					}
-				}
-			}
-			ValidateFullTerm(ref key);
-			return true;
+
+			return false;
 		}
 
 		public static string ReadCSVfile(string Path)
@@ -93,22 +77,10 @@ namespace I2.Loc
 			{
 				if (streamReader != null)
 				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							((IDisposable)streamReader).Dispose();
-							goto end_IL_0018;
-						}
-					}
+					((IDisposable)streamReader).Dispose();
 				}
-				end_IL_0018:;
 			}
-			text = text.Replace("\r\n", "\n");
-			return text.Replace("\r", "\n");
+			return text.Replace("\r\n", "\n").Replace("\r", "\n");
 		}
 
 		public static List<string[]> ReadCSV(string Text, char Separator = ',')
@@ -117,17 +89,16 @@ namespace I2.Loc
 			List<string[]> list = new List<string[]>();
 			while (true)
 			{
-				if (iStart < Text.Length)
+				if (iStart >= Text.Length)
 				{
-					string[] array = ParseCSVline(Text, ref iStart, Separator);
-					if (array == null)
-					{
-						break;
-					}
-					list.Add(array);
-					continue;
+					break;
 				}
-				break;
+				string[] array = ParseCSVline(Text, ref iStart, Separator);
+				if (array == null)
+				{
+					break;
+				}
+				list.Add(array);
 			}
 			return list;
 		}
@@ -137,49 +108,35 @@ namespace I2.Loc
 			List<string> list = new List<string>();
 			int length = Line.Length;
 			int iWordStart = iStart;
-			bool flag = false;
-			while (true)
+			bool isInQuotes = false;
+			for (; iStart < length; iStart++)
 			{
-				if (iStart < length)
+				char c = Line[iStart];
+				if (isInQuotes)
 				{
-					char c = Line[iStart];
-					if (flag)
+					if (c != '"')
 					{
-						if (c == '"')
-						{
-							if (iStart + 1 < length)
-							{
-								if (Line[iStart + 1] == '"')
-								{
-									if (iStart + 2 < length)
-									{
-										if (Line[iStart + 2] == '"')
-										{
-											flag = false;
-											iStart += 2;
-											goto IL_00f0;
-										}
-									}
-									iStart++;
-									goto IL_00f0;
-								}
-							}
-							flag = false;
-						}
+						continue;
+					}
+
+					if (iStart + 1 >= length || Line[iStart + 1] != '"')
+					{
+						isInQuotes = false;
+					}
+					else if (iStart + 2 < length && Line[iStart + 2] == '"')
+					{
+						isInQuotes = false;
+						iStart += 2;
 					}
 					else
 					{
-						if (c != '\n')
-						{
-							if (c != Separator)
-							{
-								if (c == '"')
-								{
-									flag = true;
-								}
-								goto IL_00f0;
-							}
-						}
+						iStart++;
+					}
+				}
+				else
+				{
+					if (c == '\n' || c == Separator)
+					{
 						AddCSVtoken(ref list, ref Line, iStart, ref iWordStart);
 						if (c == '\n')
 						{
@@ -187,11 +144,11 @@ namespace I2.Loc
 							break;
 						}
 					}
-					goto IL_00f0;
+					else if (c == '"')
+					{
+						isInQuotes = true;
+					}
 				}
-				break;
-				IL_00f0:
-				iStart++;
 			}
 			if (iStart > iWordStart)
 			{
@@ -205,12 +162,11 @@ namespace I2.Loc
 			string text = Line.Substring(iWordStart, iEnd - iWordStart);
 			iWordStart = iEnd + 1;
 			text = text.Replace("\"\"", "\"");
-			if (text.Length > 1)
+			if (text.Length > 1
+			    && text[0] == '"'
+			    && text[text.Length - 1] == '"')
 			{
-				if (text[0] == '"' && text[text.Length - 1] == '"')
-				{
-					text = text.Substring(1, text.Length - 2);
-				}
+				text = text.Substring(1, text.Length - 2);
 			}
 			list.Add(text);
 		}
@@ -221,31 +177,12 @@ namespace I2.Loc
 			int num = Term.IndexOf('/');
 			if (num < 0)
 			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				return;
 			}
 			int startIndex;
 			while ((startIndex = Term.LastIndexOf('/')) != num)
 			{
 				Term = Term.Remove(startIndex, 1);
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
 			}
 		}
 
@@ -262,16 +199,7 @@ namespace I2.Loc
 		{
 			if (string.IsNullOrEmpty(str))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return string.Empty;
-					}
-				}
+				return string.Empty;
 			}
 			return str.Replace("<\\n>", "\r\n");
 		}

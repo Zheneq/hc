@@ -7,9 +7,10 @@ public class LocalizationArg_LocalizationPayload : LocalizationArg
 
 	public static LocalizationArg_LocalizationPayload Create(LocalizationPayload payload)
 	{
-		LocalizationArg_LocalizationPayload localizationArg_LocalizationPayload = new LocalizationArg_LocalizationPayload();
-		localizationArg_LocalizationPayload.m_payload = payload;
-		return localizationArg_LocalizationPayload;
+		return new LocalizationArg_LocalizationPayload
+		{
+			m_payload = payload
+		};
 	}
 
 	public override string TR()

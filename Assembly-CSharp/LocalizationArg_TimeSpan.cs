@@ -7,99 +7,46 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 
 	public static LocalizationArg_TimeSpan Create(TimeSpan span)
 	{
-		LocalizationArg_TimeSpan localizationArg_TimeSpan = new LocalizationArg_TimeSpan();
-		localizationArg_TimeSpan.m_span = span;
-		return localizationArg_TimeSpan;
+		return new LocalizationArg_TimeSpan
+		{
+			m_span = span
+		};
 	}
 
 	public override string TR()
 	{
-		string text = null;
-		int num = 0;
-		string text2 = null;
-		int num2 = 0;
+		string primaryUnit = null;
+		int primaryValue = 0;
+		string secondaryUnit = null;
+		int secondaryValue = 0;
 		if (m_span.Days > 0)
 		{
-			num = m_span.Days;
-			num2 = m_span.Hours;
-			object obj;
-			if (m_span.Days == 1)
-			{
-				obj = "Day";
-			}
-			else
-			{
-				obj = "Days";
-			}
-			text = (string)obj;
+			primaryValue = m_span.Days;
+			secondaryValue = m_span.Hours;
+			primaryUnit = m_span.Days == 1 ? "Day" : "Days";
 			if (m_span.Hours > 0)
 			{
-				object obj2;
-				if (m_span.Hours == 1)
-				{
-					obj2 = "Hour";
-				}
-				else
-				{
-					obj2 = "Hours";
-				}
-				text2 = (string)obj2;
+				secondaryUnit = m_span.Hours == 1 ? "Hour" : "Hours";
 			}
 		}
 		else if (m_span.Hours > 0)
 		{
-			num = m_span.Hours;
-			num2 = m_span.Minutes;
-			object obj3;
-			if (m_span.Hours == 1)
-			{
-				obj3 = "Hour";
-			}
-			else
-			{
-				obj3 = "Hours";
-			}
-			text = (string)obj3;
+			primaryValue = m_span.Hours;
+			secondaryValue = m_span.Minutes;
+			primaryUnit = m_span.Hours == 1 ? "Hour" : "Hours";
 			if (m_span.Minutes > 0)
 			{
-				object obj4;
-				if (m_span.Minutes == 1)
-				{
-					obj4 = "Minute";
-				}
-				else
-				{
-					obj4 = "Minutes";
-				}
-				text2 = (string)obj4;
+				secondaryUnit = m_span.Minutes == 1 ? "Minute" : "Minutes";
 			}
 		}
 		else if (m_span.Minutes > 0)
 		{
-			num = m_span.Minutes;
-			num2 = m_span.Seconds;
-			object obj5;
-			if (m_span.Minutes == 1)
-			{
-				obj5 = "Minute";
-			}
-			else
-			{
-				obj5 = "Minutes";
-			}
-			text = (string)obj5;
+			primaryValue = m_span.Minutes;
+			secondaryValue = m_span.Seconds;
+			primaryUnit = m_span.Minutes == 1 ? "Minute" : "Minutes";
 			if (m_span.Seconds > 0)
 			{
-				object obj6;
-				if (m_span.Seconds == 1)
-				{
-					obj6 = "Second";
-				}
-				else
-				{
-					obj6 = "Seconds";
-				}
-				text2 = (string)obj6;
+				secondaryUnit = m_span.Seconds == 1 ? "Second" : "Seconds";
 			}
 		}
 		else
@@ -108,24 +55,12 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 			{
 				return StringUtil.TR("Soon", "TimeSpanFragment");
 			}
-			num = m_span.Seconds;
-			object obj7;
-			if (m_span.Seconds == 1)
-			{
-				obj7 = "Second";
-			}
-			else
-			{
-				obj7 = "Seconds";
-			}
-			text = (string)obj7;
+			primaryValue = m_span.Seconds;
+			primaryUnit = m_span.Seconds == 1 ? "Second" : "Seconds";
 		}
-		if (text2 == null)
-		{
-			string term = $"Just{text}";
-			return string.Format(StringUtil.TR(term, "TimeSpanFragment"), num);
-		}
-		string term2 = $"{text}And{text2}";
-		return string.Format(StringUtil.TR(term2, "TimeSpanFragment"), num, num2);
+		
+		return secondaryUnit == null
+			? string.Format(StringUtil.TR($"Just{primaryUnit}", "TimeSpanFragment"), primaryValue)
+			: string.Format(StringUtil.TR($"{primaryUnit}And{secondaryUnit}", "TimeSpanFragment"), primaryValue, secondaryValue);
 	}
 }

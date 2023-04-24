@@ -2,12 +2,7 @@ using System;
 
 public class LocalizedFailureException : Exception
 {
-	public LocalizationPayload LocalizationPayload
-	{
-		get;
-		private set;
-	}
-
+	public LocalizationPayload LocalizationPayload { get; private set; }
 	public override string Message => LocalizationPayload.ToString();
 
 	public LocalizedFailureException(string term, string context)

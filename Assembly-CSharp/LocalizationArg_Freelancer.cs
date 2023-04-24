@@ -7,9 +7,10 @@ public class LocalizationArg_Freelancer : LocalizationArg
 
 	public static LocalizationArg_Freelancer Create(CharacterType characterType)
 	{
-		LocalizationArg_Freelancer localizationArg_Freelancer = new LocalizationArg_Freelancer();
-		localizationArg_Freelancer.m_characterType = characterType;
-		return localizationArg_Freelancer;
+		return new LocalizationArg_Freelancer
+		{
+			m_characterType = characterType
+		};
 	}
 
 	public override string TR()

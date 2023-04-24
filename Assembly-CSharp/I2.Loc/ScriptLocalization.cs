@@ -486,8 +486,7 @@ namespace I2.Loc
 
 		public static string GetSpectatorToggleOptionKey(UISpectatorHUD.SpectatorToggleOption option)
 		{
-			int num = (int)option;
-			return "SpectatorTogOp_" + num + "@AbilitiesData";
+			return "SpectatorTogOp_" + (int)option + "@AbilitiesData";
 		}
 
 		public static string GetOverconNameKey(int overconId)
