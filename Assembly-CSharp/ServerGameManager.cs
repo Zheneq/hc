@@ -1828,7 +1828,10 @@ public class ServerGameManager : MonoBehaviour
 		{
 			return;
 		}
-		if (serverPlayerState.SessionInfo == null || serverPlayerState.SessionInfo.AccountId != request.SessionInfo.AccountId || serverPlayerState.SessionInfo.SessionToken != request.SessionInfo.SessionToken || serverPlayerState.ConnectionPersistent == null)
+		if (serverPlayerState.SessionInfo == null
+		    || serverPlayerState.SessionInfo.AccountId != request.SessionInfo.AccountId
+		    || serverPlayerState.SessionInfo.SessionToken != request.SessionInfo.SessionToken
+		    || serverPlayerState.ConnectionPersistent == null)
 		{
 			return;
 		}
