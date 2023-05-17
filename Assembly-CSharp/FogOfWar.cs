@@ -25,7 +25,7 @@ public class FogOfWar : MonoBehaviour
 			{
 				return GameFlowData.Get().activeOwnedActorData.GetFogOfWar();
 			}
-			else if (GameFlowData.Get().LocalPlayerData != null)
+			if (GameFlowData.Get().LocalPlayerData != null)
 			{
 				return GameFlowData.Get().LocalPlayerData.GetFogOfWar();
 			}
@@ -48,7 +48,7 @@ public class FogOfWar : MonoBehaviour
 			{
 				return true;
 			}
-			else if (GameFlowData.Get().LocalPlayerData != null)
+			if (GameFlowData.Get().LocalPlayerData != null)
 			{
 				Team localTeamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 				Team ownerTeamViewing = m_ownerPlayer.GetTeamViewing();
@@ -112,7 +112,7 @@ public class FogOfWar : MonoBehaviour
 		int maxX = Mathf.Min(Mathf.CeilToInt(centerX + radius), Board.Get().GetMaxX() - 1);
 		int minY = Mathf.Max(Mathf.FloorToInt(centerY - radius), 0);
 		int maxY = Mathf.Min(Mathf.CeilToInt(centerY + radius), Board.Get().GetMaxY() - 1);
-		bool isSeeingThrougBrush = m_owner?.GetActorStatus().HasStatus(StatusType.SeeThroughBrush) ?? false;
+		bool isSeeingThroughBrush = m_owner != null && m_owner.GetActorStatus().HasStatus(StatusType.SeeThroughBrush);
 		for (int x = minX; x <= maxX; x++)
 		{
 			for (int y = minY; y <= maxY; y++)
@@ -128,7 +128,7 @@ public class FogOfWar : MonoBehaviour
 					if (distance <= radius && (ignoreLOS || center.GetLOS(x, y)))
 					{
 						bool isSquareHidden;
-						if ((!m_owner || !isSeeingThrougBrush) && BrushCoordinator.Get() != null)
+						if ((!m_owner || !isSeeingThroughBrush) && BrushCoordinator.Get() != null)
 						{
 							if (brushRevealType == VisionProviderInfo.BrushRevealType.Never && square.BrushRegion >= 0)
 							{
@@ -147,7 +147,9 @@ public class FogOfWar : MonoBehaviour
 						{
 							isSquareHidden = false;
 						}
-						bool isVisionBlocked = m_owner && (BarrierManager.Get()?.IsVisionBlocked(m_owner, center, square) ?? false);
+						bool isVisionBlocked = m_owner
+						                       && BarrierManager.Get() != null
+						                       && BarrierManager.Get().IsVisionBlocked(m_owner, center, square);
 						if (!isSquareHidden && !isVisionBlocked)
 						{
 							value.m_visibleFlags |= (int)flag;
