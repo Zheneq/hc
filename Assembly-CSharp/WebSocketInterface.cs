@@ -451,42 +451,24 @@ public class WebSocketInterface
 				{
 					if (!error.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (4)
-							{
-							case 0:
-								break;
-							default:
-								throw new Exception(error);
-							}
-						}
+						throw new Exception(error);
 					}
 					if (messageJson.IsNullOrEmpty())
 					{
-						while (true)
-						{
-							switch (6)
-							{
-							case 0:
-								break;
-							default:
-								throw new Exception("Empty response from server");
-							}
-						}
+						throw new Exception("Empty response from server");
 					}
-					ResponseType arg3 = JsonConvert.DeserializeObject<ResponseType>(messageJson);
-					callback(arg3, null);
+					ResponseType response = JsonConvert.DeserializeObject<ResponseType>(messageJson);
+					callback(response, null);
 				}
-				catch (Exception arg4)
+				catch (Exception e)
 				{
-					callback((ResponseType)null, arg4);
+					callback(null, e);
 				}
 			});
 		}
-		catch (Exception arg2)
+		catch (Exception e)
 		{
-			callback((ResponseType)null, arg2);
+			callback(null, e);
 		}
 	}
 
