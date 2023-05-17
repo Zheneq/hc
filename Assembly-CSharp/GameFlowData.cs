@@ -1966,7 +1966,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				bool syncRequired = m_timeForNextTimeRemainingSync < 0f || Time.time >= m_timeForNextTimeRemainingSync;
 				if (m_timeRemainingInDecision <= 0f)
 				{
-					//Log.Info("Turn time ran out");
 					if (PreventAutoLockInOnTimeout())
 					{
 						ServerGameManager serverGameManager = ServerGameManager.Get();
@@ -1981,7 +1980,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 								&& serverGameManager.IsAccountReconnecting(actorData.GetAccountId()))
 							{
 								actorData.GetActorTurnSM().OnMessage(TurnMessage.DONE_BUTTON_CLICKED, true);
-								Log.Info("Server {} done button clicked", actorData.DisplayName);
 							}
 						}
 					}
@@ -1997,7 +1995,6 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 							{
 								syncRequired = true;
 								actorData.GetActorTurnSM().OnMessage(TurnMessage.DONE_BUTTON_CLICKED, true);
-								Log.Info("Server {} done button clicked", actorData.DisplayName);
 							}
 						}
 					}
