@@ -6,7 +6,6 @@ namespace LobbyGameClientMessages
 	public class PurchaseInventoryItemRequest : WebSocketMessage
 	{
 		public int InventoryItemID;
-
 		public CurrencyType CurrencyType;
 	}
 }
