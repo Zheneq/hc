@@ -285,12 +285,6 @@ public class GameFlow : NetworkBehaviour
 				//		HUD_UI.Get().m_mainScreenPanel.m_sideNotificationsPanel.ClearUsedActionsDisplay();
 				//	}
 				//	break;
-#if SERVER
-			// custom
-			case GameState.EndingTurn:
-				HandleUpdateTurnEnd();
-				break;
-#endif
 		}
 	}
 
@@ -622,12 +616,7 @@ public class GameFlow : NetworkBehaviour
 			{
 				theatrics.MarkPhasesOnActionsDone();
 				actionBuffer.ActionPhase = ActionBufferPhase.Done;
-			
-				// TODO we kinda do it in HandleUpdateTurnEnd tho...
-				ServerCombatManager.Get().ResolveHitPoints();
-				ServerCombatManager.Get().ResolveTechPoints();
-
-				// TODO wait a couple seconds here? (if we wait in ending turn, it can cause ui artifacts)
+				
 				if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
 				{
 					GameFlowData.Get().gameState = GameState.EndingTurn;
@@ -1845,6 +1834,9 @@ public class GameFlow : NetworkBehaviour
 			//	actorData.GetActorTurnSM().ResetUsedAbilityAndMoveData();
 			//}
 		}
+		
+		// custom
+		HandleUpdateTurnEnd();
 
 		//if (goingIntoNewTurn) // rogues
 		//{
