@@ -739,9 +739,9 @@ public class ServerGameManager : MonoBehaviour
 		if (!response.Success)
 		{
 			DisconnectFromMonitorServer();
-			OnConnectedToMonitorServer(response);
-			GameManager.Get().StopGame();
-			return;
+			// OnConnectedToMonitorServer(response);
+			// GameManager.Get().StopGame();
+			// return;
 		}
 
 		OnConnectedToMonitorServer(response);
@@ -1797,6 +1797,10 @@ public class ServerGameManager : MonoBehaviour
 			&& !AreClientsConnected())
 		{
 			Log.Notice("All clients have disconnected, stopping game");
+			if (ObjectivePoints.Get().Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+			{
+				ObjectivePoints.Get().EndGame();
+			}
 			GameManager.Get().StopGame();
 		}
 	}
@@ -1863,6 +1867,10 @@ public class ServerGameManager : MonoBehaviour
 	private void HandleShutdownGameRequest(ShutdownGameRequest request)
 	{
 		Log.Info("Received shutdown game request");
+		if (ObjectivePoints.Get().Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+		{
+			ObjectivePoints.Get().EndGame();
+		}
 		GameManager.Get().StopGame();
 		
 		// custom
