@@ -519,6 +519,56 @@ public class ServerGameManager : MonoBehaviour
 				}
 			}
 		}
+		
+		// custom
+		SendReplay();
+		// end custom
+	}
+	
+	// custom
+	private void SendReplay()
+	{
+		int batchSize = 30000;
+		string replayJson = m_replayRecorder?.GetReplayAsJson();
+
+		if (replayJson == null)
+		{
+			Log.Error($"Failed to send replay (replay not found)");
+			return;
+		}
+
+		List<GameManager.ReplayManagerFile> replay = new List<GameManager.ReplayManagerFile>();
+		for (int start = 0; start < replayJson.Length; start += batchSize)
+		{
+			replay.Add(new GameManager.ReplayManagerFile
+			{
+				Fragment = replayJson.Substring(start, Math.Min(batchSize, replayJson.Length - start)),
+				Restart = start == 0,
+				Save = start + batchSize >= replayJson.Length
+			});
+		}
+		
+		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
+		{
+			if (serverPlayerState.SessionInfo != null
+			    && serverPlayerState.PlayerInfo != null
+			    && !serverPlayerState.PlayerInfo.IsAIControlled)
+			{
+				Log.Info($"Sending replay to {serverPlayerState.PlayerInfo.Handle}");
+				try
+				{
+					foreach (GameManager.ReplayManagerFile replayMsg in replay)
+					{
+						NetworkServer.SendToClient(serverPlayerState.ConnectionId, (short)MyMsgType.ReplayManagerFile,
+							replayMsg);
+					}
+				}
+				catch (Exception e)
+				{
+					Log.Info($"Failed to send replay: {e}");
+				}
+			}
+		}
 	}
 
 	// custom

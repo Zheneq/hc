@@ -25,7 +25,7 @@ public class ReplayRecorder
 
     public void SaveReplayToFile(string path)
     {
-        string json = JsonUtility.ToJson(m_replay);
+        string json = GetReplayAsJson();
         new FileInfo(path).Directory?.Create();
         File.WriteAllText(path, json);
         Log.Info($"Saved {m_replay.m_messages.Count} messages into {path}");
@@ -38,6 +38,11 @@ public class ReplayRecorder
                           $"{GameManager.Get().GameInfo.GameServerProcessCode}__" +
                           $"{BuildVersion.MiniVersionString}.arr";
         SaveReplayToFile(Path.Combine(HydrogenConfig.Get().ReplaysPath, filename));
+    }
+
+    public string GetReplayAsJson()
+    {
+        return JsonUtility.ToJson(m_replay);
     }
 
     public void StopRecording()
