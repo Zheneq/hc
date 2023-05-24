@@ -163,13 +163,13 @@ public class PlayerAction_Ability : PlayerAction
 			return new List<ActorAnimation>();
 		}
 		AbilityPriority phase = m_phase;
-		foreach (AbilityRequest abilityRequest2 in m_requests)
-		{
-			if (abilityRequest2.m_caster != null)
-			{
-				abilityRequest2.m_caster.SetSquareAtPhaseStart(abilityRequest2.m_caster.GetCurrentBoardSquare());
-			}
-		}
+		// foreach (AbilityRequest abilityRequest2 in m_requests)
+		// {
+		// 	if (abilityRequest2.m_caster != null)
+		// 	{
+		// 		abilityRequest2.m_caster.SetSquareAtPhaseStart(abilityRequest2.m_caster.GetCurrentBoardSquare());
+		// 	}
+		// }
 		bool isEvasionPhase = phase == AbilityPriority.Evasion;
 		bool isKnockbackPhase = phase == AbilityPriority.Combat_Knockback;
 		if (isEvasionPhase)

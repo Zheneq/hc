@@ -98,6 +98,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				SynchronizeSharedData();
 				
 				m_waitingForPlayPhaseEnded = true; // custom
+				SetSquareAtPhaseStartForActors(); // custom
 			}
 			m_lastAbilityPhaseSet = Time.time;
 		}
