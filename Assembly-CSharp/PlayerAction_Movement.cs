@@ -58,7 +58,8 @@ public class PlayerAction_Movement : PlayerAction
 		for (int j = validRequests.Count - 1; j >= 0; j--)
 		{
 			MovementRequest movementRequest = validRequests[j];
-			if (movementRequest.m_path == null || movementRequest.m_path.next == null)
+			if ((m_isChase || !movementRequest.IsChasing()) // custom
+				&& (movementRequest.m_path == null || movementRequest.m_path.next == null))
 			{
 				Log.Warning($"{movementRequest.m_actor.m_displayName}'s movement path is null after stabilization");
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
@@ -72,7 +73,8 @@ public class PlayerAction_Movement : PlayerAction
 		ServerClashUtils.ResolveClashMovement(validRequests, clashes, m_isChase);
 		// end custom
 		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(validRequests, m_isChase);
-		MovementCollection movementCollection = new MovementCollection(validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList());
+		List<MovementRequest> validRequestsThisPhase = validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList();
+		MovementCollection movementCollection = new MovementCollection(validRequestsThisPhase);
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
 			if (actorData.GetPassiveData() != null)
@@ -104,7 +106,7 @@ public class PlayerAction_Movement : PlayerAction
 		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, m_isChase
 			? ServerMovementManager.MovementType.NormalMovement_Chase
 			: ServerMovementManager.MovementType.NormalMovement_NonChase);
-		foreach (MovementRequest movementRequest in validRequests)
+		foreach (MovementRequest movementRequest in validRequestsThisPhase)
 		{
 			ServerActionBuffer.Get().RunMovementOnRequest(movementRequest);
 			ActorStatus actorStatus = movementRequest.m_actor.GetActorStatus();

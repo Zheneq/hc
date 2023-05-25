@@ -566,9 +566,8 @@ public class GameFlow : NetworkBehaviour
 					}
 				}
 				List<MovementRequest> movementRequests = ServerActionBuffer.Get()
-					.GetAllStoredMovementRequests()
-					.FindAll(req => !req.IsChasing());
-				Log.Info($"Running {movementRequests.Count} non-chase movement requests");
+					.GetAllStoredMovementRequests();
+				Log.Info($"Running {movementRequests.Count(req => !req.IsChasing())} non-chase movement requests");
 				PlayerAction_Movement action = new PlayerAction_Movement(movementRequests, false);
 				m_executingPlayerActions.Add(action);
 				action.ExecuteAction();
@@ -581,7 +580,7 @@ public class GameFlow : NetworkBehaviour
 				ServerMovementManager manager = ServerMovementManager.Get();
 				if (!manager.WaitingOnClients)
 				{
-					int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.IsChasing()).Count;
+					int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.WasEverChasing()).Count;
 					if (numChaseRequests > 0)
 					{
 						Log.Info($"Running {numChaseRequests} chase movement requests");
