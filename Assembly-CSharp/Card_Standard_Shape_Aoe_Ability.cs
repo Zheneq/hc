@@ -33,6 +33,7 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	public int m_visionDuration = 1;
 	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always;
 	public bool m_visionAreaIgnoreLos = true;
+	// TODO GLOBALBLIND
 	public bool m_visionAreaCanFunctionInGlobalBlind = true;  // removed in rogues
 	[Header("-- Whether to show targeter arc")]
 	public bool m_showTargeterArc;
@@ -129,12 +130,21 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	}
 
 #if SERVER
+	// custom 
+	private List<AbilityTarget> TransformTargets(List<AbilityTarget> targets, ActorData caster)
+	{
+		return m_centerShapeOnCaster
+			? AbilityTarget.AbilityTargetList(CreateAbilityTargetForSimpleAction(caster))
+			: targets;
+	}
+	
 	// added in rogues
 	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
 		List<AbilityTarget> targets,
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
+		targets = TransformTargets(targets, caster); // custom
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
 			targets[0].FreePos,
@@ -147,6 +157,7 @@ public class Card_Standard_Shape_Aoe_Ability : Ability
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		targets = TransformTargets(targets, caster); // custom
 		foreach (ActorData hitActor in GetHitActors(targets, caster, nonActorTargetInfo))
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, caster.GetFreePos()));
