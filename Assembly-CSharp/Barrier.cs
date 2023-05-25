@@ -85,7 +85,7 @@ public class Barrier
 	// server-only
 	protected List<MovementResults> m_knockbackResults;
 	// server-only
-	protected List<MovementResults> m_normalMovementResults;
+	protected List<MovementResults> m_normalMovementResults; // TODO BARRIERS never populated
 #endif
 
 	public string Name
@@ -104,10 +104,7 @@ public class Barrier
 #if SERVER
 	public bool makeClientGeo
 	{
-		set
-		{
-			m_makeClientGeo = value;
-		}
+		set => m_makeClientGeo = value;
 	}
 #endif
 
@@ -185,10 +182,7 @@ public class Barrier
 #if SERVER
 	public bool scriptedToEnd
 	{
-		set
-		{
-			m_scriptedToEnd = value;
-		}
+		set => m_scriptedToEnd = value;
 	}
 #endif
 
@@ -355,7 +349,29 @@ public class Barrier
 		List<OnHitAuthoredData> onHitData = null)
 	{
 		int guid = BarrierManager.s_nextBarrierGuid++;
-		InitBarrier(guid, name, center, facingDir, data.m_width, data.m_bidirectional, data.m_blocksVision, data.m_blocksAbilities, data.m_blocksMovement, data.m_blocksMovementOnCrossover, data.m_blocksPositionTargeting, data.m_considerAsCover, data.m_maxDuration, owner, data.m_barrierSequencePrefabs, playSequences, data.m_onEnemyMovedThrough, data.m_onAllyMovedThrough, data.m_maxHits, data.m_endOnCasterDeath, parentSequenceSource, barrierTeam); // , data.onHitData);
+		InitBarrier(
+			guid,
+			name,
+			center,
+			facingDir,
+			data.m_width,
+			data.m_bidirectional,
+			data.m_blocksVision,
+			data.m_blocksAbilities,
+			data.m_blocksMovement,
+			data.m_blocksMovementOnCrossover,
+			data.m_blocksPositionTargeting,
+			data.m_considerAsCover,
+			data.m_maxDuration,
+			owner,
+			data.m_barrierSequencePrefabs,
+			playSequences,
+			data.m_onEnemyMovedThrough,
+			data.m_onAllyMovedThrough,
+			data.m_maxHits,
+			data.m_endOnCasterDeath,
+			parentSequenceSource,
+			barrierTeam); // , data.onHitData);
 		m_removeAtTurnEndIfAllyMovedThrough = data.m_removeAtTurnEndIfAllyMovedThrough;
 		m_removeAtTurnEndIfEnemyMovedThrough = data.m_removeAtTurnEndIfEnemyMovedThrough;
 		m_removeAtPhaseEndIfAllyMovedThrough = data.m_removeAtPhaseEndIfAllyMovedThrough;
@@ -389,7 +405,29 @@ public class Barrier
 	// List<OnHitAuthoredData> onHitData = null)
 	{
 		int guid = BarrierManager.s_nextBarrierGuid++;
-		InitBarrier(guid, name, center, facingDir, width, bidirectional, blocksVision, blocksAbilities, blocksMovement, BlockingRules.ForNobody, blocksPositionTargeting, false, maxDuration, owner, barrierSequencePrefabs, playSequences, onEnemyMovedThrough, onAllyMovedThrough, maxHits, endOnCasterDeath, parentSequenceSource, barrierTeam); // , onHitData);
+		InitBarrier(
+			guid,
+			name,
+			center,
+			facingDir,
+			width,
+			bidirectional,
+			blocksVision,
+			blocksAbilities,
+			blocksMovement,
+			BlockingRules.ForNobody,
+			blocksPositionTargeting,
+			false,
+			maxDuration,
+			owner,
+			barrierSequencePrefabs,
+			playSequences,
+			onEnemyMovedThrough,
+			onAllyMovedThrough,
+			maxHits,
+			endOnCasterDeath,
+			parentSequenceSource,
+			barrierTeam); // , onHitData);
 	}
 #endif
 
@@ -440,10 +478,7 @@ public class Barrier
 	public virtual void OnTurnStart()
 	{
 		// custom
-		if (m_linkedData != null)
-		{
-			m_linkedData.OnTurnStart();
-		}
+		m_linkedData?.OnTurnStart();
 	}
 #endif
 
@@ -451,10 +486,7 @@ public class Barrier
 #if SERVER
 	public virtual void OnTurnEnd()
 	{
-		if (m_linkedData != null)
-		{
-			m_linkedData.OnTurnEnd();
-		}
+		m_linkedData?.OnTurnEnd();
 	}
 #endif
 
@@ -502,12 +534,9 @@ public class Barrier
 			// server-only
 #if SERVER
 			UnlinkFromBarriers();
-			UpdateActorsForVision(false, out List<ActorData> list);
+			UpdateActorsForVision(false, out _);
 			UpdateActorsForMovement();
-			if (m_barrierSetHandler != null)
-			{
-				m_barrierSetHandler.OnBarrierEnd(this);
-			}
+			m_barrierSetHandler?.OnBarrierEnd(this);
 			ServerEffectManager.GetSharedEffectBarrierManager().NotifyBarrierEnded(m_guid);
 #endif
 		}
@@ -696,12 +725,13 @@ public class Barrier
 	// server-only
 	public bool HasResponseToAllyMoveThrough()
 	{
-		bool flag = m_onAllyMovedThrough != null && m_onAllyMovedThrough.HasResponse();
-		bool flag2 = m_spoilsSpawnOnAllyMovedThrough != null && m_spoilsSpawnOnAllyMovedThrough.m_numToSpawn > 0;
-		bool result = flag || flag2;
-		if (flag2 && !flag)
+		bool hasResponse = m_onAllyMovedThrough != null && m_onAllyMovedThrough.HasResponse();
+		bool hasSpoils = m_spoilsSpawnOnAllyMovedThrough != null && m_spoilsSpawnOnAllyMovedThrough.m_numToSpawn > 0;
+		bool result = hasResponse || hasSpoils;
+		if (hasSpoils && !hasResponse)
 		{
-			Debug.LogError("Barrier " + Name + " has no allied gameplay on-move-through response, but does have a spoils response.  It needs a gameplay response, at least for sequences.");
+			Debug.LogError("Barrier " + Name + " has no allied gameplay on-move-through response, " +
+			               "but does have a spoils response.  It needs a gameplay response, at least for sequences.");
 		}
 		return result;
 	}
@@ -709,14 +739,15 @@ public class Barrier
 	// server-only
 	public bool HasResponseToEnemyMoveThrough()
 	{
-		bool flag = m_onEnemyMovedThrough != null && m_onEnemyMovedThrough.HasResponse();
+		bool hasResponse = m_onEnemyMovedThrough != null && m_onEnemyMovedThrough.HasResponse();
 		bool flag2 = m_spoilsSpawnOnEnemyMovedThrough != null && m_spoilsSpawnOnEnemyMovedThrough.m_numToSpawn > 0;
-		bool result = flag || flag2;
-		if (flag2 && !flag)
+		bool hasSpoils = hasResponse || flag2;
+		if (flag2 && !hasResponse)
 		{
-			Debug.LogError("Barrier " + Name + " has no enemy gameplay on-move-through response, but does have a spoils response.  It needs a gameplay response, at least for sequences.");
+			Debug.LogError("Barrier " + Name + " has no enemy gameplay on-move-through response, " +
+			               "but does have a spoils response.  It needs a gameplay response, at least for sequences.");
 		}
-		return result;
+		return hasSpoils;
 	}
 
 	// server-only
@@ -738,12 +769,9 @@ public class Barrier
 	// server-only
 	protected virtual bool ShouldEndFromMovedThrough()
 	{
-		bool result = false;
-		if (m_linkedData != null)
-		{
-			result = ((m_removeAtTurnEndIfAllyMovedThrough && HasAllyMovedThrough()) || (m_removeAtTurnEndIfEnemyMovedThrough && HasEnemyMovedThrough()));
-		}
-		return result;
+		return m_linkedData != null
+		       && ((m_removeAtTurnEndIfAllyMovedThrough && HasAllyMovedThrough())
+		           || (m_removeAtTurnEndIfEnemyMovedThrough && HasEnemyMovedThrough()));
 	}
 
 	// server-only
@@ -781,19 +809,27 @@ public class Barrier
 	// server-only
 	internal bool ActorMovedThroughThisTurn(ActorData actor)
 	{
-		return m_linkedData != null && actor != null && m_linkedData.m_actorsMovedThroughThisTurn.Contains(actor);
+		return m_linkedData != null
+		       && actor != null
+		       && m_linkedData.m_actorsMovedThroughThisTurn.Contains(actor);
 	}
 
 	// server-only
 	public virtual bool ShouldEndAtEndOfPhase(AbilityPriority phase)
 	{
-		return ShouldEndAtEndOfPhaseFromMovedThrough(phase) || (phase == AbilityPriority.Combat_Knockback && ShouldEndAtEndOfPhaseFromKnockback()) || (m_customEndPhase != AbilityPriority.INVALID && m_customEndPhase == phase && m_time.duration > 0 && m_time.age >= m_time.duration - 1);
+		return ShouldEndAtEndOfPhaseFromMovedThrough(phase)
+		       || (phase == AbilityPriority.Combat_Knockback && ShouldEndAtEndOfPhaseFromKnockback())
+		       || (m_customEndPhase != AbilityPriority.INVALID
+		           && m_customEndPhase == phase
+		           && m_time.duration > 0
+		           && m_time.age >= m_time.duration - 1);
 	}
 
 	// server-only
 	public virtual bool ShouldEndAtEndOfPhaseFromMovedThrough(AbilityPriority phase)
 	{
-		return (m_removeAtPhaseEndIfAllyMovedThrough && HasAllyMovedThrough()) || (m_removeAtPhaseEndIfEnemyMovedThrough && HasEnemyMovedThrough());
+		return (m_removeAtPhaseEndIfAllyMovedThrough && HasAllyMovedThrough())
+		       || (m_removeAtPhaseEndIfEnemyMovedThrough && HasEnemyMovedThrough());
 	}
 
 	// server-only
@@ -853,8 +889,7 @@ public class Barrier
 	{
 		Vector3 vector = dest - src;
 		Vector3 directionOfSecond = m_endpoint2 - m_endpoint1;
-		bool intersecting;
-		Vector3 lineLineIntersection = VectorUtils.GetLineLineIntersection(src, vector, m_endpoint1, directionOfSecond, out intersecting);
+		Vector3 lineLineIntersection = VectorUtils.GetLineLineIntersection(src, vector, m_endpoint1, directionOfSecond, out bool intersecting);
 		if (intersecting)
 		{
 			lineLineIntersection.y = src.y;
@@ -887,7 +922,8 @@ public class Barrier
 		foreach (MovementResults movementResults in m_evadeResults)
 		{
 			movementResults.m_triggeringPath.m_moverHasGameplayHitHere = true;
-			movementResults.m_triggeringPath.m_updateLastKnownPos = movementResults.ShouldMovementHitUpdateTargetLastKnownPos(movementResults.m_triggeringMover);
+			movementResults.m_triggeringPath.m_updateLastKnownPos = 
+				movementResults.ShouldMovementHitUpdateTargetLastKnownPos(movementResults.m_triggeringMover);
 		}
 	}
 
@@ -899,66 +935,53 @@ public class Barrier
 		for (int i = 0; i < m_knockbackResults.Count; i++)
 		{
 			m_knockbackResults[i].m_triggeringPath.m_moverHasGameplayHitHere = true;
-			m_knockbackResults[i].m_triggeringPath.m_updateLastKnownPos = m_knockbackResults[i].ShouldMovementHitUpdateTargetLastKnownPos(m_knockbackResults[i].m_triggeringMover);
+			m_knockbackResults[i].m_triggeringPath.m_updateLastKnownPos = 
+				m_knockbackResults[i].ShouldMovementHitUpdateTargetLastKnownPos(m_knockbackResults[i].m_triggeringMover);
 			TheatricsManager.Get().OnKnockbackMovementHitGathered(m_knockbackResults[i].GetTriggeringActor());
 		}
 	}
 
 	// server-only
-	public void GatherBarrierResultsInResponseToMovementSegment(ServerGameplayUtils.MovementGameplayData gameplayData, MovementStage movementStage, ref List<MovementResults> moveResultsForSegment)
+	public void GatherBarrierResultsInResponseToMovementSegment(
+		ServerGameplayUtils.MovementGameplayData gameplayData,
+		MovementStage movementStage,
+		ref List<MovementResults> moveResultsForSegment)
 	{
 		ActorData actor = gameplayData.Actor;
-		bool flag = HasResponseToAllyMoveThrough();
-		bool flag2 = HasResponseToEnemyMoveThrough();
+		bool hasResponseToAlly = HasResponseToAllyMoveThrough();
+		bool hasResponseToEnemy = HasResponseToEnemyMoveThrough();
 		if (m_linkedData == null)
 		{
 			if (m_linkedBarriers.Count > 0)
 			{
-				Log.Error(string.Concat(new string[]
-				{
-					"Barrier ",
-					Name,
-					" of ",
-					m_owner.DisplayName,
-					" has more-than-zero linked barriers but its linked data is null."
-				}));
+				Log.Error($"Barrier {Name} of {m_owner.DisplayName} has more-than-zero linked barriers but its linked data is null.");
 			}
 			m_linkedData = new LinkedBarrierData();
 		}
-		if (!flag && actor.GetTeam() == m_team)
+
+		if ((!hasResponseToAlly && actor.GetTeam() == m_team)
+		    || (!hasResponseToEnemy && actor.GetTeam() != m_team)
+		    || !CanStillHit()
+		    || m_linkedData.m_actorsMovedThroughThisTurn.Contains(actor)
+		    || (m_sourceAbility != null && !m_sourceAbility.ShouldBarrierHitThisMover(actor))
+		    || actor.IgnoreForAbilityHits)
 		{
 			return;
 		}
-		if (!flag2 && actor.GetTeam() != m_team)
+		
+		BoardSquare prevSquare = gameplayData.m_currentlyConsideredPath.prev.square;
+		BoardSquare curSquare = gameplayData.m_currentlyConsideredPath.square;
+		if (CrossingBarrier(curSquare.ToVector3(), prevSquare.ToVector3()))
 		{
-			return;
+			Vector3 hitOrigin = (prevSquare.ToVector3() + curSquare.ToVector3()) / 2f;
+			MovementResults item = CreateMoveResultsForMover(
+				actor,
+				gameplayData.m_currentlyConsideredPath,
+				hitOrigin,
+				movementStage);
+			moveResultsForSegment.Add(item);
+			m_casterWasKnockedBack = false;
 		}
-		if (!CanStillHit())
-		{
-			return;
-		}
-		if (m_linkedData.m_actorsMovedThroughThisTurn.Contains(actor))
-		{
-			return;
-		}
-		if (m_sourceAbility != null && !m_sourceAbility.ShouldBarrierHitThisMover(actor))
-		{
-			return;
-		}
-		if (actor.IgnoreForAbilityHits)
-		{
-			return;
-		}
-		BoardSquare square = gameplayData.m_currentlyConsideredPath.prev.square;
-		BoardSquare square2 = gameplayData.m_currentlyConsideredPath.square;
-		if (!CrossingBarrier(square2.ToVector3(), square.ToVector3()))
-		{
-			return;
-		}
-		Vector3 hitOrigin = (square.ToVector3() + square2.ToVector3()) / 2f;
-		MovementResults item = CreateMoveResultsForMover(actor, gameplayData.m_currentlyConsideredPath, hitOrigin, movementStage);
-		moveResultsForSegment.Add(item);
-		m_casterWasKnockedBack = false;
 	}
 
 	// server-only
@@ -989,7 +1012,9 @@ public class Barrier
 	}
 
 	// server-only
-	public void GatherGrossDamageResults_Barrier_Evasion(ref Dictionary<ActorData, int> actorToGrossDamage_real, ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+	public void GatherGrossDamageResults_Barrier_Evasion(
+		ref Dictionary<ActorData, int> actorToGrossDamage_real,
+		ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
 	{
 		Dictionary<ActorData, int> fakeDamageTaken = new Dictionary<ActorData, int>();
 		foreach (MovementResults movementResults in GetMovementResultsForMovementStage(MovementStage.Evasion))
@@ -1008,16 +1033,15 @@ public class Barrier
 		{
 			if (CanReactToMovementInstance(movementInstance))
 			{
-				BoardSquarePathInfo boardSquarePathInfo = movementInstance.m_path;
-				while (boardSquarePathInfo.next != null)
+				BoardSquarePathInfo step = movementInstance.m_path;
+				while (step.next != null)
 				{
-					boardSquarePathInfo = boardSquarePathInfo.next;
-					BoardSquare square = boardSquarePathInfo.square;
-					BoardSquare square2 = boardSquarePathInfo.prev.square;
-					if (CrossingBarrier(square.ToVector3(), square2.ToVector3()))
+					step = step.next;
+					BoardSquare curSquare = step.square;
+					BoardSquare prevSquare = step.prev.square;
+					if (CrossingBarrier(curSquare.ToVector3(), prevSquare.ToVector3()))
 					{
-						SortablePathEntry item = new SortablePathEntry(movementInstance, boardSquarePathInfo, boardSquarePathInfo.moveCost);
-						list.Add(item);
+						list.Add(new SortablePathEntry(movementInstance, step, step.moveCost));
 					}
 				}
 			}
@@ -1049,9 +1073,7 @@ public class Barrier
 	// server-only
 	public virtual void GatherMovementResults(MovementCollection movement, ref List<MovementResults> movementResultsList)
 	{
-		bool flag = HasResponseToAllyMoveThrough();
-		bool flag2 = HasResponseToEnemyMoveThrough();
-		if (!flag && !flag2)
+		if (!HasResponseToAllyMoveThrough() && !HasResponseToEnemyMoveThrough())
 		{
 			return;
 		}
@@ -1059,14 +1081,7 @@ public class Barrier
 		{
 			if (m_linkedBarriers.Count > 0)
 			{
-				Log.Error(string.Concat(new string[]
-				{
-					"Barrier ",
-					Name,
-					" of ",
-					m_owner.DisplayName,
-					" has more-than-zero linked barriers but its linked data is null."
-				}));
+				Log.Error($"Barrier {Name} of {m_owner.DisplayName} has more-than-zero linked barriers but its linked data is null.");
 			}
 			m_linkedData = new LinkedBarrierData();
 		}
@@ -1075,18 +1090,22 @@ public class Barrier
 		{
 			list.Sort();
 		}
-		int num = 0;
-		while (num < list.Count && CanStillHit())
+		
+		foreach (SortablePathEntry pathEntry in list)
 		{
-			SortablePathEntry sortablePathEntry = list[num];
-			ActorData mover = sortablePathEntry.m_movementInstance.m_mover;
-			if (!m_linkedData.m_actorsMovedThroughThisTurn.Contains(mover) && (!(m_sourceAbility != null) || m_sourceAbility.ShouldBarrierHitThisMover(mover)) && !mover.IgnoreForAbilityHits)
+			if (!CanStillHit())
 			{
-				Vector3 hitOrigin = (sortablePathEntry.m_triggeringPathSegment.prev.square.ToVector3() + sortablePathEntry.m_triggeringPathSegment.square.ToVector3()) / 2f;
-				MovementResults item = CreateMoveResultsForMover(mover, sortablePathEntry.m_triggeringPathSegment, hitOrigin, movement.m_movementStage);
-				movementResultsList.Add(item);
+				break;
 			}
-			num++;
+			ActorData mover = pathEntry.m_movementInstance.m_mover;
+			if (!m_linkedData.m_actorsMovedThroughThisTurn.Contains(mover)
+			    && (m_sourceAbility == null || m_sourceAbility.ShouldBarrierHitThisMover(mover))
+			    && !mover.IgnoreForAbilityHits)
+			{
+				Vector3 hitOrigin = (pathEntry.m_triggeringPathSegment.prev.square.ToVector3() + pathEntry.m_triggeringPathSegment.square.ToVector3()) / 2f;
+				movementResultsList.Add(
+					CreateMoveResultsForMover(mover, pathEntry.m_triggeringPathSegment, hitOrigin, movement.m_movementStage));
+			}
 		}
 		m_casterWasKnockedBack = false;
 		if (movement.m_movementStage == MovementStage.Knockback)
@@ -1107,40 +1126,45 @@ public class Barrier
 	private void SetupActorHitResults(ref ActorHitResults hitRes, ActorData caster, int numHits = 1)
 	{
 		ActorData target = hitRes.m_hitParameters.Target;
-		if (numHits > 0)
+		if (numHits <= 0)
 		{
-			bool flag = target.GetTeam() == caster.GetTeam();
-			ActorHitContext actorContext = new ActorHitContext();
-			ContextVars abilityContext = new ContextVars();
-			NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
-			foreach (OnHitAuthoredData onHitAuthoredData in m_onHitData)
+			return;
+		}
+		bool isAlly = target.GetTeam() == caster.GetTeam();
+		ActorHitContext actorContext = new ActorHitContext();
+		ContextVars abilityContext = new ContextVars();
+		NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
+		foreach (OnHitAuthoredData onHitAuthoredData in m_onHitData)
+		{
+			if (isAlly)
 			{
-				if (flag)
-				{
-					GenericAbility_Container.CalcIntFieldValues(target, caster, actorContext, abilityContext, onHitAuthoredData.m_allyHitIntFields, numericHitResultScratch);
-					//GenericAbility_Container.SetNumericFieldsOnHitResults(hitRes, numericHitResultScratch); // rogues?
-					//GenericAbility_Container.SetKnockbackFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitKnockbackFields);
-					//GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitCooldownReductionFields, numHits);
-					GenericAbility_Container.SetEffectFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitEffectFields);
-					// rogues?
-					//GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitEffectTemplateFields);
-				}
-				else
-				{
-					GenericAbility_Container.CalcIntFieldValues(target, caster, actorContext, abilityContext, onHitAuthoredData.m_enemyHitIntFields, numericHitResultScratch);
-					//GenericAbility_Container.SetNumericFieldsOnHitResults(hitRes, numericHitResultScratch); // rogues?
-					//GenericAbility_Container.SetKnockbackFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitKnockbackFields);
-					//GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitCooldownReductionFields, numHits);
-					GenericAbility_Container.SetEffectFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitEffectFields);
-					// rogues?
-					//GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitEffectTemplateFields);
-				}
+				GenericAbility_Container.CalcIntFieldValues(target, caster, actorContext, abilityContext, onHitAuthoredData.m_allyHitIntFields, numericHitResultScratch);
+				//GenericAbility_Container.SetNumericFieldsOnHitResults(hitRes, numericHitResultScratch); // rogues?
+				//GenericAbility_Container.SetKnockbackFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitKnockbackFields);
+				//GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitCooldownReductionFields, numHits);
+				GenericAbility_Container.SetEffectFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitEffectFields);
+				// rogues?
+				//GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_allyHitEffectTemplateFields);
+			}
+			else
+			{
+				GenericAbility_Container.CalcIntFieldValues(target, caster, actorContext, abilityContext, onHitAuthoredData.m_enemyHitIntFields, numericHitResultScratch);
+				//GenericAbility_Container.SetNumericFieldsOnHitResults(hitRes, numericHitResultScratch); // rogues?
+				//GenericAbility_Container.SetKnockbackFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitKnockbackFields);
+				//GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitCooldownReductionFields, numHits);
+				GenericAbility_Container.SetEffectFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitEffectFields);
+				// rogues?
+				//GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(target, caster, actorContext, abilityContext, hitRes, onHitAuthoredData.m_enemyHitEffectTemplateFields);
 			}
 		}
 	}
 
 	// server-only
-	private MovementResults CreateMoveResultsForMover(ActorData mover, BoardSquarePathInfo triggeringPath, Vector3 hitOrigin, MovementStage movementStage)
+	private MovementResults CreateMoveResultsForMover(
+		ActorData mover,
+		BoardSquarePathInfo triggeringPath,
+		Vector3 hitOrigin,
+		MovementStage movementStage)
 	{
 		BoardSquare square = triggeringPath.square;
 		GameplayResponseForActor matchingMoveThroughResponseFor = GetMatchingMoveThroughResponseFor(mover);
@@ -1152,19 +1176,19 @@ public class Barrier
 			SpoilsSpawnData matchingMoveThroughSpoilsFor = GetMatchingMoveThroughSpoilsFor(mover);
 			if (matchingMoveThroughSpoilsFor != null && matchingMoveThroughSpoilsFor.HasResponse())
 			{
-				Team forTeam = (Caster != null) ? Caster.GetTeam() : m_team;
+				Team forTeam = Caster != null ? Caster.GetTeam() : m_team;
 				matchingMoveThroughSpoilsFor.AddSpoilsToHitResults(square, forTeam, ref actorHitResults);
 			}
 		}
 		else
 		{
 			actorHitResults = new ActorHitResults(new ActorHitParameters(mover, hitOrigin));
-			SetupActorHitResults(ref actorHitResults, Caster, 1);
+			SetupActorHitResults(ref actorHitResults, Caster);
 		}
 		MovementResults movementResults = new MovementResults(movementStage);
 		movementResults.SetupTriggerData(mover, triggeringPath);
 		movementResults.SetupGameplayData(this, actorHitResults);
-		movementResults.SetupSequenceData(matchingMoveThroughResponseFor.m_sequenceToPlay, square, BarrierSequenceSource, null, true);
+		movementResults.SetupSequenceData(matchingMoveThroughResponseFor.m_sequenceToPlay, square, BarrierSequenceSource);
 		RecordHitOnMover(mover);
 		if (!CanStillHit())
 		{
@@ -1176,87 +1200,93 @@ public class Barrier
 	// server-only
 	private bool CanReactToMovementInstance(MovementInstance movementInstance)
 	{
-		bool flag = HasResponseToAllyMoveThrough();
-		bool flag2 = HasResponseToEnemyMoveThrough();
-		return movementInstance.m_groundBased && movementInstance.m_canCrossBarriers && (movementInstance.m_mover.GetTeam() != m_team || flag) && (movementInstance.m_mover.GetTeam() == m_team || flag2) && movementInstance.m_path != null && movementInstance.m_path.next != null && !(movementInstance.m_path.square == null) && !(movementInstance.m_path.next.square == null) && !m_linkedData.m_actorsMovedThroughThisTurn.Contains(movementInstance.m_mover) && (!(m_sourceAbility != null) || m_sourceAbility.ShouldBarrierHitThisMover(movementInstance.m_mover)) && !movementInstance.m_mover.IgnoreForAbilityHits;
+		return movementInstance.m_groundBased
+		       && movementInstance.m_canCrossBarriers
+		       && (movementInstance.m_mover.GetTeam() != m_team || HasResponseToAllyMoveThrough())
+		       && (movementInstance.m_mover.GetTeam() == m_team || HasResponseToEnemyMoveThrough())
+		       && movementInstance.m_path != null
+		       && movementInstance.m_path.next != null
+		       && movementInstance.m_path.square != null
+		       && movementInstance.m_path.next.square != null
+		       && !m_linkedData.m_actorsMovedThroughThisTurn.Contains(movementInstance.m_mover)
+		       && (m_sourceAbility == null || m_sourceAbility.ShouldBarrierHitThisMover(movementInstance.m_mover))
+		       && !movementInstance.m_mover.IgnoreForAbilityHits;
 	}
 
 	// server-only
 	private GameplayResponseForActor GetMatchingMoveThroughResponseFor(ActorData actor)
 	{
-		if (actor.GetTeam() == m_team)
-		{
-			return m_onAllyMovedThrough;
-		}
-		return m_onEnemyMovedThrough;
+		return actor.GetTeam() == m_team
+			? m_onAllyMovedThrough
+			: m_onEnemyMovedThrough;
 	}
 
 	// server-only
 	private SpoilsSpawnData GetMatchingMoveThroughSpoilsFor(ActorData actor)
 	{
-		if (actor.GetTeam() == m_team)
-		{
-			return m_spoilsSpawnOnAllyMovedThrough;
-		}
-		return m_spoilsSpawnOnEnemyMovedThrough;
+		return actor.GetTeam() == m_team
+			? m_spoilsSpawnOnAllyMovedThrough
+			: m_spoilsSpawnOnEnemyMovedThrough;
 	}
 
 	// server-only
 	public void ExecuteUnexecutedMovementResults_Barrier(MovementStage movementStage, bool failsafe)
 	{
-		if (movementStage == MovementStage.Evasion)
+		switch (movementStage)
 		{
-			MovementResults.ExecuteUnexecutedHits(m_evadeResults, failsafe);
-			return;
-		}
-		if (movementStage == MovementStage.Knockback)
-		{
-			MovementResults.ExecuteUnexecutedHits(m_knockbackResults, failsafe);
-			return;
-		}
-		if (movementStage == MovementStage.Normal)
-		{
-			MovementResults.ExecuteUnexecutedHits(m_normalMovementResults, failsafe);
+			case MovementStage.Evasion:
+				MovementResults.ExecuteUnexecutedHits(m_evadeResults, failsafe);
+				return;
+			case MovementStage.Knockback:
+				MovementResults.ExecuteUnexecutedHits(m_knockbackResults, failsafe);
+				return;
+			case MovementStage.Normal:
+				MovementResults.ExecuteUnexecutedHits(m_normalMovementResults, failsafe);
+				break;
 		}
 	}
 
 	// server-only
-	public void ExecuteUnexecutedMovementResultsForDistance_Barrier(float distance, MovementStage movementStage, bool failsafe, out bool stillHasUnexecutedHits, out float nextUnexecutedHitDistance)
+	public void ExecuteUnexecutedMovementResultsForDistance_Barrier(
+		float distance,
+		MovementStage movementStage,
+		bool failsafe,
+		out bool stillHasUnexecutedHits,
+		out float nextUnexecutedHitDistance)
 	{
 		stillHasUnexecutedHits = false;
 		nextUnexecutedHitDistance = -1f;
-		if (movementStage == MovementStage.Evasion)
+		switch (movementStage)
 		{
-			MovementResults.ExecuteUnexecutedHitsForDistance(m_evadeResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
-			return;
-		}
-		if (movementStage == MovementStage.Knockback)
-		{
-			MovementResults.ExecuteUnexecutedHitsForDistance(m_knockbackResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
-			return;
-		}
-		if (movementStage == MovementStage.Normal)
-		{
-			MovementResults.ExecuteUnexecutedHitsForDistance(m_normalMovementResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+			case MovementStage.Evasion:
+				MovementResults.ExecuteUnexecutedHitsForDistance(
+					m_evadeResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+				return;
+			case MovementStage.Knockback:
+				MovementResults.ExecuteUnexecutedHitsForDistance(
+					m_knockbackResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+				return;
+			case MovementStage.Normal:
+				MovementResults.ExecuteUnexecutedHitsForDistance(
+					m_normalMovementResults, distance, failsafe, out stillHasUnexecutedHits, out nextUnexecutedHitDistance);
+				break;
 		}
 	}
 
 	// server-only
 	public List<MovementResults> GetMovementResultsForMovementStage(MovementStage movementStage)
 	{
-		if (movementStage == MovementStage.Evasion)
+		switch (movementStage)
 		{
-			return m_evadeResults;
+			case MovementStage.Evasion:
+				return m_evadeResults;
+			case MovementStage.Knockback:
+				return m_knockbackResults;
+			case MovementStage.Normal:
+				return m_normalMovementResults;
+			default:
+				return null;
 		}
-		if (movementStage == MovementStage.Knockback)
-		{
-			return m_knockbackResults;
-		}
-		if (movementStage == MovementStage.Normal)
-		{
-			return m_normalMovementResults;
-		}
-		return null;
 	}
 #endif
 
