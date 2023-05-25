@@ -1,5 +1,6 @@
 ﻿// ROGUES
 // SERVER
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,26 +11,8 @@ public class ServerMovementStabilizer
 {
 	private int m_lastTurnStabilizedNPCs = -1;
 
-	private bool HaveSetupNPCMovement
-	{
-		get
-		{
-			int currentTurn = GameFlowData.Get().CurrentTurn;
-			return m_lastTurnStabilizedNPCs >= currentTurn;
-		}
-	}
-
-	private ServerMovementStabilizer.NPCStabilizationMode CurrentStabilizationMode
-	{
-		get
-		{
-			if (HaveSetupNPCMovement)
-			{
-				return NPCStabilizationMode.IncludeMinions;
-			}
-			return NPCStabilizationMode.SkipMinions;
-		}
-	}
+	private bool HaveSetupNPCMovement => m_lastTurnStabilizedNPCs >= GameFlowData.Get().CurrentTurn;
+	private NPCStabilizationMode CurrentStabilizationMode => HaveSetupNPCMovement ? NPCStabilizationMode.IncludeMinions : NPCStabilizationMode.SkipMinions;
 
 	private void PrepMoversForStabilization(List<MovementRequest> storedMovementRequests)
 	{
@@ -49,50 +32,50 @@ public class ServerMovementStabilizer
 	public void StabilizeMovement(List<MovementRequest> storedMovementRequests, bool alsoStabilizeChasers)
 	{
 		PrepMoversForStabilization(storedMovementRequests);
-		bool flag = true;
-		while (flag)
+		bool pendingUpdate = true;
+		while (pendingUpdate)
 		{
-			bool flag2 = StabilizeMoversVsSnares(storedMovementRequests);
-			if (!flag2)
+			bool updated = StabilizeMoversVsSnares(storedMovementRequests);
+			if (!updated)
 			{
-				flag2 = StabilizeMoversVsObstacles(storedMovementRequests);
+				updated = StabilizeMoversVsObstacles(storedMovementRequests);
 			}
-			if (!flag2)
+			if (!updated)
 			{
-				flag2 = StabilizeMoversVsStationaries(storedMovementRequests);
+				updated = StabilizeMoversVsStationaries(storedMovementRequests);
 			}
-			if (!flag2)
+			if (!updated)
 			{
-				flag2 = StabilizeNormalMoversVsStationaryChasers(storedMovementRequests);
+				updated = StabilizeNormalMoversVsStationaryChasers(storedMovementRequests);
 			}
-			if (!flag2)
+			if (!updated)
 			{
-				flag2 = StabilizeMoversVsAfterImages(storedMovementRequests);
+				updated = StabilizeMoversVsAfterImages(storedMovementRequests);
 			}
-			if (!flag2)
+			if (!updated)
 			{
-				flag2 = StabilizeMoversVsMovers(storedMovementRequests);
+				updated = StabilizeMoversVsMovers(storedMovementRequests);
 			}
 			if (alsoStabilizeChasers)
 			{
-				if (!flag2)
+				if (!updated)
 				{
-					flag2 = StabilizeChasersVsInvisibles(storedMovementRequests);
+					updated = StabilizeChasersVsInvisibles(storedMovementRequests);
 				}
-				if (!flag2)
+				if (!updated)
 				{
-					flag2 = StabilizeChasersVsStationaries(storedMovementRequests);
+					updated = StabilizeChasersVsStationaries(storedMovementRequests);
 				}
-				if (!flag2)
+				if (!updated)
 				{
-					flag2 = StabilizeChasersVsMovers(storedMovementRequests);
+					updated = StabilizeChasersVsMovers(storedMovementRequests);
 				}
-				if (!flag2)
+				if (!updated)
 				{
-					flag2 = StabilizeChasersVsChasers(storedMovementRequests);
+					updated = StabilizeChasersVsChasers(storedMovementRequests);
 				}
 			}
-			flag = flag2;
+			pendingUpdate = updated;
 		}
 		if (alsoStabilizeChasers)
 		{
@@ -102,16 +85,16 @@ public class ServerMovementStabilizer
 
 	private void SanitizeMovement(List<MovementRequest> storedMovementRequests)
 	{
-		List<MovementRequest> list = new List<MovementRequest>();
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		List<MovementRequest> badRequests = new List<MovementRequest>();
+		foreach (MovementRequest movementRequest in storedMovementRequests)
 		{
-			MovementRequest movementRequest = storedMovementRequests[i];
 			if (movementRequest == null)
 			{
 				Log.Error("SanitizeMovement has null moveRequest.");
-				list.Add(movementRequest);
+				badRequests.Add(movementRequest);
+				continue;
 			}
-			else if (movementRequest.m_targetSquare == null)
+			if (movementRequest.m_targetSquare == null)
 			{
 				string text = "SanitizeMovement has a request with a null target square.";
 				if (movementRequest.m_actor == null)
@@ -120,28 +103,28 @@ public class ServerMovementStabilizer
 				}
 				else
 				{
-					text += string.Format(", mover = {0}", movementRequest.m_actor.DisplayName);
+					text += $", mover = {movementRequest.m_actor.DisplayName}";
 				}
 				if (movementRequest.m_chaseTarget != null)
 				{
-					text += string.Format(", chaseTarget = {0}", movementRequest.m_chaseTarget.DisplayName);
+					text += $", chaseTarget = {movementRequest.m_chaseTarget.DisplayName}";
 				}
 				if (movementRequest.m_resolveState != MovementRequest.MovementResolveState.QUEUED)
 				{
-					text += string.Format(", resolveState = {0}", movementRequest.m_resolveState.ToString());
+					text += $", resolveState = {movementRequest.m_resolveState.ToString()}";
 				}
 				Log.Error(text);
-				list.Add(movementRequest);
+				badRequests.Add(movementRequest);
 			}
-			if (movementRequest != null && movementRequest.m_path != null)
+			if (movementRequest.m_path != null)
 			{
 				movementRequest.m_path.CheckPathConnectionForSelfReference();
 			}
 		}
-		foreach (MovementRequest movementRequest2 in list)
+		foreach (MovementRequest movementRequest in badRequests)
 		{
-			movementRequest2.m_actor.GetComponent<ActorTurnSM>().OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
-			storedMovementRequests.Remove(movementRequest2);
+			movementRequest.m_actor.GetComponent<ActorTurnSM>().OnMessage(TurnMessage.MOVEMENT_RESOLVED);
+			storedMovementRequests.Remove(movementRequest);
 		}
 	}
 
@@ -149,72 +132,75 @@ public class ServerMovementStabilizer
 	{
 		foreach (MovementRequest movementRequest in storedMovementRequests)
 		{
-			if (!movementRequest.IsChasing() && movementRequest.m_path != null)
+			if (movementRequest.IsChasing() || movementRequest.m_path == null)
 			{
-				BoardSquare currentBoardSquare = movementRequest.m_actor.GetCurrentBoardSquare();
-				if (currentBoardSquare != null && currentBoardSquare != movementRequest.m_path.square)
+				continue;
+			}
+			BoardSquare currentBoardSquare = movementRequest.m_actor.GetCurrentBoardSquare();
+			if (currentBoardSquare == null || currentBoardSquare == movementRequest.m_path.square)
+			{
+				continue;
+			}
+			BoardSquarePathInfo pathToRequestedStart = movementRequest.m_actor.GetActorMovement()
+				.BuildPathTo(currentBoardSquare, movementRequest.m_path.square, 15f, true, null);
+			if (pathToRequestedStart != null)
+			{
+				movementRequest.m_actor.GetActorMovement().MoveRangeCompensation = pathToRequestedStart.FindMoveCostToEnd();
+				BoardSquarePathInfo endpoint = pathToRequestedStart.GetPathEndpoint();
+				if (endpoint.prev != null)
 				{
-					BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_actor.GetActorMovement().BuildPathTo(currentBoardSquare, movementRequest.m_path.square, 15f, true, null);
-					if (boardSquarePathInfo != null)
-					{
-						float moveRangeCompensation = boardSquarePathInfo.FindMoveCostToEnd();
-						movementRequest.m_actor.GetActorMovement().MoveRangeCompensation = moveRangeCompensation;
-						BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo.GetPathEndpoint();
-						if (boardSquarePathInfo2.prev != null)
-						{
-							boardSquarePathInfo2 = boardSquarePathInfo2.prev;
-						}
-						boardSquarePathInfo2.next = movementRequest.m_path;
-						movementRequest.m_path.prev = boardSquarePathInfo2;
-						movementRequest.m_path = boardSquarePathInfo;
-						movementRequest.m_path.CalcAndSetMoveCostToEnd();
-					}
-					else
-					{
-						BoardSquarePathInfo boardSquarePathInfo3 = new BoardSquarePathInfo();
-						boardSquarePathInfo3.square = currentBoardSquare;
-						boardSquarePathInfo3.CalcAndSetMoveCostToEnd();
-						movementRequest.m_path = boardSquarePathInfo3;
-						movementRequest.m_targetSquare = currentBoardSquare;
-					}
+					endpoint = endpoint.prev;
 				}
+				endpoint.next = movementRequest.m_path;
+				movementRequest.m_path.prev = endpoint;
+				movementRequest.m_path = pathToRequestedStart;
+				movementRequest.m_path.CalcAndSetMoveCostToEnd();
+			}
+			else
+			{
+				BoardSquarePathInfo newPath = new BoardSquarePathInfo
+				{
+					square = currentBoardSquare
+				};
+				newPath.CalcAndSetMoveCostToEnd();
+				movementRequest.m_path = newPath;
+				movementRequest.m_targetSquare = currentBoardSquare;
 			}
 		}
 	}
 
-	private static void BackUpPath(ActorData mover, BoardSquare squareToDepart, ref BoardSquarePathInfo path, out BoardSquare newDestination, out BoardSquarePathInfo lostPath, string caller)
+	private static void BackUpPath(
+		ActorData mover,
+		BoardSquare squareToDepart,
+		ref BoardSquarePathInfo path,
+		out BoardSquare newDestination,
+		out BoardSquarePathInfo lostPath,
+		string caller)
 	{
 		lostPath = null;
 		if (path == null && mover == null)
 		{
-			Log.Error("Calling BackUpPath from " + caller + " with an invalid path and an invalid mover-actor.");
+			Log.Error($"Calling BackUpPath from {caller} with an invalid path and an invalid mover-actor.");
 			newDestination = null;
 			return;
 		}
 		if (path == null)
 		{
-			Log.Error(string.Concat(new string[]
-			{
-				"Calling BackUpPath from ",
-				caller,
-				" with an invalid path (mover = ",
-				mover.DisplayName,
-				")."
-			}));
+			Log.Error($"Calling BackUpPath from {caller} with an invalid path (mover = {mover.DisplayName}).");
 			newDestination = null;
 			return;
 		}
 		if (mover == null)
 		{
-			Log.Error("Calling BackUpPath from " + caller + " with an invalid mover-actor.");
+			Log.Error($"Calling BackUpPath from {caller} with an invalid mover-actor.");
 			newDestination = null;
 			return;
 		}
-		BoardSquarePathInfo boardSquarePathInfo = path.GetPathEndpoint();
-		int num = 0;
-		bool flag = true;
-		float maxMovement = mover.GetActorMovement().CalculateMaxHorizontalMovement(false, false);
-		while (boardSquarePathInfo.prev != null && flag)
+		BoardSquarePathInfo endpoint = path.GetPathEndpoint();
+		int stepsLost = 0;
+		bool isBackingUp = true;
+		float maxMovement = mover.GetActorMovement().CalculateMaxHorizontalMovement();
+		while (endpoint.prev != null && isBackingUp)
 		{
 			if (lostPath == null)
 			{
@@ -226,92 +212,80 @@ public class ServerMovementStabilizer
 				lostPath.prev.next = lostPath;
 				lostPath = lostPath.prev;
 			}
-			lostPath.square = boardSquarePathInfo.square;
-			lostPath.m_unskippable = boardSquarePathInfo.m_unskippable;
-			BoardSquarePathInfo prev = boardSquarePathInfo.prev;
+			lostPath.square = endpoint.square;
+			lostPath.m_unskippable = endpoint.m_unskippable;
+			BoardSquarePathInfo prev = endpoint.prev;
 			prev.next = null;
-			boardSquarePathInfo.next = null;
-			boardSquarePathInfo.prev = null;
-			boardSquarePathInfo.square = null;
-			boardSquarePathInfo = prev;
-			num++;
-			bool flag2 = !path.IsValidPathForMaxMovement(maxMovement);
-			bool flag3 = squareToDepart != null && boardSquarePathInfo.square == squareToDepart;
-			flag = (flag2 || flag3);
+			endpoint.next = null;
+			endpoint.prev = null;
+			endpoint.square = null;
+			endpoint = prev;
+			stepsLost++;
+			bool isTooLong = !path.IsValidPathForMaxMovement(maxMovement);
+			bool isEndpointOccupied = squareToDepart != null && endpoint.square == squareToDepart;
+			isBackingUp = isTooLong || isEndpointOccupied;
 		}
-		if (boardSquarePathInfo != null)
+		if (endpoint != null)
 		{
-			newDestination = boardSquarePathInfo.square;
-			return;
+			newDestination = endpoint.square;
 		}
-		if (num == 0)
+		else
 		{
-			newDestination = path.square;
-			return;
+			newDestination = stepsLost == 0 ? path.square : null;
 		}
-		newDestination = null;
 	}
 
 	private bool StabilizeMoversVsSnares(List<MovementRequest> storedMovementRequests)
 	{
 		bool flag = false;
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest moveRequest in storedMovementRequests)
 		{
-			MovementRequest moveRequest = storedMovementRequests[i];
-			BoardSquarePathInfo boardSquarePathInfo;
-			flag |= StabilizeMovementRequestVsSnares(moveRequest, out boardSquarePathInfo);
+			flag |= StabilizeMovementRequestVsSnares(moveRequest, out _);
 		}
 		return flag;
 	}
 
 	public bool StabilizeMovementRequestVsSnares(MovementRequest moveRequest, out BoardSquarePathInfo lostPath)
 	{
+		if (moveRequest.IsChasing() || moveRequest.m_path.WillDieAtEnd() || moveRequest.IsClashStabilized())
+		{
+			lostPath = null;
+			return false;
+		}
+		
 		bool result;
-		if (moveRequest.IsChasing())
+		ActorData actor = moveRequest.m_actor;
+		float maxMovement = actor.GetActorMovement().CalculateMaxHorizontalMovement();
+		if (!moveRequest.m_path.IsValidPathForMaxMovement(maxMovement))
 		{
-			result = false;
-			lostPath = null;
-		}
-		else if (moveRequest.m_path.WillDieAtEnd())
-		{
-			result = false;
-			lostPath = null;
-		}
-		else if (moveRequest.IsClashStabilized())
-		{
-			result = false;
-			lostPath = null;
-		}
-		else
-		{
-			ActorData actor = moveRequest.m_actor;
-			float maxMovement = actor.GetActorMovement().CalculateMaxHorizontalMovement(false, false);
-			if (!moveRequest.m_path.IsValidPathForMaxMovement(maxMovement))
+			float originalMoveCost = moveRequest.m_path.FindMoveCostToEnd();
+			BackUpPath(
+				actor,
+				null,
+				ref moveRequest.m_path,
+				out BoardSquare newDestination,
+				out lostPath,
+				"StabilizeMoversVsSnares");
+			float newMoveCost = moveRequest.m_path.FindMoveCostToEnd();
+			if (originalMoveCost != newMoveCost)
 			{
-				BoardSquare targetSquare = null;
-				float num = moveRequest.m_path.FindMoveCostToEnd();
-                BackUpPath(actor, null, ref moveRequest.m_path, out targetSquare, out lostPath, "StabilizeMoversVsSnares");
-				float num2 = moveRequest.m_path.FindMoveCostToEnd();
-				if (num != num2)
+				moveRequest.m_targetSquare = newDestination;
+				result = true;
+				if (originalMoveCost > newMoveCost && actor.GetActorBehavior() != null)
 				{
-					moveRequest.m_targetSquare = targetSquare;
-					result = true;
-					if (num > num2 && actor.GetActorBehavior() != null)
-					{
-						actor.GetActorBehavior().TrackPathLostDuringStabilization(num - num2);
-					}
-				}
-				else
-				{
-					Log.Error(string.Format("Failed to back up {0} in StabilizeMoversVsSnares.", moveRequest.m_actor));
-					result = false;
+					actor.GetActorBehavior().TrackPathLostDuringStabilization(originalMoveCost - newMoveCost);
 				}
 			}
 			else
 			{
+				Log.Error($"Failed to back up {moveRequest.m_actor} in StabilizeMoversVsSnares.");
 				result = false;
-				lostPath = null;
 			}
+		}
+		else
+		{
+			result = false;
+			lostPath = null;
 		}
 		return result;
 	}
@@ -319,58 +293,49 @@ public class ServerMovementStabilizer
 	private bool StabilizeMoversVsObstacles(List<MovementRequest> storedMovementRequests)
 	{
 		bool flag = false;
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest moveRequest in storedMovementRequests)
 		{
-			MovementRequest moveRequest = storedMovementRequests[i];
-			BoardSquarePathInfo boardSquarePathInfo;
-			flag |= StabilizeMovementRequestVsObstacles(moveRequest, out boardSquarePathInfo);
+			flag |= StabilizeMovementRequestVsObstacles(moveRequest, out _);
 		}
 		return flag;
 	}
 
 	public bool StabilizeMovementRequestVsObstacles(MovementRequest moveRequest, out BoardSquarePathInfo lostPath)
 	{
-		bool result = false;
 		lostPath = null;
-		if (moveRequest.IsChasing())
+		if (moveRequest.IsChasing() || moveRequest.m_path.WillDieAtEnd() || moveRequest.IsClashStabilized())
 		{
-			result = false;
-			lostPath = null;
+			return false;
 		}
-		else if (moveRequest.m_path.WillDieAtEnd())
+		
+		bool result = false;
+		ActorData actor = moveRequest.m_actor;
+		BoardSquarePathInfo step = moveRequest.m_path;
+		BoardSquarePathInfo next = moveRequest.m_path.next;
+		BoardSquarePathInfo prev = moveRequest.m_path.prev;
+		while (next != null)
 		{
-			result = false;
-			lostPath = null;
-		}
-		else if (moveRequest.IsClashStabilized())
-		{
-			result = false;
-			lostPath = null;
-		}
-		else
-		{
-			ActorData actor = moveRequest.m_actor;
-			BoardSquarePathInfo boardSquarePathInfo = moveRequest.m_path;
-			BoardSquarePathInfo boardSquarePathInfo2 = moveRequest.m_path.next;
-			BoardSquarePathInfo prev = moveRequest.m_path.prev;
-			while (boardSquarePathInfo2 != null)
+			if (!next.square.IsValidForGameplay()
+			    || (prev != null
+			        && BarrierManager.Get() != null
+			        && BarrierManager.Get().IsMovementBlockedOnCrossover(actor, prev.square, step.square))
+			    || (BarrierManager.Get() != null
+			        && BarrierManager.Get().IsMovementBlocked(actor, step.square, next.square))
+			    || (ServerEffectManager.Get() != null
+			        && ServerEffectManager.Get().IsMovementBlockedOnEnterSquare(actor, prev?.square, step.square)))
 			{
-				bool flag = !boardSquarePathInfo2.square.IsValidForGameplay() || (prev != null && BarrierManager.Get() != null && BarrierManager.Get().IsMovementBlockedOnCrossover(actor, prev.square, boardSquarePathInfo.square)) || (BarrierManager.Get() != null && BarrierManager.Get().IsMovementBlocked(actor, boardSquarePathInfo.square, boardSquarePathInfo2.square)) || (ServerEffectManager.Get() != null && ServerEffectManager.Get().IsMovementBlockedOnEnterSquare(actor, (prev != null) ? prev.square : null, boardSquarePathInfo.square));
-				if (flag)
-				{
-					lostPath = boardSquarePathInfo2;
-					boardSquarePathInfo.next = null;
-					boardSquarePathInfo2.prev = null;
-					boardSquarePathInfo2 = null;
-					moveRequest.m_targetSquare = boardSquarePathInfo.square;
-					result = true;
-				}
-				else
-				{
-					boardSquarePathInfo = boardSquarePathInfo2;
-					prev = boardSquarePathInfo2.prev;
-					boardSquarePathInfo2 = boardSquarePathInfo2.next;
-				}
+				lostPath = next;
+				step.next = null;
+				next.prev = null;
+				next = null;
+				moveRequest.m_targetSquare = step.square;
+				result = true;
+			}
+			else
+			{
+				step = next;
+				prev = next.prev;
+				next = next.next;
 			}
 		}
 		return result;
@@ -379,33 +344,39 @@ public class ServerMovementStabilizer
 	private bool StabilizeNormalMoversVsStationaryChasers(List<MovementRequest> storedMovementRequests)
 	{
 		bool result = false;
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest movementRequest in storedMovementRequests)
 		{
-			MovementRequest movementRequest = storedMovementRequests[i];
-			if (!movementRequest.WasEverChasing() && !movementRequest.m_path.WillDieAtEnd() && !movementRequest.IsClashStabilized())
+			if (movementRequest.WasEverChasing()
+			    || movementRequest.m_path.WillDieAtEnd()
+			    || movementRequest.IsClashStabilized())
 			{
-				for (int j = 0; j < storedMovementRequests.Count; j++)
+				continue;
+			}
+			foreach (MovementRequest chaseRequest in storedMovementRequests)
+			{
+				if (!chaseRequest.WasEverChasing())
 				{
-					MovementRequest movementRequest2 = storedMovementRequests[j];
-					if (movementRequest2.WasEverChasing())
+					continue;
+				}
+
+				BoardSquare chaserSquare = chaseRequest.m_actor.GetCurrentBoardSquare();
+				if (movementRequest.m_targetSquare == chaserSquare)
+				{
+					BackUpPath(
+						movementRequest.m_actor,
+						chaserSquare,
+						ref movementRequest.m_path,
+						out BoardSquare newDestination,
+						out _,
+						"StabilizeNormalMoversVsStationaryChasers");
+					if (movementRequest.m_targetSquare != newDestination)
 					{
-						Object targetSquare = movementRequest.m_targetSquare;
-						BoardSquare currentBoardSquare = movementRequest2.m_actor.GetCurrentBoardSquare();
-						if (targetSquare == currentBoardSquare)
-						{
-							BoardSquare boardSquare = null;
-							BoardSquarePathInfo boardSquarePathInfo;
-                            BackUpPath(movementRequest.m_actor, currentBoardSquare, ref movementRequest.m_path, out boardSquare, out boardSquarePathInfo, "StabilizeNormalMoversVsStationaryChasers");
-							if (movementRequest.m_targetSquare != boardSquare)
-							{
-								movementRequest.m_targetSquare = boardSquare;
-								result = true;
-							}
-							else
-							{
-								Log.Error(string.Format("Failed to back up {0} in StabilizeMoversVsStationaries.", movementRequest.m_actor));
-							}
-						}
+						movementRequest.m_targetSquare = newDestination;
+						result = true;
+					}
+					else
+					{
+						Log.Error($"Failed to back up {movementRequest.m_actor} in StabilizeMoversVsStationaries.");
 					}
 				}
 			}
@@ -416,33 +387,42 @@ public class ServerMovementStabilizer
 	private bool StabilizeMoversVsStationaries(List<MovementRequest> storedMovementRequests)
 	{
 		bool result = false;
-		foreach (ActorData actorData in ServerActionBuffer.Get().GetStationaryActors())
+		foreach (ActorData stationaryActor in ServerActionBuffer.Get().GetStationaryActors())
 		{
-			if (!actorData.IsDead())
+			if (stationaryActor.IsDead())
 			{
-				for (int i = 0; i < storedMovementRequests.Count; i++)
+				continue;
+			}
+
+			foreach (MovementRequest movementRequest in storedMovementRequests)
+			{
+				if (movementRequest.IsChasing()
+				    || movementRequest.m_path.WillDieAtEnd()
+				    || movementRequest.IsClashStabilized())
 				{
-					MovementRequest movementRequest = storedMovementRequests[i];
-					if (!movementRequest.IsChasing() && !movementRequest.m_path.WillDieAtEnd() && !movementRequest.IsClashStabilized())
-					{
-						Object targetSquare = movementRequest.m_targetSquare;
-						BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-						if (targetSquare == currentBoardSquare)
-						{
-							BoardSquare boardSquare = null;
-							BoardSquarePathInfo boardSquarePathInfo;
-                            BackUpPath(movementRequest.m_actor, currentBoardSquare, ref movementRequest.m_path, out boardSquare, out boardSquarePathInfo, "StabilizeMoversVsStationaries");
-							if (movementRequest.m_targetSquare != boardSquare)
-							{
-								movementRequest.m_targetSquare = boardSquare;
-								result = true;
-							}
-							else
-							{
-								Log.Error(string.Format("Failed to back up {0} in StabilizeMoversVsStationaries.", movementRequest.m_actor));
-							}
-						}
-					}
+					continue;
+				}
+				Object targetSquare = movementRequest.m_targetSquare;
+				BoardSquare stationaryActorSquare = stationaryActor.GetCurrentBoardSquare();
+				if (targetSquare != stationaryActorSquare)
+				{
+					continue;
+				}
+				BackUpPath(
+					movementRequest.m_actor,
+					stationaryActorSquare,
+					ref movementRequest.m_path,
+					out BoardSquare newDestination,
+					out _,
+					"StabilizeMoversVsStationaries");
+				if (movementRequest.m_targetSquare != newDestination)
+				{
+					movementRequest.m_targetSquare = newDestination;
+					result = true;
+				}
+				else
+				{
+					Log.Error($"Failed to back up {movementRequest.m_actor} in StabilizeMoversVsStationaries.");
 				}
 			}
 		}
@@ -452,38 +432,46 @@ public class ServerMovementStabilizer
 	private bool StabilizeMoversVsAfterImages(List<MovementRequest> storedMovementRequests)
 	{
 		bool result = false;
-		List<ActorData> list = new List<ActorData>();
+		List<ActorData> afterImageActors = new List<ActorData>();
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
 			if (!actorData.IsDead() && actorData.GetComponent<Passive_TricksterAfterImage>() != null)
 			{
-				list.Add(actorData);
+				afterImageActors.Add(actorData);
 			}
 		}
-		foreach (ActorData actorData2 in list)
+		foreach (ActorData afterImageActor in afterImageActors)
 		{
-			for (int i = 0; i < storedMovementRequests.Count; i++)
+			foreach (MovementRequest movementRequest in storedMovementRequests)
 			{
-				MovementRequest movementRequest = storedMovementRequests[i];
-				if (!movementRequest.IsChasing() && !(movementRequest.m_actor == actorData2) && !movementRequest.m_path.WillDieAtEnd() && !movementRequest.IsClashStabilized())
+				if (movementRequest.IsChasing()
+				    || movementRequest.m_actor == afterImageActor
+				    || movementRequest.m_path.WillDieAtEnd()
+				    || movementRequest.IsClashStabilized())
 				{
-					Object targetSquare = movementRequest.m_targetSquare;
-					BoardSquare currentBoardSquare = actorData2.GetCurrentBoardSquare();
-					if (targetSquare == currentBoardSquare)
-					{
-						BoardSquare boardSquare = null;
-						BoardSquarePathInfo boardSquarePathInfo;
-                        BackUpPath(movementRequest.m_actor, currentBoardSquare, ref movementRequest.m_path, out boardSquare, out boardSquarePathInfo, "StabilizeMoversVsAfterImages");
-						if (movementRequest.m_targetSquare != boardSquare)
-						{
-							movementRequest.m_targetSquare = boardSquare;
-							result = true;
-						}
-						else
-						{
-							Log.Error(string.Format("Failed to back up {0} in StabilizeMoversVsAfterImages.", movementRequest.m_actor));
-						}
-					}
+					continue;
+				}
+				Object targetSquare = movementRequest.m_targetSquare;
+				BoardSquare afterImageSquare = afterImageActor.GetCurrentBoardSquare();
+				if (targetSquare != afterImageSquare)
+				{
+					continue;
+				}
+				BackUpPath(
+					movementRequest.m_actor,
+					afterImageSquare,
+					ref movementRequest.m_path,
+					out BoardSquare newDestination,
+					out _,
+					"StabilizeMoversVsAfterImages");
+				if (movementRequest.m_targetSquare != newDestination)
+				{
+					movementRequest.m_targetSquare = newDestination;
+					result = true;
+				}
+				else
+				{
+					Log.Error($"Failed to back up {movementRequest.m_actor} in StabilizeMoversVsAfterImages.");
 				}
 			}
 		}
@@ -494,33 +482,49 @@ public class ServerMovementStabilizer
 	{
 		bool flag = false;
 		storedMovementRequests.Sort();
-		int num = 0;
-		while (num < storedMovementRequests.Count && !flag)
+		
+		for (int i = 0; i < storedMovementRequests.Count; i++)
 		{
-			MovementRequest movementRequest = storedMovementRequests[num];
-			if (!movementRequest.IsChasing() && !movementRequest.m_path.WillDieAtEnd())
+			if (flag)
 			{
-				for (int i = num + 1; i < storedMovementRequests.Count; i++)
+				break;
+			}
+			MovementRequest movementRequest = storedMovementRequests[i];
+			if (movementRequest.IsChasing() || movementRequest.m_path.WillDieAtEnd())
+			{
+				continue;
+			}
+			for (int j = i + 1; j < storedMovementRequests.Count; j++)
+			{
+				MovementRequest movementRequest2 = storedMovementRequests[j];
+				if (movementRequest2.IsChasing()
+				    || movementRequest2.m_path.WillDieAtEnd()
+				    || movementRequest.m_targetSquare != movementRequest2.m_targetSquare
+				    || (movementRequest.m_actor.GetTeam() != movementRequest2.m_actor.GetTeam()
+				        && movementRequest.m_path.FindMoveCostToEnd() == movementRequest2.m_path.FindMoveCostToEnd()
+				        && movementRequest.WasEverChasing() == movementRequest2.WasEverChasing())
+				    || movementRequest2.IsClashStabilized())
 				{
-					MovementRequest movementRequest2 = storedMovementRequests[i];
-					if (!movementRequest2.IsChasing() && !movementRequest2.m_path.WillDieAtEnd() && !(movementRequest.m_targetSquare != movementRequest2.m_targetSquare) && (movementRequest.m_actor.GetTeam() == movementRequest2.m_actor.GetTeam() || movementRequest.m_path.FindMoveCostToEnd() != movementRequest2.m_path.FindMoveCostToEnd() || movementRequest.WasEverChasing() != movementRequest2.WasEverChasing()) && !movementRequest2.IsClashStabilized())
-					{
-						BoardSquare boardSquare = null;
-						BoardSquarePathInfo boardSquarePathInfo;
-                        BackUpPath(movementRequest2.m_actor, movementRequest.m_targetSquare, ref movementRequest2.m_path, out boardSquare, out boardSquarePathInfo, "StabilizeMoversVsMovers");
-						if (movementRequest2.m_targetSquare != boardSquare)
-						{
-							movementRequest2.m_targetSquare = boardSquare;
-							flag = true;
-						}
-						else
-						{
-							Log.Error(string.Format("Failed to back up {0} in StabilizeMoversVsMovers.", movementRequest2.m_actor));
-						}
-					}
+					continue;
+				}
+				BackUpPath(
+					movementRequest2.m_actor,
+					movementRequest.m_targetSquare,
+					ref movementRequest2.m_path,
+					out BoardSquare newDestination,
+					out _,
+					"StabilizeMoversVsMovers");
+				if (movementRequest2.m_targetSquare != newDestination)
+				{
+					movementRequest2.m_targetSquare = newDestination;
+					flag = true;
+				}
+				else
+				{
+					Log.Error($"Failed to back up {movementRequest2.m_actor} in StabilizeMoversVsMovers.");
 				}
 			}
-			num++;
+
 		}
 		return flag;
 	}
@@ -528,9 +532,8 @@ public class ServerMovementStabilizer
 	private bool StabilizeChasersVsInvisibles(List<MovementRequest> storedMovementRequests)
 	{
 		bool result = false;
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest movementRequest in storedMovementRequests)
 		{
-			MovementRequest movementRequest = storedMovementRequests[i];
 			ActorData actor = movementRequest.m_actor;
 			ActorData chaseTarget = movementRequest.m_chaseTarget;
 			if (movementRequest.IsChasing()
@@ -538,8 +541,7 @@ public class ServerMovementStabilizer
 			    && chaseTarget.IsNeverVisibleTo(actor.PlayerData)
 			    && !chaseTarget.IsAlwaysVisibleTo(actor.PlayerData))
 			{
-				BoardSquare serverLastKnownPosSquare = chaseTarget.ServerLastKnownPosSquare;
-				ConvertChaseToDirectMovement(movementRequest, serverLastKnownPosSquare);
+				ConvertChaseToDirectMovement(movementRequest, chaseTarget.ServerLastKnownPosSquare);
 				result = true;
 			}
 		}
@@ -550,68 +552,65 @@ public class ServerMovementStabilizer
 	{
 		bool result = false;
 		List<ActorData> stationaryActors = ServerActionBuffer.Get().GetStationaryActors();
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest movementRequest in storedMovementRequests)
 		{
-			MovementRequest movementRequest = storedMovementRequests[i];
 			ActorData chaseTarget = movementRequest.m_chaseTarget;
-			if (movementRequest.IsChasing() && stationaryActors.Contains(chaseTarget))
+			if (!movementRequest.IsChasing() || !stationaryActors.Contains(chaseTarget))
 			{
-				ActorData actor = movementRequest.m_actor;
-				ActorMovement component = movementRequest.m_actor.GetComponent<ActorMovement>();
-				ActorBehavior actorBehavior = chaseTarget.GetActorBehavior();
-				if (chaseTarget.IsDead() || movementRequest.IsBeingDragged() || chaseTarget.IsActorVisibleToActor(actor))
+				continue;
+			}
+			ActorData actor = movementRequest.m_actor;
+			ActorMovement actorMovement = movementRequest.m_actor.GetComponent<ActorMovement>();
+			ActorBehavior chaseTargetBehavior = chaseTarget.GetActorBehavior();
+			if (chaseTarget.IsDead()
+			    || movementRequest.IsBeingDragged()
+			    || chaseTarget.IsActorVisibleToActor(actor))
+			{
+				BoardSquare targetSquare = chaseTarget.IsDead() ? chaseTarget.GetMostRecentDeathSquare() : chaseTarget.GetCurrentBoardSquare();
+				ConvertChaseToDirectMovement(movementRequest, targetSquare);
+			}
+			else
+			{
+				bool needToConvertPath = true;
+				if (chaseTargetBehavior.CurrentTurn.Charged || chaseTargetBehavior.CurrentTurn.KnockedBack)
 				{
-					BoardSquare targetSquare;
-					if (chaseTarget.IsDead())
+					BoardSquarePathInfo path = chaseTargetBehavior.CurrentTurn.Path;
+					if (path != null)
 					{
-						targetSquare = chaseTarget.GetMostRecentDeathSquare();
-					}
-					else
-					{
-						targetSquare = chaseTarget.GetCurrentBoardSquare();
-					}
-					ConvertChaseToDirectMovement(movementRequest, targetSquare);
-				}
-				else
-				{
-					bool flag = true;
-					if (actorBehavior.CurrentTurn.Charged || actorBehavior.CurrentTurn.KnockedBack)
-					{
-						BoardSquarePathInfo path = actorBehavior.CurrentTurn.Path;
-						if (path != null)
+						BoardSquarePathInfo lastSeenStep = FindChaserLastVisiblePartOfMoverPath(actor, chaseTarget, path);
+						if (lastSeenStep != null)
 						{
-							BoardSquarePathInfo boardSquarePathInfo = FindChaserLastVisiblePartOfMoverPath(actor, chaseTarget, path);
-							if (boardSquarePathInfo != null)
+							needToConvertPath = false;
+							BoardSquare lastSeenSquare = lastSeenStep.square;
+							if (!actorMovement.CanMoveToBoardSquare(lastSeenSquare))
 							{
-								flag = false;
-								BoardSquare square = boardSquarePathInfo.square;
-								if (!component.CanMoveToBoardSquare(square))
-								{
-									ConvertChaseToDirectMovement(movementRequest, square);
-								}
-								else
-								{
-									movementRequest.m_path = component.BuildPathTo(actor.GetCurrentBoardSquare(), square);
-									BoardSquarePathInfo pathEndpoint = movementRequest.m_path.GetPathEndpoint();
-									pathEndpoint.next = boardSquarePathInfo.Clone(pathEndpoint);
-									movementRequest.m_path.CalcAndSetMoveCostToEnd();
-									BoardSquare targetSquare2;
-									BoardSquarePathInfo boardSquarePathInfo2;
-                                    BackUpPath(actor, null, ref movementRequest.m_path, out targetSquare2, out boardSquarePathInfo2, "StabilizeChasersVsStationaries");
-									movementRequest.m_chaseTarget = null;
-									movementRequest.m_targetSquare = targetSquare2;
-								}
+								ConvertChaseToDirectMovement(movementRequest, lastSeenSquare);
+							}
+							else
+							{
+								movementRequest.m_path = actorMovement.BuildPathTo(actor.GetCurrentBoardSquare(), lastSeenSquare);
+								BoardSquarePathInfo pathEndpoint = movementRequest.m_path.GetPathEndpoint();
+								pathEndpoint.next = lastSeenStep.Clone(pathEndpoint);
+								movementRequest.m_path.CalcAndSetMoveCostToEnd();
+								BackUpPath(
+									actor,
+									null,
+									ref movementRequest.m_path,
+									out BoardSquare newDestination,
+									out _,
+									"StabilizeChasersVsStationaries");
+								movementRequest.m_chaseTarget = null;
+								movementRequest.m_targetSquare = newDestination;
 							}
 						}
 					}
-					if (flag)
-					{
-						BoardSquare serverLastKnownPosSquare = chaseTarget.ServerLastKnownPosSquare;
-						ConvertChaseToDirectMovement(movementRequest, serverLastKnownPosSquare);
-					}
 				}
-				result = true;
+				if (needToConvertPath)
+				{
+					ConvertChaseToDirectMovement(movementRequest, chaseTarget.ServerLastKnownPosSquare);
+				}
 			}
+			result = true;
 		}
 		return result;
 	}
@@ -624,10 +623,10 @@ public class ServerMovementStabilizer
 			return;
 		}
 		ActorData actor = chaseRequest.m_actor;
-		ActorMovement component = chaseRequest.m_actor.GetComponent<ActorMovement>();
+		ActorMovement actorMovement = chaseRequest.m_actor.GetComponent<ActorMovement>();
 		bool flag;
 		List<BoardSquare> claimedSquares;
-		if (targetSquare == null || !component.CanMoveToBoardSquare(targetSquare))
+		if (targetSquare == null || !actorMovement.CanMoveToBoardSquare(targetSquare))
 		{
 			flag = true;
 			claimedSquares = null;
@@ -644,16 +643,10 @@ public class ServerMovementStabilizer
 		}
 		else if (!targetSquare.IsValidForGameplay())
 		{
-			BoardSquare closestValidForGameplaySquareTo = Board.Get().GetClosestValidForGameplaySquareTo(targetSquare, null);
-			Log.Error(string.Concat(new string[]
-			{
-				"ConvertChaseToDirectMovement being called for invalid-for-gameplay targetSquare ",
-				targetSquare.ToString(),
-				".  Going instead toward closest valid square, ",
-				closestValidForGameplaySquareTo.ToString(),
-				".  Scene = ",
-				SceneManager.GetActiveScene().name
-			}));
+			BoardSquare closestValidForGameplaySquareTo = Board.Get().GetClosestValidForGameplaySquareTo(targetSquare);
+			Log.Error($"ConvertChaseToDirectMovement being called for invalid-for-gameplay targetSquare {targetSquare}.  " +
+			          $"Going instead toward closest valid square, {closestValidForGameplaySquareTo}.  " +
+			          $"Scene = {SceneManager.GetActiveScene().name}");
 			targetSquare = closestValidForGameplaySquareTo;
 		}
 		BoardSquare currentBoardSquare = actor.GetCurrentBoardSquare();
@@ -661,22 +654,19 @@ public class ServerMovementStabilizer
 		{
 			Log.Error(actor.DebugNameString() + " has null for current square when trying to convert chase movement to normal movement");
 		}
-		BoardSquarePathInfo boardSquarePathInfo = component.BuildCompletePathTo(actor.GetCurrentBoardSquare(), targetSquare, true, claimedSquares);
+		BoardSquarePathInfo boardSquarePathInfo = actorMovement.BuildCompletePathTo(actor.GetCurrentBoardSquare(), targetSquare, true, claimedSquares);
 		if (boardSquarePathInfo == null)
 		{
-			Log.Error(string.Concat(new string[]
-			{
-				"ConvertChaseToDirectMovement failed to build path to target, from square ",
-				(currentBoardSquare != null) ? currentBoardSquare.ToString() : "null",
-				" to square ",
-				(targetSquare != null) ? targetSquare.ToString() : "null",
-				".  Scene = ",
-				SceneManager.GetActiveScene().name
-			}));
+			Log.Error($"ConvertChaseToDirectMovement failed to build path to target, " +
+			          $"from square {(currentBoardSquare != null ? currentBoardSquare.ToString() : "null")} " +
+			          $"to square {(targetSquare != null ? targetSquare.ToString() : "null")}.  " +
+			          $"Scene = {SceneManager.GetActiveScene().name}");
 			if (currentBoardSquare != null)
 			{
-				boardSquarePathInfo = new BoardSquarePathInfo();
-				boardSquarePathInfo.square = currentBoardSquare;
+				boardSquarePathInfo = new BoardSquarePathInfo
+				{
+					square = currentBoardSquare
+				};
 				targetSquare = currentBoardSquare;
 			}
 			flag = false;
@@ -685,10 +675,14 @@ public class ServerMovementStabilizer
 		if (flag)
 		{
 			float pathCostBeforeBackup = chaseRequest.m_path.FindMoveCostToEnd();
-			BoardSquare boardSquare;
-			BoardSquarePathInfo boardSquarePathInfo2;
-            BackUpPath(actor, actor.GetCurrentBoardSquare(), ref chaseRequest.m_path, out boardSquare, out boardSquarePathInfo2, "ConvertChaseToDirectMovement");
-			targetSquare = boardSquare;
+			BackUpPath(
+				actor,
+				actor.GetCurrentBoardSquare(),
+				ref chaseRequest.m_path,
+				out BoardSquare newDestination,
+				out _,
+				"ConvertChaseToDirectMovement");
+			targetSquare = newDestination;
 			float pathCostAfterBackup = chaseRequest.m_path.FindMoveCostToEnd();
 			TrackChaseMovementLostToSnare(actor, pathCostBeforeBackup, pathCostAfterBackup);
 		}
@@ -698,129 +692,124 @@ public class ServerMovementStabilizer
 
 	private void TrackChaseMovementLostToSnare(ActorData chaserActor, float pathCostBeforeBackup, float pathCostAfterBackup)
 	{
-		if (chaserActor.GetActorBehavior() != null)
+		if (chaserActor.GetActorBehavior() == null)
 		{
-			float num = (float)chaserActor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
-			if (chaserActor.GetAbilityData() != null)
+			return;
+		}
+		float movementRange = chaserActor.GetActorStats().GetModifiedStatInt(StatType.Movement_Horizontal);
+		if (chaserActor.GetAbilityData() != null)
+		{
+			movementRange += chaserActor.GetAbilityData().GetQueuedAbilitiesMovementAdjust();
+		}
+		movementRange += chaserActor.GetActorMovement().MoveRangeCompensation;
+		float adjustedMovementRange = movementRange;
+		if (chaserActor.GetActorStatus().HasStatus(StatusType.Hasted))
+		{
+			ActorMovement.CalcHastedMovementAdjustments(out float mult, out _, out _);
+			adjustedMovementRange *= mult;
+		}
+		float adjustedPathCostBeforeBackup = Mathf.Min(pathCostBeforeBackup, adjustedMovementRange);
+		if (adjustedPathCostBeforeBackup > pathCostAfterBackup)
+		{
+			if (GameplayMetricHelper.GameplayMetricDebugTraceOn)
 			{
-				num += chaserActor.GetAbilityData().GetQueuedAbilitiesMovementAdjust();
+				GameplayMetricHelper.DebugLogMoveDenied($"on converting chase to normal move, accounting for lost path. " +
+				                                        $"Desired= {adjustedPathCostBeforeBackup} | " +
+				                                        $"Actual= {pathCostAfterBackup} | " +
+				                                        $"Diff= {adjustedPathCostBeforeBackup - pathCostAfterBackup}");
 			}
-			num += chaserActor.GetActorMovement().MoveRangeCompensation;
-			float num2 = num;
-			if (chaserActor.GetActorStatus().HasStatus(StatusType.Hasted, true))
-			{
-				float num3;
-				int num4;
-				int num5;
-				ActorMovement.CalcHastedMovementAdjustments(out num3, out num4, out num5);
-				num2 *= num3;
-			}
-			float num6 = Mathf.Min(pathCostBeforeBackup, num2);
-			if (num6 > pathCostAfterBackup)
-			{
-				if (GameplayMetricHelper.GameplayMetricDebugTraceOn)
-				{
-					GameplayMetricHelper.DebugLogMoveDenied(string.Concat(new object[]
-					{
-						"on converting chase to normal move, accounting for lost path. Desired= ",
-						num6,
-						" | Actual= ",
-						pathCostAfterBackup,
-						" | Diff= ",
-						num6 - pathCostAfterBackup
-					}));
-				}
-				chaserActor.GetActorBehavior().TrackPathLostDuringStabilization(num6 - pathCostAfterBackup);
-			}
+			chaserActor.GetActorBehavior().TrackPathLostDuringStabilization(adjustedPathCostBeforeBackup - pathCostAfterBackup);
 		}
 	}
 
 	private bool StabilizeChasersVsMovers(List<MovementRequest> storedMovementRequests)
 	{
 		bool result = false;
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest chaseRequest in storedMovementRequests)
 		{
-			MovementRequest movementRequest = storedMovementRequests[i];
-			if (movementRequest.IsChasing())
+			if (!chaseRequest.IsChasing())
 			{
-				for (int j = 0; j < storedMovementRequests.Count; j++)
+				continue;
+			}
+			foreach (MovementRequest movementRequest in storedMovementRequests)
+			{
+				if (chaseRequest.m_chaseTarget != movementRequest.m_actor
+				    || movementRequest.IsChasing())
 				{
-					MovementRequest movementRequest2 = storedMovementRequests[j];
-					if (!(movementRequest.m_chaseTarget != movementRequest2.m_actor) && !movementRequest2.IsChasing())
+					continue;
+				}
+				BoardSquare targetSquare = movementRequest.m_targetSquare;
+				ActorData chaser = chaseRequest.m_actor;
+				FogOfWar chaserFogOfWar = chaser.GetComponent<FogOfWar>();
+				ActorMovement chaserMovement = chaseRequest.m_actor.GetComponent<ActorMovement>();
+				bool targetWillDieAtEnd = movementRequest.m_path.WillDieAtEnd();
+				if (chaseRequest.IsBeingDragged()
+				    || chaserFogOfWar.IsVisible(targetSquare)
+				    || movementRequest.m_actor.GetActorStatus().HasStatus(StatusType.Revealed))
+				{
+					ConvertChaseToDirectMovement(chaseRequest, targetSquare);
+					if (chaseRequest.m_targetSquare == targetSquare && !targetWillDieAtEnd)
 					{
-						BoardSquare targetSquare = movementRequest2.m_targetSquare;
-						ActorData actor = movementRequest.m_actor;
-						FogOfWar component = actor.GetComponent<FogOfWar>();
-						ActorMovement component2 = movementRequest.m_actor.GetComponent<ActorMovement>();
-						bool flag = movementRequest2.m_path.WillDieAtEnd();
-						bool flag2 = movementRequest2.m_actor.GetActorStatus().HasStatus(StatusType.Revealed, true);
-						if (movementRequest.IsBeingDragged() || component.IsVisible(targetSquare) || flag2)
-						{
-							ConvertChaseToDirectMovement(movementRequest, targetSquare);
-							if (movementRequest.m_targetSquare == targetSquare && !flag)
-							{
-								BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_path.BackUpOnceFromEnd();
-								movementRequest.m_targetSquare = boardSquarePathInfo.square;
-							}
-						}
-						else
-						{
-							BoardSquarePathInfo path = movementRequest2.m_path;
-							if (path != null)
-							{
-								BoardSquarePathInfo boardSquarePathInfo2 = FindChaserLastVisiblePartOfMoverPath(actor, movementRequest2.m_actor, path);
-								if (boardSquarePathInfo2 != null)
-								{
-									BoardSquare square = boardSquarePathInfo2.square;
-									if (!component2.CanMoveToBoardSquare(square))
-									{
-										ConvertChaseToDirectMovement(movementRequest, square);
-									}
-									else
-									{
-										movementRequest.m_path = component2.BuildPathTo(actor.GetCurrentBoardSquare(), square);
-										BoardSquarePathInfo pathEndpoint = movementRequest.m_path.GetPathEndpoint();
-										if (boardSquarePathInfo2.next != null)
-										{
-											BoardSquarePathInfo boardSquarePathInfo3 = boardSquarePathInfo2.next.Clone(pathEndpoint);
-											for (BoardSquarePathInfo boardSquarePathInfo4 = boardSquarePathInfo3; boardSquarePathInfo4 != null; boardSquarePathInfo4 = boardSquarePathInfo4.next)
-											{
-												boardSquarePathInfo4.m_moverBumpedFromClash = false;
-												boardSquarePathInfo4.m_moverClashesHere = false;
-												boardSquarePathInfo4.m_moverDiesHere = false;
-												boardSquarePathInfo4.m_moverHasGameplayHitHere = false;
-												boardSquarePathInfo4.m_visibleToEnemies = false;
-												boardSquarePathInfo4.m_updateLastKnownPos = false;
-											}
-											pathEndpoint.next = boardSquarePathInfo3;
-										}
-										movementRequest.m_path.CalcAndSetMoveCostToEnd();
-										BoardSquare square2;
-										if (!flag)
-										{
-											BoardSquarePathInfo boardSquarePathInfo5;
-                                            BackUpPath(actor, null, ref movementRequest.m_path, out square2, out boardSquarePathInfo5, "StabilizeChasersVsMovers");
-										}
-										else
-										{
-											square2 = movementRequest.m_path.GetPathEndpoint().square;
-										}
-										movementRequest.m_chaseTarget = null;
-										movementRequest.m_targetSquare = square2;
-									}
-								}
-							}
-						}
-						if (movementRequest.IsChasing())
-						{
-							Log.Warning(string.Format("StabilizeChasersVsMovers failed to stabilize chaser {0}'s pursuit of target {1}.  Going to target's square at turn start...", actor.DisplayName, movementRequest2.m_actor.DisplayName));
-							BoardSquare square3 = movementRequest2.m_actor.GetActorBehavior().CurrentTurn.Square;
-							ConvertChaseToDirectMovement(movementRequest, square3);
-						}
-						result = true;
-						break;
+						chaseRequest.m_targetSquare = chaseRequest.m_path.BackUpOnceFromEnd().square;
 					}
 				}
+				else
+				{
+					BoardSquarePathInfo path = movementRequest.m_path;
+					if (path != null)
+					{
+						BoardSquarePathInfo lastSeenStep = FindChaserLastVisiblePartOfMoverPath(chaser, movementRequest.m_actor, path);
+						if (lastSeenStep != null)
+						{
+							BoardSquare lastSeenSquare = lastSeenStep.square;
+							if (!chaserMovement.CanMoveToBoardSquare(lastSeenSquare))
+							{
+								ConvertChaseToDirectMovement(chaseRequest, lastSeenSquare);
+							}
+							else
+							{
+								chaseRequest.m_path = chaserMovement.BuildPathTo(chaser.GetCurrentBoardSquare(), lastSeenSquare);
+								BoardSquarePathInfo chaseEndpoint = chaseRequest.m_path.GetPathEndpoint();
+								if (lastSeenStep.next != null)
+								{
+									BoardSquarePathInfo unseenStep = lastSeenStep.next.Clone(chaseEndpoint);
+									for (BoardSquarePathInfo step = unseenStep; step != null; step = step.next)
+									{
+										step.m_moverBumpedFromClash = false;
+										step.m_moverClashesHere = false;
+										step.m_moverDiesHere = false;
+										step.m_moverHasGameplayHitHere = false;
+										step.m_visibleToEnemies = false;
+										step.m_updateLastKnownPos = false;
+									}
+									chaseEndpoint.next = unseenStep;
+								}
+								chaseRequest.m_path.CalcAndSetMoveCostToEnd();
+								BoardSquare newDestination;
+								if (!targetWillDieAtEnd)
+								{
+									BackUpPath(chaser, null, ref chaseRequest.m_path, out newDestination, out _, "StabilizeChasersVsMovers");
+								}
+								else
+								{
+									newDestination = chaseRequest.m_path.GetPathEndpoint().square;
+								}
+								chaseRequest.m_chaseTarget = null;
+								chaseRequest.m_targetSquare = newDestination;
+							}
+						}
+					}
+				}
+				if (chaseRequest.IsChasing())
+				{
+					Log.Warning($"StabilizeChasersVsMovers failed to stabilize chaser {chaser.DisplayName}'s pursuit " +
+					            $"of target {movementRequest.m_actor.DisplayName}.  " + 
+					            "Going to target's square at turn start...");
+					BoardSquare squareAtTurnStart = movementRequest.m_actor.GetActorBehavior().CurrentTurn.Square;
+					ConvertChaseToDirectMovement(chaseRequest, squareAtTurnStart);
+				}
+				result = true;
+				break;
 			}
 		}
 		return result;
@@ -829,85 +818,86 @@ public class ServerMovementStabilizer
 	private bool StabilizeChasersVsChasers(List<MovementRequest> storedMovementRequests)
 	{
 		bool result = false;
-		for (int i = 0; i < storedMovementRequests.Count; i++)
+		foreach (MovementRequest chaseRequest in storedMovementRequests)
 		{
-			MovementRequest movementRequest = storedMovementRequests[i];
-			if (movementRequest.IsChasing())
+			if (!chaseRequest.IsChasing())
 			{
-				for (int j = 0; j < storedMovementRequests.Count; j++)
+				continue;
+			}
+			foreach (MovementRequest movementRequest in storedMovementRequests)
+			{
+				if (chaseRequest.m_chaseTarget != movementRequest.m_actor
+				    || !movementRequest.IsChasing())
 				{
-					MovementRequest movementRequest2 = storedMovementRequests[j];
-					if (!(movementRequest.m_chaseTarget != movementRequest2.m_actor) && movementRequest2.IsChasing())
+					continue;
+				}
+				bool flag = false;
+				ActorMovement chaserMovement = chaseRequest.m_actor.GetComponent<ActorMovement>();
+				ActorData chaser = chaseRequest.m_actor;
+				ActorMovement targetMovement = movementRequest.m_actor.GetComponent<ActorMovement>();
+				ActorData targetActor = movementRequest.m_actor;
+				BoardSquarePathInfo pathToCurrentTargetPos = chaserMovement.BuildPathTo(chaser.GetCurrentBoardSquare(), targetActor.GetCurrentBoardSquare());
+				if (pathToCurrentTargetPos != null && movementRequest.m_chaseTarget == chaseRequest.m_actor)
+				{
+					BoardSquarePathInfo pathMidpoint = pathToCurrentTargetPos.GetPathMidpoint();
+					if (targetMovement.CanMoveToBoardSquare(pathMidpoint.square))
 					{
-						bool flag = false;
-						ActorMovement component = movementRequest.m_actor.GetComponent<ActorMovement>();
-						ActorData actor = movementRequest.m_actor;
-						ActorMovement component2 = movementRequest2.m_actor.GetComponent<ActorMovement>();
-						ActorData actor2 = movementRequest2.m_actor;
-						BoardSquarePathInfo boardSquarePathInfo = component.BuildPathTo(actor.GetCurrentBoardSquare(), actor2.GetCurrentBoardSquare());
-						if (boardSquarePathInfo != null && movementRequest2.m_chaseTarget == movementRequest.m_actor)
+						pathMidpoint.next = null;
+						chaseRequest.m_path = pathToCurrentTargetPos;
+						chaseRequest.m_targetSquare = pathMidpoint.square;
+						chaseRequest.m_chaseTarget = null;
+						movementRequest.m_path = targetMovement.BuildPathTo(targetActor.GetCurrentBoardSquare(), pathMidpoint.square);
+						movementRequest.m_targetSquare = pathMidpoint.square;
+						movementRequest.m_chaseTarget = null;
+						result = true;
+					}
+					else
+					{
+						BoardSquarePathInfo pathFromTargetCurrentPos = targetMovement.BuildPathTo(targetActor.GetCurrentBoardSquare(), chaser.GetCurrentBoardSquare());
+						if (pathFromTargetCurrentPos != null)
 						{
-							BoardSquarePathInfo pathMidpoint = boardSquarePathInfo.GetPathMidpoint();
-							if (component2.CanMoveToBoardSquare(pathMidpoint.square))
+							BoardSquarePathInfo pathMidpoint2 = pathFromTargetCurrentPos.GetPathMidpoint();
+							if (chaserMovement.CanMoveToBoardSquare(pathMidpoint2.square))
 							{
-								pathMidpoint.next = null;
-								movementRequest.m_path = boardSquarePathInfo;
-								movementRequest.m_targetSquare = pathMidpoint.square;
+								pathMidpoint2.next = null;
+								movementRequest.m_path = pathFromTargetCurrentPos;
+								movementRequest.m_targetSquare = pathMidpoint2.square;
 								movementRequest.m_chaseTarget = null;
-								movementRequest2.m_path = component2.BuildPathTo(actor2.GetCurrentBoardSquare(), pathMidpoint.square);
-								movementRequest2.m_targetSquare = pathMidpoint.square;
-								movementRequest2.m_chaseTarget = null;
+								chaseRequest.m_path = chaserMovement.BuildPathTo(chaser.GetCurrentBoardSquare(), pathMidpoint2.square);
+								chaseRequest.m_targetSquare = pathMidpoint2.square;
+								chaseRequest.m_chaseTarget = null;
 								result = true;
 							}
 							else
 							{
-								BoardSquarePathInfo boardSquarePathInfo2 = component2.BuildPathTo(actor2.GetCurrentBoardSquare(), actor.GetCurrentBoardSquare());
-								if (boardSquarePathInfo2 != null)
-								{
-									BoardSquarePathInfo pathMidpoint2 = boardSquarePathInfo2.GetPathMidpoint();
-									if (component.CanMoveToBoardSquare(pathMidpoint2.square))
-									{
-										pathMidpoint2.next = null;
-										movementRequest2.m_path = boardSquarePathInfo2;
-										movementRequest2.m_targetSquare = pathMidpoint2.square;
-										movementRequest2.m_chaseTarget = null;
-										movementRequest.m_path = component.BuildPathTo(actor.GetCurrentBoardSquare(), pathMidpoint2.square);
-										movementRequest.m_targetSquare = pathMidpoint2.square;
-										movementRequest.m_chaseTarget = null;
-										result = true;
-									}
-									else
-									{
-										flag = true;
-									}
-								}
-								else
-								{
-									flag = true;
-								}
+								flag = true;
 							}
 						}
 						else
 						{
 							flag = true;
 						}
-						if (flag && boardSquarePathInfo == null)
-						{
-							BoardSquare currentBoardSquare = actor2.GetCurrentBoardSquare();
-							BoardSquare closestMoveableSquareTo = component.GetClosestMoveableSquareTo(currentBoardSquare);
-							movementRequest.m_path = component.BuildPathTo(actor.GetCurrentBoardSquare(), closestMoveableSquareTo);
-							movementRequest.m_chaseTarget = null;
-							movementRequest.m_targetSquare = closestMoveableSquareTo;
-							result = true;
-						}
-						else if (flag)
-						{
-							movementRequest.m_path = boardSquarePathInfo;
-							movementRequest.m_chaseTarget = null;
-							movementRequest.m_targetSquare = movementRequest2.m_actor.GetCurrentBoardSquare();
-							result = true;
-						}
 					}
+				}
+				else
+				{
+					flag = true;
+				}
+				if (flag && pathToCurrentTargetPos == null)
+				{
+					BoardSquare targetCurrentBoardSquare = targetActor.GetCurrentBoardSquare();
+					BoardSquare closestMoveableSquareTo = chaserMovement.GetClosestMoveableSquareTo(targetCurrentBoardSquare);
+					chaseRequest.m_path = chaserMovement.BuildPathTo(chaser.GetCurrentBoardSquare(), closestMoveableSquareTo);
+					chaseRequest.m_chaseTarget = null;
+					chaseRequest.m_targetSquare = closestMoveableSquareTo;
+					result = true;
+				}
+				else if (flag)
+				{
+					chaseRequest.m_path = pathToCurrentTargetPos;
+					chaseRequest.m_chaseTarget = null;
+					chaseRequest.m_targetSquare = movementRequest.m_actor.GetCurrentBoardSquare();
+					result = true;
 				}
 			}
 		}
@@ -916,74 +906,72 @@ public class ServerMovementStabilizer
 
 	private static BoardSquarePathInfo FindChaserLastVisiblePartOfMoverPath(ActorData chaser, ActorData mover, BoardSquarePathInfo moverPath)
 	{
-		FogOfWar component = chaser.GetComponent<FogOfWar>();
-		BoardSquarePathInfo boardSquarePathInfo = moverPath;
-		BoardSquarePathInfo boardSquarePathInfo2 = null;
-		bool flag = false;
-		while (boardSquarePathInfo != null && boardSquarePathInfo.square != null)
+		FogOfWar chaserFogOfWar = chaser.GetComponent<FogOfWar>();
+		
+		BoardSquarePathInfo lastSeenStep = null;
+		bool isStepTargetVisible = false;
+		for (BoardSquarePathInfo step = moverPath; step != null && step.square != null; step = step.next)
 		{
-			if (boardSquarePathInfo.square.IsValidForGameplay() && component.IsVisible(boardSquarePathInfo.square))
+			if (step.square.IsValidForGameplay() && chaserFogOfWar.IsVisible(step.square))
 			{
-				boardSquarePathInfo2 = boardSquarePathInfo;
-				flag = true;
+				lastSeenStep = step;
+				isStepTargetVisible = true;
 			}
-			else if (!boardSquarePathInfo.square.IsValidForGameplay() && boardSquarePathInfo.prev != null && boardSquarePathInfo.prev == boardSquarePathInfo2)
+			else if (!step.square.IsValidForGameplay() && step.prev != null && step.prev == lastSeenStep)
 			{
-				boardSquarePathInfo2 = boardSquarePathInfo;
-				flag = false;
+				lastSeenStep = step;
+				isStepTargetVisible = false;
 			}
-			else if (boardSquarePathInfo.prev != null && !boardSquarePathInfo.prev.square.IsValidForGameplay() && boardSquarePathInfo.prev == boardSquarePathInfo2)
+			else if (step.prev != null && !step.prev.square.IsValidForGameplay() && step.prev == lastSeenStep)
 			{
-				boardSquarePathInfo2 = boardSquarePathInfo;
-				flag = false;
+				lastSeenStep = step;
+				isStepTargetVisible = false;
 			}
-			boardSquarePathInfo = boardSquarePathInfo.next;
 		}
-		if (boardSquarePathInfo2 != null && flag && boardSquarePathInfo2.next != null)
+		if (lastSeenStep != null && isStepTargetVisible && lastSeenStep.next != null)
 		{
-			boardSquarePathInfo2 = boardSquarePathInfo2.next;
+			lastSeenStep = lastSeenStep.next;
 		}
-		return boardSquarePathInfo2;
+		return lastSeenStep;
 	}
 
 	public void ModifyPathForMaxMovement(ActorData mover, BoardSquarePathInfo path, bool modifyAsIfSnared)
 	{
-		if (mover != null && path != null)
+		if (mover == null || path == null)
 		{
-			int num = 0;
-			bool flag = true;
-			float maxMovement = mover.GetActorMovement().CalculateMaxHorizontalMovement(false, modifyAsIfSnared);
-			while (!path.IsValidPathForMaxMovement(maxMovement) && flag && num < 100)
+			return;
+		}
+		int num = 0;
+		bool canBackUp = true;
+		float maxMovement = mover.GetActorMovement().CalculateMaxHorizontalMovement(false, modifyAsIfSnared);
+		while (!path.IsValidPathForMaxMovement(maxMovement) && canBackUp && num < 100)
+		{
+			float oldCost = path.FindMoveCostToEnd();
+			BackUpPath(mover, null, ref path, out _, out _, "ModifyPathForMaxMovement");
+			float newCost = path.FindMoveCostToEnd();
+			if (oldCost == newCost)
 			{
-				BoardSquare boardSquare = null;
-				float num2 = path.FindMoveCostToEnd();
-				BoardSquarePathInfo boardSquarePathInfo;
-                BackUpPath(mover, null, ref path, out boardSquare, out boardSquarePathInfo, "ModifyPathForMaxMovement");
-				float num3 = path.FindMoveCostToEnd();
-				if (num2 == num3)
-				{
-					flag = false;
-				}
-				num++;
+				canBackUp = false;
 			}
-			if (num >= 100)
-			{
-				Log.Error("ModifyPathForMaxMovement did not finish within 100 iterations");
-			}
+			num++;
+		}
+		if (num >= 100)
+		{
+			Log.Error("ModifyPathForMaxMovement did not finish within 100 iterations");
 		}
 	}
 
 	public void RemoveStationaryMovementRequests(ref List<MovementRequest> movementRequests)
 	{
-		List<MovementRequest> list = new List<MovementRequest>();
+		List<MovementRequest> badRequests = new List<MovementRequest>();
 		foreach (MovementRequest movementRequest in movementRequests)
 		{
 			if (movementRequest.m_targetSquare == movementRequest.m_actor.GetCurrentBoardSquare() && movementRequest.m_path.next == null)
 			{
-				list.Add(movementRequest);
+				badRequests.Add(movementRequest);
 			}
 		}
-		foreach (MovementRequest item in list)
+		foreach (MovementRequest item in badRequests)
 		{
 			movementRequests.Remove(item);
 		}
