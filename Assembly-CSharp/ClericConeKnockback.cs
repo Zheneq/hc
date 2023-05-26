@@ -5,25 +5,16 @@ public class ClericConeKnockback : Ability
 {
 	[Header("-- Targeting")]
 	public float m_coneWidthAngle = 180f;
-
 	public float m_coneBackwardOffset;
-
 	public float m_coneLength = 2.5f;
-
 	public bool m_penetrateLineOfSight;
-
 	public int m_maxTargets = 5;
-
 	[Header("-- Knockback")]
 	public float m_knockbackDistance;
-
 	public KnockbackType m_knockbackType = KnockbackType.PerpendicularAwayFromAimDir;
-
 	[Header("-- On Hit Damage/Effect")]
 	public int m_damageAmount = 20;
-
 	public StandardEffectInfo m_targetHitEffect;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
@@ -43,9 +34,16 @@ public class ClericConeKnockback : Ability
 		SetCachedFields();
 		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_ClericConeKnockback abilityUtil_Targeter_ClericConeKnockback = new AbilityUtil_Targeter_ClericConeKnockback(this, GetConeLength(), GetConeWidthAngle(), GetConeBackwardOffset(), PenetrateLineOfSight(), GetKnockbackDistance(), GetKnockbackType());
-			abilityUtil_Targeter_ClericConeKnockback.SetUseMultiTargetUpdate(true);
-			base.Targeters.Add(abilityUtil_Targeter_ClericConeKnockback);
+			AbilityUtil_Targeter_ClericConeKnockback targeter = new AbilityUtil_Targeter_ClericConeKnockback(
+				this,
+				GetConeLength(),
+				GetConeWidthAngle(),
+				GetConeBackwardOffset(),
+				PenetrateLineOfSight(),
+				GetKnockbackDistance(),
+				GetKnockbackType());
+			targeter.SetUseMultiTargetUpdate(true);
+			Targeters.Add(targeter);
 		}
 	}
 
@@ -111,23 +109,15 @@ public class ClericConeKnockback : Ability
 
 	public StandardEffectInfo GetTargetHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedTargetHitEffect != null)
-		{
-			result = m_cachedTargetHitEffect;
-		}
-		else
-		{
-			result = m_targetHitEffect;
-		}
-		return result;
+		return m_cachedTargetHitEffect ?? m_targetHitEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetDamageAmount()));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetDamageAmount())
+		};
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)

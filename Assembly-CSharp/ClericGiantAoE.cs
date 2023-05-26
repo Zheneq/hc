@@ -5,29 +5,19 @@ public class ClericGiantAoE : Ability
 {
 	[Header("-- Targeting")]
 	public float m_aoeRadius = 6f;
-
 	public bool m_penetrateLoS;
-
 	public int m_maxTargets = -1;
-
 	[Header("-- On Hit Damage/Heal/Effect")]
 	public int m_damageAmount = 30;
-
 	public float m_damageDecreasePerSquare = 2f;
-
 	public int m_healAmount = 30;
-
 	public float m_healDecreasePerSquare = 2f;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
 	public StandardEffectInfo m_allyHitEffect;
-
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private StandardEffectInfo m_cachedEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedAllyHitEffect;
 
 	private void Start()
@@ -42,7 +32,7 @@ public class ClericGiantAoE : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), PenetrateLoS(), true, true, GetMaxTargets());
+		Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), PenetrateLoS(), true, true, GetMaxTargets());
 	}
 
 	private void SetCachedFields()
@@ -88,30 +78,12 @@ public class ClericGiantAoE : Ability
 
 	public StandardEffectInfo GetEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyHitEffect != null)
-		{
-			result = m_cachedEnemyHitEffect;
-		}
-		else
-		{
-			result = m_enemyHitEffect;
-		}
-		return result;
+		return m_cachedEnemyHitEffect ?? m_enemyHitEffect;
 	}
 
 	public StandardEffectInfo GetAllyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedAllyHitEffect != null)
-		{
-			result = m_cachedAllyHitEffect;
-		}
-		else
-		{
-			result = m_allyHitEffect;
-		}
-		return result;
+		return m_cachedAllyHitEffect ?? m_allyHitEffect;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -125,21 +97,23 @@ public class ClericGiantAoE : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount));
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Enemy, m_damageAmount),
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount)
+		};
 	}
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		int num = Mathf.RoundToInt((targetActor.GetLoSCheckPos() - base.ActorData.GetLoSCheckPos()).magnitude / Board.Get().squareSize);
-		num = Mathf.Max(0, num - 1);
-		int value = GetDamageAmount() - Mathf.RoundToInt((float)num * GetDamageDecreasePerSquare());
-		int value2 = GetHealAmount() - Mathf.RoundToInt((float)num * GetHealDecreasePerSquare());
-		dictionary[AbilityTooltipSymbol.Damage] = value;
-		dictionary[AbilityTooltipSymbol.Healing] = value2;
-		return dictionary;
+		int dist = Mathf.RoundToInt((targetActor.GetLoSCheckPos() - ActorData.GetLoSCheckPos()).magnitude / Board.Get().squareSize);
+		dist = Mathf.Max(0, dist - 1);
+		int damage = GetDamageAmount() - Mathf.RoundToInt(dist * GetDamageDecreasePerSquare());
+		int healing = GetHealAmount() - Mathf.RoundToInt(dist * GetHealDecreasePerSquare());
+		return new Dictionary<AbilityTooltipSymbol, int>
+		{
+			[AbilityTooltipSymbol.Damage] = damage,
+			[AbilityTooltipSymbol.Healing] = healing
+		};
 	}
 }

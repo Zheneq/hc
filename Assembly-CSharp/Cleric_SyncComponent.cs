@@ -6,7 +6,6 @@ public class Cleric_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	internal int m_turnsAreaBuffActive;
-
 	[SyncVar(hook = "MeleeKnockbackAnimRangeChanged")]
 	internal int m_meleeKnockbackAnimRange;
 
@@ -14,66 +13,35 @@ public class Cleric_SyncComponent : NetworkBehaviour
 
 	public int Networkm_turnsAreaBuffActive
 	{
-		get
-		{
-			return m_turnsAreaBuffActive;
-		}
+		get => m_turnsAreaBuffActive;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_turnsAreaBuffActive, 1u);
-		}
+		set => SetSyncVar(value, ref m_turnsAreaBuffActive, 1u);
 	}
 
 	public int Networkm_meleeKnockbackAnimRange
 	{
-		get
-		{
-			return m_meleeKnockbackAnimRange;
-		}
+		get => m_meleeKnockbackAnimRange;
 		[param: In]
 		set
 		{
-			ref int meleeKnockbackAnimRange = ref m_meleeKnockbackAnimRange;
-			if (NetworkServer.localClientActive)
+			if (NetworkServer.localClientActive && !syncVarHookGuard)
 			{
-				if (!base.syncVarHookGuard)
-				{
-					base.syncVarHookGuard = true;
-					MeleeKnockbackAnimRangeChanged(value);
-					base.syncVarHookGuard = false;
-				}
+				syncVarHookGuard = true;
+				MeleeKnockbackAnimRangeChanged(value);
+				syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref meleeKnockbackAnimRange, 2u);
+			SetSyncVar(value, ref m_meleeKnockbackAnimRange, 2u);
 		}
 	}
 
 	internal void MeleeKnockbackAnimRangeChanged(int value)
 	{
-		ActorData component = GetComponent<ActorData>();
-		if (!(component != null))
+		ActorData actorData = GetComponent<ActorData>();
+		if (actorData != null
+		    && actorData.GetActorModelData() != null
+		    && actorData.GetActorModelData().HasAnimatorControllerParamater("AttackRange"))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(component.GetActorModelData() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (component.GetActorModelData().HasAnimatorControllerParamater("AttackRange"))
-				{
-					while (true)
-					{
-						Animator modelAnimator = component.GetActorModelData().GetModelAnimator();
-						modelAnimator.SetInteger(animAttackRange, value);
-						return;
-					}
-				}
-				return;
-			}
+			actorData.GetActorModelData().GetModelAnimator().SetInteger(animAttackRange, value);
 		}
 	}
 
@@ -90,27 +58,27 @@ public class Cleric_SyncComponent : NetworkBehaviour
 			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_turnsAreaBuffActive);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_meleeKnockbackAnimRange);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -123,19 +91,14 @@ public class Cleric_SyncComponent : NetworkBehaviour
 			m_meleeKnockbackAnimRange = (int)reader.ReadPackedUInt32();
 			return;
 		}
-		int num = (int)reader.ReadPackedUInt32();
-		if ((num & 1) != 0)
+		int dirtyBits = (int)reader.ReadPackedUInt32();
+		if ((dirtyBits & 1) != 0)
 		{
 			m_turnsAreaBuffActive = (int)reader.ReadPackedUInt32();
 		}
-		if ((num & 2) == 0)
-		{
-			return;
-		}
-		while (true)
+		if ((dirtyBits & 2) != 0)
 		{
 			MeleeKnockbackAnimRangeChanged((int)reader.ReadPackedUInt32());
-			return;
 		}
 	}
 }
