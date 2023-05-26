@@ -8,7 +8,6 @@ public class ClericHammerThrow : Ability
 	public class RadiusToHitData : RadiusToDataBase
 	{
 		public int m_damage;
-
 		public StandardEffectInfo m_hitEffectInfo;
 
 		public RadiusToHitData(float radiusInSquares, int damage, StandardEffectInfo hitEffect)
@@ -19,39 +18,25 @@ public class ClericHammerThrow : Ability
 		}
 	}
 
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_maxDistToRingCenter = 5.5f;
-
 	public float m_outerRadius = 2.5f;
-
 	public float m_innerRadius = 1f;
-
 	public bool m_ignoreLos;
-
 	public bool m_clampRingToCursorPos = true;
-
-	[Separator("On Hit", true)]
+	[Separator("On Hit")]
 	public int m_outerHitDamage = 15;
-
 	public StandardEffectInfo m_outerEnemyHitEffect;
-
 	public int m_innerHitDamage = 20;
-
 	public StandardEffectInfo m_innerEnemyHitEffect;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-
+	
 	private List<RadiusToHitData> m_cachedRadiusToHitData = new List<RadiusToHitData>();
-
 	private AbilityMod_ClericHammerThrow m_abilityMod;
-
 	private Cleric_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedOuterEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedInnerEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedOuterEnemyHitEffectWithNoInnerHits;
 
 	private void Start()
@@ -71,8 +56,23 @@ public class ClericHammerThrow : Ability
 		m_cachedRadiusToHitData.Add(new RadiusToHitData(GetInnerRadius(), GetInnerHitDamage(), GetInnerEnemyHitEffect()));
 		m_cachedRadiusToHitData.Add(new RadiusToHitData(GetOuterRadius(), GetOuterHitDamage(), GetOuterEnemyHitEffect()));
 		m_cachedRadiusToHitData.Sort();
-		AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = (AbilityUtil_Targeter_MartyrLaser)(base.Targeter = new AbilityUtil_Targeter_MartyrLaser(this, 0f, GetMaxDistToRingCenter(), false, -1, true, false, false, true, false, GetOuterRadius(), GetInnerRadius(), false, true, false));
-		base.Targeter.SetShowArcToShape(true);
+		Targeter = new AbilityUtil_Targeter_MartyrLaser(
+			this,
+			0f,
+			GetMaxDistToRingCenter(),
+			false,
+			-1,
+			true,
+			false,
+			false,
+			true,
+			false,
+			GetOuterRadius(),
+			GetInnerRadius(),
+			false,
+			true,
+			false);
+		Targeter.SetShowArcToShape(true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -85,177 +85,93 @@ public class ClericHammerThrow : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedOuterEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedOuterEnemyHitEffect = m_abilityMod.m_outerEnemyHitEffectMod.GetModifiedValue(m_outerEnemyHitEffect);
-		}
-		else
-		{
-			cachedOuterEnemyHitEffect = m_outerEnemyHitEffect;
-		}
-		m_cachedOuterEnemyHitEffect = cachedOuterEnemyHitEffect;
-		StandardEffectInfo cachedInnerEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedInnerEnemyHitEffect = m_abilityMod.m_innerEnemyHitEffectMod.GetModifiedValue(m_innerEnemyHitEffect);
-		}
-		else
-		{
-			cachedInnerEnemyHitEffect = m_innerEnemyHitEffect;
-		}
-		m_cachedInnerEnemyHitEffect = cachedInnerEnemyHitEffect;
-		object cachedOuterEnemyHitEffectWithNoInnerHits;
-		if ((bool)m_abilityMod)
-		{
-			cachedOuterEnemyHitEffectWithNoInnerHits = m_abilityMod.m_outerEnemyHitEffectWithNoInnerHits.GetModifiedValue(null);
-		}
-		else
-		{
-			cachedOuterEnemyHitEffectWithNoInnerHits = null;
-		}
-		m_cachedOuterEnemyHitEffectWithNoInnerHits = (StandardEffectInfo)cachedOuterEnemyHitEffectWithNoInnerHits;
+		m_cachedOuterEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_outerEnemyHitEffectMod.GetModifiedValue(m_outerEnemyHitEffect)
+			: m_outerEnemyHitEffect;
+		m_cachedInnerEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_innerEnemyHitEffectMod.GetModifiedValue(m_innerEnemyHitEffect)
+			: m_innerEnemyHitEffect;
+		m_cachedOuterEnemyHitEffectWithNoInnerHits = m_abilityMod != null
+			? m_abilityMod.m_outerEnemyHitEffectWithNoInnerHits.GetModifiedValue(null)
+			: null;
 	}
 
 	public float GetMaxDistToRingCenter()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxDistToRingCenterMod.GetModifiedValue(m_maxDistToRingCenter);
-		}
-		else
-		{
-			result = m_maxDistToRingCenter;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxDistToRingCenterMod.GetModifiedValue(m_maxDistToRingCenter)
+			: m_maxDistToRingCenter;
 	}
 
 	public float GetOuterRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_outerRadiusMod.GetModifiedValue(m_outerRadius);
-		}
-		else
-		{
-			result = m_outerRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_outerRadiusMod.GetModifiedValue(m_outerRadius)
+			: m_outerRadius;
 	}
 
 	public float GetInnerRadius()
 	{
-		return (!m_abilityMod) ? m_innerRadius : m_abilityMod.m_innerRadiusMod.GetModifiedValue(m_innerRadius);
+		return m_abilityMod != null
+			? m_abilityMod.m_innerRadiusMod.GetModifiedValue(m_innerRadius)
+			: m_innerRadius;
 	}
 
 	public bool IgnoreLos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
-		}
-		else
-		{
-			result = m_ignoreLos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos)
+			: m_ignoreLos;
 	}
 
 	public bool ClampRingToCursorPos()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_clampRingToCursorPosMod.GetModifiedValue(m_clampRingToCursorPos);
-		}
-		else
-		{
-			result = m_clampRingToCursorPos;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_clampRingToCursorPosMod.GetModifiedValue(m_clampRingToCursorPos)
+			: m_clampRingToCursorPos;
 	}
 
 	public int GetOuterHitDamage()
 	{
-		return (!m_abilityMod) ? m_outerHitDamage : m_abilityMod.m_outerHitDamageMod.GetModifiedValue(m_outerHitDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_outerHitDamageMod.GetModifiedValue(m_outerHitDamage)
+			: m_outerHitDamage;
 	}
 
 	public StandardEffectInfo GetOuterEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedOuterEnemyHitEffect != null)
-		{
-			result = m_cachedOuterEnemyHitEffect;
-		}
-		else
-		{
-			result = m_outerEnemyHitEffect;
-		}
-		return result;
+		return m_cachedOuterEnemyHitEffect ?? m_outerEnemyHitEffect;
 	}
 
 	public int GetInnerHitDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_innerHitDamageMod.GetModifiedValue(m_innerHitDamage);
-		}
-		else
-		{
-			result = m_innerHitDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_innerHitDamageMod.GetModifiedValue(m_innerHitDamage)
+			: m_innerHitDamage;
 	}
 
 	public StandardEffectInfo GetInnerEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedInnerEnemyHitEffect != null)
-		{
-			result = m_cachedInnerEnemyHitEffect;
-		}
-		else
-		{
-			result = m_innerEnemyHitEffect;
-		}
-		return result;
+		return m_cachedInnerEnemyHitEffect ?? m_innerEnemyHitEffect;
 	}
 
 	public StandardEffectInfo GetOuterEnemyHitEffectWithNoInnerHits()
 	{
-		object result;
-		if (m_cachedOuterEnemyHitEffectWithNoInnerHits != null)
-		{
-			result = m_cachedOuterEnemyHitEffectWithNoInnerHits;
-		}
-		else
-		{
-			result = null;
-		}
-		return (StandardEffectInfo)result;
+		return m_cachedOuterEnemyHitEffectWithNoInnerHits;
 	}
 
 	public int GetExtraInnerDamagePerOuterHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraInnerDamagePerOuterHit.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraInnerDamagePerOuterHit.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetExtraTPGainInAreaBuff()
 	{
-		return m_abilityMod ? m_abilityMod.m_extraTechPointGainInAreaBuff.GetModifiedValue(0) : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraTechPointGainInAreaBuff.GetModifiedValue(0)
+			: 0;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -267,40 +183,35 @@ public class ClericHammerThrow : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) > 0 && m_cachedRadiusToHitData.Count > 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Secondary) <= 0
+		    || m_cachedRadiusToHitData.Count <= 0)
 		{
-			AbilityUtil_Targeter_MartyrLaser abilityUtil_Targeter_MartyrLaser = base.Targeter as AbilityUtil_Targeter_MartyrLaser;
-			RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(m_cachedRadiusToHitData, targetActor.GetCurrentBoardSquare(), abilityUtil_Targeter_MartyrLaser.m_lastLaserEndPos, base.ActorData, true);
-			if (bestMatchingData != null)
+			return false;
+		}
+		RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(
+			m_cachedRadiusToHitData,
+			targetActor.GetCurrentBoardSquare(),
+			(Targeter as AbilityUtil_Targeter_MartyrLaser).m_lastLaserEndPos,
+			ActorData,
+			true);
+		if (bestMatchingData != null)
+		{
+			int extraDamage = 0;
+			if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Tertiary) == 0)
 			{
-				int num = 0;
-				if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Tertiary) == 0)
-				{
-					num = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Tertiary) * GetExtraInnerDamagePerOuterHit();
-				}
-				results.m_damage = bestMatchingData.m_damage + num;
-				return true;
+				extraDamage = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Tertiary) * GetExtraInnerDamagePerOuterHit();
 			}
+			results.m_damage = bestMatchingData.m_damage + extraDamage;
+			return true;
 		}
 		return false;
 	}
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if (caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return GetExtraTPGainInAreaBuff() * base.Targeter.GetNumActorsInRange();
-				}
-			}
-		}
-		return base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
+		return caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff))
+			? GetExtraTPGainInAreaBuff() * Targeter.GetNumActorsInRange()
+			: base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)

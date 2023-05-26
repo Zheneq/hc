@@ -9,62 +9,39 @@ public class ClericRangedHeal : Ability
 		PrepPhaseOfNextTurn
 	}
 
-	[Separator("On Hit Heal/Effect", true)]
+	[Separator("On Hit Heal/Effect")]
 	public int m_healAmount = 30;
-
 	public int m_selfHealIfTargetingAlly = 15;
-
 	public StandardEffectInfo m_targetHitEffect;
-
-	[Separator("Extra Heal Based on Enemy Hits", true)]
+	[Separator("Extra Heal Based on Enemy Hits")]
 	public ExtraHealApplyTiming m_extraHealApplyTiming;
-
 	public int m_extraHealOnEnemyHit;
-
 	public int m_extraHealOnSubseqEnemyHit;
-
-	[Separator("Extra Heal Based on Current Health", true)]
+	[Separator("Extra Heal Based on Current Health")]
 	public float m_healPerPercentHealthLost;
-
-	[Separator("On Self", true)]
+	[Separator("On Self")]
 	public StandardEffectInfo m_effectOnSelf;
-
-	[Separator("Effect in Radius", true)]
+	[Separator("Effect in Radius")]
 	public float m_enemyDebuffRadiusAroundTarget;
-
 	public float m_enemyDebuffRadiusAroundCaster;
-
 	public bool m_enemyDebuffRadiusIgnoreLoS;
-
 	public StandardEffectInfo m_enemyDebuffInRadiusEffect;
-
-	[Separator("Reactions", true)]
+	[Separator("Reactions")]
 	public StandardEffectInfo m_reactionEffectForHealTarget;
-
 	public StandardEffectInfo m_reactionEffectForCaster;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_reactionProjectileSequencePrefab;
-
 	[Header("-- For Extra Heal Effect, if Extra Heal On Enemy Hit is used")]
 	public GameObject m_extraHealPersistentSeqPrefab;
-
 	public GameObject m_extraHealTriggerSeqPrefab;
 
 	private AbilityMod_ClericRangedHeal m_abilityMod;
-
 	private ClericAreaBuff m_buffAbility;
-
 	private StandardEffectInfo m_cachedTargetHitEffect;
-
 	private StandardEffectInfo m_cachedEffectOnSelf;
-
 	private StandardEffectInfo m_cachedReactionEffectForHealTarget;
-
 	private StandardEffectInfo m_cachedReactionEffectForCaster;
-
 	private StandardEffectInfo m_cachedEnemyDebuffInRadiusEffect;
 
 	private void Start()
@@ -79,63 +56,59 @@ public class ClericRangedHeal : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		m_buffAbility = (GetAbilityOfType(typeof(ClericAreaBuff)) as ClericAreaBuff);
+		m_buffAbility = GetAbilityOfType(typeof(ClericAreaBuff)) as ClericAreaBuff;
 		if (GetEnemyDebuffRadiusAroundCaster() > 0f)
 		{
-			base.Targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, GetEnemyDebuffRadiusAroundCaster(), m_enemyDebuffRadiusIgnoreLoS, true, false, -1, false, false);
-			base.Targeter.SetAffectedGroups(true, false, true);
-			base.Targeter.SetShowArcToShape(false);
+			Targeter = new AbilityUtil_Targeter_AoE_AroundActor(
+				this,
+				GetEnemyDebuffRadiusAroundCaster(),
+				m_enemyDebuffRadiusIgnoreLoS,
+				true,
+				false,
+				-1,
+				false,
+				false);
+			Targeter.SetAffectedGroups(true, false, true);
+			Targeter.SetShowArcToShape(false);
 		}
 		else
 		{
-			base.Targeter = new AbilityUtil_Targeter_AoE_AroundActor(this, GetEnemyDebuffRadiusAroundTarget(), m_enemyDebuffRadiusIgnoreLoS);
-			base.Targeter.SetAffectedGroups(true, false, true);
-			base.Targeter.SetShowArcToShape(true);
+			Targeter = new AbilityUtil_Targeter_AoE_AroundActor(
+				this,
+				GetEnemyDebuffRadiusAroundTarget(),
+				m_enemyDebuffRadiusIgnoreLoS);
+			Targeter.SetAffectedGroups(true, false, true);
+			Targeter.SetShowArcToShape(true);
 		}
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (HasTargetableActorsInDecision(caster, false, true, true, ValidateCheckPath.Ignore, m_targetData[0].m_checkLineOfSight, false))
-		{
-			return base.CustomCanCastValidation(caster);
-		}
-		return false;
+		return HasTargetableActorsInDecision(caster,
+			       false,
+			       true,
+			       true,
+			       ValidateCheckPath.Ignore,
+			       m_targetData[0].m_checkLineOfSight,
+			       false)
+		       && base.CustomCanCastValidation(caster);
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null && boardSquareSafe.OccupantActor != null)
-		{
-			if (boardSquareSafe.OccupantActor.GetTeam() == caster.GetTeam() && !boardSquareSafe.OccupantActor.IgnoreForAbilityHits)
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		return targetSquare != null
+		       && targetSquare.OccupantActor != null
+		       && targetSquare.OccupantActor.GetTeam() == caster.GetTeam()
+		       && !targetSquare.OccupantActor.IgnoreForAbilityHits;
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ClericRangedHeal))
+		if (abilityMod.GetType() == typeof(AbilityMod_ClericRangedHeal))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ClericRangedHeal);
+			m_abilityMod = abilityMod as AbilityMod_ClericRangedHeal;
 			SetupTargeter();
-			return;
 		}
 	}
 
@@ -147,303 +120,167 @@ public class ClericRangedHeal : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedTargetHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedTargetHitEffect = m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect);
-		}
-		else
-		{
-			cachedTargetHitEffect = m_targetHitEffect;
-		}
-		m_cachedTargetHitEffect = cachedTargetHitEffect;
-		StandardEffectInfo cachedEffectOnSelf;
-		if ((bool)m_abilityMod)
-		{
-			cachedEffectOnSelf = m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf);
-		}
-		else
-		{
-			cachedEffectOnSelf = m_effectOnSelf;
-		}
-		m_cachedEffectOnSelf = cachedEffectOnSelf;
-		StandardEffectInfo cachedReactionEffectForHealTarget;
-		if ((bool)m_abilityMod)
-		{
-			cachedReactionEffectForHealTarget = m_abilityMod.m_reactionEffectForHealTargetMod.GetModifiedValue(m_reactionEffectForHealTarget);
-		}
-		else
-		{
-			cachedReactionEffectForHealTarget = m_reactionEffectForHealTarget;
-		}
-		m_cachedReactionEffectForHealTarget = cachedReactionEffectForHealTarget;
-		StandardEffectInfo cachedReactionEffectForCaster;
-		if ((bool)m_abilityMod)
-		{
-			cachedReactionEffectForCaster = m_abilityMod.m_reactionEffectForCasterMod.GetModifiedValue(m_reactionEffectForCaster);
-		}
-		else
-		{
-			cachedReactionEffectForCaster = m_reactionEffectForCaster;
-		}
-		m_cachedReactionEffectForCaster = cachedReactionEffectForCaster;
-		StandardEffectInfo cachedEnemyDebuffInRadiusEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedEnemyDebuffInRadiusEffect = m_abilityMod.m_enemyDebuffInRadiusEffectMod.GetModifiedValue(m_enemyDebuffInRadiusEffect);
-		}
-		else
-		{
-			cachedEnemyDebuffInRadiusEffect = m_enemyDebuffInRadiusEffect;
-		}
-		m_cachedEnemyDebuffInRadiusEffect = cachedEnemyDebuffInRadiusEffect;
+		m_cachedTargetHitEffect = m_abilityMod != null
+			? m_abilityMod.m_targetHitEffectMod.GetModifiedValue(m_targetHitEffect)
+			: m_targetHitEffect;
+		m_cachedEffectOnSelf = m_abilityMod != null
+			? m_abilityMod.m_effectOnSelfMod.GetModifiedValue(m_effectOnSelf)
+			: m_effectOnSelf;
+		m_cachedReactionEffectForHealTarget = m_abilityMod != null
+			? m_abilityMod.m_reactionEffectForHealTargetMod.GetModifiedValue(m_reactionEffectForHealTarget)
+			: m_reactionEffectForHealTarget;
+		m_cachedReactionEffectForCaster = m_abilityMod != null
+			? m_abilityMod.m_reactionEffectForCasterMod.GetModifiedValue(m_reactionEffectForCaster)
+			: m_reactionEffectForCaster;
+		m_cachedEnemyDebuffInRadiusEffect = m_abilityMod != null
+			? m_abilityMod.m_enemyDebuffInRadiusEffectMod.GetModifiedValue(m_enemyDebuffInRadiusEffect)
+			: m_enemyDebuffInRadiusEffect;
 	}
 
 	public int GetHealAmount()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_healAmountMod.GetModifiedValue(m_healAmount);
-		}
-		else
-		{
-			result = m_healAmount;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_healAmountMod.GetModifiedValue(m_healAmount)
+			: m_healAmount;
 	}
 
 	public int GetSelfHealIfTargetingAlly()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealIfTargetingAllyMod.GetModifiedValue(m_selfHealIfTargetingAlly);
-		}
-		else
-		{
-			result = m_selfHealIfTargetingAlly;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealIfTargetingAllyMod.GetModifiedValue(m_selfHealIfTargetingAlly)
+			: m_selfHealIfTargetingAlly;
 	}
 
 	public StandardEffectInfo GetTargetHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedTargetHitEffect != null)
-		{
-			result = m_cachedTargetHitEffect;
-		}
-		else
-		{
-			result = m_targetHitEffect;
-		}
-		return result;
+		return m_cachedTargetHitEffect ?? m_targetHitEffect;
 	}
 
 	public int GetExtraHealOnEnemyHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraHealOnEnemyHitMod.GetModifiedValue(m_extraHealOnEnemyHit);
-		}
-		else
-		{
-			result = m_extraHealOnEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealOnEnemyHitMod.GetModifiedValue(m_extraHealOnEnemyHit)
+			: m_extraHealOnEnemyHit;
 	}
 
 	public int GetExtraHealOnSubseqEnemyHit()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraHealOnSubseqEnemyHitMod.GetModifiedValue(m_extraHealOnSubseqEnemyHit);
-		}
-		else
-		{
-			result = m_extraHealOnSubseqEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealOnSubseqEnemyHitMod.GetModifiedValue(m_extraHealOnSubseqEnemyHit)
+			: m_extraHealOnSubseqEnemyHit;
 	}
 
 	public int GetExtraHealPerTargetDistance()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraHealPerTargetDistanceMod.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraHealPerTargetDistanceMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int GetSelfHealAdjustIfTargetingSelf()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_selfHealAdjustIfTargetingSelfMod.GetModifiedValue(0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_selfHealAdjustIfTargetingSelfMod.GetModifiedValue(0)
+			: 0;
 	}
 
 	public float GetHealPerPercentHealthLost()
 	{
-		return (!m_abilityMod) ? m_healPerPercentHealthLost : m_abilityMod.m_healPerPercentHealthLostMod.GetModifiedValue(m_healPerPercentHealthLost);
+		return m_abilityMod != null
+			? m_abilityMod.m_healPerPercentHealthLostMod.GetModifiedValue(m_healPerPercentHealthLost)
+			: m_healPerPercentHealthLost;
 	}
 
 	public StandardEffectInfo GetEffectOnSelf()
 	{
-		return (m_cachedEffectOnSelf == null) ? m_effectOnSelf : m_cachedEffectOnSelf;
+		return m_cachedEffectOnSelf ?? m_effectOnSelf;
 	}
 
 	public StandardEffectInfo GetReactionEffectForHealTarget()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReactionEffectForHealTarget != null)
-		{
-			result = m_cachedReactionEffectForHealTarget;
-		}
-		else
-		{
-			result = m_reactionEffectForHealTarget;
-		}
-		return result;
+		return m_cachedReactionEffectForHealTarget ?? m_reactionEffectForHealTarget;
 	}
 
 	public StandardEffectInfo GetReactionEffectForCaster()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReactionEffectForCaster != null)
-		{
-			result = m_cachedReactionEffectForCaster;
-		}
-		else
-		{
-			result = m_reactionEffectForCaster;
-		}
-		return result;
+		return m_cachedReactionEffectForCaster ?? m_reactionEffectForCaster;
 	}
 
 	public float GetEnemyDebuffRadiusAroundTarget()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_enemyDebuffRadiusAroundTargetMod.GetModifiedValue(m_enemyDebuffRadiusAroundTarget);
-		}
-		else
-		{
-			result = m_enemyDebuffRadiusAroundTarget;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyDebuffRadiusAroundTargetMod.GetModifiedValue(m_enemyDebuffRadiusAroundTarget)
+			: m_enemyDebuffRadiusAroundTarget;
 	}
 
 	public float GetEnemyDebuffRadiusAroundCaster()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_enemyDebuffRadiusAroundCasterMod.GetModifiedValue(m_enemyDebuffRadiusAroundCaster);
-		}
-		else
-		{
-			result = m_enemyDebuffRadiusAroundCaster;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_enemyDebuffRadiusAroundCasterMod.GetModifiedValue(m_enemyDebuffRadiusAroundCaster)
+			: m_enemyDebuffRadiusAroundCaster;
 	}
 
 	public StandardEffectInfo GetEnemyDebuffInRadiusEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEnemyDebuffInRadiusEffect != null)
-		{
-			result = m_cachedEnemyDebuffInRadiusEffect;
-		}
-		else
-		{
-			result = m_enemyDebuffInRadiusEffect;
-		}
-		return result;
+		return m_cachedEnemyDebuffInRadiusEffect ?? m_enemyDebuffInRadiusEffect;
 	}
 
 	public int GetTechPointGainPerIncomingHit()
 	{
-		return m_abilityMod ? m_abilityMod.m_techPointGainPerIncomingHitThisTurn.GetModifiedValue(0) : 0;
+		return m_abilityMod != null
+			? m_abilityMod.m_techPointGainPerIncomingHitThisTurn.GetModifiedValue(0)
+			: 0;
 	}
 
 	public int CalcExtraHealFromMissingHealth(ActorData healTarget)
 	{
-		int result = 0;
-		if (GetHealPerPercentHealthLost() > 0f)
+		int extraHeal = 0;
+		if (GetHealPerPercentHealthLost() > 0f && healTarget.HitPoints < healTarget.GetMaxHitPoints())
 		{
-			if (healTarget.HitPoints < healTarget.GetMaxHitPoints())
-			{
-				int num = Mathf.CeilToInt((1f - healTarget.GetHitPointPercent()) * 100f);
-				result = Mathf.RoundToInt(GetHealPerPercentHealthLost() * (float)num);
-			}
+			int percent = Mathf.CeilToInt((1f - healTarget.GetHitPointPercent()) * 100f);
+			extraHeal = Mathf.RoundToInt(GetHealPerPercentHealthLost() * percent);
 		}
-		return result;
+		return extraHeal;
 	}
 
 	public int CalcFinalHealOnActor(ActorData forActor, ActorData caster, ActorData actorOnTargetedSquare)
 	{
-		int num = 0;
-		bool flag = caster == actorOnTargetedSquare;
-		int num2 = GetHealAmount();
-		int num3 = m_healAmount;
-		if (forActor == caster)
+		int healing = 0;
+		bool isSelf = caster == actorOnTargetedSquare;
+		int baseHealingModded = GetHealAmount();
+		int baseHealing = m_healAmount;
+		if (forActor == caster && !isSelf)
 		{
-			if (!flag)
+			baseHealingModded = GetSelfHealIfTargetingAlly();
+			baseHealing = m_selfHealIfTargetingAlly;
+		}
+		if (baseHealing > baseHealingModded)
+		{
+			baseHealing = baseHealingModded;
+		}
+		int extraHealForDistance = 0;
+		if (GetExtraHealPerTargetDistance() != 0 && !isSelf)
+		{
+			float dist = actorOnTargetedSquare.GetCurrentBoardSquare().HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
+			if (dist > 0f)
 			{
-				num2 = GetSelfHealIfTargetingAlly();
-				num3 = m_selfHealIfTargetingAlly;
+				dist -= 1f;
 			}
+			extraHealForDistance += Mathf.RoundToInt(GetExtraHealPerTargetDistance() * dist);
 		}
-		if (num3 > num2)
+		healing = Mathf.Max(baseHealing, baseHealingModded + extraHealForDistance);
+		if (isSelf)
 		{
-			num3 = num2;
+			healing = Mathf.Max(0, healing + GetSelfHealAdjustIfTargetingSelf());
 		}
-		int num4 = 0;
-		if (GetExtraHealPerTargetDistance() != 0)
+		healing += CalcExtraHealFromMissingHealth(forActor);
+		if (m_buffAbility != null
+		    && m_buffAbility.GetExtraHealForPurifyOnBuffedAllies() != 0
+		    && m_buffAbility.IsActorInBuffShape(forActor))
 		{
-			if (!flag)
-			{
-				float num5 = actorOnTargetedSquare.GetCurrentBoardSquare().HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
-				if (num5 > 0f)
-				{
-					num5 -= 1f;
-				}
-				num4 += Mathf.RoundToInt((float)GetExtraHealPerTargetDistance() * num5);
-			}
+			healing += m_buffAbility.GetExtraHealForPurifyOnBuffedAllies();
 		}
-		num = Mathf.Max(num3, num2 + num4);
-		if (flag)
-		{
-			num = Mathf.Max(0, num + GetSelfHealAdjustIfTargetingSelf());
-		}
-		num += CalcExtraHealFromMissingHealth(forActor);
-		if (m_buffAbility != null)
-		{
-			if (m_buffAbility.GetExtraHealForPurifyOnBuffedAllies() != 0)
-			{
-				if (m_buffAbility.IsActorInBuffShape(forActor))
-				{
-					num += m_buffAbility.GetExtraHealForPurifyOnBuffedAllies();
-				}
-			}
-		}
-		return num;
+		return healing;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -461,20 +298,24 @@ public class ClericRangedHeal : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateNameplateTargetingNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount));
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, m_selfHealIfTargetingAlly));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount),
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self,
+				m_selfHealIfTargetingAlly)
+		};
 	}
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
 		AbilityUtil_Targeter_AoE_AroundActor targeter = Targeter as AbilityUtil_Targeter_AoE_AroundActor;
-		if (targeter != null && ActorData.GetTeam() == targetActor.GetTeam() && targeter.m_lastCenterActor != null)
+		if (targeter == null
+		    || ActorData.GetTeam() != targetActor.GetTeam()
+		    || targeter.m_lastCenterActor == null)
 		{
-			results.m_healing = CalcFinalHealOnActor(targetActor, ActorData, targeter.m_lastCenterActor);
-			return true;
+			return false;
 		}
-		return false;
+		results.m_healing = CalcFinalHealOnActor(targetActor, ActorData, targeter.m_lastCenterActor);
+		return true;
 	}
 }
