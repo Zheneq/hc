@@ -4,54 +4,35 @@ public class DinoForceChase : GenericAbility_Container
 {
 	[Separator("Cooldown reduction on knockback ability", true)]
 	public int m_cdrOnKnockbackAbility;
-
 	[Separator("Energy Per Unstoppable Enemy (if ability is combat phase or later)", true)]
 	public int m_energyPerUnstoppableEnemyHit;
 
 	private AbilityMod_DinoForceChase m_abilityMod;
-
 	private AbilityData.ActionType m_knockbackActionType = AbilityData.ActionType.INVALID_ACTION;
 
 	protected override void SetupTargetersAndCachedVars()
 	{
-		AbilityData component = GetComponent<AbilityData>();
-		DinoTargetedKnockback abilityOfType = GetAbilityOfType<DinoTargetedKnockback>();
-		if (component != null)
+		AbilityData abilityData = GetComponent<AbilityData>();
+		DinoTargetedKnockback knockbackAbility = GetAbilityOfType<DinoTargetedKnockback>();
+		if (abilityData != null && knockbackAbility != null)
 		{
-			if (abilityOfType != null)
-			{
-				m_knockbackActionType = component.GetActionTypeOfAbility(abilityOfType);
-			}
+			m_knockbackActionType = abilityData.GetActionTypeOfAbility(knockbackAbility);
 		}
 		base.SetupTargetersAndCachedVars();
 	}
 
 	public int GetCdrOnKnockbackAbility()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cdrOnKnockbackAbilityMod.GetModifiedValue(m_cdrOnKnockbackAbility);
-		}
-		else
-		{
-			result = m_cdrOnKnockbackAbility;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrOnKnockbackAbilityMod.GetModifiedValue(m_cdrOnKnockbackAbility)
+			: m_cdrOnKnockbackAbility;
 	}
 
 	public int GetEnergyPerUnstoppableEnemyHit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_energyPerUnstoppableEnemyHitMod.GetModifiedValue(m_energyPerUnstoppableEnemyHit);
-		}
-		else
-		{
-			result = m_energyPerUnstoppableEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyPerUnstoppableEnemyHitMod.GetModifiedValue(m_energyPerUnstoppableEnemyHit)
+			: m_energyPerUnstoppableEnemyHit;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -63,7 +44,7 @@ public class DinoForceChase : GenericAbility_Container
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		m_abilityMod = (abilityMod as AbilityMod_DinoForceChase);
+		m_abilityMod = abilityMod as AbilityMod_DinoForceChase;
 	}
 
 	protected override void GenModImpl_ClearModRef()

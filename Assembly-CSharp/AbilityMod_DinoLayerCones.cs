@@ -3,10 +3,9 @@ using System.Collections.Generic;
 
 public class AbilityMod_DinoLayerCones : GenericAbility_AbilityMod
 {
-	[Separator("Target Select Mod", true)]
+	[Separator("Target Select Mod")]
 	public TargetSelectMod_LayerCones m_targetSelectMod;
-
-	[Separator("Power Level", true)]
+	[Separator("Power Level")]
 	public AbilityModPropertyInt m_powerLevelAdjustIfNoInnerHitsMod;
 
 	public override Type GetTargetAbilityType()
@@ -22,28 +21,23 @@ public class AbilityMod_DinoLayerCones : GenericAbility_AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		DinoLayerCones dinoLayerCones = targetAbility as DinoLayerCones;
-		if (!(dinoLayerCones != null))
-		{
-			return;
-		}
-		while (true)
+		if (dinoLayerCones != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, m_powerLevelAdjustIfNoInnerHitsMod, "PowerLevelAdjustIfNoInnerHits", string.Empty, dinoLayerCones.m_powerLevelAdjustIfNoInnerHits);
-			return;
+			AddToken(tokens, m_powerLevelAdjustIfNoInnerHitsMod, "PowerLevelAdjustIfNoInnerHits", string.Empty, dinoLayerCones.m_powerLevelAdjustIfNoInnerHits);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		DinoLayerCones dinoLayerCones = GetTargetAbilityOnAbilityData(abilityData) as DinoLayerCones;
-		bool flag = dinoLayerCones != null;
-		string text = base.ModSpecificAutogenDesc(abilityData);
+		bool isValid = dinoLayerCones != null;
+		string desc = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoLayerCones != null)
 		{
-			text += GetTargetSelectModDesc(m_targetSelectMod, dinoLayerCones.m_targetSelectComp);
-			text += PropDesc(m_powerLevelAdjustIfNoInnerHitsMod, "[PowerLevelAdjustIfNoInnerHits]", flag, flag ? dinoLayerCones.m_powerLevelAdjustIfNoInnerHits : 0);
+			desc += GetTargetSelectModDesc(m_targetSelectMod, dinoLayerCones.m_targetSelectComp);
+			desc += PropDesc(m_powerLevelAdjustIfNoInnerHitsMod, "[PowerLevelAdjustIfNoInnerHits]", isValid, isValid ? dinoLayerCones.m_powerLevelAdjustIfNoInnerHits : 0);
 		}
-		return text;
+		return desc;
 	}
 }
