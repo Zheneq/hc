@@ -565,10 +565,9 @@ public class GameFlow : NetworkBehaviour
 						actorData.GetPassiveData().OnAbilitiesDone();
 					}
 				}
-				List<MovementRequest> movementRequests = ServerActionBuffer.Get()
-					.GetAllStoredMovementRequests();
-				Log.Info($"Running {movementRequests.Count(req => !req.IsChasing())} non-chase movement requests");
-				PlayerAction_Movement action = new PlayerAction_Movement(movementRequests, false);
+
+				Log.Info($"Running {ServerActionBuffer.Get().GetAllStoredMovementRequests().Count(req => !req.IsChasing())} non-chase movement requests");
+				PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().ToList(), false);
 				m_executingPlayerActions.Add(action);
 				action.ExecuteAction();
 				actionBuffer.ActionPhase = ActionBufferPhase.Movement;
@@ -584,7 +583,7 @@ public class GameFlow : NetworkBehaviour
 					if (numChaseRequests > 0)
 					{
 						Log.Info($"Running {numChaseRequests} chase movement requests");
-						PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests(), true);
+						PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().ToList(), true);
 						m_executingPlayerActions.Add(action);
 						action.ExecuteAction();
 					}
