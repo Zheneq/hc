@@ -1,47 +1,32 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class DinoTargetedKnockback : GenericAbility_Container
 {
 	public int m_extraDamageIfFullPowerLayerCone;
-
-	[Separator("Shield per enemy hit", true)]
+	[Separator("Shield per enemy hit")]
 	public int m_shieldPerEnemyHit;
-
 	public int m_shieldDuration = 2;
-
-	[Separator("For hits around knockback destinations", true)]
+	[Separator("For hits around knockback destinations")]
 	public bool m_doHitsAroundKnockbackDest;
-
 	public AbilityAreaShape m_hitsAroundKnockbackDestShape = AbilityAreaShape.Three_x_Three;
-
 	[Separator("On Hit Data for Knockback Destination Hit", "yellow")]
 	public OnHitAuthoredData m_knockbackDestOnHitData;
-
-	[Separator("Sequences for hit around knockback destination", true)]
+	[Separator("Sequences for hit around knockback destination")]
 	public GameObject m_onKnockbackDestHitSeqPrefab;
 
 	private OnHitAuthoredData m_cachedKnockbackDestOnHitData;
-
 	private AbilityMod_DinoTargetedKnockback m_abilityMod;
-
 	private DinoLayerCones m_layerConeAbility;
 
 	protected override void SetupTargetersAndCachedVars()
 	{
 		base.SetupTargetersAndCachedVars();
 		m_layerConeAbility = GetAbilityOfType<DinoLayerCones>();
-		OnHitAuthoredData cachedKnockbackDestOnHitData;
-		if (m_abilityMod != null)
-		{
-			cachedKnockbackDestOnHitData = m_abilityMod.m_knockbackDestOnHitDataMod.GetModdedOnHitData(m_knockbackDestOnHitData);
-		}
-		else
-		{
-			cachedKnockbackDestOnHitData = m_knockbackDestOnHitData;
-		}
-		m_cachedKnockbackDestOnHitData = cachedKnockbackDestOnHitData;
+		m_cachedKnockbackDestOnHitData = m_abilityMod != null
+			? m_abilityMod.m_knockbackDestOnHitDataMod.GetModdedOnHitData(m_knockbackDestOnHitData)
+			: m_knockbackDestOnHitData;
 	}
 
 	public override int GetExpectedNumberOfTargeters()
@@ -51,77 +36,42 @@ public class DinoTargetedKnockback : GenericAbility_Container
 
 	public int GetExtraDamageIfFullPowerLayerCone()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_extraDamageIfFullPowerLayerConeMod.GetModifiedValue(m_extraDamageIfFullPowerLayerCone);
-		}
-		else
-		{
-			result = m_extraDamageIfFullPowerLayerCone;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageIfFullPowerLayerConeMod.GetModifiedValue(m_extraDamageIfFullPowerLayerCone)
+			: m_extraDamageIfFullPowerLayerCone;
 	}
 
 	public int GetShieldPerEnemyHit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
-		}
-		else
-		{
-			result = m_shieldPerEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit)
+			: m_shieldPerEnemyHit;
 	}
 
 	public int GetShieldDuration()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
-		}
-		else
-		{
-			result = m_shieldDuration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration)
+			: m_shieldDuration;
 	}
 
 	public bool DoHitsAroundKnockbackDest()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_doHitsAroundKnockbackDestMod.GetModifiedValue(m_doHitsAroundKnockbackDest);
-		}
-		else
-		{
-			result = m_doHitsAroundKnockbackDest;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_doHitsAroundKnockbackDestMod.GetModifiedValue(m_doHitsAroundKnockbackDest)
+			: m_doHitsAroundKnockbackDest;
 	}
 
 	public AbilityAreaShape GetHitsAroundKnockbackDestShape()
 	{
-		return (!(m_abilityMod != null)) ? m_hitsAroundKnockbackDestShape : m_abilityMod.m_hitsAroundKnockbackDestShapeMod.GetModifiedValue(m_hitsAroundKnockbackDestShape);
+		return m_abilityMod != null
+			? m_abilityMod.m_hitsAroundKnockbackDestShapeMod.GetModifiedValue(m_hitsAroundKnockbackDestShape)
+			: m_hitsAroundKnockbackDestShape;
 	}
 
 	public OnHitAuthoredData GetKnockbackDestOnHitData()
 	{
-		OnHitAuthoredData result;
-		if (m_cachedKnockbackDestOnHitData != null)
-		{
-			result = m_cachedKnockbackDestOnHitData;
-		}
-		else
-		{
-			result = m_knockbackDestOnHitData;
-		}
-		return result;
+		return m_cachedKnockbackDestOnHitData ?? m_knockbackDestOnHitData;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -132,66 +82,49 @@ public class DinoTargetedKnockback : GenericAbility_Container
 		AddTokenInt(tokens, "ShieldDuration", string.Empty, m_shieldDuration);
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
 		if (targetActor == caster && GetShieldPerEnemyHit() > 0)
 		{
-			int num = 0;
-			using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
+			int enemiesHit = 0;
+			foreach (KeyValuePair<ActorData, ActorHitContext> hitActor in actorHitContext)
 			{
-				while (enumerator.MoveNext())
+				if (hitActor.Value.m_inRangeForTargeter && hitActor.Key.GetTeam() != caster.GetTeam())
 				{
-					KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
-					ActorData key = current.Key;
-					if (current.Value.m_inRangeForTargeter)
-					{
-						if (key.GetTeam() != caster.GetTeam())
-						{
-							num++;
-						}
-					}
+					enemiesHit++;
 				}
 			}
-			if (num > 0)
+			if (enemiesHit > 0)
 			{
 				if (results.m_absorb > 0)
 				{
-					results.m_absorb += num * GetShieldPerEnemyHit();
+					results.m_absorb += enemiesHit * GetShieldPerEnemyHit();
 				}
 				else
 				{
-					results.m_absorb = num * GetShieldPerEnemyHit();
+					results.m_absorb = enemiesHit * GetShieldPerEnemyHit();
 				}
 			}
 		}
-		if (results.m_damage <= 0)
+
+		if (results.m_damage > 0
+		    && m_layerConeAbility != null
+		    && GetExtraDamageIfFullPowerLayerCone() > 0
+		    && m_layerConeAbility.IsAtMaxPowerLevel())
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!(m_layerConeAbility != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (GetExtraDamageIfFullPowerLayerCone() > 0 && m_layerConeAbility.IsAtMaxPowerLevel())
-				{
-					while (true)
-					{
-						results.m_damage += GetExtraDamageIfFullPowerLayerCone();
-						return;
-					}
-				}
-				return;
-			}
+			results.m_damage += GetExtraDamageIfFullPowerLayerCone();
 		}
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		m_abilityMod = (abilityMod as AbilityMod_DinoTargetedKnockback);
+		m_abilityMod = abilityMod as AbilityMod_DinoTargetedKnockback;
 	}
 
 	protected override void GenModImpl_ClearModRef()

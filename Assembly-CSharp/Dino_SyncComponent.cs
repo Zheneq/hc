@@ -6,72 +6,46 @@ public class Dino_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	internal int m_dashOrShieldLastCastTurn = -1;
-
 	[SyncVar]
 	internal bool m_dashOrShieldInReadyStance;
-
 	[SyncVar]
 	internal short m_layerConePowerLevel;
 
 	private ActorData m_actor;
-
 	private DinoDashOrShield m_dashOrShieldAbility;
-
+	
 	private static readonly int s_aHashIdleType;
-
 	private static readonly int s_aHashForceIdle;
-
-	private static int kRpcRpcResetDashOrShieldTargeter;
-
-	private static int kRpcRpcSetDashReadyStanceAnimParams;
+	private static int kRpcRpcResetDashOrShieldTargeter = 1094008940;
+	private static int kRpcRpcSetDashReadyStanceAnimParams = 423013429;
 
 	public int Networkm_dashOrShieldLastCastTurn
 	{
-		get
-		{
-			return m_dashOrShieldLastCastTurn;
-		}
+		get => m_dashOrShieldLastCastTurn;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_dashOrShieldLastCastTurn, 1u);
-		}
+		set => SetSyncVar(value, ref m_dashOrShieldLastCastTurn, 1u);
 	}
 
 	public bool Networkm_dashOrShieldInReadyStance
 	{
-		get
-		{
-			return m_dashOrShieldInReadyStance;
-		}
+		get => m_dashOrShieldInReadyStance;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_dashOrShieldInReadyStance, 2u);
-		}
+		set => SetSyncVar(value, ref m_dashOrShieldInReadyStance, 2u);
 	}
 
 	public short Networkm_layerConePowerLevel
 	{
-		get
-		{
-			return m_layerConePowerLevel;
-		}
+		get => m_layerConePowerLevel;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_layerConePowerLevel, 4u);
-		}
+		set => SetSyncVar(value, ref m_layerConePowerLevel, 4u);
 	}
 
 	static Dino_SyncComponent()
 	{
 		s_aHashIdleType = Animator.StringToHash("IdleType");
 		s_aHashForceIdle = Animator.StringToHash("ForceIdle");
-		kRpcRpcResetDashOrShieldTargeter = 1094008940;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Dino_SyncComponent), kRpcRpcResetDashOrShieldTargeter, InvokeRpcRpcResetDashOrShieldTargeter);
-		kRpcRpcSetDashReadyStanceAnimParams = 423013429;
-		NetworkBehaviour.RegisterRpcDelegate(typeof(Dino_SyncComponent), kRpcRpcSetDashReadyStanceAnimParams, InvokeRpcRpcSetDashReadyStanceAnimParams);
+		RegisterRpcDelegate(typeof(Dino_SyncComponent), kRpcRpcResetDashOrShieldTargeter, InvokeRpcRpcResetDashOrShieldTargeter);
+		RegisterRpcDelegate(typeof(Dino_SyncComponent), kRpcRpcSetDashReadyStanceAnimParams, InvokeRpcRpcSetDashReadyStanceAnimParams);
 		NetworkCRC.RegisterBehaviour("Dino_SyncComponent", 0);
 	}
 
@@ -94,16 +68,11 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (m_dashOrShieldAbility == null)
 		{
-			m_dashOrShieldAbility = (GetComponent<AbilityData>().GetAbilityOfType(typeof(DinoDashOrShield)) as DinoDashOrShield);
+			m_dashOrShieldAbility = GetComponent<AbilityData>().GetAbilityOfType(typeof(DinoDashOrShield)) as DinoDashOrShield;
 		}
-		if (!(m_dashOrShieldAbility != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_dashOrShieldAbility != null)
 		{
 			m_dashOrShieldAbility.ResetTargetersForStanceChange();
-			return;
 		}
 	}
 
@@ -116,26 +85,13 @@ public class Dino_SyncComponent : NetworkBehaviour
 	public void SetDashReadyStanceAnimParams(int idleType, bool forceIdle)
 	{
 		Animator modelAnimator = m_actor.GetModelAnimator();
-		if (!NetworkClient.active)
+		if (NetworkClient.active && modelAnimator != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (modelAnimator != null)
+			modelAnimator.SetInteger(s_aHashIdleType, idleType);
+			if (forceIdle)
 			{
-				modelAnimator.SetInteger(s_aHashIdleType, idleType);
-				if (forceIdle)
-				{
-					while (true)
-					{
-						modelAnimator.SetTrigger(s_aHashForceIdle);
-						return;
-					}
-				}
-				return;
+				modelAnimator.SetTrigger(s_aHashForceIdle);
 			}
-			return;
 		}
 	}
 
@@ -147,17 +103,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcResetDashOrShieldTargeter called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcResetDashOrShieldTargeter called on server.");
+			return;
 		}
 		((Dino_SyncComponent)obj).RpcResetDashOrShieldTargeter(reader.ReadBoolean());
 	}
@@ -166,17 +113,8 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (!NetworkClient.active)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Debug.LogError("RPC RpcSetDashReadyStanceAnimParams called on server.");
-					return;
-				}
-			}
+			Debug.LogError("RPC RpcSetDashReadyStanceAnimParams called on server.");
+			return;
 		}
 		((Dino_SyncComponent)obj).RpcSetDashReadyStanceAnimParams((int)reader.ReadPackedUInt32(), reader.ReadBoolean());
 	}
@@ -218,51 +156,42 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (forceAll)
 		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					writer.WritePackedUInt32((uint)m_dashOrShieldLastCastTurn);
-					writer.Write(m_dashOrShieldInReadyStance);
-					writer.WritePackedUInt32((uint)m_layerConePowerLevel);
-					return true;
-				}
-			}
+			writer.WritePackedUInt32((uint)m_dashOrShieldLastCastTurn);
+			writer.Write(m_dashOrShieldInReadyStance);
+			writer.WritePackedUInt32((uint)m_layerConePowerLevel);
+			return true;
 		}
 		bool flag = false;
-		if ((base.syncVarDirtyBits & 1) != 0)
+		if ((syncVarDirtyBits & 1) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_dashOrShieldLastCastTurn);
 		}
-		if ((base.syncVarDirtyBits & 2) != 0)
+		if ((syncVarDirtyBits & 2) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.Write(m_dashOrShieldInReadyStance);
 		}
-		if ((base.syncVarDirtyBits & 4) != 0)
+		if ((syncVarDirtyBits & 4) != 0)
 		{
 			if (!flag)
 			{
-				writer.WritePackedUInt32(base.syncVarDirtyBits);
+				writer.WritePackedUInt32(syncVarDirtyBits);
 				flag = true;
 			}
 			writer.WritePackedUInt32((uint)m_layerConePowerLevel);
 		}
 		if (!flag)
 		{
-			writer.WritePackedUInt32(base.syncVarDirtyBits);
+			writer.WritePackedUInt32(syncVarDirtyBits);
 		}
 		return flag;
 	}
@@ -271,19 +200,10 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		if (initialState)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
-					m_dashOrShieldInReadyStance = reader.ReadBoolean();
-					m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
-					return;
-				}
-			}
+			m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
+			m_dashOrShieldInReadyStance = reader.ReadBoolean();
+			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
+			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
 		if ((num & 1) != 0)
@@ -294,14 +214,10 @@ public class Dino_SyncComponent : NetworkBehaviour
 		{
 			m_dashOrShieldInReadyStance = reader.ReadBoolean();
 		}
-		if ((num & 4) == 0)
-		{
-			return;
-		}
-		while (true)
+
+		if ((num & 4) != 0)
 		{
 			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
-			return;
 		}
 	}
 }

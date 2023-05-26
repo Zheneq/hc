@@ -1,24 +1,18 @@
-using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 
 public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 {
-	[Separator("Target Select Mod", true)]
+	[Separator("Target Select Mod")]
 	public TargetSelectMod_LaserTargetedPull m_targetSelMod;
-
-	[Separator("Extra Damage, Shielding", true)]
+	[Separator("Extra Damage, Shielding")]
 	public AbilityModPropertyInt m_extraDamageIfFullPowerLayerConeMod;
-
 	public AbilityModPropertyInt m_shieldPerEnemyHitMod;
-
 	public AbilityModPropertyInt m_shieldDurationMod;
-
-	[Separator("For hits around knockback destinations", true)]
+	[Separator("For hits around knockback destinations")]
 	public AbilityModPropertyBool m_doHitsAroundKnockbackDestMod;
-
 	public AbilityModPropertyShape m_hitsAroundKnockbackDestShapeMod;
-
 	[Separator("On Hit Data Mod for knockback destination hit", "yellow")]
 	public OnHitDataMod m_knockbackDestOnHitDataMod;
 
@@ -35,69 +29,31 @@ public class AbilityMod_DinoTargetedKnockback : GenericAbility_AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		DinoTargetedKnockback dinoTargetedKnockback = targetAbility as DinoTargetedKnockback;
-		if (!(dinoTargetedKnockback != null))
-		{
-			return;
-		}
-		while (true)
+		if (dinoTargetedKnockback != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, m_extraDamageIfFullPowerLayerConeMod, "ExtraDamageIfFullPowerLayerCone", string.Empty, dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone);
-			AbilityMod.AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, dinoTargetedKnockback.m_shieldPerEnemyHit);
-			AbilityMod.AddToken(tokens, m_shieldDurationMod, "ShieldDuration", string.Empty, dinoTargetedKnockback.m_shieldDuration);
+			AddToken(tokens, m_extraDamageIfFullPowerLayerConeMod, "ExtraDamageIfFullPowerLayerCone", string.Empty, dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone);
+			AddToken(tokens, m_shieldPerEnemyHitMod, "ShieldPerEnemyHit", string.Empty, dinoTargetedKnockback.m_shieldPerEnemyHit);
+			AddToken(tokens, m_shieldDurationMod, "ShieldDuration", string.Empty, dinoTargetedKnockback.m_shieldDuration);
 			AddOnHitDataTokens(tokens, m_knockbackDestOnHitDataMod, dinoTargetedKnockback.m_knockbackDestOnHitData);
-			return;
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		DinoTargetedKnockback dinoTargetedKnockback = GetTargetAbilityOnAbilityData(abilityData) as DinoTargetedKnockback;
-		bool flag = dinoTargetedKnockback != null;
-		string text = base.ModSpecificAutogenDesc(abilityData);
+		bool isValid = dinoTargetedKnockback != null;
+		string desc = base.ModSpecificAutogenDesc(abilityData);
 		if (dinoTargetedKnockback != null)
 		{
-			text += GetTargetSelectModDesc(m_targetSelMod, dinoTargetedKnockback.m_targetSelectComp);
-			text += PropDesc(m_extraDamageIfFullPowerLayerConeMod, "[ExtraDamageIfFullPowerLayerCone]", flag, flag ? dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone : 0);
-			string str = text;
-			AbilityModPropertyInt shieldPerEnemyHitMod = m_shieldPerEnemyHitMod;
-			int baseVal;
-			if (flag)
-			{
-				baseVal = dinoTargetedKnockback.m_shieldPerEnemyHit;
-			}
-			else
-			{
-				baseVal = 0;
-			}
-			text = str + PropDesc(shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, baseVal);
-			text += PropDesc(m_shieldDurationMod, "[ShieldDuration]", flag, flag ? dinoTargetedKnockback.m_shieldDuration : 0);
-			string str2 = text;
-			AbilityModPropertyBool doHitsAroundKnockbackDestMod = m_doHitsAroundKnockbackDestMod;
-			int baseVal2;
-			if (flag)
-			{
-				baseVal2 = (dinoTargetedKnockback.m_doHitsAroundKnockbackDest ? 1 : 0);
-			}
-			else
-			{
-				baseVal2 = 0;
-			}
-			text = str2 + PropDesc(doHitsAroundKnockbackDestMod, "[DoHitsAroundKnockbackDest]", flag, (byte)baseVal2 != 0);
-			string str3 = text;
-			AbilityModPropertyShape hitsAroundKnockbackDestShapeMod = m_hitsAroundKnockbackDestShapeMod;
-			int baseVal3;
-			if (flag)
-			{
-				baseVal3 = (int)dinoTargetedKnockback.m_hitsAroundKnockbackDestShape;
-			}
-			else
-			{
-				baseVal3 = 0;
-			}
-			text = str3 + PropDesc(hitsAroundKnockbackDestShapeMod, "[HitsAroundKnockbackDestShape]", flag, (AbilityAreaShape)baseVal3);
-			text += GetOnHitDataDesc(m_knockbackDestOnHitDataMod, dinoTargetedKnockback.m_knockbackDestOnHitData);
+			desc += GetTargetSelectModDesc(m_targetSelMod, dinoTargetedKnockback.m_targetSelectComp);
+			desc += PropDesc(m_extraDamageIfFullPowerLayerConeMod, "[ExtraDamageIfFullPowerLayerCone]", isValid, isValid ? dinoTargetedKnockback.m_extraDamageIfFullPowerLayerCone : 0);
+			desc += PropDesc(m_shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", isValid, isValid ? dinoTargetedKnockback.m_shieldPerEnemyHit : 0);
+			desc += PropDesc(m_shieldDurationMod, "[ShieldDuration]", isValid, isValid ? dinoTargetedKnockback.m_shieldDuration : 0);
+			desc += PropDesc(m_doHitsAroundKnockbackDestMod, "[DoHitsAroundKnockbackDest]", isValid, isValid && dinoTargetedKnockback.m_doHitsAroundKnockbackDest);
+			desc += PropDesc(m_hitsAroundKnockbackDestShapeMod, "[HitsAroundKnockbackDestShape]", isValid, isValid ? dinoTargetedKnockback.m_hitsAroundKnockbackDestShape : AbilityAreaShape.SingleSquare);
+			desc += GetOnHitDataDesc(m_knockbackDestOnHitDataMod, dinoTargetedKnockback.m_knockbackDestOnHitData);
 		}
-		return text;
+		return desc;
 	}
 }
