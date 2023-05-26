@@ -1,23 +1,18 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 
 public class ScampDualLasers : GenericAbility_Container
 {
-	[Separator("Target Select Component for when shield is down", true)]
+	[Separator("Target Select Component for when shield is down")]
 	public GenericAbility_TargetSelectBase m_shieldDownTargetSelect;
-
 	[Separator("On Hit Data for when shield is down", "yellow")]
 	public OnHitAuthoredData m_shieldDownOnHitData;
-
-	[Separator("Extra Damage and Aoe Radius for turn after losing suit (for AoE only)", true)]
+	[Separator("Extra Damage and Aoe Radius for turn after losing suit (for AoE only)")]
 	public int m_extraDamageTurnAfterLosingSuit;
-
 	public float m_extraAoeRadiusTurnAfterLosingSuit;
 
 	private AbilityMod_ScampDualLasers m_abilityMod;
-
 	private Scamp_SyncComponent m_syncComp;
-
 	private OnHitAuthoredData m_cachedShieldDownOnHitData;
 
 	public override string GetOnHitDataDesc()
@@ -38,163 +33,80 @@ public class ScampDualLasers : GenericAbility_Container
 	protected override void SetupTargetersAndCachedVars()
 	{
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
-		if (m_abilityMod != null)
-		{
-			m_cachedShieldDownOnHitData = m_abilityMod.m_shieldDownOnHitDataMod.GetModdedOnHitData(m_shieldDownOnHitData);
-		}
-		else
-		{
-			m_cachedShieldDownOnHitData = m_shieldDownOnHitData;
-		}
+		m_cachedShieldDownOnHitData = m_abilityMod != null ? m_abilityMod.m_shieldDownOnHitDataMod.GetModdedOnHitData(m_shieldDownOnHitData) : m_shieldDownOnHitData;
 		base.SetupTargetersAndCachedVars();
-		AbilityUtil_Targeter_ScampDualLasers abilityUtil_Targeter_ScampDualLasers = base.Targeter as AbilityUtil_Targeter_ScampDualLasers;
-		if (abilityUtil_Targeter_ScampDualLasers != null)
+		if (Targeter is AbilityUtil_Targeter_ScampDualLasers targeter)
 		{
-			abilityUtil_Targeter_ScampDualLasers.m_delegateLaserCount = GetNumLasers;
-			abilityUtil_Targeter_ScampDualLasers.m_delegateExtraAoeRadius = GetExtraAoeRadius;
+			targeter.m_delegateLaserCount = GetNumLasers;
+			targeter.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
-		TargetSelect_DualMeetingLasers targetSelect_DualMeetingLasers = m_targetSelectComp as TargetSelect_DualMeetingLasers;
-		TargetSelect_DualMeetingLasers targetSelect_DualMeetingLasers2 = m_shieldDownTargetSelect as TargetSelect_DualMeetingLasers;
-		if (targetSelect_DualMeetingLasers != null)
+		if (m_targetSelectComp is TargetSelect_DualMeetingLasers targetSelectComp)
 		{
-			targetSelect_DualMeetingLasers.m_delegateLaserCount = GetNumLasers;
-			targetSelect_DualMeetingLasers.m_delegateExtraAoeRadius = GetExtraAoeRadius;
+			targetSelectComp.m_delegateLaserCount = GetNumLasers;
+			targetSelectComp.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
-		if (!(targetSelect_DualMeetingLasers2 != null))
+		if (m_shieldDownTargetSelect is TargetSelect_DualMeetingLasers shieldDownTargetSelect)
 		{
-			return;
-		}
-		while (true)
-		{
-			targetSelect_DualMeetingLasers2.m_delegateLaserCount = GetNumLasers;
-			targetSelect_DualMeetingLasers2.m_delegateExtraAoeRadius = GetExtraAoeRadius;
-			return;
+			shieldDownTargetSelect.m_delegateLaserCount = GetNumLasers;
+			shieldDownTargetSelect.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
 	}
 
 	public void ResetTargetersForShielding(bool hasShield)
 	{
 		ClearTargeters();
-		List<AbilityUtil_Targeter> collection;
-		if (!hasShield)
+		Targeters.AddRange(!hasShield && m_shieldDownTargetSelect != null
+			? m_shieldDownTargetSelect.CreateTargeters(this)
+			: m_targetSelectComp.CreateTargeters(this));
+		if (Targeter is AbilityUtil_Targeter_ScampDualLasers targeter)
 		{
-			if (!(m_shieldDownTargetSelect == null))
-			{
-				collection = m_shieldDownTargetSelect.CreateTargeters(this);
-				goto IL_0054;
-			}
-		}
-		collection = m_targetSelectComp.CreateTargeters(this);
-		goto IL_0054;
-		IL_0054:
-		base.Targeters.AddRange(collection);
-		AbilityUtil_Targeter_ScampDualLasers abilityUtil_Targeter_ScampDualLasers = base.Targeter as AbilityUtil_Targeter_ScampDualLasers;
-		if (abilityUtil_Targeter_ScampDualLasers == null)
-		{
-			return;
-		}
-		while (true)
-		{
-			abilityUtil_Targeter_ScampDualLasers.m_delegateLaserCount = GetNumLasers;
-			abilityUtil_Targeter_ScampDualLasers.m_delegateExtraAoeRadius = GetExtraAoeRadius;
-			return;
+			targeter.m_delegateLaserCount = GetNumLasers;
+			targeter.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
 	}
 
 	public int GetNumLasers(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return (!IsInSuit()) ? 1 : 2;
+		return IsInSuit() ? 2 : 1;
 	}
 
 	public float GetExtraAoeRadius(AbilityTarget currentTarget, ActorData targetingActor, float baseRadius)
 	{
-		if (GetExtraAoeRadiusTurnAfterLosingSuit() > 0f)
-		{
-			if (IsTurnAfterLostSuit())
-			{
-				return GetExtraAoeRadiusTurnAfterLosingSuit();
-			}
-		}
-		return 0f;
+		return GetExtraAoeRadiusTurnAfterLosingSuit() > 0f && IsTurnAfterLostSuit()
+			? GetExtraAoeRadiusTurnAfterLosingSuit()
+			: 0f;
 	}
 
 	public override GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		if (IsInSuit())
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return base.GetTargetSelectComp();
-				}
-			}
-		}
-		return m_shieldDownTargetSelect;
+		return IsInSuit()
+			? base.GetTargetSelectComp()
+			: m_shieldDownTargetSelect;
 	}
 
 	public override OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		if (IsInSuit())
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return base.GetOnHitAuthoredData();
-				}
-			}
-		}
-		OnHitAuthoredData result;
-		if (m_cachedShieldDownOnHitData != null)
-		{
-			result = m_cachedShieldDownOnHitData;
-		}
-		else
-		{
-			result = m_shieldDownOnHitData;
-		}
-		return result;
+		return IsInSuit()
+			? base.GetOnHitAuthoredData()
+			: m_cachedShieldDownOnHitData ?? m_shieldDownOnHitData;
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
-		if (!IsTurnAfterLostSuit())
+		if (IsTurnAfterLostSuit() && GetExtraDamageTurnAfterLosingSuit() > 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (GetExtraDamageTurnAfterLosingSuit() <= 0)
+			ActorHitContext ctx = actorHitContext[targetActor];
+			int hash = ContextKeys.s_InAoe.GetKey();
+			if (ctx.m_contextVars.HasVarInt(hash) &&
+			    ctx.m_contextVars.GetValueInt(hash) > 0)
 			{
-				return;
-			}
-			while (true)
-			{
-				ActorHitContext actorHitContext2 = actorHitContext[targetActor];
-				int hash = ContextKeys.s_InAoe.GetKey();
-				if (!actorHitContext2.m_contextVars.HasVarInt(hash))
-				{
-					return;
-				}
-				while (true)
-				{
-					if (actorHitContext2.m_contextVars.GetValueInt(hash) > 0)
-					{
-						while (true)
-						{
-							results.m_damage += GetExtraDamageTurnAfterLosingSuit();
-							return;
-						}
-					}
-					return;
-				}
+				results.m_damage += GetExtraDamageTurnAfterLosingSuit();
 			}
 		}
 	}
@@ -206,35 +118,23 @@ public class ScampDualLasers : GenericAbility_Container
 
 	public bool IsTurnAfterLostSuit()
 	{
-		int result;
-		if (m_syncComp != null && m_syncComp.m_lastSuitLostTurn != 0)
-		{
-			result = ((GameFlowData.Get().CurrentTurn - m_syncComp.m_lastSuitLostTurn == 1) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_syncComp != null
+		       && m_syncComp.m_lastSuitLostTurn != 0
+		       && GameFlowData.Get().CurrentTurn - m_syncComp.m_lastSuitLostTurn == 1;
 	}
 
 	public int GetExtraDamageTurnAfterLosingSuit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_extraDamageTurnAfterLosingSuitMod.GetModifiedValue(m_extraDamageTurnAfterLosingSuit);
-		}
-		else
-		{
-			result = m_extraDamageTurnAfterLosingSuit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageTurnAfterLosingSuitMod.GetModifiedValue(m_extraDamageTurnAfterLosingSuit)
+			: m_extraDamageTurnAfterLosingSuit;
 	}
 
 	public float GetExtraAoeRadiusTurnAfterLosingSuit()
 	{
-		return (!(m_abilityMod != null)) ? m_extraAoeRadiusTurnAfterLosingSuit : m_abilityMod.m_extraAoeRadiusTurnAfterLosingSuitMod.GetModifiedValue(m_extraAoeRadiusTurnAfterLosingSuit);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraAoeRadiusTurnAfterLosingSuitMod.GetModifiedValue(m_extraAoeRadiusTurnAfterLosingSuit)
+			: m_extraAoeRadiusTurnAfterLosingSuit;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -246,7 +146,7 @@ public class ScampDualLasers : GenericAbility_Container
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		m_abilityMod = (abilityMod as AbilityMod_ScampDualLasers);
+		m_abilityMod = abilityMod as AbilityMod_ScampDualLasers;
 	}
 
 	protected override void GenModImpl_ClearModRef()

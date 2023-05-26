@@ -3,17 +3,13 @@ using UnityEngine;
 
 public class ScampErraticCore : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_radius = 6f;
-
 	public bool m_ignoreLos;
-
-	[Separator("On Hit", true)]
+	[Separator("On Hit")]
 	public int m_damage = 10;
-
 	public StandardEffectInfo m_enemyHitEffect;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private Scamp_SyncComponent m_syncComp;
@@ -30,7 +26,7 @@ public class ScampErraticCore : Ability
 	private void Setup()
 	{
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_ignoreLos, IncludeEnemies());
+		Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, m_radius, m_ignoreLos, IncludeEnemies());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -39,16 +35,7 @@ public class ScampErraticCore : Ability
 
 	public bool IncludeEnemies()
 	{
-		int result;
-		if (m_damage <= 0)
-		{
-			result = (m_enemyHitEffect.m_applyEffect ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return m_damage > 0 || m_enemyHitEffect.m_applyEffect;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -60,15 +47,6 @@ public class ScampErraticCore : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		int result;
-		if (m_syncComp != null)
-		{
-			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_syncComp != null && m_syncComp.m_suitWasActiveOnTurnStart;
 	}
 }

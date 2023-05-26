@@ -3,25 +3,18 @@ using UnityEngine;
 
 public class ScampHoloBlobs : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public ConeTargetingInfo m_coneTargetInfo;
-
-	[Separator("On Direct Hit", true)]
+	[Separator("On Direct Hit")]
 	public int m_directHitDamage;
-
 	public StandardEffectInfo m_directHitEnemyEffect;
-
-	[Separator("Damage to Shield Conversion", true)]
+	[Separator("Damage to Shield Conversion")]
 	public float m_damageToShieldMult = 0.25f;
-
 	public int m_maxShields;
-
 	public int m_shieldDuration = 1;
-
-	[Separator("Effect Data for Holo Blob effect, mostly to contain persistent visual vfx", true)]
+	[Separator("Effect Data for Holo Blob effect, mostly to contain persistent visual vfx")]
 	public StandardActorEffectData m_holoBlobEffectData;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
 
 	private Scamp_SyncComponent m_syncComp;
@@ -38,8 +31,13 @@ public class ScampHoloBlobs : Ability
 	private void Setup()
 	{
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
-		ConeTargetingInfo coneTargetInfo = m_coneTargetInfo;
-		base.Targeter = new AbilityUtil_Targeter_DirectionCone(this, coneTargetInfo.m_widthAngleDeg, coneTargetInfo.m_radiusInSquares, coneTargetInfo.m_backwardsOffset, coneTargetInfo.m_penetrateLos, true);
+		Targeter = new AbilityUtil_Targeter_DirectionCone(
+			this,
+			m_coneTargetInfo.m_widthAngleDeg,
+			m_coneTargetInfo.m_radiusInSquares,
+			m_coneTargetInfo.m_backwardsOffset,
+			m_coneTargetInfo.m_penetrateLos,
+			true);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -70,15 +68,6 @@ public class ScampHoloBlobs : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		int result;
-		if (m_syncComp != null)
-		{
-			result = (m_syncComp.m_suitWasActiveOnTurnStart ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return m_syncComp != null && m_syncComp.m_suitWasActiveOnTurnStart;
 	}
 }

@@ -3,50 +3,34 @@ using UnityEngine;
 
 public class ScampSuitToggle : Ability
 {
-	[Separator("Whether shield down mode is free action", true)]
+	[Separator("Whether shield down mode is free action")]
 	public bool m_shieldDownModeFreeAction;
-
-	[Separator("Cooldowns", true)]
+	[Separator("Cooldowns")]
 	public int m_cooldownCreateSuit = 2;
-
 	public int m_cooldownRefillShield = 2;
-
 	[Header("-- Cooldown override for when suit is destroyed")]
 	public int m_cooldownOverrideOnSuitDestroy = 2;
-
-	[Separator("Energy to Shield (shield = energy x multiplier)", true)]
+	[Separator("Energy to Shield (shield = energy x multiplier)")]
 	public float m_energyToShieldMult = 1f;
-
-	[Separator("Clear Energy Orbs on cast", true)]
+	[Separator("Clear Energy Orbs on cast")]
 	public bool m_clearEnergyOrbsOnCast = true;
-
-	[Separator("Extra Orbs to spawn on suit lost", true)]
+	[Separator("Extra Orbs to spawn on suit lost")]
 	public int m_extraOrbsToSpawnOnSuitLost;
-
-	[Separator("Passive Energy Regen", true)]
+	[Separator("Passive Energy Regen")]
 	public int m_passiveEnergyRegen;
-
-	[Separator("Effect to apply when suit is gained or lost (applied on start of turn)", true)]
+	[Separator("Effect to apply when suit is gained or lost (applied on start of turn)")]
 	public bool m_considerRespawnForSuitGainEffect;
-
 	public StandardEffectInfo m_effectForSuitGained;
-
 	public StandardEffectInfo m_effectForSuitLost;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	[Header("-- for setting anim param, only spawned when adding new suit")]
 	public GameObject m_addSuitAnimSeqPrefab;
 
 	private AbilityMod_ScampSuitToggle m_abilityMod;
-
 	private Scamp_SyncComponent m_syncComp;
-
 	private Passive_Scamp m_passive;
-
 	private StandardEffectInfo m_cachedEffectForSuitGained;
-
 	private StandardEffectInfo m_cachedEffectForSuitLost;
 
 	private void Start()
@@ -63,7 +47,14 @@ public class ScampSuitToggle : Ability
 		m_passive = GetPassiveOfType<Passive_Scamp>();
 		SetCachedFields();
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, true, AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos, false, false, AbilityUtil_Targeter.AffectsActor.Always);
+		Targeter = new AbilityUtil_Targeter_Shape(
+			this,
+			AbilityAreaShape.SingleSquare,
+			true,
+			AbilityUtil_Targeter_Shape.DamageOriginType.CasterPos,
+			false,
+			false,
+			AbilityUtil_Targeter.AffectsActor.Always);
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -79,162 +70,85 @@ public class ScampSuitToggle : Ability
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedEffectForSuitGained;
-		if (m_abilityMod != null)
-		{
-			cachedEffectForSuitGained = m_abilityMod.m_effectForSuitGainedMod.GetModifiedValue(m_effectForSuitGained);
-		}
-		else
-		{
-			cachedEffectForSuitGained = m_effectForSuitGained;
-		}
-		m_cachedEffectForSuitGained = cachedEffectForSuitGained;
-		StandardEffectInfo cachedEffectForSuitLost;
-		if (m_abilityMod != null)
-		{
-			cachedEffectForSuitLost = m_abilityMod.m_effectForSuitLostMod.GetModifiedValue(m_effectForSuitLost);
-		}
-		else
-		{
-			cachedEffectForSuitLost = m_effectForSuitLost;
-		}
-		m_cachedEffectForSuitLost = cachedEffectForSuitLost;
+		m_cachedEffectForSuitGained = m_abilityMod != null
+			? m_abilityMod.m_effectForSuitGainedMod.GetModifiedValue(m_effectForSuitGained)
+			: m_effectForSuitGained;
+		m_cachedEffectForSuitLost = m_abilityMod != null
+			? m_abilityMod.m_effectForSuitLostMod.GetModifiedValue(m_effectForSuitLost)
+			: m_effectForSuitLost;
 	}
 
 	public bool ShieldDownModeFreeAction()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldDownModeFreeActionMod.GetModifiedValue(m_shieldDownModeFreeAction);
-		}
-		else
-		{
-			result = m_shieldDownModeFreeAction;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldDownModeFreeActionMod.GetModifiedValue(m_shieldDownModeFreeAction)
+			: m_shieldDownModeFreeAction;
 	}
 
 	public int GetCooldownCreateSuit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cooldownCreateSuitMod.GetModifiedValue(m_cooldownCreateSuit);
-		}
-		else
-		{
-			result = m_cooldownCreateSuit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownCreateSuitMod.GetModifiedValue(m_cooldownCreateSuit)
+			: m_cooldownCreateSuit;
 	}
 
 	public int GetCooldownRefillShield()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cooldownRefillShieldMod.GetModifiedValue(m_cooldownRefillShield);
-		}
-		else
-		{
-			result = m_cooldownRefillShield;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownRefillShieldMod.GetModifiedValue(m_cooldownRefillShield)
+			: m_cooldownRefillShield;
 	}
 
 	public int GetCooldownOverrideOnSuitDestroy()
 	{
-		return (!(m_abilityMod != null)) ? m_cooldownOverrideOnSuitDestroy : m_abilityMod.m_cooldownOverrideOnSuitDestroyMod.GetModifiedValue(m_cooldownOverrideOnSuitDestroy);
+		return m_abilityMod != null
+			? m_abilityMod.m_cooldownOverrideOnSuitDestroyMod.GetModifiedValue(m_cooldownOverrideOnSuitDestroy)
+			: m_cooldownOverrideOnSuitDestroy;
 	}
 
 	public float GetEnergyToShieldMult()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_energyToShieldMultMod.GetModifiedValue(m_energyToShieldMult);
-		}
-		else
-		{
-			result = m_energyToShieldMult;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_energyToShieldMultMod.GetModifiedValue(m_energyToShieldMult)
+			: m_energyToShieldMult;
 	}
 
 	public bool ClearEnergyOrbsOnCast()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_clearEnergyOrbsOnCastMod.GetModifiedValue(m_clearEnergyOrbsOnCast);
-		}
-		else
-		{
-			result = m_clearEnergyOrbsOnCast;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_clearEnergyOrbsOnCastMod.GetModifiedValue(m_clearEnergyOrbsOnCast)
+			: m_clearEnergyOrbsOnCast;
 	}
 
 	public int GetExtraOrbsToSpawnOnSuitLost()
 	{
-		return (!(m_abilityMod != null)) ? m_extraOrbsToSpawnOnSuitLost : m_abilityMod.m_extraOrbsToSpawnOnSuitLostMod.GetModifiedValue(m_extraOrbsToSpawnOnSuitLost);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraOrbsToSpawnOnSuitLostMod.GetModifiedValue(m_extraOrbsToSpawnOnSuitLost)
+			: m_extraOrbsToSpawnOnSuitLost;
 	}
 
 	public int GetPassiveEnergyRegen()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_passiveEnergyRegenMod.GetModifiedValue(m_passiveEnergyRegen);
-		}
-		else
-		{
-			result = m_passiveEnergyRegen;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_passiveEnergyRegenMod.GetModifiedValue(m_passiveEnergyRegen)
+			: m_passiveEnergyRegen;
 	}
 
 	public bool ConsiderRespawnForSuitGainEffect()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_considerRespawnForSuitGainEffectMod.GetModifiedValue(m_considerRespawnForSuitGainEffect);
-		}
-		else
-		{
-			result = m_considerRespawnForSuitGainEffect;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_considerRespawnForSuitGainEffectMod.GetModifiedValue(m_considerRespawnForSuitGainEffect)
+			: m_considerRespawnForSuitGainEffect;
 	}
 
 	public StandardEffectInfo GetEffectForSuitGained()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectForSuitGained != null)
-		{
-			result = m_cachedEffectForSuitGained;
-		}
-		else
-		{
-			result = m_effectForSuitGained;
-		}
-		return result;
+		return m_cachedEffectForSuitGained ?? m_effectForSuitGained;
 	}
 
 	public StandardEffectInfo GetEffectForSuitLost()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectForSuitLost != null)
-		{
-			result = m_cachedEffectForSuitLost;
-		}
-		else
-		{
-			result = m_effectForSuitLost;
-		}
-		return result;
+		return m_cachedEffectForSuitLost ?? m_effectForSuitLost;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -246,70 +160,50 @@ public class ScampSuitToggle : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		ActorData actorData = base.ActorData;
-		int num = actorData.TechPoints + actorData.ReservedTechPoints;
-		int value = Mathf.RoundToInt((float)num * GetEnergyToShieldMult());
-		results.m_absorb = Mathf.Clamp(value, 1, m_passive.GetMaxSuitShield());
+		int techPoints = ActorData.TechPoints + ActorData.ReservedTechPoints;
+		int absorb = Mathf.RoundToInt(techPoints * GetEnergyToShieldMult());
+		results.m_absorb = Mathf.Clamp(absorb, 1, m_passive.GetMaxSuitShield());
 		return true;
 	}
 
 	public override bool IsFreeAction()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_suitWasActiveOnTurnStart)
-			{
-				return base.IsFreeAction();
-			}
-		}
-		return ShieldDownModeFreeAction();
+		return m_syncComp != null && m_syncComp.m_suitWasActiveOnTurnStart
+			? base.IsFreeAction()
+			: ShieldDownModeFreeAction();
 	}
 
 	public override int GetModdedCost()
 	{
-		int b = 0;
-		if (base.ActorData != null)
+		int cost = 0;
+		if (ActorData != null)
 		{
-			b = base.ActorData.TechPoints + base.ActorData.ReservedTechPoints;
+			cost = ActorData.TechPoints + ActorData.ReservedTechPoints;
 		}
-		return Mathf.Max(1, b);
+		return Mathf.Max(1, cost);
 	}
 
 	public override int GetTechPointRegenContribution()
 	{
 		int passiveEnergyRegen = GetPassiveEnergyRegen();
-		int result;
-		if (passiveEnergyRegen > 0)
-		{
-			result = passiveEnergyRegen;
-		}
-		else
-		{
-			result = 0;
-		}
-		return result;
+		return passiveEnergyRegen > 0
+			? passiveEnergyRegen
+			: 0;
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (m_syncComp != null)
-		{
-			return caster.TechPoints + caster.ReservedTechPoints > 0;
-		}
-		return base.CustomCanCastValidation(caster);
+		return m_syncComp != null
+			? caster.TechPoints + caster.ReservedTechPoints > 0
+			: base.CustomCanCastValidation(caster);
 	}
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ScampSuitToggle))
+		if (abilityMod.GetType() == typeof(AbilityMod_ScampSuitToggle))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ScampSuitToggle);
+			m_abilityMod = abilityMod as AbilityMod_ScampSuitToggle;
 			Setup();
-			return;
 		}
 	}
 
