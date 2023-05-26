@@ -3,44 +3,30 @@ using UnityEngine;
 
 public class ScampAoeTether : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_aoeRadius = 5f;
-
 	public bool m_ignoreLos;
-
 	[Header("-- if > 0, will use this as distance to check whether tether should break")]
 	public float m_tetherBreakDistanceOverride = -1f;
-
-	[Separator("Whether to pull towards caster if target is out of range. If true, no longer do movement hits", true)]
+	[Separator("Whether to pull towards caster if target is out of range. If true, no longer do movement hits")]
 	public bool m_pullToCasterInKnockback;
-
 	public float m_maxKnockbackDist = 10f;
-
-	[Separator("Disable in Shield Down mode?", true)]
+	[Separator("Disable in Shield Down mode?")]
 	public bool m_disableIfShieldDown = true;
-
-	[Separator("On Tether Apply", true)]
+	[Separator("On Tether Apply")]
 	public StandardEffectInfo m_tetherApplyEnemyEffect;
-
-	[Separator("On Tether Break", true)]
+	[Separator("On Tether Break")]
 	public int m_tetherBreakDamage = 10;
-
 	public StandardEffectInfo m_tetherBreakEnemyEffecf;
-
-	[Separator("Cdr if not triggered", true)]
+	[Separator("Cdr if not triggered")]
 	public int m_cdrIfNoTetherTrigger;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_tetherBreakTriggerSequencePrefab;
 
 	private Scamp_SyncComponent m_syncComp;
-
 	private AbilityMod_ScampAoeTether m_abilityMod;
-
 	private StandardEffectInfo m_cachedTetherApplyEnemyEffect;
-
 	private StandardEffectInfo m_cachedTetherBreakEnemyEffecf;
 
 	private void Start()
@@ -56,7 +42,7 @@ public class ScampAoeTether : Ability
 	{
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
 		SetCachedFields();
-		base.Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), IgnoreLos());
+		Targeter = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), IgnoreLos());
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -69,151 +55,84 @@ public class ScampAoeTether : Ability
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_suitWasActiveOnTurnStart)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
-		}
-		return !DisableIfShieldDown();
+		return m_syncComp != null && m_syncComp.m_suitWasActiveOnTurnStart
+		       || !DisableIfShieldDown();
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedTetherApplyEnemyEffect;
-		if (m_abilityMod != null)
-		{
-			cachedTetherApplyEnemyEffect = m_abilityMod.m_tetherApplyEnemyEffectMod.GetModifiedValue(m_tetherApplyEnemyEffect);
-		}
-		else
-		{
-			cachedTetherApplyEnemyEffect = m_tetherApplyEnemyEffect;
-		}
-		m_cachedTetherApplyEnemyEffect = cachedTetherApplyEnemyEffect;
-		StandardEffectInfo cachedTetherBreakEnemyEffecf;
-		if (m_abilityMod != null)
-		{
-			cachedTetherBreakEnemyEffecf = m_abilityMod.m_tetherBreakEnemyEffecfMod.GetModifiedValue(m_tetherBreakEnemyEffecf);
-		}
-		else
-		{
-			cachedTetherBreakEnemyEffecf = m_tetherBreakEnemyEffecf;
-		}
-		m_cachedTetherBreakEnemyEffecf = cachedTetherBreakEnemyEffecf;
+		m_cachedTetherApplyEnemyEffect = m_abilityMod != null
+			? m_abilityMod.m_tetherApplyEnemyEffectMod.GetModifiedValue(m_tetherApplyEnemyEffect)
+			: m_tetherApplyEnemyEffect;
+		m_cachedTetherBreakEnemyEffecf = m_abilityMod != null
+			? m_abilityMod.m_tetherBreakEnemyEffecfMod.GetModifiedValue(m_tetherBreakEnemyEffecf)
+			: m_tetherBreakEnemyEffecf;
 	}
 
 	public float GetAoeRadius()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius);
-		}
-		else
-		{
-			result = m_aoeRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeRadiusMod.GetModifiedValue(m_aoeRadius)
+			: m_aoeRadius;
 	}
 
 	public bool IgnoreLos()
 	{
-		return (!(m_abilityMod != null)) ? m_ignoreLos : m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos);
+		return m_abilityMod != null
+			? m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos)
+			: m_ignoreLos;
 	}
 
 	public float GetTetherBreakDistanceOverride()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_tetherBreakDistanceOverrideMod.GetModifiedValue(m_tetherBreakDistanceOverride);
-		}
-		else
-		{
-			result = m_tetherBreakDistanceOverride;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_tetherBreakDistanceOverrideMod.GetModifiedValue(m_tetherBreakDistanceOverride)
+			: m_tetherBreakDistanceOverride;
 	}
 
 	public bool PullToCasterInKnockback()
 	{
-		return (!(m_abilityMod != null)) ? m_pullToCasterInKnockback : m_abilityMod.m_pullToCasterInKnockbackMod.GetModifiedValue(m_pullToCasterInKnockback);
+		return m_abilityMod != null
+			? m_abilityMod.m_pullToCasterInKnockbackMod.GetModifiedValue(m_pullToCasterInKnockback)
+			: m_pullToCasterInKnockback;
 	}
 
 	public float GetMaxKnockbackDist()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist);
-		}
-		else
-		{
-			result = m_maxKnockbackDist;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxKnockbackDistMod.GetModifiedValue(m_maxKnockbackDist)
+			: m_maxKnockbackDist;
 	}
 
 	public bool DisableIfShieldDown()
 	{
-		return (!(m_abilityMod != null)) ? m_disableIfShieldDown : m_abilityMod.m_disableIfShieldDownMod.GetModifiedValue(m_disableIfShieldDown);
+		return m_abilityMod != null
+			? m_abilityMod.m_disableIfShieldDownMod.GetModifiedValue(m_disableIfShieldDown)
+			: m_disableIfShieldDown;
 	}
 
 	public StandardEffectInfo GetTetherApplyEnemyEffect()
 	{
-		return (m_cachedTetherApplyEnemyEffect == null) ? m_tetherApplyEnemyEffect : m_cachedTetherApplyEnemyEffect;
+		return m_cachedTetherApplyEnemyEffect ?? m_tetherApplyEnemyEffect;
 	}
 
 	public int GetTetherBreakDamage()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage);
-		}
-		else
-		{
-			result = m_tetherBreakDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_tetherBreakDamageMod.GetModifiedValue(m_tetherBreakDamage)
+			: m_tetherBreakDamage;
 	}
 
 	public StandardEffectInfo GetTetherBreakEnemyEffecf()
 	{
-		StandardEffectInfo result;
-		if (m_cachedTetherBreakEnemyEffecf != null)
-		{
-			result = m_cachedTetherBreakEnemyEffecf;
-		}
-		else
-		{
-			result = m_tetherBreakEnemyEffecf;
-		}
-		return result;
+		return m_cachedTetherBreakEnemyEffecf ?? m_tetherBreakEnemyEffecf;
 	}
 
 	public int GetCdrIfNoTetherTrigger()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cdrIfNoTetherTriggerMod.GetModifiedValue(m_cdrIfNoTetherTrigger);
-		}
-		else
-		{
-			result = m_cdrIfNoTetherTrigger;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfNoTetherTriggerMod.GetModifiedValue(m_cdrIfNoTetherTrigger)
+			: m_cdrIfNoTetherTrigger;
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -233,15 +152,10 @@ public class ScampAoeTether : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_ScampAoeTether))
+		if (abilityMod.GetType() == typeof(AbilityMod_ScampAoeTether))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_ScampAoeTether);
+			m_abilityMod = abilityMod as AbilityMod_ScampAoeTether;
 			Setup();
-			return;
 		}
 	}
 

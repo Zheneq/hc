@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 {
-	[Separator("Target Select Mod", true)]
+	[Separator("Target Select Mod")]
 	public TargetSelectMod_AoeRadius m_targetSelectMod;
-
-	[Separator("Effect Data for Delayed Aoe (for caster)", true)]
+	[Separator("Effect Data for Delayed Aoe (for caster)")]
 	public AbilityModPropertyEffectData m_delayedEffectBaseMod;
-
-	[Separator("Extra Damage if in Shield Down form", true)]
+	[Separator("Extra Damage if in Shield Down form")]
 	public AbilityModPropertyInt m_extraDamageIfShieldDownFormMod;
-
 	[Header("-- If >= 0, will multiply on delayed AoE damage after first damage turn")]
 	public AbilityModPropertyFloat m_subseqTurnDamageMultiplierMod;
-
 	public AbilityModPropertyBool m_subseqTurnNoEnergyGainMod;
 
 	public override Type GetTargetAbilityType()
@@ -31,39 +27,23 @@ public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		ScampDelayedAoe scampDelayedAoe = targetAbility as ScampDelayedAoe;
-		if (!(scampDelayedAoe != null))
+		if (scampDelayedAoe != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken_EffectMod(tokens, m_delayedEffectBaseMod, "DelayedEffectBase", scampDelayedAoe.m_delayedEffectBase);
-			AbilityMod.AddToken(tokens, m_subseqTurnDamageMultiplierMod, "SubseqTurnDamageMultiplier", string.Empty, scampDelayedAoe.m_subseqTurnDamageMultiplier);
-			AbilityMod.AddToken(tokens, m_extraDamageIfShieldDownFormMod, "ExtraDamageIfShieldDownForm", string.Empty, scampDelayedAoe.m_extraDamageIfShieldDownForm);
-			return;
+			AddToken_EffectMod(tokens, m_delayedEffectBaseMod, "DelayedEffectBase", scampDelayedAoe.m_delayedEffectBase);
+			AddToken(tokens, m_subseqTurnDamageMultiplierMod, "SubseqTurnDamageMultiplier", string.Empty, scampDelayedAoe.m_subseqTurnDamageMultiplier);
+			AddToken(tokens, m_extraDamageIfShieldDownFormMod, "ExtraDamageIfShieldDownForm", string.Empty, scampDelayedAoe.m_extraDamageIfShieldDownForm);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		ScampDelayedAoe scampDelayedAoe = GetTargetAbilityOnAbilityData(abilityData) as ScampDelayedAoe;
-		bool flag = scampDelayedAoe != null;
-		string str = base.ModSpecificAutogenDesc(abilityData);
-		str += GetTargetSelectModDesc(m_targetSelectMod, scampDelayedAoe.m_targetSelectComp, "-- Target Select --");
-		str += PropDesc(m_delayedEffectBaseMod, "[DelayedEffectBase]", flag, (!flag) ? null : scampDelayedAoe.m_delayedEffectBase);
-		str += PropDesc(m_extraDamageIfShieldDownFormMod, "[ExtraDamageIfShieldDownForm]", flag, flag ? scampDelayedAoe.m_extraDamageIfShieldDownForm : 0);
-		str += PropDesc(m_subseqTurnDamageMultiplierMod, "[SubseqTurnDamageMultiplier]", flag, (!flag) ? 0f : scampDelayedAoe.m_subseqTurnDamageMultiplier);
-		string str2 = str;
-		AbilityModPropertyBool subseqTurnNoEnergyGainMod = m_subseqTurnNoEnergyGainMod;
-		int baseVal;
-		if (flag)
-		{
-			baseVal = (scampDelayedAoe.m_subseqTurnNoEnergyGain ? 1 : 0);
-		}
-		else
-		{
-			baseVal = 0;
-		}
-		return str2 + PropDesc(subseqTurnNoEnergyGainMod, "[SubseqTurnNoEnergyGain]", flag, (byte)baseVal != 0);
+		bool isValid = scampDelayedAoe != null;
+		string desc = base.ModSpecificAutogenDesc(abilityData);
+		desc += GetTargetSelectModDesc(m_targetSelectMod, scampDelayedAoe.m_targetSelectComp, "-- Target Select --");
+		desc += PropDesc(m_delayedEffectBaseMod, "[DelayedEffectBase]", isValid, isValid ? scampDelayedAoe.m_delayedEffectBase : null);
+		desc += PropDesc(m_extraDamageIfShieldDownFormMod, "[ExtraDamageIfShieldDownForm]", isValid, isValid ? scampDelayedAoe.m_extraDamageIfShieldDownForm : 0);
+		desc += PropDesc(m_subseqTurnDamageMultiplierMod, "[SubseqTurnDamageMultiplier]", isValid, isValid ? scampDelayedAoe.m_subseqTurnDamageMultiplier : 0f);
+		return desc + PropDesc(m_subseqTurnNoEnergyGainMod, "[SubseqTurnNoEnergyGain]", isValid, isValid && scampDelayedAoe.m_subseqTurnNoEnergyGain);
 	}
 }

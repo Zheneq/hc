@@ -2,9 +2,8 @@ using System.Collections.Generic;
 
 public class ScampSideLaserOrCone : GenericAbility_Container
 {
-	[Separator("Target Select Component for when shield is down", true)]
+	[Separator("Target Select Component for when shield is down")]
 	public GenericAbility_TargetSelectBase m_shieldDownTargetSelect;
-
 	[Separator("On Hit Data for when shield is down", "yellow")]
 	public OnHitAuthoredData m_shieldDownOnHitData;
 
@@ -34,57 +33,23 @@ public class ScampSideLaserOrCone : GenericAbility_Container
 	public void ResetTargetersForShielding(bool hasShield)
 	{
 		ClearTargeters();
-		List<AbilityUtil_Targeter> collection;
-		if (!hasShield)
-		{
-			if (!(m_shieldDownTargetSelect == null))
-			{
-				collection = m_shieldDownTargetSelect.CreateTargeters(this);
-				goto IL_0056;
-			}
-		}
-		collection = m_targetSelectComp.CreateTargeters(this);
-		goto IL_0056;
-		IL_0056:
-		base.Targeters.AddRange(collection);
+		Targeters.AddRange(!hasShield && m_shieldDownTargetSelect != null
+			? m_shieldDownTargetSelect.CreateTargeters(this)
+			: m_targetSelectComp.CreateTargeters(this));
 	}
 
 	public override OnHitAuthoredData GetOnHitAuthoredData()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_suitWasActiveOnTurnStart)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return m_onHitData;
-					}
-				}
-			}
-		}
-		return m_shieldDownOnHitData;
+		return m_syncComp != null && m_syncComp.m_suitWasActiveOnTurnStart
+			? m_onHitData
+			: m_shieldDownOnHitData;
 	}
 
 	public override GenericAbility_TargetSelectBase GetTargetSelectComp()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_suitWasActiveOnTurnStart)
-			{
-				goto IL_0054;
-			}
-		}
-		if (m_shieldDownTargetSelect == null)
-		{
-			goto IL_0054;
-		}
-		return m_shieldDownTargetSelect;
-		IL_0054:
-		return m_targetSelectComp;
+		return m_syncComp != null && m_syncComp.m_suitWasActiveOnTurnStart
+		       || m_shieldDownTargetSelect == null
+			? m_targetSelectComp
+			: m_shieldDownTargetSelect;
 	}
 }
