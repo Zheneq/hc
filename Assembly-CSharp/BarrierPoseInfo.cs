@@ -65,7 +65,7 @@ public class BarrierPoseInfo
 			targetPosAdjusted += squareSize * new Vector3(0.5f, 0f, 0.5f);
 		}
 		float shiftA = 0.5f * midsectionLengthAdjusted + cornerLengthAdjusted;
-		float shiftB = shiftA - 0.5f * cornerLengthAdjusted + 0.1f;
+		float shiftB = shiftA - 0.5f * cornerLengthAdjusted + 0.01f;
 		int[,] array = {
 			{ -1,  1 },
 			{  1,  1 },
