@@ -765,7 +765,7 @@ public class GameFlow : NetworkBehaviour
 		out List<PlayerAction> executingPlayerActions)
 	{
 		executingPlayerActions = new List<PlayerAction>();
-		List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
+		List<Effect> executingEffects = GatherEffectResultsInPhase(phase, phase != AbilityPriority.Combat_Knockback);  // knockback is gathered separately in HandleUpdateResolveAbilities
 
 		bool hasActionsThisPhase = false;
 		List<ActorAnimation> anims = new List<ActorAnimation>();
@@ -793,8 +793,12 @@ public class GameFlow : NetworkBehaviour
 	}
 
 	// custom
-	private static List<Effect> GatherEffectResultsInPhase(AbilityPriority phase)
+	private static List<Effect> GatherEffectResultsInPhase(AbilityPriority phase, bool notify = true)
 	{
+		if (notify)
+		{
+			ServerEffectManager.Get().NotifyBeforeGatherAllEffectResults(phase);
+		}
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
 		List<Effect> executingEffects = new List<Effect>();
 		foreach (KeyValuePair<ActorData, List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
