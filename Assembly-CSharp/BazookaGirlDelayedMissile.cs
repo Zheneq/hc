@@ -296,7 +296,7 @@ public class BazookaGirlDelayedMissile : Ability
 	{
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
-			targets[0].FreePos,
+			targets[0].GetWorldGridPos(),
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
 			additionalData.m_sequenceSource);
