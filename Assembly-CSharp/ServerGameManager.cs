@@ -1921,11 +1921,11 @@ public class ServerGameManager : MonoBehaviour
 	private void HandleShutdownGameRequest(ShutdownGameRequest request)
 	{
 		Log.Info("Received shutdown game request");
-		if (ObjectivePoints.Get().Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+		if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
 		{
 			ObjectivePoints.Get().EndGame();
 		}
-		GameManager.Get().StopGame();
+		GameManager.Get()?.StopGame();
 		
 		// custom
 		Log.Info("Shutting down");
