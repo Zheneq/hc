@@ -2507,7 +2507,7 @@ public class UITextConsole : MonoBehaviour
 			string arg = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
 			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
 		}
-		case ConsoleMessageType._001D:
+		case ConsoleMessageType.DiscordLog:
 		{
 			string arg = ColorToHex(Color.yellow);
 			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);

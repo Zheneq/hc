@@ -123,64 +123,43 @@ public class TextConsole
 	{
 		if (string.IsNullOrEmpty(input))
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
-		bool flag = false;
-		if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
-		{
-			if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
-			{
-				flag = true;
-			}
-		}
+		bool isInGame = GameManager.Get() != null
+		            && GameManager.Get().GameInfo != null
+		            && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped;
 		input = ChatEmojiManager.Get().UnlocalizeEmojis(input);
 		input = RemoveRichTextTags(input);
 		string arguments;
-		string text;
-		if (input[0] != '/')
-		{
-			text = ((!flag) ? "/global" : "/team");
-			arguments = input;
-		}
-		else
+		string command;
+		if (input[0] == '/')
 		{
 			string[] array = input.Split((string[])null, 2, StringSplitOptions.RemoveEmptyEntries);
 			if (array.Length >= 2)
 			{
-				text = array[0];
+				command = array[0];
 				arguments = array[1];
 			}
 			else
 			{
-				text = input;
+				command = input;
 				arguments = string.Empty;
 			}
 		}
-		text = text.Trim();
-		if (SlashCommands.Get().RunSlashCommand(text, arguments))
+		else
+		{
+			command = isInGame ? "/team" : "/global";
+			arguments = input;
+		}
+
+		command = command.Trim();
+		if (SlashCommands.Get().RunSlashCommand(command, arguments))
 		{
 			return;
 		}
-		while (true)
+		if (DebugCommands.Get() != null)
 		{
-			if (DebugCommands.Get() != null)
-			{
-				while (true)
-				{
-					bool flag2 = DebugCommands.Get().RunDebugCommand(text, arguments);
-					return;
-				}
-			}
-			return;
+			DebugCommands.Get().RunDebugCommand(command, arguments);
 		}
 	}
 

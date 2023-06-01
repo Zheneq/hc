@@ -10,19 +10,10 @@ public class DebugCommand
 		get
 		{
 			ClientGameManager clientGameManager = ClientGameManager.Get();
-			int result;
-			if (clientGameManager != null)
-			{
-				if (clientGameManager.IsReady)
-				{
-					result = ((clientGameManager.EnvironmentType != EnvironmentType.External || clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin) ? 1 : 0);
-					goto IL_004b;
-				}
-			}
-			result = 0;
-			goto IL_004b;
-			IL_004b:
-			return (byte)result != 0;
+			return clientGameManager != null
+			       && clientGameManager.IsReady
+			       && (clientGameManager.EnvironmentType != EnvironmentType.External
+			           || clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin);
 		}
 	}
 
