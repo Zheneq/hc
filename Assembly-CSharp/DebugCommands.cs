@@ -39,9 +39,9 @@ public class DebugCommands
 
   public bool RunDebugCommand(string command, string arguments)
   {
-    bool flag1 = ((UnityEngine.Object) GameFlowData.Get() == (UnityEngine.Object) null);
+    bool flag1 = GameFlowData.Get() == null;
     bool flag2 = false;
-    foreach (DebugCommand debugCommand in this.m_debugCommands)
+    foreach (DebugCommand debugCommand in m_debugCommands)
     {
       if ((!flag1 || debugCommand.AvailableInFrontEnd()) && (debugCommand._0018().Contains(command.ToLower()) && (flag2 = debugCommand.OnSlashCommand(arguments))))
       {

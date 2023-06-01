@@ -12,5 +12,5 @@ public enum ConsoleMessageType
 	BroadcastMessage,
 	PingChat,
 	ScriptedChat,
-	_001D
+	DiscordLog
 }

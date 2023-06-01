@@ -1614,17 +1614,7 @@ public class ClientGameManager : MonoBehaviour
 
 	private void Update()
 	{
-		bool flag;
-		if (MyConnection != null)
-		{
-			flag = (PlayerInfo != null);
-		}
-		else
-		{
-			flag = false;
-		}
-		bool flag2 = flag;
-		if (flag2)
+		if (MyConnection != null && PlayerInfo != null)
 		{
 			MyConnection.Update();
 		}
@@ -1634,52 +1624,30 @@ public class ClientGameManager : MonoBehaviour
 		}
 		CheckLoaded();
 		GroupJoinManager.Get().Update();
-		if (!DisplayedMOTDPopup)
+		if (!DisplayedMOTDPopup
+		    && HydrogenConfig.Get() != null
+		    && ServerMessageOverrides != null
+		    && ServerMessageOverrides.MOTDPopUpText != null
+		    && UIDialogPopupManager.Get() != null)
 		{
-			if (HydrogenConfig.Get() != null)
+			string message = ServerMessageOverrides.MOTDPopUpText.GetValue(HydrogenConfig.Get().Language);
+			if (!message.IsNullOrEmpty())
 			{
-				if (ServerMessageOverrides != null)
-				{
-					if (ServerMessageOverrides.MOTDPopUpText != null)
-					{
-						if (UIDialogPopupManager.Get() != null)
-						{
-							string value = ServerMessageOverrides.MOTDPopUpText.GetValue(HydrogenConfig.Get().Language);
-							if (!value.IsNullOrEmpty())
-							{
-								UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("MessageOfTheDay", "Global"), value, StringUtil.TR("Ok", "Global"));
-								DisplayedMOTDPopup = true;
-							}
-						}
-					}
-				}
+				UIDialogPopupManager.OpenOneButtonDialog(
+					StringUtil.TR("MessageOfTheDay", "Global"),
+					message, 
+					StringUtil.TR("Ok", "Global"));
+				DisplayedMOTDPopup = true;
 			}
 		}
-		bool flag3 = true;
-		if (!(GameManager.Get() == null))
-		{
-			if (GameManager.Get().GameInfo != null && GameManager.Get().GameInfo.GameConfig != null)
-			{
-				if (GameManager.Get().GameInfo.GameConfig.GameType == GameType.Tutorial)
-				{
-					goto IL_1F3;
-				}
-			}
-			if (!(UINewReward.Get() == null))
-			{
-				if (!UIDialogPopupManager.Get().IsDialogBoxOpen())
-				{
-					if (!UIFrontendLoadingScreen.Get().IsVisible())
-					{
-						goto IL_1F5;
-					}
-				}
-			}
-		}
-		IL_1F3:
-		flag3 = false;
-		IL_1F5:
-		if (flag3)
+
+		if (GameManager.Get() != null
+		    && (GameManager.Get().GameInfo == null
+		        || GameManager.Get().GameInfo.GameConfig == null
+		        || GameManager.Get().GameInfo.GameConfig.GameType != GameType.Tutorial)
+		    && UINewReward.Get() != null
+		    && !UIDialogPopupManager.Get().IsDialogBoxOpen()
+		    && !UIFrontendLoadingScreen.Get().IsVisible())
 		{
 			if (LoginRewardNotification != null)
 			{
@@ -2082,102 +2050,104 @@ public class ClientGameManager : MonoBehaviour
 			m_lobbyGameClientInterface.Replay_RemoveFromGame();
 			return;
 		}
-		if (gameManager.GameInfo != null && !gameManager.GameInfo.GameServerProcessCode.IsNullOrEmpty() && m_gameResult == GameResult.NoResult)
+
+		if (gameManager.GameInfo == null
+		    || gameManager.GameInfo.GameServerProcessCode.IsNullOrEmpty()
+		    || m_gameResult != GameResult.NoResult)
 		{
-			Log.Info($"Leaving game {(isPermanent ? "permanently" : "temporarily")} with result {gameResult}");
-			m_gameResult = gameResult;
-			m_lobbyGameClientInterface?.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
+			return;
+		}
+		
+		Log.Info($"Leaving game {(isPermanent ? "permanently" : "temporarily")} with result {gameResult}");
+		m_gameResult = gameResult;
+		m_lobbyGameClientInterface?.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
+		{
+			if (!response.Success)
 			{
-				if (!response.Success)
-				{
-					TextConsole.Get().Write($"Failed to leave game: {response.ErrorMessage}");
-					Log.Warning($"Request to leave game {gameManager.GameInfo?.Name ?? string.Empty} failed: {response.ErrorMessage}");
-				}
-			});
-					
-			if (NetworkClient.active && Client != null && Client.isConnected && !NetworkServer.active)
-			{
-				GameManager.LeaveGameNotification leaveGameNotification = new GameManager.LeaveGameNotification();
-				leaveGameNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
-				leaveGameNotification.IsPermanent = isPermanent;
-				leaveGameNotification.GameResult = gameResult;
-				Client.SetMaxDelay(0f);
-				if (!Client.Send(0x43, leaveGameNotification))
-				{
-					Log.Error("Failed to send LeaveGameNotification");
-				}
-				Client.Disconnect();
+				TextConsole.Get().Write($"Failed to leave game: {response.ErrorMessage}");
+				Log.Warning($"Request to leave game {gameManager.GameInfo?.Name ?? string.Empty} failed: {response.ErrorMessage}");
 			}
-		}
-	}
-
-	public void CalculateFreelancerStats(PersistedStatBucket bucketType, CharacterType characterType, MatchFreelancerStats stats, Action<CalculateFreelancerStatsResponse> onResponseCallback)
-	{
-		if (m_lobbyGameClientInterface != null)
+		});
+					
+		if (NetworkClient.active && Client != null && Client.isConnected && !NetworkServer.active)
 		{
-			m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, null, stats, onResponseCallback);
+			GameManager.LeaveGameNotification leaveGameNotification = new GameManager.LeaveGameNotification();
+			leaveGameNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
+			leaveGameNotification.IsPermanent = isPermanent;
+			leaveGameNotification.GameResult = gameResult;
+			Client.SetMaxDelay(0f);
+			if (!Client.Send((short)MyMsgType.LeaveGameNotification, leaveGameNotification)) 
+			{
+				Log.Error("Failed to send LeaveGameNotification");
+			}
+			Client.Disconnect();
 		}
 	}
 
-	public void CalculateFreelancerStats(PersistedStatBucket bucketType, CharacterType characterType, PersistedStats stats, Action<CalculateFreelancerStatsResponse> onResponseCallback)
+	public void CalculateFreelancerStats(
+		PersistedStatBucket bucketType,
+		CharacterType characterType,
+		MatchFreelancerStats stats,
+		Action<CalculateFreelancerStatsResponse> onResponseCallback)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, stats, null, onResponseCallback);
-		}
+		m_lobbyGameClientInterface?.CalculateFreelancerStats(bucketType, characterType, null, stats, onResponseCallback);
 	}
 
-	public void CalculateFreelancerStats(PersistedStatBucket bucketType, CharacterType characterType, Action<CalculateFreelancerStatsResponse> onResponseCallback)
+	public void CalculateFreelancerStats(
+		PersistedStatBucket bucketType,
+		CharacterType characterType,
+		PersistedStats stats,
+		Action<CalculateFreelancerStatsResponse> onResponseCallback)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, null, null, onResponseCallback);
-		}
+		m_lobbyGameClientInterface?.CalculateFreelancerStats(bucketType, characterType, stats, null, onResponseCallback);
 	}
 
-	public void UpdateReadyState(ReadyState readyState, BotDifficulty? allyDifficulty, BotDifficulty? enemyDifficulty, Action<PlayerInfoUpdateResponse> onResponseCallback)
+	public void CalculateFreelancerStats(
+		PersistedStatBucket bucketType,
+		CharacterType characterType,
+		Action<CalculateFreelancerStatsResponse> onResponseCallback)
+	{
+		m_lobbyGameClientInterface?.CalculateFreelancerStats(bucketType, characterType, null, null, onResponseCallback);
+	}
+
+	public void UpdateReadyState(
+		ReadyState readyState,
+		BotDifficulty? allyDifficulty,
+		BotDifficulty? enemyDifficulty,
+		Action<PlayerInfoUpdateResponse> onResponseCallback)
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
 			if (readyState == ReadyState.Ready)
 			{
 				GameOptionFlag gameOptionFlag = GameOptionFlag.None;
-				if (DebugParameters.Get() != null)
+				if (DebugParameters.Get() != null
+				    && DebugParameters.Get().GetParameterAsBool("ReplaceHumansWithBots"))
 				{
-					if (DebugParameters.Get().GetParameterAsBool("ReplaceHumansWithBots"))
-					{
-						gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.ReplaceHumansWithBots);
-					}
+					gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.ReplaceHumansWithBots);
 				}
-				if (DebugParameters.Get() != null)
+				if (DebugParameters.Get() != null
+				    && DebugParameters.Get().GetParameterAsBool("SkipEndOfGameCheck"))
 				{
-					if (DebugParameters.Get().GetParameterAsBool("SkipEndOfGameCheck"))
-					{
-						gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.SkipEndOfGameCheck);
-					}
+					gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.SkipEndOfGameCheck);
 				}
-				if (DebugParameters.Get() != null)
+				if (DebugParameters.Get() != null
+				    && DebugParameters.Get().GetParameterAsBool("EnableTeamAIOutput"))
 				{
-					if (DebugParameters.Get().GetParameterAsBool("EnableTeamAIOutput"))
-					{
-						gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.EnableTeamAIOutput);
-					}
+					gameOptionFlag = gameOptionFlag.WithGameOption(GameOptionFlag.EnableTeamAIOutput);
 				}
 				PlayerGameOptionFlag playerGameOptionFlag = PlayerGameOptionFlag.None;
-				if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("ReplaceHumanWithBot"))
+				if (DebugParameters.Get() != null
+				    && DebugParameters.Get().GetParameterAsBool("ReplaceHumanWithBot"))
 				{
 					playerGameOptionFlag = playerGameOptionFlag.WithGameOption(PlayerGameOptionFlag.ReplaceHumanWithBot);
 				}
-				if (gameOptionFlag == GameOptionFlag.None)
+				if (gameOptionFlag != GameOptionFlag.None
+				    || playerGameOptionFlag != PlayerGameOptionFlag.None)
 				{
-					if (playerGameOptionFlag == PlayerGameOptionFlag.None)
-					{
-						goto IL_13A;
-					}
+					m_lobbyGameClientInterface.UpdateGameCheats(gameOptionFlag, playerGameOptionFlag);
 				}
-				m_lobbyGameClientInterface.UpdateGameCheats(gameOptionFlag, playerGameOptionFlag);
 			}
-			IL_13A:
 			LobbyPlayerInfo playerInfo = GameManager.Get().PlayerInfo;
 			bool shouldResetOnFalure = false;
 			ReadyState currentReadyState = ReadyState.Ready;
@@ -2186,11 +2156,13 @@ public class ClientGameManager : MonoBehaviour
 				shouldResetOnFalure = true;
 				currentReadyState = playerInfo.ReadyState;
 			}
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.ContextualReadyState = new ContextualReadyState
+			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate
 			{
-				ReadyState = readyState,
-				GameProcessCode = ((GameInfo == null) ? null : GameInfo.GameServerProcessCode)
+				ContextualReadyState = new ContextualReadyState
+				{
+					ReadyState = readyState,
+					GameProcessCode = GameInfo?.GameServerProcessCode
+				}
 			};
 			if (allyDifficulty != null)
 			{
@@ -2202,16 +2174,14 @@ public class ClientGameManager : MonoBehaviour
 			}
 			m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, delegate(PlayerInfoUpdateResponse response)
 			{
-				if (!response.Success)
+				if (!response.Success
+				    && shouldResetOnFalure
+				    && currentReadyState != readyState
+				    && AppState_CharacterSelect.Get() == AppState.GetCurrent()
+				    && playerInfo != null)
 				{
-					if (shouldResetOnFalure && currentReadyState != readyState && AppState_CharacterSelect.Get() == AppState.GetCurrent())
-					{
-						if (playerInfo != null)
-						{
-							playerInfo.ReadyState = currentReadyState;
-							Log.Warning("Failure to ready, resetting ready state");
-						}
-					}
+					playerInfo.ReadyState = currentReadyState;
+					Log.Warning("Failure to ready, resetting ready state");
 				}
 				if (onResponseCallback != null)
 				{
@@ -2219,19 +2189,13 @@ public class ClientGameManager : MonoBehaviour
 				}
 				else if (!response.Success)
 				{
-					string text;
-					if (response.LocalizedFailure != null)
-					{
-						text = response.LocalizedFailure.ToString();
-					}
-					else
-					{
-						text = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : string.Format("{0}#NeedsLocalization", response.ErrorMessage));
-					}
-					string text2 = text;
 					TextConsole.Get().Write(new TextConsole.Message
 					{
-						Text = text2,
+						Text = response.LocalizedFailure != null
+							? response.LocalizedFailure.ToString()
+							: response.ErrorMessage.IsNullOrEmpty()
+								? StringUtil.TR("UnknownErrorTryAgain", "Frontend")
+								: $"{response.ErrorMessage}#NeedsLocalization",
 						MessageType = ConsoleMessageType.SystemMessage
 					});
 				}
@@ -2241,52 +2205,40 @@ public class ClientGameManager : MonoBehaviour
 		{
 			Log.Warning("m_lobbyGameClientInterface == null");
 		}
-		if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
+		if (AppState_CharacterSelect.Get() == AppState.GetCurrent()
+		    && GameManager.Get().PlayerInfo != null)
 		{
-			if (GameManager.Get().PlayerInfo != null)
-			{
-				GameManager.Get().PlayerInfo.ReadyState = readyState;
-			}
+			GameManager.Get().PlayerInfo.ReadyState = readyState;
 		}
 	}
 
 	public void UpdateSelectedGameMode(GameType gametype)
 	{
-		if (m_lobbyGameClientInterface != null)
+		m_lobbyGameClientInterface?.UpdateGroupGameType(gametype, delegate(PlayerGroupInfoUpdateResponse response)
 		{
-			m_lobbyGameClientInterface.UpdateGroupGameType(gametype, delegate(PlayerGroupInfoUpdateResponse response)
+			UICharacterScreen.Get().ReceivedGameTypeChangeResponse();
+			if (!response.Success)
 			{
-				UICharacterScreen.Get().ReceivedGameTypeChangeResponse();
-				if (!response.Success)
-				{
-					string description;
-					if (response.LocalizedFailure != null)
-					{
-						description = response.LocalizedFailure.ToString();
-					}
-					else if (!response.ErrorMessage.IsNullOrEmpty())
-					{
-						description = string.Format("{0}#NeedsLocalization", response.ErrorMessage);
-					}
-					else
-					{
-						description = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
-					}
-					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingFailure", "Global"), description, StringUtil.TR("Ok", "Global"));
-				}
-			});
-		}
+				UIDialogPopupManager.OpenOneButtonDialog(
+					StringUtil.TR("QueuingFailure", "Global"),
+					response.LocalizedFailure != null
+						? response.LocalizedFailure.ToString()
+						: response.ErrorMessage.IsNullOrEmpty()
+							? StringUtil.TR("UnknownErrorTryAgain", "Frontend")
+							: $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
+			}
+		});
 	}
 
 	public void UpdateSelectedCharacter(CharacterType character, int playerId = 0)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			lobbyPlayerInfoUpdate.CharacterType = character;
-			m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleCharacterSelectUpdateResponse);
-		}
+		m_lobbyGameClientInterface?.UpdatePlayerInfo(
+			new LobbyPlayerInfoUpdate
+			{
+				PlayerId = playerId,
+				CharacterType = character
+			},
+			HandleCharacterSelectUpdateResponse);
 	}
 
 	private void RecordFailureInCharacterSelectUpdateResponse(PlayerInfoUpdateResponse response, string memberName)
@@ -2317,12 +2269,9 @@ public class ClientGameManager : MonoBehaviour
 		{
 			UICharacterScreen.Get().CharacterSelectionResponseHandler(response);
 		}
-		if (Get().GroupInfo != null)
+		if (Get().GroupInfo != null && response.CharacterInfo != null)
 		{
-			if (response.CharacterInfo != null)
-			{
-				Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
-			}
+			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
 		}
 		if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent() && response.CharacterInfo != null)
 		{
@@ -2334,13 +2283,17 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			CharacterLoadoutUpdate value;
-			value.CharacterLoadoutChanges = loadouts;
+			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate
+			{
+				PlayerId = playerId
+			};
+			CharacterLoadoutUpdate value = new CharacterLoadoutUpdate
+			{
+				CharacterLoadoutChanges = loadouts
+			};
 			if (!loadouts.IsNullOrEmpty())
 			{
-				lobbyPlayerInfoUpdate.RankedLoadoutMods = (loadouts[0].Strictness == ModStrictness.Ranked);
+				lobbyPlayerInfoUpdate.RankedLoadoutMods = loadouts[0].Strictness == ModStrictness.Ranked;
 			}
 			else
 			{
@@ -2353,13 +2306,13 @@ public class ClientGameManager : MonoBehaviour
 
 	public void RequestLoadouts(bool ranked)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = 0;
-			lobbyPlayerInfoUpdate.RankedLoadoutMods = ranked;
-			m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleLoadoutUpdateResponse);
-		}
+		m_lobbyGameClientInterface?.UpdatePlayerInfo(
+			new LobbyPlayerInfoUpdate
+			{
+				PlayerId = 0,
+				RankedLoadoutMods = ranked
+			},
+			HandleLoadoutUpdateResponse);
 	}
 
 	public void HandleLoadoutUpdateResponse(PlayerInfoUpdateResponse response)
@@ -2369,13 +2322,16 @@ public class ClientGameManager : MonoBehaviour
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleLoadoutUpdateResponse");
 			return;
 		}
-		if (response.CharacterInfo.CharacterLoadouts.Count > 0 && response.CharacterInfo.CharacterLoadouts[0].Strictness == ModStrictness.Ranked)
+		if (response.CharacterInfo.CharacterLoadouts.Count > 0
+		    && response.CharacterInfo.CharacterLoadouts[0].Strictness == ModStrictness.Ranked)
 		{
-			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter).CharacterComponent.CharacterLoadoutsRanked = response.CharacterInfo.CharacterLoadouts;
+			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter)
+				.CharacterComponent.CharacterLoadoutsRanked = response.CharacterInfo.CharacterLoadouts;
 		}
 		else
 		{
-			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter).CharacterComponent.CharacterLoadouts = response.CharacterInfo.CharacterLoadouts;
+			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter)
+				.CharacterComponent.CharacterLoadouts = response.CharacterInfo.CharacterLoadouts;
 		}
 		UICharacterSelectCharacterSettingsPanel.Get().NotifyLoadoutUpdate(response);
 		if (UIRankedCharacterSelectSettingsPanel.Get() != null)
@@ -2386,14 +2342,18 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedSkin(CharacterVisualInfo selectedCharacterSkin, int playerId = 0)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null)
 		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			lobbyPlayerInfoUpdate.CharacterSkin = selectedCharacterSkin;
-			WaitingForSkinSelectResponse.Add(selectedCharacterSkin);
-			m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleSkinSelectUpdateResponse);
+			return;
 		}
+		WaitingForSkinSelectResponse.Add(selectedCharacterSkin);
+		m_lobbyGameClientInterface.UpdatePlayerInfo(
+			new LobbyPlayerInfoUpdate
+			{
+				PlayerId = playerId,
+				CharacterSkin = selectedCharacterSkin
+			},
+			HandleSkinSelectUpdateResponse);
 	}
 
 	public void HandleSkinSelectUpdateResponse(PlayerInfoUpdateResponse response)
@@ -2403,38 +2363,47 @@ public class ClientGameManager : MonoBehaviour
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleSkinSelectUpdateResponse");
 			return;
 		}
-		if (response.CharacterInfo != null && Get().GroupInfo != null)
+		if (response.CharacterInfo == null || Get().GroupInfo == null)
 		{
-			GetAllPlayerCharacterData()[response.CharacterInfo.CharacterType].CharacterComponent.LastSkin = response.CharacterInfo.CharacterSkin;
-			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
-			if (WaitingForSkinSelectResponse.Count > 0)
-			{
-				if (WaitingForSkinSelectResponse[0].Equals(response.CharacterInfo.CharacterSkin))
-				{
-					WaitingForSkinSelectResponse.RemoveAt(0);
-					return;
-				}
-			}
-			if (UICharacterSelectWorldObjects.Get() != null)
-			{
-				UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(response.CharacterInfo.CharacterType, 0, string.Empty, response.CharacterInfo.CharacterSkin, false);
-			}
-			else
-			{
-				Log.Warning("Handling skin selection update response when character select is not present");
-			}
+			return;
+		}
+		
+		GetAllPlayerCharacterData()[response.CharacterInfo.CharacterType].CharacterComponent.LastSkin = response.CharacterInfo.CharacterSkin;
+		Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
+		if (WaitingForSkinSelectResponse.Count > 0
+		    && WaitingForSkinSelectResponse[0].Equals(response.CharacterInfo.CharacterSkin))
+		{
+			WaitingForSkinSelectResponse.RemoveAt(0);
+			return;
+		}
+		if (UICharacterSelectWorldObjects.Get() != null)
+		{
+			UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(
+				response.CharacterInfo.CharacterType,
+				0,
+				string.Empty,
+				response.CharacterInfo.CharacterSkin,
+				false);
+		}
+		else
+		{
+			Log.Warning("Handling skin selection update response when character select is not present");
 		}
 	}
 
 	public void UpdateSelectedCards(CharacterCardInfo cards, int playerId = 0)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null)
 		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			lobbyPlayerInfoUpdate.CharacterCards = cards;
-			WaitingForCardSelectResponse = m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleCardSelectUpdateResponse);
+			return;
 		}
+		WaitingForCardSelectResponse = m_lobbyGameClientInterface.UpdatePlayerInfo(
+			new LobbyPlayerInfoUpdate
+			{
+				PlayerId = playerId,
+				CharacterCards = cards
+			},
+			HandleCardSelectUpdateResponse);
 	}
 
 	public void ClearWaitingForCardResponse()
@@ -2453,28 +2422,22 @@ public class ClientGameManager : MonoBehaviour
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleCardSelectUpdateResponse");
 			return;
 		}
-		if (Get().GroupInfo != null && response.CharacterInfo != null)
+		if (Get().GroupInfo != null
+		    && response.CharacterInfo != null
+		    && (AppState_CharacterSelect.Get() != AppState.GetCurrent()
+		        || !GameManager.Get().GameInfo.IsCustomGame
+		        || GameManager.Get().GameInfo.GameStatus == GameStatus.Stopped))
 		{
-			if (AppState_CharacterSelect.Get() == AppState.GetCurrent())
-			{
-				if (GameManager.Get().GameInfo.IsCustomGame)
-				{
-					if (GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped)
-					{
-						goto IL_11D;
-					}
-				}
-			}
 			if (UICharacterSelectCharacterSettingsPanel.Get() != null)
 			{
-				UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
+				UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState()
+					.CharacterResourceLinkOfCharacterTypeToDisplay);
 			}
 			if (UIRankedCharacterSelectSettingsPanel.Get() != null)
 			{
 				UIRankedCharacterSelectSettingsPanel.Get().Refresh();
 			}
 		}
-		IL_11D:
 		if (response.CharacterInfo != null)
 		{
 			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
@@ -2493,25 +2456,29 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedMods(CharacterModInfo mods, int playerId = 0)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null)
 		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			lobbyPlayerInfoUpdate.CharacterMods = mods;
-			lobbyPlayerInfoUpdate.RankedLoadoutMods = (AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked);
-			WaitingForModSelectResponse = m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleModSelectUpdateResponse);
+			return;
 		}
+		WaitingForModSelectResponse = m_lobbyGameClientInterface.UpdatePlayerInfo(
+			new LobbyPlayerInfoUpdate
+			{
+				PlayerId = playerId,
+				CharacterMods = mods,
+				RankedLoadoutMods = AbilityMod.GetRequiredModStrictnessForGameSubType() == ModStrictness.Ranked
+			},
+			HandleModSelectUpdateResponse);
 	}
 
 	public void UpdateSelectedAbilityVfxSwaps(CharacterAbilityVfxSwapInfo swaps, int playerId = 0)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			lobbyPlayerInfoUpdate.CharacterAbilityVfxSwaps = swaps;
-			m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleAbilityVfxSwapSelectUpdateResponse);
-		}
+		m_lobbyGameClientInterface?.UpdatePlayerInfo(
+			new LobbyPlayerInfoUpdate
+			{
+				PlayerId = playerId,
+				CharacterAbilityVfxSwaps = swaps
+			},
+			HandleAbilityVfxSwapSelectUpdateResponse);
 	}
 
 	public void HandleModSelectUpdateResponse(PlayerInfoUpdateResponse response)
@@ -2525,43 +2492,41 @@ public class ClientGameManager : MonoBehaviour
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleModSelectUpdateResponse");
 			return;
 		}
-		if (response.CharacterInfo != null)
+
+		if (response.CharacterInfo == null)
 		{
-			PersistedCharacterData playerCharacterData = Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType);
-			bool rankedLoadoutMods = response.OriginalPlayerInfoUpdate.RankedLoadoutMods;
+			return;
+		}
+		PersistedCharacterData playerCharacterData = Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType);
+		bool rankedLoadoutMods = response.OriginalPlayerInfoUpdate.RankedLoadoutMods;
+		if (rankedLoadoutMods)
+		{
+			playerCharacterData.CharacterComponent.LastRankedMods = response.CharacterInfo.CharacterMods;
+		}
+		else
+		{
+			playerCharacterData.CharacterComponent.LastMods = response.CharacterInfo.CharacterMods;
+		}
+		int? lastSelectedLoadout = response.OriginalPlayerInfoUpdate.LastSelectedLoadout;
+		if (lastSelectedLoadout != null)
+		{
 			if (rankedLoadoutMods)
 			{
-				playerCharacterData.CharacterComponent.LastRankedMods = response.CharacterInfo.CharacterMods;
+				playerCharacterData.CharacterComponent.LastSelectedRankedLoadout = lastSelectedLoadout.Value;
 			}
 			else
 			{
-				playerCharacterData.CharacterComponent.LastMods = response.CharacterInfo.CharacterMods;
+				playerCharacterData.CharacterComponent.LastSelectedLoadout = lastSelectedLoadout.Value;
 			}
-			int? lastSelectedLoadout = response.OriginalPlayerInfoUpdate.LastSelectedLoadout;
-			if (lastSelectedLoadout != null)
-			{
-				if (rankedLoadoutMods)
-				{
-					CharacterComponent characterComponent = playerCharacterData.CharacterComponent;
-					int? lastSelectedLoadout2 = response.OriginalPlayerInfoUpdate.LastSelectedLoadout;
-					characterComponent.LastSelectedRankedLoadout = lastSelectedLoadout2.Value;
-				}
-				else
-				{
-					CharacterComponent characterComponent2 = playerCharacterData.CharacterComponent;
-					int? lastSelectedLoadout3 = response.OriginalPlayerInfoUpdate.LastSelectedLoadout;
-					characterComponent2.LastSelectedLoadout = lastSelectedLoadout3.Value;
-				}
-			}
-			if (Get().GroupInfo != null)
-			{
-				Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
-			}
-			UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
-			if (UIRankedCharacterSelectSettingsPanel.Get() != null)
-			{
-				UIRankedCharacterSelectSettingsPanel.Get().Refresh();
-			}
+		}
+		if (Get().GroupInfo != null)
+		{
+			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
+		}
+		UICharacterSelectCharacterSettingsPanel.Get().Refresh(UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay);
+		if (UIRankedCharacterSelectSettingsPanel.Get() != null)
+		{
+			UIRankedCharacterSelectSettingsPanel.Get().Refresh();
 		}
 	}
 
@@ -2572,205 +2537,149 @@ public class ClientGameManager : MonoBehaviour
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleAbilityVfxSwapSelectUpdateResponse");
 			return;
 		}
-		if (response.CharacterInfo != null)
+
+		if (response.CharacterInfo == null)
 		{
-			Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType).CharacterComponent.LastAbilityVfxSwaps = response.CharacterInfo.CharacterAbilityVfxSwaps;
-			if (Get().GroupInfo != null)
-			{
-				Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
-			}
-			UICharacterSelectCharacterSettingsPanel.Get().m_abilitiesSubPanel.RefreshSelectedVfxSwaps();
-			if (UIRankedCharacterSelectSettingsPanel.Get() != null)
-			{
-				UIRankedCharacterSelectSettingsPanel.Get().m_abilitiesSubPanel.RefreshSelectedVfxSwaps();
-			}
+			return;
+		}
+		Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType)
+			.CharacterComponent.LastAbilityVfxSwaps = response.CharacterInfo.CharacterAbilityVfxSwaps;
+		if (Get().GroupInfo != null)
+		{
+			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
+		}
+		UICharacterSelectCharacterSettingsPanel.Get().m_abilitiesSubPanel.RefreshSelectedVfxSwaps();
+		if (UIRankedCharacterSelectSettingsPanel.Get() != null)
+		{
+			UIRankedCharacterSelectSettingsPanel.Get().m_abilitiesSubPanel.RefreshSelectedVfxSwaps();
 		}
 	}
 
 	public void UpdateBotDifficulty(BotDifficulty? allyDifficulty, BotDifficulty? enemyDifficulty, int playerId = 0)
 	{
-		if (m_lobbyGameClientInterface != null)
+		m_lobbyGameClientInterface?.UpdatePlayerInfo(new LobbyPlayerInfoUpdate
 		{
-			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-			lobbyPlayerInfoUpdate.PlayerId = playerId;
-			lobbyPlayerInfoUpdate.AllyDifficulty = allyDifficulty;
-			lobbyPlayerInfoUpdate.EnemyDifficulty = enemyDifficulty;
-			m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate);
-		}
+			PlayerId = playerId,
+			AllyDifficulty = allyDifficulty,
+			EnemyDifficulty = enemyDifficulty
+		});
 	}
 
 	public void SendSetRegionRequest(Region region)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendSetRegionRequest(region);
-		}
+		m_lobbyGameClientInterface?.SendSetRegionRequest(region);
 	}
 
 	public void SendRankedTradeRequest_AcceptOrOffer(CharacterType desiredCharacter)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._001D);
-		}
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._001D);
 	}
 
 	public void SendRankedTradeRequest_Reject(CharacterType desiredCharacter)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._000E);
-		}
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._000E);
 	}
 
 	public void SendRankedTradeRequest_StopTrading()
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType._0012);
-		}
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType._0012);
 	}
 
 	public void SendRankedBanRequest(CharacterType type)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendRankedBanRequest(type);
-		}
+		m_lobbyGameClientInterface?.SendRankedBanRequest(type);
 	}
 
 	public void SendRankedSelectRequest(CharacterType type)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendRankedSelectionRequest(type);
-		}
+		m_lobbyGameClientInterface?.SendRankedSelectionRequest(type);
 	}
 
 	public void SendRankedHoverClickRequest(CharacterType type)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendRankedHoverClickRequest(type);
-		}
+		m_lobbyGameClientInterface?.SendRankedHoverClickRequest(type);
 	}
 
 	public void UpdateGameInfo(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo)
 	{
-		UpdateGameInfo(new LobbyGameInfo
-		{
-			GameConfig = gameConfig
-		}, teamInfo);
+		UpdateGameInfo(new LobbyGameInfo { GameConfig = gameConfig }, teamInfo);
 	}
 
 	public void UpdateGameInfo(LobbyGameInfo gameInfo, LobbyTeamInfo teamInfo)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.UpdateGameInfo(gameInfo, teamInfo);
-		}
+		m_lobbyGameClientInterface?.UpdateGameInfo(gameInfo, teamInfo);
 	}
 
 	public void InvitePlayerToGame(string playerHandle, Action<GameInvitationResponse> onResponseCallback)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.InvitePlayerToGame(playerHandle, onResponseCallback);
-		}
+		m_lobbyGameClientInterface?.InvitePlayerToGame(playerHandle, onResponseCallback);
 	}
 
 	public void SpectateGame(string playerHandle, Action<GameSpectatorResponse> onResponseCallback)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SpectateGame(playerHandle, onResponseCallback);
-		}
+		m_lobbyGameClientInterface?.SpectateGame(playerHandle, onResponseCallback);
 	}
 
 	public bool RequestCrashReportArchiveName(int numArchiveBytes, Action<CrashReportArchiveNameResponse> onResponseCallback = null)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			return m_lobbyGameClientInterface.RequestCrashReportArchiveName(numArchiveBytes, onResponseCallback);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.RequestCrashReportArchiveName(numArchiveBytes, onResponseCallback);
 	}
 
 	public bool SendStatusReport(ClientStatusReport report)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			return m_lobbyGameClientInterface.SendStatusReport(report);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendStatusReport(report);
 	}
 
 	public bool SendErrorReport(ClientErrorReport report)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			return m_lobbyGameClientInterface.SendErrorReport(report);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendErrorReport(report);
 	}
 
 	public bool SendErrorSummary(ClientErrorSummary summary)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			return m_lobbyGameClientInterface.SendErrorSummary(summary);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendErrorSummary(summary);
 	}
 
 	public bool SendFeedbackReport(ClientFeedbackReport report)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			return m_lobbyGameClientInterface.SendFeedbackReport(report);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendFeedbackReport(report);
 	}
 
 	public bool SendPerformanceReport()
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			ClientPerformanceReport clientPerformanceReport = new ClientPerformanceReport();
-			clientPerformanceReport.PerformanceInfo = ClientPerformanceCollector.Get().Collect();
-			return m_lobbyGameClientInterface.SendPerformanceReport(clientPerformanceReport);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendPerformanceReport(
+			       new ClientPerformanceReport
+			       {
+				       PerformanceInfo = ClientPerformanceCollector.Get().Collect()
+			       });
 	}
 
 	public bool SendChatNotification(string recipientHandle, ConsoleMessageType messageType, string text)
 	{
-		return m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.SendChatNotification(recipientHandle, messageType, text);
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendChatNotification(recipientHandle, messageType, text);
 	}
 
 	public void SendUseOverconRequest(int id, string overconName, int actorId, int turn)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendUseOverconRequest(id, overconName, actorId, turn);
-		}
+		m_lobbyGameClientInterface?.SendUseOverconRequest(id, overconName, actorId, turn);
 	}
 
 	public void SendSetDevTagRequest(bool active, Action<SetDevTagResponse> onResponseCallback)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			m_lobbyGameClientInterface.SendSetDevTagRequest(active, onResponseCallback);
-		}
+		m_lobbyGameClientInterface?.SendSetDevTagRequest(active, onResponseCallback);
 	}
 
 	public bool SendUIActionNotification(string context)
 	{
-		if (m_lobbyGameClientInterface != null)
-		{
-			return m_lobbyGameClientInterface.SendUIActionNotification(context);
-		}
-		return false;
+		return m_lobbyGameClientInterface != null
+		       && m_lobbyGameClientInterface.SendUIActionNotification(context);
 	}
 
 	private void HandleLobbyCustomGamesNotification(LobbyCustomGamesNotification notification)
@@ -2800,11 +2709,11 @@ public class ClientGameManager : MonoBehaviour
 		}
 		else if (GroupInfo.InAGroup)
 		{
-			for (int i = 0; i < notification.Members.Count; i++)
+			foreach (UpdateGroupMemberData member in notification.Members)
 			{
-				if (notification.Members[i].IsLeader)
+				if (member.IsLeader)
 				{
-					flag = (notification.Members[i].AccountID == GetPlayerAccountData().AccountId);
+					flag = member.AccountID == GetPlayerAccountData().AccountId;
 					break;
 				}
 			}
@@ -2822,13 +2731,11 @@ public class ClientGameManager : MonoBehaviour
 						IEnumerable<ushort> enumerable = from p in gameTypeSubTypes.Keys
 														 where (p & notification.SubTypeMask) != 0
 														 select p;
-						if (!enumerable.IsNullOrEmpty())
+						if (!enumerable.IsNullOrEmpty()
+						    && gameTypeSubTypes.TryGetValue(enumerable.First(), out GameSubType gameSubType)
+						    && gameSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 						{
-							GameSubType gameSubType;
-							if (gameTypeSubTypes.TryGetValue(enumerable.First(), out gameSubType) && gameSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-							{
-								value = true;
-							}
+							value = true;
 						}
 					}
 					characterSelectSceneStateParameters.SelectedEnemyBotDifficulty = (int)notification.EnemyDifficulty;
@@ -2844,53 +2751,48 @@ public class ClientGameManager : MonoBehaviour
 		}
 		else
 		{
-			if (AppState.GetCurrent() == AppState_CharacterSelect.Get() || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+			if ((AppState.GetCurrent() == AppState_CharacterSelect.Get()
+			     || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+			    && GroupInfo.SelectedQueueType == GameType.Coop)
 			{
-				if (GroupInfo.SelectedQueueType == GameType.Coop)
+				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
-					UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
-					{
-						AllyBotTeammatesSelected = false
-					});
-				}
+					AllyBotTeammatesSelected = false
+				});
 			}
 		}
 		if (UICharacterScreen.Get() != null)
 		{
 			UICharacterScreen.Get().DoRefreshFunctions(0x80);
 		}
-		if (AppState.GetCurrent() == AppState_CharacterSelect.Get() || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+		if ((AppState.GetCurrent() == AppState_CharacterSelect.Get()
+		     || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
+		    && UICharacterScreen.Get() != null)
 		{
-			if (UICharacterScreen.Get() != null)
-			{
-				UICharacterScreen.Get().DoRefreshFunctions(0x40);
-			}
+			UICharacterScreen.Get().DoRefreshFunctions(0x40);
 		}
-		if (DiscordClientInterface.IsEnabled)
+		if (DiscordClientInterface.IsEnabled && (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled))
 		{
-			if (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled)
+			if (GroupInfo.InAGroup)
 			{
-				if (GroupInfo.InAGroup)
+				bool enableAutoJoinDiscord = Options_UI.Get().GetEnableAutoJoinDiscord();
+				if (enableAutoJoinDiscord)
 				{
-					bool enableAutoJoinDiscord = Options_UI.Get().GetEnableAutoJoinDiscord();
-					if (enableAutoJoinDiscord)
+					JoinDiscord();
+				}
+				else if (!m_discordJoinSuggested)
+				{
+					m_discordJoinSuggested = true;
+					string text = string.Format(StringUtil.TR("ClickToJoinDiscordGroupChat", "Global"));
+					if (!DiscordClientInterface.IsSdkEnabled)
 					{
-						JoinDiscord();
-					}
-					else if (!m_discordJoinSuggested)
-					{
-						m_discordJoinSuggested = true;
-						string text = string.Format(StringUtil.TR("ClickToJoinDiscordGroupChat", "Global"));
-						if (!DiscordClientInterface.IsSdkEnabled)
-						{
-							TextConsole.Get().Write(text);
-						}
+						TextConsole.Get().Write(text);
 					}
 				}
-				else
-				{
-					LeaveDiscord();
-				}
+			}
+			else
+			{
+				LeaveDiscord();
 			}
 		}
 		OnGroupUpdateNotificationHolder();
@@ -3167,7 +3069,7 @@ public class ClientGameManager : MonoBehaviour
 		EnvironmentType = notification.EnvironmentType;
 		if (GroupInfo != null)
 		{
-			if (GroupInfo.ChararacterInfo != null)
+			if (GroupInfo.ChararacterInfo != null) // TODO does client receive it?
 			{
 				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
@@ -3671,7 +3573,7 @@ public class ClientGameManager : MonoBehaviour
 							goto IL_530;
 						}
 					}
-					flag6 = (GetDiscordJoinType() == DiscordJoinType._000E);
+					flag6 = (GetDiscordJoinType() == DiscordJoinType.Group);
 					goto IL_531;
 				}
 				IL_530:
@@ -5348,21 +5250,19 @@ public class ClientGameManager : MonoBehaviour
 
 	public void RejoinGame(bool accept, Action<RejoinGameResponse> onResponseCallback = null)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null || !m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
-			{
-				m_lobbyGameClientInterface.SendRejoinGameRequest(GameInfo, accept, onResponseCallback);
-				return;
-			}
+			TextConsole.Get().Write($"{StringUtil.TR("FailedToRejoinGame", "Frontend")} " +
+			                        $"{StringUtil.TR("NotConnectedToLobbyServer", "Global")}");
+			return;
 		}
-		string text = string.Format("{0} {1}", StringUtil.TR("FailedToRejoinGame", "Frontend"), StringUtil.TR("NotConnectedToLobbyServer", "Global"));
-		TextConsole.Get().Write(text);
+		
+		m_lobbyGameClientInterface.SendRejoinGameRequest(GameInfo, accept, onResponseCallback);
 	}
 
 	public DiscordJoinType GetDiscordJoinType()
 	{
-		DiscordJoinType result = DiscordJoinType._001D;
+		DiscordJoinType result = DiscordJoinType.None;
 		if (DiscordClientInterface.IsSdkEnabled)
 		{
 			SettingsState.VoiceChatMode voiceChatMode = SettingsState.VoiceChatMode.None;
@@ -5380,31 +5280,31 @@ public class ClientGameManager : MonoBehaviour
 			}
 			if (voiceChatMode == SettingsState.VoiceChatMode.Team)
 			{
-				result = DiscordJoinType._0012;
+				result = DiscordJoinType.Team;
 			}
 			else if (voiceChatMode == SettingsState.VoiceChatMode.Group)
 			{
-				result = DiscordJoinType._000E;
+				result = DiscordJoinType.Group;
 			}
 		}
 		else
 		{
-			SettingsState.VoiceChatMode voiceChatMode2 = SettingsState.VoiceChatMode.None;
+			SettingsState.VoiceChatMode voiceChatMode = SettingsState.VoiceChatMode.None;
 			if (DiscordClientInterface.CanJoinTeamChat)
 			{
-				voiceChatMode2 = Options_UI.Get().GetGameModeVoiceChat();
+				voiceChatMode = Options_UI.Get().GetGameModeVoiceChat();
 			}
 			else if (DiscordClientInterface.CanJoinGroupChat)
 			{
-				voiceChatMode2 = SettingsState.VoiceChatMode.Group;
+				voiceChatMode = SettingsState.VoiceChatMode.Group;
 			}
-			if (voiceChatMode2 == SettingsState.VoiceChatMode.Group)
+			if (voiceChatMode == SettingsState.VoiceChatMode.Group)
 			{
-				result = DiscordJoinType._000E;
+				result = DiscordJoinType.Group;
 			}
-			else if (voiceChatMode2 == SettingsState.VoiceChatMode.Team)
+			else if (voiceChatMode == SettingsState.VoiceChatMode.Team)
 			{
-				result = DiscordJoinType._0012;
+				result = DiscordJoinType.Team;
 			}
 		}
 		return result;
@@ -5413,72 +5313,70 @@ public class ClientGameManager : MonoBehaviour
 	public void JoinDiscord()
 	{
 		DiscordJoinType discordJoinType = GetDiscordJoinType();
-		if (discordJoinType == DiscordJoinType._001D)
+		if (discordJoinType == DiscordJoinType.None)
 		{
 			return;
 		}
 		if (m_discordJoinType != discordJoinType)
 		{
-			Log.Info("Discord | switch joinType {0} => {1} (teamChat={2}, groupChat={3})", m_discordJoinType, discordJoinType, DiscordClientInterface.CanJoinTeamChat, DiscordClientInterface.CanJoinGroupChat);
+			Log.Info($"Discord | switch joinType {m_discordJoinType} => {discordJoinType} " +
+			         $"(teamChat={DiscordClientInterface.CanJoinTeamChat}, " +
+			         $"groupChat={DiscordClientInterface.CanJoinGroupChat})");
 			LeaveDiscord();
 		}
-		if (!m_discordConnecting)
+		if (!m_discordConnecting
+		    && !m_discordConnected
+		    && m_lobbyGameClientInterface != null
+		    && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (!m_discordConnected)
+			m_discordConnecting = true;
+			m_discordJoinType = discordJoinType;
+			m_lobbyGameClientInterface.SendDiscordGetRpcTokenRequest(delegate(DiscordGetRpcTokenResponse response)
 			{
-				if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
+				if (response.Success)
 				{
-					m_discordConnecting = true;
-					m_discordJoinType = discordJoinType;
-					LobbyGameClientInterface lobbyGameClientInterface = m_lobbyGameClientInterface;
-					
-					lobbyGameClientInterface.SendDiscordGetRpcTokenRequest(delegate(DiscordGetRpcTokenResponse response)
-						{
-							if (response.Success)
-							{
-								DiscordAuthInfo authInfo = new DiscordAuthInfo
-								{
-									ClientId = response.DiscordClientId,
-									RpcToken = response.DiscordRpcToken,
-									RpcOrigin = response.DiscordRpcOrigin
-								};
-								DiscordClientInterface.Get().Connect(authInfo);
-							}
-						});
+					DiscordClientInterface.Get().Connect(new DiscordAuthInfo
+					{
+						ClientId = response.DiscordClientId,
+						RpcToken = response.DiscordRpcToken,
+						RpcOrigin = response.DiscordRpcOrigin
+					});
 				}
-			}
+			});
 		}
 	}
 
 	private void JoinDiscordChannel(DiscordUserInfo userInfo)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null || !m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
-			{
-				m_lobbyGameClientInterface.SendDiscordJoinServerRequest(userInfo.UserId, userInfo.AccessToken, m_discordJoinType, delegate(DiscordJoinServerResponse response)
-				{
-					if (response.Success)
-					{
-						if (m_discordJoinType != DiscordJoinType._001D)
-						{
-							DiscordChannelInfo channelInfo = new DiscordChannelInfo
-							{
-								ServerId = response.DiscordServerId,
-								VoiceChannelId = response.DiscordVoiceChannelId
-							};
-							DiscordClientInterface.Get().SelectVoiceChannel(channelInfo);
-						}
-					}
-					else
-					{
-						Log.Error("Failed to join discord server {0}", response.ErrorMessage);
-						TextConsole.Get().Write(string.Format(StringUtil.TR("FailedToJoinDiscordChat", "Global"), response.ErrorMessage));
-						DiscordClientInterface.Get().Disconnect();
-					}
-				});
-			}
+			return;
 		}
+		m_lobbyGameClientInterface.SendDiscordJoinServerRequest(
+			userInfo.UserId,
+			userInfo.AccessToken,
+			m_discordJoinType, 
+			delegate(DiscordJoinServerResponse response)
+			{
+				if (response.Success)
+				{
+					if (m_discordJoinType != DiscordJoinType.None)
+					{
+						DiscordChannelInfo channelInfo = new DiscordChannelInfo
+						{
+							ServerId = response.DiscordServerId,
+							VoiceChannelId = response.DiscordVoiceChannelId
+						};
+						DiscordClientInterface.Get().SelectVoiceChannel(channelInfo);
+					}
+				}
+				else
+				{
+					Log.Error("Failed to join discord server {0}", response.ErrorMessage);
+					TextConsole.Get().Write(string.Format(StringUtil.TR("FailedToJoinDiscordChat", "Global"), response.ErrorMessage));
+					DiscordClientInterface.Get().Disconnect();
+				}
+			});
 	}
 
 	public void CheckDiscord()
@@ -5554,7 +5452,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		DiscordClientInterface.Get().Disconnect();
 		m_discordConnecting = false;
-		m_discordJoinType = DiscordJoinType._001D;
+		m_discordJoinType = DiscordJoinType.None;
 	}
 
 	public void ConfigureDiscord(bool autoJoin)
@@ -5694,17 +5592,14 @@ public class ClientGameManager : MonoBehaviour
 		foreach (PersistedCharacterData persistedCharacterData in characterDataList)
 		{
 			m_loadedPlayerCharacterData.Add(persistedCharacterData.CharacterType, persistedCharacterData);
-			PersistedCharacterData persistedCharacterData2 = persistedCharacterData.Clone() as PersistedCharacterData;
-			persistedCharacterData2.CharacterComponent = new CharacterComponent();
-			using (List<PlayerSkinData>.Enumerator enumerator2 = persistedCharacterData.CharacterComponent.Skins.GetEnumerator())
+			
+			PersistedCharacterData dataOnInitialLoad = persistedCharacterData.Clone() as PersistedCharacterData;
+			dataOnInitialLoad.CharacterComponent = new CharacterComponent();
+			foreach (PlayerSkinData playerSkinData in persistedCharacterData.CharacterComponent.Skins)
 			{
-				while (enumerator2.MoveNext())
-				{
-					PlayerSkinData playerSkinData = enumerator2.Current;
-					persistedCharacterData2.CharacterComponent.Skins.Add(playerSkinData.GetDeepCopy());
-				}
+				dataOnInitialLoad.CharacterComponent.Skins.Add(playerSkinData.GetDeepCopy());
 			}
-			m_characterDataOnInitialLoad.Add(persistedCharacterData.CharacterType, persistedCharacterData2);
+			m_characterDataOnInitialLoad.Add(persistedCharacterData.CharacterType, dataOnInitialLoad);
 		}
 	}
 
