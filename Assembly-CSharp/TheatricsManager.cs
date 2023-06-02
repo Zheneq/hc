@@ -199,10 +199,12 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 					&& playerDetails.m_gameObjects.Count > 0
 					&& playerDetails.IsHumanControlled
 					&& !playerDetails.IsSpectator
-					// TODO ROGUES conditions below are added in rogues
-					//&& playerDetails.m_accountId != 0L
-					//&& !playerDetails.IsLoadTestBot
-					//&& !ServerGameManager.Get().IsAccountReconnecting(playerDetails.m_accountId)
+#if SERVER
+					// rogues
+					&& playerDetails.m_accountId != 0L
+					&& !playerDetails.IsLoadTestBot
+					&& !ServerGameManager.Get().IsAccountReconnecting(playerDetails.m_accountId)
+#endif
 					)
 				{
 					m_playerConnectionIdsInUpdatePhase.Add(playerDetails.m_accountId);

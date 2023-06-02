@@ -1891,7 +1891,11 @@ public class ServerGameManager : MonoBehaviour
 		}
 		serverPlayerState.LogGameExit(request.GameResult);
 		Log.Info("Disconnecting player {0} {1} (connectionId {2})", request.SessionInfo.Handle, request.SessionInfo.AccountId, serverPlayerState.ConnectionPersistent.connectionId);
-		serverPlayerState.ConnectionPersistent.Disconnect();
+		
+		// rogues
+		// serverPlayerState.ConnectionPersistent.Disconnect();
+		// custom
+		DisconnectNow(serverPlayerState.ConnectionPersistent);
 	}
 
 	private void HandleReconnectPlayerRequest(ReconnectPlayerRequest request)
