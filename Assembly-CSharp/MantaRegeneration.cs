@@ -150,19 +150,35 @@ public class MantaRegeneration : Ability
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
 		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
-		MantaRegenerationEffect mantaRegenerationEffect = new MantaRegenerationEffect(
-			AsEffectSource(),
-			caster.GetCurrentBoardSquare(),
-			caster,
-			caster,
-			GetHealEffectData(),
-			GetMaxRegeneration(),
-			GetTurnsOfRegeneration(),
-			GetDamageToHealRatio(),
-			GetTechPointGainPerHit(),
-			m_incomingHitImpactSequencePrefab);
-		mantaRegenerationEffect.SetHitPhaseBeforeStart(m_healInPhase);
-		actorHitResults.AddEffect(mantaRegenerationEffect);
+		
+		// custom
+		// you can have two concurrent effects with cdr on ult + brain juice, but the first effect would have been done healing by now
+		// also you can have cdr on regen itself, but if it fired, you have no regen from that effect
+		// so we are fine with resetting DamageReceivedForRegeneration and counting a new value
+		List<Effect> activeEffects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(caster, caster, typeof(MantaRegenerationEffect));
+		if (activeEffects.Count > 0) // always else in rogues
+		{
+			actorHitResults.AddEffectForRefresh(activeEffects[0], ServerEffectManager.Get().GetActorEffects(caster));
+		}
+		else
+		{
+			// rogues
+			MantaRegenerationEffect mantaRegenerationEffect = new MantaRegenerationEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				GetHealEffectData(),
+				GetMaxRegeneration(),
+				GetTurnsOfRegeneration(),
+				GetDamageToHealRatio(),
+				GetTechPointGainPerHit(),
+				m_incomingHitImpactSequencePrefab);
+			mantaRegenerationEffect.SetHitPhaseBeforeStart(m_healInPhase);
+			actorHitResults.AddEffect(mantaRegenerationEffect);
+		}
+		// end custom
+		
 		actorHitResults.AddStandardEffectInfo(GetOtherSelfEffect());
 		abilityResults.StoreActorHit(actorHitResults);
 	}
