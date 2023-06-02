@@ -440,40 +440,38 @@ public class StandardMultiAreaGroundEffect : Effect
 		{
 			return;
 		}
-		bool flag = m_fieldInfo.IncludeEnemies();
-		bool flag2 = m_fieldInfo.IncludeAllies();
-		List<ServerAbilityUtils.TriggeringPathInfo> list = new List<ServerAbilityUtils.TriggeringPathInfo>();
-		List<BoardSquare> list2 = new List<BoardSquare>();
+		bool includeEnemies = m_fieldInfo.IncludeEnemies();
+		bool includeAllies = m_fieldInfo.IncludeAllies();
+		List<ServerAbilityUtils.TriggeringPathInfo> triggeringPaths = new List<ServerAbilityUtils.TriggeringPathInfo>();
+		List<BoardSquare> hitCenterSquares = new List<BoardSquare>();
 		foreach (MovementInstance movementInstance in movement.m_movementInstances)
 		{
 			ActorData mover = movementInstance.m_mover;
-			bool flag3 = mover.GetTeam() != Caster.GetTeam();
-			bool flag4 = !flag3;
-			bool flag5 = m_fieldInfo.CanBeAffected(mover, Caster);
-			bool flag6 = !IsSquareInAnyShape(mover.GetCurrentBoardSquare());
-			if (flag5 && flag6)
+			bool isEnemy = mover.GetTeam() != Caster.GetTeam();
+			bool isAlly = !isEnemy;
+			bool canBeAffected = m_fieldInfo.CanBeAffected(mover, Caster);
+			bool isOutside = !IsSquareInAnyShape(mover.GetCurrentBoardSquare());
+			if (canBeAffected && isOutside)
 			{
 				for (BoardSquarePathInfo boardSquarePathInfo = movementInstance.m_path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
 				{
 					BoardSquare square = boardSquarePathInfo.square;
 					if ((movementInstance.m_groundBased || boardSquarePathInfo.IsPathEndpoint())
 					    && !boardSquarePathInfo.IsPathStartPoint()
-					    && ((flag3 && flag) || (flag4 && flag2))
-					    && IsSquareInAnyShape(square, out BoardSquare item)
+					    && ((isEnemy && includeEnemies) || (isAlly && includeAllies))
+					    && IsSquareInAnyShape(square, out BoardSquare hitCenterSquare)
 					    && !m_actorsHitThisTurn.Contains(mover))
 					{
-						ServerAbilityUtils.TriggeringPathInfo item2 = new ServerAbilityUtils.TriggeringPathInfo(mover, boardSquarePathInfo);
-						list.Add(item2);
-						list2.Add(item);
+						triggeringPaths.Add(new ServerAbilityUtils.TriggeringPathInfo(mover, boardSquarePathInfo));
+						hitCenterSquares.Add(hitCenterSquare);
 						m_actorsHitThisTurn.Add(mover);
 					}
 				}
 			}
 		}
-		for (int i = 0; i < list.Count; i++)
+		for (int i = 0; i < triggeringPaths.Count; i++)
 		{
-			ServerAbilityUtils.TriggeringPathInfo triggeringPath = list[i];
-			SetUpMovementHit(triggeringPath, list2[i], movement.m_movementStage, ref movementResultsList);
+			SetUpMovementHit(triggeringPaths[i], hitCenterSquares[i], movement.m_movementStage, ref movementResultsList);
 		}
 	}
 
