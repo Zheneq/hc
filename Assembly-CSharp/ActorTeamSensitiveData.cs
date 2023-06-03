@@ -484,6 +484,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 #if SERVER
 	private void PackageRpcMovement(GameEventManager.EventType wait, GridPos start, BoardSquare end, BoardSquarePathInfo path, ActorData.MovementType type, bool disappearAfterMovement, bool respawning)
 	{
+		if (m_typeObservingMe == ObservedBy.Hostiles && end != null)
+		{
+			Actor.SetServerLastKnownPosSquare(end, "BroadcastMovement");
+		}
 		CallRpcMovement(wait, GridPosProp.FromGridPos(start), GridPosProp.FromGridPos((end != null) ? end.GetGridPos() : GridPos.s_invalid), MovementUtils.SerializePath(path), type, disappearAfterMovement, respawning);
 	}
 #endif
