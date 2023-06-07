@@ -1,69 +1,48 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class IceborgDamageArea : GenericAbility_Container
 {
-	[Separator("Targeting, Max Ranges", true)]
+	[Separator("Targeting, Max Ranges")]
 	public float m_initialCastMaxRange = 5.5f;
-
 	public float m_moveAreaCastMaxRange = 1.45f;
-
 	public bool m_targetingAreaCheckLos = true;
-
 	public bool m_moveAreaTargetingCheckLos;
-
-	[Separator("Movement Adjust Type for Moving Field", true)]
+	[Separator("Movement Adjust Type for Moving Field")]
 	public MovementAdjustment m_moveAreaMovementAdjustType;
-
-	[Separator("Whether to add damage field", true)]
+	[Separator("Whether to add damage field")]
 	public bool m_addGroundField;
-
 	public bool m_stopMoversWithSlowStatus;
-
 	public bool m_stopMoverIfHitPreviousTurn;
-
 	public GroundEffectField m_groundFieldData;
-
-	[Separator("Extra Damage on Initial Cast", true)]
+	[Separator("Extra Damage on Initial Cast")]
 	public int m_extraDamageOnInitialCast;
-
-	[Separator("Damage change on ground field per turn", true)]
+	[Separator("Damage change on ground field per turn")]
 	public int m_groundFieldDamageChangePerTurn;
-
-	[Separator("Min Damage", true)]
+	[Separator("Min Damage")]
 	public int m_minDamage;
-
-	[Separator("Shielding per enemy hit on cast", true)]
+	[Separator("Shielding per enemy hit on cast")]
 	public int m_shieldPerEnemyHit;
-
 	public int m_shieldDuration = 1;
-
-	[Separator("Effect to apply if target has been hit by this ability on previous turn", true)]
+	[Separator("Effect to apply if target has been hit by this ability on previous turn")]
 	public StandardEffectInfo m_effectOnEnemyIfHitPreviousTurn;
-
-	[Separator("Apply Nova effect?", true)]
+	[Separator("Apply Nova effect?")]
 	public bool m_applyDelayedAoeEffect;
-
 	public bool m_applyNovaCoreIfHitPreviousTurn;
-
-	[Separator("Animation index for moving field", true)]
+	[Separator("Animation index for moving field")]
 	public int m_animationIndexForMoveArea;
-
-	[Separator("Sequence for moving field", true)]
+	[Separator("Sequence for moving field")]
 	public GameObject m_moveFieldSeqPrefab;
-
 	[Header("-- For timing of removing existing field")]
 	public GameObject m_fieldRemoveOnMoveSeqPrefab;
 
 	private AbilityMod_IceborgDamageArea m_abilityMod;
-
 	private Iceborg_SyncComponent m_syncComp;
 
 	public static ContextNameKeyPair s_cvarTurnsSinceInitialCast = new ContextNameKeyPair("TurnsSinceInitialCast");
 
 	private GroundEffectField m_cachedGroundFieldData;
-
 	private StandardEffectInfo m_cachedEffectOnEnemyIfHitPreviousTurn;
 
 	public override string GetUsageForEditor()
@@ -93,21 +72,17 @@ public class IceborgDamageArea : GenericAbility_Container
 			targetSelect_Shape.m_moveStartSquareDelegate = GetMoveStartSquare;
 			targetSelect_Shape.m_moveStartFreePosDelegate = GetMoveStartFreePos;
 		}
-		if (base.Targeter is AbilityUtil_Targeter_MovingShape)
+		if (Targeter is AbilityUtil_Targeter_MovingShape)
 		{
-			AbilityUtil_Targeter_MovingShape abilityUtil_Targeter_MovingShape = base.Targeter as AbilityUtil_Targeter_MovingShape;
+			AbilityUtil_Targeter_MovingShape abilityUtil_Targeter_MovingShape = Targeter as AbilityUtil_Targeter_MovingShape;
 			abilityUtil_Targeter_MovingShape.m_delegateIsMovingShape = IsMovingShape;
 			abilityUtil_Targeter_MovingShape.m_delegateMoveStartSquare = GetMoveStartSquare;
 			abilityUtil_Targeter_MovingShape.m_delegateMoveStartFreePos = GetMoveStartFreePos;
 		}
-		if (m_animationIndexForMoveArea >= 0)
-		{
-			return;
-		}
-		while (true)
+
+		if (m_animationIndexForMoveArea < 0)
 		{
 			m_animationIndexForMoveArea = 0;
-			return;
 		}
 	}
 
@@ -124,260 +99,151 @@ public class IceborgDamageArea : GenericAbility_Container
 		{
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (!(m_syncComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_syncComp != null)
 		{
 			m_syncComp.AddTooltipTokens(tokens);
-			return;
 		}
 	}
 
 	private void SetCachedFields()
 	{
-		GroundEffectField cachedGroundFieldData;
-		if (m_abilityMod != null)
-		{
-			cachedGroundFieldData = m_abilityMod.m_groundFieldDataMod.GetModifiedValue(m_groundFieldData);
-		}
-		else
-		{
-			cachedGroundFieldData = m_groundFieldData;
-		}
-		m_cachedGroundFieldData = cachedGroundFieldData;
-		m_cachedEffectOnEnemyIfHitPreviousTurn = ((!(m_abilityMod != null)) ? m_effectOnEnemyIfHitPreviousTurn : m_abilityMod.m_effectOnEnemyIfHitPreviousTurnMod.GetModifiedValue(m_effectOnEnemyIfHitPreviousTurn));
+		m_cachedGroundFieldData = m_abilityMod != null
+			? m_abilityMod.m_groundFieldDataMod.GetModifiedValue(m_groundFieldData)
+			: m_groundFieldData;
+		m_cachedEffectOnEnemyIfHitPreviousTurn = m_abilityMod != null
+			? m_abilityMod.m_effectOnEnemyIfHitPreviousTurnMod.GetModifiedValue(m_effectOnEnemyIfHitPreviousTurn)
+			: m_effectOnEnemyIfHitPreviousTurn;
 	}
 
 	public float GetInitialCastMaxRange()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_initialCastMaxRangeMod.GetModifiedValue(m_initialCastMaxRange);
-		}
-		else
-		{
-			result = m_initialCastMaxRange;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_initialCastMaxRangeMod.GetModifiedValue(m_initialCastMaxRange)
+			: m_initialCastMaxRange;
 	}
 
 	public float GetMoveAreaCastMaxRange()
 	{
-		float result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_moveAreaCastMaxRangeMod.GetModifiedValue(m_moveAreaCastMaxRange);
-		}
-		else
-		{
-			result = m_moveAreaCastMaxRange;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_moveAreaCastMaxRangeMod.GetModifiedValue(m_moveAreaCastMaxRange)
+			: m_moveAreaCastMaxRange;
 	}
 
 	public bool TargetingAreaCheckLos()
 	{
-		return (!(m_abilityMod != null)) ? m_targetingAreaCheckLos : m_abilityMod.m_targetingAreaCheckLosMod.GetModifiedValue(m_targetingAreaCheckLos);
+		return m_abilityMod != null
+			? m_abilityMod.m_targetingAreaCheckLosMod.GetModifiedValue(m_targetingAreaCheckLos)
+			: m_targetingAreaCheckLos;
 	}
 
 	public bool AddGroundField()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_addGroundFieldMod.GetModifiedValue(m_addGroundField);
-		}
-		else
-		{
-			result = m_addGroundField;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_addGroundFieldMod.GetModifiedValue(m_addGroundField)
+			: m_addGroundField;
 	}
 
 	public bool StopMoversWithSlowStatus()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_stopMoversWithSlowStatusMod.GetModifiedValue(m_stopMoversWithSlowStatus);
-		}
-		else
-		{
-			result = m_stopMoversWithSlowStatus;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_stopMoversWithSlowStatusMod.GetModifiedValue(m_stopMoversWithSlowStatus)
+			: m_stopMoversWithSlowStatus;
 	}
 
 	public bool StopMoverIfHitPreviousTurn()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_stopMoverIfHitPreviousTurnMod.GetModifiedValue(m_stopMoverIfHitPreviousTurn);
-		}
-		else
-		{
-			result = m_stopMoverIfHitPreviousTurn;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_stopMoverIfHitPreviousTurnMod.GetModifiedValue(m_stopMoverIfHitPreviousTurn)
+			: m_stopMoverIfHitPreviousTurn;
 	}
 
 	public GroundEffectField GetGroundFieldData()
 	{
-		GroundEffectField result;
-		if (m_cachedGroundFieldData != null)
-		{
-			result = m_cachedGroundFieldData;
-		}
-		else
-		{
-			result = m_groundFieldData;
-		}
-		return result;
+		return m_cachedGroundFieldData ?? m_groundFieldData;
 	}
 
 	public int GetExtraDamageOnInitialCast()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_extraDamageOnInitialCastMod.GetModifiedValue(m_extraDamageOnInitialCast);
-		}
-		else
-		{
-			result = m_extraDamageOnInitialCast;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageOnInitialCastMod.GetModifiedValue(m_extraDamageOnInitialCast)
+			: m_extraDamageOnInitialCast;
 	}
 
 	public int GetGroundFieldDamageChangePerTurn()
 	{
-		return (!(m_abilityMod != null)) ? m_groundFieldDamageChangePerTurn : m_abilityMod.m_groundFieldDamageChangePerTurnMod.GetModifiedValue(m_groundFieldDamageChangePerTurn);
+		return m_abilityMod != null
+			? m_abilityMod.m_groundFieldDamageChangePerTurnMod.GetModifiedValue(m_groundFieldDamageChangePerTurn)
+			: m_groundFieldDamageChangePerTurn;
 	}
 
 	public int GetMinDamage()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamage);
-		}
-		else
-		{
-			result = m_minDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_minDamageMod.GetModifiedValue(m_minDamage)
+			: m_minDamage;
 	}
 
 	public int GetShieldPerEnemyHit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
-		}
-		else
-		{
-			result = m_shieldPerEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit)
+			: m_shieldPerEnemyHit;
 	}
 
 	public int GetShieldDuration()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
-		}
-		else
-		{
-			result = m_shieldDuration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration)
+			: m_shieldDuration;
 	}
 
 	public StandardEffectInfo GetEffectOnEnemyIfHitPreviousTurn()
 	{
-		StandardEffectInfo result;
-		if (m_cachedEffectOnEnemyIfHitPreviousTurn != null)
-		{
-			result = m_cachedEffectOnEnemyIfHitPreviousTurn;
-		}
-		else
-		{
-			result = m_effectOnEnemyIfHitPreviousTurn;
-		}
-		return result;
+		return m_cachedEffectOnEnemyIfHitPreviousTurn ?? m_effectOnEnemyIfHitPreviousTurn;
 	}
 
 	public bool ApplyDelayedAoeEffect()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(m_applyDelayedAoeEffect);
-		}
-		else
-		{
-			result = m_applyDelayedAoeEffect;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(m_applyDelayedAoeEffect)
+			: m_applyDelayedAoeEffect;
 	}
 
 	public bool ApplyNovaCoreIfHitPreviousTurn()
 	{
-		return (!(m_abilityMod != null)) ? m_applyNovaCoreIfHitPreviousTurn : m_abilityMod.m_applyNovaCoreIfHitPreviousTurnMod.GetModifiedValue(m_applyNovaCoreIfHitPreviousTurn);
+		return m_abilityMod != null
+			? m_abilityMod.m_applyNovaCoreIfHitPreviousTurnMod.GetModifiedValue(m_applyNovaCoreIfHitPreviousTurn)
+			: m_applyNovaCoreIfHitPreviousTurn;
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
 		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, GetShieldPerEnemyHit(), actorHitContext, results);
 		if (targetActor.GetTeam() == caster.GetTeam())
 		{
 			return;
 		}
-		if (!CanCastToMoveArea())
+		if (!CanCastToMoveArea() && GetExtraDamageOnInitialCast() > 0)
 		{
-			if (GetExtraDamageOnInitialCast() > 0)
-			{
-				results.m_damage += GetExtraDamageOnInitialCast();
-			}
+			results.m_damage += GetExtraDamageOnInitialCast();
 		}
-		if (!CanCastToMoveArea())
+		if (CanCastToMoveArea() && GetGroundFieldDamageChangePerTurn() != 0)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (GetGroundFieldDamageChangePerTurn() != 0)
-			{
-				while (true)
-				{
-					int turnsSinceInitialCast = m_syncComp.GetTurnsSinceInitialCast();
-					results.m_damage += turnsSinceInitialCast * GetGroundFieldDamageChangePerTurn();
-					return;
-				}
-			}
-			return;
+			results.m_damage += m_syncComp.GetTurnsSinceInitialCast() * GetGroundFieldDamageChangePerTurn();
 		}
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		object result;
-		if (m_syncComp != null)
-		{
-			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
-		}
-		else
-		{
-			result = null;
-		}
-		return (string)result;
+		return m_syncComp != null
+			? m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, ActorData)
+			: null;
 	}
 
 	public bool IsMovingShape(ActorData caster)
@@ -401,37 +267,17 @@ public class IceborgDamageArea : GenericAbility_Container
 
 	public Vector3 GetMoveStartFreePos(AbilityTarget target, ActorData caster)
 	{
-		if (IsMovingShape(caster))
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return m_syncComp.m_damageAreaFreePos;
-				}
-			}
-		}
-		return caster.GetFreePos();
+		return IsMovingShape(caster)
+			? m_syncComp.m_damageAreaFreePos
+			: caster.GetFreePos();
 	}
 
 	public bool CanCastToMoveArea()
 	{
-		int result;
-		if (m_syncComp != null && m_syncComp.m_damageAreaCanMoveThisTurn)
-		{
-			if (m_syncComp.m_damageAreaCenterX >= 0)
-			{
-				result = ((m_syncComp.m_damageAreaCenterY >= 0) ? 1 : 0);
-				goto IL_0050;
-			}
-		}
-		result = 0;
-		goto IL_0050;
-		IL_0050:
-		return (byte)result != 0;
+		return m_syncComp != null
+		       && m_syncComp.m_damageAreaCanMoveThisTurn
+		       && m_syncComp.m_damageAreaCenterX >= 0
+		       && m_syncComp.m_damageAreaCenterY >= 0;
 	}
 
 	public override bool IsFreeAction()
@@ -441,125 +287,55 @@ public class IceborgDamageArea : GenericAbility_Container
 
 	public override int GetModdedCost()
 	{
-		if (CanCastToMoveArea())
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return 0;
-				}
-			}
-		}
-		return base.GetModdedCost();
+		return CanCastToMoveArea()
+			? 0
+			: base.GetModdedCost();
 	}
 
 	public override MovementAdjustment GetMovementAdjustment()
 	{
-		if (CanCastToMoveArea())
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_moveAreaMovementAdjustType;
-				}
-			}
-		}
-		return base.GetMovementAdjustment();
+		return CanCastToMoveArea()
+			? m_moveAreaMovementAdjustType
+			: base.GetMovementAdjustment();
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (boardSquareSafe != null && boardSquareSafe.IsValidForGameplay())
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		if (targetSquare == null || !targetSquare.IsValidForGameplay())
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-				{
-					BoardSquare boardSquare = caster.GetCurrentBoardSquare();
-					Vector3 b = boardSquare.ToVector3();
-					float num = GetInitialCastMaxRange();
-					bool flag = TargetingAreaCheckLos();
-					if (CanCastToMoveArea())
-					{
-						BoardSquare boardSquare2 = Board.Get().GetSquareFromIndex(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
-						if (boardSquare2 != null)
-						{
-							if (boardSquareSafe == boardSquare2)
-							{
-								while (true)
-								{
-									switch (6)
-									{
-									case 0:
-										break;
-									default:
-										return false;
-									}
-								}
-							}
-							boardSquare = boardSquare2;
-							num = GetMoveAreaCastMaxRange();
-							GroundEffectField groundFieldData = GetGroundFieldData();
-							b = AreaEffectUtils.GetCenterOfShape(groundFieldData.shape, m_syncComp.m_damageAreaFreePos, boardSquare2);
-						}
-						flag = m_moveAreaTargetingCheckLos;
-					}
-					float num2 = VectorUtils.HorizontalPlaneDistInSquares(boardSquareSafe.ToVector3(), b);
-					bool flag2 = num2 <= num;
-					bool flag3 = true;
-					if (flag2)
-					{
-						if (flag)
-						{
-							flag3 = boardSquare.GetLOS(boardSquareSafe.x, boardSquareSafe.y);
-						}
-					}
-					int result;
-					if (flag2)
-					{
-						result = (flag3 ? 1 : 0);
-					}
-					else
-					{
-						result = 0;
-					}
-					return (byte)result != 0;
-				}
-				}
-			}
+			return false;
 		}
-		return false;
+		BoardSquare startSquare = caster.GetCurrentBoardSquare();
+		Vector3 startPos = startSquare.ToVector3();
+		float moveRange = GetInitialCastMaxRange();
+		bool checkLos = TargetingAreaCheckLos();
+		if (CanCastToMoveArea())
+		{
+			BoardSquare prevSquare = Board.Get().GetSquareFromIndex(m_syncComp.m_damageAreaCenterX, m_syncComp.m_damageAreaCenterY);
+			if (prevSquare != null)
+			{
+				if (targetSquare == prevSquare)
+				{
+					return false;
+				}
+				startSquare = prevSquare;
+				moveRange = GetMoveAreaCastMaxRange();
+				startPos = AreaEffectUtils.GetCenterOfShape(GetGroundFieldData().shape, m_syncComp.m_damageAreaFreePos, prevSquare);
+			}
+			checkLos = m_moveAreaTargetingCheckLos;
+		}
+		float dist = VectorUtils.HorizontalPlaneDistInSquares(targetSquare.ToVector3(), startPos);
+		bool isInRange = dist <= moveRange;
+		bool passedLosCheck = !isInRange || !checkLos || startSquare.GetLOS(targetSquare.x, targetSquare.y);
+		return isInRange && passedLosCheck;
 	}
 
 	public override ActorModelData.ActionAnimationType GetActionAnimType()
 	{
-		if (CanCastToMoveArea())
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return (ActorModelData.ActionAnimationType)m_animationIndexForMoveArea;
-				}
-			}
-		}
-		return base.GetActionAnimType();
+		return CanCastToMoveArea()
+			? (ActorModelData.ActionAnimationType)m_animationIndexForMoveArea
+			: base.GetActionAnimType();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -569,16 +345,14 @@ public class IceborgDamageArea : GenericAbility_Container
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)
 	{
-		if (!CanCastToMoveArea())
-		{
-			return GetInitialCastMaxRange();
-		}
-		return 0f;
+		return CanCastToMoveArea()
+			? 0f
+			: GetInitialCastMaxRange();
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		m_abilityMod = (abilityMod as AbilityMod_IceborgDamageArea);
+		m_abilityMod = abilityMod as AbilityMod_IceborgDamageArea;
 	}
 
 	protected override void GenModImpl_ClearModRef()

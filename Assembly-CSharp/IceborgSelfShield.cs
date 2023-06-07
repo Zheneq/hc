@@ -1,20 +1,17 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class IceborgSelfShield : GenericAbility_Container
 {
-	[Separator("Health to be considered low health if below", true)]
+	[Separator("Health to be considered low health if below")]
 	public int m_lowHealthThresh;
-
-	[Separator("Shield if all shield depleted on first turn", true)]
+	[Separator("Shield if all shield depleted on first turn")]
 	public int m_shieldOnNextTurnIfDepleted;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_shieldRemoveSeqPrefab;
 
 	private AbilityMod_IceborgSelfShield m_abilityMod;
-
 	private Iceborg_SyncComponent m_syncComp;
 
 	public override List<string> GetContextNamesForEditor()
@@ -45,54 +42,36 @@ public class IceborgSelfShield : GenericAbility_Container
 
 	public int GetLowHealthThresh()
 	{
-		return (!(m_abilityMod != null)) ? m_lowHealthThresh : m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(m_lowHealthThresh);
+		return m_abilityMod != null
+			? m_abilityMod.m_lowHealthThreshMod.GetModifiedValue(m_lowHealthThresh)
+			: m_lowHealthThresh;
 	}
 
 	public int GetShieldOnNextTurnIfDepleted()
 	{
-		return (!(m_abilityMod != null)) ? m_shieldOnNextTurnIfDepleted : m_abilityMod.m_shieldOnNextTurnIfDepletedMod.GetModifiedValue(m_shieldOnNextTurnIfDepleted);
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldOnNextTurnIfDepletedMod.GetModifiedValue(m_shieldOnNextTurnIfDepleted)
+			: m_shieldOnNextTurnIfDepleted;
 	}
 
 	public bool IsCasterLowHealth(ActorData caster)
 	{
-		bool result = false;
-		if (GetLowHealthThresh() > 0)
-		{
-			if (caster.HitPoints < GetLowHealthThresh())
-			{
-				result = true;
-			}
-		}
-		return result;
+		return GetLowHealthThresh() > 0
+		       && caster.HitPoints < GetLowHealthThresh();
 	}
 
 	public override List<StatusType> GetStatusToApplyWhenRequested()
 	{
-		if (m_abilityMod != null)
-		{
-			if (m_syncComp != null)
-			{
-				if (m_syncComp.m_selfShieldLowHealthOnTurnStart)
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							return m_abilityMod.m_lowHealthStatusWhenRequested;
-						}
-					}
-				}
-			}
-		}
-		return base.GetStatusToApplyWhenRequested();
+		return m_abilityMod != null
+		       && m_syncComp != null
+		       && m_syncComp.m_selfShieldLowHealthOnTurnStart
+			? m_abilityMod.m_lowHealthStatusWhenRequested
+			: base.GetStatusToApplyWhenRequested();
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		m_abilityMod = (abilityMod as AbilityMod_IceborgSelfShield);
+		m_abilityMod = abilityMod as AbilityMod_IceborgSelfShield;
 	}
 
 	protected override void GenModImpl_ClearModRef()

@@ -1,27 +1,20 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 
 public class IceborgConeOrLaser : GenericAbility_Container
 {
-	[Separator("Shielding per enemy hit on cast", true)]
+	[Separator("Shielding per enemy hit on cast")]
 	public int m_shieldPerEnemyHit;
-
 	public int m_shieldDuration = 1;
-
-	[Separator("Apply Nova effect?", true)]
+	[Separator("Apply Nova effect?")]
 	public bool m_applyDelayedAoeEffect;
-
 	public bool m_skipDelayedAoeEffectIfHasExisting;
-
-	[Separator("Cdr Per Hit Enemy with Nova Core", true)]
+	[Separator("Cdr Per Hit Enemy with Nova Core")]
 	public int m_cdrPerEnemyWithNovaCore;
-
 	public static ContextNameKeyPair s_cvarHasSlow = new ContextNameKeyPair("HasSlow");
 
 	private Iceborg_SyncComponent m_syncComp;
-
 	private AbilityMod_IceborgConeOrLaser m_abilityMod;
-
 	private float m_cachedTargetingRadiusPreview;
 
 	public override string GetUsageForEditor()
@@ -61,168 +54,111 @@ public class IceborgConeOrLaser : GenericAbility_Container
 		{
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (!(m_syncComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_syncComp != null)
 		{
 			m_syncComp.AddTooltipTokens(tokens);
-			return;
 		}
 	}
 
 	public int GetShieldPerEnemyHit()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit);
-		}
-		else
-		{
-			result = m_shieldPerEnemyHit;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldPerEnemyHitMod.GetModifiedValue(m_shieldPerEnemyHit)
+			: m_shieldPerEnemyHit;
 	}
 
 	public int GetShieldDuration()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration);
-		}
-		else
-		{
-			result = m_shieldDuration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldDurationMod.GetModifiedValue(m_shieldDuration)
+			: m_shieldDuration;
 	}
 
 	public bool ApplyDelayedAoeEffect()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(m_applyDelayedAoeEffect);
-		}
-		else
-		{
-			result = m_applyDelayedAoeEffect;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_applyDelayedAoeEffectMod.GetModifiedValue(m_applyDelayedAoeEffect)
+			: m_applyDelayedAoeEffect;
 	}
 
 	public bool SkipDelayedAoeEffectIfHasExisting()
 	{
-		bool result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_skipDelayedAoeEffectIfHasExistingMod.GetModifiedValue(m_skipDelayedAoeEffectIfHasExisting);
-		}
-		else
-		{
-			result = m_skipDelayedAoeEffectIfHasExisting;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_skipDelayedAoeEffectIfHasExistingMod.GetModifiedValue(m_skipDelayedAoeEffectIfHasExisting)
+			: m_skipDelayedAoeEffectIfHasExisting;
 	}
 
 	public int GetCdrPerEnemyWithNovaCore()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cdrPerEnemyWithNovaCoreMod.GetModifiedValue(m_cdrPerEnemyWithNovaCore);
-		}
-		else
-		{
-			result = m_cdrPerEnemyWithNovaCore;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrPerEnemyWithNovaCoreMod.GetModifiedValue(m_cdrPerEnemyWithNovaCore)
+			: m_cdrPerEnemyWithNovaCore;
 	}
 
-	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
+	public override void PreProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargetIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext)
 	{
-		if (!(m_syncComp != null))
+		if (m_syncComp != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, base.ActorData);
-			return;
+			m_syncComp.SetHasCoreContext_Client(actorHitContext, targetActor, ActorData);
 		}
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
 		SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, GetShieldPerEnemyHit(), actorHitContext, results);
 	}
 
-	public static void SetShieldPerEnemyHitTargetingNumbers(ActorData targetActor, ActorData caster, int shieldPerEnemyHit, Dictionary<ActorData, ActorHitContext> actorHitContext, TargetingNumberUpdateScratch results)
+	public static void SetShieldPerEnemyHitTargetingNumbers(
+		ActorData targetActor,
+		ActorData caster,
+		int shieldPerEnemyHit,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		TargetingNumberUpdateScratch results)
 	{
-		if (shieldPerEnemyHit <= 0)
+		if (shieldPerEnemyHit <= 0 || targetActor != caster)
 		{
 			return;
 		}
-		while (true)
+		int enemiesHit = 0;
+		foreach (KeyValuePair<ActorData, ActorHitContext> actorHit in actorHitContext)
 		{
-			if (!(targetActor == caster))
+			if (actorHit.Key.GetTeam() != caster.GetTeam() && actorHit.Value.m_inRangeForTargeter)
 			{
-				return;
+				enemiesHit++;
 			}
-			while (true)
-			{
-				int num = 0;
-				using (Dictionary<ActorData, ActorHitContext>.Enumerator enumerator = actorHitContext.GetEnumerator())
-				{
-					while (enumerator.MoveNext())
-					{
-						KeyValuePair<ActorData, ActorHitContext> current = enumerator.Current;
-						ActorData key = current.Key;
-						if (key.GetTeam() != caster.GetTeam())
-						{
-							if (current.Value.m_inRangeForTargeter)
-							{
-								num++;
-							}
-						}
-					}
-				}
-				if (num <= 0)
-				{
-					return;
-				}
-				while (true)
-				{
-					int num2 = shieldPerEnemyHit * num;
-					if (results.m_absorb >= 0)
-					{
-						results.m_absorb += num2;
-					}
-					else
-					{
-						results.m_absorb = num2;
-					}
-					return;
-				}
-			}
+		}
+
+		if (enemiesHit <= 0)
+		{
+			return;
+		}
+
+		int absorb = shieldPerEnemyHit * enemiesHit;
+		if (results.m_absorb >= 0)
+		{
+			results.m_absorb += absorb;
+		}
+		else
+		{
+			results.m_absorb = absorb;
 		}
 	}
 
 	public override string GetAccessoryTargeterNumberString(ActorData targetActor, AbilityTooltipSymbol symbolType, int baseValue)
 	{
-		object result;
-		if (m_syncComp != null)
-		{
-			result = m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, base.ActorData);
-		}
-		else
-		{
-			result = null;
-		}
-		return (string)result;
+		return m_syncComp != null
+			? m_syncComp.GetTargetPreviewAccessoryString(symbolType, this, targetActor, ActorData)
+			: null;
 	}
 
 	public override bool CanShowTargetableRadiusPreview()

@@ -3,13 +3,11 @@ using System.Collections.Generic;
 
 public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 {
-	[Separator("Target Select Mod", true)]
+	[Separator("Target Select Mod")]
 	public TargetSelectMod_Laser m_targetSelectMod;
-
-	[Separator("Energy on caster if target has nova core on start of turn", true)]
+	[Separator("Energy on caster if target has nova core on start of turn")]
 	public AbilityModPropertyInt m_energyOnCasterIfTargetHasNovaCoreMod;
-
-	[Separator("Cdr if has hit", true)]
+	[Separator("Cdr if has hit")]
 	public AbilityModPropertyInt m_cdrIfHasHitMod;
 
 	public override Type GetTargetAbilityType()
@@ -25,52 +23,26 @@ public class AbilityMod_IceborgIcicle : GenericAbility_AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgIcicle iceborgIcicle = targetAbility as IceborgIcicle;
-		if (!(iceborgIcicle != null))
-		{
-			return;
-		}
-		while (true)
+		if (iceborgIcicle != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, m_energyOnCasterIfTargetHasNovaCoreMod, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore);
-			AbilityMod.AddToken(tokens, m_cdrIfHasHitMod, "CdrIfHasHit", string.Empty, iceborgIcicle.m_cdrIfHasHit);
-			return;
+			AddToken(tokens, m_energyOnCasterIfTargetHasNovaCoreMod, "EnergyOnCasterIfTargetHasNovaCore", string.Empty, iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore);
+			AddToken(tokens, m_cdrIfHasHitMod, "CdrIfHasHit", string.Empty, iceborgIcicle.m_cdrIfHasHit);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		IceborgIcicle iceborgIcicle = GetTargetAbilityOnAbilityData(abilityData) as IceborgIcicle;
-		bool flag = iceborgIcicle != null;
-		string text = base.ModSpecificAutogenDesc(abilityData);
-		if (iceborgIcicle != null)
+		bool isValid = iceborgIcicle != null;
+		string desc = base.ModSpecificAutogenDesc(abilityData);
+		if (isValid)
 		{
-			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgIcicle.m_targetSelectComp, "-- Target Select --");
-			string str = text;
+			desc += GetTargetSelectModDesc(m_targetSelectMod, iceborgIcicle.m_targetSelectComp, "-- Target Select --");
 			AbilityModPropertyInt energyOnCasterIfTargetHasNovaCoreMod = m_energyOnCasterIfTargetHasNovaCoreMod;
-			int baseVal;
-			if (flag)
-			{
-				baseVal = iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore;
-			}
-			else
-			{
-				baseVal = 0;
-			}
-			text = str + PropDesc(energyOnCasterIfTargetHasNovaCoreMod, "[EnergyOnCasterIfTargetHasNovaCore]", flag, baseVal);
-			string str2 = text;
-			AbilityModPropertyInt cdrIfHasHitMod = m_cdrIfHasHitMod;
-			int baseVal2;
-			if (flag)
-			{
-				baseVal2 = iceborgIcicle.m_cdrIfHasHit;
-			}
-			else
-			{
-				baseVal2 = 0;
-			}
-			text = str2 + PropDesc(cdrIfHasHitMod, "[CdrIfHasHit]", flag, baseVal2);
+			desc += PropDesc(energyOnCasterIfTargetHasNovaCoreMod, "[EnergyOnCasterIfTargetHasNovaCore]", isValid, isValid ? iceborgIcicle.m_energyOnCasterIfTargetHasNovaCore : 0);
+			desc += PropDesc(m_cdrIfHasHitMod, "[CdrIfHasHit]", isValid, isValid ? iceborgIcicle.m_cdrIfHasHit : 0);
 		}
-		return text;
+		return desc;
 	}
 }

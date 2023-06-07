@@ -7,35 +7,18 @@ public class IceborgDetonateNotifySequence : SimpleTimingSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		m_syncComp = base.Caster.GetComponent<Iceborg_SyncComponent>();
-		if (!(m_syncComp == null))
+		m_syncComp = Caster.GetComponent<Iceborg_SyncComponent>();
+		if (m_syncComp == null && Application.isEditor)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (Application.isEditor)
-			{
-				while (true)
-				{
-					Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
-					return;
-				}
-			}
-			return;
+			Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
 		}
 	}
 
 	protected override void DoSequenceHits()
 	{
-		if (!(m_syncComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_syncComp != null)
 		{
 			m_syncComp.m_clientDetonateNovaUsedTurn = GameFlowData.Get().CurrentTurn;
-			return;
 		}
 	}
 }

@@ -1,14 +1,12 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 
 public class IceborgPrepCone : GenericAbility_Container
 {
-	[Separator("Shielding per enemy hit on cast", true)]
+	[Separator("Shielding per enemy hit on cast")]
 	public int m_shieldPerEnemyHit;
-
 	public int m_shieldDuration = 1;
-
-	[Separator("Apply Nova effect?", true)]
+	[Separator("Apply Nova effect?")]
 	public bool m_applyDelayedAoeEffect = true;
 
 	private Iceborg_SyncComponent m_syncComp;
@@ -26,18 +24,19 @@ public class IceborgPrepCone : GenericAbility_Container
 		{
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (!(m_syncComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_syncComp != null)
 		{
 			m_syncComp.AddTooltipTokens(tokens);
-			return;
 		}
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
 		IceborgConeOrLaser.SetShieldPerEnemyHitTargetingNumbers(targetActor, caster, m_shieldPerEnemyHit, actorHitContext, results);
 	}

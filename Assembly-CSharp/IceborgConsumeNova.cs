@@ -1,14 +1,12 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class IceborgConsumeNova : GenericAbility_Container
 {
-	[Separator("Shield Gain", true)]
+	[Separator("Shield Gain")]
 	public int m_shieldGainBase = 10;
-
 	public int m_shieldGainPerNova = 10;
-
 	[Header("-- Shield effect data, shield amount will be set by ability")]
 	public StandardActorEffectData m_shieldEffectData;
 
@@ -25,21 +23,22 @@ public class IceborgConsumeNova : GenericAbility_Container
 		base.AddSpecificTooltipTokens(tokens, modAsBase);
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
-		if (!(targetActor == caster))
-		{
-			return;
-		}
-		while (true)
+		if (targetActor == caster)
 		{
 			int numNovaEffects = 0;
 			if (m_syncComp != null)
 			{
 				numNovaEffects = m_syncComp.m_numNovaEffectsOnTurnStart;
 			}
-			int num = results.m_absorb = CalcTotalShields(numNovaEffects);
-			return;
+			results.m_absorb = CalcTotalShields(numNovaEffects);
 		}
 	}
 
