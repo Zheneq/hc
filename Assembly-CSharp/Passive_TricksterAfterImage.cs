@@ -91,7 +91,12 @@ public class Passive_TricksterAfterImage : Passive
 		{
 			m_swapAbility = abilityData.GetAbilityOfType(typeof(TricksterMadeYouLook)) as TricksterMadeYouLook;
 		}
-		// m_syncComponent.Networkm_maxAfterImageCount = c_maxAfterImages; // rogues?
+		
+		// rogues
+		// m_syncComponent.Networkm_maxAfterImageCount = c_maxAfterImages;
+		// server
+		m_syncComponent.m_maxAfterImageCount = c_maxAfterImages;
+		
 		if (NetworkServer.active)
 		{
 			PreAllocateAfterImages();
@@ -568,8 +573,14 @@ public class Passive_TricksterAfterImage : Passive
 			
 			ActorData actorData = afterImageGameObject.GetComponent<ActorData>();
 			PrefabResourceLink actorSkinPrefabLink = Owner.m_actorSkinPrefabLink;
+			
+			// rogues
 			// actorData.Networkm_visualInfo = Owner.m_visualInfo;
 			// actorData.Networkm_abilityVfxSwapInfo = Owner.m_abilityVfxSwapInfo;
+			// custom
+			actorData.m_visualInfo = Owner.m_visualInfo;
+			actorData.m_abilityVfxSwapInfo = Owner.m_abilityVfxSwapInfo;
+
 			actorData.Initialize(actorSkinPrefabLink, false); // no addMasterSkinVfx in rogues
 			actorData.gameObject.AddComponent<BotController>();
 			actorData.HasBotController = true;
