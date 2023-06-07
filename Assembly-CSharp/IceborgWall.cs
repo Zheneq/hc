@@ -1,21 +1,17 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class IceborgWall : GenericAbility_Container
 {
-	[Separator("For Wall Effect", true)]
+	[Separator("For Wall Effect")]
 	public int m_wallEffectDuration = 2;
-
 	[Separator("On Hit Data for Wall Hits", "yellow")]
 	public OnHitAuthoredData m_wallEffectOnHitData;
-
-	[Separator("Apply Nova effect?", true)]
+	[Separator("Apply Nova effect?")]
 	public bool m_applyDelayedAoeEffect;
-
-	[Separator("Sequences for Wall Effect", true)]
+	[Separator("Sequences for Wall Effect")]
 	public GameObject m_persistentSeqPrefab;
-
 	public GameObject m_onTriggerSeqPrefab;
 
 	private Iceborg_SyncComponent m_syncComp;
@@ -48,51 +44,38 @@ public class IceborgWall : GenericAbility_Container
 		m_wallEffectOnHitData.AddTooltipTokens(tokens);
 	}
 
-	public override void GetHitContextForTargetingNumbers(int currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext)
+	public override void GetHitContextForTargetingNumbers(
+		int currentTargeterIndex,
+		out Dictionary<ActorData, ActorHitContext> actorHitContext,
+		out ContextVars abilityContext)
 	{
-		if (base.Targeters.Count > 0 && currentTargeterIndex > 0)
+		if (Targeters.Count > 0
+		    && currentTargeterIndex > 0
+		    && currentTargeterIndex < Targeters.Count)
 		{
-			if (currentTargeterIndex < base.Targeters.Count)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-					{
-						AbilityUtil_Targeter abilityUtil_Targeter = base.Targeters[currentTargeterIndex];
-						actorHitContext = abilityUtil_Targeter.GetActorContextVars();
-						abilityContext = abilityUtil_Targeter.GetNonActorSpecificContext();
-						return;
-					}
-					}
-				}
-			}
+			AbilityUtil_Targeter targeter = Targeters[currentTargeterIndex];
+			actorHitContext = targeter.GetActorContextVars();
+			abilityContext = targeter.GetNonActorSpecificContext();
 		}
-		base.GetHitContextForTargetingNumbers(currentTargeterIndex, out actorHitContext, out abilityContext);
+		else
+		{
+			base.GetHitContextForTargetingNumbers(currentTargeterIndex, out actorHitContext, out abilityContext);
+		}
 	}
 
-	public override void PostProcessTargetingNumbers(ActorData targetActor, int currentTargeterIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext, ActorData caster, TargetingNumberUpdateScratch results)
+	public override void PostProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargeterIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext,
+		ActorData caster,
+		TargetingNumberUpdateScratch results)
 	{
-		if (!actorHitContext.ContainsKey(targetActor))
+		if (actorHitContext.ContainsKey(targetActor) && targetActor.GetTeam() != caster.GetTeam())
 		{
-			return;
-		}
-		while (true)
-		{
-			if (targetActor.GetTeam() != caster.GetTeam())
-			{
-				while (true)
-				{
-					ActorHitContext actorContext = actorHitContext[targetActor];
-					GenericAbility_Container.CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_wallEffectOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
-					results.m_damage = m_calculatedValuesForTargeter.m_damage;
-					return;
-				}
-			}
-			return;
+			ActorHitContext actorContext = actorHitContext[targetActor];
+			CalcIntFieldValues(targetActor, caster, actorContext, abilityContext, m_wallEffectOnHitData.m_enemyHitIntFields, m_calculatedValuesForTargeter);
+			results.m_damage = m_calculatedValuesForTargeter.m_damage;
 		}
 	}
 

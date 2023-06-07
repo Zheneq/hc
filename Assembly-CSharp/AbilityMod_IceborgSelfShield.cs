@@ -3,17 +3,13 @@ using System.Collections.Generic;
 
 public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 {
-	[Separator("Target Select Mod", true)]
+	[Separator("Target Select Mod")]
 	public TargetSelectMod_Shape m_targetSelectMod;
-
-	[Separator("Health to be considered low health if below", true)]
+	[Separator("Health to be considered low health if below")]
 	public AbilityModPropertyInt m_lowHealthThreshMod;
-
 	public bool m_lowHealthUseStatusOverride;
-
 	public List<StatusType> m_lowHealthStatusWhenRequested;
-
-	[Separator("Shield if all shield depleted on first turn", true)]
+	[Separator("Shield if all shield depleted on first turn")]
 	public AbilityModPropertyInt m_shieldOnNextTurnIfDepletedMod;
 
 	public override Type GetTargetAbilityType()
@@ -29,66 +25,33 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		IceborgSelfShield iceborgSelfShield = targetAbility as IceborgSelfShield;
-		if (!(iceborgSelfShield != null))
-		{
-			return;
-		}
-		while (true)
+		if (iceborgSelfShield != null)
 		{
 			base.AddModSpecificTooltipTokens(tokens, targetAbility);
-			AbilityMod.AddToken(tokens, m_lowHealthThreshMod, "LowHealthThresh", string.Empty, iceborgSelfShield.m_lowHealthThresh);
-			AbilityMod.AddToken(tokens, m_shieldOnNextTurnIfDepletedMod, "ShieldOnNextTurnIfDepleted", string.Empty, iceborgSelfShield.m_shieldOnNextTurnIfDepleted);
-			return;
+			AddToken(tokens, m_lowHealthThreshMod, "LowHealthThresh", string.Empty, iceborgSelfShield.m_lowHealthThresh);
+			AddToken(tokens, m_shieldOnNextTurnIfDepletedMod, "ShieldOnNextTurnIfDepleted", string.Empty, iceborgSelfShield.m_shieldOnNextTurnIfDepleted);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		IceborgSelfShield iceborgSelfShield = GetTargetAbilityOnAbilityData(abilityData) as IceborgSelfShield;
-		bool flag = iceborgSelfShield != null;
-		string text = base.ModSpecificAutogenDesc(abilityData);
-		if (iceborgSelfShield != null)
+		bool isValid = iceborgSelfShield != null;
+		string desc = base.ModSpecificAutogenDesc(abilityData);
+		if (isValid)
 		{
-			text += GetTargetSelectModDesc(m_targetSelectMod, iceborgSelfShield.m_targetSelectComp, "-- Target Select --");
-			string str = text;
-			AbilityModPropertyInt lowHealthThreshMod = m_lowHealthThreshMod;
-			int baseVal;
-			if (flag)
+			desc += GetTargetSelectModDesc(m_targetSelectMod, iceborgSelfShield.m_targetSelectComp, "-- Target Select --");
+			desc += PropDesc(m_lowHealthThreshMod, "[LowHealthThresh]", isValid, isValid ? iceborgSelfShield.m_lowHealthThresh : 0);
+			if (m_lowHealthUseStatusOverride && m_lowHealthStatusWhenRequested != null)
 			{
-				baseVal = iceborgSelfShield.m_lowHealthThresh;
-			}
-			else
-			{
-				baseVal = 0;
-			}
-			text = str + PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal);
-			if (m_lowHealthUseStatusOverride)
-			{
-				if (m_lowHealthStatusWhenRequested != null)
+				desc += "Status to apply when ability is requested, if low health:\n";
+				foreach (StatusType statusType in m_lowHealthStatusWhenRequested)
 				{
-					text += "Status to apply when ability is requested, if low health:\n";
-					using (List<StatusType>.Enumerator enumerator = m_lowHealthStatusWhenRequested.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							text = text + "\t" + enumerator.Current.ToString() + "\n";
-						}
-					}
+					desc += "\t" + statusType + "\n";
 				}
 			}
-			string str2 = text;
-			AbilityModPropertyInt shieldOnNextTurnIfDepletedMod = m_shieldOnNextTurnIfDepletedMod;
-			int baseVal2;
-			if (flag)
-			{
-				baseVal2 = iceborgSelfShield.m_shieldOnNextTurnIfDepleted;
-			}
-			else
-			{
-				baseVal2 = 0;
-			}
-			text = str2 + PropDesc(shieldOnNextTurnIfDepletedMod, "[ShieldOnNextTurnIfDepleted]", flag, baseVal2);
+			desc += PropDesc(m_shieldOnNextTurnIfDepletedMod, "[ShieldOnNextTurnIfDepleted]", isValid, isValid ? iceborgSelfShield.m_shieldOnNextTurnIfDepleted : 0);
 		}
-		return text;
+		return desc;
 	}
 }

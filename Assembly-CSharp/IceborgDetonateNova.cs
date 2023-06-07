@@ -1,30 +1,22 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 
 public class IceborgDetonateNova : GenericAbility_Container
 {
 	[Separator("Empowered Nova Core On Hit Data", "yellow")]
 	public OnHitAuthoredData m_empoweredDelayedAoeOnHitData;
-
-	[Separator("Shield Per Detonate on NovaOnReact ability (Arctic Armor)", true)]
+	[Separator("Shield Per Detonate on NovaOnReact ability (Arctic Armor)")]
 	public int m_novaOnReactShieldPerDetonate;
-
 	public int m_shieldOnDetonateDuration = 1;
-
-	[Separator("Cdr Per Target Killed", true)]
+	[Separator("Cdr Per Target Killed")]
 	public int m_cdrPerKill;
-
 	public int m_cdrIfAnyKill;
-
-	[Separator("Animation Index for detonate portion of the ability", true)]
+	[Separator("Animation Index for detonate portion of the ability")]
 	public int m_detonateAnimIndex;
-
 	public static ContextNameKeyPair s_cvarNumNovaCores = new ContextNameKeyPair("NumNovaCores");
 
 	private Iceborg_SyncComponent m_syncComp;
-
 	private AbilityMod_IceborgDetonateNova m_abilityMod;
-
 	private OnHitAuthoredData m_cachedEmpoweredDelayedAoeOnHitData;
 
 	public override string GetUsageForEditor()
@@ -51,8 +43,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	public int GetDelayedDenotateDamage()
 	{
-		OnHitAuthoredData empoweredDelayedAoeOnHitData = GetEmpoweredDelayedAoeOnHitData();
-		return empoweredDelayedAoeOnHitData.GetFirstDamageValue();
+		return GetEmpoweredDelayedAoeOnHitData().GetFirstDamageValue();
 	}
 
 	protected override void SetupTargetersAndCachedVars()
@@ -64,77 +55,42 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	private void SetCachedFields()
 	{
-		m_cachedEmpoweredDelayedAoeOnHitData = ((!(m_abilityMod != null)) ? m_empoweredDelayedAoeOnHitData : m_abilityMod.m_empoweredDelayedAoeOnHitDataMod.GetModdedOnHitData(m_empoweredDelayedAoeOnHitData));
+		m_cachedEmpoweredDelayedAoeOnHitData = m_abilityMod != null
+			? m_abilityMod.m_empoweredDelayedAoeOnHitDataMod.GetModdedOnHitData(m_empoweredDelayedAoeOnHitData)
+			: m_empoweredDelayedAoeOnHitData;
 	}
 
 	public OnHitAuthoredData GetEmpoweredDelayedAoeOnHitData()
 	{
-		OnHitAuthoredData result;
-		if (m_cachedEmpoweredDelayedAoeOnHitData != null)
-		{
-			result = m_cachedEmpoweredDelayedAoeOnHitData;
-		}
-		else
-		{
-			result = m_empoweredDelayedAoeOnHitData;
-		}
-		return result;
+		return m_cachedEmpoweredDelayedAoeOnHitData ?? m_empoweredDelayedAoeOnHitData;
 	}
 
 	public int GetNovaOnReactShieldPerDetonate()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_novaOnReactShieldPerDetonateMod.GetModifiedValue(m_novaOnReactShieldPerDetonate);
-		}
-		else
-		{
-			result = m_novaOnReactShieldPerDetonate;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_novaOnReactShieldPerDetonateMod.GetModifiedValue(m_novaOnReactShieldPerDetonate)
+			: m_novaOnReactShieldPerDetonate;
 	}
 
 	public int GetShieldOnDetonateDuration()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_shieldOnDetonateDurationMod.GetModifiedValue(m_shieldOnDetonateDuration);
-		}
-		else
-		{
-			result = m_shieldOnDetonateDuration;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldOnDetonateDurationMod.GetModifiedValue(m_shieldOnDetonateDuration)
+			: m_shieldOnDetonateDuration;
 	}
 
 	public int GetCdrPerKill()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cdrPerKillMod.GetModifiedValue(m_cdrPerKill);
-		}
-		else
-		{
-			result = m_cdrPerKill;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrPerKillMod.GetModifiedValue(m_cdrPerKill)
+			: m_cdrPerKill;
 	}
 
 	public int GetCdrIfAnyKill()
 	{
-		int result;
-		if (m_abilityMod != null)
-		{
-			result = m_abilityMod.m_cdrIfAnyKillMod.GetModifiedValue(m_cdrIfAnyKill);
-		}
-		else
-		{
-			result = m_cdrIfAnyKill;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfAnyKillMod.GetModifiedValue(m_cdrIfAnyKill)
+			: m_cdrIfAnyKill;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -149,51 +105,33 @@ public class IceborgDetonateNova : GenericAbility_Container
 		{
 			m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		}
-		if (!(m_syncComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_syncComp != null)
 		{
 			m_syncComp.AddTooltipTokens(tokens);
-			return;
 		}
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
-		if (m_syncComp != null && m_syncComp.m_numNovaEffectsOnTurnStart <= 0)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return false;
-				}
-			}
-		}
-		return base.CustomCanCastValidation(caster);
+		return (m_syncComp == null || m_syncComp.m_numNovaEffectsOnTurnStart > 0)
+		       && base.CustomCanCastValidation(caster);
 	}
 
-	public override void PreProcessTargetingNumbers(ActorData targetActor, int currentTargetIndex, Dictionary<ActorData, ActorHitContext> actorHitContext, ContextVars abilityContext)
+	public override void PreProcessTargetingNumbers(
+		ActorData targetActor,
+		int currentTargetIndex,
+		Dictionary<ActorData, ActorHitContext> actorHitContext,
+		ContextVars abilityContext)
 	{
-		if (!(m_syncComp != null))
-		{
-			return;
-		}
-		while (true)
+		if (m_syncComp != null)
 		{
 			abilityContext.SetValue(s_cvarNumNovaCores.GetKey(), m_syncComp.m_numNovaEffectsOnTurnStart);
-			return;
 		}
 	}
 
 	protected override void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		m_abilityMod = (abilityMod as AbilityMod_IceborgDetonateNova);
+		m_abilityMod = abilityMod as AbilityMod_IceborgDetonateNova;
 	}
 
 	protected override void GenModImpl_ClearModRef()
