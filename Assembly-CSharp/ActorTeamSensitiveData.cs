@@ -397,13 +397,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		return NetworkServer.active
 		       && m_typeObservingMe == ObservedBy.Hostiles
-		       
-		       // rogues
-		       // && (movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Teleport)
-		       // custom
-		       && movementType != ActorData.MovementType.None
-		       && movementType != ActorData.MovementType.Knockback
-		       
+		       && (movementType == ActorData.MovementType.Normal || movementType == ActorData.MovementType.Teleport)
 		       && (movementType != ActorData.MovementType.Teleport || teleportType == ActorData.TeleportType.Evasion_AdjustToVision)
 		       && path != null
 		       && (ServerEffectManager.Get() == null || !ServerEffectManager.Get().HasEffectRequiringAccuratePositionOnClients(Actor));
