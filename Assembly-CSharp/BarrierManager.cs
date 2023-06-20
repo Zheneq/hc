@@ -1063,23 +1063,26 @@ public class BarrierManager : NetworkBehaviour
 	}
 
 	// server-only
-	public void GatherAllBarrierResultsInResponseToMovementSegment(ServerGameplayUtils.MovementGameplayData gameplayData, MovementStage movementStage, ref List<MovementResults> moveResultsForSegment)
+	public void GatherAllBarrierResultsInResponseToMovementSegment(
+		ServerGameplayUtils.MovementGameplayData gameplayData,
+		MovementStage movementStage,
+		ref List<MovementResults> moveResultsForSegment)
 	{
 		foreach (Barrier barrier in m_barriers)
 		{
-			List<MovementResults> list = new List<MovementResults>();
-			barrier.GatherBarrierResultsInResponseToMovementSegment(gameplayData, movementStage, ref list);
+			List<MovementResults> moveResults = new List<MovementResults>();
+			barrier.GatherBarrierResultsInResponseToMovementSegment(gameplayData, movementStage, ref moveResults);
 			List<MovementResults> movementResultsForMovementStage = barrier.GetMovementResultsForMovementStage(movementStage);
-			for (int i = 0; i < list.Count; i++)
+			foreach (MovementResults moveResult in moveResults)
 			{
-				if (list[i].ShouldMovementHitUpdateTargetLastKnownPos(gameplayData.Actor))
+				if (moveResult.ShouldMovementHitUpdateTargetLastKnownPos(gameplayData.Actor))
 				{
 					gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
 					gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
 				}
 				gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
-				movementResultsForMovementStage.Add(list[i]);
-				moveResultsForSegment.Add(list[i]);
+				movementResultsForMovementStage.Add(moveResult);
+				moveResultsForSegment.Add(moveResult);
 			}
 		}
 	}
