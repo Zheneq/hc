@@ -854,17 +854,17 @@ public class ServerGameManager : MonoBehaviour
 		foreach (LobbyServerPlayerInfo lobbyServerPlayerInfo in localPlayers)
 		{
 			LobbySessionInfo sessionInfo = request.SessionInfo[lobbyServerPlayerInfo.PlayerId];
-			List<LobbyServerPlayerInfo> list3 = new List<LobbyServerPlayerInfo>();
+			List<LobbyServerPlayerInfo> proxyPlayerInfos = new List<LobbyServerPlayerInfo>();
 			foreach (int proxyPlayerId in lobbyServerPlayerInfo.ProxyPlayerIds)
 			{
-				LobbyServerPlayerInfo lobbyServerPlayerInfo2 = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault();
-				if (lobbyServerPlayerInfo2 != null)
+				LobbyServerPlayerInfo proxyPlayerInfo = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault();
+				if (proxyPlayerInfo != null)
 				{
-					lobbyServerPlayerInfo2.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
-					list3.Add(lobbyServerPlayerInfo2);
+					proxyPlayerInfo.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
+					proxyPlayerInfos.Add(proxyPlayerInfo);
 				}
 			}
-			AddPlayerState(sessionInfo, lobbyServerPlayerInfo, list3, num--);
+			AddPlayerState(sessionInfo, lobbyServerPlayerInfo, proxyPlayerInfos, num--);
 			Log.Info($"ServerGameManager::HandleLaunchGameRequest: Added local player {lobbyServerPlayerInfo.Handle} {lobbyServerPlayerInfo.CharacterType}");
 		}
 		foreach (LobbyServerPlayerInfo primaryPlayerInfo in bots)
