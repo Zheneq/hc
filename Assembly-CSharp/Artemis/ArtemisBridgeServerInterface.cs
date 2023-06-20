@@ -46,7 +46,8 @@ namespace ArtemisServer.BridgeServer
             typeof(MonitorHeartbeatNotification),
             typeof(LaunchGameResponse),
             typeof(JoinGameServerResponse),
-            typeof(JoinGameAsObserverResponse)
+            typeof(JoinGameAsObserverResponse),
+            typeof(ReconnectPlayerResponse),
         };
 
         protected override List<Type> GetMessageTypes()
