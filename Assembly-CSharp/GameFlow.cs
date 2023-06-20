@@ -610,7 +610,7 @@ public class GameFlow : NetworkBehaviour
 				}
 				break;
 			}
-			default:
+			case ActionBufferPhase.MovementWait:
 			{
 				theatrics.MarkPhasesOnActionsDone();
 				actionBuffer.ActionPhase = ActionBufferPhase.Done;
