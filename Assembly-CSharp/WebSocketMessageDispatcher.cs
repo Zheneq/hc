@@ -320,127 +320,58 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 		{
 			if (!m_messageTypeHandlers.TryGetValue(message.GetType(), out MessageTypeHandler value))
 			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						Log.Warning("Received a message of type '{0}', but no registered type handler found", message.GetType());
-						return;
-					}
-				}
+				Log.Warning("Received a message of type '{0}', but no registered type handler found", message.GetType());
+				return;
 			}
 			WebSocketEnvelope webSocketEnvelope;
 			if (message.ResponseId == 0)
 			{
-				while (true)
+				if (!value.MessageHandlers.IsNullOrEmpty())
 				{
-					switch (3)
+					using (List<MessageHandler>.Enumerator enumerator = value.MessageHandlers.GetEnumerator())
 					{
-					case 0:
-						break;
-					default:
-						if (!value.MessageHandlers.IsNullOrEmpty())
+						while (enumerator.MoveNext())
 						{
-							while (true)
+							MessageHandler current = enumerator.Current;
+							if (current.Session != null)
 							{
-								switch (7)
+								if (current.Session != session)
 								{
-								case 0:
-									break;
-								default:
-								{
-									using (List<MessageHandler>.Enumerator enumerator = value.MessageHandlers.GetEnumerator())
-									{
-										while (enumerator.MoveNext())
-										{
-											MessageHandler current = enumerator.Current;
-											if (current.Session != null)
-											{
-												if (current.Session != session)
-												{
-													continue;
-												}
-											}
-											webSocketEnvelope = default(WebSocketEnvelope);
-											webSocketEnvelope.Message = message;
-											webSocketEnvelope.Session = session;
-											webSocketEnvelope.Handler = current;
-											WebSocketEnvelope envelope = webSocketEnvelope;
-											Invoke(envelope);
-										}
-										while (true)
-										{
-											switch (7)
-											{
-											default:
-												return;
-											case 0:
-												break;
-											}
-										}
-									}
-								}
+									continue;
 								}
 							}
+							webSocketEnvelope = default(WebSocketEnvelope);
+							webSocketEnvelope.Message = message;
+							webSocketEnvelope.Session = session;
+							webSocketEnvelope.Handler = current;
+							WebSocketEnvelope envelope = webSocketEnvelope;
+							Invoke(envelope);
 						}
-						Log.Warning("Received a message of type '{0}', but no registered handler found", message.GetType().Name);
 						return;
 					}
 				}
+				Log.Warning("Received a message of type '{0}', but no registered handler found", message.GetType().Name);
+				return;
 			}
 			if (message.ResponseId != 0)
 			{
-				while (true)
+				if (value.ResponseMessageHandlers != null)
 				{
-					switch (5)
+					if (value.ResponseMessageHandlers.TryGetValue(message.ResponseId, out MessageHandler value2))
 					{
-					case 0:
-						break;
-					default:
-						if (value.ResponseMessageHandlers != null)
-						{
-							while (true)
-							{
-								switch (2)
-								{
-								case 0:
-									break;
-								default:
-								{
-									if (value.ResponseMessageHandlers.TryGetValue(message.ResponseId, out MessageHandler value2))
-									{
-										while (true)
-										{
-											switch (5)
-											{
-											case 0:
-												break;
-											default:
-											{
-												webSocketEnvelope = default(WebSocketEnvelope);
-												webSocketEnvelope.Message = message;
-												webSocketEnvelope.Session = session;
-												webSocketEnvelope.Handler = value2;
-												WebSocketEnvelope envelope2 = webSocketEnvelope;
-												Invoke(envelope2);
-												value.ResponseMessageHandlers.Remove(message.ResponseId);
-												return;
-											}
-											}
-										}
-									}
-									Log.Warning("Received a message of type '{0}', but no registered response handler found", message.GetType().Name);
-									return;
-								}
-								}
-							}
-						}
+						webSocketEnvelope = default(WebSocketEnvelope);
+						webSocketEnvelope.Message = message;
+						webSocketEnvelope.Session = session;
+						webSocketEnvelope.Handler = value2;
+						WebSocketEnvelope envelope2 = webSocketEnvelope;
+						Invoke(envelope2);
+						value.ResponseMessageHandlers.Remove(message.ResponseId);
 						return;
 					}
+					Log.Warning("Received a message of type '{0}', but no registered response handler found", message.GetType().Name);
+					return;
 				}
+				return;
 			}
 		}
 	}
