@@ -530,13 +530,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}));
 			}
 			
-			// custom
-#if SERVER
-			Log.Info($"ServerLastKnownPosSquare {DisplayName} " +
-			         $"{m_serverLastKnownPosSquare?.GetGridPos().ToString() ?? "null"} -> {value?.GetGridPos().ToString() ?? "null"}");
-#endif
-			// end custom
-			
 			m_serverLastKnownPosSquare = value;
 		}
 	}
@@ -5085,6 +5078,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				{
 					// square == null;  // it's not an assignment
 				}
+				Log.Info($"CurrentBoardSquare {DisplayName} {square?.GetGridPos()}"); // custom debug
 				m_serverTrueBoardSquare = square;
 			}
 #endif
@@ -5115,6 +5109,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 #if SERVER
 		if (NetworkServer.active)  // server-only
 		{
+			Log.Info($"CurrentBoardSquare (clear) {DisplayName} null"); // custom debug
 			m_serverTrueBoardSquare = null;
 		}
 #endif
@@ -5147,6 +5142,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (m_serverTrueBoardSquare != newSquare)
 		{
+			Log.Info($"CurrentBoardSquare (swap) {DisplayName} {newSquare?.GetGridPos()}"); // custom debug
 			m_serverTrueBoardSquare = newSquare;
 		}
 	}
@@ -7243,7 +7239,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		//          ServerLastKnownPosSquare = square;
 		//}
 
-		// custom code
+		// custom
+		BoardSquare oldSquare = ServerLastKnownPosSquare;
 		if (NetworkServer.active
 		    && (square == null
 		        || ServerLastKnownPosSquare == null
@@ -7257,6 +7254,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			//  (e.g. player gets hit, plays damage animation while standing on wrong square, and then teleports)
 			if (ServerLastKnownPosSquare != null)
 			{
+				Log.Info($"ServerLastKnownPosSquare {DisplayName} {callerStr}" +
+				         $"{oldSquare?.GetGridPos().ToString() ?? "null"} -> {square?.GetGridPos().ToString() ?? "null"}"); // custom debug
 				TeamSensitiveData_hostile.BroadcastMovement(
 					GameEventManager.EventType.ClientResolutionStarted,
 					ServerLastKnownPosSquare.GetGridPos(),
@@ -7266,6 +7265,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					null);
 			}
 		}
+		else
+		{
+			Log.Info($"ServerLastKnownPosSquare NOT BROADCASTING {DisplayName} {callerStr}" +
+			         $"{oldSquare?.GetGridPos().ToString() ?? "null"} -> {square?.GetGridPos().ToString() ?? "null"}"); // custom debug
+		}
+		// end custom
 
 		// TODO LOW check m_serverLastKnownPosX/Y
 	}

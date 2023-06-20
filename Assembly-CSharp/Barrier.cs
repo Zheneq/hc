@@ -924,6 +924,9 @@ public class Barrier
 			movementResults.m_triggeringPath.m_moverHasGameplayHitHere = true;
 			movementResults.m_triggeringPath.m_updateLastKnownPos = 
 				movementResults.ShouldMovementHitUpdateTargetLastKnownPos(movementResults.m_triggeringMover);
+			Log.Info($"UpdateLastKnownPos {movementResults.m_triggeringMover?.DisplayName} " +
+			         $"{movementResults.m_triggeringPath.square?.GetGridPos()} " +
+			         $"{(movementResults.m_triggeringPath.m_updateLastKnownPos ? "" : "NOT ")} updating for evade movement hit"); // custom debug
 		}
 	}
 
@@ -938,6 +941,9 @@ public class Barrier
 			m_knockbackResults[i].m_triggeringPath.m_updateLastKnownPos = 
 				m_knockbackResults[i].ShouldMovementHitUpdateTargetLastKnownPos(m_knockbackResults[i].m_triggeringMover);
 			TheatricsManager.Get().OnKnockbackMovementHitGathered(m_knockbackResults[i].GetTriggeringActor());
+			Log.Info($"UpdateLastKnownPos {m_knockbackResults[i].m_triggeringMover?.DisplayName} " +
+			         $"{m_knockbackResults[i].m_triggeringPath.square?.GetGridPos()} " +
+			         $"{(m_knockbackResults[i].m_triggeringPath.m_updateLastKnownPos ? "" : "NOT ")} updating for knockback movement hit"); // custom debug
 		}
 	}
 

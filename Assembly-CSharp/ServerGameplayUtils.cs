@@ -561,7 +561,7 @@ public static class ServerGameplayUtils
 				            || CaptureTheFlag.IsActorRevealedByFlag_Server(Actor)
 				            || !m_movementInstance.m_willBeStealthed;
 				bool isKnockbackStage = movementStage == MovementStage.Knockback;
-				bool isVisible = isNotHidden && Actor.IsActorVisibleToAnyEnemy();
+				bool isVisible = isNotHidden && Actor.IsActorVisibleToAnyEnemy(true); // custom debug
 				bool flag5 = m_movementInstance.m_groundBased 
 				             && m_currentlyConsideredPath.prev != null 
 				             && m_currentlyConsideredPath.prev.m_updateLastKnownPos 
@@ -571,9 +571,13 @@ public static class ServerGameplayUtils
 					m_serverLastKnownPath = m_currentlyConsideredPath;
 					m_serverLastKnownPath.m_visibleToEnemies = true;
 					m_serverLastKnownPath.m_updateLastKnownPos = true;
+					Log.Info($"UpdateLastKnownPos {m_movementInstance.m_mover?.DisplayName} " +
+					         $"{m_serverLastKnownPath.square?.GetGridPos()} UpdateLastKnownPath visible"); // custom debug
 					if (m_movementInstance.m_groundBased && m_serverLastKnownPath.next != null)
 					{
 						m_serverLastKnownPath.next.m_updateLastKnownPos = true;
+						Log.Info($"UpdateLastKnownPos {m_movementInstance.m_mover?.DisplayName} " +
+						         $"{m_serverLastKnownPath.next.square?.GetGridPos()} UpdateLastKnownPath next step after visible square"); // custom debug
 					}
 				}
 			}

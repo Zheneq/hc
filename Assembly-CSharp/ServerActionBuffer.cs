@@ -2282,6 +2282,10 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				list.Add(actorData);
 			}
+			Log.Info($"IdentifyActorsDyingBeforeKnockbackMovement {actorData.DisplayName} " +
+			         $"{actorData.HitPoints}HP + {actorData.UnresolvedHealing} healing + {actorData.AbsorbPoints} shields " +
+			         $"- {actorData.UnresolvedDamage} damage - {-num2} damage from knockbacks " +
+			         $"= {(actorData.HitPoints + num + num2 <= 0 ? "" : "not ")}dead"); // custom debug
 		}
 		return list;
 	}

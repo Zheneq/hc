@@ -1288,6 +1288,8 @@ public class ServerEffectManager : MonoBehaviour
 					{
 						gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
 						gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
+						Log.Info($"UpdateLastKnownPos {list2[i].m_triggeringMover?.DisplayName} " +
+						         $"{list2[i].m_triggeringPath.square?.GetGridPos()} updating for movement actor effect hit"); // custom debug
 					}
 					gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
 					movementResultsForMovementStage.Add(list2[i]);
@@ -1306,6 +1308,8 @@ public class ServerEffectManager : MonoBehaviour
 				{
 					gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
 					gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
+					Log.Info($"UpdateLastKnownPos {list3[j].m_triggeringMover?.DisplayName} " +
+					         $"{list3[j].m_triggeringPath.square?.GetGridPos()} updating for movement world effect hit"); // custom debug
 				}
 				gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
 				movementResultsForMovementStage2.Add(list3[j]);

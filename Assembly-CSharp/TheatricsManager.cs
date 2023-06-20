@@ -853,7 +853,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				{
 					if (m_playerConnectionIdsInUpdatePhase.Count == 0)
 					{
-						Log.Warning($"OnUpdatePhaseEndedNoServerPlayer");
 						OnUpdatePhaseEndedNoServerPlayer((int)m_phaseToUpdate);
 						m_phaseToUpdate = AbilityPriority.INVALID;
 					}
@@ -866,7 +865,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				}
 				else if (m_playerConnectionIdsInUpdatePhase.Count <= 1)
 				{
-					Log.Warning($"OnUpdatePhaseEnded");
 					OnUpdatePhaseEnded(ClientGameManager.Get().AccountId, (int)m_phaseToUpdate, Time.time - m_phaseStartTime, Time.smoothDeltaTime);
 					m_phaseToUpdate = AbilityPriority.INVALID;
 				}

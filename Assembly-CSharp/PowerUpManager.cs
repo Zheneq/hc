@@ -343,6 +343,8 @@ public class PowerUpManager : MonoBehaviour
 							{
 								gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
 								gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
+								Log.Info($"UpdateLastKnownPos {list[j].m_triggeringMover?.DisplayName} " +
+								         $"{list[j].m_triggeringPath.square?.GetGridPos()} updating for movement powerup hit"); // custom debug
 							}
 							gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
 							movementResultsForMovementStage.Add(list[j]);
