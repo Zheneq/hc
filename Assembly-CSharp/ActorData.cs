@@ -3170,8 +3170,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 		bool isActorVisibleToActor = observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
 		if (debugLog) Log.Info($"{DisplayName} ({GetTravelBoardSquare()?.GetGridPos()}) is " +
-		                       $"{(isActorVisibleToActor ? "" : "not ")} " +
-		                       $"visible to {observer.DisplayName} in fog of war");
+		                       $"{(isActorVisibleToActor ? "" : "not ")}" +
+		                       $"visible to {observer.DisplayName} ({observer.GetTravelBoardSquare()?.GetGridPos()}) " +
+		                       $"in fog of war");
 		return isActorVisibleToActor;
 	}
 
