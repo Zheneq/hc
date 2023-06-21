@@ -182,27 +182,6 @@ namespace ArtemisServer.BridgeServer
             // end custom
         }
 
-        public void StartGame(string game)
-        {
-            StartGame(JsonConvert.DeserializeObject<ServerGame>(game));
-        }
-
-        private void StartGame(ServerGame game)
-        {
-            m_gameInfo = game.gameInfo;
-            m_teamInfo = game.teamInfo;
-            OnLaunchGameRequest(new LaunchGameRequest
-            {
-                GameInfo = m_gameInfo,
-                TeamInfo = new LobbyServerTeamInfo
-                {
-                    TeamPlayerInfo = m_teamInfo.TeamPlayerInfo.Select(consLobbyServerPlayerInfo).ToList()
-                },
-                SessionInfo = m_teamInfo.TeamPlayerInfo.ToDictionary(x => x.PlayerId, consLobbySessionInfo),
-                GameplayOverrides = new LobbyGameplayOverrides()
-            });
-        }
-
         private void RegisterGameServer()
         {
             Log.Info($"Registering game server {m_sessionInfo.ProcessCode}");
@@ -359,81 +338,6 @@ namespace ArtemisServer.BridgeServer
                 TeamInfo = teamInfo,
                 PlayerInfo = playerInfo
             });
-        }
-
-
-        public static LobbySessionInfo consLobbySessionInfo(LobbyPlayerInfo playerInfo)
-        {
-            return new LobbySessionInfo
-            {
-                AccountId = playerInfo.AccountId,
-                UserName = playerInfo.Handle,
-                BuildVersion = "",
-                ProtocolVersion = "",
-                SessionToken = 0,
-                ReconnectSessionToken = 0,
-                ProcessCode = "",
-                ProcessType = ProcessType.AtlasReactor,
-                ConnectionAddress = "",
-                Handle = playerInfo.Handle,
-                IsBinary = false,
-                FakeEntitlements = "",
-                Region = Region.EU,
-                LanguageCode = "en",
-            };
-        }
-
-        public static LobbyServerPlayerInfo consLobbyServerPlayerInfo(LobbyPlayerInfo playerInfo)
-        {
-            var result = new LobbyServerPlayerInfo
-            {
-                AccountId = playerInfo.AccountId,
-                PlayerId = playerInfo.PlayerId,
-                Handle = playerInfo.Handle,
-                CustomGameVisualSlot = playerInfo.CustomGameVisualSlot,
-                TitleID = playerInfo.TitleID,
-                TitleLevel = playerInfo.TitleLevel,
-                BannerID = playerInfo.BannerID,
-                EmblemID = playerInfo.EmblemID,
-                RibbonID = playerInfo.RibbonID,
-                IsGameOwner = playerInfo.IsGameOwner,
-                //IsReplayGenerator = playerInfo.IsReplayGenerator,
-                Difficulty = playerInfo.Difficulty,
-                BotCanTaunt = playerInfo.BotCanTaunt,
-                TeamId = playerInfo.TeamId,
-                CharacterInfo = playerInfo.CharacterInfo,
-                RemoteCharacterInfos = playerInfo.RemoteCharacterInfos,
-                ReadyState = playerInfo.ReadyState,
-                ControllingPlayerId = playerInfo.ControllingPlayerId,
-                GameAccountType = playerInfo.IsAIControlled ? PlayerGameAccountType.None : PlayerGameAccountType.Human,
-                //GameConnectionType = playerInfo.GameConnectionType,
-                //GameOptionFlags = playerInfo.GameOptionFlags,
-                AccountLevel = 100,
-                TotalLevel = 100,
-                NumWins = 1,
-                AccMatchmakingElo = 1000,
-                AccMatchmakingCount = 1000,
-                CharMatchmakingElo = new Dictionary<CharacterType, float>(),
-                CharMatchmakingCount = new Dictionary<CharacterType, int>(),
-                UsedMatchmakingElo = 1000,
-                RankedTier = 1,
-                RankedPoints = 1000,
-                MatchmakingEloKey = "foo",
-                ProxyPlayerIds = new List<int>(),
-                GroupIdAtStartOfMatch = -1,
-                GroupSizeAtStartOfMatch = 1,
-                GroupLeader = true,
-                EffectiveClientAccessLevel = ClientAccessLevel.Full,
-                RankedSortKarma = 100500
-            };
-            result.ControllingPlayerInfo = playerInfo.IsAIControlled ? null : result; // TODO ????
-            return result;
-        }
-
-        class ServerGame
-        {
-            public LobbyGameInfo gameInfo;
-            public LobbyTeamInfo teamInfo;
         }
     }
 }

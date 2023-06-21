@@ -23,7 +23,6 @@ public class LobbyPlayerCommonInfo
 	public List<LobbyCharacterInfo> RemoteCharacterInfos = new List<LobbyCharacterInfo>();
 	public ReadyState ReadyState;
 	public int ControllingPlayerId;
-	[JsonIgnore] // TODO breaks serialization (no custom serialize for monitoring server interface)
 	public LobbyServerPlayerInfo ControllingPlayerInfo;
 	public PlayerGameAccountType GameAccountType;
 	public PlayerGameConnectionType GameConnectionType;
