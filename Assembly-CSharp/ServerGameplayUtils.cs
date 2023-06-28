@@ -731,119 +731,111 @@ public static class ServerGameplayUtils
 
 		public void ProcessMovementResults(List<MovementResults> movementResultsList)
 		{
-			int num = 0;
-			int num2 = 0;
-			for (int i = 0; i < movementResultsList.Count; i++)
+			int healthDelta = 0;
+			int damageTaken = 0;
+			foreach (MovementResults movementResults in movementResultsList)
 			{
-				MovementResults movementResults = movementResultsList[i];
 				Dictionary<ActorData, int> movementDamageResults = movementResults.GetMovementDamageResults();
 				if (movementDamageResults != null && movementDamageResults.ContainsKey(Actor))
 				{
-					num += movementDamageResults[Actor];
+					healthDelta += movementDamageResults[Actor];
 					if (movementDamageResults[Actor] < 0)
 					{
-						num2 += Mathf.Abs(movementDamageResults[Actor]);
+						damageTaken += Mathf.Abs(movementDamageResults[Actor]);
 					}
 				}
 				AdjustPathsFromMovementResults(movementResults);
 			}
-			m_healthDeltaForDistance += num;
-			m_damageTakenForDistance += num2;
-			m_damageTakenThisSegment += num2;
+			m_healthDeltaForDistance += healthDelta;
+			m_damageTakenForDistance += damageTaken;
+			m_damageTakenThisSegment += damageTaken;
 		}
 
 		private void AdjustPathsFromMovementResults(MovementResults movementResults)
 		{
-			BoardSquarePathInfo boardSquarePathInfo = null;
-			List<BoardSquare> list;
-			if (WasChase)
-			{
-				list = FindAllClaimedSquaresForChaseMovement();
-			}
-			else
-			{
-				list = FindAllClaimedSquaresForNormalMovement();
-			}
-			list.Remove(m_moveRequest.m_targetSquare);
-			List<BoardSquarePathInfo> list2 = new List<BoardSquarePathInfo>();
+			BoardSquarePathInfo newDest = null;
+			List<BoardSquare> allClaimedSquares = WasChase
+				? FindAllClaimedSquaresForChaseMovement()
+				: FindAllClaimedSquaresForNormalMovement();
+			allClaimedSquares.Remove(m_moveRequest.m_targetSquare);
+			List<BoardSquarePathInfo> clashSteps = new List<BoardSquarePathInfo>();
 			if (movementResults.AppliesStatusToMover(StatusType.CantSprint_Absolute))
 			{
-				float num = Actor.GetActorMovement().CalculateMaxHorizontalMovement(true, false);
-				for (BoardSquarePathInfo boardSquarePathInfo2 = m_currentlyConsideredPath; boardSquarePathInfo2 != null; boardSquarePathInfo2 = boardSquarePathInfo2.next)
+				float maxMovement = Actor.GetActorMovement().CalculateMaxHorizontalMovement(true, false);
+				for (BoardSquarePathInfo step = m_currentlyConsideredPath; step != null; step = step.next)
 				{
-					bool flag = boardSquarePathInfo == null;
-					bool flag2 = boardSquarePathInfo2.moveCost >= num;
-					bool moverClashesHere = boardSquarePathInfo2.m_moverClashesHere;
-					bool flag3 = boardSquarePathInfo2.m_moverBumpedFromClash || (boardSquarePathInfo2.next != null && boardSquarePathInfo2.next.m_moverBumpedFromClash);
-					bool flag4 = list.Contains(boardSquarePathInfo2.square);
-					if (flag && flag2 && !moverClashesHere && !flag3 && !flag4)
+					if (newDest == null
+					    && step.moveCost >= maxMovement
+					    && !step.m_moverClashesHere 
+					    && !step.m_moverBumpedFromClash
+					    && (step.next == null || !step.next.m_moverBumpedFromClash) 
+					    && !allClaimedSquares.Contains(step.square))
 					{
-						boardSquarePathInfo = boardSquarePathInfo2;
+						newDest = step;
 					}
-					bool flag5 = boardSquarePathInfo != null;
-					bool moverClashesHere2 = boardSquarePathInfo2.m_moverClashesHere;
-					bool flag6 = boardSquarePathInfo2 == boardSquarePathInfo;
-					if (flag5 && !flag6 && moverClashesHere2 && !list2.Contains(boardSquarePathInfo2))
+					if (newDest != null
+					    && step != newDest
+					    && step.m_moverClashesHere
+					    && !clashSteps.Contains(step))
 					{
-						list2.Add(boardSquarePathInfo2);
+						clashSteps.Add(step);
 					}
 				}
 			}
-			if (boardSquarePathInfo != null)
+			if (newDest == null)
 			{
-				list.Add(boardSquarePathInfo.square);
-				for (int i = 0; i < list2.Count; i++)
+				return;
+			}
+			allClaimedSquares.Add(newDest.square);
+			foreach (BoardSquarePathInfo clashStep in clashSteps)
+			{
+				List<ClashData> clashes = FindAllClashesThatExistBecauseOf(Actor, clashStep, WasChase);
+				bool bumpingNextStep = clashStep.next != null && clashStep.next.m_moverBumpedFromClash;
+				foreach (ClashData clashData in clashes)
 				{
-					BoardSquarePathInfo boardSquarePathInfo3 = list2[i];
-					List<ClashData> list3 = FindAllClashesThatExistBecauseOf(Actor, boardSquarePathInfo3, WasChase);
-					bool flag7 = boardSquarePathInfo3.next != null && boardSquarePathInfo3.next.m_moverBumpedFromClash;
-					for (int j = 0; j < list3.Count; j++)
+					if (bumpingNextStep)
 					{
-						ClashData clashData = list3[j];
-						if (flag7)
+						if (!allClaimedSquares.Contains(clashData.m_clashNode.square))
 						{
-							if (!list.Contains(clashData.m_clashNode.square))
-							{
-								list.Remove(clashData.m_request.m_targetSquare);
-								clashData.m_clashNode.m_moverClashesHere = false;
-								clashData.m_clashNode.next = null;
-								clashData.m_request.m_path.CalcAndSetMoveCostToEnd();
-								clashData.m_request.m_targetSquare = clashData.m_clashNode.square;
-								list.Add(clashData.m_request.m_targetSquare);
-							}
-							else
-							{
-								BoardSquarePathInfo prev = clashData.m_clashNode.prev;
-								while (prev != null && !prev.m_moverHasGameplayHitHere)
-								{
-									if (prev.m_moverClashesHere)
-									{
-										break;
-									}
-									if (!list.Contains(prev.square))
-									{
-										list.Remove(clashData.m_request.m_targetSquare);
-										clashData.m_clashNode.m_moverClashesHere = false;
-										prev.next = null;
-										clashData.m_request.m_path.CalcAndSetMoveCostToEnd();
-										clashData.m_request.m_targetSquare = prev.square;
-										list.Add(clashData.m_request.m_targetSquare);
-										break;
-									}
-									prev = prev.prev;
-								}
-							}
+							allClaimedSquares.Remove(clashData.m_request.m_targetSquare);
+							clashData.m_clashNode.m_moverClashesHere = false;
+							clashData.m_clashNode.next = null;
+							clashData.m_request.m_path.CalcAndSetMoveCostToEnd();
+							clashData.m_request.m_targetSquare = clashData.m_clashNode.square;
+							allClaimedSquares.Add(clashData.m_request.m_targetSquare);
 						}
 						else
 						{
-							clashData.m_clashNode.m_moverClashesHere = false;
+							BoardSquarePathInfo prev = clashData.m_clashNode.prev;
+							while (prev != null && !prev.m_moverHasGameplayHitHere)
+							{
+								if (prev.m_moverClashesHere)
+								{
+									break;
+								}
+								if (!allClaimedSquares.Contains(prev.square))
+								{
+									allClaimedSquares.Remove(clashData.m_request.m_targetSquare);
+									clashData.m_clashNode.m_moverClashesHere = false;
+									prev.next = null;
+									clashData.m_request.m_path.CalcAndSetMoveCostToEnd();
+									clashData.m_request.m_targetSquare = prev.square;
+									allClaimedSquares.Add(clashData.m_request.m_targetSquare);
+									break;
+								}
+								prev = prev.prev;
+							}
 						}
 					}
+					else
+					{
+						clashData.m_clashNode.m_moverClashesHere = false;
+					}
 				}
-				boardSquarePathInfo.next = null;
-				m_moveRequest.m_path.CalcAndSetMoveCostToEnd();
-				m_moveRequest.m_targetSquare = boardSquarePathInfo.square;
 			}
+			newDest.next = null;
+			m_moveRequest.m_path.CalcAndSetMoveCostToEnd();
+			m_moveRequest.m_targetSquare = newDest.square;
 		}
 
 		private void OnWillDie()
