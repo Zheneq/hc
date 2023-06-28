@@ -59,7 +59,7 @@ public static class ServerGameplayUtils
 		actorsThatWillBeSeenButArentMoving = new List<ActorData>();
 		for (int i = 0; i < num; i++)
 		{
-			Log.Debug($"IterateOverLastKnownPosData step {i}");  // custom debug
+			Log.Info($"IterateOverLastKnownPosData step {i}");  // custom debug
 			float distance = i * 0.5f - 0.01f;
 			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
 			{
@@ -73,7 +73,7 @@ public static class ServerGameplayUtils
 			bool updateFog = false;
 			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
 			{
-				if (lastKnownPosData.WasChase == consideringChasers && !updateFog)
+				if (lastKnownPosData.WasChase == consideringChasers) //  && !updateFog in rogues -- only one character could move at a time
 				{
 					BoardSquare currentBoardSquare = lastKnownPosData.Actor.CurrentBoardSquare;
 					lastKnownPosData.Actor.SwapBoardSquare(lastKnownPosData.m_currentlyConsideredPath.square);
