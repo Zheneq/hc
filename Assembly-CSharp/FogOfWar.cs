@@ -109,6 +109,7 @@ public class FogOfWar : MonoBehaviour
 		bool ignoreLOS,  // removed in rogues
 		VisionProviderInfo.BrushRevealType brushRevealType = VisionProviderInfo.BrushRevealType.BaseOnCenterPosition)
 	{
+		Log.Info($"Calculating for of war for {m_owner?.DisplayName} at {center?.GetGridPos()}, radius {radius}");  // custom debug
 		if (center == null || radius <= 0f)
 		{
 			return;
@@ -415,6 +416,7 @@ public class FogOfWar : MonoBehaviour
 	public void UpdateVisibilityOfSquares(bool updateShade = true)  // reworked in rogues
 	{
 		m_visibleSquares.Clear();
+		Log.Info($"Calculating for of war for {m_owner?.DisplayName}: reset");  // custom debug
 		m_visibilityPersonalOnly = InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowPersonalVisibility);
 		if (m_owner != null)
 		{
@@ -522,6 +524,7 @@ public class FogOfWar : MonoBehaviour
 						m_visibleSquares.TryGetValue(travelBoardSquare, out VisibleSquareEntry value);
 						value.m_visibleFlags |= (int)BoardSquare.VisibilityFlags.Revealed;
 						m_visibleSquares[travelBoardSquare] = value;
+						Log.Info($"Calculating for of war for {m_owner?.DisplayName}: adding exception {opponent?.DisplayName} {travelBoardSquare?.GetGridPos()}");  // custom debug
 					}
 				}
 			}
