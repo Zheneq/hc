@@ -4706,6 +4706,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void MoveToBoardSquareLocal(BoardSquare dest, MovementType movementType, BoardSquarePathInfo path, bool moverWillDisappear)
 	{
+		Log.Info($"MoveToBoardSquareLocal {DisplayName} {CurrentBoardSquare?.GetGridPos()} -> {dest?.GetGridPos()} {movementType} moverWillDisappear={moverWillDisappear}\n{path?.GetDebugPathStringToEnd("")}");  // custom debug
 		m_disappearingAfterCurrentMovement = moverWillDisappear;
 		if (dest == null)
 		{
