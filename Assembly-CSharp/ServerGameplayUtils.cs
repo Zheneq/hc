@@ -88,7 +88,7 @@ public static class ServerGameplayUtils
 			}
 			if (updateFog)
 			{
-				foreach (ActorData actorData in moverToLastKnownPosData.Keys)
+				foreach (ActorData actorData in GameFlowData.Get().GetActors())  //  in moverToLastKnownPosData.Keys in rogues
 				{
 					actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 					Log.Info($"IterateOverLastKnownPosData Updated fog for {actorData.DisplayName}");  // custom debug
