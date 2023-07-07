@@ -23,7 +23,7 @@ public class ClericMeleeKnockback : Ability
 	[Header("-- Anim versions")]
 	public float m_rangePercentForLongRangeAnim = 0.5f;
 
-	private Cleric_SyncComponent m_syncComp;
+	private Cleric_SyncComponent m_syncComp; // TODO CLERIC probably was used to change m_meleeKnockbackAnimRange according to m_rangePercentForLongRangeAnim
 	private AbilityMod_ClericMeleeKnockback m_abilityMod;
 	private StandardEffectInfo m_cachedTargetHitEffect;
 	private StandardEffectInfo m_cachedConnectLaserEnemyHitEffect;
@@ -228,6 +228,7 @@ public class ClericMeleeKnockback : Ability
 		return tpGain;
 	}
 
+	// TODO unused in filtering hit actors?
 	public bool IsSquareInLosForCone(BoardSquare testSquare, Vector3 centerPos, ActorData targetingActor)
 	{
 		if (testSquare == null)
@@ -266,4 +267,133 @@ public class ClericMeleeKnockback : Ability
 		return potentialActor != null
 		       && IsSquareInLosForCone(potentialActor.GetCurrentBoardSquare(), centerPos, targetingActor);
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			GetTargetPos(targets[0], caster),
+			null,
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		float radius = GetAoeRadius();
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		Vector3 aoeCenterPos = GetTargetPos(targets[0], caster);
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(
+			aoeCenterPos,
+			radius,
+			PenetrateLineOfSight(),
+			caster,
+			caster.GetOtherTeams(),
+			null);
+		for (int i = actorsInRadius.Count - 1; i >= 0; i--)
+		{
+			if (!ShouldIncludeAoEActor(actorsInRadius[i], aoeCenterPos, caster))
+			{
+				actorsInRadius.RemoveAt(i);
+			}
+		}
+
+		// Limiting actors before adding hits for hammer handle.
+		// I guess MaxTargets is never used anyway (or it's supposed to be limiting this part only)
+		int maxTargets = GetMaxTargets();
+		if (maxTargets > 0 && actorsInRadius.Count > maxTargets)
+		{
+			TargeterUtils.SortActorsByDistanceToPos(ref actorsInRadius, aoeCenterPos);
+			TargeterUtils.LimitActorsToMaxNumber(ref actorsInRadius, maxTargets);
+		}
+
+		float knockbackDistance = GetKnockbackDistance();
+		foreach (ActorData hitActor in actorsInRadius)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, casterPos);
+			ActorHitResults hitResults = new ActorHitResults(GetDamageAmount(), HitActionType.Damage, hitParams);
+			
+			// These mods are not used so I say they apply to hammer head only
+			hitResults.AddStandardEffectInfo(actorsInRadius.Count == 1
+				? GetSingleTargetHitEffect()
+				: GetTargetHitEffect());
+			
+			if (knockbackDistance > 0f)
+			{
+				KnockbackHitData knockbackData = new KnockbackHitData(
+					hitActor,
+					caster,
+					GetKnockbackType(),
+					targets[0].AimDirection,
+					aoeCenterPos,
+					knockbackDistance);
+				hitResults.AddKnockbackData(knockbackData);
+			}
+			abilityResults.StoreActorHit(hitResults);
+		}
+		
+		// AbilityUtil_Targeter_AoE_Smooth_FixedOffset		
+		float connectLaserWidth = GetConnectLaserWidth();
+		if (connectLaserWidth > 0f)
+		{
+			Vector3 laserEndPos = aoeCenterPos;
+			laserEndPos.y = casterPos.y;
+			Vector3 dir = laserEndPos - casterPos;
+			float distToAoE = dir.magnitude / Board.SquareSizeStatic;
+			float range = distToAoE - radius;
+			if (range > 0f)
+			{
+				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+					casterPos,
+					dir,
+					range,
+					connectLaserWidth,
+					caster,
+					caster.GetOtherTeams(),
+					false,
+					-1,
+					true,
+					false,
+					out laserEndPos,
+					null);
+				foreach (ActorData hitActor in actorsInLaser)
+				{
+					if (!actorsInRadius.Contains(hitActor))
+					{
+						ActorHitParameters hitParams = new ActorHitParameters(hitActor, casterPos);
+						ActorHitResults hitResults = new ActorHitResults(GetConnectLaserDamage(), HitActionType.Damage, hitParams);
+						hitResults.AddStandardEffectInfo(GetConnectLaserEnemyHitEffect());
+						abilityResults.StoreActorHit(hitResults);
+					}
+				}
+			}
+		}
+
+		int extraTechPoints = GetExtraTechPointsPerHitWithAreaBuff();
+		if (extraTechPoints > 0 && caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+		{
+			ActorHitResults casterHitResults =  new ActorHitResults(new ActorHitParameters(caster, casterPos));
+			casterHitResults.AddTechPointGainOnCaster(GetExtraTechPointsPerHitWithAreaBuff());
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+	}
+
+	private Vector3 GetTargetPos(AbilityTarget target, ActorData caster)
+	{
+		return AbilityUtil_Targeter_AoE_Smooth_FixedOffset.GetClampedFreePos(
+			target.FreePos,
+			caster,
+			GetMinSeparationBetweenAoeAndCaster(),
+			GetMaxSeparationBetweenAoeAndCaster());
+	}
+#endif
 }
