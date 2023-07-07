@@ -16,37 +16,39 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 
 		public override bool IsSquareInside(BoardSquare square, out bool inLos)
 		{
-			bool flag = base.IsSquareInside(square, out inLos);
-			if (flag)
+			bool isInside = base.IsSquareInside(square, out inLos);
+			if (isInside && m_targeter.m_delegateIsSquareInLos != null)
 			{
-				if (m_targeter.m_delegateIsSquareInLos != null)
-				{
-					inLos = m_targeter.m_delegateIsSquareInLos(square, m_coneStart, m_caster);
-				}
+				inLos = m_targeter.m_delegateIsSquareInLos(square, m_coneStart, m_caster);
 			}
-			return flag;
+			return isInside;
 		}
 	}
 
 	public float m_minOffsetFromCaster;
-
 	public float m_maxOffsetFromCaster;
 
 	private float m_knockbackDist;
-
 	private float m_connectLaserWidth;
-
 	private TargeterPart_Laser m_laserPart;
-
 	private List<ISquareInsideChecker> m_squarePosCheckerList = new List<ISquareInsideChecker>();
-
 	private SquareInsideChecker_Box m_laserChecker;
-
 	private SquareInsideChecker_AoeFixedOffset m_coneChecker;
 
 	public IsSquareInLosDelegate m_delegateIsSquareInLos;
 
-	public AbilityUtil_Targeter_AoE_Smooth_FixedOffset(Ability ability, float minOffsetFromCaster, float maxOffsetFromCaster, float radius, bool penetrateLoS, float knockbackDist, KnockbackType knockbackType, float connectLaserWidth, bool affectsEnemies = true, bool affectsAllies = false, int maxTargets = -1)
+	public AbilityUtil_Targeter_AoE_Smooth_FixedOffset(
+		Ability ability,
+		float minOffsetFromCaster,
+		float maxOffsetFromCaster,
+		float radius,
+		bool penetrateLoS,
+		float knockbackDist,
+		KnockbackType knockbackType,
+		float connectLaserWidth,
+		bool affectsEnemies = true,
+		bool affectsAllies = false,
+		int maxTargets = -1)
 		: base(ability, radius, penetrateLoS, affectsEnemies, affectsAllies, maxTargets)
 	{
 		m_minOffsetFromCaster = minOffsetFromCaster;
@@ -58,51 +60,28 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		m_coneChecker = new SquareInsideChecker_AoeFixedOffset(this);
 		m_laserChecker = new SquareInsideChecker_Box(m_connectLaserWidth);
 		m_squarePosCheckerList.Add(m_coneChecker);
-		if (!(m_connectLaserWidth > 0f))
-		{
-			return;
-		}
-		while (true)
+		if (m_connectLaserWidth > 0f)
 		{
 			m_squarePosCheckerList.Add(m_laserChecker);
-			return;
 		}
 	}
 
 	public static Vector3 GetClampedFreePos(Vector3 freePos, ActorData caster, float minDistInSquares, float maxDistInSquares)
 	{
 		float squareSize = Board.Get().squareSize;
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
-		Vector3 vector = freePos - travelBoardSquareWorldPositionForLos;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		Vector3 vector = freePos - casterPos;
 		vector.y = 0f;
-		float magnitude = vector.magnitude;
-		float num = minDistInSquares * squareSize;
-		float num2 = maxDistInSquares * squareSize;
-		if (magnitude < num)
+		float dist = vector.magnitude;
+		float minDist = minDistInSquares * squareSize;
+		float maxDist = maxDistInSquares * squareSize;
+		if (dist < minDist)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return travelBoardSquareWorldPositionForLos + vector.normalized * num;
-				}
-			}
+			return casterPos + vector.normalized * minDist;
 		}
-		if (magnitude > num2)
+		if (dist > maxDist)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return travelBoardSquareWorldPositionForLos + vector.normalized * num2;
-				}
-			}
+			return casterPos + vector.normalized * maxDist;
 		}
 		return freePos;
 	}
@@ -120,21 +99,9 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 	public override void CreateHighlightObjectsIfNeeded(float radiusInSquares, ActorData targetingActor)
 	{
 		base.CreateHighlightObjectsIfNeeded(radiusInSquares, targetingActor);
-		if (!(m_connectLaserWidth > 0f))
+		if (m_connectLaserWidth > 0f && m_highlights.Count < 2)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_highlights.Count < 2)
-			{
-				while (true)
-				{
-					m_highlights.Add(m_laserPart.CreateHighlightObject(this));
-					return;
-				}
-			}
-			return;
+			m_highlights.Add(m_laserPart.CreateHighlightObject(this));
 		}
 	}
 
@@ -144,46 +111,55 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 		List<ActorData> visibleActorsInRange = GetVisibleActorsInRange();
 		if (m_knockbackDist > 0f)
 		{
-			int num = 0;
+			int arrowIndex = 0;
 			EnableAllMovementArrows();
 			Vector3 refPos = GetRefPos(currentTarget, targetingActor, 0f);
-			using (List<ActorData>.Enumerator enumerator = visibleActorsInRange.GetEnumerator())
+			foreach (ActorData target in visibleActorsInRange)
 			{
-				while (enumerator.MoveNext())
-				{
-					ActorData current = enumerator.Current;
-					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current, m_knockbackType, currentTarget.AimDirection, refPos, m_knockbackDist);
-					num = AddMovementArrowWithPrevious(current, path, TargeterMovementType.Knockback, num);
-				}
+				BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(
+					target,
+					m_knockbackType,
+					currentTarget.AimDirection,
+					refPos,
+					m_knockbackDist);
+				arrowIndex = AddMovementArrowWithPrevious(target, path, TargeterMovementType.Knockback, arrowIndex);
 			}
-			SetMovementArrowEnabledFromIndex(num, false);
+			SetMovementArrowEnabledFromIndex(arrowIndex, false);
 		}
 		Vector3 refPos2 = GetRefPos(currentTarget, targetingActor, 0f);
 		Vector3 laserEnd = refPos2;
 		if (m_connectLaserWidth > 0f)
 		{
-			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
+			Vector3 casterPos = targetingActor.GetLoSCheckPos();
 			Vector3 laserEndPos = refPos2;
-			laserEndPos.y = travelBoardSquareWorldPositionForLos.y;
-			Vector3 dir = laserEndPos - travelBoardSquareWorldPositionForLos;
+			laserEndPos.y = casterPos.y;
+			Vector3 dir = laserEndPos - casterPos;
 			float num2 = dir.magnitude / Board.SquareSizeStatic;
 			float num3 = num2 - m_radius;
-			laserEnd = travelBoardSquareWorldPositionForLos + Board.SquareSizeStatic * num3 * dir.normalized;
+			laserEnd = casterPos + Board.SquareSizeStatic * num3 * dir.normalized;
 			if (num3 > 0f)
 			{
-				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, dir, num3, m_connectLaserWidth, targetingActor, GetAffectedTeams(), false, -1, true, false, out laserEndPos, null);
-				using (List<ActorData>.Enumerator enumerator2 = actorsInLaser.GetEnumerator())
+				List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+					casterPos,
+					dir,
+					num3,
+					m_connectLaserWidth,
+					targetingActor,
+					GetAffectedTeams(),
+					false,
+					-1,
+					true,
+					false,
+					out laserEndPos,
+					null);
+				foreach (ActorData target in actorsInLaser)
 				{
-					while (enumerator2.MoveNext())
+					if (!visibleActorsInRange.Contains(target))
 					{
-						ActorData current2 = enumerator2.Current;
-						if (!visibleActorsInRange.Contains(current2))
-						{
-							AddActorInRange(current2, travelBoardSquareWorldPositionForLos, targetingActor, AbilityTooltipSubject.Secondary);
-						}
+						AddActorInRange(target, casterPos, targetingActor, AbilityTooltipSubject.Secondary);
 					}
 				}
-				m_laserPart.AdjustHighlight(m_highlights[1], travelBoardSquareWorldPositionForLos, laserEndPos, false);
+				m_laserPart.AdjustHighlight(m_highlights[1], casterPos, laserEndPos, false);
 				m_highlights[1].SetActiveIfNeeded(true);
 			}
 			else
@@ -200,22 +176,35 @@ public class AbilityUtil_Targeter_AoE_Smooth_FixedOffset : AbilityUtil_Targeter_
 
 	private void CustomHandleHiddenSquareIndicators(ActorData targetingActor, Vector3 centerPos, Vector3 laserStart, Vector3 laserEnd)
 	{
-		if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
+		if (targetingActor != GameFlowData.Get().activeOwnedActorData)
 		{
 			return;
 		}
-		while (true)
+		m_laserChecker.UpdateBoxProperties(laserStart, laserEnd, targetingActor);
+		m_coneChecker.UpdateConeProperties(centerPos, 360f, m_radius, 0f, 0f, targetingActor);
+		ResetSquareIndicatorIndexToUse();
+		if (m_connectLaserWidth > 0f)
 		{
-			m_laserChecker.UpdateBoxProperties(laserStart, laserEnd, targetingActor);
-			m_coneChecker.UpdateConeProperties(centerPos, 360f, m_radius, 0f, 0f, targetingActor);
-			ResetSquareIndicatorIndexToUse();
-			if (m_connectLaserWidth > 0f)
-			{
-				AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(m_indicatorHandler, laserStart, laserEnd, m_connectLaserWidth, targetingActor, GetPenetrateLoS(), null, m_squarePosCheckerList);
-			}
-			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, centerPos, 0f, 360f, m_radius, 0f, targetingActor, GetPenetrateLoS(), m_squarePosCheckerList);
-			HideUnusedSquareIndicators();
-			return;
+			AreaEffectUtils.OperateOnSquaresInBoxByActorRadius(
+				m_indicatorHandler,
+				laserStart,
+				laserEnd,
+				m_connectLaserWidth,
+				targetingActor,
+				GetPenetrateLoS(),
+				null,
+				m_squarePosCheckerList);
 		}
+		AreaEffectUtils.OperateOnSquaresInCone(
+			m_indicatorHandler,
+			centerPos,
+			0f,
+			360f,
+			m_radius,
+			0f,
+			targetingActor,
+			GetPenetrateLoS(),
+			m_squarePosCheckerList);
+		HideUnusedSquareIndicators();
 	}
 }
