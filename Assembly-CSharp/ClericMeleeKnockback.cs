@@ -278,7 +278,7 @@ public class ClericMeleeKnockback : Ability
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
 			GetTargetPos(targets[0], caster),
-			null,
+			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
 			additionalData.m_sequenceSource);
 	}
@@ -362,7 +362,7 @@ public class ClericMeleeKnockback : Ability
 					false,
 					-1,
 					true,
-					false,
+					true,
 					out laserEndPos,
 					null);
 				foreach (ActorData hitActor in actorsInLaser)
