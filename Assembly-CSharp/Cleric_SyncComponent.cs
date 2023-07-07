@@ -6,6 +6,9 @@ public class Cleric_SyncComponent : NetworkBehaviour
 {
 	[SyncVar]
 	internal int m_turnsAreaBuffActive;
+	
+	// searched through several replays -- it's always zero
+	// maybe because there is no knockback?
 	[SyncVar(hook = "MeleeKnockbackAnimRangeChanged")]
 	internal int m_meleeKnockbackAnimRange;
 
