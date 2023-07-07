@@ -1,46 +1,37 @@
-using AbilityContextNamespace;
 using System.Collections.Generic;
+using AbilityContextNamespace;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 {
 	public delegate float GetRadiusDelegate(AbilityTarget currentTarget, ActorData targetingActor);
-
 	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
-
 	public delegate bool ShouldIncludeActorDelegate(ActorData potentialActor, Vector3 centerPos, ActorData targetingActor);
-
 	public delegate Vector3 CustomCenterPosDelegate(ActorData caster, AbilityTarget currentTarget);
 
 	public float m_radius;
-
 	public bool m_penetrateLoS;
-
 	public bool m_penetrateEnemyBarriers;
-
 	public float m_heightOffset = 0.1f;
-
 	public int m_maxTargets = -1;
-
 	public float m_knockbackDistance;
-
 	public KnockbackType m_knockbackType;
-
 	public bool m_adjustPosInConfirmedTargeting;
-
 	public Vector3 m_lastUpdatedCenterPos = Vector3.zero;
-
 	public GetRadiusDelegate m_customRadiusDelegate;
-
 	public IsAffectingCasterDelegate m_affectCasterDelegate;
-
 	public ShouldIncludeActorDelegate m_customShouldIncludeActorDelegate;
-
 	public CustomCenterPosDelegate m_customCenterPosDelegate;
 
 	protected OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
-	public AbilityUtil_Targeter_AoE_Smooth(Ability ability, float radius, bool penetrateLoS, bool affectsEnemies = true, bool affectsAllies = false, int maxTargets = -1)
+	public AbilityUtil_Targeter_AoE_Smooth(
+		Ability ability,
+		float radius,
+		bool penetrateLoS,
+		bool affectsEnemies = true,
+		bool affectsAllies = false,
+		int maxTargets = -1)
 		: base(ability)
 	{
 		m_radius = radius;
@@ -60,11 +51,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 
 	protected virtual float GetRadius(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		if (m_customRadiusDelegate != null)
-		{
-			return m_customRadiusDelegate(currentTarget, targetingActor);
-		}
-		return m_radius;
+		return m_customRadiusDelegate?.Invoke(currentTarget, targetingActor) ?? m_radius;
 	}
 
 	protected virtual bool GetPenetrateLoS()
@@ -74,34 +61,13 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 
 	protected virtual Vector3 GetRefPos(AbilityTarget currentTarget, ActorData targetingActor, float range)
 	{
-		Vector3 zero = Vector3.zero;
 		if (m_customCenterPosDelegate != null)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return m_customCenterPosDelegate(targetingActor, currentTarget);
-				}
-			}
+			return m_customCenterPosDelegate(targetingActor, currentTarget);
 		}
-		if (range != 0f)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return currentTarget.FreePos;
-				}
-			}
-		}
-		return targetingActor.GetFreePos();
+		return range == 0f
+			? targetingActor.GetFreePos()
+			: currentTarget.FreePos;
 	}
 
 	protected virtual Vector3 GetDamageOrigin(AbilityTarget currentTarget, ActorData targetingActor, float range)
@@ -111,42 +77,25 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 
 	public virtual void CreateHighlightObjectsIfNeeded(float radiusInSquares, ActorData targetingActor)
 	{
-		if (!(base.Highlight == null))
+		if (Highlight != null)
 		{
 			return;
 		}
-		while (true)
-		{
-			base.Highlight = HighlightUtils.Get().CreateAoECursor(radiusInSquares * Board.Get().squareSize, targetingActor == GameFlowData.Get().activeOwnedActorData);
-			base.Highlight.SetActive(true);
-			return;
-		}
+		Highlight = HighlightUtils.Get().CreateAoECursor(
+			radiusInSquares * Board.Get().squareSize,
+			targetingActor == GameFlowData.Get().activeOwnedActorData);
+		Highlight.SetActive(true);
 	}
 
 	public override void UpdateConfirmedTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		base.UpdateConfirmedTargeting(currentTarget, targetingActor);
-		if (!m_adjustPosInConfirmedTargeting)
+		if (m_adjustPosInConfirmedTargeting && m_customCenterPosDelegate != null && Highlight != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_customCenterPosDelegate == null)
-			{
-				return;
-			}
-			while (true)
-			{
-				if (base.Highlight != null)
-				{
-					Vector3 vector = m_customCenterPosDelegate(targetingActor, currentTarget);
-					vector.y = HighlightUtils.GetHighlightHeight();
-					base.Highlight.transform.position = vector;
-					m_lastUpdatedCenterPos = vector;
-				}
-				return;
-			}
+			Vector3 vector = m_customCenterPosDelegate(targetingActor, currentTarget);
+			vector.y = HighlightUtils.GetHighlightHeight();
+			Highlight.transform.position = vector;
+			m_lastUpdatedCenterPos = vector;
 		}
 	}
 
@@ -157,16 +106,22 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 		ClearActorsInRange();
 		float currentRangeInSquares = GetCurrentRangeInSquares();
 		Vector3 refPos = GetRefPos(currentTarget, targetingActor, currentRangeInSquares);
-		base.Highlight.SetActive(true);
-		Vector3 travelBoardSquareWorldPosition = targetingActor.GetFreePos();
-		refPos.y = travelBoardSquareWorldPosition.y + m_heightOffset;
-		base.Highlight.transform.position = refPos;
+		Highlight.SetActive(true);
+		Vector3 casterPos = targetingActor.GetFreePos();
+		refPos.y = casterPos.y + m_heightOffset;
+		Highlight.transform.position = refPos;
 		m_lastUpdatedCenterPos = refPos;
 		if (m_penetrateEnemyBarriers)
 		{
 			BarrierManager.Get().SuppressAbilityBlocks_Start();
 		}
-		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(refPos, radius, GetPenetrateLoS(), targetingActor, GetAffectedTeams(), null);
+		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(
+			refPos,
+			radius,
+			GetPenetrateLoS(),
+			targetingActor,
+			GetAffectedTeams(),
+			null);
 		if (m_penetrateEnemyBarriers)
 		{
 			BarrierManager.Get().SuppressAbilityBlocks_End();
@@ -187,10 +142,10 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 			TargeterUtils.SortActorsByDistanceToPos(ref actors, refPos);
 			TargeterUtils.LimitActorsToMaxNumber(ref actors, m_maxTargets);
 		}
-		bool flag = false;
+		bool selfHit = false;
 		if (actors.Contains(targetingActor))
 		{
-			flag = true;
+			selfHit = true;
 			actors.Remove(targetingActor);
 		}
 		foreach (ActorData item in actors)
@@ -200,54 +155,59 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 			float value = VectorUtils.HorizontalPlaneDistInSquares(refPos, item.GetFreePos());
 			actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value);
 		}
-		if (!m_affectsTargetingActor)
+		if ((m_affectsTargetingActor || selfHit)
+		    && (m_affectCasterDelegate == null || m_affectCasterDelegate(targetingActor, actors)))
 		{
-			if (!flag)
-			{
-				goto IL_02a8;
-			}
+			AddActorInRange(
+				targetingActor,
+				targetingActor.GetFreePos(),
+				targetingActor,
+				selfHit
+					? AbilityTooltipSubject.Primary
+					: AbilityTooltipSubject.Self);
+			m_actorContextVars[targetingActor].m_contextVars.SetValue(
+				ContextKeys.s_DistFromStart.GetKey(),
+				VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.GetFreePos()));
 		}
-		if (m_affectCasterDelegate != null)
-		{
-			if (!m_affectCasterDelegate(targetingActor, actors))
-			{
-				goto IL_02a8;
-			}
-		}
-		AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, flag ? AbilityTooltipSubject.Primary : AbilityTooltipSubject.Self);
-		ActorHitContext actorHitContext2 = m_actorContextVars[targetingActor];
-		float value2 = VectorUtils.HorizontalPlaneDistInSquares(refPos, targetingActor.GetFreePos());
-		actorHitContext2.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), value2);
-		goto IL_02a8;
-		IL_02a8:
-		int num2 = 0;
+
+		int arrowIndex = 0;
 		if (m_knockbackDistance > 0f)
 		{
 			EnableAllMovementArrows();
-			using (List<ActorData>.Enumerator enumerator2 = actors.GetEnumerator())
+			foreach (ActorData targetActor in actors)
 			{
-				while (enumerator2.MoveNext())
+				if (targetActor.GetTeam() != targetingActor.GetTeam())
 				{
-					ActorData current2 = enumerator2.Current;
-					if (current2.GetTeam() != targetingActor.GetTeam())
-					{
-						BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(current2, m_knockbackType, currentTarget.AimDirection, refPos, m_knockbackDistance);
-						num2 = AddMovementArrowWithPrevious(current2, path, TargeterMovementType.Knockback, num2);
-					}
+					BoardSquarePathInfo path = KnockbackUtils.BuildKnockbackPath(
+						targetActor,
+						m_knockbackType,
+						currentTarget.AimDirection,
+						refPos,
+						m_knockbackDistance);
+					arrowIndex = AddMovementArrowWithPrevious(targetActor, path, TargeterMovementType.Knockback, arrowIndex);
 				}
 			}
 		}
-		SetMovementArrowEnabledFromIndex(num2, false);
+		SetMovementArrowEnabledFromIndex(arrowIndex, false);
 		HandleHiddenSquareIndicators(targetingActor, refPos);
 	}
 
 	protected virtual void HandleHiddenSquareIndicators(ActorData targetingActor, Vector3 centerPos)
 	{
-		if (targetingActor == GameFlowData.Get().activeOwnedActorData)
+		if (targetingActor != GameFlowData.Get().activeOwnedActorData)
 		{
-			ResetSquareIndicatorIndexToUse();
-			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, centerPos, 0f, 360f, m_radius, 0f, targetingActor, GetPenetrateLoS());
-			HideUnusedSquareIndicators();
+			return;
 		}
+		ResetSquareIndicatorIndexToUse();
+		AreaEffectUtils.OperateOnSquaresInCone(
+			m_indicatorHandler,
+			centerPos,
+			0f,
+			360f,
+			m_radius,
+			0f,
+			targetingActor,
+			GetPenetrateLoS());
+		HideUnusedSquareIndicators();
 	}
 }
