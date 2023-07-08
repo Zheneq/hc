@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ClericHammerThrow : Ability
@@ -22,8 +23,8 @@ public class ClericHammerThrow : Ability
 	public float m_maxDistToRingCenter = 5.5f;
 	public float m_outerRadius = 2.5f;
 	public float m_innerRadius = 1f;
-	public bool m_ignoreLos;
-	public bool m_clampRingToCursorPos = true;
+	public bool m_ignoreLos; // TODO CLERIC unused -- not used in client-side targeting either
+	public bool m_clampRingToCursorPos = true; // TODO CLERIC unused -- not used in client-side targeting either
 	[Separator("On Hit")]
 	public int m_outerHitDamage = 15;
 	public StandardEffectInfo m_outerEnemyHitEffect;
@@ -34,7 +35,7 @@ public class ClericHammerThrow : Ability
 	
 	private List<RadiusToHitData> m_cachedRadiusToHitData = new List<RadiusToHitData>();
 	private AbilityMod_ClericHammerThrow m_abilityMod;
-	private Cleric_SyncComponent m_syncComp;
+	private Cleric_SyncComponent m_syncComp;  // TODO CLERIC unused -- probably was used for checking if ultimate is active after all
 	private StandardEffectInfo m_cachedOuterEnemyHitEffect;
 	private StandardEffectInfo m_cachedInnerEnemyHitEffect;
 	private StandardEffectInfo m_cachedOuterEnemyHitEffectWithNoInnerHits;
@@ -117,14 +118,14 @@ public class ClericHammerThrow : Ability
 			: m_innerRadius;
 	}
 
-	public bool IgnoreLos()
+	public bool IgnoreLos() // TODO CLERIC unused -- not used in client-side targeting either
 	{
 		return m_abilityMod != null
 			? m_abilityMod.m_ignoreLosMod.GetModifiedValue(m_ignoreLos)
 			: m_ignoreLos;
 	}
 
-	public bool ClampRingToCursorPos()
+	public bool ClampRingToCursorPos() // TODO CLERIC unused -- not used in client-side targeting either
 	{
 		return m_abilityMod != null
 			? m_abilityMod.m_clampRingToCursorPosMod.GetModifiedValue(m_clampRingToCursorPos)
@@ -228,4 +229,82 @@ public class ClericHammerThrow : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		AbilityTarget currentTarget = targets[0];
+		Vector3 aimDirection = currentTarget.AimDirection;
+		Vector3 targetPosUnclamped = currentTarget.FreePos;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		float distance = GetMaxDistToRingCenter();
+		float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPosUnclamped);
+		distance = Mathf.Min(clampedDistance, distance);
+		Vector3 targetPos = VectorUtils.GetLaserEndPoint(casterPos, aimDirection, distance, true, caster, null, false);
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInRadius(
+			targetPos,
+			GetOuterRadius(),
+			false,
+			caster,
+			caster.GetOtherTeams(),
+			null);
+
+		int outerHits = hitActors.Count(hitActor => !InsideNearRadius(hitActor, targetPos));
+		bool noInnerHits = outerHits == hitActors.Count;
+		bool isInAreaBuff = caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff));
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitResults hitResults = new ActorHitResults(new ActorHitParameters(hitActor, targetPos));
+			bool insideNearRadius = InsideNearRadius(hitActor, targetPos);
+			RadiusToHitData bestMatchingData = AbilityCommon_LayeredRings.GetBestMatchingData(
+				m_cachedRadiusToHitData,
+				hitActor.GetCurrentBoardSquare(),
+				targetPos,
+				caster,
+				true);
+			if (bestMatchingData != null)
+			{
+				int extraDamage = insideNearRadius ? outerHits * GetExtraInnerDamagePerOuterHit() : 0;
+				hitResults.SetBaseDamage(bestMatchingData.m_damage + extraDamage);
+				hitResults.AddStandardEffectInfo(bestMatchingData.m_hitEffectInfo);
+			}
+			if (noInnerHits)
+			{
+				hitResults.AddStandardEffectInfo(GetOuterEnemyHitEffectWithNoInnerHits());
+			}
+			if (isInAreaBuff)
+			{
+				hitResults.AddTechPointGainOnCaster(GetExtraTPGainInAreaBuff());
+			}
+			abilityResults.StoreActorHit(hitResults);
+		}
+	}
+	
+	// custom
+	private bool InsideNearRadius(ActorData hitActor, Vector3 coneStart)
+	{
+		Vector3 vector = coneStart - hitActor.GetFreePos();
+		vector.y = 0f;
+		float num = (GetInnerRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.Get().squareSize;
+		return num >= vector.magnitude;
+	}
+#endif
 }
