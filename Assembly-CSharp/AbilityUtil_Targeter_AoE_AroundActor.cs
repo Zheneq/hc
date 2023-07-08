@@ -3,20 +3,24 @@ using UnityEngine;
 public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smooth
 {
 	private bool m_canTargetOnAlly;
-
 	private bool m_canTargetOnEnemy;
-
 	private bool m_canTargetOnSelf;
-
 	private bool m_lockToGridPos = true;
 
 	public ActorData m_lastCenterActor;
-
 	public AbilityTooltipSubject m_allyOccupantSubject = AbilityTooltipSubject.Ally;
-
 	public AbilityTooltipSubject m_enemyOccupantSubject = AbilityTooltipSubject.Primary;
 
-	public AbilityUtil_Targeter_AoE_AroundActor(Ability ability, float radius, bool penetrateLoS, bool aoeAffectsEnemies = true, bool aoeAffectsAllies = false, int maxTargets = -1, bool canTargetOnEnemy = false, bool canTargetOnAlly = true, bool canTargetOnSelf = true)
+	public AbilityUtil_Targeter_AoE_AroundActor(
+		Ability ability,
+		float radius,
+		bool penetrateLoS,
+		bool aoeAffectsEnemies = true,
+		bool aoeAffectsAllies = false,
+		int maxTargets = -1,
+		bool canTargetOnEnemy = false,
+		bool canTargetOnAlly = true,
+		bool canTargetOnSelf = true)
 		: base(ability, radius, penetrateLoS, aoeAffectsEnemies, aoeAffectsAllies, maxTargets)
 	{
 		m_canTargetOnEnemy = canTargetOnEnemy;
@@ -27,12 +31,14 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 	protected override Vector3 GetRefPos(AbilityTarget currentTarget, ActorData targetingActor, float range)
 	{
 		Vector3 result = base.GetRefPos(currentTarget, targetingActor, range);
-		if (m_lockToGridPos && Board.Get() != null && currentTarget != null)
+		if (m_lockToGridPos
+		    && Board.Get() != null
+		    && currentTarget != null)
 		{
-			BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
-			if (boardSquareSafe != null)
+			BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
+			if (targetSquare != null)
 			{
-				result = boardSquareSafe.ToVector3();
+				result = targetSquare.ToVector3();
 			}
 		}
 		return result;
@@ -44,58 +50,24 @@ public class AbilityUtil_Targeter_AoE_AroundActor : AbilityUtil_Targeter_AoE_Smo
 		m_lastCenterActor = null;
 		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(GetRefPos(currentTarget, targetingActor, GetCurrentRangeInSquares()));
 		ActorData occupantActor = boardSquare.OccupantActor;
-		if (!(occupantActor != null))
+		if (occupantActor == null)
 		{
 			return;
 		}
-		while (true)
+		if (occupantActor == targetingActor && m_canTargetOnSelf)
 		{
-			if (occupantActor == targetingActor)
-			{
-				if (m_canTargetOnSelf)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, m_allyOccupantSubject);
-							m_lastCenterActor = occupantActor;
-							return;
-						}
-					}
-				}
-			}
-			if (occupantActor.GetTeam() == targetingActor.GetTeam())
-			{
-				if (m_canTargetOnAlly)
-				{
-					while (true)
-					{
-						switch (1)
-						{
-						case 0:
-							break;
-						default:
-							AddActorInRange(occupantActor, targetingActor.GetFreePos(), targetingActor, m_allyOccupantSubject);
-							m_lastCenterActor = occupantActor;
-							return;
-						}
-					}
-				}
-			}
-			if (occupantActor.GetTeam() != targetingActor.GetTeam() && m_canTargetOnEnemy)
-			{
-				while (true)
-				{
-					AddActorInRange(occupantActor, targetingActor.GetFreePos(), targetingActor, m_enemyOccupantSubject);
-					m_lastCenterActor = occupantActor;
-					return;
-				}
-			}
-			return;
+			AddActorInRange(targetingActor, targetingActor.GetFreePos(), targetingActor, m_allyOccupantSubject);
+			m_lastCenterActor = occupantActor;
+		}
+		else if (occupantActor.GetTeam() == targetingActor.GetTeam() && m_canTargetOnAlly)
+		{
+			AddActorInRange(occupantActor, targetingActor.GetFreePos(), targetingActor, m_allyOccupantSubject);
+			m_lastCenterActor = occupantActor;
+		}
+		else if (occupantActor.GetTeam() != targetingActor.GetTeam() && m_canTargetOnEnemy)
+		{
+			AddActorInRange(occupantActor, targetingActor.GetFreePos(), targetingActor, m_enemyOccupantSubject);
+			m_lastCenterActor = occupantActor;
 		}
 	}
 }
