@@ -6,7 +6,6 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 	public class ConeDimensions
 	{
 		public float m_coneAngle;
-
 		public float m_coneRadius;
 
 		public ConeDimensions(float angle, float radiusInSquares)
@@ -19,21 +18,13 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
 
 	public List<ConeDimensions> m_coneDimensions;
-
 	public float m_maxConeAngle;
-
 	public float m_maxConeLengthRadius;
-
 	public bool m_penetrateLoS;
-
 	public float m_coneBackwardOffsetInSquares;
-
 	public bool m_useCursorHighlight = true;
-
 	public bool m_includeEnemies = true;
-
 	public bool m_includeAllies;
-
 	public bool m_includeCaster;
 
 	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
@@ -54,30 +45,26 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 		m_coneDimensions = coneDimensions;
 		m_maxConeLengthRadius = -1f;
 		m_maxConeAngle = 0f;
-		for (int i = 0; i < m_coneDimensions.Count; i++)
+		foreach (ConeDimensions d in m_coneDimensions)
 		{
-			if (m_coneDimensions[i].m_coneRadius > m_maxConeLengthRadius)
+			if (d.m_coneRadius > m_maxConeLengthRadius)
 			{
-				m_maxConeLengthRadius = m_coneDimensions[i].m_coneRadius;
+				m_maxConeLengthRadius = d.m_coneRadius;
 			}
-			if (m_coneDimensions[i].m_coneAngle > m_maxConeAngle)
+			if (d.m_coneAngle > m_maxConeAngle)
 			{
-				m_maxConeAngle = m_coneDimensions[i].m_coneAngle;
+				m_maxConeAngle = d.m_coneAngle;
 			}
 		}
-		while (true)
-		{
-			m_penetrateLoS = penetrateLoS;
-			m_coneBackwardOffsetInSquares = coneBackwardOffsetInSquares;
-			m_useCursorHighlight = useCursorHighlight;
-			m_includeEnemies = affectEnemies;
-			m_includeAllies = affectAllies;
-			m_includeCaster = affectCaster;
-			m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-			SetAffectedGroups(m_includeEnemies, m_includeAllies, m_includeCaster);
-			m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
-			return;
-		}
+		m_penetrateLoS = penetrateLoS;
+		m_coneBackwardOffsetInSquares = coneBackwardOffsetInSquares;
+		m_useCursorHighlight = useCursorHighlight;
+		m_includeEnemies = affectEnemies;
+		m_includeAllies = affectAllies;
+		m_includeCaster = affectCaster;
+		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+		SetAffectedGroups(m_includeEnemies, m_includeAllies, m_includeCaster);
+		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForCone();
 	}
 
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
