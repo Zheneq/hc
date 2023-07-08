@@ -14,9 +14,9 @@ public class ClericRangedHeal : Ability
 	public int m_selfHealIfTargetingAlly = 15;
 	public StandardEffectInfo m_targetHitEffect;
 	[Separator("Extra Heal Based on Enemy Hits")]
-	public ExtraHealApplyTiming m_extraHealApplyTiming;
-	public int m_extraHealOnEnemyHit;
-	public int m_extraHealOnSubseqEnemyHit;
+	public ExtraHealApplyTiming m_extraHealApplyTiming; // TODO CLERIC unused
+	public int m_extraHealOnEnemyHit; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public int m_extraHealOnSubseqEnemyHit; // TODO CLERIC unused (not used in the ability or any of the mods)
 	[Separator("Extra Heal Based on Current Health")]
 	public float m_healPerPercentHealthLost;
 	[Separator("On Self")]
@@ -27,14 +27,14 @@ public class ClericRangedHeal : Ability
 	public bool m_enemyDebuffRadiusIgnoreLoS;
 	public StandardEffectInfo m_enemyDebuffInRadiusEffect;
 	[Separator("Reactions")]
-	public StandardEffectInfo m_reactionEffectForHealTarget;
-	public StandardEffectInfo m_reactionEffectForCaster;
+	public StandardEffectInfo m_reactionEffectForHealTarget; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public StandardEffectInfo m_reactionEffectForCaster; // TODO CLERIC unused (not used in the ability or any of the mods)
 	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
 	public GameObject m_reactionProjectileSequencePrefab;
 	[Header("-- For Extra Heal Effect, if Extra Heal On Enemy Hit is used")]
-	public GameObject m_extraHealPersistentSeqPrefab;
-	public GameObject m_extraHealTriggerSeqPrefab;
+	public GameObject m_extraHealPersistentSeqPrefab; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public GameObject m_extraHealTriggerSeqPrefab; // TODO CLERIC unused (not used in the ability or any of the mods)
 
 	private AbilityMod_ClericRangedHeal m_abilityMod;
 	private ClericAreaBuff m_buffAbility;
@@ -156,6 +156,7 @@ public class ClericRangedHeal : Ability
 		return m_cachedTargetHitEffect ?? m_targetHitEffect;
 	}
 
+	// TODO CLERIC unused (not used in the ability or any of the mods)
 	public int GetExtraHealOnEnemyHit()
 	{
 		return m_abilityMod != null
@@ -163,6 +164,7 @@ public class ClericRangedHeal : Ability
 			: m_extraHealOnEnemyHit;
 	}
 
+	// TODO CLERIC unused (not used in the ability or any of the mods)
 	public int GetExtraHealOnSubseqEnemyHit()
 	{
 		return m_abilityMod != null
@@ -196,11 +198,13 @@ public class ClericRangedHeal : Ability
 		return m_cachedEffectOnSelf ?? m_effectOnSelf;
 	}
 
+	// TODO CLERIC unused (not used in the ability or any of the mods)
 	public StandardEffectInfo GetReactionEffectForHealTarget()
 	{
 		return m_cachedReactionEffectForHealTarget ?? m_reactionEffectForHealTarget;
 	}
 
+	// TODO CLERIC unused (not used in the ability or any of the mods)
 	public StandardEffectInfo GetReactionEffectForCaster()
 	{
 		return m_cachedReactionEffectForCaster ?? m_reactionEffectForCaster;
@@ -301,8 +305,7 @@ public class ClericRangedHeal : Ability
 		return new List<AbilityTooltipNumber>
 		{
 			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Ally, m_healAmount),
-			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self,
-				m_selfHealIfTargetingAlly)
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Healing, AbilityTooltipSubject.Self, m_selfHealIfTargetingAlly)
 		};
 	}
 
@@ -318,4 +321,103 @@ public class ClericRangedHeal : Ability
 		results.m_healing = CalcFinalHealOnActor(targetActor, ActorData, targeter.m_lastCenterActor);
 		return true;
 	}
+	
+#if SERVER
+	// custom
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(  // TODO CLERIC i see just one sequence in replays
+				m_castSequencePrefab,
+				targetSquare.ToVector3(),
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource),
+			// new ServerClientUtils.SequenceStartData( // TODO for enemies (if any?)
+			// 	m_reactionProjectileSequencePrefab,
+			// 	GetTargetPos(targets[0], caster),
+			// 	additionalData.m_abilityResults.HitActorsArray(),
+			// 	caster,
+			// 	additionalData.m_sequenceSource)
+		};
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		float radius = GetEnemyDebuffRadiusAroundCaster() > 0f
+			? GetEnemyDebuffRadiusAroundCaster()
+			: GetEnemyDebuffRadiusAroundTarget();
+		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+		Vector3 refPos = targetSquare.ToVector3();
+		ActorData targetActor = targetSquare.OccupantActor;
+		
+		if (targetActor == null)
+		{
+			return;
+		}
+
+		int healing = CalcFinalHealOnActor(targetActor, caster, targetActor);
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, refPos));
+		if (targetActor == caster)
+		{
+			casterHitResults.AddBaseHealing(healing);
+			casterHitResults.AddStandardEffectInfo(GetTargetHitEffect());
+			// casterHitResults.AddStandardEffectInfo(GetEffectOnSelf()); // TODO CLERIC do you get effect on self if you cast on self ??
+		}
+		// see how the targeter is configured in SetupTargeter
+		else if (targetActor.GetTeam() == caster.GetTeam() && GetEnemyDebuffRadiusAroundCaster() <= 0f) 
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(targetActor, refPos);
+			ActorHitResults hitResults = new ActorHitResults(healing, HitActionType.Healing, hitParams);
+			hitResults.AddStandardEffectInfo(GetTargetHitEffect());
+			// TODO CLERIC
+			// hitResults.AddEffect(new ClericRangedHealEffect(
+			// 	AsEffectSource(),
+			// 	caster.GetCurrentBoardSquare(),
+			// 	targetActor,
+			// 	caster,
+			// 	0,
+			// 	GetReactionEffectForHealTarget()));
+			abilityResults.StoreActorHit(hitResults);
+
+			int selfHealing = CalcFinalHealOnActor(caster, caster, targetActor);
+			casterHitResults.AddBaseHealing(selfHealing);
+			casterHitResults.AddStandardEffectInfo(GetEffectOnSelf());
+		}
+		if (GetTechPointGainPerIncomingHit() > 0)
+		{
+			casterHitResults.AddEffect(new ClericRangedHealEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				GetTechPointGainPerIncomingHit(),
+				GetReactionEffectForCaster()));
+		}
+		abilityResults.StoreActorHit(casterHitResults);
+		
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInRadius(
+			refPos,
+			radius,
+			m_enemyDebuffRadiusIgnoreLoS,
+			caster,
+			caster.GetOtherTeams(),
+			null);
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(hitActor, refPos);
+			ActorHitResults hitResults = new ActorHitResults(GetEnemyDebuffInRadiusEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+	}
+#endif
 }
