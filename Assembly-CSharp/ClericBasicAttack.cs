@@ -9,7 +9,7 @@ public class ClericBasicAttack : Ability
 	public float m_coneLengthInner = 1.5f;
 	public float m_coneLength = 2.5f;
 	public float m_coneBackwardOffset;
-	public int m_maxTargets = 1;
+	public int m_maxTargets = 1; // TODO CLERIC unused -- not used in client-side targeting either
 	[Header("-- On Hit Damage/Effect")]
 	public int m_damageAmountInner = 28;
 	public int m_damageAmount = 20;
@@ -19,7 +19,7 @@ public class ClericBasicAttack : Ability
 	[Header("-- Sequences")]
 	public GameObject m_castSequencePrefab;
 
-	private Cleric_SyncComponent m_syncComp;
+	private Cleric_SyncComponent m_syncComp; // TODO CLERIC unused -- probably was used for checking if ultimate is active after all
 	private AbilityMod_ClericBasicAttack m_abilityMod;
 	private StandardEffectInfo m_cachedTargetHitEffectInner;
 	private StandardEffectInfo m_cachedTargetHitEffect;
@@ -103,14 +103,14 @@ public class ClericBasicAttack : Ability
 			: m_coneLength;
 	}
 
-	public float GetConeBackwardOffset()
+	public float GetConeBackwardOffset() // TODO CLERIC unused -- not used in client-side targeting either
 	{
 		return m_abilityMod != null
 			? m_abilityMod.m_coneBackwardOffsetMod.GetModifiedValue(m_coneBackwardOffset)
 			: m_coneBackwardOffset;
 	}
 
-	public int GetMaxTargets()
+	public int GetMaxTargets() // TODO CLERIC unused -- not used in client-side targeting either
 	{
 		return m_abilityMod != null
 			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
@@ -218,4 +218,74 @@ public class ClericBasicAttack : Ability
 			? GetExtraTechPointGainInAreaBuff() * Targeter.GetNumActorsInRange()
 			: base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
+	
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			targets[0].FreePos,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInCone(
+			casterPos,
+			coneCenterAngleDegrees,
+			GetConeAngle(),
+			GetConeLength(),
+			m_coneBackwardOffset,
+			PenetrateLineOfSight(),
+			caster,
+			caster.GetOtherTeams(),
+			null);
+
+		bool isInAreaBuff = caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff));
+		foreach (ActorData hitActor in hitActors)
+		{
+			ActorHitResults hitResults = new ActorHitResults(new ActorHitParameters(hitActor, casterPos));
+			if (InsideNearRadius(hitActor, casterPos))
+			{
+				hitResults.SetBaseDamage(GetDamageAmountInner());
+				hitResults.AddStandardEffectInfo(GetTargetHitEffectInner());
+			}
+			else
+			{
+				hitResults.SetBaseDamage(GetDamageAmount());
+				hitResults.AddStandardEffectInfo(GetTargetHitEffect());
+			}
+			if (isInAreaBuff)
+			{
+				hitResults.AddTechPointGainOnCaster(GetExtraTechPointGainInAreaBuff());
+			}
+			if (ServerActionBuffer.Get().ActorIsEvading(hitActor))
+			{
+				hitResults.AddBaseDamage(GetExtraDamageToTargetsWhoEvaded());
+			}
+			abilityResults.StoreActorHit(hitResults);
+		}
+
+		AbilityModCooldownReduction cdr = GetCooldownReduction();
+		int numHitsForCdr = hitActors.Count - GetHitsToIgnoreForCooldownReductionMultiplier();
+		if (cdr.HasCooldownReduction() && numHitsForCdr > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, casterPos));
+			cdr.AppendCooldownMiscEvents(casterHitResults, false, 0, numHitsForCdr);
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+	}
+#endif
 }
