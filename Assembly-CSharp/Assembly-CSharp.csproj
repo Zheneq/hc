@@ -672,6 +672,7 @@
     <Compile Include="ClericHammerThrow.cs" />
     <Compile Include="ClericMeleeKnockback.cs" />
     <Compile Include="ClericRangedHeal.cs" />
+    <Compile Include="ClericRangedHealEffect.cs" />
     <Compile Include="Cleric_SyncComponent.cs" />
     <Compile Include="ClientAbilityResults.cs" />
     <Compile Include="ClientAccessLevel.cs" />
