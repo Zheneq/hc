@@ -2255,27 +2255,27 @@ public class Ability : MonoBehaviour
 		ClearAbilityMod(actor);
 		m_currentAbilityMod = abilityMod;
 
-		// NOTE ROGUES ability mods
 		// added in rogues
-		//if (m_statModsFromCurrentMod.Count > 0)
-		//{
-		//	Log.Error("StatMods from previous mod not cleared while trying to apply mod");
-		//	m_statModsFromCurrentMod.Clear();
-		//}
-		//if (abilityMod.m_statModsWhileEquipped != null)
-		//{
-		//	ActorStats actorStats = actor.GetActorStats();
-		//	if (actorStats != null)
-		//	{
-		//		for (int i = 0; i < abilityMod.m_statModsWhileEquipped.Length; i++)
-		//		{
-		//			AbilityStatMod shallowCopy = abilityMod.m_statModsWhileEquipped[i].GetShallowCopy();
-		//			actorStats.AddStatMod(shallowCopy);
-		//			m_statModsFromCurrentMod.Add(shallowCopy);
-		//		}
-		//	}
-		//}
-		// end added in rogues
+#if SERVER
+		if (m_statModsFromCurrentMod.Count > 0)
+		{
+			Log.Error("StatMods from previous mod not cleared while trying to apply mod");
+			m_statModsFromCurrentMod.Clear();
+		}
+		if (abilityMod.m_statModsWhileEquipped != null)
+		{
+			ActorStats actorStats = actor.GetActorStats();
+			if (actorStats != null)
+			{
+				for (int i = 0; i < abilityMod.m_statModsWhileEquipped.Length; i++)
+				{
+					AbilityStatMod shallowCopy = abilityMod.m_statModsWhileEquipped[i].GetShallowCopy();
+					actorStats.AddStatMod(shallowCopy);
+					m_statModsFromCurrentMod.Add(shallowCopy);
+				}
+			}
+		}
+#endif
 
 		OnApplyAbilityMod(abilityMod);
 		ResetNameplateTargetingNumbers();
@@ -2333,18 +2333,18 @@ public class Ability : MonoBehaviour
 			return;
 		}
 
-		// NOTE ROGUES ability mods
-		// added in rogues
-		//ActorStats actorStats = actor.GetActorStats();
-		//if (actorStats != null)
-		//{
-		//	foreach (AbilityStatMod statMod in m_statModsFromCurrentMod)
-		//	{
-		//		actorStats.RemoveStatMod(statMod);
-		//	}
-		//	m_statModsFromCurrentMod.Clear();
-		//}
-		// end added in rogues
+		 // added in rogues
+#if SERVER
+		ActorStats actorStats = actor.GetActorStats();
+		if (actorStats != null)
+		{
+			foreach (AbilityStatMod statMod in m_statModsFromCurrentMod)
+			{
+				actorStats.RemoveStatMod(statMod);
+			}
+			m_statModsFromCurrentMod.Clear();
+		}
+#endif
 
 		m_currentAbilityMod = null;
 		OnRemoveAbilityMod();
