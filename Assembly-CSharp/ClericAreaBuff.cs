@@ -25,7 +25,7 @@ public class ClericAreaBuff : Ability
 	public bool m_addVisionOnTargetSquare;
 	public float m_visionRadius = 1.5f;
 	public int m_visionDuration = 1;
-	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always;
+	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always;  // TODO CLERIC
 	public bool m_visionAreaIgnoreLos = true;
 	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
@@ -407,4 +407,68 @@ public class ClericAreaBuff : Ability
 		}
 		return base.GetModdedCost() + cost;
 	}
+	
+#if SERVER
+	// added in rogues
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		m_syncComp.m_turnsAreaBuffActive++;
+	}
+	
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_syncComp.m_turnsAreaBuffActive <= 0 ? m_castSequencePrefab : null,
+			Board.Get().GetSquare(caster.GetGridPos()).ToVector3(),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+	
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		if (m_syncComp.m_turnsAreaBuffActive > 0)
+		{
+			return;
+		}
+		
+		BoardSquare casterSquare = Board.Get().GetSquare(caster.GetGridPos());
+		StandardActorEffectData effectOnCaster = GetEffectOnCaster().m_applyEffect
+			? GetEffectOnCaster().m_effectData
+			: new StandardActorEffectData();
+		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(casterSquare.ToVector3()));
+		positionHitResults.AddEffect(new ClericAreaBuffEffect(
+			AsEffectSource(),
+			casterSquare,
+			caster,
+			caster,
+			effectOnCaster,
+			this,
+			m_syncComp));
+		abilityResults.StorePositionHit(positionHitResults);
+	}
+
+	// custom
+	public List<Team> GetAffectedTeams(ActorData caster)
+	{
+		List<Team> list = new List<Team>();
+		if (IncludeAllies())
+		{
+			list.Add(caster.GetTeam());
+		}
+		if (IncludeEnemies())
+		{
+			list.AddRange(caster.GetOtherTeams());
+		}
+		return list;
+	}
+#endif
 }
