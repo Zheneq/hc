@@ -59,15 +59,12 @@ public static class ServerGameplayUtils
 		actorsThatWillBeSeenButArentMoving = new List<ActorData>();
 		for (int i = 0; i < num; i++)
 		{
-			Log.Info($"IterateOverLastKnownPosData step {i}");  // custom debug
 			float distance = i * 0.5f - 0.01f;
 			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
 			{
 				if (lastKnownPosData.WasChase == consideringChasers)
 				{
 					lastKnownPosData.UpdateCurrentlyConsideredPathFromDistance(distance);
-					Log.Info($"IterateOverLastKnownPosData {lastKnownPosData.Actor.DisplayName} " +
-					         $"{lastKnownPosData.m_currentlyConsideredPath?.square?.GetGridPos()}");  // custom debug
 				}
 			}
 			bool updateFog = false;
@@ -80,9 +77,6 @@ public static class ServerGameplayUtils
 					if (currentBoardSquare != lastKnownPosData.Actor.CurrentBoardSquare)
 					{
 						updateFog = true;
-						Log.Info($"IterateOverLastKnownPosData Updating fog as {lastKnownPosData.Actor.DisplayName} " +
-						         $"moved from {currentBoardSquare?.GetGridPos()} " +
-						         $"to {lastKnownPosData.Actor.CurrentBoardSquare?.GetGridPos()}");  // custom debug
 					}
 				}
 			}
@@ -91,7 +85,6 @@ public static class ServerGameplayUtils
 				foreach (ActorData actorData in GameFlowData.Get().GetActors())  //  in moverToLastKnownPosData.Keys in rogues
 				{
 					actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
-					Log.Info($"IterateOverLastKnownPosData Updated fog for {actorData.DisplayName}");  // custom debug
 				}
 			}
 			foreach (LastKnownPosData lastKnownPosData in moverToLastKnownPosData.Values)
