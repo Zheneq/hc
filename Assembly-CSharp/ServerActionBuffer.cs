@@ -2195,9 +2195,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		float distance = 0f;
 		while (flag)
 		{
+			Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder distance={distance}"); // custom debug
 			bool flag2;
 			float num;
 			BarrierManager.Get().ExecuteUnexecutedMovementHitsForAllBarriersForDistance(distance, stage, asFailsafe, out flag2, out num);
+			if (!flag2) Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more barrier hits"); // custom debug
 			bool flag3;
 			float num2;
 			// TODO CTF CTC
@@ -2225,9 +2227,11 @@ public class ServerActionBuffer : NetworkBehaviour
 			bool flag5;
 			float num4;
 			ServerEffectManager.Get().ExecuteUnexecutedMovementHitsForAllEffectsForDistance(distance, stage, asFailsafe, out flag5, out num4);
+			if (!flag5) Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more effect hits"); // custom debug
 			bool flag6;
 			float num5;
 			PowerUpManager.Get().ExecuteUnexecutedMovementHitsForAllPowerupsForDistance(distance, stage, asFailsafe, out flag6, out num5);
+			if (!flag6) Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more powerup hits"); // custom debug
 			flag = (flag2 || flag3 || flag4 || flag5 || flag6);
 			if (flag)
 			{

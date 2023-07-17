@@ -594,6 +594,7 @@ public class ServerResolutionManager : NetworkBehaviour
 			m_resolutionState = ServerResolutionManagerState.Resolving_Movement;
 			m_currentResolutionActions.Clear();
 			m_currentCastActions.Clear();
+			Log.Info($"Resolving movement hits {ServerActionBuffer.Get().ActionPhase}"); // custom debug
 			ServerActionBuffer.Get().ExecuteUnexecutedNormalMovementHits(false);
 			m_resolutionState = ServerResolutionManagerState.WaitingForNextPhase;
 		}
