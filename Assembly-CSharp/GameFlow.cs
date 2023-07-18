@@ -576,8 +576,7 @@ public class GameFlow : NetworkBehaviour
 			case ActionBufferPhase.Movement:
 			{
 				CompleteExecutingPlayerActions();
-				ServerMovementManager manager = ServerMovementManager.Get();
-				if (!manager.WaitingOnClients)
+				if (!ServerMovementManager.Get().WaitingOnClients && ServerResolutionManager.Get().ActionsDoneResolving())
 				{
 					int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.WasEverChasing()).Count;
 					if (numChaseRequests > 0)
@@ -599,7 +598,7 @@ public class GameFlow : NetworkBehaviour
 			{
 				CompleteExecutingPlayerActions();
 				ServerMovementManager manager = ServerMovementManager.Get();
-				if (!manager.WaitingOnClients)
+				if (!manager.WaitingOnClients && ServerResolutionManager.Get().ActionsDoneResolving())
 				{
 					foreach (ActorData actor in GameFlowData.Get().GetActors())
 					{
