@@ -1029,6 +1029,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		m_storedMovementRequests.Clear();
 		m_removedMovementRequestsFromForceChase.Clear();
+		Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 	}
 
 	public bool HasPendingMovementRequest(ActorData actor)
@@ -1151,7 +1152,12 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (forceChased)
 			{
+				string requestString = movementRequest2.IsChasing()
+					? $"chase {movementRequest2.m_chaseTarget.DisplayName}"
+					: movementRequest2.m_path?.GetDebugPathStringToEnd("");
+				Log.Info($"FORCED CHASE removed {actor.DisplayName}'s movement request {requestString}");  // custom debug
 				m_removedMovementRequestsFromForceChase.Add(movementRequest2);
+				Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 			}
 			m_storedMovementRequests.Remove(movementRequest2);
 			movementRequest2.m_actor.OnMovementChanged(ActorData.MovementChangeType.LessMovement, forceChased);
@@ -2086,13 +2092,19 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private MovementRequest FindMovementRequestToRestore(ActorData actor)
 	{
+		Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 		foreach (MovementRequest movementRequest in m_removedMovementRequestsFromForceChase)
 		{
 			if (movementRequest != null && movementRequest.m_actor == actor)
 			{
+				string requestString = movementRequest.IsChasing()
+					? $"chase {movementRequest.m_chaseTarget.DisplayName}"
+					: movementRequest.m_path?.GetDebugPathStringToEnd("");
+				Log.Info($"FORCED CHASE restored {actor.DisplayName}'s movement request {requestString}");  // custom debug
 				return movementRequest;
 			}
 		}
+		Log.Info($"FORCED CHASE not found {actor.DisplayName}'s movement request to restore");  // custom debug
 		return null;
 	}
 
