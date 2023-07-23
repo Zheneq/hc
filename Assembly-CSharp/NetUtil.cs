@@ -7,39 +7,20 @@ using System.Threading;
 public static class NetUtil
 {
 	private static Dictionary<string, IPAddress> s_hostCache = new Dictionary<string, IPAddress>();
-
 	private static string s_hostName;
 
 	public static string GetHostName()
 	{
 		if (!s_hostName.IsNullOrEmpty())
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return s_hostName;
-				}
-			}
+			return s_hostName;
 		}
 		try
 		{
 			s_hostName = Dns.GetHostName();
 			if (s_hostName == null)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						throw new Exception("GetHostName() returned null");
-					}
-				}
+				throw new Exception("GetHostName() returned null");
 			}
 		}
 		catch (Exception ex)
@@ -59,43 +40,24 @@ public static class NetUtil
 		IPAddress cachedAddress = GetCachedAddress(host);
 		if (cachedAddress != null)
 		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return cachedAddress;
-				}
-			}
+			return cachedAddress;
 		}
-		IPAddress[] array = null;
+
 		int num = 0;
 		while (num < 3)
 		{
 			try
 			{
 				num++;
-				array = Dns.GetHostAddresses(host);
-				if (array != null)
+				IPAddress[] hostAddresses = Dns.GetHostAddresses(host);
+				if (hostAddresses != null)
 				{
-					IPAddress[] array2 = array;
-					foreach (IPAddress iPAddress in array2)
+					foreach (IPAddress ipAddress in hostAddresses)
 					{
-						if (iPAddress.AddressFamily == AddressFamily.InterNetwork)
+						if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
 						{
-							while (true)
-							{
-								switch (3)
-								{
-								case 0:
-									break;
-								default:
-									SetCachedAddress(host, iPAddress);
-									return iPAddress;
-								}
-							}
+							SetCachedAddress(host, ipAddress);
+							return ipAddress;
 						}
 					}
 				}
@@ -108,10 +70,7 @@ public static class NetUtil
 				Thread.Sleep(100);
 			}
 		}
-		while (true)
-		{
-			throw new Exception($"Could not resolve {host}");
-		}
+		throw new Exception($"Could not resolve {host}");
 	}
 
 	public static string GetIPv4Url(string url)
@@ -147,52 +106,12 @@ public static class NetUtil
 	{
 		if (address.AddressFamily != AddressFamily.InterNetwork)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					throw new Exception("This method works for IPv4 addresses only");
-				}
-			}
+			throw new Exception("This method works for IPv4 addresses only");
 		}
 		byte[] addressBytes = address.GetAddressBytes();
-		if (addressBytes[0] == 127)
-		{
-			return true;
-		}
-		if (addressBytes[0] == 192)
-		{
-			if (addressBytes[1] == 168)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
-		}
-		if (addressBytes[0] == 10)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return true;
-				}
-			}
-		}
-		return false;
+		return addressBytes[0] == 127
+		       || addressBytes[0] == 192 && addressBytes[1] == 168
+		       || addressBytes[0] == 10;
 	}
 
 	public static string GetHostName(string address)
