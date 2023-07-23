@@ -35,7 +35,10 @@ public class ServerBootstrap : MonoBehaviour
 			hydrogenConfig.ProcessType = ProcessType.AtlasReactorServer;
 			if (hydrogenConfig.ProcessCode.IsNullOrEmpty())
 			{
-				hydrogenConfig.ProcessCode = ProcessManager.Get().GetNextProcessCode(null, false);
+				// rogues
+				// hydrogenConfig.ProcessCode = ProcessManager.Get().GetNextProcessCode(null, false);
+				// custom
+				hydrogenConfig.ProcessCode = $"{HydrogenConfig.Get().ServerName}-{ProcessManager.Get().GetNextProcessCode()}";
 			}
 			if (hydrogenConfig.EnableLogging)
 			{
