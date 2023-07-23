@@ -61,16 +61,16 @@ public class AuthTicket
 		}
 		XmlDocument xmlDocument = new XmlDocument();
 		xmlDocument.LoadXml(xml);
-		XmlNode xmlNode = xmlDocument.SelectSingleNode("authTicket/ticket");
-		XmlNode xmlNode2 = xmlDocument.SelectSingleNode("authTicket/account")
+		XmlNode nodeTicket = xmlDocument.SelectSingleNode("authTicket/ticket");
+		XmlNode nodeAccount = xmlDocument.SelectSingleNode("authTicket/account")
 		                   ?? xmlDocument.SelectSingleNode("authAccount/account");
-		if (xmlNode2 == null)
+		if (nodeAccount == null)
 		{
 			throw new Exception("Could not find account node in XML");
 		}
-		if (xmlNode != null)
+		if (nodeTicket != null)
 		{
-			authTicket.ChannelId = xmlNode.GetChildNodeAsInt64("channelId");
+			authTicket.ChannelId = nodeTicket.GetChildNodeAsInt64("channelId");
 		}
 		authTicket.AuthInfo = new AuthInfo
 		{
@@ -79,11 +79,11 @@ public class AuthTicket
 		};
 		try
 		{
-			authTicket.AuthInfo.UserName = xmlNode2.GetChildNodeAsString("email");
-			authTicket.AuthInfo.AccountId = xmlNode2.GetChildNodeAsInt64("accountId");
-			authTicket.AuthInfo.Handle = xmlNode2.GetChildNodeAsString("glyphTag");
-			authTicket.AuthInfo.AccountCurrency = xmlNode2.GetChildNodeAsString("accountCurrency");
-			authTicket.AuthInfo.AccountStatus = xmlNode2.GetChildNodeAsString("accountStatus");
+			authTicket.AuthInfo.UserName = nodeAccount.GetChildNodeAsString("email");
+			authTicket.AuthInfo.AccountId = nodeAccount.GetChildNodeAsInt64("accountId");
+			authTicket.AuthInfo.Handle = nodeAccount.GetChildNodeAsString("glyphTag");
+			authTicket.AuthInfo.AccountCurrency = nodeAccount.GetChildNodeAsString("accountCurrency");
+			authTicket.AuthInfo.AccountStatus = nodeAccount.GetChildNodeAsString("accountStatus");
 		}
 		catch (Exception ex)
 		{
@@ -96,13 +96,13 @@ public class AuthTicket
 			}
 			throw new Exception($"Malformed account node for {username}: {ex.Message}");
 		}
-		XmlNodeList xmlNodeList = xmlNode2.SelectNodes("accountEntitlements/accountEntitlement");
-		foreach (XmlNode xmlNode3 in xmlNodeList)
+		XmlNodeList nodeEntitlements = nodeAccount.SelectNodes("accountEntitlements/accountEntitlement");
+		foreach (XmlNode nodeEntitlement in nodeEntitlements)
 		{
-			string active = Convert.ToString(xmlNode3.SelectSingleNode("accountEntitlementStatus").InnerText);
+			string active = Convert.ToString(nodeEntitlement.SelectSingleNode("accountEntitlementStatus").InnerText);
 			if (active == "ACTIVE")
 			{
-				string channel = Convert.ToString(xmlNode3.SelectSingleNode("channel").InnerText);
+				string channel = Convert.ToString(nodeEntitlement.SelectSingleNode("channel").InnerText);
 				if (channelName != null && !channel.EqualsIgnoreCase(channelName))
 				{
 					continue;
@@ -110,16 +110,16 @@ public class AuthTicket
 
 				AuthEntitlement entitlement = new AuthEntitlement
 				{
-					accountEntitlementId = xmlNode3.GetChildNodeAsInt64("accountEntitlementId"),
-					entitlementId = xmlNode3.GetChildNodeAsInt64("entitlementId"),
-					entitlementCode = xmlNode3.GetChildNodeAsString("entitlementCode"),
-					entitlementAmount = xmlNode3.GetChildNodeAsInt32("entitlementAmount")
+					accountEntitlementId = nodeEntitlement.GetChildNodeAsInt64("accountEntitlementId"),
+					entitlementId = nodeEntitlement.GetChildNodeAsInt64("entitlementId"),
+					entitlementCode = nodeEntitlement.GetChildNodeAsString("entitlementCode"),
+					entitlementAmount = nodeEntitlement.GetChildNodeAsInt32("entitlementAmount")
 				};
-				string modifiedDate = xmlNode3.GetChildNodeAsString("modifiedDate", null);
+				string modifiedDate = nodeEntitlement.GetChildNodeAsString("modifiedDate", null);
 				entitlement.modifiedDate = modifiedDate.IsNullOrEmpty()
 					? DateTime.MaxValue
 					: DateTimeOffset.Parse(modifiedDate).UtcDateTime;
-				string expirationDate = xmlNode3.GetChildNodeAsString("entitlementExpirationTime", null);
+				string expirationDate = nodeEntitlement.GetChildNodeAsString("entitlementExpirationTime", null);
 				entitlement.expirationDate = expirationDate.IsNullOrEmpty()
 					? DateTime.MaxValue
 					: DateTimeOffset.Parse(expirationDate).UtcDateTime;
@@ -248,30 +248,30 @@ public class AuthTicket
 	public void AddEntitlement(AuthEntitlement entitlement)
 	{
 		m_entitlementsByAccountEntitlementId.Add(entitlement.accountEntitlementId, entitlement);
-		if (!m_entitlementsByCode.TryGetValue(entitlement.entitlementCode, out AuthEntitlement value))
+		if (!m_entitlementsByCode.TryGetValue(entitlement.entitlementCode, out AuthEntitlement authEntitlement))
 		{
-			value = new AuthEntitlement
+			authEntitlement = new AuthEntitlement
 			{
 				accountEntitlementId = entitlement.accountEntitlementId,
 				entitlementId = entitlement.entitlementId,
 				entitlementCode = entitlement.entitlementCode
 			};
 		}
-		value.entitlementAmount += entitlement.entitlementAmount;
-		if (value.expirationDate < entitlement.expirationDate)
+		authEntitlement.entitlementAmount += entitlement.entitlementAmount;
+		if (authEntitlement.expirationDate < entitlement.expirationDate)
 		{
-			value.expirationDate = entitlement.expirationDate;
+			authEntitlement.expirationDate = entitlement.expirationDate;
 		}
-		if (value.modifiedDate < entitlement.modifiedDate)
+		if (authEntitlement.modifiedDate < entitlement.modifiedDate)
 		{
-			value.modifiedDate = entitlement.modifiedDate;
+			authEntitlement.modifiedDate = entitlement.modifiedDate;
 		}
-		m_entitlementsByCode[value.entitlementCode] = value;
+		m_entitlementsByCode[authEntitlement.entitlementCode] = authEntitlement;
 	}
 
 	public void AddFakeEntitlement(string entitlementCode)
 	{
-		AuthEntitlement entitlement = new AuthEntitlement
+		AddEntitlement(new AuthEntitlement
 		{
 			accountEntitlementId = m_entitlementsByAccountEntitlementId.Count,
 			entitlementId = 0L,
@@ -279,8 +279,7 @@ public class AuthTicket
 			entitlementAmount = 1,
 			modifiedDate = DateTime.UtcNow,
 			expirationDate = DateTime.MaxValue
-		};
-		AddEntitlement(entitlement);
+		});
 	}
 
 	public void AddFakeEntitlements(string entitlementCodes)
