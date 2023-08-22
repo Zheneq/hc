@@ -662,14 +662,14 @@ public class ServerGameManager : MonoBehaviour
 			}
 
 			serverPlayerState.ConnectionReady = false;
-			bool flag = GameManager.Get().GameStatus == GameStatus.Stopped || (ObjectivePoints.Get() != null && ObjectivePoints.Get().m_matchState == ObjectivePoints.MatchState.MatchEnd);
-			bool flag2 = serverPlayerState.PlayerInfo != null && serverPlayerState.PlayerInfo.TeamId == Team.Spectator;
+			bool isGameOver = GameManager.Get().GameStatus == GameStatus.Stopped || (ObjectivePoints.Get() != null && ObjectivePoints.Get().m_matchState == ObjectivePoints.MatchState.MatchEnd);
+			bool isSpectator = serverPlayerState.PlayerInfo != null && serverPlayerState.PlayerInfo.TeamId == Team.Spectator;
 			long accountId = serverPlayerState.PlayerInfo != null ? serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId : -1L;
 			GameResult gameResult = GameResult.GameServerNetworkErrorToClient;
 			string empty = string.Empty;
 			serverPlayerState.LogGameExit(gameResult);
 			GameFlow gameFlow = GameFlow.Get();
-			if (!serverPlayerState.IsAIControlled && !flag2 && !flag)
+			if (!serverPlayerState.IsAIControlled && !isSpectator && !isGameOver)
 			{
 				Log.Info("Player {0} [{1}] (connectionId {2}, connectionAddress {3}) has disconnected from game {4} (listenAddress {5}), and will now be controlled by a bot | closeStatusCode= {6}", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.SessionInfo.AccountId, serverPlayerState.ConnectionId, serverPlayerState.ConnectionAddress, serverPlayerState.GameInfo.Name, ListenAddress, empty);
 				SendConsoleMessageWithHandle("PlayerDisconnectedBot", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
