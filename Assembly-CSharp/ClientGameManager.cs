@@ -3838,12 +3838,12 @@ public class ClientGameManager : MonoBehaviour
 			myNetworkManager.m_OnClientError += HandleNetworkError;
 			m_registeredHandlers = true;
 		}
-		Client.RegisterHandler(0x34, HandleLoginResponse);
-		Client.RegisterHandler(0x3E, HandleServerAssetsLoadingProgressUpdate);
-		Client.RegisterHandler(0x36, HandleSpawningObjectsNotification);
-		Client.RegisterHandler(0x30, HandleReplayManagerFile);
-		Client.RegisterHandler(0x38, HandleReconnectReplayStatus);
-		Client.RegisterHandler(0x44, HandleEndGameNotification);
+		Client.RegisterHandler((short)MyMsgType.LoginResponse, HandleLoginResponse);
+		Client.RegisterHandler((short)MyMsgType.ServerAssetsLoadingProgressUpdate, HandleServerAssetsLoadingProgressUpdate);
+		Client.RegisterHandler((short)MyMsgType.SpawningObjectsNotification, HandleSpawningObjectsNotification);
+		Client.RegisterHandler((short)MyMsgType.ReplayManagerFile, HandleReplayManagerFile);
+		Client.RegisterHandler((short)MyMsgType.ReconnectReplayStatus, HandleReconnectReplayStatus);
+		Client.RegisterHandler((short)MyMsgType.EndGameNotification, HandleEndGameNotification);
 		ClientObserverManager component = GetComponent<ClientObserverManager>();
 		if (component != null)
 		{
@@ -4075,20 +4075,7 @@ public class ClientGameManager : MonoBehaviour
 		{
 			return;
 		}
-		string format = "{0} reconnection replay phase";
-		object[] array = new object[1];
-		int num = 0;
-		object obj;
-		if (reconnectReplayStatus.WithinReconnectReplay)
-		{
-			obj = "Entering";
-		}
-		else
-		{
-			obj = "Exiting";
-		}
-		array[num] = obj;
-		Debug.LogFormat(format, array);
+		Debug.LogFormat("{0} reconnection replay phase", reconnectReplayStatus.WithinReconnectReplay ? "Entering" : "Exiting");
 		if (m_withinReconnectReplay != reconnectReplayStatus.WithinReconnectReplay)
 		{
 			m_withinReconnectReplay = reconnectReplayStatus.WithinReconnectReplay;
