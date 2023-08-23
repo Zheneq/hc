@@ -236,13 +236,35 @@ public class ServerGameManager : MonoBehaviour
 					try
 					{
 						Log.Info("Allowing reconnecting player {0} ({1}) back in.", serverPlayerState.SessionInfo.Handle, serverPlayerState.SessionInfo.AccountId);
-						NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
+						// custom
+						SetClientReady(serverPlayerState);
 						if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
 						{
 							m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
 							SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
 						}
-						serverPlayerState.ConnectionReady = true;
+						foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(serverPlayerState.PlayerInfo.PlayerId))
+						{
+							// fog of war fix
+							Log.Info($"Teleporting reconnected {actorData}");
+							actorData.TeleportToBoardSquare(
+								actorData.GetCurrentBoardSquare(),
+								actorData.transform.localRotation.eulerAngles,
+								ActorData.TeleportType.Failsafe,
+								null
+							);
+							// ability fix
+							// TODO RECONNECTION shouldn't be needed if we don't miss reconnected replay messages
+							actorData.GetActorTurnSM().CallRpcTurnMessage((int)TurnMessage.TURN_START, 0);
+						}
+						// rogues
+						// NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
+						// if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
+						// {
+						// 	m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
+						// 	SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
+						// }
+						// serverPlayerState.ConnectionReady = true;
 					}
 					catch (Exception ex)
 					{
