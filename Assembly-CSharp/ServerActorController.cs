@@ -280,7 +280,7 @@ public class ServerActorController : MonoBehaviour
 				|| (actorTurnSM.CurrentState == TurnStateEnum.DECIDING && GameplayUtils.IsBot(this));
 
 			// custom
-			Log.Info($"ProcessCastAbilityRequest isValidState {isValidState}");
+			Log.Info($"ProcessCastAbilityRequest isValidState {isValidState} (cur state {actorTurnSM.CurrentState})");
 
 			// rogues
 			//bool isAcceptingInput = ServerActionBuffer.Get().GetPlayerActionFSM().IsAcceptingInput();

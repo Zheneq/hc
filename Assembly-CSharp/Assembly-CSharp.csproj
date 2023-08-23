@@ -1686,6 +1686,8 @@
     <Compile Include="MyNetworkClient.cs" />
     <Compile Include="MyNetworkClientConnection.cs" />
     <Compile Include="MyNetworkManager.cs" />
+    <Compile Include="MyNetworkServerConnection.cs" />
+    <Compile Include="MyNetworkServerConnectionStub.cs" />
     <Compile Include="NanoSmithAnvilSlam.cs" />
     <Compile Include="NanoSmithBarrier.cs" />
     <Compile Include="NanoSmithBlastShield.cs" />

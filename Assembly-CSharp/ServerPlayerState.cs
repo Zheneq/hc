@@ -1,5 +1,7 @@
 ﻿// ROGUES
 // SERVER
+
+using System.Collections.Generic;
 using UnityEngine.Networking;
 
 #if SERVER
@@ -14,6 +16,32 @@ public class ServerPlayerState
 	public bool LocalClient;
 	public GameResult GameResult;
 	public GameLoadingState GameLoadingState;
+
+	private readonly List<Replay.Message> ReconnectionData = new List<Replay.Message>(); // custom
+	private MyNetworkServerConnection ReconnectRecoveryConnection = null; // custom
+	
+	// custom
+	public void SaveReconnectionData(MyNetworkServerConnection newRecoveryConnection)
+	{
+		Log.Info($"Reconnection: Saving old connection for {this}");
+		if (newRecoveryConnection != ReconnectRecoveryConnection)
+		{
+			FinalizeAndGetReconnectionData();
+		}
+		ReconnectRecoveryConnection = newRecoveryConnection;
+	}
+	
+	// custom
+	public List<Replay.Message> FinalizeAndGetReconnectionData()
+	{
+		if (!(ReconnectRecoveryConnection is null))
+		{
+			Log.Info($"Saving messages from an old connection for {this}");
+			ReconnectionData.AddRange(ReconnectRecoveryConnection.GetMessages());
+			ReconnectRecoveryConnection = null;
+		}
+		return ReconnectionData;
+	}
 
 	public LobbyGameInfo GameInfo
 	{
@@ -55,6 +83,7 @@ public class ServerPlayerState
 		}
 	}
 
+	// TODO RECONNECTION if a player never loaded in, we won't have reconnection data
 	internal void DisconnectAndReplaceWithBots(GameResult gameResult)
 	{
 		Log.Info($"ServerPlayerState::DisconnectAndReplaceWithBots: {PlayerInfo.Handle} disconnected: {gameResult}");

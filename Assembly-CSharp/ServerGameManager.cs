@@ -355,6 +355,7 @@ public class ServerGameManager : MonoBehaviour
 		myNetworkManager.m_OnServerDisconnect += HandleNetworkDisconnect;
 
 		// custom
+		NetworkServer.SetNetworkConnectionClass<MyNetworkServerConnection>();
 		NetworkServer.RegisterHandler((short)MyMsgType.LoginRequest, Wrap<GameManager.LoginRequest>(HandleLoginRequest));
 		NetworkServer.RegisterHandler((short)MyMsgType.AssetsLoadedNotification, Wrap<GameManager.AssetsLoadedNotification>(HandleAssetsLoadedNotification));
 		NetworkServer.RegisterHandler((short)MyMsgType.LeaveGameNotification, Wrap<GameManager.LeaveGameNotification>(HandleLeaveGameNotification));
@@ -632,9 +633,30 @@ public class ServerGameManager : MonoBehaviour
 			Log.Info("Client network connected from {0} (connectionId {1})", conn.address, conn.connectionId);
 		}
 	}
+	
+	// custom
+	private void SaveReconnectionData(NetworkConnection conn)
+	{
+		foreach (ServerPlayerState playerState in m_serverPlayerStates.Values)
+		{
+			if (playerState.ConnectionId == conn.connectionId)
+			{
+				if (conn is MyNetworkServerConnection c)
+				{
+					playerState.SaveReconnectionData(c);
+				}
+				else
+				{
+					Log.Error($"Failed to save reconnection data: connection is {conn.GetType()}");
+				}
+			}
+		}
+	}
 
 	private void HandleNetworkDisconnect(NetworkConnection conn)
 	{
+		SaveReconnectionData(conn); // custom
+		
 		if (CommonServerConfig.Get().AllowReconnectingToGameInstantly)
 		{
 			DisconnectPending(conn);
@@ -710,6 +732,28 @@ public class ServerGameManager : MonoBehaviour
 					gameFlow.FlagPlayerAsDisconnected(serverPlayerState.ConnectionPersistent);
 				}
 			}
+			
+			// custom
+			// replacing disconnected connection with a stub to keep recording reconnection data
+			// hard to make it work -- unity doesn't want to send messages unless it's a proper connection from a client
+			// if (serverPlayerState.ConnectionPersistent is MyNetworkServerConnection oldConn)
+			// {
+			// 	MyNetworkServerConnection stubConnection = new MyNetworkServerConnectionStub(oldConn);
+			// 	foreach (ActorData actor in GameFlowData.Get().GetActors())
+			// 	{
+			// 		if (actor.PlayerData.m_player.m_connectionId == serverPlayerState.ConnectionPersistent.connectionId)
+			// 		{
+			// 			if (!NetworkServer.ReplacePlayerForConnection(stubConnection, actor.gameObject, 0))
+			// 			{
+			// 				Log.Error($"Reconnection: Failed to replace disconnected connection with a stub");
+			// 			}
+			// 		}
+			// 	}
+			// 	stubConnection.StartRecordingReconnectionData();
+			// 	serverPlayerState.ConnectionPersistent = stubConnection;
+			// }
+			// end custom
+			
 			if (ServerResolutionManager.Get() != null)
 			{
 				ServerResolutionManager.Get().OnActorDisconnected();
@@ -1356,6 +1400,7 @@ public class ServerGameManager : MonoBehaviour
 		ServerPlayerState serverPlayerState;
 		if (!m_serverPlayerStates.TryGetValue(notification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || conn != serverPlayerState.ConnectionPersistent)
 		{
+			// TODO RECONNECTION replacing connection with a stub triggers this message
 			Log.Error("Received invalid leave game notification from {0}", conn.address);
 			return;
 		}
@@ -1379,6 +1424,7 @@ public class ServerGameManager : MonoBehaviour
 		// custom Artemis (ReconnectReplayStatus is not used in rogues at all
 		if (!playerState.IsAIControlled)
 		{
+			Log.Info($"Entering reconnection replay state for {playerState}");
 			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
 		}
 		// end custom Artemis
@@ -1396,14 +1442,38 @@ public class ServerGameManager : MonoBehaviour
 		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
+		
+		// custom
+		// if (!playerState.IsAIControlled)
+		// {
+		// 	List<Replay.Message> reconnectionData = playerState.FinalizeAndGetReconnectionData();
+		// 	Log.Info($"Sending {reconnectionData.Count} messages as reconnect replay");
+		// 	// TODO reconnection data seems to stop recording after disconnect -- probs that's why everybody jumps back
+		// 	foreach (Replay.Message msg in reconnectionData)
+		// 	{
+		// 		// TODO figure out how ReconnectReplayStatus makes its way into reconnection data
+		// 		// WARN sending ReconnectReplayStatus this way throws the client into infinite recursion of entering/leaving reconnection replay phase
+		// 		// playerState.ConnectionPersistent.Send((short)MyMsgType.ObserverMessage, new GameManager.ObserverMessage { Message = msg });
+		// 		playerState.ConnectionPersistent.SendBytes(msg.data, msg.data.Length, 0);
+		// 	}
+		// }
 
 		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
 		if (!playerState.IsAIControlled)
 		{
+			Log.Info($"Exiting reconnection replay state for {playerState}");
 			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
+
+			// custom
+			if (playerState.ConnectionPersistent is MyNetworkServerConnection conn)
+			{
+				conn.StartRecordingReconnectionData();
+				Log.Info($"Started recording reconnection data for {playerState}");
+			}
 		}
 		// end custom Artemis
 
+		// TODO messages between reconnection and this call are still lost
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
 		playerState.ConnectionReady = true;
 		Log.Warning("Not calling SendReconnectData...");

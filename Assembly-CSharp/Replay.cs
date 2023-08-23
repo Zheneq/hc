@@ -25,6 +25,17 @@ public class Replay
 	private float m_initialMessageTimestamp;
 	private int m_messageReadIndex;
 	private PersistedCharacterMatchData m_matchData;
+	
+	// custom
+	public float GetSecondsSinceLastMessage()
+	{
+		if (m_messages.IsNullOrEmpty())
+		{
+			return float.NaN;
+		}
+
+		return GameTime.time - m_messages[m_messages.Count - 1].timestamp - m_initialMessageTimestamp;
+	}
 
 	public void RecordRawNetworkMessage(byte[] data, int dataSize)
 	{
