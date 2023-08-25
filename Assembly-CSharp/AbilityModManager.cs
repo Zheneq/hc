@@ -67,7 +67,10 @@ public class AbilityModManager : NetworkBehaviour
 					
 					// custom
 					ServerPlayerState playerState = ServerGameManager.Get().GetPlayerStateByAccountId(actorData.GetAccountId());
-					actorData.SetupAbilityMods(playerState.PlayerInfo.CharacterMods);
+					if (playerState != null)
+					{
+						actorData.SetupAbilityMods(playerState.PlayerInfo.CharacterMods);
+					}
 					// rogues
 					// PersistedCharacterData persistedCharacterData = ClientGameManager.Get().GetPlayerCharacterData(actorData.m_characterType);
 					// if (actorData.GetTeam() == Team.TeamA)

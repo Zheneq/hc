@@ -592,6 +592,9 @@ public class Passive_TricksterAfterImage : Passive
 			}
 			actorData.SetTeam(Owner.GetTeam());
 			actorData.InitActorNetworkVisibilityObjects();
+			// custom
+			actorData.m_displayName = "FT";
+			// rogues
 			// actorData.Networkm_displayName = "FT";
 			actorData.SetHitPoints(Owner.HitPoints);
 			if (actorData.GetActorModelData() != null)
