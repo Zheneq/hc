@@ -68,8 +68,7 @@ public class ServerGameManager : MonoBehaviour
 	public bool IsConnectedToMonitorServer => m_monitorGameServerInterface != null && m_monitorGameServerInterface.isConnected;
 
 	// custom
-	private const int ReplayRecorderAccountId = -1;
-	private ReplayRecorder m_replayRecorder;
+	private readonly Dictionary<Team, ReplayRecorder> m_replayRecorders = new Dictionary<Team, ReplayRecorder>();
 	
 	// custom Artemis
 	public static Dictionary<string, GameObject> ResourceNetworkObjects = new Dictionary<string, GameObject>();
@@ -521,8 +520,11 @@ public class ServerGameManager : MonoBehaviour
 	public void SendGameSummaryNotification()
 	{
 		// custom
+		foreach (ReplayRecorder replayRecorder in m_replayRecorders.Values)
+		{
+			replayRecorder?.StopRecording();
+		}
 		SaveReplay();
-		m_replayRecorder?.StopRecording();
 		// end custom
 		
 		if (m_monitorGameServerInterface != null)
@@ -551,7 +553,8 @@ public class ServerGameManager : MonoBehaviour
 	private void SendReplay()
 	{
 		int batchSize = 30000;
-		string replayJson = m_replayRecorder?.GetReplayAsJson();
+		m_replayRecorders.TryGetValue(Team.Spectator, out ReplayRecorder replayRecorder);
+		string replayJson = replayRecorder?.GetReplayAsJson();
 
 		if (replayJson == null)
 		{
@@ -581,7 +584,7 @@ public class ServerGameManager : MonoBehaviour
 				{
 					foreach (GameManager.ReplayManagerFile replayMsg in replay)
 					{
-						NetworkServer.SendToClient(serverPlayerState.ConnectionId, (short)MyMsgType.ReplayManagerFile,
+						serverPlayerState.ConnectionPersistent.Send((short)MyMsgType.ReplayManagerFile,
 							replayMsg);
 					}
 				}
@@ -596,7 +599,10 @@ public class ServerGameManager : MonoBehaviour
 	// custom
 	public void SaveReplay()
 	{
-		m_replayRecorder?.SaveReplay();
+		foreach (ReplayRecorder replayRecorder in m_replayRecorders.Values)
+		{
+			replayRecorder?.SaveReplay();
+		}
 	}
 
 	private void OnDestroy()
@@ -910,28 +916,49 @@ public class ServerGameManager : MonoBehaviour
 	}
 
 	// custom
+	public static int GetReplayRecorderAccountId(Team team)
+	{
+		return -1 - (int)team;
+	}
+
+	// custom
+	public static Team GetReplayRecorderTeam(long id)
+	{
+		if (id > 0 || id < int.MinValue) return Team.Invalid;
+		int value = -1 - (int)id;
+		return Enum.IsDefined(typeof(Team), value) ? (Team)value : Team.Invalid;
+	}
+
+	// custom
 	private void AddReplayGeneratorSpectator()
 	{
-		int playerId = 0;
-		LobbyServerPlayerInfo lobbyServerPlayerInfo = new LobbyServerPlayerInfo()
+		foreach (Team team in new[] { Team.Spectator })
 		{
-			AccountId = ReplayRecorderAccountId,
-			PlayerId = playerId,
-			TeamId = Team.Spectator,
-			Handle = "replay_generator",
-			IsLoadTestBot = true
-		};
-		AddPlayerState(
-			new LobbySessionInfo
+			int playerId = GetReplayRecorderAccountId(team);
+			string suffix = team == Team.Spectator ? string.Empty : $"_{team}";
+			string handle = "replay_generator" + suffix;
+
+			LobbyServerPlayerInfo lobbyServerPlayerInfo = new LobbyServerPlayerInfo()
 			{
-				AccountId = ReplayRecorderAccountId
-			},
-			lobbyServerPlayerInfo,
-			new List<LobbyServerPlayerInfo>(),
-			-1);
-		ServerPlayerState serverPlayerState = m_serverPlayerStates[playerId];
-		GameManager.Get().TeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(lobbyServerPlayerInfo, 0, new MatchmakingQueueConfig()));
-		m_replayRecorder = new ReplayRecorder(serverPlayerState);
+				AccountId = playerId,
+				PlayerId = playerId,
+				TeamId = Team.Spectator,
+				Handle = handle,
+				IsLoadTestBot = true,
+				IsReplayGenerator = true
+			};
+			AddPlayerState(
+				new LobbySessionInfo
+				{
+					AccountId = playerId
+				},
+				lobbyServerPlayerInfo,
+				new List<LobbyServerPlayerInfo>(),
+				-1);
+			ServerPlayerState serverPlayerState = m_serverPlayerStates[playerId];
+			GameManager.Get().TeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(lobbyServerPlayerInfo, 0, new MatchmakingQueueConfig()));
+			m_replayRecorders[team] = new ReplayRecorder(serverPlayerState, suffix);
+		}
 	}
 
 	private void AddPlayerState(
@@ -1214,7 +1241,7 @@ public class ServerGameManager : MonoBehaviour
 						GameManager.EndGameNotification endGameNotification = new GameManager.EndGameNotification();
 
 						// custom
-						NetworkServer.SendToClient(connectionPersistent.connectionId, (short)MyMsgType.EndGameNotification, endGameNotification);
+						connectionPersistent.Send((short)MyMsgType.EndGameNotification, endGameNotification);
 						// rogues
 						//NetworkServer.SendToClient<GameManager.EndGameNotification>(connectionPersistent.connectionId, endGameNotification);
 					}
@@ -1254,7 +1281,7 @@ public class ServerGameManager : MonoBehaviour
 			}
 
 			// custom
-			NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
+			conn.Send((short)MyMsgType.LoginResponse, loginResponse);
 			// rogues
 			//NetworkServer.SendToClient<GameManager.LoginResponse>(conn.connectionId, loginResponse);
 			return;
@@ -1270,7 +1297,7 @@ public class ServerGameManager : MonoBehaviour
 			loginResponse.ErrorMessage = "Invalid reconnect request";
 
 			// custom
-			NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
+			conn.Send((short)MyMsgType.LoginResponse, loginResponse);
 			// rogues
 			//NetworkServer.SendToClient<GameManager.LoginResponse>(conn.connectionId, loginResponse);
 			return;
@@ -1295,7 +1322,7 @@ public class ServerGameManager : MonoBehaviour
 			loginResponse.ErrorMessage = string.Format("{0} is not a ServerExternalConnection", conn.GetType());
 
 			// custom
-			NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
+			conn.Send((short)MyMsgType.LoginResponse, loginResponse);
 			// rogues
 			//NetworkServer.SendToClient<GameManager.LoginResponse>(conn.connectionId, loginResponse);
 			return;
@@ -1312,7 +1339,7 @@ public class ServerGameManager : MonoBehaviour
 		loginResponse.Success = true;
 
 		// custom
-		NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.LoginResponse, loginResponse);
+		conn.Send((short)MyMsgType.LoginResponse, loginResponse);
 		// rogues
 		//NetworkServer.SendToClient<GameManager.LoginResponse>(conn.connectionId, loginResponse);
 
@@ -1441,7 +1468,7 @@ public class ServerGameManager : MonoBehaviour
 			if (serverPlayerState2.ConnectionPersistent != null && !serverPlayerState2.LocalClient)
 			{
 				// custom
-				NetworkServer.SendToClient(serverPlayerState2.ConnectionPersistent.connectionId, (short)MyMsgType.ServerAssetsLoadingProgressUpdate, loadingProgressInfo);
+				serverPlayerState2.ConnectionPersistent.Send((short)MyMsgType.ServerAssetsLoadingProgressUpdate, loadingProgressInfo);
 				// rogues
 				//NetworkServer.SendToClient<GameManager.AssetsLoadingProgress>(serverPlayerState2.ConnectionPersistent.connectionId, loadingProgressInfo);
 			}
@@ -1525,7 +1552,7 @@ public class ServerGameManager : MonoBehaviour
 		fakeActionResponse.msgData = new byte[fakeActionResponse.msgSize];
 
 		// custom
-		NetworkServer.SendToClient(conn.connectionId, (short)MyMsgType.ServerFakeActionResponse, fakeActionResponse);
+		conn.Send((short)MyMsgType.ServerFakeActionResponse, fakeActionResponse);
 		// rogues
 		//NetworkServer.SendToClient<GameManager.FakeActionResponse>(conn.connectionId, fakeActionResponse);
 	}
@@ -1699,7 +1726,7 @@ public class ServerGameManager : MonoBehaviour
 					if (serverPlayerState.ConnectionPersistent != null && !serverPlayerState.LocalClient)
 					{
 						// custom
-						NetworkServer.SendToClient(serverPlayerState.ConnectionPersistent.connectionId, (short)MyMsgType.ServerAssetsLoadingProgressUpdate, assetsLoadingProgress);
+						serverPlayerState.ConnectionPersistent.Send((short)MyMsgType.ServerAssetsLoadingProgressUpdate, assetsLoadingProgress);
 						// rogues
 						//NetworkServer.SendToClient<GameManager.AssetsLoadingProgress>(serverPlayerState.ConnectionPersistent.connectionId, assetsLoadingProgress);
 					}
@@ -1839,7 +1866,7 @@ public class ServerGameManager : MonoBehaviour
 			// {
 			// 	ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent, 0); // ClientScene.AddPlayer(serverPlayerState.ConnectionPersistent); in rogues
 			// }
-			GameFlow.Get().AddPlayer(serverPlayerState, serverPlayerState.SessionInfo.AccountId == ReplayRecorderAccountId);  // custom replay generator flag
+			GameFlow.Get().AddPlayer(serverPlayerState, serverPlayerState.SessionInfo.AccountId < 0);  // custom replay generator flag
 		}
 
 		// custom artemis
@@ -1885,7 +1912,7 @@ public class ServerGameManager : MonoBehaviour
 			     && serverPlayerState.ConnectionPersistent.connectionId > 0
 			     // TODO HACK
 			     // custom
-			     && serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId != ReplayRecorderAccountId
+			     && serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId > 0
 			     && !(GameManager.Get().GameStatus >= GameStatus.Loaded && serverPlayerState.GameResult > GameResult.Requeued))
 			     // end custom
 			    || serverPlayerState.LocalClient)
