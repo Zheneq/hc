@@ -932,7 +932,7 @@ public class ServerGameManager : MonoBehaviour
 	// custom
 	private void AddReplayGeneratorSpectator()
 	{
-		foreach (Team team in new[] { Team.Spectator })
+		foreach (Team team in new[] { Team.Spectator, Team.TeamA, Team.TeamB })
 		{
 			int playerId = GetReplayRecorderAccountId(team);
 			string suffix = team == Team.Spectator ? string.Empty : $"_{team}";

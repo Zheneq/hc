@@ -1562,8 +1562,18 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			Log.Error($"OnCheckObserver {m_typeObservingMe} {Actor?.m_displayName} by {playerState?.PlayerInfo.Handle} {player}");
 			return false;
 		}
-		bool isAlly = playerState.PlayerInfo.TeamId == ActorsTeam || playerState.PlayerInfo.TeamId == Team.Spectator;
-		return isAlly == (m_typeObservingMe == ObservedBy.Friendlies);
+
+		bool isForFriendlies = m_typeObservingMe == ObservedBy.Friendlies;
+		Team observingTeam = playerState.PlayerInfo.TeamId;
+
+		Team replayRecorderTeam = ServerGameManager.GetReplayRecorderTeam(player.m_accountId);
+		if (replayRecorderTeam != Team.Invalid)
+		{
+			observingTeam = replayRecorderTeam;
+		}
+		
+		bool isAlly = observingTeam == ActorsTeam || observingTeam == Team.Spectator;
+		return isAlly == isForFriendlies;
 	}
 #endif
 }
