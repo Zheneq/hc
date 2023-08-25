@@ -918,14 +918,14 @@ public class ServerGameManager : MonoBehaviour
 	// custom
 	public static int GetReplayRecorderAccountId(Team team)
 	{
-		return -1 - (int)team;
+		return -2 - (int)team;
 	}
 
 	// custom
 	public static Team GetReplayRecorderTeam(long id)
 	{
 		if (id > 0 || id < int.MinValue) return Team.Invalid;
-		int value = -1 - (int)id;
+		int value = -2 - (int)id;
 		return Enum.IsDefined(typeof(Team), value) ? (Team)value : Team.Invalid;
 	}
 

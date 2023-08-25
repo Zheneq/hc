@@ -18,6 +18,8 @@ public class ReplayRecorder
 
     private string Handle => m_recorderPlayerState.PlayerInfo.Handle;
 
+    public Replay Replay => conn.GetReplay();
+
     public ReplayRecorder(ServerPlayerState playerState, string suffix = "")
     {
         m_recorderPlayerState = playerState;
@@ -33,7 +35,7 @@ public class ReplayRecorder
         string json = GetReplayAsJson();
         new FileInfo(path).Directory?.Create();
         File.WriteAllText(path, json);
-        Log.Info($"Saved {conn.GetReplay().m_messages.Count} messages into {path}");
+        Log.Info($"Saved {Replay.m_messages.Count} messages into {path}");
     }
 
     public void SaveReplay()
@@ -47,7 +49,7 @@ public class ReplayRecorder
 
     public string GetReplayAsJson()
     {
-        return JsonUtility.ToJson(conn.GetReplay());
+        return JsonUtility.ToJson(Replay);
     }
 
     public void StopRecording()
@@ -55,7 +57,7 @@ public class ReplayRecorder
         conn?.StopRecordingReplay();
         try
         {
-            Optimize(conn?.GetReplay());
+            Replay.m_messages = Optimize(Replay.m_messages);
         }
         catch (Exception e)
         {
@@ -68,12 +70,12 @@ public class ReplayRecorder
         int playerId = m_recorderPlayerState.PlayerInfo.PlayerId;
         GameManager gameManager = GameManager.Get();
         LobbyTeamInfo teamInfo = gameManager.TeamInfo;
-        conn.GetReplay().m_gameInfo_Serialized = JsonUtility.ToJson(gameManager.GameInfo);
-        conn.GetReplay().m_gameplayOverrides_Serialized = JsonUtility.ToJson(gameManager.GameplayOverrides);
-        conn.GetReplay().m_teamInfo_Serialized = JsonUtility.ToJson(teamInfo);
-        conn.GetReplay().m_playerInfo_Index = teamInfo.TeamPlayerInfo.FindIndex(pi => pi.PlayerId == playerId);
-        conn.GetReplay().m_versionMini = BuildVersion.MiniVersionString;
-        conn.GetReplay().m_versionFull = BuildVersion.FullVersionString;
+        Replay.m_gameInfo_Serialized = JsonUtility.ToJson(gameManager.GameInfo);
+        Replay.m_gameplayOverrides_Serialized = JsonUtility.ToJson(gameManager.GameplayOverrides);
+        Replay.m_teamInfo_Serialized = JsonUtility.ToJson(teamInfo);
+        Replay.m_playerInfo_Index = teamInfo.TeamPlayerInfo.FindIndex(pi => pi.PlayerId == playerId);
+        Replay.m_versionMini = BuildVersion.MiniVersionString;
+        Replay.m_versionFull = BuildVersion.FullVersionString;
     }
 
     public void Connect()
@@ -103,7 +105,6 @@ public class ReplayRecorder
 
     private void HandleMessageFromServer(short msgType, MessageBase msg)
     {
-        Log.Info($"{Handle} received message type {msgType}");
         if (msgType == (short)MyMsgType.LoginResponse)
         {
             Log.Info($"{Handle} received login response");
@@ -131,20 +132,20 @@ public class ReplayRecorder
         PopulateReplayData();
     }
 
-    public static void Optimize(Replay replay, float threshold = 0.1f)
+    public static List<Replay.Message> Optimize(List<Replay.Message> replay, float threshold = 0.1f)
     {
         Log.Info("Optimizing replay...");
-        if (replay.m_messages.IsNullOrEmpty())
+        if (replay.IsNullOrEmpty())
         {
-            return;
+            return replay;
         }
 
         List<Replay.Message> result = new List<Replay.Message>();
         
-        List<Replay.Message> buffer = new List<Replay.Message> { replay.m_messages[0] };
-        for (int i = 1; i < replay.m_messages.Count; i++)
+        List<Replay.Message> buffer = new List<Replay.Message> { replay[0] };
+        for (int i = 1; i < replay.Count; i++)
         {
-            Replay.Message msg = replay.m_messages[i];
+            Replay.Message msg = replay[i];
             if (buffer[0].timestamp + threshold < msg.timestamp)
             {
                 result.Add(Merge(buffer));
@@ -156,8 +157,8 @@ public class ReplayRecorder
         
         result.Add(Merge(buffer));
 
-        Log.Info($"Optimized replay {replay.m_messages.Count} -> {result.Count}");
-        replay.m_messages = result;
+        Log.Info($"Optimized replay {replay.Count} -> {result.Count}");
+        return result;
     }
 
     private static Replay.Message Merge(List<Replay.Message> messages)
