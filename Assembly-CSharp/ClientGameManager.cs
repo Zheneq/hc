@@ -4111,43 +4111,31 @@ public class ClientGameManager : MonoBehaviour
 		{
 			return;
 		}
-		if (loginResponse.Success)
+		if (!loginResponse.Success)
 		{
-			m_withinReconnect = loginResponse.Reconnecting;
-			IsRegisteredToGameServer = true;
-			if (m_withinReconnectInstantly)
-			{
-				m_withinReconnectInstantly = false;
-				TextConsole.Get().Write(StringUtil.TR("LoggedIntoGame", "Disconnected"));
-				uint num = msg.conn.lastMessageOutgoingSeqNum - loginResponse.LastReceivedMsgSeqNum;
-				if (num > 0U)
-				{
-					uint startSeqNum = loginResponse.LastReceivedMsgSeqNum + 1U;
-					uint lastSentMsgSeqNum = m_lastSentMsgSeqNum;
-					IEnumerable<Replay.Message> rawNetworkMessages = m_replay.GetRawNetworkMessages(startSeqNum, lastSentMsgSeqNum);
-					IEnumerator<Replay.Message> enumerator = rawNetworkMessages.GetEnumerator();
-					try
-					{
-						while (enumerator.MoveNext())
-						{
-							Replay.Message message = enumerator.Current;
-							msg.conn.ResendBytes(message.data, message.data.Length, 0);
-						}
-					}
-					finally
-					{
-						if (enumerator != null)
-						{
-							enumerator.Dispose();
-						}
-					}
-				}
-			}
+			string text = $"Login request failed: {loginResponse.ErrorMessage}";
+			Log.Error(text);
+			AppState_GameTeardown.Get().Enter(GameResult.ClientLoginFailedToGameServer, text);
 			return;
 		}
-		string text = string.Format("Login request failed: {0}", loginResponse.ErrorMessage);
-		Log.Error(text);
-		AppState_GameTeardown.Get().Enter(GameResult.ClientLoginFailedToGameServer, text);
+		
+		m_withinReconnect = loginResponse.Reconnecting;
+		IsRegisteredToGameServer = true;
+		if (m_withinReconnectInstantly)
+		{
+			m_withinReconnectInstantly = false;
+			TextConsole.Get().Write(StringUtil.TR("LoggedIntoGame", "Disconnected"));
+			uint num = msg.conn.lastMessageOutgoingSeqNum - loginResponse.LastReceivedMsgSeqNum;
+			if (num > 0U)
+			{
+				uint startSeqNum = loginResponse.LastReceivedMsgSeqNum + 1U;
+				uint lastSentMsgSeqNum = m_lastSentMsgSeqNum;
+				foreach (Replay.Message message in m_replay.GetRawNetworkMessages(startSeqNum, lastSentMsgSeqNum))
+				{
+					msg.conn.ResendBytes(message.data, message.data.Length, 0);
+				}
+			}
+		}
 	}
 
 	public void DisableFrontEnd()
