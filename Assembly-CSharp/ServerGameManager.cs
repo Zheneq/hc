@@ -1386,7 +1386,7 @@ public class ServerGameManager : MonoBehaviour
 		}
 		
 		// custom
-		bool isGameLoaded = GameManager.Get().GameStatus >= GameStatus.Loaded;
+		bool isGameLoaded = GameManager.Get() != null && GameManager.Get().GameStatus >= GameStatus.Loaded;
 
 		// custom Artemis (ReconnectReplayStatus is not used in rogues at all
 		if (!playerState.IsAIControlled)
@@ -1439,7 +1439,7 @@ public class ServerGameManager : MonoBehaviour
 		Log.Warning("Not calling SendReconnectData...");
 		
 		// custom hack
-		if (isGameLoaded)
+		if (isGameLoaded && GameFlowData.Get() != null && !playerState.IsAIControlled)
 		{
 			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
 			{
