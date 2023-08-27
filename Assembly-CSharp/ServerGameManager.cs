@@ -244,17 +244,12 @@ public class ServerGameManager : MonoBehaviour
 						}
 						foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(serverPlayerState.PlayerInfo.PlayerId))
 						{
-							// fog of war fix
-							Log.Info($"Teleporting reconnected {actorData}");
-							actorData.TeleportToBoardSquare(
-								actorData.GetCurrentBoardSquare(),
-								actorData.transform.localRotation.eulerAngles,
-								ActorData.TeleportType.Failsafe,
-								null
-							);
-							// ability fix
-							// TODO RECONNECTION shouldn't be needed if we don't miss reconnected replay messages
-							actorData.GetActorTurnSM().CallRpcTurnMessage((int)TurnMessage.TURN_START, 0);
+							// TODO RECONNECTION probably we have messages in the replay saying that replay recorder has no authority
+							// authority fix
+							if (!NetworkServer.ReplacePlayerForConnection(serverPlayerState.ConnectionPersistent, actorData.gameObject, 0))
+							{
+								Log.Error("Failed to replace reconnecting player as a fix");
+							}
 						}
 						// rogues
 						// NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
@@ -1406,6 +1401,7 @@ public class ServerGameManager : MonoBehaviour
 		// custom Artemis (ReconnectReplayStatus is not used in rogues at all
 		if (!playerState.IsAIControlled)
 		{
+			Log.Info($"Entering reconnection replay state for {playerState}");
 			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
 		}
 		// end custom Artemis
@@ -1423,10 +1419,26 @@ public class ServerGameManager : MonoBehaviour
 		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
+		
+		// custom
+		// TODO LOW we send something on initial load?
+		if (!playerState.IsAIControlled && m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
+		{
+			List<Replay.Message> reconnectionData = replayRecorder.Replay.m_messages;
+			Log.Info($"Sending {reconnectionData.Count} messages as reconnect replay");
+			for (var i = 0; i < reconnectionData.Count; i++)
+			{
+				Replay.Message msg = reconnectionData[i];
+				// WARN sending ReconnectReplayStatus this way throws the client into infinite recursion of entering/leaving reconnection replay phase
+				// Just resending the messages seems to work fine too: playerState.ConnectionPersistent.SendBytes(msg.data, msg.data.Length, 0);
+				playerState.ConnectionPersistent.Send((short)MyMsgType.ObserverMessage, new GameManager.ObserverMessage { Message = msg });
+			}
+		}
 
 		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
 		if (!playerState.IsAIControlled)
 		{
+			Log.Info($"Exiting reconnection replay state for {playerState}");
 			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
 		}
 		// end custom Artemis

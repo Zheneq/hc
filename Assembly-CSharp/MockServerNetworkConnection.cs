@@ -9,13 +9,23 @@ public class MockServerNetworkConnection : NetworkConnection
     private bool isRecording;
     private readonly NetworkWriter writer = new NetworkWriter();
     private uint lastMessageOutgoingSeqNumStub;
+    private readonly Func<short, MessageBase, bool> OnServerToClientMessage = (_, __) => true;
     
-    public Action<short, MessageBase> OnServerToClientMessage = delegate {};
-
+    public MockServerNetworkConnection(Func<short, MessageBase, bool> onServerToClientMessage = null)
+    {
+        if (!(onServerToClientMessage is null))
+        {
+            OnServerToClientMessage = onServerToClientMessage;
+        }
+    }
+    
     public override bool Send(short msgType, MessageBase msg)
     {
-        OnServerToClientMessage?.Invoke(msgType, msg);
-        return base.Send(msgType, msg);
+        if (OnServerToClientMessage(msgType, msg))
+        {
+            return base.Send(msgType, msg);
+        }
+        return true;
     }
 
     public void SendMessageToServer(short msgType, MessageBase msg)

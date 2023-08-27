@@ -15,6 +15,7 @@ public class ReplayRecorder
     private MockServerNetworkConnection conn;
     private readonly DateTime m_time;
     private readonly string m_suffix;
+    private bool isInitialized = false;
 
     private string Handle => m_recorderPlayerState.PlayerInfo.Handle;
 
@@ -80,8 +81,7 @@ public class ReplayRecorder
 
     public void Connect()
     {
-        conn = new MockServerNetworkConnection();
-        conn.OnServerToClientMessage += HandleMessageFromServer;
+        conn = new MockServerNetworkConnection(HandleMessageFromServer);
         conn.connectionId = Math.Max(NetworkServer.connections.Count, 20);  // TODO REPLAYS hack to not get our connection id overwritten
         conn.hostId = 0;
         NetworkServer.AddExternalConnection(conn);
@@ -91,6 +91,13 @@ public class ReplayRecorder
     
     private void HandleConnected(NetworkMessage _)
     {
+        if (isInitialized)
+        {
+            // TODO RECONNECTION REPLAY figure out why it happens
+            Log.Warning($"{Handle} received repeated connection acknowledgement");
+            return;
+        }
+        isInitialized = true;
         Log.Info($"{Handle} connected as conn {conn.connectionId}");
         GameManager.LoginRequest loginRequest = new GameManager.LoginRequest
         {
@@ -103,13 +110,25 @@ public class ReplayRecorder
         conn.SendMessageToServer((int)MyMsgType.LoginRequest, loginRequest);
     }
 
-    private void HandleMessageFromServer(short msgType, MessageBase msg)
+    private bool HandleMessageFromServer(short msgType, MessageBase msg)
     {
         if (msgType == (short)MyMsgType.LoginResponse)
         {
             Log.Info($"{Handle} received login response");
             HandleLoginResponse((GameManager.LoginResponse)msg);
         }
+        else if (msgType == 12) // connection ready
+        {
+            StartRecording();
+        }
+        else if (msgType == 15 // set client authority true/false - irrelevant, might cause authority problems in reconnect replay
+                 || msgType == (short)MyMsgType.ReconnectReplayStatus) // throws client into infinite recursion if present in reconnect replay
+        {
+            // just in case
+            Log.Info($"{Handle} dropping msg type {msgType} ({DefaultJsonSerializer.Serialize(msg)})");
+            return false;
+        }
+        return true;
     }
 
     private void HandleLoginResponse(GameManager.LoginResponse loginResponse)
@@ -120,8 +139,8 @@ public class ReplayRecorder
             return;
         }
         Log.Info($"{Handle} successfully logged in to record replay");
-        conn.StartRecordingReplay();
-        Log.Info($"{Handle} recording replay");
+        
+        // Note: we used to start recording here
 
         GameManager.AssetsLoadedNotification notification = new GameManager.AssetsLoadedNotification()
         {
@@ -130,6 +149,12 @@ public class ReplayRecorder
         };
         conn.SendMessageToServer((int)MyMsgType.AssetsLoadedNotification, notification);
         PopulateReplayData();
+    }
+
+    public void StartRecording()
+    {
+        conn.StartRecordingReplay();
+        Log.Info($"{Handle} recording replay");
     }
 
     public static List<Replay.Message> Optimize(List<Replay.Message> replay, float threshold = 0.1f)
