@@ -237,27 +237,14 @@ public class ServerGameManager : MonoBehaviour
 						Log.Info("Allowing reconnecting player {0} ({1}) back in.", serverPlayerState.SessionInfo.Handle, serverPlayerState.SessionInfo.AccountId);
 						// custom
 						SetClientReady(serverPlayerState);
+						// rogues
+						// NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
 						if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
 						{
 							m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
 							SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
 						}
-						foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(serverPlayerState.PlayerInfo.PlayerId))
-						{
-							// TODO RECONNECTION probably we have messages in the replay saying that replay recorder has no authority
-							// authority fix
-							if (!NetworkServer.ReplacePlayerForConnection(serverPlayerState.ConnectionPersistent, actorData.gameObject, 0))
-							{
-								Log.Error("Failed to replace reconnecting player as a fix");
-							}
-						}
-						// rogues
-						// NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
-						// if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
-						// {
-						// 	m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
-						// 	SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
-						// }
+						// rogues -- happens in ServerGameManager#SetClientReady in reactor
 						// serverPlayerState.ConnectionReady = true;
 					}
 					catch (Exception ex)
@@ -1397,6 +1384,9 @@ public class ServerGameManager : MonoBehaviour
 			m_playersToReadyNextDecisionPhase.Add(playerState);
 			return;
 		}
+		
+		// custom
+		bool isGameLoaded = GameManager.Get().GameStatus >= GameStatus.Loaded;
 
 		// custom Artemis (ReconnectReplayStatus is not used in rogues at all
 		if (!playerState.IsAIControlled)
@@ -1421,8 +1411,9 @@ public class ServerGameManager : MonoBehaviour
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
 		
 		// custom
-		// TODO LOW we send something on initial load?
-		if (!playerState.IsAIControlled && m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
+		if (isGameLoaded
+		    && !playerState.IsAIControlled
+		    && m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
 		{
 			List<Replay.Message> reconnectionData = replayRecorder.Replay.m_messages;
 			Log.Info($"Sending {reconnectionData.Count} messages as reconnect replay");
@@ -1446,6 +1437,21 @@ public class ServerGameManager : MonoBehaviour
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
 		playerState.ConnectionReady = true;
 		Log.Warning("Not calling SendReconnectData...");
+		
+		// custom hack
+		if (isGameLoaded)
+		{
+			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
+			{
+				// TODO RECONNECTION probably we have messages in the replay saying that replay recorder has no authority
+				// authority fix
+				Log.Info($"Replacing reconnecting player {playerState.PlayerInfo.Handle} as a fix");
+				if (!NetworkServer.ReplacePlayerForConnection(playerState.ConnectionPersistent, actorData.gameObject, 0))
+				{
+					Log.Error("Failed to replace reconnecting player as a fix");
+				}
+			}
+		}
 	}
 
 	private void HandleClientAssetsLoadingProgressUpdate(NetworkConnection conn, GameManager.AssetsLoadingProgress loadingProgressInfo)
