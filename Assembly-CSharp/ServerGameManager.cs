@@ -1437,21 +1437,6 @@ public class ServerGameManager : MonoBehaviour
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
 		playerState.ConnectionReady = true;
 		Log.Warning("Not calling SendReconnectData...");
-		
-		// custom hack
-		if (isGameLoaded && GameFlowData.Get() != null && !playerState.IsAIControlled)
-		{
-			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
-			{
-				// TODO RECONNECTION probably we have messages in the replay saying that replay recorder has no authority
-				// authority fix
-				Log.Info($"Replacing reconnecting player {playerState.PlayerInfo.Handle} as a fix");
-				if (!NetworkServer.ReplacePlayerForConnection(playerState.ConnectionPersistent, actorData.gameObject, 0))
-				{
-					Log.Error("Failed to replace reconnecting player as a fix");
-				}
-			}
-		}
 	}
 
 	private void HandleClientAssetsLoadingProgressUpdate(NetworkConnection conn, GameManager.AssetsLoadingProgress loadingProgressInfo)

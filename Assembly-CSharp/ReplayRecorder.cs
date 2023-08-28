@@ -121,10 +121,10 @@ public class ReplayRecorder
         {
             StartRecording();
         }
-        else if (msgType == 15 // set client authority true/false - irrelevant, might cause authority problems in reconnect replay
-                 || msgType == (short)MyMsgType.ReconnectReplayStatus) // throws client into infinite recursion if present in reconnect replay
+        else if (msgType == 4 // owner message - no need to tell reconnecting players that they own spectator player (it converts them into actual spectators)
+                 || msgType == 15 // set client authority true/false - irrelevant, might cause authority problems in reconnect replay (just in case)
+                 || msgType == (short)MyMsgType.ReconnectReplayStatus) // throws client into infinite recursion if present in reconnect replay (just in case)
         {
-            // just in case
             Log.Info($"{Handle} dropping msg type {msgType} ({DefaultJsonSerializer.Serialize(msg)})");
             return false;
         }
