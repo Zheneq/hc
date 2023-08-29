@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 //using System.Linq;
 //using System.Runtime.InteropServices;
@@ -6499,6 +6500,14 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 #if SERVER
 	public void PingOnClient(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType, bool spam)
 	{
+		// custom log
+		Log.Info($"Ping {pingType} {Board.Get()?.GetSquareFromVec3(worldPosition)?.GetGridPos().ToString() ?? worldPosition.ToString()} "
+		         + $"{m_team} ({teamIndex}){(spam ? " SPAM" : "")} to "
+		         + string.Join(", ", GameFlowData.Get().GetActors()
+			         .Where(a => a.GetTeam() == m_team)
+			         .Select(a => $"{a.m_displayName} {a.GetTravelBoardSquare()?.GetGridPos()}")
+			         .ToArray()));
+		
 		if (m_teamSensitiveData_friendly != null)
 		{
 			m_teamSensitiveData_friendly.CallRpcReceivedPingInfo(teamIndex, worldPosition, pingType, spam);
