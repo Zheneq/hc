@@ -8,6 +8,11 @@ using UnityEngine.Networking;
 // Note: heavily revorked in rogues
 public class ActorController : NetworkBehaviour
 {
+#if SERVER
+	private const float c_pingSpamCooldown = 15f; // 10f in rogues
+	private const int c_pingSpamCount = 4;
+#endif
+	
 	public enum PingType
 	{
 		Default,
@@ -43,7 +48,7 @@ public class ActorController : NetworkBehaviour
 
 	// added in rogues
 #if SERVER
-	private float[] m_lastPings = new float[5];
+	private float[] m_lastPings = new float[c_pingSpamCount];
 #endif
 
 	// removed in rogues
@@ -182,7 +187,7 @@ public class ActorController : NetworkBehaviour
 		int num = -1;
 		for (int i = 0; i < m_lastPings.Length; i++)
 		{
-			if (m_lastPings[i] + 10f < Time.time)
+			if (m_lastPings[i] + c_pingSpamCooldown < Time.time)
 			{
 				num = i;
 				break;
@@ -209,7 +214,7 @@ public class ActorController : NetworkBehaviour
 		int num = -1;
 		for (int i = 0; i < m_lastPings.Length; i++)
 		{
-			if (m_lastPings[i] + 10f < Time.time)
+			if (m_lastPings[i] + c_pingSpamCooldown < Time.time)
 			{
 				num = i;
 				break;
