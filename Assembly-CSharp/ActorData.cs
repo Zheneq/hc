@@ -6501,7 +6501,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public void PingOnClient(int teamIndex, Vector3 worldPosition, ActorController.PingType pingType, bool spam)
 	{
 		// custom log
-		Log.Info($"Ping {pingType} {Board.Get()?.GetSquareFromVec3(worldPosition)?.GetGridPos().ToString() ?? worldPosition.ToString()} "
+		Log.Info($"Ping {m_displayName} {pingType} {Board.Get()?.GetSquareFromVec3(worldPosition)?.GetGridPos().ToString() ?? worldPosition.ToString()} "
 		         + $"{m_team} ({teamIndex}){(spam ? " SPAM" : "")} to "
 		         + string.Join(", ", GameFlowData.Get().GetActors()
 			         .Where(a => a.GetTeam() == m_team)
