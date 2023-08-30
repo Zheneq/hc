@@ -3379,131 +3379,55 @@ public class ClientGameManager : MonoBehaviour
 	private void HandleGameAssignmentNotification(GameAssignmentNotification notification)
 	{
 		GameManager gameManager = GameManager.Get();
-		LobbyGameInfo gameInfo = gameManager.GameInfo;
-		LobbyGameInfo gameInfo2 = notification.GameInfo;
+		LobbyGameInfo oldGameInfo = gameManager.GameInfo;
+		LobbyGameInfo newGameInfo = notification.GameInfo;
 		LobbyGameplayOverrides gameplayOverrides = notification.GameplayOverrides;
 		m_gameResult = notification.GameResult;
 		m_reconnected = notification.Reconnection;
 		m_observer = notification.Observer;
-		string text;
-		if (gameInfo2 != null)
+		bool assigned = oldGameInfo != null && !oldGameInfo.GameServerProcessCode.IsNullOrEmpty();
+		bool assigning = newGameInfo != null && !newGameInfo.GameServerProcessCode.IsNullOrEmpty();
+		bool reassigning = assigned && assigning && newGameInfo.GameServerProcessCode != oldGameInfo.GameServerProcessCode;
+		Log.Info("Received Game Assignment Notification {0} (assigned={1} assigning={2} reassigning={3}){4}",
+			newGameInfo != null ? newGameInfo.Name : string.Empty,
+			assigned,
+			assigning,
+			reassigning,
+			notification.Reconnection ? " (reconnected)" : string.Empty);
+		if (assigned && (!assigning || reassigning))
 		{
-			text = gameInfo2.Name;
-		}
-		else
-		{
-			text = string.Empty;
-		}
-		string text2 = text;
-		bool flag;
-		if (gameInfo != null)
-		{
-			flag = !gameInfo.GameServerProcessCode.IsNullOrEmpty();
-		}
-		else
-		{
-			flag = false;
-		}
-		bool flag2 = flag;
-		bool flag3 = gameInfo2 != null && !gameInfo2.GameServerProcessCode.IsNullOrEmpty();
-		bool flag4;
-		if (flag2)
-		{
-			if (flag3)
-			{
-				flag4 = (gameInfo2.GameServerProcessCode != gameInfo.GameServerProcessCode);
-				goto IL_D2;
-			}
-		}
-		flag4 = false;
-		IL_D2:
-		bool flag5 = flag4;
-		string message = "Received Game Assignment Notification {0} (assigned={1} assigning={2} reassigning={3}){4}";
-		object[] array = new object[5];
-		array[0] = text2;
-		array[1] = flag2;
-		array[2] = flag3;
-		array[3] = flag5;
-		int num = 4;
-		object obj;
-		if (notification.Reconnection)
-		{
-			obj = " (reconnected)";
-		}
-		else
-		{
-			obj = string.Empty;
-		}
-		array[num] = obj;
-		Log.Info(message, array);
-		if (flag2)
-		{
-			if (flag3)
-			{
-				if (!flag5)
-				{
-					goto IL_16F;
-				}
-			}
 			Log.Info("Unassigned from game {0}", gameManager.GameInfo.Name);
 			gameManager.SetGameplayOverridesForCurrentGame(null);
 		}
-		IL_16F:
-		if (!flag2)
+		if ((!assigned && assigning) || reassigning)
 		{
-			if (flag3)
-			{
-				goto IL_199;
-			}
+			Log.Info("Assigned to game {0}", newGameInfo.Name);
+			gameManager.SetGameplayOverridesForCurrentGame(gameplayOverrides);
 		}
-		if (!flag5)
-		{
-			goto IL_1B9;
-		}
-		IL_199:
-		Log.Info("Assigned to game {0}", gameInfo2.Name);
-		gameManager.SetGameplayOverridesForCurrentGame(gameplayOverrides);
-		IL_1B9:
+
 		if (!IsServer())
 		{
 			if (notification.PlayerInfo != null)
 			{
 				gameManager.SetPlayerInfo(notification.PlayerInfo);
 			}
-			if (gameInfo2 != null)
+			if (newGameInfo != null)
 			{
 				GameStatus gameStatus = gameManager.GameStatus;
-				gameManager.SetGameInfo(gameInfo2);
-				if (gameInfo2.GameStatus.IsActiveStatus())
+				gameManager.SetGameInfo(newGameInfo);
+				if (newGameInfo.GameStatus.IsActiveStatus())
 				{
-					IEnumerator<GameStatus> enumerator = gameInfo2.GameStatus.GetValues().GetEnumerator();
-					try
+					foreach (GameStatus gameStatus2 in newGameInfo.GameStatus.GetValues())
 					{
-						while (enumerator.MoveNext())
+						if (gameStatus2.IsActiveStatus()
+						    && newGameInfo.GameStatus > gameStatus2
+						    && (!gameStatus.IsActiveStatus() || newGameInfo.GameStatus > gameStatus))
 						{
-							GameStatus gameStatus2 = enumerator.Current;
-							if (gameStatus2.IsActiveStatus() && gameInfo2.GameStatus > gameStatus2)
-							{
-								if (gameStatus.IsActiveStatus())
-								{
-									if (gameInfo2.GameStatus <= gameStatus)
-									{
-										continue;
-									}
-								}
-								SetGameStatus(gameStatus2);
-							}
-						}
-					}
-					finally
-					{
-						if (enumerator != null)
-						{
-							enumerator.Dispose();
+							SetGameStatus(gameStatus2);
 						}
 					}
 				}
-				SetGameStatus(gameInfo2.GameStatus, m_gameResult);
+				SetGameStatus(newGameInfo.GameStatus, m_gameResult);
 			}
 			else
 			{
@@ -3530,92 +3454,43 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (m_gameResult == GameResult.Requeued)
 		{
+			// TODO LOW CLIENT missing code?
 		}
 		if (DiscordClientInterface.IsEnabled)
 		{
-			if (!DiscordClientInterface.IsSdkEnabled)
+			if (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled)
 			{
-				if (!DiscordClientInterface.IsInstalled)
+				if ((assigned || !assigning) && !reassigning)
 				{
-					goto IL_53D;
-				}
-			}
-			if (!flag2)
-			{
-				if (flag3)
-				{
-					goto IL_3E7;
-				}
-			}
-			if (flag5)
-			{
-			}
-			else
-			{
-				if (!flag2)
-				{
-					goto IL_53D;
-				}
-				if (flag3)
-				{
-					if (!flag5)
+					if (assigned && (!assigning || reassigning) 
+					    && !(GroupInfo.InAGroup 
+					         && (m_discordConnecting || m_discordConnected)
+					         && GetDiscordJoinType() == DiscordJoinType.Group))
 					{
-						goto IL_53D;
+						LeaveDiscord();
 					}
 				}
-				bool flag6;
-				if (GroupInfo.InAGroup)
+				else
 				{
-					if (!m_discordConnecting)
+					if (newGameInfo != null
+					    && newGameInfo.GameConfig != null
+					    && newGameInfo.GameConfig.GameType != GameType.Practice
+					    && newGameInfo.GameConfig.GameType != GameType.Tutorial
+					    && newGameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 					{
-						if (!m_discordConnected)
-						{
-							goto IL_530;
-						}
-					}
-					flag6 = (GetDiscordJoinType() == DiscordJoinType.Group);
-					goto IL_531;
-				}
-				IL_530:
-				flag6 = false;
-				IL_531:
-				if (!flag6)
-				{
-					LeaveDiscord();
-				}
-				goto IL_53D;
-			}
-			IL_3E7:
-			if (gameInfo2 != null && gameInfo2.GameConfig != null && gameInfo2.GameConfig.GameType != GameType.Practice)
-			{
-				if (gameInfo2.GameConfig.GameType != GameType.Tutorial)
-				{
-					if (gameInfo2.GameConfig.GameType != GameType.NewPlayerSolo)
-					{
-						bool flag7;
-						if (Options_UI.Get() != null)
-						{
-							flag7 = Options_UI.Get().GetEnableAutoJoinDiscord();
-						}
-						else
-						{
-							flag7 = false;
-						}
-						bool flag8 = flag7;
-						if (flag8)
+						if (Options_UI.Get() != null && Options_UI.Get().GetEnableAutoJoinDiscord())
 						{
 							JoinDiscord();
 						}
 						else if (!DiscordClientInterface.IsSdkEnabled)
 						{
-							string text3 = string.Format(StringUtil.TR("ClickToJoinDiscordTeamChat", "Global"));
-							TextConsole.Get().Write(text3);
+							TextConsole.Get().Write(string.Format(StringUtil.TR("ClickToJoinDiscordTeamChat", "Global")));
 						}
 					}
 				}
+
 			}
 		}
-		IL_53D:
 		OnGameAssignmentNotificationHolder(notification);
 	}
 
