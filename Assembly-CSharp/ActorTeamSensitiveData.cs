@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
+using System.Linq;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -1556,15 +1557,26 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	public override bool OnCheckObserver(NetworkConnection conn)
 	{
 		Player player = GameFlow.Get().GetPlayerFromConnectionId(conn.connectionId);
-		ServerPlayerState playerState = ServerGameManager.Get().GetPlayerStateByConnectionId(conn.connectionId);
-		if (playerState == null || Actor == null)
+		GameFlow.Get().playerDetails.TryGetValue(player, out PlayerDetails details);
+		if (details == null || Actor == null)
 		{
-			Log.Error($"OnCheckObserver {m_typeObservingMe} {Actor?.m_displayName} by {playerState?.PlayerInfo.Handle} {player}");
+			Log.Error($"OnCheckObserver {m_typeObservingMe} {Actor?.m_displayName} by {details?.m_handle} {details?.m_accountId} {player}");
 			return false;
 		}
-
+		
 		bool isForFriendlies = m_typeObservingMe == ObservedBy.Friendlies;
-		Team observingTeam = playerState.PlayerInfo.TeamId;
+
+		HashSet<Team> observingTeams = new HashSet<Team>(details.AllServerPlayerInfos.Select(spi => spi.TeamId));
+		if (observingTeams.IsNullOrEmpty())
+		{
+			return false;
+		}
+		if (observingTeams.Contains(Team.TeamA) && observingTeams.Contains(Team.TeamB))
+		{
+			return isForFriendlies;
+		}
+
+		Team observingTeam = observingTeams.First();
 
 		Team replayRecorderTeam = ServerGameManager.GetReplayRecorderTeam(player.m_accountId);
 		if (replayRecorderTeam != Team.Invalid)

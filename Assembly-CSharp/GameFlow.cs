@@ -496,6 +496,15 @@ public class GameFlow : NetworkBehaviour
 #if SERVER
 	private void HandleUpdateSpawningPlayers()
 	{
+		// custom - wait for replication
+		// Otherwise, actor datas spawn on client before players are replicated,
+		// and nobody knows which proxy characters they are supposed to control.
+		if (syncVarDirtyBits != 0)
+		{
+			return;
+		}
+		// end custom
+		
 		this.SpawnNextPlayer(out bool flag);
 		if (!flag && this.m_spawningActors.Count == 0)
 		{
@@ -1254,7 +1263,12 @@ public class GameFlow : NetworkBehaviour
 						}
 						else
 						{
-							NetworkServer.SpawnWithClientAuthority(character, networkConnection2);
+							// custom
+							short id = (short)(playerDetails.m_serverPlayerInfo.ProxyPlayerInfos.IndexOf(playerInfo) + 1);
+							NetworkServer.AddPlayerForConnection(networkConnection2, character, id);
+							Log.Info($"Setting {character.GetComponent<ActorData>().m_characterType} to pc {id}");
+							// rogues
+							// NetworkServer.SpawnWithClientAuthority(character, networkConnection2);
 						}
 					}
 					else
