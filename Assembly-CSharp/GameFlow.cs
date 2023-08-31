@@ -950,8 +950,10 @@ public class GameFlow : NetworkBehaviour
 						actorData.HasBotController = false;
 						int length = value.m_handle.LastIndexOf('#');
 						actorData.m_displayName = value.m_handle.Substring(0, length);
+						// custom
+						actorData.SetupAbilityModOnReconnect();
 						// rogues
-						//component.SetupAbilityGear();
+						//actorData.SetupAbilityGear();
 					}
 				}
 				break;
