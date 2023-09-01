@@ -1546,6 +1546,7 @@ public class ActorTurnSM : NetworkBehaviour
 		// empty in reactor
 #if SERVER
 		GetComponent<ServerActorController>().ProcessChaseRequest(selectedSquareX, selectedSquareY);
+		ServerActionBuffer.Get().MarkAction();
 #endif
 	}
 
@@ -1640,6 +1641,7 @@ public class ActorTurnSM : NetworkBehaviour
 		// empty in reactor
 #if SERVER
 		GetComponent<ServerActorController>().ProcessSetSquareRequest(x, y, setWaypoint);  // , forceDelayExecution in rogues
+		ServerActionBuffer.Get().MarkAction(); // custom
 #endif
 	}
 

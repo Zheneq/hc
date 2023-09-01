@@ -55,6 +55,15 @@ public class ServerActionBuffer : NetworkBehaviour
 	public static bool c_clientOnlySequences = true;
 
 	private const string c_actionLogSearchMarker = "{act} ";
+	
+	
+	// custom
+	public int LastTurnWithActions { get; private set; }
+
+	public void MarkAction()
+	{
+		LastTurnWithActions = GameFlowData.Get().CurrentTurn;
+	}
 
 	public static ServerActionBuffer Get()
 	{

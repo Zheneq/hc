@@ -564,6 +564,7 @@ public class ActorController : NetworkBehaviour
 		//}
 		GetComponent<AbilityData>().SelectAbilityFromActionType((AbilityData.ActionType)actionTypeInt);
 		GetComponent<ServerActorController>().ProcessSelectAbilityRequest();
+		ServerActionBuffer.Get().MarkAction(); // custom
 	}
 
 	public void SendQueueSimpleActionRequest(AbilityData.ActionType actionType)
@@ -591,6 +592,7 @@ public class ActorController : NetworkBehaviour
 	{
 #if SERVER
 		GetComponent<ServerActorController>().ProcessQueueSimpleActionRequest((AbilityData.ActionType)actionTypeInt, false);
+		ServerActionBuffer.Get().MarkAction(); // custom
 #endif
 	}
 

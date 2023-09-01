@@ -15,6 +15,8 @@ public class ObjectivePoints : NetworkBehaviour
 		InMatch,
 		MatchEnd
 	}
+	
+	private const int c_MaxIdleTurns = 5; // custom
 
 	[HideInInspector]
 	public bool m_skipEndOfGameCheck;
@@ -674,7 +676,15 @@ public class ObjectivePoints : NetworkBehaviour
 			Log.Info($"CheckForEndOfGame turn {GameFlowData.Get().CurrentTurn}/{m_timeLimitTurns}" + (isOvertime ? "[overtime]" : "") + ", " +
 			         $"teamAPoints {teamAPoints}, teamBPoints {teamBPoints}, hasTeamAWon {hasTeamAWon}, hasTeamBWon {hasTeamBWon}");
 			bool isGameOver;
-			if (hasTeamAWon && hasTeamBWon || !hasTeamAWon && !hasTeamBWon && m_timeLimitTurns > 0)
+			// custom
+			if (ServerActionBuffer.Get().LastTurnWithActions + c_MaxIdleTurns <= GameFlowData.Get().CurrentTurn)
+			{
+				isGameOver = true;
+				Networkm_gameResult = GameResult.TieGame;
+				Log.Info($"Tie because: no actions in {c_MaxIdleTurns} turns");
+			}
+			// end custom
+			else if (hasTeamAWon && hasTeamBWon || !hasTeamAWon && !hasTeamBWon && m_timeLimitTurns > 0)
 			{
 				if (m_allowTies)
 				{
