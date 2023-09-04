@@ -5,13 +5,16 @@ using UnityEngine.Networking;
 
 public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 {
-    [Header("Return disc animation")] public int m_animIndexForStartOfDiscReturn;
+    [Header("Return disc animation")]
+    public int m_animIndexForStartOfDiscReturn;
     public int m_animIndexForPoweredUpDiscReturn;
-    [Header("Return disc targeting")] public float m_discReturnTripLaserWidthInSquares = 1f;
+    [Header("Return disc targeting")]
+    public float m_discReturnTripLaserWidthInSquares = 1f;
     public float m_discReturnTripAoeRadiusAtlaserStart = 1f;
     public bool m_showTargetedGlowOnActorsInReturnDiscPath = true;
     public const int c_maxDiscLaserTemplates = 10;
-    [Header("Indicator Colors")] public Color m_allyDiscIndicatorColor = Color.blue;
+    [Header("Indicator Colors")]
+    public Color m_allyDiscIndicatorColor = Color.blue;
     public Color m_enemyDiscIndicatorColor = Color.red;
     public Color m_enlargedDiscEndpointColor = Color.blue;
     public Color m_returnDiscLineColor = Color.white;
@@ -22,11 +25,16 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
     private float m_timeToWaitForValidationRequest;
     private const float c_waitDurationForValidation = 0.3f;
 
-    [SyncVar] internal int m_homingActorIndex = -1;
-    [SyncVar] internal bool m_superDiscActive;
-    [SyncVar] internal int m_superDiscBoardX;
-    [SyncVar] internal int m_superDiscBoardY;
-    [SyncVar] internal int m_numUltConsecUsedTurns;
+    [SyncVar]
+    internal int m_homingActorIndex = -1;
+    [SyncVar]
+    internal bool m_superDiscActive;
+    [SyncVar]
+    internal int m_superDiscBoardX;
+    [SyncVar]
+    internal int m_superDiscBoardY;
+    [SyncVar]
+    internal int m_numUltConsecUsedTurns;
     internal int m_clientLastDiscBuffTurn = -1;
     internal BoardSquare m_clientDiscBuffTargetSquare;
 
