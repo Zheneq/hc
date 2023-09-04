@@ -318,4 +318,50 @@ public class ClericRangedHeal : Ability
 		results.m_healing = CalcFinalHealOnActor(targetActor, ActorData, targeter.m_lastCenterActor);
 		return true;
 	}
+
+	//custom
+    public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        return new ServerClientUtils.SequenceStartData(
+            m_sequencePrefab,
+            caster.GetCurrentBoardSquare(),
+            additionalData.m_abilityResults.HitActorsArray(),
+            caster,
+            additionalData.m_sequenceSource);
+    }
+
+    public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+    {
+		ActorData targetedActor = targets[0].GetCurrentBestActorTarget();
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		
+		// If not targeting caster, heal target
+		if (targetedActor != caster)
+		{
+            ActorHitParameters hitParamsTarget = new ActorHitParameters(targetedActor, targetedActor.GetFreePos());
+            ActorHitResults hitResultsTarget = new ActorHitResults(hitParamsTarget);
+            hitResultsTarget.SetBaseHealing(CalcFinalHealOnActor(targetedActor, caster, targetedActor));
+			hitResultsTarget.AddStandardEffectInfo(GetTargetHitEffect());
+            abilityResults.StoreActorHit(hitResultsTarget);
+        }
+
+		// heal caster
+        ActorHitParameters hitParams = new ActorHitParameters(caster, caster.GetFreePos());
+        ActorHitResults hitResults = new ActorHitResults(hitParams);
+        hitResults.SetBaseHealing(CalcFinalHealOnActor(caster, caster, targetedActor));
+		hitResults.AddStandardEffectInfo(GetEffectOnSelf());
+        abilityResults.StoreActorHit(hitResults);
+
+		// Apply effects on enemies
+		List<ActorData> actorsInRadius = AreaEffectUtils.GetActorsInRadius(caster.GetFreePos(), GetEnemyDebuffRadiusAroundTarget(), m_enemyDebuffRadiusIgnoreLoS, caster, caster.GetEnemyTeam(), nonActorTargetInfo);
+		foreach (ActorData actorData in actorsInRadius)
+		{
+            ActorHitParameters hitParamsDebuff = new ActorHitParameters(actorData, caster.GetFreePos());
+            ActorHitResults hitResultsDebuff = new ActorHitResults(hitParamsDebuff);
+            hitResultsDebuff.AddStandardEffectInfo(GetEnemyDebuffInRadiusEffect());
+            abilityResults.StoreActorHit(hitResultsDebuff);
+        }
+
+		abilityResults.StoreNonActorTargetInfo(new List<NonActorTargetInfo>());
+    }
 }

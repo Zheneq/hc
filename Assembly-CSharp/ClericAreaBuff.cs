@@ -353,21 +353,20 @@ public class ClericAreaBuff : Ability
 	{
 		if (ActorData.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
 		{
-			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetShape(), ActorData.GetFreePos(), ActorData.GetCurrentBoardSquare());
-			return AreaEffectUtils.GetActorsInShape(
-					GetShape(),
-					centerOfShape,
-					ActorData.GetCurrentBoardSquare(),
-					PenetrateLoS(),
-					ActorData,
-					ActorData.GetTeam(),
-					null)
-				.Contains(targetActor);
+			// custom / moved to GetActorsInShape
+			return GetActorsInShape().Contains(targetActor);
 		}
 		return false;
 	}
 
-	public override bool UseCustomAbilityIconColor()
+	// custom / taken from IsActorInBuffShape
+	private List<ActorData> GetActorsInShape()
+	{
+        Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetShape(), ActorData.GetFreePos(), ActorData.GetCurrentBoardSquare());
+		return AreaEffectUtils.GetActorsInShape(GetShape(), centerOfShape, ActorData.GetCurrentBoardSquare(), PenetrateLoS(), ActorData, ActorData.GetTeam(), null);
+    }
+
+    public override bool UseCustomAbilityIconColor()
 	{
 		return m_syncComp != null && m_syncComp.m_turnsAreaBuffActive > 0;
 	}
@@ -407,4 +406,40 @@ public class ClericAreaBuff : Ability
 		}
 		return base.GetModdedCost() + cost;
 	}
+
+    // custom
+    public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        return new ServerClientUtils.SequenceStartData(
+            m_sequencePrefab,
+            caster.GetCurrentBoardSquare(),
+            additionalData.m_abilityResults.HitActorsArray(),
+            caster,
+            additionalData.m_sequenceSource);
+    }
+
+    //custom
+    public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+    {
+        List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget target = targets[0];
+
+		List<ActorData> actorsInShape = GetActorsInShape();
+		foreach (ActorData actor in actorsInShape)
+		{
+			int shieldAmount = CalculateShieldAmount(actor);
+			
+			ActorHitParameters hitParams = new ActorHitParameters(actor, caster.GetFreePos());
+			ActorHitResults hitResults = new ActorHitResults(hitParams);
+			StandardEffectInfo effectToAply = actor == caster ? GetEffectOnCaster().GetShallowCopy() : GetEffectOnAllies().GetShallowCopy();
+			effectToAply.m_effectData.m_absorbAmount = shieldAmount;
+			hitResults.AddStandardEffectInfo(effectToAply);
+			abilityResults.StoreActorHit(hitResults);
+		}
+
+        abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+    }
 }

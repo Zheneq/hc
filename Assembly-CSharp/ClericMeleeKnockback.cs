@@ -266,4 +266,74 @@ public class ClericMeleeKnockback : Ability
 		return potentialActor != null
 		       && IsSquareInLosForCone(potentialActor.GetCurrentBoardSquare(), centerPos, targetingActor);
 	}
+
+    // custom
+    private List<ActorData> GetHitActorsLaser(
+        ActorData caster,
+        Vector3 targetPos,
+        Vector3 aimDirection,
+        List<NonActorTargetInfo> nonActorTargetInfo,
+        out VectorUtils.LaserCoords adjustedCoords)
+    {
+		float distance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPos) - GetAoeRadius();
+        
+        adjustedCoords = default(VectorUtils.LaserCoords);
+        adjustedCoords.start = caster.GetLoSCheckPos();
+        List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+            adjustedCoords.start,
+            aimDirection,
+            distance,
+            GetConnectLaserWidth(),
+            caster,
+            caster.GetOtherTeams(),
+            PenetrateLineOfSight(),
+            GetMaxTargets(),
+            false,
+            true,
+            out adjustedCoords.end,
+            nonActorTargetInfo);
+        return actorsInLaser;
+    }
+
+    // custom
+    public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        return new ServerClientUtils.SequenceStartData(
+            m_sequencePrefab,
+			caster.GetCurrentBoardSquare(),
+            additionalData.m_abilityResults.HitActorsArray(),
+            caster,
+            additionalData.m_sequenceSource);
+    }
+
+    // custom
+    public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+    {
+		// Get enemies in AoE
+        List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+        List<ActorData> actorsInAoE = AreaEffectUtils.GetActorsInRadius(targets[0].FreePos, GetAoeRadius(), false, caster, caster.GetEnemyTeam(), nonActorTargetInfo, true, caster.GetLoSCheckPos());
+
+        foreach (ActorData target in actorsInAoE)
+        {
+            ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+            ActorHitResults hitResults = new ActorHitResults(GetDamageAmount(), HitActionType.Damage, GetTargetHitEffect(), hitParams);
+            abilityResults.StoreActorHit(hitResults);
+        }
+
+		// Get enemies in Laser
+        Vector3 aimDirection = targets[0].AimDirection;
+        List<ActorData> actorsInLaser = GetHitActorsLaser(caster, targets[0].FreePos, aimDirection, nonActorTargetInfo, out var adjustedCoords);
+
+		foreach (ActorData target in actorsInLaser)
+		{
+            ActorHitParameters hitParams = new ActorHitParameters(target, caster.GetFreePos());
+            ActorHitResults hitResults = new ActorHitResults(GetConnectLaserDamage(), HitActionType.Damage, GetConnectLaserEnemyHitEffect(), hitParams);
+            abilityResults.StoreActorHit(hitResults);
+        }
+
+        abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+    }
 }

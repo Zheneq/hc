@@ -228,4 +228,53 @@ public class ClericHammerThrow : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+
+    // custom
+    public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        return new ServerClientUtils.SequenceStartData(
+            m_sequencePrefab,
+            caster.GetCurrentBoardSquare(),
+            additionalData.m_abilityResults.HitActorsArray(),
+            caster,
+            additionalData.m_sequenceSource);
+    }
+
+	// custom
+    public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+    {
+		AbilityTarget target = targets[0];
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+
+		// Inner
+		List<ActorData> actorsInInnerRadius = AreaEffectUtils.GetActorsInRadius(target.FreePos, GetInnerRadius(), IgnoreLos(), caster, caster.GetEnemyTeam(), nonActorTargetInfo);
+		foreach (ActorData targetActor in actorsInInnerRadius)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(targetActor, target.FreePos);
+			ActorHitResults hitResults = new ActorHitResults(GetInnerHitDamage(), HitActionType.Damage, GetInnerEnemyHitEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+
+        // Outer
+
+		// check for effect on no inner hits
+        StandardEffectInfo effectToApply = GetOuterEnemyHitEffect();
+		if (actorsInInnerRadius.Count == 0)
+		{
+            effectToApply = GetOuterEnemyHitEffectWithNoInnerHits();
+        }
+		
+        List <ActorData> actorsInOuterRadius = AreaEffectUtils.GetActorsInRadius(target.FreePos, GetOuterRadius(), IgnoreLos(), caster, caster.GetEnemyTeam(), nonActorTargetInfo);
+        foreach (ActorData targetActor in actorsInOuterRadius)
+        {
+            ActorHitParameters hitParams = new ActorHitParameters(targetActor, target.FreePos);
+            ActorHitResults hitResults = new ActorHitResults(GetOuterHitDamage(), HitActionType.Damage, effectToApply, hitParams);
+            abilityResults.StoreActorHit(hitResults);
+        }
+
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+    }
 }

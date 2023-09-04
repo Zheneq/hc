@@ -218,4 +218,40 @@ public class ClericBasicAttack : Ability
 			? GetExtraTechPointGainInAreaBuff() * Targeter.GetNumActorsInRange()
 			: base.GetAdditionalTechPointGainForNameplateItem(caster, currentTargeterIndex);
 	}
+
+    // custom
+    public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        return new ServerClientUtils.SequenceStartData(
+            m_sequencePrefab,
+            caster.GetCurrentBoardSquare(),
+            additionalData.m_abilityResults.HitActorsArray(),
+            caster,
+            additionalData.m_sequenceSource);
+    }
+
+    // custom
+    public override void GatherAbilityResults(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ref AbilityResults abilityResults)
+    {
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Vector3 aimDirection = targets[0].AimDirection;
+
+        Vector3 loSCheckPos = caster.GetLoSCheckPos();
+        float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(aimDirection);
+        List<ActorData> actorsInCone = AreaEffectUtils.GetActorsInCone(loSCheckPos,coneCenterAngleDegrees,GetConeAngle(),GetConeLength(),m_coneBackwardOffset,m_penetrateLineOfSight,caster,caster.GetOtherTeams(),nonActorTargetInfo);
+		foreach(ActorData actor in actorsInCone)
+		{
+			ActorHitParameters hitParams = new ActorHitParameters(actor, caster.GetLoSCheckPos());
+			ActorHitResults hitResults = new ActorHitResults(GetDamageAmount(), HitActionType.Damage, GetTargetHitEffect(), hitParams);
+			abilityResults.StoreActorHit(hitResults);
+		}
+
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+    }
 }
