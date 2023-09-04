@@ -3,7 +3,6 @@ using LobbyGameClientMessages;
 public class AppState_JoinGame : AppState
 {
 	private static AppState_JoinGame s_instance;
-
 	private static bool s_joinPending;
 
 	public static AppState_JoinGame Get()
@@ -54,68 +53,46 @@ public class AppState_JoinGame : AppState
 		{
 			return;
 		}
-		if (!ClientGameManager.Get().IsCharacterAvailable(ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter, gameInfo.GameConfig.GameType))
+		if (!ClientGameManager.Get().IsCharacterAvailable(
+			    ClientGameManager.Get().GetPlayerAccountData().AccountComponent.LastCharacter,
+			    gameInfo.GameConfig.GameType))
 		{
-			CharacterResourceLink[] characterResourceLinks = GameWideData.Get().m_characterResourceLinks;
-			int num = 0;
-			while (true)
+			foreach (CharacterResourceLink characterResourceLink in GameWideData.Get().m_characterResourceLinks)
 			{
-				if (num < characterResourceLinks.Length)
+				if (characterResourceLink.m_characterType != CharacterType.None
+				    && !characterResourceLink.m_isHidden
+				    && ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType,gameInfo.GameConfig.GameType))
 				{
-					CharacterResourceLink characterResourceLink = characterResourceLinks[num];
-					if (characterResourceLink.m_characterType != 0)
-					{
-						if (characterResourceLink.m_isHidden)
-						{
-						}
-						else if (ClientGameManager.Get().IsCharacterAvailable(characterResourceLink.m_characterType, gameInfo.GameConfig.GameType))
-						{
-							ClientGameManager.Get().UpdateSelectedCharacter(characterResourceLink.m_characterType);
-							break;
-						}
-					}
-					num++;
-					continue;
+					ClientGameManager.Get().UpdateSelectedCharacter(characterResourceLink.m_characterType);
+					break;
 				}
-				break;
 			}
 		}
 		s_joinPending = true;
-		ClientGameManager clientGameManager = ClientGameManager.Get();
-		
-		clientGameManager.JoinGame(gameInfo, asSpectator, delegate(JoinGameResponse response)
+
+		ClientGameManager.Get().JoinGame(gameInfo, asSpectator, delegate(JoinGameResponse response)
+		{
+			s_joinPending = false;
+			if (response.Success)
 			{
-				s_joinPending = false;
-				if (response.Success)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							AppState_CharacterSelect.Get().Enter();
-							return;
-						}
-					}
-				}
-				if (response.LocalizedFailure != null)
-				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-							UIDialogPopupManager.OpenOneButtonDialog(string.Empty, response.LocalizedFailure.ToString(), StringUtil.TR("Ok", "Global"));
-							return;
-						}
-					}
-				}
-				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
-			});
+				AppState_CharacterSelect.Get().Enter();
+			}
+			else if (response.LocalizedFailure != null)
+			{
+				UIDialogPopupManager.OpenOneButtonDialog(
+					string.Empty,
+					response.LocalizedFailure.ToString(),
+					StringUtil.TR("Ok", "Global"));
+			}
+			else
+			{
+				UIDialogPopupManager.OpenOneButtonDialog(
+					string.Empty, 
+					$"{response.ErrorMessage}#NeedsLocalization",
+					StringUtil.TR("Ok", "Global"));
+
+			}
+		});
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage)
