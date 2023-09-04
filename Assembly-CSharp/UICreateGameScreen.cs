@@ -8,380 +8,301 @@ using UnityEngine.UI;
 
 public class UICreateGameScreen : UIScene
 {
-	public class SubTypeButtonSelection
-	{
-		public _SelectableBtn DropdownButton;
+    public class SubTypeButtonSelection
+    {
+        public _SelectableBtn DropdownButton;
+        public GameSubType SubType;
+    }
 
-		public GameSubType SubType;
-	}
+    public class MapSelectButton
+    {
+        public _ToggleSwap ToggleBtn;
+        public GameMapConfig MapConfig;
+    }
 
-	public class MapSelectButton
-	{
-		public _ToggleSwap ToggleBtn;
+    public static int MAX_GAMENAME_SIZE = 21;
 
-		public GameMapConfig MapConfig;
-	}
+    public _ButtonSwapSprite m_cancelButton;
+    public _ButtonSwapSprite m_createButton;
+    public TMP_InputField m_gameNameInputField;
+    public UITeamSizeButton[] m_teamAPlayersButtons;
+    public UITeamSizeButton[] m_teamBPlayersButtons;
+    public UITeamSizeButton[] m_spectatorButtons;
+    public TMP_InputField m_maxRoundTime;
+    public TMP_InputField m_roundTime;
+    public Toggle m_allowDuplicateCharacters;
+    public Toggle m_allowPausing;
+    public Toggle m_timeBankToggle;
+    public GridLayoutGroup m_mapListContainer;
+    public _ToggleSwap m_mapListEntryPrefab;
+    public List<MapSelectButton> m_mapList = new List<MapSelectButton>();
+    public RectTransform[] m_containers;
+    public _SelectableBtn m_gameSubTypeDropdownBtn;
+    public RectTransform m_gameSubtypeContainer;
+    public LayoutGroup m_gameSubTypeItemParent;
+    public _SelectableBtn m_gameSubTypeItem;
 
-	public static int MAX_GAMENAME_SIZE = 21;
+    private static UICreateGameScreen s_instance;
 
-	public _ButtonSwapSprite m_cancelButton;
+    private List<SubTypeButtonSelection> GameSubTypeButtons = new List<SubTypeButtonSelection>();
+    private ushort SelectedSubTypeMask;
+    private GameSubType SelectedGameSubtype;
+    private GameMapConfig SelectedMapConfig;
 
-	public _ButtonSwapSprite m_createButton;
+    public static UICreateGameScreen Get()
+    {
+        return s_instance;
+    }
 
-	public TMP_InputField m_gameNameInputField;
+    public override SceneType GetSceneType()
+    {
+        return SceneType.CreateGameSettings;
+    }
 
-	public UITeamSizeButton[] m_teamAPlayersButtons;
+    public override void Awake()
+    {
+        s_instance = this;
+        base.Awake();
+        m_cancelButton.callback = CancelClicked;
+        m_createButton.callback = CreateClicked;
+        m_createButton.m_soundToPlay = FrontEndButtonSounds.Generic;
+        for (int i = 0; i < m_teamAPlayersButtons.Length; i++)
+        {
+            m_teamAPlayersButtons[i].SetChecked(false);
+            m_teamAPlayersButtons[i].SetTeam(0);
+            m_teamAPlayersButtons[i].SetIndex(i);
+            m_teamAPlayersButtons[i].m_callback = TeamSizeButtonClicked;
+        }
 
-	public UITeamSizeButton[] m_teamBPlayersButtons;
+        for (int i = 0; i < m_teamBPlayersButtons.Length; i++)
+        {
+            m_teamBPlayersButtons[i].SetChecked(false);
+            m_teamBPlayersButtons[i].SetTeam(1);
+            m_teamBPlayersButtons[i].SetIndex(i);
+            m_teamBPlayersButtons[i].m_callback = TeamSizeButtonClicked;
+        }
 
-	public UITeamSizeButton[] m_spectatorButtons;
+        for (int i = 0; i < m_spectatorButtons.Length; i++)
+        {
+            m_spectatorButtons[i].SetChecked(false);
+            m_spectatorButtons[i].SetTeam(2);
+            m_spectatorButtons[i].SetIndex(i);
+            m_spectatorButtons[i].m_callback = TeamSizeButtonClicked;
+        }
 
-	public TMP_InputField m_maxRoundTime;
+        ScrollRect scrollRect = m_mapListContainer.GetComponentInParent<ScrollRect>();
+        if (scrollRect != null)
+        {
+            scrollRect.verticalScrollbar.gameObject.AddComponent<_MouseEventPasser>().AddNewHandler(scrollRect);
+            scrollRect.scrollSensitivity = 100f;
+        }
 
-	public TMP_InputField m_roundTime;
+        _ToggleSwap[] componentsInChildren = m_mapListContainer.transform.GetComponentsInChildren<_ToggleSwap>(true);
+        foreach (_ToggleSwap toggleSwap in componentsInChildren)
+        {
+            if (scrollRect != null)
+            {
+                toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>().AddNewHandler(scrollRect);
+                toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>().AddNewHandler(scrollRect);
+                UIEventTriggerUtils.AddListener(
+                    toggleSwap.gameObject,
+                    EventTriggerType.Scroll,
+                    delegate(BaseEventData data) { scrollRect.OnScroll((PointerEventData)data); });
+            }
 
-	public Toggle m_allowDuplicateCharacters;
+            toggleSwap.transform.SetParent(m_mapListContainer.transform);
+            toggleSwap.transform.localPosition = Vector3.zero;
+            toggleSwap.transform.localScale = Vector3.one;
+            toggleSwap.changedNotify = MapClicked;
+            m_mapList.Add(new MapSelectButton
+            {
+                MapConfig = null,
+                ToggleBtn = toggleSwap
+            });
+        }
 
-	public Toggle m_allowPausing;
+        m_gameSubTypeDropdownBtn.spriteController.callback = DropdownClicked;
+        UIManager.SetGameObjectActive(m_gameSubtypeContainer, false);
+        m_gameNameInputField.onValueChanged.AddListener(EditGameName);
+        m_roundTime.onValueChanged.AddListener(EditRoundTime);
+        if (m_maxRoundTime != null && m_maxRoundTime.transform.parent != null)
+        {
+            UIManager.SetGameObjectActive(m_maxRoundTime.transform.parent, false);
+        }
 
-	public Toggle m_timeBankToggle;
+        UIManager.SetGameObjectActive(m_teamBPlayersButtons[0], false);
+        UIManager.SetGameObjectActive(m_teamAPlayersButtons[0], false);
+    }
 
-	public GridLayoutGroup m_mapListContainer;
+    private void SetGameSubTypeDropdownListVisible(bool visible)
+    {
+        UIManager.SetGameObjectActive(m_gameSubtypeContainer, visible);
+    }
 
-	public _ToggleSwap m_mapListEntryPrefab;
+    public void DropdownClicked(BaseEventData data)
+    {
+        SetGameSubTypeDropdownListVisible(!m_gameSubtypeContainer.gameObject.activeSelf);
+    }
 
-	public List<MapSelectButton> m_mapList = new List<MapSelectButton>();
+    private void EditGameName(string name)
+    {
+        if (m_gameNameInputField.text.Length > MAX_GAMENAME_SIZE)
+        {
+            m_gameNameInputField.text = m_gameNameInputField.text.Substring(0, MAX_GAMENAME_SIZE);
+        }
+    }
 
-	public RectTransform[] m_containers;
+    private void EditRoundTime(string name)
+    {
+        if (m_roundTime.text.IsNullOrEmpty())
+        {
+            return;
+        }
 
-	public _SelectableBtn m_gameSubTypeDropdownBtn;
+        try
+        {
+            TimeSpan turnTimeSpan = GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(m_roundTime.text));
+            string text = Mathf.FloorToInt((float)turnTimeSpan.TotalSeconds).ToString();
+            m_roundTime.text = text;
+        }
+        catch (FormatException)
+        {
+            m_roundTime.text = GameManager.Get().GameConfig.TurnTime.ToString();
+        }
+    }
 
-	public RectTransform m_gameSubtypeContainer;
+    private void EditMaxRoundTime(string name)
+    {
+        if (m_maxRoundTime.text.IsNullOrEmpty())
+        {
+            return;
+        }
 
-	public LayoutGroup m_gameSubTypeItemParent;
+        try
+        {
+            m_maxRoundTime.text = int.Parse(m_maxRoundTime.text).ToString();
+        }
+        catch (FormatException)
+        {
+            m_maxRoundTime.text = string.Empty;
+        }
+    }
 
-	public _SelectableBtn m_gameSubTypeItem;
+    private void SetupOptionRestrictions(SubTypeButtonSelection selection)
+    {
+        if (selection.SubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
+        {
+            for (int i = 0; i < m_teamAPlayersButtons.Length; i++)
+            {
+                m_teamAPlayersButtons[i].SetChecked(i == 4);
+                m_teamAPlayersButtons[i].Clickable = false;
+            }
 
-	private static UICreateGameScreen s_instance;
+            for (int i = 0; i < m_teamBPlayersButtons.Length; i++)
+            {
+                m_teamBPlayersButtons[i].SetChecked(i == 4);
+                m_teamBPlayersButtons[i].Clickable = false;
+            }
+        }
+        else
+        {
+            foreach (UITeamSizeButton btn in m_teamAPlayersButtons)
+            {
+                btn.Clickable = true;
+            }
 
-	private List<SubTypeButtonSelection> GameSubTypeButtons = new List<SubTypeButtonSelection>();
+            foreach (UITeamSizeButton btn in m_teamBPlayersButtons)
+            {
+                btn.Clickable = true;
+            }
+        }
+    }
 
-	private ushort SelectedSubTypeMask;
+    private void SetupMapButtons(SubTypeButtonSelection selection)
+    {
+        ScrollRect scrollRect = m_mapListContainer.GetComponentInParent<ScrollRect>();
+        int num = -1;
+        int num2 = 0;
+        foreach (GameMapConfig gameMapConfig in selection.SubType.GameMapConfigs)
+        {
+            if (!gameMapConfig.IsActive)
+            {
+                continue;
+            }
 
-	private GameSubType SelectedGameSubtype;
+            GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
+            if (num2 >= m_mapList.Count)
+            {
+                _ToggleSwap toggleSwap = Instantiate(m_mapListEntryPrefab);
+                if (scrollRect != null)
+                {
+                    toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>().AddNewHandler(scrollRect);
+                    toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>().AddNewHandler(scrollRect);
+                    UIEventTriggerUtils.AddListener(
+                        toggleSwap.gameObject,
+                        EventTriggerType.Scroll,
+                        delegate(BaseEventData data) { scrollRect.OnScroll((PointerEventData)data); });
+                }
 
-	private GameMapConfig SelectedMapConfig;
+                toggleSwap.transform.SetParent(m_mapListContainer.transform);
+                toggleSwap.transform.localPosition = Vector3.zero;
+                toggleSwap.transform.localScale = Vector3.one;
+                toggleSwap.changedNotify = MapClicked;
+                m_mapList.Add(new MapSelectButton
+                {
+                    MapConfig = gameMapConfig,
+                    ToggleBtn = toggleSwap
+                });
+            }
 
-	public static UICreateGameScreen Get()
-	{
-		return s_instance;
-	}
+            _ToggleSwap toggleBtn = m_mapList[num2].ToggleBtn;
+            m_mapList[num2].MapConfig = gameMapConfig;
+            UIManager.SetGameObjectActive(toggleBtn, true);
+            toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text =
+                GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
+            if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out bool isActive) &&
+                !isActive)
+            {
+                toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
+            }
+            else
+            {
+                if (num == -1)
+                {
+                    num = num2;
+                }
+            }
 
-	public override SceneType GetSceneType()
-	{
-		return SceneType.CreateGameSettings;
-	}
+            num2++;
+        }
 
-	public override void Awake()
-	{
-		s_instance = this;
-		base.Awake();
-		m_cancelButton.callback = CancelClicked;
-		m_createButton.callback = CreateClicked;
-		m_createButton.m_soundToPlay = FrontEndButtonSounds.Generic;
-		for (int i = 0; i < m_teamAPlayersButtons.Length; i++)
-		{
-			m_teamAPlayersButtons[i].SetChecked(false);
-			m_teamAPlayersButtons[i].SetTeam(0);
-			m_teamAPlayersButtons[i].SetIndex(i);
-			m_teamAPlayersButtons[i].m_callback = TeamSizeButtonClicked;
-		}
-		ScrollRect scrollRect;
-		while (true)
-		{
-			for (int j = 0; j < m_teamBPlayersButtons.Length; j++)
-			{
-				m_teamBPlayersButtons[j].SetChecked(false);
-				m_teamBPlayersButtons[j].SetTeam(1);
-				m_teamBPlayersButtons[j].SetIndex(j);
-				m_teamBPlayersButtons[j].m_callback = TeamSizeButtonClicked;
-			}
-			while (true)
-			{
-				for (int k = 0; k < m_spectatorButtons.Length; k++)
-				{
-					m_spectatorButtons[k].SetChecked(false);
-					m_spectatorButtons[k].SetTeam(2);
-					m_spectatorButtons[k].SetIndex(k);
-					m_spectatorButtons[k].m_callback = TeamSizeButtonClicked;
-				}
-				while (true)
-				{
-					scrollRect = m_mapListContainer.GetComponentInParent<ScrollRect>();
-					if (scrollRect != null)
-					{
-						_MouseEventPasser mouseEventPasser = scrollRect.verticalScrollbar.gameObject.AddComponent<_MouseEventPasser>();
-						mouseEventPasser.AddNewHandler(scrollRect);
-						scrollRect.scrollSensitivity = 100f;
-					}
-					_ToggleSwap[] componentsInChildren = m_mapListContainer.transform.GetComponentsInChildren<_ToggleSwap>(true);
-					foreach (_ToggleSwap toggleSwap in componentsInChildren)
-					{
-						if (scrollRect != null)
-						{
-							_MouseEventPasser mouseEventPasser2 = toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>();
-							mouseEventPasser2.AddNewHandler(scrollRect);
-							_MouseEventPasser mouseEventPasser3 = toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>();
-							mouseEventPasser3.AddNewHandler(scrollRect);
-							UIEventTriggerUtils.AddListener(toggleSwap.gameObject, EventTriggerType.Scroll, delegate(BaseEventData data)
-							{
-								scrollRect.OnScroll((PointerEventData)data);
-							});
-						}
-						toggleSwap.transform.SetParent(m_mapListContainer.transform);
-						toggleSwap.transform.localPosition = Vector3.zero;
-						toggleSwap.transform.localScale = Vector3.one;
-						toggleSwap.changedNotify = MapClicked;
-						m_mapList.Add(new MapSelectButton
-						{
-							MapConfig = null,
-							ToggleBtn = toggleSwap
-						});
-					}
-					m_gameSubTypeDropdownBtn.spriteController.callback = DropdownClicked;
-					UIManager.SetGameObjectActive(m_gameSubtypeContainer, false);
-					m_gameNameInputField.onValueChanged.AddListener(EditGameName);
-					m_roundTime.onValueChanged.AddListener(EditRoundTime);
-					if (m_maxRoundTime != null)
-					{
-						if (m_maxRoundTime.transform.parent != null)
-						{
-							UIManager.SetGameObjectActive(m_maxRoundTime.transform.parent, false);
-						}
-					}
-					UIManager.SetGameObjectActive(m_teamBPlayersButtons[0], false);
-					UIManager.SetGameObjectActive(m_teamAPlayersButtons[0], false);
-					return;
-				}
-			}
-		}
-	}
+        int count = selection.SubType.GameMapConfigs.Count;
+        if (num != -1)
+        {
+            for (int j = 0; j < m_mapList.Count; j++)
+            {
+                m_mapList[j].ToggleBtn.SetOn(j == num);
+            }
 
-	private void SetGameSubTypeDropdownListVisible(bool visible)
-	{
-		UIManager.SetGameObjectActive(m_gameSubtypeContainer, visible);
-	}
+            SelectedMapConfig = m_mapList[num].MapConfig;
+        }
 
-	public void DropdownClicked(BaseEventData data)
-	{
-		SetGameSubTypeDropdownListVisible(!m_gameSubtypeContainer.gameObject.activeSelf);
-	}
-
-	private void EditGameName(string name)
-	{
-		if (m_gameNameInputField.text.Length > MAX_GAMENAME_SIZE)
-		{
-			m_gameNameInputField.text = m_gameNameInputField.text.Substring(0, MAX_GAMENAME_SIZE);
-		}
-	}
-
-	private void EditRoundTime(string name)
-	{
-		if (m_roundTime.text.IsNullOrEmpty())
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-		try
-		{
-			string text = Mathf.FloorToInt((float)GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(m_roundTime.text)).TotalSeconds).ToString();
-			m_roundTime.text = text;
-		}
-		catch (FormatException)
-		{
-			m_roundTime.text = GameManager.Get().GameConfig.TurnTime.ToString();
-		}
-	}
-
-	private void EditMaxRoundTime(string name)
-	{
-		if (m_maxRoundTime.text.IsNullOrEmpty())
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-		try
-		{
-			m_maxRoundTime.text = int.Parse(m_maxRoundTime.text).ToString();
-		}
-		catch (FormatException)
-		{
-			m_maxRoundTime.text = string.Empty;
-		}
-	}
-
-	private void SetupOptionRestrictions(SubTypeButtonSelection selection)
-	{
-		if (selection.SubType.HasMod(GameSubType.SubTypeMods.RankedFreelancerSelection))
-		{
-			for (int i = 0; i < m_teamAPlayersButtons.Length; i++)
-			{
-				m_teamAPlayersButtons[i].SetChecked(i == 4);
-				m_teamAPlayersButtons[i].Clickable = false;
-			}
-			while (true)
-			{
-				for (int j = 0; j < m_teamBPlayersButtons.Length; j++)
-				{
-					m_teamBPlayersButtons[j].SetChecked(j == 4);
-					m_teamBPlayersButtons[j].Clickable = false;
-				}
-				while (true)
-				{
-					switch (3)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
-		}
-		for (int k = 0; k < m_teamAPlayersButtons.Length; k++)
-		{
-			m_teamAPlayersButtons[k].Clickable = true;
-		}
-		while (true)
-		{
-			for (int l = 0; l < m_teamBPlayersButtons.Length; l++)
-			{
-				m_teamBPlayersButtons[l].Clickable = true;
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
-		}
-	}
-
-	private void SetupMapButtons(SubTypeButtonSelection selection)
-	{
-		ScrollRect scrollRect = m_mapListContainer.GetComponentInParent<ScrollRect>();
-		int num = -1;
-		int num2 = 0;
-		for (int i = 0; i < selection.SubType.GameMapConfigs.Count; i++)
-		{
-			GameMapConfig gameMapConfig = selection.SubType.GameMapConfigs[i];
-			if (!gameMapConfig.IsActive)
-			{
-				continue;
-			}
-			GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
-			if (num2 >= m_mapList.Count)
-			{
-				_ToggleSwap toggleSwap = UnityEngine.Object.Instantiate(m_mapListEntryPrefab);
-				if (scrollRect != null)
-				{
-					_MouseEventPasser mouseEventPasser = toggleSwap.m_onButton.gameObject.AddComponent<_MouseEventPasser>();
-					mouseEventPasser.AddNewHandler(scrollRect);
-					_MouseEventPasser mouseEventPasser2 = toggleSwap.m_offButton.gameObject.AddComponent<_MouseEventPasser>();
-					mouseEventPasser2.AddNewHandler(scrollRect);
-					UIEventTriggerUtils.AddListener(toggleSwap.gameObject, EventTriggerType.Scroll, delegate(BaseEventData data)
-					{
-						scrollRect.OnScroll((PointerEventData)data);
-					});
-				}
-				toggleSwap.transform.SetParent(m_mapListContainer.transform);
-				toggleSwap.transform.localPosition = Vector3.zero;
-				toggleSwap.transform.localScale = Vector3.one;
-				toggleSwap.changedNotify = MapClicked;
-				m_mapList.Add(new MapSelectButton
-				{
-					MapConfig = gameMapConfig,
-					ToggleBtn = toggleSwap
-				});
-			}
-			_ToggleSwap toggleBtn = m_mapList[num2].ToggleBtn;
-			m_mapList[num2].MapConfig = gameMapConfig;
-			UIManager.SetGameObjectActive(toggleBtn, true);
-			toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text = GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
-			if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out bool isActive))
-			{
-				if (!isActive)
-				{
-					toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
-					goto IL_0220;
-				}
-			}
-			if (num == -1)
-			{
-				num = num2;
-			}
-			goto IL_0220;
-			IL_0220:
-			num2++;
-		}
-		while (true)
-		{
-			int count = selection.SubType.GameMapConfigs.Count;
-			if (num != -1)
-			{
-				for (int j = 0; j < m_mapList.Count; j++)
-				{
-					m_mapList[j].ToggleBtn.SetOn(j == num);
-				}
-				SelectedMapConfig = m_mapList[num].MapConfig;
-			}
-			Vector2 cellSize = m_mapListContainer.cellSize;
-			float y = cellSize.y;
-			Vector2 spacing = m_mapListContainer.spacing;
-			float y2 = (y + spacing.y) * (float)count * -1f;
-			RectTransform obj = m_mapListContainer.gameObject.transform as RectTransform;
-			Vector2 offsetMin = (m_mapListContainer.gameObject.transform as RectTransform).offsetMin;
-			obj.offsetMin = new Vector2(offsetMin.x, y2);
-			RectTransform obj2 = m_mapListContainer.gameObject.transform as RectTransform;
-			Vector2 offsetMax = (m_mapListContainer.gameObject.transform as RectTransform).offsetMax;
-			obj2.offsetMax = new Vector2(offsetMax.x, 0f);
-			for (int k = count; k < m_mapList.Count; k++)
-			{
-				UIManager.SetGameObjectActive(m_mapList[k].ToggleBtn, false);
-				m_mapList[k].MapConfig = null;
-			}
-			while (true)
-			{
-				switch (2)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
-		}
-	}
+        Vector2 cellSize = m_mapListContainer.cellSize;
+        float y = cellSize.y;
+        Vector2 spacing = m_mapListContainer.spacing;
+        float y2 = (y + spacing.y) * (float)count * -1f;
+        RectTransform obj = m_mapListContainer.gameObject.transform as RectTransform;
+        Vector2 offsetMin = (m_mapListContainer.gameObject.transform as RectTransform).offsetMin;
+        obj.offsetMin = new Vector2(offsetMin.x, y2);
+        RectTransform obj2 = m_mapListContainer.gameObject.transform as RectTransform;
+        Vector2 offsetMax = (m_mapListContainer.gameObject.transform as RectTransform).offsetMax;
+        obj2.offsetMax = new Vector2(offsetMax.x, 0f);
+        for (int k = count; k < m_mapList.Count; k++)
+        {
+            UIManager.SetGameObjectActive(m_mapList[k].ToggleBtn, false);
+            m_mapList[k].MapConfig = null;
+        }
+    }
 
 	private void SubTypeClickedHelper(SubTypeButtonSelection selected)
 	{
