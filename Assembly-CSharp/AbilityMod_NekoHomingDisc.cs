@@ -4,33 +4,22 @@ using UnityEngine;
 
 public class AbilityMod_NekoHomingDisc : AbilityMod
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public AbilityModPropertyFloat m_laserLengthMod;
-
 	public AbilityModPropertyFloat m_laserWidthMod;
-
 	public AbilityModPropertyInt m_maxTargetsMod;
-
 	[Header("-- Disc return end radius")]
 	public AbilityModPropertyFloat m_discReturnEndRadiusMod;
-
-	[Separator("On Cast Hit", true)]
+	[Separator("On Cast Hit")]
 	public AbilityModPropertyEffectInfo m_onCastEnemyHitEffectMod;
-
-	[Separator("On Enemy Hit", true)]
+	[Separator("On Enemy Hit")]
 	public AbilityModPropertyInt m_targetDamageMod;
-
 	public AbilityModPropertyInt m_returnTripDamageMod;
-
 	public AbilityModPropertyBool m_returnTripIgnoreCoverMod;
-
 	public AbilityModPropertyFloat m_extraReturnDamagePerDistMod;
-
 	public AbilityModPropertyEffectInfo m_returnTripEnemyEffectMod;
-
-	[Separator("Cooldown Reduction", true)]
+	[Separator("Cooldown Reduction")]
 	public AbilityModPropertyInt m_cdrIfHitNoOneOnCastMod;
-
 	public AbilityModPropertyInt m_cdrIfHitNoOneOnReturnMod;
 
 	public override Type GetTargetAbilityType()
@@ -41,153 +30,38 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		NekoHomingDisc nekoHomingDisc = targetAbility as NekoHomingDisc;
-		if (!(nekoHomingDisc != null))
+		if (nekoHomingDisc != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			AbilityMod.AddToken(tokens, m_laserLengthMod, "LaserLength", string.Empty, nekoHomingDisc.m_laserLength);
-			AbilityMod.AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, nekoHomingDisc.m_laserWidth);
-			AbilityMod.AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, nekoHomingDisc.m_maxTargets);
-			AbilityMod.AddToken(tokens, m_discReturnEndRadiusMod, "DiscReturnEndRadius", string.Empty, nekoHomingDisc.m_discReturnEndRadius);
-			AbilityMod.AddToken_EffectMod(tokens, m_onCastEnemyHitEffectMod, "OnCastEnemyHitEffect", nekoHomingDisc.m_onCastEnemyHitEffect);
-			AbilityMod.AddToken(tokens, m_targetDamageMod, "TargetDamage", string.Empty, nekoHomingDisc.m_targetDamage);
-			AbilityMod.AddToken(tokens, m_returnTripDamageMod, "ReturnTripDamage", string.Empty, nekoHomingDisc.m_returnTripDamage);
-			AbilityMod.AddToken(tokens, m_extraReturnDamagePerDistMod, "ExtraReturnDamagePerDist", string.Empty, nekoHomingDisc.m_extraReturnDamagePerDist);
-			AbilityMod.AddToken_EffectMod(tokens, m_returnTripEnemyEffectMod, "ReturnTripEnemyEffect", nekoHomingDisc.m_returnTripEnemyEffect);
-			AbilityMod.AddToken(tokens, m_cdrIfHitNoOneOnCastMod, "CdrIfHitNoOneOnCast", string.Empty, nekoHomingDisc.m_cdrIfHitNoOneOnCast);
-			AbilityMod.AddToken(tokens, m_cdrIfHitNoOneOnReturnMod, "CdrIfHitNoOneOnReturn", string.Empty, nekoHomingDisc.m_cdrIfHitNoOneOnReturn);
-			return;
+			AddToken(tokens, m_laserLengthMod, "LaserLength", string.Empty, nekoHomingDisc.m_laserLength);
+			AddToken(tokens, m_laserWidthMod, "LaserWidth", string.Empty, nekoHomingDisc.m_laserWidth);
+			AddToken(tokens, m_maxTargetsMod, "MaxTargets", string.Empty, nekoHomingDisc.m_maxTargets);
+			AddToken(tokens, m_discReturnEndRadiusMod, "DiscReturnEndRadius", string.Empty, nekoHomingDisc.m_discReturnEndRadius);
+			AddToken_EffectMod(tokens, m_onCastEnemyHitEffectMod, "OnCastEnemyHitEffect", nekoHomingDisc.m_onCastEnemyHitEffect);
+			AddToken(tokens, m_targetDamageMod, "TargetDamage", string.Empty, nekoHomingDisc.m_targetDamage);
+			AddToken(tokens, m_returnTripDamageMod, "ReturnTripDamage", string.Empty, nekoHomingDisc.m_returnTripDamage);
+			AddToken(tokens, m_extraReturnDamagePerDistMod, "ExtraReturnDamagePerDist", string.Empty, nekoHomingDisc.m_extraReturnDamagePerDist);
+			AddToken_EffectMod(tokens, m_returnTripEnemyEffectMod, "ReturnTripEnemyEffect", nekoHomingDisc.m_returnTripEnemyEffect);
+			AddToken(tokens, m_cdrIfHitNoOneOnCastMod, "CdrIfHitNoOneOnCast", string.Empty, nekoHomingDisc.m_cdrIfHitNoOneOnCast);
+			AddToken(tokens, m_cdrIfHitNoOneOnReturnMod, "CdrIfHitNoOneOnReturn", string.Empty, nekoHomingDisc.m_cdrIfHitNoOneOnReturn);
 		}
 	}
 
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		NekoHomingDisc nekoHomingDisc = GetTargetAbilityOnAbilityData(abilityData) as NekoHomingDisc;
-		bool flag = nekoHomingDisc != null;
-		string empty = string.Empty;
-		string str = empty;
-		AbilityModPropertyFloat laserLengthMod = m_laserLengthMod;
-		float baseVal;
-		if (flag)
-		{
-			baseVal = nekoHomingDisc.m_laserLength;
-		}
-		else
-		{
-			baseVal = 0f;
-		}
-		empty = str + PropDesc(laserLengthMod, "[LaserLength]", flag, baseVal);
-		string str2 = empty;
-		AbilityModPropertyFloat laserWidthMod = m_laserWidthMod;
-		float baseVal2;
-		if (flag)
-		{
-			baseVal2 = nekoHomingDisc.m_laserWidth;
-		}
-		else
-		{
-			baseVal2 = 0f;
-		}
-		empty = str2 + PropDesc(laserWidthMod, "[LaserWidth]", flag, baseVal2);
-		string str3 = empty;
-		AbilityModPropertyInt maxTargetsMod = m_maxTargetsMod;
-		int baseVal3;
-		if (flag)
-		{
-			baseVal3 = nekoHomingDisc.m_maxTargets;
-		}
-		else
-		{
-			baseVal3 = 0;
-		}
-		empty = str3 + PropDesc(maxTargetsMod, "[MaxTargets]", flag, baseVal3);
-		string str4 = empty;
-		AbilityModPropertyFloat discReturnEndRadiusMod = m_discReturnEndRadiusMod;
-		float baseVal4;
-		if (flag)
-		{
-			baseVal4 = nekoHomingDisc.m_discReturnEndRadius;
-		}
-		else
-		{
-			baseVal4 = 0f;
-		}
-		empty = str4 + PropDesc(discReturnEndRadiusMod, "[DiscReturnEndRadius]", flag, baseVal4);
-		string str5 = empty;
-		AbilityModPropertyEffectInfo onCastEnemyHitEffectMod = m_onCastEnemyHitEffectMod;
-		object baseVal5;
-		if (flag)
-		{
-			baseVal5 = nekoHomingDisc.m_onCastEnemyHitEffect;
-		}
-		else
-		{
-			baseVal5 = null;
-		}
-		empty = str5 + PropDesc(onCastEnemyHitEffectMod, "[OnCastEnemyHitEffect]", flag, (StandardEffectInfo)baseVal5);
-		string str6 = empty;
-		AbilityModPropertyInt targetDamageMod = m_targetDamageMod;
-		int baseVal6;
-		if (flag)
-		{
-			baseVal6 = nekoHomingDisc.m_targetDamage;
-		}
-		else
-		{
-			baseVal6 = 0;
-		}
-		empty = str6 + PropDesc(targetDamageMod, "[TargetDamage]", flag, baseVal6);
-		string str7 = empty;
-		AbilityModPropertyInt returnTripDamageMod = m_returnTripDamageMod;
-		int baseVal7;
-		if (flag)
-		{
-			baseVal7 = nekoHomingDisc.m_returnTripDamage;
-		}
-		else
-		{
-			baseVal7 = 0;
-		}
-		empty = str7 + PropDesc(returnTripDamageMod, "[ReturnTripDamage]", flag, baseVal7);
-		string str8 = empty;
-		AbilityModPropertyBool returnTripIgnoreCoverMod = m_returnTripIgnoreCoverMod;
-		int baseVal8;
-		if (flag)
-		{
-			baseVal8 = (nekoHomingDisc.m_returnTripIgnoreCover ? 1 : 0);
-		}
-		else
-		{
-			baseVal8 = 0;
-		}
-		empty = str8 + PropDesc(returnTripIgnoreCoverMod, "[ReturnTripIgnoreCover]", flag, (byte)baseVal8 != 0);
-		string str9 = empty;
-		AbilityModPropertyFloat extraReturnDamagePerDistMod = m_extraReturnDamagePerDistMod;
-		float baseVal9;
-		if (flag)
-		{
-			baseVal9 = nekoHomingDisc.m_extraReturnDamagePerDist;
-		}
-		else
-		{
-			baseVal9 = 0f;
-		}
-		empty = str9 + PropDesc(extraReturnDamagePerDistMod, "[ExtraReturnDamagePerDist]", flag, baseVal9);
-		empty += PropDesc(m_returnTripEnemyEffectMod, "[ReturnTripEnemyEffect]", flag, (!flag) ? null : nekoHomingDisc.m_returnTripEnemyEffect);
-		string str10 = empty;
-		AbilityModPropertyInt cdrIfHitNoOneOnCastMod = m_cdrIfHitNoOneOnCastMod;
-		int baseVal10;
-		if (flag)
-		{
-			baseVal10 = nekoHomingDisc.m_cdrIfHitNoOneOnCast;
-		}
-		else
-		{
-			baseVal10 = 0;
-		}
-		empty = str10 + PropDesc(cdrIfHitNoOneOnCastMod, "[CdrIfHitNoOneOnCast]", flag, baseVal10);
-		return empty + PropDesc(m_cdrIfHitNoOneOnReturnMod, "[CdrIfHitNoOneOnReturn]", flag, flag ? nekoHomingDisc.m_cdrIfHitNoOneOnReturn : 0);
+		bool isValid = nekoHomingDisc != null;
+		string desc = string.Empty;
+		desc += PropDesc(m_laserLengthMod, "[LaserLength]", isValid, isValid ? nekoHomingDisc.m_laserLength : 0f);
+		desc += PropDesc(m_laserWidthMod, "[LaserWidth]", isValid, isValid ? nekoHomingDisc.m_laserWidth : 0f);
+		desc += PropDesc(m_maxTargetsMod, "[MaxTargets]", isValid, isValid ? nekoHomingDisc.m_maxTargets : 0);
+		desc += PropDesc(m_discReturnEndRadiusMod, "[DiscReturnEndRadius]", isValid, isValid ? nekoHomingDisc.m_discReturnEndRadius : 0f);
+		desc += PropDesc(m_onCastEnemyHitEffectMod, "[OnCastEnemyHitEffect]", isValid, isValid ? nekoHomingDisc.m_onCastEnemyHitEffect : null);
+		desc += PropDesc(m_targetDamageMod, "[TargetDamage]", isValid, isValid ? nekoHomingDisc.m_targetDamage : 0);
+		desc += PropDesc(m_returnTripDamageMod, "[ReturnTripDamage]", isValid, isValid ? nekoHomingDisc.m_returnTripDamage : 0);
+		desc += PropDesc(m_returnTripIgnoreCoverMod, "[ReturnTripIgnoreCover]", isValid, isValid && nekoHomingDisc.m_returnTripIgnoreCover);
+		desc += PropDesc(m_extraReturnDamagePerDistMod, "[ExtraReturnDamagePerDist]", isValid, isValid ? nekoHomingDisc.m_extraReturnDamagePerDist : 0f);
+		desc += PropDesc(m_returnTripEnemyEffectMod, "[ReturnTripEnemyEffect]", isValid, isValid ? nekoHomingDisc.m_returnTripEnemyEffect : null);
+		desc += PropDesc(m_cdrIfHitNoOneOnCastMod, "[CdrIfHitNoOneOnCast]", isValid, isValid ? nekoHomingDisc.m_cdrIfHitNoOneOnCast : 0);
+		return desc + PropDesc(m_cdrIfHitNoOneOnReturnMod, "[CdrIfHitNoOneOnReturn]", isValid, isValid ? nekoHomingDisc.m_cdrIfHitNoOneOnReturn : 0);
 	}
 }

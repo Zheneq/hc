@@ -3,46 +3,30 @@ using UnityEngine;
 
 public class NekoBoomerangDisc : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_laserLength = 6.5f;
-
 	public float m_laserWidth = 1f;
-
 	public float m_aoeRadiusAtEnd = 1f;
-
 	public int m_maxTargets;
-
 	[Header("-- Disc return end radius")]
 	public float m_discReturnEndRadius;
-
-	[Separator("Damage stuff", true)]
+	[Separator("Damage stuff")]
 	public int m_directDamage = 25;
-
 	public int m_returnTripDamage = 10;
-
 	public bool m_returnTripIgnoreCover = true;
-
 	[Header("-- Extra Damage")]
 	public int m_extraDamageIfHitByReturnDisc;
-
 	public int m_extraReturnDamageIfHitNoOne;
-
-	[Separator("Shielding for target hit on throw (applied on start of next turn)", true)]
+	[Separator("Shielding for target hit on throw (applied on start of next turn)")]
 	public int m_shieldPerTargetHitOnThrow;
-
 	public StandardActorEffectData m_shieldEffectData;
-
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_returnTripSequencePrefab;
-
 	public GameObject m_persistentDiscSequencePrefab;
 
 	private AbilityMod_NekoBoomerangDisc m_abilityMod;
-
 	private Neko_SyncComponent m_syncComp;
-
 	private StandardActorEffectData m_cachedShieldEffectData;
 
 	private void Start()
@@ -58,178 +42,112 @@ public class NekoBoomerangDisc : Ability
 	{
 		m_syncComp = GetComponent<Neko_SyncComponent>();
 		SetCachedFields();
-		AbilityUtil_Targeter_NekoDisc abilityUtil_Targeter_NekoDisc = new AbilityUtil_Targeter_NekoDisc(this, GetLaserWidth(), GetLaserLength(), GetAoeRadiusAtEnd(), false, GetMaxTargets(), false, true);
-		abilityUtil_Targeter_NekoDisc.m_affectCasterDelegate = TargeterIncludeCaster;
-		base.Targeter = abilityUtil_Targeter_NekoDisc;
+		Targeter = new AbilityUtil_Targeter_NekoDisc(
+			this,
+			GetLaserWidth(),
+			GetLaserLength(),
+			GetAoeRadiusAtEnd(),
+			false,
+			GetMaxTargets(),
+			false,
+			true)
+		{
+			m_affectCasterDelegate = TargeterIncludeCaster
+		};
 	}
 
 	private bool TargeterIncludeCaster(ActorData caster, List<ActorData> actorsSoFar)
 	{
-		int result;
-		if (GetShieldPerTargetHitOnThrow() > 0)
-		{
-			result = ((actorsSoFar.Count > 0) ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
+		return GetShieldPerTargetHitOnThrow() > 0 && actorsSoFar.Count > 0;
 	}
 
 	private void SetCachedFields()
 	{
-		StandardActorEffectData cachedShieldEffectData;
-		if ((bool)m_abilityMod)
-		{
-			cachedShieldEffectData = m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(m_shieldEffectData);
-		}
-		else
-		{
-			cachedShieldEffectData = m_shieldEffectData;
-		}
-		m_cachedShieldEffectData = cachedShieldEffectData;
+		m_cachedShieldEffectData = m_abilityMod != null
+			? m_abilityMod.m_shieldEffectDataMod.GetModifiedValue(m_shieldEffectData)
+			: m_shieldEffectData;
 	}
 
 	public float GetLaserLength()
 	{
-		return (!m_abilityMod) ? m_laserLength : m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
+		return m_abilityMod != null
+			? m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength)
+			: m_laserLength;
 	}
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
-		}
-		else
-		{
-			result = m_laserWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public float GetAoeRadiusAtEnd()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(m_aoeRadiusAtEnd);
-		}
-		else
-		{
-			result = m_aoeRadiusAtEnd;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_aoeRadiusAtEndMod.GetModifiedValue(m_aoeRadiusAtEnd)
+			: m_aoeRadiusAtEnd;
 	}
 
 	public int GetMaxTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			result = m_maxTargets;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public float GetDiscReturnEndRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
-		}
-		else
-		{
-			result = m_discReturnEndRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius)
+			: m_discReturnEndRadius;
 	}
 
 	public int GetDirectDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_directDamageMod.GetModifiedValue(m_directDamage);
-		}
-		else
-		{
-			result = m_directDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_directDamageMod.GetModifiedValue(m_directDamage)
+			: m_directDamage;
 	}
 
 	public int GetReturnTripDamage()
 	{
-		return (!m_abilityMod) ? m_returnTripDamage : m_abilityMod.m_returnTripDamageMod.GetModifiedValue(m_returnTripDamage);
+		return m_abilityMod != null
+			? m_abilityMod.m_returnTripDamageMod.GetModifiedValue(m_returnTripDamage)
+			: m_returnTripDamage;
 	}
 
 	public bool ReturnTripIgnoreCover()
 	{
-		bool result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover);
-		}
-		else
-		{
-			result = m_returnTripIgnoreCover;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover)
+			: m_returnTripIgnoreCover;
 	}
 
 	public int GetExtraDamageIfHitByReturnDisc()
 	{
-		return (!m_abilityMod) ? m_extraDamageIfHitByReturnDisc : m_abilityMod.m_extraDamageIfHitByReturnDiscMod.GetModifiedValue(m_extraDamageIfHitByReturnDisc);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraDamageIfHitByReturnDiscMod.GetModifiedValue(m_extraDamageIfHitByReturnDisc)
+			: m_extraDamageIfHitByReturnDisc;
 	}
 
 	public int GetExtraReturnDamageIfHitNoOne()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_extraReturnDamageIfHitNoOneMod.GetModifiedValue(m_extraReturnDamageIfHitNoOne);
-		}
-		else
-		{
-			result = m_extraReturnDamageIfHitNoOne;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_extraReturnDamageIfHitNoOneMod.GetModifiedValue(m_extraReturnDamageIfHitNoOne)
+			: m_extraReturnDamageIfHitNoOne;
 	}
 
 	public int GetShieldPerTargetHitOnThrow()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_shieldPerTargetHitOnThrowMod.GetModifiedValue(m_shieldPerTargetHitOnThrow);
-		}
-		else
-		{
-			result = m_shieldPerTargetHitOnThrow;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_shieldPerTargetHitOnThrowMod.GetModifiedValue(m_shieldPerTargetHitOnThrow)
+			: m_shieldPerTargetHitOnThrow;
 	}
 
 	public StandardActorEffectData GetShieldEffectData()
 	{
-		StandardActorEffectData result;
-		if (m_cachedShieldEffectData != null)
-		{
-			result = m_cachedShieldEffectData;
-		}
-		else
-		{
-			result = m_shieldEffectData;
-		}
-		return result;
+		return m_cachedShieldEffectData ?? m_shieldEffectData;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -253,25 +171,21 @@ public class NekoBoomerangDisc : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
+		if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Enemy) > 0)
 		{
-			int num = GetDirectDamage();
-			if (m_syncComp != null)
+			int damage = GetDirectDamage();
+			if (m_syncComp != null
+			    && GetExtraDamageIfHitByReturnDisc() > 0
+			    && m_syncComp.IsActorTargetedByReturningDiscs(targetActor))
 			{
-				if (GetExtraDamageIfHitByReturnDisc() > 0)
-				{
-					if (m_syncComp.IsActorTargetedByReturningDiscs(targetActor))
-					{
-						num += GetExtraDamageIfHitByReturnDisc();
-					}
-				}
+				damage += GetExtraDamageIfHitByReturnDisc();
 			}
-			results.m_damage = num;
+			results.m_damage = damage;
 		}
-		else if (base.Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
+		else if (Targeter.GetTooltipSubjectCountOnActor(targetActor, AbilityTooltipSubject.Self) > 0)
 		{
-			int visibleActorsCountByTooltipSubject = base.Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-			int num2 = results.m_absorb = GetShieldPerTargetHitOnThrow() * visibleActorsCountByTooltipSubject;
+			int visibleActorsCountByTooltipSubject = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+			results.m_absorb = GetShieldPerTargetHitOnThrow() * visibleActorsCountByTooltipSubject;
 		}
 		return true;
 	}
@@ -294,15 +208,10 @@ public class NekoBoomerangDisc : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_NekoBoomerangDisc))
+		if (abilityMod.GetType() == typeof(AbilityMod_NekoBoomerangDisc))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_NekoBoomerangDisc);
+			m_abilityMod = abilityMod as AbilityMod_NekoBoomerangDisc;
 			Setup();
-			return;
 		}
 	}
 

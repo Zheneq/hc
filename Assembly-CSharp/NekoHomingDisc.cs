@@ -3,48 +3,31 @@ using UnityEngine;
 
 public class NekoHomingDisc : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_laserLength = 6.5f;
-
 	public float m_laserWidth = 1f;
-
 	public int m_maxTargets = 1;
-
 	[Header("-- Disc return end radius")]
 	public float m_discReturnEndRadius;
-
-	[Separator("On Cast Hit", true)]
+	[Separator("On Cast Hit")]
 	public StandardEffectInfo m_onCastEnemyHitEffect;
-
-	[Separator("On Enemy Hit", true)]
+	[Separator("On Enemy Hit")]
 	public int m_targetDamage = 25;
-
 	public int m_returnTripDamage = 10;
-
 	public bool m_returnTripIgnoreCover = true;
-
 	public float m_extraReturnDamagePerDist;
-
 	public StandardEffectInfo m_returnTripEnemyEffect;
-
-	[Separator("Cooldown Reduction", true)]
+	[Separator("Cooldown Reduction")]
 	public int m_cdrIfHitNoOneOnCast;
-
 	public int m_cdrIfHitNoOneOnReturn;
-
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_returnTripSequencePrefab;
-
 	public GameObject m_persistentDiscSequencePrefab;
 
 	private AbilityMod_NekoHomingDisc m_abilityMod;
-
 	private Neko_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedOnCastEnemyHitEffect;
-
 	private StandardEffectInfo m_cachedReturnTripEnemyEffect;
 
 	private void Start()
@@ -60,163 +43,97 @@ public class NekoHomingDisc : Ability
 	{
 		SetCachedFields();
 		m_syncComp = GetComponent<Neko_SyncComponent>();
-		base.Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserLength(), false, GetMaxTargets());
+		Targeter = new AbilityUtil_Targeter_Laser(this, GetLaserWidth(), GetLaserLength(), false, GetMaxTargets());
 	}
 
 	private void SetCachedFields()
 	{
-		StandardEffectInfo cachedOnCastEnemyHitEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedOnCastEnemyHitEffect = m_abilityMod.m_onCastEnemyHitEffectMod.GetModifiedValue(m_onCastEnemyHitEffect);
-		}
-		else
-		{
-			cachedOnCastEnemyHitEffect = m_onCastEnemyHitEffect;
-		}
-		m_cachedOnCastEnemyHitEffect = cachedOnCastEnemyHitEffect;
-		StandardEffectInfo cachedReturnTripEnemyEffect;
-		if ((bool)m_abilityMod)
-		{
-			cachedReturnTripEnemyEffect = m_abilityMod.m_returnTripEnemyEffectMod.GetModifiedValue(m_returnTripEnemyEffect);
-		}
-		else
-		{
-			cachedReturnTripEnemyEffect = m_returnTripEnemyEffect;
-		}
-		m_cachedReturnTripEnemyEffect = cachedReturnTripEnemyEffect;
+		m_cachedOnCastEnemyHitEffect = m_abilityMod != null
+			? m_abilityMod.m_onCastEnemyHitEffectMod.GetModifiedValue(m_onCastEnemyHitEffect)
+			: m_onCastEnemyHitEffect;
+		m_cachedReturnTripEnemyEffect = m_abilityMod != null
+			? m_abilityMod.m_returnTripEnemyEffectMod.GetModifiedValue(m_returnTripEnemyEffect)
+			: m_returnTripEnemyEffect;
 	}
 
 	public float GetLaserLength()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength);
-		}
-		else
-		{
-			result = m_laserLength;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserLengthMod.GetModifiedValue(m_laserLength)
+			: m_laserLength;
 	}
 
 	public float GetLaserWidth()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth);
-		}
-		else
-		{
-			result = m_laserWidth;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_laserWidthMod.GetModifiedValue(m_laserWidth)
+			: m_laserWidth;
 	}
 
 	public int GetMaxTargets()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets);
-		}
-		else
-		{
-			result = m_maxTargets;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_maxTargetsMod.GetModifiedValue(m_maxTargets)
+			: m_maxTargets;
 	}
 
 	public float GetDiscReturnEndRadius()
 	{
-		float result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius);
-		}
-		else
-		{
-			result = m_discReturnEndRadius;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_discReturnEndRadiusMod.GetModifiedValue(m_discReturnEndRadius)
+			: m_discReturnEndRadius;
 	}
 
 	public StandardEffectInfo GetOnCastEnemyHitEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedOnCastEnemyHitEffect != null)
-		{
-			result = m_cachedOnCastEnemyHitEffect;
-		}
-		else
-		{
-			result = m_onCastEnemyHitEffect;
-		}
-		return result;
+		return m_cachedOnCastEnemyHitEffect ?? m_onCastEnemyHitEffect;
 	}
 
 	public int GetTargetDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_targetDamageMod.GetModifiedValue(m_targetDamage);
-		}
-		else
-		{
-			result = m_targetDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_targetDamageMod.GetModifiedValue(m_targetDamage)
+			: m_targetDamage;
 	}
 
 	public int GetReturnTripDamage()
 	{
-		int result;
-		if ((bool)m_abilityMod)
-		{
-			result = m_abilityMod.m_returnTripDamageMod.GetModifiedValue(m_returnTripDamage);
-		}
-		else
-		{
-			result = m_returnTripDamage;
-		}
-		return result;
+		return m_abilityMod != null
+			? m_abilityMod.m_returnTripDamageMod.GetModifiedValue(m_returnTripDamage)
+			: m_returnTripDamage;
 	}
 
 	public bool ReturnTripIgnoreCover()
 	{
-		return (!m_abilityMod) ? m_returnTripIgnoreCover : m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover);
+		return m_abilityMod != null
+			? m_abilityMod.m_returnTripIgnoreCoverMod.GetModifiedValue(m_returnTripIgnoreCover)
+			: m_returnTripIgnoreCover;
 	}
 
 	public float GetExtraReturnDamagePerDist()
 	{
-		return (!m_abilityMod) ? m_extraReturnDamagePerDist : m_abilityMod.m_extraReturnDamagePerDistMod.GetModifiedValue(m_extraReturnDamagePerDist);
+		return m_abilityMod != null
+			? m_abilityMod.m_extraReturnDamagePerDistMod.GetModifiedValue(m_extraReturnDamagePerDist)
+			: m_extraReturnDamagePerDist;
 	}
 
 	public StandardEffectInfo GetReturnTripEnemyEffect()
 	{
-		StandardEffectInfo result;
-		if (m_cachedReturnTripEnemyEffect != null)
-		{
-			result = m_cachedReturnTripEnemyEffect;
-		}
-		else
-		{
-			result = m_returnTripEnemyEffect;
-		}
-		return result;
+		return m_cachedReturnTripEnemyEffect ?? m_returnTripEnemyEffect;
 	}
 
 	public int GetCdrIfHitNoOneOnCast()
 	{
-		return (!m_abilityMod) ? m_cdrIfHitNoOneOnCast : m_abilityMod.m_cdrIfHitNoOneOnCastMod.GetModifiedValue(m_cdrIfHitNoOneOnCast);
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfHitNoOneOnCastMod.GetModifiedValue(m_cdrIfHitNoOneOnCast)
+			: m_cdrIfHitNoOneOnCast;
 	}
 
 	public int GetCdrIfHitNoOneOnReturn()
 	{
-		return (!m_abilityMod) ? m_cdrIfHitNoOneOnReturn : m_abilityMod.m_cdrIfHitNoOneOnReturnMod.GetModifiedValue(m_cdrIfHitNoOneOnReturn);
+		return m_abilityMod != null
+			? m_abilityMod.m_cdrIfHitNoOneOnReturnMod.GetModifiedValue(m_cdrIfHitNoOneOnReturn)
+			: m_cdrIfHitNoOneOnReturn;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
@@ -232,10 +149,11 @@ public class NekoHomingDisc : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetTargetDamage()));
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, GetReturnTripDamage()));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, GetTargetDamage()),
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, GetReturnTripDamage())
+		};
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -250,15 +168,10 @@ public class NekoHomingDisc : Ability
 
 	protected override void OnApplyAbilityMod(AbilityMod abilityMod)
 	{
-		if (abilityMod.GetType() != typeof(AbilityMod_NekoHomingDisc))
+		if (abilityMod.GetType() == typeof(AbilityMod_NekoHomingDisc))
 		{
-			return;
-		}
-		while (true)
-		{
-			m_abilityMod = (abilityMod as AbilityMod_NekoHomingDisc);
+			m_abilityMod = abilityMod as AbilityMod_NekoHomingDisc;
 			Setup();
-			return;
 		}
 	}
 
