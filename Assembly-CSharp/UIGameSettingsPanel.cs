@@ -548,33 +548,22 @@ public class UIGameSettingsPanel : UIScene
 	{
 		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig();
 		string map = string.Empty;
-		int count = m_theMapList.Count;
-		int num = 0;
-		while (true)
+
+		foreach (MapSelectButton btn in m_theMapList)
 		{
-			if (num < count)
+			if (btn.ToggleBtn.IsChecked())
 			{
-				if (m_theMapList[num].ToggleBtn.IsChecked())
-				{
-					map = m_theMapList[num].MapConfig.Map;
-					break;
-				}
-				num++;
-				continue;
+				map = btn.MapConfig.Map;
+				break;
 			}
-			break;
 		}
 		lobbyGameConfig.Map = map;
-		int @checked = GetChecked(m_teamAPlayersButtons);
-		int checked2 = GetChecked(m_teamBPlayersButtons);
-		int checked3 = GetChecked(m_spectatorButtons);
 		lobbyGameConfig.RoomName = m_gameNameInputField.text;
-		lobbyGameConfig.TeamAPlayers = @checked;
-		lobbyGameConfig.TeamBPlayers = checked2;
-		lobbyGameConfig.Spectators = checked3;
+		lobbyGameConfig.TeamAPlayers = GetChecked(m_teamAPlayersButtons);
+		lobbyGameConfig.TeamBPlayers = GetChecked(m_teamBPlayersButtons);
+		lobbyGameConfig.Spectators = GetChecked(m_spectatorButtons);
 		lobbyGameConfig.GameType = GameType.Custom;
-		lobbyGameConfig.SubTypes = new List<GameSubType>();
-		lobbyGameConfig.SubTypes.Add(GameManager.Get().GameConfig.InstanceSubType);
+		lobbyGameConfig.SubTypes = new List<GameSubType> { GameManager.Get().GameConfig.InstanceSubType };
 		lobbyGameConfig.InstanceSubTypeBit = GameManager.Get().GameConfig.InstanceSubTypeBit;
 		if (lobbyGameConfig.InstanceSubType.GameOverrides == null)
 		{
@@ -582,11 +571,13 @@ public class UIGameSettingsPanel : UIScene
 		}
 		try
 		{
-			lobbyGameConfig.InstanceSubType.GameOverrides.SetTimeSpanOverride(GameValueOverrides.OverrideAbleGameValue.TurnTimeSpan, GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(m_roundTime.text)));
+			lobbyGameConfig.InstanceSubType.GameOverrides.SetTimeSpanOverride(
+				GameValueOverrides.OverrideAbleGameValue.TurnTimeSpan,
+				GameSubType.ConformTurnTimeSpanFromSeconds(double.Parse(m_roundTime.text)));
 		}
-		catch (Exception exception)
+		catch (Exception ex)
 		{
-			Log.Exception(exception);
+			Log.Exception(ex);
 		}
 		if (m_allowDuplicateCharacters.isOn)
 		{
@@ -600,70 +591,56 @@ public class UIGameSettingsPanel : UIScene
 		{
 			if (m_useTimeBank.isOn)
 			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, null);
-						goto end_IL_01ce;
-					}
-				}
+				lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(
+					GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, 
+					null);
 			}
-			lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables, 0);
-			end_IL_01ce:;
+			else
+			{
+				lobbyGameConfig.InstanceSubType.GameOverrides.SetIntOverride(
+					GameValueOverrides.OverrideAbleGameValue.InitialTimeBankConsumables,
+					0);
+			}
 		}
-		catch (Exception exception2)
+		catch (Exception ex)
 		{
-			Log.Exception(exception2);
+			Log.Exception(ex);
 		}
 		m_teamInfo.TeamPlayerInfo.Clear();
-		int num2 = 1;
-		UITeamMemberEntry[] teamAMemberEntries = m_teamAMemberEntries;
-		foreach (UITeamMemberEntry uITeamMemberEntry in teamAMemberEntries)
+		int nextSlot = 1;
+		foreach (UITeamMemberEntry uITeamMemberEntry in m_teamAMemberEntries)
 		{
 			LobbyPlayerInfo playerInfo = uITeamMemberEntry.GetPlayerInfo();
 			if (playerInfo != null)
 			{
-				playerInfo.CustomGameVisualSlot = num2;
+				playerInfo.CustomGameVisualSlot = nextSlot;
 				m_teamInfo.TeamPlayerInfo.Add(playerInfo);
 			}
-			num2++;
+			nextSlot++;
 		}
-		while (true)
+		nextSlot = 1;
+		foreach (UITeamMemberEntry uITeamMemberEntry in m_teamBMemberEntries)
 		{
-			num2 = 1;
-			UITeamMemberEntry[] teamBMemberEntries = m_teamBMemberEntries;
-			foreach (UITeamMemberEntry uITeamMemberEntry2 in teamBMemberEntries)
+			LobbyPlayerInfo playerInfo = uITeamMemberEntry.GetPlayerInfo();
+			if (playerInfo != null)
 			{
-				LobbyPlayerInfo playerInfo2 = uITeamMemberEntry2.GetPlayerInfo();
-				if (playerInfo2 != null)
-				{
-					playerInfo2.CustomGameVisualSlot = num2;
-					m_teamInfo.TeamPlayerInfo.Add(playerInfo2);
-				}
-				num2++;
+				playerInfo.CustomGameVisualSlot = nextSlot;
+				m_teamInfo.TeamPlayerInfo.Add(playerInfo);
 			}
-			num2 = 1;
-			UITeamMemberEntry[] spectatorMemberEntries = m_spectatorMemberEntries;
-			foreach (UITeamMemberEntry uITeamMemberEntry3 in spectatorMemberEntries)
-			{
-				LobbyPlayerInfo playerInfo3 = uITeamMemberEntry3.GetPlayerInfo();
-				if (playerInfo3 != null)
-				{
-					playerInfo3.CustomGameVisualSlot = num2;
-					m_teamInfo.TeamPlayerInfo.Add(playerInfo3);
-				}
-				num2++;
-			}
-			while (true)
-			{
-				AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, m_teamInfo, closeSettingsWindow);
-				return;
-			}
+			nextSlot++;
 		}
+		nextSlot = 1;
+		foreach (UITeamMemberEntry uITeamMemberEntry in m_spectatorMemberEntries)
+		{
+			LobbyPlayerInfo playerInfo = uITeamMemberEntry.GetPlayerInfo();
+			if (playerInfo != null)
+			{
+				playerInfo.CustomGameVisualSlot = nextSlot;
+				m_teamInfo.TeamPlayerInfo.Add(playerInfo);
+			}
+			nextSlot++;
+		}
+		AppState_CharacterSelect.Get().OnUpdateGameSettingsClicked(lobbyGameConfig, m_teamInfo, closeSettingsWindow);
 	}
 
 	public void UpdateClicked(BaseEventData data)
@@ -865,19 +842,12 @@ public class UIGameSettingsPanel : UIScene
 	{
 		for (int i = 0; i < buttons.Length; i++)
 		{
-			if (!buttons[i].IsChecked())
-			{
-				continue;
-			}
-			while (true)
+			if (buttons[i].IsChecked())
 			{
 				return i;
 			}
 		}
-		while (true)
-		{
-			return 0;
-		}
+		return 0;
 	}
 
 	public void PopulateTeam(int teamSize, IEnumerable<LobbyPlayerInfo> teamPlayerInfo, UITeamMemberEntry[] teamMemberEntries)

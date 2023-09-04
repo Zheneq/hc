@@ -8,48 +8,28 @@ public class UICharacterSelectSimplePartyList : MonoBehaviour
 	public void UpdateCharacterList(LobbyPlayerInfo playerInfo, LobbyTeamInfo teamInfo, LobbyGameInfo gameInfo)
 	{
 		int i = 0;
-		if (playerInfo != null)
+		if (playerInfo != null
+		    && teamInfo != null
+		    && teamInfo.TeamPlayerInfo != null)
 		{
-			if (teamInfo != null)
+			foreach (LobbyPlayerInfo lobbyPlayerInfo in teamInfo.TeamPlayerInfo)
 			{
-				if (teamInfo.TeamPlayerInfo != null)
+				if (i < m_simplePartyMembers.Length
+				    && lobbyPlayerInfo.TeamId != playerInfo.TeamId
+				    && lobbyPlayerInfo.TeamId != Team.Spectator)
 				{
-					using (List<LobbyPlayerInfo>.Enumerator enumerator = teamInfo.TeamPlayerInfo.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							LobbyPlayerInfo current = enumerator.Current;
-							if (i < m_simplePartyMembers.Length)
-							{
-								if (current.TeamId != playerInfo.TeamId)
-								{
-									if (current.TeamId != Team.Spectator)
-									{
-										UIManager.SetGameObjectActive(m_simplePartyMembers[i], true);
-										UIManager.SetGameObjectActive(m_simplePartyMembers[i].m_checkmark, current.ReadyState == ReadyState.Ready || current.IsNPCBot);
-										m_simplePartyMembers[i].m_playerName.text = current.GetHandle();
-										i++;
-									}
-								}
-							}
-						}
-					}
+					UIManager.SetGameObjectActive(m_simplePartyMembers[i], true);
+					UIManager.SetGameObjectActive(
+						m_simplePartyMembers[i].m_checkmark,
+						lobbyPlayerInfo.ReadyState == ReadyState.Ready || lobbyPlayerInfo.IsNPCBot);
+					m_simplePartyMembers[i].m_playerName.text = lobbyPlayerInfo.GetHandle();
+					i++;
 				}
 			}
 		}
 		for (; i < m_simplePartyMembers.Length; i++)
 		{
 			UIManager.SetGameObjectActive(m_simplePartyMembers[i], false);
-		}
-		while (true)
-		{
-			switch (6)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
 		}
 	}
 }
