@@ -31,48 +31,31 @@ public class UIGameSettingBotMenu : UITooltipBase
 		}
 		m_playerList.Clear();
 		int num = 0;
-		int num2 = 0;
+		int controllingPlayerId = 0;
 		if (entry.m_playerInfo.IsRemoteControlled)
 		{
-			num2 = entry.m_playerInfo.ControllingPlayerId;
+			controllingPlayerId = entry.m_playerInfo.ControllingPlayerId;
 			m_playerList.Add(null);
 			m_botSelection[0].text = StringUtil.TR("Bot", "Global");
 			num = 1;
 		}
-		GameManager gameManager = GameManager.Get();
-		using (List<LobbyPlayerInfo>.Enumerator enumerator = gameManager.TeamInfo.TeamPlayerInfo.GetEnumerator())
+
+		foreach (LobbyPlayerInfo player in GameManager.Get().TeamInfo.TeamPlayerInfo)
 		{
-			while (enumerator.MoveNext())
+			if (!player.IsNPCBot
+			    && !player.IsRemoteControlled
+			    && controllingPlayerId != player.PlayerId
+			    && !player.IsSpectator)
 			{
-				LobbyPlayerInfo current = enumerator.Current;
-				if (!current.IsNPCBot)
-				{
-					if (!current.IsRemoteControlled && num2 != current.PlayerId)
-					{
-						if (!current.IsSpectator)
-						{
-							m_playerList.Add(current);
-							m_botSelection[num].text = current.GetHandle();
-							UIManager.SetGameObjectActive(m_botSelection[num], true);
-							num++;
-						}
-					}
-				}
+				m_playerList.Add(player);
+				m_botSelection[num].text = player.GetHandle();
+				UIManager.SetGameObjectActive(m_botSelection[num], true);
+				num++;
 			}
 		}
 		for (int i = num; i < m_botSelection.Length; i++)
 		{
 			UIManager.SetGameObjectActive(m_botSelection[i], false);
-		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
 		}
 	}
 

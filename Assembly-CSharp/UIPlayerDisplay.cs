@@ -431,51 +431,31 @@ public class UIPlayerDisplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam());
 			int num = 0;
-			using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
+			foreach (ActorData ally in GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam()))
 			{
-				while (true)
+				if (num >= m_teamPlayerIcons.Length)
 				{
-					if (!enumerator.MoveNext())
-					{
-						break;
-					}
-					ActorData current = enumerator.Current;
-					if (num >= m_teamPlayerIcons.Length)
-					{
-						break;
-					}
-					if (!GameplayUtils.IsPlayerControlled(current))
-					{
-					}
-					else
-					{
-						m_teamPlayerIcons[num].Setup(current);
-						num++;
-					}
+					break;
+				}
+
+				if (GameplayUtils.IsPlayerControlled(ally))
+				{
+					m_teamPlayerIcons[num].Setup(ally);
+					num++;
 				}
 			}
-			playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetEnemyTeam());
 			num = 0;
-			using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers.GetEnumerator())
+			foreach (ActorData enemy in GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetEnemyTeam()))
 			{
-				while (true)
+				if (num >= m_enemyPlayerIcons.Length)
 				{
-					if (!enumerator2.MoveNext())
-					{
-						break;
-					}
-					ActorData current2 = enumerator2.Current;
-					if (num >= m_enemyPlayerIcons.Length)
-					{
-						break;
-					}
-					if (GameplayUtils.IsPlayerControlled(current2))
-					{
-						m_enemyPlayerIcons[num].Setup(current2);
-						num++;
-					}
+					break;
+				}
+				if (GameplayUtils.IsPlayerControlled(enemy))
+				{
+					m_enemyPlayerIcons[num].Setup(enemy);
+					num++;
 				}
 			}
 		}

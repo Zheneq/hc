@@ -886,222 +886,102 @@ public class UIGameSettingsPanel : UIScene
 		{
 			teamSize = teamMemberEntries.Length;
 		}
-		bool[] array = new bool[teamSize];
+		bool[] usedSlots = new bool[teamSize];
 		if (teamPlayerInfo != null)
 		{
-			IEnumerator<LobbyPlayerInfo> enumerator = teamPlayerInfo.GetEnumerator();
-			try
+			foreach (LobbyPlayerInfo gameOwner in teamPlayerInfo)
 			{
-				while (true)
+				int freeSlot = teamSize;
+				for (int i = 0; i < usedSlots.Length; i++)
 				{
-					if (!enumerator.MoveNext())
+					if (!usedSlots[i])
 					{
+						freeSlot = i;
 						break;
 					}
-					LobbyPlayerInfo current = enumerator.Current;
-					int num = teamSize;
-					for (int i = 0; i < array.Length; i++)
+				}
+				if (freeSlot < teamSize && gameOwner.IsGameOwner)
+				{
+					if (gameOwner.CustomGameVisualSlot != 0
+					    && 0 < gameOwner.CustomGameVisualSlot
+					    && gameOwner.CustomGameVisualSlot < usedSlots.Length + 1
+					    && !usedSlots[gameOwner.CustomGameVisualSlot - 1])
 					{
-						if (!array[i])
-						{
-							num = i;
-							break;
-						}
+						freeSlot = gameOwner.CustomGameVisualSlot - 1;
 					}
-					if (num < teamSize)
-					{
-						if (current.IsGameOwner)
-						{
-							if (current.CustomGameVisualSlot != 0)
-							{
-								if (0 < current.CustomGameVisualSlot)
-								{
-									if (current.CustomGameVisualSlot < array.Length + 1)
-									{
-										if (!array[current.CustomGameVisualSlot - 1])
-										{
-											num = current.CustomGameVisualSlot - 1;
-										}
-									}
-								}
-							}
-							teamMemberEntries[num].SetTeamPlayerInfo(current);
-							UIManager.SetGameObjectActive(teamMemberEntries[num], true);
-							array[num] = true;
-							break;
-						}
-					}
+					teamMemberEntries[freeSlot].SetTeamPlayerInfo(gameOwner);
+					UIManager.SetGameObjectActive(teamMemberEntries[freeSlot], true);
+					usedSlots[freeSlot] = true;
+					break;
 				}
 			}
-			finally
+			foreach (LobbyPlayerInfo player in teamPlayerInfo)
 			{
-				if (enumerator != null)
+				int freeSlot = teamSize;
+				for (int i = 0; i < usedSlots.Length; i++)
 				{
-					while (true)
+					if (!usedSlots[i])
 					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							enumerator.Dispose();
-							goto end_IL_0113;
-						}
+						freeSlot = i;
+						break;
 					}
 				}
-				end_IL_0113:;
-			}
-			IEnumerator<LobbyPlayerInfo> enumerator2 = teamPlayerInfo.GetEnumerator();
-			try
-			{
-				while (enumerator2.MoveNext())
+				if (freeSlot < teamSize
+				    && !player.IsNPCBot
+				    && !player.IsGameOwner)
 				{
-					LobbyPlayerInfo current2 = enumerator2.Current;
-					int num2 = teamSize;
-					int num3 = 0;
-					while (true)
+					if (player.CustomGameVisualSlot != 0
+					    && 0 < player.CustomGameVisualSlot
+					    && player.CustomGameVisualSlot < usedSlots.Length + 1
+					    && !usedSlots[player.CustomGameVisualSlot - 1])
 					{
-						if (num3 >= array.Length)
-						{
-							break;
-						}
-						if (!array[num3])
-						{
-							num2 = num3;
-							break;
-						}
-						num3++;
+						freeSlot = player.CustomGameVisualSlot - 1;
 					}
-					if (num2 < teamSize)
-					{
-						if (!current2.IsNPCBot)
-						{
-							if (!current2.IsGameOwner)
-							{
-								if (current2.CustomGameVisualSlot != 0)
-								{
-									if (0 < current2.CustomGameVisualSlot)
-									{
-										if (current2.CustomGameVisualSlot < array.Length + 1 && !array[current2.CustomGameVisualSlot - 1])
-										{
-											num2 = current2.CustomGameVisualSlot - 1;
-										}
-									}
-								}
-								teamMemberEntries[num2].SetTeamPlayerInfo(current2);
-								UIManager.SetGameObjectActive(teamMemberEntries[num2], true);
-								array[num2] = true;
-							}
-						}
-					}
+					teamMemberEntries[freeSlot].SetTeamPlayerInfo(player);
+					UIManager.SetGameObjectActive(teamMemberEntries[freeSlot], true);
+					usedSlots[freeSlot] = true;
 				}
 			}
-			finally
+			foreach (LobbyPlayerInfo bot in teamPlayerInfo)
 			{
-				if (enumerator2 != null)
+				int freeSlot = teamSize;
+				for (int i = 0; i < usedSlots.Length; i++)
 				{
-					while (true)
+					if (!usedSlots[i])
 					{
-						switch (5)
-						{
-						case 0:
-							break;
-						default:
-							enumerator2.Dispose();
-							goto end_IL_0240;
-						}
+						freeSlot = i;
+						break;
 					}
 				}
-				end_IL_0240:;
-			}
-			IEnumerator<LobbyPlayerInfo> enumerator3 = teamPlayerInfo.GetEnumerator();
-			try
-			{
-				while (enumerator3.MoveNext())
+				if (freeSlot < teamSize && bot.IsNPCBot)
 				{
-					LobbyPlayerInfo current3 = enumerator3.Current;
-					int num4 = teamSize;
-					int num5 = 0;
-					while (true)
+					if (bot.CustomGameVisualSlot != 0
+					    && 0 < bot.CustomGameVisualSlot
+					    && bot.CustomGameVisualSlot < usedSlots.Length + 1
+					    && !usedSlots[bot.CustomGameVisualSlot - 1])
 					{
-						if (num5 >= array.Length)
-						{
-							break;
-						}
-						if (!array[num5])
-						{
-							num4 = num5;
-							break;
-						}
-						num5++;
+						freeSlot = bot.CustomGameVisualSlot - 1;
 					}
-					if (num4 < teamSize)
-					{
-						if (current3.IsNPCBot)
-						{
-							if (current3.CustomGameVisualSlot != 0)
-							{
-								if (0 < current3.CustomGameVisualSlot)
-								{
-									if (current3.CustomGameVisualSlot < array.Length + 1)
-									{
-										if (!array[current3.CustomGameVisualSlot - 1])
-										{
-											num4 = current3.CustomGameVisualSlot - 1;
-										}
-									}
-								}
-							}
-							teamMemberEntries[num4].SetTeamPlayerInfo(current3);
-							UIManager.SetGameObjectActive(teamMemberEntries[num4], true);
-							array[num4] = true;
-						}
-					}
+					teamMemberEntries[freeSlot].SetTeamPlayerInfo(bot);
+					UIManager.SetGameObjectActive(teamMemberEntries[freeSlot], true);
+					usedSlots[freeSlot] = true;
 				}
-			}
-			finally
-			{
-				if (enumerator3 != null)
-				{
-					while (true)
-					{
-						switch (2)
-						{
-						case 0:
-							break;
-						default:
-							enumerator3.Dispose();
-							goto end_IL_0357;
-						}
-					}
-				}
-				end_IL_0357:;
 			}
 		}
-		for (int j = 0; j < teamMemberEntries.Length; j++)
+		for (int i = 0; i < teamMemberEntries.Length; i++)
 		{
-			if (j < teamSize)
+			if (i < teamSize)
 			{
-				if (!array[j])
+				if (!usedSlots[i])
 				{
-					teamMemberEntries[j].SetTeamPlayerInfo(null);
+					teamMemberEntries[i].SetTeamPlayerInfo(null);
 				}
-				UIManager.SetGameObjectActive(teamMemberEntries[j], true);
+				UIManager.SetGameObjectActive(teamMemberEntries[i], true);
 			}
 			else
 			{
-				teamMemberEntries[j].SetEmptyPlayerInfo();
-				UIManager.SetGameObjectActive(teamMemberEntries[j], false);
-			}
-		}
-		while (true)
-		{
-			switch (2)
-			{
-			default:
-				return;
-			case 0:
-				break;
+				teamMemberEntries[i].SetEmptyPlayerInfo();
+				UIManager.SetGameObjectActive(teamMemberEntries[i], false);
 			}
 		}
 	}

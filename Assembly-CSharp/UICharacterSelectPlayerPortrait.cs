@@ -82,57 +82,30 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 	{
 		if (m_isOutsideGame)
 		{
-			while (true)
-			{
-				return !m_isMainCharacter;
-			}
+			return !m_isMainCharacter;
 		}
-		bool flag = true;
-		if (flag)
+		if (AppState.GetCurrent() != AppState_CharacterSelect.Get())
 		{
-			if (AppState.GetCurrent() == AppState_CharacterSelect.Get())
-			{
-				if (GameManager.Get() != null)
-				{
-					if (GameManager.Get().PlayerInfo != null)
-					{
-						if (GameManager.Get().GameStatus == GameStatus.LoadoutSelecting)
-						{
-							flag = false;
-						}
-						else if (m_playerInfo == null)
-						{
-							flag = false;
-						}
-						else if (m_playerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
-						{
-							flag = (GameManager.Get().PlayerInfo.ReadyState != ReadyState.Ready);
-						}
-						else
-						{
-							if (!GameManager.Get().PlayerInfo.IsGameOwner)
-							{
-								goto IL_014a;
-							}
-							if (!m_playerInfo.IsNPCBot)
-							{
-								if (!m_playerInfo.IsRemoteControlled)
-								{
-									goto IL_014a;
-								}
-							}
-							flag = true;
-						}
-					}
-				}
-			}
+			return true;
 		}
-		goto IL_014c;
-		IL_014a:
-		flag = false;
-		goto IL_014c;
-		IL_014c:
-		return flag;
+		if (GameManager.Get() == null || GameManager.Get().PlayerInfo == null)
+		{
+			return true;
+		}
+		if (GameManager.Get().GameStatus == GameStatus.LoadoutSelecting)
+		{
+			return false;
+		}
+		if (m_playerInfo == null)
+		{
+			return false;
+		}
+		if (m_playerInfo.PlayerId == GameManager.Get().PlayerInfo.PlayerId)
+		{
+			return GameManager.Get().PlayerInfo.ReadyState != ReadyState.Ready;
+		}
+		return GameManager.Get().PlayerInfo.IsGameOwner
+		       && (m_playerInfo.IsNPCBot || m_playerInfo.IsRemoteControlled);
 	}
 
 	public void OnPortraitClick(BaseEventData data)
