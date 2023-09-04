@@ -6,31 +6,19 @@ public class NekoBendingDisc : Ability
 {
 	[Header("Targeting")]
 	public float m_laserWidth = 1f;
-
 	public float m_minRangeBeforeBend = 1f;
-
 	public float m_maxRangeBeforeBend = 5.5f;
-
 	public float m_maxTotalRange = 7.5f;
-
 	public float m_maxBendAngle = 45f;
-
 	public int m_maxTargets;
-
 	public bool m_startTargeterFadeAtActorRadius = true;
-
 	[Header("Damage stuff")]
 	public int m_directDamage = 25;
-
 	public int m_returnTripDamage = 10;
-
 	public bool m_returnTripIgnoreCover = true;
-
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_returnTripSequencePrefab;
-
 	public GameObject m_persistentDiscSequencePrefab;
 
 	private Neko_SyncComponent m_syncComp;
@@ -47,33 +35,32 @@ public class NekoBendingDisc : Ability
 
 	private void SetupTargeter()
 	{
-		base.Targeters.Clear();
+		Targeters.Clear();
 		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
 		{
-			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = new AbilityUtil_Targeter_BendingLaser(this, GetLaserWidth(), GetMinRangeBeforeBend(), GetMaxRangeBeforeBend(), GetMaxTotalRange(), GetMaxBendAngle(), false, GetMaxTargets());
-			abilityUtil_Targeter_BendingLaser.SetUseMultiTargetUpdate(true);
-			abilityUtil_Targeter_BendingLaser.m_startFadeAtActorRadius = m_startTargeterFadeAtActorRadius;
-			base.Targeters.Add(abilityUtil_Targeter_BendingLaser);
+			AbilityUtil_Targeter_BendingLaser targeter = new AbilityUtil_Targeter_BendingLaser(
+				this,
+				GetLaserWidth(),
+				GetMinRangeBeforeBend(),
+				GetMaxRangeBeforeBend(),
+				GetMaxTotalRange(),
+				GetMaxBendAngle(),
+				false,
+				GetMaxTargets());
+			targeter.SetUseMultiTargetUpdate(true);
+			targeter.m_startFadeAtActorRadius = m_startTargeterFadeAtActorRadius;
+			Targeters.Add(targeter);
 		}
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (!base.Targeters.IsNullOrEmpty())
+		if (!Targeters.IsNullOrEmpty())
 		{
-			AbilityUtil_Targeter_BendingLaser abilityUtil_Targeter_BendingLaser = base.Targeters[0] as AbilityUtil_Targeter_BendingLaser;
-			if (abilityUtil_Targeter_BendingLaser.DidStopShort())
+			AbilityUtil_Targeter_BendingLaser targeter = Targeters[0] as AbilityUtil_Targeter_BendingLaser;
+			if (targeter.DidStopShort())
 			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return 1;
-					}
-				}
+				return 1;
 			}
 		}
 		return 2;
@@ -89,46 +76,33 @@ public class NekoBendingDisc : Ability
 		aimDir.y = 0f;
 		aimDir.Normalize();
 		float maxBendAngle = GetMaxBendAngle();
-		Vector3 aimDirection = targets[0].AimDirection;
-		if (maxBendAngle > 0f)
+		if (maxBendAngle > 0f && maxBendAngle < 360f)
 		{
-			if (maxBendAngle < 360f)
-			{
-				aimDir = Vector3.RotateTowards(aimDirection, aimDir, (float)Math.PI / 180f * maxBendAngle, 0f);
-			}
+			aimDir = Vector3.RotateTowards(targets[0].AimDirection, aimDir, (float)Math.PI / 180f * maxBendAngle, 0f);
 		}
 		return aimDir;
 	}
 
 	private float GetClampedRangeInSquares(ActorData targetingActor, AbilityTarget currentTarget)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		float magnitude = (currentTarget.FreePos - travelBoardSquareWorldPositionForLos).magnitude;
-		if (magnitude < GetMinRangeBeforeBend() * Board.Get().squareSize)
+		Vector3 losCheckPos = targetingActor.GetLoSCheckPos();
+		float dist = (currentTarget.FreePos - losCheckPos).magnitude;
+		if (dist < GetMinRangeBeforeBend() * Board.Get().squareSize)
 		{
 			return GetMinRangeBeforeBend();
 		}
-		if (magnitude > GetMaxRangeBeforeBend() * Board.Get().squareSize)
+		if (dist > GetMaxRangeBeforeBend() * Board.Get().squareSize)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return GetMaxRangeBeforeBend();
-				}
-			}
+			return GetMaxRangeBeforeBend();
 		}
-		return magnitude / Board.Get().squareSize;
+		return dist / Board.Get().squareSize;
 	}
 
 	private float GetDistanceRemaining(ActorData targetingActor, AbilityTarget previousTarget, out Vector3 bendPos)
 	{
-		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
+		Vector3 losCheckPos = targetingActor.GetLoSCheckPos();
 		float clampedRangeInSquares = GetClampedRangeInSquares(targetingActor, previousTarget);
-		bendPos = travelBoardSquareWorldPositionForLos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
+		bendPos = losCheckPos + previousTarget.AimDirection * clampedRangeInSquares * Board.Get().squareSize;
 		return GetMaxTotalRange() - clampedRangeInSquares;
 	}
 
@@ -186,9 +160,10 @@ public class NekoBendingDisc : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_directDamage));
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_returnTripDamage));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_directDamage),
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_returnTripDamage)
+		};
 	}
 }

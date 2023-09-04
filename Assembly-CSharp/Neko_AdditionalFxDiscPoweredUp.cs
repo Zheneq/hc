@@ -1,9 +1,7 @@
 public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 {
 	private Neko_SyncComponent m_syncComp;
-
 	private BoardSquare m_targetSquare;
-
 	private Sequence m_parentSequence;
 
 	public override void Initialize(Sequence parentSequence)
@@ -19,42 +17,13 @@ public class Neko_AdditionalFxDiscPoweredUp : AdditionalVfxContainerBase
 
 	public override bool CanBeVisible(bool parentSeqVisible)
 	{
-		if (m_parentSequence != null && m_parentSequence.AgeInTurns > 0)
-		{
-			if (parentSeqVisible)
-			{
-				if (m_syncComp != null)
-				{
-					if (m_targetSquare != null)
-					{
-						if (GameFlowData.Get() != null)
-						{
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									break;
-								default:
-								{
-									int result;
-									if (m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn)
-									{
-										result = ((m_syncComp.m_clientDiscBuffTargetSquare == m_targetSquare) ? 1 : 0);
-									}
-									else
-									{
-										result = 0;
-									}
-									return (byte)result != 0;
-								}
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		return false;
+		return m_parentSequence != null
+		       && m_parentSequence.AgeInTurns > 0
+		       && parentSeqVisible
+		       && m_syncComp != null
+		       && m_targetSquare != null
+		       && GameFlowData.Get() != null
+		       && m_syncComp.m_clientLastDiscBuffTurn == GameFlowData.Get().CurrentTurn
+		       && m_syncComp.m_clientDiscBuffTargetSquare == m_targetSquare;
 	}
 }

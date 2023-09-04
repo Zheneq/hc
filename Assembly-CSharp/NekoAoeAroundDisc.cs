@@ -3,29 +3,20 @@ using UnityEngine;
 
 public class NekoAoeAroundDisc : Ability
 {
-	[Separator("Targeting", true)]
+	[Separator("Targeting")]
 	public float m_aoeRadius;
-
 	public bool m_penetrateLoS;
-
 	public int m_maxTargets;
-
-	[Separator("On Hit Damage/Effect", true)]
+	[Separator("On Hit Damage/Effect")]
 	public int m_damageAmount;
-
 	public StandardEffectInfo m_effectOnEnemies;
-
 	public bool m_removeTargetDiscBeforeReturn;
-
 	public float m_knockbackDist;
-
 	public KnockbackType m_knockbackType = KnockbackType.AwayFromSource;
-
-	[Separator("Sequences", true)]
+	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-
+	
 	private Neko_SyncComponent m_syncComp;
-
 	private StandardEffectInfo m_cachedEffectOnEnemies;
 
 	private void Start()
@@ -40,10 +31,11 @@ public class NekoAoeAroundDisc : Ability
 	private void SetupTargeter()
 	{
 		SetCachedFields();
-		AbilityUtil_Targeter_AoE_Smooth abilityUtil_Targeter_AoE_Smooth = new AbilityUtil_Targeter_AoE_Smooth(this, GetAoeRadius(), PenetrateLoS(), true, false, GetMaxTargets());
-		abilityUtil_Targeter_AoE_Smooth.m_customCenterPosDelegate = ClampToSquareCenter;
-		abilityUtil_Targeter_AoE_Smooth.SetupKnockbackData(GetKnockbackDist(), GetKnockbackType());
-		base.Targeters.Add(abilityUtil_Targeter_AoE_Smooth);
+		AbilityUtil_Targeter_AoE_Smooth targeter = new AbilityUtil_Targeter_AoE_Smooth(
+			this, GetAoeRadius(), PenetrateLoS(), true, false, GetMaxTargets());
+		targeter.m_customCenterPosDelegate = ClampToSquareCenter;
+		targeter.SetupKnockbackData(GetKnockbackDist(), GetKnockbackType());
+		Targeters.Add(targeter);
 		m_syncComp = GetComponent<Neko_SyncComponent>();
 	}
 
@@ -74,7 +66,7 @@ public class NekoAoeAroundDisc : Ability
 
 	public StandardEffectInfo GetEffectOnEnemies()
 	{
-		return (m_cachedEffectOnEnemies == null) ? m_effectOnEnemies : m_cachedEffectOnEnemies;
+		return m_cachedEffectOnEnemies ?? m_effectOnEnemies;
 	}
 
 	public bool RemoveTargetDiscBeforeReturn()
@@ -100,60 +92,31 @@ public class NekoAoeAroundDisc : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_damageAmount)
+		};
 	}
 
 	public override bool GetCheckLoS(int targetIndex)
 	{
-		if (GetTargetData().IsNullOrEmpty())
-		{
-			if (!m_targetData.IsNullOrEmpty())
-			{
-				return m_targetData[targetIndex].m_checkLineOfSight;
-			}
-		}
-		return base.GetCheckLoS(targetIndex);
+		return GetTargetData().IsNullOrEmpty() && !m_targetData.IsNullOrEmpty()
+			? m_targetData[targetIndex].m_checkLineOfSight
+			: base.GetCheckLoS(targetIndex);
 	}
 
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
 		if (m_syncComp != null && caster.GetCurrentBoardSquare() != null)
 		{
-			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
-			foreach (BoardSquare item in activeDiscSquares)
+			foreach (BoardSquare item in m_syncComp.GetActiveDiscSquares())
 			{
-				float minRange = m_targetData[0].m_minRange;
-				float range = m_targetData[0].m_range;
-				int num;
-				if (caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(item, caster.GetCurrentBoardSquare(), range, minRange))
+				bool isTargetInRange = caster.GetAbilityData().IsTargetSquareInRangeOfAbilityFromSquare(
+					item, caster.GetCurrentBoardSquare(), m_targetData[0].m_range, m_targetData[0].m_minRange);
+				if (isTargetInRange
+				    && (!m_targetData[0].m_checkLineOfSight || caster.GetCurrentBoardSquare().GetLOS(item.x, item.y)))
 				{
-					if (m_targetData[0].m_checkLineOfSight)
-					{
-						num = (caster.GetCurrentBoardSquare().GetLOS(item.x, item.y) ? 1 : 0);
-					}
-					else
-					{
-						num = 1;
-					}
-				}
-				else
-				{
-					num = 0;
-				}
-				if (num != 0)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							return true;
-						}
-					}
+					return true;
 				}
 			}
 		}
@@ -162,51 +125,22 @@ public class NekoAoeAroundDisc : Ability
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(target.GridPos);
-		if (m_syncComp != null)
-		{
-			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Contains(boardSquareSafe))
-			{
-				return true;
-			}
-		}
-		return false;
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		return m_syncComp != null && m_syncComp.GetActiveDiscSquares().Contains(targetSquare);
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (m_syncComp != null)
-		{
-			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Count > 1)
-			{
-				return 1;
-			}
-		}
-		return 0;
+		return m_syncComp != null && m_syncComp.GetActiveDiscSquares().Count > 1
+			? 1
+			: 0;
 	}
 
 	public override TargetData[] GetTargetData()
 	{
-		if (m_syncComp != null)
-		{
-			List<BoardSquare> activeDiscSquares = m_syncComp.GetActiveDiscSquares();
-			if (activeDiscSquares.Count > 1)
-			{
-				while (true)
-				{
-					switch (1)
-					{
-					case 0:
-						break;
-					default:
-						return base.GetTargetData();
-					}
-				}
-			}
-		}
-		return new TargetData[0];
+		return m_syncComp != null && m_syncComp.GetActiveDiscSquares().Count > 1
+			? base.GetTargetData()
+			: new TargetData[0];
 	}
 
 	public override AbilityTarget CreateAbilityTargetForSimpleAction(ActorData caster)
@@ -225,7 +159,6 @@ public class NekoAoeAroundDisc : Ability
 
 	public Vector3 ClampToSquareCenter(ActorData caster, AbilityTarget currentTarget)
 	{
-		BoardSquare boardSquareSafe = Board.Get().GetSquare(currentTarget.GridPos);
-		return boardSquareSafe.GetOccupantLoSPos();
+		return Board.Get().GetSquare(currentTarget.GridPos).GetOccupantLoSPos();
 	}
 }

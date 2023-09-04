@@ -11,43 +11,27 @@ public class NekoDiscBuffNotifySequence : SimpleTimingSequence
 	public override void FinishSetup()
 	{
 		base.FinishSetup();
-		m_syncComp = base.Caster.GetComponent<Neko_SyncComponent>();
-		if (!(m_syncComp == null))
+		m_syncComp = Caster.GetComponent<Neko_SyncComponent>();
+		if (m_syncComp == null && Application.isEditor)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (Application.isEditor)
-			{
-				Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
-			}
-			return;
+			Debug.LogError(string.Concat(GetType(), " did not find sync component on caster"));
 		}
 	}
 
 	protected override void DoSequenceHits()
 	{
-		if (m_syncComp != null)
+		if (m_syncComp != null && GameFlowData.Get() != null)
 		{
-			if (GameFlowData.Get() != null)
+			BoardSquare targetSquare = Board.Get().GetSquareFromVec3(TargetPos);
+			if (targetSquare != null)
 			{
-				BoardSquare boardSquare = Board.Get().GetSquareFromVec3(base.TargetPos);
-				if (boardSquare != null)
-				{
-					m_syncComp.m_clientLastDiscBuffTurn = GameFlowData.Get().CurrentTurn;
-					m_syncComp.m_clientDiscBuffTargetSquare = boardSquare;
-				}
+				m_syncComp.m_clientLastDiscBuffTurn = GameFlowData.Get().CurrentTurn;
+				m_syncComp.m_clientDiscBuffTargetSquare = targetSquare;
 			}
 		}
-		if (string.IsNullOrEmpty(m_audioEventOnNotify))
+		if (!string.IsNullOrEmpty(m_audioEventOnNotify))
 		{
-			return;
-		}
-		while (true)
-		{
-			AudioManager.PostEvent(m_audioEventOnNotify, base.Caster.gameObject);
-			return;
+			AudioManager.PostEvent(m_audioEventOnNotify, Caster.gameObject);
 		}
 	}
 }

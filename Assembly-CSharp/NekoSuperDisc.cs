@@ -5,23 +5,15 @@ public class NekoSuperDisc : Ability
 {
 	[Header("Targeting")]
 	public float m_laserWidth = 2f;
-
 	public float m_radiusAroundStart = 2f;
-
 	public float m_radiusAroundEnd = 2f;
-
 	public int m_maxTargets;
-
 	[Header("Damage stuff")]
 	public int m_directDamage = 35;
-
 	public int m_returnTripDamage = 20;
-
 	public StandardGroundEffectInfo m_stationaryTrap;
-
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
-
 	public GameObject m_returnTripSequencePrefab;
 
 	private Neko_SyncComponent m_syncComp;
@@ -38,9 +30,17 @@ public class NekoSuperDisc : Ability
 
 	private void Setup()
 	{
-		AbilityUtil_Targeter_CapsuleAoE abilityUtil_Targeter_CapsuleAoE = new AbilityUtil_Targeter_CapsuleAoE(this, GetRadiusAroundStart(), GetRadiusAroundEnd(), GetLaserWidth(), GetMaxTargets(), false, false);
-		abilityUtil_Targeter_CapsuleAoE.GetDefaultStartSquare = GetCurrentDiscSquare;
-		base.Targeter = abilityUtil_Targeter_CapsuleAoE;
+		Targeter = new AbilityUtil_Targeter_CapsuleAoE(
+			this,
+			GetRadiusAroundStart(),
+			GetRadiusAroundEnd(),
+			GetLaserWidth(),
+			GetMaxTargets(),
+			false,
+			false)
+		{
+			GetDefaultStartSquare = GetCurrentDiscSquare
+		};
 	}
 
 	public float GetLaserWidth()
@@ -82,122 +82,51 @@ public class NekoSuperDisc : Ability
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
 	{
-		List<AbilityTooltipNumber> list = new List<AbilityTooltipNumber>();
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_directDamage));
-		list.Add(new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_returnTripDamage));
-		return list;
+		return new List<AbilityTooltipNumber>
+		{
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Primary, m_directDamage),
+			new AbilityTooltipNumber(AbilityTooltipSymbol.Damage, AbilityTooltipSubject.Secondary, m_returnTripDamage)
+		};
 	}
 
 	public override int GetExpectedNumberOfTargeters()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_superDiscActive)
-			{
-				return 0;
-			}
-		}
-		return 1;
+		return m_syncComp != null && m_syncComp.m_superDiscActive
+			? 0
+			: 1;
 	}
 
 	public override bool IsFreeAction()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_superDiscActive)
-			{
-				return true;
-			}
-		}
-		return base.IsFreeAction();
+		return m_syncComp != null && m_syncComp.m_superDiscActive
+		       || base.IsFreeAction();
 	}
 
 	public override int GetModdedCost()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_superDiscActive)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return 0;
-					}
-				}
-			}
-		}
-		return base.GetModdedCost();
+		return m_syncComp != null && m_syncComp.m_superDiscActive
+			? 0
+			: base.GetModdedCost();
 	}
 
 	public override TargetData[] GetTargetData()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_superDiscActive)
-			{
-				while (true)
-				{
-					switch (5)
-					{
-					case 0:
-						break;
-					default:
-						return new TargetData[0];
-					}
-				}
-			}
-		}
-		return base.GetTargetData();
-	}
-
-	public override ActorModelData.ActionAnimationType GetActionAnimType()
-	{
-		return base.GetActionAnimType();
+		return m_syncComp != null && m_syncComp.m_superDiscActive
+			? new TargetData[0]
+			: base.GetTargetData();
 	}
 
 	public override bool CanTriggerAnimAtIndexForTaunt(int animIndex)
 	{
-		if (m_syncComp != null && m_syncComp.m_superDiscActive)
-		{
-			if (animIndex == (int)base.GetActionAnimType())
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return true;
-					}
-				}
-			}
-		}
-		return false;
+		return m_syncComp != null
+		       && m_syncComp.m_superDiscActive
+		       && animIndex == (int)base.GetActionAnimType();
 	}
 
 	public BoardSquare GetCurrentDiscSquare()
 	{
-		if (m_syncComp != null)
-		{
-			if (m_syncComp.m_superDiscActive)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return Board.Get().GetSquareFromIndex(m_syncComp.m_superDiscBoardX, m_syncComp.m_superDiscBoardY);
-					}
-				}
-			}
-		}
-		return null;
+		return m_syncComp != null && m_syncComp.m_superDiscActive
+			? Board.Get().GetSquareFromIndex(m_syncComp.m_superDiscBoardX, m_syncComp.m_superDiscBoardY)
+			: null;
 	}
 }
