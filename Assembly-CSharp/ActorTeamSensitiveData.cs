@@ -1556,6 +1556,11 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	// custom
 	public override bool OnCheckObserver(NetworkConnection conn)
 	{
+		if (!TeamSensitiveUtils.OnCheckObserver_NotForReconnection(conn, this))
+		{
+			return false;
+		}
+		
 		Player player = GameFlow.Get().GetPlayerFromConnectionId(conn.connectionId);
 		GameFlow.Get().playerDetails.TryGetValue(player, out PlayerDetails details);
 		if (details == null || Actor == null)

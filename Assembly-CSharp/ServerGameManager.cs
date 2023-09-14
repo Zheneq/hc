@@ -941,7 +941,7 @@ public class ServerGameManager : MonoBehaviour
 				-1);
 			ServerPlayerState serverPlayerState = m_serverPlayerStates[playerId];
 			GameManager.Get().TeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(lobbyServerPlayerInfo, 0, new MatchmakingQueueConfig()));
-			m_replayRecorders[team] = new ReplayRecorder(serverPlayerState, suffix);
+			m_replayRecorders[team] = new ReplayRecorder(serverPlayerState, team != Team.Spectator, suffix);
 		}
 	}
 
@@ -1445,6 +1445,18 @@ public class ServerGameManager : MonoBehaviour
 		bool applyPostReconnectUpdate = false;
 		if (m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
 		{
+			// place reconnected actor on board
+			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
+			{
+				Log.Info($"Teleporting reconnected {actorData}");
+				actorData.TeleportToBoardSquare(
+					actorData.GetCurrentBoardSquare(),
+					actorData.transform.localRotation.eulerAngles,
+					ActorData.TeleportType.Failsafe,
+					null
+				);
+			}
+			
 			List<Replay.Message> reconnectionData = replayRecorder.Replay.m_messages;
 			Log.Info($"Sending {reconnectionData.Count} messages as reconnect replay");
 			for (var i = 0; i < reconnectionData.Count; i++)
@@ -1483,6 +1495,8 @@ public class ServerGameManager : MonoBehaviour
 			player.GetComponent<ActorAdditionalVisionProviders>()?.SetDirtyBit(uint.MaxValue);
 			// force sync taunts
 			player.GetComponent<ActorCinematicRequests>()?.SetDirtyBit(uint.MaxValue);
+			// force sync team data
+			foreach (var atsd in player.GetComponents<ActorTeamSensitiveData>()) atsd?.SetDirtyBit(uint.MaxValue);
 		}
 		// force sync score
 		ObjectivePoints.Get()?.SetDirtyBit(uint.MaxValue);
@@ -1490,14 +1504,6 @@ public class ServerGameManager : MonoBehaviour
 		{
 			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
 			{
-				// fog of war fix
-				// Log.Info($"Teleporting reconnected {actorData}");
-				// actorData.TeleportToBoardSquare(
-				// 	actorData.GetCurrentBoardSquare(),
-				// 	actorData.transform.localRotation.eulerAngles,
-				// 	ActorData.TeleportType.Failsafe,
-				// 	null
-				// );
 				// ability fix
 				actorData.GetActorTurnSM().CallRpcTurnMessage((int)TurnMessage.TURN_START, 0);
 			}

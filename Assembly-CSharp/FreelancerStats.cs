@@ -536,4 +536,18 @@ public class FreelancerStats : NetworkBehaviour
 			SyncListInt.ReadReference(reader, m_values);
 		}
 	}
+	
+#if SERVER
+	// custom
+	public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initialize)
+	{
+		return TeamSensitiveUtils.OnRebuildObservers_NotForReconnection(observers, this);
+	}
+
+	// custom
+	public override bool OnCheckObserver(NetworkConnection conn)
+	{
+		return TeamSensitiveUtils.OnCheckObserver_NotForReconnection(conn, this);
+	}
+#endif
 }

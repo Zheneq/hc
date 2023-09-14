@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine.Networking;
 
 #if SERVER
@@ -10,20 +11,26 @@ public class MockServerNetworkConnection : NetworkConnection
     private readonly NetworkWriter writer = new NetworkWriter();
     private uint lastMessageOutgoingSeqNumStub;
     private readonly Func<short, MessageBase, bool> OnServerToClientMessage = (_, __) => true;
+    private readonly HashSet<uint> m_bannedRpcs = new HashSet<uint>();
     
-    public MockServerNetworkConnection(Func<short, MessageBase, bool> onServerToClientMessage = null)
+    public MockServerNetworkConnection(HashSet<uint> bannedRpcs = null, Func<short, MessageBase, bool> onServerToClientMessage = null)
     {
         if (!(onServerToClientMessage is null))
         {
             OnServerToClientMessage = onServerToClientMessage;
         }
+
+        if (!(bannedRpcs is null))
+        {
+            m_bannedRpcs = bannedRpcs;
+        }
     }
     
-    public override bool Send(short msgType, MessageBase msg)
+    public override bool SendByChannel(short msgType, MessageBase msg, int channelId)
     {
         if (OnServerToClientMessage(msgType, msg))
         {
-            return base.Send(msgType, msg);
+            return base.SendByChannel(msgType, msg, channelId);
         }
         return true;
     }
@@ -40,6 +47,20 @@ public class MockServerNetworkConnection : NetworkConnection
 
     public override bool SendBytes(byte[] bytes, int numBytes, int channelId)
     {
+        if (bytes[6] == 2 && bytes[7] == 0)
+        {
+            NetworkReader reader = new NetworkReader(bytes);
+            reader.ReadBytes(8);
+            uint rpcCode = reader.ReadPackedUInt32();
+            NetworkInstanceId netId = reader.ReadNetworkId();
+            bool skip = m_bannedRpcs.Contains(rpcCode);
+            // Log.Info($"Detected rpc {rpcCode} from {netId}, skip={skip}");
+            if (skip)
+            {
+                return true;
+            }
+        }
+        
         uint num = ++lastMessageOutgoingSeqNum;
         bytes[0] = (byte) (num & byte.MaxValue);
         bytes[1] = (byte) (num >> 8 & byte.MaxValue);

@@ -2368,6 +2368,7 @@
     <Compile Include="TeamLanes.cs" />
     <Compile Include="TeamSelectData.cs" />
     <Compile Include="TeamSensitiveDataMatchmaker.cs" />
+    <Compile Include="TeamSensitiveUtils.cs" />
     <Compile Include="TeamStatusDisplay.cs" />
     <Compile Include="TeamType.cs" />
     <Compile Include="TechPointInteraction.cs" />

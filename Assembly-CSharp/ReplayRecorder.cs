@@ -11,9 +11,48 @@ using UnityEngine.Networking;
 // custom
 public class ReplayRecorder
 {
+    private static readonly HashSet<uint> BANNED_RPCS = new HashSet<uint>()
+    {
+        0x3800B000, // kRpcRpcUpdateTimeRemaining
+        0xDEA65886, // kRpcRpcSetMatchTime
+        0xF9914088, // kRpcRpcTurnMessage
+    };
+    
+    // private static readonly HashSet<int> NOT_FOR_RECONNECT_REPLAY = new HashSet<int>()
+    // {
+    //     (int)MyMsgType.ReplayManagerFile,
+    //     (int)MyMsgType.DisplayAlert,
+    //     (int)MyMsgType.CastAbility,
+    //     (int)MyMsgType.LoginRequest,
+    //     (int)MyMsgType.LoginResponse,
+    //     (int)MyMsgType.AssetsLoadedNotification,
+    //     (int)MyMsgType.SpawningObjectsNotification,
+    //     (int)MyMsgType.ClientPreparedForGameStartNotification,
+    //     (int)MyMsgType.ReconnectReplayStatus,
+    //     (int)MyMsgType.ObserverMessage,
+    //     (int)MyMsgType.StartResolutionPhase,
+    //     (int)MyMsgType.ClientResolutionPhaseCompleted,
+    //     (int)MyMsgType.ResolveKnockbacksForActor,
+    //     (int)MyMsgType.ClientAssetsLoadingProgressUpdate,
+    //     (int)MyMsgType.ServerAssetsLoadingProgressUpdate,
+    //     (int)MyMsgType.RunResolutionActionsOutsideResolve,
+    //     (int)MyMsgType.SingleResolutionAction,
+    //     (int)MyMsgType.ClientRequestTimeUpdate,
+    //     (int)MyMsgType.Failsafe_HurryResolutionPhase,
+    //     (int)MyMsgType.LeaveGameNotification,
+    //     (int)MyMsgType.EndGameNotification,
+    //     (int)MyMsgType.ServerMovementStarting,
+    //     (int)MyMsgType.ClientMovementPhaseCompleted,
+    //     (int)MyMsgType.Failsafe_HurryMovementPhase,
+    //     (int)MyMsgType.ClashesAtEndOfMovement,
+    //     (int)MyMsgType.ClientFakeActionRequest,
+    //     (int)MyMsgType.ServerFakeActionResponse
+    // };
+    
     private readonly ServerPlayerState m_recorderPlayerState;
     private MockServerNetworkConnection conn;
     private readonly DateTime m_time;
+    private readonly bool m_isReconnectReplay;
     private readonly string m_suffix;
     private bool isInitialized = false;
 
@@ -21,9 +60,10 @@ public class ReplayRecorder
 
     public Replay Replay => conn.GetReplay();
 
-    public ReplayRecorder(ServerPlayerState playerState, string suffix = "")
+    public ReplayRecorder(ServerPlayerState playerState, bool isReconnectReplay, string suffix = "")
     {
         m_recorderPlayerState = playerState;
+        m_isReconnectReplay = isReconnectReplay;
         m_suffix = suffix;
         long? timestamp = GameManager.Get().GameInfo?.CreateTimestamp;
         m_time = timestamp.HasValue ? new DateTime(timestamp.Value) : DateTime.Now;
@@ -81,7 +121,8 @@ public class ReplayRecorder
 
     public void Connect()
     {
-        conn = new MockServerNetworkConnection(HandleMessageFromServer);
+        HashSet<uint> bannedRpcs = m_isReconnectReplay ? BANNED_RPCS : null;
+        conn = new MockServerNetworkConnection(bannedRpcs, HandleMessageFromServer);
         conn.connectionId = Math.Max(NetworkServer.connections.Count, 20);  // TODO REPLAYS hack to not get our connection id overwritten
         conn.hostId = 0;
         NetworkServer.AddExternalConnection(conn);
@@ -128,7 +169,16 @@ public class ReplayRecorder
             Log.Info($"{Handle} dropping msg type {msgType} ({DefaultJsonSerializer.Serialize(msg)})");
             return false;
         }
-        return true;
+
+        bool processMsg = !m_isReconnectReplay || msgType < (int)MyMsgType.ReplayManagerFile;
+        // if (!processMsg)
+        // {
+        //     string msgTypeStr = Enum.IsDefined(typeof(MyMsgType), msgType)
+        //         ? ((MyMsgType)Enum.ToObject(typeof(MyMsgType), msgType)).ToString()
+        //         : msgType.ToString();
+        //     Log.Info($"Skipping message type {msgTypeStr} for reconnect replay");
+        // }
+        return processMsg;
     }
 
     private void HandleLoginResponse(GameManager.LoginResponse loginResponse)
