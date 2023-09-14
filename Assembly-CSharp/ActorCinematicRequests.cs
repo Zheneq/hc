@@ -464,4 +464,18 @@ public class ActorCinematicRequests : NetworkBehaviour
 	//		Networkm_numCinematicRequestsLeft = networkm_numCinematicRequestsLeft2;
 	//	}
 	//}
+	
+#if SERVER
+	// custom
+	public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initialize)
+	{
+		return TeamSensitiveUtils.OnRebuildObservers_NotForReconnection(observers, this);
+	}
+
+	// custom
+	public override bool OnCheckObserver(NetworkConnection conn)
+	{
+		return TeamSensitiveUtils.OnCheckObserver_NotForReconnection(conn, this);
+	}
+#endif
 }

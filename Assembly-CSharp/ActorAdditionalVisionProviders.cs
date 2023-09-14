@@ -1,4 +1,6 @@
 ﻿// ROGUES
+
+using System.Collections.Generic;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -299,4 +301,18 @@ public class ActorAdditionalVisionProviders : NetworkBehaviour
 	//private void MirrorProcessed()
 	//{
 	//}
+	
+#if SERVER
+	// custom
+	public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initialize)
+	{
+		return TeamSensitiveUtils.OnRebuildObservers_NotForReconnection(observers, this);
+	}
+
+	// custom
+	public override bool OnCheckObserver(NetworkConnection conn)
+	{
+		return TeamSensitiveUtils.OnCheckObserver_NotForReconnection(conn, this);
+	}
+#endif
 }

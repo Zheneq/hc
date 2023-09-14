@@ -3654,4 +3654,18 @@ public class AbilityData : NetworkBehaviour
 		public BotDifficulty m_botDifficulty;
 		public int[] m_abilityModIds;
 	}
+
+#if SERVER
+	// custom
+	public override bool OnRebuildObservers(HashSet<NetworkConnection> observers, bool initialize)
+	{
+		return TeamSensitiveUtils.OnRebuildObservers_NotForReconnection(observers, this);
+	}
+
+	// custom
+	public override bool OnCheckObserver(NetworkConnection conn)
+	{
+		return TeamSensitiveUtils.OnCheckObserver_NotForReconnection(conn, this);
+	}
+#endif
 }
