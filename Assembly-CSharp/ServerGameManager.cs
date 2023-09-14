@@ -30,6 +30,7 @@ public class ServerGameManager : MonoBehaviour
 
 	private List<long> m_reconnectingAccountIds;
 	private List<ServerPlayerState> m_playersToReadyNextDecisionPhase;
+	private List<ServerPlayerState> m_playersToSendReconnectDataTo; // custom
 	private int m_lastUpdateTurn;
 	private float[] m_recentFrameTimes = new float[10];
 	private bool m_sentGameSummary;
@@ -118,6 +119,7 @@ public class ServerGameManager : MonoBehaviour
 		m_serverPlayerStates = new Dictionary<long, ServerPlayerState>();
 		m_reconnectingAccountIds = new List<long>();
 		m_playersToReadyNextDecisionPhase = new List<ServerPlayerState>();
+		m_playersToSendReconnectDataTo = new List<ServerPlayerState>();  // custom
 		m_queuedConsoleMessages = new List<QueuedConsoleMessage>();
 		m_loading = false;
 		m_assetsLoadingState = new AssetsLoadingState();
@@ -1373,6 +1375,7 @@ public class ServerGameManager : MonoBehaviour
 
 	private void SetClientReady(ServerPlayerState playerState)
 	{
+		// playerState.GameLoadingState.IsReady
 		if (GameFlowData.Get() != null
 			&& (GameFlowData.Get().gameState == GameState.BothTeams_Resolve
 				|| GameFlowData.Get().CurrentTurn > 1)
@@ -1388,32 +1391,59 @@ public class ServerGameManager : MonoBehaviour
 		// custom
 		bool isGameLoaded = GameManager.Get() != null && GameManager.Get().GameStatus >= GameStatus.Loaded;
 
-		// custom Artemis (ReconnectReplayStatus is not used in rogues at all
-		if (!playerState.IsAIControlled)
-		{
-			Log.Info($"Entering reconnection replay state for {playerState}");
-			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
-		}
-		// end custom Artemis
-
 		int num = playerState.PlayerInfo.LobbyPlayerInfo.IsSpectator ? 2 : 1;
 		int playerObjectCount = m_serverPlayerStates.Count * (1 + num);
 		// TODO LOW check that the number is correct (7 iirc)
 		int totalObjectCount = NetworkServer.objects.Count; //  int count = NetworkIdentity.spawned.Count;
 		Log.Info("Sending spawn message for player {0} (playerObjectCount={1} totalObjectCount={2})", playerState.SessionInfo != null ? playerState.SessionInfo.Name : "(unnamed player)", playerObjectCount, totalObjectCount);
-		GameManager.SpawningObjectsNotification spawningObjectsNotification = new GameManager.SpawningObjectsNotification();
-		spawningObjectsNotification.PlayerId = playerState.PlayerInfo.PlayerId;
-		spawningObjectsNotification.SpawnableObjectCount = totalObjectCount;
+		GameManager.SpawningObjectsNotification spawningObjectsNotification = new GameManager.SpawningObjectsNotification
+		{
+			PlayerId = playerState.PlayerInfo.PlayerId,
+			SpawnableObjectCount = totalObjectCount
+		};
+
+		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
+		playerState.ConnectionReady = true;
 
 		// custom
 		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
-		
+
 		// custom
 		if (isGameLoaded
-		    && !playerState.IsAIControlled
-		    && m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
+		    && !playerState.IsAIControlled)
+		{
+			if (m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
+			{
+				Log.Info($"Delaying reconnect data for player {playerState.SessionInfo?.Name} until they prepare for game start");
+				m_playersToSendReconnectDataTo.Add(playerState);
+			}
+			else
+			{
+				Log.Error($"Reconnect data for player {playerState.SessionInfo?.Name} not found");
+			}
+		}
+	}
+
+	// custom
+	private void SendReconnectData(ServerPlayerState playerState)
+	{
+		if (m_playersToSendReconnectDataTo.Contains(playerState))
+		{
+			m_playersToSendReconnectDataTo.Remove(playerState);
+		}
+		else
+		{
+			Log.Warning("Not calling SendReconnectData...");
+			return;
+		}
+		
+		Log.Info($"Entering reconnection replay state for {playerState}");
+		playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = true });
+
+		bool applyPostReconnectUpdate = false;
+		if (m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
 		{
 			List<Replay.Message> reconnectionData = replayRecorder.Replay.m_messages;
 			Log.Info($"Sending {reconnectionData.Count} messages as reconnect replay");
@@ -1424,19 +1454,54 @@ public class ServerGameManager : MonoBehaviour
 				// Just resending the messages seems to work fine too: playerState.ConnectionPersistent.SendBytes(msg.data, msg.data.Length, 0);
 				playerState.ConnectionPersistent.Send((short)MyMsgType.ObserverMessage, new GameManager.ObserverMessage { Message = msg });
 			}
-		}
 
-		// custom Artemis (ReconnectReplayStatus is not user in rogues at all
-		if (!playerState.IsAIControlled)
+			applyPostReconnectUpdate = true;
+		}
+		else
 		{
-			Log.Info($"Exiting reconnection replay state for {playerState}");
-			playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
+			Log.Warning($"Failed to send reconnect replay to {playerState.SessionInfo.Name}");
 		}
-		// end custom Artemis
 
-		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
-		playerState.ConnectionReady = true;
-		Log.Warning("Not calling SendReconnectData...");
+		Log.Info($"Exiting reconnection replay state for {playerState}");
+		playerState.ConnectionPersistent.Send((short)MyMsgType.ReconnectReplayStatus, new GameManager.ReconnectReplayStatus { WithinReconnectReplay = false });
+
+		if (!applyPostReconnectUpdate)
+		{
+			return;
+		}
+		
+		foreach (GameObject player in GameFlowData.Get().GetPlayers())
+		{
+			// force sync cooldowns/catas
+			player.GetComponent<AbilityData>()?.SetDirtyBit(uint.MaxValue);
+			// force sync statuses
+			player.GetComponent<ActorStatus>()?.SetDirtyBit(uint.MaxValue);
+			// force sync stats
+			player.GetComponent<ActorBehavior>()?.SetDirtyBit(uint.MaxValue);
+			player.GetComponent<FreelancerStats>()?.SetDirtyBit(uint.MaxValue);
+			// force sync vision providers
+			player.GetComponent<ActorAdditionalVisionProviders>()?.SetDirtyBit(uint.MaxValue);
+			// force sync taunts
+			player.GetComponent<ActorCinematicRequests>()?.SetDirtyBit(uint.MaxValue);
+		}
+		// force sync score
+		ObjectivePoints.Get()?.SetDirtyBit(uint.MaxValue);
+		if (GameFlowData.Get() && GameFlowData.Get().IsInDecisionState())
+		{
+			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
+			{
+				// fog of war fix
+				// Log.Info($"Teleporting reconnected {actorData}");
+				// actorData.TeleportToBoardSquare(
+				// 	actorData.GetCurrentBoardSquare(),
+				// 	actorData.transform.localRotation.eulerAngles,
+				// 	ActorData.TeleportType.Failsafe,
+				// 	null
+				// );
+				// ability fix
+				actorData.GetActorTurnSM().CallRpcTurnMessage((int)TurnMessage.TURN_START, 0);
+			}
+		}
 	}
 
 	private void HandleClientAssetsLoadingProgressUpdate(NetworkConnection conn, GameManager.AssetsLoadingProgress loadingProgressInfo)
@@ -1520,7 +1585,9 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		ServerPlayerState serverPlayerState;
-		if (!m_serverPlayerStates.TryGetValue(playerObjectStartedOnClientNotification.PlayerId, out serverPlayerState) || serverPlayerState.SessionInfo == null || msg.conn != serverPlayerState.ConnectionPersistent)
+		if (!m_serverPlayerStates.TryGetValue(playerObjectStartedOnClientNotification.PlayerId, out serverPlayerState)
+		    || serverPlayerState.SessionInfo == null
+		    || msg.conn != serverPlayerState.ConnectionPersistent)
 		{
 			Log.Error("Received invalid PlayerObjectStartedOnClientNotification from {0}", msg.conn.address);
 			return;
@@ -1532,6 +1599,9 @@ public class ServerGameManager : MonoBehaviour
 		}
 
 		Log.Info("Player {0} requested time update", serverPlayerState.SessionInfo.Name);
+		
+		// custom
+		SendReconnectData(serverPlayerState);
 	}
 
 	private void HandleClientFakeActionRequest(NetworkConnection conn, GameManager.FakeActionRequest request)
