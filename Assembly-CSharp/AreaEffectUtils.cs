@@ -1,7 +1,8 @@
+// ROGUES
+// SERVER
 using System.Collections.Generic;
 using UnityEngine;
 
-// added some function from rogues but not all
 public static class AreaEffectUtils
 {
 	public enum StretchConeStyle
@@ -59,6 +60,7 @@ public static class AreaEffectUtils
 			&& IsRelevantTeam(validTeams, actor.GetTeam());
 	}
 
+	// inlined in rogues
 	public static bool IsRelevantTeam(List<Team> validTeams, Team team)
 	{
 		if (validTeams == null)
@@ -435,6 +437,7 @@ public static class AreaEffectUtils
 		return null;
 	}
 
+#if SERVER
 	// added in rogues
 	public static ActorData GetActorOnSquareOnPhaseStart(BoardSquare square)
 	{
@@ -455,6 +458,7 @@ public static class AreaEffectUtils
 		}
 		return null;
 	}
+#endif
 
 	public static List<BoardSquare> GetSquaresInRadius(BoardSquare centerSquare, float radiusInSquares, bool ignoreLoS, ActorData caster)
 	{
@@ -544,8 +548,8 @@ public static class AreaEffectUtils
 		ActorData caster,
 		Team onlyValidTeam,
 		List<NonActorTargetInfo> nonActorTargetInfo,
-		bool useLosOverridePos = false,
-		Vector3 losOverridePos = default(Vector3))
+		bool useLosOverridePos = false, // removed in rogues
+		Vector3 losOverridePos = default(Vector3)) // removed in rogues
 	{
 		return GetActorsInRadius(
 			centerPos,
@@ -554,8 +558,8 @@ public static class AreaEffectUtils
 			caster,
 			new List<Team> { onlyValidTeam },
 			nonActorTargetInfo,
-			useLosOverridePos,
-			losOverridePos);
+			useLosOverridePos, // removed in rogues
+			losOverridePos); // removed in rogues
 	}
 
 	public static List<ActorData> GetActorsInRadius(
@@ -565,8 +569,8 @@ public static class AreaEffectUtils
 		ActorData caster,
 		List<Team> onlyValidTeams,
 		List<NonActorTargetInfo> nonActorTargetInfo,
-		bool useLosOverridePos = false,
-		Vector3 losOverridePos = default(Vector3))
+		bool useLosOverridePos = false, // removed in rogues
+		Vector3 losOverridePos = default(Vector3)) // removed in rogues
 	{
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
@@ -580,8 +584,8 @@ public static class AreaEffectUtils
 				caster,
 				onlyValidTeams,
 				nonActorTargetInfo,
-				useLosOverridePos,
-				losOverridePos);
+				useLosOverridePos, // removed in rogues
+				losOverridePos); // removed in rogues
 		}
 		List<ActorData> result = new List<ActorData>();
 		List<BoardSquare> squaresInRadius = GetSquaresInRadius(centerPos.x, centerPos.z, radiusInSquares, ignoreLoS, caster);
@@ -789,8 +793,8 @@ public static class AreaEffectUtils
 		float coneBackwardOffsetInSquares,
 		bool ignoreLoS,
 		ActorData caster,
-		bool useLosOverridePos = false,
-		Vector3 losOverridePos = default(Vector3))
+		bool useLosOverridePos = false, // removed in rogues
+		Vector3 losOverridePos = default(Vector3)) // removed in rogues
 	{
 		float squareSize = Board.Get().squareSize;
 		Vector3 testPos = testSquare.ToVector3();
@@ -854,7 +858,7 @@ public static class AreaEffectUtils
 		bool isInLoS = true;
 		if (isInCone && !ignoreLoS)
 		{
-			Vector3 startPosForLoS = useLosOverridePos ? losOverridePos : offsetConeStart;
+			Vector3 startPosForLoS = useLosOverridePos ? losOverridePos : offsetConeStart;  // always offsetConeStart in rogues
 			BoardSquare startSquareForLoS = Board.Get().GetSquareFromVec3(startPosForLoS);
 			isInLoS = startSquareForLoS != null && SquareHasLosForCone(startPosForLoS, startSquareForLoS, testSquare, caster);
 		}
@@ -904,8 +908,8 @@ public static class AreaEffectUtils
 		ActorData caster,
 		Team onlyValidTeam,
 		List<NonActorTargetInfo> nonActorHitInfo,
-		bool useLosOverridePos = false,
-		Vector3 losOverridePos = default(Vector3))
+		bool useLosOverridePos = false, // removed in rogues
+		Vector3 losOverridePos = default(Vector3)) // removed in rogues
 	{
 		return GetActorsInCone(
 			coneStart,
@@ -917,8 +921,8 @@ public static class AreaEffectUtils
 			caster,
 			new List<Team> { onlyValidTeam },
 			nonActorHitInfo,
-			useLosOverridePos,
-			losOverridePos);
+			useLosOverridePos, // removed in rogues
+			losOverridePos); // removed in rogues
 	}
 
 	public static List<ActorData> GetActorsInCone(
@@ -931,8 +935,8 @@ public static class AreaEffectUtils
 		ActorData caster,
 		List<Team> onlyValidTeams,
 		List<NonActorTargetInfo> nonActorTargetInfo,
-		bool useLosOverridePos = false,
-		Vector3 losOverridePos = default(Vector3))
+		bool useLosOverridePos = false, // removed in rogues
+		Vector3 losOverridePos = default(Vector3)) // removed in rogues
 	{
 		if (GameWideData.Get().UseActorRadiusForCone())
 		{
@@ -946,8 +950,8 @@ public static class AreaEffectUtils
 				caster,
 				onlyValidTeams,
 				nonActorTargetInfo,
-				useLosOverridePos,
-				losOverridePos);
+				useLosOverridePos, // removed in rogues
+				losOverridePos); // removed in rogues
 		}
 		List<ActorData> result = new List<ActorData>();
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
@@ -982,8 +986,8 @@ public static class AreaEffectUtils
 		ActorData caster,
 		List<Team> onlyValidTeams = null,
 		List<NonActorTargetInfo> nonActorHitInfo = null,
-		bool useLosOverridePos = false,
-		Vector3 losOverridePos = default(Vector3))
+		bool useLosOverridePos = false, // removed in rogues
+		Vector3 losOverridePos = default(Vector3)) // removed in rogues
 	{
 		List<ActorData> result = new List<ActorData>();
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
@@ -1001,12 +1005,28 @@ public static class AreaEffectUtils
 				    coneBackwardOffsetInSquares,
 				    ignoreLoS,
 				    caster,
-				    useLosOverridePos,
-				    losOverridePos))
+				    useLosOverridePos, // removed in rogues
+				    losOverridePos)) // removed in rogues
 			{
 				result.Add(actorData);
 			}
 		}
+#if SERVER
+		// added in rogues
+		if (nonActorHitInfo != null && !ignoreLoS)
+		{
+			PosInsideChecker_Cone checker = new PosInsideChecker_Cone(coneStart, coneLengthRadiusInSquares, coneCenterAngleDegrees, coneWidthDegrees);
+			if (BarrierManager.Get() != null)
+			{
+				BarrierManager.Get().AddNonActorTargetInfoFromPos(caster, coneStart, nonActorHitInfo, checker);
+			}
+			// rogues
+			// if (DynamicMissionGeoManager.Get() != null)
+			// {
+			// 	DynamicMissionGeoManager.Get().AddDestructibleGeoHits(nonActorHitInfo, posInsideChecker_Cone);
+			// }
+		}
+#endif
 		return result;
 	}
 
@@ -1304,7 +1324,30 @@ public static class AreaEffectUtils
 					result.Add(actor);
 				}
 			}
+			
+#if SERVER
+			// added in rogues
+			if (nonActorTargetInfo != null && !ignoreLoS)
+			{
+				PosInsideChecker_Box checker = new PosInsideChecker_Box(startPos, endPos, rangeFromLineInSquares);
+				if (BarrierManager.Get() != null)
+				{
+					List<Vector3> additionalLosCheckPos = new List<Vector3>();
+					for (int i = 1; i < additionalLosSources.Count; i++)
+					{
+						additionalLosCheckPos.Add(additionalLosSources[i]);
+					}
+					BarrierManager.Get().AddNonActorTargetInfoFromPos(caster, startPos, nonActorTargetInfo, checker, additionalLosCheckPos);
+				}
+				// rogues
+				// if (DynamicMissionGeoManager.Get() != null)
+				// {
+				// 	DynamicMissionGeoManager.Get().AddDestructibleGeoHits(nonActorTargetInfo, posInsideChecker_Box);
+				// }
+			}
 		}
+#endif
+
 		if (startRadiusInSquares > 0f)
 		{
 			List<ActorData> actorsInRadius = GetActorsInRadius(startPos, startRadiusInSquares, ignoreLoS, caster, onlyValidTeams, nonActorTargetInfo);
@@ -1361,8 +1404,8 @@ public static class AreaEffectUtils
 		checkerBox.m_penetrateLos = ignoreLoS;
 		checkerBox.m_widthInSquares = widthInSquares;
 		checkerBox.m_additionalLosSources = additionalLosSources;
-		checkerConeA.UpdateConeProperties(startPos, 360f, startRadiusInSquares, 0f, 0f, caster);
-		checkerConeB.UpdateConeProperties(endPos, 360f, endRadiusInSquares, 0f, 0f, caster);
+		checkerConeA.UpdateConeProperties(startPos, 360f, startRadiusInSquares, 0f, 0f, caster);  // , ignoreLoS in rogues
+		checkerConeB.UpdateConeProperties(endPos, 360f, endRadiusInSquares, 0f, 0f, caster);  // , ignoreLoS in rogues
 		if (rangeFromLineInSquares > 0f)
 		{
 			OperateOnSquaresInBoxByActorRadius(
@@ -1889,6 +1932,27 @@ public static class AreaEffectUtils
 		}
 	}
 
+#if SERVER
+	// added in rogues
+	public static Vector3 GetKnockbackOriginFromLaser(
+		List<ActorData> distanceSortedActors,
+		ActorData caster,
+		Vector3 aimDir,
+		Vector3 endPos)
+	{
+		if (distanceSortedActors.Count <= 0)
+		{
+			return endPos;
+		}
+		ActorData closestActor = distanceSortedActors[0];
+		Vector3 loSCheckPos = caster.GetLoSCheckPos();
+		Vector3 vector = Vector3.Project(closestActor.GetLoSCheckPos() - loSCheckPos, aimDir.normalized);
+		return vector.sqrMagnitude < Board.SquareSizeStatic * Board.SquareSizeStatic
+			? caster.GetLoSCheckPos()
+			: loSCheckPos + vector - aimDir * Board.SquareSizeStatic;
+	}
+#endif
+
 	public static List<ActorData> GetActorsInLaser(
 		Vector3 startPos,
 		Vector3 dir,
@@ -1979,11 +2043,11 @@ public static class AreaEffectUtils
 			Vector3 lhs = actorData.GetFreePos() - laserCoords.start;
 			lhs.y = 0f;
 			Vector3 b2 = Vector3.Dot(lhs, dir) * dir;
-			laserEndPos = laserCoords.start + b2;
+			laserEndPos = laserCoords.start + b2;  // laserCoords.start + dir * b2.magnitude; in rogues
 		}
 		else
 		{
-			laserEndPos = laserCoords.end;
+			laserEndPos = laserCoords.end;  // laserCoords.start + dir * laserCoords.Length(); in rogues
 			if (nonActorTargets != null && nonActorTargetsLocal != null)
 			{
 				foreach (NonActorTargetInfo nonActorTargetInfo in nonActorTargetsLocal)
@@ -2519,6 +2583,23 @@ public static class AreaEffectUtils
 				result.Add(current);
 			}
 		}
+#if SERVER
+		// added in rogues
+		if (nonActorTargetInfo != null && !ignoreLoS && shape != AbilityAreaShape.SingleSquare)
+		{
+			PosInsideChecker_Shape checker = new PosInsideChecker_Shape(shape, freePos, centerSquare);
+			Vector3 centerOfShape = GetCenterOfShape(shape, freePos, centerSquare);
+			if (BarrierManager.Get() != null)
+			{
+				BarrierManager.Get().AddNonActorTargetInfoFromPos(caster, centerOfShape, nonActorTargetInfo, checker);
+			}
+			// rogues
+			// if (DynamicMissionGeoManager.Get() != null)
+			// {
+			// 	DynamicMissionGeoManager.Get().AddDestructibleGeoHits(nonActorTargetInfo, posInsideChecker_Shape);
+			// }
+		}
+#endif
 		return result;
 	}
 
@@ -2555,6 +2636,26 @@ public static class AreaEffectUtils
 				}
 			}
 		}
+#if SERVER
+		// added in rogues
+		if (shapes.Count > 0)
+		{
+			AbilityAreaShape shape = shapes[shapes.Count - 1];
+			if (nonActorTargetInfo != null && !ignoreLos)
+			{
+				PosInsideChecker_Shape checker = new PosInsideChecker_Shape(shape, freePos, centerSquare);
+				Vector3 centerOfShape = GetCenterOfShape(shape, freePos, centerSquare);
+				if (BarrierManager.Get() != null)
+				{
+					BarrierManager.Get().AddNonActorTargetInfoFromPos(caster, centerOfShape, nonActorTargetInfo, checker);
+				}
+				// if (DynamicMissionGeoManager.Get() != null)
+				// {
+				// 	DynamicMissionGeoManager.Get().AddDestructibleGeoHits(nonActorTargetInfo, posInsideChecker_Shape);
+				// }
+			}
+		}
+#endif
 		return result;
 	}
 
@@ -2955,7 +3056,68 @@ public static class AreaEffectUtils
 				return true;
 		}
 	}
+	
+#if SERVER
+	// added in rogues
+	public static int GetNumberOfSidesForShape(AbilityAreaShape shape)
+	{
+		switch (shape)
+		{
+			case AbilityAreaShape.SingleSquare:
+			case AbilityAreaShape.Two_x_Two:
+			case AbilityAreaShape.Three_x_Three:
+			case AbilityAreaShape.Four_x_Four:
+			case AbilityAreaShape.Five_x_Five:
+			case AbilityAreaShape.Six_x_Six:
+			case AbilityAreaShape.Seven_x_Seven:
+				return 4;
+			case AbilityAreaShape.Three_x_Three_NoCorners:
+			case AbilityAreaShape.Four_x_Four_NoCorners:
+			case AbilityAreaShape.Five_x_Five_NoCorners:
+			case AbilityAreaShape.Six_x_Six_NoCorners:
+			case AbilityAreaShape.Seven_x_Seven_NoCorners:
+				return 8;
+			case AbilityAreaShape.Five_x_Five_ExtraNoCorners:
+			case AbilityAreaShape.Six_x_Six_ExtraNoCorners:
+			case AbilityAreaShape.Seven_x_Seven_ExtraNoCorners:
+				return 8;
+		}
+		return 0;
+	}
 
+	// added in rogues
+	public static float GetWidthForShape(AbilityAreaShape shape)
+	{
+		switch (shape)
+		{
+			case AbilityAreaShape.SingleSquare:
+				return 1f;
+			case AbilityAreaShape.Two_x_Two:
+				return 2f;
+			case AbilityAreaShape.Three_x_Three:
+			case AbilityAreaShape.Three_x_Three_NoCorners:
+				return 3f;
+			case AbilityAreaShape.Four_x_Four:
+			case AbilityAreaShape.Four_x_Four_NoCorners:
+				return 4f;
+			case AbilityAreaShape.Five_x_Five:
+			case AbilityAreaShape.Five_x_Five_NoCorners:
+			case AbilityAreaShape.Five_x_Five_ExtraNoCorners:
+				return 5f;
+			case AbilityAreaShape.Six_x_Six:
+			case AbilityAreaShape.Six_x_Six_NoCorners:
+			case AbilityAreaShape.Six_x_Six_ExtraNoCorners:
+				return 6f;
+			case AbilityAreaShape.Seven_x_Seven:
+			case AbilityAreaShape.Seven_x_Seven_NoCorners:
+			case AbilityAreaShape.Seven_x_Seven_ExtraNoCorners:
+				return 7f;
+			default:
+				return 0f;
+		}
+	}
+#endif
+	
 	public static Vector3 GetCenterOfShape(AbilityAreaShape shape, Vector3 freePos, BoardSquare centerSquare)
 	{
 		return IsShapeOddByOdd(shape)
@@ -3001,42 +3163,7 @@ public static class AreaEffectUtils
 	public static void AddShapeCornersToList(ref List<Vector3> points, AbilityAreaShape shape, Vector3 freePos, BoardSquare centerSquare)
 	{
 		Vector3 centerOfShape = GetCenterOfShape(shape, freePos, centerSquare);
-		float dimensions;
-		switch (shape)
-		{
-			case AbilityAreaShape.SingleSquare:
-				dimensions = 1f;
-				break;
-			case AbilityAreaShape.Two_x_Two:
-				dimensions = 2f;
-				break;
-			case AbilityAreaShape.Three_x_Three:
-			case AbilityAreaShape.Three_x_Three_NoCorners:
-				dimensions = 3f;
-				break;
-			case AbilityAreaShape.Four_x_Four:
-			case AbilityAreaShape.Four_x_Four_NoCorners:
-				dimensions = 4f;
-				break;
-			case AbilityAreaShape.Five_x_Five:
-			case AbilityAreaShape.Five_x_Five_NoCorners:
-			case AbilityAreaShape.Five_x_Five_ExtraNoCorners:
-				dimensions = 5f;
-				break;
-			case AbilityAreaShape.Six_x_Six:
-			case AbilityAreaShape.Six_x_Six_NoCorners:
-			case AbilityAreaShape.Six_x_Six_ExtraNoCorners:
-				dimensions = 6f;
-				break;
-			case AbilityAreaShape.Seven_x_Seven:
-			case AbilityAreaShape.Seven_x_Seven_NoCorners:
-			case AbilityAreaShape.Seven_x_Seven_ExtraNoCorners:
-				dimensions = 7f;
-				break;
-			default:
-				dimensions = 0f;
-				break;
-		}
+		float dimensions = GetWidthForShape(shape);  // inlined in reactor
 		float halfDimensions = dimensions / 2f;
 		float halfSize = halfDimensions * Board.Get().squareSize;
 		points.Add(new Vector3(centerOfShape.x + halfSize, centerOfShape.y, centerOfShape.z + halfSize));
