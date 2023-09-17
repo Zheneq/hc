@@ -163,7 +163,10 @@ public class GremlinsBigBang : Ability
 	{
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
-			targets[0].FreePos,
+			// custom
+			AreaEffectUtils.GetCenterOfShape(ModdedBombShape(), targets[0]),
+			// rogues
+			// targets[0].FreePos,
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
 			additionalData.m_sequenceSource);
@@ -184,9 +187,13 @@ public class GremlinsBigBang : Ability
 			baseDamage = ModdedDamageForSingleTarget();
 			distance = ModdedKnockbackDistanceForSingleTarget();
 		}
+		Vector3 damageOrigin = AreaEffectUtils.GetCenterOfShape(ModdedBombShape(), targets[0]); // custom
 		foreach (ActorData actorData in bombHitActors)
 		{
-			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
+			// custom
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, damageOrigin));
+			// rogues
+			// ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
 			actorHitResults.SetBaseDamage(baseDamage + extraDamage);
 			if (knockbackHitActors.Contains(actorData))
 			{
@@ -205,7 +212,10 @@ public class GremlinsBigBang : Ability
 		{
 			if (!bombHitActors.Contains(actorData))
 			{
-				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
+				// custom
+				ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, damageOrigin));
+				// rogues
+				// ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, targets[0].FreePos));
 				KnockbackHitData knockbackData = new KnockbackHitData(
 					actorData,
 					caster,
