@@ -1,65 +1,19 @@
 using System;
-using System.Threading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class VisualsLoader : MonoBehaviour, IGameEventListener
 {
 	public GameObject m_tempVisuals;
-
 	public string m_visualsSceneName;
-
 	public GameObject[] m_scriptingGameObjects;
 
 	private static VisualsLoader s_instance;
-
 	private bool m_levelLoaded;
-
 	private bool m_canSendEvent;
-
 	private bool m_eventSent;
 
-	private static Action<string> OnLoadingHolder;
-	public static event Action<string> OnLoading
-	{
-		add
-		{
-			Action<string> action = VisualsLoader.OnLoadingHolder;
-			Action<string> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref VisualsLoader.OnLoadingHolder, (Action<string>)Delegate.Combine(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-		remove
-		{
-			Action<string> action = VisualsLoader.OnLoadingHolder;
-			Action<string> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref VisualsLoader.OnLoadingHolder, (Action<string>)Delegate.Remove(action2, value), action);
-			}
-			while ((object)action != action2);
-			while (true)
-			{
-				return;
-			}
-		}
-	}
-
-	static VisualsLoader()
-	{
-		VisualsLoader.OnLoadingHolder = delegate
-		{
-		};
-	}
+	public static event Action<string> OnLoading = delegate {};
 
 	public static VisualsLoader Get()
 	{
@@ -79,12 +33,9 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 
 	public static void FireSceneLoadedEventIfNoVisualLoader()
 	{
-		if (!(Get() == null))
+		if (Get() != null && Get().enabled)
 		{
-			if (Get().enabled)
-			{
-				return;
-			}
+			return;
 		}
 		GameEventManager.Get().FireEvent(GameEventManager.EventType.VisualSceneLoaded, null);
 		ClientGameManager.Get().VisualSceneLoaded = true;
@@ -93,16 +44,7 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 
 	public bool LevelLoaded()
 	{
-		int result;
-		if (!m_levelLoaded)
-		{
-			result = ((!base.enabled) ? 1 : 0);
-		}
-		else
-		{
-			result = 1;
-		}
-		return (byte)result != 0;
+		return m_levelLoaded || !enabled;
 	}
 
 	private void SendSceneLoaded()
@@ -122,73 +64,41 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 
 	private void Start()
 	{
-		int num;
-		if (!HydrogenConfig.Get().UseTempSceneVisuals)
+		if ((HydrogenConfig.Get().UseTempSceneVisuals
+		     || m_visualsSceneName.IsNullOrEmpty()
+		     || Application.isEditor && HydrogenConfig.Get().UseTempVisualsInEditor)
+		    && m_tempVisuals != null)
 		{
-			if (!m_visualsSceneName.IsNullOrEmpty())
-			{
-				if (Application.isEditor)
-				{
-					num = (HydrogenConfig.Get().UseTempVisualsInEditor ? 1 : 0);
-				}
-				else
-				{
-					num = 0;
-				}
-				goto IL_0053;
-			}
-		}
-		num = 1;
-		goto IL_0053;
-		IL_0053:
-		if (num != 0)
-		{
-			if (m_tempVisuals != null)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						m_tempVisuals.SetActive(true);
-						m_levelLoaded = true;
-						SendSceneLoaded();
-						return;
-					}
-				}
-			}
+			m_tempVisuals.SetActive(true);
+			m_levelLoaded = true;
+			SendSceneLoaded();
+			return;
 		}
 		if (m_tempVisuals != null)
 		{
 			m_tempVisuals.SetActive(false);
 		}
-		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+		DontDestroyOnLoad(gameObject);
 		if (m_scriptingGameObjects != null)
 		{
-			for (int i = 0; i < m_scriptingGameObjects.Length; i++)
+			foreach (GameObject obj in m_scriptingGameObjects)
 			{
-				UnityEngine.Object.DontDestroyOnLoad(m_scriptingGameObjects[i]);
+				DontDestroyOnLoad(obj);
 			}
+
 			GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
 		}
-		VisualsLoader.OnLoadingHolder(m_visualsSceneName);
+		OnLoading(m_visualsSceneName);
 		StartCoroutine(AssetBundleManager.Get().LoadSceneAsync(m_visualsSceneName, LoadSceneMode.Single));
 	}
 
 	private void OnDestroy()
 	{
-		if (GameEventManager.Get() == null)
-		{
-			return;
-		}
-		while (true)
+		if (GameEventManager.Get() != null)
 		{
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameFlowDataStarted);
 			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
 			s_instance = null;
-			return;
 		}
 	}
 
@@ -204,15 +114,10 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 
 	private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
 	{
-		if (!(SceneManager.GetActiveScene().name.ToLower() == m_visualsSceneName.ToLower()))
-		{
-			return;
-		}
-		while (true)
+		if (SceneManager.GetActiveScene().name.ToLower() == m_visualsSceneName.ToLower())
 		{
 			m_levelLoaded = true;
 			SendSceneLoaded();
-			return;
 		}
 	}
 
@@ -220,42 +125,18 @@ public class VisualsLoader : MonoBehaviour, IGameEventListener
 	{
 		if (eventType == GameEventManager.EventType.GameFlowDataStarted)
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					m_canSendEvent = true;
-					SendSceneLoaded();
-					return;
-				}
-			}
+			m_canSendEvent = true;
+			SendSceneLoaded();
 		}
-		if (eventType != GameEventManager.EventType.GameTeardown)
+		else if (eventType == GameEventManager.EventType.GameTeardown && m_scriptingGameObjects != null)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (m_scriptingGameObjects == null)
+			foreach (GameObject obj in m_scriptingGameObjects)
 			{
-				return;
+				Destroy(obj);
 			}
-			while (true)
-			{
-				for (int i = 0; i < m_scriptingGameObjects.Length; i++)
-				{
-					UnityEngine.Object.Destroy(m_scriptingGameObjects[i]);
-				}
-				while (true)
-				{
-					m_scriptingGameObjects = null;
-					GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
-					return;
-				}
-			}
+
+			m_scriptingGameObjects = null;
+			GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.GameTeardown);
 		}
 	}
 }
