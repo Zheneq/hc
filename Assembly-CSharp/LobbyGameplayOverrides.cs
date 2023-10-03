@@ -8,117 +8,61 @@ using UnityEngine;
 public class LobbyGameplayOverrides
 {
 	public Dictionary<CharacterType, CharacterConfig> CharacterConfigOverrides = new Dictionary<CharacterType, CharacterConfig>(default(CharacterTypeComparer));
-
 	public Dictionary<CharacterType, CharacterConfig> CharacterConfigs = new Dictionary<CharacterType, CharacterConfig>(default(CharacterTypeComparer));
-
 	public Dictionary<CardType, CardConfigOverride> CardConfigOverrides = new Dictionary<CardType, CardConfigOverride>();
-
 	public Dictionary<CharacterType, CharacterAbilityConfigOverride> CharacterAbilityConfigOverrides = new Dictionary<CharacterType, CharacterAbilityConfigOverride>();
-
 	public Dictionary<CharacterType, CharacterSkinConfigOverride> CharacterSkinConfigOverrides = new Dictionary<CharacterType, CharacterSkinConfigOverride>();
-
 	public Dictionary<int, QuestConfigOverride> QuestConfigOverrides = new Dictionary<int, QuestConfigOverride>();
-
 	public Dictionary<int, FactionCompetitionConfigOverride> FactionCompetitionConfigOverrides = new Dictionary<int, FactionCompetitionConfigOverride>();
-
 	public List<string> DisabledMaps = new List<string>();
-
 	public List<GameType> DisabledGameTypes = new List<GameType>();
-
 	public bool EnableMods = true;
-
 	public bool EnableCards = true;
-
 	public bool EnableTaunts = true;
-
 	public bool EnableQuests = true;
-
 	public bool EnableHiddenCharacters;
-
 	public bool RankedUpdatesEnabled = true;
-
 	public bool EnableAllMods;
-
 	public bool EnableAllAbilityVfxSwaps;
-
 	public bool EnableShop = true;
-
 	public bool EnableSeasons = true;
-
 	public bool EnableDiscord;
-
 	public bool EnableDiscordSdk;
-
 	public bool EnableFacebook;
-
 	public bool EnableConversations = true;
-
 	public bool EnableEventBonus = true;
-
 	public bool EnableClientPerformanceCollecting;
-
 	public bool EnableSteamAchievements;
-
 	public bool AllowSpectators = true;
-
 	public bool AllowSpectatorsOutsideCustom;
-
 	public bool AllowReconnectingToGameInstantly;
-
 	public int SpectatorOutsideCustomTurnDelay = 2;
-
 	public bool SoloGameNoAutoLockinOnTimeout = true;
-
 	public bool UseSpectatorReplays;
-
 	public bool DisableControlPadInput;
-
 	public bool UseFakeGameServersForLoadTests;
-
 	public bool UseFakeClientConnectionsForLoadTests = true;
-
 	public int LoadTestClients = 10;
-
 	public int LoadTestMaxClientsPerInstance = 10;
-
 	public double LoadTestLoginRate = 1.0;
-
 	public double LoadTestLobbyDelay;
-
 	public double LoadTestReadyDelay;
-
 	public int LoadTestSoloGamePercentage;
-
 	public int LoadTestGroupingPercentage;
-
 	public string LoadTestFakeEntitlements = "GAME_ACCESS";
-
 	public DateTime PlayerPenaltyAmnesty = DateTime.MinValue;
-
 	public int EventFreePlayerXPBonusPercent;
-
 	public int EventPaidPlayerXPBonusPercent;
-
 	public int EventISOBonusPercent;
-
 	public int EventGGBoostBonusPercent;
-
 	public int EventTrustInfluenceBonusPercent;
-
 	public int EventFreelancerCurrencyPerMatchBonusPercent;
-
 	public DateTime EventBonusStartDate = DateTime.MinValue;
-
 	public DateTime EventBonusEndDate = DateTime.MaxValue;
-
 	public string RequiredEventBonusEntitlement;
-
 	public CharacterType ForcedFreeRotationCharacterForGroupA;
-
 	public CharacterType ForcedFreeRotationCharacterForGroupB;
-
 	public TimeSpan ClientPerformanceCollectingFrequency = TimeSpan.FromMinutes(5.0);
-
 	public TimeSpan RankedLeaderboardExpirationTime = TimeSpan.MaxValue;
 
 	public LobbyGameplayOverrides Clone()
@@ -143,42 +87,23 @@ public class LobbyGameplayOverrides
 				characterResourceLink.m_isHidden = characterConfig.IsHidden;
 			}
 		}
-		while (true)
-		{
-			switch (3)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
 	}
 
 	public void SetFactionConfigs(FactionWideData factionWideData)
 	{
-		if (!Application.isEditor)
+		if (Application.isEditor)
 		{
-			using (Dictionary<int, FactionCompetitionConfigOverride>.ValueCollection.Enumerator enumerator = FactionCompetitionConfigOverrides.Values.GetEnumerator())
+			return;
+		}
+		foreach (FactionCompetitionConfigOverride configOverride in FactionCompetitionConfigOverrides.Values)
+		{
+			foreach (FactionTierConfigOverride factionTierConfig in configOverride.FactionTierConfigs)
 			{
-				while (enumerator.MoveNext())
-				{
-					FactionCompetitionConfigOverride current = enumerator.Current;
-					foreach (FactionTierConfigOverride factionTierConfig in current.FactionTierConfigs)
-					{
-						factionWideData.SetCompetitionFactionTierInfo(factionTierConfig.CompetitionId, factionTierConfig.FactionId, factionTierConfig.TierId, factionTierConfig.ContributionToComplete);
-					}
-				}
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return;
-					}
-				}
+				factionWideData.SetCompetitionFactionTierInfo(
+					factionTierConfig.CompetitionId,
+					factionTierConfig.FactionId,
+					factionTierConfig.TierId,
+					factionTierConfig.ContributionToComplete);
 			}
 		}
 	}
@@ -186,23 +111,9 @@ public class LobbyGameplayOverrides
 	public void SetBaseCharacterConfigs(LobbyGameplayData gameplayData)
 	{
 		CharacterConfigs.Clear();
-		using (Dictionary<CharacterType, LobbyCharacterGameplayData>.ValueCollection.Enumerator enumerator = gameplayData.CharacterData.Values.GetEnumerator())
+		foreach (LobbyCharacterGameplayData characterData in gameplayData.CharacterData.Values)
 		{
-			while (enumerator.MoveNext())
-			{
-				LobbyCharacterGameplayData current = enumerator.Current;
-				CharacterConfigs.Add(current.CharacterType, current.CharacterConfig);
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			CharacterConfigs.Add(characterData.CharacterType, characterData.CharacterConfig);
 		}
 	}
 
@@ -218,8 +129,7 @@ public class LobbyGameplayOverrides
 
 	public CharacterConfig GetCharacterConfig(CharacterType characterType)
 	{
-		CharacterConfig value = null;
-		CharacterConfigOverrides.TryGetValue(characterType, out value);
+		CharacterConfigOverrides.TryGetValue(characterType, out CharacterConfig value);
 		if (value == null)
 		{
 			CharacterConfigs.TryGetValue(characterType, out value);
@@ -242,81 +152,41 @@ public class LobbyGameplayOverrides
 	public bool IsCharacterAllowedForPlayers(CharacterType characterType)
 	{
 		CharacterConfig characterConfig = GetCharacterConfig(characterType);
-		int result;
-		if (characterType.IsValidForHumanGameplay() && characterConfig != null)
-		{
-			if (characterConfig.AllowForPlayers)
-			{
-				result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
-				goto IL_004f;
-			}
-		}
-		result = 0;
-		goto IL_004f;
-		IL_004f:
-		return (byte)result != 0;
+		return characterType.IsValidForHumanGameplay()
+		       && characterConfig != null
+		       && characterConfig.AllowForPlayers
+		       && (EnableHiddenCharacters || !characterConfig.IsHidden);
 	}
 
 	public bool IsCharacterAllowedForGameType(CharacterType characterType, GameType gameType, GameSubType gameSubType, IFreelancerSetQueryInterface qi)
 	{
 		CharacterConfig characterConfig = GetCharacterConfig(characterType);
-		if (characterConfig != null)
+		if (characterConfig == null)
 		{
-			if (!characterConfig.GameTypesProhibitedFrom.IsNullOrEmpty())
-			{
-				if (characterConfig.GameTypesProhibitedFrom.Contains(gameType))
-				{
-					goto IL_006d;
-				}
-			}
-			if (gameSubType != null)
-			{
-				if (!gameSubType.IsCharacterAllowed(characterType, qi))
-				{
-					goto IL_006d;
-				}
-			}
-			return true;
+			return false;
 		}
-		goto IL_006d;
-		IL_006d:
-		return false;
+		if (!characterConfig.GameTypesProhibitedFrom.IsNullOrEmpty() && characterConfig.GameTypesProhibitedFrom.Contains(gameType))
+		{
+			return false;
+		}
+		return gameSubType == null || gameSubType.IsCharacterAllowed(characterType, qi);
 	}
 
 	public bool IsCharacterAllowedForBots(CharacterType characterType)
 	{
 		CharacterConfig characterConfig = GetCharacterConfig(characterType);
-		int result;
-		if (characterConfig != null)
-		{
-			if (characterConfig.AllowForBots)
-			{
-				result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
-				goto IL_0049;
-			}
-		}
-		result = 0;
-		goto IL_0049;
-		IL_0049:
-		return (byte)result != 0;
+		return characterConfig != null
+		       && characterConfig.AllowForBots
+		       && (EnableHiddenCharacters || !characterConfig.IsHidden);
 	}
 
 	public bool IsValidForHumanPreGameSelection(CharacterType characterType)
 	{
 		CharacterConfig characterConfig = GetCharacterConfig(characterType);
-		int result;
-		if (characterType.IsValidForHumanPreGameSelection())
-		{
-			if (characterConfig != null && characterConfig.AllowForPlayers)
-			{
-				result = ((EnableHiddenCharacters || !characterConfig.IsHidden) ? 1 : 0);
-				goto IL_0053;
-			}
-		}
-		result = 0;
-		goto IL_0053;
-		IL_0053:
-		return (byte)result != 0;
+		return characterType.IsValidForHumanPreGameSelection()
+		       && characterConfig != null
+		       && characterConfig.AllowForPlayers
+		       && (EnableHiddenCharacters || !characterConfig.IsHidden);
 	}
 
 	public bool IsCharacterVisible(CharacterType characterType)
