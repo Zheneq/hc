@@ -1567,10 +1567,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 
 	private bool ShouldUseAbilitiesCameraOutOfCinematics()
 	{
-		// TODO HACK
-#if SERVER
-		return false;
-#else
 		if (Camera.main == null)
 		{
 			return false;
@@ -1606,7 +1602,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			return hasAnimationsInPhase && !abilitiesDone && !isMovementDone ;
 		}
 		return true;
-#endif
 	}
 
 	public static bool BoundSidesWithinDistance(Bounds currentBound, Bounds compareToBound, float mergeSizeThresh, out Vector3 maxBoundDiff, out Vector3 minBoundDiff)
