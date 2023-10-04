@@ -1497,6 +1497,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			Board.Get().MarkForUpdateValidSquares(true);
 		}
+		
+		// custom
+#if SERVER
+		UIFrontendLoadingScreen.Get()?.StartDisplayError($"Turn: {CurrentTurn}");
+#endif
 	}
 
 	private void NotifyOnTurnTick()
@@ -1541,10 +1546,13 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			SequenceManager.Get().OnTurnStart(m_currentTurn);
 		}
+#if !SERVER
+		// TODO HACK
 		if (InterfaceManager.Get() != null)
 		{
 			InterfaceManager.Get().OnTurnTick();
 		}
+#endif
 		foreach (PowerUp.IPowerUpListener powerUpListener in PowerUpManager.Get().powerUpListeners)
 		{
 			powerUpListener.OnTurnTick();

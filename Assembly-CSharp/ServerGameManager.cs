@@ -296,7 +296,7 @@ public class ServerGameManager : MonoBehaviour
 		// artemis
 		ListenPort = HydrogenConfig.Get().PublicPort;
 		Log.Info("Starting Server...");
-		UIFrontendLoadingScreen.Get().StartDisplayError("Starting Server...");
+		UIFrontendLoadingScreen.Get()?.StartDisplayError("Starting Server...");
 		NetworkManager.singleton.useWebSockets = true;
 		NetworkManager.singleton.networkPort = HydrogenConfig.Get().PublicPort;
 		NetworkManager.singleton.StartServer();
@@ -825,22 +825,22 @@ public class ServerGameManager : MonoBehaviour
 	public void HandleLaunchGameRequest(LaunchGameRequest request) // async in rogues
 	{
 		// TODO HACK
-		var panels = FindObjectsOfType<UILoadingScreenPanel>();
-		GameObject obj;
-		UILoadingScreenPanel uILoadingScreenPanel;
-		if (panels.IsNullOrEmpty())
-		{
-			obj = new GameObject("UILoadingScreenPanel");
-			uILoadingScreenPanel = obj.AddComponent<UILoadingScreenPanel>();
-		}
-		else
-		{
-			uILoadingScreenPanel = panels[0];
-			obj = uILoadingScreenPanel.gameObject;
-		}
-		RectTransform rectTransform = obj.AddComponent<RectTransform>();
-		rectTransform.offsetMax = new Vector2(500, 500);
-		uILoadingScreenPanel.m_container = rectTransform;
+		// var panels = FindObjectsOfType<UILoadingScreenPanel>();
+		// GameObject obj;
+		// UILoadingScreenPanel uILoadingScreenPanel;
+		// if (panels.IsNullOrEmpty())
+		// {
+		// 	obj = new GameObject("UILoadingScreenPanel");
+		// 	uILoadingScreenPanel = obj.AddComponent<UILoadingScreenPanel>();
+		// }
+		// else
+		// {
+		// 	uILoadingScreenPanel = panels[0];
+		// 	obj = uILoadingScreenPanel.gameObject;
+		// }
+		// RectTransform rectTransform = obj.AddComponent<RectTransform>();
+		// rectTransform.offsetMax = new Vector2(500, 500);
+		// uILoadingScreenPanel.m_container = rectTransform;
 
 
 		// TODO LOW pass config from lobby server
@@ -1461,7 +1461,7 @@ public class ServerGameManager : MonoBehaviour
 		GameLoadingState gameLoadingState = serverPlayerState.GameLoadingState;
 		gameLoadingState.LoadingProgressUpdateCount += 1;
 		float loadingProgress = loadingProgressInfo.TotalLoadingProgress / 100f;
-		UILoadingScreenPanel.Get().SetLoadingProgress(loadingProgressInfo.PlayerId, loadingProgress, false);
+		UILoadingScreenPanel.Get()?.SetLoadingProgress(loadingProgressInfo.PlayerId, loadingProgress, false);  // no check in rogues
 		foreach (ServerPlayerState serverPlayerState2 in m_serverPlayerStates.Values)
 		{
 			// custom
