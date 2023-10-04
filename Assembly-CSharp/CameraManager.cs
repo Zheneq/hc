@@ -940,6 +940,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 
 	public void Update()
 	{
+		// TODO HACK
+#if !SERVER
 		bool isDebugCamera = DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("DebugCamera");
 		if (isDebugCamera && !GetDebugCamera().enabled)
 		{
@@ -1065,10 +1067,15 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 
 			AudioListener.transform.position = ray.GetPoint(enter);
 		}
+#endif
 	}
 
 	private bool ShouldUseAbilitiesCameraOutOfCinematics()
 	{
+#if SERVER
+		// TODO HACK
+		return false;
+#else
 		if (Camera.main == null)
 		{
 			return false;
@@ -1111,6 +1118,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		// bool hasAnimationsThisPhase = !TheatricsManager.Get().AbilityPhaseHasNoAnimations();
 		// bool flag3 = hasAnimationsThisPhase && TheatricsManager.Get().GetPhaseToUpdate() != AbilityPriority.INVALID;
 		// return flag && flag3 && TheatricsManager.Get().GetSetBoundCount() > 0 && (ShouldAutoCameraMove() || Get().GetAbilitiesCamera().enabled);
+#endif
 	}
 
 	public static bool BoundSidesWithinDistance(
