@@ -1,3 +1,5 @@
+// ROGUES
+// SERVER
 using System;
 using System.Collections.Generic;
 using CameraManagerInternal;
@@ -27,7 +29,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		ForcingTransform,
 		UserFocusingOnActor,
 		SinglePlayerStateScriptCommand,
-		CtfFlagTurnedIn
+		CtfFlagTurnedIn,
+		// MoveStart // added in rogues
 	}
 
 	public enum CameraShakeIntensity
@@ -47,9 +50,10 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	}
 
 	public GameObject m_gameCameraPrefab;
-	public GameObject m_faceCameraPrefab;
+	public GameObject m_faceCameraPrefab;  // removed in rogues
 	public GameObject m_tauntBackgroundCameraPrefab;
 	public bool m_useTauntBackground;
+	// public GameObject m_live2DVignetteCameraPrefab;  // added in rogues
 
 	internal AbilityCinematicState m_abilityCinematicState;
 
@@ -67,16 +71,19 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	private int m_savedMoveCamBoundTurn = -1;
 
 	internal float DefaultFOV { get; private set; }
-	public Camera FaceCamera { get; private set; }
+	public Camera FaceCamera { get; private set; }  // removed in rogues
 	internal GameObject AudioListener { get; private set; }
 	internal CameraShotSequence ShotSequence { get; private set; }
-	internal CameraFaceShot FaceShot { get; private set; }
+	internal CameraFaceShot FaceShot { get; private set; }  // removed in rogues
 	internal Bounds CameraPositionBounds { get; private set; }
 	internal TauntBackgroundCamera TauntBackgroundCamera { get; private set; }
+	// internal PveLive2DVignettePortraitCamera Live2DVignetteCamera { get; private set; }
+  // added in rogues
 	internal float SecondsRemainingToPauseForUserControl { get; set; } = -1f;
 	public bool UseCameraToggleKey => m_useCameraToggleKey;
 	public static bool CamDebugTraceOn => false;
-
+	
+	// removed in rogues
 	internal bool InFaceShot(ActorData actor)
 	{
 		return FaceShot != null && FaceShot.Actor == actor;
@@ -147,6 +154,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			DefaultFOV = Camera.main.fieldOfView;
 		}
+		// added in rogues
+		// if (NetworkClient.active && GameEventManager.Get() != null)
+		// {
+		// 	GameEventManager.Get().FireEvent(GameEventManager.EventType.GameSceneSingletonStartOnClient, null);
+		// }
 	}
 
 	private void ClearCameras()
@@ -155,6 +167,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			DestroyImmediate(Camera.main.gameObject);
 		}
+		
+		// removed in rogues
 		if (FaceCamera != null)
 		{
 			DestroyImmediate(FaceCamera.gameObject);
@@ -191,6 +205,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	private void OnVisualSceneLoaded()
 	{
 		GameObject cameraObject = Camera.main == null ? null : Camera.main.gameObject;
+		
+		// removed in rogues
 		if (cameraObject != null && cameraObject.GetComponent<IsometricCamera>() == null)
 		{
 			if (NetworkClient.active)
@@ -204,6 +220,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				cameraObject = !(Camera.main == null) ? Camera.main.gameObject : null;
 			}
 		}
+		// end removed in rogues
+		
 		if (cameraObject == null)
 		{
 			if (NetworkClient.active)
@@ -225,6 +243,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			}
 		}
 		DontDestroyOnLoad(Camera.main.gameObject);
+		
+		// removed in rogues
 		if (FaceCamera == null)
 		{
 			GameObject faceCameraObject = Instantiate(m_faceCameraPrefab);
@@ -234,10 +254,12 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				: null;
 			FaceCamera.gameObject.SetActive(false);
 		}
+		// end removed in rogues
+		
 		if (Camera.main != null)
 		{
 			DefaultFOV = Camera.main.fieldOfView;
-			RenderSettings.fog = false;
+			RenderSettings.fog = false;  // removed in rogues
 			if (NetworkClient.active
 			    && m_tauntBackgroundCameraPrefab != null
 			    && m_useTauntBackground)
@@ -254,6 +276,17 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 					tauntCameraObject.SetActive(false);
 				}
 			}
+			
+			// added in rogues
+			// if (NetworkClient.active && m_live2DVignetteCameraPrefab != null)
+			// {
+			// 	GameObject vignetteObject = Instantiate<GameObject>(m_live2DVignetteCameraPrefab);
+			// 	Live2DVignetteCamera = vignetteObject.GetComponent<PveLive2DVignettePortraitCamera>();
+			// 	if (Live2DVignetteCamera == null)
+			// 	{
+			// 		Destroy(vignetteObject);
+			// 	}
+			// }
 		}
 
 		BoardSquare centerSquare = Board.Get().GetSquareFromIndex(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
@@ -365,14 +398,16 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		return AccountPreferences.Get() != null
 		       && AccountPreferences.Get().GetBool(BoolPreference.AutoCameraCenter)
+		    // removed in rogues
 		    || GameManager.Get() != null
 		       && GameManager.Get().GameConfig != null
 		       && GameManager.Get().GameConfig.GameType == GameType.Tutorial
+		    // end removed in rogues
 		    || GameFlowData.Get().activeOwnedActorData != null
 		       && GameFlowData.Get().activeOwnedActorData.GetActorTurnSM().CurrentState == TurnStateEnum.PICKING_RESPAWN;
 	}
 
-	internal void OnActionPhaseChange(ActionBufferPhase newPhase, bool requestAbilityCamera)
+	internal void OnActionPhaseChange(ActionBufferPhase newPhase, bool requestAbilityCamera)  // no newPhase in rogues
 	{
 		if (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DebugCamera"))
 		{
@@ -393,7 +428,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		if (m_abilityAnimationsBetweenCamEvents > 0)
 		{
 			Log.Warning("Camera manager: phase change to {0} with {1} abilities between camera start and end tags. Expected zero",
-				newPhase.ToString(), m_abilityAnimationsBetweenCamEvents);
+				newPhase.ToString(), m_abilityAnimationsBetweenCamEvents);  // removed in rogues
 			m_abilityAnimationsBetweenCamEvents = 0;
 		}
 	}
@@ -404,6 +439,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		m_savedMoveCamBoundTurn = GameFlowData.Get().CurrentTurn;
 	}
 
+	// empty in rogues
 	internal void SetTargetForMovementIfNeeded()
 	{
 		if (ShouldSetCameraForMovement() && GameFlowData.Get().CurrentTurn == m_savedMoveCamBoundTurn)
@@ -427,14 +463,21 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 
 	internal void SwitchCameraForMovement()
 	{
+		// reactor
 		if (ShouldSetCameraForMovement()
 		    && SecondsRemainingToPauseForUserControl <= 0f
 		    && Get().ShouldAutoCameraMove())
 		{
 			Get().OnActionPhaseChange(ActionBufferPhase.Movement, true);
 		}
+		// rogues
+		// if (SecondsRemainingToPauseForUserControl <= 0f)
+		// {
+		// 	Get().ShouldAutoCameraMove();
+		// }
 	}
 
+	// removed in rogues
 	private bool ShouldSetCameraForMovement()
 	{
 		return GameManager.Get() != null && GameManager.Get().GameConfig.GameType != GameType.Tutorial;
@@ -540,11 +583,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		IsometricCamera isometricCamera = GetIsometricCamera();
 		DebugCamera debugCamera = GetDebugCamera();
 		FlyThroughCamera flyThroughCamera = GetFlyThroughCamera();
-		if (debugCamera != null)
+		if (debugCamera != null)  // no check in rogues
 		{
 			debugCamera.enabled = false;
 		}
-		if (flyThroughCamera != null)
+		if (flyThroughCamera != null)  // no check in rogues
 		{
 			flyThroughCamera.enabled = false;
 		}
@@ -572,7 +615,9 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 
 			isometricCamera.enabled = true;
 			isometricCamera.OnTransitionIn(transitionInType);
-			if (GameFlowData.Get().activeOwnedActorData != null)
+			if (GameFlowData.Get().activeOwnedActorData != null
+			    // && GameFlowData.Get().ActingTeam == GameFlowData.Get().activeOwnedActorData.GetTeam()  // added in rogues
+			    )
 			{
 				GameObject targetObject = !abilitiesCamera.IsDisabledUntilSetTarget && !flag
 					? GameFlowData.Get().activeOwnedActorData.gameObject
@@ -834,6 +879,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		return result;
 	}
 
+	// removed in rogues
 	internal void BeginFaceShot(CameraFaceShot faceShot, ActorData actor)
 	{
 		if (faceShot != null
@@ -899,12 +945,13 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			EnableDebugCamera();
 		}
-		else if (AppState.GetCurrent() == AppState_InGameDeployment.Get() && GetFlyThroughCamera() != null)
+		else if (AppState.GetCurrent() == AppState_InGameDeployment.Get()
+		         && GetFlyThroughCamera() != null) // removed in rogues
 		{
 			EnableFlyThroughCamera();
 		}
-		else if (!isDebugCamera && GetDebugCamera() != null && GetDebugCamera().enabled
-		         || GetFlyThroughCamera() == null
+		else if (!isDebugCamera && GetDebugCamera() != null && GetDebugCamera().enabled  // && GetDebugCamera() != null removed in rogues
+		         || GetFlyThroughCamera() == null  // removed in rogues
 		         || GetFlyThroughCamera().enabled)
 		{
 			EnableIsometricCamera();
@@ -927,15 +974,19 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			HUD_UI.Get().SetHUDVisibility(true, true);
 			HUD_UI.Get().SetTauntBannerVisibility(false);
 		}
+		
+		// removed in rogues
 		if (FaceShot != null && !FaceShot.Update(FaceCamera))
 		{
 			FaceCamera.gameObject.SetActive(false);
 			FaceShot = null;
 		}
+		// end removed in rogues
+		
 		AccountPreferences accountPreferences = AccountPreferences.Get();
 		if (UIMainScreenPanel.Get() != null
 		    && UIMainScreenPanel.Get().m_autoCameraButton != null
-		    && GameManager.Get().GameConfig.GameType != GameType.Tutorial)
+		    && GameManager.Get().GameConfig.GameType != GameType.Tutorial)  // removed in rogues
 		{
 			bool toggleAutoCameraCenter = m_useCameraToggleKey && InputManager.Get().IsKeyBindingNewlyHeld(KeyPreference.CameraToggleAutoCenter);
 			if (m_useRightClickToToggle
@@ -1006,7 +1057,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				ray = new Ray(Camera.main.transform.position, direction);
 			}
 
-			if (!new Plane(Vector3.up, -Board.Get().BaselineHeight).Raycast(ray, out float enter))
+			// float enter;
+			if (!new Plane(Vector3.up, -Board.Get().BaselineHeight).Raycast(ray, out float enter))  // (ray, ref num) in rogues
 			{
 				enter = 3f;
 			}
@@ -1026,6 +1078,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			return false;
 		}
+		
+		// reactor
 		bool isInResolve = GameFlowData.Get().gameState == GameState.BothTeams_Resolve;
 		ActionBufferPhase currentActionPhase = ServerClientUtils.GetCurrentActionPhase();
 		bool abilitiesDone = currentActionPhase == ActionBufferPhase.AbilitiesWait
@@ -1052,6 +1106,11 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 			return hasAnimationsInPhase && !abilitiesDone && !isMovementDone ;
 		}
 		return true;
+		// rogues
+		// bool flag = GameFlowData.Get().PlayerActionState > PlayerActionStateMachine.StateFlag.WaitingForInput;
+		// bool hasAnimationsThisPhase = !TheatricsManager.Get().AbilityPhaseHasNoAnimations();
+		// bool flag3 = hasAnimationsThisPhase && TheatricsManager.Get().GetPhaseToUpdate() != AbilityPriority.INVALID;
+		// return flag && flag3 && TheatricsManager.Get().GetSetBoundCount() > 0 && (ShouldAutoCameraMove() || Get().GetAbilitiesCamera().enabled);
 	}
 
 	public static bool BoundSidesWithinDistance(
