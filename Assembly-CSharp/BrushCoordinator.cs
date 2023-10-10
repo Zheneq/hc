@@ -427,7 +427,8 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 		if (regionIndex >= 0 && regionIndex < m_regions.Length)
 		{
 			bool flag = IsRegionFunctioning(regionIndex);
-			if (m_regionsLastDisruptionTurn[regionIndex] != GameFlowData.Get().CurrentTurn)
+			if (flag &&  // custom
+			    m_regionsLastDisruptionTurn[regionIndex] != GameFlowData.Get().CurrentTurn)
 			{
 				m_regionsLastDisruptionTurn[regionIndex] = GameFlowData.Get().CurrentTurn;
 			}
