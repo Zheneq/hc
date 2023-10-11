@@ -5,10 +5,13 @@ using UnityEngine;
 
 #if SERVER
 // custom
+// TODO has Unstoppable status in effect to start, no statuses in old replays
 public class ClericAreaBuffEffect: StandardActorEffect
 {
 	private ClericAreaBuff m_ability;
 	public Cleric_SyncComponent m_syncComp;
+	private bool m_shouldEnd = false;
+	private List<ActorData> m_hitActors;
     
 	public ClericAreaBuffEffect(
 		EffectSource parent,
@@ -17,7 +20,8 @@ public class ClericAreaBuffEffect: StandardActorEffect
 		ActorData caster,
 		StandardActorEffectData data,
 		ClericAreaBuff ability,
-		Cleric_SyncComponent syncComp)
+		Cleric_SyncComponent syncComp,
+		List<ActorData> initialHitActors)
 		: base(parent, targetSquare, target, caster, data)
 	{
 		m_effectName = "Cleric Area Buff Effect";
@@ -25,61 +29,63 @@ public class ClericAreaBuffEffect: StandardActorEffect
 		HitPhase = AbilityPriority.Prep_Offense;
 		m_ability = ability;
 		m_syncComp = syncComp;
+		m_hitActors = initialHitActors;
 	}
 
-	// public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
-	// {
-	// 	return new List<ServerClientUtils.SequenceStartData>
-	// 	{
-	// 		new ServerClientUtils.SequenceStartData(
-	// 			m_persistentSequencePrefab,
-	// 			TargetSquare,
-	// 			null,
-	// 			Caster,
-	// 			SequenceSource)
-	// 	};
-	// }
-	//
-	// public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
-	// {
-	// 	return new List<ServerClientUtils.SequenceStartData>
-	// 	{
-	// 		new ServerClientUtils.SequenceStartData(
-	// 			m_pulseSequencePrefab,
-	// 			actorData.GetFreePos(),
-	// 			actorData.AsArray(),
-	// 			Caster,
-	// 			sequenceSource,
-	// 			null)
-	// 	};
-	// }
+	public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_ability.m_persistentSequencePrefab,
+				TargetSquare.ToVector3(),
+				m_hitActors.ToArray(),
+				Caster,
+				SequenceSource)
+		};
+	}
 	
+	public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
+	{
+		return new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_ability.m_pulseSequencePrefab,
+				TargetSquare.ToVector3(),
+				m_hitActors.ToArray(),
+				Caster,
+				SequenceSource,
+				null)
+		};
+	}
 	
-
 	public override void OnStart()
 	{
 		base.OnStart();
-		if (m_syncComp != null)
-		{
-			m_syncComp.m_turnsAreaBuffActive = 1;
-		}
+		// if (m_syncComp != null)
+		// {
+		// 	m_syncComp.Networkm_turnsAreaBuffActive = 1; // should be 0 during first gather effect results
+		// }
 	}
 
 	public override void OnEnd()
 	{
 		base.OnEnd();
-		if (m_syncComp != null)
-		{
-			m_syncComp.m_turnsAreaBuffActive = 0;
-		}
 	}
 
 	public override void OnTurnStart()
 	{
 		base.OnTurnStart();
+		m_hitActors = new List<ActorData>();
+	}
+
+	public override void OnTurnEnd()
+	{
+		base.OnTurnEnd();
 		if (m_syncComp != null)
 		{
-			m_syncComp.m_turnsAreaBuffActive++;
+			m_syncComp.Networkm_turnsAreaBuffActive++;
+			Log.Info($"ClericAreaBuffEffect on turn end: {m_syncComp.Networkm_turnsAreaBuffActive}");
 		}
 	}
 
@@ -87,13 +93,14 @@ public class ClericAreaBuffEffect: StandardActorEffect
 	{
 		if (m_ability == null)
 		{
+			Log.Error("Failed to gather ClericAreaBuffEffect results: no ability");
 			return;
 		}
 		
 		BoardSquare gameplayRefSquare = Board.Get().GetSquare(Caster.GetGridPos());
 		Vector3 freePos = gameplayRefSquare.ToVector3();
 		Vector3 damageOrigin = AreaEffectUtils.GetCenterOfShape(m_ability.GetShape(), freePos, gameplayRefSquare);
-		List<ActorData> actors = AreaEffectUtils.GetActorsInShape(
+		m_hitActors = AreaEffectUtils.GetActorsInShape(
 			m_ability.GetShape(),
 			freePos,
 			gameplayRefSquare,
@@ -101,19 +108,28 @@ public class ClericAreaBuffEffect: StandardActorEffect
 			Caster,
 			m_ability.GetAffectedTeams(Caster),
 			null);
-		foreach (ActorData hitActor in actors)
+		ActorHitParameters casterHitParams = new ActorHitParameters(Caster, damageOrigin);
+		ActorHitResults casterHitResults = new ActorHitResults(casterHitParams);
+		if (m_syncComp.m_turnsAreaBuffActive > 0)
 		{
-			if (hitActor == Caster && m_ability.IncludeCaster())
+			// initial cast cost is handled by the ability itself
+			Log.Info($"ClericAreaBuff effect cost: {m_ability.GetPerTurnTechPointCost()}");
+			casterHitResults.AddTechPointLoss(m_ability.GetPerTurnTechPointCost());
+		}
+		if (m_ability.IncludeCaster())
+		{
+			StandardEffectInfo effectOnCaster = m_ability.GetEffectOnCaster().GetShallowCopy();
+			effectOnCaster.m_effectData.m_absorbAmount = m_ability.CalculateShieldAmount(Caster);
+			casterHitResults.AddStandardEffectInfo(effectOnCaster); // in replay, all these effects use neither target square nor pos nor rotation, but StandardActorEffect::GetEffectStartSeqDataList uses square
+			casterHitResults.AddBaseHealing(m_ability.GetHealAmount());
+		}
+		foreach (ActorData hitActor in m_hitActors)
+		{
+			if (hitActor == Caster)
 			{
-				ActorHitParameters hitParams = new ActorHitParameters(hitActor, damageOrigin);
-				ActorHitResults hitResults = new ActorHitResults(hitParams);
-				StandardEffectInfo effectOnCaster = m_ability.GetEffectOnCaster().GetShallowCopy();
-				effectOnCaster.m_effectData.m_absorbAmount = m_ability.CalculateShieldAmount(hitActor);
-				hitResults.AddStandardEffectInfo(effectOnCaster);
-				hitResults.AddBaseHealing(m_ability.GetHealAmount());
-				effectResults.StoreActorHit(hitResults);
+				continue;
 			}
-			else if (hitActor.GetTeam() == Caster.GetTeam())
+			if (hitActor.GetTeam() == Caster.GetTeam() && hitActor != Caster)
 			{
 				ActorHitParameters hitParams = new ActorHitParameters(hitActor, damageOrigin);
 				ActorHitResults hitResults = new ActorHitResults(hitParams);
@@ -132,6 +148,7 @@ public class ClericAreaBuffEffect: StandardActorEffect
 				effectResults.StoreActorHit(hitResults);
 			}
 		}
+		effectResults.StoreActorHit(casterHitResults);
 	}
 
 	public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
@@ -139,10 +156,23 @@ public class ClericAreaBuffEffect: StandardActorEffect
 		return true;
 	}
 
-	public override bool ShouldEndEarly()
-	{
-		return Caster.IsDead();  // TODO CLERIC or if no energy to continue
-	}
+	// public override void OnTurnEnd()
+	// {
+	// 	base.OnTurnEnd();
+	//
+	// 	if (Caster == null
+	// 	    || Caster.IsDead()
+	// 	    || m_ability == null
+	// 	    || m_ability.GetPerTurnTechPointCost() <= Caster.TechPoints)
+	// 	{
+	// 		m_shouldEnd = true;
+	// 	}
+	// }
+
+	// public override bool ShouldEndEarly()
+	// {
+	// 	return m_shouldEnd;  
+	// }
 
 	public override void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
 	{

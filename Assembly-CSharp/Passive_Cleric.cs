@@ -27,10 +27,10 @@ public class Passive_Cleric : Passive
 	{
 		base.OnResolveStart(hasAbilities, hasMovement);
 
-		if (m_syncComp != null
-		    && !Owner.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+		if (!ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Owner, typeof(ClericAreaBuff)))
 		{
-			RemoveAreaBuff();
+			Log.Info($"ClericAreaBuff cancelled, removing");
+			RemoveAreaBuff(m_buffAbility.GetCooldownWhenBuffLapses());
 		}
 	}
 
@@ -39,22 +39,26 @@ public class Passive_Cleric : Passive
 	{
 		base.OnTurnStart();
 
-		if (m_syncComp != null
-		    && !Owner.GetAbilityData().ValidateActionIsRequestableDisregardingQueuedActions(m_buffAbilityActionType))
+		if (!Owner.GetAbilityData().ValidateActionIsRequestableDisregardingQueuedActions(m_buffAbilityActionType))
 		{
-			RemoveAreaBuff();
+			Log.Info($"ClericAreaBuff depleted, removing");
+			RemoveAreaBuff(m_buffAbility.GetCooldownWhenBuffLapses() - 1);  // TODO CLERIC probably it should happen earlier
 		}
 	}
 
 	// custom
-	private void RemoveAreaBuff()
+	private void RemoveAreaBuff(int cooldown)
 	{
 		List<Effect> activeEffects = ServerEffectManager.Get()
-			.GetEffectsOnTargetByCaster(Owner, Owner, typeof(MantaRegenerationEffect));
+			.GetEffectsOnTargetByCaster(Owner, Owner, typeof(ClericAreaBuffEffect));
 		if (activeEffects.Count > 0)
 		{
 			ActorHitResults hitRes = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
 			hitRes.AddEffectForRemoval(activeEffects[0], ServerEffectManager.Get().GetActorEffects(Owner));
+			hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_buffAbilityActionType, cooldown)
+			{
+				m_ignoreCooldownMax = true
+			});
 			MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(
 				Owner,
 				Owner,
@@ -62,6 +66,11 @@ public class Passive_Cleric : Passive
 				m_buffAbility,
 				true,
 				m_buffAbility.m_toggleOffSequencePrefab);
+		}
+		if (m_syncComp != null)
+		{
+			m_syncComp.Networkm_turnsAreaBuffActive = 0;
+			Log.Info($"ClericAreaBuff ended, reset to {m_syncComp.Networkm_turnsAreaBuffActive}");
 		}
 	}
 #endif
