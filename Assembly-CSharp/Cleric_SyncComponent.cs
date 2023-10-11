@@ -4,8 +4,7 @@ using UnityEngine.Networking;
 
 public class Cleric_SyncComponent : NetworkBehaviour
 {
-	[SyncVar]
-	internal int m_turnsAreaBuffActive;
+	[SyncVar] internal int m_turnsAreaBuffActive;
 	
 	// searched through several replays -- it's always zero
 	// maybe because there is no knockback?
