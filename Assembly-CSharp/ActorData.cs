@@ -2619,6 +2619,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							{
 								actorBehavior.OnResolutionStart(actorTurnSm.TimeToLockIn.Seconds);
 							}
+
+							PassiveData passiveData = actor.GetPassiveData();
+							if (passiveData != null)
+							{
+								passiveData.OnResolveStart();
+							}
 #endif
 						}
 					}
