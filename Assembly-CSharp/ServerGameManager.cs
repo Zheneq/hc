@@ -21,6 +21,9 @@ using Random = UnityEngine.Random;
 public class ServerGameManager : MonoBehaviour
 {
 #if SERVER
+	// custom
+	private const bool ENABLE_RECONNECT_REPLAY = true;
+	
 	private static ServerGameManager s_instance;
 	public static readonly string FirewallRuleName = "Atlas Reactor Game Server"; //  "Atlas Rogues Co-Op Game Server" in rogues
 
@@ -1411,7 +1414,8 @@ public class ServerGameManager : MonoBehaviour
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
 		
 		// custom
-		if (isGameLoaded
+		if (ENABLE_RECONNECT_REPLAY
+			&& isGameLoaded
 		    && !playerState.IsAIControlled
 		    && m_replayRecorders.TryGetValue(playerState.PlayerInfo.TeamId, out ReplayRecorder replayRecorder))
 		{
@@ -1437,6 +1441,30 @@ public class ServerGameManager : MonoBehaviour
 		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
 		playerState.ConnectionReady = true;
 		Log.Warning("Not calling SendReconnectData...");
+		
+		// custom
+		// TODO HACK 
+		if (isGameLoaded && GameFlowData.Get() != null && !playerState.IsAIControlled)
+		{
+			foreach (ActorData actorData in GameFlowData.Get().GetAllActorsForPlayer(playerState.PlayerInfo.PlayerId))
+			{
+				// fog of war fix
+				Log.Info($"Teleporting reconnected {actorData}");
+				actorData.TeleportToBoardSquare(
+					actorData.GetCurrentBoardSquare(),
+					actorData.transform.localRotation.eulerAngles,
+					ActorData.TeleportType.Failsafe,
+					null
+				);
+				// ability fix
+				actorData.GetActorTurnSM().CallRpcTurnMessage((int)TurnMessage.TURN_START, 0);
+				// authority fix
+				if (!NetworkServer.ReplacePlayerForConnection(playerState.ConnectionPersistent, actorData.gameObject, 0))
+				{
+					Log.Error("Failed to replace reconnecting player as a fix");
+				}
+			}
+		}
 	}
 
 	private void HandleClientAssetsLoadingProgressUpdate(NetworkConnection conn, GameManager.AssetsLoadingProgress loadingProgressInfo)
