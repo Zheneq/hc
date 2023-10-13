@@ -364,10 +364,9 @@ public class ClericRangedHeal : Ability
 		if (targetActor == caster)
 		{
 			casterHitResults.AddBaseHealing(healing);
-			casterHitResults.AddStandardEffectInfo(GetTargetHitEffect());
-			// casterHitResults.AddStandardEffectInfo(GetEffectOnSelf()); // TODO CLERIC do you get effect on self if you cast on self ??
+			casterHitResults.AddStandardEffectInfo(GetEffectOnSelf());
 		}
-		// see how the targeter is configured in SetupTargeter
+		// see how the targeter is configured in SetupTargeter (EnemyDebuffRadius is always zero though)
 		else if (targetActor.GetTeam() == caster.GetTeam() && GetEnemyDebuffRadiusAroundCaster() <= 0f) 
 		{
 			ActorHitParameters hitParams = new ActorHitParameters(targetActor, refPos);
