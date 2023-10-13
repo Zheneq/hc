@@ -14,7 +14,7 @@ public class ClericRangedHeal : Ability
 	public int m_selfHealIfTargetingAlly = 15;
 	public StandardEffectInfo m_targetHitEffect;
 	[Separator("Extra Heal Based on Enemy Hits")]
-	public ExtraHealApplyTiming m_extraHealApplyTiming; // TODO CLERIC unused
+	public ExtraHealApplyTiming m_extraHealApplyTiming; // TODO CLERIC unused (not used in the ability or any of the mods), CombatEndOfInitialTurn
 	public int m_extraHealOnEnemyHit; // TODO CLERIC unused (not used in the ability or any of the mods)
 	public int m_extraHealOnSubseqEnemyHit; // TODO CLERIC unused (not used in the ability or any of the mods)
 	[Separator("Extra Heal Based on Current Health")]
@@ -31,7 +31,7 @@ public class ClericRangedHeal : Ability
 	public StandardEffectInfo m_reactionEffectForCaster; // TODO CLERIC unused (not used in the ability or any of the mods)
 	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-	public GameObject m_reactionProjectileSequencePrefab;
+	public GameObject m_reactionProjectileSequencePrefab; // TODO CLERIC unused (not used in the ability or any of the mods)
 	[Header("-- For Extra Heal Effect, if Extra Heal On Enemy Hit is used")]
 	public GameObject m_extraHealPersistentSeqPrefab; // TODO CLERIC unused (not used in the ability or any of the mods)
 	public GameObject m_extraHealTriggerSeqPrefab; // TODO CLERIC unused (not used in the ability or any of the mods)
@@ -332,18 +332,12 @@ public class ClericRangedHeal : Ability
 		BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
 		return new List<ServerClientUtils.SequenceStartData>
 		{
-			new ServerClientUtils.SequenceStartData(  // TODO CLERIC i see just one sequence in replays
+			new ServerClientUtils.SequenceStartData(
 				m_castSequencePrefab,
 				targetSquare.ToVector3(),
 				additionalData.m_abilityResults.HitActorsArray(),
 				caster,
-				additionalData.m_sequenceSource),
-			// new ServerClientUtils.SequenceStartData( // TODO for enemies (if any?)
-			// 	m_reactionProjectileSequencePrefab,
-			// 	GetTargetPos(targets[0], caster),
-			// 	additionalData.m_abilityResults.HitActorsArray(),
-			// 	caster,
-			// 	additionalData.m_sequenceSource)
+				additionalData.m_sequenceSource)
 		};
 	}
 	
@@ -379,7 +373,7 @@ public class ClericRangedHeal : Ability
 			ActorHitParameters hitParams = new ActorHitParameters(targetActor, refPos);
 			ActorHitResults hitResults = new ActorHitResults(healing, HitActionType.Healing, hitParams);
 			hitResults.AddStandardEffectInfo(GetTargetHitEffect());
-			// TODO CLERIC
+			// TODO CLERIC (not used in the ability or any of the mods)
 			// hitResults.AddEffect(new ClericRangedHealEffect(
 			// 	AsEffectSource(),
 			// 	caster.GetCurrentBoardSquare(),

@@ -22,15 +22,15 @@ public class ClericAreaBuff : Ability
 	public int m_selfShieldingOverride = -1;
 	public StandardEffectInfo m_effectOnEnemies;
 	[Separator("Vision on Target Square")]
-	public bool m_addVisionOnTargetSquare;
-	public float m_visionRadius = 1.5f;
-	public int m_visionDuration = 1;
-	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always;  // TODO CLERIC
-	public bool m_visionAreaIgnoreLos = true;
+	public bool m_addVisionOnTargetSquare; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public float m_visionRadius = 1.5f; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public int m_visionDuration = 1; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public VisionProviderInfo.BrushRevealType m_brushRevealType = VisionProviderInfo.BrushRevealType.Always; // TODO CLERIC unused (not used in the ability or any of the mods)
+	public bool m_visionAreaIgnoreLos = true; // TODO CLERIC unused (not used in the ability or any of the mods)
 	[Separator("Sequences")]
 	public GameObject m_castSequencePrefab;
-	public GameObject m_persistentSequencePrefab;  // TODO CLERIC unused
-	public GameObject m_pulseSequencePrefab;  // TODO CLERIC unused
+	public GameObject m_persistentSequencePrefab;
+	public GameObject m_pulseSequencePrefab;
 	public GameObject m_toggleOffSequencePrefab;
 
 	private AbilityData.ActionType m_buffActionType;
@@ -134,7 +134,6 @@ public class ClericAreaBuff : Ability
 			: m_includeCaster;
 	}
 
-	// TODO CLERIC unused
 	public int GetExtraTpCostPerTurnActive()
 	{
 		return m_abilityMod != null
@@ -149,7 +148,6 @@ public class ClericAreaBuff : Ability
 			: m_cooldownWhenBuffLapses;
 	}
 
-	// TODO CLERIC unused
 	public int GetEffectDuration()
 	{
 		return m_abilityMod != null
@@ -191,7 +189,7 @@ public class ClericAreaBuff : Ability
 		return m_cachedEffectOnEnemies ?? m_effectOnEnemies;
 	}
 
-	// TODO CLERIC unused
+	// TODO CLERIC unused (not used in the ability or any of the mods), always false
 	public bool AddVisionOnTargetSquare()
 	{
 		return m_abilityMod != null
@@ -199,7 +197,7 @@ public class ClericAreaBuff : Ability
 			: m_addVisionOnTargetSquare;
 	}
 
-	// TODO CLERIC unused
+	// TODO CLERIC unused (not used in the ability or any of the mods), always 4
 	public float GetVisionRadius()
 	{
 		return m_abilityMod != null
@@ -207,7 +205,7 @@ public class ClericAreaBuff : Ability
 			: m_visionRadius;
 	}
 
-	// TODO CLERIC unused
+	// TODO CLERIC unused (not used in the ability or any of the mods), always 1
 	public int GetVisionDuration()
 	{
 		return m_abilityMod != null
@@ -215,7 +213,7 @@ public class ClericAreaBuff : Ability
 			: m_visionDuration;
 	}
 
-	// TODO CLERIC unused
+	// TODO CLERIC unused (not used in the ability or any of the mods), always true
 	public bool VisionAreaIgnoreLos()
 	{
 		return m_abilityMod != null
@@ -419,6 +417,9 @@ public class ClericAreaBuff : Ability
 	
 #if SERVER
 	// added in rogues
+	// It seems too early -- at the very least, if turnsAreaBuffActive replicates before cast animation, it breaks it
+	// Also it looks like effect tech point cost is supposed to be calculated before this increment
+	// So I moved it into ClericAreaBuffEffect::OnTurnEnd
 	// public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
 	// {
 	// 	m_syncComp.Networkm_turnsAreaBuffActive++;  // m_turnsAreaBuffActive in rogues
@@ -429,17 +430,6 @@ public class ClericAreaBuff : Ability
 	public override bool CustomCanCastValidation(ActorData caster)
 	{
 		return GetPerTurnTechPointCost() <= caster.TechPoints;
-	}
-
-	// custom TODO CLERIC remove?
-	public int GetEffectTechPointCost()
-	{
-		int cost = 0;
-		if (m_syncComp != null)
-		{
-			cost = (m_syncComp.m_turnsAreaBuffActive - 1) * GetExtraTpCostPerTurnActive();
-		}
-		return base.GetModdedCost() + cost;
 	}
 
 	// custom
@@ -477,11 +467,6 @@ public class ClericAreaBuff : Ability
 		}
 		
 		BoardSquare casterSquare = Board.Get().GetSquare(caster.GetGridPos());
-		// StandardActorEffectData effectOnCaster = GetEffectOnCaster().m_applyEffect
-		// 	? GetEffectOnCaster().m_effectData
-		// 	: new StandardActorEffectData();
-		StandardActorEffectData effectOnCaster = new StandardActorEffectData();
-		effectOnCaster.InitWithDefaultValues();
 		PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(casterSquare.ToVector3()));
 		List<ActorData> hitActors = AreaEffectUtils.GetActorsInShape(
 			GetShape(),
@@ -496,16 +481,11 @@ public class ClericAreaBuff : Ability
 			casterSquare,
 			caster,
 			caster,
-			effectOnCaster,
 			this,
 			m_syncComp,
-			hitActors));
+			hitActors,
+			GetEffectDuration()));
 		abilityResults.StorePositionHit(positionHitResults);
-		
-		// this is wrong
-		// ActorHitParameters casterHitParams = new ActorHitParameters(caster, casterSquare.ToVector3());
-		// ActorHitResults casterHitResults = new ActorHitResults(casterHitParams);
-		// abilityResults.StoreActorHit(casterHitResults);
 	}
 
 	// custom
