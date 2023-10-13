@@ -258,7 +258,7 @@ public class ClericHammerThrow : Ability
 		float distance = GetMaxDistToRingCenter();
 		float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPosUnclamped);
 		distance = Mathf.Min(clampedDistance, distance);
-		Vector3 targetPos = VectorUtils.GetLaserEndPoint(casterPos, aimDirection, distance, true, caster, null, false);
+		Vector3 targetPos = VectorUtils.GetLaserEndPoint(casterPos, aimDirection, distance * Board.Get().squareSize, true, caster, null, false);
 		List<ActorData> hitActors = AreaEffectUtils.GetActorsInRadius(
 			targetPos,
 			GetOuterRadius(),

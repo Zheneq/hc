@@ -5,12 +5,10 @@ using UnityEngine;
 
 #if SERVER
 // custom
-// TODO has Unstoppable status in effect to start, no statuses in old replays
-public class ClericAreaBuffEffect: StandardActorEffect
+public class ClericAreaBuffEffect: Effect
 {
 	private ClericAreaBuff m_ability;
 	public Cleric_SyncComponent m_syncComp;
-	private bool m_shouldEnd = false;
 	private List<ActorData> m_hitActors;
     
 	public ClericAreaBuffEffect(
@@ -18,11 +16,11 @@ public class ClericAreaBuffEffect: StandardActorEffect
 		BoardSquare targetSquare,
 		ActorData target,
 		ActorData caster,
-		StandardActorEffectData data,
 		ClericAreaBuff ability,
 		Cleric_SyncComponent syncComp,
-		List<ActorData> initialHitActors)
-		: base(parent, targetSquare, target, caster, data)
+		List<ActorData> initialHitActors,
+		int duration)
+		: base(parent, targetSquare, target, caster)
 	{
 		m_effectName = "Cleric Area Buff Effect";
 		m_time.duration = 0;
@@ -30,6 +28,7 @@ public class ClericAreaBuffEffect: StandardActorEffect
 		m_ability = ability;
 		m_syncComp = syncComp;
 		m_hitActors = initialHitActors;
+		m_time.duration = duration;
 	}
 
 	public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
@@ -54,23 +53,8 @@ public class ClericAreaBuffEffect: StandardActorEffect
 				TargetSquare.ToVector3(),
 				m_hitActors.ToArray(),
 				Caster,
-				SequenceSource,
-				null)
+				SequenceSource)
 		};
-	}
-	
-	public override void OnStart()
-	{
-		base.OnStart();
-		// if (m_syncComp != null)
-		// {
-		// 	m_syncComp.Networkm_turnsAreaBuffActive = 1; // should be 0 during first gather effect results
-		// }
-	}
-
-	public override void OnEnd()
-	{
-		base.OnEnd();
 	}
 
 	public override void OnTurnStart()
@@ -137,8 +121,7 @@ public class ClericAreaBuffEffect: StandardActorEffect
 				effectOnAlly.m_effectData.m_absorbAmount = m_ability.CalculateShieldAmount(hitActor);
 				hitResults.AddStandardEffectInfo(effectOnAlly);
 				hitResults.AddBaseHealing(m_ability.GetHealAmount());
-				hitResults.AddTechPointGain(m_ability.GetAllyTechPointGainPerTurnActive());  // TODO CLERIC mod desc says increasing by two each turn...
-				// hitResults.AddTechPointGain(1);  // TODO CLERIC ????
+				hitResults.AddTechPointGain(m_ability.GetAllyTechPointGainPerTurnActive() * (m_syncComp.m_turnsAreaBuffActive + 1));
 				effectResults.StoreActorHit(hitResults);
 			}
 			else if (m_ability.GetEffectOnEnemies().m_applyEffect)
