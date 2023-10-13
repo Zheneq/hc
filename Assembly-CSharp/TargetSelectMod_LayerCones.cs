@@ -6,10 +6,8 @@ public class TargetSelectMod_LayerCones : TargetSelectModBase
 {
 	[Separator("Targeting Properties", true)]
 	public AbilityModPropertyFloat m_coneWidthAngleMod;
-
 	[Separator("Cone Radius Overrides", true)]
 	public bool m_useConeRadiusOverrides;
-
 	public List<float> m_coneRadiusOverrides = new List<float>();
 
 	public override string GetModSpecificInEditorDesc(GenericAbility_TargetSelectBase targetSelectBase, string header)
@@ -24,35 +22,9 @@ public class TargetSelectMod_LayerCones : TargetSelectModBase
 				text += "-- Using Cone Radius Overrides --\n";
 				if (m_coneRadiusOverrides != null)
 				{
-					while (true)
+					foreach (float num in m_coneRadiusOverrides)
 					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-						{
-							using (List<float>.Enumerator enumerator = m_coneRadiusOverrides.GetEnumerator())
-							{
-								while (enumerator.MoveNext())
-								{
-									float num = enumerator.Current;
-									string text2 = text;
-									text = text2 + "\t" + num + "\n";
-								}
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										return text;
-									}
-								}
-							}
-						}
-						}
+						text += "\t" + num + "\n";
 					}
 				}
 			}
