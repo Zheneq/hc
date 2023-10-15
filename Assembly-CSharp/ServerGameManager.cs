@@ -22,7 +22,7 @@ public class ServerGameManager : MonoBehaviour
 {
 #if SERVER
 	// custom
-	private const bool ENABLE_RECONNECT_REPLAY = true;
+	private const bool ENABLE_RECONNECT_REPLAY = false;
 	
 	private static ServerGameManager s_instance;
 	public static readonly string FirewallRuleName = "Atlas Reactor Game Server"; //  "Atlas Rogues Co-Op Game Server" in rogues
