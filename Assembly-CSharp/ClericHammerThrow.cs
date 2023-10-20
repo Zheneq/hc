@@ -239,7 +239,7 @@ public class ClericHammerThrow : Ability
 	{
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
-			targets[0].FreePos,
+			GetClampedTargetPos(caster, targets[0]),
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
 			additionalData.m_sequenceSource);
@@ -253,13 +253,7 @@ public class ClericHammerThrow : Ability
 	{
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
 		AbilityTarget currentTarget = targets[0];
-		Vector3 aimDirection = currentTarget.AimDirection;
-		Vector3 targetPosUnclamped = currentTarget.FreePos;
-		Vector3 casterPos = caster.GetLoSCheckPos();
-		float distance = GetMaxDistToRingCenter();
-		float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPosUnclamped);
-		distance = Mathf.Min(clampedDistance, distance);
-		Vector3 targetPos = VectorUtils.GetLaserEndPoint(casterPos, aimDirection, distance * Board.Get().squareSize, true, caster, null, false);
+		Vector3 targetPos = GetClampedTargetPos(caster, currentTarget);
 		List<ActorData> hitActors = AreaEffectUtils.GetActorsInRadius(
 			targetPos,
 			GetOuterRadius(),
@@ -299,7 +293,26 @@ public class ClericHammerThrow : Ability
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
-	
+
+	// custom
+	private Vector3 GetClampedTargetPos(ActorData caster, AbilityTarget target)
+	{
+		Vector3 aimDirection = target.AimDirection;
+		Vector3 targetPosUnclamped = target.FreePos;
+		Vector3 casterPos = caster.GetLoSCheckPos();
+		float distance = GetMaxDistToRingCenter();
+		float clampedDistance = VectorUtils.HorizontalPlaneDistInSquares(caster.GetFreePos(), targetPosUnclamped);
+		distance = Mathf.Min(clampedDistance, distance);
+		return VectorUtils.GetLaserEndPoint(
+			casterPos,
+			aimDirection,
+			distance * Board.Get().squareSize,
+			true,
+			caster,
+			null,
+			false);
+	}
+
 	// custom
 	private bool InsideNearRadius(ActorData hitActor, Vector3 coneStart)
 	{
