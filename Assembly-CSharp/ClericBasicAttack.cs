@@ -240,6 +240,7 @@ public class ClericBasicAttack : Ability
 		ActorData caster,
 		ref AbilityResults abilityResults)
 	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
 		Vector3 casterPos = caster.GetLoSCheckPos();
 		float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(targets[0].AimDirection);
 		List<ActorData> hitActors = AreaEffectUtils.GetActorsInCone(
@@ -251,7 +252,7 @@ public class ClericBasicAttack : Ability
 			PenetrateLineOfSight(),
 			caster,
 			caster.GetOtherTeams(),
-			null);
+			nonActorTargetInfo);
 
 		bool isInAreaBuff = caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff));
 		foreach (ActorData hitActor in hitActors)
@@ -286,6 +287,7 @@ public class ClericBasicAttack : Ability
 			cdr.AppendCooldownMiscEvents(casterHitResults, false, 0, numHitsForCdr);
 			abilityResults.StoreActorHit(casterHitResults);
 		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 #endif
 }

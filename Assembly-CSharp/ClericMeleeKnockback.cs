@@ -289,6 +289,7 @@ public class ClericMeleeKnockback : Ability
 		ActorData caster,
 		ref AbilityResults abilityResults)
 	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
 		float radius = GetAoeRadius();
 		Vector3 casterPos = caster.GetLoSCheckPos();
 		Vector3 aoeCenterPos = GetTargetPos(targets[0], caster);
@@ -298,7 +299,7 @@ public class ClericMeleeKnockback : Ability
 			PenetrateLineOfSight(),
 			caster,
 			caster.GetOtherTeams(),
-			null);
+			nonActorTargetInfo);
 		for (int i = actorsInRadius.Count - 1; i >= 0; i--)
 		{
 			if (!ShouldIncludeAoEActor(actorsInRadius[i], aoeCenterPos, caster))
@@ -364,7 +365,7 @@ public class ClericMeleeKnockback : Ability
 					true,
 					true,
 					out laserEndPos,
-					null);
+					nonActorTargetInfo);
 				foreach (ActorData hitActor in actorsInLaser)
 				{
 					if (!actorsInRadius.Contains(hitActor))
@@ -385,6 +386,7 @@ public class ClericMeleeKnockback : Ability
 			casterHitResults.AddTechPointGainOnCaster(GetExtraTechPointsPerHitWithAreaBuff());
 			abilityResults.StoreActorHit(casterHitResults);
 		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 
 	private Vector3 GetTargetPos(AbilityTarget target, ActorData caster)

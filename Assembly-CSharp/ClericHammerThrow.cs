@@ -251,6 +251,7 @@ public class ClericHammerThrow : Ability
 		ActorData caster,
 		ref AbilityResults abilityResults)
 	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
 		AbilityTarget currentTarget = targets[0];
 		Vector3 aimDirection = currentTarget.AimDirection;
 		Vector3 targetPosUnclamped = currentTarget.FreePos;
@@ -265,7 +266,7 @@ public class ClericHammerThrow : Ability
 			false,
 			caster,
 			caster.GetOtherTeams(),
-			null);
+			nonActorTargetInfo);
 
 		int outerHits = hitActors.Count(hitActor => !InsideNearRadius(hitActor, targetPos));
 		bool noInnerHits = outerHits == hitActors.Count;
@@ -296,6 +297,7 @@ public class ClericHammerThrow : Ability
 			}
 			abilityResults.StoreActorHit(hitResults);
 		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
 	
 	// custom
