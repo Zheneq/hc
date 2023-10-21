@@ -318,6 +318,7 @@ public class ClericMeleeKnockback : Ability
 		}
 
 		float knockbackDistance = GetKnockbackDistance();
+		int extraTechPoints = GetExtraTechPointsPerHitWithAreaBuff();
 		foreach (ActorData hitActor in actorsInRadius)
 		{
 			ActorHitParameters hitParams = new ActorHitParameters(hitActor, casterPos);
@@ -338,6 +339,10 @@ public class ClericMeleeKnockback : Ability
 					aoeCenterPos,
 					knockbackDistance);
 				hitResults.AddKnockbackData(knockbackData);
+			}
+			if (extraTechPoints > 0 && caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+			{
+				hitResults.AddTechPointGainOnCaster(extraTechPoints);
 			}
 			abilityResults.StoreActorHit(hitResults);
 		}
@@ -373,18 +378,14 @@ public class ClericMeleeKnockback : Ability
 						ActorHitParameters hitParams = new ActorHitParameters(hitActor, casterPos);
 						ActorHitResults hitResults = new ActorHitResults(GetConnectLaserDamage(), HitActionType.Damage, hitParams);
 						hitResults.AddStandardEffectInfo(GetConnectLaserEnemyHitEffect());
+						if (extraTechPoints > 0 && caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
+						{
+							hitResults.AddTechPointGainOnCaster(extraTechPoints);
+						}
 						abilityResults.StoreActorHit(hitResults);
 					}
 				}
 			}
-		}
-
-		int extraTechPoints = GetExtraTechPointsPerHitWithAreaBuff();
-		if (extraTechPoints > 0 && caster.GetAbilityData().HasQueuedAbilityOfType(typeof(ClericAreaBuff)))
-		{
-			ActorHitResults casterHitResults =  new ActorHitResults(new ActorHitParameters(caster, casterPos));
-			casterHitResults.AddTechPointGainOnCaster(GetExtraTechPointsPerHitWithAreaBuff());
-			abilityResults.StoreActorHit(casterHitResults);
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
