@@ -101,6 +101,11 @@ public class PlayerAction_Movement : PlayerAction
 				ActorData.TeleportType.Reappear,
 				null);
 		}
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			actorData.TeamSensitiveData_authority.MovementCameraBounds = ServerActionBuffer.Get()
+				.GetMovementBoundsForTeam(validRequestsThisPhase, actorData.GetTeam());
+		}
 		// end custom
 		ServerResolutionManager.Get().OnNormalMovementStart();
 		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, m_isChase
