@@ -5202,8 +5202,22 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public void SynchronizeTeamSensitiveData()
 	{
 		// custom
-		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle} {TeamSensitiveData_hostile.MoveFromBoardSquare?.GetGridPos()} -> {TeamSensitiveData_authority.MoveFromBoardSquare?.GetGridPos()}");
-		TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
+		// Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle} {TeamSensitiveData_hostile.MoveFromBoardSquare?.GetGridPos()} -> {TeamSensitiveData_authority.MoveFromBoardSquare?.GetGridPos()}");
+		// TeamSensitiveData_hostile.BroadcastMovement(
+		// 	GameEventManager.EventType.Invalid,
+		// 	GetGridPos(),
+		// 	GetCurrentBoardSquare(),
+		// 	MovementType.Teleport,
+		// 	TeleportType.Reappear,
+		// 	new BoardSquarePathInfo
+		// 	{
+		// 		square = GetCurrentBoardSquare(),
+		// 		m_visibleToEnemies = true,
+		// 		m_updateLastKnownPos = true,
+		// 	});
+		
+		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle}");
+		SetServerLastKnownPosSquare(GetCurrentBoardSquare(), "SynchronizeTeamSensitiveData");
 	}
 #endif
 
