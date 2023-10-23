@@ -547,10 +547,24 @@ public class GameFlow : NetworkBehaviour
 
 	// custom
 #if SERVER
+	// TODO LOW about time to make it a coroutine
+	private ActionBufferPhase actionBufferTimerPhase = ActionBufferPhase.Done;
+	private float actionBufferPhaseStartTime;
+	private PlayerAction_Movement normalMovementAction;
+	
 	private void HandleUpdateResolve()
 	{
 		ServerActionBuffer actionBuffer = ServerActionBuffer.Get();
 		TheatricsManager theatrics = TheatricsManager.Get();
+
+		bool isNewPhase = false;
+		if (actionBuffer.ActionPhase != actionBufferTimerPhase)
+		{
+			isNewPhase = true;
+			actionBufferTimerPhase = actionBuffer.ActionPhase;
+			actionBufferPhaseStartTime = GameFlowData.Get().GetGameTime();
+		}
+		
 		switch (actionBuffer.ActionPhase)
 		{
 			case ActionBufferPhase.Abilities:
@@ -558,28 +572,36 @@ public class GameFlow : NetworkBehaviour
 				break;
 			case ActionBufferPhase.AbilitiesWait:
 			{
-				foreach (ActorData actor in GameFlowData.Get().GetActors())
+				if (isNewPhase)
 				{
-					ActorTurnSM turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-					turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
-				}
-				if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
-				{
-					ServerCombatManager.Get().ResolveHitPoints();
-				}
-				foreach (ActorData actorData in GameFlowData.Get().GetActors())
-				{
-					if (actorData != null && actorData.GetPassiveData() != null)
+					foreach (ActorData actor in GameFlowData.Get().GetActors())
 					{
-						actorData.GetPassiveData().OnAbilitiesDone();
+						ActorTurnSM turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
+						turnSm.OnMessage(TurnMessage.CLIENTS_RESOLVED_ABILITIES);
 					}
+					if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+					{
+						ServerCombatManager.Get().ResolveHitPoints();
+					}
+					foreach (ActorData actorData in GameFlowData.Get().GetActors())
+					{
+						if (actorData != null && actorData.GetPassiveData() != null)
+						{
+							actorData.GetPassiveData().OnAbilitiesDone();
+						}
+					}
+					
+					Log.Info($"Running {ServerActionBuffer.Get().GetAllStoredMovementRequests().Count(req => !req.IsChasing())} non-chase movement requests");
+					normalMovementAction = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().ToList(), false);
+					m_executingPlayerActions.Add(normalMovementAction);
+					normalMovementAction.PrepareAction();
 				}
 
-				Log.Info($"Running {ServerActionBuffer.Get().GetAllStoredMovementRequests().Count(req => !req.IsChasing())} non-chase movement requests");
-				PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().ToList(), false);
-				m_executingPlayerActions.Add(action);
-				action.ExecuteAction();
-				actionBuffer.ActionPhase = ActionBufferPhase.Movement;
+				if (GameFlowData.Get().GetGameTime() - actionBufferPhaseStartTime > 1.5f)
+				{
+					normalMovementAction.ExecuteAction();
+					actionBuffer.ActionPhase = ActionBufferPhase.Movement;
+				}
 				break;
 			}
 			case ActionBufferPhase.Movement:
@@ -593,6 +615,7 @@ public class GameFlow : NetworkBehaviour
 						Log.Info($"Running {numChaseRequests} chase movement requests");
 						PlayerAction_Movement action = new PlayerAction_Movement(ServerActionBuffer.Get().GetAllStoredMovementRequests().ToList(), true);
 						m_executingPlayerActions.Add(action);
+						action.PrepareAction();
 						action.ExecuteAction();
 					}
 					else

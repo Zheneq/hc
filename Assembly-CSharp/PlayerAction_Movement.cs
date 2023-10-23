@@ -11,6 +11,9 @@ public class PlayerAction_Movement : PlayerAction
 	
 	// custom
 	private bool m_isChase;
+	private MovementCollection movementCollection;
+	private List<MovementRequest> validRequestsThisPhase;
+	List<MovementRequest> validRequests = new List<MovementRequest>();
 
 	public PlayerAction_Movement(List<MovementRequest> moveRequests, bool isChase = false)
 	{
@@ -19,7 +22,7 @@ public class PlayerAction_Movement : PlayerAction
 	}
 
 	// rogues+custom: no chasing in rogues
-	public override bool ExecuteAction()
+	public bool PrepareAction()
 	{
 		if (m_moveRequests == null)
 		{
@@ -42,7 +45,6 @@ public class PlayerAction_Movement : PlayerAction
 			Log.Info("No movement requests");
 			return false;
 		}
-		List<MovementRequest> validRequests = new List<MovementRequest>();
 		foreach (MovementRequest movementRequest in m_moveRequests)
 		{
 			BoardSquare targetSquare = movementRequest.m_targetSquare;
@@ -73,8 +75,28 @@ public class PlayerAction_Movement : PlayerAction
 		ServerClashUtils.ResolveClashMovement(validRequests, clashes, m_isChase);
 		// end custom
 		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(validRequests, m_isChase);
-		List<MovementRequest> validRequestsThisPhase = validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList();
-		MovementCollection movementCollection = new MovementCollection(validRequestsThisPhase);
+		validRequestsThisPhase = validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList();
+		movementCollection = new MovementCollection(validRequestsThisPhase);
+		
+		// custom
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			actorData.TeamSensitiveData_authority.MovementCameraBounds = ServerActionBuffer.Get()
+				.GetMovementBoundsForTeam(validRequestsThisPhase, actorData.GetTeam());
+		}
+		
+		return true;
+		// end custom
+	}
+
+	// rogues+custom: no chasing in rogues
+	public override bool ExecuteAction()
+	{
+		if (m_moveRequests == null || m_moveRequests.Count == 0)
+		{
+			return false;
+		}
+		
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
 			if (actorData.GetPassiveData() != null)
@@ -101,12 +123,8 @@ public class PlayerAction_Movement : PlayerAction
 				ActorData.TeleportType.Reappear,
 				null);
 		}
-		foreach (ActorData actorData in GameFlowData.Get().GetActors())
-		{
-			actorData.TeamSensitiveData_authority.MovementCameraBounds = ServerActionBuffer.Get()
-				.GetMovementBoundsForTeam(validRequestsThisPhase, actorData.GetTeam());
-		}
 		// end custom
+		
 		ServerResolutionManager.Get().OnNormalMovementStart();
 		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, m_isChase
 			? ServerMovementManager.MovementType.NormalMovement_Chase
