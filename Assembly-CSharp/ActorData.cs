@@ -5194,16 +5194,28 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		// end custom
 	}
 #endif
-
-
+	
 	// server-only -- added in rogues, empty in rogues
-	// TODO VISION maybe we are supposed to synchronize something else
 #if SERVER
 	public void SynchronizeTeamSensitiveData()
 	{
 		// custom
-		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle} {TeamSensitiveData_hostile.MoveFromBoardSquare?.GetGridPos()} -> {TeamSensitiveData_authority.MoveFromBoardSquare?.GetGridPos()}");
-		TeamSensitiveData_hostile.MoveFromBoardSquare = TeamSensitiveData_authority.MoveFromBoardSquare;
+		// Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle} {TeamSensitiveData_hostile.MoveFromBoardSquare?.GetGridPos()} -> {TeamSensitiveData_authority.MoveFromBoardSquare?.GetGridPos()}");
+		// TeamSensitiveData_hostile.BroadcastMovement(
+		// 	GameEventManager.EventType.Invalid,
+		// 	GetGridPos(),
+		// 	GetCurrentBoardSquare(),
+		// 	MovementType.Teleport,
+		// 	TeleportType.Reappear,
+		// 	new BoardSquarePathInfo
+		// 	{
+		// 		square = GetCurrentBoardSquare(),
+		// 		m_visibleToEnemies = true,
+		// 		m_updateLastKnownPos = true,
+		// 	});
+		
+		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle}");
+		SetServerLastKnownPosSquare(GetSquareAtPhaseStart(), "SynchronizeTeamSensitiveData");
 	}
 #endif
 
