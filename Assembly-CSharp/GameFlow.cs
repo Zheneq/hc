@@ -737,6 +737,7 @@ public class GameFlow : NetworkBehaviour
 					ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
 				}
 				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
+				ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 				ServerEffectManager.Get().OnAbilityPhaseStart(phase);
 				ServerResolutionManager.Get().OnAbilityPhaseStart(phase);
 				foreach (ActorData actorData in GameFlowData.Get().GetActors())
@@ -757,7 +758,6 @@ public class GameFlow : NetworkBehaviour
 				}
 			}
 			
-			ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 			theatrics.SetDirtyBit(uint.MaxValue);
 			theatrics.PlayPhase(actionBuffer.AbilityPhase);
 		}
