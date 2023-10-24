@@ -5215,7 +5215,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		// 	});
 		
 		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle}");
-		SetServerLastKnownPosSquare(GetSquareAtPhaseStart(), "SynchronizeTeamSensitiveData");
+		BoardSquare square = ServerActionBuffer.Get().AbilityPhase == AbilityPriority.Evasion
+			? GetSquareAtPhaseStart()
+			: GetCurrentBoardSquare();
+		SetServerLastKnownPosSquare(square, "SynchronizeTeamSensitiveData");
 	}
 #endif
 
