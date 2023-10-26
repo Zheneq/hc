@@ -134,10 +134,10 @@ public class ClericAreaBuffEffect: Effect
 		effectResults.StoreActorHit(casterHitResults);
 	}
 
-	public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
-	{
-		return true;
-	}
+	// public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
+	// {
+	// 	return true;
+	// }
 
 	// public override void OnTurnEnd()
 	// {
