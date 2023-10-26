@@ -321,5 +321,14 @@ public class ClericHammerThrow : Ability
 		float num = (GetInnerRadius() + GameWideData.Get().m_actorTargetingRadiusInSquares) * Board.Get().squareSize;
 		return num >= vector.magnitude;
 	}
+	
+	// custom
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.AppliedStatus(StatusType.Revealed))
+		{
+			caster.GetFreelancerStats().IncrementValueOfStat(FreelancerStats.ClericStats.SolarStrikeNumRevealApplied);
+		}
+	}
 #endif
 }

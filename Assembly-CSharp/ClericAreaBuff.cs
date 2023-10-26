@@ -502,5 +502,11 @@ public class ClericAreaBuff : Ability
 		}
 		return list;
 	}
+
+	// added in rogues
+	public override void OnEffectAbsorbedDamage(ActorData effectCaster, int damageAbsorbed)
+	{
+		effectCaster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.ClericStats.UltEffectiveShielding, damageAbsorbed);
+	}
 #endif
 }

@@ -650,8 +650,6 @@ public class GameFlow : NetworkBehaviour
 				{
 					GameFlowData.Get().gameState = GameState.EndingTurn;
 				}
-			
-				DebugPrintFreelancerStats();
 				break;
 			}
 		}
@@ -1914,6 +1912,7 @@ public class GameFlow : NetworkBehaviour
 		{
 			ServerEffectManager.Get().RemoveEffectsFromActorDeath();
 		}
+		DebugPrintFreelancerStats();
 		// end custom
 	}
 #endif

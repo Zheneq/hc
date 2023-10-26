@@ -24,6 +24,10 @@ public class ClericBasicAttack : Ability
 	private StandardEffectInfo m_cachedTargetHitEffectInner;
 	private StandardEffectInfo m_cachedTargetHitEffect;
 
+#if SERVER
+	private Passive_Cleric m_passive;
+#endif
+	
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
@@ -31,6 +35,9 @@ public class ClericBasicAttack : Ability
 			m_abilityName = "Cleric Bash";
 		}
 		m_syncComp = GetComponent<Cleric_SyncComponent>();
+#if SERVER
+		m_passive = GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Cleric)) as Passive_Cleric;
+#endif
 		SetupTargeter();
 	}
 
@@ -288,6 +295,15 @@ public class ClericBasicAttack : Ability
 			abilityResults.StoreActorHit(casterHitResults);
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+	
+	// custom
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.AppliedStatus(StatusType.Snared))
+		{
+			m_passive.m_enemiesHitByBoneShatter.Add(target);
+		}
 	}
 #endif
 }

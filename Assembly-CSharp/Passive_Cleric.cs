@@ -11,6 +11,7 @@ public class Passive_Cleric : Passive
     private Cleric_SyncComponent m_syncComp;
     private ClericAreaBuff m_buffAbility;
     private AbilityData.ActionType m_buffAbilityActionType;
+    public List<ActorData> m_enemiesHitByBoneShatter = new List<ActorData>();
     
     // custom
     protected override void OnStartup()
@@ -47,6 +48,27 @@ public class Passive_Cleric : Passive
 		}
 	}
 
+	public override void OnTurnEnd()
+	{
+		base.OnTurnEnd();
+
+		// movement denied is processed by now
+		float movementDenied = 0;
+		foreach (ActorData actorData in m_enemiesHitByBoneShatter)
+		{
+			float x = actorData.GetActorBehavior().GetMovementDeniedByActorThisTurn(Owner, true, false);
+			Log.Info($"CLERIC denied {x} movement for {actorData}");
+			movementDenied += x;
+		}
+		if (movementDenied > 0)
+		{
+			Owner.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ClericStats.BoneShatterMovementDenied,
+				Mathf.RoundToInt(movementDenied));
+		}
+		m_enemiesHitByBoneShatter.Clear();
+	}
+
 	// custom
 	private void RemoveAreaBuff(int cooldown)
 	{
@@ -56,7 +78,7 @@ public class Passive_Cleric : Passive
 		{
 			ActorHitResults hitRes = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
 			hitRes.AddEffectForRemoval(activeEffects[0], ServerEffectManager.Get().GetActorEffects(Owner));
-			// We have do deduct 1 from the cooldown since it's already next turn
+			// We have to deduct 1 from the cooldown since it's already next turn
 			hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_buffAbilityActionType, cooldown - 1)
 			{
 				m_ignoreCooldownMax = true

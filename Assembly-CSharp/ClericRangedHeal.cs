@@ -412,5 +412,16 @@ public class ClericRangedHeal : Ability
 			abilityResults.StoreActorHit(hitResults);
 		}
 	}
+	
+	// custom
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalHealing > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.ClericStats.ReforgeHealFromMissingHealth,
+				CalcExtraHealFromMissingHealth(target));
+		}
+	}
 #endif
 }

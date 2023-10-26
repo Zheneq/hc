@@ -903,6 +903,32 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			}
 		}
 	}
+	
+	// custom
+	public float GetMovementDeniedByActorThisTurn(ActorData actor, bool includeSnare = true, bool includeRoot = true)
+	{
+		if (m_totalMovementLostThisTurn <= 0f)
+		{
+			return 0;
+		}
+		List<ActorData> list = null;
+		if (m_rootOrKnockbackSourceActorsThisTurn.Count > 0)
+		{
+			if (includeRoot)
+			{
+				list = m_rootOrKnockbackSourceActorsThisTurn;
+			}
+		}
+		else if (m_snareSourceActorsThisTurn.Count > 0 && includeSnare)
+		{
+			list = m_snareSourceActorsThisTurn;
+		}
+		if (list != null && list.Contains(actor))
+		{
+			return m_totalMovementLostThisTurn / list.Count;
+		}
+		return 0;
+	}
 
 	// added in rogues
 	public void ProcessEnemySightedStat()
