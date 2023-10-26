@@ -42,9 +42,8 @@ public class Passive_Cleric : Passive
 		if (!Owner.GetAbilityData().ValidateActionIsRequestableDisregardingQueuedActions(m_buffAbilityActionType))
 		{
 			Log.Info($"ClericAreaBuff depleted, removing");
-			// We have do deduct 1 from the cooldown since it's already next turn
 			// It doesn't makes sense to check requestability before Cleric got his per-turn tech point regen
-			RemoveAreaBuff(m_buffAbility.GetCooldownWhenBuffLapses() - 1);
+			RemoveAreaBuff(m_buffAbility.GetCooldownWhenBuffLapses());
 		}
 	}
 
@@ -57,7 +56,8 @@ public class Passive_Cleric : Passive
 		{
 			ActorHitResults hitRes = new ActorHitResults(new ActorHitParameters(Owner, Owner.GetFreePos()));
 			hitRes.AddEffectForRemoval(activeEffects[0], ServerEffectManager.Get().GetActorEffects(Owner));
-			hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_buffAbilityActionType, cooldown)
+			// We have do deduct 1 from the cooldown since it's already next turn
+			hitRes.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(m_buffAbilityActionType, cooldown - 1)
 			{
 				m_ignoreCooldownMax = true
 			});
