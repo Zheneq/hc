@@ -19,7 +19,7 @@ public class NekoBoomerangDisc : Ability
 	public int m_extraReturnDamageIfHitNoOne;
 	[Separator("Shielding for target hit on throw (applied on start of next turn)")]
 	public int m_shieldPerTargetHitOnThrow;
-	public StandardActorEffectData m_shieldEffectData;
+	public StandardActorEffectData m_shieldEffectData;  // TODO NEKO template for absorb effect? Empty two-turn effect, not changed in mods
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
 	public GameObject m_returnTripSequencePrefab;
@@ -225,4 +225,118 @@ public class NekoBoomerangDisc : Ability
 	{
 		return 3;
 	}
+	
+#if SERVER
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		AreaEffectUtils.GetActorsInLaser(
+			caster.GetLoSCheckPos(),
+			targets[0].AimDirection,
+			GetLaserLength(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetMaxTargets(),
+			false,
+			true,
+			out Vector3 laserEndPos,
+			null);
+		BoardSquare discEndSquare = GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			discEndSquare,
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 losCheckPos = caster.GetLoSCheckPos();
+		
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInLaser(
+			losCheckPos,
+			currentTarget.AimDirection,
+			GetLaserLength(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetMaxTargets(),
+			false,
+			true,
+			out Vector3 laserEndPos,
+			nonActorTargetInfo);
+		if (hitActors.Contains(caster))
+		{
+			hitActors.Remove(caster);
+		}
+		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(losCheckPos, laserEndPos);
+		List<ActorData> aoeHitActors = AreaEffectUtils.GetActorsInRadius(
+			laserEndPos,
+			GetAoeRadiusAtEnd(),
+			false,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo,
+			true,
+			coneLosCheckPos);
+		
+		foreach (ActorData aoeHitActor in aoeHitActors)
+		{
+			if (!hitActors.Contains(aoeHitActor))
+			{
+				hitActors.Add(aoeHitActor);
+			}
+		}
+		
+		foreach (ActorData target in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, losCheckPos));
+			int damage = GetDirectDamage();
+			if (m_syncComp != null
+			    && GetExtraDamageIfHitByReturnDisc() > 0
+			    && m_syncComp.IsActorTargetedByReturningDiscs(target))  // TODO NEKO update list somewhere
+			{
+				damage += GetExtraDamageIfHitByReturnDisc();
+			}
+			actorHitResults.SetBaseDamage(damage);
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+
+		BoardSquare discEndSquare = GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
+		NekoBoomerangDiscEffect effect = new NekoBoomerangDiscEffect(
+			AsEffectSource(),
+			discEndSquare,
+			caster,
+			GetDiscReturnEndRadius(),
+			GetReturnTripDamage(),
+			ReturnTripIgnoreCover(),
+			hitActors.Count == 0 ? GetExtraReturnDamageIfHitNoOne() : 0,
+			m_returnTripSequencePrefab,
+			m_persistentDiscSequencePrefab);
+		PositionHitParameters positionHitParams = new PositionHitParameters(discEndSquare.ToVector3());
+		PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
+		abilityResults.StorePositionHit(positionHitResults);
+
+		if (hitActors.Count > 0)
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			StandardActorEffectData shieldEffectData = GetShieldEffectData().GetShallowCopy();
+			shieldEffectData.m_nextTurnAbsorbAmount = GetShieldPerTargetHitOnThrow() * hitActors.Count;
+			casterHitResults.AddEffect(new StandardActorEffect(
+				AsEffectSource(), caster.GetCurrentBoardSquare(), caster, caster, shieldEffectData));
+			abilityResults.StoreActorHit(casterHitResults);
+		}
+		
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

@@ -28,11 +28,11 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
     [SyncVar]
     internal int m_homingActorIndex = -1;
     [SyncVar]
-    internal bool m_superDiscActive;
+    internal bool m_superDiscActive; // TODO NEKO for unused ability NekoSuperDisc?
     [SyncVar]
-    internal int m_superDiscBoardX;
+    internal int m_superDiscBoardX; // TODO NEKO for unused ability NekoSuperDisc?
     [SyncVar]
-    internal int m_superDiscBoardY;
+    internal int m_superDiscBoardY; // TODO NEKO for unused ability NekoSuperDisc?
     [SyncVar]
     internal int m_numUltConsecUsedTurns;
     internal int m_clientLastDiscBuffTurn = -1;
@@ -780,4 +780,28 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
             m_numUltConsecUsedTurns = (int)reader.ReadPackedUInt32();
         }
     }
+    
+#if SERVER
+    public void AddDisk(BoardSquare square)
+    {
+        m_boardX.Add(square.x);
+        m_boardY.Add(square.y);
+    }
+    
+    public void RemoveDisk(BoardSquare square)
+    {
+        for (int i = 0; i < m_boardX.Count; i++)
+        {
+            if (m_boardX[i] == square.x && m_boardY[i] == square.y)
+            {
+                m_boardX.RemoveAt(i);
+                m_boardY.RemoveAt(i);
+                return;
+            }
+        }
+        
+        Log.Error($"Failed to remove Neko disc at {square.x}, {square.y}");
+    }
+
+#endif
 }

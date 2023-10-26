@@ -1379,6 +1379,25 @@ namespace Theatrics
 			{
 				return m_animationIndex.CompareTo(rhs.m_animationIndex);
 			}
+			
+			// custom TODO test what happens with it and without
+			int leftSortPriority = m_ability.GetTheatricsSortPriority(m_abilityActionType);
+			int rightSortPriority = rhs.m_ability.GetTheatricsSortPriority(rhs.m_abilityActionType);
+			if (leftSortPriority != rightSortPriority)
+			{
+				if (rightSortPriority == 0)
+				{
+					return 1;
+				}
+				if (leftSortPriority == 0)
+				{
+					return -1;
+				}
+
+				return leftSortPriority.CompareTo(rightSortPriority);
+			}
+			// end custom
+			
 			return 0;
 		}
 

@@ -1709,6 +1709,7 @@
     <Compile Include="NekoAoeAroundDisc.cs" />
     <Compile Include="NekoBendingDisc.cs" />
     <Compile Include="NekoBoomerangDisc.cs" />
+    <Compile Include="NekoBoomerangDiscEffect.cs" />
     <Compile Include="NekoDiscBuffNotifySequence.cs" />
     <Compile Include="NekoDiscReturnProjectileSequence.cs" />
     <Compile Include="NekoDiscTetherSequence.cs" />
