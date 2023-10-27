@@ -117,8 +117,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	private string c_enemyTeamActingString = "Enemy Turn";
 	private string c_allyTeamActingString = "Ally Turn";
 #endif
-
-
+	
+	// custom
+#if SERVER
+	public int LastTurnWithAllPlayersConnected { get; private set; } = 0;
+#endif
+	
 	static GameFlowData()
 	{
 		RegisterRpcDelegate(typeof(GameFlowData), kRpcRpcUpdateTimeRemaining, new CmdDelegate(InvokeRpcRpcUpdateTimeRemaining));
@@ -1600,9 +1604,28 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (NetworkServer.active)
 		{
+			// custom
+			bool allClientsConnected = ServerGameManager.Get() != null && ServerGameManager.Get().AreAllClientsConnected();
+			if (allClientsConnected)
+			{
+				LastTurnWithAllPlayersConnected = m_currentTurn;
+			}
+			// end custom
+			
 			if (!m_pause)
 			{
-				m_timeRemainingInDecision = Get().m_turnTime;
+				// custom
+				if (allClientsConnected)
+				{
+					m_timeRemainingInDecision = Get().m_turnTime;
+				}
+				else
+				{
+					Log.Info($"Disconnect detected, extending turn time");
+					m_timeRemainingInDecision = Mathf.Max(Get().m_turnTime, HydrogenConfig.Get().PendingReconnectTurnTime);
+				}
+				// rogues
+				// m_timeRemainingInDecision = Get().m_turnTime;
 			}
 			m_timeRemainingInDecision += 1f;
 		}

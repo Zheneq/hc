@@ -130,6 +130,9 @@ public class HydrogenConfig : JsonConfig
 	public int PublicPort = 6061;
 	public int MonitorServerPort = 6060;
 	public string ServerName = "Atlas";
+
+	public int PendingReconnectTurnTime = 60;
+	public int PendingReconnectMaxTurns = 3;
 	// end custom
 
 	public HydrogenConfig()

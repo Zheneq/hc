@@ -1954,6 +1954,52 @@ public class ServerGameManager : MonoBehaviour
 		return false;
 	}
 
+	// custom
+	public bool AreAllClientsConnected()
+	{
+		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
+		{
+			// TODO HACK
+			if (serverPlayerState.PlayerInfo.LobbyPlayerInfo.AccountId <= 0 || serverPlayerState.LocalClient)
+			{
+				continue;
+			}
+			
+			if (serverPlayerState.ConnectionPersistent == null
+			     || serverPlayerState.ConnectionPersistent.connectionId <= 0)
+			{
+				Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} is not connected");
+				return false;
+			}
+
+			if (GameFlow.Get())
+			{
+				Player player = GameFlow.Get().GetPlayerFromConnectionId(serverPlayerState.ConnectionPersistent.connectionId);
+
+				if (!player.m_valid)
+				{
+					Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} is not valid");
+					return false;
+				}
+
+				PlayerDetails playerDetails = GameFlow.Get().playerDetails.TryGetValue(player);
+				if (playerDetails == null)
+				{
+					Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} player details not found");
+					return false;
+				}
+
+				if (playerDetails.m_disconnected)
+				{
+					Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} is marked as disconnected");
+					return false;
+				}
+			}
+		}
+		Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, all players are connected");
+		return true;
+	}
+
 	private void HandleDisconnectPlayerRequest(DisconnectPlayerRequest request)
 	{
 		ServerPlayerState serverPlayerState = null;
