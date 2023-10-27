@@ -1615,14 +1615,17 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			if (!m_pause)
 			{
 				// custom
-				if (allClientsConnected)
+				if (!allClientsConnected && HydrogenConfig.Get().PendingReconnectTurnTime > Get().m_turnTime)
 				{
-					m_timeRemainingInDecision = Get().m_turnTime;
+					Log.Info($"Disconnect detected, extending turn time");
+					ServerGameManager.Get()?.SendUnlocalizedConsoleMessage(
+						"Not all players are connected. Giving disconnected players more time to reconnect.");
+
+					m_timeRemainingInDecision = HydrogenConfig.Get().PendingReconnectTurnTime;
 				}
 				else
 				{
-					Log.Info($"Disconnect detected, extending turn time");
-					m_timeRemainingInDecision = Mathf.Max(Get().m_turnTime, HydrogenConfig.Get().PendingReconnectTurnTime);
+					m_timeRemainingInDecision = Get().m_turnTime;
 				}
 				// rogues
 				// m_timeRemainingInDecision = Get().m_turnTime;

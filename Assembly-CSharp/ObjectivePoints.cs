@@ -688,6 +688,7 @@ public class ObjectivePoints : NetworkBehaviour
 			{
 				isGameOver = true;
 				Networkm_gameResult = GameResult.TieGame;
+				ServerGameManager.Get()?.SendUnlocalizedConsoleMessage("Game over: players failed to reconnect.");
 				Log.Info($"Tie because: got a dc for {HydrogenConfig.Get().PendingReconnectMaxTurns} turns");
 			}
 			// end custom
