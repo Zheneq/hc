@@ -2,6 +2,7 @@
 // SERVER
 using System;
 using System.Collections.Generic;
+using System.Linq;
 //using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -227,15 +228,35 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (abilityRequest.m_ability.RunPriority == phase)
 			{
-				if (abilityRequest.m_caster != null)
+				if (abilityRequest.m_caster != null
+				    // custom
+				    && abilityRequest.m_ability != null
+				    && abilityRequest.m_ability.ShouldRevealCasterOnHostileAbilityHit()
+				    && abilityRequest.m_additionalData.m_abilityResults.HitActorsArray().Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam())
+				    // end custom
+				    )
 				{
 					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName} for using ability {abilityRequest.m_ability.m_abilityName}"); // custom
 					abilityRequest.m_caster.SynchronizeTeamSensitiveData();
 				}
+				else
+				{
+					Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster?.DisplayName} for using ability {abilityRequest.m_ability?.m_abilityName}"); // custom
+				}
 				foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
-					hitActor.SynchronizeTeamSensitiveData();
+					if (abilityRequest.m_caster != null
+					    && abilityRequest.m_caster.GetTeam() != hitActor.GetTeam()
+					    && abilityRequest.m_ability != null
+					    && abilityRequest.m_ability.ShouldRevealTargetOnHostileAbilityHit()) // custom condition
+					{
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
+						hitActor.SynchronizeTeamSensitiveData();
+					}
+					else
+					{
+						Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability?.m_abilityName}"); // custom
+					}
 				}
 			}
 		}
@@ -245,20 +266,35 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				if (effect.HasResolutionAction(phase))
 				{
-					if (effect.Caster != null)
-					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using effect {effect.m_effectName}"); // custom
-						effect.Caster.SynchronizeTeamSensitiveData();
-					}
-					if (effect.Target != null)
+					// if (effect.Caster != null)
+					// {
+					// 	Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using effect {effect.m_effectName}"); // custom
+					// 	effect.Caster.SynchronizeTeamSensitiveData();
+					// }
+					if (effect.Target != null
+					    // custom
+					    // but what if black hole in fog of war hits nobody? will the animation play in the wrong place?
+					    && effect.Caster != null
+					    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealEffectHolderOnHostileEffectHit())
+					    && effect.GetResultsForPhase(phase, true).HitActorsArray().Any(ad => ad.GetTeam() != effect.Caster.GetTeam()))
+						//end custom
 					{
 						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
 						effect.Target.SynchronizeTeamSensitiveData();
 					}
 					foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
-						hitActor.SynchronizeTeamSensitiveData();
+						if (effect.Caster != null
+						    && effect.Caster.GetTeam() != hitActor.GetTeam()
+						    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition
+						{
+							Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
+							hitActor.SynchronizeTeamSensitiveData();
+						}
+						else
+						{
+							Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
+						}
 					}
 				}
 			}
@@ -267,15 +303,24 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (effect.HasResolutionAction(phase))
 			{
-				if (effect.Caster != null)
-				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using world effect {effect.m_effectName}"); // custom
-					effect.Caster.SynchronizeTeamSensitiveData();
-				}
+				// if (effect.Caster != null)
+				// {
+				// 	Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using world effect {effect.m_effectName}"); // custom
+				// 	effect.Caster.SynchronizeTeamSensitiveData();
+				// }
 				foreach (var hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}"); // custom
-					hitActor.SynchronizeTeamSensitiveData();
+					if (effect.Caster != null
+					    && effect.Caster.GetTeam() != hitActor.GetTeam()
+					    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition
+					{
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s world effect {effect.m_effectName}"); // custom
+						hitActor.SynchronizeTeamSensitiveData();
+					}
+					else
+					{
+						Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}"); // custom
+					}
 				}
 			}
 		}
