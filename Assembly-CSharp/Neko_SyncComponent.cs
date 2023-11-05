@@ -58,6 +58,11 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 
     private static int kListm_boardX = 1782002628;
     private static int kListm_boardY = 1782002629;
+    
+#if SERVER
+    // custom
+    public List<ActorData> ActorsTargetedByReturningDiscs => m_actorsTargetedByReturningDiscs;
+#endif
 
     public int Networkm_homingActorIndex
     {
@@ -326,6 +331,117 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 
         return result;
     }
+    
+#if SERVER
+    // custom
+    public void ServerUpdateActorsInDiscPath()
+    {
+        m_actorsTargetedByReturningDiscs.Clear();
+        for (int i = 0; i < m_boardX.Count; i++)
+        {
+            float losHeight = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
+            BoardSquare targetSquare = Board.Get().GetSquareFromIndex(m_boardX[i], m_boardY[i]);
+            Vector3 startLosPos = targetSquare.ToVector3();
+            startLosPos.y = losHeight;
+            Vector3 endLosPos = GetCasterPos(out _);
+            endLosPos.y = losHeight;
+        
+            float returnDiskLaserWidth = m_discReturnTripLaserWidthInSquares;
+            float aoeStartRadius = m_discReturnTripAoeRadiusAtlaserStart;
+            float returnDiskEndRadius = m_primaryAbility.GetDiscReturnEndRadius();
+            bool isDiscEnlarged = IsDiscAtPosEnlarged(m_boardX[i], m_boardY[i], out bool enlargeDiscUsed); // TODO NEKO embiggify
+            if (isDiscEnlarged)
+            {
+                returnDiskLaserWidth = m_enlargeDiscAbility.GetLaserWidth();
+                aoeStartRadius = m_enlargeDiscAbility.GetAoeRadius();
+                returnDiskEndRadius = Mathf.Max(returnDiskEndRadius, m_enlargeDiscAbility.GetReturnEndAoeRadius());
+            }
+
+            UpdateActorsInDiscPath(
+                startLosPos,
+                endLosPos,
+                returnDiskLaserWidth,
+                aoeStartRadius,
+                returnDiskEndRadius,
+                isDiscEnlarged);
+        }
+    }
+    
+    // TODO NEKO basically repeats SyncComponent.UpdateActorsInDiscPath
+    // custom
+    // private List<ActorData> GetActorsInDiscPath(
+    //     Vector3 startLosPos,
+    //     Vector3 endLosPos,
+    //     float laserWidth,
+    //     float aoeStartRadius,
+    //     float aoeEndRadius,
+    //     bool usingEnlargeDiscAbility)
+    // {
+    //     List<ActorData> hitActors = new List<ActorData>();
+    //     
+    //     List<Team> relevantTeams = m_actorData.GetEnemyTeamAsList();
+    //     if (usingEnlargeDiscAbility
+    //         && m_enlargeDiscAbility != null
+    //         && m_enlargeDiscAbility.CanIncludeAlliesOnReturn())
+    //     {
+    //         relevantTeams.Add(m_actorData.GetTeam());
+    //     }
+    //
+    //     Vector3 dir = endLosPos - startLosPos;
+    //     dir.y = 0f;
+    //     float laserRangeInSquares = dir.magnitude / Board.Get().squareSize;
+    //     List<ActorData> actorsInStartRadius = AreaEffectUtils.GetActorsInRadius(
+    //         startLosPos, aoeStartRadius, true, m_actorData, relevantTeams, null);
+    //     foreach (ActorData actor in actorsInStartRadius)
+    //     {
+    //         if (!hitActors.Contains(actor))
+    //         {
+    //             hitActors.Add(actor);
+    //         }
+    //     }
+    //
+    //     if (laserRangeInSquares <= 0f)
+    //     {
+    //         return hitActors;
+    //     }
+    //
+    //     List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+    //         startLosPos,
+    //         dir,
+    //         laserRangeInSquares,
+    //         laserWidth,
+    //         m_actorData,
+    //         relevantTeams,
+    //         true,
+    //         0,
+    //         true,
+    //         true,
+    //         out _,
+    //         null);
+    //     foreach (ActorData item in actorsInLaser)
+    //     {
+    //         if (!hitActors.Contains(item))
+    //         {
+    //             hitActors.Add(item);
+    //         }
+    //     }
+    //
+    //     if (aoeEndRadius > 0f)
+    //     {
+    //         List<ActorData> actorsInEndRadius = AreaEffectUtils.GetActorsInRadius(
+    //             endLosPos, aoeEndRadius, true, m_actorData, relevantTeams, null);
+    //         foreach (ActorData actor in actorsInEndRadius)
+    //         {
+    //             if (!hitActors.Contains(actor))
+    //             {
+    //                 hitActors.Add(actor);
+    //             }
+    //         }
+    //     }
+    //
+    //     return hitActors;
+    // }
+#endif
 
     private void Update()
     {
@@ -531,10 +647,12 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
     private void UpdateActorsInDiscPath(Vector3 startLosPos, Vector3 endLosPos, float laserWidth, float aoeStartRadius,
         float aoeEndRadius, bool usingEnlargeDiscAbility)
     {
+#if !SERVER
         if (!m_showTargetedGlowOnActorsInReturnDiscPath)
         {
             return;
         }
+#endif
 
         List<Team> opposingTeams = m_actorData.GetEnemyTeamAsList();
         if (usingEnlargeDiscAbility
@@ -572,7 +690,12 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
             true,
             0,
             true,
+            // TODO NEKO HACK
+#if SERVER
+            true,
+#else
             false,
+#endif
             out _,
             null);
         foreach (ActorData item in actorsInLaser)

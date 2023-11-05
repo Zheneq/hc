@@ -118,24 +118,25 @@ public class NekoBoomerangDiscEffect : Effect
         Vector3 endLosPos = GetCasterPos();
         endLosPos.y = losHeight;
         
-        float returnDiskLaserWidth = m_syncComponent.m_discReturnTripLaserWidthInSquares;
-        float aoeStartRadius = m_syncComponent.m_discReturnTripAoeRadiusAtlaserStart;
-        float returnDiskEndRadius = m_discReturnEndRadius;
-        bool isDiscEnlarged = false; // IsDiscAtPosEnlarged(m_boardX[i], m_boardY[i], out bool enlargeDiscUsed); // TODO NEKO embiggify
-        if (isDiscEnlarged)
-        {
-            returnDiskLaserWidth = m_enlargeDiscAbility.GetLaserWidth();
-            aoeStartRadius = m_enlargeDiscAbility.GetAoeRadius();
-            returnDiskEndRadius = Mathf.Max(returnDiskEndRadius, m_enlargeDiscAbility.GetReturnEndAoeRadius());
-        }
-
-        List<ActorData> hitActors = GetActorsInDiscPath(
-            startLosPos,
-            endLosPos,
-            returnDiskLaserWidth,
-            aoeStartRadius,
-            returnDiskEndRadius,
-            isDiscEnlarged);
+        // float returnDiskLaserWidth = m_syncComponent.m_discReturnTripLaserWidthInSquares;
+        // float aoeStartRadius = m_syncComponent.m_discReturnTripAoeRadiusAtlaserStart;
+        // float returnDiskEndRadius = m_discReturnEndRadius;
+        // bool isDiscEnlarged = false; // IsDiscAtPosEnlarged(m_boardX[i], m_boardY[i], out bool enlargeDiscUsed); // TODO NEKO embiggify
+        // if (isDiscEnlarged)
+        // {
+        //     returnDiskLaserWidth = m_enlargeDiscAbility.GetLaserWidth();
+        //     aoeStartRadius = m_enlargeDiscAbility.GetAoeRadius();
+        //     returnDiskEndRadius = Mathf.Max(returnDiskEndRadius, m_enlargeDiscAbility.GetReturnEndAoeRadius());
+        // }
+        //
+        // List<ActorData> hitActors = GetActorsInDiscPath(
+        //     startLosPos,
+        //     endLosPos,
+        //     returnDiskLaserWidth,
+        //     aoeStartRadius,
+        //     returnDiskEndRadius,
+        //     isDiscEnlarged);
+        List<ActorData> hitActors = m_syncComponent.ActorsTargetedByReturningDiscs;
         
         foreach (ActorData hitActor in hitActors)
         {
@@ -158,78 +159,78 @@ public class NekoBoomerangDiscEffect : Effect
     }
     
     // TODO NEKO basically repeats SyncComponent.UpdateActorsInDiscPath
-    private List<ActorData> GetActorsInDiscPath(
-        Vector3 startLosPos,
-        Vector3 endLosPos,
-        float laserWidth,
-        float aoeStartRadius,
-        float aoeEndRadius,
-        bool usingEnlargeDiscAbility)
-    {
-        List<ActorData> hitActors = new List<ActorData>();
-        
-        List<Team> relevantTeams = Caster.GetEnemyTeamAsList();
-        if (usingEnlargeDiscAbility
-            && m_enlargeDiscAbility != null
-            && m_enlargeDiscAbility.CanIncludeAlliesOnReturn())
-        {
-            relevantTeams.Add(Caster.GetTeam());
-        }
-
-        Vector3 dir = endLosPos - startLosPos;
-        dir.y = 0f;
-        float laserRangeInSquares = dir.magnitude / Board.Get().squareSize;
-        List<ActorData> actorsInStartRadius = AreaEffectUtils.GetActorsInRadius(
-            startLosPos, aoeStartRadius, true, Caster, relevantTeams, null);
-        foreach (ActorData actor in actorsInStartRadius)
-        {
-            if (!hitActors.Contains(actor))
-            {
-                hitActors.Add(actor);
-            }
-        }
-
-        if (laserRangeInSquares <= 0f)
-        {
-            return hitActors;
-        }
-
-        List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
-            startLosPos,
-            dir,
-            laserRangeInSquares,
-            laserWidth,
-            Caster,
-            relevantTeams,
-            true,
-            0,
-            true,
-            true,
-            out _,
-            null);
-        foreach (ActorData item in actorsInLaser)
-        {
-            if (!hitActors.Contains(item))
-            {
-                hitActors.Add(item);
-            }
-        }
-
-        if (aoeEndRadius > 0f)
-        {
-            List<ActorData> actorsInEndRadius = AreaEffectUtils.GetActorsInRadius(
-                endLosPos, aoeEndRadius, true, Caster, relevantTeams, null);
-            foreach (ActorData actor in actorsInEndRadius)
-            {
-                if (!hitActors.Contains(actor))
-                {
-                    hitActors.Add(actor);
-                }
-            }
-        }
-
-        return hitActors;
-    }
+    // private List<ActorData> GetActorsInDiscPath(
+    //     Vector3 startLosPos,
+    //     Vector3 endLosPos,
+    //     float laserWidth,
+    //     float aoeStartRadius,
+    //     float aoeEndRadius,
+    //     bool usingEnlargeDiscAbility)
+    // {
+    //     List<ActorData> hitActors = new List<ActorData>();
+    //     
+    //     List<Team> relevantTeams = Caster.GetEnemyTeamAsList();
+    //     if (usingEnlargeDiscAbility
+    //         && m_enlargeDiscAbility != null
+    //         && m_enlargeDiscAbility.CanIncludeAlliesOnReturn())
+    //     {
+    //         relevantTeams.Add(Caster.GetTeam());
+    //     }
+    //
+    //     Vector3 dir = endLosPos - startLosPos;
+    //     dir.y = 0f;
+    //     float laserRangeInSquares = dir.magnitude / Board.Get().squareSize;
+    //     List<ActorData> actorsInStartRadius = AreaEffectUtils.GetActorsInRadius(
+    //         startLosPos, aoeStartRadius, true, Caster, relevantTeams, null);
+    //     foreach (ActorData actor in actorsInStartRadius)
+    //     {
+    //         if (!hitActors.Contains(actor))
+    //         {
+    //             hitActors.Add(actor);
+    //         }
+    //     }
+    //
+    //     if (laserRangeInSquares <= 0f)
+    //     {
+    //         return hitActors;
+    //     }
+    //
+    //     List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
+    //         startLosPos,
+    //         dir,
+    //         laserRangeInSquares,
+    //         laserWidth,
+    //         Caster,
+    //         relevantTeams,
+    //         true,
+    //         0,
+    //         true,
+    //         true,
+    //         out _,
+    //         null);
+    //     foreach (ActorData item in actorsInLaser)
+    //     {
+    //         if (!hitActors.Contains(item))
+    //         {
+    //             hitActors.Add(item);
+    //         }
+    //     }
+    //
+    //     if (aoeEndRadius > 0f)
+    //     {
+    //         List<ActorData> actorsInEndRadius = AreaEffectUtils.GetActorsInRadius(
+    //             endLosPos, aoeEndRadius, true, Caster, relevantTeams, null);
+    //         foreach (ActorData actor in actorsInEndRadius)
+    //         {
+    //             if (!hitActors.Contains(actor))
+    //             {
+    //                 hitActors.Add(actor);
+    //             }
+    //         }
+    //     }
+    //
+    //     return hitActors;
+    // }
     
     // TODO NEKO see Neko_SyncComponent.GetCasterPos
     private Vector3 GetCasterPos()
