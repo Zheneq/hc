@@ -69,7 +69,6 @@ public class ClericAreaBuffEffect: Effect
 		if (m_syncComp != null)
 		{
 			m_syncComp.Networkm_turnsAreaBuffActive++;
-			Log.Info($"ClericAreaBuffEffect on turn end: {m_syncComp.Networkm_turnsAreaBuffActive}");
 		}
 	}
 
@@ -97,7 +96,6 @@ public class ClericAreaBuffEffect: Effect
 		if (m_syncComp.m_turnsAreaBuffActive > 0)
 		{
 			// initial cast cost is handled by the ability itself
-			Log.Info($"ClericAreaBuff effect cost: {m_ability.GetPerTurnTechPointCost()}");
 			casterHitResults.AddTechPointLoss(m_ability.GetPerTurnTechPointCost());
 		}
 		if (m_ability.IncludeCaster())

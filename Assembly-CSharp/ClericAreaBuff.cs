@@ -423,7 +423,6 @@ public class ClericAreaBuff : Ability
 	// public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
 	// {
 	// 	m_syncComp.Networkm_turnsAreaBuffActive++;  // m_turnsAreaBuffActive in rogues
-	// 	Log.Info($"ClericAreaBuff run: {m_syncComp.Networkm_turnsAreaBuffActive}");
 	// }
 
 	// custom

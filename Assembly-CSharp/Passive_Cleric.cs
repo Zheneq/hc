@@ -30,7 +30,6 @@ public class Passive_Cleric : Passive
 
 		if (!ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Owner, typeof(ClericAreaBuff)))
 		{
-			Log.Info($"ClericAreaBuff cancelled, removing");
 			RemoveAreaBuff(m_buffAbility.GetCooldownWhenBuffLapses());
 		}
 	}
@@ -42,7 +41,6 @@ public class Passive_Cleric : Passive
 
 		if (!Owner.GetAbilityData().ValidateActionIsRequestableDisregardingQueuedActions(m_buffAbilityActionType))
 		{
-			Log.Info($"ClericAreaBuff depleted, removing");
 			// It doesn't makes sense to check requestability before Cleric got his per-turn tech point regen
 			RemoveAreaBuff(m_buffAbility.GetCooldownWhenBuffLapses());
 		}
@@ -57,7 +55,6 @@ public class Passive_Cleric : Passive
 		foreach (ActorData actorData in m_enemiesHitByBoneShatter)
 		{
 			float x = actorData.GetActorBehavior().GetMovementDeniedByActorThisTurn(Owner, true, false);
-			Log.Info($"CLERIC denied {x} movement for {actorData}");
 			movementDenied += x;
 		}
 		if (movementDenied > 0)
@@ -94,7 +91,6 @@ public class Passive_Cleric : Passive
 		if (m_syncComp != null)
 		{
 			m_syncComp.Networkm_turnsAreaBuffActive = 0;
-			Log.Info($"ClericAreaBuff ended, reset to {m_syncComp.Networkm_turnsAreaBuffActive}");
 		}
 	}
 #endif
