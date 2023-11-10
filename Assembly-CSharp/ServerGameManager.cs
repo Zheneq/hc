@@ -242,11 +242,14 @@ public class ServerGameManager : MonoBehaviour
 						SetClientReady(serverPlayerState);
 						// rogues
 						// NetworkServer.SetClientReady(serverPlayerState.ConnectionPersistent);
-						if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
-						{
-							m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
-							SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
-						}
+						
+						// rogues -- moved to SetClientReady
+						// if (m_reconnectingAccountIds.Contains(serverPlayerState.SessionInfo.AccountId))
+						// {
+						// 	m_reconnectingAccountIds.Remove(serverPlayerState.SessionInfo.AccountId);
+						// 	SendConsoleMessageWithHandle("PlayerReconnected", "Disconnect", serverPlayerState.PlayerInfo.LobbyPlayerInfo.Handle, serverPlayerState.PlayerInfo.TeamId);
+						// }
+						
 						// rogues -- happens in ServerGameManager#SetClientReady in reactor
 						// serverPlayerState.ConnectionReady = true;
 					}
@@ -1464,6 +1467,18 @@ public class ServerGameManager : MonoBehaviour
 					Log.Error("Failed to replace reconnecting player as a fix");
 				}
 			}
+		}
+
+		// was in Update in rogues
+		long accountId = playerState.SessionInfo?.AccountId ?? 0;
+		if (m_reconnectingAccountIds.Contains(accountId))
+		{
+			m_reconnectingAccountIds.Remove(accountId);
+			SendConsoleMessageWithHandle(
+				"PlayerReconnected",
+				"Disconnect",
+				playerState.PlayerInfo.LobbyPlayerInfo.Handle,
+				playerState.PlayerInfo.TeamId);
 		}
 	}
 
