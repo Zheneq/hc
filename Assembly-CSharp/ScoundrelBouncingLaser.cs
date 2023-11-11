@@ -310,6 +310,7 @@ public class ScoundrelBouncingLaser : Ability
 			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
 			abilityResults.StoreActorHit(hitResults);
 		}
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo.SelectMany(x => x).ToList());
 	}
 
 	// custom
