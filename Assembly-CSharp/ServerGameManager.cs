@@ -1459,12 +1459,21 @@ public class ServerGameManager : MonoBehaviour
 					ActorData.TeleportType.Failsafe,
 					null
 				);
+				actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 				// ability fix
 				actorData.GetActorTurnSM().CallRpcTurnMessage((int)TurnMessage.TURN_START, 0);
 				// authority fix
 				if (!NetworkServer.ReplacePlayerForConnection(playerState.ConnectionPersistent, actorData.gameObject, 0))
 				{
 					Log.Error("Failed to replace reconnecting player as a fix");
+				}
+			}
+			// catalyst fix
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					actorData.GetAbilityData()?.CurrentCardIDs.Dirty(i);
 				}
 			}
 		}
