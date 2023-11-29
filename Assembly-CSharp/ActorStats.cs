@@ -353,6 +353,7 @@ public class ActorStats : NetworkBehaviour
 		Board.Get().MarkForUpdateValidSquares();
 	}
 
+	// TODO make server match this
 	public int CalculateOutgoingDamageForTargeter(int baseDamage)
 	{
 		int damage = baseDamage;
@@ -497,65 +498,79 @@ public class ActorStats : NetworkBehaviour
 		{
 			weakenedOutgoingDamageMod = GameplayMutators.Get().m_weakenedOutgoingDamageMod;
 		}
-		float num = 0f;
-		float num2 = 0f;
-		float num3 = 1f;
-		float num4 = 1f;
-		CalculateAdjustments(StatType.OutgoingDamage, ref num, ref num2, ref num3, ref num4);
+		float baseAdd = 0f;
+		float bonusAdd = 0f;
+		float percentAdd = 1f;
+		float multipliers = 1f;
+		CalculateAdjustments(StatType.OutgoingDamage, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 		if (casterInCoverWrtTarget)
 		{
-			CalculateAdjustments(StatType.OutgoingDamage_FromCover, ref num, ref num2, ref num3, ref num4);
+			CalculateAdjustments(StatType.OutgoingDamage_FromCover, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 		}
 		if (targetInCoverWrtCaster)
 		{
-			CalculateAdjustments(StatType.OutgoingDamage_ToCover, ref num, ref num2, ref num3, ref num4);
+			CalculateAdjustments(StatType.OutgoingDamage_ToCover, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
 		}
-		float num5 = baseDamage;
-		num5 += num;
-		num5 *= num3;
-		num5 *= num4;
-		num5 += num2;
-		modifiedDamageNormal = Mathf.RoundToInt(num5);
-		float num6 = num;
-		float num7 = num4;
+		float modifiedDamageNormalScratch = baseDamage;
+		modifiedDamageNormalScratch += baseAdd;
+		modifiedDamageNormalScratch *= percentAdd;
+		modifiedDamageNormalScratch *= multipliers;
+		modifiedDamageNormalScratch += bonusAdd;
+		modifiedDamageNormal = Mathf.RoundToInt(modifiedDamageNormalScratch);
+		float baseAddEmpowered = baseAdd;
+		float multipliersEmpowered = multipliers;
 		if (empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			num6 += empoweredOutgoingDamageMod.value;
+			baseAddEmpowered += empoweredOutgoingDamageMod.value;
 		}
-		else if (empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		else if (empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil
+		         || empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor
+		         || empoweredOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			num7 *= empoweredOutgoingDamageMod.value;
+			multipliersEmpowered *= empoweredOutgoingDamageMod.value;
 		}
-		float num8 = baseDamage;
-		num8 += num6;
-		num8 *= num3;
-		num8 *= num7;
-		num8 += num2;
-		modifiedDamageEmpowered = Mathf.RoundToInt(num8);
-		float num9 = num;
-		float num10 = num4;
+		float modifiedDamageEmpoweredScratch = baseDamage;
+		modifiedDamageEmpoweredScratch += baseAddEmpowered;
+		modifiedDamageEmpoweredScratch *= percentAdd;
+		modifiedDamageEmpoweredScratch *= multipliersEmpowered;
+		modifiedDamageEmpoweredScratch += bonusAdd;
+		
+		// custom
+		modifiedDamageEmpowered = Round(modifiedDamageEmpoweredScratch, empoweredOutgoingDamageMod.operation);
+		// rogues
+		// modifiedDamageEmpowered = Mathf.RoundToInt(modifiedDamageEmpoweredScratch);
+		
+		float baseAddWeakened = baseAdd;
+		float multipliersWeakened = multipliers;
 		if (weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			num9 += weakenedOutgoingDamageMod.value;
+			baseAddWeakened += weakenedOutgoingDamageMod.value;
 		}
-		else if (weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		else if (weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil
+		         || weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor
+		         || weakenedOutgoingDamageMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			num10 *= weakenedOutgoingDamageMod.value;
+			multipliersWeakened *= weakenedOutgoingDamageMod.value;
 		}
-		float num11 = baseDamage;
-		num11 += num9;
-		num11 *= num3;
-		num11 *= num10;
-		num11 += num2;
-		modifiedDamageWeakened = Mathf.RoundToInt(num11);
-		ActorStatus component = GetComponent<ActorStatus>();
-		bool flag = component.HasStatus(StatusType.Empowered, true);
-		bool flag2 = component.HasStatus(StatusType.Weakened, true);
-		if (flag && !flag2)
+		float modifiedDamageWeakenedScratch = baseDamage;
+		modifiedDamageWeakenedScratch += baseAddWeakened;
+		modifiedDamageWeakenedScratch *= percentAdd;
+		modifiedDamageWeakenedScratch *= multipliersWeakened;
+		modifiedDamageWeakenedScratch += bonusAdd;
+		
+		// custom
+		modifiedDamageWeakened = Round(modifiedDamageWeakenedScratch, weakenedOutgoingDamageMod.operation);
+		// rogues
+		// modifiedDamageWeakened = Mathf.RoundToInt(modifiedDamageWeakenedScratch);
+		
+		ActorStatus actorStatus = GetComponent<ActorStatus>();
+		bool isEmpowered = actorStatus.HasStatus(StatusType.Empowered, true);
+		bool isWeakened = actorStatus.HasStatus(StatusType.Weakened, true);
+		if (isEmpowered && !isWeakened)
 		{
 			return modifiedDamageEmpowered;
 		}
-		if (!flag && flag2)
+		if (!isEmpowered && isWeakened)
 		{
 			return modifiedDamageWeakened;
 		}
@@ -596,61 +611,91 @@ public class ActorStats : NetworkBehaviour
 		{
 			weakenedOutgoingHealingMod = GameplayMutators.Get().m_weakenedOutgoingHealingMod;
 		}
-		float num = 0f;
-		float num2 = 0f;
-		float num3 = 1f;
-		float num4 = 1f;
-		CalculateAdjustments(StatType.OutgoingHealing, ref num, ref num2, ref num3, ref num4);
-		float num5 = baseHealing;
-		num5 += num;
-		num5 *= num3;
-		num5 *= num4;
-		num5 += num2;
-		modifiedHealingNormal = Mathf.RoundToInt(num5);
-		float num6 = num;
-		float num7 = num4;
+		float baseAdd = 0f;
+		float bonusAdd = 0f;
+		float percentAdd = 1f;
+		float multipliers = 1f;
+		CalculateAdjustments(StatType.OutgoingHealing, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		float modifiedHealingNormalScratch = baseHealing;
+		modifiedHealingNormalScratch += baseAdd;
+		modifiedHealingNormalScratch *= percentAdd;
+		modifiedHealingNormalScratch *= multipliers;
+		modifiedHealingNormalScratch += bonusAdd;
+		
+		modifiedHealingNormal = Mathf.RoundToInt(modifiedHealingNormalScratch);
+		
+		float baseAddEmpowered = baseAdd;
+		float multipliersEmpowered = multipliers;
 		if (empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			num6 += empoweredOutgoingHealingMod.value;
+			baseAddEmpowered += empoweredOutgoingHealingMod.value;
 		}
-		else if (empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		else if (empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil
+		         || empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor
+		         || empoweredOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			num7 *= empoweredOutgoingHealingMod.value;
+			multipliersEmpowered *= empoweredOutgoingHealingMod.value;
 		}
-		float num8 = baseHealing;
-		num8 += num6;
-		num8 *= num3;
-		num8 *= num7;
-		num8 += num2;
-		modifiedHealingEmpowered = Mathf.RoundToInt(num8);
-		float num9 = num;
-		float num10 = num4;
+		float modifiedHealingEmpoweredScratch = baseHealing;
+		modifiedHealingEmpoweredScratch += baseAddEmpowered;
+		modifiedHealingEmpoweredScratch *= percentAdd;
+		modifiedHealingEmpoweredScratch *= multipliersEmpowered;
+		modifiedHealingEmpoweredScratch += bonusAdd;
+		
+		// custom
+		modifiedHealingEmpowered = Round(modifiedHealingEmpoweredScratch, empoweredOutgoingHealingMod.operation);
+		// rogues
+		// modifiedHealingEmpowered = Mathf.RoundToInt(modifiedHealingEmpoweredScratch);
+		
+		float baseAddWeakened = baseAdd;
+		float multipliersWeakened = multipliers;
 		if (weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			num9 += weakenedOutgoingHealingMod.value;
+			baseAddWeakened += weakenedOutgoingHealingMod.value;
 		}
-		else if (weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		else if (weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil
+		         || weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor
+		         || weakenedOutgoingHealingMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			num10 *= weakenedOutgoingHealingMod.value;
+			multipliersWeakened *= weakenedOutgoingHealingMod.value;
 		}
-		float num11 = baseHealing;
-		num11 += num9;
-		num11 *= num3;
-		num11 *= num10;
-		num11 += num2;
-		modifiedHealingWeakened = Mathf.RoundToInt(num11);
-		ActorStatus component = GetComponent<ActorStatus>();
-		bool flag = component.HasStatus(StatusType.Empowered, true);
-		bool flag2 = component.HasStatus(StatusType.Weakened, true);
-		if (flag && !flag2)
+		float modifiedHealingWeakenedScratch = baseHealing;
+		modifiedHealingWeakenedScratch += baseAddWeakened;
+		modifiedHealingWeakenedScratch *= percentAdd;
+		modifiedHealingWeakenedScratch *= multipliersWeakened;
+		modifiedHealingWeakenedScratch += bonusAdd;
+		
+		// custom
+		modifiedHealingWeakened = Round(modifiedHealingWeakenedScratch, weakenedOutgoingHealingMod.operation);
+		// rogues
+		// modifiedHealingWeakened = Mathf.RoundToInt(modifiedHealingWeakenedScratch);
+		
+		ActorStatus actorStatus = GetComponent<ActorStatus>();
+		bool isEmpowered = actorStatus.HasStatus(StatusType.Empowered, true);
+		bool isWeakened = actorStatus.HasStatus(StatusType.Weakened, true);
+		if (isEmpowered && !isWeakened)
 		{
 			return modifiedHealingEmpowered;
 		}
-		if (!flag && flag2)
+		if (!isEmpowered && isWeakened)
 		{
 			return modifiedHealingWeakened;
 		}
 		return modifiedHealingNormal;
+	}
+	
+	// custom
+	private static int Round(float value, AbilityModPropertyInt.ModOp op)
+	{
+		switch (op)
+		{
+			case AbilityModPropertyInt.ModOp.MultiplyAndCeil:
+				return Mathf.CeilToInt(value);
+			case AbilityModPropertyInt.ModOp.MultiplyAndFloor:
+				return Mathf.FloorToInt(value);
+			default:
+				return Mathf.RoundToInt(value);
+		}
 	}
 #endif
 
@@ -688,57 +733,71 @@ public class ActorStats : NetworkBehaviour
 		{
 			weakenedOutgoingAbsorbMod = GameplayMutators.Get().m_weakenedOutgoingAbsorbMod;
 		}
-		float num = 0f;
-		float num2 = 0f;
-		float num3 = 1f;
-		float num4 = 1f;
-		CalculateAdjustments(StatType.OutgoingAbsorb, ref num, ref num2, ref num3, ref num4);
-		float num5 = baseAbsorb;
-		num5 += num;
-		num5 *= num3;
-		num5 *= num4;
-		num5 += num2;
-		modifiedAbsorbNormal = Mathf.RoundToInt(num5);
-		float num6 = num;
-		float num7 = num4;
+		float baseAdd = 0f;
+		float bonusAdd = 0f;
+		float percentAdd = 1f;
+		float multipliers = 1f;
+		CalculateAdjustments(StatType.OutgoingAbsorb, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		float modifiedAbsorbNormalScratch = baseAbsorb;
+		modifiedAbsorbNormalScratch += baseAdd;
+		modifiedAbsorbNormalScratch *= percentAdd;
+		modifiedAbsorbNormalScratch *= multipliers;
+		modifiedAbsorbNormalScratch += bonusAdd;
+		modifiedAbsorbNormal = Mathf.RoundToInt(modifiedAbsorbNormalScratch);
+		float baseAddEmpowered = baseAdd;
+		float multipliersEmpowered = multipliers;
 		if (empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			num6 += empoweredOutgoingAbsorbMod.value;
+			baseAddEmpowered += empoweredOutgoingAbsorbMod.value;
 		}
-		else if (empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		else if (empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil
+		         || empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor
+		         || empoweredOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			num7 *= empoweredOutgoingAbsorbMod.value;
+			multipliersEmpowered *= empoweredOutgoingAbsorbMod.value;
 		}
-		float num8 = baseAbsorb;
-		num8 += num6;
-		num8 *= num3;
-		num8 *= num7;
-		num8 += num2;
-		modifiedAbsorbEmpowered = Mathf.RoundToInt(num8);
-		float num9 = num;
-		float num10 = num4;
+		float modifiedAbsorbEmpoweredScratch = baseAbsorb;
+		modifiedAbsorbEmpoweredScratch += baseAddEmpowered;
+		modifiedAbsorbEmpoweredScratch *= percentAdd;
+		modifiedAbsorbEmpoweredScratch *= multipliersEmpowered;
+		modifiedAbsorbEmpoweredScratch += bonusAdd;
+		
+		// custom
+		modifiedAbsorbEmpowered = Round(modifiedAbsorbEmpoweredScratch, empoweredOutgoingAbsorbMod.operation);
+		// rogues
+		// modifiedAbsorbEmpowered = Mathf.RoundToInt(modifiedAbsorbEmpoweredScratch);
+		
+		float baseAddWeakened = baseAdd;
+		float multipliersWeakened = multipliers;
 		if (weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.Add)
 		{
-			num9 += weakenedOutgoingAbsorbMod.value;
+			baseAddWeakened += weakenedOutgoingAbsorbMod.value;
 		}
-		else if (weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil || weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor || weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
+		else if (weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil
+		         || weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor
+		         || weakenedOutgoingAbsorbMod.operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			num10 *= weakenedOutgoingAbsorbMod.value;
+			multipliersWeakened *= weakenedOutgoingAbsorbMod.value;
 		}
-		float num11 = baseAbsorb;
-		num11 += num9;
-		num11 *= num3;
-		num11 *= num10;
-		num11 += num2;
-		modifiedAbsorbWeakened = Mathf.RoundToInt(num11);
-		ActorStatus component = GetComponent<ActorStatus>();
-		bool flag = component.HasStatus(StatusType.Empowered, true);
-		bool flag2 = component.HasStatus(StatusType.Weakened, true);
-		if (flag && !flag2)
+		float modifiedAbsorbWeakenedScratch = baseAbsorb;
+		modifiedAbsorbWeakenedScratch += baseAddWeakened;
+		modifiedAbsorbWeakenedScratch *= percentAdd;
+		modifiedAbsorbWeakenedScratch *= multipliersWeakened;
+		modifiedAbsorbWeakenedScratch += bonusAdd;
+		
+		// custom
+		modifiedAbsorbWeakened = Round(modifiedAbsorbWeakenedScratch, weakenedOutgoingAbsorbMod.operation);
+		// rogues
+		// modifiedAbsorbWeakened = Mathf.RoundToInt(modifiedAbsorbWeakenedScratch);
+		
+		ActorStatus actorStatus = GetComponent<ActorStatus>();
+		bool isEmpowered = actorStatus.HasStatus(StatusType.Empowered, true);
+		bool isWeakened = actorStatus.HasStatus(StatusType.Weakened, true);
+		if (isEmpowered && !isWeakened)
 		{
 			return modifiedAbsorbEmpowered;
 		}
-		if (!flag && flag2)
+		if (!isEmpowered && isWeakened)
 		{
 			return modifiedAbsorbWeakened;
 		}
