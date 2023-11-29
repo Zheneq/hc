@@ -693,12 +693,13 @@ public class ActorStats : NetworkBehaviour
 				return Mathf.CeilToInt(value);
 			case AbilityModPropertyInt.ModOp.MultiplyAndFloor:
 				return Mathf.FloorToInt(value);
+			case AbilityModPropertyInt.ModOp.MultiplyAndRound:
+				return MathUtil.RoundToIntPadded(value);
 			default:
 				return Mathf.RoundToInt(value);
 		}
 	}
 #endif
-
 
 	// added in rogues
 #if SERVER
