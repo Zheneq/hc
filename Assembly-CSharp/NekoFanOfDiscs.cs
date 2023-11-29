@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class NekoFanOfDiscs : Ability
 {
+	// TODO NEKO energy for return disc
 	[Separator("Targeting")]
 	public int m_numDiscs = 5;
 	public float m_minAngleForLaserFan = 90f;
@@ -19,16 +20,16 @@ public class NekoFanOfDiscs : Ability
 	public float m_discReturnEndRadius;
 	[Separator("Hit On Throw")]
 	public int m_directDamage = 25;
-	public int m_directSubsequentHitDamage = 15;
-	public StandardEffectInfo m_directEnemyHitEffect;
+	public int m_directSubsequentHitDamage = 15; // TODO NEKO unused (always 0)
+	public StandardEffectInfo m_directEnemyHitEffect; // TODO NEKO unused (always empty)
 	[Separator("Return Trip")]
 	public int m_returnTripDamage = 10;
-	public int m_returnTripSubsequentHitDamage = 5;
+	public int m_returnTripSubsequentHitDamage = 5; // TODO NEKO unused (always 0)
 	public bool m_returnTripIgnoreCover = true;
 	public int m_returnTripEnergyOnCasterPerDiscMiss;
 	[Separator("Effect on Self for misses")]
-	public StandardEffectInfo m_effectOnSelfIfMissOnCast;
-	public StandardEffectInfo m_effectOnSelfIfMissOnDiscReturn;
+	public StandardEffectInfo m_effectOnSelfIfMissOnCast; // TODO NEKO unused (always empty)
+	public StandardEffectInfo m_effectOnSelfIfMissOnDiscReturn; // TODO NEKO unused (always empty)
 	[Separator("Zero Energy cost after N consecutive use")]
 	public int m_zeroEnergyRequiredTurns;
 	[Header("Sequences")]
@@ -172,6 +173,7 @@ public class NekoFanOfDiscs : Ability
 			: m_maxTargetsPerLaser;
 	}
 
+	// TODO NEKO unused (base value is always used, not modified in any mods)
 	public float GetInterpStepInSquares()
 	{
 		return m_abilityMod != null
@@ -401,4 +403,84 @@ public class NekoFanOfDiscs : Ability
 		}
 		return result;
 	}
+	
+#if SERVER
+	// custom
+	public override void Run(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		m_syncComp.Networkm_numUltConsecUsedTurns++;
+		if (m_syncComp.Networkm_numUltConsecUsedTurns > GetZeroEnergyRequiredTurns())
+		{
+			m_syncComp.Networkm_numUltConsecUsedTurns = 0;
+		}
+	}
+
+	// custom
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		GetHitActorsAndHitCount(
+			targets,
+			caster,
+			out List<List<ActorData>> actorsForSequence,
+			out List<BoardSquare> targetSquares,
+			out _,
+			null);
+
+		List<ServerClientUtils.SequenceStartData> result = new List<ServerClientUtils.SequenceStartData>();
+		for (var i = 0; i < targetSquares.Count; i++)
+		{
+			result.Add(new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				targetSquares[i],
+				actorsForSequence[i].ToArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+
+		return result;
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		Vector3 losCheckPos = caster.GetLoSCheckPos();
+
+		Dictionary<ActorData,int> hitActorsAndHitCount = GetHitActorsAndHitCount(
+			targets,
+			caster,
+			out _,
+			out List<BoardSquare> targetSquares,
+			out int numLasersWithHits,
+			nonActorTargetInfo);
+		
+		foreach (KeyValuePair<ActorData,int> hitActorAndHitCount in hitActorsAndHitCount)
+		{
+			ActorData target = hitActorAndHitCount.Key;
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, losCheckPos));
+			actorHitResults.SetBaseDamage(GetDirectDamage());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+
+		NekoBoomerangDiscEffect effect = new NekoBoomerangDiscEffect(
+			AsEffectSource(),
+			targetSquares,
+			caster,
+			GetDiscReturnEndRadius(),
+			GetReturnTripDamage(),
+			ReturnTripIgnoreCover(),
+			0,
+			GetReturnTripEnergyOnCasterPerDiscMiss(),
+			m_returnTripSequencePrefab,
+			m_persistentDiscSequencePrefab);
+		PositionHitParameters positionHitParams = new PositionHitParameters(targetSquares[0].ToVector3());
+		PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
+		abilityResults.StorePositionHit(positionHitResults);
+		
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }

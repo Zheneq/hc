@@ -1,6 +1,9 @@
 // ROGUES
 // SERVER
 //empty in reactor & rogues
+
+using UnityEngine.Networking;
+
 public class Passive_Neko : Passive
 {
 #if SERVER
@@ -22,6 +25,20 @@ public class Passive_Neko : Passive
         {
             m_syncComp?.ServerUpdateActorsInDiscPath();  // TODO NEKO what about mouse trap?
             // TODO NEKO verify it works with dashes
+        }
+    }
+    
+    // custom
+    public override void OnTurnEnd()
+    {
+        if (!NetworkServer.active)
+        {
+            return;
+        }
+        base.OnTurnEnd();
+        if (!ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Owner, typeof(NekoFanOfDiscs)))
+        {
+            m_syncComp.Networkm_numUltConsecUsedTurns = 0;
         }
     }
 #endif

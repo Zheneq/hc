@@ -227,6 +227,7 @@ public class NekoBoomerangDisc : Ability
 	}
 	
 #if SERVER
+	// custom
 	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
 		List<AbilityTarget> targets,
 		ActorData caster,
@@ -314,12 +315,13 @@ public class NekoBoomerangDisc : Ability
 		BoardSquare discEndSquare = GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
 		NekoBoomerangDiscEffect effect = new NekoBoomerangDiscEffect(
 			AsEffectSource(),
-			discEndSquare,
+			new List<BoardSquare>{ discEndSquare },
 			caster,
 			GetDiscReturnEndRadius(),
 			GetReturnTripDamage(),
 			ReturnTripIgnoreCover(),
 			hitActors.Count == 0 ? GetExtraReturnDamageIfHitNoOne() : 0,
+			0,
 			m_returnTripSequencePrefab,
 			m_persistentDiscSequencePrefab);
 		PositionHitParameters positionHitParams = new PositionHitParameters(discEndSquare.ToVector3());
