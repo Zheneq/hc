@@ -15,59 +15,25 @@ public class AbilityModPropertyInt
 	}
 
 	public float value;
-
 	public ModOp operation;
 
 	public int GetModifiedValue(int input)
 	{
-		if (operation == ModOp.Add)
+		switch (operation)
 		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return input + Mathf.RoundToInt(value);
-				}
-			}
+			case ModOp.Add:
+				return input + Mathf.RoundToInt(value);
+			case ModOp.Override:
+				return Mathf.RoundToInt(value);
+			case ModOp.MultiplyAndFloor:
+				return Mathf.FloorToInt(input * value);
+			case ModOp.MultiplyAndCeil:
+				return Mathf.CeilToInt(input * value);
+			case ModOp.MultiplyAndRound:
+				return MathUtil.RoundToIntPadded(input * value);
+			default:
+				return input;
 		}
-		if (operation == ModOp.Override)
-		{
-			return Mathf.RoundToInt(value);
-		}
-		if (operation == ModOp.MultiplyAndFloor)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return Mathf.FloorToInt((float)input * value);
-				}
-			}
-		}
-		if (operation == ModOp.MultiplyAndCeil)
-		{
-			return Mathf.CeilToInt((float)input * value);
-		}
-		if (operation == ModOp.MultiplyAndRound)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return MathUtil.RoundToIntPadded((float)input * value);
-				}
-			}
-		}
-		return input;
 	}
 
 	public void CopyValuesFrom(AbilityModPropertyInt other)
