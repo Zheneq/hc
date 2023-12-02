@@ -6,24 +6,9 @@ using UnityEngine;
 
 #if SERVER
 // custom
-public class NekoBoomerangDiscEffect : Effect
+public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
 {
-    private List<BoardSquare> m_targetSquares;
-    private float m_discReturnEndRadius;
-    private int m_returnTripDamage;
-    private bool m_returnTripIgnoreCover;
-    private int m_extraReturnDamage;
-    private int m_energyOnMissOnReturnTrip; // TODO NEKO
-    
-    private GameObject m_returnTripSequencePrefab;
-    private GameObject m_persistentDiscSequencePrefab;
-    
-    private Neko_SyncComponent m_syncComponent;
-    private NekoBoomerangDisc m_primaryAbility;
-    private NekoHomingDisc m_homingDiscAbility;
-    private NekoEnlargeDisc m_enlargeDiscAbility;
-
-    private static readonly Vector3 HIT_POS = new Vector3(1, 1, 1);
+    private int m_energyOnMissOnReturnTrip;
 
     public NekoBoomerangDiscEffect(
         EffectSource parent,
@@ -32,54 +17,25 @@ public class NekoBoomerangDiscEffect : Effect
         float discReturnEndRadius,
         int returnTripDamage,
         bool returnTripIgnoreCover,
-        int extraReturnDamage,
         int energyOnMissOnReturnTrip,
         GameObject returnTripSequencePrefab,
         GameObject persistentDiscSequencePrefab)
-        : base(parent, targetSquares[0], null, caster)
+        : base(
+            parent,
+            targetSquares,
+            null,
+            caster,
+            discReturnEndRadius,
+            returnTripDamage,
+            0,
+            null,
+            returnTripIgnoreCover,
+            returnTripSequencePrefab,
+            persistentDiscSequencePrefab)
     {
-        m_discReturnEndRadius = discReturnEndRadius;
-        m_returnTripDamage = returnTripDamage;
-        m_returnTripIgnoreCover = returnTripIgnoreCover;
-        m_extraReturnDamage = extraReturnDamage;
         m_energyOnMissOnReturnTrip = energyOnMissOnReturnTrip;
-        m_returnTripSequencePrefab = returnTripSequencePrefab;
-        m_persistentDiscSequencePrefab = persistentDiscSequencePrefab;
-        m_targetSquares = targetSquares;
         m_time.duration = 2;
         HitPhase = AbilityPriority.Combat_Damage;
-    }
-
-    public override void OnStart()
-    {
-        m_syncComponent = Caster.GetComponent<Neko_SyncComponent>();
-        m_primaryAbility = Caster.GetAbilityData().GetAbilityOfType<NekoBoomerangDisc>();
-        m_enlargeDiscAbility = Caster.GetAbilityData().GetAbilityOfType<NekoEnlargeDisc>();
-        m_homingDiscAbility = Caster.GetAbilityData().GetAbilityOfType<NekoHomingDisc>();
-        foreach (BoardSquare targetSquare in m_targetSquares)
-        {
-            m_syncComponent.AddDisk(targetSquare);
-        }
-    }
-
-    public override void OnEnd()
-    {
-        foreach (BoardSquare targetSquare in m_targetSquares)
-        {
-            m_syncComponent.RemoveDisk(targetSquare);
-        }
-    }
-
-    public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
-    {
-        return m_targetSquares
-            .Select(targetSquare => new ServerClientUtils.SequenceStartData(
-                m_persistentDiscSequencePrefab,
-                targetSquare.ToVector3(),
-                null,
-                Caster,
-                SequenceSource))
-            .ToList();
     }
 
     public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
@@ -107,10 +63,10 @@ public class NekoBoomerangDiscEffect : Effect
             }
         }
         
-        List<List<ActorData>> hitActorsPerDisc = GetHitActors(out List<BoardSquare> activeDiscSquares, out _, out int enlargedDiscIndex);
-        for (int i = 0; i < activeDiscSquares.Count; i++)
+        List<List<ActorData>> hitActorsPerDisc = GetHitActors(out _, out _, out int enlargedDiscIndex);
+        for (int i = 0; i < m_targetSquares.Count; i++)
         {
-            BoardSquare targetSquare = activeDiscSquares[i];
+            BoardSquare targetSquare = m_targetSquares[i];
             Vector3 startPos = targetSquare.ToVector3();
             startPos.y = height;
             bool isFarthestDisc = targetSquare == farthestSquare;
@@ -154,7 +110,7 @@ public class NekoBoomerangDiscEffect : Effect
 
     public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
     {
-        List<List<ActorData>> hitActorsPerDisc = GetHitActors(out _, out Vector3 endLosPos, out int enlargedDiscIndex);
+        List<List<ActorData>> hitActorsPerDisc = GetHitActors(out List<Vector3> startLosPosList, out Vector3 endLosPos, out int enlargedDiscIndex);
 
         ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
         
@@ -162,7 +118,7 @@ public class NekoBoomerangDiscEffect : Effect
         if (enlargedDiscIndex >= 0)
         {
             List<ActorData> discHitActors = hitActorsPerDisc[enlargedDiscIndex];
-            ProcessHits(effectResults, discHitActors, endLosPos, true);
+            ProcessHits(effectResults, discHitActors, startLosPosList[enlargedDiscIndex], endLosPos, true);
         }
         for (int i = 0; i < hitActorsPerDisc.Count; i++)
         {
@@ -177,26 +133,15 @@ public class NekoBoomerangDiscEffect : Effect
             }
             
             List<ActorData> discHitActors = hitActorsPerDisc[i].Where(ha => !processedActors.Contains(ha)).ToList();
-            ProcessHits(effectResults, discHitActors, endLosPos, false);
+            ProcessHits(effectResults, discHitActors, startLosPosList[i], endLosPos, false);
             processedActors.AddRange(discHitActors);
         }
-        
+
         if (enlargedDiscIndex >= 0)
         {
-            int enlargeEnemiesHit = hitActorsPerDisc[enlargedDiscIndex].Count(ha => ha.GetTeam() != Caster.GetTeam());
-            if (enlargeEnemiesHit > 0)
-            {
-                StandardActorEffectData shieldEffectData = m_enlargeDiscAbility.GetShieldEffectData().GetShallowCopy();
-                shieldEffectData.m_nextTurnAbsorbAmount = m_enlargeDiscAbility.GetShieldPerTargetHitOnReturn() * enlargeEnemiesHit;
-                casterHitResults.AddEffect(new StandardActorEffect(
-                    Parent, Caster.GetCurrentBoardSquare(), Caster, Caster, shieldEffectData));
-            }
-            else
-            {
-                casterHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
-                    AbilityData.ActionType.ABILITY_1, -m_enlargeDiscAbility.GetCdrIfHitNoOne()));
-            }
+            ProcessAdditionalEnlargedEffects(hitActorsPerDisc[enlargedDiscIndex], casterHitResults);
         }
+
         effectResults.StoreActorHit(casterHitResults);
         
         PositionHitParameters positionHitParams = new PositionHitParameters(HIT_POS);
@@ -205,11 +150,12 @@ public class NekoBoomerangDiscEffect : Effect
         effectResults.StorePositionHit(positionHitResults);
     }
 
-    private List<List<ActorData>> GetHitActors(out List<BoardSquare> activeDiscSquares, out Vector3 endLosPos, out int enlargedDiscIndex)
+    private List<List<ActorData>> GetHitActors(out List<Vector3> startLosPosList, out Vector3 endLosPos, out int enlargedDiscIndex)
     {
         float losHeight = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
         endLosPos = GetCasterPos();
         endLosPos.y = losHeight;
+        startLosPosList = new List<Vector3>();
 
         BoardSquare enlargedDiscSquare = null;
         if (ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoEnlargeDisc)))
@@ -224,12 +170,12 @@ public class NekoBoomerangDiscEffect : Effect
 
         enlargedDiscIndex = -1;
         List<List<ActorData>> hitActorsPerDisc = new List<List<ActorData>>();
-        activeDiscSquares = m_syncComponent.GetActiveDiscSquares();
-        for (var i = 0; i < activeDiscSquares.Count; i++)
+        for (var i = 0; i < m_targetSquares.Count; i++)
         {
-            BoardSquare targetSquare = activeDiscSquares[i];
+            BoardSquare targetSquare = m_targetSquares[i];
             Vector3 startLosPos = targetSquare.ToVector3();
             startLosPos.y = losHeight;
+            startLosPosList.Add(startLosPos);
 
             float returnDiskLaserWidth = m_syncComponent.m_discReturnTripLaserWidthInSquares;
             float aoeStartRadius = m_syncComponent.m_discReturnTripAoeRadiusAtlaserStart;
@@ -255,131 +201,6 @@ public class NekoBoomerangDiscEffect : Effect
         return hitActorsPerDisc;
     }
 
-    private void ProcessHits(
-        EffectResults effectResults,
-        List<ActorData> discHitActors,
-        Vector3 endLosPos,
-        bool isEnlarged)
-    {
-        foreach (ActorData hitActor in discHitActors)
-        {
-            Vector3 origin = m_returnTripIgnoreCover ? hitActor.GetFreePos() : endLosPos; // TODO NEKO 0,0,0 in vanilla
-            ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, origin));
-            if (hitActor.GetTeam() != Caster.GetTeam())
-            {
-                actorHitResults.AddBaseDamage(m_returnTripDamage + m_extraReturnDamage);
-                if (isEnlarged)
-                {
-                    actorHitResults.AddBaseDamage(m_enlargeDiscAbility.GetAdditionalDamageAmount());
-                    actorHitResults.AddStandardEffectInfo(m_enlargeDiscAbility.GetEffectOnEnemies());
-                }
-            }
-            else
-            {
-                if (isEnlarged)
-                {
-                    actorHitResults.AddBaseHealing(m_enlargeDiscAbility.GetAllyHeal());
-                    actorHitResults.AddStandardEffectInfo(m_enlargeDiscAbility.GetAllyHitEffect());
-                }
-            }
-            effectResults.StoreActorHit(actorHitResults);
-        }
-    }
-
-    // TODO NEKO basically repeats SyncComponent.UpdateActorsInDiscPath
-    private List<ActorData> GetActorsInDiscPath(
-        Vector3 startLosPos,
-        Vector3 endLosPos,
-        float laserWidth,
-        float aoeStartRadius,
-        float aoeEndRadius,
-        bool usingEnlargeDiscAbility)
-    {
-        List<ActorData> hitActors = new List<ActorData>();
-        
-        List<Team> relevantTeams = Caster.GetEnemyTeamAsList();
-        if (usingEnlargeDiscAbility
-            && m_enlargeDiscAbility != null
-            && m_enlargeDiscAbility.CanIncludeAlliesOnReturn())
-        {
-            relevantTeams.Add(Caster.GetTeam());
-        }
-    
-        Vector3 dir = endLosPos - startLosPos;
-        dir.y = 0f;
-        float laserRangeInSquares = dir.magnitude / Board.Get().squareSize;
-        List<ActorData> actorsInStartRadius = AreaEffectUtils.GetActorsInRadius(
-            startLosPos, aoeStartRadius, true, Caster, relevantTeams, null);
-        foreach (ActorData actor in actorsInStartRadius)
-        {
-            if (!hitActors.Contains(actor))
-            {
-                hitActors.Add(actor);
-            }
-        }
-    
-        if (laserRangeInSquares <= 0f)
-        {
-            return hitActors;
-        }
-    
-        List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
-            startLosPos,
-            dir,
-            laserRangeInSquares,
-            laserWidth,
-            Caster,
-            relevantTeams,
-            true,
-            0,
-            true,
-            true,
-            out _,
-            null);
-        foreach (ActorData item in actorsInLaser)
-        {
-            if (!hitActors.Contains(item))
-            {
-                hitActors.Add(item);
-            }
-        }
-    
-        if (aoeEndRadius > 0f)
-        {
-            List<ActorData> actorsInEndRadius = AreaEffectUtils.GetActorsInRadius(
-                endLosPos, aoeEndRadius, true, Caster, relevantTeams, null);
-            foreach (ActorData actor in actorsInEndRadius)
-            {
-                if (!hitActors.Contains(actor))
-                {
-                    hitActors.Add(actor);
-                }
-            }
-        }
-    
-        return hitActors;
-    }
-    
-    // TODO NEKO see Neko_SyncComponent.GetCasterPos
-    private Vector3 GetCasterPos()
-    {
-        BoardSquare casterSquare = Caster.GetCurrentBoardSquare() ?? Caster.GetMostRecentDeathSquare();
-        return casterSquare != null
-            ? casterSquare.ToVector3()
-            : Vector3.zero;
-    }
-
-    public override void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
-    {
-        if (forActor.GetTeam() != Caster.GetTeam())
-        {
-            foreach (BoardSquare targetSquare in m_targetSquares)
-            {
-                squaresToAvoid.Add(targetSquare);
-            }
-        }
-    }
-
     public override bool AddActorAnimEntryIfHasHits(AbilityPriority phaseIndex)
     {
         return true;
@@ -394,8 +215,8 @@ public class NekoBoomerangDiscEffect : Effect
         
         // TODO NEKO doesnt work?
         return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoEnlargeDisc))
-            ? 11   // catch with both hands
-            : 10;  // catch with one hand
+            ? m_syncComponent.m_animIndexForPoweredUpDiscReturn
+            : m_syncComponent.m_animIndexForStartOfDiscReturn;
     }
 
     // TODO NEKO freelancer stats

@@ -313,14 +313,14 @@ public class NekoBoomerangDisc : Ability
 		}
 
 		BoardSquare discEndSquare = GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
+		int extraReturnDamage = hitActors.Count == 0 ? GetExtraReturnDamageIfHitNoOne() : 0;
 		NekoBoomerangDiscEffect effect = new NekoBoomerangDiscEffect(
 			AsEffectSource(),
 			new List<BoardSquare>{ discEndSquare },
 			caster,
 			GetDiscReturnEndRadius(),
-			GetReturnTripDamage(),
+			GetReturnTripDamage() + extraReturnDamage,
 			ReturnTripIgnoreCover(),
-			hitActors.Count == 0 ? GetExtraReturnDamageIfHitNoOne() : 0,
 			0,
 			m_returnTripSequencePrefab,
 			m_persistentDiscSequencePrefab);

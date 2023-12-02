@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class NekoFanOfDiscs : Ability
 {
-	// TODO NEKO energy for return disc
+	// TODO NEKO what if you throw three discs into the wall next to you? they shouldn't overlap
 	[Separator("Targeting")]
 	public int m_numDiscs = 5;
 	public float m_minAngleForLaserFan = 90f;
@@ -472,7 +472,6 @@ public class NekoFanOfDiscs : Ability
 			GetDiscReturnEndRadius(),
 			GetReturnTripDamage(),
 			ReturnTripIgnoreCover(),
-			0,
 			GetReturnTripEnergyOnCasterPerDiscMiss(),
 			m_returnTripSequencePrefab,
 			m_persistentDiscSequencePrefab);

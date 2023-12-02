@@ -1706,6 +1706,7 @@
     <Compile Include="NanoSmith_SyncComponent.cs" />
     <Compile Include="NavigationBar.cs" />
     <Compile Include="NegateLogicOpClass.cs" />
+    <Compile Include="NekoAbstractDiscEffect.cs" />
     <Compile Include="NekoAoeAroundDisc.cs" />
     <Compile Include="NekoBendingDisc.cs" />
     <Compile Include="NekoBoomerangDisc.cs" />
@@ -1717,6 +1718,7 @@
     <Compile Include="NekoFanOfDiscs.cs" />
     <Compile Include="NekoFlipDash.cs" />
     <Compile Include="NekoHomingDisc.cs" />
+    <Compile Include="NekoHomingDiscEffect.cs" />
     <Compile Include="NekoSuperDisc.cs" />
     <Compile Include="Neko_AdditionalFxDiscPoweredUp.cs" />
     <Compile Include="Neko_SyncComponent.cs" />

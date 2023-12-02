@@ -12,13 +12,13 @@ public class NekoHomingDisc : Ability
 	[Separator("On Cast Hit")]
 	public StandardEffectInfo m_onCastEnemyHitEffect;
 	[Separator("On Enemy Hit")]
-	public int m_targetDamage = 25;
+	public int m_targetDamage = 25; // TODO NEKO unused (always equal to return trip damage)
 	public int m_returnTripDamage = 10;
 	public bool m_returnTripIgnoreCover = true;
 	public float m_extraReturnDamagePerDist;
 	public StandardEffectInfo m_returnTripEnemyEffect;
 	[Separator("Cooldown Reduction")]
-	public int m_cdrIfHitNoOneOnCast;
+	public int m_cdrIfHitNoOneOnCast; // TODO NEKO unused (always 0)
 	public int m_cdrIfHitNoOneOnReturn;
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
@@ -180,4 +180,74 @@ public class NekoHomingDisc : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+		
+#if SERVER
+	// custom
+	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		return new ServerClientUtils.SequenceStartData(
+			m_castSequencePrefab,
+			Board.Get().GetSquare(targets[0].GridPos),
+			additionalData.m_abilityResults.HitActorsArray(),
+			caster,
+			additionalData.m_sequenceSource);
+	}
+
+	// custom
+	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 losCheckPos = caster.GetLoSCheckPos();
+		VectorUtils.LaserCoords laserCoords = new VectorUtils.LaserCoords
+		{
+			start = caster.GetLoSCheckPos()
+		};
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInLaser(
+			laserCoords.start,
+			currentTarget.AimDirection,
+			GetLaserLength(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetMaxTargets(),
+			false,
+			true,
+			out laserCoords.end,
+			nonActorTargetInfo);
+
+		if (hitActors.Count != 0)
+		{
+			ActorData target = hitActors[0];
+			
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, losCheckPos));
+			actorHitResults.AddStandardEffectInfo(GetOnCastEnemyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+
+			BoardSquare discEndSquare = target.GetCurrentBoardSquare();
+			NekoHomingDiscEffect effect = new NekoHomingDiscEffect(
+				AsEffectSource(),
+				discEndSquare,
+				target,
+				caster,
+				GetDiscReturnEndRadius(),
+				GetReturnTripDamage(),
+				GetExtraReturnDamagePerDist(),
+				GetReturnTripEnemyEffect(),
+				GetCdrIfHitNoOneOnReturn(),
+				ReturnTripIgnoreCover(),
+				m_returnTripSequencePrefab,
+				m_persistentDiscSequencePrefab);
+			PositionHitParameters positionHitParams = new PositionHitParameters(discEndSquare.ToVector3());
+			PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
+			abilityResults.StorePositionHit(positionHitResults);
+		}
+		
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }
