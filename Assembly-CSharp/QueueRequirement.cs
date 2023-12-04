@@ -24,15 +24,8 @@ public abstract class QueueRequirement
 		HasUnlockedCharacter
 	}
 
-	public abstract RequirementType Requirement
-	{
-		get;
-	}
-
-	public abstract bool AnyGroupMember
-	{
-		get;
-	}
+	public abstract RequirementType Requirement { get; }
+	public abstract bool AnyGroupMember { get; }
 
 	public static IEnumerable<Type> MessageTypes => new Type[8]
 	{
@@ -48,11 +41,22 @@ public abstract class QueueRequirement
 
 	public abstract void WriteToJson(JsonWriter writer);
 
-	public abstract bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType);
+	public abstract bool DoesApplicantPass(
+		IQueueRequirementSystemInfo systemInfo,
+		IQueueRequirementApplicant applicant,
+		GameType gameType,
+		GameSubType gameSubType);
 
-	public abstract LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context);
+	public abstract LocalizationPayload GenerateFailure(
+		IQueueRequirementSystemInfo systemInfo,
+		IQueueRequirementApplicant applicant,
+		RequirementMessageContext context);
 
-	public abstract LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, RequirementMessageContext context, out QueueBlockOutReasonDetails Details);
+	public abstract LocalizationPayload GenerateFailure(
+		IQueueRequirementSystemInfo systemInfo,
+		IQueueRequirementApplicant applicant,
+		RequirementMessageContext context,
+		out QueueBlockOutReasonDetails Details);
 
 	internal static QueueRequirement ExtractRequirementFromReader(JsonReader reader)
 	{
