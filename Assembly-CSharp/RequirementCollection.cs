@@ -5,7 +5,7 @@ using System.IO;
 using NetSerializer;
 using Newtonsoft.Json;
 
-[JsonConverter(typeof(RequirementCollection.JsonConverter))]
+[JsonConverter(typeof(JsonConverter))]
 [Serializable]
 public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 {
@@ -13,48 +13,27 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 
 	[NonSerialized]
 	private bool m_dirty = true;
-
 	private List<QueueRequirement> m_queueRequirementAsList = new List<QueueRequirement>();
-
 	private static Serializer s_serializer;
 
 	private IEnumerator<QueueRequirement> InternalEnumerator()
 	{
 		bool flag = false;
-		if (this.RequirementsAsBinaryData.IsNullOrEmpty<byte[]>())
+		if (RequirementsAsBinaryData.IsNullOrEmpty())
 		{
 			yield break;
 		}
-		List<byte[]>.Enumerator enumerator = this.RequirementsAsBinaryData.GetEnumerator();
-		try
+		
+		foreach (byte[] data in RequirementsAsBinaryData)
 		{
-			while (enumerator.MoveNext())
+			MemoryStream stream = new MemoryStream(data);
+			InternalSerializer.Deserialize(stream, out object arg);
+			if (arg != null && arg is QueueRequirement req)
 			{
-				byte[] data = enumerator.Current;
-				MemoryStream stream = new MemoryStream(data);
-				object arg;
-				RequirementCollection.InternalSerializer.Deserialize(stream, out arg);
-				if (arg != null)
-				{
-					if (arg is QueueRequirement)
-					{
-						yield return arg as QueueRequirement;
-						flag = true;
-					}
-				}
+				yield return req;
+				flag = true;
 			}
 		}
-		finally
-		{
-			if (flag)
-			{
-			}
-			else
-			{
-				((IDisposable)enumerator).Dispose();
-			}
-		}
-		yield break;
 	}
 
 	public void Add(QueueRequirement item)
@@ -62,40 +41,32 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		if (item != null)
 		{
 			MemoryStream memoryStream = new MemoryStream();
-			RequirementCollection.InternalSerializer.Serialize(memoryStream, item);
-			if (this.RequirementsAsBinaryData == null)
+			InternalSerializer.Serialize(memoryStream, item);
+			if (RequirementsAsBinaryData == null)
 			{
-				this.RequirementsAsBinaryData = new List<byte[]>();
+				RequirementsAsBinaryData = new List<byte[]>();
 			}
-			this.RequirementsAsBinaryData.Add(memoryStream.ToArray());
+			RequirementsAsBinaryData.Add(memoryStream.ToArray());
 		}
-		this.m_dirty = true;
+		m_dirty = true;
 	}
 
 	public void AddRange(IEnumerable<QueueRequirement> collection)
 	{
-		using (IEnumerator<QueueRequirement> enumerator = collection.GetEnumerator())
+		foreach (QueueRequirement item in collection)
 		{
-			while (enumerator.MoveNext())
-			{
-				QueueRequirement item = enumerator.Current;
-				this.Add(item);
-			}
+			Add(item);
 		}
-		this.m_dirty = true;
+		m_dirty = true;
 	}
 
 	public bool Exists(Predicate<QueueRequirement> match)
 	{
-		using (IEnumerator<QueueRequirement> enumerator = this.GetEnumerator())
+		foreach (QueueRequirement obj in this)
 		{
-			while (enumerator.MoveNext())
+			if (match(obj))
 			{
-				QueueRequirement obj = enumerator.Current;
-				if (match(obj))
-				{
-					return true;
-				}
+				return true;
 			}
 		}
 		return false;
@@ -103,53 +74,38 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 
 	public RequirementCollection Where(Predicate<QueueRequirement> match)
 	{
-		RequirementCollection requirementCollection = RequirementCollection.Create();
-		IEnumerator<QueueRequirement> enumerator = this.GetEnumerator();
-		try
+		RequirementCollection requirementCollection = Create();
+		foreach (QueueRequirement queueRequirement in this)
 		{
-			while (enumerator.MoveNext())
+			if (match(queueRequirement))
 			{
-				QueueRequirement queueRequirement = enumerator.Current;
-				if (match(queueRequirement))
-				{
-					requirementCollection.Add(queueRequirement);
-				}
-			}
-		}
-		finally
-		{
-			if (enumerator != null)
-			{
-				enumerator.Dispose();
+				requirementCollection.Add(queueRequirement);
 			}
 		}
 		return requirementCollection;
 	}
 
-	public bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
+	public bool DoesApplicantPass(
+		IQueueRequirementSystemInfo systemInfo,
+		IQueueRequirementApplicant applicant,
+		GameType gameType,
+		GameSubType gameSubType)
 	{
-		return false == this.Exists((QueueRequirement p) => !p.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType));
+		return false == Exists(p => !p.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType));
 	}
 
-	public LocalizationPayload GenerateFailure(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType, RequirementMessageContext context)
+	public LocalizationPayload GenerateFailure(
+		IQueueRequirementSystemInfo systemInfo,
+		IQueueRequirementApplicant applicant,
+		GameType gameType,
+		GameSubType gameSubType,
+		RequirementMessageContext context)
 	{
-		IEnumerator<QueueRequirement> enumerator = this.GetEnumerator();
-		try
+		foreach (QueueRequirement queueRequirement in this)
 		{
-			while (enumerator.MoveNext())
+			if (!queueRequirement.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType))
 			{
-				QueueRequirement queueRequirement = enumerator.Current;
-				if (!queueRequirement.DoesApplicantPass(systemInfo, applicant, gameType, gameSubType))
-				{
-					return queueRequirement.GenerateFailure(systemInfo, applicant, context);
-				}
-			}
-		}
-		finally
-		{
-			if (enumerator != null)
-			{
-				enumerator.Dispose();
+				return queueRequirement.GenerateFailure(systemInfo, applicant, context);
 			}
 		}
 		return null;
@@ -157,12 +113,12 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 
 	public IEnumerator<QueueRequirement> GetEnumerator()
 	{
-		return this.InternalEnumerator();
+		return InternalEnumerator();
 	}
 
 	IEnumerator IEnumerable.GetEnumerator()
 	{
-		return this.InternalEnumerator();
+		return InternalEnumerator();
 	}
 
 	public static RequirementCollection Create()
@@ -173,18 +129,14 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 	public static RequirementCollection Create(IEnumerable<QueueRequirement> requirements)
 	{
 		List<byte[]> list = null;
-		if (!requirements.IsNullOrEmpty<QueueRequirement>())
+		if (!requirements.IsNullOrEmpty())
 		{
 			list = new List<byte[]>();
-			using (IEnumerator<QueueRequirement> enumerator = requirements.GetEnumerator())
+			foreach (QueueRequirement ob in requirements)
 			{
-				while (enumerator.MoveNext())
-				{
-					QueueRequirement ob = enumerator.Current;
-					MemoryStream memoryStream = new MemoryStream();
-					RequirementCollection.InternalSerializer.Serialize(memoryStream, ob);
-					list.Add(memoryStream.ToArray());
-				}
+				MemoryStream memoryStream = new MemoryStream();
+				InternalSerializer.Serialize(memoryStream, ob);
+				list.Add(memoryStream.ToArray());
 			}
 		}
 		return new RequirementCollection
@@ -195,28 +147,28 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 
 	public List<QueueRequirement> ToList()
 	{
-		if (this.m_dirty)
+		if (m_dirty)
 		{
-			this.m_dirty = false;
-			this.m_queueRequirementAsList.Clear();
+			m_dirty = false;
+			m_queueRequirementAsList.Clear();
 			foreach (QueueRequirement item in this)
 			{
-				this.m_queueRequirementAsList.Add(item);
+				m_queueRequirementAsList.Add(item);
 			}
 		}
-		return this.m_queueRequirementAsList;
+		return m_queueRequirementAsList;
 	}
 
 	private static Serializer InternalSerializer
 	{
 		get
 		{
-			if (RequirementCollection.s_serializer == null)
+			if (s_serializer == null)
 			{
-				RequirementCollection.s_serializer = new Serializer();
-				RequirementCollection.s_serializer.AddTypes(QueueRequirement.MessageTypes);
+				s_serializer = new Serializer();
+				s_serializer.AddTypes(QueueRequirement.MessageTypes);
 			}
-			return RequirementCollection.s_serializer;
+			return s_serializer;
 		}
 	}
 
@@ -235,10 +187,10 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			}
 			if (reader.TokenType != JsonToken.StartArray)
 			{
-				throw new Exception(string.Format("Bad JSON definition of RequirementCollection, expected '[' not {0}='{1}'", reader.TokenType, reader.Value));
+				throw new Exception($"Bad JSON definition of RequirementCollection, expected '[' not {reader.TokenType}='{reader.Value}'");
 			}
 			reader.Read();
-			RequirementCollection requirementCollection = RequirementCollection.Create();
+			RequirementCollection requirementCollection = Create();
 			while (reader.TokenType != JsonToken.EndArray)
 			{
 				QueueRequirement item = QueueRequirement.ExtractRequirementFromReader(reader);
@@ -247,7 +199,7 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			}
 			if (reader.TokenType != JsonToken.EndArray)
 			{
-				throw new Exception(string.Format("Bad JSON definition of RequirementCollection, expected ']' not {0}='{1}'", reader.TokenType, reader.Value));
+				throw new Exception($"Bad JSON definition of RequirementCollection, expected ']' not {reader.TokenType}='{reader.Value}'");
 			}
 			return requirementCollection;
 		}
@@ -256,26 +208,14 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		{
 			RequirementCollection requirementCollection = value as RequirementCollection;
 			writer.WriteStartArray();
-			IEnumerator<QueueRequirement> enumerator = requirementCollection.GetEnumerator();
-			try
+			foreach (QueueRequirement queueRequirement in requirementCollection)
 			{
-				while (enumerator.MoveNext())
-				{
-					QueueRequirement queueRequirement = enumerator.Current;
-					writer.WriteStartObject();
-					writer.WritePropertyName(queueRequirement.Requirement.ToString());
-					writer.WriteStartObject();
-					queueRequirement.WriteToJson(writer);
-					writer.WriteEndObject();
-					writer.WriteEndObject();
-				}
-			}
-			finally
-			{
-				if (enumerator != null)
-				{
-					enumerator.Dispose();
-				}
+				writer.WriteStartObject();
+				writer.WritePropertyName(queueRequirement.Requirement.ToString());
+				writer.WriteStartObject();
+				queueRequirement.WriteToJson(writer);
+				writer.WriteEndObject();
+				writer.WriteEndObject();
 			}
 			writer.WriteEndArray();
 		}
