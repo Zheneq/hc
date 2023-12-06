@@ -233,7 +233,6 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
             return base.GetCasterAnimationIndex(phaseIndex);
         }
         
-        // TODO NEKO CHECK doesnt work?
         return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoEnlargeDisc))
             ? m_syncComponent.m_animIndexForPoweredUpDiscReturn
             : m_syncComponent.m_animIndexForStartOfDiscReturn;

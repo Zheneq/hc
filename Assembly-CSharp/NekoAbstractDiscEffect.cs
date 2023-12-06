@@ -117,7 +117,7 @@ public abstract class NekoAbstractDiscEffect : Effect
         int baseDamage = m_returnTripDamage;
         foreach (ActorData hitActor in discHitActorsSorted)
         {
-            Vector3 origin = m_returnTripIgnoreCover ? hitActor.GetFreePos() : endLosPos; // TODO NEKO CHECK 0,0,0 in vanilla
+            Vector3 origin = m_returnTripIgnoreCover ? hitActor.GetFreePos() : endLosPos; // TODO NEKO Vector3.zero in vanilla -- we need custom logic for creating DamageSource for effect with customizable ignore cover flag
             ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, origin));
             if (hitActor.GetTeam() != Caster.GetTeam())
             {
@@ -162,8 +162,6 @@ public abstract class NekoAbstractDiscEffect : Effect
                 AbilityData.ActionType.ABILITY_1, -m_enlargeDiscAbility.GetCdrIfHitNoOne()));
         }
     }
-    
-    // TODO NEKO CHECK custom DamageSource that ignores cover (to have damage origin at 0)
 
     // TODO NEKO basically repeats SyncComponent.UpdateActorsInDiscPath
     protected List<ActorData> GetActorsInDiscPath(

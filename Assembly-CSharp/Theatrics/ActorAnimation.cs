@@ -1380,7 +1380,7 @@ namespace Theatrics
 				return m_animationIndex.CompareTo(rhs.m_animationIndex);
 			}
 			
-			// custom TODO test what happens with it and without
+			// custom TODO NEKO doesn't seem to affect anything
 			int leftSortPriority = m_ability.GetTheatricsSortPriority(m_abilityActionType);
 			int rightSortPriority = rhs.m_ability.GetTheatricsSortPriority(rhs.m_abilityActionType);
 			if (leftSortPriority != rightSortPriority)

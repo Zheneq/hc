@@ -63,8 +63,6 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
     public override void OnStart()
     {
         base.OnStart();
-        
-        Log.Info($"HOMING DISC on {m_homingTarget} from {m_homingTarget.GetCurrentBoardSquare().ToVector3()}");
         m_syncComponent.Networkm_homingActorIndex = m_homingTarget != null
             ? m_homingTarget.ActorIndex
             : ActorData.s_invalidActorIndex;
