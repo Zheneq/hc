@@ -85,8 +85,8 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
                 effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
                     isEnlargedDisc
                         ? m_enlargeDiscAbility.m_discReturnOverrideSequencePrefab
-                        : m_returnTripSequencePrefab, // TODO m_enlargeDiscAbility.m_prepDiscReturnOverrideSequencePrefab
-                    endPos,
+                        : m_returnTripSequencePrefab,
+                    endPos, // TODO NEKO CHECK y = 6.6
                     hitActors.ToArray(),
                     Caster,
                     seqSource,
@@ -95,13 +95,13 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
                         new SplineProjectileSequence.DelayedProjectileExtraParams
                         {
                             useOverrideStartPos = true,
-                            overrideStartPos = startPos
+                            overrideStartPos = startPos // TODO NEKO CHECK y = 6.6
                         },
                         new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
                         {
                             setAnimDistParamWithThisProjectile = isFarthestDisc,
-                            setAnimParamForNormalDisc = true // TODO NEKO CHECK false when dead? or not casting a new disc? false when embiggify?
-                        } // TODO NEKO CHECK waitForClientEnable = true??
+                            setAnimParamForNormalDisc = SetAnimParamForNormalDisc()
+                        }
                     }));
             }
 
@@ -114,6 +114,11 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
         }
 
         return effectHitSeqDataList;
+    }
+
+    protected override bool SetAnimParamForNormalDisc()
+    {
+        return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoBoomerangDisc));
     }
 
     public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)

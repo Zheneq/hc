@@ -70,7 +70,6 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
 
     public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
     {
-        // TODO NEKO CHECK anim, it lags sometimes
         return m_targetSquares
             .Select(targetSquare => new ServerClientUtils.SequenceStartData(
                 m_persistentDiscSequencePrefab,
@@ -109,7 +108,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
 
             effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
                 isEnlargedDisc ? m_enlargeDiscAbility.m_prepDiscReturnOverrideSequencePrefab : m_returnTripSequencePrefab,
-                endPos,
+                endPos, // TODO NEKO CHECK y = 6.6
                 hitActors.ToArray(),
                 Caster,
                 seqSource,
@@ -118,13 +117,13 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
                     new SplineProjectileSequence.DelayedProjectileExtraParams
                     {
                         useOverrideStartPos = true,
-                        overrideStartPos = startPos
+                        overrideStartPos = startPos // TODO NEKO CHECK y = 6.6
                     },
                     new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
                     {
                         setAnimDistParamWithThisProjectile = true,
-                        setAnimParamForNormalDisc = true // TODO NEKO CHECK false when dead? or not casting a new disc? false when embiggify?
-                    } // TODO NEKO CHECK waitForClientEnable = true??
+                        setAnimParamForNormalDisc = SetAnimParamForNormalDisc()
+                    }
                 }));
 
             effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(

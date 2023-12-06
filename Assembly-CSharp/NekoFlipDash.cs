@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NekoFlipDash : Ability
@@ -550,13 +551,12 @@ public class NekoFlipDash : Ability
 		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
 		Vector3 startPos = caster.GetSquareAtPhaseStart().ToVector3();
 		startPos.y = Board.Get().LosCheckHeight;
-		// TODO NEKO CHECK height in all ability/effect sequences
 		return new List<ServerClientUtils.SequenceStartData>()
 		{
 			new ServerClientUtils.SequenceStartData(
 				m_throwDiscSequencePrefab,
 				discEndSquare,
-				additionalData.m_abilityResults.HitActorsArray(),
+				additionalData.m_abilityResults.HitActorsArray().Where(ha => ha != caster).ToArray(),
 				caster,
 				additionalData.m_sequenceSource,
 				new Sequence.IExtraSequenceParams[]

@@ -78,11 +78,16 @@ public abstract class NekoAbstractDiscEffect : Effect
         return m_targetSquares
             .Select(targetSquare => new ServerClientUtils.SequenceStartData(
                 m_persistentDiscSequencePrefab,
-                targetSquare.ToVector3(),
+                targetSquare.ToVector3(),  // TODO NEKO CHECK y = 5 -- same as position in position hit result
                 Target?.AsArray(),
                 Caster,
                 SequenceSource))
             .ToList();
+    }
+
+    protected virtual bool SetAnimParamForNormalDisc()
+    {
+        return false;
     }
 
     public override void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
@@ -157,6 +162,8 @@ public abstract class NekoAbstractDiscEffect : Effect
                 AbilityData.ActionType.ABILITY_1, -m_enlargeDiscAbility.GetCdrIfHitNoOne()));
         }
     }
+    
+    // TODO NEKO CHECK custom DamageSource that ignores cover (to have damage origin at 0)
 
     // TODO NEKO basically repeats SyncComponent.UpdateActorsInDiscPath
     protected List<ActorData> GetActorsInDiscPath(
