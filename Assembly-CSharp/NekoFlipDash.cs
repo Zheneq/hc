@@ -659,5 +659,27 @@ public class NekoFlipDash : Ability
 		
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
+
+	public override void OnDodgedDamage(ActorData caster, int damageDodged)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(
+			FreelancerStats.NekoStats.FlipDashDamageDoneAndDodged,
+			damageDodged);
+	}
+	
+	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		caster.GetFreelancerStats().AddToValueOfStat(
+			FreelancerStats.NekoStats.FlipDashDamageDoneAndDodged,
+			results.FinalDamage);
+	}
+
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0 && results.m_hitParameters.Effect is NekoAbstractDiscEffect effect)
+		{
+			effect.ProcessEnlargeDiscExtraDamageFreelancerStat(caster, results);
+		}
+	}
 #endif
 }

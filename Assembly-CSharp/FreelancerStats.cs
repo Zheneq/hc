@@ -154,7 +154,7 @@ public class FreelancerStats : NetworkBehaviour
 		EnlargeDiscExtraDamage,
 		SeekerDiscDamage,
 		FlipDashDamageDoneAndDodged,
-		HomingDiscNumDistinctEnemiesHitByReturn
+		HomingDiscNumDistinctEnemiesHitByReturn // TODO NEKO unused
 	}
 
 	public enum RageBeastStats

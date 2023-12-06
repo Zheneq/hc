@@ -238,29 +238,18 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
             : m_syncComponent.m_animIndexForStartOfDiscReturn;
     }
 
-    // TODO NEKO CHECK freelancer stats
-    // public override void OnTurnStart()
-    // {
-    //     base.OnTurnStart();
-    //     if (m_time.age < m_turnsBeforeExploding)
-    //     {
-    //         return;
-    //     }
-    //     m_targetsOnHitTurnStart = AreaEffectUtils.GetActorsInShape(
-    //         m_shape,
-    //         m_targetSquare.ToVector3(),
-    //         m_targetSquare,
-    //         true,
-    //         Caster,
-    //         Caster.GetOtherTeams(),
-    //         null);
-    // }
-    //
-    // public override void OnExecutedEffectResults(EffectResults effectResults)
-    // {
-    //     base.OnExecutedEffectResults(effectResults);
-    //     int num = m_targetsOnHitTurnStart.Count(ad => !effectResults.StoredHitForActor(ad));
-    //     effectResults.Caster.GetFreelancerStats().AddToValueOfStat(FreelancerStats.BazookaGirlStats.DashesOutOfBigOne, num);
-    // }
+    public override void OnAbilityPhaseEnd(AbilityPriority phase)
+    {
+        if (m_time.age < 1 || phase != AbilityPriority.Combat_Damage)
+        {
+            return;
+        }
+        
+        int discsWithEnemyHits = GetHitActors(out _, out _, out _)
+            .Count(x => x.Count(ad => ad.GetTeam() != Caster.GetTeam()) > 0);
+        Caster.GetFreelancerStats().AddToValueOfStat(
+            FreelancerStats.NekoStats.NormalDiscNumDistinctEnemiesHitByReturn,
+            discsWithEnemyHits);
+    }
 }
 #endif

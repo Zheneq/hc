@@ -249,5 +249,20 @@ public class NekoHomingDisc : Ability
 		
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}
+
+	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)
+	{
+		if (results.FinalDamage > 0)
+		{
+			caster.GetFreelancerStats().AddToValueOfStat(
+				FreelancerStats.NekoStats.SeekerDiscDamage,
+				results.FinalDamage);
+
+			if (results.m_hitParameters.Effect is NekoAbstractDiscEffect effect)
+			{
+				effect.ProcessEnlargeDiscExtraDamageFreelancerStat(caster, results);
+			}
+		}
+	}
 #endif
 }

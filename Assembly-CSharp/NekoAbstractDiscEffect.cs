@@ -245,5 +245,17 @@ public abstract class NekoAbstractDiscEffect : Effect
             ? casterSquare.GetOccupantLoSPos()
             : Vector3.zero;
     }
+
+    public void ProcessEnlargeDiscExtraDamageFreelancerStat(ActorData hitCaster, ActorHitResults results)
+    {
+        if (ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoEnlargeDisc)))
+        {
+            int extraDamage = Mathf.RoundToInt((float)m_enlargeDiscAbility.GetAdditionalDamageAmount() 
+                              * results.FinalDamage / results.BaseDamage);
+            hitCaster.GetFreelancerStats().AddToValueOfStat(
+                FreelancerStats.NekoStats.EnlargeDiscExtraDamage,
+                extraDamage);
+        }
+    }
 }
 #endif
