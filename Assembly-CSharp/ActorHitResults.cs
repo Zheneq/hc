@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -35,38 +36,60 @@ public class ActorHitResults
 	private ServerCombatManager.DamageType m_damageType;
 	private ServerCombatManager.HealingType m_healingType;
 
+	[JsonProperty] // custom attribute
 	private List<StatusType> m_permanentStatusChanges = new List<StatusType>();
+	[JsonProperty] // custom attribute
 	private List<StatusType> m_permanentStatusChangesForRemoval = new List<StatusType>();
+	[JsonProperty] // custom attribute
 	private List<AbilityStatMod> m_permanentStatMods = new List<AbilityStatMod>();
+	[JsonProperty] // custom attribute
 	private List<AbilityStatMod> m_permanentStatModsForRemoval = new List<AbilityStatMod>();
 
 	//public List<GearStatTerm> m_gearStatTerms;  // rogues
 
+	[JsonProperty] // custom attribute
 	public List<global::Effect> m_effects;
 
 	//public List<EffectTrigger> m_effectTriggers;  // rogues?
 
+	[JsonProperty] // custom attribute
 	private List<StandardActorEffectData> m_standardEffectDatas;
 
 	//private List<EffectTemplate> m_effectTemplates;  // rogues?
 
 	//private List<EffectTriggerTemplate> m_effectTriggerTemplates;  // rogues?
 
+	[JsonProperty] // custom attribute
 	private List<ServerAbilityUtils.EffectRemovalData> m_effectsForRemoval;
+	[JsonProperty] // custom attribute
 	private List<ServerAbilityUtils.EffectRefreshData> m_effectsForRefresh;
+	[JsonProperty] // custom attribute
 	private List<ServerAbilityUtils.BarrierRemovalData> m_barriersForRemoval;
+	[JsonProperty] // custom attribute
 	private List<Barrier> m_barriers;
+	[JsonProperty] // custom attribute
 	public List<ServerAbilityUtils.PowerupRemovalData> m_powerupsForRemoval;
+	[JsonProperty] // custom attribute
 	public List<ServerAbilityUtils.PowerUpStealData> m_powerUpsToSteal;
+	[JsonProperty] // custom attribute
 	private List<ServerClientUtils.SequenceEndData> m_sequencesToEnd;
+	[JsonProperty] // custom attribute
 	private KnockbackHitData m_knockbackData;
+	[JsonProperty] // custom attribute
 	private List<MiscHitEventData> m_miscEvents;
+	[JsonProperty] // custom attribute
 	private List<GameModeEvent> m_gameModeEvents;
+	[JsonProperty] // custom attribute
 	private List<ActorData> m_actorsToReveal;
+	[JsonProperty] // custom attribute
 	private List<SpoilSpawnDataForAbilityHit> m_spoilSpawns;
+	[JsonProperty] // custom attribute
 	private List<MovementResults> m_directSpoilHitResults;
+	[JsonProperty] // custom attribute
 	private List<AbilityResults_Reaction> m_reactions;
+	[JsonProperty] // custom attribute
 	private List<HitResultsTags> m_tags;
+	[JsonProperty] // custom attribute
 	private List<int> m_overconIds;
 
 	// rogues
