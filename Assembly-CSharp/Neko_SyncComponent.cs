@@ -266,7 +266,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
             : Vector3.zero;
     }
 
-    public Vector3 GetHomingActorPos() // private in reactor
+    private Vector3 GetHomingActorPos()
     {
         ActorData actorData = m_actorData;
         if (m_homingActorIndex > 0)

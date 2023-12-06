@@ -78,7 +78,7 @@ public abstract class NekoAbstractDiscEffect : Effect
         return m_targetSquares
             .Select(targetSquare => new ServerClientUtils.SequenceStartData(
                 m_persistentDiscSequencePrefab,
-                targetSquare.ToVector3(),  // TODO NEKO CHECK y = 5 -- same as position in position hit result
+                targetSquare.GetPosAtBaselineHeight(),
                 Target?.AsArray(),
                 Caster,
                 SequenceSource))
@@ -244,7 +244,7 @@ public abstract class NekoAbstractDiscEffect : Effect
     {
         BoardSquare casterSquare = Caster.GetCurrentBoardSquare() ?? Caster.GetMostRecentDeathSquare();
         return casterSquare != null
-            ? casterSquare.ToVector3()
+            ? casterSquare.GetOccupantLoSPos()
             : Vector3.zero;
     }
 }

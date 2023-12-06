@@ -10,7 +10,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
 {
     private ActorData m_homingTarget;
     private int m_noHitsCdr;
-    private Vector3 m_discEndPos;
+    private Vector3 m_discEndPos = Vector3.zero;
     
     public NekoHomingDiscEffect(
         EffectSource parent,
@@ -43,12 +43,20 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         m_noHitsCdr = noHitsCdr;
     }
 
+    // TODO NEKO see Neko_SyncComponent.GetHomingActorPos
     public override void OnAbilityPhaseStart(AbilityPriority phase)
     {
         if (phase == AbilityPriority.Prep_Defense)
         {
-            m_discEndPos = m_syncComponent.GetHomingActorPos();
-            Log.Info($"HOMING DISC on {m_homingTarget} to {m_discEndPos}");
+            BoardSquare square = m_homingTarget.GetCurrentBoardSquare();
+            if (m_homingTarget.IsDead())
+            {
+                square = m_homingTarget.GetMostRecentDeathSquare();
+            }
+            if (square != null)
+            {
+                m_discEndPos = square.GetOccupantLoSPos();
+            }
         }
     }
 
@@ -85,9 +93,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         List<ServerClientUtils.SequenceStartData> effectHitSeqDataList = base.GetEffectHitSeqDataList();
         if (m_time.age >= 1)
         {
-            float height = Board.Get().LosCheckHeight;
             Vector3 endPos = m_discEndPos;
-            endPos.y = height;
         
             SequenceSource seqSource = SequenceSource.GetShallowCopy();
             if (GetCasterAnimationIndex(HitPhase) > 0 || AddActorAnimEntryIfHasHits(HitPhase))
@@ -97,8 +103,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         
             List<ActorData> hitActors = GetHitActors();
             BoardSquare targetSquare = m_targetSquares[0];
-            Vector3 startPos = targetSquare.ToVector3();
-            startPos.y = height;
+            Vector3 startPos = targetSquare.GetOccupantLoSPos();
             bool isEnlargedDisc = IsDiscEnlarged();
 
             if (!hitActors.Contains(Caster))
@@ -108,7 +113,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
 
             effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
                 isEnlargedDisc ? m_enlargeDiscAbility.m_prepDiscReturnOverrideSequencePrefab : m_returnTripSequencePrefab,
-                endPos, // TODO NEKO CHECK y = 6.6
+                endPos,
                 hitActors.ToArray(),
                 Caster,
                 seqSource,
@@ -117,7 +122,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
                     new SplineProjectileSequence.DelayedProjectileExtraParams
                     {
                         useOverrideStartPos = true,
-                        overrideStartPos = startPos // TODO NEKO CHECK y = 6.6
+                        overrideStartPos = startPos
                     },
                     new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
                     {
@@ -142,10 +147,11 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         float losHeight = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
         bool isDiscEnlarged = IsDiscEnlarged();
         
-        Vector3 startLosPos = Neko_SyncComponent.HomingDiscStartFromCaster() ? GetCasterPos() : m_targetSquares[0].ToVector3();
+        Vector3 startLosPos = Neko_SyncComponent.HomingDiscStartFromCaster()
+            ? GetCasterPos()
+            : m_targetSquares[0].GetOccupantLoSPos();
         startLosPos.y = losHeight;
         Vector3 endLosPos = m_discEndPos;
-        endLosPos.y = losHeight;
             
         float returnDiskLaserWidth = m_syncComponent.m_discReturnTripLaserWidthInSquares;
         float aoeStartRadius = m_syncComponent.m_discReturnTripAoeRadiusAtlaserStart;

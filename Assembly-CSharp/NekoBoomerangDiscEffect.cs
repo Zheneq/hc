@@ -45,9 +45,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
         List<ServerClientUtils.SequenceStartData> effectHitSeqDataList = base.GetEffectHitSeqDataList();
         if (m_time.age >= 1)
         {
-            float height = Board.Get().LosCheckHeight;
             Vector3 endPos = GetCasterPos();
-            endPos.y = height;
 
             SequenceSource seqSource = SequenceSource.GetShallowCopy();
             if (GetCasterAnimationIndex(HitPhase) > 0 || AddActorAnimEntryIfHasHits(HitPhase))
@@ -71,8 +69,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
             for (int i = 0; i < m_targetSquares.Count; i++)
             {
                 BoardSquare targetSquare = m_targetSquares[i];
-                Vector3 startPos = targetSquare.ToVector3();
-                startPos.y = height;
+                Vector3 startPos = targetSquare.GetOccupantLoSPos();
                 bool isFarthestDisc = targetSquare == farthestSquare;
                 bool isEnlargedDisc = i == enlargedDiscIndex;
 
@@ -86,7 +83,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
                     isEnlargedDisc
                         ? m_enlargeDiscAbility.m_discReturnOverrideSequencePrefab
                         : m_returnTripSequencePrefab,
-                    endPos, // TODO NEKO CHECK y = 6.6
+                    endPos,
                     hitActors.ToArray(),
                     Caster,
                     seqSource,
@@ -95,7 +92,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
                         new SplineProjectileSequence.DelayedProjectileExtraParams
                         {
                             useOverrideStartPos = true,
-                            overrideStartPos = startPos // TODO NEKO CHECK y = 6.6
+                            overrideStartPos = startPos
                         },
                         new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
                         {

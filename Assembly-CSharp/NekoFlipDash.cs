@@ -534,7 +534,8 @@ public class NekoFlipDash : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		Vector3 losCheckPos = caster.GetSquareAtPhaseStart().GetOccupantLoSPos();
+		BoardSquare squareAtPhaseStart = caster.GetSquareAtPhaseStart();
+		Vector3 losCheckPos = squareAtPhaseStart.GetOccupantLoSPos();
 		AreaEffectUtils.GetActorsInLaser(
 			losCheckPos,
 			targets[0].AimDirection,
@@ -549,8 +550,6 @@ public class NekoFlipDash : Ability
 			out Vector3 laserEndPos,
 			null);
 		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
-		Vector3 startPos = caster.GetSquareAtPhaseStart().ToVector3();
-		startPos.y = Board.Get().LosCheckHeight;
 		return new List<ServerClientUtils.SequenceStartData>()
 		{
 			new ServerClientUtils.SequenceStartData(
@@ -564,14 +563,12 @@ public class NekoFlipDash : Ability
 					new SplineProjectileSequence.DelayedProjectileExtraParams
 					{
 						useOverrideStartPos = true,
-						overrideStartPos = startPos
-						// overrideStartPos = new Vector3(startPos.x, 6.6f, startPos.z) // TODO NEKO CHECK height 6.6
+						overrideStartPos = losCheckPos
 					}
 				}),
 			new ServerClientUtils.SequenceStartData(
 				m_chargeSequencePrefab,
-				startPos,
-				// new Vector3(startPos.x, 5f, startPos.z), // TODO NEKO CHECK height 5
+				squareAtPhaseStart.GetPosAtBaselineHeight(),
 				caster.AsArray(),
 				caster,
 				additionalData.m_sequenceSource)
