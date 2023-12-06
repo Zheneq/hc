@@ -252,17 +252,30 @@ public class NekoEnlargeDisc : Ability
 		
 #if SERVER
 	// custom
-	public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
 		List<AbilityTarget> targets,
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		return new ServerClientUtils.SequenceStartData(
-			m_castSequencePrefab,
-			targets[0].FreePos,
-			null,
-			caster,
-			additionalData.m_sequenceSource);
+		List<ServerClientUtils.SequenceStartData> res = new List<ServerClientUtils.SequenceStartData>
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_castSequencePrefab,
+				targets[0].FreePos,
+				null,
+				caster,
+				additionalData.m_sequenceSource)
+		};
+		if (additionalData.m_abilityResults.HitActorsArray().Length > 0)
+		{
+			res.Add(new ServerClientUtils.SequenceStartData(
+				SequenceLookup.Get().GetSimpleHitSequencePrefab(),
+				caster.GetCurrentBoardSquare(),
+				caster.AsArray(),
+				caster,
+				additionalData.m_sequenceSource));
+		}
+		return res;
 	}
 
 	// custom
@@ -273,6 +286,7 @@ public class NekoEnlargeDisc : Ability
 		    && dashAbility.GetCdrOnEnlargeDiscIfCastSameTurn() > 0
 		    && ServerActionBuffer.Get().HasStoredAbilityRequestOfType(caster, typeof(NekoFlipDash)))
 		{
+			// TODO NEKO CHECK need sequence for this hit
 			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
 			casterHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
 				AbilityData.ActionType.ABILITY_1, -dashAbility.GetCdrOnEnlargeDiscIfCastSameTurn()));
