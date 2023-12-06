@@ -16,6 +16,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
         ActorData caster,
         float discReturnEndRadius,
         int returnTripDamage,
+        int returnTripSubsequentHitDamage,
         bool returnTripIgnoreCover,
         int energyOnMissOnReturnTrip,
         GameObject returnTripSequencePrefab,
@@ -27,6 +28,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
             caster,
             discReturnEndRadius,
             returnTripDamage,
+            returnTripSubsequentHitDamage,
             0,
             null,
             returnTripIgnoreCover,
@@ -41,75 +43,86 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
     public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
     {
         List<ServerClientUtils.SequenceStartData> effectHitSeqDataList = base.GetEffectHitSeqDataList();
-        float height = Board.Get().LosCheckHeight;
-        Vector3 endPos = GetCasterPos();
-        endPos.y = height;
-        
-        SequenceSource seqSource = SequenceSource.GetShallowCopy();
-        if (GetCasterAnimationIndex(HitPhase) > 0 || AddActorAnimEntryIfHasHits(HitPhase))
+        if (m_time.age >= 1)
         {
-            seqSource.SetWaitForClientEnable(true);
-        }
+            float height = Board.Get().LosCheckHeight;
+            Vector3 endPos = GetCasterPos();
+            endPos.y = height;
 
-        BoardSquare farthestSquare = m_targetSquares[0];
-        float maxDistSqr = (farthestSquare.ToVector3() - endPos).sqrMagnitude;
-        foreach (BoardSquare targetSquare in m_targetSquares)
-        {
-            float distSqr = (targetSquare.ToVector3() - endPos).sqrMagnitude;
-            if (distSqr > maxDistSqr)
+            SequenceSource seqSource = SequenceSource.GetShallowCopy();
+            if (GetCasterAnimationIndex(HitPhase) > 0 || AddActorAnimEntryIfHasHits(HitPhase))
             {
-                farthestSquare = targetSquare;
-                maxDistSqr = distSqr;
+                seqSource.SetWaitForClientEnable(true);
             }
-        }
-        
-        List<List<ActorData>> hitActorsPerDisc = GetHitActors(out _, out _, out int enlargedDiscIndex);
-        for (int i = 0; i < m_targetSquares.Count; i++)
-        {
-            BoardSquare targetSquare = m_targetSquares[i];
-            Vector3 startPos = targetSquare.ToVector3();
-            startPos.y = height;
-            bool isFarthestDisc = targetSquare == farthestSquare;
-            bool isEnlargedDisc = i == enlargedDiscIndex;
 
-            List<ActorData> hitActors = hitActorsPerDisc[i];
-            if (isFarthestDisc && !hitActors.Contains(Caster))
+            BoardSquare farthestSquare = m_targetSquares[0];
+            float maxDistSqr = (farthestSquare.ToVector3() - endPos).sqrMagnitude;
+            foreach (BoardSquare targetSquare in m_targetSquares)
             {
-                hitActors.Add(Caster);
+                float distSqr = (targetSquare.ToVector3() - endPos).sqrMagnitude;
+                if (distSqr > maxDistSqr)
+                {
+                    farthestSquare = targetSquare;
+                    maxDistSqr = distSqr;
+                }
+            }
+
+            List<List<ActorData>> hitActorsPerDisc = GetHitActors(out _, out _, out int enlargedDiscIndex);
+            for (int i = 0; i < m_targetSquares.Count; i++)
+            {
+                BoardSquare targetSquare = m_targetSquares[i];
+                Vector3 startPos = targetSquare.ToVector3();
+                startPos.y = height;
+                bool isFarthestDisc = targetSquare == farthestSquare;
+                bool isEnlargedDisc = i == enlargedDiscIndex;
+
+                List<ActorData> hitActors = hitActorsPerDisc[i];
+                if (isFarthestDisc && !hitActors.Contains(Caster))
+                {
+                    hitActors.Add(Caster);
+                }
+
+                effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
+                    isEnlargedDisc
+                        ? m_enlargeDiscAbility.m_discReturnOverrideSequencePrefab
+                        : m_returnTripSequencePrefab, // TODO m_enlargeDiscAbility.m_prepDiscReturnOverrideSequencePrefab
+                    endPos,
+                    hitActors.ToArray(),
+                    Caster,
+                    seqSource,
+                    new Sequence.IExtraSequenceParams[]
+                    {
+                        new SplineProjectileSequence.DelayedProjectileExtraParams
+                        {
+                            useOverrideStartPos = true,
+                            overrideStartPos = startPos
+                        },
+                        new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
+                        {
+                            setAnimDistParamWithThisProjectile = isFarthestDisc,
+                            setAnimParamForNormalDisc = true // TODO NEKO CHECK false when dead? or not casting a new disc? false when embiggify?
+                        } // TODO NEKO CHECK waitForClientEnable = true??
+                    }));
             }
 
             effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
-                isEnlargedDisc ? m_enlargeDiscAbility.m_discReturnOverrideSequencePrefab : m_returnTripSequencePrefab,  // TODO m_enlargeDiscAbility.m_prepDiscReturnOverrideSequencePrefab
-                endPos,
-                hitActors.ToArray(),
+                SequenceLookup.Get().GetSimpleHitSequencePrefab(),
+                HIT_POS,
+                new ActorData[] { },
                 Caster,
-                seqSource,
-                new Sequence.IExtraSequenceParams[]
-                {
-                    new SplineProjectileSequence.DelayedProjectileExtraParams
-                    {
-                        useOverrideStartPos = true,
-                        overrideStartPos = startPos
-                    },
-                    new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
-                    {
-                        setAnimDistParamWithThisProjectile = isFarthestDisc,
-                        setAnimParamForNormalDisc = true // TODO NEKO check. false when dead? or not casting a new disc? false when embiggify?
-                    } // TODO NEKO waitForClientEnable = true??
-                }));
+                seqSource));
         }
 
-        effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
-            SequenceLookup.Get().GetSimpleHitSequencePrefab(),
-            HIT_POS,
-            new ActorData[] {},
-            Caster,
-            seqSource));
         return effectHitSeqDataList;
     }
 
     public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
     {
+        if (m_time.age < 1)
+        {
+            return;
+        }
+        
         List<List<ActorData>> hitActorsPerDisc = GetHitActors(out List<Vector3> startLosPosList, out Vector3 endLosPos, out int enlargedDiscIndex);
 
         ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
@@ -150,6 +163,11 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
         effectResults.StorePositionHit(positionHitResults);
     }
 
+    public override List<ActorData> GetHitActors()
+    {
+        return GetHitActors(out _, out _, out _).SelectMany(x => x).ToList();
+    }
+
     private List<List<ActorData>> GetHitActors(out List<Vector3> startLosPosList, out Vector3 endLosPos, out int enlargedDiscIndex)
     {
         float losHeight = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
@@ -179,7 +197,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
 
             float returnDiskLaserWidth = m_syncComponent.m_discReturnTripLaserWidthInSquares;
             float aoeStartRadius = m_syncComponent.m_discReturnTripAoeRadiusAtlaserStart;
-            float returnDiskEndRadius = m_primaryAbility.GetDiscReturnEndRadius();
+            float returnDiskEndRadius = m_discReturnEndRadius;
             bool isDiscEnlarged = targetSquare == enlargedDiscSquare;
             if (isDiscEnlarged)
             {
@@ -208,18 +226,18 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
     
     public override int GetCasterAnimationIndex(AbilityPriority phaseIndex)
     {
-        if (phaseIndex != AbilityPriority.Combat_Damage)
+        if (phaseIndex != AbilityPriority.Combat_Damage || m_time.age < 1)
         {
             return base.GetCasterAnimationIndex(phaseIndex);
         }
         
-        // TODO NEKO doesnt work?
+        // TODO NEKO CHECK doesnt work?
         return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoEnlargeDisc))
             ? m_syncComponent.m_animIndexForPoweredUpDiscReturn
             : m_syncComponent.m_animIndexForStartOfDiscReturn;
     }
 
-    // TODO NEKO freelancer stats
+    // TODO NEKO CHECK freelancer stats
     // public override void OnTurnStart()
     // {
     //     base.OnTurnStart();

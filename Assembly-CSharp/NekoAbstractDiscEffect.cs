@@ -9,19 +9,19 @@ using UnityEngine;
 // custom
 public abstract class NekoAbstractDiscEffect : Effect
 {
-    protected List<BoardSquare> m_targetSquares;
-    protected float m_discReturnEndRadius;
-    protected int m_returnTripDamage;
-    protected float m_returnTripExtraDamagePerDist;
-    protected StandardEffectInfo m_returnTripEnemyEffect;
-    protected bool m_returnTripIgnoreCover;
+    protected readonly List<BoardSquare> m_targetSquares;
+    protected readonly float m_discReturnEndRadius;
+    protected readonly int m_returnTripDamage;
+    protected readonly int m_returnTripSubsequentHitDamage;
+    protected readonly float m_returnTripExtraDamagePerDist;
+    protected readonly StandardEffectInfo m_returnTripEnemyEffect;
+    protected readonly bool m_returnTripIgnoreCover;
     
-    protected GameObject m_returnTripSequencePrefab;
-    protected GameObject m_persistentDiscSequencePrefab;
+    protected readonly GameObject m_returnTripSequencePrefab;
+    protected readonly GameObject m_persistentDiscSequencePrefab;
     
     protected Neko_SyncComponent m_syncComponent;
-    protected NekoBoomerangDisc m_primaryAbility;
-    protected NekoHomingDisc m_homingDiscAbility;
+    protected NekoFlipDash m_dashAbility;
     protected NekoEnlargeDisc m_enlargeDiscAbility;
 
     protected static readonly Vector3 HIT_POS = new Vector3(1, 1, 1);
@@ -33,6 +33,7 @@ public abstract class NekoAbstractDiscEffect : Effect
         ActorData caster,
         float discReturnEndRadius,
         int returnTripDamage,
+        int returnTripSubsequentHitDamage,
         float returnTripExtraDamagePerDist,
         StandardEffectInfo returnTripEnemyEffect,
         bool returnTripIgnoreCover,
@@ -42,6 +43,7 @@ public abstract class NekoAbstractDiscEffect : Effect
     {
         m_discReturnEndRadius = discReturnEndRadius;
         m_returnTripDamage = returnTripDamage;
+        m_returnTripSubsequentHitDamage = returnTripSubsequentHitDamage;
         m_returnTripExtraDamagePerDist = returnTripExtraDamagePerDist;
         m_returnTripEnemyEffect = returnTripEnemyEffect;
         m_returnTripIgnoreCover = returnTripIgnoreCover;
@@ -55,9 +57,8 @@ public abstract class NekoAbstractDiscEffect : Effect
     public override void OnStart()
     {
         m_syncComponent = Caster.GetComponent<Neko_SyncComponent>();
-        m_primaryAbility = Caster.GetAbilityData().GetAbilityOfType<NekoBoomerangDisc>();
         m_enlargeDiscAbility = Caster.GetAbilityData().GetAbilityOfType<NekoEnlargeDisc>();
-        m_homingDiscAbility = Caster.GetAbilityData().GetAbilityOfType<NekoHomingDisc>();
+        m_dashAbility = Caster.GetAbilityData().GetAbilityOfType<NekoFlipDash>();
         foreach (BoardSquare targetSquare in m_targetSquares)
         {
             m_syncComponent.AddDisk(targetSquare);
@@ -95,30 +96,38 @@ public abstract class NekoAbstractDiscEffect : Effect
         }
     }
 
+    public abstract List<ActorData> GetHitActors();
+
     protected void ProcessHits(
         EffectResults effectResults,
-        List<ActorData> discHitActors,
+        List<ActorData> discHitActorsSorted,
         Vector3 startLosPos,
         Vector3 endLosPos,
         bool isEnlarged)
     {
-        int extraDamage = MathUtil.RoundToIntPadded(
-            m_returnTripExtraDamagePerDist
+        bool isDashing = ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoFlipDash));
+        int extraDamage = MathUtil.RoundToIntPadded(m_returnTripExtraDamagePerDist 
             * (endLosPos - startLosPos).magnitude / Board.Get().squareSize);
-        
-        foreach (ActorData hitActor in discHitActors)
+
+        int baseDamage = m_returnTripDamage;
+        foreach (ActorData hitActor in discHitActorsSorted)
         {
-            Vector3 origin = m_returnTripIgnoreCover ? hitActor.GetFreePos() : endLosPos; // TODO NEKO 0,0,0 in vanilla
+            Vector3 origin = m_returnTripIgnoreCover ? hitActor.GetFreePos() : endLosPos; // TODO NEKO CHECK 0,0,0 in vanilla
             ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(hitActor, origin));
             if (hitActor.GetTeam() != Caster.GetTeam())
             {
-                actorHitResults.AddBaseDamage(m_returnTripDamage + extraDamage);
                 actorHitResults.AddStandardEffectInfo(m_returnTripEnemyEffect);
+                actorHitResults.AddBaseDamage(baseDamage + extraDamage);
+                if (isDashing)
+                {
+                    actorHitResults.AddBaseDamage(m_dashAbility.GetDiscsReturningThisTurnExtraDamage());
+                }
                 if (isEnlarged)
                 {
                     actorHitResults.AddBaseDamage(m_enlargeDiscAbility.GetAdditionalDamageAmount());
                     actorHitResults.AddStandardEffectInfo(m_enlargeDiscAbility.GetEffectOnEnemies());
                 }
+                baseDamage = m_returnTripSubsequentHitDamage;
             }
             else
             {

@@ -18,17 +18,6 @@ public class Passive_Neko : Passive
     }
     
     // custom
-    public override void OnAbilityPhaseEnd(AbilityPriority phase)
-    {
-        base.OnAbilityPhaseEnd(phase);
-        if (phase == AbilityPriority.Evasion)
-        {
-            m_syncComp?.ServerUpdateActorsInDiscPath();  // TODO NEKO what about mouse trap?
-            // TODO NEKO verify it works with dashes
-        }
-    }
-    
-    // custom
     public override void OnTurnEnd()
     {
         if (!NetworkServer.active)

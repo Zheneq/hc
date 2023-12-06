@@ -268,7 +268,16 @@ public class NekoEnlargeDisc : Ability
 	// custom
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
-		
+		NekoFlipDash dashAbility = caster.GetAbilityData().GetAbilityOfType<NekoFlipDash>();
+		if (dashAbility != null
+		    && dashAbility.GetCdrOnEnlargeDiscIfCastSameTurn() > 0
+		    && ServerActionBuffer.Get().HasStoredAbilityRequestOfType(caster, typeof(NekoFlipDash)))
+		{
+			ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+			casterHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
+				AbilityData.ActionType.ABILITY_1, -dashAbility.GetCdrOnEnlargeDiscIfCastSameTurn()));
+			abilityResults.StoreActorHit(casterHitResults);
+		}
 	}
 #endif
 }

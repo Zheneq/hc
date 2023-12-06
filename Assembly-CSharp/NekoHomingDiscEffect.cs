@@ -32,6 +32,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
             caster,
             discReturnEndRadius,
             returnTripDamage,
+            returnTripDamage,
             returnTripExtraDamagePerDist,
             returnTripEnemyEffect,
             returnTripIgnoreCover,
@@ -69,6 +70,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
 
     public override List<ServerClientUtils.SequenceStartData> GetEffectStartSeqDataList()
     {
+        // TODO NEKO CHECK anim, it lags sometimes
         return m_targetSquares
             .Select(targetSquare => new ServerClientUtils.SequenceStartData(
                 m_persistentDiscSequencePrefab,
@@ -121,8 +123,8 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
                     new NekoDiscReturnProjectileSequence.DiscReturnProjectileExtraParams
                     {
                         setAnimDistParamWithThisProjectile = true,
-                        setAnimParamForNormalDisc = true // TODO NEKO check. false when dead? or not casting a new disc? false when embiggify?
-                    } // TODO NEKO waitForClientEnable = true??
+                        setAnimParamForNormalDisc = true // TODO NEKO CHECK false when dead? or not casting a new disc? false when embiggify?
+                    } // TODO NEKO CHECK waitForClientEnable = true??
                 }));
 
             effectHitSeqDataList.Add(new ServerClientUtils.SequenceStartData(
@@ -136,7 +138,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         return effectHitSeqDataList;
     }
 
-    private List<ActorData> GetHitActors()
+    public override List<ActorData> GetHitActors()
     {
         float losHeight = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
         bool isDiscEnlarged = IsDiscEnlarged();
@@ -148,7 +150,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
             
         float returnDiskLaserWidth = m_syncComponent.m_discReturnTripLaserWidthInSquares;
         float aoeStartRadius = m_syncComponent.m_discReturnTripAoeRadiusAtlaserStart;
-        float returnDiskEndRadius = m_primaryAbility.GetDiscReturnEndRadius();
+        float returnDiskEndRadius = m_discReturnEndRadius;
         if (isDiscEnlarged)
         {
             returnDiskLaserWidth = m_enlargeDiscAbility.GetLaserWidth();
@@ -176,7 +178,6 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         {
             return;
         }
-        
         List<ActorData> hitActors = GetHitActors();
 
         bool isDiscEnlarged = IsDiscEnlarged();

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class NekoBoomerangDisc : Ability
@@ -19,7 +20,7 @@ public class NekoBoomerangDisc : Ability
 	public int m_extraReturnDamageIfHitNoOne;
 	[Separator("Shielding for target hit on throw (applied on start of next turn)")]
 	public int m_shieldPerTargetHitOnThrow;
-	public StandardActorEffectData m_shieldEffectData;  // TODO NEKO template for absorb effect? Empty two-turn effect, not changed in mods
+	public StandardActorEffectData m_shieldEffectData;
 	[Header("Sequences")]
 	public GameObject m_castSequencePrefab;
 	public GameObject m_returnTripSequencePrefab;
@@ -297,14 +298,24 @@ public class NekoBoomerangDisc : Ability
 				hitActors.Add(aoeHitActor);
 			}
 		}
+
+		List<ActorData> actorsHitByReturningDiscs = null;
+		if (GetExtraDamageIfHitByReturnDisc() > 0)
+		{
+			NekoAbstractDiscEffect activeEffect =
+				ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(NekoBoomerangDiscEffect)).FirstOrDefault() as NekoAbstractDiscEffect ??
+				ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(NekoHomingDiscEffect)).FirstOrDefault() as NekoAbstractDiscEffect;
+			if (activeEffect != null)
+			{
+				actorsHitByReturningDiscs = activeEffect.GetHitActors();
+			}
+		}
 		
 		foreach (ActorData target in hitActors)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, losCheckPos));
 			int damage = GetDirectDamage();
-			if (m_syncComp != null
-			    && GetExtraDamageIfHitByReturnDisc() > 0
-			    && m_syncComp.IsActorTargetedByReturningDiscs(target))  // TODO NEKO update list somewhere
+			if (actorsHitByReturningDiscs != null && actorsHitByReturningDiscs.Contains(target))
 			{
 				damage += GetExtraDamageIfHitByReturnDisc();
 			}
@@ -319,6 +330,7 @@ public class NekoBoomerangDisc : Ability
 			new List<BoardSquare>{ discEndSquare },
 			caster,
 			GetDiscReturnEndRadius(),
+			GetReturnTripDamage() + extraReturnDamage,
 			GetReturnTripDamage() + extraReturnDamage,
 			ReturnTripIgnoreCover(),
 			0,

@@ -8,9 +8,9 @@ public class NekoFlipDash : Ability
 	[Separator("Targeting - (if actor/disc targeted) landing position")]
 	public bool m_canTargetDiscs = true;
 	public bool m_canTargetEnemies = true;
-	public float m_maxDistanceFromTarget = 2.5f;
-	public float m_minDistanceFromTarget;
-	public float m_maxAngleChange = 120f;
+	public float m_maxDistanceFromTarget = 2.5f;  // TODO NEKO always 1.5, not changed in mods, base value is always used
+	public float m_minDistanceFromTarget;  // TODO NEKO always 0, not changed in mods, base value is always used
+	public float m_maxAngleChange = 120f;  // TODO NEKO always 180, not changed in mods, base value is always used
 	[Separator("Targeting - Thrown Disc targeting")]
 	public float m_laserWidth = 1f;
 	public float m_laserLength = 6.5f;
@@ -18,35 +18,35 @@ public class NekoFlipDash : Ability
 	[Header("-- Disc return end radius")]
 	public float m_discReturnEndRadius;
 	[Header("-- Dash options --")]
-	public float m_chargeRadius;
-	public float m_chargeRadiusAtStart;
-	public float m_chargeRadiusAtEnd;
-	public float m_explosionRadiusAtTargetedDisc = 2.5f;
-	public bool m_continueToEndIfTargetEvades = true;
-	public bool m_leaveDiscAtStartSquare = true;
+	public float m_chargeRadius;  // TODO NEKO always 0, not changed in mods
+	public float m_chargeRadiusAtStart;  // TODO NEKO always 0, not changed in mods
+	public float m_chargeRadiusAtEnd;  // TODO NEKO always 0, not changed in mods
+	public float m_explosionRadiusAtTargetedDisc = 2.5f;  // TODO NEKO unused, always 2.5, not changed in mods
+	public bool m_continueToEndIfTargetEvades = true; // TODO NEKO unused
+	public bool m_leaveDiscAtStartSquare = true; // TODO NEKO unused
 	public bool m_throwDiscFromStart = true;
 	public bool m_canMoveAfterEvade;
-	public bool m_explodeTargetedDisc;
+	public bool m_explodeTargetedDisc; // TODO NEKO unused (always false)
 	public int m_discMaxTargets;
 	public StandardEffectInfo m_effectOnSelf;
 	[Separator("On Enemy Hit")]
-	public int m_damage = 20;
+	public int m_damage = 20;  // TODO NEKO unused? always 15, not changed in mods
 	public int m_discDirectDamage = 25;
 	public int m_discReturnTripDamage = 10;
 	public int m_discReturnTripSubsequentHitDamage = 10;
 	public bool m_returnTripIgnoreCover = true;
 	public StandardEffectInfo m_enemyHitEffect;
-	public int m_explodingTargetDiscDamage = 25;
+	public int m_explodingTargetDiscDamage = 25;  // TODO NEKO unused? always 24, not changed in mods
 	[Header("-- Other Abilities --")]
 	public int m_discsReturningThisTurnExtraDamage;
 	[Separator("Cooldown Reduction")]
-	public int m_cdrIfHasReturnDiscHit;
+	public int m_cdrIfHasReturnDiscHit;  // TODO NEKO unused, always 0, not changed in mods
 	public int m_cdrOnEnlargeDiscIfCastSameTurn;
 	[Separator("Sequences")]
 	public GameObject m_throwDiscSequencePrefab;
-	public GameObject m_onCastTauntSequencePrefab;
+	public GameObject m_onCastTauntSequencePrefab;  // TODO NEKO CHECK
 	public GameObject m_chargeSequencePrefab;
-	public GameObject m_explosionAtTargetDiscSequencePrefab;
+	public GameObject m_explosionAtTargetDiscSequencePrefab;  // TODO NEKO unused?
 	public GameObject m_discReturnTripSequencePrefab;
 	public GameObject m_discPersistentDiscSequencePrefab;
 	public float m_recoveryTime = 1f;
@@ -489,4 +489,166 @@ public class NekoFlipDash : Ability
 		m_abilityMod = null;
 		Setup();
 	}
+	
+#if SERVER
+	// custom
+	public override BoardSquare GetModifiedMoveStartSquare(ActorData caster, List<AbilityTarget> targets)
+	{
+		if (targets.Count > m_dashTargeterIndex)
+		{
+			BoardSquare square = Board.Get().GetSquare(targets[m_dashTargeterIndex].GridPos);
+			if (square != null)
+			{
+				return square;
+			}
+		}
+		return base.GetModifiedMoveStartSquare(caster, targets);
+	}
+	
+	// custom
+	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(List<AbilityTarget> targets, ActorData caster, ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		ServerEvadeUtils.ChargeSegment[] array = new ServerEvadeUtils.ChargeSegment[2];
+		array[0] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = caster.GetCurrentBoardSquare(),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.None,
+			m_end = BoardSquarePathInfo.ChargeEndType.None
+		};
+		array[1] = new ServerEvadeUtils.ChargeSegment
+		{
+			m_pos = Board.Get().GetSquare(targets[m_dashTargeterIndex].GridPos),
+			m_cycle = BoardSquarePathInfo.ChargeCycleType.None,
+			m_end = BoardSquarePathInfo.ChargeEndType.None
+		};
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(array));
+		array[0].m_segmentMovementSpeed = segmentMovementSpeed;
+		array[1].m_segmentMovementSpeed = segmentMovementSpeed;
+		return array;
+	}
+	
+	// custom
+	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ServerAbilityUtils.AbilityRunData additionalData)
+	{
+		Vector3 losCheckPos = caster.GetSquareAtPhaseStart().GetOccupantLoSPos();
+		AreaEffectUtils.GetActorsInLaser(
+			losCheckPos,
+			targets[0].AimDirection,
+			GetLaserLength(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetDiscMaxTargets(),
+			false,
+			true,
+			out Vector3 laserEndPos,
+			null);
+		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
+		Vector3 startPos = caster.GetSquareAtPhaseStart().ToVector3();
+		startPos.y = Board.Get().LosCheckHeight;
+		// TODO NEKO CHECK height in all ability/effect sequences
+		return new List<ServerClientUtils.SequenceStartData>()
+		{
+			new ServerClientUtils.SequenceStartData(
+				m_throwDiscSequencePrefab,
+				discEndSquare,
+				additionalData.m_abilityResults.HitActorsArray(),
+				caster,
+				additionalData.m_sequenceSource,
+				new Sequence.IExtraSequenceParams[]
+				{
+					new SplineProjectileSequence.DelayedProjectileExtraParams
+					{
+						useOverrideStartPos = true,
+						overrideStartPos = startPos
+						// overrideStartPos = new Vector3(startPos.x, 6.6f, startPos.z) // TODO NEKO CHECK height 6.6
+					}
+				}),
+			new ServerClientUtils.SequenceStartData(
+				m_chargeSequencePrefab,
+				startPos,
+				// new Vector3(startPos.x, 5f, startPos.z), // TODO NEKO CHECK height 5
+				caster.AsArray(),
+				caster,
+				additionalData.m_sequenceSource)
+		};
+	}
+
+	// custom
+	public override void GatherAbilityResults(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref AbilityResults abilityResults)
+	{
+		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
+		AbilityTarget currentTarget = targets[0];
+		Vector3 losCheckPos = caster.GetSquareAtPhaseStart().GetOccupantLoSPos();
+		
+		List<ActorData> hitActors = AreaEffectUtils.GetActorsInLaser(
+			losCheckPos,
+			currentTarget.AimDirection,
+			GetLaserLength(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetDiscMaxTargets(),
+			false,
+			true,
+			out Vector3 laserEndPos,
+			nonActorTargetInfo);
+		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(losCheckPos, laserEndPos);
+		List<ActorData> aoeHitActors = AreaEffectUtils.GetActorsInRadius(
+			laserEndPos,
+			GetLaserAoeRadius(),
+			false,
+			caster,
+			caster.GetOtherTeams(),
+			nonActorTargetInfo,
+			true,
+			coneLosCheckPos);
+		
+		foreach (ActorData aoeHitActor in aoeHitActors)
+		{
+			if (!hitActors.Contains(aoeHitActor))
+			{
+				hitActors.Add(aoeHitActor);
+			}
+		}
+		
+		foreach (ActorData target in hitActors)
+		{
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, losCheckPos));
+			actorHitResults.SetBaseDamage(GetDiscDirectDamage());
+			actorHitResults.AddStandardEffectInfo(GetEnemyHitEffect());
+			abilityResults.StoreActorHit(actorHitResults);
+		}
+
+		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
+		NekoBoomerangDiscEffect effect = new NekoBoomerangDiscEffect(
+			AsEffectSource(),
+			new List<BoardSquare>{ discEndSquare },
+			caster,
+			GetDiscReturnEndRadius(),
+			GetDiscReturnTripDamage(),
+			GetDiscReturnTripSubsequentHitDamage(),
+			ReturnTripIgnoreCover(),
+			0,
+			m_discReturnTripSequencePrefab,
+			m_discPersistentDiscSequencePrefab);
+		PositionHitParameters positionHitParams = new PositionHitParameters(discEndSquare.ToVector3());
+		PositionHitResults positionHitResults = new PositionHitResults(effect, positionHitParams);
+		abilityResults.StorePositionHit(positionHitResults);
+		
+		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+		casterHitResults.AddStandardEffectInfo(GetEffectOnSelf());
+		abilityResults.StoreActorHit(casterHitResults);
+		
+		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+#endif
 }
