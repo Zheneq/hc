@@ -45,7 +45,7 @@ public class NekoFlipDash : Ability
 	public int m_cdrOnEnlargeDiscIfCastSameTurn;
 	[Separator("Sequences")]
 	public GameObject m_throwDiscSequencePrefab;
-	public GameObject m_onCastTauntSequencePrefab;  // TODO NEKO CHECK
+	public GameObject m_onCastTauntSequencePrefab;
 	public GameObject m_chargeSequencePrefab;
 	public GameObject m_explosionAtTargetDiscSequencePrefab;  // TODO NEKO unused?
 	public GameObject m_discReturnTripSequencePrefab;
@@ -550,7 +550,7 @@ public class NekoFlipDash : Ability
 			out Vector3 laserEndPos,
 			null);
 		BoardSquare discEndSquare = NekoBoomerangDisc.GetDiscEndSquare(caster.GetLoSCheckPos(), laserEndPos);
-		return new List<ServerClientUtils.SequenceStartData>()
+		List<ServerClientUtils.SequenceStartData> res = new List<ServerClientUtils.SequenceStartData>()
 		{
 			new ServerClientUtils.SequenceStartData(
 				m_throwDiscSequencePrefab,
@@ -573,6 +573,18 @@ public class NekoFlipDash : Ability
 				caster,
 				additionalData.m_sequenceSource)
 		};
+		if (additionalData.m_abilityResults.CinematicRequested > 0)
+		{
+			// add claw marks vfx TODO NEKO doesn't show =(
+			res.Add(
+				new ServerClientUtils.SequenceStartData(
+					m_onCastTauntSequencePrefab,
+					caster.GetCurrentBoardSquare(),
+					null,
+					caster,
+					additionalData.m_sequenceSource));
+		}
+		return res;
 	}
 
 	// custom
