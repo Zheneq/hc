@@ -1621,6 +1621,7 @@
     <Compile Include="MatchSchemaChange.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="MessageBoxData.cs" />
+    <Compile Include="Messages\Alliance\AdminShutdownGameRequest.cs" />
     <Compile Include="Messages\Alliance\AllianceMessageBase.cs" />
     <Compile Include="Messages\Alliance\AllianceResponseBase.cs" />
     <Compile Include="Messages\Alliance\JoinGameAsObserverRequest.cs" />
@@ -3049,6 +3050,26 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ArabicSupport.dll" />
+    <Content Include="Assembly-CSharp-firstpass.dll" />
+    <Content Include="C5.dll" />
+    <Content Include="Corale.Colore.dll" />
+    <Content Include="Fabric.Core.dll" />
+    <Content Include="ICSharpCode.SharpZipLib.dll" />
+    <Content Include="NetSerializer.dll" />
+    <Content Include="Newtonsoft.Json.dll" />
+    <Content Include="System.Core.dll" />
+    <Content Include="System.Runtime.Serialization.dll" />
+    <Content Include="System.Xml.Linq.dll" />
+    <Content Include="UnityEngine.dll" />
+    <Content Include="UnityEngine.dll.mdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="UnityEngine.Networking.dll" />
+    <Content Include="UnityEngine.UI.dll" />
+    <Content Include="websocket-sharp.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\GitInfo.2.3.0\build\GitInfo.targets" Condition="Exists('..\packages\GitInfo.2.3.0\build\GitInfo.targets')" />

@@ -456,7 +456,9 @@ public class ServerGameManager : MonoBehaviour
 		m_monitorGameServerInterface.OnJoinGameServerRequest += HandleJoinGameServerRequest;
 		m_monitorGameServerInterface.OnJoinGameAsObserverRequest += HandleJoinGameAsObserverRequest;
 		m_monitorGameServerInterface.OnShutdownGameRequest += HandleShutdownGameRequest;
-		m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
+        // Custom AdminShutdownGame
+        m_monitorGameServerInterface.OnAdminShutdownGameRequest += HandleAdminShutdownGameRequest;
+        m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
 		m_monitorGameServerInterface.OnReconnectPlayerRequest += HandleReconnectPlayerRequest;
 		m_monitorGameServerInterface.OnMonitorHeartbeatResponse += HandleMonitorHeartbeatResponse;
 		m_monitorGameServerInterface.Reconnect();
@@ -2082,7 +2084,19 @@ public class ServerGameManager : MonoBehaviour
 		Application.Quit();
 	}
 
-	public bool IsServer()
+    // Custom AdminShutdownGame
+    private void HandleAdminShutdownGameRequest(AdminShutdownGameRequest request)
+    {
+        Log.Info("Received shutdown game request with result {0}", request.GameResult);
+        if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+        {
+            ObjectivePoints.Get().Networkm_gameResult = request.GameResult;
+            Get().SendUnlocalizedConsoleMessage($"<color=red>Game over: Admin Game Shutdown (result: {request.GameResult}).</color>");
+            ObjectivePoints.Get().EndGame();
+        }
+    }
+
+    public bool IsServer()
 	{
 		return NetworkServer.active;
 	}

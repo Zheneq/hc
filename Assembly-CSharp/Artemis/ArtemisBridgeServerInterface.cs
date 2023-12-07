@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using Newtonsoft.Json;
 using UnityEngine;
 using WebSocketSharp;
 
@@ -22,6 +20,8 @@ namespace ArtemisServer.BridgeServer
         public event Action<JoinGameServerRequest> OnJoinGameServerRequest = delegate { };
         public event Action<JoinGameAsObserverRequest> OnJoinGameAsObserverRequest = delegate { };
         public event Action<ShutdownGameRequest> OnShutdownGameRequest = delegate { };
+        // Custom AdminShutdownGame
+        public event Action<AdminShutdownGameRequest> OnAdminShutdownGameRequest = delegate { };
         public event Action<DisconnectPlayerRequest> OnDisconnectPlayerRequest = delegate { };
         public event Action<ReconnectPlayerRequest> OnReconnectPlayerRequest = delegate { };
         public event Action<MonitorHeartbeatResponse> OnMonitorHeartbeatResponse = delegate { };
@@ -36,6 +36,8 @@ namespace ArtemisServer.BridgeServer
             typeof(JoinGameServerRequest),
             typeof(JoinGameAsObserverRequest),
             typeof(ShutdownGameRequest),
+            // Custom AdminShutdownGame
+            typeof(AdminShutdownGameRequest),
             typeof(DisconnectPlayerRequest),
             typeof(ReconnectPlayerRequest),
             typeof(MonitorHeartbeatResponse),
@@ -87,6 +89,8 @@ namespace ArtemisServer.BridgeServer
             RegisterMessageDelegate<JoinGameServerRequest>(HandleJoinGameServerRequest);
             RegisterMessageDelegate<JoinGameAsObserverRequest>(HandleJoinGameAsObserverRequest);
             RegisterMessageDelegate<ShutdownGameRequest>(HandleShutdownGameRequest);
+            // Custom AdminShutdownGame
+            RegisterMessageDelegate<AdminShutdownGameRequest>(HandleAdminShutdownGameRequest);
             RegisterMessageDelegate<DisconnectPlayerRequest>(HandleDisconnectPlayerRequest);
             RegisterMessageDelegate<ReconnectPlayerRequest>(HandleReconnectPlayerRequest);
             RegisterMessageDelegate<MonitorHeartbeatResponse>(HandleMonitorHeartbeatResponse);
@@ -235,6 +239,12 @@ namespace ArtemisServer.BridgeServer
         private void HandleShutdownGameRequest(AllianceMessageBase msg)
         {
             OnShutdownGameRequest((ShutdownGameRequest)msg);
+        }
+
+        // Custom AdminShutdownGame
+        private void HandleAdminShutdownGameRequest(AllianceMessageBase msg)
+        {
+            OnAdminShutdownGameRequest((AdminShutdownGameRequest)msg);
         }
 
         private void HandleDisconnectPlayerRequest(AllianceMessageBase msg)
