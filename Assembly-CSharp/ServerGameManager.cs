@@ -458,6 +458,8 @@ public class ServerGameManager : MonoBehaviour
 		m_monitorGameServerInterface.OnShutdownGameRequest += HandleShutdownGameRequest;
         // Custom AdminShutdownGame
         m_monitorGameServerInterface.OnAdminShutdownGameRequest += HandleAdminShutdownGameRequest;
+        // Custom AdminClearCooldowns
+        m_monitorGameServerInterface.OnAdminClearCooldownsRequest += HandleClearCooldownsRequest;
         m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
 		m_monitorGameServerInterface.OnReconnectPlayerRequest += HandleReconnectPlayerRequest;
 		m_monitorGameServerInterface.OnMonitorHeartbeatResponse += HandleMonitorHeartbeatResponse;
@@ -2095,6 +2097,21 @@ public class ServerGameManager : MonoBehaviour
             ObjectivePoints.Get().EndGame();
         }
     }
+
+    // Custom AdminClearCooldowns
+    private void HandleClearCooldownsRequest(AdminClearCooldownsRequest request)
+	{
+		Log.Info("Received clear cooldowns request");
+        if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+        {
+            foreach (ActorData actorData in GameFlowData.Get().GetActors())
+            {
+                actorData.GetAbilityData().ClearCooldowns();
+                actorData.GetAbilityData().RefillStocks();
+            }
+            Get().SendUnlocalizedConsoleMessage($"<color=red>Adming Cleared all cooldowns</color>");
+        }
+	}
 
     public bool IsServer()
 	{

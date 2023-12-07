@@ -1621,6 +1621,7 @@
     <Compile Include="MatchSchemaChange.cs" />
     <Compile Include="MathUtil.cs" />
     <Compile Include="MessageBoxData.cs" />
+    <Compile Include="Messages\Alliance\AdminClearCooldownsRequest.cs" />
     <Compile Include="Messages\Alliance\AdminShutdownGameRequest.cs" />
     <Compile Include="Messages\Alliance\AllianceMessageBase.cs" />
     <Compile Include="Messages\Alliance\AllianceResponseBase.cs" />

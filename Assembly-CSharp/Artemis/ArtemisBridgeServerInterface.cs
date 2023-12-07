@@ -22,6 +22,8 @@ namespace ArtemisServer.BridgeServer
         public event Action<ShutdownGameRequest> OnShutdownGameRequest = delegate { };
         // Custom AdminShutdownGame
         public event Action<AdminShutdownGameRequest> OnAdminShutdownGameRequest = delegate { };
+        // Custom AdminClearcooldowns
+        public event Action<AdminClearCooldownsRequest> OnAdminClearCooldownsRequest = delegate { };
         public event Action<DisconnectPlayerRequest> OnDisconnectPlayerRequest = delegate { };
         public event Action<ReconnectPlayerRequest> OnReconnectPlayerRequest = delegate { };
         public event Action<MonitorHeartbeatResponse> OnMonitorHeartbeatResponse = delegate { };
@@ -38,6 +40,8 @@ namespace ArtemisServer.BridgeServer
             typeof(ShutdownGameRequest),
             // Custom AdminShutdownGame
             typeof(AdminShutdownGameRequest),
+            // Custom AdminClearcooldowns
+            typeof(AdminClearCooldownsRequest),
             typeof(DisconnectPlayerRequest),
             typeof(ReconnectPlayerRequest),
             typeof(MonitorHeartbeatResponse),
@@ -91,6 +95,8 @@ namespace ArtemisServer.BridgeServer
             RegisterMessageDelegate<ShutdownGameRequest>(HandleShutdownGameRequest);
             // Custom AdminShutdownGame
             RegisterMessageDelegate<AdminShutdownGameRequest>(HandleAdminShutdownGameRequest);
+            // Custom AdminClearcooldowns
+            RegisterMessageDelegate<AdminClearCooldownsRequest>(HandleAdminClearCooldownsRequest);
             RegisterMessageDelegate<DisconnectPlayerRequest>(HandleDisconnectPlayerRequest);
             RegisterMessageDelegate<ReconnectPlayerRequest>(HandleReconnectPlayerRequest);
             RegisterMessageDelegate<MonitorHeartbeatResponse>(HandleMonitorHeartbeatResponse);
@@ -245,6 +251,12 @@ namespace ArtemisServer.BridgeServer
         private void HandleAdminShutdownGameRequest(AllianceMessageBase msg)
         {
             OnAdminShutdownGameRequest((AdminShutdownGameRequest)msg);
+        }
+
+        // Custom AdminClearCooldowns
+        private void HandleAdminClearCooldownsRequest(AllianceMessageBase msg)
+        {
+            OnAdminClearCooldownsRequest((AdminClearCooldownsRequest)msg);
         }
 
         private void HandleDisconnectPlayerRequest(AllianceMessageBase msg)
