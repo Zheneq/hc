@@ -579,15 +579,15 @@ namespace Theatrics
 #if SERVER
 		private void AssignAnimationPlayOrderAndCinematicsForPhase(AbilityPriority phasePriority, bool mergeBounds, bool showDebugInfo)
 		{
-			Dictionary<int, ServerPlayOrderGroup> dictionary = new Dictionary<int, ServerPlayOrderGroup>(GameFlowData.Get().GetActors().Count);
-			Dictionary<int, ServerPlayOrderGroup> dictionary2 = new Dictionary<int, ServerPlayOrderGroup>();
-			List<ServerPlayOrderGroup> list = new List<ServerPlayOrderGroup>(GameFlowData.Get().GetActors().Count);
-			Dictionary<Team, ServerPlayOrderGroup> dictionary3 = new Dictionary<Team, ServerPlayOrderGroup>(2);
+			Dictionary<int, ServerPlayOrderGroup> groupByOnlyEnemyTarget = new Dictionary<int, ServerPlayOrderGroup>(GameFlowData.Get().GetActors().Count);
+			Dictionary<int, ServerPlayOrderGroup> groupByCaster = new Dictionary<int, ServerPlayOrderGroup>();
+			List<ServerPlayOrderGroup> allGroups = new List<ServerPlayOrderGroup>(GameFlowData.Get().GetActors().Count);
+			Dictionary<Team, ServerPlayOrderGroup> groupsByBotTeam = new Dictionary<Team, ServerPlayOrderGroup>(2);
 			int num = (int)phasePriority;
 			List<ActorAnimation> actorAnimations = m_abilityPhases[num].m_actorAnimations;
-			dictionary.Clear();
-			list.Clear();
-			dictionary3.Clear();
+			groupByOnlyEnemyTarget.Clear();
+			allGroups.Clear();
+			groupsByBotTeam.Clear();
 			int count = actorAnimations.Count;
 			if (Turn.AnimsStartTogetherInPhase(phasePriority))
 			{
@@ -613,73 +613,72 @@ namespace Theatrics
 			}
 			else
 			{
-				for (int k = 0; k < actorAnimations.Count; k++)
+				foreach (ActorAnimation actorAnimation in actorAnimations)
 				{
-					ActorAnimation actorAnimation3 = actorAnimations[k];
-					if (actorAnimation3.IsCinematicRequested())
+					if (actorAnimation.IsCinematicRequested())
 					{
-						actorAnimation3.m_doCinematicCam = true;
-						actorAnimation3.m_cinematicCamIndex = actorAnimation3.CinematicIndex;
+						actorAnimation.m_doCinematicCam = true;
+						actorAnimation.m_cinematicCamIndex = actorAnimation.CinematicIndex;
 					}
 				}
-				IEnumerable<int> source = from a in actorAnimations
-										  where a.HasFreeActionAbility()
-										  select a.Caster.ActorIndex;
-				for (int l = 0; l < actorAnimations.Count; l++)
+				IEnumerable<int> actorsWithFreeActions = from a in actorAnimations
+					where a.HasFreeActionAbility()
+					select a.Caster.ActorIndex;
+				foreach (ActorAnimation actorAnimation in actorAnimations)
 				{
-					ActorAnimation actorAnimation4 = actorAnimations[l];
-					if (actorAnimation4.m_playOrderIndex == -1)
+					if (actorAnimation.m_playOrderIndex != -1)
 					{
-						actorAnimation4.m_playOrderIndex = -2;
-						ServerPlayOrderGroup serverPlayOrderGroup = null;
-						ActorData caster = actorAnimation4.Caster;
-						int onlyEnemyTargetActorIndex = actorAnimation4.GetOnlyEnemyTargetActorIndex();
-						bool flag = source.Contains(caster.ActorIndex);
-						if (flag && dictionary2.ContainsKey(caster.ActorIndex))
+						continue;
+					}
+					actorAnimation.m_playOrderIndex = -2;
+					ServerPlayOrderGroup serverPlayOrderGroup = null;
+					ActorData caster = actorAnimation.Caster;
+					int onlyEnemyTargetActorIndex = actorAnimation.GetOnlyEnemyTargetActorIndex();
+					bool forceGroupByCaster = actorsWithFreeActions.Contains(caster.ActorIndex);
+					if (forceGroupByCaster && groupByCaster.ContainsKey(caster.ActorIndex))
+					{
+						serverPlayOrderGroup = groupByCaster[caster.ActorIndex];
+					}
+					if (!forceGroupByCaster && onlyEnemyTargetActorIndex != ActorData.s_invalidActorIndex)
+					{
+						groupByOnlyEnemyTarget.TryGetValue(onlyEnemyTargetActorIndex, out serverPlayOrderGroup);
+					}
+					if (!GameplayUtils.IsPlayerControlled(caster))
+					{
+						if (!groupsByBotTeam.ContainsKey(caster.GetTeam()))
 						{
-							serverPlayOrderGroup = dictionary2[caster.ActorIndex];
+							groupsByBotTeam[caster.GetTeam()] = new ServerPlayOrderGroup(this, num);
+							allGroups.Add(groupsByBotTeam[caster.GetTeam()]);
 						}
-						if (!flag && onlyEnemyTargetActorIndex != ActorData.s_invalidActorIndex)
+						groupsByBotTeam[caster.GetTeam()].Add(actorAnimation);
+					}
+					else
+					{
+						if (serverPlayOrderGroup == null)
 						{
-							dictionary.TryGetValue(onlyEnemyTargetActorIndex, out serverPlayOrderGroup);
-						}
-						if (!GameplayUtils.IsPlayerControlled(caster))
-						{
-							if (!dictionary3.ContainsKey(caster.GetTeam()))
+							serverPlayOrderGroup = new ServerPlayOrderGroup(this, num);
+							if (forceGroupByCaster)
 							{
-								dictionary3[caster.GetTeam()] = new ServerPlayOrderGroup(this, num);
-								list.Add(dictionary3[caster.GetTeam()]);
+								groupByCaster[caster.ActorIndex] = serverPlayOrderGroup;
 							}
-							dictionary3[caster.GetTeam()].Add(actorAnimation4);
+							allGroups.Add(serverPlayOrderGroup);
 						}
-						else
+						if (!forceGroupByCaster && onlyEnemyTargetActorIndex != ActorData.s_invalidActorIndex)
 						{
-							if (serverPlayOrderGroup == null)
-							{
-								serverPlayOrderGroup = new ServerPlayOrderGroup(this, num);
-								if (flag)
-								{
-									dictionary2[caster.ActorIndex] = serverPlayOrderGroup;
-								}
-								list.Add(serverPlayOrderGroup);
-							}
-							if (!flag && onlyEnemyTargetActorIndex != ActorData.s_invalidActorIndex)
-							{
-								dictionary[onlyEnemyTargetActorIndex] = serverPlayOrderGroup;
-							}
-							serverPlayOrderGroup.Add(actorAnimation4);
+							groupByOnlyEnemyTarget[onlyEnemyTargetActorIndex] = serverPlayOrderGroup;
 						}
+						serverPlayOrderGroup.Add(actorAnimation);
 					}
 				}
-				for (int m = 0; m < list.Count; m++)
+				foreach (ServerPlayOrderGroup playOrderGroup in allGroups)
 				{
-					list[m].InitSortData();
+					playOrderGroup.InitSortData();
 				}
-				list.Sort();
+				allGroups.Sort();
 				sbyte startIndex = 0;
-				for (int n = 0; n < list.Count; n++)
+				foreach (ServerPlayOrderGroup playOrderGroup in allGroups)
 				{
-					startIndex = list[n].AssignPlayOrderIndexes(startIndex);
+					startIndex = playOrderGroup.AssignPlayOrderIndexes(startIndex);
 				}
 				if (mergeBounds && CameraManager.Get() != null && CameraManager.Get().GetAbilitiesCamera() != null)
 				{
@@ -689,9 +688,9 @@ namespace Theatrics
 					Bounds bounds2 = default(Bounds);
 					int num2 = 0;
 					int num3 = 0;
-					for (int num4 = 0; num4 < list.Count; num4++)
+					foreach (ServerPlayOrderGroup playOrderGroup in allGroups)
 					{
-						List<ActorAnimation> actorAnimationsInGroup = list[num4].GetActorAnimationsInGroup();
+						List<ActorAnimation> actorAnimationsInGroup = playOrderGroup.GetActorAnimationsInGroup();
 						for (int num5 = 0; num5 < actorAnimationsInGroup.Count; num5++)
 						{
 							ActorAnimation actorAnimation5 = actorAnimationsInGroup[num5];
@@ -781,23 +780,22 @@ namespace Theatrics
 					int num8 = 0;
 					Vector3 vector4 = Vector3.zero;
 					float y = (float)Board.Get().BaselineHeight;
-					for (int num9 = 0; num9 < list.Count; num9++)
+					foreach (ServerPlayOrderGroup playOrderGroup in allGroups)
 					{
-						ServerPlayOrderGroup serverPlayOrderGroup2 = list[num9];
-						List<ActorAnimation> actorAnimationsInGroup2 = serverPlayOrderGroup2.GetActorAnimationsInGroup();
+						List<ActorAnimation> actorAnimationsInGroup2 = playOrderGroup.GetActorAnimationsInGroup();
 						for (int num10 = 0; num10 < actorAnimationsInGroup2.Count; num10++)
 						{
 							ActorAnimation actorAnimation6 = actorAnimationsInGroup2[num10];
 							text = text + actorAnimation6.ToString() + "\n";
-							if (serverPlayOrderGroup2.CasterDied() || serverPlayOrderGroup2.TargetDied())
+							if (playOrderGroup.CasterDied() || playOrderGroup.TargetDied())
 							{
 								text = string.Concat(new string[]
 								{
 									text,
 									"\tCasterDied=",
-									serverPlayOrderGroup2.CasterDied().ToString(),
+									playOrderGroup.CasterDied().ToString(),
 									" | TargetDied=",
-									serverPlayOrderGroup2.TargetDied().ToString(),
+									playOrderGroup.TargetDied().ToString(),
 									"\n"
 								});
 							}
