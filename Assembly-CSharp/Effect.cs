@@ -140,6 +140,12 @@ public class Effect
 		return (Caster == null && team == Team.TeamB) || (Caster != null && Caster.GetTeam() == team) || (Caster != null && Caster.GetTeam() == Team.Objects);
 	}
 
+	// custom
+	public virtual int GetTheatricsSortPriority(AbilityData.ActionType actionType)
+	{
+		return 0;
+	}
+
 	public virtual bool ShouldForceReactToHit(ActorHitResults incomingHit)
 	{
 		return false;

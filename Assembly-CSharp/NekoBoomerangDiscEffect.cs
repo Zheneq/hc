@@ -127,7 +127,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
         
         List<List<ActorData>> hitActorsPerDisc = GetHitActors(out List<Vector3> startLosPosList, out Vector3 endLosPos, out int enlargedDiscIndex);
 
-        ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
+        ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, HIT_POS));
         
         List<ActorData> processedActors = new List<ActorData>();
         if (enlargedDiscIndex >= 0)
@@ -228,7 +228,7 @@ public class NekoBoomerangDiscEffect : NekoAbstractDiscEffect
     
     public override int GetCasterAnimationIndex(AbilityPriority phaseIndex)
     {
-        if (phaseIndex != AbilityPriority.Combat_Damage || m_time.age < 1)
+        if (phaseIndex != AbilityPriority.Combat_Damage || m_time.age < 1 || Caster.IsDead())
         {
             return base.GetCasterAnimationIndex(phaseIndex);
         }

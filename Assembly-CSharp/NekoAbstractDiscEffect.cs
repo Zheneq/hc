@@ -90,6 +90,11 @@ public abstract class NekoAbstractDiscEffect : Effect
         return false;
     }
 
+    public override int GetTheatricsSortPriority(AbilityData.ActionType actionType)
+    {
+        return 2;
+    }
+
     public override void AddToSquaresToAvoidForRespawn(HashSet<BoardSquare> squaresToAvoid, ActorData forActor)
     {
         if (forActor.GetTeam() != Caster.GetTeam())

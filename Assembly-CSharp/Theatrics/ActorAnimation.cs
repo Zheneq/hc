@@ -1326,6 +1326,24 @@ namespace Theatrics
 		}
 #endif
 
+		// custom
+#if SERVER
+		internal int GetTheatricsSortPriority()
+		{
+			if (m_ability != null)
+			{
+				return m_ability.GetTheatricsSortPriority(m_abilityActionType);
+			}
+
+			if (Effect != null)
+			{
+				return Effect.GetTheatricsSortPriority(m_abilityActionType);
+			}
+			
+			return 0;
+		}
+#endif
+
 		public int CompareTo(ActorAnimation rhs)
 		{
 			if (rhs == null)
@@ -1336,6 +1354,18 @@ namespace Theatrics
 			{
 				return 0;
 			}
+			
+#if SERVER
+			// custom
+			int leftSortPriority = GetTheatricsSortPriority();
+			int rightSortPriority = rhs.GetTheatricsSortPriority();
+			if (leftSortPriority != rightSortPriority)
+			{
+				return leftSortPriority.CompareTo(rightSortPriority);
+			}
+			// end custom
+#endif
+			
 			if (m_ability == null || rhs.m_ability == null)
 			{
 				if (m_ability == null && rhs.m_ability == null)
@@ -1379,24 +1409,6 @@ namespace Theatrics
 			{
 				return m_animationIndex.CompareTo(rhs.m_animationIndex);
 			}
-			
-			// custom TODO NEKO doesn't seem to affect anything
-			int leftSortPriority = m_ability.GetTheatricsSortPriority(m_abilityActionType);
-			int rightSortPriority = rhs.m_ability.GetTheatricsSortPriority(rhs.m_abilityActionType);
-			if (leftSortPriority != rightSortPriority)
-			{
-				if (rightSortPriority == 0)
-				{
-					return 1;
-				}
-				if (leftSortPriority == 0)
-				{
-					return -1;
-				}
-
-				return leftSortPriority.CompareTo(rightSortPriority);
-			}
-			// end custom
 			
 			return 0;
 		}

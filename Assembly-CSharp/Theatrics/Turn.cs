@@ -634,7 +634,8 @@ namespace Theatrics
 					ServerPlayOrderGroup serverPlayOrderGroup = null;
 					ActorData caster = actorAnimation.Caster;
 					int onlyEnemyTargetActorIndex = actorAnimation.GetOnlyEnemyTargetActorIndex();
-					bool forceGroupByCaster = actorsWithFreeActions.Contains(caster.ActorIndex);
+					bool forceGroupByCaster = actorsWithFreeActions.Contains(caster.ActorIndex)
+					                          || actorAnimation.GetTheatricsSortPriority() > 0;
 					if (forceGroupByCaster && groupByCaster.ContainsKey(caster.ActorIndex))
 					{
 						serverPlayOrderGroup = groupByCaster[caster.ActorIndex];

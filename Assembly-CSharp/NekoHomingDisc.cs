@@ -188,9 +188,19 @@ public class NekoHomingDisc : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
+		BoardSquare targetSquare;
+		if (!additionalData.m_abilityResults.HitActorsArray().IsNullOrEmpty())
+		{
+			targetSquare = additionalData.m_abilityResults.HitActorsArray()[0].GetCurrentBoardSquare();
+		}
+		else
+		{
+			GetHitActors(caster, targets[0], null, out Vector3 laserEndPoint);
+			targetSquare = Board.Get().GetSquareClosestToPos(laserEndPoint.x, laserEndPoint.z);
+		}
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
-			Board.Get().GetSquare(targets[0].GridPos),
+			targetSquare,
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
 			additionalData.m_sequenceSource);
@@ -202,23 +212,7 @@ public class NekoHomingDisc : Ability
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
 		AbilityTarget currentTarget = targets[0];
 		Vector3 losCheckPos = caster.GetLoSCheckPos();
-		VectorUtils.LaserCoords laserCoords = new VectorUtils.LaserCoords
-		{
-			start = caster.GetLoSCheckPos()
-		};
-		List<ActorData> hitActors = AreaEffectUtils.GetActorsInLaser(
-			laserCoords.start,
-			currentTarget.AimDirection,
-			GetLaserLength(),
-			GetLaserWidth(),
-			caster,
-			caster.GetOtherTeams(),
-			false,
-			GetMaxTargets(),
-			false,
-			true,
-			out laserCoords.end,
-			nonActorTargetInfo);
+		List<ActorData> hitActors = GetHitActors(caster, currentTarget, nonActorTargetInfo, out _);
 
 		if (hitActors.Count != 0)
 		{
@@ -248,6 +242,27 @@ public class NekoHomingDisc : Ability
 		}
 		
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	private List<ActorData> GetHitActors(
+		ActorData caster,
+		AbilityTarget currentTarget,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		out Vector3 laserEndPoint)
+	{
+		return AreaEffectUtils.GetActorsInLaser(
+			caster.GetLoSCheckPos(),
+			currentTarget.AimDirection,
+			GetLaserLength(),
+			GetLaserWidth(),
+			caster,
+			caster.GetOtherTeams(),
+			false,
+			GetMaxTargets(),
+			false,
+			true,
+			out laserEndPoint,
+			nonActorTargetInfo);
 	}
 
 	public override void OnExecutedActorHit_Effect(ActorData caster, ActorData target, ActorHitResults results)

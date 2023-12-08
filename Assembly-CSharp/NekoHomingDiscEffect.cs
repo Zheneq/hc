@@ -187,7 +187,7 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
 
         ProcessHits(effectResults, hitActors, m_discEndPos, m_targetSquares[0].GetOccupantLoSPos(), isDiscEnlarged);
         
-        ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, Caster.GetFreePos()));
+        ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(Caster, HIT_POS));
         if (isDiscEnlarged)
         {
             ProcessAdditionalEnlargedEffects(hitActors, casterHitResults);
