@@ -628,6 +628,7 @@ public class NekoFlipDash : Ability
 				hitActors.Add(aoeHitActor);
 			}
 		}
+		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref hitActors);
 		
 		foreach (ActorData target in hitActors)
 		{
