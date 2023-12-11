@@ -261,7 +261,7 @@ public class NekoEnlargeDisc : Ability
 		{
 			new ServerClientUtils.SequenceStartData(
 				m_castSequencePrefab,
-				targets[0].FreePos,
+				Board.Get().GetSquare(targets[0].GridPos).GetOccupantLoSPos(),
 				null,
 				caster,
 				additionalData.m_sequenceSource)
