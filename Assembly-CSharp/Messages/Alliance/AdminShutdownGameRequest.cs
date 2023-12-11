@@ -1,9 +1,9 @@
 ﻿// SERVER
+// ROGUES
 using System;
 using UnityEngine.Networking;
 
-// server-only, missing in reactor
-// Custom AdminShutdownGame
+// custom
 #if SERVER
 [Serializable]
 public class AdminShutdownGameRequest : AllianceMessageBase

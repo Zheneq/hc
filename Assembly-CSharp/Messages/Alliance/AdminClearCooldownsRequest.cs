@@ -1,13 +1,11 @@
 ﻿// SERVER
+// ROGUES
 using System;
-using UnityEngine.Networking;
 
-// server-only, missing in reactor
-// Custom AdminClearcooldownsRequest
+// custom
 #if SERVER
 [Serializable]
 public class AdminClearCooldownsRequest : AllianceMessageBase
 {
-
 }
 #endif

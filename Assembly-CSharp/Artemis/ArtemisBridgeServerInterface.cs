@@ -38,10 +38,6 @@ namespace ArtemisServer.BridgeServer
             typeof(JoinGameServerRequest),
             typeof(JoinGameAsObserverRequest),
             typeof(ShutdownGameRequest),
-            // Custom AdminShutdownGame
-            typeof(AdminShutdownGameRequest),
-            // Custom AdminClearcooldowns
-            typeof(AdminClearCooldownsRequest),
             typeof(DisconnectPlayerRequest),
             typeof(ReconnectPlayerRequest),
             typeof(MonitorHeartbeatResponse),
@@ -54,6 +50,8 @@ namespace ArtemisServer.BridgeServer
             typeof(JoinGameServerResponse),
             typeof(JoinGameAsObserverResponse),
             typeof(ReconnectPlayerResponse),
+            typeof(AdminShutdownGameRequest),
+            typeof(AdminClearCooldownsRequest),
         };
 
         protected override List<Type> GetMessageTypes()
