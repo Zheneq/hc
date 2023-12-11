@@ -456,7 +456,11 @@ public class ServerGameManager : MonoBehaviour
 		m_monitorGameServerInterface.OnJoinGameServerRequest += HandleJoinGameServerRequest;
 		m_monitorGameServerInterface.OnJoinGameAsObserverRequest += HandleJoinGameAsObserverRequest;
 		m_monitorGameServerInterface.OnShutdownGameRequest += HandleShutdownGameRequest;
-		m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
+        // Custom AdminShutdownGame
+        m_monitorGameServerInterface.OnAdminShutdownGameRequest += HandleAdminShutdownGameRequest;
+        // Custom AdminClearCooldowns
+        m_monitorGameServerInterface.OnAdminClearCooldownsRequest += HandleClearCooldownsRequest;
+        m_monitorGameServerInterface.OnDisconnectPlayerRequest += HandleDisconnectPlayerRequest;
 		m_monitorGameServerInterface.OnReconnectPlayerRequest += HandleReconnectPlayerRequest;
 		m_monitorGameServerInterface.OnMonitorHeartbeatResponse += HandleMonitorHeartbeatResponse;
 		m_monitorGameServerInterface.Reconnect();
@@ -2082,7 +2086,34 @@ public class ServerGameManager : MonoBehaviour
 		Application.Quit();
 	}
 
-	public bool IsServer()
+    // Custom AdminShutdownGame
+    private void HandleAdminShutdownGameRequest(AdminShutdownGameRequest request)
+    {
+        Log.Info("Received shutdown game request with result {0}", request.GameResult);
+        if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+        {
+            ObjectivePoints.Get().Networkm_gameResult = request.GameResult;
+            Get().SendUnlocalizedConsoleMessage($"<color=red>Game over: Admin Game Shutdown (result: {request.GameResult}).</color>");
+            ObjectivePoints.Get().EndGame();
+        }
+    }
+
+    // Custom AdminClearCooldowns
+    private void HandleClearCooldownsRequest(AdminClearCooldownsRequest request)
+    {
+        Log.Info("Received clear cooldowns request");
+        if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+        {
+            foreach (ActorData actorData in GameFlowData.Get().GetActors())
+            {
+                actorData.GetAbilityData().ClearCooldowns();
+                actorData.GetAbilityData().RefillStocks();
+            }
+            Get().SendUnlocalizedConsoleMessage($"<color=red>Adming Cleared all cooldowns</color>");
+        }
+    }
+
+    public bool IsServer()
 	{
 		return NetworkServer.active;
 	}
