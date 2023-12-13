@@ -175,6 +175,11 @@ public class NekoHomingDiscEffect : NekoAbstractDiscEffect
         return ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoEnlargeDisc));
     }
 
+    public override bool HitsCanBeReactedTo()
+    {
+        return true;
+    }
+
     public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
     {
         if (m_time.age < 1)
