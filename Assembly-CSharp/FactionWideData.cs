@@ -9,7 +9,6 @@ public class FactionWideData : MonoBehaviour
 
 	[Header("Faction Groups")]
 	public List<FactionGroup> m_factionGroups;
-
 	[Header("Faction Competitions")]
 	public List<FactionCompetition> m_factionCompetitions;
 
@@ -22,18 +21,11 @@ public class FactionWideData : MonoBehaviour
 	{
 		float[] array = new float[4];
 		FactionGroup factionGroup = Get().GetFactionGroup(faction.FactionGroupIDToUse);
-		if (factionGroup.ColorHex != null)
+		if (factionGroup.ColorHex != null && factionGroup.ColorHex.Length == 8)
 		{
-			if (factionGroup.ColorHex.Length == 8)
+			for (int i = 0; i < 4; i++)
 			{
-				for (int i = 0; i < 4; i++)
-				{
-					array[i] = (float)(int)Convert.ToByte(factionGroup.ColorHex.Substring(i * 2, 2), 16) / 255f;
-				}
-				while (true)
-				{
-					return array;
-				}
+				array[i] = Convert.ToByte(factionGroup.ColorHex.Substring(i * 2, 2), 16) / 255f;
 			}
 		}
 		return array;
@@ -41,46 +33,27 @@ public class FactionWideData : MonoBehaviour
 
 	public FactionGroup GetFactionGroup(int GroupID)
 	{
-		for (int i = 0; i < m_factionGroups.Count; i++)
+		foreach (FactionGroup group in m_factionGroups)
 		{
-			if (GroupID != m_factionGroups[i].FactionGroupID)
+			if (GroupID == group.FactionGroupID)
 			{
-				continue;
-			}
-			while (true)
-			{
-				return m_factionGroups[i];
+				return group;
 			}
 		}
-		while (true)
-		{
-			return new FactionGroup();
-		}
+
+		return new FactionGroup();
 	}
 
 	public FactionCompetition GetFactionCompetition(int index)
 	{
 		int num = 1;
-		using (List<FactionCompetition>.Enumerator enumerator = m_factionCompetitions.GetEnumerator())
+		foreach (FactionCompetition comp in m_factionCompetitions)
 		{
-			while (enumerator.MoveNext())
+			if (num == index)
 			{
-				FactionCompetition current = enumerator.Current;
-				if (num == index)
-				{
-					while (true)
-					{
-						switch (6)
-						{
-						case 0:
-							break;
-						default:
-							return current;
-						}
-					}
-				}
-				num++;
+				return comp;
 			}
+			num++;
 		}
 		return null;
 	}
@@ -88,21 +61,18 @@ public class FactionWideData : MonoBehaviour
 	public Faction GetFaction(int competitionId, int factionId)
 	{
 		FactionCompetition factionCompetition = GetFactionCompetition(competitionId);
-		if (factionCompetition != null)
+		if (factionCompetition == null)
 		{
-			int num = 0;
-			using (List<Faction>.Enumerator enumerator = factionCompetition.Factions.GetEnumerator())
+			return null;
+		}
+		int num = 0;
+		foreach (Faction current in factionCompetition.Factions)
+		{
+			if (num == factionId)
 			{
-				while (enumerator.MoveNext())
-				{
-					Faction current = enumerator.Current;
-					if (num == factionId)
-					{
-						return current;
-					}
-					num++;
-				}
+				return current;
 			}
+			num++;
 		}
 		return null;
 	}
@@ -117,29 +87,18 @@ public class FactionWideData : MonoBehaviour
 		Faction faction = GetFaction(competitionId, factionId);
 		if (faction != null)
 		{
-			while (true)
+			int tierId = 0;
+			long tierScore = 0L;
 			{
-				switch (4)
+				foreach (FactionTier tier in faction.Tiers)
 				{
-				case 0:
-					break;
-				default:
-				{
-					int num = 0;
-					long num2 = 0L;
+					tierScore += tier.ContributionToComplete;
+					if (tierScore <= factionScore)
 					{
-						foreach (FactionTier tier in faction.Tiers)
-						{
-							num2 += tier.ContributionToComplete;
-							if (num2 <= factionScore)
-							{
-								num++;
-							}
-						}
-						return num;
+						tierId++;
 					}
 				}
-				}
+				return tierId;
 			}
 		}
 		return 0;
@@ -148,14 +107,9 @@ public class FactionWideData : MonoBehaviour
 	public void SetCompetitionFactionTierInfo(int competitionId, int factionId, int tierId, long contributionToComplete)
 	{
 		FactionTier factionTier = GetFactionTier(competitionId, factionId, tierId);
-		if (factionTier == null)
-		{
-			return;
-		}
-		while (true)
+		if (factionTier != null)
 		{
 			factionTier.ContributionToComplete = contributionToComplete;
-			return;
 		}
 	}
 
@@ -164,23 +118,11 @@ public class FactionWideData : MonoBehaviour
 		Faction faction = GetFaction(competitionId, factionID);
 		if (faction != null)
 		{
-			while (true)
+			if (currentLevel >= 1 && currentLevel <= faction.FactionPlayerProgressInfo.Length)
 			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					if (currentLevel >= 1)
-					{
-						if (currentLevel <= faction.FactionPlayerProgressInfo.Length)
-						{
-							return faction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
-						}
-					}
-					throw new ArgumentException($"Current level {currentLevel} is outside the player faction level range {1}-{faction.FactionPlayerProgressInfo.Length}");
-				}
+				return faction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
 			}
+			throw new ArgumentException($"Current level {currentLevel} is outside the player faction level range {1}-{faction.FactionPlayerProgressInfo.Length}");
 		}
 		return -1;
 	}
@@ -188,32 +130,21 @@ public class FactionWideData : MonoBehaviour
 	public bool IsRibbonInCompetition(int ribbonId, int competitionId)
 	{
 		FactionCompetition factionCompetition = GetFactionCompetition(competitionId);
-		if (factionCompetition != null)
+		if (factionCompetition == null || factionCompetition.Factions == null)
 		{
-			if (factionCompetition.Factions != null)
+			return false;
+		}
+		foreach (Faction faction in factionCompetition.Factions)
+		{
+			if (faction == null || faction.RibbonIds == null)
 			{
-				for (int i = 0; i < factionCompetition.Factions.Count; i++)
+				continue;
+			}
+			foreach (int id in faction.RibbonIds)
+			{
+				if (ribbonId == id)
 				{
-					Faction faction = factionCompetition.Factions[i];
-					if (faction == null)
-					{
-						continue;
-					}
-					if (faction.RibbonIds == null)
-					{
-						continue;
-					}
-					for (int j = 0; j < faction.RibbonIds.Count; j++)
-					{
-						if (ribbonId != faction.RibbonIds[j])
-						{
-							continue;
-						}
-						while (true)
-						{
-							return true;
-						}
-					}
+					return true;
 				}
 			}
 		}
@@ -223,11 +154,7 @@ public class FactionWideData : MonoBehaviour
 	private void Awake()
 	{
 		s_instance = this;
-		if (m_factionCompetitions.Count != 0)
-		{
-			return;
-		}
-		while (true)
+		if (m_factionCompetitions.Count == 0)
 		{
 			throw new Exception("FactionWideData failed to load");
 		}
@@ -242,19 +169,14 @@ public class FactionWideData : MonoBehaviour
 	{
 		List<FactionGroup> list = new List<FactionGroup>();
 		DateTime t = ClientGameManager.Get().PacificNow();
-		for (int i = 0; i < m_factionGroups.Count; i++)
+		foreach (FactionGroup factionGroup in m_factionGroups)
 		{
-			if (m_factionGroups[i].FilterDisplayStartTime.IsNullOrEmpty() || m_factionGroups[i].FilterDisplayEndTime.IsNullOrEmpty())
+			if (!factionGroup.FilterDisplayStartTime.IsNullOrEmpty()
+			    && !factionGroup.FilterDisplayEndTime.IsNullOrEmpty()
+			    && t > Convert.ToDateTime(factionGroup.FilterDisplayStartTime)
+			    && t < Convert.ToDateTime(factionGroup.FilterDisplayEndTime))
 			{
-				continue;
-			}
-			if (!(t > Convert.ToDateTime(m_factionGroups[i].FilterDisplayStartTime)))
-			{
-				continue;
-			}
-			if (t < Convert.ToDateTime(m_factionGroups[i].FilterDisplayEndTime))
-			{
-				list.Add(m_factionGroups[i]);
+				list.Add(factionGroup);
 			}
 		}
 		return list;
@@ -265,14 +187,12 @@ public class FactionWideData : MonoBehaviour
 		DateTime t = ClientGameManager.Get().PacificNow();
 		for (int i = 0; i < m_factionCompetitions.Count; i++)
 		{
-			if (t > Convert.ToDateTime(m_factionCompetitions[i].StartTime) && t < Convert.ToDateTime(m_factionCompetitions[i].EndTime))
+			if (t > Convert.ToDateTime(m_factionCompetitions[i].StartTime)
+			    && t < Convert.ToDateTime(m_factionCompetitions[i].EndTime))
 			{
 				return i + 1;
 			}
 		}
-		while (true)
-		{
-			return -1;
-		}
+		return -1;
 	}
 }
