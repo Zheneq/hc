@@ -842,7 +842,7 @@ public class ClaymoreCharge : Ability
 			GetChargeWidth(),
 			caster,
 			caster.GetEnemyTeamAsList(),
-			true,
+			false,
 			0,
 			true,
 			true,
