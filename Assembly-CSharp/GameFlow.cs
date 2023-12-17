@@ -684,9 +684,10 @@ public class GameFlow : NetworkBehaviour
 		{
 			while (true)
 			{
+				ServerKnockbackManager serverKnockbackManager = ServerActionBuffer.Get().GetKnockbackManager();
 				if (actionBuffer.AbilityPhase == AbilityPriority.Combat_Knockback)
 				{
-					ServerActionBuffer.Get().GetKnockbackManager().ClearStoredData();
+					serverKnockbackManager.ClearStoredData();
 				}
 				ServerEffectManager.Get().OnAbilityPhaseEnd(actionBuffer.AbilityPhase);
 				if (actionBuffer.AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
@@ -721,6 +722,8 @@ public class GameFlow : NetworkBehaviour
 				else if (phase == AbilityPriority.Combat_Knockback)
 				{
 					// in case something changed since pre-gathering
+					serverKnockbackManager.ClearStoredData();
+					serverKnockbackManager.ProcessKnockbacks(allStoredAbilityRequests);
 					List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
 					if (executingEffects.Count > 0)
 					{
@@ -731,7 +734,7 @@ public class GameFlow : NetworkBehaviour
 					}
 			
 					// we are only gathering responses to knockbacks here
-					ServerActionBuffer.Get().GetKnockbackManager().GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
+					serverKnockbackManager.GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
 					ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
 				}
 				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
