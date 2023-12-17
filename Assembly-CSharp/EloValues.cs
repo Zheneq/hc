@@ -27,11 +27,7 @@ public class EloValues : ICloneable
 		}
 	}
 
-	public Dictionary<string, EloDatum> Values
-	{
-		get;
-		private set;
-	}
+	public Dictionary<string, EloDatum> Values { get; private set; }
 
 	[JsonIgnore]
 	public float PlayerFacingElo
@@ -41,10 +37,7 @@ public class EloValues : ICloneable
 			GetElo(ELOPlayerKey.PublicFacingKey.KeyText, out float elo, out int _);
 			return elo;
 		}
-		set
-		{
-			UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0);
-		}
+		set => UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0);
 	}
 
 	[JsonIgnore]
@@ -55,10 +48,7 @@ public class EloValues : ICloneable
 			GetElo(ELOPlayerKey.MatchmakingEloKey.KeyText, out float elo, out int _);
 			return elo;
 		}
-		set
-		{
-			UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0);
-		}
+		set => UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0);
 	}
 
 	public EloValues()
@@ -68,52 +58,38 @@ public class EloValues : ICloneable
 
 	public void UpdateElo(string key, float value, int countDelta)
 	{
-		if (Values.TryGetValue(key, out EloDatum value2))
+		if (Values.TryGetValue(key, out EloDatum datum))
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					value2.Elo = Math.Max(1f, value);
-					value2.Count = Math.Max(0, value2.Count + countDelta);
-					return;
-				}
-			}
+			datum.Elo = Math.Max(1f, value);
+			datum.Count = Math.Max(0, datum.Count + countDelta);
 		}
-		countDelta = Math.Max(0, countDelta);
-		Values.Add(key, new EloDatum
+		else
 		{
-			Elo = value,
-			Count = countDelta
-		});
+			countDelta = Math.Max(0, countDelta);
+			Values.Add(key, new EloDatum
+			{
+				Elo = value,
+				Count = countDelta
+			});
+		}
 	}
 
 	public void ApplyDelta(string key, float eloDelta, int countDelta)
 	{
 		if (Values.TryGetValue(key, out EloDatum value))
 		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					value.Elo = Math.Max(1f, value.Elo + eloDelta);
-					value.Count = Math.Max(0, value.Count + countDelta);
-					return;
-				}
-			}
+			value.Elo = Math.Max(1f, value.Elo + eloDelta);
+			value.Count = Math.Max(0, value.Count + countDelta);
 		}
-		countDelta = Math.Max(0, countDelta);
-		Values.Add(key, new EloDatum
+		else
 		{
-			Elo = 1500f + eloDelta,
-			Count = countDelta
-		});
+			countDelta = Math.Max(0, countDelta);
+			Values.Add(key, new EloDatum
+			{
+				Elo = 1500f + eloDelta,
+				Count = countDelta
+			});
+		}
 	}
 
 	public void GetElo(string key, out float elo, out int count)
