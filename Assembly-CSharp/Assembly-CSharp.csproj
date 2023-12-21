@@ -427,6 +427,7 @@
     <Compile Include="ActorTeamSensitiveData.cs" />
     <Compile Include="ActorTurnSM.cs" />
     <Compile Include="ActorVFX.cs" />
+    <Compile Include="ActorVisionProviderEffect.cs" />
     <Compile Include="AdditionalAttachedActorVfx.cs" />
     <Compile Include="AdditionalVfxContainerBase.cs" />
     <Compile Include="AdminComponent.cs" />

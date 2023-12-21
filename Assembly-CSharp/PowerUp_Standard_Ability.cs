@@ -67,7 +67,13 @@ public class PowerUp_Standard_Ability : Ability
 
 	// added in rogues
 #if SERVER
-	public ActorHitResults CreateActorHitResults(PowerUp powerUp, ActorData targetActor, Vector3 origin, StandardPowerUpAbilityModData powerupMod, EffectSource effectSourceOverride, bool isDirectActorHit)
+	public virtual ActorHitResults CreateActorHitResults(
+		PowerUp powerUp,
+		ActorData targetActor,
+		Vector3 origin,
+		StandardPowerUpAbilityModData powerupMod,
+		EffectSource effectSourceOverride,
+		bool isDirectActorHit) // non-virtual in rogues
 	{
 		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(targetActor, origin)
 		{
