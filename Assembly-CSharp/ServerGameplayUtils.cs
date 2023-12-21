@@ -27,7 +27,7 @@ public static class ServerGameplayUtils
 			    && !actorData.IsDead()
 			    && actorData.GetCurrentBoardSquare() != null
 			    && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare()
-			    && actorData.IsActorVisibleToAnyEnemy(true))
+			    && actorData.IsActorVisibleToAnyEnemy())
 			{
 				actorData.SetServerLastKnownPosSquare(actorData.CurrentBoardSquare, "SetServerLastKnownPositionsForMovement");
 			}
@@ -98,7 +98,7 @@ public static class ServerGameplayUtils
 				         && (lastKnownPosData.Actor.GetActorStatus().HasStatus(StatusType.Revealed)
 				             || CaptureTheFlag.IsActorRevealedByFlag_Server(lastKnownPosData.Actor)
 				             || !lastKnownPosData.m_movementInstance.m_willBeStealthed)
-				         && lastKnownPosData.Actor.IsActorVisibleToAnyEnemy(true))
+				         && lastKnownPosData.Actor.IsActorVisibleToAnyEnemy())
 				{
 					lastKnownPosData.Actor.SetServerLastKnownPosSquare(lastKnownPosData.Actor.CurrentBoardSquare, "IterateOverLastKnownPosData (movers)");
 					if (!actorsThatWillBeSeenButArentMoving.Contains(lastKnownPosData.Actor))
@@ -112,7 +112,7 @@ public static class ServerGameplayUtils
 				if (!moverToLastKnownPosData.ContainsKey(actorData)
 				    && !actorData.IsDead()
 				    && actorData.ServerLastKnownPosSquare != actorData.GetCurrentBoardSquare()
-				    && actorData.IsActorVisibleToAnyEnemy(true))
+				    && actorData.IsActorVisibleToAnyEnemy())
 				{
 					actorData.SetServerLastKnownPosSquare(actorData.CurrentBoardSquare, "IterateOverLastKnownPosData (non-movers)");
 					if (!actorsThatWillBeSeenButArentMoving.Contains(actorData))
@@ -561,7 +561,7 @@ public static class ServerGameplayUtils
 				            || CaptureTheFlag.IsActorRevealedByFlag_Server(Actor)
 				            || !m_movementInstance.m_willBeStealthed;
 				bool isKnockbackStage = movementStage == MovementStage.Knockback;
-				bool isVisible = isNotHidden && Actor.IsActorVisibleToAnyEnemy(true); // custom debug
+				bool isVisible = isNotHidden && Actor.IsActorVisibleToAnyEnemy();
 				bool flag5 = m_movementInstance.m_groundBased 
 				             && m_currentlyConsideredPath.prev != null 
 				             && m_currentlyConsideredPath.prev.m_updateLastKnownPos 
