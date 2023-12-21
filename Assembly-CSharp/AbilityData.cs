@@ -2626,6 +2626,7 @@ public class AbilityData : NetworkBehaviour
 		if (!ValidateActionIsRequestable(actionType))  // checkIfRequestable &&  in rogues
 		{
 			result = false;
+			Log.Info($"VALIDATION Action {actionType} is not requestable by {m_actor}");
 		}
 		else
 		{
@@ -2634,6 +2635,12 @@ public class AbilityData : NetworkBehaviour
 				AbilityTarget target = targets[i];
 				if (!ValidateAbilityOnTarget(abilityOfActionType, target, i, targets, -1f, -1f))
 				{
+					Log.Info($"VALIDATION Ability {abilityOfActionType.GetNameString()} by {m_actor} has invalid target {i}");
+					for (int j = 0; j < targets.Count; j++)
+					{
+						Log.Info($"VALIDATION target {j}: {targets[j].GetDebugString()}");
+					}
+
 					return false;
 				}
 			}
@@ -2673,7 +2680,21 @@ public class AbilityData : NetworkBehaviour
 		bool flag5 = m_actor.QueuedMovementAllowsAbility || !abilityOfActionType.GetAffectsMovement();
 		bool flag6 = abilityOfActionType.RunPriority != AbilityPriority.Evasion || !HasQueuedAbilityInPhase(AbilityPriority.Evasion);
 		bool flag7 = !IsCard(abilityAction) || !HasQueuedCardAbility();  // HasQueuedCardAbility(true) in rogues
-		return flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7;
+		bool result = flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7;
+
+		if (!result)
+		{
+			Log.Info($"Ability {abilityOfActionType.GetNameString()} is not requestable by {m_actor}: " +
+			         $"action is requestable disregarding queued actions: {flag}, " +
+			         $"action is not already queued: {flag2}, " +
+			         $"action is free or no other non-free actions queued: {flag3}, " +
+			         $"action does not prohibit movement or there is no movement queued: {flag4}, " +
+			         $"action does not affect movement or queued movement allows ability: {flag5}, " +
+			         $"action does not run in evasion phase or there are no other evasion actions queued: {flag6}, " +
+			         $"action is not a card or there are no other cards queued: {flag7}");
+		}
+		
+		return result;
 	}
 
 	public bool ValidateAbilityIsCastableDisregardingMovement(Ability ability)
