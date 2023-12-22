@@ -824,6 +824,7 @@ public class ClaymoreCharge : Ability
 				{
 					aoeHitActors.Remove(item);
 				}
+				ServerAbilityUtils.RemoveEvadersFromHitTargets(ref aoeHitActors);
 			}
 		}
 		// rogues
