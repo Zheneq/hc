@@ -1,10 +1,8 @@
 ﻿// ROGUES
 // SERVER
 using System.Collections.Generic;
-using AbilityContextNamespace;
 using UnityEngine;
 
-// TODO TITUS check rogues code
 public class ClaymoreCharge : Ability
 {
 	[Header("-- Charge Targeting")]
@@ -388,6 +386,7 @@ public class ClaymoreCharge : Ability
 	}
 
 	// removed in rogues
+	// TODO doesn't quite fit, see GetIdealDestination
 	public static BoardSquare GetChargeDestinationSquare(
 		Vector3 startPos,
 		Vector3 chargeDestPos,
@@ -403,14 +402,9 @@ public class ClaymoreCharge : Ability
 		}
 		else
 		{
-			if (initialPathEndSquare != null)
-			{
-				destination = initialPathEndSquare;
-			}
-			else
-			{
-				destination = KnockbackUtils.GetLastValidBoardSquareInLine(startPos, chargeDestPos, true);
-			}
+			destination = initialPathEndSquare != null
+				? initialPathEndSquare
+				: KnockbackUtils.GetLastValidBoardSquareInLine(startPos, chargeDestPos, true);
 			BoardSquare start = Board.Get().GetSquareFromVec3(startPos);
 			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(
 				caster,
@@ -499,123 +493,239 @@ public class ClaymoreCharge : Ability
 		return true;
 	}
 
-	// added in rogues
+	// custom
 	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
 		List<AbilityTarget> targets,
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		BoardSquare pathDestinationAndEndPoints = GetPathDestinationAndEndPoints(targets, caster, out Vector3 endPoint);
-		if (m_chargeWithPivotAndRecovery)
-		{
-			ServerEvadeUtils.ChargeSegment[] chargeSegments = ServerEvadeUtils.GetChargeSegmentForStopOnTargetHit(
-				caster, 
-				new List<Vector3>
-				{
-					endPoint
-				},
-				pathDestinationAndEndPoints,
-				m_recoveryTime);
-			float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
-			foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
+		BoardSquare destination = GetIdealDestination(targets, caster, out bool isHit);
+
+		ServerEvadeUtils.ChargeSegment[] chargeSegments = {
+			new ServerEvadeUtils.ChargeSegment
 			{
-				if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
-				{
-					segment.m_segmentMovementSpeed = segmentMovementSpeed;
-				}
+				m_pos = caster.GetSquareAtPhaseStart(),
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+				m_end = BoardSquarePathInfo.ChargeEndType.Impact
+			},
+			new ServerEvadeUtils.ChargeSegment
+			{
+				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+				m_pos = destination,
+				m_end = isHit
+					? BoardSquarePathInfo.ChargeEndType.Impact
+					: BoardSquarePathInfo.ChargeEndType.Miss
 			}
-			return chargeSegments;
+		};
+		
+		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
+		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
+		{
+			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+			{
+				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+			}
+		}
+		
+		return chargeSegments;
+	}
+	// rogues
+	// public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
+	// 	List<AbilityTarget> targets,
+	// 	ActorData caster,
+	// 	ServerAbilityUtils.AbilityRunData additionalData)
+	// {
+	// 	BoardSquare pathDestinationAndEndPoints = GetPathDestinationAndEndPoints(targets, caster, out Vector3 endPoint);
+	// 	if (m_chargeWithPivotAndRecovery)
+	// 	{
+	// 		ServerEvadeUtils.ChargeSegment[] chargeSegments = ServerEvadeUtils.GetChargeSegmentForStopOnTargetHit(
+	// 			caster, 
+	// 			new List<Vector3> { endPoint },
+	// 			pathDestinationAndEndPoints,
+	// 			m_recoveryTime);
+	// 		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
+	// 		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
+	// 		{
+	// 			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+	// 			{
+	// 				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+	// 			}
+	// 		}
+	// 		return chargeSegments;
+	// 	}
+	// 	else
+	// 	{
+	// 		ServerEvadeUtils.ChargeSegment[] chargeSegments = new ServerEvadeUtils.ChargeSegment[2];
+	// 		chargeSegments[0] = new ServerEvadeUtils.ChargeSegment
+	// 		{
+	// 			m_pos = caster.GetCurrentBoardSquare(),
+	// 			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+	// 			m_end = BoardSquarePathInfo.ChargeEndType.Impact
+	// 		};
+	// 		chargeSegments[1] = new ServerEvadeUtils.ChargeSegment
+	// 		{
+	// 			// rogues, actually unused
+	// 			// m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
+	// 			// m_pos = Board.Get().GetSquare(targets[0].GridPos)
+	// 		};
+	// 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+	// 		List<ActorData> bounceHitActors = GetBounceHitActors(
+	// 			targets,
+	// 			loSCheckPos,
+	// 			caster, 
+	// 			out Vector3 _,
+	// 			null);
+	// 		chargeSegments[chargeSegments.Length - 1].m_end = bounceHitActors.Count > 0
+	// 			? BoardSquarePathInfo.ChargeEndType.Impact
+	// 			: BoardSquarePathInfo.ChargeEndType.Miss;
+	// 		chargeSegments[chargeSegments.Length - 1].m_pos = pathDestinationAndEndPoints;
+	// 		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
+	// 		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
+	// 		{
+	// 			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
+	// 			{
+	// 				segment.m_segmentMovementSpeed = segmentMovementSpeed;
+	// 			}
+	// 		}
+	// 		return chargeSegments;
+	// 	}
+	// }
+	
+	// custom
+	private BoardSquare GetIdealDestination(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out bool isHit)
+	{
+		isHit = false;
+		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+		
+		List<ActorData> actorsInLaser = GetBounceHitActors(
+			targets,
+			loSCheckPos,
+			caster,
+			out Vector3 chargeDestPos,
+			out BoardSquare initialPathEndSquare,
+			null);
+		ActorData lastChargeHitActor = null;
+		BoardSquare lastChargeHitActorSquare = null;
+		if (actorsInLaser.Count > 0)
+		{
+			ActorData chargeHitActor = actorsInLaser[0];
+			isHit = true;
+			BoardSquarePathInfo pathToDesired = KnockbackUtils.BuildStraightLineChargePath(
+				caster,
+				chargeHitActor.GetCurrentBoardSquare(),
+				caster.GetSquareAtPhaseStart(),
+				true);
+			BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
+				caster,
+				chargeHitActor.GetCurrentBoardSquare(),
+				pathToDesired);
+			lastChargeHitActor = chargeHitActor;
+			if (chargeDestination != null)
+			{
+				lastChargeHitActorSquare = chargeDestination;
+			}
+		}
+		
+		BoardSquare destination;
+		if (lastChargeHitActor != null)
+		{
+			destination = lastChargeHitActorSquare;
 		}
 		else
 		{
-			ServerEvadeUtils.ChargeSegment[] chargeSegments = new ServerEvadeUtils.ChargeSegment[2];
-			chargeSegments[0] = new ServerEvadeUtils.ChargeSegment
-			{
-				m_pos = caster.GetCurrentBoardSquare(),
-				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
-				m_end = BoardSquarePathInfo.ChargeEndType.Impact
-			};
-			chargeSegments[1] = new ServerEvadeUtils.ChargeSegment
-			{
-				m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
-				m_pos = Board.Get().GetSquare(targets[0].GridPos)
-			};
-			Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
-			List<ActorData> bounceHitActors = GetBounceHitActors(
-				targets,
-				loSCheckPos,
-				caster, 
-				out Vector3 _,
-				null);
-			chargeSegments[chargeSegments.Length - 1].m_end = bounceHitActors.Count > 0
-				? BoardSquarePathInfo.ChargeEndType.Impact
-				: BoardSquarePathInfo.ChargeEndType.Miss;
-			chargeSegments[chargeSegments.Length - 1].m_pos = pathDestinationAndEndPoints;
-			float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
-			foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
-			{
-				if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
-				{
-					segment.m_segmentMovementSpeed = segmentMovementSpeed;
-				}
-			}
-			return chargeSegments;
+			destination = initialPathEndSquare != null
+				? initialPathEndSquare
+				: KnockbackUtils.GetLastValidBoardSquareInLine(loSCheckPos, chargeDestPos);
 		}
-	}
+		
+		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(
+			caster,
+			destination,
+			caster.GetSquareAtPhaseStart(),
+			true);
+		if (boardSquarePathInfo != null
+		    && boardSquarePathInfo.next != null
+		    && lastChargeHitActorSquare == null)
+		{
+			destination = GetTrimmedDestinationInPath(boardSquarePathInfo, out _);
+		}
+		if (destination != null
+		    && destination.OccupantActor != null
+		    && destination.OccupantActor != caster)
+		{
+			destination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
+				caster,
+				destination.OccupantActor.GetCurrentBoardSquare(),
+				boardSquarePathInfo);
+		}
 
-	// added in rogues
+		return destination;
+	}
+	
+	// custom
 	public override BoardSquare GetIdealDestination(
 		List<AbilityTarget> targets,
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		return GetPathDestinationAndEndPoints(targets, caster, out Vector3 _);
+		return GetIdealDestination(targets, caster, out _);
 	}
+	// rogues
+	// public override BoardSquare GetIdealDestination(
+	// 	List<AbilityTarget> targets,
+	// 	ActorData caster,
+	// 	ServerAbilityUtils.AbilityRunData additionalData)
+	// {
+	// 	return GetPathDestinationAndEndPoints(targets, caster, out Vector3 _);
+	// }
 
 	// added in rogues
-	private BoardSquare GetPathDestinationAndEndPoints(List<AbilityTarget> targets, ActorData caster, out Vector3 endPoint)
-	{
-		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
-		List<ActorData> bounceHitActors = GetBounceHitActors(targets, loSCheckPos, caster, out Vector3 vector, null);
-		float magnitude = (vector - loSCheckPos).magnitude;
-		float num = Mathf.Min(0.5f, magnitude / 2f);
-		Vector3 end = vector - targets[0].AimDirection * num;
-		BoardSquare boardSquare;
-		if (GetMaxTargets() > 0 && bounceHitActors.Count >= GetMaxTargets())
-		{
-			boardSquare = bounceHitActors[bounceHitActors.Count - 1].GetCurrentBoardSquare();
-		}
-		else
-		{
-			boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(loSCheckPos, end, true);
-			boardSquare = GetClosestSquareToLaser(boardSquare, loSCheckPos, vector);
-			BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(
-				caster,
-				boardSquare,
-				caster.GetSquareAtPhaseStart(),
-				true);
-			if (boardSquarePathInfo != null && boardSquarePathInfo.next != null)
-			{
-				BoardSquarePathInfo boardSquarePathInfo2 = boardSquarePathInfo;
-				int num2 = 0;
-				while (boardSquarePathInfo2.next != null)
-				{
-					BoardSquare square = boardSquarePathInfo2.next.square;
-					if (boardSquarePathInfo2.square.IsValidForKnockbackAndCharge()
-					    && !square.IsValidForKnockbackAndCharge()
-					    && num2 > 0)
-					{
-						boardSquare = boardSquarePathInfo2.square;
-						break;
-					}
-					boardSquarePathInfo2 = boardSquarePathInfo2.next;
-					num2++;
-				}
-			}
-		}
-		endPoint = vector;
-		return boardSquare;
-	}
+	// private BoardSquare GetPathDestinationAndEndPoints(List<AbilityTarget> targets, ActorData caster, out Vector3 endPoint)
+	// {
+	// 	Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+	// 	List<ActorData> bounceHitActors = GetBounceHitActors(targets, loSCheckPos, caster, out Vector3 vector, out _,null);
+	// 	float magnitude = (vector - loSCheckPos).magnitude;
+	// 	float num = Mathf.Min(0.5f, magnitude / 2f);
+	// 	Vector3 end = vector - targets[0].AimDirection * num;
+	// 	BoardSquare boardSquare;
+	// 	if (GetMaxTargets() > 0 && bounceHitActors.Count >= GetMaxTargets())
+	// 	{
+	// 		boardSquare = bounceHitActors[bounceHitActors.Count - 1].GetCurrentBoardSquare();
+	// 	}
+	// 	else
+	// 	{
+	// 		boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(loSCheckPos, end, true);
+	// 		boardSquare = GetClosestSquareToLaser(boardSquare, loSCheckPos, vector);
+	// 		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(
+	// 			caster,
+	// 			boardSquare,
+	// 			caster.GetSquareAtPhaseStart(),
+	// 			true);
+	// 		if (boardSquarePathInfo != null && boardSquarePathInfo.next != null)
+	// 		{
+	// 			BoardSquarePathInfo step = boardSquarePathInfo;
+	// 			int stepNum = 0;
+	// 			while (step.next != null)
+	// 			{
+	// 				BoardSquare square = step.next.square;
+	// 				if (step.square.IsValidForKnockbackAndCharge()
+	// 				    && !square.IsValidForKnockbackAndCharge()
+	// 				    && stepNum > 0)
+	// 				{
+	// 					boardSquare = step.square;
+	// 					break;
+	// 				}
+	// 				step = step.next;
+	// 				stepNum++;
+	// 			}
+	// 		}
+	// 	}
+	// 	endPoint = vector;
+	// 	return boardSquare;
+	// }
 
 	// added in rogues
 	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
@@ -626,7 +736,7 @@ public class ClaymoreCharge : Ability
 	{
 		List<ServerClientUtils.SequenceStartData> list = new List<ServerClientUtils.SequenceStartData>();
 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
-		List<ActorData> bounceHitActors = GetBounceHitActors(targets, loSCheckPos, caster, out Vector3 item, null);
+		List<ActorData> bounceHitActors = GetBounceHitActors(targets, loSCheckPos, caster, out Vector3 item, out _,null);
 		BouncingShotSequence.ExtraParams extraParams = new BouncingShotSequence.ExtraParams
 		{
 			laserTargets = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>()
@@ -663,7 +773,7 @@ public class ClaymoreCharge : Ability
 		return list;
 	}
 
-	// rogues?
+	// rogues
 	// public override void GetAbilityStatusData(out Dictionary<string, string> statusData, bool includeNames = false)
 	// {
 	// 	base.GetAbilityStatusData(out statusData);
@@ -685,23 +795,54 @@ public class ClaymoreCharge : Ability
 			loSCheckPos,
 			caster,
 			out Vector3 _,
+			out _,
 			nonActorTargetInfo);
-		List<ActorData> aoeHitActors;
+		// custom
+		List<ActorData> aoeHitActors = new List<ActorData>();
 		if (bounceHitActors.Count > 0)
 		{
-			aoeHitActors = GetAoeHitActors(caster, caster, nonActorTargetInfo);
-			foreach (ActorData item in bounceHitActors)
+			BoardSquarePathInfo pathToDesired = KnockbackUtils.BuildStraightLineChargePath(
+				caster,
+				bounceHitActors[0].GetCurrentBoardSquare(),
+				caster.GetSquareAtPhaseStart(),
+				true);
+			BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
+				caster,
+				bounceHitActors[0].GetCurrentBoardSquare(),
+				pathToDesired);
+			if (chargeDestination != null)
 			{
-				aoeHitActors.Remove(item);
+				aoeHitActors = AreaEffectUtils.GetActorsInShape(
+					m_aoeShape,
+					chargeDestination.ToVector3(),
+					chargeDestination,
+					false,
+					caster,
+					caster.GetEnemyTeam(),
+					nonActorTargetInfo);
+				foreach (ActorData item in bounceHitActors)
+				{
+					aoeHitActors.Remove(item);
+				}
 			}
 		}
-		else
-		{
-			aoeHitActors = new List<ActorData>();
-		}
+		// rogues
+		// List<ActorData> aoeHitActors;
+		// if (bounceHitActors.Count > 0)
+		// {
+		// 	aoeHitActors = GetAoeHitActors(caster, caster, nonActorTargetInfo);
+		// 	foreach (ActorData item in bounceHitActors)
+		// 	{
+		// 		aoeHitActors.Remove(item);
+		// 	}
+		// }
+		// else
+		// {
+		// 	aoeHitActors = new List<ActorData>();
+		// }
 		bool appliedCooldown = false;
 		bool appliedForceChase = false;
-		bool appliedAddToStock = true;
+		// bool appliedAddToStock = true;  // rogues
 		int numHitActors = 0;
 		foreach (ActorData actorData in bounceHitActors)
 		{
@@ -727,34 +868,35 @@ public class ClaymoreCharge : Ability
 				actorHitResults.AddMiscHitEvent(new MiscHitEventData(MiscHitEventType.CasterForceChaseTarget));
 				appliedForceChase = true;
 			}
-			if (!appliedAddToStock)
-			{
-				actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterStock(m_passive.GetHitIndicatorActionType(), bounceHitActors.Count + aoeHitActors.Count));
-				appliedAddToStock = true;
-			}
-			ActorHitContext actorContext = new ActorHitContext();
-			ContextVars abilityContext = new ContextVars();
-			NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
-			if (actorData.GetTeam() == caster.GetTeam())
-			{
-				// TODO TITUS ability results
-				// GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedDirectOnHitData.m_allyHitIntFields, numericHitResultScratch);
-				// GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-				// GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitKnockbackFields);
-				// GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitCooldownReductionFields, 1);
-				// GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitEffectFields);
-				// GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitEffectTemplateFields);
-			}
-			else
-			{
-				// TODO TITUS ability results
-				// GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedDirectOnHitData.m_enemyHitIntFields, numericHitResultScratch);
-				// GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-				// GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitKnockbackFields);
-				// GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitCooldownReductionFields, 1);
-				// GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitEffectFields);
-				// GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitEffectTemplateFields);
-			}
+			
+			// rogues
+			// if (!appliedAddToStock)
+			// {
+			// 	actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterStock(m_passive.GetHitIndicatorActionType(), bounceHitActors.Count + aoeHitActors.Count));
+			// 	appliedAddToStock = true;
+			// }
+			// ActorHitContext actorContext = new ActorHitContext();
+			// ContextVars abilityContext = new ContextVars();
+			// NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
+			// if (actorData.GetTeam() == caster.GetTeam())
+			// {
+			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedDirectOnHitData.m_allyHitIntFields, numericHitResultScratch);
+			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
+			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitKnockbackFields);
+			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitCooldownReductionFields, 1);
+			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitEffectFields);
+			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitEffectTemplateFields);
+			// }
+			// else
+			// {
+			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedDirectOnHitData.m_enemyHitIntFields, numericHitResultScratch);
+			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
+			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitKnockbackFields);
+			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitCooldownReductionFields, 1);
+			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitEffectFields);
+			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitEffectTemplateFields);
+			// }
+			
 			abilityResults.StoreActorHit(actorHitResults);
 			numHitActors++;
 		}
@@ -763,29 +905,30 @@ public class ClaymoreCharge : Ability
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
 			actorHitResults.SetBaseDamage(GetAoeDamage());
 			actorHitResults.AddStandardEffectInfo(GetAoeEnemyHitEffect());
-			ActorHitContext actorContext = new ActorHitContext();
-			ContextVars abilityContext = new ContextVars();
-			NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
-			if (actorData.GetTeam() == caster.GetTeam())
-			{
-				// TODO TITUS ability results
-				// GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedAoEOnHitData.m_allyHitIntFields, numericHitResultScratch);
-				// GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-				// GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitKnockbackFields);
-				// GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitCooldownReductionFields, 1);
-				// GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitEffectFields);
-				// GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitEffectTemplateFields);
-			}
-			else
-			{
-				// TODO TITUS ability results
-				// GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedAoEOnHitData.m_enemyHitIntFields, numericHitResultScratch);
-				// GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-				// GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitKnockbackFields);
-				// GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitCooldownReductionFields, 1);
-				// GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitEffectFields);
-				// GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitEffectTemplateFields);
-			}
+			
+			// rogues
+			// ActorHitContext actorContext = new ActorHitContext();
+			// ContextVars abilityContext = new ContextVars();
+			// NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
+			// if (actorData.GetTeam() == caster.GetTeam())
+			// {
+			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedAoEOnHitData.m_allyHitIntFields, numericHitResultScratch);
+			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
+			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitKnockbackFields);
+			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitCooldownReductionFields, 1);
+			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitEffectFields);
+			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitEffectTemplateFields);
+			// }
+			// else
+			// {
+			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedAoEOnHitData.m_enemyHitIntFields, numericHitResultScratch);
+			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
+			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitKnockbackFields);
+			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitCooldownReductionFields, 1);
+			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitEffectFields);
+			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitEffectTemplateFields);
+			// }
+			
 			abilityResults.StoreActorHit(actorHitResults);
 			numHitActors++;
 		}
@@ -803,7 +946,7 @@ public class ClaymoreCharge : Ability
 	{
 		List<Vector3> list = new List<Vector3>();
 		Vector3 freePos = caster.GetFreePos(caster.GetSquareAtPhaseStart());
-		List<ActorData> bounceHitActors = GetBounceHitActors(targets, freePos, caster, out Vector3 item, null);
+		List<ActorData> bounceHitActors = GetBounceHitActors(targets, freePos, caster, out Vector3 item, out _,null);
 		list.Add(item);
 		if (bounceHitActors != null)
 		{
@@ -825,8 +968,10 @@ public class ClaymoreCharge : Ability
 		Vector3 startPos,
 		ActorData caster,
 		out Vector3 bounceEndPoint,
+		out BoardSquare pathEndSquare, // custom
 		List<NonActorTargetInfo> nonActorTargetInfoInSegments)
 	{
+		AbilityTarget currentTarget = targets[0];
 		bounceEndPoint = VectorUtils.GetLaserEndPoint(
 			startPos,
 			targets[0].AimDirection,
@@ -835,6 +980,23 @@ public class ClaymoreCharge : Ability
 			caster,
 			nonActorTargetInfoInSegments);
 		float magnitude = (bounceEndPoint - startPos).magnitude;
+		
+		// custom
+		magnitude = GetMaxPotentialChargeDistance(
+			startPos,
+			bounceEndPoint,
+			currentTarget.AimDirection,
+			magnitude,
+			caster,
+			out pathEndSquare);
+		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(
+			caster,
+			pathEndSquare,
+			Board.Get().GetSquareFromVec3(startPos),
+			true);
+		List<ActorData> actorsOnPath = GetActorsOnPath(path, caster.GetEnemyTeamAsList(), caster);
+		// end custom
+		
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
 			startPos,
 			targets[0].AimDirection,
@@ -843,11 +1005,12 @@ public class ClaymoreCharge : Ability
 			caster,
 			caster.GetEnemyTeamAsList(),
 			false,
-			0,
+			1, // 0 in rogues
 			true,
 			true,
 			out Vector3 _,
 			nonActorTargetInfoInSegments);
+		actorsInLaser.AddRange(actorsOnPath); // custom
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actorsInLaser);
 		TargeterUtils.SortActorsByDistanceToPos(ref actorsInLaser, startPos);
 		TargeterUtils.LimitActorsToMaxNumber(ref actorsInLaser, GetMaxTargets());
@@ -859,28 +1022,28 @@ public class ClaymoreCharge : Ability
 	}
 
 	// added in rogues
-	private List<ActorData> GetAoeHitActors(ActorData centerHitActor, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
-	{
-		List<ActorData> list;
-		if (centerHitActor != null)
-		{
-			list = AreaEffectUtils.GetActorsInShape(
-				GetAoeShape(),
-				centerHitActor.GetFreePos(),
-				centerHitActor.GetCurrentBoardSquare(),
-				false,
-				caster,
-				caster.GetEnemyTeam(),
-				nonActorTargetInfo);
-			list.Remove(centerHitActor);
-			ServerAbilityUtils.RemoveEvadersFromHitTargets(ref list);
-		}
-		else
-		{
-			list = new List<ActorData>();
-		}
-		return list;
-	}
+	// private List<ActorData> GetAoeHitActors(ActorData centerHitActor, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
+	// {
+	// 	List<ActorData> list;
+	// 	if (centerHitActor != null)
+	// 	{
+	// 		list = AreaEffectUtils.GetActorsInShape(
+	// 			GetAoeShape(),
+	// 			centerHitActor.GetFreePos(),
+	// 			centerHitActor.GetCurrentBoardSquare(),
+	// 			false,
+	// 			caster,
+	// 			caster.GetEnemyTeam(),
+	// 			nonActorTargetInfo);
+	// 		list.Remove(centerHitActor);
+	// 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref list);
+	// 	}
+	// 	else
+	// 	{
+	// 		list = new List<ActorData>();
+	// 	}
+	// 	return list;
+	// }
 
 	// added in rogues
 	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
