@@ -308,6 +308,10 @@ public class ScoundrelBouncingLaser : Ability
 			damage = Mathf.Max(GetMinDamage(), damage);
 			ActorHitParameters hitParams = new ActorHitParameters(hitActor, bouncingLaserInfo.m_segmentOrigin);
 			ActorHitResults hitResults = new ActorHitResults(damage, HitActionType.Damage, hitParams);
+			if (bouncingLaserInfo.m_endpointIndex > 0)
+			{
+				hitResults.SetIgnoreCoverMinDist(true);
+			}
 			abilityResults.StoreActorHit(hitResults);
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo.SelectMany(x => x).ToList());

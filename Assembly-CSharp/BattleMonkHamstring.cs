@@ -391,6 +391,14 @@ public class BattleMonkHamstring : Ability
 			{
 				actorHitResults.AddStandardEffectInfo(m_laserHitEffect);
 			}
+			
+			// custom
+			if (hitInfo.m_endpointIndex > 0)
+			{
+				actorHitResults.SetIgnoreCoverMinDist(true);
+			}
+			// end custom
+			
 			abilityResults.StoreActorHit(actorHitResults);
 		}
 		if (laserHitActors.Count > 0 && ShouldExplodeOnActorHit())
