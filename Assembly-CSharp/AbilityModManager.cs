@@ -69,7 +69,21 @@ public class AbilityModManager : NetworkBehaviour
 					ServerPlayerState playerState = ServerGameManager.Get().GetPlayerStateByAccountId(actorData.GetAccountId());
 					if (playerState != null)
 					{
-						actorData.SetupAbilityMods(playerState.PlayerInfo.CharacterMods);
+						if (playerState.PlayerInfo.PlayerId == actorData.PlayerIndex)
+						{
+							actorData.SetupAbilityMods(playerState.PlayerInfo.CharacterMods);
+						}
+						else
+						{
+							foreach (ServerPlayerInfo proxy in playerState.PlayerInfo.ProxyPlayerInfos)
+							{
+								if (proxy.PlayerId == actorData.PlayerIndex)
+								{
+									actorData.SetupAbilityMods(proxy.CharacterMods);
+									break;
+								}
+							}
+						}
 					}
 					// rogues
 					// PersistedCharacterData persistedCharacterData = ClientGameManager.Get().GetPlayerCharacterData(actorData.m_characterType);
@@ -78,7 +92,7 @@ public class AbilityModManager : NetworkBehaviour
 					// 	actorData.SetupAbilityGear();
 					// }
 
-					// rogues?
+					// rogues
 					// AbilityData abilityData = actorData.GetAbilityData();
 					// foreach (Ability ability in abilityData.GetAbilitiesAsList())
 					// {

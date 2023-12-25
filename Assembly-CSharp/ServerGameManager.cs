@@ -880,7 +880,7 @@ public class ServerGameManager : MonoBehaviour
 				LobbyServerPlayerInfo proxyPlayerInfo = (from p in request.TeamInfo.TeamPlayerInfo where p.PlayerId == proxyPlayerId select p).FirstOrDefault();
 				if (proxyPlayerInfo != null)
 				{
-					proxyPlayerInfo.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
+					// proxyPlayerInfo.CharacterInfo.CharacterCards = lobbyServerPlayerInfo.CharacterInfo.CharacterCards;
 					proxyPlayerInfos.Add(proxyPlayerInfo);
 				}
 			}

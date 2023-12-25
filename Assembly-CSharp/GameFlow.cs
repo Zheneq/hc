@@ -1196,7 +1196,7 @@ public class GameFlow : NetworkBehaviour
 						}
 					}
 					// custom
-					actorData.PlayerIndex = playerIndex;
+					actorData.PlayerIndex = playerInfo.PlayerId;
 					// rogues
 					//actorData.NetworkPlayerIndex = playerIndex;
 					if (playerDetails.IsHumanControlled || playerInfo.LobbyPlayerInfo.ReplacedWithBots || playerInfo.IsLoadTestBot || playerDetails.m_botsMasqueradeAsHumans)
@@ -1214,13 +1214,6 @@ public class GameFlow : NetworkBehaviour
 					}
 					actorData.SetTeam(playerInfo.TeamId);
 					//actorData.InitEquipmentStats(); // rogues
-
-					// TODO probably will break fourlancer
-					actorData.PlayerIndex = playerInfo.PlayerId;
-					// actorData.ActorIndex = playerInfo.PlayerId;
-
-					actorData.UpdateDisplayName(playerInfo.Handle);
-					//end custom
 
 					actorData.InitActorNetworkVisibilityObjects();
 					BoardSquare initialSpawnSquare = SpawnPointManager.Get().GetInitialSpawnSquare(actorData, this.m_spawningActors);
