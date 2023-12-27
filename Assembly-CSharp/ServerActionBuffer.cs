@@ -516,9 +516,10 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		// custom
 		m_storedAbilityRequestsForNextTurn.Clear();
+		ClearMovementRequests();
 		// rogues
 		//m_storedAbilityRequestsForNextTurn.RemoveAll((AbilityRequest r) => r.m_caster.GetTeam() == actingTeam);
-    }
+	}
 
 	public void ClearNormalMovementResults()
 	{
@@ -1194,27 +1195,27 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void CancelMovementRequests(ActorData actor, bool forceChased = false)
 	{
-		List<MovementRequest> list = new List<MovementRequest>();
+		List<MovementRequest> requestsToCancel = new List<MovementRequest>();
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
 			if (movementRequest != null && movementRequest.m_actor == actor)
 			{
-				list.Add(movementRequest);
+				requestsToCancel.Add(movementRequest);
 			}
 		}
-		foreach (MovementRequest movementRequest2 in list)
+		foreach (MovementRequest movementRequest in requestsToCancel)
 		{
 			if (forceChased)
 			{
-				string requestString = movementRequest2.IsChasing()
-					? $"chase {movementRequest2.m_chaseTarget.DisplayName}"
-					: movementRequest2.m_path?.GetDebugPathStringToEnd("");
+				string requestString = movementRequest.IsChasing()
+					? $"chase {movementRequest.m_chaseTarget.DisplayName}"
+					: movementRequest.m_path?.GetDebugPathStringToEnd("");
 				Log.Info($"FORCED CHASE removed {actor.DisplayName}'s movement request {requestString}");  // custom debug
-				m_removedMovementRequestsFromForceChase.Add(movementRequest2);
+				m_removedMovementRequestsFromForceChase.Add(movementRequest);
 				Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 			}
-			m_storedMovementRequests.Remove(movementRequest2);
-			movementRequest2.m_actor.OnMovementChanged(ActorData.MovementChangeType.LessMovement, forceChased);
+			m_storedMovementRequests.Remove(movementRequest);
+			movementRequest.m_actor.OnMovementChanged(ActorData.MovementChangeType.LessMovement, forceChased);
 		}
 	}
 
@@ -2115,29 +2116,32 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void RestoreMovementForForceChaseImmunity()
 	{
-		List<MovementRequest> list = new List<MovementRequest>();
-		List<MovementRequest> list2 = new List<MovementRequest>();
+		List<MovementRequest> requestsToRestore = new List<MovementRequest>();
+		List<MovementRequest> requestsToRemove = new List<MovementRequest>();
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest.IsForcedChase() && !movementRequest.m_chaserInitiatedForceChase && movementRequest.m_actor != null && movementRequest.m_actor.GetActorStatus().IsImmuneToForcedChase())
+			if (movementRequest.IsForcedChase()
+			    && !movementRequest.m_chaserInitiatedForceChase
+			    && movementRequest.m_actor != null
+			    && movementRequest.m_actor.GetActorStatus().IsImmuneToForcedChase())
 			{
-				list2.Add(movementRequest);
+				requestsToRemove.Add(movementRequest);
 				MovementRequest movementRequest2 = FindMovementRequestToRestore(movementRequest.m_actor);
 				if (movementRequest2 != null)
 				{
-					list.Add(movementRequest2);
+					requestsToRestore.Add(movementRequest2);
 				}
 			}
 		}
 		for (int i = m_storedMovementRequests.Count - 1; i >= 0; i--)
 		{
-			if (list2.Contains(m_storedMovementRequests[i]))
+			if (requestsToRemove.Contains(m_storedMovementRequests[i]))
 			{
 				m_storedMovementRequests[i].m_actor.OnMovementChanged(ActorData.MovementChangeType.LessMovement, true);
 				m_storedMovementRequests.RemoveAt(i);
 			}
 		}
-		foreach (MovementRequest movementRequest3 in list)
+		foreach (MovementRequest movementRequest3 in requestsToRestore)
 		{
 			m_storedMovementRequests.Add(movementRequest3);
 			movementRequest3.m_actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement, movementRequest3.m_isForcedChase);
