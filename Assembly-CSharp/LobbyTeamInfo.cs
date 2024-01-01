@@ -1,24 +1,20 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 [Serializable]
 public class LobbyTeamInfo
 {
 	public List<LobbyPlayerInfo> TeamPlayerInfo;
-
 	[JsonIgnore]
 	public IEnumerable<LobbyPlayerInfo> TeamAPlayerInfo => TeamInfo(Team.TeamA);
-
 	[JsonIgnore]
 	public IEnumerable<LobbyPlayerInfo> TeamBPlayerInfo => TeamInfo(Team.TeamB);
-
 	[JsonIgnore]
 	public IEnumerable<LobbyPlayerInfo> SpectatorInfo => TeamInfo(Team.Spectator);
-
 	[JsonIgnore]
-	public int TotalPlayerCount => (TeamPlayerInfo != null) ? TeamPlayerInfo.Count : 0;
+	public int TotalPlayerCount => TeamPlayerInfo?.Count ?? 0;
 
 	public IEnumerable<LobbyPlayerInfo> TeamInfo(Team team)
 	{
@@ -26,47 +22,22 @@ public class LobbyTeamInfo
 		{
 			return Enumerable.Empty<LobbyPlayerInfo>();
 		}
-		return TeamPlayerInfo.Where((LobbyPlayerInfo p) => p.TeamId == team);
+		return TeamPlayerInfo.Where(p => p.TeamId == team);
 	}
 
 	public static LobbyTeamInfo FromServer(LobbyServerTeamInfo serverInfo, int maxPlayerLevel, MatchmakingQueueConfig queueConfig)
 	{
-		LobbyTeamInfo lobbyTeamInfo = null;
-		if (serverInfo != null)
+		if (serverInfo == null)
 		{
-			lobbyTeamInfo = new LobbyTeamInfo();
-			if (serverInfo.TeamPlayerInfo != null)
+			return null;
+		}
+		LobbyTeamInfo lobbyTeamInfo = new LobbyTeamInfo();
+		if (serverInfo.TeamPlayerInfo != null)
+		{
+			lobbyTeamInfo.TeamPlayerInfo = new List<LobbyPlayerInfo>();
+			foreach (LobbyServerPlayerInfo current in serverInfo.TeamPlayerInfo)
 			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-					{
-						lobbyTeamInfo.TeamPlayerInfo = new List<LobbyPlayerInfo>();
-						using (List<LobbyServerPlayerInfo>.Enumerator enumerator = serverInfo.TeamPlayerInfo.GetEnumerator())
-						{
-							while (enumerator.MoveNext())
-							{
-								LobbyServerPlayerInfo current = enumerator.Current;
-								lobbyTeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(current, maxPlayerLevel, queueConfig));
-							}
-							while (true)
-							{
-								switch (6)
-								{
-								case 0:
-									break;
-								default:
-									return lobbyTeamInfo;
-								}
-							}
-						}
-					}
-					}
-				}
+				lobbyTeamInfo.TeamPlayerInfo.Add(LobbyPlayerInfo.FromServer(current, maxPlayerLevel, queueConfig));
 			}
 		}
 		return lobbyTeamInfo;
@@ -76,32 +47,16 @@ public class LobbyTeamInfo
 	{
 		if (TeamPlayerInfo == null)
 		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return null;
-				}
-			}
-		}
-		for (int i = 0; i < TeamPlayerInfo.Count; i++)
-		{
-			if (TeamPlayerInfo[i].AccountId != account)
-			{
-				continue;
-			}
-			while (true)
-			{
-				return TeamPlayerInfo[i];
-			}
-		}
-		while (true)
-		{
 			return null;
 		}
+		foreach (LobbyPlayerInfo playerInfo in TeamPlayerInfo)
+		{
+			if (playerInfo.AccountId == account)
+			{
+				return playerInfo;
+			}
+		}
+		return null;
 	}
 
 	public LobbyTeamInfo Clone()
