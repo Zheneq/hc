@@ -1006,7 +1006,7 @@ public class ClaymoreCharge : Ability
 			caster,
 			caster.GetEnemyTeamAsList(),
 			false,
-			1, // 0 in rogues
+			0,
 			true,
 			true,
 			out Vector3 _,
