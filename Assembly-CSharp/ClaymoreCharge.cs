@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// changed in rogues
 public class ClaymoreCharge : Ability
 {
 	[Header("-- Charge Targeting")]
@@ -13,13 +14,9 @@ public class ClaymoreCharge : Ability
 	public int m_directHitDamage = 20;
 	public StandardEffectInfo m_directEnemyHitEffect;
 	public bool m_directHitIgnoreCover = true;
-	// added in rogues
-	// public OnHitAuthoredData OnDirectHitData;
 	[Space(10f)]
 	public int m_aoeDamage = 10;
 	public StandardEffectInfo m_aoeEnemyHitEffect;
-	// added in rogues
-	// public OnHitAuthoredData OnAoEHitData;
 	[Header("-- Extra Damage from Charge Path Length")]
 	public int m_extraDirectHitDamagePerSquare;
 	[Header("-- Heal On Self")]
@@ -47,49 +44,14 @@ public class ClaymoreCharge : Ability
 	
 	private StandardEffectInfo m_cachedDirectEnemyHitEffect;
 	private StandardEffectInfo m_cachedAoeEnemyHitEffect;
-#if SERVER
-	// added in rogues
-	private Passive_Claymore m_passive;
-#endif
-
-	// rogues
-	// private OnHitAuthoredData m_cachedDirectOnHitData
-	// {
-	// 	get
-	// 	{
-	// 		if (!m_abilityMod)
-	// 		{
-	// 			return this.OnDirectHitData;
-	// 		}
-	// 		return m_abilityMod.m_directHitDataMod.GetModdedOnHitData(this.OnDirectHitData);
-	// 	}
-	// }
-
-	// rogues
-	// private OnHitAuthoredData m_cachedAoEOnHitData
-	// {
-	// 	get
-	// 	{
-	// 		if (!m_abilityMod)
-	// 		{
-	// 			return this.OnAoEHitData;
-	// 		}
-	// 		return m_abilityMod.m_aoeHitDataMod.GetModdedOnHitData(this.OnAoEHitData);
-	// 	}
-	// }
-
+	
 	private void Start()
 	{
 		if (m_abilityName == "Base Ability")
 		{
 			m_abilityName = "Berserker Charge";
 		}
-#if SERVER
-		// added in rogues
-		m_passive = GetComponent<PassiveData>().GetPassiveOfType(typeof(Passive_Claymore)) as Passive_Claymore;
-		// rogues?
-		// m_abilityMod = (TalentManager.Get().GetAbilityMod(CharacterType.Claymore, CachedActionType) as AbilityMod_ClaymoreCharge);
-#endif
+
 		SetupTargeter();
 	}
 
@@ -219,9 +181,6 @@ public class ClaymoreCharge : Ability
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
 	{
-		// rogues
-		// m_cachedDirectOnHitData.AddTooltipTokens(tokens);
-		// m_cachedAoEOnHitData.AddTooltipTokens(tokens);
 		AbilityMod_ClaymoreCharge abilityMod_ClaymoreCharge = modAsBase as AbilityMod_ClaymoreCharge;
 		AddTokenInt(tokens, "DirectHitDamage", string.Empty, abilityMod_ClaymoreCharge != null
 			? abilityMod_ClaymoreCharge.m_directHitDamageMod.GetModifiedValue(m_directHitDamage)
@@ -385,8 +344,7 @@ public class ClaymoreCharge : Ability
 		return result;
 	}
 
-	// removed in rogues
-	// TODO doesn't quite fit, see GetIdealDestination
+	// removed in rogues, not used in Claymore code
 	public static BoardSquare GetChargeDestinationSquare(
 		Vector3 startPos,
 		Vector3 chargeDestPos,
@@ -493,7 +451,7 @@ public class ClaymoreCharge : Ability
 		return true;
 	}
 
-	// custom
+	// custom, changed in rogues
 	public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
 		List<AbilityTarget> targets,
 		ActorData caster,
@@ -529,67 +487,6 @@ public class ClaymoreCharge : Ability
 		
 		return chargeSegments;
 	}
-	// rogues
-	// public override ServerEvadeUtils.ChargeSegment[] GetChargePath(
-	// 	List<AbilityTarget> targets,
-	// 	ActorData caster,
-	// 	ServerAbilityUtils.AbilityRunData additionalData)
-	// {
-	// 	BoardSquare pathDestinationAndEndPoints = GetPathDestinationAndEndPoints(targets, caster, out Vector3 endPoint);
-	// 	if (m_chargeWithPivotAndRecovery)
-	// 	{
-	// 		ServerEvadeUtils.ChargeSegment[] chargeSegments = ServerEvadeUtils.GetChargeSegmentForStopOnTargetHit(
-	// 			caster, 
-	// 			new List<Vector3> { endPoint },
-	// 			pathDestinationAndEndPoints,
-	// 			m_recoveryTime);
-	// 		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
-	// 		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
-	// 		{
-	// 			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
-	// 			{
-	// 				segment.m_segmentMovementSpeed = segmentMovementSpeed;
-	// 			}
-	// 		}
-	// 		return chargeSegments;
-	// 	}
-	// 	else
-	// 	{
-	// 		ServerEvadeUtils.ChargeSegment[] chargeSegments = new ServerEvadeUtils.ChargeSegment[2];
-	// 		chargeSegments[0] = new ServerEvadeUtils.ChargeSegment
-	// 		{
-	// 			m_pos = caster.GetCurrentBoardSquare(),
-	// 			m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
-	// 			m_end = BoardSquarePathInfo.ChargeEndType.Impact
-	// 		};
-	// 		chargeSegments[1] = new ServerEvadeUtils.ChargeSegment
-	// 		{
-	// 			// rogues, actually unused
-	// 			// m_cycle = BoardSquarePathInfo.ChargeCycleType.Movement,
-	// 			// m_pos = Board.Get().GetSquare(targets[0].GridPos)
-	// 		};
-	// 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
-	// 		List<ActorData> bounceHitActors = GetBounceHitActors(
-	// 			targets,
-	// 			loSCheckPos,
-	// 			caster, 
-	// 			out Vector3 _,
-	// 			null);
-	// 		chargeSegments[chargeSegments.Length - 1].m_end = bounceHitActors.Count > 0
-	// 			? BoardSquarePathInfo.ChargeEndType.Impact
-	// 			: BoardSquarePathInfo.ChargeEndType.Miss;
-	// 		chargeSegments[chargeSegments.Length - 1].m_pos = pathDestinationAndEndPoints;
-	// 		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegments));
-	// 		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegments)
-	// 		{
-	// 			if (segment.m_cycle == BoardSquarePathInfo.ChargeCycleType.Movement)
-	// 			{
-	// 				segment.m_segmentMovementSpeed = segmentMovementSpeed;
-	// 			}
-	// 		}
-	// 		return chargeSegments;
-	// 	}
-	// }
 	
 	// custom
 	private BoardSquare GetIdealDestination(
@@ -666,7 +563,7 @@ public class ClaymoreCharge : Ability
 		return destination;
 	}
 	
-	// custom
+	// custom, changed in rogues
 	public override BoardSquare GetIdealDestination(
 		List<AbilityTarget> targets,
 		ActorData caster,
@@ -674,59 +571,6 @@ public class ClaymoreCharge : Ability
 	{
 		return GetIdealDestination(targets, caster, out _);
 	}
-	// rogues
-	// public override BoardSquare GetIdealDestination(
-	// 	List<AbilityTarget> targets,
-	// 	ActorData caster,
-	// 	ServerAbilityUtils.AbilityRunData additionalData)
-	// {
-	// 	return GetPathDestinationAndEndPoints(targets, caster, out Vector3 _);
-	// }
-
-	// added in rogues
-	// private BoardSquare GetPathDestinationAndEndPoints(List<AbilityTarget> targets, ActorData caster, out Vector3 endPoint)
-	// {
-	// 	Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
-	// 	List<ActorData> bounceHitActors = GetBounceHitActors(targets, loSCheckPos, caster, out Vector3 vector, out _,null);
-	// 	float magnitude = (vector - loSCheckPos).magnitude;
-	// 	float num = Mathf.Min(0.5f, magnitude / 2f);
-	// 	Vector3 end = vector - targets[0].AimDirection * num;
-	// 	BoardSquare boardSquare;
-	// 	if (GetMaxTargets() > 0 && bounceHitActors.Count >= GetMaxTargets())
-	// 	{
-	// 		boardSquare = bounceHitActors[bounceHitActors.Count - 1].GetCurrentBoardSquare();
-	// 	}
-	// 	else
-	// 	{
-	// 		boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(loSCheckPos, end, true);
-	// 		boardSquare = GetClosestSquareToLaser(boardSquare, loSCheckPos, vector);
-	// 		BoardSquarePathInfo boardSquarePathInfo = KnockbackUtils.BuildStraightLineChargePath(
-	// 			caster,
-	// 			boardSquare,
-	// 			caster.GetSquareAtPhaseStart(),
-	// 			true);
-	// 		if (boardSquarePathInfo != null && boardSquarePathInfo.next != null)
-	// 		{
-	// 			BoardSquarePathInfo step = boardSquarePathInfo;
-	// 			int stepNum = 0;
-	// 			while (step.next != null)
-	// 			{
-	// 				BoardSquare square = step.next.square;
-	// 				if (step.square.IsValidForKnockbackAndCharge()
-	// 				    && !square.IsValidForKnockbackAndCharge()
-	// 				    && stepNum > 0)
-	// 				{
-	// 					boardSquare = step.square;
-	// 					break;
-	// 				}
-	// 				step = step.next;
-	// 				stepNum++;
-	// 			}
-	// 		}
-	// 	}
-	// 	endPoint = vector;
-	// 	return boardSquare;
-	// }
 
 	// added in rogues
 	public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
@@ -774,18 +618,6 @@ public class ClaymoreCharge : Ability
 		return list;
 	}
 
-	// rogues
-	// public override void GetAbilityStatusData(out Dictionary<string, string> statusData, bool includeNames = false)
-	// {
-	// 	base.GetAbilityStatusData(out statusData);
-	// 	base.GatherVisibleStatusTooltips(ref statusData, m_cachedDirectOnHitData.m_effectTemplateFields, includeNames);
-	// 	base.GatherVisibleStatusTooltips(ref statusData, m_cachedDirectOnHitData.m_allyHitEffectTemplateFields, includeNames);
-	// 	base.GatherVisibleStatusTooltips(ref statusData, m_cachedDirectOnHitData.m_enemyHitEffectTemplateFields, includeNames);
-	// 	base.GatherVisibleStatusTooltips(ref statusData, m_cachedAoEOnHitData.m_effectTemplateFields, includeNames);
-	// 	base.GatherVisibleStatusTooltips(ref statusData, m_cachedAoEOnHitData.m_allyHitEffectTemplateFields, includeNames);
-	// 	base.GatherVisibleStatusTooltips(ref statusData, m_cachedAoEOnHitData.m_enemyHitEffectTemplateFields, includeNames);
-	// }
-
 	// added in rogues
 	public override void GatherAbilityResults(List<AbilityTarget> targets, ActorData caster, ref AbilityResults abilityResults)
 	{
@@ -828,23 +660,8 @@ public class ClaymoreCharge : Ability
 				ServerAbilityUtils.RemoveEvadersFromHitTargets(ref aoeHitActors);
 			}
 		}
-		// rogues
-		// List<ActorData> aoeHitActors;
-		// if (bounceHitActors.Count > 0)
-		// {
-		// 	aoeHitActors = GetAoeHitActors(caster, caster, nonActorTargetInfo);
-		// 	foreach (ActorData item in bounceHitActors)
-		// 	{
-		// 		aoeHitActors.Remove(item);
-		// 	}
-		// }
-		// else
-		// {
-		// 	aoeHitActors = new List<ActorData>();
-		// }
 		bool appliedCooldown = false;
 		bool appliedForceChase = false;
-		// bool appliedAddToStock = true;  // rogues
 		int numHitActors = 0;
 		foreach (ActorData actorData in bounceHitActors)
 		{
@@ -871,34 +688,6 @@ public class ClaymoreCharge : Ability
 				appliedForceChase = true;
 			}
 			
-			// rogues
-			// if (!appliedAddToStock)
-			// {
-			// 	actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterStock(m_passive.GetHitIndicatorActionType(), bounceHitActors.Count + aoeHitActors.Count));
-			// 	appliedAddToStock = true;
-			// }
-			// ActorHitContext actorContext = new ActorHitContext();
-			// ContextVars abilityContext = new ContextVars();
-			// NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
-			// if (actorData.GetTeam() == caster.GetTeam())
-			// {
-			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedDirectOnHitData.m_allyHitIntFields, numericHitResultScratch);
-			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitKnockbackFields);
-			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitCooldownReductionFields, 1);
-			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitEffectFields);
-			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_allyHitEffectTemplateFields);
-			// }
-			// else
-			// {
-			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedDirectOnHitData.m_enemyHitIntFields, numericHitResultScratch);
-			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitKnockbackFields);
-			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitCooldownReductionFields, 1);
-			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitEffectFields);
-			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedDirectOnHitData.m_enemyHitEffectTemplateFields);
-			// }
-			
 			abilityResults.StoreActorHit(actorHitResults);
 			numHitActors++;
 		}
@@ -907,29 +696,6 @@ public class ClaymoreCharge : Ability
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
 			actorHitResults.SetBaseDamage(GetAoeDamage());
 			actorHitResults.AddStandardEffectInfo(GetAoeEnemyHitEffect());
-			
-			// rogues
-			// ActorHitContext actorContext = new ActorHitContext();
-			// ContextVars abilityContext = new ContextVars();
-			// NumericHitResultScratch numericHitResultScratch = new NumericHitResultScratch();
-			// if (actorData.GetTeam() == caster.GetTeam())
-			// {
-			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedAoEOnHitData.m_allyHitIntFields, numericHitResultScratch);
-			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitKnockbackFields);
-			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitCooldownReductionFields, 1);
-			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitEffectFields);
-			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_allyHitEffectTemplateFields);
-			// }
-			// else
-			// {
-			// 	GenericAbility_Container.CalcIntFieldValues(actorData, caster, actorContext, abilityContext, m_cachedAoEOnHitData.m_enemyHitIntFields, numericHitResultScratch);
-			// 	GenericAbility_Container.SetNumericFieldsOnHitResults(actorHitResults, numericHitResultScratch);
-			// 	GenericAbility_Container.SetKnockbackFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitKnockbackFields);
-			// 	GenericAbility_Container.SetCooldownReductionFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitCooldownReductionFields, 1);
-			// 	GenericAbility_Container.SetEffectFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitEffectFields);
-			// 	GenericAbility_Container.SetEffectTemplateFieldsOnHitResults(actorData, caster, actorContext, abilityContext, actorHitResults, m_cachedAoEOnHitData.m_enemyHitEffectTemplateFields);
-			// }
 			
 			abilityResults.StoreActorHit(actorHitResults);
 			numHitActors++;
@@ -1120,30 +886,6 @@ public class ClaymoreCharge : Ability
 		}
 		return actorsInLaser;
 	}
-
-	// added in rogues
-	// private List<ActorData> GetAoeHitActors(ActorData centerHitActor, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
-	// {
-	// 	List<ActorData> list;
-	// 	if (centerHitActor != null)
-	// 	{
-	// 		list = AreaEffectUtils.GetActorsInShape(
-	// 			GetAoeShape(),
-	// 			centerHitActor.GetFreePos(),
-	// 			centerHitActor.GetCurrentBoardSquare(),
-	// 			false,
-	// 			caster,
-	// 			caster.GetEnemyTeam(),
-	// 			nonActorTargetInfo);
-	// 		list.Remove(centerHitActor);
-	// 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref list);
-	// 	}
-	// 	else
-	// 	{
-	// 		list = new List<ActorData>();
-	// 	}
-	// 	return list;
-	// }
 
 	// added in rogues
 	public override void OnExecutedActorHit_Ability(ActorData caster, ActorData target, ActorHitResults results)
