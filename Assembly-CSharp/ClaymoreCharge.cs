@@ -618,7 +618,7 @@ public class ClaymoreCharge : Ability
 				chargeHitActor.GetCurrentBoardSquare(),
 				caster.GetSquareAtPhaseStart(),
 				true);
-			BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
+			BoardSquare chargeDestination = GetChargeDestination(
 				caster,
 				chargeHitActor.GetCurrentBoardSquare(),
 				pathToDesired);
@@ -807,7 +807,7 @@ public class ClaymoreCharge : Ability
 				bounceHitActors[0].GetCurrentBoardSquare(),
 				caster.GetSquareAtPhaseStart(),
 				true);
-			BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
+			BoardSquare chargeDestination = GetChargeDestination(
 				caster,
 				bounceHitActors[0].GetCurrentBoardSquare(),
 				pathToDesired);
@@ -941,6 +941,104 @@ public class ClaymoreCharge : Ability
 			abilityResults.StoreActorHit(actorHitResults);
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
+	}
+
+	// custom
+	// based on AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination
+	public static BoardSquare GetChargeDestination(ActorData caster, BoardSquare desiredDest, BoardSquarePathInfo pathToDesired)
+	{
+		BoardSquare secondToLastInOrigPath = null;
+		BoardSquarePathInfo pathEndpoint = pathToDesired?.GetPathEndpoint();
+		if (pathEndpoint?.prev != null)
+		{
+			secondToLastInOrigPath = pathEndpoint.prev.square;
+		}
+		BoardSquare boardSquare = null;
+		Vector3 b = desiredDest.ToVector3();
+		Vector3 idealTestVector = caster.GetFreePos() - b;
+		idealTestVector.y = 0f;
+		idealTestVector.Normalize();
+		BoardSquare currentBoardSquare = caster.GetSquareAtPhaseStart(); // custom
+		boardSquare = GetBestDestinationInLayers(
+			desiredDest,
+			currentBoardSquare,
+			caster,
+			idealTestVector,
+			secondToLastInOrigPath,
+			3,
+			true);
+		if (boardSquare == null)
+		{
+			boardSquare = GetBestDestinationInLayers(
+				desiredDest,
+				currentBoardSquare,
+				caster,
+				idealTestVector,
+				secondToLastInOrigPath,
+				3,
+				false);
+		}
+		return boardSquare;
+	}
+
+	// custom
+	// based on AbilityUtil_Targeter_ClaymoreCharge.GetBestDestinationInLayers
+	private static BoardSquare GetBestDestinationInLayers(
+		BoardSquare desiredDestSquare,
+		BoardSquare startSquare,
+		ActorData caster,
+		Vector3 idealTestVector,
+		BoardSquare secondToLastInOrigPath,
+		int maxLayers,
+		bool requireLosToStart)
+	{
+		BoardSquare dest = null;
+		float num = -1000f;
+		Vector3 b = desiredDestSquare.ToVector3();
+		for (int i = 1; i < maxLayers; i++)
+		{
+			if (dest != null)
+			{
+				break;
+			}
+			List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(desiredDestSquare, i, true);
+			foreach (BoardSquare square in squaresInBorderLayer)
+			{
+				if (!square.IsValidForGameplay())
+				{
+					continue;
+				}
+				if (square.OccupantActor != null
+				    && square.OccupantActor.IsActorVisibleToClient()
+				    && square.OccupantActor != caster
+				    && !ServerActionBuffer.Get().ActorIsEvading(square.OccupantActor)) // custom
+				{
+					continue;
+				}
+				Vector3 rhs = square.ToVector3() - b;
+				rhs.y = 0f;
+				rhs.Normalize();
+				float num2 = Vector3.Dot(idealTestVector, rhs);
+				if (secondToLastInOrigPath != null && square == secondToLastInOrigPath)
+				{
+					num2 += 0.5f;
+				}
+				bool flag = startSquare.GetLOS(square.x, square.y);
+				if (flag || !requireLosToStart)
+				{
+					if (!flag)
+					{
+						num2 -= 2f;
+					}
+					if (dest == null || num2 > num)
+					{
+						dest = square;
+						num = num2;
+					}
+				}
+			}
+		}
+		return dest;
 	}
 
 	// added in rogues
