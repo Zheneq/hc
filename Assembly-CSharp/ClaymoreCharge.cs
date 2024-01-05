@@ -654,7 +654,8 @@ public class ClaymoreCharge : Ability
 		}
 		if (destination != null
 		    && destination.OccupantActor != null
-		    && destination.OccupantActor != caster)
+		    && destination.OccupantActor != caster
+		    && !ServerActionBuffer.Get().ActorIsEvading(destination.OccupantActor))
 		{
 			destination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
 				caster,
