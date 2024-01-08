@@ -1321,6 +1321,7 @@ public class GameFlow : NetworkBehaviour
 		if (!flag)
 		{
 			Log.Error("No primary Player for connection playerId: " + playerID.ToString());
+			ObjectivePoints.Get().EndGame();
 		}
 	}
 
