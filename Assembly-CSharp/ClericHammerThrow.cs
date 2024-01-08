@@ -307,7 +307,7 @@ public class ClericHammerThrow : Ability
 			casterPos,
 			aimDirection,
 			distance * Board.Get().squareSize,
-			true,
+			false,
 			caster,
 			null,
 			false);
