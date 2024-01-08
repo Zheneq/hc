@@ -5,53 +5,38 @@ using System.Net;
 using System.Text;
 using Corale.Colore.Core;
 using Corale.Colore.Razer.ChromaLink.Effects;
-using Corale.Colore.Razer.Headset.Effects;
 using Corale.Colore.Razer.Keyboard;
-using Corale.Colore.Razer.Keyboard.Effects;
-using Corale.Colore.Razer.Keypad.Effects;
-using Corale.Colore.Razer.Mouse.Effects;
-using Corale.Colore.Razer.Mousepad.Effects;
 using UnityEngine;
+using Color = Corale.Colore.Core.Color;
+using Static = Corale.Colore.Razer.Headset.Effects.Static;
 
 public class ExternalLighting : MonoBehaviour, IGameEventListener
 {
 	private bool[] m_chromaEnabled;
-
 	private bool m_inDecision = true;
-
 	private Dictionary<AbilityData.ActionType, bool> m_tutorialGlowOn;
-
-	private Corale.Colore.Core.Color m_decisionPhaseColor;
-
-	private Corale.Colore.Core.Color m_prepPhaseColor;
-
-	private Corale.Colore.Core.Color m_evasionPhaseColor;
-
-	private Corale.Colore.Core.Color m_combatPhaseColor;
-
-	private Corale.Colore.Core.Color m_movementPhaseColor;
-
-	private Corale.Colore.Core.Color m_blackColor;
-
+	private Color m_decisionPhaseColor;
+	private Color m_prepPhaseColor;
+	private Color m_evasionPhaseColor;
+	private Color m_combatPhaseColor;
+	private Color m_movementPhaseColor;
+	private Color m_blackColor;
 	private bool m_hueEnabled;
-
 	private string m_hueHubAddress = "http://127.0.0.1";
-
 	private string m_hueURL = "/api/newdeveloper/lights/1/state";
-
 	private bool m_markedToRestartDecisionPhaseEffects;
 
 	private void Start()
 	{
-		this.m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
-		this.m_chromaEnabled = new bool[6];
+		m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
+		m_chromaEnabled = new bool[6];
 		for (int i = 0; i < 6; i++)
 		{
-			this.m_chromaEnabled[i] = true;
+			m_chromaEnabled[i] = true;
 		}
-		this.m_hueEnabled = HydrogenConfig.Get().HueEnabled;
-		this.m_hueHubAddress = HydrogenConfig.Get().HueAddress;
-		this.m_hueURL = HydrogenConfig.Get().HuePutString;
+		m_hueEnabled = HydrogenConfig.Get().HueEnabled;
+		m_hueHubAddress = HydrogenConfig.Get().HueAddress;
+		m_hueURL = HydrogenConfig.Get().HuePutString;
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedPrep);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedEvasion);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UIPhaseStartedCombat);
@@ -60,13 +45,13 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.TurnTick);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.UITutorialHighlightChanged);
 		GameEventManager.Get().AddListener(this, GameEventManager.EventType.GameTeardown);
-		this.m_decisionPhaseColor = new Corale.Colore.Core.Color(1f, 1f, 1f);
-		this.m_prepPhaseColor = new Corale.Colore.Core.Color(0f, 1f, 0f);
-		this.m_evasionPhaseColor = new Corale.Colore.Core.Color(1f, 1f, 0f);
-		this.m_combatPhaseColor = new Corale.Colore.Core.Color(1f, 0f, 0f);
-		this.m_movementPhaseColor = new Corale.Colore.Core.Color(0f, 0f, 1f);
-		this.m_blackColor = new Corale.Colore.Core.Color(0f, 0f, 0f);
-		this.StartOutOfGameEffects();
+		m_decisionPhaseColor = new Color(1f, 1f, 1f);
+		m_prepPhaseColor = new Color(0f, 1f, 0f);
+		m_evasionPhaseColor = new Color(1f, 1f, 0f);
+		m_combatPhaseColor = new Color(1f, 0f, 0f);
+		m_movementPhaseColor = new Color(0f, 0f, 1f);
+		m_blackColor = new Color(0f, 0f, 0f);
+		StartOutOfGameEffects();
 	}
 
 	private void OnDestroy()
@@ -91,104 +76,90 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 
 	private void Update()
 	{
-		if (this.m_markedToRestartDecisionPhaseEffects)
+		if (m_markedToRestartDecisionPhaseEffects)
 		{
-			if (this.m_inDecision)
+			if (m_inDecision)
 			{
-				this.StartDecisionPhaseEffects();
-				this.m_markedToRestartDecisionPhaseEffects = false;
+				StartDecisionPhaseEffects();
+				m_markedToRestartDecisionPhaseEffects = false;
 			}
 		}
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
 	{
-		if (eventType == GameEventManager.EventType.UIPhaseStartedPrep)
+		switch (eventType)
 		{
-			this.m_inDecision = false;
-			this.StartPrepPhaseEffects();
-		}
-		else if (eventType == GameEventManager.EventType.UIPhaseStartedEvasion)
-		{
-			this.m_inDecision = false;
-			this.StartEvasionPhaseEffects();
-		}
-		else if (eventType == GameEventManager.EventType.UIPhaseStartedCombat)
-		{
-			this.m_inDecision = false;
-			this.StartCombatPhaseEffects();
-		}
-		else if (eventType == GameEventManager.EventType.UIPhaseStartedMovement)
-		{
-			this.m_inDecision = false;
-			this.StartMovementPhaseEffects();
-		}
-		else
-		{
-			if (eventType != GameEventManager.EventType.UIPhaseStartedDecision)
+			case GameEventManager.EventType.UIPhaseStartedPrep:
+				m_inDecision = false;
+				StartPrepPhaseEffects();
+				break;
+			case GameEventManager.EventType.UIPhaseStartedEvasion:
+				m_inDecision = false;
+				StartEvasionPhaseEffects();
+				break;
+			case GameEventManager.EventType.UIPhaseStartedCombat:
+				m_inDecision = false;
+				StartCombatPhaseEffects();
+				break;
+			case GameEventManager.EventType.UIPhaseStartedMovement:
+				m_inDecision = false;
+				StartMovementPhaseEffects();
+				break;
+			case GameEventManager.EventType.UIPhaseStartedDecision:
+			case GameEventManager.EventType.TurnTick:
+				m_inDecision = true;
+				m_markedToRestartDecisionPhaseEffects = true;
+				break;
+			case GameEventManager.EventType.UITutorialHighlightChanged:
 			{
-				if (eventType != GameEventManager.EventType.TurnTick)
+				if (m_tutorialGlowOn == null)
 				{
-					if (eventType == GameEventManager.EventType.UITutorialHighlightChanged)
-					{
-						if (this.m_tutorialGlowOn == null)
-						{
-							this.m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
-						}
-						GameEventManager.ActivationInfo activationInfo = (GameEventManager.ActivationInfo)args;
-						if (activationInfo.active)
-						{
-							this.m_tutorialGlowOn[activationInfo.actionType] = true;
-						}
-						else
-						{
-							this.m_tutorialGlowOn[activationInfo.actionType] = false;
-						}
-						if (this.m_inDecision)
-						{
-							this.m_markedToRestartDecisionPhaseEffects = true;
-						}
-						return;
-					}
-					if (eventType == GameEventManager.EventType.GameTeardown)
-					{
-						this.StartOutOfGameEffects();
-						return;
-					}
-					return;
+					m_tutorialGlowOn = new Dictionary<AbilityData.ActionType, bool>();
 				}
+
+				GameEventManager.ActivationInfo activationInfo = (GameEventManager.ActivationInfo)args;
+				m_tutorialGlowOn[activationInfo.actionType] = activationInfo.active;
+
+				if (m_inDecision)
+				{
+					m_markedToRestartDecisionPhaseEffects = true;
+				}
+
+				break;
 			}
-			this.m_inDecision = true;
-			this.m_markedToRestartDecisionPhaseEffects = true;
+			case GameEventManager.EventType.GameTeardown:
+				StartOutOfGameEffects();
+				break;
 		}
 	}
 
 	private void StartPrepPhaseEffects()
 	{
-		Corale.Colore.Core.Color prepPhaseColor = this.m_prepPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Color prepPhaseColor = m_prepPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
-				ChromaLink.Instance.SetCustom(new Corale.Colore.Razer.ChromaLink.Effects.Custom(prepPhaseColor));
+				ChromaLink.Instance.SetCustom(new Custom(prepPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
-				Headset.Instance.SetStatic(new Corale.Colore.Razer.Headset.Effects.Static(prepPhaseColor));
+				Headset.Instance.SetStatic(new Static(prepPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
@@ -196,10 +167,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -207,10 +178,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -218,10 +189,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -229,41 +200,41 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_prepPhaseColor.R, (float)this.m_prepPhaseColor.G, (float)this.m_prepPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color(m_prepPhaseColor.R, m_prepPhaseColor.G, m_prepPhaseColor.B));
 		}
 	}
 
 	private void StartEvasionPhaseEffects()
 	{
-		Corale.Colore.Core.Color evasionPhaseColor = this.m_evasionPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Color evasionPhaseColor = m_evasionPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
-				ChromaLink.Instance.SetCustom(new Corale.Colore.Razer.ChromaLink.Effects.Custom(evasionPhaseColor));
+				ChromaLink.Instance.SetCustom(new Custom(evasionPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
-				Headset.Instance.SetStatic(new Corale.Colore.Razer.Headset.Effects.Static(evasionPhaseColor));
+				Headset.Instance.SetStatic(new Static(evasionPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
@@ -271,10 +242,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -282,10 +253,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -293,10 +264,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -304,41 +275,41 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_evasionPhaseColor.R, (float)this.m_evasionPhaseColor.G, (float)this.m_evasionPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color(m_evasionPhaseColor.R, m_evasionPhaseColor.G, m_evasionPhaseColor.B));
 		}
 	}
 
 	private void StartCombatPhaseEffects()
 	{
-		Corale.Colore.Core.Color combatPhaseColor = this.m_combatPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Color combatPhaseColor = m_combatPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
-				ChromaLink.Instance.SetCustom(new Corale.Colore.Razer.ChromaLink.Effects.Custom(combatPhaseColor));
+				ChromaLink.Instance.SetCustom(new Custom(combatPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
-				Headset.Instance.SetStatic(new Corale.Colore.Razer.Headset.Effects.Static(combatPhaseColor));
+				Headset.Instance.SetStatic(new Static(combatPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
@@ -346,10 +317,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -357,10 +328,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -368,10 +339,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -379,41 +350,41 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_combatPhaseColor.R, (float)this.m_combatPhaseColor.G, (float)this.m_combatPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color(m_combatPhaseColor.R, m_combatPhaseColor.G, m_combatPhaseColor.B));
 		}
 	}
 
 	private void StartMovementPhaseEffects()
 	{
-		Corale.Colore.Core.Color movementPhaseColor = this.m_movementPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Color movementPhaseColor = m_movementPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
-				ChromaLink.Instance.SetCustom(new Corale.Colore.Razer.ChromaLink.Effects.Custom(movementPhaseColor));
+				ChromaLink.Instance.SetCustom(new Custom(movementPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
-				Headset.Instance.SetStatic(new Corale.Colore.Razer.Headset.Effects.Static(movementPhaseColor));
+				Headset.Instance.SetStatic(new Static(movementPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
@@ -421,10 +392,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -432,10 +403,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -443,10 +414,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -454,230 +425,228 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_movementPhaseColor.R, (float)this.m_movementPhaseColor.G, (float)this.m_movementPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color(m_movementPhaseColor.R, m_movementPhaseColor.G, m_movementPhaseColor.B));
 		}
 	}
 
-	private Corale.Colore.Core.Color GetColorForActionType(AbilityData.ActionType actionType, bool checkCooldown)
+	private Color GetColorForActionType(AbilityData.ActionType actionType, bool checkCooldown)
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		if (activeOwnedActorData != null)
+		if (activeOwnedActorData == null)
 		{
-			bool queuedMovementAllowsAbility = activeOwnedActorData.QueuedMovementAllowsAbility;
-			activeOwnedActorData.QueuedMovementAllowsAbility = true;
-			AbilityData component = activeOwnedActorData.GetComponent<AbilityData>();
-			AbilityData.AbilityEntry abilityEntry = component.abilityEntries[(int)actionType];
-			if (abilityEntry != null && abilityEntry.ability != null)
+			return m_blackColor;
+		}
+		bool queuedMovementAllowsAbility = activeOwnedActorData.QueuedMovementAllowsAbility;
+		activeOwnedActorData.QueuedMovementAllowsAbility = true;
+		AbilityData component = activeOwnedActorData.GetComponent<AbilityData>();
+		AbilityData.AbilityEntry abilityEntry = component.abilityEntries[(int)actionType];
+		if (abilityEntry != null && abilityEntry.ability != null)
+		{
+			AbilityPriority runPriority = abilityEntry.ability.RunPriority;
+			switch (runPriority)
 			{
-				AbilityPriority runPriority = abilityEntry.ability.RunPriority;
-				if (runPriority == AbilityPriority.Prep_Defense || runPriority == AbilityPriority.Prep_Offense)
-				{
-					if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType))
-					{
-						if (checkCooldown)
-						{
-							return this.m_blackColor;
-						}
-					}
-					return this.m_prepPhaseColor;
-				}
-				if (runPriority == AbilityPriority.Evasion)
-				{
-					if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown)
-					{
-						return this.m_blackColor;
-					}
-					return this.m_evasionPhaseColor;
-				}
-				else
-				{
-					if (!component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown)
-					{
-						return this.m_blackColor;
-					}
-					return this.m_combatPhaseColor;
-				}
-			}
-			else
-			{
-				activeOwnedActorData.QueuedMovementAllowsAbility = queuedMovementAllowsAbility;
+				case AbilityPriority.Prep_Defense:
+				case AbilityPriority.Prep_Offense:
+					return !component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown
+						? m_blackColor
+						: m_prepPhaseColor;
+				case AbilityPriority.Evasion:
+					return !component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown
+						? m_blackColor
+						: m_evasionPhaseColor;
+				default:
+					return !component.ValidateActionIsRequestableDisregardingQueuedActions(actionType) && checkCooldown
+						? m_blackColor
+						: m_combatPhaseColor;
 			}
 		}
-		return this.m_blackColor;
+
+		activeOwnedActorData.QueuedMovementAllowsAbility = queuedMovementAllowsAbility;
+		return m_blackColor;
 	}
 
 	private void StartDecisionPhaseEffects()
 	{
-		Corale.Colore.Core.Color decisionPhaseColor = this.m_decisionPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Color decisionPhaseColor = m_decisionPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
-				ChromaLink.Instance.SetCustom(new Corale.Colore.Razer.ChromaLink.Effects.Custom(decisionPhaseColor));
+				ChromaLink.Instance.SetCustom(new Custom(decisionPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
-				Headset.Instance.SetStatic(new Corale.Colore.Razer.Headset.Effects.Static(decisionPhaseColor));
+				Headset.Instance.SetStatic(new Static(decisionPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
 				bool flag = false;
-				Corale.Colore.Razer.Keyboard.Effects.Custom custom = new Corale.Colore.Razer.Keyboard.Effects.Custom(this.m_blackColor);
-				using (Dictionary<AbilityData.ActionType, bool>.Enumerator enumerator = this.m_tutorialGlowOn.GetEnumerator())
+				Corale.Colore.Razer.Keyboard.Effects.Custom effect = new Corale.Colore.Razer.Keyboard.Effects.Custom(m_blackColor);
+				
+				foreach (KeyValuePair<AbilityData.ActionType, bool> keyValuePair in m_tutorialGlowOn)
 				{
-					while (enumerator.MoveNext())
+					if (!keyValuePair.Value)
 					{
-						KeyValuePair<AbilityData.ActionType, bool> keyValuePair = enumerator.Current;
-						if (keyValuePair.Value)
+						continue;
+					}
+					flag = true;
+					switch (keyValuePair.Key)
+					{
+						case AbilityData.ActionType.ABILITY_0:
 						{
-							flag = true;
-							if (keyValuePair.Key == AbilityData.ActionType.ABILITY_0)
+							if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_1)
+
+							break;
+						}
+						case AbilityData.ActionType.ABILITY_1:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_2)
+
+							break;
+						}
+						case AbilityData.ActionType.ABILITY_2:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_3)
+
+							break;
+						}
+						case AbilityData.ActionType.ABILITY_3:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.ABILITY_4)
+
+							break;
+						}
+						case AbilityData.ActionType.ABILITY_4:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.CARD_0)
+
+							break;
+						}
+						case AbilityData.ActionType.CARD_0:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.CARD_1)
+
+							break;
+						}
+						case AbilityData.ActionType.CARD_1:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
-							else if (keyValuePair.Key == AbilityData.ActionType.CARD_2)
+
+							break;
+						}
+						case AbilityData.ActionType.CARD_2:
+						{
+							if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out Key key))
 							{
-								Key key;
-								if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out key))
-								{
-									custom[key] = this.GetColorForActionType(keyValuePair.Key, false);
-								}
+								effect[key] = GetColorForActionType(keyValuePair.Key, false);
 							}
+
+							break;
 						}
 					}
 				}
+				
 				if (!flag)
 				{
-					custom = new Corale.Colore.Razer.Keyboard.Effects.Custom(this.m_decisionPhaseColor);
-					Key key2;
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanUp, out key2))
+					effect = new Corale.Colore.Razer.Keyboard.Effects.Custom(m_decisionPhaseColor);
+					Key key;
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanUp, out key))
 					{
-						custom[key2] = this.m_movementPhaseColor;
+						effect[key] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanLeft, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanLeft, out key))
 					{
-						custom[key2] = this.m_movementPhaseColor;
+						effect[key] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanDown, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanDown, out key))
 					{
-						custom[key2] = this.m_movementPhaseColor;
+						effect[key] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanRight, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.CameraPanRight, out key))
 					{
-						custom[key2] = this.m_movementPhaseColor;
+						effect[key] = m_movementPhaseColor;
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability1, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_0, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.ABILITY_0, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability2, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_1, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.ABILITY_1, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability3, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_2, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.ABILITY_2, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability4, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_3, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.ABILITY_3, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Ability5, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.ABILITY_4, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.ABILITY_4, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Card1, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.CARD_0, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.CARD_0, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Card2, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.CARD_1, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.CARD_1, true);
 					}
-					if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out key2))
+					if (InputManager.Get().GetRazorKey(KeyPreference.Card3, out key))
 					{
-						custom[key2] = this.GetColorForActionType(AbilityData.ActionType.CARD_2, true);
+						effect[key] = GetColorForActionType(AbilityData.ActionType.CARD_2, true);
 					}
 				}
-				Keyboard.Instance.SetCustom(custom);
+				Keyboard.Instance.SetCustom(effect);
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -685,10 +654,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -696,10 +665,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -707,41 +676,41 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_decisionPhaseColor.R, (float)this.m_decisionPhaseColor.G, (float)this.m_decisionPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color(m_decisionPhaseColor.R, m_decisionPhaseColor.G, m_decisionPhaseColor.B));
 		}
 	}
 
 	private void StartOutOfGameEffects()
 	{
-		Corale.Colore.Core.Color decisionPhaseColor = this.m_decisionPhaseColor;
-		if (this.m_chromaEnabled[5])
+		Color decisionPhaseColor = m_decisionPhaseColor;
+		if (m_chromaEnabled[5])
 		{
 			try
 			{
-				ChromaLink.Instance.SetCustom(new Corale.Colore.Razer.ChromaLink.Effects.Custom(decisionPhaseColor));
+				ChromaLink.Instance.SetCustom(new Custom(decisionPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[5] = false;
+				m_chromaEnabled[5] = false;
 			}
 		}
-		if (this.m_chromaEnabled[0])
+		if (m_chromaEnabled[0])
 		{
 			try
 			{
-				Headset.Instance.SetStatic(new Corale.Colore.Razer.Headset.Effects.Static(decisionPhaseColor));
+				Headset.Instance.SetStatic(new Static(decisionPhaseColor));
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[0] = false;
+				m_chromaEnabled[0] = false;
 			}
 		}
-		if (this.m_chromaEnabled[1])
+		if (m_chromaEnabled[1])
 		{
 			try
 			{
@@ -749,10 +718,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[1] = false;
+				m_chromaEnabled[1] = false;
 			}
 		}
-		if (this.m_chromaEnabled[2])
+		if (m_chromaEnabled[2])
 		{
 			try
 			{
@@ -760,10 +729,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[2] = false;
+				m_chromaEnabled[2] = false;
 			}
 		}
-		if (this.m_chromaEnabled[3])
+		if (m_chromaEnabled[3])
 		{
 			try
 			{
@@ -771,10 +740,10 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[3] = false;
+				m_chromaEnabled[3] = false;
 			}
 		}
-		if (this.m_chromaEnabled[4])
+		if (m_chromaEnabled[4])
 		{
 			try
 			{
@@ -782,12 +751,12 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 			}
 			catch (Exception)
 			{
-				this.m_chromaEnabled[4] = false;
+				m_chromaEnabled[4] = false;
 			}
 		}
-		if (this.m_hueEnabled)
+		if (m_hueEnabled)
 		{
-			this.SetHueLightstripColor(new UnityEngine.Color((float)this.m_decisionPhaseColor.R, (float)this.m_decisionPhaseColor.G, (float)this.m_decisionPhaseColor.B));
+			SetHueLightstripColor(new UnityEngine.Color(m_decisionPhaseColor.R, m_decisionPhaseColor.G, m_decisionPhaseColor.B));
 		}
 	}
 
@@ -830,38 +799,27 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 
 	private void SetHueLightstripColor(UnityEngine.Color newColor)
 	{
-		HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_hueHubAddress + this.m_hueURL);
+		HttpWebRequest request = (HttpWebRequest)WebRequest.Create(m_hueHubAddress + m_hueURL);
 		request.Method = "PUT";
-		Vector3 vector = ExternalLighting.HSVFromRGB(newColor);
+		Vector3 vector = HSVFromRGB(newColor);
 		int value = (int)(vector.x / 360f * 65535f);
 		int value2 = (int)(vector.y * 255f);
 		int value3 = (int)vector.z;
-		if (newColor.r == 255f && newColor.g == 255f)
+		if (newColor.r == 255f && newColor.g == 255f && newColor.b == 255f)
 		{
-			if (newColor.b == 255f)
-			{
-				value = 0x9B3E;
-				value2 = 0x6F;
-				value3 = 0xFE;
-				goto IL_121;
-			}
+			value = 0x9B3E;
+			value2 = 0x6F;
+			value3 = 0xFE;
 		}
-		if (vector.x == 60f)
+		else if (vector.x == 60f && vector.y == 1f && vector.z == 255f)
 		{
-			if (vector.y == 1f)
-			{
-				if (vector.z == 255f)
-				{
-					value = 0x445C;
-					value2 = 0x64;
-					value3 = 0xFE;
-				}
-			}
+			value = 0x445C;
+			value2 = 0x64;
+			value3 = 0xFE;
 		}
-		IL_121:
-		string s = string.Format("{{\"on\":true, \"transitiontime\":0, \"sat\":{0}, \"bri\":{1},\"hue\":{2}}}", Convert.ToString(value2), Convert.ToString(value3), Convert.ToString(value));
+		string s = $"{{\"on\":true, \"transitiontime\":0, \"sat\":{Convert.ToString(value2)}, \"bri\":{Convert.ToString(value3)},\"hue\":{Convert.ToString(value)}}}";
 		byte[] bytes = Encoding.ASCII.GetBytes(s);
-		request.ContentLength = (long)bytes.Length;
+		request.ContentLength = bytes.Length;
 		request.BeginGetRequestStream(delegate(IAsyncResult ar)
 		{
 			Stream stream = request.EndGetRequestStream(ar);
