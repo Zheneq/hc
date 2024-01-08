@@ -237,12 +237,29 @@ public class ClericHammerThrow : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
+		Vector3 targetPos = GetClampedTargetPos(caster, targets[0]);
+		targetPos.y = Board.Get().BaselineHeight;
 		return new ServerClientUtils.SequenceStartData(
 			m_castSequencePrefab,
-			GetClampedTargetPos(caster, targets[0]),
+			targetPos,
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
-			additionalData.m_sequenceSource);
+			additionalData.m_sequenceSource,
+			new Sequence.IExtraSequenceParams[]
+			{
+				new Sequence.FxAttributeParam
+				{
+					m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.ScaleControl,
+					m_paramTarget = Sequence.FxAttributeParam.ParamTarget.MainVfx,
+					m_paramValue = 4.0f
+				},
+				new Sequence.FxAttributeParam
+				{
+					m_paramNameCode = Sequence.FxAttributeParam.ParamNameCode.ScaleControl,
+					m_paramTarget = Sequence.FxAttributeParam.ParamTarget.ImpactVfx,
+					m_paramValue = 4.0f
+				}
+			});
 	}
 	
 	// custom
