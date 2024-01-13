@@ -1647,47 +1647,49 @@ public class AbilityData : NetworkBehaviour
 
 	public void TriggerCooldown(ActionType action)
 	{
-		if (!IsChain(action))
+		if (IsChain(action))
 		{
-			AbilityEntry abilityEntry = m_abilities[(int)action];
-			if (abilityEntry.ability != null)
+			return;
+		}
+		AbilityEntry abilityEntry = m_abilities[(int)action];
+		if (abilityEntry.ability == null)
+		{
+			return;
+		}
+		int moddedCooldown = abilityEntry.ability.GetModdedCooldown();
+		if (moddedCooldown > 0)
+		{
+			if (GameplayMutators.Get() != null)
 			{
-				int moddedCooldown = abilityEntry.ability.GetModdedCooldown();
-				if (moddedCooldown > 0)
-				{
-					if (GameplayMutators.Get() != null)
-					{
-						int num = moddedCooldown + 1;
-						int cooldownTimeAdjustment = GameplayMutators.GetCooldownTimeAdjustment();
-						float cooldownMultiplier = GameplayMutators.GetCooldownMultiplier();
-						int num2 = Mathf.RoundToInt((num + cooldownTimeAdjustment) * cooldownMultiplier);
-						num2 = Math.Max(num2, 0);
-						m_cooldowns[abilityEntry.ability.m_abilityName] = num2;
-					}
-					else
-					{
-						m_cooldowns[abilityEntry.ability.m_abilityName] = moddedCooldown + 1;
-					}
-				}
-				else if (abilityEntry.ability.m_cooldown == -1)
-				{
-					m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
-				}
-				SynchronizeCooldownsToSlots();
+				int baseValue = moddedCooldown + 1;
+				int cooldownTimeAdjustment = GameplayMutators.GetCooldownTimeAdjustment();
+				float cooldownMultiplier = GameplayMutators.GetCooldownMultiplier();
+				int finalValue = Math.Max(Mathf.RoundToInt((baseValue + cooldownTimeAdjustment) * cooldownMultiplier), 0);
+				m_cooldowns[abilityEntry.ability.m_abilityName] = finalValue;
+			}
+			else
+			{
+				m_cooldowns[abilityEntry.ability.m_abilityName] = moddedCooldown + 1;
 			}
 		}
+		else if (abilityEntry.ability.m_cooldown == -1)
+		{
+			m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
+		}
+		SynchronizeCooldownsToSlots();
 	}
 
 	public void OverrideCooldown(ActionType action, int cooldownRemainingOverride)
 	{
-		if (!IsChain(action))
+		if (IsChain(action))
 		{
-			AbilityEntry abilityEntry = m_abilities[(int)action];
-			if (abilityEntry.ability != null)
-			{
-				m_cooldowns[abilityEntry.ability.m_abilityName] = cooldownRemainingOverride;
-				SynchronizeCooldownsToSlots();
-			}
+			return;
+		}
+		AbilityEntry abilityEntry = m_abilities[(int)action];
+		if (abilityEntry.ability != null)
+		{
+			m_cooldowns[abilityEntry.ability.m_abilityName] = cooldownRemainingOverride;
+			SynchronizeCooldownsToSlots();
 		}
 	}
 
