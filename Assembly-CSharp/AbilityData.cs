@@ -1647,15 +1647,19 @@ public class AbilityData : NetworkBehaviour
 
 	public void TriggerCooldown(ActionType action)
 	{
+		Log.Info($"Trigger cooldown {m_actor} {action}");  // custom debug logs
 		if (IsChain(action))
 		{
+			Log.Info($"Trigger cooldown {m_actor} {action} is chain");  // custom debug logs
 			return;
 		}
 		AbilityEntry abilityEntry = m_abilities[(int)action];
 		if (abilityEntry.ability == null)
 		{
+			Log.Info($"Trigger cooldown {m_actor} {action} ability not found");  // custom debug logs
 			return;
 		}
+		Log.Info($"Trigger cooldown {m_actor} {action} {abilityEntry.ability.m_abilityName}");  // custom debug logs
 		int moddedCooldown = abilityEntry.ability.GetModdedCooldown();
 		if (moddedCooldown > 0)
 		{
@@ -1676,11 +1680,13 @@ public class AbilityData : NetworkBehaviour
 		{
 			m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
 		}
+		Log.Info($"Trigger cooldown {m_actor} {action} = {m_cooldowns[abilityEntry.ability.m_abilityName]}");  // custom debug logs
 		SynchronizeCooldownsToSlots();
 	}
 
 	public void OverrideCooldown(ActionType action, int cooldownRemainingOverride)
 	{
+		Log.Info($"Override cooldown {m_actor} {action} {cooldownRemainingOverride}");  // custom debug logs
 		if (IsChain(action))
 		{
 			return;
@@ -1709,6 +1715,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void ProgressCooldowns()
 	{
+		Log.Info($"Progress cooldowns {m_actor}");  // custom debug logs
 		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
 		foreach (string key in cooldownsCopy.Keys)
 		{
@@ -1732,6 +1739,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void ProgressCooldownsOfAbilities(List<Ability> abilities)
 	{
+		Log.Info($"Progress cooldowns of abilities {m_actor}");  // custom debug logs
 		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
 		foreach (string key in cooldownsCopy.Keys)
 		{
@@ -1742,6 +1750,7 @@ public class AbilityData : NetworkBehaviour
 				{
 					if (ability.m_abilityName == key)
 					{
+						Log.Info($"Progress cooldown of ability {m_actor} {ability.m_abilityName}");  // custom debug logs
 						flag = true;
 						break;
 					}
@@ -1761,6 +1770,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void ProgressCharacterAbilityCooldowns()
 	{
+		Log.Info($"Progress character ability cooldowns {m_actor}");  // custom debug logs
 		Dictionary<string, int> cooldownsCopy = new Dictionary<string, int>(m_cooldowns);
 		foreach (string key in cooldownsCopy.Keys)
 		{
@@ -1791,12 +1801,14 @@ public class AbilityData : NetworkBehaviour
 
 	public void ClearCooldowns()
 	{
+		Log.Info($"Clear cooldowns {m_actor}");  // custom debug logs
 		m_cooldowns.Clear();
 		SynchronizeCooldownsToSlots();
 	}
 
 	public void ClearCharacterAbilityCooldowns()
 	{
+		Log.Info($"Clear character ability cooldowns {m_actor}");  // custom debug logs
 		bool flag = false;
 		for (int i = 0; i < NUM_ABILITIES; i++)
 		{
@@ -1820,6 +1832,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void SetCooldown(ActionType action, int cooldown)
 	{
+		Log.Info($"Set cooldown {m_actor} {action} {cooldown}");  // custom debug logs
 		AbilityEntry abilityEntry = m_abilities[(int)action];
 		if (abilityEntry.ability != null)
 		{
@@ -1834,6 +1847,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void ClearCooldown(ActionType action)
 	{
+		Log.Info($"Clear cooldown {m_actor} {action}");  // custom debug logs
 		AbilityEntry abilityEntry = m_abilities[(int)action];
 		if (abilityEntry.ability != null)
 		{
