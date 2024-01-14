@@ -69,48 +69,48 @@ public class ClientGameManager : MonoBehaviour
 
 	public ClientGameManager()
 	{
-		OnConnectedToLobbyServerHolder = delegate {};
-		OnDisconnectedFromLobbyServerHolder = delegate {};
-		OnLobbyServerReadyNotificationHolder = delegate {};
-		OnLobbyStatusNotificationHolder = delegate {};		
-		OnLobbyCustomGamesNotificationHolder = delegate {};
-		OnQueueAssignmentNotificationHolder = delegate {};
-		OnQueueStatusNotificationHolder = delegate {};		
-		OnQueueEnteredHolder = delegate {};		
-		OnQueueLeftHolder = delegate {};		
-		OnGameAssignmentNotificationHolder = delegate {};		
-		OnGameInfoNotificationHolder = delegate {};		
-		OnLobbyServerLockStateChangeHolder = delegate {};		
-		OnLobbyServerClientAccessLevelChangeHolder = delegate {};
-		OnLobbyGameplayOverridesChangeHolder = delegate {};		
-		OnBankBalanceChangeHolder = delegate {};		
-		OnModUnlockedHolder = delegate {};		
-		OnAccountDataUpdatedHolder = delegate {};		
-		OnCharacterDataUpdatedHolder = delegate {};		
-		OnInventoryComponentUpdatedHolder = delegate {};		
-		OnChatNotificationHolder = delegate {};		
-		OnSetDevTagResponseHolder = delegate {};
-		OnUseOverconNotificationHolder = delegate {};		
-		OnUseGGPackNotificationHolder = delegate {};		
-		OnGroupUpdateNotificationHolder = delegate {};		
-		OnFriendStatusNotificationHolder = delegate {};		
-		OnPlayerTitleChangeHolder = delegate {};		
-		OnPlayerBannerChangeHolder = delegate {};
-		OnPlayerRibbonChangeHolder = delegate {};		
-		OnLoadingScreenBackgroundToggledHolder = delegate {};
-		OnQuestCompleteNotificationHolder = delegate {};		
-		OnMatchResultsNotificationHolder = delegate {};		
-		OnChapterUnlockNotificationHolder = delegate {};		
-		OnServerQueueConfigurationUpdateNotificationHolder = delegate {};		
-		OnSeasonCompleteNotificationHolder = delegate {};
-		OnChapterCompleteNotificationHolder = delegate {};
-		OnFactionCompetitionNotificationHolder = delegate {};
-		OnTrustBoostUsedNotificationHolder = delegate {};
-		OnPlayerFactionContributionChangeNotificationHolder = delegate {};
-		OnFactionLoginRewardNotificationHolder = delegate {};
-		OnQuestProgressChangedHolder = delegate {};
-		OnAlertMissionDataChangeHolder = delegate {};
-		OnSeasonChapterQuestsChangeHolder = delegate {};
+		OnConnectedToLobbyServer = delegate {};
+		OnDisconnectedFromLobbyServer = delegate {};
+		OnLobbyServerReadyNotification = delegate {};
+		OnLobbyStatusNotification = delegate {};		
+		OnLobbyCustomGamesNotification = delegate {};
+		OnQueueAssignmentNotification = delegate {};
+		OnQueueStatusNotification = delegate {};		
+		OnQueueEntered = delegate {};		
+		OnQueueLeft = delegate {};		
+		OnGameAssignmentNotification = delegate {};		
+		OnGameInfoNotification = delegate {};		
+		OnLobbyServerLockStateChange = delegate {};		
+		OnLobbyServerClientAccessLevelChange = delegate {};
+		OnLobbyGameplayOverridesChange = delegate {};		
+		OnBankBalanceChange = delegate {};		
+		OnModUnlocked = delegate {};		
+		OnAccountDataUpdated = delegate {};		
+		OnCharacterDataUpdated = delegate {};		
+		OnInventoryComponentUpdated = delegate {};		
+		OnChatNotification = delegate {};		
+		OnSetDevTagResponse = delegate {};
+		OnUseOverconNotification = delegate {};		
+		OnUseGGPackNotification = delegate {};		
+		OnGroupUpdateNotification = delegate {};		
+		OnFriendStatusNotification = delegate {};		
+		OnPlayerTitleChange = delegate {};		
+		OnPlayerBannerChange = delegate {};
+		OnPlayerRibbonChange = delegate {};		
+		OnLoadingScreenBackgroundToggled = delegate {};
+		OnQuestCompleteNotification = delegate {};		
+		OnMatchResultsNotification = delegate {};		
+		OnChapterUnlockNotification = delegate {};		
+		OnServerQueueConfigurationUpdateNotification = delegate {};		
+		OnSeasonCompleteNotification = delegate {};
+		OnChapterCompleteNotification = delegate {};
+		OnFactionCompetitionNotification = delegate {};
+		OnTrustBoostUsedNotification = delegate {};
+		OnPlayerFactionContributionChangeNotification = delegate {};
+		OnFactionLoginRewardNotification = delegate {};
+		OnQuestProgressChanged = delegate {};
+		OnAlertMissionDataChange = delegate {};
+		OnSeasonChapterQuestsChange = delegate {};
 		OurQueueEntryTime = DateTime.MinValue;
 		SoloSubTypeMask = new Dictionary<GameType, ushort>();
 		m_loadingProgressUpdateFrequency = 0.5f;
@@ -126,1256 +126,91 @@ public class ClientGameManager : MonoBehaviour
 	public string Handle => m_lobbyGameClientInterface?.SessionInfo?.Handle;
 	public long AccountId => m_lobbyGameClientInterface?.SessionInfo?.AccountId ?? -1L;
 
-	private Action<RegisterGameClientResponse> OnConnectedToLobbyServerHolder;
-	public event Action<RegisterGameClientResponse> OnConnectedToLobbyServer
-	{
-		add
-		{
-			Action<RegisterGameClientResponse> action = OnConnectedToLobbyServerHolder;
-			Action<RegisterGameClientResponse> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnConnectedToLobbyServerHolder, (Action<RegisterGameClientResponse>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<RegisterGameClientResponse> action = OnConnectedToLobbyServerHolder;
-			Action<RegisterGameClientResponse> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnConnectedToLobbyServerHolder, (Action<RegisterGameClientResponse>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<string> OnDisconnectedFromLobbyServerHolder;
-	public event Action<string> OnDisconnectedFromLobbyServer
-	{
-		add
-		{
-			Action<string> action = OnDisconnectedFromLobbyServerHolder;
-			Action<string> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnDisconnectedFromLobbyServerHolder, (Action<string>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<string> action = OnDisconnectedFromLobbyServerHolder;
-			Action<string> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnDisconnectedFromLobbyServerHolder, (Action<string>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<LobbyServerReadyNotification> OnLobbyServerReadyNotificationHolder;
-	public event Action<LobbyServerReadyNotification> OnLobbyServerReadyNotification
-	{
-		add
-		{
-			Action<LobbyServerReadyNotification> action = OnLobbyServerReadyNotificationHolder;
-			Action<LobbyServerReadyNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<LobbyServerReadyNotification> action = OnLobbyServerReadyNotificationHolder;
-			Action<LobbyServerReadyNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyServerReadyNotificationHolder, (Action<LobbyServerReadyNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<LobbyStatusNotification> OnLobbyStatusNotificationHolder;
-	public event Action<LobbyStatusNotification> OnLobbyStatusNotification
-	{
-		add
-		{
-			Action<LobbyStatusNotification> action = OnLobbyStatusNotificationHolder;
-			Action<LobbyStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<LobbyStatusNotification> action = OnLobbyStatusNotificationHolder;
-			Action<LobbyStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyStatusNotificationHolder, (Action<LobbyStatusNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotificationHolder;
-	public event Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotification
-	{
-		add
-		{
-			Action<LobbyCustomGamesNotification> action = OnLobbyCustomGamesNotificationHolder;
-			Action<LobbyCustomGamesNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<LobbyCustomGamesNotification> action = OnLobbyCustomGamesNotificationHolder;
-			Action<LobbyCustomGamesNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyCustomGamesNotificationHolder, (Action<LobbyCustomGamesNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	private Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotificationHolder;
+	public event Action<RegisterGameClientResponse> OnConnectedToLobbyServer;
+	public event Action<string> OnDisconnectedFromLobbyServer;
+	public event Action<LobbyServerReadyNotification> OnLobbyServerReadyNotification;
+	public event Action<LobbyStatusNotification> OnLobbyStatusNotification;
+	public event Action<LobbyCustomGamesNotification> OnLobbyCustomGamesNotification;
 	public event Action<MatchmakingQueueAssignmentNotification> OnQueueAssignmentNotification;
-
-	private Action<MatchmakingQueueStatusNotification> OnQueueStatusNotificationHolder;
-	public event Action<MatchmakingQueueStatusNotification> OnQueueStatusNotification
-	{
-		add
-		{
-			Action<MatchmakingQueueStatusNotification> action = OnQueueStatusNotificationHolder;
-			Action<MatchmakingQueueStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<MatchmakingQueueStatusNotification> action = OnQueueStatusNotificationHolder;
-			Action<MatchmakingQueueStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQueueStatusNotificationHolder, (Action<MatchmakingQueueStatusNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action OnQueueEnteredHolder;
-	public event Action OnQueueEntered
-	{
-		add
-		{
-			Action action = OnQueueEnteredHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQueueEnteredHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action action = OnQueueEnteredHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQueueEnteredHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action OnQueueLeftHolder;
-	public event Action OnQueueLeft
-	{
-		add
-		{
-			Action action = OnQueueLeftHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQueueLeftHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action action = OnQueueLeftHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQueueLeftHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<GameAssignmentNotification> OnGameAssignmentNotificationHolder;
-	public event Action<GameAssignmentNotification> OnGameAssignmentNotification
-	{
-		add
-		{
-			Action<GameAssignmentNotification> action = OnGameAssignmentNotificationHolder;
-			Action<GameAssignmentNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<GameAssignmentNotification> action = OnGameAssignmentNotificationHolder;
-			Action<GameAssignmentNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnGameAssignmentNotificationHolder, (Action<GameAssignmentNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<GameInfoNotification> OnGameInfoNotificationHolder;
-	public event Action<GameInfoNotification> OnGameInfoNotification
-	{
-		add
-		{
-			Action<GameInfoNotification> action = OnGameInfoNotificationHolder;
-			Action<GameInfoNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<GameInfoNotification> action = OnGameInfoNotificationHolder;
-			Action<GameInfoNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnGameInfoNotificationHolder, (Action<GameInfoNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<ServerLockState, ServerLockState> OnLobbyServerLockStateChangeHolder;
-	public event Action<ServerLockState, ServerLockState> OnLobbyServerLockStateChange
-	{
-		add
-		{
-			Action<ServerLockState, ServerLockState> action = OnLobbyServerLockStateChangeHolder;
-			Action<ServerLockState, ServerLockState> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyServerLockStateChangeHolder, (Action<ServerLockState, ServerLockState>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ServerLockState, ServerLockState> action = OnLobbyServerLockStateChangeHolder;
-			Action<ServerLockState, ServerLockState> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyServerLockStateChangeHolder, (Action<ServerLockState, ServerLockState>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<ClientAccessLevel, ClientAccessLevel> OnLobbyServerClientAccessLevelChangeHolder;
-	public event Action<ClientAccessLevel, ClientAccessLevel> OnLobbyServerClientAccessLevelChange
-	{
-		add
-		{
-			Action<ClientAccessLevel, ClientAccessLevel> action = OnLobbyServerClientAccessLevelChangeHolder;
-			Action<ClientAccessLevel, ClientAccessLevel> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyServerClientAccessLevelChangeHolder, (Action<ClientAccessLevel, ClientAccessLevel>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ClientAccessLevel, ClientAccessLevel> action = OnLobbyServerClientAccessLevelChangeHolder;
-			Action<ClientAccessLevel, ClientAccessLevel> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyServerClientAccessLevelChangeHolder, (Action<ClientAccessLevel, ClientAccessLevel>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<LobbyGameplayOverrides> OnLobbyGameplayOverridesChangeHolder;
-	public event Action<LobbyGameplayOverrides> OnLobbyGameplayOverridesChange
-	{
-		add
-		{
-			Action<LobbyGameplayOverrides> action = OnLobbyGameplayOverridesChangeHolder;
-			Action<LobbyGameplayOverrides> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyGameplayOverridesChangeHolder, (Action<LobbyGameplayOverrides>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<LobbyGameplayOverrides> action = OnLobbyGameplayOverridesChangeHolder;
-			Action<LobbyGameplayOverrides> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLobbyGameplayOverridesChangeHolder, (Action<LobbyGameplayOverrides>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<CurrencyData> OnBankBalanceChangeHolder;
-	public event Action<CurrencyData> OnBankBalanceChange
-	{
-		add
-		{
-			Action<CurrencyData> action = OnBankBalanceChangeHolder;
-			Action<CurrencyData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnBankBalanceChangeHolder, (Action<CurrencyData>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<CurrencyData> action = OnBankBalanceChangeHolder;
-			Action<CurrencyData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnBankBalanceChangeHolder, (Action<CurrencyData>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	private Action<CharacterType, PlayerModData> OnModUnlockedHolder;
+	public event Action<MatchmakingQueueStatusNotification> OnQueueStatusNotification;
+	public event Action OnQueueEntered;
+	public event Action OnQueueLeft;
+	public event Action<GameAssignmentNotification> OnGameAssignmentNotification;
+	public event Action<GameInfoNotification> OnGameInfoNotification;
+	public event Action<ServerLockState, ServerLockState> OnLobbyServerLockStateChange;
+	public event Action<ClientAccessLevel, ClientAccessLevel> OnLobbyServerClientAccessLevelChange;
+	public event Action<LobbyGameplayOverrides> OnLobbyGameplayOverridesChange;
+	public event Action<CurrencyData> OnBankBalanceChange;
 	public event Action<CharacterType, PlayerModData> OnModUnlocked;
-
-	private Action<PersistedAccountData> OnAccountDataUpdatedHolder;
-	public event Action<PersistedAccountData> OnAccountDataUpdated
-	{
-		add
-		{
-			Action<PersistedAccountData> action = OnAccountDataUpdatedHolder;
-			Action<PersistedAccountData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnAccountDataUpdatedHolder, (Action<PersistedAccountData>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<PersistedAccountData> action = OnAccountDataUpdatedHolder;
-			Action<PersistedAccountData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnAccountDataUpdatedHolder, (Action<PersistedAccountData>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<PersistedCharacterData> OnCharacterDataUpdatedHolder;
-	public event Action<PersistedCharacterData> OnCharacterDataUpdated
-	{
-		add
-		{
-			Action<PersistedCharacterData> action = OnCharacterDataUpdatedHolder;
-			Action<PersistedCharacterData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnCharacterDataUpdatedHolder, (Action<PersistedCharacterData>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<PersistedCharacterData> action = OnCharacterDataUpdatedHolder;
-			Action<PersistedCharacterData> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnCharacterDataUpdatedHolder, (Action<PersistedCharacterData>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<InventoryComponent> OnInventoryComponentUpdatedHolder;
-	public event Action<InventoryComponent> OnInventoryComponentUpdated
-	{
-		add
-		{
-			Action<InventoryComponent> action = OnInventoryComponentUpdatedHolder;
-			Action<InventoryComponent> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnInventoryComponentUpdatedHolder, (Action<InventoryComponent>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<InventoryComponent> action = OnInventoryComponentUpdatedHolder;
-			Action<InventoryComponent> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnInventoryComponentUpdatedHolder, (Action<InventoryComponent>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<ChatNotification> OnChatNotificationHolder;
-	public event Action<ChatNotification> OnChatNotification
-	{
-		add
-		{
-			Action<ChatNotification> action = OnChatNotificationHolder;
-			Action<ChatNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ChatNotification> action = OnChatNotificationHolder;
-			Action<ChatNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnChatNotificationHolder, (Action<ChatNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<SetDevTagResponse> OnSetDevTagResponseHolder;
-	public event Action<SetDevTagResponse> OnSetDevTagResponse
-	{
-		add
-		{
-			Action<SetDevTagResponse> action = OnSetDevTagResponseHolder;
-			Action<SetDevTagResponse> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnSetDevTagResponseHolder, (Action<SetDevTagResponse>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<SetDevTagResponse> action = OnSetDevTagResponseHolder;
-			Action<SetDevTagResponse> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnSetDevTagResponseHolder, (Action<SetDevTagResponse>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<UseOverconResponse> OnUseOverconNotificationHolder;
-	public event Action<UseOverconResponse> OnUseOverconNotification
-	{
-		add
-		{
-			Action<UseOverconResponse> action = OnUseOverconNotificationHolder;
-			Action<UseOverconResponse> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<UseOverconResponse> action = OnUseOverconNotificationHolder;
-			Action<UseOverconResponse> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnUseOverconNotificationHolder, (Action<UseOverconResponse>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<UseGGPackNotification> OnUseGGPackNotificationHolder;
-	public event Action<UseGGPackNotification> OnUseGGPackNotification
-	{
-		add
-		{
-			Action<UseGGPackNotification> action = OnUseGGPackNotificationHolder;
-			Action<UseGGPackNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<UseGGPackNotification> action = OnUseGGPackNotificationHolder;
-			Action<UseGGPackNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnUseGGPackNotificationHolder, (Action<UseGGPackNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action OnGroupUpdateNotificationHolder;
-	public event Action OnGroupUpdateNotification
-	{
-		add
-		{
-			Action action = OnGroupUpdateNotificationHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnGroupUpdateNotificationHolder, (Action)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action action = OnGroupUpdateNotificationHolder;
-			Action action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnGroupUpdateNotificationHolder, (Action)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<FriendStatusNotification> OnFriendStatusNotificationHolder;
-	public event Action<FriendStatusNotification> OnFriendStatusNotification
-	{
-		add
-		{
-			Action<FriendStatusNotification> action = OnFriendStatusNotificationHolder;
-			Action<FriendStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<FriendStatusNotification> action = OnFriendStatusNotificationHolder;
-			Action<FriendStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnFriendStatusNotificationHolder, (Action<FriendStatusNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<string> OnPlayerTitleChangeHolder;
-	public event Action<string> OnPlayerTitleChange
-	{
-		add
-		{
-			Action<string> action = OnPlayerTitleChangeHolder;
-			Action<string> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerTitleChangeHolder, (Action<string>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<string> action = OnPlayerTitleChangeHolder;
-			Action<string> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerTitleChangeHolder, (Action<string>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> OnPlayerBannerChangeHolder;
-	public event Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> OnPlayerBannerChange
-	{
-		add
-		{
-			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action = OnPlayerBannerChangeHolder;
-			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerBannerChangeHolder, (Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action = OnPlayerBannerChangeHolder;
-			Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerBannerChangeHolder, (Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<GameBalanceVars.PlayerRibbon> OnPlayerRibbonChangeHolder;
-	public event Action<GameBalanceVars.PlayerRibbon> OnPlayerRibbonChange
-	{
-		add
-		{
-			Action<GameBalanceVars.PlayerRibbon> action = OnPlayerRibbonChangeHolder;
-			Action<GameBalanceVars.PlayerRibbon> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerRibbonChangeHolder, (Action<GameBalanceVars.PlayerRibbon>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<GameBalanceVars.PlayerRibbon> action = OnPlayerRibbonChangeHolder;
-			Action<GameBalanceVars.PlayerRibbon> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerRibbonChangeHolder, (Action<GameBalanceVars.PlayerRibbon>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<int, bool> OnLoadingScreenBackgroundToggledHolder;
-	public event Action<int, bool> OnLoadingScreenBackgroundToggled
-	{
-		add
-		{
-			Action<int, bool> action = OnLoadingScreenBackgroundToggledHolder;
-			Action<int, bool> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLoadingScreenBackgroundToggledHolder, (Action<int, bool>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<int, bool> action = OnLoadingScreenBackgroundToggledHolder;
-			Action<int, bool> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnLoadingScreenBackgroundToggledHolder, (Action<int, bool>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<QuestCompleteNotification> OnQuestCompleteNotificationHolder;
-	public event Action<QuestCompleteNotification> OnQuestCompleteNotification
-	{
-		add
-		{
-			Action<QuestCompleteNotification> action = OnQuestCompleteNotificationHolder;
-			Action<QuestCompleteNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<QuestCompleteNotification> action = OnQuestCompleteNotificationHolder;
-			Action<QuestCompleteNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQuestCompleteNotificationHolder, (Action<QuestCompleteNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<MatchResultsNotification> OnMatchResultsNotificationHolder;
-	public event Action<MatchResultsNotification> OnMatchResultsNotification
-	{
-		add
-		{
-			Action<MatchResultsNotification> action = OnMatchResultsNotificationHolder;
-			Action<MatchResultsNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<MatchResultsNotification> action = OnMatchResultsNotificationHolder;
-			Action<MatchResultsNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnMatchResultsNotificationHolder, (Action<MatchResultsNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<int, int> OnChapterUnlockNotificationHolder;
-	public event Action<int, int> OnChapterUnlockNotification
-	{
-		add
-		{
-			Action<int, int> action = OnChapterUnlockNotificationHolder;
-			Action<int, int> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnChapterUnlockNotificationHolder, (Action<int, int>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<int, int> action = OnChapterUnlockNotificationHolder;
-			Action<int, int> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnChapterUnlockNotificationHolder, (Action<int, int>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotificationHolder;
-	public event Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotification
-	{
-		add
-		{
-			Action<ServerQueueConfigurationUpdateNotification> action = OnServerQueueConfigurationUpdateNotificationHolder;
-			Action<ServerQueueConfigurationUpdateNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<ServerQueueConfigurationUpdateNotification> action = OnServerQueueConfigurationUpdateNotificationHolder;
-			Action<ServerQueueConfigurationUpdateNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnServerQueueConfigurationUpdateNotificationHolder, (Action<ServerQueueConfigurationUpdateNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<SeasonStatusNotification> OnSeasonCompleteNotificationHolder;
-	public event Action<SeasonStatusNotification> OnSeasonCompleteNotification
-	{
-		add
-		{
-			Action<SeasonStatusNotification> action = OnSeasonCompleteNotificationHolder;
-			Action<SeasonStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnSeasonCompleteNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<SeasonStatusNotification> action = OnSeasonCompleteNotificationHolder;
-			Action<SeasonStatusNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnSeasonCompleteNotificationHolder, (Action<SeasonStatusNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	//[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-	private Action<int, int> OnChapterCompleteNotificationHolder;
+	public event Action<PersistedAccountData> OnAccountDataUpdated;
+	public event Action<PersistedCharacterData> OnCharacterDataUpdated;
+	public event Action<InventoryComponent> OnInventoryComponentUpdated;
+	public event Action<ChatNotification> OnChatNotification;
+	public event Action<SetDevTagResponse> OnSetDevTagResponse;
+	public event Action<UseOverconResponse> OnUseOverconNotification;
+	public event Action<UseGGPackNotification> OnUseGGPackNotification;
+	public event Action OnGroupUpdateNotification;
+	public event Action<FriendStatusNotification> OnFriendStatusNotification;
+	public event Action<string> OnPlayerTitleChange;
+	public event Action<GameBalanceVars.PlayerBanner, GameBalanceVars.PlayerBanner> OnPlayerBannerChange;
+	public event Action<GameBalanceVars.PlayerRibbon> OnPlayerRibbonChange;
+	public event Action<int, bool> OnLoadingScreenBackgroundToggled;
+	public event Action<QuestCompleteNotification> OnQuestCompleteNotification;
+	public event Action<MatchResultsNotification> OnMatchResultsNotification;
+	public event Action<int, int> OnChapterUnlockNotification;
+	public event Action<ServerQueueConfigurationUpdateNotification> OnServerQueueConfigurationUpdateNotification;
+	public event Action<SeasonStatusNotification> OnSeasonCompleteNotification;
 	public event Action<int, int> OnChapterCompleteNotification;
+	public event Action<FactionCompetitionNotification> OnFactionCompetitionNotification;
+	public event Action<TrustBoostUsedNotification> OnTrustBoostUsedNotification;
+	public event Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeNotification;
+	public event Action<FactionLoginRewardNotification> OnFactionLoginRewardNotification;
+	public event Action<QuestProgress[]> OnQuestProgressChanged;
+	public event Action<LobbyAlertMissionDataNotification> OnAlertMissionDataChange;
+	public event Action<Dictionary<int, SeasonChapterQuests>> OnSeasonChapterQuestsChange;
 
-	private Action<FactionCompetitionNotification> OnFactionCompetitionNotificationHolder;
-	public event Action<FactionCompetitionNotification> OnFactionCompetitionNotification
-	{
-		add
-		{
-			Action<FactionCompetitionNotification> action = OnFactionCompetitionNotificationHolder;
-			Action<FactionCompetitionNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<FactionCompetitionNotification> action = OnFactionCompetitionNotificationHolder;
-			Action<FactionCompetitionNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnFactionCompetitionNotificationHolder, (Action<FactionCompetitionNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<TrustBoostUsedNotification> OnTrustBoostUsedNotificationHolder;
-	public event Action<TrustBoostUsedNotification> OnTrustBoostUsedNotification
-	{
-		add
-		{
-			Action<TrustBoostUsedNotification> action = OnTrustBoostUsedNotificationHolder;
-			Action<TrustBoostUsedNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<TrustBoostUsedNotification> action = OnTrustBoostUsedNotificationHolder;
-			Action<TrustBoostUsedNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnTrustBoostUsedNotificationHolder, (Action<TrustBoostUsedNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeNotificationHolder;
-	public event Action<PlayerFactionContributionChangeNotification> OnPlayerFactionContributionChangeNotification
-	{
-		add
-		{
-			Action<PlayerFactionContributionChangeNotification> action = OnPlayerFactionContributionChangeNotificationHolder;
-			Action<PlayerFactionContributionChangeNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerFactionContributionChangeNotificationHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<PlayerFactionContributionChangeNotification> action = OnPlayerFactionContributionChangeNotificationHolder;
-			Action<PlayerFactionContributionChangeNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnPlayerFactionContributionChangeNotificationHolder, (Action<PlayerFactionContributionChangeNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<FactionLoginRewardNotification> OnFactionLoginRewardNotificationHolder;
-	public event Action<FactionLoginRewardNotification> OnFactionLoginRewardNotification
-	{
-		add
-		{
-			Action<FactionLoginRewardNotification> action = OnFactionLoginRewardNotificationHolder;
-			Action<FactionLoginRewardNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<FactionLoginRewardNotification> action = OnFactionLoginRewardNotificationHolder;
-			Action<FactionLoginRewardNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnFactionLoginRewardNotificationHolder, (Action<FactionLoginRewardNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<QuestProgress[]> OnQuestProgressChangedHolder;
-	public event Action<QuestProgress[]> OnQuestProgressChanged
-	{
-		add
-		{
-			Action<QuestProgress[]> action = OnQuestProgressChangedHolder;
-			Action<QuestProgress[]> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQuestProgressChangedHolder, (Action<QuestProgress[]>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<QuestProgress[]> action = OnQuestProgressChangedHolder;
-			Action<QuestProgress[]> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnQuestProgressChangedHolder, (Action<QuestProgress[]>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<LobbyAlertMissionDataNotification> OnAlertMissionDataChangeHolder;
-	public event Action<LobbyAlertMissionDataNotification> OnAlertMissionDataChange
-	{
-		add
-		{
-			Action<LobbyAlertMissionDataNotification> action = OnAlertMissionDataChangeHolder;
-			Action<LobbyAlertMissionDataNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnAlertMissionDataChangeHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<LobbyAlertMissionDataNotification> action = OnAlertMissionDataChangeHolder;
-			Action<LobbyAlertMissionDataNotification> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnAlertMissionDataChangeHolder, (Action<LobbyAlertMissionDataNotification>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	private Action<Dictionary<int, SeasonChapterQuests>> OnSeasonChapterQuestsChangeHolder;
-	public event Action<Dictionary<int, SeasonChapterQuests>> OnSeasonChapterQuestsChange
-	{
-		add
-		{
-			Action<Dictionary<int, SeasonChapterQuests>> action = OnSeasonChapterQuestsChangeHolder;
-			Action<Dictionary<int, SeasonChapterQuests>> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnSeasonChapterQuestsChangeHolder, (Action<Dictionary<int, SeasonChapterQuests>>)Delegate.Combine(action2, value), action);
-			}
-			while (action != action2);
-		}
-		remove
-		{
-			Action<Dictionary<int, SeasonChapterQuests>> action = OnSeasonChapterQuestsChangeHolder;
-			Action<Dictionary<int, SeasonChapterQuests>> action2;
-			do
-			{
-				action2 = action;
-				action = Interlocked.CompareExchange(ref OnSeasonChapterQuestsChangeHolder, (Action<Dictionary<int, SeasonChapterQuests>>)Delegate.Remove(action2, value), action);
-			}
-			while (action != action2);
-		}
-	}
-
-	public bool IsConnectedToLobbyServer
-	{
-		get
-		{
-			bool result;
-			if (m_lobbyGameClientInterface != null)
-			{
-				result = m_lobbyGameClientInterface.IsConnected;
-			}
-			else
-			{
-				result = false;
-			}
-			return result;
-		}
-	}
-
+	public bool IsConnectedToLobbyServer => m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected;
 	public bool IsRegistered { get; private set; }
-
 	public bool IsReady { get; private set; }
-
 	public bool AllowRelogin { get; private set; }
-
-	public NetworkClient Client
-	{
-		get
-		{
-			NetworkClient result;
-			if (NetworkManager.singleton == null)
-			{
-				result = null;
-			}
-			else
-			{
-				result = NetworkManager.singleton.client;
-			}
-			return result;
-		}
-	}
-
-	public NetworkConnection Connection
-	{
-		get
-		{
-			NetworkConnection result;
-			if (Client == null)
-			{
-				result = null;
-			}
-			else
-			{
-				result = Client.connection;
-			}
-			return result;
-		}
-	}
-
-	public MyNetworkClientConnection MyConnection => (Client != null) ? (Client.connection as MyNetworkClientConnection) : null;
-
-	public bool IsConnectedToGameServer
-	{
-		get
-		{
-			bool result;
-			if (MyConnection != null)
-			{
-				result = MyConnection.isConnected;
-			}
-			else if (Connection != null)
-			{
-				result = Connection.isConnected;
-			}
-			else
-			{
-				result = false;
-			}
-			return result;
-		}
-	}
-
+	public NetworkClient Client => NetworkManager.singleton == null ? null : NetworkManager.singleton.client;
+	public NetworkConnection Connection => Client?.connection;
+	public MyNetworkClientConnection MyConnection => Client?.connection as MyNetworkClientConnection;
+	public bool IsConnectedToGameServer => MyConnection?.isConnected ?? (Connection != null && Connection.isConnected);
 	public bool IsRegisteredToGameServer { get; private set; }
-
 	public CurrencyWallet PlayerWallet { get; private set; }
-
 	public FriendList FriendList { get; private set; }
-
 	public bool IsFriendListInitialized { get; private set; }
-
 	public Dictionary<int, long> FactionScores { get; private set; }
-
 	public int ActiveFactionCompetition { get; private set; }
-
 	public bool PlayerObjectStartedOnClient { get; set; }
-
 	public bool InGameUIActivated { get; set; }
-
 	public bool VisualSceneLoaded { get; set; }
-
 	public bool DesignSceneStarted { get; set; }
-
 	public bool IsLoading => m_loading;
-
-	public bool IsFastForward
-	{
-		get
-		{
-			bool result;
-			if (!m_withinReconnectReplay)
-			{
-				if (ReplayPlayManager.Get())
-				{
-					result = ReplayPlayManager.Get().IsFastForward();
-				}
-				else
-				{
-					result = false;
-				}
-			}
-			else
-			{
-				result = true;
-			}
-			return result;
-		}
-	}
-
+	public bool IsFastForward => m_withinReconnectReplay || ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsFastForward();
 	public bool IsReconnecting => m_withinReconnect;
-
 	public bool IsReconnectingInstantly => m_withinReconnectInstantly;
-
 	public bool SpectatorHideAbilityTargeter { get; set; }
-
-	public bool IsSpectator
-	{
-		get
-		{
-			bool result;
-			if (PlayerInfo != null)
-			{
-				result = (PlayerInfo.TeamId == Team.Spectator);
-			}
-			else
-			{
-				result = false;
-			}
-			return result;
-		}
-	}
-
+	public bool IsSpectator => PlayerInfo != null && PlayerInfo.TeamId == Team.Spectator;
 	public int WaitingForModSelectResponse { get; private set; }
-
 	public int WaitingForCardSelectResponse { get; private set; }
-
 	public bool AllowBadges { get; private set; }
-
 	public int NewPlayerPvPQueueDuration { get; private set; }
-
 	public GameResult GameResult => m_gameResult;
-
 	public bool Reconnected => m_reconnected;
-
 	public bool Observer => m_observer;
-
 	public TierPlacement TierChangeMin { get; private set; }
-
 	public TierPlacement TierChangeMax { get; private set; }
-
 	public TierPlacement TierCurrent { get; private set; }
-
 	public LobbyAlertMissionDataNotification AlertMissionsData { get; private set; }
-
 	public Dictionary<int, SeasonChapterQuests> SeasonChapterQuests { get; private set; }
 
 	public bool IsCharacterInFreeRotation(CharacterType characterType, GameType gameType)
 	{
-		bool result;
-		if (ClientAccessLevel < ClientAccessLevel.Full)
-		{
-			result = (m_loadedPlayerAccountData.AccountComponent.IsCharacterInFreeRotation(characterType) || IsFreelancerInFreeRotationExtension(characterType, gameType));
-		}
-		else
-		{
-			result = false;
-		}
-		return result;
+		return ClientAccessLevel < ClientAccessLevel.Full
+		       && (m_loadedPlayerAccountData.AccountComponent.IsCharacterInFreeRotation(characterType)
+		           || IsFreelancerInFreeRotationExtension(characterType, gameType));
 	}
 
 	public bool IsCharacterAvailable(CharacterType characterType, GameType gameType)
@@ -1391,43 +226,30 @@ public class ClientGameManager : MonoBehaviour
 			}
 		}
 
-		if (characterResourceLink == null)
-		{
-			return false;
-		}
-		if (characterResourceLink.m_isHidden && !enableHiddenCharacters)
-		{
-			return false;
-		}
-		if (!characterResourceLink.m_characterType.IsValidForHumanPreGameSelection())
-		{
-			return false;
-		}
-		if (characterResourceLink.m_characterType.IsWillFill() && gameType != GameType.PvP && gameType != GameType.NewPlayerPvP)
+		if (characterResourceLink == null
+		    || characterResourceLink.m_isHidden && !enableHiddenCharacters
+		    || !characterResourceLink.m_characterType.IsValidForHumanPreGameSelection()
+			|| characterResourceLink.m_characterType.IsWillFill() && gameType != GameType.PvP && gameType != GameType.NewPlayerPvP)
 		{
 			return false;
 		}
 		PersistedCharacterData playerCharacterData = GetPlayerCharacterData(characterType);
-		if (ClientAccessLevel < ClientAccessLevel.Full && !characterType.IsWillFill())
+		if (ClientAccessLevel < ClientAccessLevel.Full
+		    && !characterType.IsWillFill()
+		    && gameType != GameType.Practice)
 		{
-			if (gameType != GameType.Practice)
+			if (playerCharacterData != null && playerCharacterData.CharacterComponent.Unlocked)
 			{
-				if (playerCharacterData != null && playerCharacterData.CharacterComponent.Unlocked)
-				{
-					return true;
-				}
-				return IsCharacterInFreeRotation(characterType, gameType);
+				return true;
 			}
+			return IsCharacterInFreeRotation(characterType, gameType);
 		}
 		return true;
 	}
 
 	private List<CharacterVisualInfo> WaitingForSkinSelectResponse { get; set; }
-
 	private FactionLoginRewardNotification LoginRewardNotification { get; set; }
-
 	private List<QuestCompleteNotification> LoginQuestCompleteNotifications { get; set; }
-
 	public DateTime QueueEntryTime => OurQueueEntryTime;
 
 	public bool IsWaitingForSkinResponse()
@@ -1452,119 +274,33 @@ public class ClientGameManager : MonoBehaviour
 	}
 
 	public List<LobbyGameInfo> CustomGameInfos { get; private set; }
-
 	public LobbyPlayerGroupInfo GroupInfo { get; private set; }
-
 	public EnvironmentType EnvironmentType { get; private set; }
-
 	public ServerMessageOverrides ServerMessageOverrides { get; private set; }
-
 	public ServerLockState ServerLockState { get; private set; }
-
 	public ConnectionQueueInfo ConnectionQueueInfo { get; private set; }
-
 	public AuthTicket AuthTicket => HydrogenConfig.Get().Ticket;
-
-	public ClientAccessLevel ClientAccessLevel => (PlayerInfo == null) ? m_clientAccessLevel : PlayerInfo.EffectiveClientAccessLevel;
-
+	public ClientAccessLevel ClientAccessLevel => PlayerInfo?.EffectiveClientAccessLevel ?? m_clientAccessLevel;
 	public bool HasPurchasedGame { get; private set; }
-
 	public int HighestPurchasedGamePack { get; private set; }
-
 	public DateTime ServerUtcTime { get; private set; }
-
 	public DateTime ServerPacificTime { get; private set; }
-
 	public DateTime ClientUtcTime { get; private set; }
-
 	public TimeSpan TimeOffset { get; private set; }
-
 	public string CommerceURL { get; private set; }
-
-	public LobbyGameInfo GameInfo
-	{
-		get
-		{
-			LobbyGameInfo result;
-			if (GameManager.Get() != null)
-			{
-				result = GameManager.Get().GameInfo;
-			}
-			else
-			{
-				result = null;
-			}
-			return result;
-		}
-	}
-
-	public LobbyPlayerInfo PlayerInfo
-	{
-		get
-		{
-			LobbyPlayerInfo result;
-			if (GameManager.Get() != null)
-			{
-				result = GameManager.Get().PlayerInfo;
-			}
-			else
-			{
-				result = null;
-			}
-			return result;
-		}
-	}
-
-	public LobbyTeamInfo TeamInfo
-	{
-		get
-		{
-			LobbyTeamInfo result;
-			if (GameManager.Get() != null)
-			{
-				result = GameManager.Get().TeamInfo;
-			}
-			else
-			{
-				result = null;
-			}
-			return result;
-		}
-	}
-
-	public bool IsServerQueued
-	{
-		get
-		{
-			bool result;
-			if (ClientAccessLevel == ClientAccessLevel.Queued)
-			{
-				result = (ConnectionQueueInfo != null);
-			}
-			else
-			{
-				result = false;
-			}
-			return result;
-		}
-	}
-
+	public LobbyGameInfo GameInfo => GameManager.Get() != null ? GameManager.Get().GameInfo : null;
+	public LobbyPlayerInfo PlayerInfo => GameManager.Get() != null ? GameManager.Get().PlayerInfo : null;
+	public LobbyTeamInfo TeamInfo => GameManager.Get() != null ? GameManager.Get().TeamInfo : null;
+	public bool IsServerQueued => ClientAccessLevel == ClientAccessLevel.Queued && ConnectionQueueInfo != null;
 	public bool IsServerLocked => ClientAccessLevel == ClientAccessLevel.Locked;
 
 	public bool HasDeveloperAccess()
 	{
-		if (AuthTicket != null)
-		{
-			if (AuthTicket.HasEntitlement("DEVELOPER_ACCESS"))
-			{
-				return true;
-			}
-		}
-		return ClientAccessLevel >= ClientAccessLevel.Admin;
+		return AuthTicket != null && AuthTicket.HasEntitlement("DEVELOPER_ACCESS")
+		       || ClientAccessLevel >= ClientAccessLevel.Admin;
 	}
 
 	public bool PurchasingMod { get; private set; }
-
 	public int ModAttemptingToPurchase { get; private set; }
 
 	private void Awake()
@@ -1581,10 +317,7 @@ public class ClientGameManager : MonoBehaviour
 		m_lastSentMsgSeqNum = 0U;
 		m_replay = new Replay();
 		m_taskScheduler = new Scheduler();
-		m_clientPerformanceCollectTask = delegate
-		{
-			SendPerformanceReport();
-		};
+		m_clientPerformanceCollectTask = () => { SendPerformanceReport(); };
 		AllowBadges = false;
 		ClearLobbyState();
 		LoginQuestCompleteNotifications = new List<QuestCompleteNotification>();
@@ -1596,20 +329,14 @@ public class ClientGameManager : MonoBehaviour
 		GameManager.Get().OnGameStopped += HandleGameStopped;
 		GameManager.Get().OnGameLaunched += HandleGameLaunched;
 		GameManager.Get().OnGameStatusChanged += HandleGameStatusChanged;
-		DiscordClientInterface discordClientInterface = DiscordClientInterface.Get();
-		discordClientInterface.OnConnected = (Action<bool>)Delegate.Combine(discordClientInterface.OnConnected, new Action<bool>(HandleDiscordConnected));
-		DiscordClientInterface discordClientInterface2 = DiscordClientInterface.Get();
-		discordClientInterface2.OnDisconnected = (Action)Delegate.Combine(discordClientInterface2.OnDisconnected, new Action(HandleDiscordDisconnected));
-		DiscordClientInterface discordClientInterface3 = DiscordClientInterface.Get();
-		discordClientInterface3.OnAuthorized = (Action<string>)Delegate.Combine(discordClientInterface3.OnAuthorized, new Action<string>(HandleDiscordAuthorized));
-		DiscordClientInterface discordClientInterface4 = DiscordClientInterface.Get();
-		discordClientInterface4.OnAuthenticated = (Action<DiscordUserInfo>)Delegate.Combine(discordClientInterface4.OnAuthenticated, new Action<DiscordUserInfo>(HandleDiscordAuthenticated));
-		DiscordClientInterface discordClientInterface5 = DiscordClientInterface.Get();
-		discordClientInterface5.OnJoined = (Action)Delegate.Combine(discordClientInterface5.OnJoined, new Action(HandleDiscordJoined));
-		DiscordClientInterface discordClientInterface6 = DiscordClientInterface.Get();
-		discordClientInterface6.OnLeft = (Action)Delegate.Combine(discordClientInterface6.OnLeft, new Action(HandleDiscordLeft));
+		DiscordClientInterface.Get().OnConnected += HandleDiscordConnected;
+		DiscordClientInterface.Get().OnDisconnected += HandleDiscordDisconnected;
+		DiscordClientInterface.Get().OnAuthorized += HandleDiscordAuthorized;
+		DiscordClientInterface.Get().OnAuthenticated += HandleDiscordAuthenticated;
+		DiscordClientInterface.Get().OnJoined += HandleDiscordJoined;
+		DiscordClientInterface.Get().OnLeft += HandleDiscordLeft;
 		VisualsLoader.OnLoading += HandleVisualsSceneLoading;
-		MyNetworkClientConnection.OnSending = (Action<UNetMessage>)Delegate.Combine(MyNetworkClientConnection.OnSending, new Action<UNetMessage>(HandleGameMessageSending));
+		MyNetworkClientConnection.OnSending += HandleGameMessageSending;
 	}
 
 	private void Update()
@@ -1662,7 +389,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				foreach (QuestCompleteNotification obj in LoginQuestCompleteNotifications)
 				{
-					OnQuestCompleteNotificationHolder(obj);
+					OnQuestCompleteNotification(obj);
 				}
 				LoginQuestCompleteNotifications.Clear();
 			}
@@ -2685,7 +1412,7 @@ public class ClientGameManager : MonoBehaviour
 	private void HandleLobbyCustomGamesNotification(LobbyCustomGamesNotification notification)
 	{
 		CustomGameInfos = notification.CustomGameInfos;
-		OnLobbyCustomGamesNotificationHolder(notification);
+		OnLobbyCustomGamesNotification(notification);
 	}
 
 	private void HandleGroupUpdateNotification(GroupUpdateNotification notification)
@@ -2795,27 +1522,27 @@ public class ClientGameManager : MonoBehaviour
 				LeaveDiscord();
 			}
 		}
-		OnGroupUpdateNotificationHolder();
+		OnGroupUpdateNotification();
 	}
 
 	private void HandleGGPackUsedNotification(UseGGPackNotification notification)
 	{
-		OnUseGGPackNotificationHolder(notification);
+		OnUseGGPackNotification(notification);
 	}
 
 	private void HandleChatNotification(ChatNotification notification)
 	{
-		OnChatNotificationHolder(notification);
+		OnChatNotification(notification);
 	}
 
 	private void HandleOnSetDevTagNotification(SetDevTagResponse response)
 	{
-		OnSetDevTagResponseHolder(response);
+		OnSetDevTagResponse(response);
 	}
 
 	private void HandleUseOverconNotification(UseOverconResponse notification)
 	{
-		OnUseOverconNotificationHolder(notification);
+		OnUseOverconNotification(notification);
 	}
 
 	public void HandleFriendStatusNotification(FriendStatusNotification notification)
@@ -2823,28 +1550,21 @@ public class ClientGameManager : MonoBehaviour
 		IsFriendListInitialized = true;
 		if (notification.FriendList.IsDelta)
 		{
-			using (Dictionary<long, FriendInfo>.Enumerator enumerator = notification.FriendList.Friends.GetEnumerator())
+			foreach (KeyValuePair<long, FriendInfo> keyValuePair in notification.FriendList.Friends)
 			{
-				while (enumerator.MoveNext())
+				if (FriendList.Friends.ContainsKey(keyValuePair.Key))
 				{
-					KeyValuePair<long, FriendInfo> keyValuePair = enumerator.Current;
-					if (FriendList.Friends.ContainsKey(keyValuePair.Key))
+					FriendList.Friends[keyValuePair.Key] = keyValuePair.Value;
+					if (keyValuePair.Value.FriendStatus == FriendStatus.Removed)
 					{
-						FriendList.Friends[keyValuePair.Key] = keyValuePair.Value;
-						if (keyValuePair.Value.FriendStatus == FriendStatus.Removed)
-						{
-							FriendList.Friends.Remove(keyValuePair.Key);
-						}
+						FriendList.Friends.Remove(keyValuePair.Key);
 					}
-					else
+				}
+				else
+				{
+					if (keyValuePair.Value.FriendStatus == FriendStatus.Friend
+					    || keyValuePair.Value.FriendStatus == FriendStatus.RequestReceived)
 					{
-						if (keyValuePair.Value.FriendStatus != FriendStatus.Friend)
-						{
-							if (keyValuePair.Value.FriendStatus != FriendStatus.RequestReceived)
-							{
-								continue;
-							}
-						}
 						FriendList.Friends.Add(keyValuePair.Key, keyValuePair.Value);
 					}
 				}
@@ -2854,29 +1574,29 @@ public class ClientGameManager : MonoBehaviour
 		{
 			FriendList = notification.FriendList;
 		}
-		OnFriendStatusNotificationHolder(notification);
+		OnFriendStatusNotification(notification);
 	}
 
 	private void SendGameInviteConfirmationResponse(bool accepted, GameInviteConfirmationRequest request)
 	{
-		GameInviteConfirmationResponse gameInviteConfirmationResponse = new GameInviteConfirmationResponse();
-		gameInviteConfirmationResponse.Accepted = accepted;
-		gameInviteConfirmationResponse.GameCreatorAccountId = request.GameCreatorAccountId;
-		gameInviteConfirmationResponse.ResponseId = request.RequestId;
-		gameInviteConfirmationResponse.InitialRequestId = request.InitialRequestId;
-		Get().LobbyInterface.SendMessage(gameInviteConfirmationResponse);
+		Get().LobbyInterface.SendMessage(new GameInviteConfirmationResponse
+		{
+			Accepted = accepted,
+			GameCreatorAccountId = request.GameCreatorAccountId,
+			ResponseId = request.RequestId,
+			InitialRequestId = request.InitialRequestId
+		});
 	}
 
 	private void HandleGameInviteConfirmationRequest(GameInviteConfirmationRequest request)
 	{
-		string description = string.Format(StringUtil.TR("InviteToCustomGame", "Global"), request.GameCreatorHandle);
-		UIDialogPopupManager.OpenTwoButtonDialog(StringUtil.TR("GameInvite", "Global"), description, StringUtil.TR("Join", "Global"), StringUtil.TR("Reject", "Global"), delegate
-		{
-			SendGameInviteConfirmationResponse(true, request);
-		}, delegate
-		{
-			SendGameInviteConfirmationResponse(false, request);
-		});
+		UIDialogPopupManager.OpenTwoButtonDialog(
+			StringUtil.TR("GameInvite", "Global"),
+			string.Format(StringUtil.TR("InviteToCustomGame", "Global"), request.GameCreatorHandle), 
+			StringUtil.TR("Join", "Global"),
+			StringUtil.TR("Reject", "Global"),
+			reference => { SendGameInviteConfirmationResponse(true, request); },
+			reference => { SendGameInviteConfirmationResponse(false, request); });
 	}
 
 	private void HandleGroupConfirmationRequest(GroupConfirmationRequest request)
@@ -2895,33 +1615,37 @@ public class ClientGameManager : MonoBehaviour
 			SendGroupSuggestion(false, false, request);
 			return;
 		}
-		string description = string.Format(StringUtil.TR("InviteToGroupWithYou", "Global"), request.SuggesterAccountName, request.SuggestedAccountFullHandle);
+
 		if (m_currentGroupSuggestDialogBox != null)
 		{
 			SendGroupSuggestion(false, true, request);
 		}
 		else
 		{
-			m_currentGroupSuggestDialogBox = UIDialogPopupManager.OpenPartyInviteDialog(StringUtil.TR("GroupSuggestion", "Global"), description, StringUtil.TR("Invite", "Global"), StringUtil.TR("Reject", "Global"), null, delegate
-			{
-				SendGroupSuggestion(true, false, request);
-			}, delegate
-			{
-				SendGroupSuggestion(false, false, request);
-			});
+			m_currentGroupSuggestDialogBox = UIDialogPopupManager.OpenPartyInviteDialog(
+				StringUtil.TR("GroupSuggestion", "Global"),
+				string.Format(
+					StringUtil.TR("InviteToGroupWithYou", "Global"),
+					request.SuggesterAccountName,
+					request.SuggestedAccountFullHandle),
+				StringUtil.TR("Invite", "Global"),
+				StringUtil.TR("Reject", "Global"),
+				null,
+				reference => { SendGroupSuggestion(true, false, request); },
+				reference => { SendGroupSuggestion(false, false, request); });
 		}
 	}
 
 	private void HandleForceQueueNotification(ForceMatchmakingQueueNotification notification)
 	{
 		GameManager gameManager = GameManager.Get();
-		if (gameManager != null && gameManager.GameInfo != null)
+		if (gameManager != null
+		    && gameManager.GameInfo != null
+		    && gameManager.GameInfo.GameStatus.IsActiveStatus())
 		{
-			if (gameManager.GameInfo.GameStatus.IsActiveStatus())
-			{
-				Log.Error("Lobby should never send us a ForceQueueNotification({0}) when we're in a {1} game!", notification.Action, gameManager.GameInfo.GameStatus);
-				return;
-			}
+			Log.Error("Lobby should never send us a ForceQueueNotification({0}) when we're in a {1} game!",
+				notification.Action, gameManager.GameInfo.GameStatus);
+			return;
 		}
 		ForceMatchmakingQueueNotification.ActionType action = notification.Action;
 		if (action != ForceMatchmakingQueueNotification.ActionType._000E)
@@ -2948,43 +1672,39 @@ public class ClientGameManager : MonoBehaviour
 		{
 			InviteToGroup(request.SuggestedAccountFullHandle, delegate(GroupInviteResponse r)
 			{
-				GroupSuggestionResponse groupSuggestionResponse2 = new GroupSuggestionResponse();
-				groupSuggestionResponse2.SuggesterAccountId = request.SuggesterAccountId;
+				GroupSuggestionResponse resp = new GroupSuggestionResponse
+				{
+					SuggesterAccountId = request.SuggesterAccountId
+				};
 				if (!r.Success)
 				{
-					string text;
-					if (r.LocalizedFailure != null)
-					{
-						text = r.LocalizedFailure.ToString();
-					}
-					else if (!r.ErrorMessage.IsNullOrEmpty())
-					{
-						text = string.Format("Failed: {0}#NeedsLocalization", r.ErrorMessage);
-					}
-					else
-					{
-						text = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
-					}
 					TextConsole.Get().Write(new TextConsole.Message
 					{
-						Text = text,
+						Text = r.LocalizedFailure != null
+							? r.LocalizedFailure.ToString()
+							: r.ErrorMessage.IsNullOrEmpty()
+								? StringUtil.TR("UnknownErrorTryAgain", "Frontend")
+								: $"Failed: {r.ErrorMessage}#NeedsLocalization",
 						MessageType = ConsoleMessageType.SystemMessage
 					});
-					groupSuggestionResponse2.SuggestionStatus = GroupSuggestionResponse.Status._000E;
+					resp.SuggestionStatus = GroupSuggestionResponse.Status._000E;
 				}
 				else
 				{
-					groupSuggestionResponse2.SuggestionStatus = GroupSuggestionResponse.Status._0012;
+					resp.SuggestionStatus = GroupSuggestionResponse.Status._0012;
 				}
-				m_lobbyGameClientInterface.SendMessage(groupSuggestionResponse2);
+				m_lobbyGameClientInterface.SendMessage(resp);
 			});
 		}
 		else
 		{
-			GroupSuggestionResponse groupSuggestionResponse = new GroupSuggestionResponse();
-			groupSuggestionResponse.SuggesterAccountId = request.SuggesterAccountId;
-			groupSuggestionResponse.SuggestionStatus = ((!bBusy) ? GroupSuggestionResponse.Status._001D : GroupSuggestionResponse.Status._000E);
-			m_lobbyGameClientInterface.SendMessage(groupSuggestionResponse);
+			m_lobbyGameClientInterface.SendMessage(new GroupSuggestionResponse
+			{
+				SuggesterAccountId = request.SuggesterAccountId,
+				SuggestionStatus = bBusy
+					? GroupSuggestionResponse.Status._000E
+					: GroupSuggestionResponse.Status._001D
+			});
 		}
 	}
 
@@ -2994,12 +1714,9 @@ public class ClientGameManager : MonoBehaviour
 		{
 			SequenceManager.Get().HandleOnGameStopped();
 		}
-		if (NetworkClient.active)
+		if (NetworkClient.active && !IsServer())
 		{
-			if (!IsServer())
-			{
-				NetworkManager.singleton.StopClient();
-			}
+			NetworkManager.singleton.StopClient();
 		}
 		ClientObserverManager component = GetComponent<ClientObserverManager>();
 		if (component != null)
@@ -3025,7 +1742,7 @@ public class ClientGameManager : MonoBehaviour
 		if (!response.Success)
 		{
 			DisconnectFromLobbyServer();
-			OnConnectedToLobbyServerHolder(response);
+			OnConnectedToLobbyServer(response);
 			if (IsConnectedToGameServer)
 			{
 				TextConsole.Get().Write(StringUtil.TR("FailedToConnectRetrying", "Global"));
@@ -3043,7 +1760,7 @@ public class ClientGameManager : MonoBehaviour
 		m_lobbyGameClientInterface.HeartbeatTimeout = hydrogenConfig.HeartbeatTimeout;
 		m_lobbyGameClientInterface.MaxSendBufferSize = hydrogenConfig.MaxSendBufferSize;
 		m_lobbyGameClientInterface.MaxWaitTime = hydrogenConfig.MaxWaitTime;
-		OnConnectedToLobbyServerHolder(response);
+		OnConnectedToLobbyServer(response);
 		if (IsConnectedToGameServer)
 		{
 			TextConsole.Get().Write("Reconnected to lobby server");
@@ -3052,7 +1769,8 @@ public class ClientGameManager : MonoBehaviour
 			{
 				if (!res.Success)
 				{
-					Log.Error("{0} Failed to restore the previous game state {1}. Kicked", PlayerInfo.Handle, previousGameInfo.GameServerProcessCode);
+					Log.Error("{0} Failed to restore the previous game state {1}. Kicked", 
+						PlayerInfo.Handle, previousGameInfo.GameServerProcessCode);
 					GameResult gameResult = GameResult.ClientKicked;
 					LeaveGame(false, gameResult);
 					GameManager.Get().StopGame(gameResult);
@@ -3069,7 +1787,7 @@ public class ClientGameManager : MonoBehaviour
 		EnvironmentType = notification.EnvironmentType;
 		if (GroupInfo != null)
 		{
-			if (GroupInfo.ChararacterInfo != null) // TODO does client receive it?
+			if (GroupInfo.ChararacterInfo != null)
 			{
 				UIManager.Get().HandleNewSceneStateParameter(new UICharacterScreen.CharacterSelectSceneStateParameters
 				{
@@ -3080,7 +1798,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				GroupInfo.SetCharacterInfo(new LobbyCharacterInfo());
 			}
-			OnGroupUpdateNotificationHolder();
+			OnGroupUpdateNotification();
 		}
 		if (notification.AlertMissionData != null)
 		{
@@ -3099,7 +1817,7 @@ public class ClientGameManager : MonoBehaviour
 			HandleAccountDataUpdated(notification.AccountData);
 			if (notification.AccountData.InventoryComponent != null)
 			{
-				OnInventoryComponentUpdatedHolder(notification.AccountData.InventoryComponent);
+				OnInventoryComponentUpdated(notification.AccountData.InventoryComponent);
 			}
 			else
 			{
@@ -3114,25 +1832,14 @@ public class ClientGameManager : MonoBehaviour
 		{
 			HandleFactionCompetitionNotification(notification.FactionCompetitionStatus);
 		}
-		OnLobbyServerReadyNotificationHolder(notification);
+		OnLobbyServerReadyNotification(notification);
 	}
 
 	private void HandleLobbyServerClientAccessLevelChange(ClientAccessLevel oldLevel, ClientAccessLevel newLevel)
 	{
-		string format = "{0} ({1})";
-		object arg = newLevel;
-		object arg2;
-		if (HasPurchasedGame)
-		{
-			arg2 = "purchased";
-		}
-		else
-		{
-			arg2 = "not purchased";
-		}
-		string text = string.Format(format, arg, arg2);
-		Log.Info("Changed Access Level from {0} to {1}", oldLevel.ToString(), text);
-		OnLobbyServerClientAccessLevelChangeHolder(oldLevel, newLevel);
+		Log.Info("Changed Access Level from {0} to {1}", 
+			oldLevel.ToString(), $"{newLevel} ({(HasPurchasedGame ? "purchased" : "not purchased")})");
+		OnLobbyServerClientAccessLevelChange(oldLevel, newLevel);
 	}
 
 	private void HandleDisconnectedFromLobbyServer(string lastLobbyErrorMessage, bool allowRelogin, CloseStatusCode code)
@@ -3156,18 +1863,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 		else
 		{
-			OnDisconnectedFromLobbyServerHolder(lastLobbyErrorMessage);
-			GameResult gameResult;
-			if (code == CloseStatusCode.PingTimeout)
-			{
-				gameResult = GameResult.ClientHeartbeatTimeoutToLobbyServer;
-			}
-			else
-			{
-				gameResult = GameResult.ClientNetworkErrorToLobbyServer;
-			}
-			GameResult gameResult2 = gameResult;
-			GameManager.Get().StopGame(gameResult2);
+			OnDisconnectedFromLobbyServer(lastLobbyErrorMessage);
+			GameManager.Get().StopGame(code == CloseStatusCode.PingTimeout
+				? GameResult.ClientHeartbeatTimeoutToLobbyServer
+				: GameResult.ClientNetworkErrorToLobbyServer);
 			GameManager.Get().Reset();
 		}
 	}
@@ -3175,33 +1874,30 @@ public class ClientGameManager : MonoBehaviour
 	private void HandleQueueAssignmentNotification(MatchmakingQueueAssignmentNotification notification)
 	{
 		GameManager gameManager = GameManager.Get();
-		LobbyMatchmakingQueueInfo matchmakingQueueInfo = notification.MatchmakingQueueInfo;
-		LobbyMatchmakingQueueInfo queueInfo = gameManager.QueueInfo;
-		gameManager.SetQueueInfo(matchmakingQueueInfo);
-		if (matchmakingQueueInfo == null)
+		LobbyMatchmakingQueueInfo newQueueInfo = notification.MatchmakingQueueInfo;
+		LobbyMatchmakingQueueInfo oldQueueInfo = gameManager.QueueInfo;
+		gameManager.SetQueueInfo(newQueueInfo);
+		if (newQueueInfo == null && oldQueueInfo.GameConfig.GameType == GameType.Ranked)
 		{
-			if (queueInfo.GameConfig.GameType == GameType.Ranked)
-			{
-				UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
-			}
+			UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
 		}
-		if (queueInfo != null)
+		if (oldQueueInfo != null)
 		{
-			Log.Info("Unassigned from queue {0}", queueInfo.GameType);
-			OnQueueLeftHolder();
-			if (matchmakingQueueInfo == null)
+			Log.Info("Unassigned from queue {0}", oldQueueInfo.GameType);
+			OnQueueLeft();
+			if (newQueueInfo == null)
 			{
 				AppState_GroupCharacterSelect.Get().NotifyQueueDrop();
 			}
 		}
-		if (matchmakingQueueInfo != null)
+		if (newQueueInfo != null)
 		{
-			Log.Info("Assigned to queue {0}", matchmakingQueueInfo.GameType);
-			OnQueueEnteredHolder();
+			Log.Info("Assigned to queue {0}", newQueueInfo.GameType);
+			OnQueueEntered();
 		}
 		UICharacterScreen.Get().DoRefreshFunctions(0x80);
 		NavigationBar.Get().UpdateStatusMessage();
-		OnQueueAssignmentNotificationHolder(notification);
+		OnQueueAssignmentNotification(notification);
 	}
 
 	private void HandleLobbyStatusNotification(LobbyStatusNotification notification)
@@ -3218,7 +1914,8 @@ public class ClientGameManager : MonoBehaviour
 			{
 				if (num > 0f)
 				{
-					Log.Info("Will send client errors to the server every {0}.", LocalizationArg_TimeSpan.Create(notification.ErrorReportRate.Value).TR());
+					Log.Info("Will send client errors to the server every {0}.", 
+						LocalizationArg_TimeSpan.Create(notification.ErrorReportRate.Value).TR());
 					clientExceptionDetector.SecondsBetweenSendingErrorPackets = num;
 				}
 				else
@@ -3245,26 +1942,20 @@ public class ClientGameManager : MonoBehaviour
 			m_clientAccessLevel = notification.ClientAccessLevel;
 			HasPurchasedGame = notification.HasPurchasedGame;
 			HighestPurchasedGamePack = notification.HighestPurchasedGamePack;
-			if (clientAccessLevel == ClientAccessLevel)
+			if (clientAccessLevel != ClientAccessLevel
+			    || hasPurchasedGame != HasPurchasedGame
+			    || highestPurchasedGamePack != HighestPurchasedGamePack)
 			{
-				if (hasPurchasedGame == HasPurchasedGame)
-				{
-					if (highestPurchasedGamePack == HighestPurchasedGamePack)
-					{
-						goto IL_19A;
-					}
-				}
+				HandleLobbyServerClientAccessLevelChange(clientAccessLevel, ClientAccessLevel);
 			}
-			HandleLobbyServerClientAccessLevelChange(clientAccessLevel, ClientAccessLevel);
 		}
-		IL_19A:
 		if (notification.ServerLockState != ServerLockState.Unknown)
 		{
 			ServerLockState serverLockState = ServerLockState;
 			ServerLockState = notification.ServerLockState;
 			if (serverLockState != ServerLockState)
 			{
-				OnLobbyServerLockStateChangeHolder(serverLockState, ServerLockState);
+				OnLobbyServerLockStateChange(serverLockState, ServerLockState);
 			}
 		}
 		ConnectionQueueInfo = notification.ConnectionQueueInfo;
@@ -3272,14 +1963,14 @@ public class ClientGameManager : MonoBehaviour
 		{
 			if (TimeOffset != notification.TimeOffset)
 			{
-				TextConsole.Get().Write(string.Format("Global Time Offset Is Now: {0}", notification.TimeOffset.ToString()));
+				TextConsole.Get().Write($"Global Time Offset Is Now: {notification.TimeOffset.ToString()}");
 			}
 			ServerUtcTime = notification.UtcNow;
 			ServerPacificTime = notification.PacificNow;
 			ClientUtcTime = DateTime.UtcNow;
 			TimeOffset = notification.TimeOffset;
 		}
-		OnLobbyStatusNotificationHolder(notification);
+		OnLobbyStatusNotification(notification);
 	}
 
 	private void HandleLobbyGameplayOverridesNotification(LobbyGameplayOverridesNotification notification)
@@ -3327,53 +2018,40 @@ public class ClientGameManager : MonoBehaviour
 			clientPerformanceCollector.ObserveRTT(null);
 			clientPerformanceCollector.StopCollecting();
 		}
-		OnLobbyGameplayOverridesChangeHolder(gameplayOverrides);
+		OnLobbyGameplayOverridesChange(gameplayOverrides);
 	}
 
 	private void HandleLobbyAlertMissionDataNotification(LobbyAlertMissionDataNotification notification)
 	{
 		AlertMissionsData = notification;
-		OnAlertMissionDataChangeHolder(notification);
+		OnAlertMissionDataChange(notification);
 	}
 
 	private void HandleLobbySeasonQuestDataNotification(LobbySeasonQuestDataNotification notification)
 	{
 		SeasonChapterQuests = notification.SeasonChapterQuests;
-		OnSeasonChapterQuestsChangeHolder(notification.SeasonChapterQuests);
+		OnSeasonChapterQuestsChange(notification.SeasonChapterQuests);
 	}
 
 	private void HandleQueueStatusNotification(MatchmakingQueueStatusNotification notification)
 	{
 		GameManager gameManager = GameManager.Get();
-		LobbyMatchmakingQueueInfo matchmakingQueueInfo = notification.MatchmakingQueueInfo;
-		if (gameManager.QueueInfo != null)
+		LobbyMatchmakingQueueInfo newQueueInfo = notification.MatchmakingQueueInfo;
+		if (gameManager.QueueInfo == null || gameManager.QueueInfo.GameType != newQueueInfo.GameType)
 		{
-			if (gameManager.QueueInfo.GameType == matchmakingQueueInfo.GameType)
-			{
-				GameManager.Get().SetQueueInfo(notification.MatchmakingQueueInfo);
-				if (GameManager.Get().QueueInfo != null)
-				{
-					UICharacterSelectScreenController.Get().NotifiedEnteredQueue();
-				}
-				NavigationBar.Get().UpdateStatusMessage();
-				OnQueueStatusNotificationHolder(notification);
-				return;
-			}
+			Log.Warning("Ignoring status update for queue {0}",
+				newQueueInfo == null ? "(null)" : newQueueInfo.GameType.ToString());
+			return;
 		}
-		string message = "Ignoring status update for queue {0}";
-		object[] array = new object[1];
-		int num = 0;
-		object obj;
-		if (matchmakingQueueInfo == null)
+		
+		GameManager.Get().SetQueueInfo(notification.MatchmakingQueueInfo);
+		if (GameManager.Get().QueueInfo != null)
 		{
-			obj = "(null)";
+			UICharacterSelectScreenController.Get().NotifiedEnteredQueue();
 		}
-		else
-		{
-			obj = matchmakingQueueInfo.GameType.ToString();
-		}
-		array[num] = obj;
-		Log.Warning(message, array);
+
+		NavigationBar.Get().UpdateStatusMessage();
+		OnQueueStatusNotification(notification);
 	}
 
 	private void HandleGameAssignmentNotification(GameAssignmentNotification notification)
@@ -3491,7 +2169,7 @@ public class ClientGameManager : MonoBehaviour
 
 			}
 		}
-		OnGameAssignmentNotificationHolder(notification);
+		OnGameAssignmentNotification(notification);
 	}
 
 	private void HandleGameInfoNotification(GameInfoNotification notification)
@@ -3512,52 +2190,29 @@ public class ClientGameManager : MonoBehaviour
 			bool flag = DiscordClientInterface.Get().ChannelInfo != null;
 			if (flag)
 			{
-				bool flag2;
-				if (gameInfo != null && gameInfo.GameStatus != GameStatus.Stopped)
+				if (gameInfo != null
+				    && gameInfo.GameStatus != GameStatus.Stopped
+				    && gameInfo.IsCustomGame
+				    && teamInfo != null
+				    && playerInfo != null
+				    && gameManager.PlayerInfo != null
+				    && playerInfo.TeamId != Team.Invalid
+				    && playerInfo.TeamId != gameManager.PlayerInfo.TeamId)
 				{
-					flag2 = gameInfo.IsCustomGame;
-				}
-				else
-				{
-					flag2 = false;
-				}
-				bool flag3 = flag2;
-				bool flag4;
-				if (teamInfo != null)
-				{
-					if (playerInfo != null && gameManager.PlayerInfo != null && playerInfo.TeamId != Team.Invalid)
-					{
-						flag4 = (playerInfo.TeamId != gameManager.PlayerInfo.TeamId);
-						goto IL_158;
-					}
-				}
-				flag4 = false;
-				IL_158:
-				bool flag5 = flag4;
-				if (flag3)
-				{
-					if (flag5)
-					{
-						DiscordUserInfo userInfo = DiscordClientInterface.Get().UserInfo;
-						JoinDiscordChannel(userInfo);
-					}
+					DiscordUserInfo userInfo = DiscordClientInterface.Get().UserInfo;
+					JoinDiscordChannel(userInfo);
 				}
 			}
 		}
 		gameManager.SetPlayerInfo(playerInfo);
-		if (playerInfo != null)
+		if (playerInfo != null && teamInfo != null && teamInfo.TeamPlayerInfo != null)
 		{
-			if (teamInfo != null)
-			{
-				if (teamInfo.TeamPlayerInfo != null)
-				{
-					gameManager.SetTeamPlayerInfo(teamInfo.TeamInfo(playerInfo.TeamId).ToList());
-					goto IL_1D7;
-				}
-			}
+			gameManager.SetTeamPlayerInfo(teamInfo.TeamInfo(playerInfo.TeamId).ToList());
 		}
-		gameManager.SetTeamPlayerInfo(null);
-		IL_1D7:
+		else
+		{
+			gameManager.SetTeamPlayerInfo(null);
+		}
 		if (!IsServer())
 		{
 			if (gameInfo.GameConfig == null)
@@ -3573,54 +2228,38 @@ public class ClientGameManager : MonoBehaviour
 				SetGameStatus(gameInfo.GameStatus, gameInfo.GameResult);
 			}
 		}
-		if (gameManager.GameInfo != null)
+		if (gameManager.GameInfo != null && gameManager.GameInfo.GameConfig != null)
 		{
-			if (gameManager.GameInfo.GameConfig != null)
+			if (notification.TierCurrent != null && notification.TierCurrent.Tier != 0)
 			{
-				if (notification.TierCurrent != null)
-				{
-					if (notification.TierCurrent.Tier != 0)
-					{
-						TierCurrent = notification.TierCurrent;
-						string tierName = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierCurrent.Tier);
-						Log.Info("We are currently at tier {0} (points {1})", tierName, notification.TierCurrent.Points);
-					}
-				}
-				if (notification.TierChangeMin != null)
-				{
-					if (notification.TierChangeMin.Tier != 0)
-					{
-						TierChangeMin = notification.TierChangeMin;
-						string tierName2 = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierChangeMin.Tier);
-						Log.Info("If we lose this game we could fall to tier {0} (points {1})", tierName2, notification.TierChangeMin.Points);
-					}
-				}
-				if (notification.TierChangeMax != null)
-				{
-					if (notification.TierChangeMax.Tier != 0)
-					{
-						TierChangeMax = notification.TierChangeMax;
-						string tierName3 = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierChangeMax.Tier);
-						Log.Info("If we win this game we could rise to tier {0} (points {1})", tierName3, notification.TierChangeMax.Points);
-					}
-				}
+				TierCurrent = notification.TierCurrent;
+				string tierName = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierCurrent.Tier);
+				Log.Info("We are currently at tier {0} (points {1})", tierName, notification.TierCurrent.Points);
+			}
+			if (notification.TierChangeMin != null && notification.TierChangeMin.Tier != 0)
+			{
+				TierChangeMin = notification.TierChangeMin;
+				string tierName = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierChangeMin.Tier);
+				Log.Info("If we lose this game we could fall to tier {0} (points {1})", tierName, notification.TierChangeMin.Points);
+			}
+			if (notification.TierChangeMax != null && notification.TierChangeMax.Tier != 0)
+			{
+				TierChangeMax = notification.TierChangeMax;
+				string tierName = Get().GetTierName(notification.GameInfo.GameConfig.GameType, notification.TierChangeMax.Tier);
+				Log.Info("If we win this game we could rise to tier {0} (points {1})", tierName, notification.TierChangeMax.Points);
 			}
 		}
 		if (NavigationBar.Get() != null)
 		{
 			NavigationBar.Get().UpdateStatusMessage();
 		}
-		if (AppState.GetCurrent() == AppState_GameLoading.Get())
+		if (AppState.GetCurrent() == AppState_GameLoading.Get()
+		    && gameType != GameType.Tutorial
+		    && UILoadingScreenPanel.Get() != null)
 		{
-			if (gameType != GameType.Tutorial)
-			{
-				if (UILoadingScreenPanel.Get() != null)
-				{
-					UILoadingScreenPanel.Get().ShowTeams();
-				}
-			}
+			UILoadingScreenPanel.Get().ShowTeams();
 		}
-		OnGameInfoNotificationHolder(notification);
+		OnGameInfoNotification(notification);
 	}
 
 	private void HandleGameStatusNotification(GameStatusNotification notification)
@@ -3629,7 +2268,8 @@ public class ClientGameManager : MonoBehaviour
 		GameManager gameManager = GameManager.Get();
 		if (gameManager.GameInfo.GameServerProcessCode != notification.GameServerProcessCode)
 		{
-			Log.Warning("Ignoring status({0}) update for game {1}, we believe we're in game {2}", notification.GameStatus, notification.GameServerProcessCode, gameManager.GameInfo.GameServerProcessCode);
+			Log.Warning("Ignoring status({0}) update for game {1}, we believe we're in game {2}",
+				notification.GameStatus, notification.GameServerProcessCode, gameManager.GameInfo.GameServerProcessCode);
 			return;
 		}
 		if (!IsServer())
@@ -3648,7 +2288,7 @@ public class ClientGameManager : MonoBehaviour
 		gameInfoNotification.GameInfo = gameManager.GameInfo;
 		gameInfoNotification.PlayerInfo = gameManager.PlayerInfo;
 		gameInfoNotification.TeamInfo = gameManager.TeamInfo;
-		OnGameInfoNotificationHolder(gameInfoNotification);
+		OnGameInfoNotification(gameInfoNotification);
 	}
 
 	private void HandleGameLaunched(GameType gameType)
@@ -3733,51 +2373,43 @@ public class ClientGameManager : MonoBehaviour
 	public bool ReconnectToGameServerInstantly(MyNetworkClientConnection disconnectedConnection)
 	{
 		LobbyGameplayOverrides gameplayOverrides = GameManager.Get().GameplayOverrides;
-		if (gameplayOverrides != null)
+		if (gameplayOverrides == null || !gameplayOverrides.AllowReconnectingToGameInstantly)
 		{
-			if (!gameplayOverrides.AllowReconnectingToGameInstantly)
-			{
-			}
-			else
-			{
-				Log.Info("Reconnecting to game instantly {0}", GameInfo);
-				TextConsole.Get().Write(StringUtil.TR("DisconnectedReconnectingGame", "Disconnected"));
-				if (IsServer())
-				{
-					return false;
-				}
-				GameManager gameManager = GameManager.Get();
-				if (gameManager.GameInfo != null)
-				{
-					if (string.IsNullOrEmpty(gameManager.GameInfo.GameServerAddress))
-					{
-					}
-					else
-					{
-						if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
-						{
-							throw new FormatException(string.Format("Could not parse game server address {0}", gameManager.GameInfo.GameServerAddress));
-						}
-						if (MyConnection == null)
-						{
-							return false;
-						}
-						Log.Info("Reconnecting instantly to {0}", gameManager.GameInfo.GameServerAddress);
-						MyConnection.Connect();
-						IsRegisteredToGameServer = false;
-						m_withinReconnectReplay = false;
-						m_withinReconnect = false;
-						m_withinReconnectInstantly = true;
-						m_lastReceivedMsgSeqNum = disconnectedConnection.lastMessageIncomingSeqNum;
-						m_lastSentMsgSeqNum = disconnectedConnection.lastMessageOutgoingSeqNum;
-						return true;
-					}
-				}
-				Log.Error("Game server address is empty");
-				return false;
-			}
+			return false;
 		}
-		return false;
+		Log.Info("Reconnecting to game instantly {0}", GameInfo);
+		TextConsole.Get().Write(StringUtil.TR("DisconnectedReconnectingGame", "Disconnected"));
+		if (IsServer())
+		{
+			return false;
+		}
+
+		GameManager gameManager = GameManager.Get();
+		if (gameManager.GameInfo == null || string.IsNullOrEmpty(gameManager.GameInfo.GameServerAddress))
+		{
+			Log.Error("Game server address is empty");
+			return false;
+		}
+
+		if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
+		{
+			throw new FormatException($"Could not parse game server address {gameManager.GameInfo.GameServerAddress}");
+		}
+
+		if (MyConnection == null)
+		{
+			return false;
+		}
+
+		Log.Info("Reconnecting instantly to {0}", gameManager.GameInfo.GameServerAddress);
+		MyConnection.Connect();
+		IsRegisteredToGameServer = false;
+		m_withinReconnectReplay = false;
+		m_withinReconnect = false;
+		m_withinReconnectInstantly = true;
+		m_lastReceivedMsgSeqNum = disconnectedConnection.lastMessageIncomingSeqNum;
+		m_lastSentMsgSeqNum = disconnectedConnection.lastMessageOutgoingSeqNum;
+		return true;
 	}
 
 	public void ReloginToGameServerInstantly(MyNetworkClientConnection reconnectedConnection)
@@ -3788,12 +2420,14 @@ public class ClientGameManager : MonoBehaviour
 		reconnectedConnection.lastMessageOutgoingSeqNum = m_lastSentMsgSeqNum;
 		if (m_lobbyGameClientInterface != null)
 		{
-			GameManager.LoginRequest loginRequest = new GameManager.LoginRequest();
-			loginRequest.AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId);
-			loginRequest.SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken);
-			loginRequest.PlayerId = PlayerInfo.PlayerId;
-			loginRequest.LastReceivedMsgSeqNum = m_lastReceivedMsgSeqNum;
-			Client.Send(0x33, loginRequest);
+			Client.Send((short)MyMsgType.LoginRequest, new GameManager.LoginRequest
+			{
+				AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId),
+				SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken),
+				PlayerId = PlayerInfo.PlayerId,
+				LastReceivedMsgSeqNum = m_lastReceivedMsgSeqNum
+			});
+			
 		}
 	}
 
@@ -3804,37 +2438,40 @@ public class ClientGameManager : MonoBehaviour
 
 	private void LoginToGameServer(NetworkConnection conn)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null)
 		{
-			GameManager gameManager = GameManager.Get();
-			if (ReplayPlayManager.Get() && ReplayPlayManager.Get().IsPlayback())
-			{
-				Log.Info("Stub-connected to replay system", gameManager.GameInfo.GameServerAddress);
-			}
-			else
-			{
-				Log.Info("Connected to {0}", gameManager.GameInfo.GameServerAddress);
-			}
-			ClientScene.AddPlayer(conn, 0);
-			GameManager.LoginRequest loginRequest = new GameManager.LoginRequest
-			{
-				AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId),
-				SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken),
-				PlayerId = gameManager.PlayerInfo.PlayerId,
-				LastReceivedMsgSeqNum = m_lastReceivedMsgSeqNum
-			};
-			Client.Send((int) MyMsgType.LoginRequest, loginRequest);
+			return;
 		}
+		GameManager gameManager = GameManager.Get();
+		if (ReplayPlayManager.Get() && ReplayPlayManager.Get().IsPlayback())
+		{
+			Log.Info("Stub-connected to replay system", gameManager.GameInfo.GameServerAddress);
+		}
+		else
+		{
+			Log.Info("Connected to {0}", gameManager.GameInfo.GameServerAddress);
+		}
+		ClientScene.AddPlayer(conn, 0);
+		GameManager.LoginRequest loginRequest = new GameManager.LoginRequest
+		{
+			AccountId = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.AccountId),
+			SessionToken = Convert.ToString(m_lobbyGameClientInterface.SessionInfo.SessionToken),
+			PlayerId = gameManager.PlayerInfo.PlayerId,
+			LastReceivedMsgSeqNum = m_lastReceivedMsgSeqNum
+		};
+		Client.Send((int) MyMsgType.LoginRequest, loginRequest);
 	}
 
 	private void HandleNetworkConnect(NetworkConnection conn)
 	{
-		if (!NetworkClient.active)
+		if (NetworkClient.active)
+		{
+			LoginToGameServer(conn);
+		}
+		else
 		{
 			Log.Error("Network connect error");
-			return;
 		}
-		LoginToGameServer(conn);
 	}
 
 	private void HandleNetworkError(NetworkConnection conn, NetworkError errorCode)
@@ -3846,16 +2483,9 @@ public class ClientGameManager : MonoBehaviour
 		GameResult gameResult = m_gameResult;
 		if (gameResult == GameResult.NoResult && MyConnection != null)
 		{
-			GameResult gameResult2;
-			if (MyConnection.CloseStatusCode == CloseStatusCode.PingTimeout)
-			{
-				gameResult2 = GameResult.ClientHeartbeatTimeoutToGameServer;
-			}
-			else
-			{
-				gameResult2 = GameResult.ClientNetworkErrorToGameServer;
-			}
-			gameResult = gameResult2;
+			gameResult = MyConnection.CloseStatusCode == CloseStatusCode.PingTimeout
+				? GameResult.ClientHeartbeatTimeoutToGameServer
+				: GameResult.ClientNetworkErrorToGameServer;
 		}
 		Log.Info("Disconnected from game server {0}", gameResult);
 		IsRegisteredToGameServer = false;
@@ -3897,7 +2527,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public static string FormReplayFilename(string timeStr, string gameServerProcessCode, string handle)
 	{
-		return string.Format("{0}__{1}__{2}__{3}.arr", timeStr, gameServerProcessCode, BuildVersion.MiniVersionString, WWW.EscapeURL(handle));
+		return $"{timeStr}__{gameServerProcessCode}__{BuildVersion.MiniVersionString}__{WWW.EscapeURL(handle)}.arr";
 	}
 
 	public static string RemoveTimeFromReplayFilename(string filename)
@@ -4038,22 +2668,15 @@ public class ClientGameManager : MonoBehaviour
 		m_spawnableObjectCount = 0;
 		m_assetsLoadingState.Reset();
 		GameManager gameManager = GameManager.Get();
-		string map = gameManager.GameConfig.Map;
-		string text;
-		if (AssetBundleManager.Get().SceneExistsInBundle("testing", gameManager.GameConfig.Map))
-		{
-			text = "testing";
-		}
-		else
-		{
-			text = "maps";
-		}
+		string bundleName = AssetBundleManager.Get().SceneExistsInBundle("testing", gameManager.GameConfig.Map)
+			? "testing"
+			: "maps";
 		m_loadLevelOperationBundleSceneNames.Clear();
-		m_loadLevelOperationBundleSceneNames.Add(new KeyValuePair<string, string>(map, text));
+		m_loadLevelOperationBundleSceneNames.Add(new KeyValuePair<string, string>(gameManager.GameConfig.Map, bundleName));
 		m_loadLevelOperation = new AssetBundleManager.LoadSceneAsyncOperation
 		{
 			sceneName = gameManager.GameConfig.Map,
-			bundleName = text,
+			bundleName = bundleName,
 			loadSceneMode = LoadSceneMode.Single
 		};
 		StartCoroutine(AssetBundleManager.Get().LoadSceneAsync(m_loadLevelOperation));
@@ -4076,54 +2699,28 @@ public class ClientGameManager : MonoBehaviour
 	private IEnumerator LoadCharacterAssets(GameStatus gameStatusForAssets, float delaySeconds)
 	{
 		bool loading = false;
-		GameManager gameManager;
-		IEnumerator<LobbyPlayerInfo> enumerator;
 		m_loadingCharacterAssets = true;
-		gameManager = GameManager.Get();
-		enumerator = gameManager.TeamInfo.TeamAPlayerInfo.GetEnumerator();
-		try
+		GameManager gameManager = GameManager.Get();
+		foreach (LobbyPlayerInfo teamPlayerInfo in gameManager.TeamInfo.TeamAPlayerInfo)
 		{
-			while (enumerator.MoveNext())
+			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(teamPlayerInfo.CharacterInfo.CharacterType);
+			if (!m_loadingCharacterResources.Contains(characterResourceLink))
 			{
-				LobbyPlayerInfo teamPlayerInfo = enumerator.Current;
-				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(teamPlayerInfo.CharacterInfo.CharacterType);
-				if (!m_loadingCharacterResources.Contains(characterResourceLink))
-				{
-					m_loadingCharacterResources.Add(characterResourceLink);
-					characterResourceLink.LoadAsync(teamPlayerInfo.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
-					yield return new WaitForSeconds(delaySeconds);
-					loading = true;
-				}
+				m_loadingCharacterResources.Add(characterResourceLink);
+				characterResourceLink.LoadAsync(teamPlayerInfo.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
+				yield return new WaitForSeconds(delaySeconds);
+				loading = true;
 			}
 		}
-		finally
+		foreach (LobbyPlayerInfo teamPlayerInfo in gameManager.TeamInfo.TeamBPlayerInfo)
 		{
-			if (!loading && enumerator != null)
+			CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(teamPlayerInfo.CharacterInfo.CharacterType);
+			if (!m_loadingCharacterResources.Contains(characterResourceLink))
 			{
-				enumerator.Dispose();
-			}
-		}
-		IEnumerator<LobbyPlayerInfo> enumerator2 = gameManager.TeamInfo.TeamBPlayerInfo.GetEnumerator();
-		try
-		{
-			while (enumerator2.MoveNext())
-			{
-				LobbyPlayerInfo teamPlayerInfo2 = enumerator2.Current;
-				CharacterResourceLink characterResourceLink2 = GameWideData.Get().GetCharacterResourceLink(teamPlayerInfo2.CharacterInfo.CharacterType);
-				if (!m_loadingCharacterResources.Contains(characterResourceLink2))
-				{
-					m_loadingCharacterResources.Add(characterResourceLink2);
-					characterResourceLink2.LoadAsync(teamPlayerInfo2.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
-					yield return new WaitForSeconds(delaySeconds);
-					loading = true;
-				}
-			}
-		}
-		finally
-		{
-			if (!loading && enumerator2 != null)
-			{
-				enumerator2.Dispose();
+				m_loadingCharacterResources.Add(characterResourceLink);
+				characterResourceLink.LoadAsync(teamPlayerInfo.CharacterInfo.CharacterSkin, HandleCharacterResourceLoaded, gameStatusForAssets);
+				yield return new WaitForSeconds(delaySeconds);
+				loading = true;
 			}
 		}
 		Log.Info(Log.Category.Loading, "Finished loading character assets");
@@ -4134,7 +2731,8 @@ public class ClientGameManager : MonoBehaviour
 	{
 		m_loadingCharacterResources.Remove(loadedCharacter.resourceLink);
 		m_loadedCharacterResourceCount++;
-		Log.Info("Loaded CharacterResource {0} (total={1}, remaining={2})", loadedCharacter.resourceLink.name, m_loadedCharacterResourceCount, m_loadingCharacterResources.Count);
+		Log.Info("Loaded CharacterResource {0} (total={1}, remaining={2})",
+			loadedCharacter.resourceLink.name, m_loadedCharacterResourceCount, m_loadingCharacterResources.Count);
 	}
 
 	private void ResetLoadAssetsState()
@@ -4173,23 +2771,23 @@ public class ClientGameManager : MonoBehaviour
 		}
 
 		bool isTimeToSend = Time.unscaledTime > m_lastLoadProgressUpdateSent + m_loadingProgressUpdateFrequency;
-		if (isTimeToSend || force)
+		if ((isTimeToSend || force)
+		    && Client != null
+		    && Client.isConnected
+		    && IsRegisteredToGameServer)
 		{
-			if (Client != null && Client.isConnected && IsRegisteredToGameServer)
+			GameManager.AssetsLoadingProgress assetsLoadingProgress = new GameManager.AssetsLoadingProgress
 			{
-				GameManager.AssetsLoadingProgress assetsLoadingProgress = new GameManager.AssetsLoadingProgress
-					{
-						AccountId = m_lobbyGameClientInterface.SessionInfo.AccountId,
-						PlayerId = PlayerInfo.PlayerId,
-						TotalLoadingProgress = (byte)(m_assetsLoadingState.TotalProgress * 100f),
-						LevelLoadingProgress = (byte)(m_assetsLoadingState.LevelLoadProgress * 100f),
-						CharacterLoadingProgress = (byte)(m_assetsLoadingState.CharacterLoadProgress * 100f),
-						VfxLoadingProgress = (byte)(m_assetsLoadingState.VfxPreloadProgress * 100f),
-						SpawningProgress = (byte)(m_assetsLoadingState.SpawningProgress * 100f)
-					};
-				m_lastLoadProgressUpdateSent = Time.unscaledTime;
-				Client.Send((short)MyMsgType.ClientAssetsLoadingProgressUpdate, assetsLoadingProgress);
-			}
+				AccountId = m_lobbyGameClientInterface.SessionInfo.AccountId,
+				PlayerId = PlayerInfo.PlayerId,
+				TotalLoadingProgress = (byte)(m_assetsLoadingState.TotalProgress * 100f),
+				LevelLoadingProgress = (byte)(m_assetsLoadingState.LevelLoadProgress * 100f),
+				CharacterLoadingProgress = (byte)(m_assetsLoadingState.CharacterLoadProgress * 100f),
+				VfxLoadingProgress = (byte)(m_assetsLoadingState.VfxPreloadProgress * 100f),
+				SpawningProgress = (byte)(m_assetsLoadingState.SpawningProgress * 100f)
+			};
+			m_lastLoadProgressUpdateSent = Time.unscaledTime;
+			Client.Send((short)MyMsgType.ClientAssetsLoadingProgressUpdate, assetsLoadingProgress);
 		}
 	}
 
@@ -4200,111 +2798,72 @@ public class ClientGameManager : MonoBehaviour
 			return;
 		}
 		GameManager gameManager = GameManager.Get();
-		bool flag;
-		if (m_loadLevelOperationDone)
+		bool isPendingLoading = m_loadLevelOperationDone
+		             && (GameFlowData.Get() == null || GameFlowData.Get().gameState < GameState.Deployment);
+		if (m_loading || isPendingLoading)
 		{
-			flag = (GameFlowData.Get() == null || GameFlowData.Get().gameState < GameState.Deployment);
+			UpdateLoadProgress();
 		}
-		else
-		{
-			flag = false;
-		}
-		bool flag2 = flag;
+
 		if (!m_loading)
 		{
-			if (!flag2)
+			return;
+		}
+		if (m_loadLevelOperation != null && m_loadLevelOperation.isDone)
+		{
+			m_loadLevelOperation = null;
+			m_loadLevelOperationDone = true;
+		}
+		if (m_loadLevelOperation == null
+		    && m_loadingCharacterResources.Count == 0
+		    && !m_loadingCharacterAssets
+		    && (VisualsLoader.Get() == null || VisualsLoader.Get().LevelLoaded())
+		    && (ClientVFXLoader.Get() == null || ClientVFXLoader.Get().IsPreloadQueueEmpty()))
+		{
+			if (ClientScene.localPlayers != null
+			    && ClientScene.localPlayers.Count > 0
+			    && Client != null
+			    && Client.isConnected)
 			{
-				goto IL_85;
+				ResetLoadAssetsState();
+				UpdateLoadProgress(true);
+				GameManager.AssetsLoadedNotification assetsLoadedNotification = new GameManager.AssetsLoadedNotification
+				{
+					AccountId = m_lobbyGameClientInterface.SessionInfo.AccountId,
+					PlayerId = gameManager.PlayerInfo.PlayerId
+				};
+				Log.Info(Log.Category.Loading, "Sending asset loaded notification");
+				if (!Client.Send((short)MyMsgType.AssetsLoadedNotification, assetsLoadedNotification))
+				{
+					Log.Error("Failed to send message AssetsLoadedNotification");
+				}
+				
 			}
 		}
-		UpdateLoadProgress();
-		IL_85:
-		if (m_loading)
+		else if (m_loadLevelOperation == null
+		    && m_loadingCharacterResources.Count == 0
+		    && ClientVFXLoader.Get() != null
+		    && !ClientVFXLoader.Get().IsPreloadQueueEmpty()
+		    && !ClientVFXLoader.Get().IsPreloadInProgress())
 		{
-			if (m_loadLevelOperation != null)
-			{
-				if (m_loadLevelOperation.isDone)
-				{
-					m_loadLevelOperation = null;
-					m_loadLevelOperationDone = true;
-				}
-			}
-			if (m_loadLevelOperation == null)
-			{
-				if (m_loadingCharacterResources.Count == 0 && !m_loadingCharacterAssets)
-				{
-					if (!(VisualsLoader.Get() == null))
-					{
-						if (!VisualsLoader.Get().LevelLoaded())
-						{
-							goto IL_240;
-						}
-					}
-					if (!(ClientVFXLoader.Get() == null))
-					{
-						if (!ClientVFXLoader.Get().IsPreloadQueueEmpty())
-						{
-							goto IL_240;
-						}
-					}
-					bool flag3 = true;
-					if (flag3)
-					{
-						if (ClientScene.localPlayers != null)
-						{
-							if (ClientScene.localPlayers.Count > 0)
-							{
-								if (Client != null)
-								{
-									if (Client.isConnected)
-									{
-										ResetLoadAssetsState();
-										UpdateLoadProgress(true);
-										GameManager.AssetsLoadedNotification assetsLoadedNotification = new GameManager.AssetsLoadedNotification();
-										assetsLoadedNotification.AccountId = m_lobbyGameClientInterface.SessionInfo.AccountId;
-										assetsLoadedNotification.PlayerId = gameManager.PlayerInfo.PlayerId;
-										Log.Info(Log.Category.Loading, "Sending asset loaded notification");
-										if (!Client.Send(0x35, assetsLoadedNotification))
-										{
-											Log.Error("Failed to send message AssetsLoadedNotification");
-										}
-									}
-								}
-							}
-						}
-					}
-					return;
-				}
-			}
-			IL_240:
-			if (m_loadLevelOperation == null && m_loadingCharacterResources.Count == 0)
-			{
-				if (ClientVFXLoader.Get() != null && !ClientVFXLoader.Get().IsPreloadQueueEmpty())
-				{
-					if (!ClientVFXLoader.Get().IsPreloadInProgress())
-					{
-						Log.Info(Log.Category.Loading, "Starting VFX Preload");
-						ClientVFXLoader.Get().PreloadQueuedPKFX();
-					}
-				}
-			}
+			Log.Info(Log.Category.Loading, "Starting VFX Preload");
+			ClientVFXLoader.Get().PreloadQueuedPKFX();
 		}
 	}
 
 	public bool IsGroupReady()
 	{
-		bool result = true;
 		if (GroupInfo.InAGroup)
 		{
-			for (int i = 0; i < GroupInfo.Members.Count; i++)
+			foreach (UpdateGroupMemberData member in GroupInfo.Members)
 			{
-				if (!GroupInfo.Members[i].IsReady)
+				if (!member.IsReady)
 				{
 					return false;
 				}
 			}
 		}
-		return result;
+		return true;
 	}
 
 	public bool IsPlayerAccountDataAvailable()
@@ -4381,7 +2940,7 @@ public class ClientGameManager : MonoBehaviour
 			{
 				List<GameMapConfig> gameMapConfigs = gameSubType.GameMapConfigs;
 				
-				if (!gameMapConfigs.Exists((p => p.IsActive)))
+				if (!gameMapConfigs.Exists(p => p.IsActive))
 				{
 					if (gameSubType.Requirements == null)
 					{
@@ -4389,7 +2948,7 @@ public class ClientGameManager : MonoBehaviour
 					}
 					RequirementCollection requirements = gameSubType.Requirements;
 					
-					if (!requirements.Exists((p => p is QueueRequirement_Never)))
+					if (!requirements.Exists(p => p is QueueRequirement_Never))
 					{
 						gameSubType.Requirements.Add(QueueRequirement_Never.Create(QueueRequirement.RequirementType.AdminDisabled, null));
 					}
@@ -4409,14 +2968,15 @@ public class ClientGameManager : MonoBehaviour
 		}
 		IL_1EC:
 		m_tierInstanceNames = notification.TierInstanceNames;
-		OnServerQueueConfigurationUpdateNotificationHolder(notification);
+		OnServerQueueConfigurationUpdateNotification(notification);
 	}
 
 	private void HandleRankedOverviewChangeNotification(RankedOverviewChangeNotification notification)
 	{
 		if (notification.GameType != GameType.Ranked)
 		{
-			throw new Exception(string.Format("We do not yet handle RankedOverviewChangeNotification for game type {0}", notification.GameType));
+			throw new Exception(
+				$"We do not yet handle RankedOverviewChangeNotification for game type {notification.GameType}");
 		}
 		UIRankedModeSelectScreen uirankedModeSelectScreen = UIRankedModeSelectScreen.Get();
 		if (uirankedModeSelectScreen != null)
@@ -4434,7 +2994,7 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (IsReady)
 		{
-			OnQuestCompleteNotificationHolder(notification);
+			OnQuestCompleteNotification(notification);
 		}
 		else
 		{
@@ -4446,12 +3006,12 @@ public class ClientGameManager : MonoBehaviour
 	{
 		ActiveFactionCompetition = notification.ActiveIndex;
 		FactionScores = notification.Scores;
-		OnFactionCompetitionNotificationHolder(notification);
+		OnFactionCompetitionNotification(notification);
 	}
 
 	private void HandleTrustBoostUsedNotification(TrustBoostUsedNotification notification)
 	{
-		OnTrustBoostUsedNotificationHolder(notification);
+		OnTrustBoostUsedNotification(notification);
 	}
 
 	private void HandleFactionLoginRewardNotification(FactionLoginRewardNotification notification)
@@ -4461,29 +3021,28 @@ public class ClientGameManager : MonoBehaviour
 			Log.Error("received a second login notification! - should not");
 		}
 		LoginRewardNotification = notification;
-		OnFactionLoginRewardNotificationHolder(notification);
+		OnFactionLoginRewardNotification(notification);
 	}
 
 	private void HandlePlayerFactionContributionChange(PlayerFactionContributionChangeNotification notification)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface == null || !m_lobbyGameClientInterface.IsConnected)
 		{
-			if (!m_lobbyGameClientInterface.IsConnected)
+			Log.Error("Not connected to lobby server for Faction Contribution Change");
+		}
+		else
+		{
+			if (!IsPlayerAccountDataAvailable())
 			{
-			}
-			else
-			{
-				if (!IsPlayerAccountDataAvailable())
-				{
-					Log.Error("Player Account Data not available for Faction Contribution Change");
-					return;
-				}
-				GetPlayerAccountData().AccountComponent.GetPlayerCompetitionFactionData(notification.CompetitionId, notification.FactionId).TotalXP = notification.TotalXP;
-				OnPlayerFactionContributionChangeNotificationHolder(notification);
+				Log.Error("Player Account Data not available for Faction Contribution Change");
 				return;
 			}
+
+			GetPlayerAccountData().AccountComponent
+					.GetPlayerCompetitionFactionData(notification.CompetitionId, notification.FactionId).TotalXP =
+				notification.TotalXP;
+			OnPlayerFactionContributionChangeNotification(notification);
 		}
-		Log.Error("Not connected to lobby server for Faction Contribution Change");
 	}
 
 	private void HandleFacebookAccessTokenNotification(FacebookAccessTokenNotification notification)
@@ -4493,14 +3052,14 @@ public class ClientGameManager : MonoBehaviour
 
 	private void HandleMatchResultsNotification(MatchResultsNotification notification)
 	{
-		OnMatchResultsNotificationHolder(notification);
+		OnMatchResultsNotification(notification);
 	}
 
 	public void QueryPlayerMatchData(Action<PlayerMatchDataResponse> onResponseCallback)
 	{
 		if (onResponseCallback == null)
 		{
-			throw new ArgumentNullException("onResponseCallback");
+			throw new ArgumentNullException(nameof(onResponseCallback));
 		}
 		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
@@ -4523,8 +3082,7 @@ public class ClientGameManager : MonoBehaviour
 			Log.Error("Player character data not loaded yet");
 			return -1;
 		}
-		PersistedCharacterData persistedCharacterData;
-		if (m_loadedPlayerCharacterData.TryGetValue(character, out persistedCharacterData))
+		if (m_loadedPlayerCharacterData.TryGetValue(character, out PersistedCharacterData persistedCharacterData))
 		{
 			return persistedCharacterData.ExperienceComponent.Level;
 		}
@@ -4538,8 +3096,8 @@ public class ClientGameManager : MonoBehaviour
 			Log.Error("Player character data not loaded yet");
 			return null;
 		}
-		PersistedCharacterData result;
-		if (m_loadedPlayerCharacterData.TryGetValue(character, out result))
+
+		if (m_loadedPlayerCharacterData.TryGetValue(character, out PersistedCharacterData result))
 		{
 			return result;
 		}
@@ -4558,8 +3116,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public PersistedCharacterData GetCharacterDataOnInitialLoad(CharacterType charType)
 	{
-		PersistedCharacterData result;
-		if (m_characterDataOnInitialLoad.TryGetValue(charType, out result))
+		if (m_characterDataOnInitialLoad.TryGetValue(charType, out PersistedCharacterData result))
 		{
 			return result;
 		}
@@ -4568,17 +3125,16 @@ public class ClientGameManager : MonoBehaviour
 
 	public void PurchaseMod(CharacterType character, int abilityId, int abilityModID)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
-			{
-				PurchasingMod = true;
-				ModAttemptingToPurchase = abilityModID;
-				m_lobbyGameClientInterface.PurchaseMod(character, abilityId, abilityModID, HandlePurchaseModResponse);
-				return;
-			}
+			PurchasingMod = true;
+			ModAttemptingToPurchase = abilityModID;
+			m_lobbyGameClientInterface.PurchaseMod(character, abilityId, abilityModID, HandlePurchaseModResponse);
 		}
-		Log.Error("Not connected to lobby server.");
+		else
+		{
+			Log.Error("Not connected to lobby server.");
+		}
 	}
 
 	private void HandlePurchaseModResponse(PurchaseModResponse response)
@@ -4590,11 +3146,12 @@ public class ClientGameManager : MonoBehaviour
 			{
 				persistedCharacterData.CharacterComponent.Mods.Add(response.UnlockData);
 			}
-			OnModUnlockedHolder(response.Character, response.UnlockData);
+			OnModUnlocked(response.Character, response.UnlockData);
 		}
 		else
 		{
-			Log.Error(string.Format("Failed to unlock Mod {0} for character {1}: {2}", response.UnlockData.ToString(), response.Character, response.ErrorMessage));
+			Log.Error(
+				$"Failed to unlock Mod {response.UnlockData.ToString()} for character {response.Character}: {response.ErrorMessage}");
 		}
 		ModAttemptingToPurchase = -1;
 		PurchasingMod = false;
@@ -4604,13 +3161,9 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			m_lobbyGameClientInterface.PurchaseLoadoutSlot(characterType, delegate(PurchaseLoadoutSlotResponse response)
-			{
-				if (onResponseCallback != null)
-				{
-					onResponseCallback(response);
-				}
-			});
+			m_lobbyGameClientInterface.PurchaseLoadoutSlot(
+				characterType,
+				response => { onResponseCallback?.Invoke(response); });
 		}
 		else
 		{
@@ -4634,20 +3187,20 @@ public class ClientGameManager : MonoBehaviour
 
 	public void RequestToSelectLoadout(CharacterLoadout loadout, int loadoutIndex)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
+			m_lobbyGameClientInterface.UpdatePlayerInfo(new LobbyPlayerInfoUpdate
 			{
-				LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate();
-				lobbyPlayerInfoUpdate.CharacterMods = loadout.ModSet;
-				lobbyPlayerInfoUpdate.CharacterAbilityVfxSwaps = loadout.VFXSet;
-				lobbyPlayerInfoUpdate.LastSelectedLoadout = loadoutIndex;
-				lobbyPlayerInfoUpdate.RankedLoadoutMods = (loadout.Strictness == ModStrictness.Ranked);
-				m_lobbyGameClientInterface.UpdatePlayerInfo(lobbyPlayerInfoUpdate, HandleModSelectUpdateResponse);
-				return;
-			}
+				CharacterMods = loadout.ModSet,
+				CharacterAbilityVfxSwaps = loadout.VFXSet,
+				LastSelectedLoadout = loadoutIndex,
+				RankedLoadoutMods = loadout.Strictness == ModStrictness.Ranked
+			}, HandleModSelectUpdateResponse);
 		}
-		Log.Error("Not connected to lobby server.");
+		else
+		{
+			Log.Error("Not connected to lobby server.");
+		}
 	}
 
 	public void PurchaseModToken(int numToPurchase)
@@ -4679,26 +3232,17 @@ public class ClientGameManager : MonoBehaviour
 		}
 		else
 		{
-			string text;
-			if (response.LocalizedFailure != null)
-			{
-				text = response.LocalizedFailure.ToString();
-			}
-			else if (!response.ErrorMessage.IsNullOrEmpty())
-			{
-				text = string.Format("{0}#NeedsLocalization", response.ErrorMessage);
-			}
-			else
-			{
-				text = StringUtil.TR("UnknownErrorTryAgain", "Frontend");
-			}
-			string text2 = text;
+			string text = response.LocalizedFailure != null
+				? response.LocalizedFailure.ToString()
+				: response.ErrorMessage.IsNullOrEmpty()
+					? StringUtil.TR("UnknownErrorTryAgain", "Frontend")
+					: $"{response.ErrorMessage}#NeedsLocalization";
 			TextConsole.Get().Write(new TextConsole.Message
 			{
-				Text = text2,
+				Text = text,
 				MessageType = ConsoleMessageType.SystemMessage
 			});
-			Log.Error("Did not use GG pack: {0}", text2);
+			Log.Error("Did not use GG pack: {0}", text);
 		}
 		HUD_UI.Get().m_mainScreenPanel.m_characterProfile.NotifyReceivedGGPackResponse();
 		UIGameOverScreen.Get().NotifySelfGGPackUsed();
@@ -4718,19 +3262,13 @@ public class ClientGameManager : MonoBehaviour
 
 	public void CheckAndSendClientPreparedForGameStartNotification()
 	{
-		if (PlayerObjectStartedOnClient && InGameUIActivated)
+		if (PlayerObjectStartedOnClient && InGameUIActivated && VisualSceneLoaded && DesignSceneStarted)
 		{
-			if (VisualSceneLoaded)
-			{
-				if (DesignSceneStarted)
-				{
-					SendClientPreparedForGameStartNotification();
-					PlayerObjectStartedOnClient = false;
-					InGameUIActivated = false;
-					VisualSceneLoaded = false;
-					DesignSceneStarted = false;
-				}
-			}
+			SendClientPreparedForGameStartNotification();
+			PlayerObjectStartedOnClient = false;
+			InGameUIActivated = false;
+			VisualSceneLoaded = false;
+			DesignSceneStarted = false;
 		}
 	}
 
@@ -4750,19 +3288,16 @@ public class ClientGameManager : MonoBehaviour
 			GameManager.PlayerObjectStartedOnClientNotification playerObjectStartedOnClientNotification = new GameManager.PlayerObjectStartedOnClientNotification();
 			playerObjectStartedOnClientNotification.AccountId = m_lobbyGameClientInterface.SessionInfo.AccountId;
 			playerObjectStartedOnClientNotification.PlayerId = GameManager.Get().PlayerInfo.PlayerId;
-			Client.Send(0x37, playerObjectStartedOnClientNotification);
+			Client.Send((short)MyMsgType.ClientPreparedForGameStartNotification, playerObjectStartedOnClientNotification);
 		}
 	}
 
 	public void UpdateRemoteCharacter(CharacterType character, int remoteSlotIndex, Action<UpdateRemoteCharacterResponse> onResponse = null)
 	{
-		UpdateRemoteCharacter(new[]
-		{
-			character
-		}, new[]
-		{
-			remoteSlotIndex
-		}, onResponse);
+		UpdateRemoteCharacter(
+			new[] { character },
+			new[] { remoteSlotIndex },
+			onResponse);
 	}
 
 	public void UpdateRemoteCharacter(CharacterType[] characters, int[] remoteSlotIndexes, Action<UpdateRemoteCharacterResponse> onResponse = null)
@@ -4800,78 +3335,61 @@ public class ClientGameManager : MonoBehaviour
 
 	public void RequestTitleSelect(int newTitleID, Action<SelectTitleResponse> onResponse)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
+			if (m_loadedPlayerAccountData != null && m_loadedPlayerAccountData.AccountComponent.SelectedTitleID == newTitleID)
+			{
+				return;
+			}
+			m_lobbyGameClientInterface.RequestTitleSelect(newTitleID, delegate(SelectTitleResponse response)
 			{
 				if (m_loadedPlayerAccountData != null)
 				{
-					if (m_loadedPlayerAccountData.AccountComponent.SelectedTitleID == newTitleID)
-					{
-						return;
-					}
+					m_loadedPlayerAccountData.AccountComponent.SelectedTitleID = response.CurrentTitleID;
 				}
-				m_lobbyGameClientInterface.RequestTitleSelect(newTitleID, delegate(SelectTitleResponse response)
+				if (onResponse != null)
 				{
-					if (m_loadedPlayerAccountData != null)
-					{
-						m_loadedPlayerAccountData.AccountComponent.SelectedTitleID = response.CurrentTitleID;
-					}
-					if (onResponse != null)
-					{
-						onResponse(response);
-					}
-					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
-					if (gameBalanceVars != null)
-					{
-						OnPlayerTitleChangeHolder(gameBalanceVars.GetTitle(response.CurrentTitleID, string.Empty));
-					}
-				});
-				return;
-			}
+					onResponse(response);
+				}
+				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
+				if (gameBalanceVars != null)
+				{
+					OnPlayerTitleChange(gameBalanceVars.GetTitle(response.CurrentTitleID, string.Empty));
+				}
+			});
 		}
-		Log.Error("Not connected to lobby server.");
+		else
+		{
+			Log.Error("Not connected to lobby server.");
+		}
 	}
 
 	public void RequestBannerSelect(int newBannerID, Action<SelectBannerResponse> onResponse)
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
+			if (m_loadedPlayerAccountData != null
+			    && (m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID == newBannerID
+			        || m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID == newBannerID))
 			{
-				if (m_loadedPlayerAccountData != null)
-				{
-					if (m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID != newBannerID)
-					{
-						if (m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID != newBannerID)
-						{
-							goto IL_8E;
-						}
-					}
-					return;
-				}
-				IL_8E:
-				m_lobbyGameClientInterface.RequestBannerSelect(newBannerID, delegate(SelectBannerResponse response)
-				{
-					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
-					if (m_loadedPlayerAccountData != null)
-					{
-						if (gameBalanceVars != null)
-						{
-							m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID = response.ForegroundBannerID;
-							m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID = response.BackgroundBannerID;
-							OnPlayerBannerChangeHolder(gameBalanceVars.GetBanner(response.ForegroundBannerID), gameBalanceVars.GetBanner(response.BackgroundBannerID));
-						}
-					}
-					if (onResponse != null)
-					{
-						onResponse(response);
-					}
-				});
 				return;
 			}
+			m_lobbyGameClientInterface.RequestBannerSelect(newBannerID, delegate(SelectBannerResponse response)
+			{
+				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
+				if (m_loadedPlayerAccountData != null && gameBalanceVars != null)
+				{
+					m_loadedPlayerAccountData.AccountComponent.SelectedForegroundBannerID = response.ForegroundBannerID;
+					m_loadedPlayerAccountData.AccountComponent.SelectedBackgroundBannerID = response.BackgroundBannerID;
+					OnPlayerBannerChange(gameBalanceVars.GetBanner(response.ForegroundBannerID), gameBalanceVars.GetBanner(response.BackgroundBannerID));
+				}
+				onResponse?.Invoke(response);
+			});
 		}
-		Log.Error("Not connected to lobby server.");
+		else
+		{
+			Log.Error("Not connected to lobby server.");
+		}
 	}
 
 	public void RequestRibbonSelect(int newRibbonID, Action<SelectRibbonResponse> onResponse)
@@ -4897,7 +3415,7 @@ public class ClientGameManager : MonoBehaviour
 					GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 					if (gameBalanceVars != null)
 					{
-						OnPlayerRibbonChangeHolder(gameBalanceVars.GetRibbon(response.CurrentRibbonID));
+						OnPlayerRibbonChange(gameBalanceVars.GetRibbon(response.CurrentRibbonID));
 					}
 				});
 				return;
@@ -4938,7 +3456,7 @@ public class ClientGameManager : MonoBehaviour
 					{
 						onResponse(response);
 					}
-					OnLoadingScreenBackgroundToggledHolder(response.LoadingScreenId, response.CurrentState);
+					OnLoadingScreenBackgroundToggled(response.LoadingScreenId, response.CurrentState);
 				});
 				return;
 			}
@@ -5041,7 +3559,7 @@ public class ClientGameManager : MonoBehaviour
 				
 				lobbyGameClientInterface.DEBUG_ForceMatchmaking(delegate(DEBUG_ForceMatchmakingResponse response)
 					{
-						string text = (!response.Success) ? string.Format("Failed to force queue: {0}", response.ErrorMessage) : string.Format("Forced queue {0}", response.GameType);
+						string text = !response.Success ? string.Format("Failed to force queue: {0}", response.ErrorMessage) : string.Format("Forced queue {0}", response.GameType);
 						TextConsole.Get().Write(text);
 						if (response.Success)
 						{
@@ -5290,15 +3808,12 @@ public class ClientGameManager : MonoBehaviour
 
 	public void LeaveDiscord()
 	{
-		if (m_lobbyGameClientInterface != null)
+		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{
-			if (m_lobbyGameClientInterface.IsConnected)
+			m_lobbyGameClientInterface.SendDiscordLeaveServerRequest(m_discordJoinType, delegate(DiscordLeaveServerResponse response)
 			{
-				m_lobbyGameClientInterface.SendDiscordLeaveServerRequest(m_discordJoinType, delegate(DiscordLeaveServerResponse response)
-				{
-					Log.Info("Remove user from Discord server {0} (result {1})", m_discordJoinType, response.Success);
-				});
-			}
+				Log.Info("Remove user from Discord server {0} (result {1})", m_discordJoinType, response.Success);
+			});
 		}
 		DiscordClientInterface.Get().Disconnect();
 		m_discordConnecting = false;
@@ -5308,130 +3823,86 @@ public class ClientGameManager : MonoBehaviour
 	public void ConfigureDiscord(bool autoJoin)
 	{
 		Options_UI.Get().SetEnableAutoJoinDiscord(autoJoin);
-		string key = "AutoJoinDiscord";
-		int value;
-		if (autoJoin)
-		{
-			value = 1;
-		}
-		else
-		{
-			value = 0;
-		}
-		PlayerPrefs.SetInt(key, value);
-		string format = StringUtil.TR("ConfiguredDiscordAutojoin", "Global");
-		object arg;
-		if (autoJoin)
-		{
-			arg = StringUtil.TR("Enabled", "Global");
-		}
-		else
-		{
-			arg = StringUtil.TR("Disabled", "Global");
-		}
-		string text = string.Format(format, arg);
+		PlayerPrefs.SetInt("AutoJoinDiscord", autoJoin ? 1 : 0);
+		string text = string.Format(
+			StringUtil.TR("ConfiguredDiscordAutojoin", "Global"),
+			StringUtil.TR(autoJoin ? "Enabled" : "Disabled", "Global"));
 		if (DiscordClientInterface.s_debugOutput)
 		{
-			text += ((!DiscordClientInterface.IsSdkEnabled) ? " (DesktopApp)" : " (SDK)");
+			text += DiscordClientInterface.IsSdkEnabled ? " (SDK)" : " (DesktopApp)";
 		}
 		TextConsole.Get().Write(text);
 	}
 
 	public void FacebookShareScreenshot(string message = null)
 	{
-		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
+		if (m_lobbyGameClientInterface == null
+		    || !m_lobbyGameClientInterface.IsConnected)
 		{
-			m_lobbyGameClientInterface.SendFacebookGetUserTokenRequest(delegate(FacebookGetUserTokenResponse response)
-			{
-				if (response.Success)
-				{
-					string language = HydrogenConfig.Get().Language;
-					if (message.IsNullOrEmpty())
-					{
-						message = "Atlas Reactor at " + DateTime.Now;
-					}
-					FacebookClientInterface.Get().Connect(response.OAuthInfo, language, message);
-				}
-			});
+			return;
 		}
+		m_lobbyGameClientInterface.SendFacebookGetUserTokenRequest(delegate(FacebookGetUserTokenResponse response)
+		{
+			if (!response.Success)
+			{
+				return;
+			}
+			if (message.IsNullOrEmpty())
+			{
+				message = "Atlas Reactor at " + DateTime.Now;
+			}
+			FacebookClientInterface.Get().Connect(response.OAuthInfo, HydrogenConfig.Get().Language, message);
+		});
 	}
 
 	private void HandleAccountDataUpdated(PersistedAccountData accountData)
 	{
-		List<QuestProgress> list = new List<QuestProgress>();
+		List<QuestProgress> updatedQuests = new List<QuestProgress>();
 		if (m_loadedPlayerAccountData != null)
 		{
 			Dictionary<int, QuestProgress> progress = m_loadedPlayerAccountData.QuestComponent.Progress;
-			List<QuestProgress> list2 = accountData.QuestComponent.Progress.Values.ToList();
-			for (int i = 0; i < list2.Count; i++)
+			List<QuestProgress> questUpdates = accountData.QuestComponent.Progress.Values.ToList();
+			foreach (QuestProgress updatedQuestProgress in questUpdates)
 			{
-				bool flag = false;
-				QuestProgress questProgress = list2[i];
-				if (progress.ContainsKey(questProgress.Id))
+				bool isUpdated = false;
+				if (progress.TryGetValue(updatedQuestProgress.Id, out QuestProgress currentQuestProgress))
 				{
-					QuestProgress questProgress2 = progress[questProgress.Id];
-					if (questProgress2.ObjectiveProgress.Count != questProgress.ObjectiveProgress.Count)
+					if (currentQuestProgress.ObjectiveProgress.Count != updatedQuestProgress.ObjectiveProgress.Count)
 					{
-						flag = true;
+						isUpdated = true;
 					}
-					if (!flag)
+					if (!isUpdated)
 					{
-						using (Dictionary<int, int>.Enumerator enumerator = questProgress2.ObjectiveProgress.GetEnumerator())
+						foreach (KeyValuePair<int, int> keyValuePair in currentQuestProgress.ObjectiveProgress)
 						{
-							while (enumerator.MoveNext())
+							if (!updatedQuestProgress.ObjectiveProgress.TryGetValue(keyValuePair.Key, out int num) || keyValuePair.Value != num)
 							{
-								KeyValuePair<int, int> keyValuePair = enumerator.Current;
-								int num;
-								if (!questProgress.ObjectiveProgress.TryGetValue(keyValuePair.Key, out num))
-								{
-									flag = true;
-								}
-								else
-								{
-									if (keyValuePair.Value == num)
-									{
-										continue;
-									}
-									flag = true;
-								}
-								goto IL_149;
+								isUpdated = true;
+								break;
 							}
 						}
 					}
-					IL_149:;
 				}
 				else
 				{
-					flag = true;
+					isUpdated = true;
 				}
-				if (flag)
+				if (isUpdated)
 				{
-					list.Add(questProgress);
+					updatedQuests.Add(updatedQuestProgress);
 				}
 			}
 		}
 		m_loadedPlayerAccountData = accountData;
-		OnAccountDataUpdatedHolder(accountData);
+		OnAccountDataUpdated(accountData);
 		PlayerWallet = new CurrencyWallet(accountData.BankComponent.CurrentAmounts.Data);
-		IEnumerator<CurrencyData> enumerator2 = PlayerWallet.GetEnumerator();
-		try
+		foreach (CurrencyData obj in PlayerWallet)
 		{
-			while (enumerator2.MoveNext())
-			{
-				CurrencyData obj = enumerator2.Current;
-				OnBankBalanceChangeHolder(obj);
-			}
+			OnBankBalanceChange(obj);
 		}
-		finally
+		if (updatedQuests.Count > 0)
 		{
-			if (enumerator2 != null)
-			{
-				enumerator2.Dispose();
-			}
-		}
-		if (list.Count > 0)
-		{
-			OnQuestProgressChangedHolder(list.ToArray());
+			OnQuestProgressChanged(updatedQuests.ToArray());
 		}
 	}
 
@@ -5467,13 +3938,13 @@ public class ClientGameManager : MonoBehaviour
 	private void HandleCharacterDataUpdateNotification(PlayerCharacterDataUpdateNotification notification)
 	{
 		m_loadedPlayerCharacterData[notification.CharacterData.CharacterType] = notification.CharacterData;
-		OnCharacterDataUpdatedHolder(notification.CharacterData);
+		OnCharacterDataUpdated(notification.CharacterData);
 	}
 
 	private void HandleInventoryComponentUpdateNotification(InventoryComponentUpdateNotification notification)
 	{
 		m_loadedPlayerAccountData.InventoryComponent = notification.InventoryComponent;
-		OnInventoryComponentUpdatedHolder(notification.InventoryComponent);
+		OnInventoryComponentUpdated(notification.InventoryComponent);
 	}
 
 	private void HandleBankBalanceChangeNotification(BankBalanceChangeNotification notification)
@@ -5483,7 +3954,7 @@ public class ClientGameManager : MonoBehaviour
 			if (PlayerWallet != null)
 			{
 				PlayerWallet.SetValue(notification.NewBalance);
-				OnBankBalanceChangeHolder(notification.NewBalance);
+				OnBankBalanceChange(notification.NewBalance);
 			}
 		}
 	}
@@ -5494,10 +3965,10 @@ public class ClientGameManager : MonoBehaviour
 		{
 			m_loadedPlayerAccountData.QuestComponent.ActiveSeason = notification.SeasonStartedIndex;
 		}
-		OnSeasonCompleteNotificationHolder(notification);
+		OnSeasonCompleteNotification(notification);
 		if (m_loadedPlayerAccountData != null)
 		{
-			OnAccountDataUpdatedHolder(m_loadedPlayerAccountData);
+			OnAccountDataUpdated(m_loadedPlayerAccountData);
 		}
 	}
 
@@ -5514,11 +3985,11 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (notification.IsCompleted)
 		{
-			OnChapterCompleteNotificationHolder(notification.SeasonIndex, notification.ChapterIndex + 1);
+			OnChapterCompleteNotification(notification.SeasonIndex, notification.ChapterIndex + 1);
 		}
 		else if (notification.IsUnlocked)
 		{
-			OnChapterUnlockNotificationHolder(notification.SeasonIndex, notification.ChapterIndex + 1);
+			OnChapterUnlockNotification(notification.SeasonIndex, notification.ChapterIndex + 1);
 		}
 	}
 
@@ -6948,7 +5419,7 @@ public class ClientGameManager : MonoBehaviour
 				flag = false;
 			}
 			bool flag2 = flag;
-			RequirementMessageContext context = (!flag2) ? RequirementMessageContext.SoloQueueing : RequirementMessageContext.GroupQueueing;
+			RequirementMessageContext context = !flag2 ? RequirementMessageContext.SoloQueueing : RequirementMessageContext.GroupQueueing;
 			GameTypeAvailability gameTypeAvailability;
 			if (GameTypeAvailabilies.TryGetValue(gameType, out gameTypeAvailability))
 			{
@@ -6956,7 +5427,7 @@ public class ClientGameManager : MonoBehaviour
 				{
 					if (!gameTypeAvailability.IsActive)
 					{
-						return LocalizationPayload.Create((gameType != GameType.Ranked) ? "GameModeUnavailable@Global" : "RankedNotYetAvailable@RankMode");
+						return LocalizationPayload.Create(gameType != GameType.Ranked ? "GameModeUnavailable@Global" : "RankedNotYetAvailable@RankMode");
 					}
 					IQueueRequirementSystemInfo queueRequirementSystemInfo = QueueRequirementSystemInfo;
 					IEnumerator<QueueRequirement> enumerator = gameTypeAvailability.Requirements.GetEnumerator();
@@ -7644,7 +6115,7 @@ public class ClientGameManager : MonoBehaviour
 					if (flag)
 					{
 					}
-					else if ((disposable = (enumerator as IDisposable)) != null)
+					else if ((disposable = enumerator as IDisposable) != null)
 					{
 						disposable.Dispose();
 					}
@@ -7736,7 +6207,7 @@ public class ClientGameManager : MonoBehaviour
 					if (flag)
 					{
 					}
-					else if ((disposable = (enumerator as IDisposable)) != null)
+					else if ((disposable = enumerator as IDisposable) != null)
 					{
 						disposable.Dispose();
 					}
