@@ -282,185 +282,127 @@ public class UIMatchStartPanel : UIScene
 	{
 		if (UIRankedModeDraftScreen.Get() != null && UIRankedModeDraftScreen.Get().IsVisible)
 		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
+			return;
 		}
-		bool flag = false;
+		bool isVisible = false;
 		MatchStartCountdown matchStartCountdown = MatchStartCountdown.None;
-		if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()))
+		if (AppState.GetCurrent() == AppState_CharacterSelect.Get()
+		    || AppState.GetCurrent() == AppState_GroupCharacterSelect.Get())
 		{
-			if (!(AppState.GetCurrent() == AppState_GroupCharacterSelect.Get()))
+			GameManager gameManager = GameManager.Get();
+			if (gameManager != null
+			    && gameManager.GameInfo != null
+			    && gameManager.GameInfo.GameConfig != null
+			    && gameManager.GameInfo.GameStatus != GameStatus.Stopped)
 			{
-				goto IL_02f1;
-			}
-		}
-		GameManager gameManager = GameManager.Get();
-		if (gameManager != null)
-		{
-			if (gameManager.GameInfo != null)
-			{
-				if (gameManager.GameInfo.GameConfig != null && gameManager.GameInfo.GameStatus != GameStatus.Stopped)
+				MapData mapData = GameWideData.Get().GetMapData(gameManager.GameInfo.GameConfig.Map);
+				m_introMapText.text = GameWideData.Get().GetMapDisplayName(gameManager.GameInfo.GameConfig.Map);
+
+				m_introMapImage.sprite = mapData != null
+					? Resources.Load(mapData.ResourceImageSpriteLocation, typeof(Sprite)) as Sprite
+					: Resources.Load("Stages/information_stage_image", typeof(Sprite)) as Sprite;
+				m_introGameTypeText.text = gameManager.GameInfo.GameConfig.InstanceSubType.LocalizedName != null
+					? string.Format(
+						StringUtil.TR("SubtypeFound", "Global"),
+						StringUtil.TR(gameManager.GameInfo.GameConfig.InstanceSubType.LocalizedName))
+					: string.Empty;
+
+				if (gameManager.GameInfo.GameStatus == GameStatus.LoadoutSelecting)
 				{
-					MapData mapData = GameWideData.Get().GetMapData(gameManager.GameInfo.GameConfig.Map);
-					m_introMapText.text = GameWideData.Get().GetMapDisplayName(gameManager.GameInfo.GameConfig.Map);
-					Sprite sprite = null;
-					if (mapData != null)
+					isVisible = true;
+					matchStartCountdown = MatchStartCountdown.MatchFound;
+					SetSelfRingReady();
+				}
+				else if (gameManager.GameInfo.GameStatus == GameStatus.FreelancerSelecting
+				         && m_duplicateFreelancerResolving
+				         && gameManager.GameInfo.GameConfig.GameType != GameType.Custom
+				         && gameManager.GameInfo.GameConfig.GameType != GameType.Practice
+				         && gameManager.GameInfo.GameConfig.GameType != GameType.Solo
+				         && !gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
+				{
+					isVisible = true;
+					if (UICharacterSelectScreenController.Get().RepickingCharacter())
 					{
-						sprite = (Resources.Load(mapData.ResourceImageSpriteLocation, typeof(Sprite)) as Sprite);
+						matchStartCountdown = MatchStartCountdown.ChooseNewFreelancer;
 					}
 					else
 					{
-						sprite = (Resources.Load("Stages/information_stage_image", typeof(Sprite)) as Sprite);
-					}
-					m_introMapImage.sprite = sprite;
-					if (gameManager.GameInfo.GameConfig.InstanceSubType.LocalizedName != null)
-					{
-						m_introGameTypeText.text = string.Format(StringUtil.TR("SubtypeFound", "Global"), StringUtil.TR(gameManager.GameInfo.GameConfig.InstanceSubType.LocalizedName));
-					}
-					else
-					{
-						m_introGameTypeText.text = string.Empty;
-					}
-					if (gameManager.GameInfo.GameStatus == GameStatus.LoadoutSelecting)
-					{
-						flag = true;
-						matchStartCountdown = MatchStartCountdown.MatchFound;
+						matchStartCountdown = MatchStartCountdown.ResolvingDuplicateFreelancer;
 						SetSelfRingReady();
 					}
-					else
-					{
-						if (gameManager.GameInfo.GameStatus == GameStatus.FreelancerSelecting)
-						{
-							if (m_duplicateFreelancerResolving && gameManager.GameInfo.GameConfig.GameType != 0 && gameManager.GameInfo.GameConfig.GameType != GameType.Practice)
-							{
-								if (gameManager.GameInfo.GameConfig.GameType != GameType.Solo)
-								{
-									if (!gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-									{
-										flag = true;
-										if (UICharacterSelectScreenController.Get().RepickingCharacter())
-										{
-											matchStartCountdown = MatchStartCountdown.ChooseNewFreelancer;
-										}
-										else
-										{
-											matchStartCountdown = MatchStartCountdown.ResolvingDuplicateFreelancer;
-											SetSelfRingReady();
-										}
-										goto IL_02f1;
-									}
-								}
-							}
-						}
-						if (gameManager.GameInfo.GameStatus >= GameStatus.Launching)
-						{
-							flag = true;
-							matchStartCountdown = MatchStartCountdown.LoadingMatch;
-							SetSelfRingReady();
-						}
-					}
 				}
-			}
-		}
-		goto IL_02f1;
-		IL_02f1:
-		m_isVisible = flag;
-		m_currentDisplay = matchStartCountdown;
-		if (m_matchFoundAnimator.gameObject.activeInHierarchy)
-		{
-			if (UIAnimationEventManager.IsAnimationDone(m_matchFoundAnimator, "MatchFoundIntro", 0))
-			{
-				UIManager.SetGameObjectActive(m_matchFoundAnimator, false);
-			}
-		}
-		if (flag)
-		{
-			while (true)
-			{
-				switch (6)
+				else if (gameManager.GameInfo.GameStatus >= GameStatus.Launching)
 				{
-				case 0:
-					break;
-				default:
-					SetVisible(flag, matchStartCountdown);
-					if (matchStartCountdown == MatchStartCountdown.MatchFound)
-					{
-						LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
-						float num = Time.realtimeSinceStartup - m_loadoutSelectStartTime;
-						float num2 = Mathf.Max(0f, (float)gameInfo.LoadoutSelectTimeout.TotalSeconds - num);
-						m_matchFoundText.text = StringUtil.TR("SelectModsAndCatalysts", "Global");
-						m_countdownTimerText.text = $"{(int)num2 + 1}";
-						AnnouncerSounds.GetAnnouncerSounds().PlayCountdownAnnouncementIfAppropriate(m_previousTimeRemaining, num2);
-						if (Mathf.Floor(m_previousTimeRemaining) != Mathf.Floor(num2))
-						{
-							UIManager.SetGameObjectActive(m_countdownNumberController, true);
-							m_countdownNumberController.Play("matchStartCountdownDefaultIN", 0, 0f);
-						}
-						bool? characterSelectButtonsVisible = UICharacterScreen.GetCurrentSpecificState().CharacterSelectButtonsVisible;
-						if (characterSelectButtonsVisible.Value)
-						{
-							UICharacterSelectScreenController.Get().SetCharacterSelectVisible(false);
-							UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, false);
-						}
-						m_previousTimeRemaining = num2;
-						UpdateCharacterList();
-					}
-					else if (matchStartCountdown == MatchStartCountdown.ChooseNewFreelancer || matchStartCountdown == MatchStartCountdown.ResolvingDuplicateFreelancer)
-					{
-						float num3 = Time.realtimeSinceStartup - m_selectStartTime;
-						float num4 = Mathf.Max(0f, (float)GameManager.Get().GameInfo.SelectTimeout.TotalSeconds - num3);
-						m_chooseNewFreelancerTimerText.text = $"{(int)num4 + 1}";
-						m_resolvingDuplicateFreelancerTimerText.text = $"{(int)num4 + 1}";
-					}
-					else if (matchStartCountdown == MatchStartCountdown.LoadingMatch)
-					{
-						UICharacterSelectScreenController.Get().NotifyGameIsLoading();
-						m_matchFoundText.text = "\n" + StringUtil.TR("LoadingMatch", "Global");
-						m_countdownTimerText.text = string.Empty;
-						UIManager.SetGameObjectActive(m_countdownNumberController, false);
-						UpdateCharacterList();
-					}
-					if (UIMainMenu.Get().IsOpen())
-					{
-						UIMainMenu.Get().SetMenuVisible(false);
-					}
-					UIStorePanel.Get().ClosePurchaseDialog();
-					if (FrontEndNavPanel.Get() != null)
-					{
-						while (true)
-						{
-							switch (2)
-							{
-							case 0:
-								break;
-							default:
-								FrontEndNavPanel.Get().PlayBtnClicked(null);
-								UIManager.SetGameObjectActive(FrontEndNavPanel.Get(), false);
-								return;
-							}
-						}
-					}
-					return;
+					isVisible = true;
+					matchStartCountdown = MatchStartCountdown.LoadingMatch;
+					SetSelfRingReady();
 				}
 			}
 		}
-		SetVisible(false, MatchStartCountdown.None);
-		if (!(FrontEndNavPanel.Get() != null))
+		m_isVisible = isVisible;
+		m_currentDisplay = matchStartCountdown;
+		if (m_matchFoundAnimator.gameObject.activeInHierarchy
+		    && UIAnimationEventManager.IsAnimationDone(m_matchFoundAnimator, "MatchFoundIntro", 0))
 		{
-			return;
+			UIManager.SetGameObjectActive(m_matchFoundAnimator, false);
 		}
-		while (true)
+		if (isVisible)
 		{
-			UIManager.SetGameObjectActive(FrontEndNavPanel.Get(), true);
-			return;
+			SetVisible(isVisible, matchStartCountdown);
+			if (matchStartCountdown == MatchStartCountdown.MatchFound)
+			{
+				LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
+				float num = Time.realtimeSinceStartup - m_loadoutSelectStartTime;
+				float num2 = Mathf.Max(0f, (float)gameInfo.LoadoutSelectTimeout.TotalSeconds - num);
+				m_matchFoundText.text = StringUtil.TR("SelectModsAndCatalysts", "Global");
+				m_countdownTimerText.text = $"{(int)num2 + 1}";
+				AnnouncerSounds.GetAnnouncerSounds().PlayCountdownAnnouncementIfAppropriate(m_previousTimeRemaining, num2);
+				if (Mathf.Floor(m_previousTimeRemaining) != Mathf.Floor(num2))
+				{
+					UIManager.SetGameObjectActive(m_countdownNumberController, true);
+					m_countdownNumberController.Play("matchStartCountdownDefaultIN", 0, 0f);
+				}
+				if (UICharacterScreen.GetCurrentSpecificState().CharacterSelectButtonsVisible.Value)
+				{
+					UICharacterSelectScreenController.Get().SetCharacterSelectVisible(false);
+					UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_changeFreelancerBtn, false);
+				}
+				m_previousTimeRemaining = num2;
+				UpdateCharacterList();
+			}
+			else if (matchStartCountdown == MatchStartCountdown.ChooseNewFreelancer || matchStartCountdown == MatchStartCountdown.ResolvingDuplicateFreelancer)
+			{
+				float num3 = Time.realtimeSinceStartup - m_selectStartTime;
+				float num4 = Mathf.Max(0f, (float)GameManager.Get().GameInfo.SelectTimeout.TotalSeconds - num3);
+				m_chooseNewFreelancerTimerText.text = $"{(int)num4 + 1}";
+				m_resolvingDuplicateFreelancerTimerText.text = $"{(int)num4 + 1}";
+			}
+			else if (matchStartCountdown == MatchStartCountdown.LoadingMatch)
+			{
+				UICharacterSelectScreenController.Get().NotifyGameIsLoading();
+				m_matchFoundText.text = "\n" + StringUtil.TR("LoadingMatch", "Global");
+				m_countdownTimerText.text = string.Empty;
+				UIManager.SetGameObjectActive(m_countdownNumberController, false);
+				UpdateCharacterList();
+			}
+			if (UIMainMenu.Get().IsOpen())
+			{
+				UIMainMenu.Get().SetMenuVisible(false);
+			}
+			UIStorePanel.Get().ClosePurchaseDialog();
+			if (FrontEndNavPanel.Get() != null)
+			{
+				FrontEndNavPanel.Get().PlayBtnClicked(null);
+				UIManager.SetGameObjectActive(FrontEndNavPanel.Get(), false);
+			}
+		}
+		else
+		{
+			SetVisible(false, MatchStartCountdown.None);
+			if (FrontEndNavPanel.Get() != null)
+			{
+				UIManager.SetGameObjectActive(FrontEndNavPanel.Get(), true);
+			}
 		}
 	}
 
