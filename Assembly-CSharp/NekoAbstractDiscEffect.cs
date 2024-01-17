@@ -116,7 +116,7 @@ public abstract class NekoAbstractDiscEffect : Effect
         bool isEnlarged)
     {
         bool isDashing = ServerActionBuffer.Get().HasStoredAbilityRequestOfType(Caster, typeof(NekoFlipDash));
-        int extraDamage = MathUtil.RoundToIntPadded(m_returnTripExtraDamagePerDist 
+        int extraDamage = Mathf.RoundToInt(m_returnTripExtraDamagePerDist 
             * (endLosPos - startLosPos).magnitude / Board.Get().squareSize);
 
         int baseDamage = m_returnTripDamage;
