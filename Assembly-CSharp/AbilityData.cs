@@ -1680,7 +1680,9 @@ public class AbilityData : NetworkBehaviour
 		{
 			m_cooldowns[abilityEntry.ability.m_abilityName] = -1;
 		}
-		Log.Info($"Trigger cooldown {m_actor} {action} = {m_cooldowns[abilityEntry.ability.m_abilityName]}");  // custom debug logs
+
+		m_cooldowns.TryGetValue(abilityEntry.ability.m_abilityName, out int newCd);  // custom debug logs
+		Log.Info($"Trigger cooldown {m_actor} {action} = {newCd}");  // custom debug logs
 		SynchronizeCooldownsToSlots();
 	}
 
