@@ -85,10 +85,27 @@ public class Passive_Valkyrie : Passive
 	public bool IsDamageCoveredByGuard(DamageSource damageSource, ref bool tooNearForCover)
 	{
 		ActorCover.CoverDirections coverDirection = m_syncComp.m_coverDirection;
-		tooNearForCover = GameplayData.Get().m_coverMinDistance * Board.Get().squareSize > (damageSource.DamageSourceLocation - Owner.GetFreePos()).magnitude;
-		float num = VectorUtils.HorizontalAngle_Deg(damageSource.DamageSourceLocation - Owner.GetFreePos());
-		float num2 = VectorUtils.HorizontalAngle_Deg(Owner.GetActorCover().GetCoverOffset(coverDirection));
-		return Mathf.Abs(num - num2) <= GameplayData.Get().m_coverProtectionAngle * 0.5f;
+		float dist = (damageSource.DamageSourceLocation - Owner.GetFreePos()).magnitude;
+		tooNearForCover = GameplayData.Get().m_coverMinDistance * Board.Get().squareSize > dist;
+		
+		// custom
+		if (m_guardAbility.CoverIgnoreMinDist())
+		{
+			tooNearForCover = false;
+		}
+		if (damageSource.IgnoresCover || dist <= 0.5f * Board.Get().squareSize)
+		{
+			return false;
+		}
+		// end custom
+		
+		float angleToDamage = VectorUtils.HorizontalAngle_Deg(damageSource.DamageSourceLocation - Owner.GetFreePos());
+		float shieldAngle = VectorUtils.HorizontalAngle_Deg(Owner.GetActorCover().GetCoverOffset(coverDirection));
+		
+		// custom
+		return AreaEffectUtils.IsAngleWithinCone(angleToDamage, shieldAngle, GameplayData.Get().m_coverProtectionAngle * 0.5f);
+		// rogues
+		// return Mathf.Abs(angleToDamage - shieldAngle) <= GameplayData.Get().m_coverProtectionAngle * 0.5f;
 	}
 
 	//Added in rouges
