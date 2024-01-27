@@ -522,15 +522,21 @@ public class MantaDashThroughWall : Ability
 	{
 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
 		List<NonActorTargetInfo> nonActorTargetInfo = new List<NonActorTargetInfo>();
-		List<ActorData> chargeHitActors = GetChargeHitActors(targets, loSCheckPos, caster, out var vector, nonActorTargetInfo, out var flag);
+		List<ActorData> chargeHitActors = GetChargeHitActors(
+			targets,
+			loSCheckPos,
+			caster,
+			out Vector3 chargeEndPoint,
+			nonActorTargetInfo,
+			out bool traveledFullDistance);
 		int num = 0;
 		List<ActorData> aoeHitActors = null;
-		bool flag2 = !flag && chargeHitActors.Count == 0;
-		if (m_aoeWithMiss || flag2 || chargeHitActors.Count > 0)
+		bool canPenetrateWall = !traveledFullDistance && chargeHitActors.Count == 0;
+		if (m_aoeWithMiss || canPenetrateWall || chargeHitActors.Count > 0)
 		{
 			Vector3 coneStartPos = Vector3.zero;
-			Vector3 direction = (vector - loSCheckPos).normalized;
-			if (flag2)
+			Vector3 direction = (chargeEndPoint - loSCheckPos).normalized;
+			if (canPenetrateWall)
 			{
 				Vector3 perpendicularFromWall = direction;
 				GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
@@ -541,14 +547,14 @@ public class MantaDashThroughWall : Ability
 			}
 			else
 			{
-				coneStartPos = vector - direction * m_coneBackwardOffset * Board.Get().squareSize;
+				coneStartPos = chargeEndPoint - direction * m_coneBackwardOffset * Board.Get().squareSize;
 				if (Board.Get().GetSquareFromVec3(coneStartPos) == null)
 				{
 					Vector3 zero = Vector3.zero;
 					coneStartPos = GetPathDestination(targets, caster, ref coneStartPos, ref zero).ToVector3();
 				}
 			}
-			aoeHitActors = GetAoeHitActors(coneStartPos, direction, caster, nonActorTargetInfo, flag2);
+			aoeHitActors = GetAoeHitActors(coneStartPos, direction, caster, nonActorTargetInfo, canPenetrateWall);
 			foreach (ActorData item in chargeHitActors)
 			{
 				aoeHitActors.Remove(item);
@@ -579,17 +585,17 @@ public class MantaDashThroughWall : Ability
 		}
 		foreach (ActorData actorData in aoeHitActors)
 		{
-			ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
+			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
 			if (chargeHitActors.Count > 0)
 			{
-				actorHitResults2.SetBaseDamage(GetAoeDamage());
-				actorHitResults2.AddStandardEffectInfo(GetAoeEnemyHitEffect());
+				actorHitResults.SetBaseDamage(GetAoeDamage());
+				actorHitResults.AddStandardEffectInfo(GetAoeEnemyHitEffect());
 			}
 			else
 			{
-				actorHitResults2.SetBaseDamage(GetAoeThroughWallsDamage());
-				actorHitResults2.AddStandardEffectInfo(GetAoeThroughWallsEffect());
-				actorHitResults2.AddHitResultsTag(HitResultsTags.HittingThroughWalls);
+				actorHitResults.SetBaseDamage(GetAoeThroughWallsDamage());
+				actorHitResults.AddStandardEffectInfo(GetAoeThroughWallsEffect());
+				actorHitResults.AddHitResultsTag(HitResultsTags.HittingThroughWalls);
 			}
 			List<Effect> effects = ServerEffectManager.Get().GetEffectsOnTargetByCaster(actorData, caster, typeof(MantaDirtyFightingEffect));
 			if (!effects.IsNullOrEmpty() && (effects[0] as MantaDirtyFightingEffect).IsActive())
@@ -597,10 +603,10 @@ public class MantaDashThroughWall : Ability
 				StandardEffectInfo dirtyFightingEffect = GetAdditionalDirtyFightingExplosionEffect();
 				if (dirtyFightingEffect != null)
 				{
-					actorHitResults2.AddStandardEffectInfo(dirtyFightingEffect);
+					actorHitResults.AddStandardEffectInfo(dirtyFightingEffect);
 				}
 			}
-			abilityResults.StoreActorHit(actorHitResults2);
+			abilityResults.StoreActorHit(actorHitResults);
 			num++;
 		}
 		if (num == 0
