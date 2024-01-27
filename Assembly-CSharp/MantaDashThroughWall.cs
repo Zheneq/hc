@@ -396,7 +396,7 @@ public class MantaDashThroughWall : Ability
 	{
 		Vector3 coneStartPos = Vector3.zero;
 		Vector3 perpendicularFromWall = Vector3.right;
-		BoardSquare pathDestination = GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
+		BoardSquare pathDestination = GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall, out _);
 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
 		List<ActorData> chargeHitActors = GetChargeHitActors(
 			targets, loSCheckPos, caster, out _, null, out bool traveledFullDistance);
@@ -440,12 +440,18 @@ public class MantaDashThroughWall : Ability
 	{
 		Vector3 coneStartPos = Vector3.zero;
 		Vector3 perpendicularFromWall = Vector3.right;
-		return GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
+		return GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall, out _);
 	}
 
 	// added in rogues
-	private BoardSquare GetPathDestination(List<AbilityTarget> targets, ActorData caster, ref Vector3 coneStartPos, ref Vector3 perpendicularFromWall)
+	private BoardSquare GetPathDestination(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		ref Vector3 coneStartPos,
+		ref Vector3 perpendicularFromWall,
+		out bool isThroughWall) // custom
 	{
+		isThroughWall = false;
 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
 		List<ActorData> chargeHitActors = GetChargeHitActors(
 			targets, loSCheckPos, caster, out Vector3 chargeEndPoint, null, out bool traveledFullDistance);
@@ -466,6 +472,7 @@ public class MantaDashThroughWall : Ability
 				num = Mathf.Min(num, (GetMaxRange() + m_extraTotalDistanceIfThroughWalls) * Board.Get().squareSize - magnitude);
 				Vector3 endPos = chargeEndPoint + vector2 * num;
 				boardSquare = GetSquareBeyondWall(loSCheckPos, endPos, caster, num, ref coneStartPos, ref perpendicularFromWall);
+				isThroughWall = boardSquare != null; // custom
 			}
 			if (boardSquare == null)
 			{
@@ -500,7 +507,7 @@ public class MantaDashThroughWall : Ability
 		if (hitEnv)
 		{
 			Vector3 perpendicularFromWall = direction;
-			GetPathDestination(targets, caster, ref targetPos, ref perpendicularFromWall);
+			GetPathDestination(targets, caster, ref targetPos, ref perpendicularFromWall, out _);
 			if (m_clampConeToWall)
 			{
 				direction = perpendicularFromWall.normalized;
@@ -532,6 +539,7 @@ public class MantaDashThroughWall : Ability
 		int num = 0;
 		List<ActorData> aoeHitActors = null;
 		bool canPenetrateWall = !traveledFullDistance && chargeHitActors.Count == 0;
+		bool isThroughWall = false;
 		if (m_aoeWithMiss || canPenetrateWall || chargeHitActors.Count > 0)
 		{
 			Vector3 coneStartPos = Vector3.zero;
@@ -539,7 +547,7 @@ public class MantaDashThroughWall : Ability
 			if (canPenetrateWall)
 			{
 				Vector3 perpendicularFromWall = direction;
-				GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall);
+				GetPathDestination(targets, caster, ref coneStartPos, ref perpendicularFromWall, out isThroughWall);
 				if (m_clampConeToWall)
 				{
 					direction = perpendicularFromWall.normalized;
@@ -551,7 +559,7 @@ public class MantaDashThroughWall : Ability
 				if (Board.Get().GetSquareFromVec3(coneStartPos) == null)
 				{
 					Vector3 zero = Vector3.zero;
-					coneStartPos = GetPathDestination(targets, caster, ref coneStartPos, ref zero).ToVector3();
+					coneStartPos = GetPathDestination(targets, caster, ref coneStartPos, ref zero, out _).ToVector3();
 				}
 			}
 			aoeHitActors = GetAoeHitActors(coneStartPos, direction, caster, nonActorTargetInfo, canPenetrateWall);
@@ -586,7 +594,7 @@ public class MantaDashThroughWall : Ability
 		foreach (ActorData actorData in aoeHitActors)
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
-			if (chargeHitActors.Count > 0)
+			if (!isThroughWall) // custom, rogues was applying damage through wall on full distance dash too
 			{
 				actorHitResults.SetBaseDamage(GetAoeDamage());
 				actorHitResults.AddStandardEffectInfo(GetAoeEnemyHitEffect());
