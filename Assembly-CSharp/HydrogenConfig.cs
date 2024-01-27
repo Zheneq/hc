@@ -132,7 +132,8 @@ public class HydrogenConfig : JsonConfig
 	public string ServerName = "Atlas";
 
 	public int PendingReconnectTurnTime = 60;
-	public int PendingReconnectMaxTurns = 3;
+	public int PendingReconnectMaxTurnsConsecutive = 3;
+	public int PendingReconnectMaxTurnsTotal = 4;
 	// end custom
 
 	public HydrogenConfig()

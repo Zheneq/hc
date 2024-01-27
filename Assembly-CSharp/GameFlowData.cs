@@ -121,6 +121,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	// custom
 #if SERVER
 	public int LastTurnWithAllPlayersConnected { get; private set; } = 0;
+	public int NumTurnsWithNotAllPlayersConnected { get; private set; } = 0;
 #endif
 	
 	static GameFlowData()
@@ -1609,6 +1610,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			if (allClientsConnected)
 			{
 				LastTurnWithAllPlayersConnected = m_currentTurn;
+			}
+			else
+			{
+				NumTurnsWithNotAllPlayersConnected++;
 			}
 			// end custom
 			

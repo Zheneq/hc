@@ -686,14 +686,19 @@ public class ObjectivePoints : NetworkBehaviour
 			else if (GameManager.Get().GameConfig.GameType != GameType.Custom
 			         && ServerGameManager.Get() != null
 			         && !ServerGameManager.Get().AreAllClientsConnected()
-			         && GameFlowData.Get().LastTurnWithAllPlayersConnected + HydrogenConfig.Get().PendingReconnectMaxTurns <= GameFlowData.Get().CurrentTurn
+			         && (GameFlowData.Get().LastTurnWithAllPlayersConnected + HydrogenConfig.Get().PendingReconnectMaxTurnsConsecutive <= GameFlowData.Get().CurrentTurn
+			             || GameFlowData.Get().NumTurnsWithNotAllPlayersConnected >= HydrogenConfig.Get().PendingReconnectMaxTurnsTotal)
 			         && !hasTeamAWon
 			         && !hasTeamBWon)
 			{
 				isGameOver = true;
 				Networkm_gameResult = GameResult.TieGame;
 				ServerGameManager.Get()?.SendUnlocalizedConsoleMessage("Game over: players failed to reconnect.");
-				Log.Info($"Tie because: got a dc for {HydrogenConfig.Get().PendingReconnectMaxTurns} turns");
+				Log.Info($"Tie because: got a dc for " +
+				         $"{GameFlowData.Get().CurrentTurn - GameFlowData.Get().LastTurnWithAllPlayersConnected}/" +
+				         $"{HydrogenConfig.Get().PendingReconnectMaxTurnsConsecutive} turns in a row," +
+				         $"{GameFlowData.Get().NumTurnsWithNotAllPlayersConnected}/" +
+				         $"{HydrogenConfig.Get().PendingReconnectMaxTurnsTotal} turns total");
 			}
 			// end custom
 			else if (hasTeamAWon && hasTeamBWon || !hasTeamAWon && !hasTeamBWon && m_timeLimitTurns > 0)
