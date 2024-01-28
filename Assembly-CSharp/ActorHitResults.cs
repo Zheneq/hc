@@ -1475,65 +1475,72 @@ public class ActorHitResults
 
 	private void ConvertSpoilSpawnsOnAllySquares()
 	{
-		if (m_spoilSpawns != null && SpoilsManager.Get() != null)
+		if (m_spoilSpawns == null || SpoilsManager.Get() == null)
 		{
-			m_directSpoilHitResults = new List<MovementResults>();
-			List<SpoilSpawnDataForAbilityHit> list = new List<SpoilSpawnDataForAbilityHit>();
-			List<BoardSquare> list2 = new List<BoardSquare>();
-			for (int i = m_spoilSpawns.Count - 1; i >= 0; i--)
+			return;
+		}
+		m_directSpoilHitResults = new List<MovementResults>();
+		List<SpoilSpawnDataForAbilityHit> finalSpoilSpawns = new List<SpoilSpawnDataForAbilityHit>();
+		List<BoardSquare> squaresToExclude = new List<BoardSquare>();
+		for (int i = m_spoilSpawns.Count - 1; i >= 0; i--)
+		{
+			SpoilSpawnDataForAbilityHit spoilSpawn = m_spoilSpawns[i];
+			if (!spoilSpawn.m_canSpawnOnAllyOccupiedSquare || !spoilSpawn.CanSpawnSpoils())
 			{
-				SpoilSpawnDataForAbilityHit spoilSpawnDataForAbilityHit = m_spoilSpawns[i];
-				if (spoilSpawnDataForAbilityHit.m_canSpawnOnAllyOccupiedSquare && spoilSpawnDataForAbilityHit.CanSpawnSpoils())
+				continue;
+			}
+			BoardSquare desiredSpawnSquare = spoilSpawn.GetDesiredSpawnSquare();
+			if (desiredSpawnSquare != null)
+			{
+				Team team = m_hitParameters.Caster == null
+					? Team.Invalid
+					: m_hitParameters.Caster.GetTeam();
+				List<BoardSquare> squaresToSpawnSpoil = SpoilsManager.Get().FindSquaresToSpawnSpoil(
+					desiredSpawnSquare,
+					team,
+					spoilSpawn.m_numToSpawn,
+					spoilSpawn.m_canSpawnOnEnemyOccupiedSquare,
+					spoilSpawn.m_canSpawnOnAllyOccupiedSquare,
+					4,
+					squaresToExclude);
+				
+				for (int j = 0; j < squaresToSpawnSpoil.Count && j < spoilSpawn.m_numToSpawn; j++)
 				{
-					BoardSquare desiredSpawnSquare = spoilSpawnDataForAbilityHit.GetDesiredSpawnSquare();
-					if (desiredSpawnSquare != null)
+					ActorData occupantActor = squaresToSpawnSpoil[j].OccupantActor;
+					if (occupantActor != null && occupantActor.GetTeam() == team)
 					{
-						Team team;
-						if (m_hitParameters.Caster == null)
+						PowerUp powerUp = spoilSpawn.ChooseRandomPowerupComponent();
+						if (powerUp != null && powerUp.m_ability != null)
 						{
-							team = Team.Invalid;
-						}
-						else
-						{
-							team = m_hitParameters.Caster.GetTeam();
-						}
-						List<BoardSquare> list3 = SpoilsManager.Get().FindSquaresToSpawnSpoil(desiredSpawnSquare, team, spoilSpawnDataForAbilityHit.m_numToSpawn, spoilSpawnDataForAbilityHit.m_canSpawnOnEnemyOccupiedSquare, spoilSpawnDataForAbilityHit.m_canSpawnOnAllyOccupiedSquare, 4, list2);
-						int num = 0;
-						while (num < list3.Count && num < spoilSpawnDataForAbilityHit.m_numToSpawn)
-						{
-							ActorData occupantActor = list3[num].OccupantActor;
-							if (occupantActor != null && occupantActor.GetTeam() == team)
+							MovementResults movementResults = powerUp.BuildDirectPowerupHitResults(
+								occupantActor,
+								squaresToSpawnSpoil[j],
+								m_hitParameters.DamageSource.Ability,
+								m_hitParameters.Caster,
+								spoilSpawn.m_spoilMod);
+							if (movementResults != null)
 							{
-								PowerUp powerUp = spoilSpawnDataForAbilityHit.ChooseRandomPowerupComponent();
-								if (powerUp != null && powerUp.m_ability != null)
-								{
-									MovementResults movementResults = powerUp.BuildDirectPowerupHitResults(occupantActor, list3[num], m_hitParameters.DamageSource.Ability, m_hitParameters.Caster, spoilSpawnDataForAbilityHit.m_spoilMod);
-									if (movementResults != null)
-									{
-										m_directSpoilHitResults.Add(movementResults);
-									}
-								}
-								list2.Add(list3[num]);
+								m_directSpoilHitResults.Add(movementResults);
 							}
-							else
-							{
-								SpoilSpawnDataForAbilityHit shallowCopy = spoilSpawnDataForAbilityHit.GetShallowCopy();
-								shallowCopy.m_canSpawnOnAllyOccupiedSquare = false;
-								shallowCopy.m_numToSpawn = 1;
-								list.Add(shallowCopy);
-							}
-							num++;
 						}
+						squaresToExclude.Add(squaresToSpawnSpoil[j]);
 					}
-					m_spoilSpawns.RemoveAt(i);
+					else
+					{
+						SpoilSpawnDataForAbilityHit shallowCopy = spoilSpawn.GetShallowCopy();
+						shallowCopy.m_canSpawnOnAllyOccupiedSquare = false;
+						shallowCopy.m_numToSpawn = 1;
+						finalSpoilSpawns.Add(shallowCopy);
+					}
 				}
 			}
-			for (int j = 0; j < m_spoilSpawns.Count; j++)
-			{
-				list.Add(m_spoilSpawns[j]);
-			}
-			m_spoilSpawns = list;
+			m_spoilSpawns.RemoveAt(i);
 		}
+		foreach (SpoilSpawnDataForAbilityHit spoilSpawn in m_spoilSpawns)
+		{
+			finalSpoilSpawns.Add(spoilSpawn);
+		}
+		m_spoilSpawns = finalSpoilSpawns;
 	}
 
 	private void CalculateReactionsToHit(int currentDepth, MovementStage movementStage, bool isReal)
