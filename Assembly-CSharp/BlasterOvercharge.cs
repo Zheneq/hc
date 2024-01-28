@@ -272,7 +272,12 @@ public class BlasterOvercharge : Ability
 		}
 		else
 		{
-			BlasterOverchargeEffect effect = new BlasterOverchargeEffect(AsEffectSource(), caster.GetCurrentBoardSquare(), caster, caster, overchargeEffectData);
+			BlasterOverchargeEffect effect = new BlasterOverchargeEffect(
+				AsEffectSource(),
+				caster.GetCurrentBoardSquare(),
+				caster,
+				caster,
+				overchargeEffectData);
 			actorHitResults.AddEffect(effect);
 		}
 		actorHitResults.AddStandardEffectInfo(GetEffectOnSelfOnCast());
