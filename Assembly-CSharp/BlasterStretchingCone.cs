@@ -469,12 +469,15 @@ public class BlasterStretchingCone : Ability
 		if (m_removeOverchargeEffectOnCast && AmOvercharged(caster))
 		{
 			Effect effect = ServerEffectManager.Get().GetEffect(caster, typeof(BlasterOverchargeEffect));
-			if (effect != null)
+			m_syncComp.Networkm_overchargeUses -= 1; // custom
+			if (m_syncComp.Networkm_overchargeUses <= 0) // custom, unconditional in rogues
 			{
-				ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, loSCheckPos));
-				actorHitResults2.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
-				abilityResults.StoreActorHit(actorHitResults2);
-			}
+				if (effect != null)
+				{
+					ActorHitResults actorHitResults2 = new ActorHitResults(new ActorHitParameters(caster, loSCheckPos));
+					actorHitResults2.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
+					abilityResults.StoreActorHit(actorHitResults2);
+				}}
 		}
 		abilityResults.StoreNonActorTargetInfo(nonActorTargetInfo);
 	}

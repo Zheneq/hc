@@ -652,10 +652,14 @@ public class BlasterDashAndBlast : Ability
 			}
 			if (m_removeOverchargeEffectOnCast && AmOvercharged(caster))
 			{
-				Effect effect = ServerEffectManager.Get().GetEffect(caster, typeof(BlasterOverchargeEffect));
-				if (effect != null)
+				m_syncComp.Networkm_overchargeUses -= 1; // custom
+				if (m_syncComp.Networkm_overchargeUses <= 0) // custom, unconditional in rogues
 				{
-					actorHitResults2.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
+					Effect effect = ServerEffectManager.Get().GetEffect(caster, typeof(BlasterOverchargeEffect));
+					if (effect != null)
+					{
+						actorHitResults2.AddEffectForRemoval(effect, ServerEffectManager.Get().GetActorEffects(caster));
+					}
 				}
 			}
 			actorHitResults2.AddStandardEffectInfo(GetSelfEffectOnCast());

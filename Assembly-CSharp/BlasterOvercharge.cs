@@ -277,7 +277,8 @@ public class BlasterOvercharge : Ability
 				caster.GetCurrentBoardSquare(),
 				caster,
 				caster,
-				overchargeEffectData);
+				overchargeEffectData,
+				GetExtraDamageCount());  // custom
 			actorHitResults.AddEffect(effect);
 		}
 		actorHitResults.AddStandardEffectInfo(GetEffectOnSelfOnCast());
