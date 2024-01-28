@@ -1509,6 +1509,19 @@ public class ActorHitResults
 					ActorData occupantActor = squaresToSpawnSpoil[j].OccupantActor;
 					if (occupantActor != null && occupantActor.GetTeam() == team)
 					{
+						// custom
+						bool isSpoilImpaired = occupantActor.GetActorStatus() != null
+						                       && occupantActor.GetActorStatus().HasStatus(StatusType.CantCollectPowerups);
+						if (isSpoilImpaired)
+						{
+							SpoilSpawnDataForAbilityHit shallowCopy = spoilSpawn.GetShallowCopy();
+							shallowCopy.m_canSpawnOnAllyOccupiedSquare = true;
+							shallowCopy.m_numToSpawn = 1;
+							finalSpoilSpawns.Add(shallowCopy);
+							continue;
+						}
+						// end custom
+						
 						PowerUp powerUp = spoilSpawn.ChooseRandomPowerupComponent();
 						if (powerUp != null && powerUp.m_ability != null)
 						{
