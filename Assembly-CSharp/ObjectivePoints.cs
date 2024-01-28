@@ -799,17 +799,16 @@ public class ObjectivePoints : NetworkBehaviour
 		//	PointOfInterestManager.Get().PostMissionReviveCost = postMissionReviveCost;
 		//}
 		Networkm_minutesInMatchOnGameEnd = (float)GameManager.Get().GameSummary.MatchTime.TotalMinutes;
-		if (m_gameResult != GameResult.NoResult)
-		{
-			if (GameManager.IsGameTypeValidForGGPack(GameType.Custom))
-			{
-				m_sendGameSummaryToLobbyServer = GameBalanceVars.Get().GGPackEndGameUsageTimer;
-			}
-			else
-			{
-				m_sendGameSummaryToLobbyServer = 5f;
-			}
-		}
+		
+		// custom TODO LOW GameBalanceVars.Get().GGPackEndGameUsageTimer is 10 which is a bit too much for now (and lobby will add some more)
+		m_sendGameSummaryToLobbyServer = 5f;
+		// rogues
+		// if (m_gameResult != GameResult.NoResult)
+		// {
+		// 	m_sendGameSummaryToLobbyServer = GameManager.IsGameTypeValidForGGPack(GameType.Custom)
+		// 		? GameBalanceVars.Get().GGPackEndGameUsageTimer
+		// 		: 5f;
+		// }
 #endif
 
 		Networkm_matchState = MatchState.MatchEnd;
