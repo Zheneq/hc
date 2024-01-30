@@ -797,18 +797,9 @@ public class GameFlow : NetworkBehaviour
 		out List<PlayerAction> executingPlayerActions)
 	{
 		executingPlayerActions = new List<PlayerAction>();
-		List<Effect> executingEffects = GatherEffectResultsInPhase(phase, phase != AbilityPriority.Combat_Knockback);  // knockback is gathered separately in HandleUpdateResolveAbilities
-
+		
 		bool hasActionsThisPhase = false;
 		List<ActorAnimation> anims = new List<ActorAnimation>();
-		if (executingEffects.Count > 0)
-		{
-			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
-			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-			executingPlayerActions.Add(action);
-			anims.AddRange(action.PrepareResults());
-			hasActionsThisPhase = true;
-		}
 		
 		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
 			.FindAll(r => r?.m_ability?.RunPriority == phase);
@@ -816,6 +807,17 @@ public class GameFlow : NetworkBehaviour
 		{
 			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
 			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
+			executingPlayerActions.Add(action);
+			anims.AddRange(action.PrepareResults());
+			hasActionsThisPhase = true;
+		}
+		
+		// Some abilities (RageBeastSelfHeal) expect abilities to be resolved before effects results are gathered
+		List<Effect> executingEffects = GatherEffectResultsInPhase(phase, phase != AbilityPriority.Combat_Knockback);  // knockback is gathered separately in HandleUpdateResolveAbilities
+		if (executingEffects.Count > 0)
+		{
+			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
 			executingPlayerActions.Add(action);
 			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;

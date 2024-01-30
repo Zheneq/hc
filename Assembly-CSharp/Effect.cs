@@ -273,7 +273,7 @@ public class Effect
 				m_effectResults.GatheredResults = true;
 		
 				// custom
-				Log.Info($"ABILITY RESULTS: {m_effectResults.Caster} with {m_effectResults.Effect.GetDebugIdentifier()}\n" +
+				Log.Info($"EFFECT RESULTS: {m_effectResults.Caster} with {m_effectResults.Effect.GetDebugIdentifier()}\n" +
 				         $"ACTOR HIT RESULTS: {DefaultJsonSerializer.Serialize(m_effectResults.m_actorToHitResults)}\n" +
 				         $"POSITION HIT RESULTS: {DefaultJsonSerializer.Serialize(m_effectResults.m_positionToHitResults)}");
 				
