@@ -220,6 +220,7 @@ public class ServerCombatManager : MonoBehaviour
 					baseDamage,
 					casterInCoverWrtTarget,
 					false,
+					src.IsAbility() && AbilityData.IsCard(caster.GetAbilityData().GetActionTypeOfAbility(src.Ability)), // custom
 					out modifiedDamageNormal,
 					out modifiedDamageEmpowered,
 					out modifiedDamageWeakened);

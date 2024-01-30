@@ -471,6 +471,7 @@ public class ActorStats : NetworkBehaviour
 		int baseDamage,
 		bool casterInCoverWrtTarget,
 		bool targetInCoverWrtCaster,
+		bool isCardAbility,  // custom -- for SamuraiSelfBuff
 		out int modifiedDamageNormal,
 		out int modifiedDamageEmpowered,
 		out int modifiedDamageWeakened)
@@ -508,7 +509,10 @@ public class ActorStats : NetworkBehaviour
 		float bonusAdd = 0f;
 		float percentAdd = 1f;
 		float multipliers = 1f;
-		CalculateAdjustments(StatType.OutgoingDamage, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		if (!isCardAbility)  // custom -- for SamuraiSelfBuff, unconditional in rogues
+		{
+			CalculateAdjustments(StatType.OutgoingDamage, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
+		}
 		if (casterInCoverWrtTarget)
 		{
 			CalculateAdjustments(StatType.OutgoingDamage_FromCover, ref baseAdd, ref bonusAdd, ref percentAdd, ref multipliers);
