@@ -467,7 +467,13 @@ public class ActorStats : NetworkBehaviour
 
 	// added in rogues
 #if SERVER
-	public int CalculateOutgoingDamage(int baseDamage, bool casterInCoverWrtTarget, bool targetInCoverWrtCaster, out int modifiedDamageNormal, out int modifiedDamageEmpowered, out int modifiedDamageWeakened)
+	public int CalculateOutgoingDamage(
+		int baseDamage,
+		bool casterInCoverWrtTarget,
+		bool targetInCoverWrtCaster,
+		out int modifiedDamageNormal,
+		out int modifiedDamageEmpowered,
+		out int modifiedDamageWeakened)
 	{
 		if (!NetworkServer.active)
 		{
