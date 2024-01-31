@@ -803,12 +803,13 @@ public class GameFlow : NetworkBehaviour
 		
 		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
 			.FindAll(r => r?.m_ability?.RunPriority == phase);
+		PlayerAction_Ability actionAbilities = null;
 		if (requestsThisPhase.Count > 0)
 		{
 			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-			PlayerAction_Ability action = new PlayerAction_Ability(requestsThisPhase, phase);
-			executingPlayerActions.Add(action);
-			anims.AddRange(action.PrepareResults());
+			actionAbilities = new PlayerAction_Ability(requestsThisPhase, phase);
+			executingPlayerActions.Add(actionAbilities);
+			anims.AddRange(actionAbilities.PrepareResults());
 			hasActionsThisPhase = true;
 		}
 		
@@ -822,6 +823,9 @@ public class GameFlow : NetworkBehaviour
 			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
+
+		// we do not want to disrupt brushes and stuff until effect results are gathered
+		actionAbilities?.RunAbilityRequests();
 
 		return hasActionsThisPhase;
 	}
