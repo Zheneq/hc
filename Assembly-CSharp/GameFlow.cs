@@ -1835,6 +1835,9 @@ public class GameFlow : NetworkBehaviour
 	// added in rogues
 	private void OnTurnEnd()  //  OnTeamTurnEnd(bool goingIntoNewTurn) in rogues
 	{
+		// custom
+		HandleUpdateTurnEnd();
+		
 		List<ActorData> actors = GameFlowData.Get().GetActors();
 		foreach (ActorData actorData in actors)
 		{
@@ -1871,9 +1874,6 @@ public class GameFlow : NetworkBehaviour
 			//	actorData.GetActorTurnSM().ResetUsedAbilityAndMoveData();
 			//}
 		}
-		
-		// custom
-		HandleUpdateTurnEnd();
 
 		//if (goingIntoNewTurn) // rogues
 		//{
