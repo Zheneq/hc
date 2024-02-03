@@ -1615,10 +1615,15 @@ public class ServerActionBuffer : NetworkBehaviour
 	internal bool TryRunAbilityRequest(AbilityRequest request)
 	{
 		bool result = false;
-		if (request != null
-		    && request.m_ability != null
-		    && request.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED
-		    && request.m_ability.RunPriority == AbilityPhase)
+		bool cond = request != null
+		         && request.m_ability != null
+		         && request.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED
+		         && request.m_ability.RunPriority == AbilityPhase;
+		Log.Info($"TryRunAbilityRequest {cond}: request != null {request != null}, " +
+		         $"resolveState={request?.m_resolveState}, " +
+		         $"RunPriority={request?.m_ability?.RunPriority}, " +
+		         $"AbilityPhase={AbilityPhase}");
+		if (cond)
 		{
 			RunAbilityRequest(request);
 			result = true;
