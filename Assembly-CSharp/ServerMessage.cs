@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Newtonsoft.Json;
 
 [Serializable]
@@ -24,56 +23,35 @@ public class ServerMessage
 	}
 
 	public string EN { get; set; }
-
 	public string FR { get; set; }
-
 	public string DE { get; set; }
-
 	public string RU { get; set; }
-
 	public string ES { get; set; }
-
 	public string IT { get; set; }
-
 	public string PL { get; set; }
-
 	public string PT { get; set; }
-
 	public string KO { get; set; }
-
 	public string ZH { get; set; }
 
 	public string GetValue(ServerMessageLanguage language)
 	{
-		return (string)base.GetType().GetProperty(language.ToString()).GetValue(this, null);
+		return (string)GetType().GetProperty(language.ToString()).GetValue(this, null);
 	}
 
 	public string GetValue(string languageCode)
 	{
 		ServerMessageLanguage language = (ServerMessageLanguage)Enum.Parse(typeof(ServerMessageLanguage), languageCode, true);
-		return this.GetValue(language);
+		return GetValue(language);
 	}
 
 	public Dictionary<string, string> GetAllLanguageValues()
 	{
 		Dictionary<string, string> dictionary = new Dictionary<string, string>();
-		IEnumerator<ServerMessageLanguage> enumerator = Enum.GetValues(typeof(ServerMessageLanguage)).Cast<ServerMessageLanguage>().GetEnumerator();
-		try
+		foreach (ServerMessageLanguage language in Enum.GetValues(typeof(ServerMessageLanguage)))
 		{
-			while (enumerator.MoveNext())
+			if (!GetValue(language).IsNullOrEmpty())
 			{
-				ServerMessageLanguage language = enumerator.Current;
-				if (!this.GetValue(language).IsNullOrEmpty())
-				{
-					dictionary[language.ToString().ToLower()] = this.GetValue(language);
-				}
-			}
-		}
-		finally
-		{
-			if (enumerator != null)
-			{
-				enumerator.Dispose();
+				dictionary[language.ToString().ToLower()] = GetValue(language);
 			}
 		}
 		return dictionary;
@@ -81,13 +59,13 @@ public class ServerMessage
 
 	public void SetValue(ServerMessageLanguage language, string value)
 	{
-		base.GetType().GetProperty(language.ToString()).SetValue(this, value, null);
+		GetType().GetProperty(language.ToString()).SetValue(this, value, null);
 	}
 
 	public void SetValue(string languageCode, string value)
 	{
 		ServerMessageLanguage language = (ServerMessageLanguage)Enum.Parse(typeof(ServerMessageLanguage), languageCode, true);
-		this.SetValue(language, value);
+		SetValue(language, value);
 	}
 
 	[JsonIgnore]
@@ -95,32 +73,13 @@ public class ServerMessage
 	{
 		get
 		{
-			bool flag = false;
-			IEnumerator<ServerMessageLanguage> enumerator = Enum.GetValues(typeof(ServerMessageLanguage)).Cast<ServerMessageLanguage>().GetEnumerator();
-
-			try
+			foreach (ServerMessageLanguage language in Enum.GetValues(typeof(ServerMessageLanguage)))
 			{
-				while (enumerator.MoveNext())
+				if (!GetValue(language).IsNullOrEmpty())
 				{
-					ServerMessageLanguage language = enumerator.Current;
-					if (!this.GetValue(language).IsNullOrEmpty())
-					{
-						yield return language.ToString();
-						flag = true;
-					}
+					yield return language.ToString();
 				}
 			}
-			finally
-			{
-				if (flag)
-				{
-				}
-				else if (enumerator != null)
-				{
-					enumerator.Dispose();
-				}
-			}
-			yield break;
 		}
 	}
 }
