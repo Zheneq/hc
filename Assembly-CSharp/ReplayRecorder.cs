@@ -21,6 +21,11 @@ public class ReplayRecorder
 
     public Replay Replay => conn.GetReplay();
 
+    public string Filename =>
+        $"{m_time:yyyy_MM_dd__HH_mm_ss}__" +
+        $"{GameManager.Get().GameInfo.GameServerProcessCode}{m_suffix}__" +
+        $"{BuildVersion.MiniVersionString}.arr";
+
     public ReplayRecorder(ServerPlayerState playerState, string suffix = "")
     {
         m_recorderPlayerState = playerState;
@@ -41,11 +46,7 @@ public class ReplayRecorder
 
     public void SaveReplay()
     {
-        // TODO REPLAY check ClientGameManager#HandleReplayManagerFile
-        string filename = $"{m_time:yyyy_MM_dd__HH_mm_ss}__" +
-                          $"{GameManager.Get().GameInfo.GameServerProcessCode}{m_suffix}__" +
-                          $"{BuildVersion.MiniVersionString}.arr";
-        SaveReplayToFile(Path.Combine(HydrogenConfig.Get().ReplaysPath, filename));
+        SaveReplayToFile(Path.Combine(HydrogenConfig.Get().ReplaysPath, Filename));
     }
 
     public string GetReplayAsJson()

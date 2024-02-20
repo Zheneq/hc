@@ -615,11 +615,11 @@ public class ServerGameManager : MonoBehaviour
 			return;
 		}
 		
-		StartCoroutine(UploadReplayFile($"{url}/{processCode}"));
+		StartCoroutine(UploadReplayFile(url, HydrogenConfig.Get().ReplayUploadHeaders));
 	}
  
 	// custom
-	private IEnumerator UploadReplayFile(string url)
+	private IEnumerator UploadReplayFile(string url, Dictionary<string, string> headers)
 	{
 		m_replayRecorders.TryGetValue(Team.Spectator, out ReplayRecorder replayRecorder);
 		string replayJson = replayRecorder?.GetReplayAsJson();
@@ -630,8 +630,19 @@ public class ServerGameManager : MonoBehaviour
 		}
 
 		byte[] myData = System.Text.Encoding.UTF8.GetBytes(replayJson);
-		UnityWebRequest www = UnityWebRequest.Put(url, myData);
-		Log.Error($"Uploading replay file to {url}");
+		List<IMultipartFormSection> formData = new List<IMultipartFormSection>
+		{
+			new MultipartFormFileSection(replayRecorder.Filename, myData)
+		};
+		UnityWebRequest www = UnityWebRequest.Post(url, formData);
+		if (!(headers is null))
+		{
+			foreach (var header in headers)
+			{
+				www.SetRequestHeader(header.Key, header.Value);
+			}
+		}
+		Log.Info($"Uploading replay file to {url}");
 		yield return www.Send();
 
 		if (www.isError)
