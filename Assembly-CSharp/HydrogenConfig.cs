@@ -134,6 +134,8 @@ public class HydrogenConfig : JsonConfig
 	public int PendingReconnectTurnTime = 60;
 	public int PendingReconnectMaxTurnsConsecutive = 3;
 	public int PendingReconnectMaxTurnsTotal = 4;
+	
+	public string ReplayUploadUrl;
 	// end custom
 
 	public HydrogenConfig()

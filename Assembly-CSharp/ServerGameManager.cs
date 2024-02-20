@@ -1,6 +1,7 @@
 ﻿// ROGUES
 // SERVER
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -517,6 +518,7 @@ public class ServerGameManager : MonoBehaviour
 			replayRecorder?.StopRecording();
 		}
 		SaveReplay();
+		UploadReplay();
 		// end custom
 		
 		if (m_monitorGameServerInterface != null)
@@ -594,6 +596,51 @@ public class ServerGameManager : MonoBehaviour
 		foreach (ReplayRecorder replayRecorder in m_replayRecorders.Values)
 		{
 			replayRecorder?.SaveReplay();
+		}
+	}
+
+	// custom
+	private void UploadReplay()
+	{
+		string url = HydrogenConfig.Get().ReplayUploadUrl;
+		if (url.IsNullOrEmpty())
+		{
+			return;
+		}
+		
+		string processCode = GameManager.Get()?.GameInfo?.GameServerProcessCode;
+		if (url.IsNullOrEmpty())
+		{
+			Log.Error("Failed to upload replay: no process code");
+			return;
+		}
+		
+		StartCoroutine(UploadReplayFile($"{url}/{processCode}"));
+	}
+ 
+	// custom
+	private IEnumerator UploadReplayFile(string url)
+	{
+		m_replayRecorders.TryGetValue(Team.Spectator, out ReplayRecorder replayRecorder);
+		string replayJson = replayRecorder?.GetReplayAsJson();
+		if (replayJson is null)
+		{
+			Log.Error("Failed to upload replay: no data found");
+			yield break;
+		}
+
+		byte[] myData = System.Text.Encoding.UTF8.GetBytes(replayJson);
+		UnityWebRequest www = UnityWebRequest.Put(url, myData);
+		Log.Error($"Uploading replay file to {url}");
+		yield return www.Send();
+
+		if (www.isError)
+		{
+			Log.Error($"Failed to upload replay: {www.error}");
+		}
+		else
+		{
+			Log.Info("Replay file uploaded");
 		}
 	}
 
