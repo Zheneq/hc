@@ -629,29 +629,36 @@ public class ServerGameManager : MonoBehaviour
 			yield break;
 		}
 
-		byte[] myData = System.Text.Encoding.UTF8.GetBytes(replayJson);
-		List<IMultipartFormSection> formData = new List<IMultipartFormSection>
+		using (UnityWebRequest www = new UnityWebRequest(url, "POST"))
 		{
-			new MultipartFormFileSection(replayRecorder.Filename, myData)
-		};
-		UnityWebRequest www = UnityWebRequest.Post(url, formData);
-		if (!(headers is null))
-		{
-			foreach (var header in headers)
-			{
-				www.SetRequestHeader(header.Key, header.Value);
-			}
-		}
-		Log.Info($"Uploading replay file to {url}");
-		yield return www.Send();
+			byte[] fileData = System.Text.Encoding.UTF8.GetBytes(replayJson);
+			WWWForm form = new WWWForm();
+			form.AddBinaryData("files", fileData, replayRecorder.Filename, "application/octet-stream");
 
-		if (www.isError)
-		{
-			Log.Error($"Failed to upload replay: {www.error}");
-		}
-		else
-		{
-			Log.Info("Replay file uploaded");
+			www.uploadHandler = new UploadHandlerRaw(form.data)
+			{
+				contentType = form.headers["Content-Type"]
+			};
+
+			if (!(headers is null))
+			{
+				foreach (var header in headers)
+				{
+					www.SetRequestHeader(header.Key, header.Value);
+				}
+			}
+
+			Log.Info($"Uploading replay file to {url}");
+			yield return www.Send();
+
+			if (www.isError)
+			{
+				Log.Error($"Failed to upload replay: {www.error}");
+			}
+			else
+			{
+				Log.Info("Replay file uploaded");
+			}
 		}
 	}
 
