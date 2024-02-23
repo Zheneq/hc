@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Targeting : MonoBehaviour
@@ -363,7 +364,7 @@ public class Targeting : MonoBehaviour
 		while (true)
 		{
 			GameObject result = CreateMesh(perimeterPts, objectName, meshMaterial);
-			outlineMeshObject = new GameObject(objectName + "_outline");
+			outlineMeshObject = new GameObject(new StringBuilder().Append(objectName).Append("_outline").ToString());
 			MeshFilter meshFilter = outlineMeshObject.AddComponent<MeshFilter>();
 			outlineMeshObject.AddComponent<MeshRenderer>();
 			Mesh mesh2 = meshFilter.mesh = new Mesh();

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public struct CharacterVisualInfo
@@ -18,7 +19,7 @@ public struct CharacterVisualInfo
 
 	public override string ToString()
 	{
-		return $"skin: {skinIndex}, pattern: {patternIndex}, color: {colorIndex}";
+		return new StringBuilder().Append("skin: ").Append(skinIndex).Append(", pattern: ").Append(patternIndex).Append(", color: ").Append(colorIndex).ToString();
 	}
 
 	public override bool Equals(object obj)

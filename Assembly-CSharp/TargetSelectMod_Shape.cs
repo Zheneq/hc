@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -41,7 +42,7 @@ public class TargetSelectMod_Shape : TargetSelectModBase
 					{
 						while (enumerator.MoveNext())
 						{
-							text = text + "\t" + enumerator.Current.ToString() + "\n";
+							text = new StringBuilder().Append(text).Append("\t").Append(enumerator.Current.ToString()).Append("\n").ToString();
 						}
 					}
 				}

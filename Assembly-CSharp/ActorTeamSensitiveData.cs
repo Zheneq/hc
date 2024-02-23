@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -59,7 +60,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		RegisterRpcDelegate(typeof(ActorTeamSensitiveData), kRpcRpcReceivedAbilityPingInfo, InvokeRpcRpcReceivedAbilityPingInfo);
 		NetworkCRC.RegisterBehaviour("ActorTeamSensitiveData", 0);
 	}
-	public Team ActorsTeam => Actor != null ? Actor.GetTeam() : Team.Invalid;
+	public Team ActorsTeam
+	{
+		get { return Actor != null ? Actor.GetTeam() : Team.Invalid; }
+	}
 
 	public ActorData Actor
 	{
@@ -79,7 +83,10 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public int ActorIndex => m_actorIndex;
+	public int ActorIndex
+	{
+		get { return m_actorIndex; }
+	}
 
 	public Vector3 FacingDirAfterMovement
 	{
@@ -268,8 +275,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 	{
 		string actorDebugName = Actor != null
 			? Actor.DebugNameString()
-			: "[null] (actor index = " + m_actorIndex + ")";
-		return "ActorTeamSensitiveData-- team = " + ActorsTeam.ToString() + ", actor = " + actorDebugName + ", observed by = " + m_typeObservingMe;
+			: new StringBuilder().Append("[null] (actor index = ").Append(m_actorIndex).Append(")").ToString();
+		return new StringBuilder().Append("ActorTeamSensitiveData-- team = ").Append(ActorsTeam.ToString()).Append(", actor = ").Append(actorDebugName).Append(", observed by = ").Append(m_typeObservingMe).ToString();
 	}
 
 	private void Awake()
@@ -820,12 +827,12 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				{
 					if (closestSquare.OccupantActor.GetTeam() != actor.GetTeam())
 					{
-						string arg = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>";
+						string arg = new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType + 1).Append(">\u200b</size>").ToString();
 						text = string.Format(StringUtil.TR("AssistEnemy", "Ping"), actor.GetDisplayName(), arg, closestSquare.OccupantActor.GetDisplayName());
 					}
 					else if (closestSquare.OccupantActor != actor)
 					{
-						string arg2 = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType}>\u200b</size>";
+						string arg2 = new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType).Append(">\u200b</size>").ToString();
 						text = string.Format(StringUtil.TR("AssistAlly", "Ping"), actor.GetDisplayName(), arg2, closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
@@ -850,7 +857,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						text = string.Format(
 							StringUtil.TR("DangerEnemy", "Ping"),
 							actor.GetDisplayName(),
-							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>",
+							new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType + 1).Append(">\u200b</size>").ToString(),
 							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else if (closestSquare.OccupantActor != actor)
@@ -858,7 +865,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						text = string.Format(
 							StringUtil.TR("DangerAlly", "Ping"),
 							actor.GetDisplayName(),
-							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType}>\u200b</size>",
+							new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType).Append(">\u200b</size>").ToString(),
 							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
@@ -883,7 +890,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						text = string.Format(
 							StringUtil.TR("AttackEnemy", "Ping"),
 							actor.GetDisplayName(),
-							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>",
+							new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType + 1).Append(">\u200b</size>").ToString(),
 							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else
@@ -908,14 +915,14 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 						text = string.Format(
 							StringUtil.TR("MoveEnemy", "Ping"),
 							actor.GetDisplayName(),
-							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType + 1}>\u200b</size>",
+							new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType + 1).Append(">\u200b</size>").ToString(),
 							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else if (closestSquare.OccupantActor != actor)
 					{
 						text = string.Format(StringUtil.TR("MoveAlly", "Ping"),
 							actor.GetDisplayName(),
-							$"<size=36><sprite=\"CharacterSprites\" index={2 * (int)closestSquare.OccupantActor.m_characterType}>\u200b</size>",
+							new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)closestSquare.OccupantActor.m_characterType).Append(">\u200b</size>").ToString(),
 							closestSquare.OccupantActor.GetDisplayName());
 					}
 					else

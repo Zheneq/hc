@@ -10,7 +10,10 @@ public class AssetsLoadingState
 
 	private float m_spawningProgress;
 
-	public float TotalProgress => m_levelLoadProgress * 0.4f + m_characterLoadProgress * 0.2f + m_vfxPreloadProgress * 0.2f + m_spawningProgress * 0.2f;
+	public float TotalProgress
+	{
+		get { return m_levelLoadProgress * 0.4f + m_characterLoadProgress * 0.2f + m_vfxPreloadProgress * 0.2f + m_spawningProgress * 0.2f; }
+	}
 
 	public float LevelLoadProgress
 	{

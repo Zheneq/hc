@@ -19,9 +19,15 @@ public class GameSubTypeData : MonoBehaviour
 		[HideInInspector]
 		public int DisplayIndex;
 
-		public string HeaderStringLocalized => StringUtil.TR_GetLoadingHeader(InstructionSetIndex, DisplayIndex);
+		public string HeaderStringLocalized
+		{
+			get { return StringUtil.TR_GetLoadingHeader(InstructionSetIndex, DisplayIndex); }
+		}
 
-		public string TooltipStringLocalized => StringUtil.TR_GetLoadingTooltip(InstructionSetIndex, DisplayIndex);
+		public string TooltipStringLocalized
+		{
+			get { return StringUtil.TR_GetLoadingTooltip(InstructionSetIndex, DisplayIndex); }
+		}
 	}
 
 	[Serializable]

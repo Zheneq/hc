@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,7 +22,10 @@ public class OverconSelectBtn : MonoBehaviour
 
 	private bool m_isUnlocked;
 
-	public bool IsUnlocked => m_isUnlocked;
+	public bool IsUnlocked
+	{
+		get { return m_isUnlocked; }
+	}
 
 	public UIOverconData.NameToOverconEntry GetOvercon()
 	{
@@ -65,11 +69,11 @@ public class OverconSelectBtn : MonoBehaviour
 
 	private bool SetupTooltip(UITooltipBase tooltip)
 	{
-		string text = StringUtil.TR("/overcon", "SlashCommand") + " " + m_overconRef.GetCommandName();
+		string text = new StringBuilder().Append(StringUtil.TR("/overcon", "SlashCommand")).Append(" ").Append(m_overconRef.GetCommandName()).ToString();
 		string text2 = m_overconRef.GetObtainedDescription().Trim();
 		if (!text2.IsNullOrEmpty())
 		{
-			text = text + Environment.NewLine + text2;
+			text = new StringBuilder().AppendLine(text).Append(text2).ToString();
 		}
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 		uITitledTooltip.Setup(m_overconRef.GetDisplayName(), text, string.Empty);

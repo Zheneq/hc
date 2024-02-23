@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -380,7 +381,7 @@ public abstract class Sequence : MonoBehaviour
 
 	internal ActorData Caster
 	{
-		get => m_caster;
+		get { return m_caster; }
 		set
 		{
 			m_caster = value;
@@ -393,14 +394,18 @@ public abstract class Sequence : MonoBehaviour
 
 	internal BoardSquare TargetSquare
 	{
-		get => m_targetBoardSquare;
-		set => m_targetBoardSquare = value;
+		get { return m_targetBoardSquare; }
+		set { m_targetBoardSquare = value; }
 	}
 
 	internal Vector3 TargetPos { get; set; }
 	internal Quaternion TargetRotation { get; set; }
 	internal int AgeInTurns { get; set; }
-	internal bool Ready => m_initialized && enabled && !MarkedForRemoval;
+	internal bool Ready
+	{
+		get { return m_initialized && enabled && !MarkedForRemoval; }
+	}
+
 	internal bool InitializedEver { get; private set; }
 	internal bool MarkedForRemoval { get; private set; }
 	internal bool RemoveAtTurnEnd { get; set; }
@@ -409,8 +414,8 @@ public abstract class Sequence : MonoBehaviour
 
 	public bool HasReceivedAnimEventBeforeReady
 	{
-		get => m_debugHasReceivedAnimEventBeforeReady;
-		set => m_debugHasReceivedAnimEventBeforeReady = value;
+		get { return m_debugHasReceivedAnimEventBeforeReady; }
+		set { m_debugHasReceivedAnimEventBeforeReady = value; }
 	}
 
 	public GameObject GetReferenceModel(ActorData referenceActorData, ReferenceModelType referenceModelType)
@@ -493,7 +498,7 @@ public abstract class Sequence : MonoBehaviour
 		ProcessSequenceVisibility();
 		if (SequenceManager.SequenceDebugTraceOn)
 		{
-			Debug.LogWarning($"<color=yellow>Client Enable: </color><<color=lightblue>{gameObject.name} | {GetType()}</color>> @time= {GameTime.time}");
+			Debug.LogWarning(new StringBuilder().Append("<color=yellow>Client Enable: </color><<color=lightblue>").Append(gameObject.name).Append(" | ").Append(GetType()).Append("</color>> @time= ").Append(GameTime.time).ToString());
 		}
 		enabled = true;
 	}
@@ -1029,7 +1034,7 @@ public abstract class Sequence : MonoBehaviour
 	{
 		if (m_fxParent == null)
 		{
-			m_fxParent = new GameObject("fxParent_" + GetType());
+			m_fxParent = new GameObject(new StringBuilder().Append("fxParent_").Append(GetType()).ToString());
 			m_fxParent.transform.parent = transform;
 		}
 		if (m_parentedFXs == null)
@@ -1075,7 +1080,7 @@ public abstract class Sequence : MonoBehaviour
 			fx = new GameObject("FallbackForNullFx");
 			if (Application.isEditor && logErrorOnNullPrefab)
 			{
-				Debug.LogError(this.gameObject.name + " Trying to instantiate null FX prefab");
+				Debug.LogError(new StringBuilder().Append(this.gameObject.name).Append(" Trying to instantiate null FX prefab").ToString());
 			}
 		}
 		ReplaceVFXPrefabs(fx);
@@ -1343,13 +1348,7 @@ public abstract class Sequence : MonoBehaviour
 
 	public override string ToString()
 	{
-		return $"[Sequence: {GetType()}, " +
-		       $"Object: {gameObject.name}, " +
-		       $"id: {Id}, " +
-		       $"initialized: {m_initialized}, " +
-		       $"enabled: {enabled}, " +
-		       $"MarkedForRemoval: {MarkedForRemoval}, " +
-		       $"Caster: {(Caster == null ? "NULL" : Caster.ToString())}]";
+		return new StringBuilder().Append("[Sequence: ").Append(GetType()).Append(", ").Append("Object: ").Append(gameObject.name).Append(", ").Append("id: ").Append(Id).Append(", ").Append("initialized: ").Append(m_initialized).Append(", ").Append("enabled: ").Append(enabled).Append(", ").Append("MarkedForRemoval: ").Append(MarkedForRemoval).Append(", ").Append("Caster: ").Append(Caster == null ? "NULL" : Caster.ToString()).Append("]").ToString();
 	}
 
 	public string GetTargetsString()
@@ -1410,7 +1409,7 @@ public abstract class Sequence : MonoBehaviour
 		{
 			text = "<empty>";
 		}
-		string str = "Setup Note: " + text + "\n----------\n";
+		string str = new StringBuilder().Append("Setup Note: ").Append(text).Append("\n----------\n").ToString();
 		if (m_targetHitAnimation)
 		{
 			str += "<[x] Target Hit Animation> Can trigger hit react anim\n\n";
@@ -1420,7 +1419,7 @@ public abstract class Sequence : MonoBehaviour
 			}
 		}
 		str += GetVisibilityDescription();
-		return str + "\n<color=white>--Sequence Specific--</color>\n" + GetSequenceSpecificDescription();
+		return new StringBuilder().Append(str).Append("\n<color=white>--Sequence Specific--</color>\n").Append(GetSequenceSpecificDescription()).ToString();
 	}
 
 	public virtual string GetVisibilityDescription()
@@ -1449,53 +1448,50 @@ public abstract class Sequence : MonoBehaviour
 				result = "always visible";
 				break;
 			case VisibilityType.Caster:
-				result = $"visible if {c_casterToken} is visible";
+				result = new StringBuilder().Append("visible if ").Append(c_casterToken).Append(" is visible").ToString();
 				break;
 			case VisibilityType.CasterOrTarget:
-				result = $"visible if either {c_casterToken} or any {c_targetActorToken} is visible";
+				result = new StringBuilder().Append("visible if either ").Append(c_casterToken).Append(" or any ").Append(c_targetActorToken).Append(" is visible").ToString();
 				break;
 			case VisibilityType.CasterOrTargetPos:
-				result = $"visible if either {c_casterToken} visible or {c_targetPosToken} square visible";
+				result = new StringBuilder().Append("visible if either ").Append(c_casterToken).Append(" visible or ").Append(c_targetPosToken).Append(" square visible").ToString();
 				usesTargetPos = true;
 				break;
 			case VisibilityType.CasterOrTargetOrTargetPos:
 				result =
-					$"visible if either {c_casterToken} or any {c_targetActorToken} visible, or {c_seqPosToken} square is visible";
+					new StringBuilder().Append("visible if either ").Append(c_casterToken).Append(" or any ").Append(c_targetActorToken).Append(" visible, or ").Append(c_seqPosToken).Append(" square is visible").ToString();
 				usesTargetPos = true;
 				break;
 			case VisibilityType.Target:
-				result = $"visible if any {c_targetActorToken} is visible";
+				result = new StringBuilder().Append("visible if any ").Append(c_targetActorToken).Append(" is visible").ToString();
 				break;
 			case VisibilityType.TargetPos:
-				result = $"visible if {c_targetPosToken} square is visible";
+				result = new StringBuilder().Append("visible if ").Append(c_targetPosToken).Append(" square is visible").ToString();
 				usesTargetPos = true;
 				break;
 			case VisibilityType.AlwaysOnlyIfCaster:
-				result = $"visible only if {c_casterToken} is current {c_clientActorToken} that player controls";
+				result = new StringBuilder().Append("visible only if ").Append(c_casterToken).Append(" is current ").Append(c_clientActorToken).Append(" that player controls").ToString();
 				break;
 			case VisibilityType.AlwaysOnlyIfTarget:
 				result =
-					$"visible only if first {c_targetActorToken} is current {c_clientActorToken} that player controls";
+					new StringBuilder().Append("visible only if first ").Append(c_targetActorToken).Append(" is current ").Append(c_clientActorToken).Append(" that player controls").ToString();
 				break;
 			case VisibilityType.AlwaysIfCastersTeam:
 				result =
-					$"visible if {c_casterToken} is on same team as current {c_clientActorToken} that player controls";
+					new StringBuilder().Append("visible if ").Append(c_casterToken).Append(" is on same team as current ").Append(c_clientActorToken).Append(" that player controls").ToString();
 				break;
 			case VisibilityType.SequencePosition:
-				result = $"visible if {c_seqPosToken} square is visible\n(ex. for most projectiles)";
+				result = new StringBuilder().Append("visible if ").Append(c_seqPosToken).Append(" square is visible\n(ex. for most projectiles)").ToString();
 				usesSeqPos = true;
 				break;
 			case VisibilityType.CastersTeamOrSequencePosition:
 				result =
-					$"visible if {c_casterToken} is on same team as current {c_clientActorToken} that player controls, " +
-					$"OR {c_seqPosToken} square is visible\n(ex. for projectile that should always be visible " +
-					$"for allies but only visible if projectile position is visible for enemies)";
+					new StringBuilder().Append("visible if ").Append(c_casterToken).Append(" is on same team as current ").Append(c_clientActorToken).Append(" that player controls, ").Append("OR ").Append(c_seqPosToken).Append(" square is visible\n(ex. for projectile that should always be visible ").Append("for allies but only visible if projectile position is visible for enemies)").ToString();
 				usesSeqPos = true;
 				break;
 			case VisibilityType.TargetPosAndCaster:
 				result =
-					$"visible if {c_casterToken} is visible AND {c_targetPosToken} square is visible\n" +
-					$"(ex. for Flash catalyst while stealthed)";
+					new StringBuilder().Append("visible if ").Append(c_casterToken).Append(" is visible AND ").Append(c_targetPosToken).Append(" square is visible\n").Append("(ex. for Flash catalyst while stealthed)").ToString();
 				usesTargetPos = true;
 				break;
 		}

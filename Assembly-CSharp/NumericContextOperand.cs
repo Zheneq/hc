@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class NumericContextOperand
@@ -47,13 +48,13 @@ public class NumericContextOperand
 		string text = string.Empty;
 		if (!string.IsNullOrEmpty(m_contextName))
 		{
-			text = text + indent + InEditorDescHelper.ContextVarName(m_contextName, !m_nonActorSpecificContext) + AbilityModHelper.GetModPropertyDesc(m_modifier, string.Empty);
+			text = new StringBuilder().Append(text).Append(indent).Append(InEditorDescHelper.ContextVarName(m_contextName, !m_nonActorSpecificContext)).Append(AbilityModHelper.GetModPropertyDesc(m_modifier, string.Empty)).ToString();
 			for (int i = 0; i < m_additionalModifiers.Count; i++)
 			{
 				AbilityModPropertyFloat abilityModPropertyFloat = m_additionalModifiers[i];
 				if (abilityModPropertyFloat.operation != 0)
 				{
-					text = text + indent + "    Then " + AbilityModHelper.GetModPropertyDesc(abilityModPropertyFloat, string.Empty);
+					text = new StringBuilder().Append(text).Append(indent).Append("    Then ").Append(AbilityModHelper.GetModPropertyDesc(abilityModPropertyFloat, string.Empty)).ToString();
 				}
 			}
 		}

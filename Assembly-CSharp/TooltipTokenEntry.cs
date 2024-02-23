@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public abstract class TooltipTokenEntry
 {
@@ -173,7 +174,7 @@ public abstract class TooltipTokenEntry
 				int num2 = -1;
 				while ((num2 = tooltipNow.IndexOf(toReplace, StringComparison.OrdinalIgnoreCase)) >= 0 && num < 100)
 				{
-					tooltipNow = tooltipNow.Substring(0, num2) + substitute + tooltipNow.Substring(num2 + length);
+					tooltipNow = new StringBuilder().Append(tooltipNow, 0, num2).Append(substitute).Append(tooltipNow.Substring(num2 + length)).ToString();
 					num++;
 				}
 				return tooltipNow;
@@ -204,7 +205,8 @@ public abstract class TooltipTokenEntry
 				{
 					startIndex = num3 + 1;
 				}
-				tooltipNow = tooltipNow.Substring(0, num2) + "[^" + tooltipNow.Substring(startIndex);
+
+				tooltipNow = new StringBuilder().Append(tooltipNow, 0, num2).Append("[^").Append(tooltipNow.Substring(startIndex)).ToString();
 				num++;
 				continue;
 			}

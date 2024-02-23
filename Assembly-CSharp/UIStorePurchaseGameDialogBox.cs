@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -94,7 +95,7 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 	{
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.GeneralExternalWebsite);
 		m_openedURL = true;
-		string url = ClientGameManager.Get().CommerceURL + "/account/payment/add-payment-method-flow.action";
+		string url = new StringBuilder().Append(ClientGameManager.Get().CommerceURL).Append("/account/payment/add-payment-method-flow.action").ToString();
 		Application.OpenURL(url);
 		m_dropdownMenu.SetListContainerVisible(false);
 	}
@@ -357,7 +358,7 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 									continue;
 								}
 							}
-							uIStorePaymentMethodDropdownItem.SetText(paymentMethod2.specificType + " " + paymentMethod2.maskedPaymentInfo);
+							uIStorePaymentMethodDropdownItem.SetText(new StringBuilder().Append(paymentMethod2.specificType).Append(" ").Append(paymentMethod2.maskedPaymentInfo).ToString());
 							if (paymentMethod2.specificType == "Steam Wallet")
 							{
 								paymentMethod = paymentMethod2;
@@ -397,7 +398,8 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 			{
 				str = StringUtil.TR("DefaultPaymentMethod", "Store");
 			}
-			dropDownText = m_selectedPaymentMethod.specificType + " " + m_selectedPaymentMethod.maskedPaymentInfo + str;
+
+			dropDownText = new StringBuilder().Append(m_selectedPaymentMethod.specificType).Append(" ").Append(m_selectedPaymentMethod.maskedPaymentInfo).Append(str).ToString();
 			UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, m_selectedPaymentMethod == null);
 		}
 		SetDropDownText(dropDownText);
@@ -432,7 +434,7 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 				{
 					str = StringUtil.TR("DefaultPaymentMethod", "Store");
 				}
-				SetDropDownText(m_selectedPaymentMethod.specificType + " " + m_selectedPaymentMethod.maskedPaymentInfo + str);
+				SetDropDownText(new StringBuilder().Append(m_selectedPaymentMethod.specificType).Append(" ").Append(m_selectedPaymentMethod.maskedPaymentInfo).Append(str).ToString());
 				m_dropdownMenu.ToggleListContainer(null);
 				UIManager.SetGameObjectActive(m_confirmButtonDisabledImage, m_selectedPaymentMethod == null);
 				return;
@@ -499,7 +501,7 @@ public class UIStorePurchaseGameDialogBox : UIDialogBox
 			}
 			if (gamePackUpgrade == null)
 			{
-				Log.Error("No upgrade path specified from " + highestPurchasedGamePack + " to " + m_packReference.Index);
+				Log.Error(new StringBuilder().Append("No upgrade path specified from ").Append(highestPurchasedGamePack).Append(" to ").Append(m_packReference.Index).ToString());
 				num2 = 0f;
 			}
 			else

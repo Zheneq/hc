@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -317,7 +318,8 @@ public static class VectorUtils
 		float magnitude = direction.magnitude;
 		direction.Normalize();
 		LayerMask mask = (1 << LayerMask.NameToLayer(layerName)) | (1 << LayerMask.NameToLayer("DynamicLineOfSight"));
-		if (!Physics.Raycast(startPos, direction, out RaycastHit hitInfo, magnitude, mask))
+		RaycastHit hitInfo;
+		if (!Physics.Raycast(startPos, direction, out hitInfo, magnitude, mask))
 		{
 			while (true)
 			{
@@ -385,7 +387,8 @@ public static class VectorUtils
 				Vector3 dir2 = a - b2;
 				float magnitude = dir2.magnitude;
 				dir2.Normalize();
-				if (RaycastInDirection(array[i], dir2, magnitude, out RaycastHit hit))
+				RaycastHit hit;
+				if (RaycastInDirection(array[i], dir2, magnitude, out hit))
 				{
 					flag2 = false;
 					if ((hit.collider.gameObject.layer & s_raycastLayerDynamicLineOfSight) != 0)
@@ -428,7 +431,9 @@ public static class VectorUtils
 			Vector3 vector4 = GetLineEndPoint(vector3, dir, maxDistanceInWorld);
 			if (checkBarriers && flag)
 			{
-				vector4 = BarrierManager.Get().GetAbilityLineEndpoint(caster, vector3, vector4, out bool _, out Vector3 _, list2);
+				Vector3 vector1;
+				bool bool1;
+				vector4 = BarrierManager.Get().GetAbilityLineEndpoint(caster, vector3, vector4, out bool1, out vector1, list2);
 			}
 			float sqrMagnitude = (vector3 - vector4).sqrMagnitude;
 			if (!(sqrMagnitude > num3))
@@ -476,7 +481,9 @@ public static class VectorUtils
 		vector = startPos + dir * num8;
 		if (BarrierManager.Get() != null && checkBarriers)
 		{
-			vector = BarrierManager.Get().GetAbilityLineEndpoint(caster, startPos, vector, out bool collision2, out Vector3 _, nonActorTargetInfo);
+			bool collision2;
+			Vector3 vector1;
+			vector = BarrierManager.Get().GetAbilityLineEndpoint(caster, startPos, vector, out collision2, out vector1, nonActorTargetInfo);
 			if (!collision2)
 			{
 				if (nonActorTargetInfo != null && list != null)
@@ -492,7 +499,8 @@ public static class VectorUtils
 	{
 		dir.Normalize();
 		LayerMask mask = (1 << s_raycastLayerLineOfSight) | (1 << s_raycastLayerDynamicLineOfSight);
-		if (Physics.Raycast(startPos, dir, out RaycastHit hitInfo, maxDistance, mask))
+		RaycastHit hitInfo;
+		if (Physics.Raycast(startPos, dir, out hitInfo, maxDistance, mask))
 		{
 			while (true)
 			{
@@ -714,7 +722,8 @@ public static class VectorUtils
 	public static List<ActorData> CalculateLaserBounce(Vector3 startPosForBounce, Vector3 startPosForGameplay, Vector3 dir, float maxDistance, ActorData caster, out Vector3 endPoint, out bool collisionWithGeo, out Vector3 collisionNormal, float widthInSquares, List<Team> validTeams, List<NonActorTargetInfo> nonActorTargetInfo, bool includeInvisibles, int segmentIndex, Vector3 prevStartPos, bool bounceOnActors, ActorData excludeActor, out bool hitActorFirst, out ActorData bounceHitActor, bool skipHitsOnCaster = true)
 	{
 		LayerMask mask = (1 << LayerMask.NameToLayer("LineOfSight")) | (1 << LayerMask.NameToLayer("DynamicLineOfSight"));
-		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out RaycastHit hitInfo, maxDistance, mask);
+		RaycastHit hitInfo;
+		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out hitInfo, maxDistance, mask);
 		if (collisionWithGeo)
 		{
 			Vector3 a = hitInfo.point - startPosForBounce;
@@ -894,7 +903,7 @@ public static class VectorUtils
 		for (; !flag3; flag3 = ((byte)num7 != 0), i++)
 		{
 			bool flag4 = nonActorTargetInfoInSegments != null;
-			nonActorTargetInfoInSegments?.Add(new List<NonActorTargetInfo>());
+			if (nonActorTargetInfoInSegments != null) nonActorTargetInfoInSegments.Add(new List<NonActorTargetInfo>());
 			vector2.Normalize();
 			float maxDistance = Mathf.Min(num, num2 - num4);
 			num = maxDistancePerBounceInSquares * Board.Get().squareSize;
@@ -1030,7 +1039,8 @@ public static class VectorUtils
 	public static List<ActorData> CalculateActorBounce(Vector3 startPosForBounce, Vector3 startPosForGameplay, Vector3 dir, float maxDistance, ActorData caster, bool bounceOnActors, float bounceTestWidthInSquares, List<Team> hitTeams, ActorData excludeActor, bool includeInvisibles, out Vector3 endPoint, out bool collisionWithGeo, out Vector3 collisionNormal, out bool hitActorFirst, out ActorData bounceHitActor, List<NonActorTargetInfo> nonActorTargetInfo, int segmentIndex, Vector3 prevStartPos)
 	{
 		LayerMask mask = (1 << LayerMask.NameToLayer("LineOfSight")) | (1 << LayerMask.NameToLayer("DynamicLineOfSight"));
-		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out RaycastHit hitInfo, maxDistance, mask);
+		RaycastHit hitInfo;
+		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out hitInfo, maxDistance, mask);
 		if (collisionWithGeo)
 		{
 			Vector3 a = hitInfo.point - startPosForBounce;
@@ -1425,7 +1435,7 @@ public static class VectorUtils
 		float num;
 		if (min > max)
 		{
-			Debug.LogError($"Clamping an angle {angle} to a min of {min} and a max of {max}, but min is greater than max.");
+			Debug.LogError(new StringBuilder().Append("Clamping an angle ").Append(angle).Append(" to a min of ").Append(min).Append(" and a max of ").Append(max).Append(", but min is greater than max.").ToString());
 			num = angle;
 		}
 		else if (min == max)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -17,7 +18,10 @@ public class ActorStatus : NetworkBehaviour
 	private static int kListm_statusCounts = -7231791;
 	private static int kListm_statusDurations = 625641650;
 
-	public static bool DebugTraceOn => false;
+	public static bool DebugTraceOn
+	{
+		get { return false; }
+	}
 
 	static ActorStatus()
 	{
@@ -124,9 +128,7 @@ public class ActorStatus : NetworkBehaviour
 		m_clientStatusCountAdjustments[(int)status] = 0;
 		if (DebugTraceOn)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: ADD " + GetColoredStatusName(status, "yellow")
-				+ " to " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status]
-				+ ", PrevCount = " + prevCount);
+			Log.Warning(new StringBuilder().Append("<color=cyan>ActorStatus</color>: ADD ").Append(GetColoredStatusName(status, "yellow")).Append(" to ").Append(m_actorData.DebugNameString("white")).Append(", Count = ").Append((object)m_statusCounts[(int)status]).Append(", PrevCount = ").Append(prevCount).ToString());
 		}
 		if (prevCount == 0)
 		{
@@ -150,9 +152,7 @@ public class ActorStatus : NetworkBehaviour
 			m_clientStatusCountAdjustments[(int)status] = 0;
 			if (DebugTraceOn)
 			{
-				Log.Warning("<color=cyan>ActorStatus</color>: REMOVE " + GetColoredStatusName(status, "yellow")
-					+ " from " + m_actorData.DebugNameString("white") + ", Count = " + m_statusCounts[(int)status]
-					+ ", PrevCount: " + prevCount);
+				Log.Warning(new StringBuilder().Append("<color=cyan>ActorStatus</color>: REMOVE ").Append(GetColoredStatusName(status, "yellow")).Append(" from ").Append(m_actorData.DebugNameString("white")).Append(", Count = ").Append((object)m_statusCounts[(int)status]).Append(", PrevCount: ").Append(prevCount).ToString());
 			}
 			if (prevCount == 1)
 			{
@@ -161,7 +161,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		else
 		{
-			Log.Error($"Removing status '{status}' that was never added");
+			Log.Error(new StringBuilder().Append("Removing status '").Append(status).Append("' that was never added").ToString());
 		}
 	}
 
@@ -177,10 +177,7 @@ public class ActorStatus : NetworkBehaviour
 		m_clientStatusCountAdjustments[(int)status] = prevCount + 1;
 		if (DebugTraceOn)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> "
-				+ GetColoredStatusName(status, "yellow") + " to " + m_actorData.DebugNameString("white")
-				+ ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status]
-				+ ", SyncCount = " + m_statusCounts[(int)status]);
+			Log.Warning(new StringBuilder().Append("<color=cyan>ActorStatus</color>: <color=cyan>CLIENT_ADD</color> ").Append(GetColoredStatusName(status, "yellow")).Append(" to ").Append(m_actorData.DebugNameString("white")).Append(", ClientAdjust = ").Append(m_clientStatusCountAdjustments[(int)status]).Append(", SyncCount = ").Append((object)m_statusCounts[(int)status]).ToString());
 		}
 		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 1)
 		{
@@ -204,10 +201,7 @@ public class ActorStatus : NetworkBehaviour
 		}
 		if (DebugTraceOn)
 		{
-			Log.Warning("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> "
-				+ GetColoredStatusName(status, "yellow") + " from " + m_actorData.DebugNameString("white")
-				+ ", ClientAdjust = " + m_clientStatusCountAdjustments[(int)status]
-				+ ", SyncCount = " + m_statusCounts[(int)status]);
+			Log.Warning(new StringBuilder().Append("<color=cyan>ActorStatus</color>: <color=magenta>CLIENT_REMOVE</color> ").Append(GetColoredStatusName(status, "yellow")).Append(" from ").Append(m_actorData.DebugNameString("white")).Append(", ClientAdjust = ").Append(m_clientStatusCountAdjustments[(int)status]).Append(", SyncCount = ").Append((object)m_statusCounts[(int)status]).ToString());
 		}
 		if (m_statusCounts[(int)status] + m_clientStatusCountAdjustments[(int)status] == 0)
 		{
@@ -313,8 +307,7 @@ public class ActorStatus : NetworkBehaviour
 	{
 		if (DebugTraceOn)
 		{
-			Log.Warning($"<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>{status}</color>" +
-				$" {(statusGained ? "<color=cyan>Gained" : " < color = magenta > Lost")}</color>");
+			Log.Warning(new StringBuilder().Append("<color=cyan>ActorStatus</color>: On Status Changed: <color=yellow>").Append(status).Append("</color>").Append(" ").Append(statusGained ? "<color=cyan>Gained" : " < color = magenta > Lost").Append("</color>").ToString());
 		}
 		if (!statusGained)
 		{
@@ -546,7 +539,7 @@ public class ActorStatus : NetworkBehaviour
 
 	public static string GetColoredStatusName(StatusType status, string color)
 	{
-		return $"<color={color}>[{status}]</color>";
+		return new StringBuilder().Append("<color=").Append(color).Append(">[").Append(status).Append("]</color>").ToString();
 	}
 
 	public int DebugGetStatusCount(StatusType status)

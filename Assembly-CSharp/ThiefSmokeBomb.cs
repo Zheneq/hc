@@ -268,16 +268,20 @@ public class ThiefSmokeBomb : Ability
 		}
 		Vector3 vec = firstSegEndPos - caster.GetFreePos();
 		float coneWidthDegrees = Mathf.Min(360f, 2f * GetMaxAngleWithFirstSegment() + 25f);
+		int minX;
+		int maxX;
+		int minY;
+		int maxY;
 		AreaEffectUtils.GetMaxConeBounds(
 			caster.GetFreePos(),
 			VectorUtils.HorizontalAngle_Deg(vec),
 			coneWidthDegrees,
 			abilityMaxRange,
 			0f,
-			out int minX,
-			out int maxX,
-			out int minY,
-			out int maxY);
+			out minX,
+			out maxX,
+			out minY,
+			out maxY);
 		AbilityAreaShape shape = GetSmokeFieldInfo().shape;
 		AbilityData abilityData = caster.GetAbilityData();
 		BoardSquare casterSquare = caster.GetCurrentBoardSquare();

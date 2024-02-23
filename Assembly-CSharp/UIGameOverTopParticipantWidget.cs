@@ -74,7 +74,9 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 					badgeNum++;
 				}
 			}
-			if (badgeNum > 5 && m_BadgesContainer is GridLayoutGroup gridLayoutGroup)
+
+			GridLayoutGroup gridLayoutGroup = m_BadgesContainer as GridLayoutGroup;
+			if (badgeNum > 5 && !ReferenceEquals(gridLayoutGroup, null))
 			{
 				gridLayoutGroup.cellSize = new Vector2(50f, 50f);
 				gridLayoutGroup.spacing = new Vector2(-15f, -15f);

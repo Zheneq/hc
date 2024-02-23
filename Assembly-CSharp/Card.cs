@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -41,7 +42,7 @@ public class Card : MonoBehaviour
 	{
 		if (m_useAbility == null)
 		{
-			Log.Error($"Card prefab {DisplayName} has no Use Ability. Card prefabs are currently required to have Use Abilities.");
+			Log.Error(new StringBuilder().Append("Card prefab ").Append(DisplayName).Append(" has no Use Ability. Card prefabs are currently required to have Use Abilities.").ToString());
 			return;
 		}
 		m_useAbility.sprite = GetIconSprite();

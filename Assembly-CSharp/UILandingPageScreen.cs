@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -653,7 +654,7 @@ public class UILandingPageScreen : UIScene
 		string str = "<color=#ffc000>";
 		int num = Mathf.FloorToInt(UnityEngine.Random.value * (float)this.m_flavorTexts.Length);
 		str += this.m_flavorTexts[num];
-		return str + "</color>";
+		return new StringBuilder().Append(str).Append("</color>").ToString();
 	}
 
 	public void ShowMOTD()
@@ -726,7 +727,7 @@ public class UILandingPageScreen : UIScene
 		{
 			characterType = CharacterType.Scoundrel;
 		}
-		Sprite sprite = (Sprite)Resources.Load("Characters/full_" + characterType, typeof(Sprite));
+		Sprite sprite = (Sprite)Resources.Load(new StringBuilder().Append("Characters/full_").Append(characterType).ToString(), typeof(Sprite));
 		if (sprite != null)
 		{
 			this.m_characterImage.sprite = sprite;
@@ -757,7 +758,7 @@ public class UILandingPageScreen : UIScene
 		{
 			this.m_curLevel = this.m_endLevel;
 			int endLevel = QuestWideData.GetEndLevel(this.m_currentSeason.Prerequisites, this.m_currentSeason.Index);
-			this.m_tutorialLevelText.text = this.m_curLevel - 1 + "/" + (endLevel - 1);
+			this.m_tutorialLevelText.text = new StringBuilder().Append(this.m_curLevel - 1).Append("/").Append(endLevel - 1).ToString();
 			for (int i = this.m_tutorialLevelSliderBars.Count; i < endLevel - 1; i++)
 			{
 				UITutorialSeasonLevelBar uitutorialSeasonLevelBar = UnityEngine.Object.Instantiate<UITutorialSeasonLevelBar>(this.m_tutorialLevelBarPrefab);
@@ -881,11 +882,11 @@ public class UILandingPageScreen : UIScene
 			UIManager.SetGameObjectActive(this.m_landingPageIntroAnimator, true, null);
 			if (flag && this.m_landingPageIntroAnimator.gameObject.activeInHierarchy)
 			{
-				if (!this.m_landingPageIntroAnimator.GetCurrentAnimatorStateInfo(0).IsName(str + "IN"))
+				if (!this.m_landingPageIntroAnimator.GetCurrentAnimatorStateInfo(0).IsName(new StringBuilder().Append(str).Append("IN").ToString()))
 				{
-					if (!this.m_landingPageIntroAnimator.GetCurrentAnimatorStateInfo(0).IsName(str + "IDLE"))
+					if (!this.m_landingPageIntroAnimator.GetCurrentAnimatorStateInfo(0).IsName(new StringBuilder().Append(str).Append("IDLE").ToString()))
 					{
-						UIAnimationEventManager.Get().PlayAnimation(this.m_landingPageIntroAnimator, str + "IN", null, string.Empty, 0, 0f, true, false, null, null);
+						UIAnimationEventManager.Get().PlayAnimation(this.m_landingPageIntroAnimator, new StringBuilder().Append(str).Append("IN").ToString(), null, string.Empty, 0, 0f, true, false, null, null);
 					}
 				}
 			}
@@ -915,7 +916,7 @@ public class UILandingPageScreen : UIScene
 		}
 		if (this.m_currentSeason == null)
 		{
-			Debug.LogError(base.GetType() + " m_currentSeason is null, please fix me");
+			Debug.LogError(new StringBuilder().Append(base.GetType()).Append(" m_currentSeason is null, please fix me").ToString());
 		}
 		if (this.m_currentSeason != null)
 		{
@@ -961,7 +962,7 @@ public class UILandingPageScreen : UIScene
 								IL_408:
 								this.m_seasonLevelSlider.fillAmount = (float)this.m_curExp / (float)this.m_expToLevel;
 								UIManager.SetGameObjectActive(this.m_seasonLevelSlider, true, null);
-								this.m_seasonExpAmountText.text = UIStorePanel.FormatIntToString(this.m_curExp, false) + " / " + UIStorePanel.FormatIntToString(this.m_expToLevel, false);
+								this.m_seasonExpAmountText.text = new StringBuilder().Append(UIStorePanel.FormatIntToString(this.m_curExp, false)).Append(" / ").Append(UIStorePanel.FormatIntToString(this.m_expToLevel, false)).ToString();
 								this.m_seasonLevelText.text = this.m_curLevel.ToString();
 								return;
 							}
@@ -1082,7 +1083,7 @@ public class UILandingPageScreen : UIScene
 		int num = gameBalanceVars.CharacterExperienceToLevel(newData.ExperienceComponent.Level);
 		this.m_charLevelSlider.fillAmount = (float)newData.ExperienceComponent.XPProgressThroughLevel / (float)num;
 		UIManager.SetGameObjectActive(this.m_charLevelSlider, true, null);
-		this.m_charExpAmountText.text = newData.ExperienceComponent.XPProgressThroughLevel + " / " + num;
+		this.m_charExpAmountText.text = new StringBuilder().Append(newData.ExperienceComponent.XPProgressThroughLevel).Append(" / ").Append(num).ToString();
 		this.m_charRewards = RewardUtils.GetCharacterRewards(characterResourceLink, null);
 		for (int i = 0; i < gameBalanceVars.RepeatingCharacterLevelRewards.Length; i++)
 		{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ValkyrieGuard : AbilityMod
@@ -58,6 +59,6 @@ public class AbilityMod_ValkyrieGuard : AbilityMod
 		desc += PropDesc(m_coverDurationMod, "[CoverDuration]", isValid, isValid ? valkyrieGuard.m_coverDuration : 0);
 		desc += PropDesc(m_coverLastsForeverMod, "[CoverLastsForever]", isValid, isValid && valkyrieGuard.m_coverLastsForever);
 		desc += m_cooldownReductionNoBlocks.GetDescription(abilityData);
-		return desc + PropDesc(m_coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", isValid, isValid && valkyrieGuard.m_coverIgnoreMinDist);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_coverIgnoreMinDistMod, "[CoverIgnoreMinDist]", isValid, isValid && valkyrieGuard.m_coverIgnoreMinDist)).ToString();
 	}
 }

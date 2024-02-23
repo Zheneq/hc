@@ -23,7 +23,10 @@ public class HttpSocket
 
 	private int m_timeoutMs;
 
-	public WebSocketMessage Message => m_requestMessage;
+	public WebSocketMessage Message
+	{
+		get { return m_requestMessage; }
+	}
 
 	public int MaxMessageSize
 	{
@@ -31,9 +34,15 @@ public class HttpSocket
 		set;
 	}
 
-	public HttpListenerRequest Request => m_requestArgs.Request;
+	public HttpListenerRequest Request
+	{
+		get { return m_requestArgs.Request; }
+	}
 
-	public HttpListenerResponse Response => m_requestArgs.Response;
+	public HttpListenerResponse Response
+	{
+		get { return m_requestArgs.Response; }
+	}
 
 	public string ConnectionAddress
 	{
@@ -106,7 +115,7 @@ public class HttpSocket
 				obj = "True";
 			}
 			string text4 = (string)obj;
-			str += $"\"{text3}\" : \"{text4}\", ";
+			str += new StringBuilder().Append("\"").Append(text3).Append("\" : \"").Append(text4).Append("\", ").ToString();
 			if (text3 == "messageType")
 			{
 				text = text4;

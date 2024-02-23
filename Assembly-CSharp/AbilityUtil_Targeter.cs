@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -402,7 +403,8 @@ public class AbilityUtil_Targeter
 
 	public virtual bool IsActorInTargetRange(ActorData actor)
 	{
-		return IsActorInTargetRange(actor, out var inCover);
+		bool inCover;
+		return IsActorInTargetRange(actor, out inCover);
 	}
 
 	public virtual bool IsActorInTargetRange(ActorData actor, out bool inCover)
@@ -1122,7 +1124,7 @@ public class AbilityUtil_Targeter
 			{
 				if (gameObject != null && !gameObject.name.StartsWith("[Targeter]"))
 				{
-					gameObject.name = "[Targeter] " + m_ability.GetNameString() + ": " + gameObject.name;
+					gameObject.name = new StringBuilder().Append("[Targeter] ").Append(m_ability.GetNameString()).Append(": ").Append(gameObject.name).ToString();
 				}
 			}
 		}

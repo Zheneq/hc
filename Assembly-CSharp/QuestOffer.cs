@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -63,7 +64,7 @@ public class QuestOffer : MonoBehaviour
 	{
 		int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
 		int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
-		m_bonusText.text = $"{Mathf.Min(questMaxRejectPercentage, (m_rejectedCount + 1) * questBonusPerRejection)}%";
+		m_bonusText.text = new StringBuilder().Append(Mathf.Min(questMaxRejectPercentage, (m_rejectedCount + 1) * questBonusPerRejection)).Append("%").ToString();
 		QuestTemplate questTemplate = QuestWideData.Get().m_quests[m_questId - 1];
 		QuestRewards rewards = questTemplate.Rewards;
 		int count = rewards.CurrencyRewards.Count;
@@ -154,7 +155,7 @@ public class QuestOffer : MonoBehaviour
 		string empty = string.Empty;
 		string text = StringUtil.TR_QuestName(questId);
 		string text2 = StringUtil.TR_QuestDescription(questId);
-		empty = ((!(text != string.Empty)) ? text2 : $"<size=48>{text}</size>\n{text2}");
+		empty = ((!(text != string.Empty)) ? text2 : new StringBuilder().Append("<size=48>").Append(text).Append("</size>\n").Append(text2).ToString());
 		m_contractText.text = empty;
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
 		if ((bool)sprite)
@@ -171,7 +172,7 @@ public class QuestOffer : MonoBehaviour
 			int questMaxRejectPercentage = QuestWideData.Get().m_questMaxRejectPercentage;
 			int questBonusPerRejection = QuestWideData.Get().m_questBonusPerRejection;
 			UIManager.SetGameObjectActive(m_bonus, true);
-			m_bonusText.text = $"{Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection)}%";
+			m_bonusText.text = new StringBuilder().Append(Mathf.Min(questMaxRejectPercentage, rejectedCount * questBonusPerRejection)).Append("%").ToString();
 			UIManager.SetGameObjectActive(m_bonusArrowsMask, true);
 		}
 		else

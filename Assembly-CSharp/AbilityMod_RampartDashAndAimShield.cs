@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RampartDashAndAimShield : AbilityMod
@@ -66,7 +67,7 @@ public class AbilityMod_RampartDashAndAimShield : AbilityMod
 			{
 				foreach (AbilityStatMod abilityStatMod in m_statModsWhileEquipped)
 				{
-					AddToken_IntDiff(tokens, "StatMod_" + abilityStatMod.stat, "", Mathf.RoundToInt(abilityStatMod.modValue), false, 0);
+					AddToken_IntDiff(tokens, new StringBuilder().Append("StatMod_").Append(abilityStatMod.stat).ToString(), "", Mathf.RoundToInt(abilityStatMod.modValue), false, 0);
 				}
 			}
 		}

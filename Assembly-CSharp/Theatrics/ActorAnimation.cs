@@ -2,6 +2,7 @@ using CameraManagerInternal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -153,7 +154,10 @@ namespace Theatrics
 			}
 		}
 
-		internal bool Played => PlayState >= PlaybackState.PlayRequested;
+		internal bool Played
+		{
+			get { return PlayState >= PlaybackState.PlayRequested; }
+		}
 
 		internal ActorAnimation(Turn turn)
 		{
@@ -182,7 +186,7 @@ namespace Theatrics
 			sbyte _actionType = (sbyte)m_abilityActionType;
 			float _targetPosX = m_targetPos.x;
 			float _targetPosZ = m_targetPos.z;
-			sbyte _actorIndex = (sbyte)(Caster?.ActorIndex ?? ActorData.s_invalidActorIndex);
+			sbyte _actorIndex = (sbyte)(Caster != null ? Caster.ActorIndex : ActorData.s_invalidActorIndex);
 			bool _cinematicCamera = m_doCinematicCam;
 			sbyte _tauntNumber = (sbyte)m_cinematicRequested;
 			bool value8 = m_ignoreForCameraFraming;
@@ -266,7 +270,7 @@ namespace Theatrics
 			m_playOrderGroupIndex = _groupIndex;
 			m_bounds = new Bounds(center, size);
 			m_abilityActionType = (AbilityData.ActionType)_actionType;
-			m_ability = Caster?.GetAbilityData().GetAbilityOfActionType(m_abilityActionType);
+			m_ability = Caster != null ? Caster.GetAbilityData().GetAbilityOfActionType(m_abilityActionType) : null;
 			if (SeqSource == null)
 			{
 				SeqSource = new SequenceSource();
@@ -298,7 +302,7 @@ namespace Theatrics
 					ParentAbilitySeqSource = null;
 				}
 			}
-			sbyte value25 = checked((sbyte)(HitActorsToDeltaHP?.Count ?? 0));
+			sbyte value25 = checked((sbyte)(HitActorsToDeltaHP != null ? HitActorsToDeltaHP.Count : 0));
 			stream.Serialize(ref value25);
 			if (value25 > 0 && HitActorsToDeltaHP == null)
 			{
@@ -487,7 +491,7 @@ namespace Theatrics
 		{
 			if (ClientAbilityResults.DebugTraceOn || TheatricsManager.DebugTraceExecution)
 			{
-				Log.Warning("<color=cyan>ActorAnimation</color> Play for: " + ToString() + " @time= " + GameTime.time);
+				Log.Warning(new StringBuilder().Append("<color=cyan>ActorAnimation</color> Play for: ").Append(ToString()).Append(" @time= ").Append(GameTime.time).ToString());
 			}
 			m_playRequestedTime = GameTime.time;
 			if (PlayState == PlaybackState.CantBeStarted)
@@ -688,10 +692,12 @@ namespace Theatrics
 				m_displayedTimeoutError = true;
 				Log.Error("Theatrics: animation timed out for {0} {1} after {2} seconds.",
 					Caster.DisplayName,
-					m_ability == null ? " animation index " + m_animationIndex : m_ability.ToString(),
+					m_ability == null ? new StringBuilder().Append(" animation index ").Append(m_animationIndex).ToString() : m_ability.ToString(),
 					m_timeSincePlay);
 			}
-			bool isPlayingAttackAnim = animator && Caster.GetActorModelData().IsPlayingAttackAnim(out bool endingAttack);
+
+			bool endingAttack;
+			bool isPlayingAttackAnim = animator && Caster.GetActorModelData().IsPlayingAttackAnim(out endingAttack);
 			if (isPlayingAttackAnim)
 			{
 				m_animationPlayed = true;
@@ -706,7 +712,7 @@ namespace Theatrics
 				m_hitsDoneExecutingTime = GameTime.time;
 				if (TheatricsManager.DebugTraceExecution)
 				{
-					TheatricsManager.LogForDebugging(ToString() + " hits done");
+					TheatricsManager.LogForDebugging(new StringBuilder().Append(ToString()).Append(" hits done").ToString());
 				}
 			}
 			bool amNotWaitingForHits = m_executedUnexecutedHits
@@ -828,7 +834,7 @@ namespace Theatrics
 				m_camEndEventReceived = true;
 				if (TheatricsManager.DebugTraceExecution)
 				{
-					TheatricsManager.LogForDebugging("CamEndEvent received for " + DebugShortName(""));
+					TheatricsManager.LogForDebugging(new StringBuilder().Append("CamEndEvent received for ").Append(DebugShortName("")).ToString());
 				}
 			}
 			else
@@ -856,12 +862,12 @@ namespace Theatrics
 			{
 				if (HitActorsToDeltaHP == null)
 				{
-					Log.Warning(this + " has sequence " + seq + " marked Target Hit Animtion, but the ability did not return anything from GatherResults, skipping hit reaction and ragdoll");
+					Log.Warning(new StringBuilder().Append(this).Append(" has sequence ").Append(seq).Append(" marked Target Hit Animtion, but the ability did not return anything from GatherResults, skipping hit reaction and ragdoll").ToString());
 					return true;
 				}
 				if (!HitActorsToDeltaHP.ContainsKey(target))
 				{
-					Log.Warning(this + " has sequence " + seq + " with target " + target + " but the ability did not return that target from GatherResults, skipping hit reaction and ragdoll");
+					Log.Warning(new StringBuilder().Append(this).Append(" has sequence ").Append(seq).Append(" with target ").Append(target).Append(" but the ability did not return that target from GatherResults, skipping hit reaction and ragdoll").ToString());
 					return true;
 				}
 				ActorModelData actorModelData = target.GetActorModelData();
@@ -900,14 +906,13 @@ namespace Theatrics
 			string modIdString;
 			if (m_ability != null && m_ability.CurrentAbilityMod != null)
 			{
-				modIdString = "Mod Id: [" + m_ability.CurrentAbilityMod.m_abilityScopeId + "]\n";
+				modIdString = new StringBuilder().Append("Mod Id: [").Append(m_ability.CurrentAbilityMod.m_abilityScopeId).Append("]\n").ToString();
 			}
 			else
 			{
 				modIdString = "";
 			}
-			string extraInfo = modIdString + "Theatrics Entry: " + ToString() + "\n" +
-				GetAnimEventsSeenString() + GetCurrentStateString(animator, movementPathDone) + "\n";
+			string extraInfo = new StringBuilder().Append(modIdString).Append("Theatrics Entry: ").Append(ToString()).Append("\n").Append(GetAnimEventsSeenString()).Append(GetCurrentStateString(animator, movementPathDone)).Append("\n").ToString();
 			ClientResolutionManager.Get().ExecuteUnexecutedActions(SeqSource, extraInfo);
 			ClientResolutionManager.Get().UpdateLastEventTime();
 			m_executedUnexecutedHits = true;
@@ -1133,7 +1138,7 @@ namespace Theatrics
 			{
 				if (m_animEventsSeen[i] != null)
 				{
-					text = text + "    [ " + m_animEventsSeen[i] + " ]\n";
+					text = new StringBuilder().Append(text).Append("    [ ").Append((object)m_animEventsSeen[i]).Append(" ]\n").ToString();
 				}
 			}
 			return text;
@@ -1171,7 +1176,7 @@ namespace Theatrics
 			});
 			if (colorStr.Length > 0)
 			{
-				text = "<color=" + colorStr + ">" + text + "</color>";
+				text = new StringBuilder().Append("<color=").Append(colorStr).Append(">").Append(text).Append("</color>").ToString();
 			}
 			return text;
 		}

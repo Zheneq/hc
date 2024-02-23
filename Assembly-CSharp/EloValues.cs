@@ -37,7 +37,7 @@ public class EloValues : ICloneable
 			GetElo(ELOPlayerKey.PublicFacingKey.KeyText, out float elo, out int _);
 			return elo;
 		}
-		set => UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0);
+		set { UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0); }
 	}
 
 	[JsonIgnore]
@@ -48,7 +48,7 @@ public class EloValues : ICloneable
 			GetElo(ELOPlayerKey.MatchmakingEloKey.KeyText, out float elo, out int _);
 			return elo;
 		}
-		set => UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0);
+		set { UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0); }
 	}
 
 	public EloValues()

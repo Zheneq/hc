@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ThiefHiddenTrap : AbilityMod
@@ -33,6 +34,6 @@ public class AbilityMod_ThiefHiddenTrap : AbilityMod
 		string desc = string.Empty;
 		desc += PropDescGroundFieldMod(m_trapFieldInfoMod, "{ TrapFieldInfo }", thiefHiddenTrap.m_trapFieldInfo);
 		desc += PropDesc(m_extraDamagePerTurnMod, "[ExtraDamagePerTurn]", isValid, isValid ? thiefHiddenTrap.m_extraDamagePerTurn : 0);
-		return desc + PropDesc(m_maxExtraDamageMod, "[MaxExtraDamage]", isValid, isValid ? thiefHiddenTrap.m_maxExtraDamage : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_maxExtraDamageMod, "[MaxExtraDamage]", isValid, isValid ? thiefHiddenTrap.m_maxExtraDamage : 0)).ToString();
 	}
 }

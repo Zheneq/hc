@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -100,8 +101,8 @@ public class StandardActorEffectData
 	public void AddTooltipTokens(List<TooltipTokenEntry> entries, string name, bool addCompare = false, StandardActorEffectData other = null)
 	{
 		bool flag = addCompare && other != null;
-		string name2 = name + "_Duration";
-		string desc = "duration of " + name;
+		string name2 = new StringBuilder().Append(name).Append("_Duration").ToString();
+		string desc = new StringBuilder().Append("duration of ").Append(name).ToString();
 		int duration = this.m_duration;
 		bool addDiff = flag;
 		int otherVal;
@@ -116,9 +117,9 @@ public class StandardActorEffectData
 		AbilityMod.AddToken_IntDiff(entries, name2, desc, duration, addDiff, otherVal);
 		if (this.m_duration > 1)
 		{
-			AbilityMod.AddToken_IntDiff(entries, name + "_Duration_MinusOne", "duration - 1", this.m_duration - 1, false, 0);
+			AbilityMod.AddToken_IntDiff(entries, new StringBuilder().Append(name).Append("_Duration_MinusOne").ToString(), "duration - 1", this.m_duration - 1, false, 0);
 		}
-		string name3 = name + "_Shield";
+		string name3 = new StringBuilder().Append(name).Append("_Shield").ToString();
 		string desc2 = "shield amount";
 		int absorbAmount = this.m_absorbAmount;
 		bool addDiff2 = flag;
@@ -132,8 +133,8 @@ public class StandardActorEffectData
 			otherVal2 = 0;
 		}
 		AbilityMod.AddToken_IntDiff(entries, name3, desc2, absorbAmount, addDiff2, otherVal2);
-		AbilityMod.AddToken_IntDiff(entries, name + "_Delayed_Shield", "delayed shield amount", this.m_nextTurnAbsorbAmount, flag, (!flag) ? 0 : other.m_nextTurnAbsorbAmount);
-		string name4 = name + "_HealPerTurn";
+		AbilityMod.AddToken_IntDiff(entries, new StringBuilder().Append(name).Append("_Delayed_Shield").ToString(), "delayed shield amount", this.m_nextTurnAbsorbAmount, flag, (!flag) ? 0 : other.m_nextTurnAbsorbAmount);
+		string name4 = new StringBuilder().Append(name).Append("_HealPerTurn").ToString();
 		string desc3 = "healing per turn";
 		int healingPerTurn = this.m_healingPerTurn;
 		bool addDiff3 = flag;
@@ -147,7 +148,7 @@ public class StandardActorEffectData
 			otherVal3 = 0;
 		}
 		AbilityMod.AddToken_IntDiff(entries, name4, desc3, healingPerTurn, addDiff3, otherVal3);
-		string name5 = name + "_DamagePerTurn";
+		string name5 = new StringBuilder().Append(name).Append("_DamagePerTurn").ToString();
 		string desc4 = "damage per turn";
 		int damagePerTurn = this.m_damagePerTurn;
 		bool addDiff4 = flag;
@@ -192,23 +193,23 @@ public class StandardActorEffectData
 			flag = false;
 		}
 		bool flag2 = flag;
-		string text = initialIndent + "    ";
+		string text = new StringBuilder().Append(initialIndent).Append("    ").ToString();
 		string text2 = "\n";
 		string text3 = "\t        \t | in base  =";
 		string effectName = this.GetEffectName();
-		string text4 = initialIndent + "Effect [ " + effectName + " ]";
+		string text4 = new StringBuilder().Append(initialIndent).Append("Effect [ ").Append(effectName).Append(" ]").ToString();
 		if (flag2)
 		{
 			if (effectName != other.GetEffectName())
 			{
-				text4 += this.DiffColorStr(text3 + "Effect [ " + other.GetEffectName() + " ]");
+				text4 += this.DiffColorStr(new StringBuilder().Append(text3).Append("Effect [ ").Append(other.GetEffectName()).Append(" ]").ToString());
 			}
 		}
 		text4 += text2;
 		string text5;
 		if (this.m_duration > 0)
 		{
-			text5 = "Duration: " + InEditorDescHelper.ColoredString(this.m_duration.ToString(), "cyan", false) + " turn(s).";
+			text5 = new StringBuilder().Append("Duration: ").Append(InEditorDescHelper.ColoredString(this.m_duration.ToString(), "cyan", false)).Append(" turn(s).").ToString();
 		}
 		else
 		{
@@ -219,10 +220,11 @@ public class StandardActorEffectData
 		{
 			if (this.m_duration != other.m_duration)
 			{
-				text6 += this.DiffColorStr(text3 + other.m_duration);
+				text6 += this.DiffColorStr(new StringBuilder().Append(text3).Append(other.m_duration).ToString());
 			}
 		}
-		text4 = text4 + text + text6 + text2;
+
+		text4 = new StringBuilder().Append(text4).Append(text).Append(text6).Append(text2).ToString();
 		string str = text4;
 		string header = "Max Sack Size = ";
 		string indent = text;
@@ -238,7 +240,8 @@ public class StandardActorEffectData
 		{
 			otherVal = 0;
 		}
-		text4 = str + this.AssembleFieldWithDiff(header, indent, otherSep, maxStackSize, showOther, otherVal);
+
+		text4 = new StringBuilder().Append(str).Append(this.AssembleFieldWithDiff(header, indent, otherSep, maxStackSize, showOther, otherVal)).ToString();
 		string str2 = text4;
 		string header2 = "Damage Per Turn (start of Combat) = ";
 		string indent2 = text;
@@ -254,7 +257,8 @@ public class StandardActorEffectData
 		{
 			otherVal2 = 0;
 		}
-		text4 = str2 + this.AssembleFieldWithDiff(header2, indent2, otherSep2, damagePerTurn, showOther2, otherVal2);
+
+		text4 = new StringBuilder().Append(str2).Append(this.AssembleFieldWithDiff(header2, indent2, otherSep2, damagePerTurn, showOther2, otherVal2)).ToString();
 		string str3 = text4;
 		string header3 = "Healing Per Turn (start of Combat) = ";
 		string indent3 = text;
@@ -270,7 +274,8 @@ public class StandardActorEffectData
 		{
 			otherVal3 = 0;
 		}
-		text4 = str3 + this.AssembleFieldWithDiff(header3, indent3, otherSep3, healingPerTurn, showOther3, otherVal3);
+
+		text4 = new StringBuilder().Append(str3).Append(this.AssembleFieldWithDiff(header3, indent3, otherSep3, healingPerTurn, showOther3, otherVal3)).ToString();
 		string str4 = text4;
 		string header4 = "Damage/Healing Per Turn Delay = ";
 		string indent4 = text;
@@ -286,7 +291,8 @@ public class StandardActorEffectData
 		{
 			otherVal4 = 0;
 		}
-		text4 = str4 + this.AssembleFieldWithDiff(header4, indent4, otherSep4, perTurnHitDelayTurns, showOther4, otherVal4);
+
+		text4 = new StringBuilder().Append(str4).Append(this.AssembleFieldWithDiff(header4, indent4, otherSep4, perTurnHitDelayTurns, showOther4, otherVal4)).ToString();
 		string str5 = text4;
 		string header5 = "Absorb(shield) = ";
 		string indent5 = text;
@@ -302,7 +308,8 @@ public class StandardActorEffectData
 		{
 			otherVal5 = 0;
 		}
-		text4 = str5 + this.AssembleFieldWithDiff(header5, indent5, otherSep5, absorbAmount, showOther5, otherVal5);
+
+		text4 = new StringBuilder().Append(str5).Append(this.AssembleFieldWithDiff(header5, indent5, otherSep5, absorbAmount, showOther5, otherVal5)).ToString();
 		string str6 = text4;
 		string header6 = "Absorb(shield) applied next turn = ";
 		string indent6 = text;
@@ -318,7 +325,8 @@ public class StandardActorEffectData
 		{
 			otherVal6 = 0;
 		}
-		text4 = str6 + this.AssembleFieldWithDiff(header6, indent6, otherSep6, nextTurnAbsorbAmount, showOther6, otherVal6);
+
+		text4 = new StringBuilder().Append(str6).Append(this.AssembleFieldWithDiff(header6, indent6, otherSep6, nextTurnAbsorbAmount, showOther6, otherVal6)).ToString();
 		string str7 = text4;
 		string header7 = "TechPoint Change on Apply = ";
 		string indent7 = text;
@@ -334,7 +342,8 @@ public class StandardActorEffectData
 		{
 			otherVal7 = 0;
 		}
-		text4 = str7 + this.AssembleFieldWithDiff(header7, indent7, otherSep7, techPointChangeOnStart, showOther7, otherVal7);
+
+		text4 = new StringBuilder().Append(str7).Append(this.AssembleFieldWithDiff(header7, indent7, otherSep7, techPointChangeOnStart, showOther7, otherVal7)).ToString();
 		string str8 = text4;
 		string header8 = "TechPoint Gain Per Turn = ";
 		string indent8 = text;
@@ -350,7 +359,8 @@ public class StandardActorEffectData
 		{
 			otherVal8 = 0;
 		}
-		text4 = str8 + this.AssembleFieldWithDiff(header8, indent8, otherSep8, techPointGainPerTurn, showOther8, otherVal8);
+
+		text4 = new StringBuilder().Append(str8).Append(this.AssembleFieldWithDiff(header8, indent8, otherSep8, techPointGainPerTurn, showOther8, otherVal8)).ToString();
 		text4 += this.AssembleFieldWithDiff("TechPoint Loss Per Turn = ", text, text3, this.m_techPointLossPerTurn, flag2, (!flag2) ? 0 : other.m_techPointLossPerTurn);
 		string str9 = text4;
 		string header9 = "Remove Invisibility On End of Decision of Last Turn = ";
@@ -367,8 +377,8 @@ public class StandardActorEffectData
 		{
 			otherVal9 = false;
 		}
-		
-		text4 = str9 + InEditorDescHelper.AssembleFieldWithDiff(header9, indent9, otherSep9, removeInvisibilityOnLastResolveStart, showOther9, otherVal9, ((bool b) => b));
+
+		text4 = new StringBuilder().Append(str9).Append(InEditorDescHelper.AssembleFieldWithDiff(header9, indent9, otherSep9, removeInvisibilityOnLastResolveStart, showOther9, otherVal9, ((bool b) => b))).ToString();
 		string str10 = text4;
 		string header10 = "Remove Revealed On End of Decision of Last Turn = ";
 		string indent10 = text;
@@ -384,8 +394,8 @@ public class StandardActorEffectData
 		{
 			otherVal10 = false;
 		}
-		
-		text4 = str10 + InEditorDescHelper.AssembleFieldWithDiff(header10, indent10, otherSep10, removeRevealedOnLastResolveStart, showOther10, otherVal10, ((bool b) => b));
+
+		text4 = new StringBuilder().Append(str10).Append(InEditorDescHelper.AssembleFieldWithDiff(header10, indent10, otherSep10, removeRevealedOnLastResolveStart, showOther10, otherVal10, ((bool b) => b))).ToString();
 		string str11 = text4;
 		string header11 = "Damage Per Movement Square = ";
 		string indent11 = text;
@@ -401,7 +411,8 @@ public class StandardActorEffectData
 		{
 			otherVal11 = 0;
 		}
-		text4 = str11 + this.AssembleFieldWithDiff(header11, indent11, otherSep11, damagePerMoveSquare, showOther11, otherVal11);
+
+		text4 = new StringBuilder().Append(str11).Append(this.AssembleFieldWithDiff(header11, indent11, otherSep11, damagePerMoveSquare, showOther11, otherVal11)).ToString();
 		text4 += this.AssembleFieldWithDiff("Healing Per Movement Square = ", text, text3, this.m_healPerMoveSquare, flag2, (!flag2) ? 0 : other.m_healPerMoveSquare);
 		text4 += this.AssembleFieldWithDiff("Tech Point Loss Per Movement Square = ", text, text3, this.m_techPointLossPerMoveSquare, flag2, (!flag2) ? 0 : other.m_techPointLossPerMoveSquare);
 		string str12 = text4;
@@ -419,7 +430,8 @@ public class StandardActorEffectData
 		{
 			otherVal12 = 0;
 		}
-		text4 = str12 + this.AssembleFieldWithDiff(header12, indent12, otherSep12, techPointGainPerMoveSquare, showOther12, otherVal12);
+
+		text4 = new StringBuilder().Append(str12).Append(this.AssembleFieldWithDiff(header12, indent12, otherSep12, techPointGainPerMoveSquare, showOther12, otherVal12)).ToString();
 		string str13 = text4;
 		string header13 = "Stat Mods:";
 		string indent13 = text;
@@ -434,7 +446,8 @@ public class StandardActorEffectData
 		{
 			otherObjList = null;
 		}
-		text4 = str13 + InEditorDescHelper.GetListDiffString<AbilityStatMod>(header13, indent13, statMods, showDiff, otherObjList, null);
+
+		text4 = new StringBuilder().Append(str13).Append(InEditorDescHelper.GetListDiffString<AbilityStatMod>(header13, indent13, statMods, showDiff, otherObjList, null)).ToString();
 		string str14 = text4;
 		string header14 = "Status Changes:";
 		string indent14 = text;
@@ -449,7 +462,8 @@ public class StandardActorEffectData
 		{
 			otherObjList2 = null;
 		}
-		text4 = str14 + InEditorDescHelper.GetListDiffString<StatusType>(header14, indent14, statusChanges, showDiff2, otherObjList2, null);
+
+		text4 = new StringBuilder().Append(str14).Append(InEditorDescHelper.GetListDiffString<StatusType>(header14, indent14, statusChanges, showDiff2, otherObjList2, null)).ToString();
 		if (flag2)
 		{
 			if (this.m_statusDelayMode != other.m_statusDelayMode)
@@ -477,7 +491,8 @@ public class StandardActorEffectData
 		{
 			statusDelayMode = this.m_statusDelayMode;
 		}
-		text4 = str15 + InEditorDescHelper.AssembleFieldWithDiff(header15, indent15, otherSep13, myVal, showOther13, statusDelayMode);
+
+		text4 = new StringBuilder().Append(str15).Append(InEditorDescHelper.AssembleFieldWithDiff(header15, indent15, otherSep13, myVal, showOther13, statusDelayMode)).ToString();
 		IL_5B4:
 		string str16 = text4;
 		string header16 = "End Triggers:";
@@ -493,7 +508,8 @@ public class StandardActorEffectData
 		{
 			otherObjList3 = null;
 		}
-		text4 = str16 + InEditorDescHelper.GetListDiffString<EffectEndTag>(header16, indent16, endTriggers, showDiff3, otherObjList3, null);
+
+		text4 = new StringBuilder().Append(str16).Append(InEditorDescHelper.GetListDiffString<EffectEndTag>(header16, indent16, endTriggers, showDiff3, otherObjList3, null)).ToString();
 		string str17 = text4;
 		string header17 = "Effect Sequence Prefabs:\t";
 		string indent17 = text;
@@ -508,8 +524,8 @@ public class StandardActorEffectData
 		{
 			otherObjList4 = null;
 		}
-		
-		text4 = str17 + InEditorDescHelper.GetListDiffString<GameObject>(header17, indent17, sequencePrefabs, showDiff4, otherObjList4, new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr));
+
+		text4 = new StringBuilder().Append(str17).Append(InEditorDescHelper.GetListDiffString<GameObject>(header17, indent17, sequencePrefabs, showDiff4, otherObjList4, new InEditorDescHelper.GetListEntryStrDelegate<GameObject>(InEditorDescHelper.GetGameObjectEntryStr))).ToString();
 		string str18 = text4;
 		string header18 = "Tick Sequence Prefab:";
 		string indent18 = text;
@@ -525,10 +541,11 @@ public class StandardActorEffectData
 		{
 			otherVal13 = null;
 		}
-		text4 = str18 + InEditorDescHelper.AssembleFieldWithDiff(header18, indent18, otherSep14, tickSequencePrefab, showOther14, otherVal13);
+
+		text4 = new StringBuilder().Append(str18).Append(InEditorDescHelper.AssembleFieldWithDiff(header18, indent18, otherSep14, tickSequencePrefab, showOther14, otherVal13)).ToString();
 		if (showDivider)
 		{
-			text4 = text4 + initialIndent + "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n";
+			text4 = new StringBuilder().Append(text4).Append(initialIndent).Append("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n").ToString();
 		}
 		return text4;
 	}

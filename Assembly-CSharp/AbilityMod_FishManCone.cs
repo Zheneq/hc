@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FishManCone : AbilityMod
@@ -78,6 +79,6 @@ public class AbilityMod_FishManCone : AbilityMod
 		desc += PropDesc(m_healToCasterPerEnemyHitMod, "[HealToCasterPerEnemyHit]", isValid, isValid ? fishManCone.m_healToCasterPerEnemyHit : 0);
 		desc += PropDesc(m_healToCasterPerAllyHitMod, "[HealToCasterPerAllyHit]", isValid, isValid ? fishManCone.m_healToCasterPerAllyHit : 0);
 		desc += PropDesc(m_extraHealPerEnemyHitForNextHealConeMod, "[ExtraHealPerEnemyHitForNextHealCone]", isValid, isValid ? fishManCone.m_extraHealPerEnemyHitForNextHealCone : 0);
-		return desc + PropDesc(m_extraEnergyForSingleEnemyHitMod, "[ExtraEnergyForSingleEnemyHit]", isValid, isValid ? fishManCone.m_extraEnergyForSingleEnemyHit : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEnergyForSingleEnemyHitMod, "[ExtraEnergyForSingleEnemyHit]", isValid, isValid ? fishManCone.m_extraEnergyForSingleEnemyHit : 0)).ToString();
 	}
 }

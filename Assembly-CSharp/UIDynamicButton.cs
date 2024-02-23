@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,7 +71,7 @@ public class UIDynamicButton : MonoBehaviour
 			while (enumerator.MoveNext())
 			{
 				TextMeshProUGUI current = enumerator.Current;
-				current.text = "<sprite name=\"" + spriteName + "\"> " + text;
+				current.text = new StringBuilder().Append("<sprite name=\"").Append(spriteName).Append("\"> ").Append(text).ToString();
 			}
 			while (true)
 			{

@@ -2,6 +2,7 @@ using I2.Loc;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 
 public static class StringUtil
@@ -37,8 +38,8 @@ public static class StringUtil
 		if (years > 0)
 		{
 			text = years <= 1
-				? text + TR("Year", "TimeSpan")
-				: text + string.Format(TR("Years", "TimeSpan"), years);
+				? new StringBuilder().Append(text).Append(TR("Year", "TimeSpan")).ToString()
+				: new StringBuilder().Append(text).Append(string.Format(TR("Years", "TimeSpan"), years)).ToString();
 			elements++;
 			difference -= TimeSpan.FromDays(years * 365);
 			if (!full)
@@ -188,7 +189,7 @@ public static class StringUtil
 
 	public static string PathChangeExtension(string path, string extension)
 	{
-		return $"{Path.GetDirectoryName(path)}/{Path.GetFileNameWithoutExtension(path)}{extension}";
+		return new StringBuilder().Append(Path.GetDirectoryName(path)).Append("/").Append(Path.GetFileNameWithoutExtension(path)).Append(extension).ToString();
 	}
 
 	public static string RemoveOptionalSuffix(string path, string extension)
@@ -200,7 +201,8 @@ public static class StringUtil
 
 	public static bool IsHexString(string hex)
 	{
-		return int.TryParse(hex, NumberStyles.HexNumber, null, out _);
+		int foo;
+		return int.TryParse(hex, NumberStyles.HexNumber, null, out foo);
 	}
 
 	public static string TR(string term, string context)
@@ -208,12 +210,12 @@ public static class StringUtil
 		string text = term;
 		if (!context.IsNullOrEmpty())
 		{
-			text = text + "@" + context;
+			text = new StringBuilder().Append(text).Append("@").Append(context).ToString();
 		}
 		string empty = ScriptLocalization.Get(text);
 		if (empty.IsNullOrEmpty())
 		{
-			empty = $"[{text}]#NotLocalized";
+			empty = new StringBuilder().Append("[").Append(text).Append("]#NotLocalized").ToString();
 		}
 		return empty;
 	}
@@ -225,7 +227,7 @@ public static class StringUtil
 		{
 			return TR(array[0], array[1]);
 		}
-		return $"[{textDescription}]#NotLocalized";
+		return new StringBuilder().Append("[").Append(textDescription).Append("]#NotLocalized").ToString();
 	}
 
 	public static string TR_IfHasContext(string textDescription)
@@ -737,6 +739,6 @@ public static class StringUtil
 
 	public static string FormatTime(int seconds)
 	{
-		return $"{seconds / 60}:{seconds % 60:00}";
+		return new StringBuilder().Append(seconds / 60).Append(":").AppendFormat("{0:00}", seconds % 60).ToString();
 	}
 }

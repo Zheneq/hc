@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 
 public class AppState_JoinGame : AppState
@@ -87,8 +88,8 @@ public class AppState_JoinGame : AppState
 			else
 			{
 				UIDialogPopupManager.OpenOneButtonDialog(
-					string.Empty, 
-					$"{response.ErrorMessage}#NeedsLocalization",
+					string.Empty,
+					new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString(),
 					StringUtil.TR("Ok", "Global"));
 
 			}

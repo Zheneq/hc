@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SenseiBide : Ability
@@ -57,8 +58,7 @@ public class SenseiBide : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\nFor Persistent sequence, specify on " +
-		       SetupNoteVarName("On Cast Target Effect Data") + "'s sequence field";
+		return new StringBuilder().Append("<color=cyan>-- For Art --</color>\nFor Persistent sequence, specify on ").Append(SetupNoteVarName("On Cast Target Effect Data")).Append("'s sequence field").ToString();
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)

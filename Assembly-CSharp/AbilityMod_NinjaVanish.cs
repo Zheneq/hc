@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NinjaVanish : AbilityMod
@@ -64,6 +65,6 @@ public class AbilityMod_NinjaVanish : AbilityMod
 		desc += PropDescBarrierMod(m_visionBlockBarrierDataMod, "{ VisionBlockBarrierData }", ninjaVanish.m_visionBlockBarrierData);
 		desc += PropDescGroundFieldMod(m_groundEffectDataMod, "{ GroundEffectData }", ninjaVanish.m_groundEffectData);
 		desc += PropDesc(m_cdrIfOnlyAbilityUsedMod, "[CdrIfOnlyAbilityUsed]", isValid, isValid ? ninjaVanish.m_cdrIfOnlyAbilityUsed : 0);
-		return desc + PropDesc(m_cdrConsiderCatalystMod, "[CdrConsiderCatalyst]", isValid, isValid && ninjaVanish.m_cdrConsiderCatalyst);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrConsiderCatalystMod, "[CdrConsiderCatalyst]", isValid, isValid && ninjaVanish.m_cdrConsiderCatalyst)).ToString();
 	}
 }

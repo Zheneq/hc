@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SpaceMarineJetpack : AbilityMod
@@ -40,6 +41,6 @@ public class AbilityMod_SpaceMarineJetpack : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? spaceMarineJetpack.m_damage : 0);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnCasterPerEnemyHit, "Effect on Caster per Enemy Hit", string.Empty, isValid);
 		desc += PropDesc(m_additionalEffectOnEnemy, "Additional Effect on Enemy", isValid, spaceMarineJetpack.m_debuffData);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_cooldownResetThreshold, "[Cooldown Reset Health Threshold]", isValid);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_cooldownResetThreshold, "[Cooldown Reset Health Threshold]", isValid)).ToString();
 	}
 }

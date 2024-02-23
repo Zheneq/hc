@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SniperPenetratingRound : AbilityMod
@@ -56,11 +57,11 @@ public class AbilityMod_SniperPenetratingRound : AbilityMod
 		}
 		if (m_knockbackHitEnemy)
 		{
-			desc += "Can knock back hit enemy within " + m_knockbackThresholdDistance + " squares\n";
+			desc += new StringBuilder().Append("Can knock back hit enemy within ").Append(m_knockbackThresholdDistance).Append(" squares\n").ToString();
 		}
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserDamage, "[Laser Damage]", isValid, isValid ? sniperPenetratingRound.m_laserDamageAmount : 0);
 		desc += PropDesc(m_additionalDamageOnLowHealthTargetMod, "[AdditionalDamageOnLowHealthTarget]", isValid, isValid ? sniperPenetratingRound.m_additionalDamageOnLowHealthTarget : 0);
-		return desc + PropDesc(m_lowHealthThresholdMod, "[LowHealthThreshold]", isValid, isValid ? sniperPenetratingRound.m_lowHealthThreshold : 0f);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_lowHealthThresholdMod, "[LowHealthThreshold]", isValid, isValid ? sniperPenetratingRound.m_lowHealthThreshold : 0f)).ToString();
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability abilityAsBase, List<int> numbers)

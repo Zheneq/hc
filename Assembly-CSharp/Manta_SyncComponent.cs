@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -43,8 +44,10 @@ public class Manta_SyncComponent : NetworkBehaviour
         int dirtyFightingExtraDamage = GetDirtyFightingExtraDamage(targetActor);
         if (dirtyFightingExtraDamage > 0)
         {
-            return "\n+ " + AbilityUtils.CalculateDamageForTargeter(
-                caster, targetActor, ability, dirtyFightingExtraDamage, false);
+            return new StringBuilder().Append("\n+ ")
+                .Append(AbilityUtils.CalculateDamageForTargeter(
+                    caster, targetActor, ability, dirtyFightingExtraDamage, false))
+                .ToString();
         }
         return null;
     }

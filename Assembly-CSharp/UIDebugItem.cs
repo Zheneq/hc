@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -37,7 +38,7 @@ public class UIDebugItem : MonoBehaviour
 		{
 			TextMeshProUGUI itemName = m_itemName;
 			string text = itemName.text;
-			itemName.text = text + " (" + GetModifierKeyPrefix(listener) + listener._001D().ToString() + ")";
+			itemName.text = new StringBuilder().Append(text).Append(" (").Append(GetModifierKeyPrefix(listener)).Append(listener._001D().ToString()).Append(")").ToString();
 		}
 		m_itemValue.text = listener.GetDebugItemValue();
 		m_increaseLabel.text = listener.GetIncreaseString();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -480,7 +481,7 @@ public class AbilityData : NetworkBehaviour
 						&& characterData.CharacterComponent.Taunts[i].Unlocked)
 					{
 						TauntCameraSet tauntCamSetData = m_actor.m_tauntCamSetData;
-						CameraShotSequence cameraShotSequence = tauntCamSetData?.GetTauntCam(characterTaunt.m_uniqueID);
+						CameraShotSequence cameraShotSequence = tauntCamSetData != null ? tauntCamSetData.GetTauntCam(characterTaunt.m_uniqueID) : null;
 						if (cameraShotSequence != null && abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex))
 						{
 							list.Add(cameraShotSequence);
@@ -738,43 +739,49 @@ public class AbilityData : NetworkBehaviour
 				UISounds.GetUISounds().Play("ui/ingame/v1/action_undo");
 			}
 		}
-		else if (CanQueueActionByCancelingOthers(ability, actionType, canQueueSimpleAction, canSelectAbility, out List<ActionType> actionsToCancel, out bool cancelMovement))
+		else
 		{
-			if (isPing)
+			List<ActionType> actionsToCancel;
+			bool cancelMovement;
+			if (CanQueueActionByCancelingOthers(ability, actionType, canQueueSimpleAction, canSelectAbility, out actionsToCancel, out cancelMovement))
 			{
-				SendAbilityPing(true, actionType, ability);
-			}
-			else
-			{
-				m_retargetActionWithoutClearingOldAbilities = false;
-				if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
+				if (isPing)
 				{
-					actorTurnSM.BackToDecidingState();
-					m_cancelMovementForTurnRedo = cancelMovement;
-					m_actionsToCancelForTurnRedo = actionsToCancel;
-					m_actionToSelectWhenEnteringDecisionState = actionType;
-					m_retargetActionWithoutClearingOldAbilities = isRetargeting;
+					SendAbilityPing(true, actionType, ability);
 				}
 				else
 				{
-					if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION
-						&& GetSelectedActionType() == actionType
-						&& !SinglePlayerManager.IsCancelDisabled())
+					m_retargetActionWithoutClearingOldAbilities = false;
+					if (actorTurnSM.CurrentState == TurnStateEnum.CONFIRMED)
 					{
-						ClearSelectedAbility();
 						actorTurnSM.BackToDecidingState();
+						m_cancelMovementForTurnRedo = cancelMovement;
+						m_actionsToCancelForTurnRedo = actionsToCancel;
+						m_actionToSelectWhenEnteringDecisionState = actionType;
+						m_retargetActionWithoutClearingOldAbilities = isRetargeting;
 					}
 					else
 					{
-						return RedoTurn(ability, actionType, actionsToCancel, cancelMovement, isRetargeting);
+						if (actorTurnSM.CurrentState == TurnStateEnum.TARGETING_ACTION
+						    && GetSelectedActionType() == actionType
+						    && !SinglePlayerManager.IsCancelDisabled())
+						{
+							ClearSelectedAbility();
+							actorTurnSM.BackToDecidingState();
+						}
+						else
+						{
+							return RedoTurn(ability, actionType, actionsToCancel, cancelMovement, isRetargeting);
+						}
 					}
 				}
 			}
+			else if (isPing)
+			{
+				SendAbilityPing(false, actionType, ability);
+			}
 		}
-		else if (isPing)
-		{
-			SendAbilityPing(false, actionType, ability);
-		}
+
 		return false;
 	}
 
@@ -804,8 +811,8 @@ public class AbilityData : NetworkBehaviour
 
 	public bool RedoTurn(Ability ability, ActionType actionType, List<ActionType> actionsToCancel, bool cancelMovement, bool retargetingModifierKeyHeld)
 	{
-		ActorController actorController = m_actor?.GetActorController();
-		ActorTurnSM actorTurnSM = m_actor?.GetActorTurnSM();
+		ActorController actorController = m_actor != null ? m_actor.GetActorController() : null;
+		ActorTurnSM actorTurnSM = m_actor != null ? m_actor.GetActorTurnSM() : null;
 		if (ability != null && !ability.IsSimpleAction() && retargetingModifierKeyHeld)
 		{
 			if (!actionsToCancel.IsNullOrEmpty() && actionsToCancel.Contains(actionType))
@@ -1000,7 +1007,7 @@ public class AbilityData : NetworkBehaviour
 				if (m_currentCardIds[i] > 0)
 				{
 					Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
-					useAbility = spawnedCardInstance?.m_useAbility;
+					useAbility = spawnedCardInstance != null ? spawnedCardInstance.m_useAbility : null;
 				}
 				SetupCardAbility(i, useAbility);
 			}
@@ -1062,7 +1069,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void SetSelectedAbility(Ability selectedAbility)
 	{
-		ActorTurnSM actorTurnSM = m_actor?.GetActorTurnSM();
+		ActorTurnSM actorTurnSM = m_actor != null ? m_actor.GetActorTurnSM() : null;
 		bool isActiveOwnedActorData = GameFlowData.Get().activeOwnedActorData == m_actor && m_actor != null;
 		if (m_selectedAbility && isActiveOwnedActorData)
 		{
@@ -1569,7 +1576,7 @@ public class AbilityData : NetworkBehaviour
 		for (int i = 0; i < m_abilities.Length; i++)
 		{
 			AbilityEntry abilityEntry = m_abilities[i];
-			string key = abilityEntry.ability?.m_abilityName;
+			string key = abilityEntry.ability != null ? abilityEntry.ability.m_abilityName : null;
 			int num;
 			if (abilityEntry.ability == null || !m_cooldowns.ContainsKey(key))
 			{
@@ -1880,7 +1887,7 @@ public class AbilityData : NetworkBehaviour
 		}
 		else
 		{
-			Log.Error("Checking range for ability " + ability.m_abilityName + ", but its targeting paradigm is invalid.");
+			Log.Error(new StringBuilder().Append("Checking range for ability ").Append(ability.m_abilityName).Append(", but its targeting paradigm is invalid.").ToString());
 			flag = false;
 		}
 		return flag;
@@ -2011,7 +2018,8 @@ public class AbilityData : NetworkBehaviour
 		else if (AbilityUtils.AbilityHasTag(ability, AbilityTags.ValidOnlyWhereInCover))
 		{
 			BoardSquare square3 = Board.Get().GetSquare(target.GridPos);
-			flag3 = ActorCover.CalcCoverLevelGeoOnly(out bool[] array, square3);
+			bool[] array;
+			flag3 = ActorCover.CalcCoverLevelGeoOnly(out array, square3);
 		}
 		bool flag4 = true;
 		if (ability.GetCheckLoS(targetIndex) && !ability.IsSimpleAction())
@@ -2058,7 +2066,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (ability == null)
 		{
-			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateAbilityIsCastable on a null ability.");
+			Log.Error(new StringBuilder().Append("Actor ").Append(m_actor.DisplayName).Append(" calling ValidateAbilityIsCastable on a null ability.").ToString());
 			return false;
 		}
 
@@ -2075,7 +2083,7 @@ public class AbilityData : NetworkBehaviour
 		Ability abilityOfActionType = GetAbilityOfActionType(abilityAction);
 		if (abilityOfActionType == null)
 		{
-			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateActionIsRequestable on a null ability.");
+			Log.Error(new StringBuilder().Append("Actor ").Append(m_actor.DisplayName).Append(" calling ValidateActionIsRequestable on a null ability.").ToString());
 			return false;
 		}
 
@@ -2093,7 +2101,7 @@ public class AbilityData : NetworkBehaviour
 	{
 		if (ability == null)
 		{
-			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateAbilityIsCastableDisregardingMovement on a null ability.");
+			Log.Error(new StringBuilder().Append("Actor ").Append(m_actor.DisplayName).Append(" calling ValidateAbilityIsCastableDisregardingMovement on a null ability.").ToString());
 			return false;
 		}
 		ActionType actionTypeOfAbility = GetActionTypeOfAbility(ability);
@@ -2113,7 +2121,7 @@ public class AbilityData : NetworkBehaviour
 		Ability abilityOfActionType = GetAbilityOfActionType(abilityAction);
 		if (abilityOfActionType == null)
 		{
-			Log.Error("Actor " + m_actor.DisplayName + " calling ValidateActionIsRequestableDisregardingQueuedActions on a null ability.");
+			Log.Error(new StringBuilder().Append("Actor ").Append(m_actor.DisplayName).Append(" calling ValidateActionIsRequestableDisregardingQueuedActions on a null ability.").ToString());
 			return false;
 		}
 
@@ -2364,7 +2372,7 @@ public class AbilityData : NetworkBehaviour
 			}
 			else
 			{
-				Log.Error("Card prefab " + cardPrefab.name + " does not have Card component");
+				Log.Error(new StringBuilder().Append("Card prefab ").Append(cardPrefab.name).Append(" does not have Card component").ToString());
 				Destroy(gameObject);
 			}
 			return component;
@@ -2402,7 +2410,7 @@ public class AbilityData : NetworkBehaviour
 			for (int i = 0; i < m_currentCardIds.Count; i++)
 			{
 				Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
-				SetupCardAbility(i, spawnedCardInstance?.m_useAbility);
+				SetupCardAbility(i, spawnedCardInstance != null ? spawnedCardInstance.m_useAbility : null);
 			}
 			UpdateCardBarUI();
 		}

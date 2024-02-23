@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientResolutionAction : IComparable
@@ -190,7 +191,7 @@ public class ClientResolutionAction : IComparable
 			case ResolutionActionType.GameModeOnMove:
 				return m_moveResults.DoneHitting();
 			default:
-				Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it's complete...");
+				Debug.LogError(new StringBuilder().Append("ClientResolutionAction has unknown type: ").Append((int)m_type).Append(".  Assuming it's complete...").ToString());
 				return true;
 		}
 	}
@@ -301,7 +302,7 @@ public class ClientResolutionAction : IComparable
 			{
 				if (ClientAbilityResults.DebugTraceOn)
 				{
-					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted actor hit on " + hitResults.Key.DebugNameString() + " from " + caster.DebugNameString());
+					Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientHitResultHeader).Append("Executing unexecuted actor hit on ").Append(hitResults.Key.DebugNameString()).Append(" from ").Append(caster.DebugNameString()).ToString());
 				}
 				hitResults.Value.ExecuteActorHit(hitResults.Key, caster);
 			}
@@ -312,7 +313,7 @@ public class ClientResolutionAction : IComparable
 			{
 				if (ClientAbilityResults.DebugTraceOn)
 				{
-					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + "Executing unexecuted position hit on " + hitResults.Key.ToString() + " from " + caster.DebugNameString());
+					Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientHitResultHeader).Append("Executing unexecuted position hit on ").Append(hitResults.Key.ToString()).Append(" from ").Append(caster.DebugNameString()).ToString());
 				}
 				hitResults.Value.ExecutePositionHit();
 			}
@@ -376,7 +377,7 @@ public class ClientResolutionAction : IComparable
 			case ResolutionActionType.GameModeOnMove:
 				return m_moveResults.ContainsSequenceSourceID(id);
 			default:
-				Debug.LogError("ClientResolutionAction has unknown type: " + (int)m_type + ".  Assuming it does not have a given SequenceSource...");
+				Debug.LogError(new StringBuilder().Append("ClientResolutionAction has unknown type: ").Append((int)m_type).Append(".  Assuming it does not have a given SequenceSource...").ToString());
 				return false;
 		}
 	}
@@ -422,21 +423,21 @@ public class ClientResolutionAction : IComparable
 
 	public string GetDebugDescription()
 	{
-		string str = m_type.ToString() + ": ";
+		string str = new StringBuilder().Append(m_type.ToString()).Append(": ").ToString();
 		switch (m_type)
 		{
 			case ResolutionActionType.AbilityCast:
-				return str + m_abilityResults.GetDebugDescription();
+				return new StringBuilder().Append(str).Append(m_abilityResults.GetDebugDescription()).ToString();
 			case ResolutionActionType.EffectAnimation:
 			case ResolutionActionType.EffectPulse:
-				return str + m_effectResults.GetDebugDescription();
+				return new StringBuilder().Append(str).Append(m_effectResults.GetDebugDescription()).ToString();
 			case ResolutionActionType.EffectOnMove:
 			case ResolutionActionType.BarrierOnMove:
 			case ResolutionActionType.PowerupOnMove:
 			case ResolutionActionType.GameModeOnMove:
-				return str + m_moveResults.GetDebugDescription();
+				return new StringBuilder().Append(str).Append(m_moveResults.GetDebugDescription()).ToString();
 			default:
-				return str + "??? (invalid results)";
+				return new StringBuilder().Append(str).Append("??? (invalid results)").ToString();
 		}
 	}
 
@@ -449,7 +450,7 @@ public class ClientResolutionAction : IComparable
 				text = m_abilityResults.UnexecutedHitsDebugStr();
 				if (logSequenceDataActors)
 				{
-					text = text + "\n" + m_abilityResults.GetSequenceStartDataDebugStr() + "\n";
+					text = new StringBuilder().Append(text).Append("\n").Append(m_abilityResults.GetSequenceStartDataDebugStr()).Append("\n").ToString();
 				}
 				break;
 			case ResolutionActionType.EffectAnimation:
@@ -480,12 +481,12 @@ public class ClientResolutionAction : IComparable
 			if (!hitResult.Value.ExecutedHit)
 			{
 				numUnexecuted++;
-				unexecuted += "\n\t\t" + numUnexecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
+				unexecuted += new StringBuilder().Append("\n\t\t").Append(numUnexecuted).Append(". ActorHit on ").Append(hitResult.Key.DebugNameString()).ToString();
 			}
 			else
 			{
 				numExecuted++;
-				executed += "\n\t\t" + numExecuted + ". ActorHit on " + hitResult.Key.DebugNameString();
+				executed += new StringBuilder().Append("\n\t\t").Append(numExecuted).Append(". ActorHit on ").Append(hitResult.Key.DebugNameString()).ToString();
 			}
 		}
 		foreach (KeyValuePair<Vector3, ClientPositionHitResults> hitResult in positionToHitResults)
@@ -493,19 +494,19 @@ public class ClientResolutionAction : IComparable
 			if (!hitResult.Value.ExecutedHit)
 			{
 				numUnexecuted++;
-				unexecuted += "\n\t\t" + numUnexecuted + ". PositionHit on " + hitResult.Key.ToString();
+				unexecuted += new StringBuilder().Append("\n\t\t").Append(numUnexecuted).Append(". PositionHit on ").Append(hitResult.Key.ToString()).ToString();
 			}
 			else
 			{
 				numExecuted++;
-				executed += "\n\t\t" + numExecuted + ". PositionHit on " + hitResult.Key.ToString();
+				executed += new StringBuilder().Append("\n\t\t").Append(numExecuted).Append(". PositionHit on ").Append(hitResult.Key.ToString()).ToString();
 			}
 		}
-		string str = "\n\tUnexecuted hits: " + numUnexecuted + unexecuted;
+		string str = new StringBuilder().Append("\n\tUnexecuted hits: ").Append(numUnexecuted).Append(unexecuted).ToString();
 		if (numExecuted > 0)
 		{
-			str += "\n\tExecuted hits: " + numExecuted + executed;
+			str += new StringBuilder().Append("\n\tExecuted hits: ").Append(numExecuted).Append(executed).ToString();
 		}
-		return str + "\n";
+		return new StringBuilder().Append(str).Append("\n").ToString();
 	}
 }

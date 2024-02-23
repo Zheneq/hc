@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -29,8 +30,8 @@ public class AssetBundleManager : MonoBehaviour
 		List<string> list = new List<string>();
 		string path = Application.dataPath;
 		path += Application.isEditor
-			? "/../editor_" + bundleName + ".json"
-			: "/Bundles/scenes/" + bundleName + ".json";
+			? new StringBuilder().Append("/../editor_").Append(bundleName).Append(".json").ToString()
+			: new StringBuilder().Append("/Bundles/scenes/").Append(bundleName).Append(".json").ToString();
 		if (!File.Exists(path))
 		{
 			return list;
@@ -55,8 +56,8 @@ public class AssetBundleManager : MonoBehaviour
 	public string GetSceneAssetBundlePath(string bundleName)
 	{
 		return Application.isEditor
-			? Application.dataPath + "/../Bundles/scenes/" + bundleName + ".bundle"
-			: Application.dataPath + "/Bundles/scenes/" + bundleName + ".bundle";
+			? new StringBuilder().Append(Application.dataPath).Append("/../Bundles/scenes/").Append(bundleName).Append(".bundle").ToString()
+			: new StringBuilder().Append(Application.dataPath).Append("/Bundles/scenes/").Append(bundleName).Append(".bundle").ToString();
 	}
 
 	public IEnumerator LoadSceneAsync(string sceneName, LoadSceneMode loadSceneMode)
@@ -130,7 +131,7 @@ public class AssetBundleManager : MonoBehaviour
 				{
 					arg = "AsyncOperation error";
 				}
-				throw new Exception($"AssetBundle | <- Failed to load scene asset bundle {operation.name} ({arg})");
+				throw new Exception(new StringBuilder().Append("AssetBundle | <- Failed to load scene asset bundle ").Append(operation.name).Append(" (").Append(arg).Append(")").ToString());
 			}
 			float num = Time.realtimeSinceStartup - operation.assetBundleOperation.loadStartTimestamp;
 		}
@@ -140,7 +141,7 @@ public class AssetBundleManager : MonoBehaviour
 	{
 		if (HitchDetector.Get() != null)
 		{
-			HitchDetector.Get().RecordFrameTimeForHitch("Loading scene " + operation.name);
+			HitchDetector.Get().RecordFrameTimeForHitch(new StringBuilder().Append("Loading scene ").Append(operation.name).ToString());
 		}
 		LoadSceneAsyncOperation postedLoadSceneAsyncOperation = m_postedLoadSceneAsyncOperations.TryGetValue(operation.sceneName);
 		if (postedLoadSceneAsyncOperation != null)
@@ -174,7 +175,7 @@ public class AssetBundleManager : MonoBehaviour
 		m_postedLoadSceneAsyncOperations.Remove(operation.sceneName);
 		if (HitchDetector.Get() != null)
 		{
-			HitchDetector.Get().RecordFrameTimeForHitch("Loaded scene " + operation.name);
+			HitchDetector.Get().RecordFrameTimeForHitch(new StringBuilder().Append("Loaded scene ").Append(operation.name).ToString());
 		}
 	}
 
@@ -245,7 +246,10 @@ public class AssetBundleManager : MonoBehaviour
 		public bool isCanceled;
 		public float loadStartTimestamp;
 
-		public bool isDone => request != null && request.isDone;
+		public bool isDone
+		{
+			get { return request != null && request.isDone; }
+		}
 	}
 
 	public class LoadSceneAsyncOperation
@@ -258,9 +262,15 @@ public class AssetBundleManager : MonoBehaviour
 		public bool isCanceled;
 		public float loadStartTimestamp;
 
-		public string name => $"{bundleName}.{sceneName}";
+		public string name
+		{
+			get { return new StringBuilder().Append(bundleName).Append(".").Append(sceneName).ToString(); }
+		}
 
-		public bool isDone => sceneOperation != null && sceneOperation.isDone;
+		public bool isDone
+		{
+			get { return sceneOperation != null && sceneOperation.isDone; }
+		}
 
 		public float progress
 		{

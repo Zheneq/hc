@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class InventoryItem : ICloneable
@@ -32,7 +33,7 @@ public class InventoryItem : ICloneable
 
 	public override string ToString()
 	{
-		return $"[{Id}] ItemTemplateId {TemplateId}, Count {Count}";
+		return new StringBuilder().Append("[").Append(Id).Append("] ItemTemplateId ").Append(TemplateId).Append(", Count ").Append(Count).ToString();
 	}
 
 	public object Clone()

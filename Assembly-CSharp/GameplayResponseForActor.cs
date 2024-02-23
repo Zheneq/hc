@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -37,18 +38,18 @@ public class GameplayResponseForActor
 	{
 		bool addDiff = addCompare && other != null;
 		int damageVal = addDiff ? other.m_damage : 0;
-		AbilityMod.AddToken_IntDiff(tokens, name + "_Damage", "damage on response", m_damage, addDiff, damageVal);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_Damage").ToString(), "damage on response", m_damage, addDiff, damageVal);
 		int healingVal = addDiff ? other.m_healing : 0;
-		AbilityMod.AddToken_IntDiff(tokens, name + "_Healing", "healing on response", m_healing, addDiff, healingVal);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_Healing").ToString(), "healing on response", m_healing, addDiff, healingVal);
 		StandardEffectInfo effectVal = addDiff ? other.m_effect : null;
-		AbilityMod.AddToken_EffectInfo(tokens, m_effect, name + "_Effect", effectVal);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effect, new StringBuilder().Append(name).Append("_Effect").ToString(), effectVal);
 	}
 
 	public string GetInEditorDescription(string header = "- Response -", string indent = "", bool showDiff = false, GameplayResponseForActor other = null)
 	{
 		bool addDiff = showDiff && other != null;
 		string otherSep = "\t        \t | in base  =";
-		string desc = "\n" + InEditorDescHelper.BoldedStirng(header) + "\n";
+		string desc = new StringBuilder().Append("\n").Append(InEditorDescHelper.BoldedStirng(header)).Append("\n").ToString();
 		float otherCredits = addDiff ? other.m_credits : 0;		
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ Credits ] = ", indent, otherSep, m_credits, addDiff, otherCredits, ((float f) => f != 0f));
 		int otherHealing = addDiff ? other.m_healing : 0;
@@ -65,7 +66,7 @@ public class GameplayResponseForActor
 		desc += InEditorDescHelper.GetListDiffString("Permanent Status Changes:", indent, m_permanentStatusChanges, addDiff, otherStatuses);
 		GameObject otherSequence = addDiff ? other.m_sequenceToPlay : null;
 		desc += InEditorDescHelper.AssembleFieldWithDiff("Response Hit Sequence", indent, otherSep, m_sequenceToPlay, addDiff, otherSequence);
-		return desc + indent + "-- END of Move-Through Response Output --\n";
+		return new StringBuilder().Append(desc).Append(indent).Append("-- END of Move-Through Response Output --\n").ToString();
 	}
 
 	public bool HasResponse()

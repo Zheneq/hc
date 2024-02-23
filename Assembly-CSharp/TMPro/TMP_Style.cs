@@ -64,13 +64,25 @@ namespace TMPro
 			}
 		}
 
-		public string styleOpeningDefinition => m_OpeningDefinition;
+		public string styleOpeningDefinition
+		{
+			get { return m_OpeningDefinition; }
+		}
 
-		public string styleClosingDefinition => m_ClosingDefinition;
+		public string styleClosingDefinition
+		{
+			get { return m_ClosingDefinition; }
+		}
 
-		public int[] styleOpeningTagArray => m_OpeningTagArray;
+		public int[] styleOpeningTagArray
+		{
+			get { return m_OpeningTagArray; }
+		}
 
-		public int[] styleClosingTagArray => m_ClosingTagArray;
+		public int[] styleClosingTagArray
+		{
+			get { return m_ClosingTagArray; }
+		}
 
 		public void RefreshStyle()
 		{

@@ -101,7 +101,10 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 
 	private Dictionary<GameBalanceVars.GameResultBadge.BadgeRole, BadgeSlots> m_badgeRoleSlots;
 
-	public CharacterType CurrentCharacterTypeFilter => m_characterType;
+	public CharacterType CurrentCharacterTypeFilter
+	{
+		get { return m_characterType; }
+	}
 
 	private void Init()
 	{
@@ -326,7 +329,8 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				}
 				BadgeSlots badgeSlots2 = m_badgeRoleSlots[gameResultBadge.Role];
 				UIPlayerProgressBadgeEntry nextSlot2 = badgeSlots2.GetNextSlot(OnScroll);
-				dictionary.TryGetValue(gameResultBadge.UniqueBadgeID, out int value);
+				int value;
+				dictionary.TryGetValue(gameResultBadge.UniqueBadgeID, out value);
 				nextSlot2.Setup(gameResultBadge, value);
 				UIManager.SetGameObjectActive(nextSlot2, true);
 			}
@@ -376,7 +380,8 @@ public class UIPlayerProgressBadges : UIPlayerProgressSubPanel
 				while (enumerator.MoveNext())
 				{
 					KeyValuePair<int, int> current = enumerator.Current;
-					if (!existingBadges.TryGetValue(current.Key, out int value2))
+					int value2;
+					if (!existingBadges.TryGetValue(current.Key, out value2))
 					{
 						value2 = 0;
 					}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class BazookaGirlDelayedMissile : Ability
@@ -214,7 +215,7 @@ public class BazookaGirlDelayedMissile : Ability
 			: m_effectOnHit, "EffectOnHit", m_effectOnHit);
 		for (int i = 0; i < m_additionalShapeToHitInfo.Count; i++)
 		{
-			AddTokenInt(tokens, "Damage_ExtraLayer_" + i, string.Empty, m_additionalShapeToHitInfo[i].m_damage);
+			AddTokenInt(tokens, new StringBuilder().Append("Damage_ExtraLayer_").Append(i).ToString(), string.Empty, m_additionalShapeToHitInfo[i].m_damage);
 		}
 	}
 

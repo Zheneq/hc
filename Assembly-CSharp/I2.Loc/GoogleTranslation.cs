@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -37,13 +38,13 @@ namespace I2.Loc
 						break;
 					default:
 					{
-						Debug.LogError("-- " + translationWWW.error);
+						Debug.LogError(new StringBuilder().Append("-- ").Append(translationWWW.error).ToString());
 						using (Dictionary<string, string>.Enumerator enumerator = translationWWW.responseHeaders.GetEnumerator())
 						{
 							while (enumerator.MoveNext())
 							{
 								KeyValuePair<string, string> current = enumerator.Current;
-								Debug.Log(current.Value + "=" + current.Key);
+								Debug.Log(new StringBuilder().Append(current.Value).Append("=").Append(current.Key).ToString());
 							}
 						}
 						return string.Empty;
@@ -59,7 +60,7 @@ namespace I2.Loc
 			LanguageCodeFrom = GoogleLanguages.GetGoogleLanguageCode(LanguageCodeFrom);
 			LanguageCodeTo = GoogleLanguages.GetGoogleLanguageCode(LanguageCodeTo);
 			text = text.ToLower();
-			string url = $"http://www.google.com/translate_t?hl=en&vi=c&ie=UTF8&oe=UTF8&submit=Translate&langpair={LanguageCodeFrom}|{LanguageCodeTo}&text={Uri.EscapeUriString(text)}";
+			string url = new StringBuilder().Append("http://www.google.com/translate_t?hl=en&vi=c&ie=UTF8&oe=UTF8&submit=Translate&langpair=").Append(LanguageCodeFrom).Append("|").Append(LanguageCodeTo).Append("&text=").Append(Uri.EscapeUriString(text)).ToString();
 			return new WWW(url);
 		}
 

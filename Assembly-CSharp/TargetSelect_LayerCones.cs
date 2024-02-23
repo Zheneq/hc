@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
@@ -17,13 +18,14 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(
-			       ContextKeys.s_Layer.GetName(),
-			       "on every hit actor, 0-based index of smallest cone with a hit, with smallest cone first")
-		       + GetContextUsageStr(
-			       ContextKeys.s_LayersActive.GetName(),
-			       "Non-actor specific context, number of layers active", 
-			       false);
+		return new StringBuilder().Append(GetContextUsageStr(
+				ContextKeys.s_Layer.GetName(),
+				"on every hit actor, 0-based index of smallest cone with a hit, with smallest cone first"))
+			.Append(GetContextUsageStr(
+				ContextKeys.s_LayersActive.GetName(),
+				"Non-actor specific context, number of layers active",
+				false))
+			.ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
@@ -78,7 +80,7 @@ public class TargetSelect_LayerCones : GenericAbility_TargetSelectBase
 
 	public int GetNumActiveLayers()
 	{
-		return m_delegateNumActiveLayers?.Invoke(m_cachedRadiusList.Count) ?? m_cachedRadiusList.Count;
+		return m_delegateNumActiveLayers != null ? m_delegateNumActiveLayers(m_cachedRadiusList.Count) : m_cachedRadiusList.Count;
 	}
 
 	public int GetLayerCount()

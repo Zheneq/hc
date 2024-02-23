@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class LobbyCharacterGameplayData
@@ -20,7 +21,10 @@ public class LobbyCharacterGameplayData
 	public CountryPrices Prices;
 
 	[JsonIgnore]
-	public string FullName => $"{DisplayName} ({CharacterType.ToString()})";
+	public string FullName
+	{
+		get { return new StringBuilder().Append(DisplayName).Append(" (").Append(CharacterType.ToString()).Append(")").ToString(); }
+	}
 
 	public LobbyCharacterGameplayData()
 	{

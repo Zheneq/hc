@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -34,10 +35,10 @@ public class ChainAbilityAdditionalModInfo
 
 		if (chainAbility != null)
 		{
-			string text = name + "_" + m_chainAbilityIndex;
-			AbilityMod.AddToken_EffectInfo(entries, m_effectOnSelf, text + "_EffectOnSelf");
-			AbilityMod.AddToken_EffectInfo(entries, m_effectOnAlly, text + "_EffectOnAlly");
-			AbilityMod.AddToken_EffectInfo(entries, m_effectOnEnemy, text + "_EffectOnEnemy");
+			string text = new StringBuilder().Append(name).Append("_").Append(m_chainAbilityIndex).ToString();
+			AbilityMod.AddToken_EffectInfo(entries, m_effectOnSelf, new StringBuilder().Append(text).Append("_EffectOnSelf").ToString());
+			AbilityMod.AddToken_EffectInfo(entries, m_effectOnAlly, new StringBuilder().Append(text).Append("_EffectOnAlly").ToString());
+			AbilityMod.AddToken_EffectInfo(entries, m_effectOnEnemy, new StringBuilder().Append(text).Append("_EffectOnEnemy").ToString());
 			if (m_cooldownReductionsOnSelf.HasCooldownReduction())
 			{
 				m_cooldownReductionsOnSelf.AddTooltipTokens(entries, text);
@@ -65,7 +66,7 @@ public class ChainAbilityAdditionalModInfo
 		
 		if (chainAbility != null)
 		{
-			desc += "Additional Mod Info for Chain Ability at index " + m_chainAbilityIndex + ": " + chainAbility.GetDebugIdentifier("white") + "\n";
+			desc += new StringBuilder().Append("Additional Mod Info for Chain Ability at index ").Append(m_chainAbilityIndex).Append(": ").Append(chainAbility.GetDebugIdentifier("white")).Append("\n").ToString();
 			desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelf, "{ ChainAbility Effect on Self }", "        ");
 			desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnAlly, "{ ChainAbility Effect on Ally }", "        ");
 			desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnEnemy, "{ ChainAbility Effect on Enemy }", "        ");
@@ -77,7 +78,7 @@ public class ChainAbilityAdditionalModInfo
 		}
 		else
 		{
-			desc += "No Chain Ability at index " + m_chainAbilityIndex + ", ignoring chain ability mod info\n";
+			desc += new StringBuilder().Append("No Chain Ability at index ").Append(m_chainAbilityIndex).Append(", ignoring chain ability mod info\n").ToString();
 		}
 		return desc;
 	}

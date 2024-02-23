@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -42,10 +43,10 @@ public class MatchLogger : MonoBehaviour
 		}
 		while (true)
 		{
-			string arg = $"Match-{HydrogenConfig.Get().ProcessCode}.log";
+			string arg = new StringBuilder().Append("Match-").Append(HydrogenConfig.Get().ProcessCode).Append(".log").ToString();
 			DateTime now = DateTime.Now;
-			string arg2 = $"{now.Year:d4}-{now.Month:d2}-{now.Day:d2}";
-			string text = $"{HydrogenConfig.Get().MatchLogsPath}/{arg2}/{arg}";
+			string arg2 = new StringBuilder().AppendFormat("{0:d4}", now.Year).Append("-").AppendFormat("{0:d2}", now.Month).Append("-").AppendFormat("{0:d2}", now.Day).ToString();
+			string text = new StringBuilder().Append(HydrogenConfig.Get().MatchLogsPath).Append("/").Append(arg2).Append("/").Append(arg).ToString();
 			FileInfo fileInfo = new FileInfo(text);
 			fileInfo.Directory.Create();
 			m_currentLogFile = new StreamWriter(text);
@@ -54,7 +55,7 @@ public class MatchLogger : MonoBehaviour
 			Application.logMessageReceived += HandleLog;
 			m_matchStartTime = Time.time;
 			m_matchStartRealTime = Time.realtimeSinceStartup;
-			Debug.Log("matchlogger file at: " + text);
+			Debug.Log(new StringBuilder().Append("matchlogger file at: ").Append(text).ToString());
 			return;
 		}
 	}
@@ -82,7 +83,7 @@ public class MatchLogger : MonoBehaviour
 		float num = Time.time - m_matchStartTime;
 		int num2 = Mathf.FloorToInt(num / 60f);
 		int num3 = Mathf.FloorToInt(num - (float)num2 * 60f);
-		return $"{num2}m {num3}s";
+		return new StringBuilder().Append(num2).Append("m ").Append(num3).Append("s").ToString();
 	}
 
 	public float GetTimeSinceMatchStart()
@@ -94,7 +95,7 @@ public class MatchLogger : MonoBehaviour
 	{
 		float num = Time.realtimeSinceStartup - m_matchStartRealTime;
 		int num2 = Mathf.FloorToInt(num * 1000f);
-		return $"{num2}";
+		return new StringBuilder().Append(num2).ToString();
 	}
 
 	public TimeSpan GetMatchTime()
@@ -121,7 +122,7 @@ public class MatchLogger : MonoBehaviour
 				{
 					while (true)
 					{
-						string value = "Match time: " + GetTimeForLogging(false);
+						string value = new StringBuilder().Append("Match time: ").Append(GetTimeForLogging(false)).ToString();
 						m_currentLogFile.WriteLine(value);
 						return;
 					}
@@ -187,7 +188,7 @@ public class MatchLogger : MonoBehaviour
 
 	private void HandleLog(string logString, string stackTrace, LogType type)
 	{
-		m_currentLogFile.WriteLine($"{type.ToString()}:{logString}");
+		m_currentLogFile.WriteLine(new StringBuilder().Append(type.ToString()).Append(":").Append(logString).ToString());
 		m_currentLogFile.WriteLine(stackTrace);
 	}
 }

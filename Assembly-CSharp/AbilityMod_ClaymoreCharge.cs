@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClaymoreCharge : AbilityMod
@@ -60,6 +61,6 @@ public class AbilityMod_ClaymoreCharge : AbilityMod
 		desc += PropDesc(m_extraDirectHitDamagePerSquareMod, "[ExtraDirectHitDamagePerSquare]", isAbilityPresent, isAbilityPresent ? claymoreCharge.m_extraDirectHitDamagePerSquare : 0);
 		desc += PropDesc(m_healOnSelfPerTargetHitMod, "[HealOnSelfPerTargetHit]", isAbilityPresent, isAbilityPresent ? claymoreCharge.m_healOnSelfPerTargetHit : 0);
 		desc += PropDesc(m_cooldownOnHitMod, "[Cooldown Override (on charge ability) on Hit]", isAbilityPresent, isAbilityPresent ? claymoreCharge.m_cooldownOnHit : 0);
-		return desc + PropDesc(m_chaseHitActorMod, "[Chase Hit Target?]", isAbilityPresent, isAbilityPresent && claymoreCharge.m_chaseHitActor);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_chaseHitActorMod, "[Chase Hit Target?]", isAbilityPresent, isAbilityPresent && claymoreCharge.m_chaseHitActor)).ToString();
 	}
 }

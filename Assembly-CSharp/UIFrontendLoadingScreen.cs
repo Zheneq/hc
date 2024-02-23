@@ -49,7 +49,10 @@ public class UIFrontendLoadingScreen : UIScene
 
 	private bool shouldPlayIntroVideo;
 
-	public DisplayStates DisplayState => m_displayState;
+	public DisplayStates DisplayState
+	{
+		get { return m_displayState; }
+	}
 
 	public override SceneType GetSceneType()
 	{
@@ -73,9 +76,9 @@ public class UIFrontendLoadingScreen : UIScene
 		SetDisplayState(DisplayStates.None);
 		if (!FindObjectOfType<EventSystem>())
 		{
-			GameObject gameObject = new GameObject("EventSystem", typeof(EventSystem));
-			gameObject.AddComponent<StandaloneInputModule>();
-			DontDestroyOnLoad(gameObject);
+			GameObject gameObject1 = new GameObject("EventSystem", typeof(EventSystem));
+			gameObject1.AddComponent<StandaloneInputModule>();
+			DontDestroyOnLoad(gameObject1);
 		}
 		m_ServerLockedButton.spriteController.callback = ServerLockedButtonClicked;
 		SetServerLockButtonVisible(false);
@@ -235,7 +238,9 @@ public class UIFrontendLoadingScreen : UIScene
 
 	public void Update()
 	{
-		bool gameConfigPresent = GameManager.Get()?.GameInfo?.GameConfig != null;
+		GameManager gameManager = GameManager.Get();
+		LobbyGameInfo gameManagerGameInfo = gameManager != null ? gameManager.GameInfo : null;
+		bool gameConfigPresent = gameManagerGameInfo != null && gameManagerGameInfo.GameConfig != null;
 		if (gameConfigPresent)
 		{
 			SetupMapLoadingTitleInfo(GameManager.Get().GameInfo.GameConfig.GameType, GameManager.Get().GameInfo.GameConfig.Map);
@@ -248,7 +253,9 @@ public class UIFrontendLoadingScreen : UIScene
 		{
 			StartDisplayLoading();
 		}
-		if (!m_isPlayerAccountDataAvailable && IsVisible() && (ClientGameManager.Get()?.IsPlayerAccountDataAvailable() ?? false))
+
+		ClientGameManager clientGameManager = ClientGameManager.Get();
+		if (!m_isPlayerAccountDataAvailable && IsVisible() && clientGameManager != null && clientGameManager.IsPlayerAccountDataAvailable())
 		{
 			m_isPlayerAccountDataAvailable = true;
 			PickBackgroundImage();

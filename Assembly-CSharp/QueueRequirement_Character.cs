@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 [Serializable]
 public class QueueRequirement_Character : QueueRequirement
@@ -10,9 +11,15 @@ public class QueueRequirement_Character : QueueRequirement
 
 	private bool m_anyGroupMember;
 
-	public override RequirementType Requirement => m_requirementType;
+	public override RequirementType Requirement
+	{
+		get { return m_requirementType; }
+	}
 
-	public override bool AnyGroupMember => m_anyGroupMember;
+	public override bool AnyGroupMember
+	{
+		get { return m_anyGroupMember; }
+	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
@@ -27,7 +34,7 @@ public class QueueRequirement_Character : QueueRequirement
 				case 0:
 					break;
 				default:
-					throw new Exception($"Unknown QueueRequirement_Character requirement: {Requirement}");
+					throw new Exception(new StringBuilder().Append("Unknown QueueRequirement_Character requirement: ").Append(Requirement).ToString());
 				}
 			}
 		}
@@ -72,7 +79,7 @@ public class QueueRequirement_Character : QueueRequirement
 				case 0:
 					break;
 				default:
-					throw new Exception($"Unknown requirement is failed: {Requirement}");
+					throw new Exception(new StringBuilder().Append("Unknown requirement is failed: ").Append(Requirement).ToString());
 				}
 			}
 		}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using Microsoft.Win32;
 using Newtonsoft.Json;
@@ -68,8 +69,15 @@ public class DiscordClientInterface : MonoBehaviour
 
 	public event Action<ErrorEventArgs> OnError;
 
-	public static bool IsEnabled => false;
-	public static bool IsSdkEnabled => false;
+	public static bool IsEnabled
+	{
+		get { return false; }
+	}
+
+	public static bool IsSdkEnabled
+	{
+		get { return false; }
+	}
 
 	public static bool IsInstalled
 	{
@@ -93,7 +101,7 @@ public class DiscordClientInterface : MonoBehaviour
 			}
 			catch (Exception ex)
 			{
-				Log.Error($"Failed to check Discord installation in registry. {ex}");
+				Log.Error(new StringBuilder().Append("Failed to check Discord installation in registry. ").Append(ex).ToString());
 			}
 			return false;
 		}
@@ -122,13 +130,40 @@ public class DiscordClientInterface : MonoBehaviour
 		}
 	}
 
-	public bool IsConnected => m_webSocket != null && m_webSocket.IsAlive;
-	public DiscordChannelInfo ChannelInfo => m_channelInfo;
-	public DiscordUserInfo UserInfo => m_userInfo;
-	public List<DiscordUserInfo> ChannelUsers => m_discordChannelUsers;
-	private int RpcPort => s_RpcPortOverride != 0 ? s_RpcPortOverride : RPC_PORT_BEGIN + m_rpcPortOffset;
-	private string RpcOrigin => m_authInfo != null ? m_authInfo.RpcOrigin : string.Empty;
-	private string ClientId => m_authInfo == null ? string.Empty : m_authInfo.ClientId;
+	public bool IsConnected
+	{
+		get { return m_webSocket != null && m_webSocket.IsAlive; }
+	}
+
+	public DiscordChannelInfo ChannelInfo
+	{
+		get { return m_channelInfo; }
+	}
+
+	public DiscordUserInfo UserInfo
+	{
+		get { return m_userInfo; }
+	}
+
+	public List<DiscordUserInfo> ChannelUsers
+	{
+		get { return m_discordChannelUsers; }
+	}
+
+	private int RpcPort
+	{
+		get { return s_RpcPortOverride != 0 ? s_RpcPortOverride : RPC_PORT_BEGIN + m_rpcPortOffset; }
+	}
+
+	private string RpcOrigin
+	{
+		get { return m_authInfo != null ? m_authInfo.RpcOrigin : string.Empty; }
+	}
+
+	private string ClientId
+	{
+		get { return m_authInfo == null ? string.Empty : m_authInfo.ClientId; }
+	}
 
 	private void Awake()
 	{
@@ -157,10 +192,10 @@ public class DiscordClientInterface : MonoBehaviour
 		if (s_debugOutput)
 		{
 			string str = string.Format(msg, parameters);
-			Log.Info("Discord | " + str);
+			Log.Info(new StringBuilder().Append("Discord | ").Append(str).ToString());
 			if (SynchronizationContext.Current != null && TextConsole.Get() != null)
 			{
-				TextConsole.Get().Write("Discord | " + str, ConsoleMessageType.DiscordLog);
+				TextConsole.Get().Write(new StringBuilder().Append("Discord | ").Append(str).ToString(), ConsoleMessageType.DiscordLog);
 			}
 		}
 	}
@@ -169,7 +204,7 @@ public class DiscordClientInterface : MonoBehaviour
 	{
 		if (s_debugOutput)
 		{
-			Log.Info("Discord | " + JsonConvert.SerializeObject(resp, Formatting.Indented));
+			Log.Info(new StringBuilder().Append("Discord | ").Append(JsonConvert.SerializeObject(resp, Formatting.Indented)).ToString());
 		}
 	}
 
@@ -455,7 +490,7 @@ public class DiscordClientInterface : MonoBehaviour
 			return;
 		}
 		string clientId = m_authInfo.ClientId;
-		string resourcePath = Application.dataPath + "/../";
+		string resourcePath = new StringBuilder().Append(Application.dataPath).Append("/../").ToString();
 		GameBridge.SetReadyCallback(HandleSdkReadyCallback, UIntPtr.Zero);
 		GameBridge.SetUpdatingCallback(HandleSdkUpdatingCallback, UIntPtr.Zero);
 		GameBridge.SetErrorCallback(HandleSdkErrorCallback, UIntPtr.Zero);
@@ -499,7 +534,8 @@ public class DiscordClientInterface : MonoBehaviour
 			Debug("Already connected to discord");
 			return;
 		}
-		m_rpcUrl = $"ws://127.0.0.1:{RpcPort}/?v=1&client_id={ClientId}&encoding=json";
+
+		m_rpcUrl = new StringBuilder().Append("ws://127.0.0.1:").Append(RpcPort).Append("/?v=1&client_id=").Append(ClientId).Append("&encoding=json").ToString();
 		Debug("Connecting to 127.0.0.1:{0}", RpcPort);
 		m_webSocket = new WebSocketSharp.WebSocket(m_rpcUrl);
 		m_webSocket.OnOpen += HandleOnOpen;

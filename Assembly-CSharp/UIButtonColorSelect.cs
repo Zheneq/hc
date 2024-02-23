@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -119,7 +120,8 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		m_tintIndex = tintIndex;
 		m_uiSkinBrowserPanel = parent;
 		m_transformPriority = tintIndex;
-		if (ColorUtility.TryParseHtmlString(colorData.m_rarity.GetColorHexString(), out Color color))
+		Color color;
+		if (ColorUtility.TryParseHtmlString(colorData.m_rarity.GetColorHexString(), out color))
 		{
 			m_defaultBorder.color = color;
 		}
@@ -134,32 +136,32 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 			int num = 0;
 			if (colorData.m_unlockCharacterLevel > 0)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), colorData.m_unlockCharacterLevel) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), colorData.m_unlockCharacterLevel)).ToString();
 				num++;
 			}
 			if (colorData.m_isoCurrencyCost > 0)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyForISO", "Global"), colorData.m_isoCurrencyCost) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("BuyForISO", "Global"), colorData.m_isoCurrencyCost)).ToString();
 				num++;
 			}
 			if (colorData.m_freelancerCurrencyCost > 0)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyForFreelancerCurrency", "Global"), colorData.m_freelancerCurrencyCost) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("BuyForFreelancerCurrency", "Global"), colorData.m_freelancerCurrencyCost)).ToString();
 				num++;
 			}
 			if (colorData.m_realCurrencyCost > 0f)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyFor", "Global"), UIStorePanel.GetLocalizedPriceString(colorData.m_realCurrencyCost, HydrogenConfig.Get().Ticket.AccountCurrency)) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("BuyFor", "Global"), UIStorePanel.GetLocalizedPriceString(colorData.m_realCurrencyCost, HydrogenConfig.Get().Ticket.AccountCurrency))).ToString();
 				num++;
 			}
 			if (colorData.m_requiredLevelForEquip > 1)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("CanEquipAtCharacterLevel", "Global"), colorData.m_requiredLevelForEquip) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("CanEquipAtCharacterLevel", "Global"), colorData.m_requiredLevelForEquip)).ToString();
 				num++;
 			}
 			if (num > 1)
 			{
-				m_unlockTooltipText = StringUtil.TR("ObtainableViaMethods", "Global") + Environment.NewLine + m_unlockTooltipText + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().AppendLine(StringUtil.TR("ObtainableViaMethods", "Global")).AppendLine(m_unlockTooltipText).ToString();
 			}
 		}
 		else
@@ -170,13 +172,13 @@ public class UIButtonColorSelect : UICharacterVisualsSelectButton, ITransformSor
 		{
 			if (!colorData.m_isSkinAvailable)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + StringUtil.TR("MustUnlockSkin", "Global") + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(StringUtil.TR("MustUnlockSkin", "Global")).ToString();
 			}
 		}
 		if (!colorData.m_flavorText.IsNullOrEmpty())
 		{
 			string unlockTooltipText = m_unlockTooltipText;
-			m_unlockTooltipText = unlockTooltipText + "<i>" + colorData.m_flavorText + "</i>" + Environment.NewLine;
+			m_unlockTooltipText = new StringBuilder().Append(unlockTooltipText).Append("<i>").Append(colorData.m_flavorText).AppendLine("</i>").ToString();
 		}
 		string obtainedDescription = GameWideData.Get().GetCharacterResourceLink(m_colorData.m_characterType).m_skins[m_colorData.m_skinIndex].m_patterns[m_colorData.m_patternIndex].m_colors[m_colorData.m_colorIndex].m_colorUnlockData.GetObtainedDescription();
 		if (obtainedDescription.IsNullOrEmpty())

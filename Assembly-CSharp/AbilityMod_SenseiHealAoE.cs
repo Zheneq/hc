@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SenseiHealAoE : AbilityMod
@@ -102,6 +103,6 @@ public class AbilityMod_SenseiHealAoE : AbilityMod
 		desc += PropDesc(m_allyEffectOnSubsequentTurnsMod, "[AllyEffectOnSubsequentTurns]", isValid, isValid ? senseiHealAoE.m_allyEffectOnSubsequentTurns : null);
 		desc += PropDesc(m_ignoreDefaultEnergyOnSubseqTurnsMod, "[IgnoreDefaultEnergyOnSubseqTurns]", isValid, isValid && senseiHealAoE.m_ignoreDefaultEnergyOnSubseqTurns);
 		desc += PropDesc(m_energyPerAllyHitOnSubseqTurnsMod, "[EnergyPerAllyHitOnSubseqTurns]", isValid, isValid ? senseiHealAoE.m_energyPerAllyHitOnSubseqTurns : 0);
-		return desc + PropDesc(m_energyOnSelfHitOnSubseqTurnsMod, "[EnergyOnSelfHitOnSubseqTurns]", isValid, isValid ? senseiHealAoE.m_energyOnSelfHitOnSubseqTurns : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_energyOnSelfHitOnSubseqTurnsMod, "[EnergyOnSelfHitOnSubseqTurns]", isValid, isValid ? senseiHealAoE.m_energyOnSelfHitOnSubseqTurns : 0)).ToString();
 	}
 }

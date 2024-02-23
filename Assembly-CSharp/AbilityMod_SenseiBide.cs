@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SenseiBide : AbilityMod
@@ -64,6 +65,6 @@ public class AbilityMod_SenseiBide : AbilityMod
 		desc += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", isValid, isValid ? senseiBide.m_enemyHitEffect : null);
 		desc += PropDesc(m_absorbMultForHealMod, "[AbsorbMultForHeal]", isValid, isValid ? senseiBide.m_absorbMultForHeal : 0f);
 		desc += PropDesc(m_multOnInitialDamageForSubseqHitsMod, "[MultOnInitialDamageForSubseqHits]", isValid, isValid ? senseiBide.m_multOnInitialDamageForSubseqHits : 0f);
-		return desc + PropDesc(m_extraHealOnHealAoeIfQueuedMod, "[ExtraHealOnHealAoeIfQueued]", isValid, isValid ? senseiBide.m_extraHealOnHealAoeIfQueued : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraHealOnHealAoeIfQueuedMod, "[ExtraHealOnHealAoeIfQueued]", isValid, isValid ? senseiBide.m_extraHealOnHealAoeIfQueued : 0)).ToString();
 	}
 }

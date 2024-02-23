@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FishManGeyser : AbilityMod
@@ -71,7 +72,7 @@ public class AbilityMod_FishManGeyser : AbilityMod
 			{
 				for (int i = 0; i < m_additionalShapeToDamageOverride.Count; i++)
 				{
-					AddToken_IntDiff(tokens, "Damage_AdditionalLayer" + i, string.Empty, m_additionalShapeToDamageOverride[i].m_damage, true, fishManGeyser.m_damageToEnemiesOnCast);
+					AddToken_IntDiff(tokens, new StringBuilder().Append("Damage_AdditionalLayer").Append(i).ToString(), string.Empty, m_additionalShapeToDamageOverride[i].m_damage, true, fishManGeyser.m_damageToEnemiesOnCast);
 				}
 			}
 		}
@@ -87,7 +88,7 @@ public class AbilityMod_FishManGeyser : AbilityMod
 			desc += "Using Layered Shape Override, entries:\n";
 			foreach (FishManGeyser.ShapeToDamage shapeToDamage in m_additionalShapeToDamageOverride)
 			{
-				desc += "Shape: " + shapeToDamage.m_shape + " Damage: " + shapeToDamage.m_damage + "\n";
+				desc += new StringBuilder().Append("Shape: ").Append(shapeToDamage.m_shape).Append(" Damage: ").Append(shapeToDamage.m_damage).Append("\n").ToString();
 			}
 		}
 		desc += PropDesc(m_castShapeMod, "[CastShape]", isValid, isValid ? fishManGeyser.m_castShape : AbilityAreaShape.SingleSquare);
@@ -114,6 +115,6 @@ public class AbilityMod_FishManGeyser : AbilityMod
 		desc += PropDesc(m_applyKnockbackOnExplodeMod, "[ApplyKnockbackOnExplode]", isValid, isValid && fishManGeyser.m_applyKnockbackOnExplode);
 		desc += PropDesc(m_knockbackDistOnExplodeMod, "[KnockbackDistOnExplode]", isValid, isValid ? fishManGeyser.m_knockbackDistOnExplode : 0f);
 		desc += PropDesc(m_effectToEnemiesOnExplodeMod, "[EffectToEnemiesOnExplode]", isValid, isValid ? fishManGeyser.m_effectToEnemiesOnExplode : null);
-		return desc + PropDesc(m_effectToAlliesOnExplodeMod, "[EffectToAlliesOnExplode]", isValid, isValid ? fishManGeyser.m_effectToAlliesOnExplode : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_effectToAlliesOnExplodeMod, "[EffectToAlliesOnExplode]", isValid, isValid ? fishManGeyser.m_effectToAlliesOnExplode : null)).ToString();
 	}
 }

@@ -33,7 +33,10 @@ public class UICharacterSelectPlayerPortrait : MonoBehaviour
 
 	private CharacterType m_charType;
 
-	public bool IsSelected => m_isSelected;
+	public bool IsSelected
+	{
+		get { return m_isSelected; }
+	}
 
 	public CharacterType CharType
 	{

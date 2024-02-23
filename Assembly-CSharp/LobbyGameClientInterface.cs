@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 using Steamworks;
 using UnityEngine;
@@ -22,9 +23,15 @@ public class LobbyGameClientInterface : WebSocketInterface
 
 	protected WebSocketMessageDispatcher<LobbyGameClientInterface> m_messageDispatcher;
 
-	public bool IsConnected => State == WebSocket.SocketState.Open && m_registered;
+	public bool IsConnected
+	{
+		get { return State == WebSocket.SocketState.Open && m_registered; }
+	}
 
-	public LobbySessionInfo SessionInfo => m_sessionInfo;
+	public LobbySessionInfo SessionInfo
+	{
+		get { return m_sessionInfo; }
+	}
 
 	public event Action<RegisterGameClientResponse> OnConnected = delegate {};
 	public event Action<string, bool, CloseStatusCode> OnDisconnected = delegate {};
@@ -176,7 +183,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 			};
 			if (directoryServerAddress.IndexOf("://") == -1)
 			{
-				directoryServerAddress = "ws://" + directoryServerAddress;
+				directoryServerAddress = new StringBuilder().Append("ws://").Append(directoryServerAddress).ToString();
 			}
 			Uri uri = new Uri(directoryServerAddress);
 			UriBuilder newDirectoryServerUri = new UriBuilder();
@@ -200,8 +207,8 @@ public class LobbyGameClientInterface : WebSocketInterface
 			newDirectoryServerUri.Scheme = scheme;
 			newDirectoryServerUri.Host = NetUtil.GetIPv4Address(uri.Host).ToString();
 			newDirectoryServerUri.Port = uri.Port > 0 && !uri.IsDefaultPort ? uri.Port : num;
-			newDirectoryServerUri.Path = uri.AbsolutePath != "/" ? uri.AbsolutePath : "/" + str;
-			newDirectoryServerUri.Query = $"messageType={assignGameClientRequest.GetType().Name}";
+			newDirectoryServerUri.Path = uri.AbsolutePath != "/" ? uri.AbsolutePath : new StringBuilder().Append("/").Append(str).ToString();
+			newDirectoryServerUri.Query = new StringBuilder().Append("messageType=").Append(assignGameClientRequest.GetType().Name).ToString();
 			Logger.Info("Requesting lobby server assignment from {0}", newDirectoryServerUri);
 			SendHttpRequest(newDirectoryServerUri.ToString(), assignGameClientRequest, delegate(AssignGameClientResponse assignResponse, Exception exception)
 			{
@@ -289,7 +296,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 			{
 				string desc = StringUtil.TR("RuinedGameStartSoThrownOutOfQueue", "Global");
 				UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("QueuingNotification", "Global"), desc, StringUtil.TR("Ok", "Global"));
-				Log.Info("Updating ready state to false because ruined game, thrown out of queue, current Appstate: " + AppState.GetCurrent());
+				Log.Info(new StringBuilder().Append("Updating ready state to false because ruined game, thrown out of queue, current Appstate: ").Append(AppState.GetCurrent()).ToString());
 				AppState_GroupCharacterSelect.Get().UpdateReadyState(false);
 				return;
 			}
@@ -392,7 +399,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		else if (!unlocalizedFailure.IsNullOrEmpty())
 		{
-			text = $"{unlocalizedFailure}#NeedsLocalization";
+			text = new StringBuilder().Append(unlocalizedFailure).Append("#NeedsLocalization").ToString();
 		}
 		else
 		{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SoldierConeOrLaser : AbilityMod
@@ -67,6 +68,6 @@ public class AbilityMod_SoldierConeOrLaser : AbilityMod
 		desc += PropDesc(m_extraDamageForFromCoverMod, "[ExtraDamageForFromCover]", isValid, isValid ? soldierConeOrLaser.m_extraDamageForFromCover : 0);
 		desc += PropDesc(m_extraDamageToEvadersMod, "[ExtraDamageToEvaders]", isValid, isValid ? soldierConeOrLaser.m_extraDamageToEvaders : 0);
 		desc += PropDesc(m_extraEnergyForConeMod, "[ExtraEnergyForCone]", isValid, isValid ? soldierConeOrLaser.m_extraEnergyForCone : 0);
-		return desc + PropDesc(m_extraEnergyForLaserMod, "[ExtraEnergyForLaser]", isValid, isValid ? soldierConeOrLaser.m_extraEnergyForLaser : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEnergyForLaserMod, "[ExtraEnergyForLaser]", isValid, isValid ? soldierConeOrLaser.m_extraEnergyForLaser : 0)).ToString();
 	}
 }

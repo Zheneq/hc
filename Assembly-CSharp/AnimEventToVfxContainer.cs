@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AnimEventToVfxContainer
@@ -20,7 +21,7 @@ public class AnimEventToVfxContainer
 		m_vfxInstances = new List<AttachedActorVFXInfo>();
 		for (int i = 0; i < vfxPrefabList.Count; i++)
 		{
-			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(vfxPrefabList[i].m_vfxCommonPrefab, attachToObj, vfxPrefabList[i].m_joint, vfxPrefabList[i].m_alignToRootOrientation, "AttachedVfx_" + vfxPrefabList[i].m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(vfxPrefabList[i].m_vfxCommonPrefab, attachToObj, vfxPrefabList[i].m_joint, vfxPrefabList[i].m_alignToRootOrientation, new StringBuilder().Append("AttachedVfx_").Append(vfxPrefabList[i].m_name).ToString(), AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
 				m_vfxInstances.Add(attachedActorVFXInfo);

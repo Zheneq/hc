@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
@@ -68,7 +69,8 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + PropDesc(extraDamageNonOverlapMod, "[ExtraDamageNonOverlap]", flag, baseVal);
+
+			text = new StringBuilder().Append(str).Append(PropDesc(extraDamageNonOverlapMod, "[ExtraDamageNonOverlap]", flag, baseVal)).ToString();
 			text += PropDesc(m_igniteTargetIfOverlapHitMod, "[IgniteTargetIfOverlapHit]", flag, flag && fireborgDualCones.m_igniteTargetIfOverlapHit);
 			string str2 = text;
 			AbilityModPropertyBool igniteTargetIfSuperheatedMod = m_igniteTargetIfSuperheatedMod;
@@ -81,7 +83,8 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + PropDesc(igniteTargetIfSuperheatedMod, "[IgniteTargetIfSuperheated]", flag, (byte)baseVal2 != 0);
+
+			text = new StringBuilder().Append(str2).Append(PropDesc(igniteTargetIfSuperheatedMod, "[IgniteTargetIfSuperheated]", flag, (byte)baseVal2 != 0)).ToString();
 			string str3 = text;
 			AbilityModPropertyBool groundFireOnAllIfNormalMod = m_groundFireOnAllIfNormalMod;
 			int baseVal3;
@@ -93,7 +96,8 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + PropDesc(groundFireOnAllIfNormalMod, "[GroundFireOnAllIfNormal]", flag, (byte)baseVal3 != 0);
+
+			text = new StringBuilder().Append(str3).Append(PropDesc(groundFireOnAllIfNormalMod, "[GroundFireOnAllIfNormal]", flag, (byte)baseVal3 != 0)).ToString();
 			string str4 = text;
 			AbilityModPropertyBool groundFireOnOverlapIfNormalMod = m_groundFireOnOverlapIfNormalMod;
 			int baseVal4;
@@ -105,7 +109,8 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + PropDesc(groundFireOnOverlapIfNormalMod, "[GroundFireOnOverlapIfNormal]", flag, (byte)baseVal4 != 0);
+
+			text = new StringBuilder().Append(str4).Append(PropDesc(groundFireOnOverlapIfNormalMod, "[GroundFireOnOverlapIfNormal]", flag, (byte)baseVal4 != 0)).ToString();
 			string str5 = text;
 			AbilityModPropertyBool groundFireOnAllIfSuperheatedMod = m_groundFireOnAllIfSuperheatedMod;
 			int baseVal5;
@@ -117,7 +122,8 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			{
 				baseVal5 = 0;
 			}
-			text = str5 + PropDesc(groundFireOnAllIfSuperheatedMod, "[GroundFireOnAllIfSuperheated]", flag, (byte)baseVal5 != 0);
+
+			text = new StringBuilder().Append(str5).Append(PropDesc(groundFireOnAllIfSuperheatedMod, "[GroundFireOnAllIfSuperheated]", flag, (byte)baseVal5 != 0)).ToString();
 			string str6 = text;
 			AbilityModPropertyBool groundFireOnOverlapIfSuperheatedMod = m_groundFireOnOverlapIfSuperheatedMod;
 			int baseVal6;
@@ -129,7 +135,8 @@ public class AbilityMod_FireborgDualCones : GenericAbility_AbilityMod
 			{
 				baseVal6 = 0;
 			}
-			text = str6 + PropDesc(groundFireOnOverlapIfSuperheatedMod, "[GroundFireOnOverlapIfSuperheated]", flag, (byte)baseVal6 != 0);
+
+			text = new StringBuilder().Append(str6).Append(PropDesc(groundFireOnOverlapIfSuperheatedMod, "[GroundFireOnOverlapIfSuperheated]", flag, (byte)baseVal6 != 0)).ToString();
 		}
 		return text;
 	}

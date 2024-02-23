@@ -47,7 +47,10 @@ internal class SteamManager : MonoBehaviour
 		}
 	}
 
-	public static bool Initialized => Instance.m_bInitialized;
+	public static bool Initialized
+	{
+		get { return Instance.m_bInitialized; }
+	}
 
 	private static void SteamAPIDebugTextHook(int nSeverity, StringBuilder pchDebugText)
 	{
@@ -113,7 +116,7 @@ internal class SteamManager : MonoBehaviour
 		}
 		catch (DllNotFoundException arg)
 		{
-			Debug.LogError("[Steamworks.NET] Could not load [lib]steam_api.dll/so/dylib. It's likely not in the correct location. Refer to the README for more details.\n" + arg, this);
+			Debug.LogError(new StringBuilder().Append("[Steamworks.NET] Could not load [lib]steam_api.dll/so/dylib. It's likely not in the correct location. Refer to the README for more details.\n").Append(arg).ToString(), this);
 		}
 		if (!m_bInitialized)
 		{

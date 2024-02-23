@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Text.RegularExpressions;
 using ArabicSupport;
 using UnityEngine;
@@ -124,7 +125,7 @@ namespace I2.Loc
 				int num = text.IndexOfAny("/\\".ToCharArray());
 				if (num > 0)
 				{
-					CurrentLanguage = text.Substring(num + 1) + value;
+					CurrentLanguage = new StringBuilder().Append(text.Substring(num + 1)).Append(value).ToString();
 				}
 				else
 				{
@@ -134,7 +135,8 @@ namespace I2.Loc
 					{
 						text = text.Substring(num);
 					}
-					CurrentLanguage = text + "(" + value + ")";
+
+					CurrentLanguage = new StringBuilder().Append(text).Append("(").Append(value).Append(")").ToString();
 				}
 			}
 		}
@@ -157,20 +159,21 @@ namespace I2.Loc
 				{
 					currentLanguageCode = currentLanguageCode.Substring(0, num);
 				}
-				CurrentLanguageCode = currentLanguageCode + "-" + value;
+
+				CurrentLanguageCode = new StringBuilder().Append(currentLanguageCode).Append("-").Append(value).ToString();
 			}
 		}
 
 		public static bool GibberishMode
 		{
-			get => mGibberishMode;
+			get { return mGibberishMode; }
 			set
 			{
 				mGibberishMode = value;
 				LocalizeAll(true);
 			}
 		}
-		
+
 		public static event OnLocalizeCallback OnLocalizeEvent;
 
 		public static void InitializeIfNeeded()
@@ -323,7 +326,7 @@ namespace I2.Loc
 			{
 				return ArabicFixer.Fix(line);
 			}
-			Regex regex = new Regex(".{0," + maxCharacters + "}(\\s+|$)", RegexOptions.Multiline);
+			Regex regex = new Regex(new StringBuilder().Append(".{0,").Append(maxCharacters).Append("}(\\s+|$)").ToString(), RegexOptions.Multiline);
 			line = regex.Replace(line, "$0\n");
 			if (line.EndsWith("\n\n"))
 			{

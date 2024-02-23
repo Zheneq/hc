@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class AttachedActorVFXInfo
@@ -88,7 +89,7 @@ public class AttachedActorVFXInfo
 				}
 				else
 				{
-					Log.Warning("Did not find joint for vfx, on actor " + attachedToObject.name);
+					Log.Warning(new StringBuilder().Append("Did not find joint for vfx, on actor ").Append(attachedToObject.name).ToString());
 				}
 				return;
 			}

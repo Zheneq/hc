@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -57,16 +58,16 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		{
 			if (EffectDebugConfig.TracingAddAndRemove())
 			{
-				Log.Warning("<color=green>Effect</color>: Skipping CLIENT effect application for GUID " + effectData.m_effectGUID);
+				Log.Warning(new StringBuilder().Append("<color=green>Effect</color>: Skipping CLIENT effect application for GUID ").Append(effectData.m_effectGUID).ToString());
 			}
 			return;
 		}
 		if (EffectDebugConfig.TracingAddAndRemove() && effectData != null)
 		{
-			string text = "<color=green>Effect</color>: CLIENT Effect Start for guid [" + effectData.m_effectGUID + "]\n";
+			string text = new StringBuilder().Append("<color=green>Effect</color>: CLIENT Effect Start for guid [").Append(effectData.m_effectGUID).Append("]\n").ToString();
 			foreach (ServerClientUtils.SequenceStartData seqStartData in effectData.m_sequenceStartDataList)
 			{
-				text += "SeqPrefabId " + seqStartData.GetSequencePrefabId() + "\n";
+				text += new StringBuilder().Append("SeqPrefabId ").Append(seqStartData.GetSequencePrefabId()).Append("\n").ToString();
 			}
 			Log.Warning(text);
 		}
@@ -124,7 +125,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			Debug.LogError("ClientEffectBarrierManager calling ExecuteEffectStart for effect start data with guid " + effectData.m_effectGUID + ", but that guid is already in m_effectGuidToData.");
+			Debug.LogError(new StringBuilder().Append("ClientEffectBarrierManager calling ExecuteEffectStart for effect start data with guid ").Append(effectData.m_effectGUID).Append(", but that guid is already in m_effectGuidToData.").ToString());
 			m_effectGuidToData[effectData.m_effectGUID].m_sequences.AddRange(sequences);
 		}
 	}
@@ -157,7 +158,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 			m_effectGuidToData.Remove(effectGuid);
 			if (EffectDebugConfig.TracingAddAndRemove())
 			{
-				Log.Warning("<color=green>Effect</color>: CLIENT Effect Remove, GUID [" + effectGuid + "]");
+				Log.Warning(new StringBuilder().Append("<color=green>Effect</color>: CLIENT Effect Remove, GUID [").Append(effectGuid).Append("]").ToString());
 			}
 		}
 	}
@@ -185,7 +186,7 @@ public class ClientEffectBarrierManager : MonoBehaviour, IGameEventListener
 		}
 		else
 		{
-			Debug.LogError("ClientEffectBarrierManager calling ExecuteBarrierStart for barrier start data with guid " + barrierData.m_barrierGUID + ", but that guid is already in m_barrierGuidToSequences.");
+			Debug.LogError(new StringBuilder().Append("ClientEffectBarrierManager calling ExecuteBarrierStart for barrier start data with guid ").Append(barrierData.m_barrierGUID).Append(", but that guid is already in m_barrierGuidToSequences.").ToString());
 			m_barrierGuidToSequences[barrierData.m_barrierGUID].AddRange(sequences);
 		}
 	}

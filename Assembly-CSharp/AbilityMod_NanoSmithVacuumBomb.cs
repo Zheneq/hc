@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
@@ -34,7 +35,7 @@ public class AbilityMod_NanoSmithVacuumBomb : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? nanoSmithVacuumBomb.m_bombDamageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_cooldownChangePerHitMod, "[Cooldown Change Per Hit]", isValid);
 		desc += AbilityModHelper.GetModPropertyDesc(m_onCenterActorEffectOverride, "{ On CenterActor Effect Override }", isValid, isValid ? nanoSmithVacuumBomb.m_onCenterActorEffect : null);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectOverride, "{ Enemy Hit Effect Override }", isValid, isValid ? nanoSmithVacuumBomb.m_enemyHitEffect : null);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectOverride, "{ Enemy Hit Effect Override }", isValid, isValid ? nanoSmithVacuumBomb.m_enemyHitEffect : null)).ToString();
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability ability, List<int> numbers)

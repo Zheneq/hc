@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 
 public class HighlightUtils : MonoBehaviour, IGameEventListener
@@ -1500,7 +1501,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					continue;
 				}
 			}
-			Log.Error("HighlightUtils cone prefabs has a cone " + gameObject2.name + " with an invalid arcDegrees.  Valid degrees are in (0, 360).");
+			Log.Error(new StringBuilder().Append("HighlightUtils cone prefabs has a cone ").Append(gameObject2.name).Append(" with an invalid arcDegrees.  Valid degrees are in (0, 360).").ToString());
 		}
 		while (true)
 		{
@@ -1716,7 +1717,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 
 	public GameObject CreateGridPatternHighlight(AbilityGridPattern pattern, float scale)
 	{
-		GameObject gameObject = new GameObject("Targeter parent: " + pattern);
+		GameObject gameObject = new GameObject(new StringBuilder().Append("Targeter parent: ").Append(pattern).ToString());
 		List<GameObject> list;
 		switch (pattern)
 		{
@@ -2331,7 +2332,7 @@ public class HighlightUtils : MonoBehaviour, IGameEventListener
 					if (ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.CursorState))
 					{
 						ActorDebugUtils.DebugCategoryInfo debugCategoryInfo = ActorDebugUtils.Get().GetDebugCategoryInfo(ActorDebugUtils.DebugCategory.CursorState);
-						string text = debugCategoryInfo.m_stringToDisplay = string.Format("CursorType: " + m_currentCursorType.ToString() + "\n{0} \tMovementMouseOverCursor \n{1} \tAbilityTargetMouseOverCursor \n{2} \tIdleMouseOverCursor \n{3} \tm_targetingCursor \n{4} \tFreeMouseOverCursor \n{5} \tClampedMouseOverCursor \n{6} \tCornerMouseOverCursor\n{7} \tshowChaseCursor \n{8} \tshowSprintCursor \n{9} \tchaseMouseover \n{10} \trespawnCursor \n", flag6, flag5, flag7, flag3, flag4, flag8, flag9, flag11, flag10, flag, flag12);
+						string text = debugCategoryInfo.m_stringToDisplay = string.Format(new StringBuilder().Append("CursorType: ").Append(m_currentCursorType.ToString()).Append("\n{0} \tMovementMouseOverCursor \n{1} \tAbilityTargetMouseOverCursor \n{2} \tIdleMouseOverCursor \n{3} \tm_targetingCursor \n{4} \tFreeMouseOverCursor \n{5} \tClampedMouseOverCursor \n{6} \tCornerMouseOverCursor\n{7} \tshowChaseCursor \n{8} \tshowSprintCursor \n{9} \tchaseMouseover \n{10} \trespawnCursor \n").ToString(), flag6, flag5, flag7, flag3, flag4, flag8, flag9, flag11, flag10, flag, flag12);
 					}
 					return;
 				}

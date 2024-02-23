@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SniperGhillieSuit : AbilityMod
@@ -41,12 +42,12 @@ public class AbilityMod_SniperGhillieSuit : AbilityMod
 		string desc = string.Empty;
 		if (m_healingOnSelf > 0)
 		{
-			desc += "[Healing on Self] = " + m_healingOnSelf + "\n";
+			desc += new StringBuilder().Append("[Healing on Self] = ").Append(m_healingOnSelf).Append("\n").ToString();
 		}
 		if (m_useStealthEffectDataOverride)
 		{
 			desc += AbilityModHelper.GetModEffectDataDesc(m_stealthEffectDataOverride, "{ Stealth Effect Data Override }", string.Empty, isValid, isValid ? sniperGhillieSuit.m_standardActorEffectData : null);
 		}
-		return desc + PropDesc(m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", isValid, isValid ? sniperGhillieSuit.m_cooldownResetHealthThreshold : 0f);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", isValid, isValid ? sniperGhillieSuit.m_cooldownResetHealthThreshold : 0f)).ToString();
 	}
 }

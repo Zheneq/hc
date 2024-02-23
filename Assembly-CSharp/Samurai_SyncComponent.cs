@@ -21,30 +21,30 @@ public class Samurai_SyncComponent : NetworkBehaviour
 
 	public int Networkm_lastSelfBuffTurn
 	{
-		get => m_lastSelfBuffTurn;
+		get { return m_lastSelfBuffTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_lastSelfBuffTurn, 1u);
+		set { SetSyncVar(value, ref m_lastSelfBuffTurn, 1u); }
 	}
 
 	public int Networkm_selfBuffIncomingHitsThisTurn
 	{
-		get => m_selfBuffIncomingHitsThisTurn;
+		get { return m_selfBuffIncomingHitsThisTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_selfBuffIncomingHitsThisTurn, 2u);
+		set { SetSyncVar(value, ref m_selfBuffIncomingHitsThisTurn, 2u); }
 	}
 
 	public int Networkm_afterimageX
 	{
-		get => m_afterimageX;
+		get { return m_afterimageX; }
 		[param: In]
-		set => SetSyncVar(value, ref m_afterimageX, 4u);
+		set { SetSyncVar(value, ref m_afterimageX, 4u); }
 	}
 
 	public int Networkm_afterimageY
 	{
-		get => m_afterimageY;
+		get { return m_afterimageY; }
 		[param: In]
-		set => SetSyncVar(value, ref m_afterimageY, 8u);
+		set { SetSyncVar(value, ref m_afterimageY, 8u); }
 	}
 
 	private void Start()

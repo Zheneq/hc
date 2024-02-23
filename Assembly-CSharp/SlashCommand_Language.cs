@@ -1,3 +1,4 @@
+using System.Text;
 using I2.Loc;
 
 public class SlashCommand_Language : SlashCommand
@@ -23,7 +24,7 @@ public class SlashCommand_Language : SlashCommand
 					default:
 					{
 						LocalizationManager.CurrentLanguage = arguments;
-						string text = $"Language changed to: {LocalizationManager.CurrentLanguage}";
+						string text = new StringBuilder().Append("Language changed to: ").Append(LocalizationManager.CurrentLanguage).ToString();
 						TextConsole.Get().Write(text);
 						ClientGameManager.Get().SetNewSessionLanguage(LocalizationManager.CurrentLanguageCode);
 						return;
@@ -31,11 +32,11 @@ public class SlashCommand_Language : SlashCommand
 					}
 				}
 			}
-			TextConsole.Get().Write($"Unrecognized Language: {arguments}");
+			TextConsole.Get().Write(new StringBuilder().Append("Unrecognized Language: ").Append(arguments).ToString());
 		}
 		else
 		{
-			string text2 = $"Current Language: {LocalizationManager.CurrentLanguage}";
+			string text2 = new StringBuilder().Append("Current Language: ").Append(LocalizationManager.CurrentLanguage).ToString();
 			TextConsole.Get().Write(text2);
 		}
 	}

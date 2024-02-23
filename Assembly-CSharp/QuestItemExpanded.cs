@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -122,7 +123,7 @@ public class QuestItemExpanded : MonoBehaviour
 		string empty = string.Empty;
 		string text = StringUtil.TR_QuestName(questId);
 		string text2 = StringUtil.TR_QuestDescription(questId);
-		empty = ((!(text != string.Empty)) ? text2 : $"<size=20>{text}</size>\n<#a9a9a9>{text2}");
+		empty = ((!(text != string.Empty)) ? text2 : new StringBuilder().Append("<size=20>").Append(text).Append("</size>\n<#a9a9a9>").Append(text2).ToString());
 		m_nameText.text = empty;
 		Sprite sprite = (Sprite)Resources.Load(questTemplate.IconFilename, typeof(Sprite));
 		if ((bool)sprite)
@@ -177,17 +178,17 @@ public class QuestItemExpanded : MonoBehaviour
 					}
 					if (maxCount != 1)
 					{
-						text3 = ((num4 != maxCount) ? (text3 + $"    {text4} ({num4}/{maxCount})") : (text3 + $"    <color=white>{text4} ({num4}/{maxCount})</color>"));
+						text3 = ((num4 != maxCount) ? new StringBuilder().Append(text3).Append("    ").Append(text4).Append(" (").Append(num4).Append("/").Append(maxCount).Append(")").ToString() : new StringBuilder().Append(text3).Append("    <color=white>").Append(text4).Append(" (").Append(num4).Append("/").Append(maxCount).Append(")</color>").ToString());
 					}
 					else
 					{
 						if (num4 == 1)
 						{
-							text3 += $"    <color=white>{text4}</color>";
+							text3 += new StringBuilder().Append("    <color=white>").Append(text4).Append("</color>").ToString();
 						}
 						else
 						{
-							text3 += $"    {text4}";
+							text3 += new StringBuilder().Append("    ").Append(text4).ToString();
 						}
 					}
 				}
@@ -275,7 +276,7 @@ public class QuestItemExpanded : MonoBehaviour
 			}
 		}
 		num = Mathf.Min(num, num2);
-		string text5 = $"{num}/{num2}";
+		string text5 = new StringBuilder().Append(num).Append("/").Append(num2).ToString();
 		m_progressText.text = text5;
 		m_progressBar.fillAmount = (float)num / (1f * (float)num2);
 		int num5 = 0;
@@ -367,7 +368,7 @@ public class QuestItemExpanded : MonoBehaviour
 		}
 		catch (Exception ex)
 		{
-			Log.Info("Exception in UpdateHeight for QuestItemExpanded!" + ex.ToString());
+			Log.Info(new StringBuilder().Append("Exception in UpdateHeight for QuestItemExpanded!").Append(ex.ToString()).ToString());
 		}
 	}
 

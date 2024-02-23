@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,7 +54,10 @@ public class UILoadscreenProfile : MonoBehaviour
 
 	private int m_lastGGPackDisplay = -1;
 
-	public int CurrentGGPackLevel => m_lastGGPackDisplay;
+	public int CurrentGGPackLevel
+	{
+		get { return m_lastGGPackDisplay; }
+	}
 
 	public CharacterType GetCharType()
 	{
@@ -108,19 +112,19 @@ public class UILoadscreenProfile : MonoBehaviour
 				string animToPlay = string.Empty;
 				if (numGGpacks == 0)
 				{
-					animToPlay = $"GGBoost{empty}TeamItemEmptyIDLE";
+					animToPlay = new StringBuilder().Append("GGBoost").Append(empty).Append("TeamItemEmptyIDLE").ToString();
 				}
 				else if (numGGpacks == 1)
 				{
-					animToPlay = $"GGBoost{empty}TeamItemBlueIN";
+					animToPlay = new StringBuilder().Append("GGBoost").Append(empty).Append("TeamItemBlueIN").ToString();
 				}
 				else if (numGGpacks == 2)
 				{
-					animToPlay = $"GGBoost{empty}TeamItemSilverIN";
+					animToPlay = new StringBuilder().Append("GGBoost").Append(empty).Append("TeamItemSilverIN").ToString();
 				}
 				else if (numGGpacks == 3)
 				{
-					animToPlay = $"GGBoost{empty}TeamItemGoldIN";
+					animToPlay = new StringBuilder().Append("GGBoost").Append(empty).Append("TeamItemGoldIN").ToString();
 				}
 				UIAnimationEventManager.Get().PlayAnimation(m_animator, animToPlay, null, string.Empty);
 				m_lastGGPackDisplay = numGGpacks;

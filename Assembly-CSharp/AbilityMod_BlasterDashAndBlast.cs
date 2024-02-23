@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BlasterDashAndBlast : AbilityMod
@@ -75,6 +76,6 @@ public class AbilityMod_BlasterDashAndBlast : AbilityMod
 		desc += PropDesc(m_extraDamageForSingleHitMod, "[ExtraDamageForSingleHit]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_extraDamageForSingleHit : 0);
 		desc += PropDesc(m_enemyEffectNormalMod, "[EnemyEffectNormal]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_enemyEffectNormal : null);
 		desc += PropDesc(m_enemyEffectOverchargedMod, "[EnemyEffectOvercharged]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_enemyEffectOvercharged : null);
-		return desc + PropDesc(m_selfEffectOnCastMod, "[SelfEffectOnCast]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_selfEffectOnCast : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_selfEffectOnCastMod, "[SelfEffectOnCast]", isAbilityPresent, isAbilityPresent ? blasterDashAndBlast.m_selfEffectOnCast : null)).ToString();
 	}
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class DebugCommand_LogSystemInfo : DebugCommand
@@ -29,27 +30,27 @@ public class DebugCommand_LogSystemInfo : DebugCommand
 
 	public override void OnIncreaseClick()
 	{
-		string text = "VRAM: " + SystemInfo.graphicsMemorySize + "\n";
+		string text = new StringBuilder().Append("VRAM: ").Append(SystemInfo.graphicsMemorySize).Append("\n").ToString();
 		string text2 = text;
-		text = text2 + "ShaderVersion: " + SystemInfo.graphicsShaderLevel + "\n";
+		text = new StringBuilder().Append(text2).Append("ShaderVersion: ").Append(SystemInfo.graphicsShaderLevel).Append("\n").ToString();
 		text2 = text;
-		text = text2 + "MaxTextureSize: " + SystemInfo.maxTextureSize + "\n";
+		text = new StringBuilder().Append(text2).Append("MaxTextureSize: ").Append(SystemInfo.maxTextureSize).Append("\n").ToString();
 		text2 = text;
-		text = text2 + "MaxCubemapSize: " + SystemInfo.maxCubemapSize + "\n";
-		text = text + "GraphicsDeviceVersion: " + SystemInfo.graphicsDeviceVersion + "\n";
+		text = new StringBuilder().Append(text2).Append("MaxCubemapSize: ").Append(SystemInfo.maxCubemapSize).Append("\n").ToString();
+		text = new StringBuilder().Append(text).Append("GraphicsDeviceVersion: ").Append(SystemInfo.graphicsDeviceVersion).Append("\n").ToString();
 		TextConsole.Get().Write(text);
 	}
 
 	public override bool OnSlashCommand(string arguments)
 	{
-		string text = "VRAM: " + SystemInfo.graphicsMemorySize + "\n";
+		string text = new StringBuilder().Append("VRAM: ").Append(SystemInfo.graphicsMemorySize).Append("\n").ToString();
 		string text2 = text;
-		text = text2 + "ShaderVersion: " + SystemInfo.graphicsShaderLevel + "\n";
+		text = new StringBuilder().Append(text2).Append("ShaderVersion: ").Append(SystemInfo.graphicsShaderLevel).Append("\n").ToString();
 		text2 = text;
-		text = text2 + "MaxTextureSize: " + SystemInfo.maxTextureSize + "\n";
+		text = new StringBuilder().Append(text2).Append("MaxTextureSize: ").Append(SystemInfo.maxTextureSize).Append("\n").ToString();
 		text2 = text;
-		text = text2 + "MaxCubemapSize: " + SystemInfo.maxCubemapSize + "\n";
-		text = text + "GraphicsDeviceVersion: " + SystemInfo.graphicsDeviceVersion + "\n";
+		text = new StringBuilder().Append(text2).Append("MaxCubemapSize: ").Append(SystemInfo.maxCubemapSize).Append("\n").ToString();
+		text = new StringBuilder().Append(text).Append("GraphicsDeviceVersion: ").Append(SystemInfo.graphicsDeviceVersion).Append("\n").ToString();
 		TextConsole.Get().Write(text);
 		return true;
 	}

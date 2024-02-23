@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,7 +57,7 @@ namespace TMPro.Examples
 			{
 				if (_001D == 0)
 				{
-					_0016.text = "The <#0050FF>count is: </color>" + num % 1000;
+					_0016.text = new StringBuilder().Append("The <#0050FF>count is: </color>").Append(num % 1000).ToString();
 					if (num % 1000 == 999)
 					{
 						TextMeshProUGUI textMeshProUGUI = _0016;
@@ -78,7 +79,7 @@ namespace TMPro.Examples
 				}
 				else if (_001D == 1)
 				{
-					_0013.text = "The <color=#0050FF>count is: </color>" + num % 1000;
+					_0013.text = new StringBuilder().Append("The <color=#0050FF>count is: </color>").Append(num % 1000).ToString();
 				}
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;

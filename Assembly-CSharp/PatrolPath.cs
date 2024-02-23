@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -81,7 +82,7 @@ public class PatrolPath
 					goto IL_0092;
 				}
 			}
-			Log.Error("Patrol path '" + ToString() + "' has no way points. Add them in mWayPoints");
+			Log.Error(new StringBuilder().Append("Patrol path '").Append(ToString()).Append("' has no way points. Add them in mWayPoints").ToString());
 			return null;
 		}
 		goto IL_0092;
@@ -99,7 +100,7 @@ public class PatrolPath
 			{
 				m_Direction = (Direction)(0 - m_Direction);
 				num2 = (int)(num2 + m_Direction);
-				Debug.Log("Swapping Direction to " + m_Direction.ToString() + " new index: " + num2);
+				Debug.Log(new StringBuilder().Append("Swapping Direction to ").Append(m_Direction.ToString()).Append(" new index: ").Append(num2).ToString());
 				int obj;
 				if (m_StartingDirection == m_Direction)
 				{
@@ -113,7 +114,7 @@ public class PatrolPath
 			}
 			else
 			{
-				Debug.Log("New index: " + num2);
+				Debug.Log(new StringBuilder().Append("New index: ").Append(num2).ToString());
 				onIncremenet(IncrementWaypointResult.Incremented);
 			}
 		}

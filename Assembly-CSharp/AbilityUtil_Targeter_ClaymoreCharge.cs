@@ -72,13 +72,14 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			false,
 			targetingActor);
 		float magnitude = (laserEndPoint - loSCheckPos).magnitude;
+		BoardSquare pathEndSquare;
 		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(
 			loSCheckPos,
 			laserEndPoint,
 			currentTarget.AimDirection,
 			magnitude,
 			targetingActor,
-			out BoardSquare pathEndSquare);
+			out pathEndSquare);
 		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(
 			targetingActor,
 			pathEndSquare,
@@ -86,6 +87,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			true);
 		List<ActorData> actorsOnPath = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeamAsList(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actorsOnPath);
+		Vector3 laserEndPos;
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
 			loSCheckPos,
 			currentTarget.AimDirection,
@@ -97,7 +99,7 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 			1,
 			true,
 			false,
-			out Vector3 laserEndPos,
+			out laserEndPos,
 			null);
 		actorsInLaser.AddRange(actorsOnPath);
 		TargeterUtils.SortActorsByDistanceToPos(ref actorsInLaser, loSCheckPos);
@@ -239,8 +241,8 @@ public class AbilityUtil_Targeter_ClaymoreCharge : AbilityUtil_Targeter
 	public static BoardSquare GetChargeDestination(ActorData caster, BoardSquare desiredDest, BoardSquarePathInfo pathToDesired)
 	{
 		BoardSquare secondToLastInOrigPath = null;
-		BoardSquarePathInfo pathEndpoint = pathToDesired?.GetPathEndpoint();
-		if (pathEndpoint?.prev != null)
+		BoardSquarePathInfo pathEndpoint = pathToDesired != null ? pathToDesired.GetPathEndpoint() : null;
+		if (pathEndpoint != null ? pathEndpoint.prev != null : false)
 		{
 			secondToLastInOrigPath = pathEndpoint.prev.square;
 		}

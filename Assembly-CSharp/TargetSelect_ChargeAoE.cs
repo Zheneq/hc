@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
@@ -24,7 +25,7 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "Intended for single click charge abilities, with line and AoE on either end.\n" + GetContextUsageStr(ContextKeys.s_InEndAoe.GetName(), "on hit actor, 1 if in AoE near end of laser, 0 otherwise") + GetContextUsageStr(ContextKeys.s_ChargeEndPos.GetName(), "non-actor specific, charge end position", false);
+		return new StringBuilder().Append("Intended for single click charge abilities, with line and AoE on either end.\n").Append(GetContextUsageStr(ContextKeys.s_InEndAoe.GetName(), "on hit actor, 1 if in AoE near end of laser, 0 otherwise")).Append(GetContextUsageStr(ContextKeys.s_ChargeEndPos.GetName(), "non-actor specific, charge end position", false)).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)
@@ -141,7 +142,8 @@ public class TargetSelect_ChargeAoE : GenericAbility_TargetSelectBase
 			boardSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startSquare.ToVector3(), abilityLineEndpoint);
 		}
 		BoardSquarePathInfo chargePath = KnockbackUtils.BuildStraightLineChargePath(caster, boardSquare, startSquare, false);
-		TrimChargePathOnActorHit(chargePath, startSquare, lineHalfWidthInSquares, caster, relevantTeams, forServer, out BoardSquare destSquare);
+		BoardSquare destSquare;
+		TrimChargePathOnActorHit(chargePath, startSquare, lineHalfWidthInSquares, caster, relevantTeams, forServer, out destSquare);
 		return destSquare;
 	}
 

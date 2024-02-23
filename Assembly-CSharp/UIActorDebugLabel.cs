@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,7 +38,7 @@ public class UIActorDebugLabel : MonoBehaviour
 				KeyValuePair<string, string> current = enumerator.Current;
 				if (m_shouldKeep.Contains(current.Key))
 				{
-					text = text + current.Value + "\n\n";
+					text = new StringBuilder().Append(text).Append(current.Value).Append("\n\n").ToString();
 				}
 			}
 		}

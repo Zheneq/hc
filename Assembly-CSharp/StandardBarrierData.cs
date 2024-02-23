@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -81,7 +82,7 @@ public class StandardBarrierData
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens, string name, bool addCompare = false, StandardBarrierData other = null)
 	{
 		bool flag = addCompare && other != null;
-		string name2 = name + "_Duration";
+		string name2 = new StringBuilder().Append(name).Append("_Duration").ToString();
 		int maxDuration = m_maxDuration;
 		int otherVal;
 		if (flag)
@@ -93,7 +94,7 @@ public class StandardBarrierData
 			otherVal = 0;
 		}
 		AbilityMod.AddToken_IntDiff(tokens, name2, "barrier duration", maxDuration, flag, otherVal);
-		string name3 = name + "_MaxHits";
+		string name3 = new StringBuilder().Append(name).Append("_MaxHits").ToString();
 		int maxHits = m_maxHits;
 		int otherVal2;
 		if (flag)
@@ -108,7 +109,7 @@ public class StandardBarrierData
 		if (m_onEnemyMovedThrough != null && m_onEnemyMovedThrough.HasResponse())
 		{
 			GameplayResponseForActor onEnemyMovedThrough = m_onEnemyMovedThrough;
-			string name4 = name + "_EnemyCross";
+			string name4 = new StringBuilder().Append(name).Append("_EnemyCross").ToString();
 			object other2;
 			if (flag)
 			{
@@ -125,7 +126,7 @@ public class StandardBarrierData
 			if (m_onAllyMovedThrough.HasResponse())
 			{
 				GameplayResponseForActor onAllyMovedThrough = m_onAllyMovedThrough;
-				string name5 = name + "_AllyCross";
+				string name5 = new StringBuilder().Append(name).Append("_AllyCross").ToString();
 				object other3;
 				if (flag)
 				{
@@ -161,7 +162,7 @@ public class StandardBarrierData
 		bool flag = diff && other != null;
 		string str = "\n";
 		string otherSep = "\t        \t | in base  =";
-		string text = InEditorDescHelper.BoldedStirng(header) + str;
+		string text = new StringBuilder().Append(InEditorDescHelper.BoldedStirng(header)).Append(str).ToString();
 		string str2 = text;
 		float myVal = m_maxDuration;
 		int num;
@@ -173,10 +174,11 @@ public class StandardBarrierData
 		{
 			num = 0;
 		}
-		text = str2 + InEditorDescHelper.AssembleFieldWithDiff("[ Max Duration ] = ", indent, otherSep, myVal, flag, num);
+
+		text = new StringBuilder().Append(str2).Append(InEditorDescHelper.AssembleFieldWithDiff("[ Max Duration ] = ", indent, otherSep, myVal, flag, num)).ToString();
 		if (m_maxDuration <= 0)
 		{
-			text = text + indent + "Barrier won't expire by time, [Max Duration] is not a positive number.\n";
+			text = new StringBuilder().Append(text).Append(indent).Append("Barrier won't expire by time, [Max Duration] is not a positive number.\n").ToString();
 		}
 		string str3 = text;
 		float width = m_width;
@@ -189,7 +191,8 @@ public class StandardBarrierData
 		{
 			otherVal = 0f;
 		}
-		text = str3 + InEditorDescHelper.AssembleFieldWithDiff("[ Width ] = ", indent, otherSep, width, flag, otherVal);
+
+		text = new StringBuilder().Append(str3).Append(InEditorDescHelper.AssembleFieldWithDiff("[ Width ] = ", indent, otherSep, width, flag, otherVal)).ToString();
 		text += InEditorDescHelper.AssembleFieldWithDiff("[ Bidirectional? ] = ", indent, otherSep, m_bidirectional, flag, flag && other.m_bidirectional);
 		text += InEditorDescHelper.AssembleFieldWithDiff("[ Block Vision ] = \t\t", indent, otherSep, m_blocksVision, flag, flag ? other.m_blocksVision : BlockingRules.ForNobody);
 		text += InEditorDescHelper.AssembleFieldWithDiff("[ Block Ability ] = \t\t", indent, otherSep, m_blocksAbilities, flag, flag ? other.m_blocksAbilities : BlockingRules.ForNobody);
@@ -207,7 +210,8 @@ public class StandardBarrierData
 		{
 			otherVal2 = 0;
 		}
-		text = str4 + InEditorDescHelper.AssembleFieldWithDiff("[ Consider as Cover ] = \t", indent, otherSep, considerAsCover, flag, (byte)otherVal2 != 0);
+
+		text = new StringBuilder().Append(str4).Append(InEditorDescHelper.AssembleFieldWithDiff("[ Consider as Cover ] = \t", indent, otherSep, considerAsCover, flag, (byte)otherVal2 != 0)).ToString();
 		text += InEditorDescHelper.AssembleFieldWithDiff("[ Max Hits ] = ", indent, otherSep, m_maxHits, flag, flag ? other.m_maxHits : 0);
 		string str5 = text;
 		bool removeAtTurnEndIfEnemyMovedThrough = m_removeAtTurnEndIfEnemyMovedThrough;
@@ -220,8 +224,8 @@ public class StandardBarrierData
 		{
 			otherVal3 = 0;
 		}
-		
-		text = str5 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Enemy Moved Through = ", indent, otherSep, removeAtTurnEndIfEnemyMovedThrough, flag, (byte)otherVal3 != 0, ((bool b) => b));
+
+		text = new StringBuilder().Append(str5).Append(InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Enemy Moved Through = ", indent, otherSep, removeAtTurnEndIfEnemyMovedThrough, flag, (byte)otherVal3 != 0, ((bool b) => b))).ToString();
 		string str6 = text;
 		bool removeAtTurnEndIfAllyMovedThrough = m_removeAtTurnEndIfAllyMovedThrough;
 		int otherVal4;
@@ -233,8 +237,8 @@ public class StandardBarrierData
 		{
 			otherVal4 = 0;
 		}
-		
-		text = str6 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Ally Moved Through = ", indent, otherSep, removeAtTurnEndIfAllyMovedThrough, flag, (byte)otherVal4 != 0, ((bool b) => b));
+
+		text = new StringBuilder().Append(str6).Append(InEditorDescHelper.AssembleFieldWithDiff("* Remove on Turn End: if Ally Moved Through = ", indent, otherSep, removeAtTurnEndIfAllyMovedThrough, flag, (byte)otherVal4 != 0, ((bool b) => b))).ToString();
 		string str7 = text;
 		bool removeAtPhaseEndIfEnemyMovedThrough = m_removeAtPhaseEndIfEnemyMovedThrough;
 		int otherVal5;
@@ -246,8 +250,8 @@ public class StandardBarrierData
 		{
 			otherVal5 = 0;
 		}
-		
-		text = str7 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Enemy Moved Through =", indent, otherSep, removeAtPhaseEndIfEnemyMovedThrough, flag, (byte)otherVal5 != 0, ((bool b) => b));
+
+		text = new StringBuilder().Append(str7).Append(InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Enemy Moved Through =", indent, otherSep, removeAtPhaseEndIfEnemyMovedThrough, flag, (byte)otherVal5 != 0, ((bool b) => b))).ToString();
 		string str8 = text;
 		bool removeAtPhaseEndIfAllyMovedThrough = m_removeAtPhaseEndIfAllyMovedThrough;
 		int otherVal6;
@@ -259,8 +263,8 @@ public class StandardBarrierData
 		{
 			otherVal6 = 0;
 		}
-		
-		text = str8 + InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Ally Moved Through =", indent, otherSep, removeAtPhaseEndIfAllyMovedThrough, flag, (byte)otherVal6 != 0, ((bool b) => b));
+
+		text = new StringBuilder().Append(str8).Append(InEditorDescHelper.AssembleFieldWithDiff("* Remove on Phase End: if Ally Moved Through =", indent, otherSep, removeAtPhaseEndIfAllyMovedThrough, flag, (byte)otherVal6 != 0, ((bool b) => b))).ToString();
 		if (m_onEnemyMovedThrough.HasResponse())
 		{
 			goto IL_03f2;
@@ -285,7 +289,8 @@ public class StandardBarrierData
 		{
 			other2 = null;
 		}
-		text = str9 + onEnemyMovedThrough.GetInEditorDescription("    >> On <color=cyan>Enemy</color> Moved Through <<", "            ", flag, (GameplayResponseForActor)other2);
+
+		text = new StringBuilder().Append(str9).Append(onEnemyMovedThrough.GetInEditorDescription("    >> On <color=cyan>Enemy</color> Moved Through <<", "            ", flag, (GameplayResponseForActor)other2)).ToString();
 		goto IL_0428;
 		IL_0468:
 		text += m_onAllyMovedThrough.GetInEditorDescription("    >> On <color=cyan>Ally</color> Moved Through <<", "            ", flag, (!flag) ? null : other.m_onAllyMovedThrough);
@@ -330,7 +335,8 @@ public class StandardBarrierData
 		{
 			otherObjList = null;
 		}
-		text = str10 + InEditorDescHelper.GetListDiffString("Barrier Sequence Prefabs (for barrier visuals):", indent, (GameObject[])myObjList, flag, (GameObject[])otherObjList, InEditorDescHelper.GetGameObjectEntryStr);
+
+		text = new StringBuilder().Append(str10).Append(InEditorDescHelper.GetListDiffString("Barrier Sequence Prefabs (for barrier visuals):", indent, (GameObject[])myObjList, flag, (GameObject[])otherObjList, InEditorDescHelper.GetGameObjectEntryStr)).ToString();
 		if (m_responseOnShotBlock.HasResponses())
 		{
 			string str11 = text;
@@ -344,9 +350,10 @@ public class StandardBarrierData
 			{
 				other3 = null;
 			}
-			text = str11 + responseOnShotBlock.GetInEditorDescription("    >> Response on Shot Block <<", "            ", flag, (BarrierResponseOnShot)other3);
+
+			text = new StringBuilder().Append(str11).Append(responseOnShotBlock.GetInEditorDescription("    >> Response on Shot Block <<", "            ", flag, (BarrierResponseOnShot)other3)).ToString();
 		}
-		return text + "<b>END oF BarrierData</b> -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n";
+		return new StringBuilder().Append(text).Append("<b>END oF BarrierData</b> -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n").ToString();
 	}
 
 	private string DiffColorStr(string input)

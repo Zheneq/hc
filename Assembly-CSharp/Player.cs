@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine.Networking;
 
 public struct Player
@@ -20,7 +21,10 @@ public struct Player
 	//[CompilerGenerated]
 	//private static Action<GameState> OnGameStateChanged;
 
-	public bool WasEverHuman => m_accountId > 0;
+	public bool WasEverHuman
+	{
+		get { return m_accountId > 0; }
+	}
 
 	internal Player(NetworkConnection connection, long accountId)
 	{
@@ -109,6 +113,6 @@ public struct Player
 
 	public override string ToString()
 	{
-		return $"[Player: id={m_id}, connectionId={m_connectionId}, accountId={m_accountId}]";
+		return new StringBuilder().Append("[Player: id=").Append(m_id).Append(", connectionId=").Append(m_connectionId).Append(", accountId=").Append(m_accountId).Append("]").ToString();
 	}
 }

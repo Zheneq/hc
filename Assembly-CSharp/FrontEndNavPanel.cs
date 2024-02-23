@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -174,7 +175,8 @@ public class FrontEndNavPanel : MonoBehaviour
 				num2 = playerWallet.GetCurrentAmount(CurrencyType.UnlockFreelancerToken);
 			}
 		}
-		m_freelancerCurrencyText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(num, true);
+
+		m_freelancerCurrencyText.text = new StringBuilder().Append("<sprite name=credit>").Append(UIStorePanel.FormatIntToString(num, true)).ToString();
 		UITooltipHoverObject component = m_freelancerCurrencyText.GetComponent<UITooltipHoverObject>();
 		
 		component.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
@@ -183,7 +185,7 @@ public class FrontEndNavPanel : MonoBehaviour
 				uISimpleTooltip3.Setup(StringUtil.TR("FreelancerCurrencyDesc", "Global"));
 				return true;
 			});
-		m_isoText.text = "<sprite name=iso>" + UIStorePanel.FormatIntToString(value, true);
+		m_isoText.text = new StringBuilder().Append("<sprite name=iso>").Append(UIStorePanel.FormatIntToString(value, true)).ToString();
 		UITooltipHoverObject component2 = m_isoText.GetComponent<UITooltipHoverObject>();
 		
 		component2.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
@@ -192,7 +194,7 @@ public class FrontEndNavPanel : MonoBehaviour
 				uISimpleTooltip2.Setup(StringUtil.TR("ISODescription", "Global"));
 				return true;
 			});
-		m_prestigeText.text = "<sprite name=rankedCurrency>" + UIStorePanel.FormatIntToString(value2, true);
+		m_prestigeText.text = new StringBuilder().Append("<sprite name=rankedCurrency>").Append(UIStorePanel.FormatIntToString(value2, true)).ToString();
 		UITooltipHoverObject component3 = m_prestigeText.GetComponent<UITooltipHoverObject>();
 		
 		component3.Setup(TooltipType.Simple, delegate(UITooltipBase tooltip)
@@ -688,7 +690,7 @@ public class FrontEndNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					m_freelancerCurrencyText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(newBalance.Amount, true);
+					m_freelancerCurrencyText.text = new StringBuilder().Append("<sprite name=credit>").Append(UIStorePanel.FormatIntToString(newBalance.Amount, true)).ToString();
 					if (newBalance.Amount > 0)
 					{
 						while (true)
@@ -716,7 +718,7 @@ public class FrontEndNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					m_isoText.text = "<sprite name=iso>" + UIStorePanel.FormatIntToString(newBalance.Amount, true);
+					m_isoText.text = new StringBuilder().Append("<sprite name=iso>").Append(UIStorePanel.FormatIntToString(newBalance.Amount, true)).ToString();
 					return;
 				}
 			}
@@ -730,7 +732,7 @@ public class FrontEndNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					m_prestigeText.text = "<sprite name=rankedCurrency>" + UIStorePanel.FormatIntToString(newBalance.Amount, true);
+					m_prestigeText.text = new StringBuilder().Append("<sprite name=rankedCurrency>").Append(UIStorePanel.FormatIntToString(newBalance.Amount, true)).ToString();
 					return;
 				}
 			}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace AbilityContextNamespace
@@ -30,13 +31,13 @@ namespace AbilityContextNamespace
 		public string GetInEditorDesc(string header, OnHitAuthoredData baseOnHitData)
 		{
 			string text = "";
-			text += OnHitDataMod.GetIntFieldModDesc(m_enemyIntFieldMods, baseOnHitData?.m_enemyHitIntFields, "Enemy Int Field Mods");
-			text += OnHitDataMod.GetEffectFieldModDesc(m_enemyEffectMods, baseOnHitData?.m_enemyHitEffectFields, "Enemy Effect Field Mods");
-			text += OnHitDataMod.GetIntFieldModDesc(m_allyIntFieldMods, baseOnHitData?.m_allyHitIntFields, "Ally Int Field Mods");
-			text += OnHitDataMod.GetEffectFieldModDesc(m_allyEffectMods, baseOnHitData?.m_allyHitEffectFields, "Ally Effect Field Mods");
+			text += OnHitDataMod.GetIntFieldModDesc(m_enemyIntFieldMods, baseOnHitData != null ? baseOnHitData.m_enemyHitIntFields : null, "Enemy Int Field Mods");
+			text += OnHitDataMod.GetEffectFieldModDesc(m_enemyEffectMods, baseOnHitData != null ? baseOnHitData.m_enemyHitEffectFields : null, "Enemy Effect Field Mods");
+			text += OnHitDataMod.GetIntFieldModDesc(m_allyIntFieldMods, baseOnHitData != null ? baseOnHitData.m_allyHitIntFields : null, "Ally Int Field Mods");
+			text += OnHitDataMod.GetEffectFieldModDesc(m_allyEffectMods, baseOnHitData != null ? baseOnHitData.m_allyHitEffectFields : null, "Ally Effect Field Mods");
 			if (text.Length > 0)
 			{
-				text = InEditorDescHelper.ColoredString(header, "yellow") + "\n" + text + "\n";
+				text = new StringBuilder().Append(InEditorDescHelper.ColoredString(header, "yellow")).Append("\n").Append(text).Append("\n").ToString();
 			}
 			return text;
 		}
@@ -46,7 +47,7 @@ namespace AbilityContextNamespace
 			string text = "";
 			if (intMods.m_prependIntFields != null && intMods.m_prependIntFields.Count > 0)
 			{
-				text += "<color=cyan>" + header + ": New entries prepended:</color>\n";
+				text += new StringBuilder().Append("<color=cyan>").Append(header).Append(": New entries prepended:</color>\n").ToString();
 				for (int i = 0; i < intMods.m_prependIntFields.Count; i++)
 				{
 					OnHitIntField onHitIntField = intMods.m_prependIntFields[i];
@@ -55,14 +56,14 @@ namespace AbilityContextNamespace
 			}
 			if (intMods.m_overrides != null && intMods.m_overrides.Count > 0)
 			{
-				text += "<color=cyan>" + header + ": Override to existing entry:</color>\n";
+				text += new StringBuilder().Append("<color=cyan>").Append(header).Append(": Override to existing entry:</color>\n").ToString();
 				for (int j = 0; j < intMods.m_overrides.Count; j++)
 				{
 					IntFieldOverride intFieldOverride = intMods.m_overrides[j];
 					string identifier = intFieldOverride.GetIdentifier();
 					if (!string.IsNullOrEmpty(identifier))
 					{
-						text += "Target Identifier: " + InEditorDescHelper.ColoredString(intFieldOverride.m_targetIdentifier, "white") + "\n";
+						text += new StringBuilder().Append("Target Identifier: ").Append(InEditorDescHelper.ColoredString(intFieldOverride.m_targetIdentifier, "white")).Append("\n").ToString();
 						if (baseIntFields != null)
 						{
 							bool isFound = false;
@@ -77,7 +78,7 @@ namespace AbilityContextNamespace
 							}
 							if (!isFound)
 							{
-								text += "<color=red>Target Identifier " + identifier + " not found on base on hit data</color>\n";
+								text += new StringBuilder().Append("<color=red>Target Identifier ").Append(identifier).Append(" not found on base on hit data</color>\n").ToString();
 							}
 						}
 					}
@@ -91,7 +92,7 @@ namespace AbilityContextNamespace
 			string text = "";
 			if (effectMods.m_prependEffectFields != null && effectMods.m_prependEffectFields.Count > 0)
 			{
-				text += "<color=cyan>" + header + ": New entries prepended:</color>\n";
+				text += new StringBuilder().Append("<color=cyan>").Append(header).Append(": New entries prepended:</color>\n").ToString();
 				for (int i = 0; i < effectMods.m_prependEffectFields.Count; i++)
 				{
 					OnHitEffecField onHitEffecField = effectMods.m_prependEffectFields[i];
@@ -100,7 +101,7 @@ namespace AbilityContextNamespace
 			}
 			if (effectMods.m_overrides != null && effectMods.m_overrides.Count > 0)
 			{
-				text += "<color=cyan>" + header + ": Override to existing entry:</color>\n";
+				text += new StringBuilder().Append("<color=cyan>").Append(header).Append(": Override to existing entry:</color>\n").ToString();
 				for (int j = 0; j < effectMods.m_overrides.Count; j++)
 				{
 					EffectFieldOverride effectFieldOverride = effectMods.m_overrides[j];
@@ -120,10 +121,11 @@ namespace AbilityContextNamespace
 							}
 							if (onHitEffecField2 == null)
 							{
-								text += "<color=red>Target Identifier " + text2 + " not found on base on hit data</color>\n";
+								text += new StringBuilder().Append("<color=red>Target Identifier ").Append(text2).Append(" not found on base on hit data</color>\n").ToString();
 							}
 						}
-						text += "Target Identifier: " + InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white") + "\n";
+
+						text += new StringBuilder().Append("Target Identifier: ").Append(InEditorDescHelper.ColoredString(effectFieldOverride.m_targetIdentifier, "white")).Append("\n").ToString();
 						text += effectFieldOverride.m_effectOverride.GetInEditorDesc(onHitEffecField2 != null, onHitEffecField2);
 					}
 				}

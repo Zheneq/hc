@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBase
@@ -27,7 +28,7 @@ public class TargetSelect_LaserWithLayeredRings : GenericAbility_TargetSelectBas
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "1 if target is in AoE, 0 otherwise") + GetContextUsageStr(ContextKeys.s_Layer.GetName(), "for indicating which layer a target in AoE (sorted from inner to outer)") + GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "distance from start of AoE center, in squares");
+		return new StringBuilder().Append(GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "1 if target is in AoE, 0 otherwise")).Append(GetContextUsageStr(ContextKeys.s_Layer.GetName(), "for indicating which layer a target in AoE (sorted from inner to outer)")).Append(GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "distance from start of AoE center, in squares")).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class PointCondition
@@ -171,25 +172,25 @@ public class PointCondition
 		{
 			text = "Turn Limit Expired";
 		}
-		string str = "score(" + allyPoints + ")";
-		string str2 = (!subtractEnemyPoints) ? (string.Empty + threshold) : ("score(" + enemyPoints + ")+" + threshold);
+		string str = new StringBuilder().Append("score(").Append(allyPoints).Append(")").ToString();
+		string str2 = (!subtractEnemyPoints) ? new StringBuilder().Append(string.Empty).Append(threshold).ToString() : new StringBuilder().Append("score(").Append(enemyPoints).Append(")+").Append(threshold).ToString();
 		string text2 = "ERROR(case)";
 		switch (m_pointsMustBe)
 		{
 		case PointRelationship.GreaterThan:
-			text2 = str + ">" + str2;
+			text2 = new StringBuilder().Append(str).Append(">").Append(str2).ToString();
 			break;
 		case PointRelationship.LessThan:
-			text2 = str + "<" + str2;
+			text2 = new StringBuilder().Append(str).Append("<").Append(str2).ToString();
 			break;
 		case PointRelationship.GreaterThanOrEqualTo:
-			text2 = str + ">=" + str2;
+			text2 = new StringBuilder().Append(str).Append(">=").Append(str2).ToString();
 			break;
 		case PointRelationship.LessThanOrEqualTo:
-			text2 = str + "<=" + str2;
+			text2 = new StringBuilder().Append(str).Append("<=").Append(str2).ToString();
 			break;
 		case PointRelationship.EqualTo:
-			text2 = str + "=" + str2;
+			text2 = new StringBuilder().Append(str).Append("=").Append(str2).ToString();
 			break;
 		case PointRelationship.DontCare:
 			text2 = string.Empty;
@@ -197,14 +198,14 @@ public class PointCondition
 		}
 		for (int i = 0; i < m_CTF_conditions.Length; i++)
 		{
-			text2 = text2 + m_CTF_conditions[i].ToString() + " ";
+			text2 = new StringBuilder().Append(text2).Append(m_CTF_conditions[i].ToString()).Append(" ").ToString();
 		}
 		while (true)
 		{
 			string result;
 			if (text.Length > 0)
 			{
-				result = text + " and " + text2;
+				result = new StringBuilder().Append(text).Append(" and ").Append(text2).ToString();
 			}
 			else
 			{

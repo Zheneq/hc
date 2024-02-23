@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -67,11 +68,11 @@ public class PrefabResourceLink
 				{
 					if (Application.isEditor)
 					{
-						Log.Error("Failed to load Resource Link prefab from " + this.m_resourcePath, new object[0]);
+						Log.Error(new StringBuilder().Append("Failed to load Resource Link prefab from ").Append(this.m_resourcePath).ToString(), new object[0]);
 					}
 					return null;
 				}
-				throw new ApplicationException("Failed to load Resource Link prefab from " + this.m_resourcePath);
+				throw new ApplicationException(new StringBuilder().Append("Failed to load Resource Link prefab from ").Append(this.m_resourcePath).ToString());
 			}
 			else
 			{
@@ -148,13 +149,13 @@ public class PrefabResourceLink
 	{
 		if (loadedLinkObject == null)
 		{
-			Log.Error("Could not load saved Resource Link from: " + this.m_resourcePath, new object[0]);
+			Log.Error(new StringBuilder().Append("Could not load saved Resource Link from: ").Append(this.m_resourcePath).ToString(), new object[0]);
 			return null;
 		}
 		SavedResourceLink component = loadedLinkObject.GetComponent<SavedResourceLink>();
 		if (component == null)
 		{
-			Log.Error("Could not load saved Resource Link at [" + this.m_resourcePath + "] does not have a SavedResourceLink component", new object[0]);
+			Log.Error(new StringBuilder().Append("Could not load saved Resource Link at [").Append(this.m_resourcePath).Append("] does not have a SavedResourceLink component").ToString(), new object[0]);
 			return null;
 		}
 		if (component.prefabReference == null)
@@ -171,7 +172,7 @@ public class PrefabResourceLink
 		}
 		if (PrefabResourceLink.s_loadedResourceLinks.ContainsKey(this.m_resourcePath))
 		{
-			Log.Error("Prefab resource link already contains a loaded entry for path - replacing it: " + this.m_resourcePath, new object[0]);
+			Log.Error(new StringBuilder().Append("Prefab resource link already contains a loaded entry for path - replacing it: ").Append(this.m_resourcePath).ToString(), new object[0]);
 			PrefabResourceLink.s_loadedResourceLinks[this.m_resourcePath] = component;
 		}
 		else

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class FadeObjectGroup : MonoBehaviour
@@ -95,7 +96,7 @@ public class FadeObjectGroup : MonoBehaviour
 						{
 							if (Application.isEditor)
 							{
-								Debug.LogWarning("[" + gameObject.name + "] in group [" + base.gameObject.name + "] is already in fade object list, please remove from VFX Objects to Disable list");
+								Debug.LogWarning(new StringBuilder().Append("[").Append(gameObject.name).Append("] in group [").Append(base.gameObject.name).Append("] is already in fade object list, please remove from VFX Objects to Disable list").ToString());
 							}
 						}
 						else

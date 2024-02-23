@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -50,7 +51,7 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 	public void SetMatchTurn(int matchTurn)
 	{
 		m_matchStartTurn = m_turn - matchTurn;
-		m_turnLabel.text = $"-{GetTurn()}-";
+		m_turnLabel.text = new StringBuilder().Append("-").Append(GetTurn()).Append("-").ToString();
 	}
 
 	public int GetMinutes()
@@ -102,7 +103,7 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 		if (m_turn != GameFlowData.Get().CurrentTurn)
 		{
 			m_turn = GameFlowData.Get().CurrentTurn;
-			m_turnLabel.text = $"-{GetTurn()}-";
+			m_turnLabel.text = new StringBuilder().Append("-").Append(GetTurn()).Append("-").ToString();
 		}
 		float num = 0f;
 		if (!AppState.GetCurrent() != (bool)AppState_InGameDeployment.Get())
@@ -120,11 +121,11 @@ public class UITimerPanel : MonoBehaviour, IGameEventListener
 		}
 		if (num3 < 10)
 		{
-			m_timeLabel.text = $"{num2}:0{num3}";
+			m_timeLabel.text = new StringBuilder().Append(num2).Append(":0").Append(num3).ToString();
 		}
 		else
 		{
-			m_timeLabel.text = $"{num2}:{num3}";
+			m_timeLabel.text = new StringBuilder().Append(num2).Append(":").Append(num3).ToString();
 		}
 		m_minutes = num2;
 		m_seconds = num3;

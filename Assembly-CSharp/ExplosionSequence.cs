@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -264,7 +265,7 @@ public class ExplosionSequence : Sequence
 		}
 		while (true)
 		{
-			Debug.LogWarning("Sequence[" + base.gameObject.name + "] does not have a valid explosion sequence prefab, please add one if needed");
+			Debug.LogWarning(new StringBuilder().Append("Sequence[").Append(base.gameObject.name).Append("] does not have a valid explosion sequence prefab, please add one if needed").ToString());
 			return;
 		}
 	}

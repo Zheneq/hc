@@ -215,7 +215,10 @@ public class WebSocketInterface
 		}
 	}
 
-	public WebSocket WebSocket => m_webSocket;
+	public WebSocket WebSocket
+	{
+		get { return m_webSocket; }
+	}
 
 	public WebSocket.SocketState State
 	{
@@ -246,7 +249,10 @@ public class WebSocketInterface
 		private set;
 	}
 
-	public string ServerAddress => m_serverAddress;
+	public string ServerAddress
+	{
+		get { return m_serverAddress; }
+	}
 
 	public WebSocketInterface(WebSocketMessageFactory factory)
 	{
@@ -271,7 +277,7 @@ public class WebSocketInterface
 	{
 		if (serverAddress.IndexOf("://") == -1)
 		{
-			serverAddress = "ws://" + serverAddress;
+			serverAddress = new StringBuilder().Append("ws://").Append(serverAddress).ToString();
 		}
 		Uri uri = new Uri(serverAddress);
 		UriBuilder uriBuilder = new UriBuilder();
@@ -290,7 +296,7 @@ public class WebSocketInterface
 		goto IL_008e;
 		IL_008e:
 		uriBuilder.Port = port;
-		uriBuilder.Path = ((!(uri.AbsolutePath != "/")) ? ("/" + defaultPath) : uri.AbsolutePath);
+		uriBuilder.Path = ((!(uri.AbsolutePath != "/")) ? new StringBuilder().Append("/").Append(defaultPath).ToString() : uri.AbsolutePath);
 		m_serverAddress = uriBuilder.ToString();
 		m_webSocket = new WebSocket(MessageFactory, m_serverAddress);
 		m_webSocket.HeartbeatPeriod = m_heartbeatPeriod;

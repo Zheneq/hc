@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class FSMState : MonoBehaviour, IGameEventListener
@@ -245,7 +246,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 			}
 		}
 		IL_57:
-		Debug.LogError("FSMState ERROR: Either the Transistion is NULL or you didnt specific a state/brain to pop/push for transition: " + trans);
+		Debug.LogError(new StringBuilder().Append("FSMState ERROR: Either the Transistion is NULL or you didnt specific a state/brain to pop/push for transition: ").Append(trans).ToString());
 	}
 
 	public void DeleteTransition(Transition trans)
@@ -257,7 +258,7 @@ public class FSMState : MonoBehaviour, IGameEventListener
 		}
 		if (this.MyFSM.GetPendingTransition() == trans)
 		{
-			Debug.LogWarning("Ack - tried to remove a transition of " + trans + " that I have a pending change to. Deleting pending transition");
+			Debug.LogWarning(new StringBuilder().Append("Ack - tried to remove a transition of ").Append(trans).Append(" that I have a pending change to. Deleting pending transition").ToString());
 			this.MyFSM.SetPendingTransition(Transition.NullTransition);
 		}
 		this.transitionTableMap.Remove(trans);

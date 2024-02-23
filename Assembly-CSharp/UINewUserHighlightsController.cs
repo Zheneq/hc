@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System;
+using System.Text;
 using UnityEngine;
 
 public class UINewUserHighlightsController : UIScene
@@ -442,7 +443,7 @@ public class UINewUserHighlightsController : UIScene
 		{
 			str = "IN";
 		}
-		return animPrefix + (string)str;
+		return new StringBuilder().Append(animPrefix).Append((string)str).ToString();
 	}
 
 	public void SetDailyMissionSelected(int selectedIndex)

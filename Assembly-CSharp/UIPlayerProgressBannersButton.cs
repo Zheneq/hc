@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -153,7 +154,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 										case 0:
 											break;
 										default:
-											Log.Error("Title change request was rejected: " + response.ErrorMessage);
+											Log.Error(new StringBuilder().Append("Title change request was rejected: ").Append(response.ErrorMessage).ToString());
 											UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 											ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 											return;
@@ -183,7 +184,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 									case 0:
 										break;
 									default:
-										Log.Error("Ribbon change request was rejected: " + response.ErrorMessage);
+										Log.Error(new StringBuilder().Append("Ribbon change request was rejected: ").Append(response.ErrorMessage).ToString());
 										UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 										ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 										return;
@@ -202,7 +203,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 				{
 					if (!response.Success)
 					{
-						Log.Error("Banner change request was rejected: " + response.ErrorMessage);
+						Log.Error(new StringBuilder().Append("Banner change request was rejected: ").Append(response.ErrorMessage).ToString());
 						UIPlayerProgressPanel.Get().m_bannersPanel.ResetPage();
 						ClientGameManager.Get().UpdatePlayerStatus(FriendListPanel.Get().m_panelHeader.m_statusLabels[0].text);
 					}
@@ -266,7 +267,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 		{
 			m_selectedID = title.ID;
 			m_titleLabel.text = title.GetTitleText();
-			m_unlocked = ClientGameManager.Get().IsTitleUnlocked(title, out List<GameBalanceVars.UnlockConditionValue> unlockConditionValues);
+			List<GameBalanceVars.UnlockConditionValue> unlockConditionValues;
+			m_unlocked = ClientGameManager.Get().IsTitleUnlocked(title, out unlockConditionValues);
 			SetDisplay(title.m_unlockData, unlockConditionValues, false);
 			m_name = title.GetTitleText();
 			if (!title.GetObtainedDescription().IsNullOrEmpty())
@@ -328,7 +330,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			Sprite sprite = (Sprite)Resources.Load(banner.m_iconResourceString, typeof(Sprite));
 			if (sprite == null)
 			{
-				Log.Warning(Log.Category.UI, $"Could not load banner resource from [{banner.m_iconResourceString}] as sprite.");
+				Log.Warning(Log.Category.UI, new StringBuilder().Append("Could not load banner resource from [").Append(banner.m_iconResourceString).Append("] as sprite.").ToString());
 			}
 			m_bannerImage.sprite = sprite;
 			UIManager.SetGameObjectActive(m_bannerImage, true);
@@ -370,7 +372,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			SetSelected((byte)selected != 0);
 			m_valid = true;
 			string colorHexString = banner.Rarity.GetColorHexString();
-			m_name = "<color=" + colorHexString + ">" + banner.GetBannerName() + "</color>";
+			m_name = new StringBuilder().Append("<color=").Append(colorHexString).Append(">").Append(banner.GetBannerName()).Append("</color>").ToString();
 			if (!banner.GetObtainedDescription().IsNullOrEmpty())
 			{
 				m_description = banner.GetObtainedDescription();
@@ -442,7 +444,7 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 			Sprite sprite = Resources.Load<Sprite>(ribbon.m_resourceIconString);
 			if (sprite == null)
 			{
-				Log.Warning(Log.Category.UI, $"Could not load banner resource from [{ribbon.m_resourceIconString}] as sprite.");
+				Log.Warning(Log.Category.UI, new StringBuilder().Append("Could not load banner resource from [").Append(ribbon.m_resourceIconString).Append("] as sprite.").ToString());
 			}
 			m_bannerImage.sprite = sprite;
 			UIManager.SetGameObjectActive(m_bannerImage, true);
@@ -628,8 +630,8 @@ public class UIPlayerProgressBannersButton : MonoBehaviour
 								case 0:
 									break;
 								default:
-									m_requirementProgressLabel.text = $"{num2} / {num}";
-									m_description = m_description + " (" + m_requirementProgressLabel.text + ")";
+									m_requirementProgressLabel.text = new StringBuilder().Append(num2).Append(" / ").Append(num).ToString();
+									m_description = new StringBuilder().Append(m_description).Append(" (").Append(m_requirementProgressLabel.text).Append(")").ToString();
 									return;
 								}
 							}

@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
@@ -48,7 +49,7 @@ public class TargetSelect_DualMeetingLasers : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "on every hit actor, 1 if in AoE, 0 otherwise") + GetContextUsageStr(ContextKeys.s_DistFromMin.GetName(), "on every actor, distance of cursor pos from min distance, for interpolation");
+		return new StringBuilder().Append(GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "on every hit actor, 1 if in AoE, 0 otherwise")).Append(GetContextUsageStr(ContextKeys.s_DistFromMin.GetName(), "on every actor, distance of cursor pos from min distance, for interpolation")).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)

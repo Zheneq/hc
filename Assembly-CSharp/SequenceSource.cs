@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -324,7 +325,7 @@ public class SequenceSource
 		{
 			str = "(none)";
 		}
-		return "Did Hit Actor IDs: " + (string)str;
+		return new StringBuilder().Append("Did Hit Actor IDs: ").Append((string)str).ToString();
 	}
 
 	public string GetHitPositionsString()
@@ -334,7 +335,7 @@ public class SequenceSource
 		{
 			while (enumerator.MoveNext())
 			{
-				text = text + "\t" + enumerator.Current.ToString() + "\n";
+				text = new StringBuilder().Append(text).Append("\t").Append(enumerator.Current.ToString()).Append("\n").ToString();
 			}
 			while (true)
 			{

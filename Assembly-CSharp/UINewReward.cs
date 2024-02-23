@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -365,11 +366,11 @@ public class UINewReward : UIScene
 		}
 		if (info.m_unlockCharType != 0)
 		{
-			str = str + " " + GameWideData.Get().GetCharacterResourceLink(info.m_unlockCharType).GetDisplayName();
+			str = new StringBuilder().Append(str).Append(" ").Append(GameWideData.Get().GetCharacterResourceLink(info.m_unlockCharType).GetDisplayName()).ToString();
 		}
 		else
 		{
-			str = str + " " + info.m_displayName;
+			str = new StringBuilder().Append(str).Append(" ").Append(info.m_displayName).ToString();
 		}
 		name = RewardUtils.GetDisplayString(info.m_rewardData, true);
 		if (info.m_rewardData.SpritePath == null)

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -57,7 +58,8 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			{
 				DisplayString = season.GetDisplayName();
 			}
-			DisplayString = DisplayString + ": " + StringUtil.TR_PersistedStatBucketName(statBucket);
+
+			DisplayString = new StringBuilder().Append(DisplayString).Append(": ").Append(StringUtil.TR_PersistedStatBucketName(statBucket)).ToString();
 		}
 	}
 
@@ -278,7 +280,7 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 						while (enumerator4.MoveNext())
 						{
 							OverviewStat overviewStat = (OverviewStat)enumerator4.Current;
-							m_freelancerComparisonDropdown.AddOption((int)overviewStat, StringUtil.TR("FreelancerOverviewCategory_" + overviewStat, "Global"));
+							m_freelancerComparisonDropdown.AddOption((int)overviewStat, StringUtil.TR(new StringBuilder().Append("FreelancerOverviewCategory_").Append(overviewStat).ToString(), "Global"));
 						}
 					}
 					finally
@@ -425,7 +427,7 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 
 	private void SetupFreelancerRankings()
 	{
-		m_freelancerComparisonDropdownBtn.Setup(StringUtil.TR("FreelancerOverviewCategory_" + m_overviewStat, "Global"));
+		m_freelancerComparisonDropdownBtn.Setup(StringUtil.TR(new StringBuilder().Append("FreelancerOverviewCategory_").Append(m_overviewStat).ToString(), "Global"));
 		for (int i = 0; i < m_freelancerComparisonList.Count; i++)
 		{
 			m_freelancerComparisonList[i].SetupNewStat(m_overviewStat);
@@ -636,7 +638,7 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 					int num = item.Value.Values.Sum();
 					if (num > 0)
 					{
-						dictionary[activeSeason + key.ToString()] = true;
+						dictionary[new StringBuilder().Append(activeSeason).Append(key.ToString()).ToString()] = true;
 					}
 				}
 				using (Dictionary<int, Dictionary<PersistedStatBucket, Dictionary<int, int>>>.Enumerator enumerator3 = value.ExperienceComponent.BadgesEarnedBySeason.GetEnumerator())
@@ -654,7 +656,7 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 								int num2 = current4.Value.Values.Sum();
 								if (num2 > 0)
 								{
-									dictionary[key2 + key3.ToString()] = true;
+									dictionary[new StringBuilder().Append(key2).Append(key3.ToString()).ToString()] = true;
 								}
 							}
 						}
@@ -665,7 +667,7 @@ public class UIPlayerProgressOverview : UIPlayerProgressSubPanel
 			{
 				int season = m_seasonBuckets[i].Season;
 				PersistedStatBucket statBucket = m_seasonBuckets[i].StatBucket;
-				shouldShow[i] = dictionary.ContainsKey(season + statBucket.ToString());
+				shouldShow[i] = dictionary.ContainsKey(new StringBuilder().Append(season).Append(statBucket.ToString()).ToString());
 			}
 		}
 		else

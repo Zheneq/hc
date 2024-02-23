@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -132,7 +133,7 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 						});
 					for (int j = 0; j < list.Count; j++)
 					{
-						text = text + "\n" + list[j].GetRequirementDescription();
+						text = new StringBuilder().Append(text).Append("\n").Append(list[j].GetRequirementDescription()).ToString();
 					}
 					uITitledTooltip.Setup(StringUtil.TR_BadgeGroupName(m_groupIndex), text, string.Empty);
 					return true;
@@ -183,9 +184,10 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		{
 			if (i < badgeGroup.BadgeIDs.Length)
 			{
-				earnedBadges.TryGetValue(badgeGroup.BadgeIDs[i], out int value);
+				int value;
+				earnedBadges.TryGetValue(badgeGroup.BadgeIDs[i], out value);
 				UIManager.SetGameObjectActive(displayInfos[i].m_Container, true);
-				displayInfos[i].m_count.text = "x" + UIStorePanel.FormatIntToString(value, true);
+				displayInfos[i].m_count.text = new StringBuilder().Append("x").Append(UIStorePanel.FormatIntToString(value, true)).ToString();
 				displayInfos[i].m_count.raycastTarget = false;
 				GameBalanceVars.GameResultBadge badgeInfo = GameResultBadgeData.Get().GetBadgeInfo(badgeGroup.BadgeIDs[i]);
 				displayInfos[i].m_Icon.sprite = Resources.Load<Sprite>(badgeInfo.BadgeIconString);
@@ -208,7 +210,7 @@ public class UIPlayerProgressBadgeEntry : MonoBehaviour
 		m_name.text = StringUtil.TR_BadgeName(badge.UniqueBadgeID);
 		UIManager.SetGameObjectActive(displayInfos[0].m_Container, true);
 		displayInfos[0].m_Icon.sprite = Resources.Load<Sprite>(badge.BadgeIconString);
-		displayInfos[0].m_count.text = "x" + UIStorePanel.FormatIntToString(count, true);
+		displayInfos[0].m_count.text = new StringBuilder().Append("x").Append(UIStorePanel.FormatIntToString(count, true)).ToString();
 		displayInfos[0].m_count.raycastTarget = false;
 		UIManager.SetGameObjectActive(displayInfos[0].m_badgeHitbox, false);
 		for (int i = 1; i < displayInfos.Length; i++)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FishManRoamingDebuff : AbilityMod
@@ -69,6 +70,6 @@ public class AbilityMod_FishManRoamingDebuff : AbilityMod
 		desc += PropDesc(m_damageToEnemiesOnJumpMod, "[DamageToEnemiesOnJump]", isValid, isValid ? fishManRoamingDebuff.m_damageToEnemiesOnJump : 0);
 		desc += PropDesc(m_healingToAlliesOnJumpMod, "[HealingToAlliesOnJump]", isValid, isValid ? fishManRoamingDebuff.m_healingToAlliesOnJump : 0);
 		desc += PropDesc(m_damageIncreasePerJumpMod, "[DamageIncreasePerJump]", isValid, isValid ? fishManRoamingDebuff.m_damageIncreasePerJump : 0);
-		return desc + PropDesc(m_jumpAnimationIndexMod, "[JumpAnimationIndex]", isValid, isValid ? fishManRoamingDebuff.m_jumpAnimationIndex : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_jumpAnimationIndexMod, "[JumpAnimationIndex]", isValid, isValid ? fishManRoamingDebuff.m_jumpAnimationIndex : 0)).ToString();
 	}
 }

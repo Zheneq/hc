@@ -15,7 +15,10 @@ public class UICharacterVisualsSelectButton : MonoBehaviour
 
 	protected bool m_IsSelected;
 
-	public bool isSelected => m_IsSelected;
+	public bool isSelected
+	{
+		get { return m_IsSelected; }
+	}
 
 	protected virtual void Start()
 	{

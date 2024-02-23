@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -255,7 +256,7 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						Debug.Log("No Masking Material exists for " + baseMaterial.name);
+						Debug.Log(new StringBuilder().Append("No Masking Material exists for ").Append(baseMaterial.name).ToString());
 						return;
 					}
 				}
@@ -270,12 +271,12 @@ namespace TMPro
 						break;
 					default:
 						m_materialList[num].count--;
-						Debug.Log("Removed (1) reference to " + m_materialList[num].stencilMaterial.name + ". There are " + m_materialList[num].count + " references left.");
+						Debug.Log(new StringBuilder().Append("Removed (1) reference to ").Append(m_materialList[num].stencilMaterial.name).Append(". There are ").Append(m_materialList[num].count).Append(" references left.").ToString());
 						return;
 					}
 				}
 			}
-			Debug.Log("Removed last reference to " + m_materialList[num].stencilMaterial.name + " with ID " + m_materialList[num].stencilMaterial.GetInstanceID());
+			Debug.Log(new StringBuilder().Append("Removed last reference to ").Append(m_materialList[num].stencilMaterial.name).Append(" with ID ").Append(m_materialList[num].stencilMaterial.GetInstanceID()).ToString());
 			UnityEngine.Object.DestroyImmediate(m_materialList[num].stencilMaterial);
 			m_materialList.RemoveAt(num);
 		}
@@ -433,7 +434,8 @@ namespace TMPro
 			Texture texture = targetMaterial.GetTexture(ShaderUtilities.ID_MainTex);
 			int instanceID2 = texture.GetInstanceID();
 			long num = ((long)instanceID << 32) | (uint)instanceID2;
-			if (m_fallbackMaterials.TryGetValue(num, out FallbackMaterial value))
+			FallbackMaterial value;
+			if (m_fallbackMaterials.TryGetValue(num, out value))
 			{
 				while (true)
 				{
@@ -486,7 +488,9 @@ namespace TMPro
 				}
 			}
 			int instanceID = targetMaterial.GetInstanceID();
-			if (!m_fallbackMaterialLookup.TryGetValue(instanceID, out long value) || !m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
+			FallbackMaterial value2;
+			long value;
+			if (!m_fallbackMaterialLookup.TryGetValue(instanceID, out value) || !m_fallbackMaterials.TryGetValue(value, out value2))
 			{
 				return;
 			}
@@ -513,13 +517,15 @@ namespace TMPro
 				}
 			}
 			int instanceID = targetMaterial.GetInstanceID();
-			if (!m_fallbackMaterialLookup.TryGetValue(instanceID, out long value))
+			long value;
+			if (!m_fallbackMaterialLookup.TryGetValue(instanceID, out value))
 			{
 				return;
 			}
 			while (true)
 			{
-				if (!m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
+				FallbackMaterial value2;
+				if (!m_fallbackMaterials.TryGetValue(value, out value2))
 				{
 					return;
 				}
@@ -572,9 +578,11 @@ namespace TMPro
 				}
 			}
 			int instanceID = fallackMaterial.GetInstanceID();
-			if (m_fallbackMaterialLookup.TryGetValue(instanceID, out long value))
+			long value;
+			if (m_fallbackMaterialLookup.TryGetValue(instanceID, out value))
 			{
-				if (m_fallbackMaterials.TryGetValue(value, out FallbackMaterial value2))
+				FallbackMaterial value2;
+				if (m_fallbackMaterials.TryGetValue(value, out value2))
 				{
 					value2.count--;
 					if (value2.count < 1)

@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class UISeasonFactionPercentageBar : MonoBehaviour
 			endPortion = 1f;
 		}
 		float num = (endPortion - startPortion) * 100f;
-		m_percentageText.text = num.ToString("0.0") + "%";
+		m_percentageText.text = new StringBuilder().Append(num.ToString("0.0")).Append("%").ToString();
 		m_percentageText.CalculateLayoutInputHorizontal();
 		RectTransform rectTransform = base.transform as RectTransform;
 		float num2 = 0f;

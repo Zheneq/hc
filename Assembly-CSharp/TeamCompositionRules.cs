@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class TeamCompositionRules
@@ -187,7 +188,7 @@ public class TeamCompositionRules
 				}
 			}
 		}
-		throw new Exception($"There is no TeamComposition Rule to cover team {team} slot {slot}");
+		throw new Exception(new StringBuilder().Append("There is no TeamComposition Rule to cover team ").Append(team).Append(" slot ").Append(slot).ToString());
 	}
 
 	public List<CharacterType> GetAllowedFreelancers(IFreelancerSetQueryInterface qi)
@@ -251,7 +252,7 @@ public class TeamCompositionRules
 			{
 				if (allowedFreelancers.Count() < gameConfig.TotalHumanPlayers)
 				{
-					throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured. DuplicationRule=noneInGame & only {allowedFreelancers.Count()} freelancers in AllowedFreelancers");
+					throw new Exception(new StringBuilder().Append("The ").Append(gameConfig.GameType).Append(" sub type ").Append(subTypeName).Append(" has been poorly configured. DuplicationRule=noneInGame & only ").Append((int)allowedFreelancers.Count()).Append(" freelancers in AllowedFreelancers").ToString());
 				}
 				return;
 			}
@@ -262,7 +263,7 @@ public class TeamCompositionRules
 			}
 			while (true)
 			{
-				throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured. DuplicationRule=noneInTeam & only {allowedFreelancers.Count()} freelancers in AllowedFreelancers");
+				throw new Exception(new StringBuilder().Append("The ").Append(gameConfig.GameType).Append(" sub type ").Append(subTypeName).Append(" has been poorly configured. DuplicationRule=noneInTeam & only ").Append((int)allowedFreelancers.Count()).Append(" freelancers in AllowedFreelancers").ToString());
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 using CameraManagerInternal;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -26,8 +27,15 @@ public class PlayerData : NetworkBehaviour
 	private static int kCmdCmdDebugEndGame = -1295019579;
 	private static int kCmdCmdSetPausedForDebugging = -1571708758;
 
-	internal string PlayerHandle => m_playerHandle;
-	public bool IsLocal => m_isLocal;
+	internal string PlayerHandle
+	{
+		get { return m_playerHandle; }
+	}
+
+	public bool IsLocal
+	{
+		get { return m_isLocal; }
+	}
 
 	public int PlayerIndex
 	{
@@ -162,7 +170,7 @@ public class PlayerData : NetworkBehaviour
 		Log.Info("ActorData.OnStartClient: local player");
 		m_isLocal = true;
 		ClientGameManager.Get().PlayerObjectStartedOnClient = true;
-		Log.Info("HEALTHBARCHECK: IS STARTED: " + ClientGameManager.Get().DesignSceneStarted);
+		Log.Info(new StringBuilder().Append("HEALTHBARCHECK: IS STARTED: ").Append(ClientGameManager.Get().DesignSceneStarted).ToString());
 		if (ClientGameManager.Get().DesignSceneStarted)
 		{
 			UIScreenManager.Get().TryLoadAndSetupInGameUI();
@@ -271,7 +279,7 @@ public class PlayerData : NetworkBehaviour
 
 	private void RestoreClientLastKnownStateOnReconnect()
 	{
-		Log.Info($"restoring reconnected client's last known state {GameFlowData.Get().gameState}");
+		Log.Info(new StringBuilder().Append("restoring reconnected client's last known state ").Append(GameFlowData.Get().gameState).ToString());
 		switch (GameFlowData.Get().gameState)
 		{
 			case GameState.EndingGame:
@@ -399,7 +407,7 @@ public class PlayerData : NetworkBehaviour
 
 	public override string ToString()
 	{
-		return $"[PlayerData: ({m_playerIndex}) {m_playerHandle}] {m_player}";
+		return new StringBuilder().Append("[PlayerData: (").Append(m_playerIndex).Append(") ").Append(m_playerHandle).Append("] ").Append(m_player).ToString();
 	}
 
 	private void UNetVersion()

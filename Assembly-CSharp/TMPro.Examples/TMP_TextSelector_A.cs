@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -78,7 +79,7 @@ namespace TMPro.Examples
 				{
 					_0015 = num2;
 					TMP_LinkInfo tMP_LinkInfo = _001D.textInfo.linkInfo[num2];
-					Debug.Log("Link ID: \"" + tMP_LinkInfo.GetLinkID() + "\"   Link Text: \"" + tMP_LinkInfo.GetLinkText() + "\"");
+					Debug.Log(new StringBuilder().Append("Link ID: \"").Append(tMP_LinkInfo.GetLinkID()).Append("\"   Link Text: \"").Append(tMP_LinkInfo.GetLinkText()).Append("\"").ToString());
 					Vector3 worldPoint = Vector3.zero;
 					RectTransformUtility.ScreenPointToWorldPointInRectangle(_001D.rectTransform, Input.mousePosition, _000E, out worldPoint);
 					string linkID = tMP_LinkInfo.GetLinkID();

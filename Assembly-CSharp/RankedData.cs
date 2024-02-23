@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class RankedData
@@ -38,7 +39,7 @@ public class RankedData
 
 	public override string ToString()
 	{
-		return $"{Handle}/{EloKeyText}/T{Tier}#{DivisionId}/P{Points}";
+		return new StringBuilder().Append(Handle).Append("/").Append(EloKeyText).Append("/T").Append(Tier).Append("#").Append(DivisionId).Append("/P").Append(Points).ToString();
 	}
 
 	public int GetPlayerFacingTier(MatchmakingQueueConfig matchmakingConfig)

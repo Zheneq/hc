@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -973,7 +974,7 @@ public class UICharacterScreen : UIScene
 			if (!(abilityEntry.ability == null))
 			{
 				UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-				string movieAssetName = "Video/AbilityPreviews/" + abilityEntry.ability.m_previewVideo;
+				string movieAssetName = new StringBuilder().Append("Video/AbilityPreviews/").Append(abilityEntry.ability.m_previewVideo).ToString();
 				uiabilityTooltip.Setup(abilityEntry.ability, this.SelectedAbilityData[i].GetSelectedMod(), movieAssetName);
 				return true;
 			}

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ScampVfxController : CopyableVfxControllerComponent
@@ -25,7 +26,7 @@ public class ScampVfxController : CopyableVfxControllerComponent
 				gameObject,
 				jointToVfx.m_joint,
 				jointToVfx.m_alignToRootOrientation,
-				"MartyrCrystalVfx_" + jointToVfx.m_name,
+				new StringBuilder().Append("MartyrCrystalVfx_").Append(jointToVfx.m_name).ToString(),
 				AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
@@ -34,7 +35,7 @@ public class ScampVfxController : CopyableVfxControllerComponent
 			}
 			else if (Application.isEditor)
 			{
-				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType());
+				Debug.LogWarning(new StringBuilder().Append("Failed to spawn vfx on joint in ").Append(GetType()).ToString());
 			}
 		}
 	}

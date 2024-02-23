@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NinjaDarts : AbilityMod
@@ -90,6 +91,6 @@ public class AbilityMod_NinjaDarts : AbilityMod
 		desc += PropDesc(m_energyPerDartHitMod, "[EnergyPerDartHit]", isValid, isValid ? ninjaDarts.m_energyPerDartHit : 0);
 		desc += PropDesc(m_cdrOnMissMod, "[CdrOnMiss]", isValid, isValid ? ninjaDarts.m_cdrOnMiss : 0);
 		desc += PropDesc(m_applyDeathmarkEffectMod, "[ApplyDeathmarkEffect]", isValid, isValid && ninjaDarts.m_applyDeathmarkEffect);
-		return desc + PropDesc(m_ignoreCoverOnTargetsMod, "[IgnoreCoverOnTargets]", isValid, isValid && ninjaDarts.m_ignoreCoverOnTargets);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_ignoreCoverOnTargetsMod, "[IgnoreCoverOnTargets]", isValid, isValid && ninjaDarts.m_ignoreCoverOnTargets)).ToString();
 	}
 }

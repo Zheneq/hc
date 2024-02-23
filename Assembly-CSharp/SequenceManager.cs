@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -20,7 +21,10 @@ public class SequenceManager : MonoBehaviour
 
 	private static bool m_forceActorsAsInvisible;
 
-	public static bool SequenceDebugTraceOn => false;
+	public static bool SequenceDebugTraceOn
+	{
+		get { return false; }
+	}
 
 	public static bool SequenceForceActorsAsInvisible
 	{
@@ -179,7 +183,7 @@ public class SequenceManager : MonoBehaviour
 			{
 				while (true)
 				{
-					Debug.LogError("More than " + 200 + " sequences tracked concurrently");
+					Debug.LogError(new StringBuilder().Append("More than ").Append(200).Append(" sequences tracked concurrently").ToString());
 					_001D();
 					return;
 				}
@@ -245,7 +249,7 @@ public class SequenceManager : MonoBehaviour
 				{
 					KeyValuePair<string, int> current = enumerator.Current;
 					string text2 = text;
-					text = text2 + "[ " + current.Key + " ] count = " + current.Value + "\n";
+					text = new StringBuilder().Append(text2).Append("[ ").Append(current.Key).Append(" ] count = ").Append(current.Value).Append("\n").ToString();
 				}
 			}
 			Log.Error(text);
@@ -505,8 +509,8 @@ public class SequenceManager : MonoBehaviour
 				if (sequence.Source == source)
 				{
 					string text2 = text;
-					text = text2 + "* Sequence hits seen on sequence <" + sequence.name + ">, MarkedForRemoval = " + sequence.MarkedForRemoval + ", active = " + sequence.enabled + ", SourceRootID = " + sequence.Source.RootID + ":\n\t" + sequence.Source.GetHitActorsString() + "\n" + sequence.Source.GetHitPositionsString() + "* Sequence Target IDs: " + sequence.GetTargetsString() + "\n";
-					text = text + "* Has Received Anim Event before initialized: " + sequence.HasReceivedAnimEventBeforeReady + "\n";
+					text = new StringBuilder().Append(text2).Append("* Sequence hits seen on sequence <").Append(sequence.name).Append(">, MarkedForRemoval = ").Append(sequence.MarkedForRemoval).Append(", active = ").Append(sequence.enabled).Append(", SourceRootID = ").Append(sequence.Source.RootID).Append(":\n\t").Append(sequence.Source.GetHitActorsString()).Append("\n").Append(sequence.Source.GetHitPositionsString()).Append("* Sequence Target IDs: ").Append(sequence.GetTargetsString()).Append("\n").ToString();
+					text = new StringBuilder().Append(text).Append("* Has Received Anim Event before initialized: ").Append(sequence.HasReceivedAnimEventBeforeReady).Append("\n").ToString();
 					if (justFirstSequence)
 					{
 						break;

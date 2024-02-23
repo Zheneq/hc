@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 [Serializable]
 [StructLayout(LayoutKind.Sequential, Size = 1)]
@@ -19,6 +20,6 @@ public struct PlayerModData
 
 	public override string ToString()
 	{
-		return "Ability[" + AbilityId + "]->Mod[" + AbilityModID + "]";
+		return new StringBuilder().Append("Ability[").Append(AbilityId).Append("]->Mod[").Append(AbilityModID).Append("]").ToString();
 	}
 }

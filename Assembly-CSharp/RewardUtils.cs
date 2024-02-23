@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class RewardUtils
@@ -60,11 +61,20 @@ public class RewardUtils
 
 		private IQueueRequirementApplicant m_baseApplicant;
 
-		public int CharacterMatches => m_baseApplicant.CharacterMatches;
+		public int CharacterMatches
+		{
+			get { return m_baseApplicant.CharacterMatches; }
+		}
 
-		public int VsHumanMatches => m_baseApplicant.VsHumanMatches;
+		public int VsHumanMatches
+		{
+			get { return m_baseApplicant.VsHumanMatches; }
+		}
 
-		public ClientAccessLevel AccessLevel => m_baseApplicant.AccessLevel;
+		public ClientAccessLevel AccessLevel
+		{
+			get { return m_baseApplicant.AccessLevel; }
+		}
 
 		public int SeasonLevel
 		{
@@ -72,13 +82,25 @@ public class RewardUtils
 			set;
 		}
 
-		public CharacterType CharacterType => m_baseApplicant.CharacterType;
+		public CharacterType CharacterType
+		{
+			get { return m_baseApplicant.CharacterType; }
+		}
 
-		public LocalizationArg_Handle LocalizedHandle => m_baseApplicant.LocalizedHandle;
+		public LocalizationArg_Handle LocalizedHandle
+		{
+			get { return m_baseApplicant.LocalizedHandle; }
+		}
 
-		public float GameLeavingPoints => m_baseApplicant.GameLeavingPoints;
+		public float GameLeavingPoints
+		{
+			get { return m_baseApplicant.GameLeavingPoints; }
+		}
 
-		public IEnumerable<CharacterType> AvailableCharacters => m_baseApplicant.AvailableCharacters;
+		public IEnumerable<CharacterType> AvailableCharacters
+		{
+			get { return m_baseApplicant.AvailableCharacters; }
+		}
 
 		public int TotalMatches
 		{
@@ -161,45 +183,45 @@ public class RewardUtils
 		switch (rewardType)
 		{
 		case PurchaseType.BannerBackground:
-			text = text + StringUtil.TR("Banner", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Banner", "Rewards")).Append(" ").ToString();
 			text += GameBalanceVars.Get().GetBannerName(rewardData[0], string.Empty);
 			break;
 		case PurchaseType.BannerForeground:
-			text = text + StringUtil.TR("Emblem", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Emblem", "Rewards")).Append(" ").ToString();
 			text += GameBalanceVars.Get().GetBannerName(rewardData[0], string.Empty);
 			break;
 		case PurchaseType.Character:
-			text = text + StringUtil.TR("Freelancer", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Freelancer", "Rewards")).Append(" ").ToString();
 			text += GameWideData.Get().GetCharacterDisplayName((CharacterType)rewardData[0]);
 			break;
 		case PurchaseType.ChatEmoji:
-			text = text + StringUtil.TR("ChatEmoji", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("ChatEmoji", "Rewards")).Append(" ").ToString();
 			text += GameBalanceVars.Get().ChatEmojis[rewardData[0]].GetEmojiName();
 			break;
 		case PurchaseType.InventoryItem:
 			text += InventoryWideData.Get().GetItemTemplate(rewardData[0]).GetDisplayName();
 			break;
 		case PurchaseType.Overcon:
-			text = text + StringUtil.TR("Overcon", "Inventory") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Overcon", "Inventory")).Append(" ").ToString();
 			text += GameBalanceVars.Get().Overcons[rewardData[0]].GetOverconName();
 			break;
 		case PurchaseType.Skin:
-			text = text + StringUtil.TR("Skin", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Skin", "Rewards")).Append(" ").ToString();
 			text += GameWideData.Get().GetCharacterResourceLink((CharacterType)rewardData[0]).GetSkinName(rewardData[1]);
 			break;
 		case PurchaseType.Taunt:
-			text = text + StringUtil.TR("Taunt", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Taunt", "Rewards")).Append(" ").ToString();
 			text += GameWideData.Get().GetCharacterResourceLink((CharacterType)rewardData[0]).GetTauntName(rewardData[1]);
 			break;
 		case PurchaseType.Texture:
 		case PurchaseType.ModToken:
 			throw new Exception("Invalid unlock type");
 		case PurchaseType.Tint:
-			text = text + StringUtil.TR("Skin", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Skin", "Rewards")).Append(" ").ToString();
 			text += GameWideData.Get().GetCharacterResourceLink((CharacterType)rewardData[0]).GetPatternColorName(rewardData[1], rewardData[2], rewardData[3]);
 			break;
 		case PurchaseType.Title:
-			text = text + StringUtil.TR("Title", "Rewards") + " ";
+			text = new StringBuilder().Append(text).Append(StringUtil.TR("Title", "Rewards")).Append(" ").ToString();
 			text += GameBalanceVars.Get().GetTitle(rewardData[0], string.Empty);
 			break;
 		}
@@ -504,7 +526,7 @@ public class RewardUtils
 			result = RewardType.FreelancerExpBonus;
 			break;
 		default:
-			throw new Exception("Not supported: " + template.Type);
+			throw new Exception(new StringBuilder().Append("Not supported: ").Append(template.Type).ToString());
 		}
 		return result;
 	}
@@ -1189,7 +1211,7 @@ public class RewardUtils
 			{
 				str2 = string.Empty;
 			}
-			string term = str + (string)str2;
+			string term = new StringBuilder().Append(str).Append((string)str2).ToString();
 			return StringUtil.TR(term, "Rewards");
 		}
 		}
@@ -1207,14 +1229,14 @@ public class RewardUtils
 				{
 					return reward.Name;
 				}
-				return GetTypeDisplayString(reward.Type, reward.Amount > 1) + ": " + reward.Name;
+				return new StringBuilder().Append(GetTypeDisplayString(reward.Type, reward.Amount > 1)).Append(": ").Append(reward.Name).ToString();
 			}
 			goto case RewardType.FreelancerCurrency;
 		case RewardType.FreelancerCurrency:
 		case RewardType.ModToken:
 		case RewardType.GGBoost:
 		case RewardType.ISO:
-			return reward.Amount + " " + GetTypeDisplayString(reward.Type, reward.Amount > 1);
+			return new StringBuilder().Append(reward.Amount).Append(" ").Append(GetTypeDisplayString(reward.Type, reward.Amount > 1)).ToString();
 		case RewardType.System:
 			return reward.Name;
 		}
@@ -1244,9 +1266,9 @@ public class RewardUtils
 			return "QuestRewards/FreelancerCoin";
 		case CurrencyType.Experience:
 			rewardType = RewardType.System;
-			return "Localization/" + StringUtil.TR("EXP", "TEXTURE");
+			return new StringBuilder().Append("Localization/").Append(StringUtil.TR("EXP", "TEXTURE")).ToString();
 		default:
-			throw new Exception("Invalid currency type: " + currencyType);
+			throw new Exception(new StringBuilder().Append("Invalid currency type: ").Append(currencyType).ToString());
 		}
 	}
 

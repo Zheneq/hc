@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -202,7 +203,7 @@ public class UIScreenManager : MonoBehaviour
 				}
 			}
 		}
-		Log.Info("HEALTHBARCHECK: HIDE " + m_HideHUDDebug);
+		Log.Info(new StringBuilder().Append("HEALTHBARCHECK: HIDE ").Append(m_HideHUDDebug).ToString());
 		if (m_HideHUDDebug)
 		{
 			return;
@@ -213,8 +214,8 @@ public class UIScreenManager : MonoBehaviour
 			{
 				return;
 			}
-			Log.Info("HEALTHBARCHECK: pos " + (HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.transform as RectTransform).localPosition);
-			Log.Info("HEALTHBARCHECK: size " + (HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.transform as RectTransform).sizeDelta);
+			Log.Info(new StringBuilder().Append("HEALTHBARCHECK: pos ").Append((HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.transform as RectTransform).localPosition).ToString());
+			Log.Info(new StringBuilder().Append("HEALTHBARCHECK: size ").Append((HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.transform as RectTransform).sizeDelta).ToString());
 			CanvasGroup component = HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.GetComponent<CanvasGroup>();
 			if (nameplateVisible)
 			{
@@ -558,7 +559,7 @@ public class UIScreenManager : MonoBehaviour
 				superSize = 4;
 				goto IL_026f;
 				IL_026f:
-				Application.CaptureScreenshot(string.Format(Application.dataPath + "/../ScreenShots/Screenshot{0}.png", FormatNumberForScreenshotIndex(num)), superSize);
+				Application.CaptureScreenshot(string.Format(new StringBuilder().Append(Application.dataPath).Append("/../ScreenShots/Screenshot{0}.png").ToString(), FormatNumberForScreenshotIndex(num)), superSize);
 				return;
 			}
 		}
@@ -598,7 +599,7 @@ public class UIScreenManager : MonoBehaviour
 		string text = index.ToString();
 		while (text.Length < 8)
 		{
-			text = "0" + text;
+			text = new StringBuilder().Append("0").Append(text).ToString();
 		}
 		while (true)
 		{

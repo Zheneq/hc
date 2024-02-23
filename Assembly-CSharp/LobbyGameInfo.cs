@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class LobbyGameInfo
@@ -36,18 +37,29 @@ public class LobbyGameInfo
 	public LobbyGameConfig GameConfig;
 
 	[JsonIgnore]
-	public string Name =>
-		!GameServerProcessCode.IsNullOrEmpty() && GameConfig != null
-			? !GameConfig.HasSelectedSubType
-				? $"{GameServerProcessCode} ({GameServerAddress}) [{GameConfig.Map} {GameConfig.GameType}]"
-				: $"{GameServerProcessCode} ({GameServerAddress}) [{GameConfig.Map} {GameConfig.GameType} {GameConfig.InstanceSubType.GetNameAsPayload().Term}]"
-			: "unknown";
+	public string Name
+	{
+		get
+		{
+			return !GameServerProcessCode.IsNullOrEmpty() && GameConfig != null
+				? !GameConfig.HasSelectedSubType
+					? new StringBuilder().Append(GameServerProcessCode).Append(" (").Append(GameServerAddress).Append(") [").Append(GameConfig.Map).Append(" ").Append(GameConfig.GameType).Append("]").ToString()
+					: new StringBuilder().Append(GameServerProcessCode).Append(" (").Append(GameServerAddress).Append(") [").Append(GameConfig.Map).Append(" ").Append(GameConfig.GameType).Append(" ").Append(GameConfig.InstanceSubType.GetNameAsPayload().Term).Append("]").ToString()
+				: "unknown";
+		}
+	}
 
 	[JsonIgnore]
-	public bool IsCustomGame => GameConfig != null && GameConfig.GameType == GameType.Custom;
+	public bool IsCustomGame
+	{
+		get { return GameConfig != null && GameConfig.GameType == GameType.Custom; }
+	}
 
 	[JsonIgnore]
-	public bool IsQueuedGame => GameConfig != null && GameConfig.GameType.IsQueueable();
+	public bool IsQueuedGame
+	{
+		get { return GameConfig != null && GameConfig.GameType.IsQueueable(); }
+	}
 
 	public LobbyGameInfo()
 	{
@@ -61,6 +73,6 @@ public class LobbyGameInfo
 
 	public override string ToString()
 	{
-		return $"{Name} (gameStatus {GameStatus}, gameResult {GameResult})";
+		return new StringBuilder().Append(Name).Append(" (gameStatus ").Append(GameStatus).Append(", gameResult ").Append(GameResult).Append(")").ToString();
 	}
 }

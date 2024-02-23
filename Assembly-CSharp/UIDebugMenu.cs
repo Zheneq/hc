@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -245,7 +246,7 @@ public class UIDebugMenu : MonoBehaviour
 
 	public void AddToPath(string category)
 	{
-		m_currentPath = m_currentPath + category + "/";
+		m_currentPath = new StringBuilder().Append(m_currentPath).Append(category).Append("/").ToString();
 		CreateDebugItems();
 		ResetScroll();
 	}

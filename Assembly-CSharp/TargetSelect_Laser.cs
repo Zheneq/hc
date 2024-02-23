@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_Laser : GenericAbility_TargetSelectBase
@@ -23,7 +24,7 @@ public class TargetSelect_Laser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys.s_HitOrder.GetName(), "on every non-caster hit actor, order in which they are hit in laser") + GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "on every non-caster hit actor, distance from caster");
+		return new StringBuilder().Append(GetContextUsageStr(ContextKeys.s_HitOrder.GetName(), "on every non-caster hit actor, order in which they are hit in laser")).Append(GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "on every non-caster hit actor, distance from caster")).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)

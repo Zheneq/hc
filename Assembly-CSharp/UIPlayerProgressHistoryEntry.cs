@@ -1,4 +1,5 @@
 using System.IO;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -68,7 +69,7 @@ public class UIPlayerProgressHistoryEntry : MonoBehaviour
 		SetAllLabels(m_modeLabels, entry.MatchComponent.GameType.GetDisplayName());
 		SetAllLabels(m_mapLabels, GameWideData.Get().GetMapDisplayName(entry.MatchComponent.MapName));
 		SetAllLabels(m_timeLabels, string.Format(StringUtil.TR("MatchTimeDifference", "Global"), entry.MatchComponent.GetTimeDifferenceText()));
-		SetAllLabels(m_turnLabels, $"{entry.MatchComponent.NumOfTurns:n0}");
+		SetAllLabels(m_turnLabels, new StringBuilder().AppendFormat("{0:n0}", entry.MatchComponent.NumOfTurns).ToString());
 		SetSelected(false);
 		m_hitbox.callback = OnClick;
 		GameServerProcessCode = entry.GameServerProcessCode;

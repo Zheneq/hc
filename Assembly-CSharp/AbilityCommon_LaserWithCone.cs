@@ -4,7 +4,8 @@ public class AbilityCommon_LaserWithCone
 {
 	public static Vector3 GetConeLosCheckPos(Vector3 startPos, Vector3 endPos)
 	{
-		AreaEffectUtils.GetEndPointForValidGameplaySquare(startPos, endPos, out Vector3 adjustedEndPoint);
+		Vector3 adjustedEndPoint;
+		AreaEffectUtils.GetEndPointForValidGameplaySquare(startPos, endPos, out adjustedEndPoint);
 		BoardSquare boardSquare = Board.Get().GetSquareFromVec3(adjustedEndPoint);
 		if (boardSquare != null && boardSquare.IsNextToFullCover())
 		{
@@ -14,7 +15,8 @@ public class AbilityCommon_LaserWithCone
 			vector.Normalize();
 			Vector3 origin = adjustedEndPoint - Board.SquareSizeStatic * 1.415f * vector;
 			LayerMask mask = 1 << VectorUtils.s_raycastLayerDynamicLineOfSight;
-			if (Physics.Raycast(origin, vector, out RaycastHit hitInfo, maxDistance, mask))
+			RaycastHit hitInfo;
+			if (Physics.Raycast(origin, vector, out hitInfo, maxDistance, mask))
 			{
 				if ((hitInfo.collider.gameObject.layer & VectorUtils.s_raycastLayerDynamicLineOfSight) != 0)
 				{

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -360,7 +361,7 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					Debug.Log("Playing announcement " + eventName + ".");
+					Debug.Log(new StringBuilder().Append("Playing announcement ").Append(eventName).Append(".").ToString());
 					return;
 				}
 			}
@@ -389,7 +390,7 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		}
 		while (true)
 		{
-			Debug.Log("Playing announcement enum " + eventEnum.ToString() + " with event string " + audioEventOfAnnouncerEvent + ".");
+			Debug.Log(new StringBuilder().Append("Playing announcement enum ").Append(eventEnum.ToString()).Append(" with event string ").Append(audioEventOfAnnouncerEvent).Append(".").ToString());
 			return;
 		}
 	}
@@ -417,7 +418,7 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 			{
 				while (true)
 				{
-					string eventName = "vo/" + m_cachedCharTypeToName[charType] + "/loot_matrix_drop";
+					string eventName = new StringBuilder().Append("vo/").Append((object)m_cachedCharTypeToName[charType]).Append("/loot_matrix_drop").ToString();
 					AudioManager.PostEvent(eventName);
 					return;
 				}
@@ -904,7 +905,7 @@ public class AnnouncerSounds : MonoBehaviour, IGameEventListener
 		case AnnouncerEvent.Defeat:
 			return m_audioEventDefeat;
 		default:
-			Debug.LogError("Failed to find audio event str for event enum " + announcerEvent.ToString() + ".");
+			Debug.LogError(new StringBuilder().Append("Failed to find audio event str for event enum ").Append(announcerEvent.ToString()).Append(".").ToString());
 			return string.Empty;
 		}
 	}

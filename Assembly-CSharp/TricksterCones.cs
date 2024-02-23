@@ -81,13 +81,15 @@ public class TricksterCones : Ability
 		List<ActorData> afterImages = new List<ActorData>();
 		afterImages.Add(caster);
 		afterImages.AddRange(m_afterImageSyncComp.GetValidAfterImages());
+		Vector3 freePosForAim;
+		Vector3 foo;
 		m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(
 			currentTarget.FreePos,
 			caster,
 			afterImages,
 			false,
-			out _,
-			out Vector3 freePosForAim);
+			out foo,
+			out freePosForAim);
 		return freePosForAim;
 	}
 
@@ -307,9 +309,10 @@ public class TricksterCones : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
 		AbilityUtil_Targeter_TricksterCones abilityUtil_Targeter_TricksterCones = Targeter as AbilityUtil_Targeter_TricksterCones;
 		ActorData actorData = ActorData;
+		int numHits;
 		if (abilityUtil_Targeter_TricksterCones != null
 		    && actorData != null
-		    && abilityUtil_Targeter_TricksterCones.m_actorToHitCount.TryGetValue(targetActor, out int numHits))
+		    && abilityUtil_Targeter_TricksterCones.m_actorToHitCount.TryGetValue(targetActor, out numHits))
 		{
 			int numFromCover = abilityUtil_Targeter_TricksterCones.m_actorToCoverCount[targetActor];
 			if (actorData.GetTeam() != targetActor.GetTeam())

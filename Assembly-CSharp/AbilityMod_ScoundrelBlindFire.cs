@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScoundrelBlindFire : AbilityMod
@@ -35,6 +36,6 @@ public class AbilityMod_ScoundrelBlindFire : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Cone Hit Damage]", isAbilityPresent, isAbilityPresent ? scoundrelBlindFire.m_damageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_coneWidthAngleMod, "[Cone Width Angle]", isAbilityPresent, isAbilityPresent ? scoundrelBlindFire.m_coneWidthAngle : 0f);
 		desc += AbilityModHelper.GetModPropertyDesc(m_penetrateLineOfSight, "[Penetrate Line Of Sight]", isAbilityPresent, isAbilityPresent && scoundrelBlindFire.m_penetrateLineOfSight);
-		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", "", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", "", isAbilityPresent)).ToString();
 	}
 }

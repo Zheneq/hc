@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class FishManGeyser : Ability
@@ -77,7 +78,7 @@ public class FishManGeyser : Ability
 		SetCachedFields();
 		if (ApplyKnockbackOnCast() && RunPriority != AbilityPriority.Combat_Knockback)
 		{
-			Debug.LogError("Authoring error on FishManGeyser-- ability's run priority is " + RunPriority + ", but it does knockback on cast.");
+			Debug.LogError(new StringBuilder().Append("Authoring error on FishManGeyser-- ability's run priority is ").Append(RunPriority).Append(", but it does knockback on cast.").ToString());
 		}
 		List<AbilityUtil_Targeter_MultipleShapes.MultiShapeData> list = new List<AbilityUtil_Targeter_MultipleShapes.MultiShapeData>();
 		foreach (ShapeToDamage shapeToDamage in m_cachedShapeToDamage)

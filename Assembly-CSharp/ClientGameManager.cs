@@ -121,10 +121,25 @@ public class ClientGameManager : MonoBehaviour
 		return s_instance;
 	}
 
-	public LobbyGameClientInterface LobbyInterface => m_lobbyGameClientInterface;
-	public LobbySessionInfo SessionInfo => m_lobbyGameClientInterface?.SessionInfo;
-	public string Handle => m_lobbyGameClientInterface?.SessionInfo?.Handle;
-	public long AccountId => m_lobbyGameClientInterface?.SessionInfo?.AccountId ?? -1L;
+	public LobbyGameClientInterface LobbyInterface
+	{
+		get { return m_lobbyGameClientInterface; }
+	}
+
+	public LobbySessionInfo SessionInfo
+	{
+		get { return m_lobbyGameClientInterface?.SessionInfo; }
+	}
+
+	public string Handle
+	{
+		get { return m_lobbyGameClientInterface?.SessionInfo?.Handle; }
+	}
+
+	public long AccountId
+	{
+		get { return m_lobbyGameClientInterface?.SessionInfo?.AccountId ?? -1L; }
+	}
 
 	private Action<RegisterGameClientResponse> OnConnectedToLobbyServerHolder;
 	public event Action<RegisterGameClientResponse> OnConnectedToLobbyServer
@@ -1248,7 +1263,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	public MyNetworkClientConnection MyConnection => (Client != null) ? (Client.connection as MyNetworkClientConnection) : null;
+	public MyNetworkClientConnection MyConnection
+	{
+		get { return (Client != null) ? (Client.connection as MyNetworkClientConnection) : null; }
+	}
 
 	public bool IsConnectedToGameServer
 	{
@@ -1291,7 +1309,10 @@ public class ClientGameManager : MonoBehaviour
 
 	public bool DesignSceneStarted { get; set; }
 
-	public bool IsLoading => m_loading;
+	public bool IsLoading
+	{
+		get { return m_loading; }
+	}
 
 	public bool IsFastForward
 	{
@@ -1317,9 +1338,15 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	public bool IsReconnecting => m_withinReconnect;
+	public bool IsReconnecting
+	{
+		get { return m_withinReconnect; }
+	}
 
-	public bool IsReconnectingInstantly => m_withinReconnectInstantly;
+	public bool IsReconnectingInstantly
+	{
+		get { return m_withinReconnectInstantly; }
+	}
 
 	public bool SpectatorHideAbilityTargeter { get; set; }
 
@@ -1348,11 +1375,20 @@ public class ClientGameManager : MonoBehaviour
 
 	public int NewPlayerPvPQueueDuration { get; private set; }
 
-	public GameResult GameResult => m_gameResult;
+	public GameResult GameResult
+	{
+		get { return m_gameResult; }
+	}
 
-	public bool Reconnected => m_reconnected;
+	public bool Reconnected
+	{
+		get { return m_reconnected; }
+	}
 
-	public bool Observer => m_observer;
+	public bool Observer
+	{
+		get { return m_observer; }
+	}
 
 	public TierPlacement TierChangeMin { get; private set; }
 
@@ -1428,7 +1464,10 @@ public class ClientGameManager : MonoBehaviour
 
 	private List<QuestCompleteNotification> LoginQuestCompleteNotifications { get; set; }
 
-	public DateTime QueueEntryTime => OurQueueEntryTime;
+	public DateTime QueueEntryTime
+	{
+		get { return OurQueueEntryTime; }
+	}
 
 	public bool IsWaitingForSkinResponse()
 	{
@@ -1463,9 +1502,15 @@ public class ClientGameManager : MonoBehaviour
 
 	public ConnectionQueueInfo ConnectionQueueInfo { get; private set; }
 
-	public AuthTicket AuthTicket => HydrogenConfig.Get().Ticket;
+	public AuthTicket AuthTicket
+	{
+		get { return HydrogenConfig.Get().Ticket; }
+	}
 
-	public ClientAccessLevel ClientAccessLevel => (PlayerInfo == null) ? m_clientAccessLevel : PlayerInfo.EffectiveClientAccessLevel;
+	public ClientAccessLevel ClientAccessLevel
+	{
+		get { return (PlayerInfo == null) ? m_clientAccessLevel : PlayerInfo.EffectiveClientAccessLevel; }
+	}
 
 	public bool HasPurchasedGame { get; private set; }
 
@@ -1549,7 +1594,10 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
-	public bool IsServerLocked => ClientAccessLevel == ClientAccessLevel.Locked;
+	public bool IsServerLocked
+	{
+		get { return ClientAccessLevel == ClientAccessLevel.Locked; }
+	}
 
 	public bool HasDeveloperAccess()
 	{
@@ -1960,12 +2008,7 @@ public class ClientGameManager : MonoBehaviour
 				if (gameTypeSubTypes.Count == 1)
 				{
 					gameConfig.InstanceSubTypeBit = gameTypeSubTypes.First().Key;
-					Log.Warning("CreateGame() called without setting InstanceSubTypeIndex. " +
-					            "Forcing it to use the only viable one " +
-					            $"({gameConfig.GameType}: 0x{gameConfig.InstanceSubTypeBit:x4}: {gameTypeSubTypes.First().Value.GetNameAsPayload()}), " +
-					            "but the calling code should consult all possible choices, " +
-					            "because although it might currently be configured to only have one choice, " +
-					            "that list can be changed dynamically on a running server to be any length.");
+					Log.Warning(new StringBuilder().Append("CreateGame() called without setting InstanceSubTypeIndex. ").Append("Forcing it to use the only viable one ").Append("(").Append(gameConfig.GameType).Append(": 0x").AppendFormat("{0:x4}", gameConfig.InstanceSubTypeBit).Append(": ").Append(gameTypeSubTypes.First().Value.GetNameAsPayload()).Append("), ").Append("but the calling code should consult all possible choices, ").Append("because although it might currently be configured to only have one choice, ").Append("that list can be changed dynamically on a running server to be any length.").ToString());
 					m_lobbyGameClientInterface.CreateGame(gameConfig,
 						readyState,
 						processCode,
@@ -2006,7 +2049,7 @@ public class ClientGameManager : MonoBehaviour
 			}
 			else
 			{
-				Log.Warning($"Huh, why do we not know about the sub-types of game type {gameConfig.GameType}?");
+				Log.Warning(new StringBuilder().Append("Huh, why do we not know about the sub-types of game type ").Append(gameConfig.GameType).Append("?").ToString());
 				gameConfig.InstanceSubTypeBit = 1;
 				m_lobbyGameClientInterface.CreateGame(
 					gameConfig,
@@ -2058,14 +2101,14 @@ public class ClientGameManager : MonoBehaviour
 			return;
 		}
 		
-		Log.Info($"Leaving game {(isPermanent ? "permanently" : "temporarily")} with result {gameResult}");
+		Log.Info(new StringBuilder().Append("Leaving game ").Append(isPermanent ? "permanently" : "temporarily").Append(" with result ").Append(gameResult).ToString());
 		m_gameResult = gameResult;
 		m_lobbyGameClientInterface?.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
 		{
 			if (!response.Success)
 			{
-				TextConsole.Get().Write($"Failed to leave game: {response.ErrorMessage}");
-				Log.Warning($"Request to leave game {gameManager.GameInfo?.Name ?? string.Empty} failed: {response.ErrorMessage}");
+				TextConsole.Get().Write(new StringBuilder().Append("Failed to leave game: ").Append(response.ErrorMessage).ToString());
+				Log.Warning(new StringBuilder().Append("Request to leave game ").Append(gameManager.GameInfo?.Name ?? string.Empty).Append(" failed: ").Append(response.ErrorMessage).ToString());
 			}
 		});
 					
@@ -2195,7 +2238,7 @@ public class ClientGameManager : MonoBehaviour
 							? response.LocalizedFailure.ToString()
 							: response.ErrorMessage.IsNullOrEmpty()
 								? StringUtil.TR("UnknownErrorTryAgain", "Frontend")
-								: $"{response.ErrorMessage}#NeedsLocalization",
+								: new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString(),
 						MessageType = ConsoleMessageType.SystemMessage
 					});
 				}
@@ -2225,7 +2268,7 @@ public class ClientGameManager : MonoBehaviour
 						? response.LocalizedFailure.ToString()
 						: response.ErrorMessage.IsNullOrEmpty()
 							? StringUtil.TR("UnknownErrorTryAgain", "Frontend")
-							: $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
+							: new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString(), StringUtil.TR("Ok", "Global"));
 			}
 		});
 	}
@@ -3692,7 +3735,7 @@ public class ClientGameManager : MonoBehaviour
 			if (!Uri.IsWellFormedUriString(gameManager.GameInfo.GameServerAddress, UriKind.Absolute))
 			{
 				throw new FormatException(
-					$"Could not parse game server address {gameManager.GameInfo.GameServerAddress}");
+					new StringBuilder().Append("Could not parse game server address ").Append(gameManager.GameInfo.GameServerAddress).ToString());
 			}
 
 			ResetLoadAssetsState();
@@ -3988,7 +4031,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (!loginResponse.Success)
 		{
-			string text = $"Login request failed: {loginResponse.ErrorMessage}";
+			string text = new StringBuilder().Append("Login request failed: ").Append(loginResponse.ErrorMessage).ToString();
 			Log.Error(text);
 			AppState_GameTeardown.Get().Enter(GameResult.ClientLoginFailedToGameServer, text);
 			return;
@@ -5102,8 +5145,7 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface == null || !m_lobbyGameClientInterface.IsConnected)
 		{
-			TextConsole.Get().Write($"{StringUtil.TR("FailedToRejoinGame", "Frontend")} " +
-			                        $"{StringUtil.TR("NotConnectedToLobbyServer", "Global")}");
+			TextConsole.Get().Write(new StringBuilder().Append(StringUtil.TR("FailedToRejoinGame", "Frontend")).Append(" ").Append(StringUtil.TR("NotConnectedToLobbyServer", "Global")).ToString());
 			return;
 		}
 		
@@ -5169,9 +5211,7 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (m_discordJoinType != discordJoinType)
 		{
-			Log.Info($"Discord | switch joinType {m_discordJoinType} => {discordJoinType} " +
-			         $"(teamChat={DiscordClientInterface.CanJoinTeamChat}, " +
-			         $"groupChat={DiscordClientInterface.CanJoinGroupChat})");
+			Log.Info(new StringBuilder().Append("Discord | switch joinType ").Append(m_discordJoinType).Append(" => ").Append(discordJoinType).Append(" ").Append("(teamChat=").Append(DiscordClientInterface.CanJoinTeamChat).Append(", ").Append("groupChat=").Append(DiscordClientInterface.CanJoinGroupChat).Append(")").ToString());
 			LeaveDiscord();
 		}
 		if (!m_discordConnecting
@@ -5348,7 +5388,7 @@ public class ClientGameManager : MonoBehaviour
 					string language = HydrogenConfig.Get().Language;
 					if (message.IsNullOrEmpty())
 					{
-						message = "Atlas Reactor at " + DateTime.Now;
+						message = new StringBuilder().Append("Atlas Reactor at ").Append(DateTime.Now).ToString();
 					}
 					FacebookClientInterface.Get().Connect(response.OAuthInfo, language, message);
 				}
@@ -6510,7 +6550,7 @@ public class ClientGameManager : MonoBehaviour
 		LobbyMatchmakingQueueInfo queueInfo = GameManager.Get().QueueInfo;
 		if (queueInfo != null)
 		{
-			return StringUtil.TR("Searching", "Frontend") + string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)Mathf.Max(0f, (float)queueInfo.AverageWaitTime.TotalSeconds));
+			return new StringBuilder().Append(StringUtil.TR("Searching", "Frontend")).Append(string.Format(StringUtil.TR("SecondsTimerShort", "Global"), (int)Mathf.Max(0f, (float)queueInfo.AverageWaitTime.TotalSeconds))).ToString();
 		}
 		GameStatus gameStatus = GameManager.Get().GameStatus;
 		if (gameStatus == GameStatus.LoadoutSelecting)
@@ -7430,7 +7470,10 @@ public class ClientGameManager : MonoBehaviour
 		return false;
 	}
 
-	private bool m_discordConnected => DiscordClientInterface.Get().IsConnected;
+	private bool m_discordConnected
+	{
+		get { return DiscordClientInterface.Get().IsConnected; }
+	}
 
 	private class FreelancerSetQueryInterface : IFreelancerSetQueryInterface
 	{
@@ -7589,18 +7632,30 @@ public class ClientGameManager : MonoBehaviour
 			}
 		}
 
-		public List<SeasonTemplate> Seasons => SeasonWideData.Get().m_seasons;
+		public List<SeasonTemplate> Seasons
+		{
+			get { return SeasonWideData.Get().m_seasons; }
+		}
 	}
 
 	private class OurQueueApplicant : IQueueRequirementApplicant
 	{
 		internal PersistedAccountData m_pad;
 
-		public int TotalMatches => m_pad.ExperienceComponent.Matches;
+		public int TotalMatches
+		{
+			get { return m_pad.ExperienceComponent.Matches; }
+		}
 
-		public int VsHumanMatches => m_pad.ExperienceComponent.VsHumanMatches;
+		public int VsHumanMatches
+		{
+			get { return m_pad.ExperienceComponent.VsHumanMatches; }
+		}
 
-		public CharacterType CharacterType => m_pad.AccountComponent.LastCharacter;
+		public CharacterType CharacterType
+		{
+			get { return m_pad.AccountComponent.LastCharacter; }
+		}
 
 		public int CharacterMatches
 		{
@@ -7654,11 +7709,20 @@ public class ClientGameManager : MonoBehaviour
 
 		public ClientAccessLevel AccessLevel { get; set; }
 
-		public int SeasonLevel => m_pad.SeasonLevel;
+		public int SeasonLevel
+		{
+			get { return m_pad.SeasonLevel; }
+		}
 
-		public LocalizationArg_Handle LocalizedHandle => LocalizationArg_Handle.Create(m_pad.Handle);
+		public LocalizationArg_Handle LocalizedHandle
+		{
+			get { return LocalizationArg_Handle.Create(m_pad.Handle); }
+		}
 
-		public float GameLeavingPoints => m_pad.AdminComponent.GameLeavingPoints;
+		public float GameLeavingPoints
+		{
+			get { return m_pad.AdminComponent.GameLeavingPoints; }
+		}
 
 		public bool IsCharacterTypeAvailable(CharacterType ct)
 		{
@@ -7677,13 +7741,25 @@ public class ClientGameManager : MonoBehaviour
 	{
 		internal UpdateGroupMemberData m_member;
 
-		public int TotalMatches => int.MaxValue;
+		public int TotalMatches
+		{
+			get { return int.MaxValue; }
+		}
 
-		public int VsHumanMatches => int.MaxValue;
+		public int VsHumanMatches
+		{
+			get { return int.MaxValue; }
+		}
 
-		public CharacterType CharacterType => m_member.MemberDisplayCharacter;
+		public CharacterType CharacterType
+		{
+			get { return m_member.MemberDisplayCharacter; }
+		}
 
-		public int CharacterMatches => int.MaxValue;
+		public int CharacterMatches
+		{
+			get { return int.MaxValue; }
+		}
 
 		public ClientAccessLevel AccessLevel
 		{
@@ -7702,11 +7778,20 @@ public class ClientGameManager : MonoBehaviour
 			}
 		}
 
-		public int SeasonLevel => int.MaxValue;
+		public int SeasonLevel
+		{
+			get { return int.MaxValue; }
+		}
 
-		public LocalizationArg_Handle LocalizedHandle => LocalizationArg_Handle.Create(m_member.MemberDisplayName);
+		public LocalizationArg_Handle LocalizedHandle
+		{
+			get { return LocalizationArg_Handle.Create(m_member.MemberDisplayName); }
+		}
 
-		public float GameLeavingPoints => m_member.GameLeavingPoints;
+		public float GameLeavingPoints
+		{
+			get { return m_member.GameLeavingPoints; }
+		}
 
 		public bool IsCharacterTypeAvailable(CharacterType ct)
 		{

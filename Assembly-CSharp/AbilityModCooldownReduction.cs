@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -127,13 +128,13 @@ public class AbilityModCooldownReduction
 			int val = CalcFinalCooldownReduction(true, 1, 1);
 			if (m_onAbility != AbilityData.ActionType.INVALID_ACTION)
 			{
-				entries.Add(new TooltipTokenInt(name + "_CDR_" + m_onAbility, "cooldown reduction", val));
+				entries.Add(new TooltipTokenInt(new StringBuilder().Append(name).Append("_CDR_").Append(m_onAbility).ToString(), "cooldown reduction", val));
 			}
 			foreach (AbilityData.ActionType actionType in m_additionalAbilities)
 			{
 				if (actionType != AbilityData.ActionType.INVALID_ACTION)
 				{
-					entries.Add(new TooltipTokenInt(name + "CRD_" + actionType, "cooldown reduction", val));
+					entries.Add(new TooltipTokenInt(new StringBuilder().Append(name).Append("CRD_").Append(actionType).ToString(), "cooldown reduction", val));
 				}
 			}
 		}
@@ -147,18 +148,19 @@ public class AbilityModCooldownReduction
 			" ",
 			InEditorDescHelper.ColoredString(m_modAmountType.ToString(), "lime"),
 			" ",
-			InEditorDescHelper.ColoredString((m_finalAdd >= 0f ? " +" : "") + m_finalAdd)
+			InEditorDescHelper.ColoredString(new StringBuilder().Append(m_finalAdd >= 0f ? " +" : "").Append(m_finalAdd).ToString())
 		});
-		string text2 = "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(m_onAbility, abilityData) + "</color>\n";
+		string text2 = new StringBuilder().Append("\t<color=white>").Append(AbilityModHelper.GetAbilityNameFromActionType(m_onAbility, abilityData)).Append("</color>\n").ToString();
 		foreach (AbilityData.ActionType actionType in m_additionalAbilities)
 		{
-			text2 += "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(actionType, abilityData) + "</color>\n";
+			text2 += new StringBuilder().Append("\t<color=white>").Append(AbilityModHelper.GetAbilityNameFromActionType(actionType, abilityData)).Append("</color>\n").ToString();
 		}
-		text += "\nCooldown Reduction On Abilities:\n" + text2;
+
+		text += new StringBuilder().Append("\nCooldown Reduction On Abilities:\n").Append(text2).ToString();
 		text2 = "";
 		foreach (AbilityData.ActionType actionType2 in m_stockAbilities)
 		{
-			text2 += "\t<color=white>" + AbilityModHelper.GetAbilityNameFromActionType(actionType2, abilityData) + "</color>\n";
+			text2 += new StringBuilder().Append("\t<color=white>").Append(AbilityModHelper.GetAbilityNameFromActionType(actionType2, abilityData)).Append("</color>\n").ToString();
 		}
 		if (m_stockBaseValue != 0 || m_stockFinalAdd != 0)
 		{
@@ -170,13 +172,13 @@ public class AbilityModCooldownReduction
 				" ",
 				InEditorDescHelper.ColoredString(m_modAmountType.ToString(), "lime"),
 				" ",
-				InEditorDescHelper.ColoredString((m_stockFinalAdd >= 0 ? " +" : "") + m_stockFinalAdd)
+				InEditorDescHelper.ColoredString(new StringBuilder().Append(m_stockFinalAdd >= 0 ? " +" : "").Append(m_stockFinalAdd).ToString())
 			});
-			text += "\nStock Add On Abilities:\n" + text2;
+			text += new StringBuilder().Append("\nStock Add On Abilities:\n").Append(text2).ToString();
 		}
 		if (m_resetRefreshProgress)
 		{
-			text += "\nReset Stock Refresh Progress On Abilities:\n" + text2;
+			text += new StringBuilder().Append("\nReset Stock Refresh Progress On Abilities:\n").Append(text2).ToString();
 		}
 		else if (m_refreshProgressBaseValue != 0 || m_refreshProgressFinalAdd != 0)
 		{
@@ -188,9 +190,9 @@ public class AbilityModCooldownReduction
 				" ",
 				InEditorDescHelper.ColoredString(m_modAmountType.ToString(), "lime"),
 				" ",
-				InEditorDescHelper.ColoredString((m_refreshProgressFinalAdd >= 0 ? " +" : "") + m_refreshProgressFinalAdd)
+				InEditorDescHelper.ColoredString(new StringBuilder().Append(m_refreshProgressFinalAdd >= 0 ? " +" : "").Append(m_refreshProgressFinalAdd).ToString())
 			});
-			text += "\nStock Refresh Progress On Abilities:\n" + text2;
+			text += new StringBuilder().Append("\nStock Refresh Progress On Abilities:\n").Append(text2).ToString();
 		}
 		return text;
 	}

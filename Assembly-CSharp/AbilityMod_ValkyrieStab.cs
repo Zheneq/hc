@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ValkyrieStab : AbilityMod
@@ -66,6 +67,6 @@ public class AbilityMod_ValkyrieStab : AbilityMod
 		desc += PropDesc(m_extraDamageFirstTarget, "[ExtraDamageFirstTarget]", isValid);
 		desc += PropDesc(m_targetHitEffectMod, "[TargetHitEffect]", isValid, isValid ? valkyrieStab.m_targetHitEffect : null);
 		desc += PropDesc(m_perHitExtraAbsorbNextShieldBlock, "[PerHitExtraAbsorbNextShieldBlock]", isValid);
-		return desc + PropDesc(m_maxExtraAbsorbNextShieldBlock, "[MaxExtraAbsorbNextShieldBlock]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_maxExtraAbsorbNextShieldBlock, "[MaxExtraAbsorbNextShieldBlock]", isValid)).ToString();
 	}
 }

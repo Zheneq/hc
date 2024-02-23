@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class LobbyPlayerInfo
@@ -30,15 +31,34 @@ public class LobbyPlayerInfo
 
 	public bool ReplacedWithBots { get; set; }
 	[JsonIgnore]
-	public bool IsRemoteControlled => ControllingPlayerId != 0;
+	public bool IsRemoteControlled
+	{
+		get { return ControllingPlayerId != 0; }
+	}
+
 	[JsonIgnore]
-	public bool IsSpectator => TeamId == Team.Spectator;
+	public bool IsSpectator
+	{
+		get { return TeamId == Team.Spectator; }
+	}
+
 	[JsonIgnore]
-	public CharacterType CharacterType => CharacterInfo?.CharacterType ?? CharacterType.None;
+	public CharacterType CharacterType
+	{
+		get { return CharacterInfo?.CharacterType ?? CharacterType.None; }
+	}
+
 	[JsonIgnore]
-	public bool IsReady => ReadyState == ReadyState.Ready || IsAIControlled || IsRemoteControlled;
+	public bool IsReady
+	{
+		get { return ReadyState == ReadyState.Ready || IsAIControlled || IsRemoteControlled; }
+	}
+
 	[JsonIgnore]
-	public bool IsAIControlled => IsNPCBot || IsLoadTestBot;
+	public bool IsAIControlled
+	{
+		get { return IsNPCBot || IsLoadTestBot; }
+	}
 
 	public LobbyPlayerInfo Clone()
 	{
@@ -49,7 +69,7 @@ public class LobbyPlayerInfo
 	{
 		if (IsRemoteControlled)
 		{
-			return $"{StringUtil.TR_CharacterName(CharacterInfo.CharacterType.ToString())} ({Handle})";
+			return new StringBuilder().Append(StringUtil.TR_CharacterName(CharacterInfo.CharacterType.ToString())).Append(" (").Append(Handle).Append(")").ToString();
 		}
 		if (IsNPCBot && !BotsMasqueradeAsHumans)
 		{

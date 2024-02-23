@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine.UI;
 
 public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
@@ -108,7 +109,7 @@ public class UIStoreFreelancerVfxPanel : UIStoreBaseInventoryPanel
 				{
 					if (!characterAbilityVfxSwap.m_swapVideoPath.IsNullOrEmpty())
 					{
-						uIFrontendTauntMouseoverVideo.Setup("Video/AbilityPreviews/" + characterAbilityVfxSwap.m_swapVideoPath);
+						uIFrontendTauntMouseoverVideo.Setup(new StringBuilder().Append("Video/AbilityPreviews/").Append(characterAbilityVfxSwap.m_swapVideoPath).ToString());
 						return true;
 					}
 				}

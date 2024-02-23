@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
@@ -65,6 +66,6 @@ public class AbilityMod_ArcherHealingDebuffArrow : AbilityMod
 		}
 		desc += PropDesc(m_extraHealBelowHealthThresholdMod, "[ExtraHealForAlliesBelowHealthThreshold]", isValid);
 		desc += PropDesc(m_healthThresholdMod, "[HealthThresholdForExtraHealing]", isValid);
-		return desc + PropDesc(m_extraDamageToThisTargetFromCasterMod, "[ExtraDamageToThisTargetFromCaster]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraDamageToThisTargetFromCasterMod, "[ExtraDamageToThisTargetFromCaster]", isValid)).ToString();
 	}
 }

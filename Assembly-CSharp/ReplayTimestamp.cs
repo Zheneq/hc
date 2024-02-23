@@ -1,3 +1,5 @@
+using System.Text;
+
 public struct ReplayTimestamp
 {
 	public int turn;
@@ -49,7 +51,7 @@ public struct ReplayTimestamp
 
 	public override string ToString()
 	{
-		return $"{turn}/{phase}";
+		return new StringBuilder().Append(turn).Append("/").Append(phase).ToString();
 	}
 
 	public override bool Equals(object obj)

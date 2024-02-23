@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class UIPlayerSeasonDisplayInfo
@@ -242,10 +243,11 @@ public class UIPlayerSeasonDisplayInfo
 		{
 			timeRange.StartTime = new DateTime(2016, 9, 30, 0, 0, 0);
 		}
-		SeasonEndTime = string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.StartTime.Value.Day, StringUtil.TR("Month" + timeRange.StartTime.Value.Month, "Global"), timeRange.StartTime.Value.Year) + " - ";
+
+		SeasonEndTime = new StringBuilder().Append(string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.StartTime.Value.Day, StringUtil.TR(new StringBuilder().Append("Month").Append(timeRange.StartTime.Value.Month).ToString(), "Global"), timeRange.StartTime.Value.Year)).Append(" - ").ToString();
 		if (timeRange.EndTime.HasValue)
 		{
-			SeasonEndTime += string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.EndTime.Value.Day, StringUtil.TR("Month" + timeRange.EndTime.Value.Month, "Global"), timeRange.EndTime.Value.Year);
+			SeasonEndTime += string.Format(StringUtil.TR("DayMonthYear", "Global"), timeRange.EndTime.Value.Day, StringUtil.TR(new StringBuilder().Append("Month").Append(timeRange.EndTime.Value.Month).ToString(), "Global"), timeRange.EndTime.Value.Year);
 		}
 		else
 		{

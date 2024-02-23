@@ -89,43 +89,100 @@ namespace TMPro
 		[SerializeField]
 		private LineBreakingTable m_linebreakingRules;
 
-		public static bool enableWordWrapping => instance.m_enableWordWrapping;
+		public static bool enableWordWrapping
+		{
+			get { return instance.m_enableWordWrapping; }
+		}
 
-		public static bool enableKerning => instance.m_enableKerning;
+		public static bool enableKerning
+		{
+			get { return instance.m_enableKerning; }
+		}
 
-		public static bool enableExtraPadding => instance.m_enableExtraPadding;
+		public static bool enableExtraPadding
+		{
+			get { return instance.m_enableExtraPadding; }
+		}
 
-		public static bool enableTintAllSprites => instance.m_enableTintAllSprites;
+		public static bool enableTintAllSprites
+		{
+			get { return instance.m_enableTintAllSprites; }
+		}
 
-		public static bool enableParseEscapeCharacters => instance.m_enableParseEscapeCharacters;
+		public static bool enableParseEscapeCharacters
+		{
+			get { return instance.m_enableParseEscapeCharacters; }
+		}
 
-		public static int missingGlyphCharacter => instance.m_missingGlyphCharacter;
+		public static int missingGlyphCharacter
+		{
+			get { return instance.m_missingGlyphCharacter; }
+		}
 
-		public static bool warningsDisabled => instance.m_warningsDisabled;
+		public static bool warningsDisabled
+		{
+			get { return instance.m_warningsDisabled; }
+		}
 
-		public static TMP_FontAsset defaultFontAsset => instance.m_defaultFontAsset;
+		public static TMP_FontAsset defaultFontAsset
+		{
+			get { return instance.m_defaultFontAsset; }
+		}
 
-		public static string defaultFontAssetPath => instance.m_defaultFontAssetPath;
+		public static string defaultFontAssetPath
+		{
+			get { return instance.m_defaultFontAssetPath; }
+		}
 
-		public static float defaultFontSize => instance.m_defaultFontSize;
+		public static float defaultFontSize
+		{
+			get { return instance.m_defaultFontSize; }
+		}
 
-		public static float defaultTextAutoSizingMinRatio => instance.m_defaultAutoSizeMinRatio;
+		public static float defaultTextAutoSizingMinRatio
+		{
+			get { return instance.m_defaultAutoSizeMinRatio; }
+		}
 
-		public static float defaultTextAutoSizingMaxRatio => instance.m_defaultAutoSizeMaxRatio;
+		public static float defaultTextAutoSizingMaxRatio
+		{
+			get { return instance.m_defaultAutoSizeMaxRatio; }
+		}
 
-		public static Vector2 defaultTextMeshProTextContainerSize => instance.m_defaultTextMeshProTextContainerSize;
+		public static Vector2 defaultTextMeshProTextContainerSize
+		{
+			get { return instance.m_defaultTextMeshProTextContainerSize; }
+		}
 
-		public static Vector2 defaultTextMeshProUITextContainerSize => instance.m_defaultTextMeshProUITextContainerSize;
+		public static Vector2 defaultTextMeshProUITextContainerSize
+		{
+			get { return instance.m_defaultTextMeshProUITextContainerSize; }
+		}
 
-		public static bool autoSizeTextContainer => instance.m_autoSizeTextContainer;
+		public static bool autoSizeTextContainer
+		{
+			get { return instance.m_autoSizeTextContainer; }
+		}
 
-		public static List<TMP_FontAsset> fallbackFontAssets => instance.m_fallbackFontAssets;
+		public static List<TMP_FontAsset> fallbackFontAssets
+		{
+			get { return instance.m_fallbackFontAssets; }
+		}
 
-		public static bool matchMaterialPreset => instance.m_matchMaterialPreset;
+		public static bool matchMaterialPreset
+		{
+			get { return instance.m_matchMaterialPreset; }
+		}
 
-		public static TMP_SpriteAsset defaultSpriteAsset => instance.m_defaultSpriteAsset;
+		public static TMP_SpriteAsset defaultSpriteAsset
+		{
+			get { return instance.m_defaultSpriteAsset; }
+		}
 
-		public static string defaultSpriteAssetPath => instance.m_defaultSpriteAssetPath;
+		public static string defaultSpriteAssetPath
+		{
+			get { return instance.m_defaultSpriteAssetPath; }
+		}
 
 		public static bool enableEmojiSupport
 		{
@@ -139,11 +196,20 @@ namespace TMPro
 			}
 		}
 
-		public static TMP_StyleSheet defaultStyleSheet => instance.m_defaultStyleSheet;
+		public static TMP_StyleSheet defaultStyleSheet
+		{
+			get { return instance.m_defaultStyleSheet; }
+		}
 
-		public static TextAsset leadingCharacters => instance.m_leadingCharacters;
+		public static TextAsset leadingCharacters
+		{
+			get { return instance.m_leadingCharacters; }
+		}
 
-		public static TextAsset followingCharacters => instance.m_followingCharacters;
+		public static TextAsset followingCharacters
+		{
+			get { return instance.m_followingCharacters; }
+		}
 
 		public static LineBreakingTable linebreakingRules
 		{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SorceressHealingLaser : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_SorceressHealingLaser : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_minDamageMod, "[Min Damage]", isAbilityPresent, isAbilityPresent ? sorceressHealingLaser.m_minDamageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageChangePerHitMod, "[Damage Change Per Hit]", isAbilityPresent, isAbilityPresent ? sorceressHealingLaser.m_damageChangePerHit : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", isAbilityPresent, isAbilityPresent ? sorceressHealingLaser.m_width : 0f);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[Laser Range]", isAbilityPresent, isAbilityPresent ? sorceressHealingLaser.m_distance : 0f);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_laserRangeMod, "[Laser Range]", isAbilityPresent, isAbilityPresent ? sorceressHealingLaser.m_distance : 0f)).ToString();
 	}
 }

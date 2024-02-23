@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class UINameplatePanel : MonoBehaviour
@@ -136,7 +137,7 @@ public class UINameplatePanel : MonoBehaviour
 				KeyValuePair<ActorData, UINameplateItem> current = enumerator.Current;
 				ActorData key = current.Key;
 				UINameplateItem value = current.Value;
-				value.SetDebugText("State: " + key.GetActorTurnSM().CurrentState);
+				value.SetDebugText(new StringBuilder().Append("State: ").Append(key.GetActorTurnSM().CurrentState).ToString());
 			}
 			while (true)
 			{

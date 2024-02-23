@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class QuestWideData : MonoBehaviour
@@ -297,7 +298,7 @@ public class QuestWideData : MonoBehaviour
 			int num = 65;
 			for (int i = 0; i < prereqs.Conditions.Count; i++)
 			{
-				text = ((!text.IsNullOrEmpty()) ? (text + " & " + Convert.ToChar(num)) : Convert.ToChar(num).ToString());
+				text = ((!text.IsNullOrEmpty()) ? new StringBuilder().Append(text).Append(" & ").Append(Convert.ToChar(num)).ToString() : Convert.ToChar(num).ToString());
 				num++;
 			}
 		}
@@ -463,7 +464,7 @@ public class QuestWideData : MonoBehaviour
 				if (questCondition.ConditionType != QuestConditionType.HasSeasonAccess)
 				{
 					list.Add(false);
-					throw new Exception("Unimplemented quest condition: " + questCondition.ConditionType);
+					throw new Exception(new StringBuilder().Append("Unimplemented quest condition: ").Append(questCondition.ConditionType).ToString());
 				}
 				list.Add(ClientGameManager.Get().GetPlayerAccountData().QuestComponent.ActiveSeason == questCondition.typeSpecificData);
 			}

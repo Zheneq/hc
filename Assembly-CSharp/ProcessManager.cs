@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Text;
 
 public class ProcessManager
 {
@@ -35,7 +36,7 @@ public class ProcessManager
 	public string GetHostCode(IPAddress address)
 	{
 		byte[] addressBytes = address.GetAddressBytes();
-		return $"{addressBytes[0]:x2}{addressBytes[1]:x2}{addressBytes[2]:x2}{addressBytes[3]:x2}";
+		return new StringBuilder().AppendFormat("{0:x2}", addressBytes[0]).AppendFormat("{0:x2}", addressBytes[1]).AppendFormat("{0:x2}", addressBytes[2]).AppendFormat("{0:x2}", addressBytes[3]).ToString();
 	}
 
 	public string GetHostCode(bool useFallbackResolver = false)
@@ -84,7 +85,7 @@ public class ProcessManager
 			TimeCode = num;
 			int num2 = num >> 16;
 			int num3 = num & 0xFFFF;
-			return $"{num2:x}-{num3:x4}";
+			return new StringBuilder().AppendFormat("{0:x}", num2).Append("-").AppendFormat("{0:x4}", num3).ToString();
 		}
 	}
 
@@ -100,6 +101,6 @@ public class ProcessManager
 			hostCode = GetHostCode(useFallbackResolver);
 		}
 		string arg = hostCode;
-		return $"{arg}-{GetNextTimeCode()}";
+		return new StringBuilder().Append(arg).Append("-").Append(GetNextTimeCode()).ToString();
 	}
 }

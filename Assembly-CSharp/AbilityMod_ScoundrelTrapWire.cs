@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScoundrelTrapWire : AbilityMod
@@ -48,7 +49,7 @@ public class AbilityMod_ScoundrelTrapWire : AbilityMod
 		{
 			desc += m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
 		}
-		return desc + "\n";
+		return new StringBuilder().Append(desc).Append("\n").ToString();
 	}
 
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)

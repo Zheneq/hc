@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ExoShield : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_ExoShield : AbilityMod
 		desc += PropDesc(m_maxTechPointsCostMod, "[MaxTechPointsCost]", isValid, isValid ? exoShield.m_maxTechPointsCost : 0);
 		desc += PropDesc(m_minTechPointsForCastMod, "[MinTechPointsForCast]", isValid, isValid ? exoShield.m_minTechPointsForCast : 0);
 		desc += PropDesc(m_freeActionWhileAnchoredMod, "[FreeActionWhileAnchored]", isValid, isValid && exoShield.m_freeActionWhileAnchored);
-		return desc + PropDesc(m_targeterShapeMod, "[TargeterShape]", isValid, isValid ? exoShield.m_targeterShape : AbilityAreaShape.SingleSquare);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_targeterShapeMod, "[TargeterShape]", isValid, isValid ? exoShield.m_targeterShape : AbilityAreaShape.SingleSquare)).ToString();
 	}
 }

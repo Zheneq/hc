@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 [Serializable]
 [JsonConverter(typeof(JsonConverter))]
@@ -78,6 +79,6 @@ public struct Rate
 
 	public override string ToString()
 	{
-		return $"{Amount} per {Period}";
+		return new StringBuilder().Append(Amount).Append(" per ").Append(Period).ToString();
 	}
 }

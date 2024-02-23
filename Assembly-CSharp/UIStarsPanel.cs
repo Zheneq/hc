@@ -21,7 +21,10 @@ public class UIStarsPanel : MonoBehaviour
 
 	private bool m_clickable;
 
-	public bool Clickable => m_clickable;
+	public bool Clickable
+	{
+		get { return m_clickable; }
+	}
 
 	public bool IsCurrentValueValid
 	{

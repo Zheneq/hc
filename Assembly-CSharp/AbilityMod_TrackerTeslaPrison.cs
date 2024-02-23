@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TrackerTeslaPrison : AbilityMod
@@ -36,6 +37,6 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		desc += AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectInfoInCage, "-- Ground Effect Inside Cage --", isAbilityPresent);
 		desc += PropDesc(m_additionalEffectOnEnemiesInShapeMod, "[AdditionalEffectOnEnemiesInShape]", isAbilityPresent, isAbilityPresent ? trackerTeslaPrison.m_additionalEffectOnEnemiesInShape : null);
 		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerTeslaPrison?.GetComponent<TrackerDroneInfoComponent>();
-		return desc + PropDesc(m_droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f)).ToString();
 	}
 }

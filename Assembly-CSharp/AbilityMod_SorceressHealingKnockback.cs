@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SorceressHealingKnockback : AbilityMod
@@ -43,7 +44,7 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_lowHealthHealingMod, "[Healing when Low Health]", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_onCastHealAmount : 0);
 		if (m_lowHealthThreshold > 0f)
 		{
-			desc += "Health considered Low if portion is below " + m_lowHealthThreshold + "\n";
+			desc += new StringBuilder().Append("Health considered Low if portion is below ").Append(m_lowHealthThreshold).Append("\n").ToString();
 		}
 		else if (m_lowHealthHealingMod != null && m_lowHealthHealingMod.operation != AbilityModPropertyInt.ModOp.Ignore)
 		{
@@ -52,6 +53,6 @@ public class AbilityMod_SorceressHealingKnockback : AbilityMod
 		desc += PropDesc(m_onCastAllyEnergyGainMod, "[OnCastAllyEnergyGain]", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_onCastAllyEnergyGain : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_onDetonateDamageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectOverride, "{ Enemy Hit Effect Override }", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_onDetonateEnemyEffect : null);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_knockbackDistanceMod, "[Knockback Distance]", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_knockbackDistance : 0f);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_knockbackDistanceMod, "[Knockback Distance]", isAbilityPresent, isAbilityPresent ? sorceressHealingKnockback.m_knockbackDistance : 0f)).ToString();
 	}
 }

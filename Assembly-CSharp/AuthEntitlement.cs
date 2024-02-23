@@ -9,5 +9,8 @@ public struct AuthEntitlement
 	public DateTime modifiedDate;
 	public DateTime expirationDate;
 
-	public bool Expires => expirationDate < DateTime.MaxValue;
+	public bool Expires
+	{
+		get { return expirationDate < DateTime.MaxValue; }
+	}
 }

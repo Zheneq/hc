@@ -6,9 +6,15 @@ public class QueueRequirement_Environement : QueueRequirement
 {
 	private EnvironmentType Environment;
 
-	public override bool AnyGroupMember => false;
+	public override bool AnyGroupMember
+	{
+		get { return false; }
+	}
 
-	public override RequirementType Requirement => RequirementType.ProhibitEnvironment;
+	public override RequirementType Requirement
+	{
+		get { return RequirementType.ProhibitEnvironment; }
+	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{

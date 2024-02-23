@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using System.Text;
 
 public static class InventoryUtility
 {
@@ -93,7 +94,7 @@ public static class InventoryUtility
 		case InventoryItemType.LoadingScreenBackground:
 			return StringUtil.TR("LoadingScreenBackground", "Inventory");
 		default:
-			return me.ToString() + "#NotLocalized";
+			return new StringBuilder().Append(me.ToString()).Append("#NotLocalized").ToString();
 		}
 	}
 

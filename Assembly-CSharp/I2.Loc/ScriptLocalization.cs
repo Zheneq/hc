@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace I2.Loc
 {
@@ -21,507 +22,507 @@ namespace I2.Loc
 
 		public static string GetLoadingSubtypeHeader(int setIndex, int displayIndex)
 		{
-			return $"GameSubType_{setIndex}_DisplayIndex_{displayIndex}_Header@GameSubTypeData";
+			return new StringBuilder().Append("GameSubType_").Append(setIndex).Append("_DisplayIndex_").Append(displayIndex).Append("_Header@GameSubTypeData").ToString();
 		}
 
 		public static string GetLoadingSubtypeTooltip(int setIndex, int displayIndex)
 		{
-			return $"GameSubType_{setIndex}_DisplayIndex_{displayIndex}_Tooltip@GameSubTypeData";
+			return new StringBuilder().Append("GameSubType_").Append(setIndex).Append("_DisplayIndex_").Append(displayIndex).Append("_Tooltip@GameSubTypeData").ToString();
 		}
 
 		public static string GetPersistedStatBucketNameKey(PersistedStatBucket bucket)
 		{
-			return "PersistedStatBucket_" + bucket.ToString() + "@Global";
+			return new StringBuilder().Append("PersistedStatBucket_").Append(bucket.ToString()).Append("@Global").ToString();
 		}
 
 		public static string GetQuestNameKey(int questId)
 		{
-			return "Quest_" + Convert.ToString(questId) + "_Name@QuestWideData";
+			return new StringBuilder().Append("Quest_").Append(Convert.ToString(questId)).Append("_Name@QuestWideData").ToString();
 		}
 
 		public static string GetQuestDescription(int questId)
 		{
-			return "Quest_" + Convert.ToString(questId) + "_Desc@QuestWideData";
+			return new StringBuilder().Append("Quest_").Append(Convert.ToString(questId)).Append("_Desc@QuestWideData").ToString();
 		}
 
 		public static string GetQuestFlavorTextKey(int questId)
 		{
-			return "Quest_" + Convert.ToString(questId) + "_Flavor@QuestWideData";
+			return new StringBuilder().Append("Quest_").Append(Convert.ToString(questId)).Append("_Flavor@QuestWideData").ToString();
 		}
 
 		public static string GetQuestLongDescriptionKey(int questId)
 		{
-			return "Quest_" + Convert.ToString(questId) + "_LongDesc@QuestWideData";
+			return new StringBuilder().Append("Quest_").Append(Convert.ToString(questId)).Append("_LongDesc@QuestWideData").ToString();
 		}
 
 		public static string GetQuestTypeDisplayNameKey(int questId)
 		{
-			return "Quest_" + Convert.ToString(questId) + "_TypeDisplayName@QuestWideData";
+			return new StringBuilder().Append("Quest_").Append(Convert.ToString(questId)).Append("_TypeDisplayName@QuestWideData").ToString();
 		}
 
 		public static string GetQuestObjectiveKey(int questId, int objectiveId)
 		{
-			return "Quest_" + Convert.ToString(questId) + "_Obj_" + Convert.ToString(objectiveId) + "@QuestWideData";
+			return new StringBuilder().Append("Quest_").Append(Convert.ToString(questId)).Append("_Obj_").Append(Convert.ToString(objectiveId)).Append("@QuestWideData").ToString();
 		}
 
 		public static string GetInventoryItemNameKey(int invItemId)
 		{
-			return "InventoryItem_" + Convert.ToString(invItemId) + "_Name@InventoryWideData";
+			return new StringBuilder().Append("InventoryItem_").Append(Convert.ToString(invItemId)).Append("_Name@InventoryWideData").ToString();
 		}
 
 		public static string GetInventoryItemDescriptionKey(int invItemId)
 		{
-			return "InventoryItem_" + Convert.ToString(invItemId) + "_Desc@InventoryWideData";
+			return new StringBuilder().Append("InventoryItem_").Append(Convert.ToString(invItemId)).Append("_Desc@InventoryWideData").ToString();
 		}
 
 		public static string GetInventoryObtainedDescriptionKey(int invItemId)
 		{
-			return "InventoryItem_" + Convert.ToString(invItemId) + "_Obtained@InventoryWideData";
+			return new StringBuilder().Append("InventoryItem_").Append(Convert.ToString(invItemId)).Append("_Obtained@InventoryWideData").ToString();
 		}
 
 		public static string GetInventoryFlavorTextKey(int invItemId)
 		{
-			return "InventoryItem_" + Convert.ToString(invItemId) + "_Flavor@InventoryWideData";
+			return new StringBuilder().Append("InventoryItem_").Append(Convert.ToString(invItemId)).Append("_Flavor@InventoryWideData").ToString();
 		}
 
 		public static string GetLootTableNameKey(int lootId)
 		{
-			return "LootTable_" + Convert.ToString(lootId) + "_Name@InventoryWideData";
+			return new StringBuilder().Append("LootTable_").Append(Convert.ToString(lootId)).Append("_Name@InventoryWideData").ToString();
 		}
 
 		public static string GetLootTableDescriptionKey(int lootId)
 		{
-			return "LootTable_" + Convert.ToString(lootId) + "_Desc@InventoryWideData";
+			return new StringBuilder().Append("LootTable_").Append(Convert.ToString(lootId)).Append("_Desc@InventoryWideData").ToString();
 		}
 
 		public static string GetKarmaNameKey(int karmaId)
 		{
-			return "Karma_" + Convert.ToString(karmaId) + "_Name@InventoryWideData";
+			return new StringBuilder().Append("Karma_").Append(Convert.ToString(karmaId)).Append("_Name@InventoryWideData").ToString();
 		}
 
 		public static string GetKarmaDescriptionKey(int karmaId)
 		{
-			return "Karma_" + Convert.ToString(karmaId) + "_Desc@InventoryWideData";
+			return new StringBuilder().Append("Karma_").Append(Convert.ToString(karmaId)).Append("_Desc@InventoryWideData").ToString();
 		}
 
 		public static string GetLoreTitleKey(int loreId)
 		{
-			return "Lore_" + Convert.ToString(loreId) + "_Title@LoreWideData";
+			return new StringBuilder().Append("Lore_").Append(Convert.ToString(loreId)).Append("_Title@LoreWideData").ToString();
 		}
 
 		public static string GetLoreArticleTextKey(int loreId)
 		{
-			return "Lore_" + Convert.ToString(loreId) + "_ArticleText@LoreWideData";
+			return new StringBuilder().Append("Lore_").Append(Convert.ToString(loreId)).Append("_ArticleText@LoreWideData").ToString();
 		}
 
 		public static string GetSeasonNameKey(int seasonId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_Name@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_Name@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonSubTitleKey(int seasonId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_SubTitle@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_SubTitle@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonEndHeaderKey(int seasonId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_EndHeader@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_EndHeader@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonChapterNameKey(int seasonId, int chapterId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_Chapter_" + Convert.ToString(chapterId) + "_Name@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_Chapter_").Append(Convert.ToString(chapterId)).Append("_Name@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonChapterUnlockKey(int seasonId, int chapterId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_Chapter_" + Convert.ToString(chapterId) + "_Unlock@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_Chapter_").Append(Convert.ToString(chapterId)).Append("_Unlock@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonStorytimeHeaderKey(int seasonId, int chapterId, int storyId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_Chapter_" + Convert.ToString(chapterId) + "_Story_" + Convert.ToString(storyId) + "_Header@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_Chapter_").Append(Convert.ToString(chapterId)).Append("_Story_").Append(Convert.ToString(storyId)).Append("_Header@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonStorytimeBodyKey(int seasonId, int chapterId, int storyId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_Chapter_" + Convert.ToString(chapterId) + "_Story_" + Convert.ToString(storyId) + "_Body@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_Chapter_").Append(Convert.ToString(chapterId)).Append("_Story_").Append(Convert.ToString(storyId)).Append("_Body@SeasonWideData").ToString();
 		}
 
 		public static string GetSeasonStorytimeLongBodyKey(int seasonId, int chapterId, int storyId)
 		{
-			return "Season_" + Convert.ToString(seasonId) + "_Chapter_" + Convert.ToString(chapterId) + "_Story_" + Convert.ToString(storyId) + "_LongBody@SeasonWideData";
+			return new StringBuilder().Append("Season_").Append(Convert.ToString(seasonId)).Append("_Chapter_").Append(Convert.ToString(chapterId)).Append("_Story_").Append(Convert.ToString(storyId)).Append("_LongBody@SeasonWideData").ToString();
 		}
 
 		public static string GetPlayerTitleKey(int titleId)
 		{
-			return "PlayerTitle_" + Convert.ToString(titleId) + "@GameWideData";
+			return new StringBuilder().Append("PlayerTitle_").Append(Convert.ToString(titleId)).Append("@GameWideData").ToString();
 		}
 
 		public static string GetPlayerTitleUnlockConditionKey(int titleId, int unlockConditionId)
 		{
-			return "PlayerTitle_" + Convert.ToString(titleId) + "_Unlock_" + Convert.ToString(unlockConditionId) + "_Condition@GameWideData";
+			return new StringBuilder().Append("PlayerTitle_").Append(Convert.ToString(titleId)).Append("_Unlock_").Append(Convert.ToString(unlockConditionId)).Append("_Condition@GameWideData").ToString();
 		}
 
 		public static string GetPlayerBannerKey(int bannerId)
 		{
-			return "PlayerBanner_" + Convert.ToString(bannerId) + "@GameWideData";
+			return new StringBuilder().Append("PlayerBanner_").Append(Convert.ToString(bannerId)).Append("@GameWideData").ToString();
 		}
 
 		public static string GetPlayerBannerUnlockConditionKey(int bannerId, int unlockConditionId)
 		{
-			return "PlayerBanner_" + Convert.ToString(bannerId) + "_Unlock_" + Convert.ToString(unlockConditionId) + "_Condition@GameWideData";
+			return new StringBuilder().Append("PlayerBanner_").Append(Convert.ToString(bannerId)).Append("_Unlock_").Append(Convert.ToString(unlockConditionId)).Append("_Condition@GameWideData").ToString();
 		}
 
 		public static string GetBannerObtainedDescriptionKey(int bannerId)
 		{
-			return "PlayerBanner_" + Convert.ToString(bannerId) + "_ObtainedDescription@GameWideData";
+			return new StringBuilder().Append("PlayerBanner_").Append(Convert.ToString(bannerId)).Append("_ObtainedDescription@GameWideData").ToString();
 		}
 
 		public static string GetTitleObtainedDescriptionKey(int titleId)
 		{
-			return "PlayerTitle_" + Convert.ToString(titleId) + "_ObtainedDescription@GameWideData";
+			return new StringBuilder().Append("PlayerTitle_").Append(Convert.ToString(titleId)).Append("_ObtainedDescription@GameWideData").ToString();
 		}
 
 		public static string GetPlayerRibbonKey(int ribbonId)
 		{
-			return "PlayerRibbon_" + Convert.ToString(ribbonId) + "@GameWideData";
+			return new StringBuilder().Append("PlayerRibbon_").Append(Convert.ToString(ribbonId)).Append("@GameWideData").ToString();
 		}
 
 		public static string GetPlayerRibbonUnlockConditionKey(int ribbonId, int unlockConditionId)
 		{
-			return "PlayerRibbon_" + Convert.ToString(ribbonId) + "_Unlock_" + Convert.ToString(unlockConditionId) + "_Condition@GameWideData";
+			return new StringBuilder().Append("PlayerRibbon_").Append(Convert.ToString(ribbonId)).Append("_Unlock_").Append(Convert.ToString(unlockConditionId)).Append("_Condition@GameWideData").ToString();
 		}
 
 		public static string GetRibbonObtainedDescriptionKey(int ribbonId)
 		{
-			return "PlayerRibbon_" + Convert.ToString(ribbonId) + "Obtn@GameWideData";
+			return new StringBuilder().Append("PlayerRibbon_").Append(Convert.ToString(ribbonId)).Append("Obtn@GameWideData").ToString();
 		}
 
 		public static string GetEmojiNameKey(int emojiId)
 		{
-			return "Emoji_" + Convert.ToString(emojiId) + "_Name@GameWideData";
+			return new StringBuilder().Append("Emoji_").Append(Convert.ToString(emojiId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetEmojiObtainedDescriptionKey(int emojiId)
 		{
-			return "Emoji_" + Convert.ToString(emojiId) + "_ObtainedDescription@GameWideData";
+			return new StringBuilder().Append("Emoji_").Append(Convert.ToString(emojiId)).Append("_ObtainedDescription@GameWideData").ToString();
 		}
 
 		public static string GetEmojiPurchaseDescriptionKey(int emojiId)
 		{
-			return "Emoji_" + Convert.ToString(emojiId) + "_PurchaseDescription@GameWideData";
+			return new StringBuilder().Append("Emoji_").Append(Convert.ToString(emojiId)).Append("_PurchaseDescription@GameWideData").ToString();
 		}
 
 		public static string GetEmojiTagKey(int emojiId)
 		{
-			return "Emoji_" + Convert.ToString(emojiId) + "_Tag@GameWideData";
+			return new StringBuilder().Append("Emoji_").Append(Convert.ToString(emojiId)).Append("_Tag@GameWideData").ToString();
 		}
 
 		public static string GetEmojiUnlockKey(int emojiId)
 		{
-			return "Emoji_" + Convert.ToString(emojiId) + "_Unlock@GameWideData";
+			return new StringBuilder().Append("Emoji_").Append(Convert.ToString(emojiId)).Append("_Unlock@GameWideData").ToString();
 		}
 
 		public static string GetMapNameKey(string mapId)
 		{
-			return "Map_" + mapId + "_Name@GameWideData";
+			return new StringBuilder().Append("Map_").Append(mapId).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetMatrixPackEventTextKey(int matrixId)
 		{
-			return "MatrixPack_" + matrixId + "_EventText@GameWideData";
+			return new StringBuilder().Append("MatrixPack_").Append(matrixId).Append("_EventText@GameWideData").ToString();
 		}
 
 		public static string GetMatrixPackDescriptionKey(int matrixId)
 		{
-			return "MatrixPack_" + matrixId + "_Description@GameWideData";
+			return new StringBuilder().Append("MatrixPack_").Append(matrixId).Append("_Description@GameWideData").ToString();
 		}
 
 		public static string GetGamePackNameKey(int packId)
 		{
-			return "GamePack_" + packId + "_Name@GameWideData";
+			return new StringBuilder().Append("GamePack_").Append(packId).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetGamePackDescKey(int packId)
 		{
-			return "GamePack_" + packId + "_Desc@GameWideData";
+			return new StringBuilder().Append("GamePack_").Append(packId).Append("_Desc@GameWideData").ToString();
 		}
 
 		public static string GetCharacterNameKey(string characterId)
 		{
-			return "Character_" + characterId + "_Name@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetCharacterSelectTooltipKey(string characterId)
 		{
-			return "Character_" + characterId + "_SelectTooltip@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_SelectTooltip@GameWideData").ToString();
 		}
 
 		public static string GetCharacterSelectAboutKey(string characterId)
 		{
-			return "Character_" + characterId + "_AboutDesc@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_AboutDesc@GameWideData").ToString();
 		}
 
 		public static string GetCharacterBioKey(string characterId)
 		{
-			return "Character_" + characterId + "_Bio@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Bio@GameWideData").ToString();
 		}
 
 		public static string GetCharacterSkinNameKey(string characterId, int skinId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Name@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetCharacterSkinDescriptionKey(string characterId, int skinId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Desc@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Desc@GameWideData").ToString();
 		}
 
 		public static string GetCharacterSkinFlavorKey(string characterId, int skinId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Flavor@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Flavor@GameWideData").ToString();
 		}
 
 		public static string GetCharacterPatternNameKey(string characterId, int skinId, int patternId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Pattern_" + Convert.ToString(patternId) + "_Name@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Pattern_").Append(Convert.ToString(patternId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetPatternColorNameKey(string characterId, int skinId, int patternId, int colorId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Pattern_" + Convert.ToString(patternId) + "_Color_" + Convert.ToString(colorId) + "_Name@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Pattern_").Append(Convert.ToString(patternId)).Append("_Color_").Append(Convert.ToString(colorId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetPatternColorDescKey(string characterId, int skinId, int patternId, int colorId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Pattern_" + Convert.ToString(patternId) + "_Color_" + Convert.ToString(colorId) + "_Desc@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Pattern_").Append(Convert.ToString(patternId)).Append("_Color_").Append(Convert.ToString(colorId)).Append("_Desc@GameWideData").ToString();
 		}
 
 		public static string GetPatternColorFlavorKey(string characterId, int skinId, int patternId, int colorId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Pattern_" + Convert.ToString(patternId) + "_Color_" + Convert.ToString(colorId) + "_Flavor@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Pattern_").Append(Convert.ToString(patternId)).Append("_Color_").Append(Convert.ToString(colorId)).Append("_Flavor@GameWideData").ToString();
 		}
 
 		public static string GetPatternColorObtainedDescKey(string characterId, int skinId, int patternId, int colorId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Pattern_" + Convert.ToString(patternId) + "_Color_" + Convert.ToString(colorId) + "_Obtn@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Pattern_").Append(Convert.ToString(patternId)).Append("_Color_").Append(Convert.ToString(colorId)).Append("_Obtn@GameWideData").ToString();
 		}
 
 		public static string GetPatternColorPurchaseDescKey(string characterId, int skinId, int patternId, int colorId)
 		{
-			return "Character_" + characterId + "_Skin_" + Convert.ToString(skinId) + "_Pattern_" + Convert.ToString(patternId) + "_Color_" + Convert.ToString(colorId) + "_Pur@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Skin_").Append(Convert.ToString(skinId)).Append("_Pattern_").Append(Convert.ToString(patternId)).Append("_Color_").Append(Convert.ToString(colorId)).Append("_Pur@GameWideData").ToString();
 		}
 
 		public static string GetCharacterTauntNameKey(string characterId, int tauntId)
 		{
-			return "Character_" + characterId + "_Taunt_" + Convert.ToString(tauntId) + "_Name@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Taunt_").Append(Convert.ToString(tauntId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetCharacterTauntObtainedDescKey(string characterId, int tauntId)
 		{
-			return "Character_" + characterId + "_Taunt_" + Convert.ToString(tauntId) + "_Obtn@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Taunt_").Append(Convert.ToString(tauntId)).Append("_Obtn@GameWideData").ToString();
 		}
 
 		public static string GetCharacterTauntPurchaseDescKey(string characterId, int tauntId)
 		{
-			return "Character_" + characterId + "_Taunt_" + Convert.ToString(tauntId) + "_Pur@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Taunt_").Append(Convert.ToString(tauntId)).Append("_Pur@GameWideData").ToString();
 		}
 
 		public static string GetCharacterVFXSwapNameKey(string characterId, int abilityId, int vfxSwapId)
 		{
-			return "Character_" + characterId + "_Ability_" + Convert.ToString(abilityId) + "_VFX_" + Convert.ToString(vfxSwapId) + "_Name@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Ability_").Append(Convert.ToString(abilityId)).Append("_VFX_").Append(Convert.ToString(vfxSwapId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetCharacterVFXSwapObtainedDescKey(string characterId, int abilityId, int vfxSwapId)
 		{
-			return "Character_" + characterId + "_Ability_" + Convert.ToString(abilityId) + "_VFX_" + Convert.ToString(vfxSwapId) + "_Obtn@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Ability_").Append(Convert.ToString(abilityId)).Append("_VFX_").Append(Convert.ToString(vfxSwapId)).Append("_Obtn@GameWideData").ToString();
 		}
 
 		public static string GetCharacterVFXSwapPurchaseDescKey(string characterId, int abilityId, int vfxSwapId)
 		{
-			return "Character_" + characterId + "_Ability_" + Convert.ToString(abilityId) + "_VFX_" + Convert.ToString(vfxSwapId) + "_Pur@GameWideData";
+			return new StringBuilder().Append("Character_").Append(characterId).Append("_Ability_").Append(Convert.ToString(abilityId)).Append("_VFX_").Append(Convert.ToString(vfxSwapId)).Append("_Pur@GameWideData").ToString();
 		}
 
 		public static string GetLoadingScreenTipKey(int tipId)
 		{
-			return "LoadingScreenTip_" + Convert.ToString(tipId) + "@GameWideData";
+			return new StringBuilder().Append("LoadingScreenTip_").Append(Convert.ToString(tipId)).Append("@GameWideData").ToString();
 		}
 
 		public static string GetKeyBindCommandNameKey(string keyBindId)
 		{
-			return "KeyBindCommand_" + keyBindId + "_Name@GameWideData";
+			return new StringBuilder().Append("KeyBindCommand_").Append(keyBindId).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetCardDisplayNameKey(CardType m_cardType)
 		{
-			return "Catalyst_" + m_cardType.ToString() + "_Name@CatalystData";
+			return new StringBuilder().Append("Catalyst_").Append(m_cardType.ToString()).Append("_Name@CatalystData").ToString();
 		}
 
 		public static string GetAbilityNameKey(string abilityType, string abilityId)
 		{
-			return "Ability_" + abilityType + "_" + abilityId + "_Name@AbilitiesData";
+			return new StringBuilder().Append("Ability_").Append(abilityType).Append("_").Append(abilityId).Append("_Name@AbilitiesData").ToString();
 		}
 
 		public static string GetAbilityFinalFullTooltipKey(string abilityType, string abilityId)
 		{
-			return "Ability_" + abilityType + "_" + abilityId + "_Tooltip@AbilitiesData";
+			return new StringBuilder().Append("Ability_").Append(abilityType).Append("_").Append(abilityId).Append("_Tooltip@AbilitiesData").ToString();
 		}
 
 		public static string GetAbilityRewardKey(string abilityType, string abilityId)
 		{
-			return "Ability_" + abilityType + "_" + abilityId + "_Reward@AbilitiesData";
+			return new StringBuilder().Append("Ability_").Append(abilityType).Append("_").Append(abilityId).Append("_Reward@AbilitiesData").ToString();
 		}
 
 		public static string GetAbilityModNameKey(string abilityType, string modId)
 		{
-			return "Mod_" + abilityType + "_" + modId + "_Name@AbilitiesData";
+			return new StringBuilder().Append("Mod_").Append(abilityType).Append("_").Append(modId).Append("_Name@AbilitiesData").ToString();
 		}
 
 		public static string GetAbilityModFinalTooltipKey(string abilityType, string modId)
 		{
-			return "Mod_" + abilityType + "_" + modId + "_Tooltip@AbilitiesData";
+			return new StringBuilder().Append("Mod_").Append(abilityType).Append("_").Append(modId).Append("_Tooltip@AbilitiesData").ToString();
 		}
 
 		public static string GetFreelancerStatNameKey(string freelancerType, int statIndex)
 		{
-			return "FreelancerStat_" + freelancerType + "_" + statIndex + "_Name@FreelancerStats";
+			return new StringBuilder().Append("FreelancerStat_").Append(freelancerType).Append("_").Append(statIndex).Append("_Name@FreelancerStats").ToString();
 		}
 
 		public static string GetFreelancerStatDescriptionKey(string freelancerType, int statIndex)
 		{
-			return "FreelancerStat_" + freelancerType + "_" + statIndex + "_Description@FreelancerStats";
+			return new StringBuilder().Append("FreelancerStat_").Append(freelancerType).Append("_").Append(statIndex).Append("_Description@FreelancerStats").ToString();
 		}
 
 		public static string GetBadgeGroupName(int badgeGroupIndex)
 		{
-			return "BadgeGroup_" + badgeGroupIndex + "_Name@Badges";
+			return new StringBuilder().Append("BadgeGroup_").Append(badgeGroupIndex).Append("_Name@Badges").ToString();
 		}
 
 		public static string GetBadgeGroupDescription(int badgeGroupIndex)
 		{
-			return "BadgeGroup_" + badgeGroupIndex + "_Description@Badges";
+			return new StringBuilder().Append("BadgeGroup_").Append(badgeGroupIndex).Append("_Description@Badges").ToString();
 		}
 
 		public static string GetStatNameKey(StatDisplaySettings.StatType statType)
 		{
-			return "Stat_" + statType.ToString() + "_Name@Badges";
+			return new StringBuilder().Append("Stat_").Append(statType.ToString()).Append("_Name@Badges").ToString();
 		}
 
 		public static string GetStatDescriptionKey(StatDisplaySettings.StatType statType)
 		{
-			return "Stat_" + statType.ToString() + "_Description@Badges";
+			return new StringBuilder().Append("Stat_").Append(statType.ToString()).Append("_Description@Badges").ToString();
 		}
 
 		public static string GetBadgeNameKey(int badgeIndex)
 		{
-			return "Badge_" + badgeIndex + "_Name@Badges";
+			return new StringBuilder().Append("Badge_").Append(badgeIndex).Append("_Name@Badges").ToString();
 		}
 
 		public static string GetBadgeDescriptionKey(int badgeIndex)
 		{
-			return "Badge_" + badgeIndex + "_Description@Badges";
+			return new StringBuilder().Append("Badge_").Append(badgeIndex).Append("_Description@Badges").ToString();
 		}
 
 		public static string GetBadgeGroupRequirementDescriptionKey(int badgeIndex)
 		{
-			return "Badge_" + badgeIndex + "_GroupRequirementDescription@Badges";
+			return new StringBuilder().Append("Badge_").Append(badgeIndex).Append("_GroupRequirementDescription@Badges").ToString();
 		}
 
 		public static string GetStoreItemOverlayKey(int itemId)
 		{
-			return "StoreItem_" + itemId + "_Overlay@GameWideData";
+			return new StringBuilder().Append("StoreItem_").Append(itemId).Append("_Overlay@GameWideData").ToString();
 		}
 
 		public static string GetSlashCommandKey(string slashcommand)
 		{
-			return slashcommand + "@SlashCommand";
+			return new StringBuilder().Append(slashcommand).Append("@SlashCommand").ToString();
 		}
 
 		public static string GetSlashCommandDescKey(string slashcommand)
 		{
-			return slashcommand + "@SlashCommandDesc";
+			return new StringBuilder().Append(slashcommand).Append("@SlashCommandDesc").ToString();
 		}
 
 		public static string GetSlashCommandAliasKey(string slashcommand, int aliasId)
 		{
-			return slashcommand + "@SlashCommandAlias" + Convert.ToString(aliasId);
+			return new StringBuilder().Append(slashcommand).Append("@SlashCommandAlias").Append(Convert.ToString(aliasId)).ToString();
 		}
 
 		public static string GetFactionGroupNameKey(int factionGroupId)
 		{
-			return "FactionGroup_" + Convert.ToString(factionGroupId) + "_" + Convert.ToString(factionGroupId) + "_Name@FactionWideData";
+			return new StringBuilder().Append("FactionGroup_").Append(Convert.ToString(factionGroupId)).Append("_").Append(Convert.ToString(factionGroupId)).Append("_Name@FactionWideData").ToString();
 		}
 
 		public static string GetFactionNameKey(int factionCompletionId, int factionId)
 		{
-			return "FactionCompletion_" + Convert.ToString(factionCompletionId) + "_Faction_" + Convert.ToString(factionId) + "_Name@FactionWideData";
+			return new StringBuilder().Append("FactionCompletion_").Append(Convert.ToString(factionCompletionId)).Append("_Faction_").Append(Convert.ToString(factionId)).Append("_Name@FactionWideData").ToString();
 		}
 
 		public static string GetFactionLongNameKey(int factionCompletionId, int factionId)
 		{
-			return "FactionCompletion_" + Convert.ToString(factionCompletionId) + "_Faction_" + Convert.ToString(factionId) + "_Long@FactionWideData";
+			return new StringBuilder().Append("FactionCompletion_").Append(Convert.ToString(factionCompletionId)).Append("_Faction_").Append(Convert.ToString(factionId)).Append("_Long@FactionWideData").ToString();
 		}
 
 		public static string GetFactionLoreDescriptionKey(int factionCompletionId, int factionId)
 		{
-			return "FactionCompletion_" + Convert.ToString(factionCompletionId) + "_Faction_" + Convert.ToString(factionId) + "_Lore@FactionWideData";
+			return new StringBuilder().Append("FactionCompletion_").Append(Convert.ToString(factionCompletionId)).Append("_Faction_").Append(Convert.ToString(factionId)).Append("_Lore@FactionWideData").ToString();
 		}
 
 		public static string GetStatusIconPopupTextKey(int statusIconId)
 		{
-			return "StatusIcon_" + Convert.ToString(statusIconId) + "_PopupText@AbilitiesData";
+			return new StringBuilder().Append("StatusIcon_").Append(Convert.ToString(statusIconId)).Append("_PopupText@AbilitiesData").ToString();
 		}
 
 		public static string GetStatusIconBuffNameKey(int statusIconId)
 		{
-			return "StatusIcon_" + Convert.ToString(statusIconId) + "_BuffName@AbilitiesData";
+			return new StringBuilder().Append("StatusIcon_").Append(Convert.ToString(statusIconId)).Append("_BuffName@AbilitiesData").ToString();
 		}
 
 		public static string GetStatusIconBuffDescKey(int statusIconId)
 		{
-			return "StatusIcon_" + Convert.ToString(statusIconId) + "_BuffDesc@AbilitiesData";
+			return new StringBuilder().Append("StatusIcon_").Append(Convert.ToString(statusIconId)).Append("_BuffDesc@AbilitiesData").ToString();
 		}
 
 		public static string GetSpectatorToggleOptionKey(UISpectatorHUD.SpectatorToggleOption option)
 		{
-			return "SpectatorTogOp_" + (int)option + "@AbilitiesData";
+			return new StringBuilder().Append("SpectatorTogOp_").Append((int)option).Append("@AbilitiesData").ToString();
 		}
 
 		public static string GetOverconNameKey(int overconId)
 		{
-			return "Overcon_" + Convert.ToString(overconId) + "_Name@UIOverconData";
+			return new StringBuilder().Append("Overcon_").Append(Convert.ToString(overconId)).Append("_Name@UIOverconData").ToString();
 		}
 
 		public static string GetOverconCommandKey(int overconId)
 		{
-			return "Overcon_" + Convert.ToString(overconId) + "_Command@UIOverconData";
+			return new StringBuilder().Append("Overcon_").Append(Convert.ToString(overconId)).Append("_Command@UIOverconData").ToString();
 		}
 
 		public static string GetOverconObtainedDescKey(int overconId)
 		{
-			return "Overcon_" + Convert.ToString(overconId) + "_ObtainedDesc@UIOverconData";
+			return new StringBuilder().Append("Overcon_").Append(Convert.ToString(overconId)).Append("_ObtainedDesc@UIOverconData").ToString();
 		}
 
 		public static string GetOverconUnlockConditionKey(int overconId, int unlockConditionId)
 		{
-			return "Overcon_" + Convert.ToString(overconId) + "_Unlock_" + Convert.ToString(unlockConditionId) + "_Condition@UIOverconData";
+			return new StringBuilder().Append("Overcon_").Append(Convert.ToString(overconId)).Append("_Unlock_").Append(Convert.ToString(unlockConditionId)).Append("_Condition@UIOverconData").ToString();
 		}
 
 		public static string GetLoadingScreenBackgroundNameKey(int loadingScreenBgId)
 		{
-			return "LoadingScreenBg_" + Convert.ToString(loadingScreenBgId) + "_Name@GameWideData";
+			return new StringBuilder().Append("LoadingScreenBg_").Append(Convert.ToString(loadingScreenBgId)).Append("_Name@GameWideData").ToString();
 		}
 
 		public static string GetLoadingScreenBackgroundObtainedDescriptionKey(int loadingScreenBgId)
 		{
-			return "LoadingScreenBg_" + Convert.ToString(loadingScreenBgId) + "_ObtainedDesc@GameWideData";
+			return new StringBuilder().Append("LoadingScreenBg_").Append(Convert.ToString(loadingScreenBgId)).Append("_ObtainedDesc@GameWideData").ToString();
 		}
 
 		public static string GetLoadingScreenBackgroundPurchaseDescriptionKey(int loadingScreenBgId)
 		{
-			return "LoadingScreenBg_" + Convert.ToString(loadingScreenBgId) + "_PurchaseDesc@GameWideData";
+			return new StringBuilder().Append("LoadingScreenBg_").Append(Convert.ToString(loadingScreenBgId)).Append("_PurchaseDesc@GameWideData").ToString();
 		}
 	}
 }

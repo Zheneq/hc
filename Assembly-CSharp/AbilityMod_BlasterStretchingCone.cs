@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BlasterStretchingCone : AbilityMod
@@ -70,6 +71,6 @@ public class AbilityMod_BlasterStretchingCone : AbilityMod
 		desc += PropDesc(m_maxDamageChangeMod, "[MaxDamageChange]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_maxDamageChange : 0);
 		desc += PropDesc(m_normalEnemyEffectMod, "[NormalEnemyEffect]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_normalEnemyEffect : null);
 		desc += PropDesc(m_overchargedEnemyEffectMod, "[OverchargedEnemyEffect]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_overchargedEnemyEffect : null);
-		return desc + PropDesc(m_singleEnemyHitEffectMod, "[SingleEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_singleEnemyHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_singleEnemyHitEffectMod, "[SingleEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? blasterStretchingCone.m_singleEnemyHitEffect : null)).ToString();
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BlasterOvercharge : AbilityMod
@@ -59,7 +60,7 @@ public class AbilityMod_BlasterOvercharge : AbilityMod
 			desc += "Using override for extra effect target abilities:\n";
 			foreach (AbilityData.ActionType actionType in m_extraEffectActionTypesOverride)
 			{
-				desc = desc + "    " + actionType + "\n";
+				desc = new StringBuilder().Append(desc).Append("    ").Append(actionType).Append("\n").ToString();
 			}
 			desc += "\n";
 		}

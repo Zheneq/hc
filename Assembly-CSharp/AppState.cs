@@ -14,7 +14,10 @@ public class AppState : MonoBehaviour
 
 	protected float m_timeStart;
 
-	public float Elapsed => (m_timeStart != 0f) ? (Time.time - m_timeStart) : 0f;
+	public float Elapsed
+	{
+		get { return (m_timeStart != 0f) ? (Time.time - m_timeStart) : 0f; }
+	}
 
 	static AppState()
 	{

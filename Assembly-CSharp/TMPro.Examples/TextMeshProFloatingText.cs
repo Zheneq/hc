@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro.Examples
@@ -28,7 +29,7 @@ namespace TMPro.Examples
 		private void _001A()
 		{
 			_0016 = base.transform;
-			_000E = new GameObject(base.name + " floating text");
+			_000E = new GameObject(new StringBuilder().Append(base.name).Append(" floating text").ToString());
 			_0018 = Camera.main.transform;
 		}
 

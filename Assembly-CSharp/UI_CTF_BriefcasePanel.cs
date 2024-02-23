@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -62,7 +63,7 @@ public class UI_CTF_BriefcasePanel : MonoBehaviour
 					{
 						num = 0f;
 					}
-					string text = $"{num}/{thresholdDamage}";
+					string text = new StringBuilder().Append(num).Append("/").Append(thresholdDamage).ToString();
 					float num2 = num / thresholdDamage;
 					for (int i = 0; i < m_briefcaseLimitText.Length; i++)
 					{

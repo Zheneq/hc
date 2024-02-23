@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -379,7 +380,8 @@ public class UIInventoryItem : MonoBehaviour
 						{
 							str = string.Empty;
 						}
-						amount2.text = (string)str + "99+";
+
+						amount2.text = new StringBuilder().Append((string)str).Append("99+").ToString();
 						UIManager.SetGameObjectActive(m_amountContainer, true);
 						return;
 					}

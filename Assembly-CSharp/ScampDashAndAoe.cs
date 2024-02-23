@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ScampDashAndAoe : GenericAbility_Container
@@ -26,7 +27,7 @@ public class ScampDashAndAoe : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data when shields are down --\n" + m_shieldDownOnHitData.GetInEditorDesc();
+		return new StringBuilder().Append(base.GetOnHitDataDesc()).Append("\n-- On Hit Data when shields are down --\n").Append(m_shieldDownOnHitData.GetInEditorDesc()).ToString();
 	}
 
 	public override List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()

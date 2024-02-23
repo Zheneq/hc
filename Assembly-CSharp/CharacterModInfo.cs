@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public struct CharacterModInfo
@@ -67,7 +68,7 @@ public struct CharacterModInfo
 
 	public string ToIdString()
 	{
-		return $"{ModForAbility0.ToString()}/{ModForAbility1.ToString()}/{ModForAbility2.ToString()}/{ModForAbility3.ToString()}/{ModForAbility4.ToString()}";
+		return new StringBuilder().Append(ModForAbility0.ToString()).Append("/").Append(ModForAbility1.ToString()).Append("/").Append(ModForAbility2.ToString()).Append("/").Append(ModForAbility3.ToString()).Append("/").Append(ModForAbility4.ToString()).ToString();
 	}
 
 	public override bool Equals(object obj)

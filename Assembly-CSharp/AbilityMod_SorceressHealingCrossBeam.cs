@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
@@ -66,10 +67,8 @@ public class AbilityMod_SorceressHealingCrossBeam : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_allyEffectOverride, "{ Ally Hit Effect Override }", isAbilityPresent, isAbilityPresent ? sorceressHealingCrossBeam.m_allyHitEffect : null);
 		if (m_knockbackDistance > 0f)
 		{
-			desc += "\nKnockback " + m_knockbackDistance + " squares, "
-			        + (m_knockbackThresholdDistance > 0f ? "to Targets within " + m_knockbackThresholdDistance + " squares, " : string.Empty)
-			        + "with type " + m_knockbackType + "\n";
+			desc += new StringBuilder().Append("\nKnockback ").Append(m_knockbackDistance).Append(" squares, ").Append(m_knockbackThresholdDistance > 0f ? new StringBuilder().Append("to Targets within ").Append(m_knockbackThresholdDistance).Append(" squares, ").ToString() : string.Empty).Append("with type ").Append(m_knockbackType).Append("\n").ToString();
 		}
-		return desc + AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectOnEnemyHit, "{ Ground Effect on Enemy Hit }", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectOnEnemyHit, "{ Ground Effect on Enemy Hit }", isAbilityPresent)).ToString();
 	}
 }

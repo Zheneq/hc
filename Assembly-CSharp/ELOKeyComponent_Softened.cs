@@ -8,9 +8,20 @@ public class ELOKeyComponent_Softened : ELOKeyComponent
     private static float c_minRange = 50f;
     private static float c_halfingRange = 100f;
 
-    public override KeyModeEnum KeyMode => KeyModeEnum.BINARY;
-    public override BinaryModePhaseEnum BinaryModePhase => m_phase;
-    public static uint PhaseWidth => 3u;
+    public override KeyModeEnum KeyMode
+    {
+        get { return KeyModeEnum.BINARY; }
+    }
+
+    public override BinaryModePhaseEnum BinaryModePhase
+    {
+        get { return m_phase; }
+    }
+
+    public static uint PhaseWidth
+    {
+        get { return 3u; }
+    }
 
     public override char GetComponentChar()
     {

@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -58,7 +59,7 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 				flag = true;
 				if (!Application.isPlaying)
 				{
-					gameObject.name = $"{gameObject.name}_DoNotEdit_AutoCreatedByParentReplaceableVFXPrefab";
+					gameObject.name = new StringBuilder().Append(gameObject.name).Append("_DoNotEdit_AutoCreatedByParentReplaceableVFXPrefab").ToString();
 				}
 			}
 		}
@@ -168,7 +169,7 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 										text = base.transform.name;
 									}
 									string str = text;
-									Log.Error("ReplaceableVFXPRefab on " + str + " received event with null argument");
+									Log.Error(new StringBuilder().Append("ReplaceableVFXPRefab on ").Append(str).Append(" received event with null argument").ToString());
 									return;
 								}
 								}
@@ -180,6 +181,6 @@ public class ReplaceableVFXPrefab : MonoBehaviour, IGameEventListener
 				}
 			}
 		}
-		Log.Error("ReplaceableVFXPRefab reference or transform is null on event " + eventType);
+		Log.Error(new StringBuilder().Append("ReplaceableVFXPRefab reference or transform is null on event ").Append(eventType).ToString());
 	}
 }

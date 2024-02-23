@@ -17,7 +17,7 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 		{
 			while (enumerator.MoveNext())
 			{
-				KeyValuePair<CharacterType, LobbyCharacterGameplayData> current = enumerator.Current;
+				System.Collections.Generic.KeyValuePair<CharacterType, LobbyCharacterGameplayData> current = enumerator.Current;
 				if (!roles.IsNullOrEmpty())
 				{
 					if (roles.Contains(current.Value.CharacterRole))
@@ -54,7 +54,9 @@ internal class LobbyGameplayFreelancerSetQueryInterface : IFreelancerSetQueryInt
 				}
 			}
 		}
-		if (!m_lgd.CharacterData.TryGetValue(freelancer, out LobbyCharacterGameplayData value))
+
+		LobbyCharacterGameplayData value;
+		if (!m_lgd.CharacterData.TryGetValue(freelancer, out value))
 		{
 			return false;
 		}

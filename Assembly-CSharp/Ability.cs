@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -153,7 +154,10 @@ public class Ability : MonoBehaviour
 		}
 	}
 
-	public List<AbilityUtil_Targeter> Targeters => m_targeters;
+	public List<AbilityUtil_Targeter> Targeters
+	{
+		get { return m_targeters; }
+	}
 
 	public AbilityUtil_Targeter Targeter
 	{
@@ -202,7 +206,10 @@ public class Ability : MonoBehaviour
 		}
 	}
 
-	public AbilityMod CurrentAbilityMod => m_currentAbilityMod;
+	public AbilityMod CurrentAbilityMod
+	{
+		get { return m_currentAbilityMod; }
+	}
 
 	private void Awake()
 	{
@@ -406,7 +413,7 @@ public class Ability : MonoBehaviour
 	{
 		if (GetBaseCost() > 0)
 		{
-			return $"{GetBaseCost()} energy";
+			return new StringBuilder().Append(GetBaseCost()).Append(" energy").ToString();
 		}
 		return "";
 	}
@@ -447,7 +454,7 @@ public class Ability : MonoBehaviour
 
 	public string GetCooldownString()
 	{
-		return $"{m_cooldown} turn cooldown";
+		return new StringBuilder().Append(m_cooldown).Append(" turn cooldown").ToString();
 	}
 
 	public virtual bool UseCustomAbilityIconColor()
@@ -626,17 +633,18 @@ public class Ability : MonoBehaviour
 		m_toolTipForUI = GetNameString();
 		if (GetBaseCost() > 0)
 		{
-			m_toolTipForUI += $" - {GetBaseCost()} TP";
+			m_toolTipForUI += new StringBuilder().Append(" - ").Append(GetBaseCost()).Append(" TP").ToString();
 		}
 		if (m_cooldown > 0)
 		{
-			m_toolTipForUI += $" - {m_cooldown} turn cooldown";
+			m_toolTipForUI += new StringBuilder().Append(" - ").Append(m_cooldown).Append(" turn cooldown").ToString();
 		}
 		if (IsFreeAction())
 		{
-			m_toolTipForUI = "This is a Free Action.\n" + m_toolTipForUI;
+			m_toolTipForUI = new StringBuilder().Append("This is a Free Action.\n").Append(m_toolTipForUI).ToString();
 		}
-		m_toolTipForUI = m_toolTipForUI + "\n" + GetFullTooltip();
+
+		m_toolTipForUI = new StringBuilder().Append(m_toolTipForUI).Append("\n").Append(GetFullTooltip()).ToString();
 		m_abilityTooltipNumbers = BaseCalculateAbilityTooltipNumbers();
 	}
 
@@ -972,7 +980,8 @@ public class Ability : MonoBehaviour
 		if (checkPath != ValidateCheckPath.Ignore && isInRange && isValidTarget)
 		{
 			bool passThroughInvalidSquares = checkPath == ValidateCheckPath.CanBuildPathAllowThroughInvalid;
-			canCharge = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), passThroughInvalidSquares, out int _);
+			int x;
+			canCharge = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetActor.GetCurrentBoardSquare(), caster.GetCurrentBoardSquare(), passThroughInvalidSquares, out x);
 		}
 		return isInRange && isValidTarget && canCharge;
 	}
@@ -1070,13 +1079,14 @@ public class Ability : MonoBehaviour
 
 	public bool IsAbilitySelected()
 	{
-		AbilityData abilityData = ActorData?.GetAbilityData();
+		AbilityData abilityData = ActorData != null ? ActorData.GetAbilityData() : null;
 		return abilityData != null && abilityData.GetSelectedAbility() == this;
 	}
 
 	public bool IsActorInTargetRange(ActorData actor)
 	{
-		return IsActorInTargetRange(actor, out bool inCover);
+		bool inCover;
+		return IsActorInTargetRange(actor, out inCover);
 	}
 
 	public bool IsActorInTargetRange(ActorData actor, out bool inCover)
@@ -1094,7 +1104,9 @@ public class Ability : MonoBehaviour
 					{
 						break;
 					}
-					if (Targeters[i] == null || !Targeters[i].IsActorInTargetRange(actor, out bool inCover2))
+
+					bool inCover2;
+					if (Targeters[i] == null || !Targeters[i].IsActorInTargetRange(actor, out inCover2))
 					{
 						continue;
 					}
@@ -1121,7 +1133,7 @@ public class Ability : MonoBehaviour
 		}
 		else
 		{
-			Log.Warning("Ability " + m_abilityName + " has no targeter, but we're checking actors in its range.");
+			Log.Warning(new StringBuilder().Append("Ability ").Append(m_abilityName).Append(" has no targeter, but we're checking actors in its range.").ToString());
 			isInRange = Board.Get().PlayerClampedSquare == actor.GetCurrentBoardSquare();
 			inCover = false;
 		}
@@ -1240,7 +1252,7 @@ public class Ability : MonoBehaviour
 		TargetData[] targetData = GetTargetData();
 		if (targetData != null && targetData.Length > targetIndex)
 		{
-			return "Select " + targetData[targetIndex].m_description;
+			return new StringBuilder().Append("Select ").Append(targetData[targetIndex].m_description).ToString();
 		}
 		return null;
 	}
@@ -1559,35 +1571,35 @@ public class Ability : MonoBehaviour
 		}
 		foreach (Ability ability in GetChainAbilities())
 		{
-			string str = "Ability '" + m_abilityName + "'- chain ability '" + ability.m_abilityName + "' ";
+			string str = new StringBuilder().Append("Ability '").Append(m_abilityName).Append("'- chain ability '").Append(ability.m_abilityName).Append("' ").ToString();
 			if (ability.m_techPointsCost != 0)
 			{
-				Log.Warning(str + "has non-zero tech point cost.  Zeroing...");
+				Log.Warning(new StringBuilder().Append(str).Append("has non-zero tech point cost.  Zeroing...").ToString());
 				ability.m_techPointsCost = 0;
 			}
 			if (ability.GetAffectsMovement())
 			{
-				Log.Warning(str + "adjusts movement.  Removing...");
+				Log.Warning(new StringBuilder().Append(str).Append("adjusts movement.  Removing...").ToString());
 				ability.m_movementAdjustment = MovementAdjustment.FullMovement;
 			}
 			if (ability.m_cooldown != 0)
 			{
-				Log.Warning(str + "has non-zero cooldown.  Zeroing...");
+				Log.Warning(new StringBuilder().Append(str).Append("has non-zero cooldown.  Zeroing...").ToString());
 				ability.m_cooldown = 0;
 			}
 			if (!ability.IsFreeAction())
 			{
-				Log.Warning(str + "is not a free action.  Liberating...");
+				Log.Warning(new StringBuilder().Append(str).Append("is not a free action.  Liberating...").ToString());
 				ability.m_freeAction = true;
 			}
 			if (ability.m_chainAbilities.Length != 0)
 			{
-				Log.Warning(str + "has its own chain abilities.  Breaking...");
+				Log.Warning(new StringBuilder().Append(str).Append("has its own chain abilities.  Breaking...").ToString());
 				ability.m_chainAbilities = new Ability[0];
 			}
 			if (RunPriority > ability.RunPriority)
 			{
-				Log.Warning(str + "has an earlier run priority than its predecessor.  Make sure chain abilities happen later than the 'master' ability for things to look right.");
+				Log.Warning(new StringBuilder().Append(str).Append("has an earlier run priority than its predecessor.  Make sure chain abilities happen later than the 'master' ability for things to look right.").ToString());
 			}
 		}
 	}
@@ -1610,7 +1622,7 @@ public class Ability : MonoBehaviour
 	{
 		if (abilityMod.GetTargetAbilityType() != GetType())
 		{
-			Debug.LogError("Trying to apply mod to wrong ability type. mod_ability_type: " + abilityMod.GetTargetAbilityType().ToString() + " ability_type: " + GetType().ToString());
+			Debug.LogError(new StringBuilder().Append("Trying to apply mod to wrong ability type. mod_ability_type: ").Append(abilityMod.GetTargetAbilityType().ToString()).Append(" ability_type: ").Append(GetType().ToString()).ToString());
 			return;
 		}
 		ResetAbilityTargeters();
@@ -1642,7 +1654,7 @@ public class Ability : MonoBehaviour
 
 		if (Application.isEditor)
 		{
-			Debug.Log("Removing mod from ability " + GetDebugIdentifier("orange"));
+			Debug.Log(new StringBuilder().Append("Removing mod from ability ").Append(GetDebugIdentifier("orange")).ToString());
 		}
 	}
 
@@ -1733,22 +1745,26 @@ public class Ability : MonoBehaviour
 
 	protected Passive GetPassiveOfType(Type passiveType)
 	{
-		return GetComponent<PassiveData>()?.GetPassiveOfType(passiveType);
+		PassiveData passiveData = GetComponent<PassiveData>();
+		return passiveData != null ? passiveData.GetPassiveOfType(passiveType) : null;
 	}
 
 	protected T GetPassiveOfType<T>() where T : Passive
 	{
-		return GetComponent<PassiveData>()?.GetPassiveOfType<T>();
+		PassiveData passiveData = GetComponent<PassiveData>();
+		return passiveData != null ? passiveData.GetPassiveOfType<T>() : null;
 	}
 
 	protected Ability GetAbilityOfType(Type abilityType)
 	{
-		return GetComponent<AbilityData>()?.GetAbilityOfType(abilityType);
+		AbilityData abilityData = GetComponent<AbilityData>();
+		return abilityData != null ? abilityData.GetAbilityOfType(abilityType) : null;
 	}
 
 	protected T GetAbilityOfType<T>() where T : Ability
 	{
-		return GetComponent<AbilityData>()?.GetAbilityOfType<T>();
+		AbilityData abilityData = GetComponent<AbilityData>();
+		return abilityData != null ? abilityData.GetAbilityOfType<T>() : null;
 	}
 
 	protected AbilityData.ActionType GetActionTypeOfAbility(Ability ability)
@@ -1770,7 +1786,7 @@ public class Ability : MonoBehaviour
 			}
 			for (int i = 0; i < m_techPointInteractions.Length; i++)
 			{
-				text += "    [" + m_techPointInteractions[i].m_type.ToString() + "] = " + m_techPointInteractions[i].m_amount + "\n";
+				text += new StringBuilder().Append("    [").Append(m_techPointInteractions[i].m_type.ToString()).Append("] = ").Append(m_techPointInteractions[i].m_amount).Append("\n").ToString();
 			}
 		}
 		if (m_tags != null)
@@ -1781,7 +1797,7 @@ public class Ability : MonoBehaviour
 			}
 			for (int j = 0; j < m_tags.Count; j++)
 			{
-				text = text + "    [" + m_tags[j].ToString() + "]\n";
+				text = new StringBuilder().Append(text).Append("    [").Append(m_tags[j].ToString()).Append("]\n").ToString();
 			}
 		}
 		if (text.Length > 0)
@@ -1798,15 +1814,15 @@ public class Ability : MonoBehaviour
 
 	public static string SetupNoteVarName(string input)
 	{
-		return "<color=white>[ " + input + " ]</color>";
+		return new StringBuilder().Append("<color=white>[ ").Append(input).Append(" ]</color>").ToString();
 	}
 
 	public string GetDebugIdentifier(string colorString = "")
 	{
-		string text = "Ability " + m_abilityName + "[ " + GetType().ToString() + " ]";
+		string text = new StringBuilder().Append("Ability ").Append(m_abilityName).Append("[ ").Append(GetType().ToString()).Append(" ]").ToString();
 		if (colorString.Length > 0)
 		{
-			return "<color=" + colorString + ">" + text + "</color>";
+			return new StringBuilder().Append("<color=").Append(colorString).Append(">").Append(text).Append("</color>").ToString();
 		}
 		return text;
 	}

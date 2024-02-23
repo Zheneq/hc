@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -236,11 +237,11 @@ public class UIGameOverPanel : UIScene
 						case 0:
 							break;
 						default:
-							return GetHTMLColorElement(0, 255, b) + "FF" + GetHTMLColorElement(0, 255, b);
+							return new StringBuilder().Append(GetHTMLColorElement(0, 255, b)).Append("FF").Append(GetHTMLColorElement(0, 255, b)).ToString();
 						}
 					}
 				}
-				return "FF" + GetHTMLColorElement(0, 255, b) + GetHTMLColorElement(0, 255, b);
+				return new StringBuilder().Append("FF").Append(GetHTMLColorElement(0, 255, b)).Append(GetHTMLColorElement(0, 255, b)).ToString();
 			}
 		}
 
@@ -254,7 +255,7 @@ public class UIGameOverPanel : UIScene
 			howBalanced = howBalanced * howBalanced * howBalanced;
 			float num = bal - imbal;
 			int num2 = (int)((0.49f + num) * howBalanced);
-			return $"{num2:X02}";
+			return new StringBuilder().AppendFormat("{0:X02}", num2).ToString();
 		}
 
 		internal string ToHTML(string prefix)
@@ -267,12 +268,12 @@ public class UIGameOverPanel : UIScene
 					{
 						if (!(totalThem <= 0f))
 						{
-							return $"{prefix}: <color=#{HTMLColor}>{totalUs / countUs:F0} v {totalThem / countThem:F0}</color>";
+							return new StringBuilder().Append(prefix).Append(": <color=#").Append(HTMLColor).Append(">").AppendFormat("{0:F0}", totalUs / countUs).Append(" v ").AppendFormat("{0:F0}", totalThem / countThem).Append("</color>").ToString();
 						}
 					}
 				}
 			}
-			return $"{prefix}: ERR";
+			return new StringBuilder().Append(prefix).Append(": ERR").ToString();
 		}
 
 		internal void AddPlayer(Team team, float elo)
@@ -385,7 +386,10 @@ public class UIGameOverPanel : UIScene
 
 	private bool failsafeTriggered;
 
-	public UpdateXPStage XPStage => m_updateXpStage;
+	public UpdateXPStage XPStage
+	{
+		get { return m_updateXpStage; }
+	}
 
 	public override SceneType GetSceneType()
 	{
@@ -632,7 +636,7 @@ public class UIGameOverPanel : UIScene
 							else if (!m_isXpBonusAnimPlaying)
 							{
 								m_isXpBonusAnimPlaying = true;
-								animator.Play("ResultsBonusIcon" + m_updateXpStage.ToString() + "DefaultIN");
+								animator.Play(new StringBuilder().Append("ResultsBonusIcon").Append(m_updateXpStage.ToString()).Append("DefaultIN").ToString());
 								m_updateXpStartTime = Time.unscaledTime;
 							}
 							else if (Time.unscaledTime > animator.GetCurrentAnimatorStateInfo(0).length + m_updateXpStartTime)

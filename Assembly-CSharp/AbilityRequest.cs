@@ -121,6 +121,6 @@ public class AbilityRequest : IComparable
 		m_caster = GameFlowData.Get().FindActorByActorIndex(value2);
 		m_cinematicRequested = value4;
 		m_resolveState = (AbilityResolveState)value3;
-		m_ability = m_caster?.GetAbilityData().GetAbilityOfActionType(m_actionType);
+		m_ability = m_caster != null ? m_caster.GetAbilityData().GetAbilityOfActionType(m_actionType) : null;
 	}
 }

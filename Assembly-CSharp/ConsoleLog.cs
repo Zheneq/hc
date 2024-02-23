@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 public static class ConsoleLog
 {
@@ -71,7 +72,7 @@ public static class ConsoleLog
 						string value = string.Empty;
 						if (!RawLogging)
 						{
-							value = $"{args.timestamp.ToString(Log.TimestampFormat)} [{Log.ToStringCode(args.level)}] ";
+							value = new StringBuilder().Append(args.timestamp.ToString(Log.TimestampFormat)).Append(" [").Append(Log.ToStringCode(args.level)).Append("] ").ToString();
 						}
 						bool flag = false;
 						if (args.level >= MinStdErrLevel)

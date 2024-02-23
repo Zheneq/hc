@@ -103,7 +103,7 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 		ClearActorsInRange();
 		m_hitActorContext.Clear();
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		Vector3 aimDirection = currentTarget != null ? currentTarget.AimDirection : targetingActor.transform.forward;
 		float maxDistancePerBounce = m_maxDistancePerBounce + (m_extraDistancePerBounceDelegate != null ? m_extraDistancePerBounceDelegate() : 0f);
 		float maxTotalDistance = m_maxTotalDistance + (m_extraTotalDistanceDelegate != null ? m_extraTotalDistanceDelegate() : 0f);
 		int maxBounces = m_maxBounces + (m_extraBouncesDelegate != null ? Mathf.RoundToInt(m_extraBouncesDelegate()) : 0);
@@ -116,6 +116,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			maxTargetsHit += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserPierces.GetBonus_Client(targetingActor));
 		}
 		bool penetrateTargetsAndHitCaster = m_penetrateTargetsAndHitCaster;
+		List<ActorData> orderedHitActors;
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors;
 		List<Vector3> endpoints = VectorUtils.CalculateBouncingLaserEndpoints(
 			travelBoardSquareWorldPositionForLos,
 			aimDirection,
@@ -128,14 +130,16 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 			false,
 			GetAffectedTeams(),
 			m_bounceOnActors,
-			out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors,
-			out List<ActorData> orderedHitActors,
+			out bounceHitActors,
+			out orderedHitActors,
 			null,
 			penetrateTargetsAndHitCaster);
 		if (penetrateTargetsAndHitCaster && endpoints.Count > 1)
 		{
 			float totalMaxDistanceInSquares = maxTotalDistance - (endpoints[0] - travelBoardSquareWorldPositionForLos).magnitude / Board.Get().squareSize;
 			Vector3 normalized = (endpoints[1] - endpoints[0]).normalized;
+			List<ActorData> orderedHitActors2;
+			Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors2;
 			VectorUtils.CalculateBouncingLaserEndpoints(
 				endpoints[0],
 				normalized,
@@ -148,8 +152,8 @@ public class AbilityUtil_Targeter_BounceLaser : AbilityUtil_Targeter
 				false,
 				targetingActor.GetTeamAsList(),
 				m_bounceOnActors,
-				out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> _,
-				out List<ActorData> orderedHitActors2,
+				out bounceHitActors2,
+				out orderedHitActors2,
 				null,
 				false,
 				false);

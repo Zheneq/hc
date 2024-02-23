@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SenseiYingYangDash : AbilityMod
@@ -72,6 +73,6 @@ public class AbilityMod_SenseiYingYangDash : AbilityMod
 		desc += PropDesc(m_extraHealOnAllyForLowHealthMod, "[ExtraHealOnAllyForLowHealth]", isValid, isValid ? senseiYingYangDash.m_extraHealOnAllyForLowHealth : 0);
 		desc += PropDesc(m_allyLowHealthThreshMod, "[AllyLowHealthThresh]", isValid, isValid ? senseiYingYangDash.m_allyLowHealthThresh : 0f);
 		desc += PropDesc(m_reverseHealthThreshForAllyMod, "[ReverseHealthThreshForAlly]", isValid, isValid && senseiYingYangDash.m_reverseHealthThreshForAlly);
-		return desc + PropDesc(m_cdrIfNoSecondDashMod, "[CdrIfNoSecondDash]", isValid, isValid ? senseiYingYangDash.m_cdrIfNoSecondDash : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfNoSecondDashMod, "[CdrIfNoSecondDash]", isValid, isValid ? senseiYingYangDash.m_cdrIfNoSecondDash : 0)).ToString();
 	}
 }

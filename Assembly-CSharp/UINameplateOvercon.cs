@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,7 +53,7 @@ public class UINameplateOvercon : MonoBehaviour
 						}
 						else if (Application.isEditor)
 						{
-							Debug.LogWarning("Did not find overcon sprite at: " + entry.m_staticSpritePath);
+							Debug.LogWarning(new StringBuilder().Append("Did not find overcon sprite at: ").Append(entry.m_staticSpritePath).ToString());
 						}
 					}
 					if (!string.IsNullOrEmpty(entry.m_customPrefabPath))
@@ -71,7 +72,7 @@ public class UINameplateOvercon : MonoBehaviour
 							}
 							else if (Application.isEditor)
 							{
-								Debug.LogWarning("Did not find overcon prefab at: " + entry.m_customPrefabPath);
+								Debug.LogWarning(new StringBuilder().Append("Did not find overcon prefab at: ").Append(entry.m_customPrefabPath).ToString());
 							}
 						}
 					}

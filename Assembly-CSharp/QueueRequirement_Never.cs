@@ -1,14 +1,21 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 [Serializable]
 public class QueueRequirement_Never : QueueRequirement
 {
 	private RequirementType m_requirementType = RequirementType.AdminDisabled;
 
-	public override bool AnyGroupMember => false;
+	public override bool AnyGroupMember
+	{
+		get { return false; }
+	}
 
-	public override RequirementType Requirement => m_requirementType;
+	public override RequirementType Requirement
+	{
+		get { return m_requirementType; }
+	}
 
 	public static QueueRequirement CreateAdminDisabled()
 	{
@@ -36,7 +43,7 @@ public class QueueRequirement_Never : QueueRequirement
 		{
 			return LocalizationPayload.Create("DisabledByAdmin", "Matchmaking");
 		}
-		throw new Exception($"Unknown requirement is failed: {Requirement}");
+		throw new Exception(new StringBuilder().Append("Unknown requirement is failed: ").Append(Requirement).ToString());
 	}
 
 	public override void WriteToJson(JsonWriter writer)

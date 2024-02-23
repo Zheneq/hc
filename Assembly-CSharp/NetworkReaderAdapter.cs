@@ -5,13 +5,25 @@ internal class NetworkReaderAdapter : IBitStream
 {
 	private NetworkReader m_stream;
 
-	public bool isReading => true;
+	public bool isReading
+	{
+		get { return true; }
+	}
 
-	public bool isWriting => false;
+	public bool isWriting
+	{
+		get { return false; }
+	}
 
-	public uint Position => m_stream.Position;
+	public uint Position
+	{
+		get { return m_stream.Position; }
+	}
 
-	public NetworkWriter Writer => null;
+	public NetworkWriter Writer
+	{
+		get { return null; }
+	}
 
 	internal NetworkReaderAdapter(NetworkReader stream)
 	{

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class SeasonCurrencyReward : SeasonReward
@@ -8,14 +9,14 @@ public class SeasonCurrencyReward : SeasonReward
 	public InventoryItemTemplate GetItemTemplate()
 	{
 		InventoryItemTemplate inventoryItemTemplate = new InventoryItemTemplate();
-		inventoryItemTemplate.DisplayName = CurrencyReward.Amount + " ";
+		inventoryItemTemplate.DisplayName = new StringBuilder().Append(CurrencyReward.Amount).Append(" ").ToString();
 		bool flag = CurrencyReward.Amount != 1;
 		switch (CurrencyReward.Type)
 		{
 		default:
 		{
 			string str3 = CurrencyReward.Type.ToString();
-			string term = str3 + ((!flag) ? string.Empty : "s");
+			string term = new StringBuilder().Append(str3).Append((!flag) ? string.Empty : "s").ToString();
 			inventoryItemTemplate.DisplayName += StringUtil.TR(term, "Rewards");
 			break;
 		}
@@ -31,7 +32,8 @@ public class SeasonCurrencyReward : SeasonReward
 			{
 				str2 = StringUtil.TR("ModToken", "Rewards");
 			}
-			inventoryItemTemplate.DisplayName = displayName2 + str2;
+
+			inventoryItemTemplate.DisplayName = new StringBuilder().Append(displayName2).Append(str2).ToString();
 			break;
 		}
 		case CurrencyType.GGPack:
@@ -46,7 +48,8 @@ public class SeasonCurrencyReward : SeasonReward
 			{
 				str = StringUtil.TR("GGBoost", "Rewards");
 			}
-			inventoryItemTemplate.DisplayName = displayName + str;
+
+			inventoryItemTemplate.DisplayName = new StringBuilder().Append(displayName).Append(str).ToString();
 			break;
 		}
 		case CurrencyType.ISO:

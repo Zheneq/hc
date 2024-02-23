@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
@@ -111,12 +112,12 @@ public abstract class GenericAbility_TargetSelectBase : MonoBehaviour
 
 	protected virtual void OnTargetSelModApplied(TargetSelectModBase modBase)
 	{
-		Log.Error("Please implement OnTargetSelModApplied in derived class " + GetType());
+		Log.Error(new StringBuilder().Append("Please implement OnTargetSelModApplied in derived class ").Append(GetType()).ToString());
 	}
 
 	protected virtual void OnTargetSelModRemoved()
 	{
-		Log.Error("Please implement OnTargetSelModRemoved in derived class " + GetType());
+		Log.Error(new StringBuilder().Append("Please implement OnTargetSelModRemoved in derived class ").Append(GetType()).ToString());
 	}
 
 	public bool IncludeEnemies()

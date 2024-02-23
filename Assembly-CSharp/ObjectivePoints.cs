@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -214,7 +215,7 @@ public class ObjectivePoints : NetworkBehaviour
 	{
 		m_displayedPoints[0] = m_points[0];
 		m_displayedPoints[1] = m_points[1];
-		Log.Info($"Score: Team A: {m_displayedPoints[0]} Team B: {m_displayedPoints[1]}");
+		Log.Info(new StringBuilder().Append("Score: Team A: ").Append(m_displayedPoints[0]).Append(" Team B: ").Append(m_displayedPoints[1]).ToString());
 		for (int i = 0; i < m_clientNumDeathInTurn.Count; i++)
 		{
 			m_clientNumDeathInTurn[i] = 0;
@@ -384,10 +385,7 @@ public class ObjectivePoints : NetworkBehaviour
 				if (spawnPointManager != null)
 				{
 					actor.NextRespawnTurn = actor.LastDeathTurn + spawnPointManager.m_respawnDelay;
-					Log.Info($"ObjectivePoints: OnActorDeath {actor.DisplayName} turn {GameFlowData.Get().CurrentTurn} " +
-						$"next respawn turn {actor.NextRespawnTurn} " +
-						$"last death turn {actor.LastDeathTurn} " +
-						$"respawn delay {spawnPointManager.m_respawnDelay}");
+					Log.Info(new StringBuilder().Append("ObjectivePoints: OnActorDeath ").Append(actor.DisplayName).Append(" turn ").Append(GameFlowData.Get().CurrentTurn).Append(" ").Append("next respawn turn ").Append(actor.NextRespawnTurn).Append(" ").Append("last death turn ").Append(actor.LastDeathTurn).Append(" ").Append("respawn delay ").Append(spawnPointManager.m_respawnDelay).ToString());
 				}
 				m_respawningPlayers.Add(actor);
 			}
@@ -463,8 +461,7 @@ public class ObjectivePoints : NetworkBehaviour
 				{
 					isGameOver = true;
 					Networkm_gameResult = GameResult.TieGame;
-					Log.Info($"Tie because: {m_teamAVictoryCondition.GetVictoryLogString(teamAPoints, teamBPoints, isOvertime, Team.TeamA)} " +
-						$"AND {m_teamBVictoryCondition.GetVictoryLogString(teamBPoints, teamAPoints, isOvertime, Team.TeamB)}");
+					Log.Info(new StringBuilder().Append("Tie because: ").Append(m_teamAVictoryCondition.GetVictoryLogString(teamAPoints, teamBPoints, isOvertime, Team.TeamA)).Append(" ").Append("AND ").Append(m_teamBVictoryCondition.GetVictoryLogString(teamBPoints, teamAPoints, isOvertime, Team.TeamB)).ToString());
 				}
 				else
 				{
@@ -487,7 +484,7 @@ public class ObjectivePoints : NetworkBehaviour
 				{
 					m_gameResultFraction = teamAPoints / (float)(teamAPoints + teamBPoints);
 				}
-				Log.Info($"Team A won because: {m_teamAVictoryCondition.GetVictoryLogString(teamAPoints, teamBPoints, isOvertime, Team.TeamA)}");
+				Log.Info(new StringBuilder().Append("Team A won because: ").Append(m_teamAVictoryCondition.GetVictoryLogString(teamAPoints, teamBPoints, isOvertime, Team.TeamA)).ToString());
 			}
 			else if (hasTeamBWon)
 			{
@@ -497,7 +494,7 @@ public class ObjectivePoints : NetworkBehaviour
 				{
 					m_gameResultFraction = teamBPoints / (float)(teamAPoints + teamBPoints);
 				}
-				Log.Info($"Team B won because: {m_teamAVictoryCondition.GetVictoryLogString(teamBPoints, teamAPoints, isOvertime, Team.TeamB)}");
+				Log.Info(new StringBuilder().Append("Team B won because: ").Append(m_teamAVictoryCondition.GetVictoryLogString(teamBPoints, teamAPoints, isOvertime, Team.TeamB)).ToString());
 			}
 			else
 			{

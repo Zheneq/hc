@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RobotAnimalRoar : AbilityMod
@@ -56,14 +57,14 @@ public class AbilityMod_RobotAnimalRoar : AbilityMod
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffectOverride, "{ Effect Override on Enemy Hit}", string.Empty, isAbilityPresent, isAbilityPresent ? robotAnimalRoar.m_enemyEffect : null);
 		if (m_healAmountToTargetAllyOnHit > 0)
 		{
-			desc += "[Heals Targeted Ally on Hit] = " + m_healAmountToTargetAllyOnHit + "\n";
+			desc += new StringBuilder().Append("[Heals Targeted Ally on Hit] = ").Append(m_healAmountToTargetAllyOnHit).Append("\n").ToString();
 		}
 		if (m_techPointGainToTargetAllyOnHit > 0)
 		{
-			desc += "[Grants Tech Points To Targeted Ally on Hit] = " + m_techPointGainToTargetAllyOnHit + "\n";
+			desc += new StringBuilder().Append("[Grants Tech Points To Targeted Ally on Hit] = ").Append(m_techPointGainToTargetAllyOnHit).Append("\n").ToString();
 		}
 		desc += PropDesc(m_useInnerShapeMod, "[UseInnerShape]", isAbilityPresent, isAbilityPresent && robotAnimalRoar.m_useInnerShape);
 		desc += PropDesc(m_innerShapeMod, "[InnerShape]", isAbilityPresent, isAbilityPresent ? robotAnimalRoar.m_innerShape : AbilityAreaShape.SingleSquare);
-		return desc + PropDesc(m_innerShapeDamageMod, "[InnerShapeDamage]", isAbilityPresent, isAbilityPresent ? robotAnimalRoar.m_innerShapeDamage : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_innerShapeDamageMod, "[InnerShapeDamage]", isAbilityPresent, isAbilityPresent ? robotAnimalRoar.m_innerShapeDamage : 0)).ToString();
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClericBasicAttack : AbilityMod
@@ -74,6 +75,6 @@ public class AbilityMod_ClericBasicAttack : AbilityMod
 			desc += m_cooldownReductionOverrideMod.GetDescription(abilityData);
 			desc += PropDesc(m_hitsToIgnoreForCooldownReductionMultiplier, "[HitsToIgnoreForCooldownReductionMultiplier]", isValid);
 		}
-		return desc + PropDesc(m_extraTechPointGainInAreaBuff, "[ExtraEnergyGainInAreaBuff]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraTechPointGainInAreaBuff, "[ExtraEnergyGainInAreaBuff]", isValid)).ToString();
 	}
 }

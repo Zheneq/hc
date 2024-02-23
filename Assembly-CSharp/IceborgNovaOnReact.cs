@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class IceborgNovaOnReact : GenericAbility_Container
@@ -26,7 +27,7 @@ public class IceborgNovaOnReact : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data for Reaction --\n" + m_reactOnHitData.GetInEditorDesc();
+		return new StringBuilder().Append(base.GetOnHitDataDesc()).Append("\n-- On Hit Data for Reaction --\n").Append(m_reactOnHitData.GetInEditorDesc()).ToString();
 	}
 
 	protected override void SetupTargetersAndCachedVars()

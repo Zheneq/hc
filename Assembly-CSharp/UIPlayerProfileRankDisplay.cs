@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -185,7 +186,7 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				}
 			}
 		}
-		Log.Warning("Did not find icon for tier: " + tier);
+		Log.Warning(new StringBuilder().Append("Did not find icon for tier: ").Append(tier).ToString());
 	}
 
 	private int GetGroupSize(UIRankDisplayType type)
@@ -253,7 +254,9 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				flag = true;
 				UIManager.SetGameObjectActive(m_InPlacementMatchesContainer, false);
 				UIManager.SetGameObjectActive(m_HasRankAlreadyContainer, true);
-				UIRankedModeSelectScreen.Get().GetTierLocalizedName(tier, instanceId, groupSize, out string tierName, out string _);
+				string tierName;
+				string foo;
+				UIRankedModeSelectScreen.Get().GetTierLocalizedName(tier, instanceId, groupSize, out tierName, out foo);
 				string text = ((int)(tierPoints + 0.5f)).ToString();
 				string str = string.Empty;
 				string arg;
@@ -264,7 +267,7 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				}
 				else
 				{
-					arg = $"{tierPoints:F1}";
+					arg = new StringBuilder().AppendFormat("{0:F1}", tierPoints).ToString();
 				}
 				string[] array = tierName.Split(' ');
 				if (array.Length > 1)
@@ -282,7 +285,7 @@ public class UIPlayerProfileRankDisplay : MonoBehaviour
 				SetBarColor(tier);
 				if (m_GamesPlayed != null)
 				{
-					m_GamesPlayed.text = string.Format(StringUtil.TR("ELONumber", "RankMode"), arg) + str;
+					m_GamesPlayed.text = new StringBuilder().Append(string.Format(StringUtil.TR("ELONumber", "RankMode"), arg)).Append(str).ToString();
 				}
 				SetTierIcon(tier);
 			}

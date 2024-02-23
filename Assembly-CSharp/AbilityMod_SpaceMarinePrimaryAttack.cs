@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 {
@@ -44,6 +45,6 @@ public class AbilityMod_SpaceMarinePrimaryAttack : AbilityMod
 		desc += PropDesc(m_baseDamageMod, "[DamageAmount]", isValid, isValid ? spaceMarinePrimaryAttack.m_damageAmount : 0);
 		desc += PropDesc(m_extraDamageOnClosestMod, "[ExtraDamageToClosestTarget]", isValid, isValid ? spaceMarinePrimaryAttack.m_extraDamageToClosestTarget : 0);
 		desc += PropDesc(m_coneDamageAmountMod, "[ConeDamageAmount]", isValid, isValid ? spaceMarinePrimaryAttack.m_coneDamageAmount : 0);
-		return desc + PropDesc(m_coneEnemyHitEffectMod, "[ConeEnemyHitEffect]", isValid, isValid ? spaceMarinePrimaryAttack.m_coneEnemyHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_coneEnemyHitEffectMod, "[ConeEnemyHitEffect]", isValid, isValid ? spaceMarinePrimaryAttack.m_coneEnemyHitEffect : null)).ToString();
 	}
 }

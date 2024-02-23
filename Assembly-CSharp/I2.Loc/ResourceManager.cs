@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -163,7 +164,7 @@ namespace I2.Loc
 			}
 			if ((UnityEngine.Object)val == (UnityEngine.Object)null)
 			{
-				val = Resources.Load<T>("Localization/" + Path);
+				val = Resources.Load<T>(new StringBuilder().Append("Localization/").Append(Path).ToString());
 			}
 			mResourcesCache[Path] = val;
 			if (!mCleaningScheduled)

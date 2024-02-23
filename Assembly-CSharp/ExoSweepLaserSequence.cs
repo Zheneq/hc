@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ExoSweepLaserSequence : Sequence
@@ -200,12 +201,12 @@ public class ExoSweepLaserSequence : Sequence
 				}
 				else
 				{
-					Log.Error(gameObject.name + " - m_fxCasterJoint.m_jointObject is NULL! Caster: {0} Target: {1}", Caster.DisplayName, Target.DisplayName);
+					Log.Error(new StringBuilder().Append(gameObject.name).Append(" - m_fxCasterJoint.m_jointObject is NULL! Caster: {0} Target: {1}").ToString(), Caster.DisplayName, Target.DisplayName);
 				}
 			}
 			else
 			{
-				Log.Error(gameObject.name + " - m_fxCasterJoint is NULL! Caster: {0} Target: {1}", Caster.DisplayName, Target.DisplayName);
+				Log.Error(new StringBuilder().Append(gameObject.name).Append(" - m_fxCasterJoint is NULL! Caster: {0} Target: {1}").ToString(), Caster.DisplayName, Target.DisplayName);
 			}
 		}
 		if (!string.IsNullOrEmpty(m_audioEvent))

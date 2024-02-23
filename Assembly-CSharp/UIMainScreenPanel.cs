@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class UIMainScreenPanel : MonoBehaviour
@@ -79,7 +80,7 @@ public class UIMainScreenPanel : MonoBehaviour
 		}
 		while (true)
 		{
-			Log.Info("HEALTHBARCHECK: ENDPOINT " + visible);
+			Log.Info(new StringBuilder().Append("HEALTHBARCHECK: ENDPOINT ").Append(visible).ToString());
 			UIManager.SetGameObjectActive(m_nameplatePanel, visible);
 			if (visible)
 			{

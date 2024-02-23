@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientMovementResults
@@ -136,7 +137,7 @@ public class ClientMovementResults
 		{
 			if (ClientAbilityResults.DebugTraceOn)
 			{
-				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+				Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientHitResultHeader).Append(GetDebugDescription()).Append(": no Sequence to start, executing results directly").ToString());
 			}
 			if (m_effectResults != null)
 			{
@@ -389,7 +390,7 @@ public class ClientMovementResults
 		{
 			str = m_gameModeResults.GetDebugDescription();
 		}
-		return str + " triggering on " + m_triggeringMover.DebugNameString();
+		return new StringBuilder().Append(str).Append(" triggering on ").Append(m_triggeringMover.DebugNameString()).ToString();
 	}
 
 	internal void ExecuteUnexecutedClientHits()
@@ -495,7 +496,7 @@ public class ClientMovementResults
 
 	internal string UnexecutedHitsDebugStr()
 	{
-		string text = "\n\tUnexecuted hits:\n\t\tMovement hit on " + m_triggeringMover.DebugNameString() + "\n";
+		string text = new StringBuilder().Append("\n\tUnexecuted hits:\n\t\tMovement hit on ").Append(m_triggeringMover.DebugNameString()).Append("\n").ToString();
 		if (m_effectResults != null)
 		{
 			text += m_effectResults.UnexecutedHitsDebugStr();

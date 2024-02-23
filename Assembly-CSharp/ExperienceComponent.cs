@@ -181,7 +181,10 @@ public class ExperienceComponent : ICloneable
 	}
 
 	[JsonIgnore]
-	public int Losses => Matches - Wins;
+	public int Losses
+	{
+		get { return Matches - Wins; }
+	}
 
 	[JsonIgnore]
 	public int XPToNextLevel

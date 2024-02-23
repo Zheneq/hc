@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ThiefSmokeBomb : AbilityMod
@@ -55,6 +56,6 @@ public class AbilityMod_ThiefSmokeBomb : AbilityMod
 		desc += PropDescGroundFieldMod(m_smokeFieldInfoMod, "{ SmokeFieldInfo }", thiefSmokeBomb.m_smokeFieldInfo);
 		desc += PropDesc(m_addBarriersMod, "[AddBarriers]", isValid, isValid && thiefSmokeBomb.m_addBarriers);
 		desc += PropDesc(m_barrierSquareWidthMod, "[BarrierSquareWidth]", isValid, isValid ? thiefSmokeBomb.m_barrierSquareWidth : 0f);
-		return desc + PropDescBarrierMod(m_barrierDataMod, "{ BarrierData }", thiefSmokeBomb.m_barrierData);
+		return new StringBuilder().Append(desc).Append(PropDescBarrierMod(m_barrierDataMod, "{ BarrierData }", thiefSmokeBomb.m_barrierData)).ToString();
 	}
 }

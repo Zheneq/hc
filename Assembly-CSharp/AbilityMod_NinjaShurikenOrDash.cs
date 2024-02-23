@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NinjaShurikenOrDash : AbilityMod
@@ -77,6 +78,6 @@ public class AbilityMod_NinjaShurikenOrDash : AbilityMod
 		desc += PropDesc(m_dashAllyHitEffectMod, "[DashAllyHitEffect]", isValid, isValid ? ninjaShurikenOrDash.m_dashAllyHitEffect : null);
 		desc += PropDesc(m_dashApplyDeathmarkMod, "[DashApplyDeathmark]", isValid, isValid && ninjaShurikenOrDash.m_dashApplyDeathmark);
 		desc += PropDesc(m_canTriggerDeathmarkMod, "[CanTriggerDeathmark]", isValid, isValid && ninjaShurikenOrDash.m_canTriggerDeathmark);
-		return desc + PropDesc(m_canQueueMoveAfterEvadeMod, "[CanQueueMoveAfterEvade]", isValid, isValid && ninjaShurikenOrDash.m_canQueueMoveAfterEvade);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_canQueueMoveAfterEvadeMod, "[CanQueueMoveAfterEvade]", isValid, isValid && ninjaShurikenOrDash.m_canQueueMoveAfterEvade)).ToString();
 	}
 }

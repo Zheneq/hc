@@ -1,3 +1,5 @@
+using System.Text;
+
 public class EffectDuration
 {
 	public int duration;
@@ -20,7 +22,7 @@ public class EffectDuration
 		{
 			if (duration - age > 1)
 			{
-				text += $"{duration - age} turns remaining";
+				text += new StringBuilder().Append(duration - age).Append(" turns remaining").ToString();
 			}
 			else if (duration - age == 1)
 			{

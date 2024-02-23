@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using Steamworks;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -72,7 +73,7 @@ public class QuestCompletePanel : UIScene
 									QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(current.Key);
 									if (questTemplate.AchievmentType != 0)
 									{
-										SteamUserStats.SetAchievement("AR_QUEST_ID_" + current.Key);
+										SteamUserStats.SetAchievement(new StringBuilder().Append("AR_QUEST_ID_").Append(current.Key).ToString());
 									}
 								}
 							}
@@ -91,7 +92,7 @@ public class QuestCompletePanel : UIScene
 								}
 								else
 								{
-									SteamUserStats.SetStat("AR_QUEST_ID_" + value.Id, currentProgress);
+									SteamUserStats.SetStat(new StringBuilder().Append("AR_QUEST_ID_").Append(value.Id).ToString(), currentProgress);
 								}
 							}
 						}
@@ -203,7 +204,7 @@ public class QuestCompletePanel : UIScene
 			{
 				if (GameManager.Get().GameplayOverrides.EnableSteamAchievements)
 				{
-					SteamUserStats.SetAchievement("AR_QUEST_ID_" + questTemplate.Index);
+					SteamUserStats.SetAchievement(new StringBuilder().Append("AR_QUEST_ID_").Append(questTemplate.Index).ToString());
 				}
 			}
 		}
@@ -268,7 +269,7 @@ public class QuestCompletePanel : UIScene
 				if (questTemplate.AchievmentType != 0)
 				{
 					QuestItem.GetQuestProgress(questTemplate.Index, out int currentProgress, out int _);
-					SteamUserStats.SetStat("AR_QUEST_ID_" + questTemplate.Index, currentProgress);
+					SteamUserStats.SetStat(new StringBuilder().Append("AR_QUEST_ID_").Append(questTemplate.Index).ToString(), currentProgress);
 				}
 			}
 			while (true)
@@ -413,7 +414,7 @@ public class QuestCompletePanel : UIScene
 							QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(questId);
 							if (questTemplate.AchievmentType != 0)
 							{
-								SteamUserStats.SetAchievement("AR_QUEST_ID_" + questId);
+								SteamUserStats.SetAchievement(new StringBuilder().Append("AR_QUEST_ID_").Append(questId).ToString());
 							}
 						}
 					}

@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
@@ -28,7 +29,7 @@ public class TargetSelect_ConeOrLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "distance from start of cone position, in squares") + GetContextUsageStr(s_cvarInCone.GetName(), "Whether the target hit is in cone") + GetContextUsageStr(ContextKeys.s_AngleFromCenter.GetName(), "angle from center of cone");
+		return new StringBuilder().Append(GetContextUsageStr(ContextKeys.s_DistFromStart.GetName(), "distance from start of cone position, in squares")).Append(GetContextUsageStr(s_cvarInCone.GetName(), "Whether the target hit is in cone")).Append(GetContextUsageStr(ContextKeys.s_AngleFromCenter.GetName(), "angle from center of cone")).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)

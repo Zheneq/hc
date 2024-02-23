@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public struct CharacterAbilityVfxSwapInfo
@@ -67,7 +68,7 @@ public struct CharacterAbilityVfxSwapInfo
 
 	public string ToIdString()
 	{
-		return $"{VfxSwapForAbility0.ToString()}/{VfxSwapForAbility1.ToString()}/{VfxSwapForAbility2.ToString()}/{VfxSwapForAbility3.ToString()}/{VfxSwapForAbility4.ToString()}";
+		return new StringBuilder().Append(VfxSwapForAbility0.ToString()).Append("/").Append(VfxSwapForAbility1.ToString()).Append("/").Append(VfxSwapForAbility2.ToString()).Append("/").Append(VfxSwapForAbility3.ToString()).Append("/").Append(VfxSwapForAbility4.ToString()).ToString();
 	}
 
 	public override bool Equals(object obj)

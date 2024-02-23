@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class BouncingShotSequence : Sequence
@@ -753,15 +754,15 @@ public class BouncingShotSequence : Sequence
 	{
 		if (m_fxJoint == null)
 		{
-			Debug.LogError(base.name + " fxJoint is null spawnFxAttempted = " + m_spawnFxAttempted);
+			Debug.LogError(new StringBuilder().Append(base.name).Append(" fxJoint is null spawnFxAttempted = ").Append(m_spawnFxAttempted).ToString());
 		}
 		else if (m_fxJoint.m_jointObject == null)
 		{
-			Debug.LogError(base.name + " fxJoint.m_jointObject is null spawnFxAttempted = " + m_spawnFxAttempted);
+			Debug.LogError(new StringBuilder().Append(base.name).Append(" fxJoint.m_jointObject is null spawnFxAttempted = ").Append(m_spawnFxAttempted).ToString());
 		}
 		else if (m_fxJoint.m_jointObject.gameObject == null)
 		{
-			Debug.LogError(base.name + " m_fxJoint.m_jointObject.gameObject is null spawnFxAttempted = " + m_spawnFxAttempted);
+			Debug.LogError(new StringBuilder().Append(base.name).Append(" m_fxJoint.m_jointObject.gameObject is null spawnFxAttempted = ").Append(m_spawnFxAttempted).ToString());
 		}
 		if (!(base.Caster == null))
 		{
@@ -770,7 +771,7 @@ public class BouncingShotSequence : Sequence
 				goto IL_011e;
 			}
 		}
-		Debug.LogError(base.name + " caster or caster gameObject is null spawnFxAttempted = " + m_spawnFxAttempted);
+		Debug.LogError(new StringBuilder().Append(base.name).Append(" caster or caster gameObject is null spawnFxAttempted = ").Append(m_spawnFxAttempted).ToString());
 		goto IL_011e;
 		IL_0158:
 		object obj;
@@ -781,7 +782,7 @@ public class BouncingShotSequence : Sequence
 		}
 		if (m_segmentPts == null)
 		{
-			Debug.LogError(base.name + " segment points is null, spawnFxAttempted = " + m_spawnFxAttempted);
+			Debug.LogError(new StringBuilder().Append(base.name).Append(" segment points is null, spawnFxAttempted = ").Append(m_spawnFxAttempted).ToString());
 		}
 		m_spawnFxAttempted = true;
 		if (m_useOriginalSegmentStartPos)

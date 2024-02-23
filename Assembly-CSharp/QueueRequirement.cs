@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public abstract class QueueRequirement
@@ -27,17 +28,23 @@ public abstract class QueueRequirement
 	public abstract RequirementType Requirement { get; }
 	public abstract bool AnyGroupMember { get; }
 
-	public static IEnumerable<Type> MessageTypes => new Type[8]
+	public static IEnumerable<Type> MessageTypes
 	{
-		typeof(QueueRequirement_AccessLevel),
-		typeof(QueueRequirement_Character),
-		typeof(QueueRequirement_DateTime),
-		typeof(QueueRequirement_Environement),
-		typeof(QueueRequirement_GreaterThan),
-		typeof(QueueRequirement_MaxLeavingPoints),
-		typeof(QueueRequirement_Never),
-		typeof(QueueRequirement_TimeOfWeek)
-	};
+		get
+		{
+			return new Type[8]
+			{
+				typeof(QueueRequirement_AccessLevel),
+				typeof(QueueRequirement_Character),
+				typeof(QueueRequirement_DateTime),
+				typeof(QueueRequirement_Environement),
+				typeof(QueueRequirement_GreaterThan),
+				typeof(QueueRequirement_MaxLeavingPoints),
+				typeof(QueueRequirement_Never),
+				typeof(QueueRequirement_TimeOfWeek)
+			};
+		}
+	}
 
 	public abstract void WriteToJson(JsonWriter writer);
 
@@ -101,7 +108,7 @@ public abstract class QueueRequirement
 				queueRequirement = QueueRequirement_Environement.Create(reader);
 				break;
 			default:
-				throw new Exception($"{text} is not a valid BogusRequirement type");
+				throw new Exception(new StringBuilder().Append(text).Append(" is not a valid BogusRequirement type").ToString());
 			}
 			reader.Read();
 			return queueRequirement;

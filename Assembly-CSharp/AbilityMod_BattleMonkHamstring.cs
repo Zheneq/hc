@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BattleMonkHamstring : AbilityMod
@@ -83,9 +84,10 @@ public class AbilityMod_BattleMonkHamstring : AbilityMod
 			string text = string.Empty;
 			if (isAbilityPresent && battleMonkHamstring.m_projectileSequencePrefab != null)
 			{
-				text = " (base was " + battleMonkHamstring.m_projectileSequencePrefab.name + ")";
+				text = new StringBuilder().Append(" (base was ").Append(battleMonkHamstring.m_projectileSequencePrefab.name).Append(")").ToString();
 			}
-			desc += "[Projectile Sequence Override] = " + m_projectileSequencePrefab.value.name + text + "\n";
+
+			desc += new StringBuilder().Append("[Projectile Sequence Override] = ").Append(m_projectileSequencePrefab.value.name).Append(text).Append("\n").ToString();
 		}
 		return desc;
 	}

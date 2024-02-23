@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class TargetSelectMod_LayerCones : TargetSelectModBase
@@ -24,7 +25,7 @@ public class TargetSelectMod_LayerCones : TargetSelectModBase
 				{
 					foreach (float num in m_coneRadiusOverrides)
 					{
-						text += "\t" + num + "\n";
+						text += new StringBuilder().Append("\t").Append(num).Append("\n").ToString();
 					}
 				}
 			}

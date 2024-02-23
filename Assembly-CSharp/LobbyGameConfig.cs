@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Newtonsoft.Json;
 
 [Serializable]
@@ -74,7 +75,7 @@ public class LobbyGameConfig
 		{
 			if (SubTypes.IsNullOrEmpty())
 			{
-				throw new Exception($"LobbyGameConfig for {GameType} has no SubTypes defined");
+				throw new Exception(new StringBuilder().Append("LobbyGameConfig for ").Append(GameType).Append(" has no SubTypes defined").ToString());
 			}
 			if (SubTypes.Count == 1)
 			{
@@ -89,13 +90,16 @@ public class LobbyGameConfig
 	}
 
 	[JsonIgnore]
-	public GameSubType InstanceSubType => GetSubType(InstanceSubTypeBit);
+	public GameSubType InstanceSubType
+	{
+		get { return GetSubType(InstanceSubTypeBit); }
+	}
 
 	public GameSubType GetSubType(ushort subtypeBit)
 	{
 		if (SubTypes.IsNullOrEmpty())
 		{
-			throw new Exception($"LobbyGameConfig for {GameType} has no SubTypes defined");
+			throw new Exception(new StringBuilder().Append("LobbyGameConfig for ").Append(GameType).Append(" has no SubTypes defined").ToString());
 		}
 		if (SubTypes.Count == 1)
 		{
@@ -103,29 +107,39 @@ public class LobbyGameConfig
 		}
 		if (subtypeBit == 0)
 		{
-			throw new Exception($"LobbyGameConfig instance created for a specific game of {GameType} " +
-			                    $"but no subtype chosen (there are {SubTypes.Count} subtypes)");
+			throw new Exception(new StringBuilder().Append("LobbyGameConfig instance created for a specific game of ").Append(GameType).Append(" ").Append("but no subtype chosen (there are ").Append(SubTypes.Count).Append(" subtypes)").ToString());
 		}
 		IEnumerable<GameSubType> subTypes = GetSubTypes(subtypeBit);
 		if (subTypes.Count() > 1)
 		{
-			throw new Exception($"LobbyGameConfig instance created for a specific game of {GameType} " +
-			                    $"but multiple subtypes selected");
+			throw new Exception(new StringBuilder().Append("LobbyGameConfig instance created for a specific game of ").Append(GameType).Append(" ").Append("but multiple subtypes selected").ToString());
 		}
 		return subTypes.First();
 	}
 
 	[JsonIgnore]
-	public bool DoAFKPlayersAbortPreLoadGames => InstanceSubType.HasMod(GameSubType.SubTypeMods.AFKPlayersAbortPreLoadGame);
+	public bool DoAFKPlayersAbortPreLoadGames
+	{
+		get { return InstanceSubType.HasMod(GameSubType.SubTypeMods.AFKPlayersAbortPreLoadGame); }
+	}
 
 	[JsonIgnore]
-	public bool DoesSubGameTypeBlockQueueMMRUpdate => InstanceSubType.HasMod(GameSubType.SubTypeMods.BlockQueueMMRUpdate);
+	public bool DoesSubGameTypeBlockQueueMMRUpdate
+	{
+		get { return InstanceSubType.HasMod(GameSubType.SubTypeMods.BlockQueueMMRUpdate); }
+	}
 
 	[JsonIgnore]
-	public bool DoesSubGameTypeOverrideFreelancerSelection => InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection);
+	public bool DoesSubGameTypeOverrideFreelancerSelection
+	{
+		get { return InstanceSubType.HasMod(GameSubType.SubTypeMods.OverrideFreelancerSelection); }
+	}
 
 	[JsonIgnore]
-	public bool DoesSubGameTypeAllowPlayingLockedCharacters => InstanceSubType.HasMod(GameSubType.SubTypeMods.AllowPlayingLockedCharacters);
+	public bool DoesSubGameTypeAllowPlayingLockedCharacters
+	{
+		get { return InstanceSubType.HasMod(GameSubType.SubTypeMods.AllowPlayingLockedCharacters); }
+	}
 
 	[JsonIgnore]
 	public double TurnTime
@@ -162,27 +176,45 @@ public class LobbyGameConfig
 		}
 		if (!found)
 		{
-			throw new Exception($"There is no subtype in {GameType} that matches mask {subTypeMask:X}");
+			throw new Exception(new StringBuilder().Append("There is no subtype in ").Append(GameType).Append(" that matches mask ").AppendFormat("{0:X}", subTypeMask).ToString());
 		}
 	}
 
 	[JsonIgnore]
-	public int TotalPlayers => TeamAPlayers + TeamBPlayers;
+	public int TotalPlayers
+	{
+		get { return TeamAPlayers + TeamBPlayers; }
+	}
 
 	[JsonIgnore]
-	public int TotalBots => TeamABots + TeamBBots;
+	public int TotalBots
+	{
+		get { return TeamABots + TeamBBots; }
+	}
 
 	[JsonIgnore]
-	public int TotalHumanPlayers => TotalPlayers - TotalBots;
+	public int TotalHumanPlayers
+	{
+		get { return TotalPlayers - TotalBots; }
+	}
 
 	[JsonIgnore]
-	public int MaxGroupSize => Math.Max(TeamAPlayers, TeamBPlayers);
+	public int MaxGroupSize
+	{
+		get { return Math.Max(TeamAPlayers, TeamBPlayers); }
+	}
 
 	[JsonIgnore]
-	public int TeamAHumanPlayers => TeamAPlayers - TeamABots;
+	public int TeamAHumanPlayers
+	{
+		get { return TeamAPlayers - TeamABots; }
+	}
 
 	[JsonIgnore]
-	public int TeamBHumanPlayers => TeamBPlayers - TeamBBots;
+	public int TeamBHumanPlayers
+	{
+		get { return TeamBPlayers - TeamBBots; }
+	}
 
 	public bool ApplyDisabledMaps(List<string> disabledMaps, LobbyGameConfig defaultGameConfig)
 	{
@@ -194,7 +226,7 @@ public class LobbyGameConfig
 		if (defaultGameConfig.SubTypes.IsNullOrEmpty())
 		{
 			IsActive = false;
-			throw new Exception($"Why does the {GameType} json config have no sub-types defined?");
+			throw new Exception(new StringBuilder().Append("Why does the ").Append(GameType).Append(" json config have no sub-types defined?").ToString());
 		}
 		bool result = false;
 		foreach (GameSubType gameSubType in defaultGameConfig.SubTypes)
@@ -207,7 +239,7 @@ public class LobbyGameConfig
 				{
 					result = true;
 					gameMapConfig.IsActive = false;
-					Log.Notice($"Override disabling {gameMapConfig.Map} in {GameType} {gameSubType.GetNameAsPayload().Term}");
+					Log.Notice(new StringBuilder().Append("Override disabling ").Append(gameMapConfig.Map).Append(" in ").Append(GameType).Append(" ").Append(gameSubType.GetNameAsPayload().Term).ToString());
 				}
 			}
 		}
@@ -216,7 +248,7 @@ public class LobbyGameConfig
 
 	public override string ToString()
 	{
-		string subType = HasSelectedSubType ? $" {InstanceSubType.GetNameAsPayload().Term}" : string.Empty;
-		return $"{GameType}{subType} {RoomName} {Map}";
+		string subType = HasSelectedSubType ? new StringBuilder().Append(" ").Append(InstanceSubType.GetNameAsPayload().Term).ToString() : string.Empty;
+		return new StringBuilder().Append(GameType).Append(subType).Append(" ").Append(RoomName).Append(" ").Append(Map).ToString();
 	}
 }

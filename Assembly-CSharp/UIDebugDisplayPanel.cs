@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -73,7 +74,7 @@ public class UIDebugDisplayPanel : MonoBehaviour
 
 	private void OnFPSTimerChange(float fps)
 	{
-		string text = $"{fps:F2} FPS";
+		string text = new StringBuilder().AppendFormat("{0:F2}", fps).Append(" FPS").ToString();
 		if (NetworkClient.active)
 		{
 			if (!NetworkServer.active && NetworkClient.allClients != null)
@@ -88,7 +89,7 @@ public class UIDebugDisplayPanel : MonoBehaviour
 							{
 								byte error;
 								int currentRTT = NetworkTransport.GetCurrentRTT(NetworkClient.allClients[0].connection.hostId, NetworkClient.allClients[0].connection.connectionId, out error);
-								string str = $"\n\n {currentRTT} ms RTT";
+								string str = new StringBuilder().Append("\n\n ").Append(currentRTT).Append(" ms RTT").ToString();
 								text += str;
 							}
 						}

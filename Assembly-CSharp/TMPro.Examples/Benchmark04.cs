@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 namespace TMPro.Examples
@@ -28,7 +29,7 @@ namespace TMPro.Examples
 				{
 					continue;
 				}
-				GameObject gameObject = new GameObject("Text - " + i + " Pts");
+				GameObject gameObject = new GameObject(new StringBuilder().Append("Text - ").Append(i).Append(" Pts").ToString());
 				if (num > num3 * 2f)
 				{
 					while (true)
@@ -49,7 +50,7 @@ namespace TMPro.Examples
 				textMeshPro.extraPadding = true;
 				textMeshPro.isOrthographic = true;
 				textMeshPro.fontSize = i;
-				textMeshPro.text = i + " pts - Lorem ipsum dolor sit...";
+				textMeshPro.text = new StringBuilder().Append(i).Append(" pts - Lorem ipsum dolor sit...").ToString();
 				textMeshPro.color = new Color32(byte.MaxValue, byte.MaxValue, byte.MaxValue, byte.MaxValue);
 				num += (float)i;
 			}

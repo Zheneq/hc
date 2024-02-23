@@ -2,6 +2,7 @@ using I2.Loc;
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,7 +36,10 @@ public class QuestOfferPanel : UIScene
 
 	private DisplayStates m_displayState;
 
-	public DisplayStates DisplayState => m_displayState;
+	public DisplayStates DisplayState
+	{
+		get { return m_displayState; }
+	}
 
 	public static QuestOfferPanel Get()
 	{
@@ -244,7 +248,7 @@ public class QuestOfferPanel : UIScene
 		else
 		{
 			int questResetHour = QuestWideData.Get().m_questResetHour;
-			string arg3 = questResetHour + ":00";
+			string arg3 = new StringBuilder().Append(questResetHour).Append(":00").ToString();
 			empty = string.Format(StringUtil.TR("DailyContractReset24Hour", "Quests"), arg3, text);
 		}
 		m_resetString.text = empty;

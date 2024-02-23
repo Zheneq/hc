@@ -2,6 +2,7 @@ using Fabric;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -326,7 +327,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal string DisplayName => m_displayName;
+	internal string DisplayName
+	{
+		get { return m_displayName; }
+	}
 
 	public int ActorIndex
 	{
@@ -365,7 +369,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (MatchLogger.Get() != null)
 			{
-				MatchLogger.Get().Log(this + " HitPoints.set " + value + ", old: " + HitPoints);
+				MatchLogger.Get().Log(new StringBuilder().Append(this).Append(" HitPoints.set ").Append(value).Append(", old: ").Append(HitPoints).ToString());
 			}
 			bool wasAlive = m_hitPoints > 0;
 			if (NetworkServer.active)
@@ -670,9 +674,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public bool DisappearingAfterCurrentMovement => m_disappearingAfterCurrentMovement;
+	public bool DisappearingAfterCurrentMovement
+	{
+		get { return m_disappearingAfterCurrentMovement; }
+	}
 
-	public BoardSquare CurrentBoardSquare => m_clientCurrentBoardSquare;
+	public BoardSquare CurrentBoardSquare
+	{
+		get { return m_clientCurrentBoardSquare; }
+	}
 
 	public ActorTeamSensitiveData TeamSensitiveData_authority
 	{
@@ -901,7 +911,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			{
 				if (ActorDebugUtils.Get() != null && ActorDebugUtils.Get().ShowingCategory(ActorDebugUtils.DebugCategory.LastKnownPosition, false))
 				{
-					Debug.LogWarning(DebugNameString() + "Setting visible for ability cast to " + value);
+					Debug.LogWarning(new StringBuilder().Append(DebugNameString()).Append("Setting visible for ability cast to ").Append(value).ToString());
 				}
 				m_currentlyVisibleForAbilityCast = value;
 			}
@@ -938,7 +948,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	internal ReadOnlyCollection<ActorData> LineOfSightVisibleExceptions => m_lineOfSightVisibleExceptions.AsReadOnly();
+	internal ReadOnlyCollection<ActorData> LineOfSightVisibleExceptions
+	{
+		get { return m_lineOfSightVisibleExceptions.AsReadOnly(); }
+	}
 
 	internal ReadOnlyCollection<BoardSquare> LineOfSightVisibleExceptionSquares
 	{
@@ -953,7 +966,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public static bool no_op_return_false_unused => false;
+	public static bool no_op_return_false_unused
+	{
+		get { return false; }
+	}
 
 	public bool OutOfCombat
 	{
@@ -967,7 +983,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
-	public BoardSquare InitialSpawnSquare => m_initialSpawnSquare;
+	public BoardSquare InitialSpawnSquare
+	{
+		get { return m_initialSpawnSquare; }
+	}
 
 	public event Action OnTurnStartDelegates;
 	public event Action<UnityEngine.Object, GameObject> OnAnimationEventDelegates;
@@ -1186,7 +1205,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (CollectTheCoins.Get() != null)
 		{
-			return $"{m_displayName} ({CollectTheCoins.Get().GetCoinsForActor_Client(this)}c)";
+			return new StringBuilder().Append(m_displayName).Append(" (").Append(CollectTheCoins.Get().GetCoinsForActor_Client(this)).Append("c)").ToString();
 		}
 		return m_displayName;
 	}
@@ -1485,8 +1504,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	private void DoTechPointsLogAndCombatText(ActorData caster, ActorData target, string sourceName, int healAmount)
 	{
 		bool isHeal = healAmount >= 0;
-		string combatText = $"{healAmount}";
-		string casterName = caster == null ? "" : $"{caster.DisplayName}'s ";
+		string combatText = new StringBuilder().Append(healAmount).ToString();
+		string casterName = caster == null ? "" : new StringBuilder().Append(caster.DisplayName).Append("'s ").ToString();
 		string logText = isHeal
 			? string.Format("{0}{1} adds {3} Energy to {2}", casterName, sourceName, target.DisplayName, healAmount)
 			: string.Format("{0}{1} removes {3} Energy from {2}", casterName, sourceName, target.DisplayName, healAmount);
@@ -1496,8 +1515,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	internal void DoCheatLogAndCombatText(string cheatName)
 	{
-		string combatText = $"{cheatName}";
-		string logText = $"{DisplayName} used cheat: {cheatName}";
+		string combatText = new StringBuilder().Append(cheatName).ToString();
+		string logText = new StringBuilder().Append(DisplayName).Append(" used cheat: ").Append(cheatName).ToString();
 		CallRpcCombatText(combatText, logText, CombatTextCategory.Other, BuffIconToDisplay.None);
 	}
 
@@ -1577,7 +1596,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		PlayerData = GetComponent<PlayerData>();
 		if (PlayerData == null)
 		{
-			throw new Exception($"Character {gameObject.name} needs a PlayerData component");
+			throw new Exception(new StringBuilder().Append("Character ").Append(gameObject.name).Append(" needs a PlayerData component").ToString());
 		}
 		m_actorMovement = gameObject.GetComponent<ActorMovement>();
 		if (m_actorMovement == null)
@@ -1653,7 +1672,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		m_actorSkinPrefabLink = heroPrefabLink;
 		if (heroPrefabLink == null)
 		{
-			throw new ApplicationException("Actor skin not set on awake. [" + base.gameObject.name + "]");
+			throw new ApplicationException(new StringBuilder().Append("Actor skin not set on awake. [").Append(base.gameObject.name).Append("]").ToString());
 		}
 		if (NetworkClient.active || !HydrogenConfig.Get().SkipCharacterModelSpawnOnServer)
 		{
@@ -1766,7 +1785,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							&& actor.GetActorModelData() != null
 							&& actor.IsInRagdoll())
 						{
-							Debug.LogError("Unragdolling undead actor on Turn Tick (" + currentTurn + "): " + actor.DebugNameString());
+							Debug.LogError(new StringBuilder().Append("Unragdolling undead actor on Turn Tick (").Append(currentTurn).Append("): ").Append(actor.DebugNameString()).ToString());
 							actor.EnableRagdoll(false);
 							flag = true;
 						}
@@ -1778,7 +1797,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 							&& !NetworkServer.active
 							&& GameFlowData.Get().LocalPlayerData.IsViewingTeam(actor.GetTeam()))
 						{
-							Debug.LogError("On client, living friendly-to-client actor " + actor.DebugNameString() + " has null square on Turn Tick");
+							Debug.LogError(new StringBuilder().Append("On client, living friendly-to-client actor ").Append(actor.DebugNameString()).Append(" has null square on Turn Tick").ToString());
 							flag = true;
 						}
 					}
@@ -1938,7 +1957,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (ragDollOn && GetHitPointsToDisplay() > 0 && !isDebugRagdoll)
 		{
-			Log.Error("early_ragdoll: enabling ragdoll on " + DebugNameString() + " with " + HitPoints + " HP,  (HP for display " + GetHitPointsToDisplay() + ")\n" + Environment.StackTrace);
+			Log.Error(new StringBuilder().Append("early_ragdoll: enabling ragdoll on ").Append(DebugNameString()).Append(" with ").Append(HitPoints).Append(" HP,  (HP for display ").Append(GetHitPointsToDisplay()).Append(")\n").Append(Environment.StackTrace).ToString());
 		}
 		if (m_actorModelData != null)
 		{
@@ -2344,7 +2363,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (asIfFromSquare == null)
 		{
-			Log.Warning("Trying to get LoS check pos wrt a null square (IsDead: " + IsDead() + ")  for " + DisplayName + " Code issue-- actor probably instantiated but not on Board yet.");
+			Log.Warning(new StringBuilder().Append("Trying to get LoS check pos wrt a null square (IsDead: ").Append(IsDead()).Append(")  for ").Append(DisplayName).Append(" Code issue-- actor probably instantiated but not on Board yet.").ToString());
 			return m_actorMovement.transform.position;
 		}
 		Vector3 freePos = GetFreePos(asIfFromSquare);
@@ -2356,7 +2375,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (asIfFromSquare == null)
 		{
-			Log.Warning("Trying to get free pos wrt a null square (IsDead: " + IsDead() + ").  for " + DisplayName + " Code issue-- actor probably instantiated but not on Board yet.");
+			Log.Warning(new StringBuilder().Append("Trying to get free pos wrt a null square (IsDead: ").Append(IsDead()).Append(").  for ").Append(DisplayName).Append(" Code issue-- actor probably instantiated but not on Board yet.").ToString());
 			return m_actorMovement.transform.position;
 		}
 		return asIfFromSquare.GetOccupantRefPos();
@@ -2407,13 +2426,13 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public string GetHealthString()
 	{
-		string text = $"{GetHitPointsToDisplay()}";
+		string text = new StringBuilder().Append(GetHitPointsToDisplay()).ToString();
 		if (AbsorbPoints > 0)
 		{
 			int num = UnresolvedDamage + ClientUnresolvedDamage;
 			int num2 = AbsorbPoints + ClientUnresolvedAbsorb;
 			int num3 = Mathf.Max(0, num2 - num);
-			text += $" +{num3} shield";
+			text += new StringBuilder().Append(" +").Append(num3).Append(" shield").ToString();
 		}
 		return text;
 	}
@@ -3062,7 +3081,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnMovementWhileDisappeared(MovementType movementType)
 	{
-		Debug.Log(DebugNameString() + ": calling OnMovementWhileDisappeared.");
+		Debug.Log(new StringBuilder().Append(DebugNameString()).Append(": calling OnMovementWhileDisappeared.").ToString());
 		if (ClientMovementManager.Get() != null)
 		{
 			ClientMovementManager.Get().OnActorMoveStart_Disappeared(this, movementType);
@@ -3089,12 +3108,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				ForceUpdateActorModelVisibility();
 				return;
 			}
-			Log.Error($"Actor {DisplayName} in MoveToBoardSquare has null destination (movementType = {movementType})");
+			Log.Error(new StringBuilder().Append("Actor ").Append(DisplayName).Append(" in MoveToBoardSquare has null destination (movementType = ").Append(movementType).Append(")").ToString());
 			return;
 		}
 		if (path == null && movementType != MovementType.Teleport)
 		{
-			Log.Error($"Actor {DisplayName} in MoveToBoardSquare has null path (movementType = {movementType})");
+			Log.Error(new StringBuilder().Append("Actor ").Append(DisplayName).Append(" in MoveToBoardSquare has null path (movementType = ").Append(movementType).Append(")").ToString());
 			return;
 		}
 		if (ServerClientUtils.GetCurrentAbilityPhase() == AbilityPriority.Evasion)
@@ -3208,7 +3227,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (dest == null)
 		{
-			Log.Error($"Actor {DisplayName} in AppearAtBoardSquare has null destination)");
+			Log.Error(new StringBuilder().Append("Actor ").Append(DisplayName).Append(" in AppearAtBoardSquare has null destination)").ToString());
 			return;
 		}
 		if (GetCurrentBoardSquare() != null && GetCurrentBoardSquare().occupant == gameObject)
@@ -3328,7 +3347,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_teamSensitiveData_friendly != friendlyTSD)
 		{
-			Log.Info("Setting Friendly TeamSensitiveData for " + DebugNameString());
+			Log.Info(new StringBuilder().Append("Setting Friendly TeamSensitiveData for ").Append(DebugNameString()).ToString());
 			m_teamSensitiveData_friendly = friendlyTSD;
 			m_teamSensitiveData_friendly.OnClientAssociatedWithActor(this);
 		}
@@ -3338,7 +3357,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_teamSensitiveData_hostile != hostileTSD)
 		{
-			Log.Info("Setting Hostile TeamSensitiveData for " + DebugNameString());
+			Log.Info(new StringBuilder().Append("Setting Hostile TeamSensitiveData for ").Append(DebugNameString()).ToString());
 			m_teamSensitiveData_hostile = hostileTSD;
 			m_teamSensitiveData_hostile.OnClientAssociatedWithActor(this);
 		}
@@ -3457,12 +3476,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			if (ClientUnresolvedDamage != 0)
 			{
-				Log.Error("ClientUnresolvedDamage not cleared on TurnTick for " + DebugNameString());
+				Log.Error(new StringBuilder().Append("ClientUnresolvedDamage not cleared on TurnTick for ").Append(DebugNameString()).ToString());
 				ClientUnresolvedDamage = 0;
 			}
 			if (ClientUnresolvedHealing != 0)
 			{
-				Log.Error("ClientUnresolvedHealing not cleared on TurnTick for " + DebugNameString());
+				Log.Error(new StringBuilder().Append("ClientUnresolvedHealing not cleared on TurnTick for ").Append(DebugNameString()).ToString());
 				ClientUnresolvedHealing = 0;
 			}
 			if (ClientUnresolvedTechPointGain != 0)
@@ -3479,7 +3498,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			}
 			if (ClientUnresolvedAbsorb != 0)
 			{
-				Log.Error("ClientUnresolvedAbsorb not cleared on TurnTick for " + DebugNameString());
+				Log.Error(new StringBuilder().Append("ClientUnresolvedAbsorb not cleared on TurnTick for ").Append(DebugNameString()).ToString());
 				ClientUnresolvedAbsorb = 0;
 			}
 			ClientExpectedHoTTotalAdjust = 0;
@@ -3598,7 +3617,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		else
 		{
-			Log.Warning($"GetRigidBody trying to find body of bone {boneName} on actor '{DisplayName}' (obj name '{base.gameObject.name}'), but the bone cannot be found.");
+			Log.Warning(new StringBuilder().Append("GetRigidBody trying to find body of bone ").Append(boneName).Append(" on actor '").Append(DisplayName).Append("' (obj name '").Append(base.gameObject.name).Append("'), but the bone cannot be found.").ToString());
 		}
 		return result;
 	}
@@ -3639,7 +3658,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			return boneObject.transform.rotation;
 		}
-		Log.Warning($"GetBoneRotation trying to find rotation of bone {boneName} on actor '{DisplayName}' (obj name '{gameObject.name}'), but the bone cannot be found.");
+		Log.Warning(new StringBuilder().Append("GetBoneRotation trying to find rotation of bone ").Append(boneName).Append(" on actor '").Append(DisplayName).Append("' (obj name '").Append(gameObject.name).Append("'), but the bone cannot be found.").ToString());
 		return gameObject.transform.rotation;
 	}
 
@@ -4028,7 +4047,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		SetHitPoints(resolvedHitPoints);
 		if (!wasDead && IsDead() && !IsInRagdoll())
 		{
-			Debug.LogError("Actor " + DebugNameString() + " died on HP resolved; he should have already been ragdolled, but wasn't.");
+			Debug.LogError(new StringBuilder().Append("Actor ").Append(DebugNameString()).Append(" died on HP resolved; he should have already been ragdolled, but wasn't.").ToString());
 			DoVisualDeath(new ActorModelData.ImpulseInfo(GetLoSCheckPos(), Vector3.up));
 		}
 	}
@@ -4043,7 +4062,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (m_combatText == null)
 		{
-			Log.Error(gameObject.name + " does not have a combat text component.");
+			Log.Error(new StringBuilder().Append(gameObject.name).Append(" does not have a combat text component.").ToString());
 			return;
 		}
 		m_combatText.Add(combatText, logText, category, icon);
@@ -4071,7 +4090,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (GameManager.Get().GameConfig.GameType != GameType.Tutorial && !AbilityModHelper.IsModAllowed(m_characterType, actionTypeInt, abilityScopeId))
 		{
-			Debug.LogWarning("Mod with ID " + abilityScopeId + " is not allowed on ability at index " + actionTypeInt + " for character " + m_characterType.ToString());
+			Debug.LogWarning(new StringBuilder().Append("Mod with ID ").Append(abilityScopeId).Append(" is not allowed on ability at index ").Append(actionTypeInt).Append(" for character ").Append(m_characterType.ToString()).ToString());
 			return;
 		}
 
@@ -4094,7 +4113,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 				else
 				{
-					Log.Warning("Mod with ID " + abilityModForAbilityById.m_abilityScopeId + " is not allowed in game type: " + gameType.ToString() + ", subType: " + instanceSubType.LocalizedName);
+					Log.Warning(new StringBuilder().Append("Mod with ID ").Append(abilityModForAbilityById.m_abilityScopeId).Append(" is not allowed in game type: ").Append(gameType.ToString()).Append(", subType: ").Append(instanceSubType.LocalizedName).ToString());
 				}
 			}
 		}
@@ -4129,7 +4148,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (log)
 		{
-			Debug.LogWarning("Applied " + abilityMod.GetDebugIdentifier("white") + " to ability " + ability.GetDebugIdentifier("orange"));
+			Debug.LogWarning(new StringBuilder().Append("Applied ").Append(abilityMod.GetDebugIdentifier("white")).Append(" to ability ").Append(ability.GetDebugIdentifier("orange")).ToString());
 		}
 	}
 
@@ -4212,17 +4231,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public override string ToString()
 	{
-		return $"[ActorData: {m_displayName}, {GetClassName()}, ActorIndex: {m_actorIndex}, {m_team}] {PlayerData}";
+		return new StringBuilder().Append("[ActorData: ").Append(m_displayName).Append(", ").Append(GetClassName()).Append(", ActorIndex: ").Append(m_actorIndex).Append(", ").Append(m_team).Append("] ").Append(PlayerData).ToString();
 	}
 
 	public string DebugNameString()
 	{
-		return "[" + GetClassName() + " (" + DisplayName + "), " + ActorIndex + "]";
+		return new StringBuilder().Append("[").Append(GetClassName()).Append(" (").Append(DisplayName).Append("), ").Append(ActorIndex).Append("]").ToString();
 	}
 
 	public string DebugNameString(string color)
 	{
-		return "<color=" + color + ">" + DebugNameString() + "</color>";
+		return new StringBuilder().Append("<color=").Append(color).Append(">").Append(DebugNameString()).Append("</color>").ToString();
 	}
 
 	public string DebugHpEnergyString()
@@ -4230,25 +4249,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		int num = ExpectedHoTTotal + ClientExpectedHoTTotalAdjust;
 		int expectedHoTThisTurn = ExpectedHoTThisTurn;
 		int clientAppliedHoTThisTurn = ClientAppliedHoTThisTurn;
-		return "Max HP: " + GetMaxHitPoints()
-			+ "\nHP to Display: " + GetHitPointsToDisplay()
-			+ "\n HP: " + HitPoints
-			+ "\n Damage: " + UnresolvedDamage
-			+ "\n Healing: " + UnresolvedHealing
-			+ "\n Absorb: " + AbsorbPoints
-			+ "\n CL Damage: " + ClientUnresolvedDamage
-			+ "\n CL Healing: " + ClientUnresolvedHealing
-			+ "\n CL Absorb: " + ClientUnresolvedAbsorb
-			+ "\n\n Energy to Display: " + GetTechPointsToDisplay()
-			+ "\n  Energy: " + TechPoints
-			+ "\n Reserved Energy: " + ReservedTechPoints
-			+ "\n EnergyGain: " + UnresolvedTechPointGain
-			+ "\n EnergyLoss: " + UnresolvedTechPointLoss
-			+ "\n CL Reserved Energy: " + ClientReservedTechPoints
-			+ "\n CL EnergyGain: " + ClientUnresolvedTechPointGain
-			+ "\n CL EnergyLoss: " + ClientUnresolvedTechPointLoss
-			+ "\n CL Total HoT: " + num
-			+ "\n CL HoT This Turn/Applied: " + expectedHoTThisTurn + " / " + clientAppliedHoTThisTurn;
+		return new StringBuilder().Append("Max HP: ").Append(GetMaxHitPoints()).Append("\nHP to Display: ").Append(GetHitPointsToDisplay()).Append("\n HP: ").Append(HitPoints).Append("\n Damage: ").Append(UnresolvedDamage).Append("\n Healing: ").Append(UnresolvedHealing).Append("\n Absorb: ").Append(AbsorbPoints).Append("\n CL Damage: ").Append(ClientUnresolvedDamage).Append("\n CL Healing: ").Append(ClientUnresolvedHealing).Append("\n CL Absorb: ").Append(ClientUnresolvedAbsorb).Append("\n\n Energy to Display: ").Append(GetTechPointsToDisplay()).Append("\n  Energy: ").Append(TechPoints).Append("\n Reserved Energy: ").Append(ReservedTechPoints).Append("\n EnergyGain: ").Append(UnresolvedTechPointGain).Append("\n EnergyLoss: ").Append(UnresolvedTechPointLoss).Append("\n CL Reserved Energy: ").Append(ClientReservedTechPoints).Append("\n CL EnergyGain: ").Append(ClientUnresolvedTechPointGain).Append("\n CL EnergyLoss: ").Append(ClientUnresolvedTechPointLoss).Append("\n CL Total HoT: ").Append(num).Append("\n CL HoT This Turn/Applied: ").Append(expectedHoTThisTurn).Append(" / ").Append(clientAppliedHoTThisTurn).ToString();
 	}
 
 	public string DebugFSMStateString()

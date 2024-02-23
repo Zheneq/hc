@@ -143,7 +143,8 @@ public class _Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 			}
 		}
 		RectTransform component = m_DraggingIcon.GetComponent<RectTransform>();
-		if (!RectTransformUtility.ScreenPointToWorldPointInRectangle(m_DraggingPlane, data.position, data.pressEventCamera, out Vector3 worldPoint))
+		Vector3 worldPoint;
+		if (!RectTransformUtility.ScreenPointToWorldPointInRectangle(m_DraggingPlane, data.position, data.pressEventCamera, out worldPoint))
 		{
 			return;
 		}

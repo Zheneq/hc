@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -99,18 +100,19 @@ public class OnHitBarrierField
 			result = "- Barrier To Spawn -\n";
 			if (!string.IsNullOrEmpty(m_identifier))
 			{
-				result = result + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
+				result = new StringBuilder().Append(result).Append("Identifier: ").Append(InEditorDescHelper.ColoredString(m_identifier, "white")).Append("\n").ToString();
 			}
 			if (!string.IsNullOrEmpty(m_centerPosContextName))
 			{
-				result = result + "Center Pos Context Var = " + m_centerPosContextName + "\n";
+				result = new StringBuilder().Append(result).Append("Center Pos Context Var = ").Append(m_centerPosContextName).Append("\n").ToString();
 			}
 			else
 			{
-				result = result + InEditorDescHelper.ColoredString("Center Pos Context Var is empty, please specify one", "orange") + "\n";
+				result = new StringBuilder().Append(result).Append(InEditorDescHelper.ColoredString("Center Pos Context Var is empty, please specify one", "orange")).Append("\n").ToString();
 			}
-			result = (string.IsNullOrEmpty(m_facingDirContextName) ? (result + InEditorDescHelper.ColoredString("Facing Dir Context Var is empty, please specify one", "orange") + "\n") : (result + "Facing Dir Context Var = " + m_facingDirContextName + "\n"));
-			result = result + m_barrierData.GetInEditorDescription() + "\n";
+
+			result = (string.IsNullOrEmpty(m_facingDirContextName) ? new StringBuilder().Append(result).Append(InEditorDescHelper.ColoredString("Facing Dir Context Var is empty, please specify one", "orange")).Append("\n").ToString() : new StringBuilder().Append(result).Append("Facing Dir Context Var = ").Append(m_facingDirContextName).Append("\n").ToString());
+			result = new StringBuilder().Append(result).Append(m_barrierData.GetInEditorDescription()).Append("\n").ToString();
 		}
 		return result;
 	}

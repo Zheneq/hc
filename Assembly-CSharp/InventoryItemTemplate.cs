@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class InventoryItemTemplate
@@ -87,7 +88,7 @@ public class InventoryItemTemplate
 
 	public string GetProductCode()
 	{
-		return "INVENTORY_ITEM_" + Index;
+		return new StringBuilder().Append("INVENTORY_ITEM_").Append(Index).ToString();
 	}
 
 	public List<InventoryItem> Process(int count)
@@ -120,7 +121,7 @@ public class InventoryItemTemplate
 				case 0:
 					break;
 				default:
-					return $"[{Index}] {DisplayName}, {Type}";
+					return new StringBuilder().Append("[").Append(Index).Append("] ").Append(DisplayName).Append(", ").Append(Type).ToString();
 				}
 			}
 		}

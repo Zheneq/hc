@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using CameraManagerInternal;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -73,9 +74,22 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	internal CameraFaceShot FaceShot { get; private set; }
 	internal Bounds CameraPositionBounds { get; private set; }
 	internal TauntBackgroundCamera TauntBackgroundCamera { get; private set; }
-	internal float SecondsRemainingToPauseForUserControl { get; set; } = -1f;
-	public bool UseCameraToggleKey => m_useCameraToggleKey;
-	public static bool CamDebugTraceOn => false;
+	internal float SecondsRemainingToPauseForUserControl { get; set; }
+
+	public CameraManager()
+	{
+		SecondsRemainingToPauseForUserControl = -1f;
+	}
+
+	public bool UseCameraToggleKey
+	{
+		get { return m_useCameraToggleKey; }
+	}
+
+	public static bool CamDebugTraceOn
+	{
+		get { return false; }
+	}
 
 	internal bool InFaceShot(ActorData actor)
 	{
@@ -516,7 +530,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			if (CamDebugTraceOn)
 			{
-				LogForDebugging("<color=white>Enable Abilities Camera</color>, transition type: " + transitionInType);
+				LogForDebugging(new StringBuilder().Append("<color=white>Enable Abilities Camera</color>, transition type: ").Append(transitionInType).ToString());
 			}
 
 			if (isometricCamera.enabled)
@@ -559,7 +573,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 		{
 			if (CamDebugTraceOn)
 			{
-				LogForDebugging("<color=white>Enable Isometric Camera</color>, transition type: " + transitionInType);
+				LogForDebugging(new StringBuilder().Append("<color=white>Enable Isometric Camera</color>, transition type: ").Append(transitionInType).ToString());
 			}
 
 			bool flag = false;
@@ -645,7 +659,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (CamDebugTraceOn)
 		{
-			LogForDebugging("CameraManager.SetTargetObjectToMouse " + (target != null ? target.name : "NULL"));
+			LogForDebugging(new StringBuilder().Append("CameraManager.SetTargetObjectToMouse ").Append(target != null ? target.name : "NULL").ToString());
 		}
 		IsometricCamera isometricCamera = GetIsometricCamera();
 		if (isometricCamera != null && isometricCamera.enabled)
@@ -668,7 +682,7 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	{
 		if (CamDebugTraceOn)
 		{
-			LogForDebugging("CameraManager.SetTarget " + bounds + " | quicker transition: " + quickerTransition + " | useLowPosition: " + useLowPosition);
+			LogForDebugging(new StringBuilder().Append("CameraManager.SetTarget ").Append(bounds).Append(" | quicker transition: ").Append(quickerTransition).Append(" | useLowPosition: ").Append(useLowPosition).ToString());
 		}
 		if (Camera.main == null)
 		{
@@ -1006,7 +1020,8 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 				ray = new Ray(Camera.main.transform.position, direction);
 			}
 
-			if (!new Plane(Vector3.up, -Board.Get().BaselineHeight).Raycast(ray, out float enter))
+			float enter;
+			if (!new Plane(Vector3.up, -Board.Get().BaselineHeight).Raycast(ray, out enter))
 			{
 				enter = 3f;
 			}
@@ -1172,8 +1187,6 @@ public class CameraManager : MonoBehaviour, IGameEventListener
 	public static void LogForDebugging(string str, CameraLogType cameraType = CameraLogType.None)
 	{
 		Debug.LogWarning(
-			"<color=magenta>Camera " 
-			+ (cameraType == CameraLogType.None ? string.Empty : "[" + cameraType + "]")
-			+ " | </color>" + str + "\n@time= " + Time.time);
+			new StringBuilder().Append("<color=magenta>Camera ").Append(cameraType == CameraLogType.None ? string.Empty : new StringBuilder().Append("[").Append(cameraType).Append("]").ToString()).Append(" | </color>").Append(str).Append("\n@time= ").Append(Time.time).ToString());
 	}
 }

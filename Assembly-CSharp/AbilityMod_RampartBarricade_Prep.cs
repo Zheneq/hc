@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RampartBarricade_Prep : AbilityMod
@@ -50,6 +51,6 @@ public class AbilityMod_RampartBarricade_Prep : AbilityMod
 		desc += PropDesc(m_laserLengthIgnoreLosMod, "[LaserLengthIgnoreLos]", isAbilityPresent, isAbilityPresent && rampartBarricade_Prep.m_laserLengthIgnoreLos);
 		desc += PropDesc(m_penetrateLosMod, "[PenetrateLos]", isAbilityPresent, isAbilityPresent && rampartBarricade_Prep.m_penetrateLos);
 		desc += PropDesc(m_knockbackDistanceMod, "[KnockbackDistance]", isAbilityPresent, isAbilityPresent ? rampartBarricade_Prep.m_knockbackDistance : 0f);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_shieldBarrierDataMod, "{ Barrier Data Mod }", passive_Rampart != null ? passive_Rampart.m_normalShieldBarrierData : null);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_shieldBarrierDataMod, "{ Barrier Data Mod }", passive_Rampart != null ? passive_Rampart.m_normalShieldBarrierData : null)).ToString();
 	}
 }

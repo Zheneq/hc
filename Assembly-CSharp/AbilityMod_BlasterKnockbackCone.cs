@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BlasterKnockbackCone : AbilityMod
@@ -65,6 +66,6 @@ public class AbilityMod_BlasterKnockbackCone : AbilityMod
 		desc += PropDesc(m_knockbackDistanceMod, "[KnockbackDistance]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_knockbackDistance : 0f);
 		desc += PropDesc(m_extraKnockbackDistOnOverchargedMod, "[ExtraKnockbackDistOnOvercharged]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_extraKnockbackDistOnOvercharged : 0f);
 		desc += PropDesc(m_knockbackDistanceOnSelfMod, "[KnockbackDistanceOnSelf]", isAbilityPresent, isAbilityPresent ? blasterKnockbackCone.m_knockbackDistanceOnSelf : 0f);
-		return desc + PropDesc(m_overchargeAsFreeActionAfterCastMod, "[OverchargeAsFreeActionAfterCast]", isAbilityPresent, isAbilityPresent && blasterKnockbackCone.m_overchargeAsFreeActionAfterCast);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_overchargeAsFreeActionAfterCastMod, "[OverchargeAsFreeActionAfterCast]", isAbilityPresent, isAbilityPresent && blasterKnockbackCone.m_overchargeAsFreeActionAfterCast)).ToString();
 	}
 }

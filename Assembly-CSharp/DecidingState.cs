@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -79,16 +80,16 @@ public class DecidingState : TurnState
 			m_SM.NextState = TurnStateEnum.RESPAWNING;
 			break;
 		case TurnMessage.MOVEMENT_RESOLVED:
-			Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'Movement Resolved' message in the Deciding state, which is unexpected.");
+			Log.Error(new StringBuilder().Append(m_SM.GetComponent<ActorData>().DisplayName).Append("Received a 'Movement Resolved' message in the Deciding state, which is unexpected.").ToString());
 			break;
 		case TurnMessage.CLIENTS_RESOLVED_ABILITIES:
 			if (NetworkServer.active)
 			{
-				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Deciding state, which is unexpected.");
+				Log.Error(new StringBuilder().Append(m_SM.GetComponent<ActorData>().DisplayName).Append("Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Deciding state, which is unexpected.").ToString());
 			}
 			else
 			{
-				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Deciding state, which is unexpected.");
+				Log.Error(new StringBuilder().Append(m_SM.GetComponent<ActorData>().DisplayName).Append("Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Deciding state, which is unexpected.").ToString());
 			}
 			m_SM.NextState = TurnStateEnum.WAITING;
 			break;

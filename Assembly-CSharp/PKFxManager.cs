@@ -69,7 +69,7 @@ public static class PKFxManager
 				}
 			}
 		}
-		string text = PKFxManager.m_PackPath + "/PKconfig.cfg";
+		string text = new StringBuilder().Append(PKFxManager.m_PackPath).Append("/PKconfig.cfg").ToString();
 		if (File.Exists(text))
 		{
 			FileStream fileStream = new FileStream(text, FileMode.Open, FileAccess.Read);
@@ -79,7 +79,7 @@ public static class PKFxManager
 		}
 		else
 		{
-			Debug.LogWarning("[PKFX] Can't find conf file : " + text);
+			Debug.LogWarning(new StringBuilder().Append("[PKFX] Can't find conf file : ").Append(text).ToString());
 			PKFxManager.m_GlobalConf = new PKFxManager.PKFxConf();
 			PKFxManager.m_GlobalConf.Save();
 		}
@@ -334,7 +334,7 @@ public static class PKFxManager
 	{
 		if (cameraID < 0)
 		{
-			Debug.LogError("[PKFX] PKFxManager: invalid cameraID for rendering " + cameraID);
+			Debug.LogError(new StringBuilder().Append("[PKFX] PKFxManager: invalid cameraID for rendering ").Append(cameraID).ToString());
 		}
 	}
 
@@ -345,7 +345,7 @@ public static class PKFxManager
 		{
 			yield return www;
 		}
-		File.WriteAllBytes(PKFxManager.m_PackPath + "/PKconfig.cfg", www.bytes);
+		File.WriteAllBytes(new StringBuilder().Append(PKFxManager.m_PackPath).Append("/PKconfig.cfg").ToString(), www.bytes);
 		www.Dispose();
 		yield break;
 	}
@@ -392,15 +392,15 @@ public static class PKFxManager
 		{
 			text = text.Substring(0, num);
 		}
-		Uri uri = new Uri(text + "/");
-		Uri uri2 = new Uri(packPath + "/");
+		Uri uri = new Uri(new StringBuilder().Append(text).Append("/").ToString());
+		Uri uri2 = new Uri(new StringBuilder().Append(packPath).Append("/").ToString());
 		if (uri.Scheme != uri2.Scheme)
 		{
 			return false;
 		}
 		Uri uri3 = uri.MakeRelativeUri(uri2);
 		string str = Uri.UnescapeDataString(uri3.ToString());
-		return PKFxManager.LoadPack(str + "PackFx");
+		return PKFxManager.LoadPack(new StringBuilder().Append(str).Append("PackFx").ToString());
 	}
 
 	[MonoPInvokeCallback(typeof(PKFxManager.FxCallback))]
@@ -588,7 +588,7 @@ public static class PKFxManager
 		if (enable)
 		{
 			List<string> list = new List<string>();
-			list.AddRange(Directory.GetFiles(Application.streamingAssetsPath + "/PackFx", "*", SearchOption.AllDirectories));
+			list.AddRange(Directory.GetFiles(new StringBuilder().Append(Application.streamingAssetsPath).Append("/PackFx").ToString(), "*", SearchOption.AllDirectories));
 			for (int i = 0; i < list.Count; i++)
 			{
 				list[i] = list[i].Replace("\\", "/");
@@ -603,10 +603,10 @@ public static class PKFxManager
 					{
 						string text2 = text.Substring(Application.streamingAssetsPath.Length);
 						FileInfo fileInfo = new FileInfo(text);
-						FileInfo fileInfo2 = new FileInfo(Application.persistentDataPath + text2);
+						FileInfo fileInfo2 = new FileInfo(new StringBuilder().Append(Application.persistentDataPath).Append(text2).ToString());
 						if (!fileInfo2.Exists)
 						{
-							Debug.Log("Copy " + Application.persistentDataPath + text2);
+							Debug.Log(new StringBuilder().Append("Copy ").Append(Application.persistentDataPath).Append(text2).ToString());
 							if (!Directory.Exists(fileInfo2.Directory.FullName))
 							{
 								Directory.CreateDirectory(fileInfo2.Directory.FullName);
@@ -615,7 +615,7 @@ public static class PKFxManager
 						}
 						else if (fileInfo.LastWriteTime > fileInfo2.LastWriteTime)
 						{
-							Debug.Log("Overwriting " + Application.persistentDataPath + text2);
+							Debug.Log(new StringBuilder().Append("Overwriting ").Append(Application.persistentDataPath).Append(text2).ToString());
 							File.Copy(text, fileInfo2.FullName, true);
 						}
 					}
@@ -676,7 +676,7 @@ public static class PKFxManager
 
 		public void Save()
 		{
-			string path = PKFxManager.m_PackPath + "/PKconfig.cfg";
+			string path = new StringBuilder().Append(PKFxManager.m_PackPath).Append("/PKconfig.cfg").ToString();
 			XmlSerializer xmlSerializer = new XmlSerializer(typeof(PKFxManager.PKFxConf));
 			if (!Directory.Exists(Path.GetDirectoryName(path)))
 			{

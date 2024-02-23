@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AdditionalAttachedActorVfx : MonoBehaviour
@@ -45,7 +46,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				JointToVfx jointToVfx = m_vfxToAttach[i];
 				if (jointToVfx.m_vfxCommonPrefab != null)
 				{
-					AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+					AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, new StringBuilder().Append("AttachedVfx_").Append(jointToVfx.m_name).ToString(), AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 					if (attachedActorVFXInfo.HasVfxInstance())
 					{
 						attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
@@ -54,7 +55,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				}
 				if (jointToVfx.m_vfxFriendlyOnlyPrefab != null)
 				{
-					AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(jointToVfx.m_vfxFriendlyOnlyPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVfxFriendly_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly);
+					AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(jointToVfx.m_vfxFriendlyOnlyPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, new StringBuilder().Append("AttachedVfxFriendly_").Append(jointToVfx.m_name).ToString(), AttachedActorVFXInfo.FriendOrFoeVisibility.FriendlyOnly);
 					if (attachedActorVFXInfo2.HasVfxInstance())
 					{
 						attachedActorVFXInfo2.SetInstanceLocalPosition(jointToVfx.m_localOffset);
@@ -65,7 +66,7 @@ public class AdditionalAttachedActorVfx : MonoBehaviour
 				{
 					continue;
 				}
-				AttachedActorVFXInfo attachedActorVFXInfo3 = new AttachedActorVFXInfo(jointToVfx.m_vfxEnemyOnlyPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "AttachedVFXEnemy_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly);
+				AttachedActorVFXInfo attachedActorVFXInfo3 = new AttachedActorVFXInfo(jointToVfx.m_vfxEnemyOnlyPrefab, m_actorData, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, new StringBuilder().Append("AttachedVFXEnemy_").Append(jointToVfx.m_name).ToString(), AttachedActorVFXInfo.FriendOrFoeVisibility.EnemyOnly);
 				if (attachedActorVFXInfo3.HasVfxInstance())
 				{
 					attachedActorVFXInfo3.SetInstanceLocalPosition(jointToVfx.m_localOffset);

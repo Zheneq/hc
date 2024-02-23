@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RageBeastUltimate : AbilityMod
@@ -42,11 +43,11 @@ public class AbilityMod_RageBeastUltimate : AbilityMod
 		desc += PropDesc(m_plasmaDurationMod, "[Plasma Duration]", isValid, isValid ? rageBeastUltimate.m_plasmaDuration : 0);
 		if (m_passiveTechPointRegen > 0)
 		{
-			desc += "Passive TechPoint Regen while has Mod: " + m_passiveTechPointRegen + "\n";
+			desc += new StringBuilder().Append("Passive TechPoint Regen while has Mod: ").Append(m_passiveTechPointRegen).Append("\n").ToString();
 		}
 		desc += PropDesc(m_plasmaHealingMod, "[Plasma Ally Healing]", isValid);
 		desc += PropDesc(m_plasmaTechPointGainMod, "[Plasma Ally Tech Point Gain]", isValid);
 		desc += PropDesc(m_selfHealOnCastMod, "[SelfHealOnCast]", isValid, isValid ? rageBeastUltimate.m_selfHealOnCast : 0);
-		return desc + PropDesc(m_extraEffectOnSelfMod, "[ExtraEffectOnSelf]", isValid, isValid ? rageBeastUltimate.m_extraEffectOnSelf : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEffectOnSelfMod, "[ExtraEffectOnSelf]", isValid, isValid ? rageBeastUltimate.m_extraEffectOnSelf : null)).ToString();
 	}
 }

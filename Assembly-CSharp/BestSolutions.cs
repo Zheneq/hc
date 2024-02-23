@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class BestSolutions
 {
@@ -69,23 +70,50 @@ public class BestSolutions
 
 		private bool m_isLegal;
 
-		public float AbsEloDifference => Math.Abs(m_AvBEloDifference);
+		public float AbsEloDifference
+		{
+			get { return Math.Abs(m_AvBEloDifference); }
+		}
 
-		public float AvBEloDifference => m_AvBEloDifference;
+		public float AvBEloDifference
+		{
+			get { return m_AvBEloDifference; }
+		}
 
-		public bool BreaksGroups => m_groupBreakage != GroupBreakage.NONE;
+		public bool BreaksGroups
+		{
+			get { return m_groupBreakage != GroupBreakage.NONE; }
+		}
 
-		public bool HasNoobCollisions => m_noobCollision;
+		public bool HasNoobCollisions
+		{
+			get { return m_noobCollision; }
+		}
 
-		public bool HasExpertCollisions => m_expertCollision;
+		public bool HasExpertCollisions
+		{
+			get { return m_expertCollision; }
+		}
 
-		public int MaxGroupSizeImbalance => m_maxGroupSizeImbalance;
+		public int MaxGroupSizeImbalance
+		{
+			get { return m_maxGroupSizeImbalance; }
+		}
 
-		public int GroupedMemberCountImbalance => m_groupedMemberCountImbalance;
+		public int GroupedMemberCountImbalance
+		{
+			get { return m_groupedMemberCountImbalance; }
+		}
 
-		public GroupBreakage GroupBreakage => m_groupBreakage;
+		public GroupBreakage GroupBreakage
+		{
+			get { return m_groupBreakage; }
+		}
 
-		public bool HasRoleImbalance => m_roleImbalance != 0;
+		public bool HasRoleImbalance
+		{
+			get { return m_roleImbalance != 0; }
+		}
 
 		public bool HasMissingRoles
 		{
@@ -107,11 +135,20 @@ public class BestSolutions
 			}
 		}
 
-		public bool HasMissingRoleAssassin => !m_hasRoleAssassin;
+		public bool HasMissingRoleAssassin
+		{
+			get { return !m_hasRoleAssassin; }
+		}
 
-		public bool HasMissingRoleTank => !m_hasRoleTank;
+		public bool HasMissingRoleTank
+		{
+			get { return !m_hasRoleTank; }
+		}
 
-		public bool HasMissingRoleSupport => !m_hasRoleSupport;
+		public bool HasMissingRoleSupport
+		{
+			get { return !m_hasRoleSupport; }
+		}
 
 		public int RoleCount
 		{
@@ -149,17 +186,35 @@ public class BestSolutions
 			}
 		}
 
-		public bool HasWillFillImbalance => m_willFillImbalance != 0;
+		public bool HasWillFillImbalance
+		{
+			get { return m_willFillImbalance != 0; }
+		}
 
-		public bool HasBotImbalance => m_botImbalance > 1;
+		public bool HasBotImbalance
+		{
+			get { return m_botImbalance > 1; }
+		}
 
-		public bool HasLoserImbalance => m_loserImbalance > 1;
+		public bool HasLoserImbalance
+		{
+			get { return m_loserImbalance > 1; }
+		}
 
-		public bool HasRegionUniqueness => m_regionUniqueness;
+		public bool HasRegionUniqueness
+		{
+			get { return m_regionUniqueness; }
+		}
 
-		public bool HasLanguageImbalance => m_languageImbalance;
+		public bool HasLanguageImbalance
+		{
+			get { return m_languageImbalance; }
+		}
 
-		public int LanguageCommonality => m_languageCommonality;
+		public int LanguageCommonality
+		{
+			get { return m_languageCommonality; }
+		}
 
 		public BalanceResults.BalanceFailureLevel BalanceFailureImbalance
 		{
@@ -319,7 +374,7 @@ public class BestSolutions
 			empty = func(m_expertCollision, empty, "expert");
 			if (empty.Count() > 0)
 			{
-				empty = $", {empty} collision";
+				empty = new StringBuilder().Append(", ").Append(empty).Append(" collision").ToString();
 			}
 			string empty2 = string.Empty;
 			empty2 = func(m_botImbalance != 0, empty2, "bot");
@@ -329,7 +384,7 @@ public class BestSolutions
 			object arg3;
 			if (m_loserImbalance > 1)
 			{
-				arg3 = $"loser({m_loserImbalance})";
+				arg3 = new StringBuilder().Append("loser(").Append(m_loserImbalance).Append(")").ToString();
 			}
 			else
 			{
@@ -339,23 +394,23 @@ public class BestSolutions
 			empty2 = func(m_roleImbalance != 0, empty2, "role");
 			empty2 = func(m_willFillImbalance != 0, empty2, "fill");
 			empty2 = func(m_languageImbalance, empty2, "lang");
-			empty2 = func(m_balanceFailureImbalance != 0, empty2, $"unfair{m_balanceFailureImbalance}");
+			empty2 = func(m_balanceFailureImbalance != 0, empty2, new StringBuilder().Append("unfair").Append(m_balanceFailureImbalance).ToString());
 			if (empty2.Count() > 0)
 			{
-				empty2 = $", {empty2} imbalance";
+				empty2 = new StringBuilder().Append(", ").Append(empty2).Append(" imbalance").ToString();
 			}
 			string text;
 			if (!m_useFineOtherSortingCriteria)
 			{
-				text = $"eloDiff={AbsEloDifference}";
+				text = new StringBuilder().Append("eloDiff=").Append(AbsEloDifference).ToString();
 			}
 			else if (m_largestEloWidth > AbsEloDifference)
 			{
-				text = $"width={m_largestEloWidth}, eloDiff={AbsEloDifference}";
+				text = new StringBuilder().Append("width=").Append(m_largestEloWidth).Append(", eloDiff=").Append(AbsEloDifference).ToString();
 			}
 			else
 			{
-				text = $"eloDiff={AbsEloDifference}, width={m_largestEloWidth}";
+				text = new StringBuilder().Append("eloDiff=").Append(AbsEloDifference).Append(", width=").Append(m_largestEloWidth).ToString();
 			}
 			object[] obj = new object[9]
 			{
@@ -376,7 +431,7 @@ public class BestSolutions
 			}
 			else
 			{
-				text2 = $", {m_groupBreakage}";
+				text2 = new StringBuilder().Append(", ").Append(m_groupBreakage).ToString();
 			}
 			obj[1] = text2;
 			obj[2] = empty;
@@ -918,11 +973,20 @@ public class BestSolutions
 			Tragic
 		}
 
-		public GroupBreakage GroupBreakage => (m_solution != null) ? m_solution.GroupBreakage : GroupBreakage.NONE;
+		public GroupBreakage GroupBreakage
+		{
+			get { return (m_solution != null) ? m_solution.GroupBreakage : GroupBreakage.NONE; }
+		}
 
-		public EloImbalance EloImbalance => (m_solution != null) ? m_solution.EloImbalance : EloImbalance.MINOR;
+		public EloImbalance EloImbalance
+		{
+			get { return (m_solution != null) ? m_solution.EloImbalance : EloImbalance.MINOR; }
+		}
 
-		public BalanceFailureLevel BalanceFailureImbalance => (m_solution != null) ? m_solution.BalanceFailureImbalance : BalanceFailureLevel.Fair;
+		public BalanceFailureLevel BalanceFailureImbalance
+		{
+			get { return (m_solution != null) ? m_solution.BalanceFailureImbalance : BalanceFailureLevel.Fair; }
+		}
 
 		public int GroupImbalanceAmount
 		{
@@ -941,7 +1005,10 @@ public class BestSolutions
 			}
 		}
 
-		public bool WillFillImbalance => m_solution != null && m_solution.HasWillFillImbalance;
+		public bool WillFillImbalance
+		{
+			get { return m_solution != null && m_solution.HasWillFillImbalance; }
+		}
 
 		public bool BotImbalance
 		{
@@ -1079,7 +1146,10 @@ public class BestSolutions
 			}
 		}
 
-		public bool LanguageImbalance => m_solution == null || m_solution.HasLanguageImbalance;
+		public bool LanguageImbalance
+		{
+			get { return m_solution == null || m_solution.HasLanguageImbalance; }
+		}
 
 		public bool RegionUniqueness
 		{
@@ -1098,7 +1168,10 @@ public class BestSolutions
 			}
 		}
 
-		public bool NoobCollision => m_solution != null && m_solution.HasNoobCollisions;
+		public bool NoobCollision
+		{
+			get { return m_solution != null && m_solution.HasNoobCollisions; }
+		}
 
 		public bool ExpertCollision
 		{
@@ -1370,7 +1443,10 @@ public class BestSolutions
 
 	internal FreelancerDuplicationRuleTypes m_duplicationRule;
 
-	private bool NoDupInGame => m_duplicationRule == FreelancerDuplicationRuleTypes.noneInGame;
+	private bool NoDupInGame
+	{
+		get { return m_duplicationRule == FreelancerDuplicationRuleTypes.noneInGame; }
+	}
 
 	private bool NoDupInTeam
 	{
@@ -1862,7 +1938,7 @@ public class BestSolutions
 				}
 				else
 				{
-					obj = $"#{i}";
+					obj = new StringBuilder().Append("#").Append(i).ToString();
 				}
 				array[0] = obj;
 				array[1] = m_solutions[i].GetLogString();

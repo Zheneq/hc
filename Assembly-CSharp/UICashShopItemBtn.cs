@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -225,7 +226,7 @@ public class UICashShopItemBtn : MonoBehaviour
 			{
 				int unlockFreelancerCurrencyPrice = item.m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
 				UIManager.SetGameObjectActive(m_fluxCostText, unlockFreelancerCurrencyPrice > 0);
-				m_fluxCostText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(unlockFreelancerCurrencyPrice, true);
+				m_fluxCostText.text = new StringBuilder().Append("<sprite name=credit>").Append(UIStorePanel.FormatIntToString(unlockFreelancerCurrencyPrice, true)).ToString();
 			}
 		}
 		else if (item.m_itemType == PurchaseItemType.Game)

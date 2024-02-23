@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public static class AbilityModHelper
@@ -20,7 +21,7 @@ public static class AbilityModHelper
 
 	public static GameObject GetModPrefabForAbilityType(Type abilityType)
 	{
-		return Resources.Load("AbilityMod_" + abilityType.ToString()) as GameObject;
+		return Resources.Load(new StringBuilder().Append("AbilityMod_").Append(abilityType.ToString()).ToString()) as GameObject;
 	}
 
 	public static List<AbilityMod> GetAvailableModsForAbilityType(Type abilityType)
@@ -168,27 +169,27 @@ public static class AbilityModHelper
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.Override)
 		{
-			str = " = " + InEditorDescHelper.ColoredString(Mathf.RoundToInt(value).ToString());
+			str = new StringBuilder().Append(" = ").Append(InEditorDescHelper.ColoredString(Mathf.RoundToInt(value).ToString())).ToString();
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndFloor)
 		{
-			str = " x " + InEditorDescHelper.ColoredString(value.ToString()) + " and round down";
+			str = new StringBuilder().Append(" x ").Append(InEditorDescHelper.ColoredString(value.ToString())).Append(" and round down").ToString();
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndCeil)
 		{
-			str = " x " + InEditorDescHelper.ColoredString(value.ToString()) + " and round up";
+			str = new StringBuilder().Append(" x ").Append(InEditorDescHelper.ColoredString(value.ToString())).Append(" and round up").ToString();
 		}
 		else if (operation == AbilityModPropertyInt.ModOp.MultiplyAndRound)
 		{
-			str = " x " + InEditorDescHelper.ColoredString(value.ToString()) + " and round nearest";
+			str = new StringBuilder().Append(" x ").Append(InEditorDescHelper.ColoredString(value.ToString())).Append(" and round nearest").ToString();
 		}
-		string str2 = prefix + str;
+		string str2 = new StringBuilder().Append(prefix).Append(str).ToString();
 		if (showBaseVal)
 		{
 			int modifiedValue = modProp.GetModifiedValue(baseVal);
 			str2 += GetDiffString(modifiedValue, baseVal, operation);
 		}
-		return str2 + "\n";
+		return new StringBuilder().Append(str2).Append("\n").ToString();
 	}
 
 	public static string GetModPropertyDesc(AbilityModPropertyFloat modProp, string prefix, bool showBaseVal = false, float baseVal = 0f)
@@ -216,20 +217,20 @@ public static class AbilityModHelper
 				}
 				else if (operation == AbilityModPropertyFloat.ModOp.Override)
 				{
-					str = " = " + InEditorDescHelper.ColoredString(value.ToString());
+					str = new StringBuilder().Append(" = ").Append(InEditorDescHelper.ColoredString(value.ToString())).ToString();
 				}
 				else if (operation == AbilityModPropertyFloat.ModOp.Multiply)
 				{
-					str = " x " + InEditorDescHelper.ColoredString(value.ToString());
+					str = new StringBuilder().Append(" x ").Append(InEditorDescHelper.ColoredString(value.ToString())).ToString();
 				}
-				string text = prefix + str;
+				string text = new StringBuilder().Append(prefix).Append(str).ToString();
 				if (showBaseVal)
 				{
 					float modifiedValue = modProp.GetModifiedValue(baseVal);
 					string text2 = text;
-					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + ((operation == AbilityModPropertyFloat.ModOp.Add) ? string.Empty : (" diff = " + Mathf.Abs(Mathf.RoundToInt(modifiedValue - baseVal)))) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modifiedValue.ToString()) + "\n";
+					text = new StringBuilder().Append(text2).Append(SourceColorStr(new StringBuilder().Append("\n\tBaseValue = ").Append(baseVal).ToString())).Append((operation == AbilityModPropertyFloat.ModOp.Add) ? string.Empty : new StringBuilder().Append(" diff = ").Append(Mathf.Abs(Mathf.RoundToInt(modifiedValue - baseVal))).ToString()).Append("\n\tFinalValue => ").Append(InEditorDescHelper.ColoredString(modifiedValue.ToString())).Append("\n").ToString();
 				}
-				return text + "\n";
+				return new StringBuilder().Append(text).Append("\n").ToString();
 			}
 		}
 		return string.Empty;
@@ -256,15 +257,15 @@ public static class AbilityModHelper
 						input = "False";
 					}
 					string str2 = InEditorDescHelper.ColoredString((string)input);
-					str = " = " + str2;
+					str = new StringBuilder().Append(" = ").Append(str2).ToString();
 				}
-				string text = prefix + str;
+				string text = new StringBuilder().Append(prefix).Append(str).ToString();
 				if (showBaseVal)
 				{
 					string text2 = text;
-					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString()) + "\n";
+					text = new StringBuilder().Append(text2).Append(SourceColorStr(new StringBuilder().Append("\n\tBaseValue = ").Append(baseVal).ToString())).Append("\n\tFinalValue => ").Append(InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString())).Append("\n").ToString();
 				}
-				return text + "\n";
+				return new StringBuilder().Append(text).Append("\n").ToString();
 			}
 		}
 		return string.Empty;
@@ -280,15 +281,15 @@ public static class AbilityModHelper
 				string str = string.Empty;
 				if (modProp.operation == AbilityModPropertyShape.ModOp.Override)
 				{
-					str = " = " + InEditorDescHelper.ColoredString(value.ToString());
+					str = new StringBuilder().Append(" = ").Append(InEditorDescHelper.ColoredString(value.ToString())).ToString();
 				}
-				string text = prefix + str;
+				string text = new StringBuilder().Append(prefix).Append(str).ToString();
 				if (showBaseVal)
 				{
 					string text2 = text;
-					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString()) + "\n";
+					text = new StringBuilder().Append(text2).Append(SourceColorStr(new StringBuilder().Append("\n\tBaseValue = ").Append(baseVal).ToString())).Append("\n\tFinalValue => ").Append(InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString())).Append("\n").ToString();
 				}
-				return text + "\n";
+				return new StringBuilder().Append(text).Append("\n").ToString();
 			}
 		}
 		return string.Empty;
@@ -304,15 +305,15 @@ public static class AbilityModHelper
 				string str = string.Empty;
 				if (modProp.operation == AbilityModPropertyKnockbackType.ModOp.Override)
 				{
-					str = " = " + InEditorDescHelper.ColoredString(value.ToString());
+					str = new StringBuilder().Append(" = ").Append(InEditorDescHelper.ColoredString(value.ToString())).ToString();
 				}
-				string text = prefix + str;
+				string text = new StringBuilder().Append(prefix).Append(str).ToString();
 				if (showBaseVal)
 				{
 					string text2 = text;
-					text = text2 + SourceColorStr("\n\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString()) + "\n";
+					text = new StringBuilder().Append(text2).Append(SourceColorStr(new StringBuilder().Append("\n\tBaseValue = ").Append(baseVal).ToString())).Append("\n\tFinalValue => ").Append(InEditorDescHelper.ColoredString(modProp.GetModifiedValue(baseVal).ToString())).Append("\n").ToString();
 				}
-				return text + "\n";
+				return new StringBuilder().Append(text).Append("\n").ToString();
 			}
 		}
 		return string.Empty;
@@ -337,7 +338,7 @@ public static class AbilityModHelper
 		string empty = string.Empty;
 		string str = empty;
 		AbilityModPropertyFloat rangeMod = laserModInfo.m_rangeMod;
-		string prefix2 = prefix + "_Range";
+		string prefix2 = new StringBuilder().Append(prefix).Append("_Range").ToString();
 		float baseVal;
 		if (flag)
 		{
@@ -347,10 +348,11 @@ public static class AbilityModHelper
 		{
 			baseVal = 0f;
 		}
-		empty = str + GetModPropertyDesc(rangeMod, prefix2, flag, baseVal);
+
+		empty = new StringBuilder().Append(str).Append(GetModPropertyDesc(rangeMod, prefix2, flag, baseVal)).ToString();
 		string str2 = empty;
 		AbilityModPropertyFloat widthMod = laserModInfo.m_widthMod;
-		string prefix3 = prefix + "_Width";
+		string prefix3 = new StringBuilder().Append(prefix).Append("_Width").ToString();
 		float baseVal2;
 		if (flag)
 		{
@@ -360,10 +362,11 @@ public static class AbilityModHelper
 		{
 			baseVal2 = 0f;
 		}
-		empty = str2 + GetModPropertyDesc(widthMod, prefix3, flag, baseVal2);
+
+		empty = new StringBuilder().Append(str2).Append(GetModPropertyDesc(widthMod, prefix3, flag, baseVal2)).ToString();
 		string str3 = empty;
 		AbilityModPropertyInt maxTargetsMod = laserModInfo.m_maxTargetsMod;
-		string prefix4 = prefix + "_MaxTargets";
+		string prefix4 = new StringBuilder().Append(prefix).Append("_MaxTargets").ToString();
 		int baseVal3;
 		if (flag)
 		{
@@ -373,10 +376,11 @@ public static class AbilityModHelper
 		{
 			baseVal3 = 0;
 		}
-		empty = str3 + GetModPropertyDesc(maxTargetsMod, prefix4, flag, baseVal3);
+
+		empty = new StringBuilder().Append(str3).Append(GetModPropertyDesc(maxTargetsMod, prefix4, flag, baseVal3)).ToString();
 		string str4 = empty;
 		AbilityModPropertyBool penetrateLosOverride = laserModInfo.m_penetrateLosOverride;
-		string prefix5 = prefix + "_PenetrateLos";
+		string prefix5 = new StringBuilder().Append(prefix).Append("_PenetrateLos").ToString();
 		int baseVal4;
 		if (flag)
 		{
@@ -386,10 +390,11 @@ public static class AbilityModHelper
 		{
 			baseVal4 = 0;
 		}
-		empty = str4 + GetModPropertyDesc(penetrateLosOverride, prefix5, flag, (byte)baseVal4 != 0);
+
+		empty = new StringBuilder().Append(str4).Append(GetModPropertyDesc(penetrateLosOverride, prefix5, flag, (byte)baseVal4 != 0)).ToString();
 		string str5 = empty;
 		AbilityModPropertyBool affectsEnemyOverride = laserModInfo.m_affectsEnemyOverride;
-		string prefix6 = prefix + "_AffectsEnemy";
+		string prefix6 = new StringBuilder().Append(prefix).Append("_AffectsEnemy").ToString();
 		int baseVal5;
 		if (flag)
 		{
@@ -399,10 +404,11 @@ public static class AbilityModHelper
 		{
 			baseVal5 = 0;
 		}
-		empty = str5 + GetModPropertyDesc(affectsEnemyOverride, prefix6, flag, (byte)baseVal5 != 0);
+
+		empty = new StringBuilder().Append(str5).Append(GetModPropertyDesc(affectsEnemyOverride, prefix6, flag, (byte)baseVal5 != 0)).ToString();
 		string str6 = empty;
 		AbilityModPropertyBool affectsAllyOverride = laserModInfo.m_affectsAllyOverride;
-		string prefix7 = prefix + "_AffectsAlly";
+		string prefix7 = new StringBuilder().Append(prefix).Append("_AffectsAlly").ToString();
 		int baseVal6;
 		if (flag)
 		{
@@ -412,10 +418,11 @@ public static class AbilityModHelper
 		{
 			baseVal6 = 0;
 		}
-		empty = str6 + GetModPropertyDesc(affectsAllyOverride, prefix7, flag, (byte)baseVal6 != 0);
+
+		empty = new StringBuilder().Append(str6).Append(GetModPropertyDesc(affectsAllyOverride, prefix7, flag, (byte)baseVal6 != 0)).ToString();
 		string str7 = empty;
 		AbilityModPropertyBool affectsCasterOverride = laserModInfo.m_affectsCasterOverride;
-		string prefix8 = prefix + "_AffectsCaster";
+		string prefix8 = new StringBuilder().Append(prefix).Append("_AffectsCaster").ToString();
 		int baseVal7;
 		if (flag)
 		{
@@ -425,7 +432,7 @@ public static class AbilityModHelper
 		{
 			baseVal7 = 0;
 		}
-		return str7 + GetModPropertyDesc(affectsCasterOverride, prefix8, flag, (byte)baseVal7 != 0);
+		return new StringBuilder().Append(str7).Append(GetModPropertyDesc(affectsCasterOverride, prefix8, flag, (byte)baseVal7 != 0)).ToString();
 	}
 
 	public static string GetModPropertyDesc(AbilityModPropertyConeInfo coneInfo, string prefix, bool showBaseVal = false, ConeTargetingInfo baseConeInfo = null)
@@ -456,7 +463,7 @@ public static class AbilityModHelper
 		string empty = string.Empty;
 		string str = empty;
 		AbilityModPropertyFloat radiusMod = coneInfo.m_radiusMod;
-		string prefix2 = prefix + "_Radius";
+		string prefix2 = new StringBuilder().Append(prefix).Append("_Radius").ToString();
 		float baseVal;
 		if (flag)
 		{
@@ -466,11 +473,12 @@ public static class AbilityModHelper
 		{
 			baseVal = 0f;
 		}
-		empty = str + GetModPropertyDesc(radiusMod, prefix2, flag, baseVal);
-		empty += GetModPropertyDesc(coneInfo.m_widthAngleMod, prefix + "_WidthAngle", flag, (!flag) ? 0f : baseConeInfo.m_widthAngleDeg);
+
+		empty = new StringBuilder().Append(str).Append(GetModPropertyDesc(radiusMod, prefix2, flag, baseVal)).ToString();
+		empty += GetModPropertyDesc(coneInfo.m_widthAngleMod, new StringBuilder().Append(prefix).Append("_WidthAngle").ToString(), flag, (!flag) ? 0f : baseConeInfo.m_widthAngleDeg);
 		string str2 = empty;
 		AbilityModPropertyFloat backwardsOffsetMod = coneInfo.m_backwardsOffsetMod;
-		string prefix3 = prefix + "_BackwardsOffset";
+		string prefix3 = new StringBuilder().Append(prefix).Append("_BackwardsOffset").ToString();
 		float baseVal2;
 		if (flag)
 		{
@@ -480,11 +488,12 @@ public static class AbilityModHelper
 		{
 			baseVal2 = 0f;
 		}
-		empty = str2 + GetModPropertyDesc(backwardsOffsetMod, prefix3, flag, baseVal2);
-		empty += GetModPropertyDesc(coneInfo.m_penetrateLosMod, prefix + "_PenetrateLoS", flag, flag && baseConeInfo.m_penetrateLos);
+
+		empty = new StringBuilder().Append(str2).Append(GetModPropertyDesc(backwardsOffsetMod, prefix3, flag, baseVal2)).ToString();
+		empty += GetModPropertyDesc(coneInfo.m_penetrateLosMod, new StringBuilder().Append(prefix).Append("_PenetrateLoS").ToString(), flag, flag && baseConeInfo.m_penetrateLos);
 		string str3 = empty;
 		AbilityModPropertyBool affectsEnemyOverride = coneInfo.m_affectsEnemyOverride;
-		string prefix4 = prefix + "_AffectEnemy";
+		string prefix4 = new StringBuilder().Append(prefix).Append("_AffectEnemy").ToString();
 		int baseVal3;
 		if (flag)
 		{
@@ -494,10 +503,11 @@ public static class AbilityModHelper
 		{
 			baseVal3 = 0;
 		}
-		empty = str3 + GetModPropertyDesc(affectsEnemyOverride, prefix4, flag, (byte)baseVal3 != 0);
+
+		empty = new StringBuilder().Append(str3).Append(GetModPropertyDesc(affectsEnemyOverride, prefix4, flag, (byte)baseVal3 != 0)).ToString();
 		string str4 = empty;
 		AbilityModPropertyBool affectsAllyOverride = coneInfo.m_affectsAllyOverride;
-		string prefix5 = prefix + "_AffectAlly";
+		string prefix5 = new StringBuilder().Append(prefix).Append("_AffectAlly").ToString();
 		int baseVal4;
 		if (flag)
 		{
@@ -507,10 +517,11 @@ public static class AbilityModHelper
 		{
 			baseVal4 = 0;
 		}
-		empty = str4 + GetModPropertyDesc(affectsAllyOverride, prefix5, flag, (byte)baseVal4 != 0);
+
+		empty = new StringBuilder().Append(str4).Append(GetModPropertyDesc(affectsAllyOverride, prefix5, flag, (byte)baseVal4 != 0)).ToString();
 		string str5 = empty;
 		AbilityModPropertyBool affectsCasterOverride = coneInfo.m_affectsCasterOverride;
-		string prefix6 = prefix + "_AffectCaster";
+		string prefix6 = new StringBuilder().Append(prefix).Append("_AffectCaster").ToString();
 		int baseVal5;
 		if (flag)
 		{
@@ -520,7 +531,7 @@ public static class AbilityModHelper
 		{
 			baseVal5 = 0;
 		}
-		return str5 + GetModPropertyDesc(affectsCasterOverride, prefix6, flag, (byte)baseVal5 != 0);
+		return new StringBuilder().Append(str5).Append(GetModPropertyDesc(affectsCasterOverride, prefix6, flag, (byte)baseVal5 != 0)).ToString();
 	}
 
 	public static string GetModPropertyDesc(AbilityModPropertyEffectInfo modProp, string prefix, bool showBaseVal = false, StandardEffectInfo baseVal = null)
@@ -550,7 +561,7 @@ public static class AbilityModHelper
 		{
 			if (modProp.effectInfo.m_applyEffect)
 			{
-				text = text + InEditorDescHelper.ColoredString("    | Using Sequences from source effect info |") + "\n";
+				text = new StringBuilder().Append(text).Append(InEditorDescHelper.ColoredString("    | Using Sequences from source effect info |")).Append("\n").ToString();
 			}
 		}
 		string text2 = text;
@@ -598,7 +609,7 @@ public static class AbilityModHelper
 				string text = GetModEffectDataDesc(effectData, prefix, empty, flag, (StandardActorEffectData)baseVal2);
 				if (modProp.useSequencesFromSource)
 				{
-					text = text + InEditorDescHelper.ColoredString("    | Using Sequences from source effect data |") + "\n";
+					text = new StringBuilder().Append(text).Append(InEditorDescHelper.ColoredString("    | Using Sequences from source effect data |")).Append("\n").ToString();
 				}
 				string result = text;
 				if (showBaseVal && baseVal == null)
@@ -635,7 +646,7 @@ public static class AbilityModHelper
 					{
 						string empty = string.Empty;
 						StandardBarrierData modifiedCopy = modProp.barrierModData.GetModifiedCopy(baseVal);
-						return empty + modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal);
+						return new StringBuilder().Append(empty).Append(modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal)).ToString();
 					}
 				}
 			}
@@ -655,7 +666,7 @@ public static class AbilityModHelper
 					{
 						string empty = string.Empty;
 						GroundEffectField modifiedCopy = modProp.groundFieldModData.GetModifiedCopy(baseVal);
-						return empty + modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal);
+						return new StringBuilder().Append(empty).Append(modifiedCopy.GetInEditorDescription(prefix, "    ", true, baseVal)).ToString();
 					}
 				}
 			}
@@ -672,7 +683,7 @@ public static class AbilityModHelper
 	{
 		string[] obj = new string[5]
 		{
-			SourceColorStr("\n\tBaseValue = " + baseVal),
+			SourceColorStr(new StringBuilder().Append("\n\tBaseValue = ").Append(baseVal).ToString()),
 			null,
 			null,
 			null,
@@ -681,7 +692,7 @@ public static class AbilityModHelper
 		string text;
 		if (operation != AbilityModPropertyInt.ModOp.Add)
 		{
-			text = " diff = " + Mathf.Abs(finalVal - baseVal);
+			text = new StringBuilder().Append(" diff = ").Append(Mathf.Abs(finalVal - baseVal)).ToString();
 		}
 		else
 		{
@@ -709,7 +720,7 @@ public static class AbilityModHelper
 				}
 			}
 		}
-		return (!asHeader) ? ("[" + input + "]") : ("{ " + input + " }");
+		return (!asHeader) ? new StringBuilder().Append("[").Append(input).Append("]").ToString() : new StringBuilder().Append("{ ").Append(input).Append(" }").ToString();
 	}
 
 	public static string GetModEffectInfoDesc(StandardEffectInfo effectInfo, string prefix, string indent = "", bool useBaseVal = false, StandardEffectInfo baseVal = null)
@@ -733,7 +744,7 @@ public static class AbilityModHelper
 			}
 			if (baseVal != null)
 			{
-				text += SourceColorStr(prefix + " | SET TO NOT APPLY\n");
+				text += SourceColorStr(new StringBuilder().Append(prefix).Append(" | SET TO NOT APPLY\n").ToString());
 			}
 		}
 		goto IL_0105;
@@ -756,11 +767,11 @@ public static class AbilityModHelper
 		{
 			if (baseVal == null)
 			{
-				text += SourceColorStr("\t" + prefix + " Not in Base Ability\n");
+				text += SourceColorStr(new StringBuilder().Append("\t").Append(prefix).Append(" Not in Base Ability\n").ToString());
 			}
 			else if (!baseVal.m_applyEffect)
 			{
-				text += SourceColorStr("\tNot applying " + prefix + " in Base Ability\n");
+				text += SourceColorStr(new StringBuilder().Append("\tNot applying ").Append(prefix).Append(" in Base Ability\n").ToString());
 			}
 		}
 		goto IL_0105;
@@ -772,7 +783,7 @@ public static class AbilityModHelper
 		if (effectData != null)
 		{
 			string text2 = text;
-			text = text2 + "\n" + indent + "<b>" + prefix + "</b>\n";
+			text = new StringBuilder().Append(text2).Append("\n").Append(indent).Append("<b>").Append(prefix).Append("</b>\n").ToString();
 			int num;
 			if (useBaseVal)
 			{
@@ -786,7 +797,7 @@ public static class AbilityModHelper
 			text += effectData.GetInEditorDescription(indent, true, diff, baseVal);
 			if (useBaseVal && baseVal == null)
 			{
-				text += SourceColorStr("\t" + prefix + " Not in Base Ability\n");
+				text += SourceColorStr(new StringBuilder().Append("\t").Append(prefix).Append(" Not in Base Ability\n").ToString());
 			}
 		}
 		return text;
@@ -797,17 +808,17 @@ public static class AbilityModHelper
 		string text = string.Empty;
 		if (effectInfo != null && effectInfo.m_applyGroundEffect)
 		{
-			text = text + prefix + "\n";
+			text = new StringBuilder().Append(text).Append(prefix).Append("\n").ToString();
 			text += effectInfo.m_groundEffectData.GetInEditorDescription();
 			if (useBaseVal)
 			{
 				if (baseVal == null)
 				{
-					text += SourceColorStr("\t" + prefix + " Not in Base Ability\n");
+					text += SourceColorStr(new StringBuilder().Append("\t").Append(prefix).Append(" Not in Base Ability\n").ToString());
 				}
 				else if (!baseVal.m_applyGroundEffect)
 				{
-					text += SourceColorStr("\tNot applying " + prefix + " in Base Ability\n");
+					text += SourceColorStr(new StringBuilder().Append("\tNot applying ").Append(prefix).Append(" in Base Ability\n").ToString());
 				}
 				else
 				{
@@ -830,7 +841,7 @@ public static class AbilityModHelper
 					int cooldownAddAmount = cooldownChangeInfo.cooldownAddAmount;
 					string text2 = (cooldownAddAmount < 0) ? " is Reduced by " : "is Increased by ";
 					string text3 = text;
-					text = text3 + "Modify cooldown on " + GetAbilityNameFromActionType(cooldownChangeInfo.abilitySlot, abilityData) + text2 + InEditorDescHelper.ColoredString(Mathf.Abs(cooldownAddAmount).ToString()) + "\n";
+					text = new StringBuilder().Append(text3).Append("Modify cooldown on ").Append(GetAbilityNameFromActionType(cooldownChangeInfo.abilitySlot, abilityData)).Append(text2).Append(InEditorDescHelper.ColoredString(Mathf.Abs(cooldownAddAmount).ToString())).Append("\n").ToString();
 				}
 			}
 		}
@@ -886,7 +897,7 @@ public static class AbilityModHelper
 					text = GetAbilityNameFromActionType(mod.abilitySlot, abilityData);
 				}
 				string str = text;
-				string str2 = " for ability at [ " + str + " ] ";
+				string str2 = new StringBuilder().Append(" for ability at [ ").Append(str).Append(" ] ").ToString();
 				string text2;
 				if (mod.modAmount.operation == AbilityModPropertyInt.ModOp.Add)
 				{
@@ -899,14 +910,15 @@ public static class AbilityModHelper
 					{
 						str3 = " - ";
 					}
-					text2 = (string)str3 + Mathf.Abs(mod.modAmount.value);
+
+					text2 = new StringBuilder().Append((string)str3).Append(Mathf.Abs(mod.modAmount.value)).ToString();
 				}
 				else
 				{
 					text2 = GetModPropertyDesc(mod.modAmount, string.Empty);
 				}
 				string str4 = text2;
-				return prefix + str2 + str4;
+				return new StringBuilder().Append(prefix).Append(str2).Append(str4).ToString();
 			}
 		}
 		return string.Empty;
@@ -925,15 +937,15 @@ public static class AbilityModHelper
 						string text = string.Empty;
 						if (mod.availableStockModAmount.operation != 0)
 						{
-							text = text + "    " + GetModPropertyDesc(mod.availableStockModAmount, "[Stock Available Mod]");
+							text = new StringBuilder().Append(text).Append("    ").Append(GetModPropertyDesc(mod.availableStockModAmount, "[Stock Available Mod]")).ToString();
 						}
 						if (mod.refreshTimeRemainingModAmount.operation != 0)
 						{
-							text = text + "    " + GetModPropertyDesc(mod.refreshTimeRemainingModAmount, "[Stock Refresh Time Remaining]");
+							text = new StringBuilder().Append(text).Append("    ").Append(GetModPropertyDesc(mod.refreshTimeRemainingModAmount, "[Stock Refresh Time Remaining]")).ToString();
 						}
 						if (text.Length > 0)
 						{
-							text = prefix + " for ability at [" + mod.abilitySlot.ToString() + "]\n" + text;
+							text = new StringBuilder().Append(prefix).Append(" for ability at [").Append(mod.abilitySlot.ToString()).Append("]\n").Append(text).ToString();
 						}
 						return text;
 					}
@@ -950,11 +962,11 @@ public static class AbilityModHelper
 			if (mod.modAmount.operation != 0)
 			{
 				string modPropertyDesc = GetModPropertyDesc(mod.modAmount, string.Empty);
-				string text = "TechPoint on [" + mod.interactionType.ToString() + "]" + modPropertyDesc;
+				string text = new StringBuilder().Append("TechPoint on [").Append(mod.interactionType.ToString()).Append("]").Append(modPropertyDesc).ToString();
 				if (useBase)
 				{
 					string text2 = text;
-					text = text2 + SourceColorStr("\tBaseValue = " + baseVal) + "\n\tFinalValue => " + InEditorDescHelper.ColoredString(mod.modAmount.GetModifiedValue(baseVal).ToString()) + "\n";
+					text = new StringBuilder().Append(text2).Append(SourceColorStr(new StringBuilder().Append("\tBaseValue = ").Append(baseVal).ToString())).Append("\n\tFinalValue => ").Append(InEditorDescHelper.ColoredString(mod.modAmount.GetModifiedValue(baseVal).ToString())).Append("\n").ToString();
 				}
 				return text;
 			}
@@ -968,7 +980,7 @@ public static class AbilityModHelper
 		if (sequencePrefab != null)
 		{
 			string text2 = text;
-			text = text2 + "Override Sequence " + prefix + " = " + sequencePrefab.name + "\n";
+			text = new StringBuilder().Append(text2).Append("Override Sequence ").Append(prefix).Append(" = ").Append(sequencePrefab.name).Append("\n").ToString();
 		}
 		return text;
 	}

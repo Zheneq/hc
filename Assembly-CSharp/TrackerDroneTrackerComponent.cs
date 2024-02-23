@@ -138,7 +138,8 @@ public class TrackerDroneTrackerComponent : NetworkBehaviour
 
 	public void SanityCheckTrackerDroneState()
 	{
-		PersistentSatellite satellite = GetComponent<SatelliteController>()?.GetSatellite(0);
+		SatelliteController satelliteController = GetComponent<SatelliteController>();
+		PersistentSatellite satellite = satelliteController != null ? satelliteController.GetSatellite(0) : null;
 		if (satellite != null)
 		{
 			if (m_droneActive)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SorceressDamageField : AbilityMod
@@ -45,6 +46,6 @@ public class AbilityMod_SorceressDamageField : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isAbilityPresent, isAbilityPresent ? sorceressDamageField.m_damage : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_healingMod, "[Heal]", isAbilityPresent, isAbilityPresent ? sorceressDamageField.m_healing : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_onEnemyEffectOverride, "{ On Enemy Effect Override }", isAbilityPresent, isAbilityPresent ? sorceressDamageField.m_effectOnEnemies : null);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_onAllyEffectOverride, "{ On Ally Effect Override }", isAbilityPresent, isAbilityPresent ? sorceressDamageField.m_effectOnAllies : null);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_onAllyEffectOverride, "{ On Ally Effect Override }", isAbilityPresent, isAbilityPresent ? sorceressDamageField.m_effectOnAllies : null)).ToString();
 	}
 }

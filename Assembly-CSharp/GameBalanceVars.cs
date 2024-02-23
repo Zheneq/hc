@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -367,7 +368,7 @@ public class GameBalanceVars
     {
         public override string ToString()
         {
-            return "Ability[" + Index2 + "]->VfxSwap[" + ID + "]";
+            return new StringBuilder().Append("Ability[").Append(Index2).Append("]->VfxSwap[").Append(ID).Append("]").ToString();
         }
 
         public void SetCharacterTypeInt(int charTypeInt)
@@ -862,7 +863,7 @@ public class GameBalanceVars
                     break;
                 }
 
-                title = title.Substring(0, prefixLen) + levelStr + title.Substring(prefixLen + placeholderLen);
+                title = new StringBuilder().Append(title, 0, prefixLen).Append(levelStr).Append(title.Substring(prefixLen + placeholderLen)).ToString();
                 i++;
             }
 
@@ -1023,15 +1024,50 @@ public class GameBalanceVars
         }
     }
 
-    public int MaxPlayerLevel => 0;
-    public int CharacterSilverLevel => 10;
-    public int CharacterMasteryLevel => 20;
-    public int CharacterPurpleLevel => 40;
-    public int CharacterRedLevel => 60;
-    public int CharacterDiamondLevel => 80;
-    public int CharacterRainbowLevel => 100;
-    public int MaxCharacterLevelForRewards => CharacterProgressInfo != null ? CharacterProgressInfo.Length + 1 : 0;
-    public int MaxCharacterLevel => 32767;
+    public int MaxPlayerLevel
+    {
+        get { return 0; }
+    }
+
+    public int CharacterSilverLevel
+    {
+        get { return 10; }
+    }
+
+    public int CharacterMasteryLevel
+    {
+        get { return 20; }
+    }
+
+    public int CharacterPurpleLevel
+    {
+        get { return 40; }
+    }
+
+    public int CharacterRedLevel
+    {
+        get { return 60; }
+    }
+
+    public int CharacterDiamondLevel
+    {
+        get { return 80; }
+    }
+
+    public int CharacterRainbowLevel
+    {
+        get { return 100; }
+    }
+
+    public int MaxCharacterLevelForRewards
+    {
+        get { return CharacterProgressInfo != null ? CharacterProgressInfo.Length + 1 : 0; }
+    }
+
+    public int MaxCharacterLevel
+    {
+        get { return 32767; }
+    }
 
     public static GameBalanceVars Get()
     {
@@ -1106,7 +1142,7 @@ public class GameBalanceVars
         if (currentLevel < 1 || currentLevel > PlayerProgressInfo.Length)
         {
             throw new ArgumentException(
-                $"Current level {currentLevel} is outside the player level range {1}-{PlayerProgressInfo.Length}");
+                new StringBuilder().Append("Current level ").Append(currentLevel).Append(" is outside the player level range ").Append(1).Append("-").Append(PlayerProgressInfo.Length).ToString());
         }
         
         return PlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;

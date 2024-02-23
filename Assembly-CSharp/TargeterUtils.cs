@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public static class TargeterUtils
@@ -76,7 +77,7 @@ public static class TargeterUtils
 			case HeightAdjustType.FromBoardSquare:
 				return 0.1f;
 			default:
-				Log.Error("Trying to adjust the height of a laser box with an invalid HeightAdjustType: " + adjustType);
+				Log.Error(new StringBuilder().Append("Trying to adjust the height of a laser box with an invalid HeightAdjustType: ").Append(adjustType).ToString());
 				return 0f;
 		}
 	}

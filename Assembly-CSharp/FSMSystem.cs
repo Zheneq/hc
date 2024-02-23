@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -57,9 +58,15 @@ public class FSMSystem : IGameEventListener
 		}
 	}
 
-	public StateID CurrentStateID => currentStateID;
+	public StateID CurrentStateID
+	{
+		get { return currentStateID; }
+	}
 
-	public FSMState CurrentState => currentState;
+	public FSMState CurrentState
+	{
+		get { return currentState; }
+	}
 
 	public bool IsTakingTurn
 	{
@@ -160,7 +167,7 @@ public class FSMSystem : IGameEventListener
 				case 0:
 					break;
 				default:
-					Debug.LogError("FSM ERROR: Impossible to add state " + s.StateID.ToString() + " because state has already been added");
+					Debug.LogError(new StringBuilder().Append("FSM ERROR: Impossible to add state ").Append(s.StateID.ToString()).Append(" because state has already been added").ToString());
 					return;
 				}
 			}
@@ -196,7 +203,7 @@ public class FSMSystem : IGameEventListener
 				}
 			}
 		}
-		Debug.LogError("FSM ERROR: Impossible to delete state " + id.ToString() + ". It was not on the list of states");
+		Debug.LogError(new StringBuilder().Append("FSM ERROR: Impossible to delete state ").Append(id.ToString()).Append(". It was not on the list of states").ToString());
 	}
 
 	public void DestroyAllStates()
@@ -290,7 +297,7 @@ public class FSMSystem : IGameEventListener
 		}
 		if (outputState == StateID.NullStateID)
 		{
-			Debug.LogError("FSM ERROR: State " + currentStateID.ToString() + " does not have a target state/brain  for transition " + trans);
+			Debug.LogError(new StringBuilder().Append("FSM ERROR: State ").Append(currentStateID.ToString()).Append(" does not have a target state/brain  for transition ").Append(trans).ToString());
 			return;
 		}
 		currentStateID = outputState;

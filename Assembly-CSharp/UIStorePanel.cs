@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -52,7 +53,10 @@ public class UIStorePanel : UIScene
 
 	private bool m_isViewingHero;
 
-	public bool IsWaitingForPurchaseRequest => m_waitingForPurchaseRequest;
+	public bool IsWaitingForPurchaseRequest
+	{
+		get { return m_waitingForPurchaseRequest; }
+	}
 
 	public bool IsWaitingForSteamPurchaseResponse
 	{
@@ -117,7 +121,7 @@ public class UIStorePanel : UIScene
 		string text = num3.ToString();
 		if (num3 < 10)
 		{
-			text = "0" + text;
+			text = new StringBuilder().Append("0").Append(text).ToString();
 		}
 		string empty2 = string.Empty;
 		switch (currencyCode)
@@ -1345,7 +1349,7 @@ public class UIStorePanel : UIScene
 					case 0:
 						break;
 					default:
-						throw new Exception("Invalid title item: " + template.DisplayName + " ID " + template.Index);
+						throw new Exception(new StringBuilder().Append("Invalid title item: ").Append(template.DisplayName).Append(" ID ").Append(template.Index).ToString());
 					}
 				}
 			}
@@ -1441,7 +1445,7 @@ public class UIStorePanel : UIScene
 					case 0:
 						break;
 					default:
-						throw new Exception("Invalid title item: ID " + item.m_titleID);
+						throw new Exception(new StringBuilder().Append("Invalid title item: ID ").Append(item.m_titleID).ToString());
 					}
 				}
 			}

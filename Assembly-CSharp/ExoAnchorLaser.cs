@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ExoAnchorLaser : Ability
@@ -97,15 +98,7 @@ public class ExoAnchorLaser : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\n"
-		       + SetupNoteVarName("Laser Extend Sequence Prefab")
-		       + "\nFor initial cast, when laser is not already out. Only for gameplay hits and timing of when actual visual show up, no vfx spawned.\n\n"
-		       + SetupNoteVarName("Sweep Sequence Prefab")
-		       + "\nfor laser visual, rotation of the actor, removing the previous laser, and gameplay hit timing when sweeping\n\n"
-		       + SetupNoteVarName("Unanchor Anim Sequence Prefab")
-		       + "\nfor setting idle type when un-anchoring and removing the previous laser vfx\n\n"
-		       + SetupNoteVarName("Persistent Laser Barrier Sequence")
-		       + "\nfor persistent laser visuals (which is a barrier internally), and optionally ExoLaserHittingWallSequence for a continuing impact vfx\n\n";
+		return new StringBuilder().Append("<color=cyan>-- For Art --</color>\n").Append(SetupNoteVarName("Laser Extend Sequence Prefab")).Append("\nFor initial cast, when laser is not already out. Only for gameplay hits and timing of when actual visual show up, no vfx spawned.\n\n").Append(SetupNoteVarName("Sweep Sequence Prefab")).Append("\nfor laser visual, rotation of the actor, removing the previous laser, and gameplay hit timing when sweeping\n\n").Append(SetupNoteVarName("Unanchor Anim Sequence Prefab")).Append("\nfor setting idle type when un-anchoring and removing the previous laser vfx\n\n").Append(SetupNoteVarName("Persistent Laser Barrier Sequence")).Append("\nfor persistent laser visuals (which is a barrier internally), and optionally ExoLaserHittingWallSequence for a continuing impact vfx\n\n").ToString();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()

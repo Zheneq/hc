@@ -145,7 +145,8 @@ public class UIPlayerProgressHistory : UIPlayerProgressSubPanel
 				}
 			}
 			filename = ClientGameManager.FormReplayFilename(string.Empty, gameServerProcessCode, HydrogenConfig.Get().Ticket.Handle);
-			if (m_replayPaths.TryGetValue(filename, out string value))
+			string value;
+			if (m_replayPaths.TryGetValue(filename, out value))
 			{
 				return value;
 			}

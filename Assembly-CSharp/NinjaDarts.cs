@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class NinjaDarts : Ability
@@ -318,8 +319,10 @@ public class NinjaDarts : Ability
 		       && m_syncComp != null
 		       && m_syncComp.m_deathmarkOnTriggerDamage > 0
 		       && m_syncComp.ActorHasDeathmark(targetActor)
-			? "\n+ " + AbilityUtils.CalculateDamageForTargeter(
-				ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false)
+			? new StringBuilder().Append("\n+ ")
+				.Append(AbilityUtils.CalculateDamageForTargeter(
+					ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false))
+				.ToString()
 			: null;
 	}
 

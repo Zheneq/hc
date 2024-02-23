@@ -1,3 +1,5 @@
+using System.Text;
+
 public static class LobbyCompilerExtensions
 {
 	public static bool IsValid(this CharacterType characterType)
@@ -16,7 +18,7 @@ public static class LobbyCompilerExtensions
 		case CharacterRole.Support:
 			return LocalizationPayload.Create("Support", "OverlayScreensScene");
 		default:
-			return LocalizationPayload.Create($"Role{characterRole}", "OverlayScreensScene");
+			return LocalizationPayload.Create(new StringBuilder().Append("Role").Append(characterRole).ToString(), "OverlayScreensScene");
 		}
 	}
 

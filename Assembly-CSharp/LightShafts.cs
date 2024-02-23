@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 [RequireComponent(typeof(Light))]
@@ -127,9 +128,15 @@ public class LightShafts : MonoBehaviour
 
 	private float m_SpotMeshRange = -1f;
 
-	public bool directional => m_LightType == LightType.Directional;
+	public bool directional
+	{
+		get { return m_LightType == LightType.Directional; }
+	}
 
-	public bool spot => m_LightType == LightType.Spot;
+	public bool spot
+	{
+		get { return m_LightType == LightType.Spot; }
+	}
 
 	private void InitLUTs()
 	{
@@ -439,7 +446,7 @@ public class LightShafts : MonoBehaviour
 	{
 		if (!shader.isSupported)
 		{
-			Debug.LogError("LightShafts' " + shader.name + " didn't compile on this platform.");
+			Debug.LogError(new StringBuilder().Append("LightShafts' ").Append(shader.name).Append(" didn't compile on this platform.").ToString());
 			return false;
 		}
 		return true;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,7 +41,7 @@ public class StatusEffectTooltip : MonoBehaviour
 			statusEffectTooltipEntry.transform.localPosition = Vector3.zero;
 			statusEffectTooltipEntry.transform.localScale = Vector3.one;
 			statusEffectTooltipEntry.m_statusEffectImage.sprite = statusTypeIcon.icon;
-			statusEffectTooltipEntry.m_statusEffectText.text = $"<color=orange>{statusTypeIcon.buffName}</color> - {statusTypeIcon.buffDescription}";
+			statusEffectTooltipEntry.m_statusEffectText.text = new StringBuilder().Append("<color=orange>").Append(statusTypeIcon.buffName).Append("</color> - ").Append(statusTypeIcon.buffDescription).ToString();
 			LayoutElement layoutElement = statusEffectTooltipEntry.m_layoutElement;
 			Vector2 preferredValues = statusEffectTooltipEntry.m_statusEffectText.GetPreferredValues();
 			layoutElement.preferredHeight = preferredValues.y;
@@ -62,7 +63,7 @@ public class StatusEffectTooltip : MonoBehaviour
 				statusEffectTooltipEntry2.transform.localPosition = Vector3.zero;
 				statusEffectTooltipEntry2.transform.localScale = Vector3.one;
 				statusEffectTooltipEntry2.m_statusEffectImage.sprite = statusTypeIcon2.icon;
-				statusEffectTooltipEntry2.m_statusEffectText.text = $"<color=orange>{statusTypeIcon2.buffName}</color> - {statusTypeIcon2.buffDescription}";
+				statusEffectTooltipEntry2.m_statusEffectText.text = new StringBuilder().Append("<color=orange>").Append(statusTypeIcon2.buffName).Append("</color> - ").Append(statusTypeIcon2.buffDescription).ToString();
 				LayoutElement layoutElement2 = statusEffectTooltipEntry2.m_layoutElement;
 				Vector2 preferredValues2 = statusEffectTooltipEntry2.m_statusEffectText.GetPreferredValues();
 				layoutElement2.preferredHeight = preferredValues2.y;

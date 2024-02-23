@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RobotAnimalStealth : AbilityMod
@@ -37,7 +38,7 @@ public class AbilityMod_RobotAnimalStealth : AbilityMod
 		desc += AbilityModHelper.GetCooldownModDesc(m_cooldownModOnCast, "[Cooldown] on Cast", abilityData);
 		if (m_extraDamageNextAttack != 0)
 		{
-			desc += "[Extra Damage on Next Attack] = " + m_extraDamageNextAttack + "\n";
+			desc += new StringBuilder().Append("[Extra Damage on Next Attack] = ").Append(m_extraDamageNextAttack).Append("\n").ToString();
 		}
 		if (m_selfEffectOverride != null && m_selfEffectOverride.m_applyEffect)
 		{

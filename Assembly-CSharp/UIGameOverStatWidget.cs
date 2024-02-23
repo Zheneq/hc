@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -59,9 +60,15 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 
 	private string FreelancerStatDescription;
 
-	public CharacterType? CharacterType => m_characterType;
+	public CharacterType? CharacterType
+	{
+		get { return m_characterType; }
+	}
 
-	public CharacterRole? CharacterRole => m_characterRole;
+	public CharacterRole? CharacterRole
+	{
+		get { return m_characterRole; }
+	}
 
 	public bool HighlightDone
 	{
@@ -770,7 +777,7 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			}
 			else
 			{
-				m_StatName.text = $"stat name for freelancer needs to be setup";
+				m_StatName.text = new StringBuilder().Append("stat name for freelancer needs to be setup").ToString();
 			}
 			if (!localizedDescriptionOfStat.IsNullOrEmpty())
 			{
@@ -884,7 +891,7 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		m_StatName.text = FreelancerStatName;
 		if (m_StatName.text.IsNullOrEmpty())
 		{
-			m_StatName.text = $"stat name for freelancer needs to be setup";
+			m_StatName.text = new StringBuilder().Append("stat name for freelancer needs to be setup").ToString();
 		}
 		m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
 		m_StatUnit.text = string.Empty;
@@ -990,7 +997,7 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 		m_StatName.text = FreelancerStatName;
 		if (m_StatName.text.IsNullOrEmpty())
 		{
-			m_StatName.text = $"stat name for freelancer needs to be setup";
+			m_StatName.text = new StringBuilder().Append("stat name for freelancer needs to be setup").ToString();
 		}
 		m_StatNumber.text = StringUtil.GetLocalizedDouble(Math.Round(CurrentStat, 1), "0.#");
 		m_StatUnit.text = string.Empty;
@@ -1031,8 +1038,8 @@ public class UIGameOverStatWidget : MonoBehaviour, GameOverStatTooltip.IGameOver
 			Ability abilityAtIndex = FreelancerAbilityData.GetAbilityAtIndex(i);
 			if (abilityAtIndex != null)
 			{
-				string substitute = "<color=#FFC000>" + abilityAtIndex.GetNameString() + "</color>";
-				tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, "[ABILITY_" + i + "]", substitute);
+				string substitute = new StringBuilder().Append("<color=#FFC000>").Append(abilityAtIndex.GetNameString()).Append("</color>").ToString();
+				tooltipNow = TooltipTokenEntry.GetStringWithReplacements(tooltipNow, new StringBuilder().Append("[ABILITY_").Append(i).Append("]").ToString(), substitute);
 			}
 		}
 		return TooltipTokenEntry.GetTooltipWithSubstitutes(tooltipNow, null);

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -80,7 +81,7 @@ public class UIModSelectButton : MonoBehaviour
 			string text = theMod.GetFullTooltip(ability);
 			if (!theMod.m_flavorText.IsNullOrEmpty())
 			{
-				text += Environment.NewLine + "<i>" + theMod.m_flavorText + "</i>";
+				text += new StringBuilder().AppendLine().Append("<i>").Append(theMod.m_flavorText).Append("</i>").ToString();
 			}
 			SetDescription(text);
 			SetModIconSprite(theMod.m_iconSprite);

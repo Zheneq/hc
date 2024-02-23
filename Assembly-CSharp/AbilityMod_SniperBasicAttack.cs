@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SniperBasicAttack : AbilityMod
@@ -53,7 +54,7 @@ public class AbilityMod_SniperBasicAttack : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageChangePerHitMod, "[Damage Change Per Hit]", isValid, isValid ? sniperBasicAttack.m_damageChangePerHit : 0);
 		if (m_farDistanceThreshold > 0f)
 		{
-			desc += "[Far Distance Threshold] = " + m_farDistanceThreshold + "\n";
+			desc += new StringBuilder().Append("[Far Distance Threshold] = ").Append(m_farDistanceThreshold).Append("\n").ToString();
 			desc += AbilityModHelper.GetModPropertyDesc(m_farEnemyDamageMod, "[Far Enemy Damage]", isValid, isValid ? sniperBasicAttack.m_laserDamageAmount : 0);
 		}
 		return desc;

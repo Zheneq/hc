@@ -20,23 +20,23 @@ public class TimeBank : NetworkBehaviour
 
 	public float Networkm_reserveRemaining
 	{
-		get => m_reserveRemaining;
+		get { return m_reserveRemaining; }
 		[param: In]
-		set => SetSyncVar(value, ref m_reserveRemaining, 1u);
+		set { SetSyncVar(value, ref m_reserveRemaining, 1u); }
 	}
 
 	public int Networkm_consumablesRemaining
 	{
-		get => m_consumablesRemaining;
+		get { return m_consumablesRemaining; }
 		[param: In]
-		set => SetSyncVar(value, ref m_consumablesRemaining, 2u);
+		set { SetSyncVar(value, ref m_consumablesRemaining, 2u); }
 	}
 
 	public bool Networkm_resolved
 	{
-		get => m_resolved;
+		get { return m_resolved; }
 		[param: In]
-		set => SetSyncVar(value, ref m_resolved, 4u);
+		set { SetSyncVar(value, ref m_resolved, 4u); }
 	}
 
 	static TimeBank()
@@ -53,7 +53,7 @@ public class TimeBank : NetworkBehaviour
 			LobbyGameConfig gameConfig = GameManager.Get().GameConfig;
 			if (gameConfig.HasSelectedSubType)
 			{
-				int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides?.InitialTimeBankConsumables;
+				int? initialTimeBankConsumables = gameConfig.InstanceSubType.GameOverrides != null ? gameConfig.InstanceSubType.GameOverrides.InitialTimeBankConsumables : (int?)null;
 				if (initialTimeBankConsumables.HasValue)
 				{
 					networkm_consumablesRemaining = initialTimeBankConsumables.Value;

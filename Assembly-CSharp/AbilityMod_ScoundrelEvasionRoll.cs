@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
@@ -50,18 +51,18 @@ public class AbilityMod_ScoundrelEvasionRoll : AbilityMod
 		desc += PropDesc(m_extraEnergyPerStepMod, "[ExtraEnergyPerStep]", isAbilityPresent, isAbilityPresent ? scoundrelEvasionRoll.m_extraEnergyPerStep : 0);
 		if (m_dropTrapWireOnStart && m_trapWireBarrierData != null && m_trapwirePattern != AbilityGridPattern.NoPattern)
 		{
-			desc += "Drops TrapWire with Pattern[ " + m_trapwirePattern + " ]\n";
+			desc += new StringBuilder().Append("Drops TrapWire with Pattern[ ").Append(m_trapwirePattern).Append(" ]\n").ToString();
 			desc += m_trapWireBarrierData.GetInEditorDescription("{ Barrier Data }", string.Empty, isAbilityPresent);
 		}
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_additionalEffectOnStart, "{ Additional Effect On Start (can have Absorb/Heal) }", string.Empty, isAbilityPresent);
 		if (m_techPointGainPerAdjacentAlly > 0)
 		{
-			desc += "[Tech Point Gain Per Adjacent Ally] = " + m_techPointGainPerAdjacentAlly + "\n";
+			desc += new StringBuilder().Append("[Tech Point Gain Per Adjacent Ally] = ").Append(m_techPointGainPerAdjacentAlly).Append("\n").ToString();
 		}
 		if (m_techPointGrantedToAdjacentAllies > 0)
 		{
-			desc += "[Tech Point Granted To Adjacent Allies] = " + m_techPointGrantedToAdjacentAllies + "\n";
+			desc += new StringBuilder().Append("[Tech Point Granted To Adjacent Allies] = ").Append(m_techPointGrantedToAdjacentAllies).Append("\n").ToString();
 		}
-		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", string.Empty, isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfForLandingInBrush, "{ Effect On Self If You Land In Brush }", string.Empty, isAbilityPresent)).ToString();
 	}
 }

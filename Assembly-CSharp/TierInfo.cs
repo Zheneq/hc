@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class TierInfo
 {
@@ -55,7 +56,9 @@ public class TierInfo
 		{
 			return 0;
 		}
-		if (Points.TryGetValue(groupSize, out TierPoints value))
+
+		TierPoints value;
+		if (Points.TryGetValue(groupSize, out value))
 		{
 			if (mmr >= (float)MinMMRForBonus)
 			{
@@ -77,7 +80,7 @@ public class TierInfo
 			}
 			return value.PerWin;
 		}
-		throw new Exception($"Bad groups size {groupSize} playing in tier {Name}");
+		throw new Exception(new StringBuilder().Append("Bad groups size ").Append(groupSize).Append(" playing in tier ").Append(Name).ToString());
 	}
 
 	public int CalculatePointsPerLoss(int groupSize)
@@ -86,7 +89,9 @@ public class TierInfo
 		{
 			return 0;
 		}
-		if (Points.TryGetValue(groupSize, out TierPoints value))
+
+		TierPoints value;
+		if (Points.TryGetValue(groupSize, out value))
 		{
 			while (true)
 			{
@@ -99,6 +104,6 @@ public class TierInfo
 				}
 			}
 		}
-		throw new Exception($"Bad groups size {groupSize} playing in tier {Name}");
+		throw new Exception(new StringBuilder().Append("Bad groups size ").Append(groupSize).Append(" playing in tier ").Append(Name).ToString());
 	}
 }

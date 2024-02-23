@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_GremlinsBombingRun : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_GremlinsBombingRun : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_mineDurationMod, "[Mine Duration]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_mineDuration : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_enemyHitEffect : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_energyGainOnExplosion : 0);
-		return desc + PropDesc(m_shouldLeaveMinesAtTouchedSquares, "[Leave Mines At Each Touched Square?]", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_shouldLeaveMinesAtTouchedSquares, "[Leave Mines At Each Touched Square?]", isAbilityPresent)).ToString();
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 public static class NetUtil
@@ -70,7 +71,7 @@ public static class NetUtil
 				Thread.Sleep(100);
 			}
 		}
-		throw new Exception($"Could not resolve {host}");
+		throw new Exception(new StringBuilder().Append("Could not resolve ").Append(host).ToString());
 	}
 
 	public static string GetIPv4Url(string url)
@@ -118,7 +119,7 @@ public static class NetUtil
 	{
 		if (!address.Contains("://"))
 		{
-			address = "tcp://" + address;
+			address = new StringBuilder().Append("tcp://").Append(address).ToString();
 		}
 		Uri uri = new Uri(address);
 		return uri.Host;
@@ -133,7 +134,7 @@ public static class NetUtil
 	{
 		if (hex.Length % 2 != 0)
 		{
-			hex = "0" + hex;
+			hex = new StringBuilder().Append("0").Append(hex).ToString();
 		}
 		int length = hex.Length;
 		byte[] array = new byte[length / 2];

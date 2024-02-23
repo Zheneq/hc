@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -281,7 +282,7 @@ public class UIVoiceListMenu : MonoBehaviour
 				{
 					str2 = "Right";
 				}
-				uianimationEventManager.PlayAnimation(groupTeamToggleAnimator, str + str2 + "DefaultIN", null, string.Empty, 0, 0f, true, false, null, null);
+				uianimationEventManager.PlayAnimation(groupTeamToggleAnimator, new StringBuilder().Append(str).Append(str2).Append("DefaultIN").ToString(), null, string.Empty, 0, 0f, true, false, null, null);
 				Options_UI.Get().SetGameModeVoiceChat(mode);
 				PlayerPrefs.SetInt("OptionsGameModeVoiceChat", (int)mode);
 			}
@@ -300,7 +301,7 @@ public class UIVoiceListMenu : MonoBehaviour
 			{
 				str4 = "Right";
 			}
-			uianimationEventManager2.PlayAnimation(groupTeamToggleAnimator2, str3 + str4 + "DefaultIDLE", null, string.Empty, 0, 0f, true, false, null, null);
+			uianimationEventManager2.PlayAnimation(groupTeamToggleAnimator2, new StringBuilder().Append(str3).Append(str4).Append("DefaultIDLE").ToString(), null, string.Empty, 0, 0f, true, false, null, null);
 		}
 		this.m_chatMode = mode;
 	}

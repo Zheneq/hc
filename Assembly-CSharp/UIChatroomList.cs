@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -156,7 +157,7 @@ public class UIChatroomList : MonoBehaviour
 			}
 		}
 		UIAutocompleteEntry componentInParent = data.selectedObject.GetComponentInParent<UIAutocompleteEntry>();
-		m_parent.m_textInput.text = componentInParent.GetTextValue() + " " + m_parent.m_textInput.text;
+		m_parent.m_textInput.text = new StringBuilder().Append(componentInParent.GetTextValue()).Append(" ").Append(m_parent.m_textInput.text).ToString();
 		m_parent.m_textInput.Select();
 		m_parent.m_textInput.ActivateInputField();
 		m_parent.DehighlightTextAndPositionCarat();

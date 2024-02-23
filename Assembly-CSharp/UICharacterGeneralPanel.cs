@@ -2,6 +2,7 @@ using I2.Loc;
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -288,7 +289,7 @@ public class UICharacterGeneralPanel : MonoBehaviour
 					int num = gameBalanceVars.CharacterExperienceToLevel(experienceComponent.Level);
 					m_experienceSlider.fillAmount = (float)playerCharacterData.ExperienceComponent.XPProgressThroughLevel / (float)num;
 					UIManager.SetGameObjectActive(m_experienceSlider, true);
-					m_expAmountText.text = playerCharacterData.ExperienceComponent.XPProgressThroughLevel + " / " + num;
+					m_expAmountText.text = new StringBuilder().Append(playerCharacterData.ExperienceComponent.XPProgressThroughLevel).Append(" / ").Append(num).ToString();
 				}
 				else
 				{
@@ -326,7 +327,7 @@ public class UICharacterGeneralPanel : MonoBehaviour
 							}
 						}
 					}
-					throw new Exception("No icon for " + charLink.m_characterRole);
+					throw new Exception(new StringBuilder().Append("No icon for ").Append(charLink.m_characterRole).ToString());
 				}
 				m_roleIcon.sprite = m_tankIcon;
 			}
@@ -337,7 +338,7 @@ public class UICharacterGeneralPanel : MonoBehaviour
 			UIManager.SetGameObjectActive(m_twitterBtn, !charLink.m_twitterHandle.IsNullOrEmpty());
 			for (int i = 0; i < m_twitterHandleLabel.Length; i++)
 			{
-				m_twitterHandleLabel[i].text = "@" + charLink.m_twitterHandle;
+				m_twitterHandleLabel[i].text = new StringBuilder().Append("@").Append(charLink.m_twitterHandle).ToString();
 			}
 			m_rewards = RewardUtils.GetCharacterRewards(charLink);
 			for (int j = 0; j < gameBalanceVars.RepeatingCharacterLevelRewards.Length; j++)
@@ -428,7 +429,7 @@ public class UICharacterGeneralPanel : MonoBehaviour
 
 	public void TwitterBtnClicked(BaseEventData data)
 	{
-		Application.OpenURL("http://twitter.com/" + m_charLink.m_twitterHandle);
+		Application.OpenURL(new StringBuilder().Append("http://twitter.com/").Append(m_charLink.m_twitterHandle).ToString());
 	}
 
 	public void OnScroll(BaseEventData data)
@@ -498,7 +499,7 @@ public class UICharacterGeneralPanel : MonoBehaviour
 						int unlockFreelancerCurrencyPrice = m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
 						for (int i = 0; i < m_buyInGameLabels.Length; i++)
 						{
-							m_buyInGameLabels[i].text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
+							m_buyInGameLabels[i].text = new StringBuilder().Append("<sprite name=credit>").Append(unlockFreelancerCurrencyPrice).ToString();
 						}
 						UIManager.SetGameObjectActive(m_buyInGameButton, unlockFreelancerCurrencyPrice > 0);
 						string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;

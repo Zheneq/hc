@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -154,8 +155,7 @@ public class ClientResolutionManager : MonoBehaviour
 		m_timeOfLastEvent = GameTime.time;
 		if (m_state != ClientResolutionManagerState.Idle)
 		{
-			Debug.LogError($"Received StartResolutionPhase message for turn {m_currentTurnIndex}, " +
-				$"phase {m_currentAbilityPhase}, but ClientResolutionManager's state is {m_state}!");
+			Debug.LogError(new StringBuilder().Append("Received StartResolutionPhase message for turn ").Append(m_currentTurnIndex).Append(", ").Append("phase ").Append(m_currentAbilityPhase).Append(", but ClientResolutionManager's state is ").Append(m_state).Append("!").ToString());
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.WaitingForActionMsgs;
@@ -207,8 +207,7 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		if (messages.Count > m_numResolutionActionsThisPhase)
 		{
-			Debug.LogError($"Somehow got more matching ClientResolutionActionMessageData messages ({messages.Count}) than expected ({m_numResolutionActionsThisPhase}) " +
-				$"for this turn ({m_currentTurnIndex}) / phase ({m_currentAbilityPhase}).");
+			Debug.LogError(new StringBuilder().Append("Somehow got more matching ClientResolutionActionMessageData messages (").Append(messages.Count).Append(") than expected (").Append(m_numResolutionActionsThisPhase).Append(") ").Append("for this turn (").Append(m_currentTurnIndex).Append(") / phase (").Append(m_currentAbilityPhase).Append(").").ToString());
 		}
 		m_resolutionActions.Clear();
 		m_movementActions.Clear();
@@ -224,8 +223,7 @@ public class ClientResolutionManager : MonoBehaviour
 		m_movementActions.Sort();
 		if (m_receivedMessages.Count > 0)
 		{
-			Debug.LogError($"Received last resolution action for turn {m_currentTurnIndex} / phase {m_currentAbilityPhase}, " +
-				$"but there are still {m_receivedMessages.Count} received message(s) left over!  Clearing...");
+			Debug.LogError(new StringBuilder().Append("Received last resolution action for turn ").Append(m_currentTurnIndex).Append(" / phase ").Append(m_currentAbilityPhase).Append(", ").Append("but there are still ").Append(m_receivedMessages.Count).Append(" received message(s) left over!  Clearing...").ToString());
 			m_receivedMessages.Clear();
 		}
 		OnReceivedLastResolutionAction();
@@ -245,8 +243,7 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		if (ClientAbilityResults.DebugTraceOn || ClientAbilityResults.DebugSerializeSizeOn)
 		{
-			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader +
-				$"<color=white>OnReceivedLastResolutionAction</color> received for phase {m_currentAbilityPhase}.  {GetActionsDoneExecutingDebugStr()}");
+			Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientResolutionNetMsgHeader).Append("<color=white>OnReceivedLastResolutionAction</color> received for phase ").Append(m_currentAbilityPhase).Append(".  ").Append(GetActionsDoneExecutingDebugStr()).ToString());
 		}
 		m_waitingForAllMessages = false;
 		m_state = ClientResolutionManagerState.Resolving;
@@ -329,7 +326,7 @@ public class ClientResolutionManager : MonoBehaviour
 				if (actorData != null)
 				{
 					actors.Add(actorData);
-					text = text + "\n\t" + actorData.DebugNameString();
+					text = new StringBuilder().Append(text).Append("\n\t").Append(actorData.DebugNameString()).ToString();
 				}
 			}
 		}
@@ -344,32 +341,32 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		if (!isOwnedActorData)
 		{
-			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're not one of the actors-still-resolving." + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
+			Debug.LogWarning(new StringBuilder().Append("Server sent 'hurry' failsafe to clients for turn = ").Append(turnIndex).Append(", phase = ").Append(abilityPriority.ToString()).Append(", but we're not one of the actors-still-resolving.").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nIgnoring failsafe.").ToString());
 		}
 		else if (turnIndex == m_currentTurnIndex && abilityPriority == m_currentAbilityPhase)
 		{
 			if (m_state == ClientResolutionManagerState.Idle)
 			{
-				Debug.Log("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
+				Debug.Log(new StringBuilder().Append("Server sent 'hurry' failsafe to clients for turn = ").Append(turnIndex).Append(", phase = ").Append(abilityPriority.ToString()).Append(", and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nIgnoring failsafe.").ToString());
 			}
 			else if (m_state == ClientResolutionManagerState.WaitingForActionMsgs)
 			{
-				Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; but our state is still in WaitingForActionMsgs, so that's very unexpected.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe... I guess...");
+				Debug.LogWarning(new StringBuilder().Append("Server sent 'hurry' failsafe to clients for turn = ").Append(turnIndex).Append(", phase = ").Append(abilityPriority.ToString()).Append(", and we ARE included in the list of actors-still-resolving; but our state is still in WaitingForActionMsgs, so that's very unexpected.\n").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nIgnoring failsafe... I guess...").ToString());
 			}
 			else if (m_state == ClientResolutionManagerState.Resolving)
 			{
-				Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nExecuting failsafe...");
+				Debug.LogWarning(new StringBuilder().Append("Server sent 'hurry' failsafe to clients for turn = ").Append(turnIndex).Append(", phase = ").Append(abilityPriority.ToString()).Append(", and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nExecuting failsafe...").ToString());
 				ExecuteFailsafe();
 			}
 		}
 		else if (m_currentTurnIndex <= turnIndex
 			&& (m_currentTurnIndex != turnIndex || m_currentAbilityPhase <= abilityPriority))
 		{
-			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's... in the future.  Ignoring failsafe...");
+			Debug.LogWarning(new StringBuilder().Append("Server sent 'hurry' failsafe to clients for turn = ").Append(turnIndex).Append(", phase = ").Append(abilityPriority.ToString()).Append(", but we're on turn = ").Append(m_currentTurnIndex).Append(", phase = ").Append(m_currentAbilityPhase.ToString()).Append(".\n\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nThat's... in the future.  Ignoring failsafe...").ToString());
 		}
 		else
 		{
-			Debug.LogWarning("Server sent 'hurry' failsafe to clients for turn = " + turnIndex + ", phase = " + abilityPriority.ToString() + ", but we're on turn = " + m_currentTurnIndex + ", phase = " + m_currentAbilityPhase.ToString() + ".\n\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nThat's in the past, unexpectedly.  Doing nothing...");
+			Debug.LogWarning(new StringBuilder().Append("Server sent 'hurry' failsafe to clients for turn = ").Append(turnIndex).Append(", phase = ").Append(abilityPriority.ToString()).Append(", but we're on turn = ").Append(m_currentTurnIndex).Append(", phase = ").Append(m_currentAbilityPhase.ToString()).Append(".\n\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nThat's in the past, unexpectedly.  Doing nothing...").ToString());
 		}
 	}
 
@@ -421,8 +418,7 @@ public class ClientResolutionManager : MonoBehaviour
 		{
 			if (action.ContainsSequenceSource(sequenceSource) && !action.CompletedAction())
 			{
-				string message = "Executing Unexecuted Action: " + action.GetDebugDescription() + action.GetUnexecutedHitsDebugStr(true)
-					+ SequenceManager.Get().GetSequenceHitsSeenDebugString(sequenceSource) + extraInfo;
+				string message = new StringBuilder().Append("Executing Unexecuted Action: ").Append(action.GetDebugDescription()).Append(action.GetUnexecutedHitsDebugStr(true)).Append(SequenceManager.Get().GetSequenceHitsSeenDebugString(sequenceSource)).Append(extraInfo).ToString();
 				Log.Error(message);
 				action.ExecuteUnexecutedClientHitsInAction();
 			}
@@ -437,7 +433,7 @@ public class ClientResolutionManager : MonoBehaviour
 			{
 				if (showAsError)
 				{
-					Log.Error("Executing Unexecuted Action: " + action.GetDebugDescription() + action.GetUnexecutedHitsDebugStr());
+					Log.Error(new StringBuilder().Append("Executing Unexecuted Action: ").Append(action.GetDebugDescription()).Append(action.GetUnexecutedHitsDebugStr()).ToString());
 				}
 				action.ExecuteUnexecutedClientHitsInAction();
 			}
@@ -453,10 +449,10 @@ public class ClientResolutionManager : MonoBehaviour
 			if (!current.CompletedAction())
 			{
 				num++;
-				text += "\n\t" + num + ". " + current.GetDebugDescription() + current.GetUnexecutedHitsDebugStr();
+				text += new StringBuilder().Append("\n\t").Append(num).Append(". ").Append(current.GetDebugDescription()).Append(current.GetUnexecutedHitsDebugStr()).ToString();
 			}
 		}
-		return "Action not done: " + num + text;
+		return new StringBuilder().Append("Action not done: ").Append(num).Append(text).ToString();
 	}
 
 	private void Update()
@@ -485,7 +481,7 @@ public class ClientResolutionManager : MonoBehaviour
 	private void ExecuteFailsafe()
 	{
 		bool flag = true;
-		string str = $"ClientResolutionManager sending phase completed message due to failsafe.  State = {m_state}.\n";
+		string str = new StringBuilder().Append("ClientResolutionManager sending phase completed message due to failsafe.  State = ").Append(m_state).Append(".\n").ToString();
 		if (m_currentAbilityPhase == AbilityPriority.INVALID)
 		{
 			str += "Phase = Normal Movement\n";
@@ -493,12 +489,12 @@ public class ClientResolutionManager : MonoBehaviour
 		}
 		else
 		{
-			str += "Phase = " + m_currentAbilityPhase.ToString() + "\n";
+			str += new StringBuilder().Append("Phase = ").Append(m_currentAbilityPhase.ToString()).Append("\n").ToString();
 		}
 		str += GetActionsDoneExecutingDebugStr();
 		if (flag)
 		{
-			str = str + "\n" + TheatricsManager.Get().GetTheatricsStateString();
+			str = new StringBuilder().Append(str).Append("\n").Append(TheatricsManager.Get().GetTheatricsStateString()).ToString();
 		}
 		Debug.LogError(str);
 		ExecuteAllUnexecutedActions();
@@ -536,7 +532,7 @@ public class ClientResolutionManager : MonoBehaviour
 	{
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "<color=white>ClientResolutionPhaseCompleted</color> message sent for phase " + abilityPhase.ToString() + " (failsafe = " + asFailsafe + ").");
+			Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientResolutionNetMsgHeader).Append("<color=white>ClientResolutionPhaseCompleted</color> message sent for phase ").Append(abilityPhase.ToString()).Append(" (failsafe = ").Append(asFailsafe).Append(").").ToString());
 		}
 		foreach (ActorData current in GameFlowData.Get().m_ownedActorDatas)
 		{
@@ -562,7 +558,7 @@ public class ClientResolutionManager : MonoBehaviour
 		networkWriter.FinishMessage();
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Log.Warning(ClientAbilityResults.s_clientResolutionNetMsgHeader + "Sending <color=white>ResolveKnockbackForActor</color>, Caster: " + sendingPlayer.DebugNameString() + ", KnockedBackActor: " + knockbackedTarget.DebugNameString());
+			Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientResolutionNetMsgHeader).Append("Sending <color=white>ResolveKnockbackForActor</color>, Caster: ").Append(sendingPlayer.DebugNameString()).Append(", KnockedBackActor: ").Append(knockbackedTarget.DebugNameString()).ToString());
 		}
 		ClientGameManager.Get().Client.SendWriter(networkWriter, 0);
 	}

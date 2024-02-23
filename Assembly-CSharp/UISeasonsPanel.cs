@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using I2.Loc;
 using LobbyGameClientMessages;
 using TMPro;
@@ -560,7 +561,7 @@ public class UISeasonsPanel : UIScene
 			}
 			if (!flag)
 			{
-				text = text + "<color=red>" + StringUtil.TR_SeasonChapterUnlock(this.m_selectedSeason.SeasonNumber, index + 1) + "</color>";
+				text = new StringBuilder().Append(text).Append("<color=red>").Append(StringUtil.TR_SeasonChapterUnlock(this.m_selectedSeason.SeasonNumber, index + 1)).Append("</color>").ToString();
 			}
 			(tooltip as UITitledTooltip).Setup(StringUtil.TR("ChapterIsLocked", "Seasons"), text, string.Empty);
 			return true;
@@ -667,10 +668,10 @@ public class UISeasonsPanel : UIScene
 					{
 						if (ClientGameManager.Get().PacificNow() < uiseasonChapterEntry.EndDate)
 						{
-							string arg = string.Format(StringUtil.TR("DayMonthYear", "Global"), uiseasonChapterEntry.EndDate.Day, StringUtil.TR("Month" + uiseasonChapterEntry.EndDate.Month, "Global"), uiseasonChapterEntry.EndDate.Year);
+							string arg = string.Format(StringUtil.TR("DayMonthYear", "Global"), uiseasonChapterEntry.EndDate.Day, StringUtil.TR(new StringBuilder().Append("Month").Append(uiseasonChapterEntry.EndDate.Month).ToString(), "Global"), uiseasonChapterEntry.EndDate.Year);
 							string str = string.Format(StringUtil.TR("MustBeCompletedBy", "Global"), arg);
 							TextMeshProUGUI questHeaderTitle = this.m_questHeaderTitle;
-							questHeaderTitle.text = questHeaderTitle.text + " <color=red>" + str + "</color>";
+							questHeaderTitle.text = new StringBuilder().Append(questHeaderTitle.text).Append(" <color=red>").Append(str).Append("</color>").ToString();
 							UIManager.SetGameObjectActive(this.m_questsEndedStamp, false, null);
 						}
 						else

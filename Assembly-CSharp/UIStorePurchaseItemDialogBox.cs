@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -662,9 +663,9 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		this.m_dialogTitle.text = text2;
 		this.m_descriptionTitle.text = text;
 		this.m_Item.m_headerNameLabel.text = text;
-		this.m_descriptionCurrentCredits.text = str + UIStorePanel.FormatIntToString(num2, true);
-		this.m_descriptionAddCredits.text = str + UIStorePanel.FormatIntToString(num, true);
-		this.m_descriptionTotalCredits.text = str + UIStorePanel.FormatIntToString(Mathf.Abs(num2 - num), true);
+		this.m_descriptionCurrentCredits.text = new StringBuilder().Append(str).Append(UIStorePanel.FormatIntToString(num2, true)).ToString();
+		this.m_descriptionAddCredits.text = new StringBuilder().Append(str).Append(UIStorePanel.FormatIntToString(num, true)).ToString();
+		this.m_descriptionTotalCredits.text = new StringBuilder().Append(str).Append(UIStorePanel.FormatIntToString(Mathf.Abs(num2 - num), true)).ToString();
 		UIManager.SetGameObjectActive(this.m_Item.m_discountLabelContainer, false, null);
 		UIManager.SetGameObjectActive(this.m_Item.m_headerPriceContainer, false, null);
 		UIManager.SetGameObjectActive(this.m_Item.m_lockedIcon, false, null);

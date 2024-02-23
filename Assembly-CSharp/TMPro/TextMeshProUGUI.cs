@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,7 +55,10 @@ namespace TMPro
 
 		private bool m_isRebuildingLayout;
 
-		public override Material materialForRendering => TMP_MaterialManager.GetMaterialForRendering(this, m_sharedMaterial);
+		public override Material materialForRendering
+		{
+			get { return TMP_MaterialManager.GetMaterialForRendering(this, m_sharedMaterial); }
+		}
 
 		public override bool autoSizeTextContainer
 		{
@@ -91,7 +95,10 @@ namespace TMPro
 			}
 		}
 
-		public override Mesh mesh => m_mesh;
+		public override Mesh mesh
+		{
+			get { return m_mesh; }
+		}
 
 		public new CanvasRenderer canvasRenderer
 		{
@@ -105,7 +112,10 @@ namespace TMPro
 			}
 		}
 
-		public InlineGraphicManager inlineGraphicManager => m_inlineGraphics;
+		public InlineGraphicManager inlineGraphicManager
+		{
+			get { return m_inlineGraphics; }
+		}
 
 		public Vector4 maskOffset
 		{
@@ -162,7 +172,7 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						Debug.LogWarning("Please assign a Font Asset to this " + base.transform.name + " gameobject.", this);
+						Debug.LogWarning(new StringBuilder().Append("Please assign a Font Asset to this ").Append(base.transform.name).Append(" gameobject.").ToString(), this);
 						return;
 					}
 				}
@@ -249,7 +259,7 @@ namespace TMPro
 				{
 					while (true)
 					{
-						Debug.LogWarning("The LiberationSans SDF Font Asset was not found. There is no Font Asset assigned to " + base.gameObject.name + ".", this);
+						Debug.LogWarning(new StringBuilder().Append("The LiberationSans SDF Font Asset was not found. There is no Font Asset assigned to ").Append(base.gameObject.name).Append(".").ToString(), this);
 						return;
 					}
 				}
@@ -282,7 +292,7 @@ namespace TMPro
 				}
 				if (m_fontAsset.material == null)
 				{
-					Debug.LogWarning("The Font Atlas Texture of the Font Asset " + m_fontAsset.name + " assigned to " + base.gameObject.name + " is missing.", this);
+					Debug.LogWarning(new StringBuilder().Append("The Font Atlas Texture of the Font Asset ").Append(m_fontAsset.name).Append(" assigned to ").Append(base.gameObject.name).Append(" is missing.").ToString(), this);
 				}
 				else
 				{
@@ -795,7 +805,8 @@ namespace TMPro
 					m_currentFontAsset = fontAssetForWeight;
 				}
 				int num2;
-				fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out TMP_Glyph glyph);
+				TMP_Glyph glyph;
+				fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out glyph);
 				int currentMaterialIndex;
 				if (glyph == null)
 				{
@@ -890,7 +901,7 @@ namespace TMPro
 						fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out glyph);
 						if (!TMP_Settings.warningsDisabled)
 						{
-							Debug.LogWarning("Character with ASCII value of " + num2 + " was not found in the Font Asset Glyph Table. It was replaced by a space.", this);
+							Debug.LogWarning(new StringBuilder().Append("Character with ASCII value of ").Append(num2).Append(" was not found in the Font Asset Glyph Table. It was replaced by a space.").ToString(), this);
 						}
 					}
 				}
@@ -1093,7 +1104,6 @@ namespace TMPro
 						{
 							continue;
 						}
-						ref TMP_MeshInfo reference = ref m_textInfo.meshInfo[j];
 						int size;
 						if (referenceCount > 1024)
 						{
@@ -1103,7 +1113,7 @@ namespace TMPro
 						{
 							size = Mathf.Max(Mathf.NextPowerOfTwo(referenceCount), 256);
 						}
-						reference.ResizeMeshInfo(size);
+						m_textInfo.meshInfo[j].ResizeMeshInfo(size);
 						continue;
 					}
 				}
@@ -1875,7 +1885,7 @@ namespace TMPro
 														}
 														else
 														{
-															Debug.LogWarning("Unable to use Ellipsis character since it wasn't found in the current Font Asset [" + m_fontAsset.name + "]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.", this);
+															Debug.LogWarning(new StringBuilder().Append("Unable to use Ellipsis character since it wasn't found in the current Font Asset [").Append(m_fontAsset.name).Append("]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.").ToString(), this);
 														}
 														m_totalCharacterCount = num12 + 1;
 														GenerateTextMesh();
@@ -2359,7 +2369,6 @@ namespace TMPro
 													TMP_TextInfo.Resize(ref m_textInfo.pageInfo, m_pageNumber + 1, true);
 												}
 												m_textInfo.pageInfo[m_pageNumber].ascender = num14;
-												ref TMP_PageInfo reference4 = ref m_textInfo.pageInfo[m_pageNumber];
 												float descender2;
 												if (num37 < m_textInfo.pageInfo[m_pageNumber].descender)
 												{
@@ -2369,7 +2378,7 @@ namespace TMPro
 												{
 													descender2 = m_textInfo.pageInfo[m_pageNumber].descender;
 												}
-												reference4.descender = descender2;
+												m_textInfo.pageInfo[m_pageNumber].descender = descender2;
 												if (m_pageNumber == 0 && m_characterCount == 0)
 												{
 													m_textInfo.pageInfo[m_pageNumber].firstCharacterIndex = m_characterCount;
@@ -2614,7 +2623,7 @@ namespace TMPro
 											}
 											else
 											{
-												Debug.LogWarning("Unable to use Ellipsis character since it wasn't found in the current Font Asset [" + m_fontAsset.name + "]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.", this);
+												Debug.LogWarning(new StringBuilder().Append("Unable to use Ellipsis character since it wasn't found in the current Font Asset [").Append(m_fontAsset.name).Append("]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.").ToString(), this);
 											}
 											m_totalCharacterCount = num12 + 1;
 											GenerateTextMesh();
@@ -3978,7 +3987,7 @@ namespace TMPro
 					return;
 				}
 			}
-			Debug.LogWarning("Can't Generate Mesh! No Font Asset has been assigned to Object ID: " + GetInstanceID());
+			Debug.LogWarning(new StringBuilder().Append("Can't Generate Mesh! No Font Asset has been assigned to Object ID: ").Append(GetInstanceID()).ToString());
 		}
 
 		protected override Vector3[] GetTextContainerLocalCorners()

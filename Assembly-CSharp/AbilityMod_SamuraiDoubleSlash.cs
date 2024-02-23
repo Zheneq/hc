@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SamuraiDoubleSlash : AbilityMod
@@ -59,6 +60,6 @@ public class AbilityMod_SamuraiDoubleSlash : AbilityMod
 		desc += PropDesc(m_damageAmountMod, "[DamageAmount]", isValid, isValid ? samuraiDoubleSlash.m_damageAmount : 0);
 		desc += PropDesc(m_overlapExtraDamageMod, "[OverlapExtraDamage]", isValid, isValid ? samuraiDoubleSlash.m_overlapExtraDamage : 0);
 		desc += PropDesc(m_targetHitEffectMod, "[TargetHitEffect]", isValid, isValid ? samuraiDoubleSlash.m_targetHitEffect : null);
-		return desc + PropDesc(m_extraEnemyHitEffectIfSelfBuffedMod, "[ExtraEnemyHitEffectIfSelfBuffed]", isValid, isValid ? samuraiDoubleSlash.m_extraEnemyHitEffectIfSelfBuffed : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEnemyHitEffectIfSelfBuffedMod, "[ExtraEnemyHitEffectIfSelfBuffed]", isValid, isValid ? samuraiDoubleSlash.m_extraEnemyHitEffectIfSelfBuffed : null)).ToString();
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientActorHitResults
@@ -438,7 +439,7 @@ public class ClientActorHitResults
 			{
 				if (ClientAbilityResults.DebugTraceOn)
 				{
-					Log.Warning(ClientAbilityResults.s_clientHitResultHeader + clientReactionResults.GetDebugDescription() + " executing reaction hit on first damaging hit");
+					Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientHitResultHeader).Append(clientReactionResults.GetDebugDescription()).Append(" executing reaction hit on first damaging hit").ToString());
 				}
 				clientReactionResults.PlayReaction();
 			}
@@ -463,7 +464,7 @@ public class ClientActorHitResults
 		}
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Debug.LogWarning(ClientAbilityResults.s_executeActorHitHeader + " Target: " + target.DebugNameString() + " Caster: " + caster.DebugNameString());
+			Debug.LogWarning(new StringBuilder().Append(ClientAbilityResults.s_executeActorHitHeader).Append(" Target: ").Append(target.DebugNameString()).Append(" Caster: ").Append(caster.DebugNameString()).ToString());
 		}
 		bool flag = ClientResolutionManager.Get().IsInResolutionState();
 		if (m_triggerCasterVisOnHitVisualOnly)
@@ -524,7 +525,7 @@ public class ClientActorHitResults
 			{
 				icon = BuffIconToDisplay.ReducedDamage;
 			}
-			target.AddCombatText(m_finalDamage + str, string.Empty, CombatTextCategory.Damage, icon);
+			target.AddCombatText(new StringBuilder().Append(m_finalDamage).Append(str).ToString(), string.Empty, CombatTextCategory.Damage, icon);
 			if (m_targetInCoverWrtDamage)
 			{
 				target.OnHitWhileInCover(m_damageHitOrigin, caster);

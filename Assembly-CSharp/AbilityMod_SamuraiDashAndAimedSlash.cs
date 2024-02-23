@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 {
@@ -48,6 +49,6 @@ public class AbilityMod_SamuraiDashAndAimedSlash : AbilityMod
 		desc += PropDesc(m_damageAmountMod, "[DamageAmount]", isValid, isValid ? samuraiDashAndAimedSlash.m_damageAmount : 0);
 		desc += PropDesc(m_extraDamageIfSingleTargetMod, "[ExtraDamageIfSingleTarget]", isValid, isValid ? samuraiDashAndAimedSlash.m_extraDamageIfSingleTarget : 0);
 		desc += PropDesc(m_targetEffectMod, "[TargetEffect]", isValid, isValid ? samuraiDashAndAimedSlash.m_targetEffect : null);
-		return desc + PropDesc(m_effectOnSelfMod, "[EffectOnSelf]", isValid, isValid ? samuraiDashAndAimedSlash.m_effectOnSelf : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_effectOnSelfMod, "[EffectOnSelf]", isValid, isValid ? samuraiDashAndAimedSlash.m_effectOnSelf : null)).ToString();
 	}
 }

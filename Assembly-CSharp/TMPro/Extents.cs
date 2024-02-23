@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 namespace TMPro
@@ -16,7 +17,7 @@ namespace TMPro
 
 		public override string ToString()
 		{
-			return "Min (" + min.x.ToString("f2") + ", " + min.y.ToString("f2") + ")   Max (" + max.x.ToString("f2") + ", " + max.y.ToString("f2") + ")";
+			return new StringBuilder().Append("Min (").Append(min.x.ToString("f2")).Append(", ").Append(min.y.ToString("f2")).Append(")   Max (").Append(max.x.ToString("f2")).Append(", ").Append(max.y.ToString("f2")).Append(")").ToString();
 		}
 	}
 }

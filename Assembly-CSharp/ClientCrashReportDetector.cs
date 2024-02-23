@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
+using System.Text;
 using LobbyGameClientMessages;
 using UnityEngine;
 
@@ -47,7 +48,7 @@ public class ClientCrashReportDetector : MonoBehaviour
 			}
 			if (this.m_crashDumpDirectoryPath != null)
 			{
-				Log.Warning("Detected crash dump directory: " + this.m_crashDumpDirectoryPath, new object[0]);
+				Log.Warning(new StringBuilder().Append("Detected crash dump directory: ").Append(this.m_crashDumpDirectoryPath).ToString(), new object[0]);
 				if (UIDialogPopupManager.Ready)
 				{
 					this.CreateFirstDialog();

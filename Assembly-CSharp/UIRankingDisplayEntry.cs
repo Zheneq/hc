@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System;
+using System.Text;
 using UnityEngine.UI;
 
 public class UIRankingDisplayEntry : IDataEntry
@@ -141,22 +142,22 @@ public class UIRankingDisplayEntry : IDataEntry
 				{
 					if (difference.TotalDays < 1.0)
 					{
-						component.ChangeText.text = $"<sprite={6}>{Change}";
+						component.ChangeText.text = new StringBuilder().Append("<sprite=").Append(6).Append(">").Append(Change).ToString();
 					}
 					else
 					{
-						component.ChangeText.text = $"<sprite={8}>{Change}";
+						component.ChangeText.text = new StringBuilder().Append("<sprite=").Append(8).Append(">").Append(Change).ToString();
 					}
 				}
 				else if (Change < 0)
 				{
 					if (difference.TotalDays < 1.0)
 					{
-						component.ChangeText.text = $"<sprite={7}>{Change}";
+						component.ChangeText.text = new StringBuilder().Append("<sprite=").Append(7).Append(">").Append(Change).ToString();
 					}
 					else
 					{
-						component.ChangeText.text = $"<sprite={9}>{Change}";
+						component.ChangeText.text = new StringBuilder().Append("<sprite=").Append(9).Append(">").Append(Change).ToString();
 					}
 				}
 				UIManager.SetGameObjectActive(component.ChangeText, Change != 0);

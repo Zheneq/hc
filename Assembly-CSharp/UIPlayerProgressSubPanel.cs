@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class UIPlayerProgressSubPanel : MonoBehaviour
@@ -8,7 +9,10 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 
 	private bool m_active;
 
-	public bool IsActive => m_active;
+	public bool IsActive
+	{
+		get { return m_active; }
+	}
 
 	public virtual void ClickedOnPageIndicator(UIPageIndicator pageIndicator)
 	{
@@ -23,7 +27,7 @@ public class UIPlayerProgressSubPanel : MonoBehaviour
 		}
 		if (m_animator.isInitialized)
 		{
-			UIAnimationEventManager.Get().PlayAnimation(m_animator, m_animationPrefix + ((!visible) ? "OUT" : "IN"), HandleAnimationEnd, string.Empty);
+			UIAnimationEventManager.Get().PlayAnimation(m_animator, new StringBuilder().Append(m_animationPrefix).Append((!visible) ? "OUT" : "IN").ToString(), HandleAnimationEnd, string.Empty);
 		}
 	}
 

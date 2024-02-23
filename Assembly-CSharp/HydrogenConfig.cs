@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Security;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -122,7 +123,10 @@ public class HydrogenConfig : JsonConfig
 
 	private static HydrogenConfig s_instance = new HydrogenConfig();
 
-	public string ProcessName => $"{ProcessType.ToString()}-{ProcessCode}";
+	public string ProcessName
+	{
+		get { return new StringBuilder().Append(ProcessType.ToString()).Append("-").Append(ProcessCode).ToString(); }
+	}
 
 	public HydrogenConfig()
 	{
@@ -273,7 +277,7 @@ public class HydrogenConfig : JsonConfig
 	public ushort GetSavedSubTypes(GameType gameType, Dictionary<ushort, GameSubType> subTypes)
 	{
 		ushort num = 0;
-		string fullPath = Path.GetFullPath(Application.dataPath + "/../LocalSettings/SelectedGameSubTypes.json");
+		string fullPath = Path.GetFullPath(new StringBuilder().Append(Application.dataPath).Append("/../LocalSettings/SelectedGameSubTypes.json").ToString());
 		if (File.Exists(fullPath))
 		{
 			while (true)
@@ -351,7 +355,7 @@ public class HydrogenConfig : JsonConfig
 		}
 		try
 		{
-			string fullPath = Path.GetFullPath(Application.dataPath + "/../LocalSettings/SelectedGameSubTypes.json");
+			string fullPath = Path.GetFullPath(new StringBuilder().Append(Application.dataPath).Append("/../LocalSettings/SelectedGameSubTypes.json").ToString());
 			Dictionary<GameType, List<string>> dictionary = new Dictionary<GameType, List<string>>();
 			FileInfo fileInfo = new FileInfo(fullPath);
 			if (fileInfo.Exists)
@@ -365,7 +369,7 @@ public class HydrogenConfig : JsonConfig
 			}
 			else
 			{
-				Directory.CreateDirectory(Application.dataPath + "/../LocalSettings/");
+				Directory.CreateDirectory(new StringBuilder().Append(Application.dataPath).Append("/../LocalSettings/").ToString());
 			}
 			dictionary[gameType] = list;
 			string contents = JsonConvert.SerializeObject(dictionary, Formatting.Indented, new StringEnumConverter());

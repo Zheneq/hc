@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -225,11 +226,11 @@ public static class ServerClientUtils
 					ActorData actorData = GameFlowData.Get().FindActorByActorIndex(m_targetActorIndices[i]);
 					if (actorData != null)
 					{
-						text = text + " | " + actorData.DebugNameString();
+						text = new StringBuilder().Append(text).Append(" | ").Append(actorData.DebugNameString()).ToString();
 					}
 					else
 					{
-						text = text + " | (Unknown Actor) " + m_targetActorIndices[i];
+						text = new StringBuilder().Append(text).Append(" | (Unknown Actor) ").Append(m_targetActorIndices[i]).ToString();
 					}
 				}
 			}
@@ -282,7 +283,7 @@ public static class ServerClientUtils
 			uint numBytes = stream.Position - position;
 			if (ClientAbilityResults.DebugSerializeSizeOn)
 			{
-				Debug.LogWarning("\t\t\t\t\t Serializing Sequence Start Data, using targetPos? " + m_useTargetPos.ToString() + " prefab id " + m_prefabID + ": \n\t\t\t\t\t numBytes: " + numBytes);
+				Debug.LogWarning(new StringBuilder().Append("\t\t\t\t\t Serializing Sequence Start Data, using targetPos? ").Append(m_useTargetPos.ToString()).Append(" prefab id ").Append(m_prefabID).Append(": \n\t\t\t\t\t numBytes: ").Append(numBytes).ToString());
 			}
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text;
 using UnityEngine;
 
 public class PatrolState : FSMState
@@ -30,7 +31,7 @@ public class PatrolState : FSMState
 			this.m_PatrolPath.m_currentWayPoint = this.m_PatrolPath.GetInitalWaypoint();
 			if (this.m_PatrolPath.m_currentWayPoint == null)
 			{
-				Log.Error("Could not find a waypoint to travel to. Did you forget to add in waypoints to a patrol path for NPC " + base.MyBrain.name, new object[0]);
+				Log.Error(new StringBuilder().Append("Could not find a waypoint to travel to. Did you forget to add in waypoints to a patrol path for NPC ").Append(base.MyBrain.name).ToString(), new object[0]);
 			}
 			GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.MovingToNextPoint, base.MyActorData, this.m_PatrolPath.m_currentWayPoint, this.m_PatrolPath.mWayPoints.IndexOf(this.m_PatrolPath.m_currentWayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 			GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
@@ -93,7 +94,7 @@ public class PatrolState : FSMState
 				}
 				if (this.turnsToDelayRemaining == -1)
 				{
-					Debug.Log("Arrived at point: " + boardSquare);
+					Debug.Log(new StringBuilder().Append("Arrived at point: ").Append(boardSquare).ToString());
 					GameEventManager.PatrolPointArgs args = new GameEventManager.PatrolPointArgs(GameEventManager.PatrolPointArgs.WhatHappenedType.PointReached, base.MyActorData, wayPoint, this.m_PatrolPath.mWayPoints.IndexOf(wayPoint), this.m_PatrolPath, this.m_PatrolPath.m_AlternateDestination == null);
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args);
 					this.turnsToDelayRemaining = wayPoint.TurnsToDelay;
@@ -117,13 +118,13 @@ public class PatrolState : FSMState
 					GameEventManager.Get().FireEvent(GameEventManager.EventType.PatrolPointEvent, args2);
 					this.m_PatrolPath.m_AlternateDestination = null;
 					BoardSquare boardSquare2 = Board.Get().GetClosestValidForGameplaySquareTo(wayPoint.transform.position.x, wayPoint.transform.position.z);
-					Debug.Log("Traveling to: " + boardSquare2);
+					Debug.Log(new StringBuilder().Append("Traveling to: ").Append(boardSquare2).ToString());
 					component3.SelectMovementSquareForMovement(boardSquare2);
 				}
 				else
 				{
 					this.turnsToDelayRemaining--;
-					Debug.Log("Delayed - Turns remaining:  " + this.turnsToDelayRemaining);
+					Debug.Log(new StringBuilder().Append("Delayed - Turns remaining:  ").Append(this.turnsToDelayRemaining).ToString());
 				}
 				yield break;
 			}

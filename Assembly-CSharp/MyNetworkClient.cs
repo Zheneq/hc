@@ -16,8 +16,8 @@ public class MyNetworkClient : NetworkClient
 
 	public bool IsConnected
 	{
-		get => m_AsyncConnect == ConnectState.Connected;
-		set => m_AsyncConnect = value ? ConnectState.Connected : ConnectState.Disconnected;
+		get { return m_AsyncConnect == ConnectState.Connected; }
+		set { m_AsyncConnect = value ? ConnectState.Connected : ConnectState.Disconnected; }
 	}
 
 	public override void Disconnect()

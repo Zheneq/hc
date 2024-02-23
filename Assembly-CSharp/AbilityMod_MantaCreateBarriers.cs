@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MantaCreateBarriers : AbilityMod
@@ -58,6 +59,6 @@ public class AbilityMod_MantaCreateBarriers : AbilityMod
 		desc += PropDesc(m_damageOnCastMod, "[DamageOnCast]", isValid, isValid ? mantaCreateBarriers.m_damageOnCast : 0);
 		desc += PropDesc(m_allyHealOnCastMod, "[AllyHealOnCast]", isValid, isValid ? mantaCreateBarriers.m_allyHealOnCast : 0);
 		desc += PropDesc(m_effectOnAlliesOnCastMod, "[EffectOnAlliesOnCast]", isValid, isValid ? mantaCreateBarriers.m_effectOnAlliesOnCast : null);
-		return desc + PropDesc(m_addVisionProviderInsideBarriers, "[AddVisionProviderInsideBarriers]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_addVisionProviderInsideBarriers, "[AddVisionProviderInsideBarriers]", isValid)).ToString();
 	}
 }

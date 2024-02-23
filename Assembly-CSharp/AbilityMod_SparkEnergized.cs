@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SparkEnergized : AbilityMod
@@ -78,6 +79,6 @@ public class AbilityMod_SparkEnergized : AbilityMod
 		desc += PropDesc(m_bothTetherAllyEffectMod, "[BothTetherAllyEffect]", isEnergizedPresent, isEnergizedPresent ? sparkEnergized.m_bothTetherAllyEffect : null);
 		desc += PropDesc(m_bothTetherEnemyEffectMod, "[BothTetherEnemyEffect]", isEnergizedPresent, isEnergizedPresent ? sparkEnergized.m_bothTetherEnemyEffect : null);
 		desc += PropDesc(m_bothTetherExtraHealMod, "[BothTetherExtraHeal]", isEnergizedPresent, isEnergizedPresent ? sparkEnergized.m_bothTetherExtraHeal : 0);
-		return desc + PropDesc(m_bothTetherExtraDamageMod, "[BothTetherExtraDamage]", isEnergizedPresent, isEnergizedPresent ? sparkEnergized.m_bothTetherExtraDamage : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_bothTetherExtraDamageMod, "[BothTetherExtraDamage]", isEnergizedPresent, isEnergizedPresent ? sparkEnergized.m_bothTetherExtraDamage : 0)).ToString();
 	}
 }

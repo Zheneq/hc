@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -109,7 +110,7 @@ public class UIObjectivePointsPanel : UIGameModePanel
 	{
 		FriendlyScore.text = string.Empty;
 		EnemyScore.text = string.Empty;
-		VictoryConditionLabel.text = exitingString + timeToExit;
+		VictoryConditionLabel.text = new StringBuilder().Append(exitingString).Append(timeToExit).ToString();
 		ResultLabel.text = winnerString;
 		ResultLabel.color = winningTeamColor;
 	}

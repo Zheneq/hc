@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using TMPro;
 using Unity;
 using UnityEngine;
@@ -1594,7 +1595,7 @@ public class SinglePlayerManager : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Log.Warning("State " + m_currentScriptIndex + " has RequireMaxPossibleAbilities but no specified allowed abilities.  Ignoring RequireMaxPossibleAbilities...");
+					Log.Warning(new StringBuilder().Append("State ").Append(m_currentScriptIndex).Append(" has RequireMaxPossibleAbilities but no specified allowed abilities.  Ignoring RequireMaxPossibleAbilities...").ToString());
 					return true;
 				}
 			}
@@ -1658,7 +1659,7 @@ public class SinglePlayerManager : NetworkBehaviour
 					goto IL_0117;
 				}
 			}
-			Log.Warning("Single Player state " + currentState.m_stateIndex + " cares about MinAbilityTargetsForAiming for a targeter-less ability.  Suggest RequireMaxPossibleAbilities instead.");
+			Log.Warning(new StringBuilder().Append("Single Player state ").Append(currentState.m_stateIndex).Append(" cares about MinAbilityTargetsForAiming for a targeter-less ability.  Suggest RequireMaxPossibleAbilities instead.").ToString());
 			flag = (currentState.m_minAbilityTargetsForAiming <= 1);
 		}
 		goto IL_0117;

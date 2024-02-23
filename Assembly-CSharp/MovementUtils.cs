@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -227,7 +228,7 @@ public static class MovementUtils
 			BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
 			if (square == null)
 			{
-				Log.Error("Failed to find square from index [" + x + ", " + y + "] during serialization of path");
+				Log.Error(new StringBuilder().Append("Failed to find square from index [").Append(x).Append(", ").Append(y).Append("] during serialization of path").ToString());
 			}
 			next.square = square;
 			next.moveCost = moveCost;
@@ -316,7 +317,7 @@ public static class MovementUtils
 			BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
 			if (square == null)
 			{
-				Log.Error("Failed to find square from index [" + x + ", " + y + "] during serialization of path");
+				Log.Error(new StringBuilder().Append("Failed to find square from index [").Append(x).Append(", ").Append(y).Append("] during serialization of path").ToString());
 			}
 			next.square = square;
 			next.moveCost = moveCost;
@@ -438,13 +439,13 @@ public static class MovementUtils
 			}
 			if (num > 0)
 			{
-				Debug.LogError("Calling SerializeLightweightPath with a path that has " + num + " null square(s).");
+				Debug.LogError(new StringBuilder().Append("Calling SerializeLightweightPath with a path that has ").Append(num).Append(" null square(s).").ToString());
 			}
 		}
 		uint numBytes = stream.Position - position;
 		if (ClientAbilityResults.DebugSerializeSizeOn)
 		{
-			Debug.LogWarning("\t\t\t Serializing Lightweight Movement Path: \n\t\t\t numBytes: " + numBytes);
+			Debug.LogWarning(new StringBuilder().Append("\t\t\t Serializing Lightweight Movement Path: \n\t\t\t numBytes: ").Append(numBytes).ToString());
 		}
 	}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ThiefBasicAttack : AbilityMod
@@ -72,6 +73,6 @@ public class AbilityMod_ThiefBasicAttack : AbilityMod
 		desc += PropDesc(m_laserPenetrateLosMod, "[LaserPenetrateLos]", isValid, isValid && thiefBasicAttack.m_laserPenetrateLos);
 		desc += PropDesc(m_stopOnPowerupHitMod, "[StopOnPowerupHit]", isValid, isValid && thiefBasicAttack.m_stopOnPowerupHit);
 		desc += PropDesc(m_includeSpoilsPowerupsMod, "[IncludeSpoilsPowerups]", isValid, isValid && thiefBasicAttack.m_includeSpoilsPowerups);
-		return desc + PropDesc(m_ignorePickupTeamRestrictionMod, "[IgnorePickupTeamRestriction]", isValid, isValid && thiefBasicAttack.m_ignorePickupTeamRestriction);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_ignorePickupTeamRestrictionMod, "[IgnorePickupTeamRestriction]", isValid, isValid && thiefBasicAttack.m_ignorePickupTeamRestriction)).ToString();
 	}
 }

@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -260,7 +261,8 @@ public class UICreateGameScreen : UIScene
             UIManager.SetGameObjectActive(toggleBtn, true);
             toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text =
                 GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
-            if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out bool isActive) &&
+            bool isActive;
+            if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out isActive) &&
                 !isActive)
             {
                 toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().fontStyle |= FontStyles.Strikethrough;
@@ -340,7 +342,7 @@ public class UICreateGameScreen : UIScene
 		{
 			if (SelectedSubTypeMask != 0)
 			{
-				Debug.Log($"Selected SubType {selected.SubType.GetNameAsPayload().Term} with Mask {SelectedSubTypeMask}");
+				Debug.Log(new StringBuilder().Append("Selected SubType ").Append(selected.SubType.GetNameAsPayload().Term).Append(" with Mask ").Append(SelectedSubTypeMask).ToString());
 			}
 			return;
 		}
@@ -456,7 +458,9 @@ public class UICreateGameScreen : UIScene
 					{
 						continue;
 					}
-					if (clientGameManager.IsMapInGameType(GameType.Custom, m_mapList[i].MapConfig.Map, out bool isActive))
+
+					bool isActive;
+					if (clientGameManager.IsMapInGameType(GameType.Custom, m_mapList[i].MapConfig.Map, out isActive))
 					{
 						if (!isActive)
 						{
@@ -507,7 +511,8 @@ public class UICreateGameScreen : UIScene
 	{
 		for (int i = 0; i < m_mapList.Count; i++)
 		{
-			if (!(m_mapList[i].ToggleBtn == btn) || !ClientGameManager.Get().IsMapInGameType(GameType.Custom, m_mapList[i].MapConfig.Map, out bool isActive))
+			bool isActive;
+			if (!(m_mapList[i].ToggleBtn == btn) || !ClientGameManager.Get().IsMapInGameType(GameType.Custom, m_mapList[i].MapConfig.Map, out isActive))
 			{
 				continue;
 			}

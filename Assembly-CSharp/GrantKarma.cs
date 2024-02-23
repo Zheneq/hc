@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class GrantKarma
@@ -11,6 +12,6 @@ public class GrantKarma
 
 	public override string ToString()
 	{
-		return $"KarmaIndex {KarmaTemplateId}, ({MinValue} - {MaxValue})";
+		return new StringBuilder().Append("KarmaIndex ").Append(KarmaTemplateId).Append(", (").Append(MinValue).Append(" - ").Append(MaxValue).Append(")").ToString();
 	}
 }

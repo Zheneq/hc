@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 public class HUD_UIResources : MonoBehaviour
@@ -379,7 +380,7 @@ public class HUD_UIResources : MonoBehaviour
 
 	public static string ColorToHex(Color32 color)
 	{
-		return "#" + color.r.ToString("X2") + color.g.ToString("X2") + color.b.ToString("X2");
+		return new StringBuilder().Append("#").Append(color.r.ToString("X2")).Append(color.g.ToString("X2")).Append(color.b.ToString("X2")).ToString();
 	}
 
 	public static HUD_UIResources Get()
@@ -453,7 +454,7 @@ public class HUD_UIResources : MonoBehaviour
 			}
 			if (Get().m_statusIconList[i].buffDescription == string.Empty)
 			{
-				result.buffDescription = statusType.ToString() + "#NotLocalized";
+				result.buffDescription = new StringBuilder().Append(statusType.ToString()).Append("#NotLocalized").ToString();
 			}
 			else
 			{
@@ -461,7 +462,7 @@ public class HUD_UIResources : MonoBehaviour
 			}
 			if (Get().m_statusIconList[i].buffName == string.Empty)
 			{
-				result.buffName = statusType.ToString() + "#NotLocalized";
+				result.buffName = new StringBuilder().Append(statusType.ToString()).Append("#NotLocalized").ToString();
 			}
 			else
 			{

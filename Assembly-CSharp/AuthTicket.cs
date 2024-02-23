@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Xml;
 
@@ -20,16 +21,46 @@ public class AuthTicket
 
 	public long ChannelId { get; set; }
 	public AuthInfo AuthInfo { get; set; }
-	public long AccountId => AuthInfo?.AccountId ?? 0L;
-	public string UserName => AuthInfo?.UserName;
-	public string Handle => AuthInfo?.Handle;
-	public string TicketData => AuthInfo?.TicketData;
-	public string AccountStatus => AuthInfo?.AccountStatus;
-	public string AccountCurrency => AuthInfo?.AccountCurrency;
-	public bool IsRealTicket => ChannelId != 0
-	                            && AccountId != 0
-	                            && !UserName.IsNullOrEmpty()
-	                            && !Handle.IsNullOrEmpty();
+	public long AccountId
+	{
+		get { return AuthInfo != null ? AuthInfo.AccountId : 0L; }
+	}
+
+	public string UserName
+	{
+		get { return AuthInfo != null ? AuthInfo.UserName : null; }
+	}
+
+	public string Handle
+	{
+		get { return AuthInfo != null ? AuthInfo.Handle : null; }
+	}
+
+	public string TicketData
+	{
+		get { return AuthInfo != null ? AuthInfo.TicketData : null; }
+	}
+
+	public string AccountStatus
+	{
+		get { return AuthInfo != null ? AuthInfo.AccountStatus : null; }
+	}
+
+	public string AccountCurrency
+	{
+		get { return AuthInfo != null ? AuthInfo.AccountCurrency : null; }
+	}
+
+	public bool IsRealTicket
+	{
+		get
+		{
+			return ChannelId != 0
+			       && AccountId != 0
+			       && !UserName.IsNullOrEmpty()
+			       && !Handle.IsNullOrEmpty();
+		}
+	}
 
 	static AuthTicket()
 	{
@@ -62,8 +93,7 @@ public class AuthTicket
 		XmlDocument xmlDocument = new XmlDocument();
 		xmlDocument.LoadXml(xml);
 		XmlNode nodeTicket = xmlDocument.SelectSingleNode("authTicket/ticket");
-		XmlNode nodeAccount = xmlDocument.SelectSingleNode("authTicket/account")
-		                   ?? xmlDocument.SelectSingleNode("authAccount/account");
+		XmlNode nodeAccount = xmlDocument.SelectSingleNode("authTicket/account") != null ? xmlDocument.SelectSingleNode("authTicket/account") : xmlDocument.SelectSingleNode("authAccount/account");
 		if (nodeAccount == null)
 		{
 			throw new Exception("Could not find account node in XML");
@@ -92,9 +122,9 @@ public class AuthTicket
 				: "???";
 			if (authTicket.AuthInfo.AccountId != 0)
 			{
-				username += $" ({authTicket.AuthInfo.AccountId})";
+				username += new StringBuilder().Append(" (").Append(authTicket.AuthInfo.AccountId).Append(")").ToString();
 			}
-			throw new Exception($"Malformed account node for {username}: {ex.Message}");
+			throw new Exception(new StringBuilder().Append("Malformed account node for ").Append(username).Append(": ").Append(ex.Message).ToString());
 		}
 		XmlNodeList nodeEntitlements = nodeAccount.SelectNodes("accountEntitlements/accountEntitlement");
 		foreach (XmlNode nodeEntitlement in nodeEntitlements)
@@ -164,15 +194,16 @@ public class AuthTicket
 		{
 			userIndex = GetUserIndex(resourceName);
 		}
-		authTicket.AuthInfo.UserName = $"{userName}{userIndex + 1}";
-		string text = authTicket.AuthInfo.UserName + NetUtil.GetHostName().ToLower();
+
+		authTicket.AuthInfo.UserName = new StringBuilder().Append(userName).Append(userIndex + 1).ToString();
+		string text = new StringBuilder().Append(authTicket.AuthInfo.UserName).Append(NetUtil.GetHostName().ToLower()).ToString();
 		int num = text.GetHashCode();
 		if (num < 0)
 		{
 			num = -num;
 		}
 		authTicket.AuthInfo.AccountId = num + 1000000000000000L;
-		authTicket.AuthInfo.Handle = $"{authTicket.UserName}#{authTicket.AccountId % 900 + 100}";
+		authTicket.AuthInfo.Handle = new StringBuilder().Append(authTicket.UserName).Append("#").Append(authTicket.AccountId % 900 + 100).ToString();
 		authTicket.AuthInfo.AccountCurrency = "USD";
 		authTicket.AuthInfo.AccountStatus = "ACTIVE";
 		authTicket.AuthInfo.TicketData = string.Join(",", fakeEntitlements);
@@ -200,7 +231,7 @@ public class AuthTicket
 			int userIndex = GetUserIndex(resourceName);
 			if (userIndex != 0)
 			{
-				authTicket.AuthInfo.UserName = userName.Replace("@", $"+{userIndex}@");
+				authTicket.AuthInfo.UserName = userName.Replace("@", new StringBuilder().Append("+").Append(userIndex).Append("@").ToString());
 			}
 		}
 		int num = authTicket.AuthInfo.UserName.IndexOf('@');
@@ -223,7 +254,7 @@ public class AuthTicket
 				string poundNumber = handle.Substring(num, handle.Length - num);
 				if (poundNumberFontSize > 0)
 				{
-					handle = username + "<size=" + poundNumberFontSize + ">" + poundNumber + "</size>";
+					handle = new StringBuilder().Append(username).Append("<size=").Append(poundNumberFontSize).Append(">").Append(poundNumber).Append("</size>").ToString();
 				}
 			}
 		}
@@ -242,13 +273,14 @@ public class AuthTicket
 		{
 			poundNumber = -poundNumber;
 		}
-		return $"{array[0]}#{poundNumber}";
+		return new StringBuilder().Append(array[0]).Append("#").Append(poundNumber).ToString();
 	}
 
 	public void AddEntitlement(AuthEntitlement entitlement)
 	{
 		m_entitlementsByAccountEntitlementId.Add(entitlement.accountEntitlementId, entitlement);
-		if (!m_entitlementsByCode.TryGetValue(entitlement.entitlementCode, out AuthEntitlement authEntitlement))
+		AuthEntitlement authEntitlement;
+		if (!m_entitlementsByCode.TryGetValue(entitlement.entitlementCode, out authEntitlement))
 		{
 			authEntitlement = new AuthEntitlement
 			{
@@ -296,7 +328,8 @@ public class AuthTicket
 
 	public AuthEntitlement? GetEntitlement(string entitlementCode)
 	{
-		if (m_entitlementsByCode.TryGetValue(entitlementCode, out AuthEntitlement value))
+		AuthEntitlement value;
+		if (m_entitlementsByCode.TryGetValue(entitlementCode, out value))
 		{
 			return value;
 		}
@@ -316,8 +349,9 @@ public class AuthTicket
 		}
 		for (int i = 0; i < 10; i++)
 		{
-			string name = $"Hydrogen.{resourceName}.{i}";
-			s_userNameMutex = new Mutex(true, name, out bool createdNew);
+			string name = new StringBuilder().Append("Hydrogen.").Append(resourceName).Append(".").Append(i).ToString();
+			bool createdNew;
+			s_userNameMutex = new Mutex(true, name, out createdNew);
 			if (!createdNew || s_userNameMutex == null)
 			{
 				continue;

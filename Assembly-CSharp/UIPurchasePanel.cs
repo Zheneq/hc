@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -135,7 +136,7 @@ public class UIPurchasePanel : MonoBehaviour
 
 	private void SetPriceLabels(TextMeshProUGUI[] costLabels, int cost, string spriteName)
 	{
-		string text = "<sprite name=\"" + spriteName + "\">" + UIStorePanel.FormatIntToString(cost, true);
+		string text = new StringBuilder().Append("<sprite name=\"").Append(spriteName).Append("\">").Append(UIStorePanel.FormatIntToString(cost, true)).ToString();
 		for (int i = 0; i < costLabels.Length; i++)
 		{
 			costLabels[i].text = text;

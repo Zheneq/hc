@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -233,7 +234,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 				}
 			}
 			int currentAmount2 = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
-			m_GGPackCount.text = $"x{currentAmount2}";
+			m_GGPackCount.text = new StringBuilder().Append("x").Append(currentAmount2).ToString();
 			m_GGPackCount.raycastTarget = false;
 			if (currentAmount2 > 0)
 			{
@@ -251,7 +252,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 			}
 		};
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
-		m_GGPackCount.text = $"x{currentAmount}";
+		m_GGPackCount.text = new StringBuilder().Append("x").Append(currentAmount).ToString();
 		m_GGPackCount.raycastTarget = false;
 		if (currentAmount > 0)
 		{
@@ -531,16 +532,16 @@ public class UIPlayerNavPanel : MonoBehaviour
 		string empty = string.Empty;
 		if (num > 0)
 		{
-			empty = $"<color=green>x{num}</color>";
+			empty = new StringBuilder().Append("<color=green>x").Append(num).Append("</color>").ToString();
 		}
 		else
 		{
-			empty = $"<color=#7f7f7f>x{num}</color>";
+			empty = new StringBuilder().Append("<color=#7f7f7f>x").Append(num).Append("</color>").ToString();
 		}
 		string text = StringUtil.TR("GGBoostDescription", "Global");
 		if (num == 0)
 		{
-			text = text + "\n\n" + StringUtil.TR("NoGGBoostsPurchaseInStore", "Global");
+			text = new StringBuilder().Append(text).Append("\n\n").Append(StringUtil.TR("NoGGBoostsPurchaseInStore", "Global")).ToString();
 		}
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 		uITitledTooltip.Setup(StringUtil.TR("GGBoosts", "Rewards"), text, empty);
@@ -552,11 +553,11 @@ public class UIPlayerNavPanel : MonoBehaviour
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 		if (IsGroupedWithFriend())
 		{
-			uITitledTooltip.Setup(StringUtil.TR("PlayWithFriendsBonus", "GameOver"), StringUtil.TR("PlayWithFriendsBonusDesc", "GameOver"), "<color=green>" + StringUtil.TR("Active", "Global") + "</color>");
+			uITitledTooltip.Setup(StringUtil.TR("PlayWithFriendsBonus", "GameOver"), StringUtil.TR("PlayWithFriendsBonusDesc", "GameOver"), new StringBuilder().Append("<color=green>").Append(StringUtil.TR("Active", "Global")).Append("</color>").ToString());
 		}
 		else
 		{
-			uITitledTooltip.Setup(StringUtil.TR("PlayWithFriendsBonus", "GameOver"), StringUtil.TR("PlayWithFriendsBonusDesc", "GameOver") + "\n\n" + StringUtil.TR("NotGroupedWithAFriend", "Global"), "<color=#7f7f7f>" + StringUtil.TR("Inactive", "Global") + "</color>");
+			uITitledTooltip.Setup(StringUtil.TR("PlayWithFriendsBonus", "GameOver"), new StringBuilder().Append(StringUtil.TR("PlayWithFriendsBonusDesc", "GameOver")).Append("\n\n").Append(StringUtil.TR("NotGroupedWithAFriend", "Global")).ToString(), new StringBuilder().Append("<color=#7f7f7f>").Append(StringUtil.TR("Inactive", "Global")).Append("</color>").ToString());
 		}
 		return true;
 	}
@@ -888,7 +889,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 						{
 							int num4 = QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, seasonTemplate.Index) - 1;
 							int num5 = playerAccountData.QuestComponent.SeasonLevel - 1;
-							m_levelText.text = num5 + "/" + num4;
+							m_levelText.text = new StringBuilder().Append(num5).Append("/").Append(num4).ToString();
 							m_levelTooltipString = string.Empty;
 							Queue<RewardUtils.RewardData> queue = new Queue<RewardUtils.RewardData>(RewardUtils.GetSeasonLevelRewards());
 							List<RewardUtils.RewardData> availableSeasonEndRewards = RewardUtils.GetAvailableSeasonEndRewards(seasonTemplate);
@@ -1097,7 +1098,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 				case 0:
 					break;
 				default:
-					m_expBonusAmount.text = $"x{accountComponent.FreelancerExpBonusGames}";
+					m_expBonusAmount.text = new StringBuilder().Append("x").Append(accountComponent.FreelancerExpBonusGames).ToString();
 					m_expBonusAnimator.Play("BonusIconDefaultIN");
 					return;
 				}
@@ -1157,7 +1158,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 				FactionGroup factionGroup = FactionWideData.Get().GetFactionGroup(factionCompetition.Factions[notification.FactionIndex].FactionGroupIDToUse);
 				m_factionNotificationIcon.sprite = Resources.Load<Sprite>(factionGroup.IconPath);
 				m_factionNotificationText.color = color;
-				m_factionNotificationText.text = "+" + notification.Amount;
+				m_factionNotificationText.text = new StringBuilder().Append("+").Append(notification.Amount).ToString();
 				UIManager.SetGameObjectActive(m_factionNotification, true);
 				m_pendingTrustNotification = null;
 			}

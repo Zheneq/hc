@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -140,7 +141,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 						text = StringUtil.TR_QuestDescription(quest.Index);
 					}
 					string text2 = text;
-					text = text2 + " [" + quest.AchievementPoints + "]";
+					text = new StringBuilder().Append(text2).Append(" [").Append(quest.AchievementPoints).Append("]").ToString();
 					list.Add(text);
 				}
 			}
@@ -173,7 +174,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			string text4 = StringUtil.TR_QuestDescription(m_quest.Index);
 			if (text3 != string.Empty)
 			{
-				m_description.text = $"<size=20>{text3}</size>\n<#a9a9a9>{text4}";
+				m_description.text = new StringBuilder().Append("<size=20>").Append(text3).Append("</size>\n<#a9a9a9>").Append(text4).ToString();
 			}
 			else
 			{
@@ -204,7 +205,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 			{
 				currentProgress = maxProgress;
 			}
-			string text5 = $"{currentProgress}/{maxProgress}";
+			string text5 = new StringBuilder().Append(currentProgress).Append("/").Append(maxProgress).ToString();
 			m_progressText.text = text5;
 			m_progressBar.fillAmount = (float)currentProgress / (1f * (float)maxProgress);
 			UIManager.SetGameObjectActive(m_progressBar, !flag);
@@ -219,7 +220,7 @@ public class UIPlayerProgressAchievementItem : MonoBehaviour
 					if (i < list.Count)
 					{
 						UIManager.SetGameObjectActive(m_expandedTexts[i], true);
-						m_expandedTexts[i].text = "- " + list[i];
+						m_expandedTexts[i].text = new StringBuilder().Append("- ").Append((object)list[i]).ToString();
 					}
 				}
 			}

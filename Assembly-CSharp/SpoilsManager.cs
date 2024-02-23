@@ -42,10 +42,18 @@ public class SpoilsManager : MonoBehaviour, PowerUp.IPowerUpListener
 	{
 		switch (spoilsType)
 		{
-			case SpoilsType.Hero when m_heroSpoils != null && m_heroSpoils.Length > 0:
-				return m_heroSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
-			case SpoilsType.Minion when m_heroSpoils != null && m_heroSpoils.Length > 0:
-				return m_minionSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+			case SpoilsType.Hero:
+				if (m_heroSpoils != null && m_heroSpoils.Length > 0)
+				{
+					return m_heroSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+				}
+				return null;
+			case SpoilsType.Minion  :
+				if (m_heroSpoils != null && m_heroSpoils.Length > 0)
+				{
+					return m_minionSpoils[GameplayRandom.Range(0, m_heroSpoils.Length)];
+				}
+				return null;
 			default:
 				return null;
 		}

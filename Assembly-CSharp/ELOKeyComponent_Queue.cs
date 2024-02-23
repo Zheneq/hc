@@ -5,13 +5,25 @@ public class ELOKeyComponent_Queue : ELOKeyComponent
     private GameType m_gameType = GameType.PvP;
     private bool m_isInGeneralMode = true;
 
-    public override KeyModeEnum KeyMode => KeyModeEnum.SPECIFICSvsGENERAL;
+    public override KeyModeEnum KeyMode
+    {
+        get { return KeyModeEnum.SPECIFICSvsGENERAL; }
+    }
 
-    public override BinaryModePhaseEnum BinaryModePhase =>
-        m_isInGeneralMode ? BinaryModePhaseEnum.PRIMARY : BinaryModePhaseEnum.SECONDARY;
+    public override BinaryModePhaseEnum BinaryModePhase
+    {
+        get { return m_isInGeneralMode ? BinaryModePhaseEnum.PRIMARY : BinaryModePhaseEnum.SECONDARY; }
+    }
 
-    public static uint PhaseWidth => 2u;
-    public GameType GameType => m_gameType;
+    public static uint PhaseWidth
+    {
+        get { return 2u; }
+    }
+
+    public GameType GameType
+    {
+        get { return m_gameType; }
+    }
 
     public override char GetComponentChar()
     {

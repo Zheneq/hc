@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class GameLoadingState
@@ -21,6 +22,6 @@ public class GameLoadingState
 
 	public override string ToString()
 	{
-		return $"IsLoaded={IsLoaded} LoadingProgress {TotalLoadingProgress}% = Level {LevelLoadingProgress}% + Character {CharacterLoadingProgress}% + VfxPreload {VfxLoadingProgress}% + Spawning {SpawningProgress}% (updateCount {LoadingProgressUpdateCount})";
+		return new StringBuilder().Append("IsLoaded=").Append(IsLoaded).Append(" LoadingProgress ").Append(TotalLoadingProgress).Append("% = Level ").Append(LevelLoadingProgress).Append("% + Character ").Append(CharacterLoadingProgress).Append("% + VfxPreload ").Append(VfxLoadingProgress).Append("% + Spawning ").Append(SpawningProgress).Append("% (updateCount ").Append(LoadingProgressUpdateCount).Append(")").ToString();
 	}
 }

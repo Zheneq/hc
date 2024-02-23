@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class BoardSquarePathInfo : IComparable
@@ -337,8 +338,7 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo step = this;
 		while (step != null && num < 100)
 		{
-			text += "\n" + (step.square != null ? step.square.ToString() : null)
-			             + " | Connection Type = " + step.connectionType;
+			text += new StringBuilder().Append("\n").Append(step.square != null ? step.square.ToString() : null).Append(" | Connection Type = ").Append(step.connectionType).ToString();
 			if (step == step.next)
 			{
 				break;
@@ -356,8 +356,7 @@ public class BoardSquarePathInfo : IComparable
 		BoardSquarePathInfo step = this;
 		while (step != null && num < 100)
 		{
-			text += "\n" + (step.square != null ? step.square.ToString() : null)
-			             + " | Connection Type = " + step.connectionType;
+			text += new StringBuilder().Append("\n").Append(step.square != null ? step.square.ToString() : null).Append(" | Connection Type = ").Append(step.connectionType).ToString();
 			if (step == step.prev)
 			{
 				break;
@@ -409,24 +408,22 @@ public class BoardSquarePathInfo : IComparable
 		{
 			return;
 		}
-		string textNull = numNull + " null squares";
+		string textNull = new StringBuilder().Append(numNull).Append(" null squares").ToString();
 		if (numNull != 0)
 		{
-			textNull = "INVALID SQUARES: " + textNull;
+			textNull = new StringBuilder().Append("INVALID SQUARES: ").Append(textNull).ToString();
 		}
-		string textTotal = numTotal + " total path nodes";
+		string textTotal = new StringBuilder().Append(numTotal).Append(" total path nodes").ToString();
 		if (numTotal >= 100)
 		{
-			textTotal = "INVALID LENGTH: " + textTotal;
+			textTotal = new StringBuilder().Append("INVALID LENGTH: ").Append(textTotal).ToString();
 		}
-		string textAfterDeath = numAfterDeath + " steps after death";
+		string textAfterDeath = new StringBuilder().Append(numAfterDeath).Append(" steps after death").ToString();
 		if (numAfterDeath > 0)
 		{
-			textAfterDeath = "INVALID DEATH-MOVEMENT: " + textAfterDeath;
+			textAfterDeath = new StringBuilder().Append("INVALID DEATH-MOVEMENT: ").Append(textAfterDeath).ToString();
 		}
-		Debug.LogError("Invalid BoardSquarePathInfo for gameplay!  Path has:\n\t"
-		               + textTotal + "\n\t" + textNull + "\n\t" + textAfterDeath
-		               + "\nMover: " + mover.DebugNameString());
+		Debug.LogError(new StringBuilder().Append("Invalid BoardSquarePathInfo for gameplay!  Path has:\n\t").Append(textTotal).Append("\n\t").Append(textNull).Append("\n\t").Append(textAfterDeath).Append("\nMover: ").Append(mover.DebugNameString()).ToString());
 	}
 
 	public bool IsNodePartOfMyFuturePath(BoardSquarePathInfo other, bool includePresent = true)

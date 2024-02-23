@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ArcherBendingArrow : AbilityMod
@@ -72,6 +73,6 @@ public class AbilityMod_ArcherBendingArrow : AbilityMod
 		desc += PropDesc(m_extraDamageAfterBend, "[ExtraDamageAfterBend]", isValid);
 		desc += PropDesc(m_damageAfterPiercingMod, "[DamageToSubsequentTargetsAfterPiercing]", isValid, isValid ? archerBendingArrow.m_laserDamageAmount : 0);
 		desc += PropDesc(m_effectToHealingDebuffTarget, "[EffectToHealingDebuffTarget]");
-		return desc + PropDesc(m_extraHealingFromHealingDebuffTarget, "[ExtraHealingFromHealingDebuffTarget]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraHealingFromHealingDebuffTarget, "[ExtraHealingFromHealingDebuffTarget]", isValid)).ToString();
 	}
 }

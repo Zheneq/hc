@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class UIOverconData : MonoBehaviour
@@ -73,7 +74,7 @@ public class UIOverconData : MonoBehaviour
 			string text = StringUtil.TR_GetOverconDisplayName(m_overconId);
 			if (text.IsNullOrEmpty())
 			{
-				text = $"#overcon{m_overconId}";
+				text = new StringBuilder().Append("#overcon").Append(m_overconId).ToString();
 			}
 			return text;
 		}

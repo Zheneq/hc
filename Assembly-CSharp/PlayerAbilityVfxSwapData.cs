@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public struct PlayerAbilityVfxSwapData
@@ -9,6 +10,6 @@ public struct PlayerAbilityVfxSwapData
 
 	public override string ToString()
 	{
-		return "Ability[" + AbilityId + "]->VfxSwap[" + AbilityVfxSwapID + "]";
+		return new StringBuilder().Append("Ability[").Append(AbilityId).Append("]->VfxSwap[").Append(AbilityVfxSwapID).Append("]").ToString();
 	}
 }

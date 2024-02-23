@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScoundrelRunAndGun : AbilityMod
@@ -37,7 +38,7 @@ public class AbilityMod_ScoundrelRunAndGun : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_techPointGainWithNoHits, "[Energy Gain With No Hits]", isAbilityPresent);
 		if (m_numTargeters > 1)
 		{
-			desc += "Using " + m_numTargeters + " targeters, make sure Target Data Override is set properly\n";
+			desc += new StringBuilder().Append("Using ").Append(m_numTargeters).Append(" targeters, make sure Target Data Override is set properly\n").ToString();
 		}
 		return desc;
 	}

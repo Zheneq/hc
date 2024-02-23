@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
@@ -44,6 +45,6 @@ public class AbilityMod_ScampDelayedAoe : GenericAbility_AbilityMod
 		desc += PropDesc(m_delayedEffectBaseMod, "[DelayedEffectBase]", isValid, isValid ? scampDelayedAoe.m_delayedEffectBase : null);
 		desc += PropDesc(m_extraDamageIfShieldDownFormMod, "[ExtraDamageIfShieldDownForm]", isValid, isValid ? scampDelayedAoe.m_extraDamageIfShieldDownForm : 0);
 		desc += PropDesc(m_subseqTurnDamageMultiplierMod, "[SubseqTurnDamageMultiplier]", isValid, isValid ? scampDelayedAoe.m_subseqTurnDamageMultiplier : 0f);
-		return desc + PropDesc(m_subseqTurnNoEnergyGainMod, "[SubseqTurnNoEnergyGain]", isValid, isValid && scampDelayedAoe.m_subseqTurnNoEnergyGain);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_subseqTurnNoEnergyGainMod, "[SubseqTurnNoEnergyGain]", isValid, isValid && scampDelayedAoe.m_subseqTurnNoEnergyGain)).ToString();
 	}
 }

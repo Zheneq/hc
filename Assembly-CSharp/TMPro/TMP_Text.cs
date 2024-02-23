@@ -981,7 +981,10 @@ namespace TMPro
 			}
 		}
 
-		public float fontScale => m_fontScale;
+		public float fontScale
+		{
+			get { return m_fontScale; }
+		}
 
 		public int fontWeight
 		{
@@ -1156,7 +1159,10 @@ namespace TMPro
 			}
 		}
 
-		public bool isUsingBold => m_isUsingBold;
+		public bool isUsingBold
+		{
+			get { return m_isUsingBold; }
+		}
 
 		public TextAlignmentOptions alignment
 		{
@@ -1448,7 +1454,10 @@ namespace TMPro
 			}
 		}
 
-		public int firstOverflowCharacterIndex => m_firstOverflowCharacterIndex;
+		public int firstOverflowCharacterIndex
+		{
+			get { return m_firstOverflowCharacterIndex; }
+		}
 
 		public TMP_Text linkedTextComponent
 		{
@@ -1499,7 +1508,10 @@ namespace TMPro
 			}
 		}
 
-		public bool isTextTruncated => m_isTextTruncated;
+		public bool isTextTruncated
+		{
+			get { return m_isTextTruncated; }
+		}
 
 		public bool enableKerning
 		{
@@ -2014,7 +2026,10 @@ namespace TMPro
 			}
 		}
 
-		public TMP_TextInfo textInfo => m_textInfo;
+		public TMP_TextInfo textInfo
+		{
+			get { return m_textInfo; }
+		}
 
 		public bool havePropertiesChanged
 		{
@@ -2075,7 +2090,10 @@ namespace TMPro
 			set;
 		}
 
-		public virtual Mesh mesh => m_mesh;
+		public virtual Mesh mesh
+		{
+			get { return m_mesh; }
+		}
 
 		public bool isVolumetricText
 		{
@@ -2136,17 +2154,35 @@ namespace TMPro
 			}
 		}
 
-		public float flexibleHeight => m_flexibleHeight;
+		public float flexibleHeight
+		{
+			get { return m_flexibleHeight; }
+		}
 
-		public float flexibleWidth => m_flexibleWidth;
+		public float flexibleWidth
+		{
+			get { return m_flexibleWidth; }
+		}
 
-		public float minWidth => m_minWidth;
+		public float minWidth
+		{
+			get { return m_minWidth; }
+		}
 
-		public float minHeight => m_minHeight;
+		public float minHeight
+		{
+			get { return m_minHeight; }
+		}
 
-		public float maxWidth => m_maxWidth;
+		public float maxWidth
+		{
+			get { return m_maxWidth; }
+		}
 
-		public float maxHeight => m_maxHeight;
+		public float maxHeight
+		{
+			get { return m_maxHeight; }
+		}
 
 		protected LayoutElement layoutElement
 		{
@@ -2186,11 +2222,20 @@ namespace TMPro
 			}
 		}
 
-		public virtual float renderedWidth => GetRenderedWidth();
+		public virtual float renderedWidth
+		{
+			get { return GetRenderedWidth(); }
+		}
 
-		public virtual float renderedHeight => GetRenderedHeight();
+		public virtual float renderedHeight
+		{
+			get { return GetRenderedHeight(); }
+		}
 
-		public int layoutPriority => m_layoutPriority;
+		public int layoutPriority
+		{
+			get { return m_layoutPriority; }
+		}
 
 		protected virtual void LoadFontAsset()
 		{
@@ -4243,7 +4288,7 @@ namespace TMPro
 					return Vector2.zero;
 				}
 			}
-			Debug.LogWarning("Can't Generate Mesh! No Font Asset has been assigned to Object ID: " + GetInstanceID());
+			Debug.LogWarning(new StringBuilder().Append("Can't Generate Mesh! No Font Asset has been assigned to Object ID: ").Append(GetInstanceID()).ToString());
 			return Vector2.zero;
 			IL_0125:
 			float num = defaultFontSize / m_currentFontAsset.fontInfo.PointSize;
@@ -4712,7 +4757,8 @@ namespace TMPro
 					{
 						int character = m_internalCharacterInfo[m_characterCount - 1].character;
 						KerningPairKey kerningPairKey = new KerningPairKey(character, num8);
-						m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out KerningPair value);
+						KerningPair value;
+						m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out value);
 						if (value != null)
 						{
 							m_xAdvance += value.XadvanceOffset * num6;
@@ -5415,7 +5461,6 @@ namespace TMPro
 				}
 				if (m_fontColorGradientPreset != null)
 				{
-					ref TMP_Vertex vertex_BL = ref m_textInfo.characterInfo[m_characterCount].vertex_BL;
 					Color32 color3;
 					if (m_tintSprite)
 					{
@@ -5425,8 +5470,7 @@ namespace TMPro
 					{
 						color3 = color2;
 					}
-					vertex_BL.color = color3;
-					ref TMP_Vertex vertex_TL = ref m_textInfo.characterInfo[m_characterCount].vertex_TL;
+					m_textInfo.characterInfo[m_characterCount].vertex_BL.color = color3;
 					Color32 color4;
 					if (m_tintSprite)
 					{
@@ -5436,8 +5480,7 @@ namespace TMPro
 					{
 						color4 = color2;
 					}
-					vertex_TL.color = color4;
-					ref TMP_Vertex vertex_TR = ref m_textInfo.characterInfo[m_characterCount].vertex_TR;
+					m_textInfo.characterInfo[m_characterCount].vertex_TL.color = color4;
 					Color32 color5;
 					if (m_tintSprite)
 					{
@@ -5447,13 +5490,12 @@ namespace TMPro
 					{
 						color5 = color2;
 					}
-					vertex_TR.color = color5;
+					m_textInfo.characterInfo[m_characterCount].vertex_TR.color = color5;
 					m_textInfo.characterInfo[m_characterCount].vertex_BR.color = ((!m_tintSprite) ? color2 : color2.Multiply(m_fontColorGradientPreset.bottomRight));
 				}
 				else
 				{
 					m_textInfo.characterInfo[m_characterCount].vertex_BL.color = ((!m_tintSprite) ? color2 : color2.Multiply(m_fontColorGradient.bottomLeft));
-					ref TMP_Vertex vertex_TL2 = ref m_textInfo.characterInfo[m_characterCount].vertex_TL;
 					Color32 color6;
 					if (m_tintSprite)
 					{
@@ -5463,8 +5505,7 @@ namespace TMPro
 					{
 						color6 = color2;
 					}
-					vertex_TL2.color = color6;
-					ref TMP_Vertex vertex_TR2 = ref m_textInfo.characterInfo[m_characterCount].vertex_TR;
+					m_textInfo.characterInfo[m_characterCount].vertex_TL.color = color6;
 					Color32 color7;
 					if (m_tintSprite)
 					{
@@ -5474,8 +5515,7 @@ namespace TMPro
 					{
 						color7 = color2;
 					}
-					vertex_TR2.color = color7;
-					ref TMP_Vertex vertex_BR = ref m_textInfo.characterInfo[m_characterCount].vertex_BR;
+					m_textInfo.characterInfo[m_characterCount].vertex_TR.color = color7;
 					Color32 color8;
 					if (m_tintSprite)
 					{
@@ -5485,7 +5525,7 @@ namespace TMPro
 					{
 						color8 = color2;
 					}
-					vertex_BR.color = color8;
+					m_textInfo.characterInfo[m_characterCount].vertex_BR.color = color8;
 				}
 			}
 			goto IL_055a;
@@ -7093,7 +7133,7 @@ namespace TMPro
 																																																																										}
 																																																																										else
 																																																																										{
-																																																																											material = Resources.Load<Material>(TMP_Settings.defaultFontAssetPath + new string(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength));
+																																																																											material = Resources.Load<Material>(new StringBuilder().Append(TMP_Settings.defaultFontAssetPath).Append(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength).ToString());
 																																																																											if (material == null)
 																																																																											{
 																																																																												while (true)
@@ -7177,7 +7217,8 @@ namespace TMPro
 																																																									{
 																																																										if (m_xmlAttribute[0].valueType != TagType.NumericalValue)
 																																																										{
-																																																											if (MaterialReferenceManager.TryGetSpriteAsset(valueHashCode5, out TMP_SpriteAsset spriteAsset))
+																																																											TMP_SpriteAsset spriteAsset;
+																																																											if (MaterialReferenceManager.TryGetSpriteAsset(valueHashCode5, out spriteAsset))
 																																																											{
 																																																												m_currentSpriteAsset = spriteAsset;
 																																																											}
@@ -7185,7 +7226,7 @@ namespace TMPro
 																																																											{
 																																																												if (spriteAsset == null)
 																																																												{
-																																																													spriteAsset = Resources.Load<TMP_SpriteAsset>(TMP_Settings.defaultSpriteAssetPath + new string(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength));
+																																																													spriteAsset = Resources.Load<TMP_SpriteAsset>(new StringBuilder().Append(TMP_Settings.defaultSpriteAssetPath).Append(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength).ToString());
 																																																												}
 																																																												if (spriteAsset == null)
 																																																												{
@@ -7602,7 +7643,7 @@ namespace TMPro
 						if (m_isParsingText)
 						{
 							m_actionStack.Add(valueHashCode);
-							Debug.Log("Action ID: [" + valueHashCode + "] First character index: " + m_characterCount);
+							Debug.Log(new StringBuilder().Append("Action ID: [").Append(valueHashCode).Append("] First character index: ").Append(m_characterCount).ToString());
 						}
 						return true;
 						IL_2a77:
@@ -8168,7 +8209,7 @@ namespace TMPro
 						IL_3ffb:
 						if (m_isParsingText)
 						{
-							Debug.Log("Action ID: [" + m_actionStack.CurrentItem() + "] Last character index: " + (m_characterCount - 1));
+							Debug.Log(new StringBuilder().Append("Action ID: [").Append(m_actionStack.CurrentItem()).Append("] Last character index: ").Append(m_characterCount - 1).ToString());
 						}
 						m_actionStack.Remove();
 						return true;
@@ -8405,17 +8446,17 @@ namespace TMPro
 										}
 										else
 										{
-											Debug.Log("Table width = " + num19 + "%.");
+											Debug.Log(new StringBuilder().Append("Table width = ").Append(num19).Append("%.").ToString());
 										}
 									}
 									else
 									{
-										Debug.Log("Table width = " + num19 + "em.");
+										Debug.Log(new StringBuilder().Append("Table width = ").Append(num19).Append("em.").ToString());
 									}
 								}
 								else
 								{
-									Debug.Log("Table width = " + num19 + "px.");
+									Debug.Log(new StringBuilder().Append("Table width = ").Append(num19).Append("px.").ToString());
 								}
 								continue;
 							}
@@ -8637,7 +8678,7 @@ namespace TMPro
 							{
 								if (!MaterialReferenceManager.TryGetFontAsset(valueHashCode7, out fontAsset))
 								{
-									fontAsset = Resources.Load<TMP_FontAsset>(TMP_Settings.defaultFontAssetPath + new string(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength));
+									fontAsset = Resources.Load<TMP_FontAsset>(new StringBuilder().Append(TMP_Settings.defaultFontAssetPath).Append(m_htmlTag, m_xmlAttribute[0].valueStartIndex, m_xmlAttribute[0].valueLength).ToString());
 									if (fontAsset == null)
 									{
 										while (true)
@@ -8672,7 +8713,7 @@ namespace TMPro
 								}
 								else
 								{
-									material = Resources.Load<Material>(TMP_Settings.defaultFontAssetPath + new string(m_htmlTag, m_xmlAttribute[1].valueStartIndex, m_xmlAttribute[1].valueLength));
+									material = Resources.Load<Material>(new StringBuilder().Append(TMP_Settings.defaultFontAssetPath).Append(m_htmlTag, m_xmlAttribute[1].valueStartIndex, m_xmlAttribute[1].valueLength).ToString());
 									if (material == null)
 									{
 										while (true)
@@ -8739,17 +8780,17 @@ namespace TMPro
 									}
 									else
 									{
-										Debug.Log("Table width = " + num23 + "%.");
+										Debug.Log(new StringBuilder().Append("Table width = ").Append(num23).Append("%.").ToString());
 									}
 								}
 								else
 								{
-									Debug.Log("Table width = " + num23 + "em.");
+									Debug.Log(new StringBuilder().Append("Table width = ").Append(num23).Append("em.").ToString());
 								}
 							}
 							else
 							{
-								Debug.Log("Table width = " + num23 + "px.");
+								Debug.Log(new StringBuilder().Append("Table width = ").Append(num23).Append("px.").ToString());
 							}
 						}
 						return true;

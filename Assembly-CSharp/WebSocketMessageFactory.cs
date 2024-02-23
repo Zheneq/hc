@@ -17,7 +17,10 @@ public class WebSocketMessageFactory
 	private string m_md5Sum;
 
 	public Serializer BinarySerializer{ get; private set;}
-	public string ProtocolVersion => GetMD5Sum();
+	public string ProtocolVersion
+	{
+		get { return GetMD5Sum(); }
+	}
 
 	static WebSocketMessageFactory()
 	{
@@ -136,7 +139,7 @@ public class WebSocketMessageFactory
 		}
 		catch (Exception arg)
 		{
-			Log.Exception($"Failed to serialize message type {message.GetType().Name} : {arg}");
+			Log.Exception(new StringBuilder().Append("Failed to serialize message type ").Append(message.GetType().Name).Append(" : ").Append(arg).ToString());
 			throw;
 		}
 	}
@@ -152,9 +155,9 @@ public class WebSocketMessageFactory
 		{
 			if (!text2.IsNullOrEmpty() && text2.IndexOfAny(new char[]{ '{', ' ', '}' }) < 0)
 			{
-				throw new Exception($"Message type {text2} not found");
+				throw new Exception(new StringBuilder().Append("Message type ").Append(text2).Append(" not found").ToString());
 			}
-			throw new Exception($"Message type not parsed");
+			throw new Exception(new StringBuilder().Append("Message type not parsed").ToString());
 		}
 		try
 		{
@@ -165,7 +168,7 @@ public class WebSocketMessageFactory
 		}
 		catch (Exception arg)
 		{
-			Log.Exception($"Failed to deserialize message type {messageType.Name} : {arg} \n{text}");
+			Log.Exception(new StringBuilder().Append("Failed to deserialize message type ").Append(messageType.Name).Append(" : ").Append(arg).Append(" \n").Append(text).ToString());
 			throw;
 		}
 	}
@@ -178,7 +181,7 @@ public class WebSocketMessageFactory
 		Type messageType = GetMessageType(messageTypeName);
 		if (messageType == null)
 		{
-			throw new Exception($"Message type {messageTypeName} not found");
+			throw new Exception(new StringBuilder().Append("Message type ").Append(messageTypeName).Append(" not found").ToString());
 		}
 		try
 		{
@@ -189,7 +192,7 @@ public class WebSocketMessageFactory
 		}
 		catch (Exception arg)
 		{
-			Log.Exception($"Failed to deserialize message type {messageType.Name} : {arg} \n{text}");
+			Log.Exception(new StringBuilder().Append("Failed to deserialize message type ").Append(messageType.Name).Append(" : ").Append(arg).Append(" \n").Append(text).ToString());
 			throw;
 		}
 	}
@@ -204,7 +207,7 @@ public class WebSocketMessageFactory
 		}
 		catch (Exception arg)
 		{
-			Log.Exception($"Failed to serialize message type {message.GetType().Name} : {arg}");
+			Log.Exception(new StringBuilder().Append("Failed to serialize message type ").Append(message.GetType().Name).Append(" : ").Append(arg).ToString());
 			throw;
 		}
 	}
@@ -223,7 +226,7 @@ public class WebSocketMessageFactory
 		}
 		catch (Exception arg)
 		{
-			Log.Exception($"Failed to deserialize message: {arg} \n{bytes.ToHexString()}");
+			Log.Exception(new StringBuilder().Append("Failed to deserialize message: ").Append(arg).Append(" \n").Append(bytes.ToHexString()).ToString());
 			throw;
 		}
 	}

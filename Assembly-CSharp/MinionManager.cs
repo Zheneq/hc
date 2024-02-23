@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class MinionManager : MonoBehaviour
@@ -68,7 +69,7 @@ public class MinionManager : MonoBehaviour
 			result = m_teamBMinions;
 			break;
 		default:
-			Log.Error($"Trying to access minions of an invalid team '{minionTeam.ToString()}'.");
+			Log.Error(new StringBuilder().Append("Trying to access minions of an invalid team '").Append(minionTeam.ToString()).Append("'.").ToString());
 			break;
 		}
 		return result;

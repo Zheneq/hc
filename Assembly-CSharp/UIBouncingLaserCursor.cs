@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class UIBouncingLaserCursor : MonoBehaviour
@@ -303,7 +304,7 @@ public class UIBouncingLaserCursor : MonoBehaviour
 				}
 			}
 		}
-		Log.Error("BouncingLaserCursor with invalid dimensions: numPoints = " + laserAnglePoints.Count + ", width = " + m_worldWidth + ".  Disabling...");
+		Log.Error(new StringBuilder().Append("BouncingLaserCursor with invalid dimensions: numPoints = ").Append(laserAnglePoints.Count).Append(", width = ").Append(m_worldWidth).Append(".  Disabling...").ToString());
 		for (int k = 0; k < m_bounceSegments.Count; k++)
 		{
 			m_bounceSegments[k].Disable();

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro
@@ -33,7 +34,7 @@ namespace TMPro
 				case 0:
 					if (i == length)
 					{
-						text = "(" + ch;
+						text = new StringBuilder().Append("(").Append(ch).ToString();
 					}
 					pos = 2;
 					break;
@@ -54,21 +55,21 @@ namespace TMPro
 				case 3:
 					if (i == length)
 					{
-						text = text + ch + ") ";
+						text = new StringBuilder().Append(text).Append(ch).Append(") ").ToString();
 					}
 					pos = 6;
 					break;
 				case 4:
 					if (i == length)
 					{
-						text = text + ") " + ch;
+						text = new StringBuilder().Append(text).Append(") ").Append(ch).ToString();
 					}
 					pos = 7;
 					break;
 				case 5:
 					if (i == length)
 					{
-						text = text + " " + ch;
+						text = new StringBuilder().Append(text).Append(" ").Append(ch).ToString();
 					}
 					pos = 7;
 					break;
@@ -89,14 +90,14 @@ namespace TMPro
 				case 8:
 					if (i == length)
 					{
-						text = text + ch + "-";
+						text = new StringBuilder().Append(text).Append(ch).Append("-").ToString();
 					}
 					pos = 10;
 					break;
 				case 9:
 					if (i == length)
 					{
-						text = text + "-" + ch;
+						text = new StringBuilder().Append(text).Append("-").Append(ch).ToString();
 					}
 					pos = 11;
 					break;

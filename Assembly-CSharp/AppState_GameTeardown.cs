@@ -1,3 +1,5 @@
+using System.Text;
+
 public class AppState_GameTeardown : AppState
 {
 	private static AppState_GameTeardown s_instance;
@@ -118,7 +120,7 @@ public class AppState_GameTeardown : AppState
 				}
 			}
 		}
-		string message = $"CGM UI state in a bad state: {clientGameManager.PlayerObjectStartedOnClient} {clientGameManager.InGameUIActivated} {clientGameManager.VisualSceneLoaded} {clientGameManager.DesignSceneStarted}";
+		string message = new StringBuilder().Append("CGM UI state in a bad state: ").Append(clientGameManager.PlayerObjectStartedOnClient).Append(" ").Append(clientGameManager.InGameUIActivated).Append(" ").Append(clientGameManager.VisualSceneLoaded).Append(" ").Append(clientGameManager.DesignSceneStarted).ToString();
 		clientGameManager.PlayerObjectStartedOnClient = false;
 		clientGameManager.InGameUIActivated = false;
 		clientGameManager.VisualSceneLoaded = false;

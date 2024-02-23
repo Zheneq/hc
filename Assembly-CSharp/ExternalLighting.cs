@@ -830,7 +830,7 @@ public class ExternalLighting : MonoBehaviour, IGameEventListener
 
 	private void SetHueLightstripColor(UnityEngine.Color newColor)
 	{
-		HttpWebRequest request = (HttpWebRequest)WebRequest.Create(this.m_hueHubAddress + this.m_hueURL);
+		HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new StringBuilder().Append(this.m_hueHubAddress).Append(this.m_hueURL).ToString());
 		request.Method = "PUT";
 		Vector3 vector = ExternalLighting.HSVFromRGB(newColor);
 		int value = (int)(vector.x / 360f * 65535f);

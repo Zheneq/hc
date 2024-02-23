@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RageBeastBasicAttack : AbilityMod
@@ -58,11 +59,11 @@ public class AbilityMod_RageBeastBasicAttack : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_outerTpGain, "[Outer TechPoint Gain]", isValid, isValid ? rageBeastBasicAttack.m_tpGainOuter : 0);
 		if (m_extraDamagePerAdjacentEnemy != 0)
 		{
-			desc += "[Extra Damage Per Adjacent Enemy] = " + m_extraDamagePerAdjacentEnemy + "\n";
+			desc += new StringBuilder().Append("[Extra Damage Per Adjacent Enemy] = ").Append(m_extraDamagePerAdjacentEnemy).Append("\n").ToString();
 		}
 		if (m_extraTechPointsPerAdjacentEnemy != 0)
 		{
-			desc += "[Extra Tech Points Per Adjacent Enemy] = " + m_extraTechPointsPerAdjacentEnemy + "\n";
+			desc += new StringBuilder().Append("[Extra Tech Points Per Adjacent Enemy] = ").Append(m_extraTechPointsPerAdjacentEnemy).Append("\n").ToString();
 		}
 		return desc;
 	}

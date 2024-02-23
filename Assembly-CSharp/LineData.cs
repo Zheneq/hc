@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -37,15 +38,15 @@ public class LineData : NetworkBehaviour, IGameEventListener
 				GridPos gridPos = m_positions[i];
 				if (i == 0)
 				{
-					result += $"({gridPos.x}, {gridPos.y})";
+					result += new StringBuilder().Append("(").Append(gridPos.x).Append(", ").Append(gridPos.y).Append(")").ToString();
 				}
 				else if (i == m_positions.Count - 1)
 				{
-					result += $",\n({gridPos.x}, {gridPos.y}) (end)";
+					result += new StringBuilder().Append(",\n(").Append(gridPos.x).Append(", ").Append(gridPos.y).Append(") (end)").ToString();
 				}
 				else
 				{
-					result += $",\n({gridPos.x}, {gridPos.y})";
+					result += new StringBuilder().Append(",\n(").Append(gridPos.x).Append(", ").Append(gridPos.y).Append(")").ToString();
 				}
 			}
 			return result;
@@ -321,7 +322,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			string text = "";
 			if (m_movementLine != null)
 			{
-				text = text + "Movement:\n" + m_movementLine.ToString();
+				text = new StringBuilder().Append(text).Append("Movement:\n").Append(m_movementLine.ToString()).ToString();
 			}
 			UIActorDebugPanel.Get().SetActorValue(m_actor, "DisplayLineData", text);
 		}

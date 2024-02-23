@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Rendering;
@@ -64,7 +65,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 	{
 		private Vector3 m_position;
 
-		internal bool IsExplosion => ExplosionRadius > 0f;
+		internal bool IsExplosion
+		{
+			get { return ExplosionRadius > 0f; }
+		}
 
 		internal float ExplosionRadius
 		{
@@ -72,7 +76,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			set;
 		}
 
-		internal Vector3 ExplosionCenter => m_position;
+		internal Vector3 ExplosionCenter
+		{
+			get { return m_position; }
+		}
 
 		internal float ExplosionMagnitude
 		{
@@ -80,7 +87,10 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			set;
 		}
 
-		internal Vector3 HitPosition => m_position;
+		internal Vector3 HitPosition
+		{
+			get { return m_position; }
+		}
 
 		internal Vector3 HitImpulse
 		{
@@ -130,7 +140,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						break;
 					default:
 						text = empty;
-						return text + "Explosion Type Impulse, Radius= " + ExplosionRadius + " | Magnitude = " + ExplosionMagnitude + " | Center= " + ExplosionCenter;
+						return new StringBuilder().Append(text).Append("Explosion Type Impulse, Radius= ").Append(ExplosionRadius).Append(" | Magnitude = ").Append(ExplosionMagnitude).Append(" | Center= ").Append(ExplosionCenter).ToString();
 					}
 				}
 			}
@@ -379,7 +389,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						goto IL_0153;
 					}
 				}
-				Log.Error(base.name + " saved CamStartEventDelays is null or has mismatched number of entries");
+				Log.Error(new StringBuilder().Append(base.name).Append(" saved CamStartEventDelays is null or has mismatched number of entries").ToString());
 				goto IL_0153;
 			}
 			goto IL_01c3;
@@ -446,7 +456,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			}
 			else
 			{
-				Log.Error(base.name + " saved Taunt CamStartEventDelays is null or has mismatched number of entries");
+				Log.Error(new StringBuilder().Append(base.name).Append(" saved Taunt CamStartEventDelays is null or has mismatched number of entries").ToString());
 			}
 			if (savedAnimatorStateNameHashes != null)
 			{
@@ -495,7 +505,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				arg = string.Empty;
 			}
-			Log.Error($"{arg} does not have an Animation Event Receiver on its model.  Please update the prefab.");
+			Log.Error(new StringBuilder().Append(arg).Append(" does not have an Animation Event Receiver on its model.  Please update the prefab.").ToString());
 		}
 		SetMaterialFloatTeam();
 		InitJointsAndRigidBodies();
@@ -1406,7 +1416,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			{
 				str2 = m_modelAnimator.layerCount.ToString();
 			}
-			Log.Error((string)str + " model Animator had zero layers! Refreshing... layers: " + (string)str2);
+			Log.Error(new StringBuilder().Append((string)str).Append(" model Animator had zero layers! Refreshing... layers: ").Append((string)str2).ToString());
 		}
 		return m_modelAnimator;
 	}
@@ -1533,7 +1543,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		}
 		if (m_parentActorData == null)
 		{
-			Log.Error("Setup was not called for ActorModelData on " + base.gameObject.name);
+			Log.Error(new StringBuilder().Append("Setup was not called for ActorModelData on ").Append(base.gameObject.name).ToString());
 			return;
 		}
 		if (!m_attemptedToCreateBaseCircle)
@@ -2947,7 +2957,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 		{
 			if (Application.isEditor)
 			{
-				Log.Info("Applying impulse on " + base.gameObject.name + ", impulse info:" + impulseInfo.GetDebugString());
+				Log.Info(new StringBuilder().Append("Applying impulse on ").Append(base.gameObject.name).Append(", impulse info:").Append(impulseInfo.GetDebugString()).ToString());
 			}
 			if (rigidBodies == null)
 			{
@@ -2978,7 +2988,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 							}
 							if (Application.isEditor)
 							{
-								Log.Info("Applying impulse on " + m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString());
+								Log.Info(new StringBuilder().Append("Applying impulse on ").Append(m_cachedRigidbodyForRagdollImpulse.name).Append(", impulse info:").Append(impulseInfo.GetDebugString()).ToString());
 							}
 							m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.ExplosionMagnitude * a, ForceMode.Impulse);
 							return;
@@ -3022,7 +3032,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 							default:
 								if (Application.isEditor)
 								{
-									Log.Info("Applying impulse on ALL rigidbodies, Impulse on each = " + num2 * impulseInfo.ExplosionMagnitude + " (total impulse = " + impulseInfo.ExplosionMagnitude + ")");
+									Log.Info(new StringBuilder().Append("Applying impulse on ALL rigidbodies, Impulse on each = ").Append(num2 * impulseInfo.ExplosionMagnitude).Append(" (total impulse = ").Append(impulseInfo.ExplosionMagnitude).Append(")").ToString());
 								}
 								return;
 							}
@@ -3044,7 +3054,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 						default:
 							if (Application.isEditor)
 							{
-								Log.Info("Applying impulse on " + m_cachedRigidbodyForRagdollImpulse.name + ", impulse info:" + impulseInfo.GetDebugString());
+								Log.Info(new StringBuilder().Append("Applying impulse on ").Append(m_cachedRigidbodyForRagdollImpulse.name).Append(", impulse info:").Append(impulseInfo.GetDebugString()).ToString());
 							}
 							m_cachedRigidbodyForRagdollImpulse.AddForce(impulseInfo.HitImpulse, ForceMode.Impulse);
 							return;
@@ -3086,7 +3096,7 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				rigidbody2.AddForceAtPosition(impulseInfo.HitImpulse, position, ForceMode.Impulse);
 				if (Application.isEditor)
 				{
-					Log.Info("Applying impulse on rigidbody " + rigidbody2.name + ", with impulse magnitude " + impulseInfo.HitImpulse.magnitude);
+					Log.Info(new StringBuilder().Append("Applying impulse on rigidbody ").Append(rigidbody2.name).Append(", with impulse magnitude ").Append(impulseInfo.HitImpulse.magnitude).ToString());
 				}
 				return;
 			}

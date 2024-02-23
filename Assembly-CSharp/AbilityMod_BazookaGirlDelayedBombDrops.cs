@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
@@ -57,6 +58,6 @@ public class AbilityMod_BazookaGirlDelayedBombDrops : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_targetAllMod, "[Target All?]", isAbilityPresent, isAbilityPresent && bazookaGirlDelayedBombDrops.m_targetAll);
 		desc += PropDesc(m_penetrateLosMod, "[PenetrateLos]", isAbilityPresent, isAbilityPresent && bazookaGirlDelayedBombDrops.m_penetrateLos);
 		desc += PropDesc(m_maxNumOfAreasForExtraDamageMod, "[MaxNumOfAreasForExtraDamage]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedBombDrops.m_maxNumOfAreasForExtraDamage : 0);
-		return desc + PropDesc(m_extraDamagePerFewerAreaMod, "[ExtraDamagePerFewerArea]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraDamagePerFewerAreaMod, "[ExtraDamagePerFewerArea]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedBombDrops.m_extraDamagePerFewerArea : 0)).ToString();
 	}
 }

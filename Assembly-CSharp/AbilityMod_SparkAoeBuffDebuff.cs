@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
@@ -61,7 +62,7 @@ public class AbilityMod_SparkAoeBuffDebuff : AbilityMod
 		desc += PropDesc(m_shieldOnSelfPerAllyHitMod, "[Shield on Self per Hit]");
 		if (m_shieldOnSelfPerAllyHitMod != null && m_shieldOnSelfPerAllyHitMod.GetModifiedValue(0) > 0)
 		{
-			desc += "[Shield Duration (for hit on allies)] " + m_shieldOnSelfDuration + "\n";
+			desc += new StringBuilder().Append("[Shield Duration (for hit on allies)] ").Append(m_shieldOnSelfDuration).Append("\n").ToString();
 		}
 		desc += PropDesc(m_enemyHitEffectMod, "{ Enemy Hit Effect }", isAbilityPresent, isAbilityPresent ? ability.m_enemyHitEffect : null);
 		return desc;

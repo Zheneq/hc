@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -56,11 +57,30 @@ public class BoardSquare : MonoBehaviour
 
 	private sbyte m_lastVisibleFlag = -1;
 
-	public int x => m_pos.x;
-	public int y => m_pos.y;
-	public float worldX => m_pos.worldX;
-	public float worldY => m_pos.worldY;
-	public int height => m_pos.height;
+	public int x
+	{
+		get { return m_pos.x; }
+	}
+
+	public int y
+	{
+		get { return m_pos.y; }
+	}
+
+	public float worldX
+	{
+		get { return m_pos.worldX; }
+	}
+
+	public float worldY
+	{
+		get { return m_pos.worldY; }
+	}
+
+	public int height
+	{
+		get { return m_pos.height; }
+	}
 
 	public GameObject occupant
 	{
@@ -346,7 +366,7 @@ public class BoardSquare : MonoBehaviour
 		float x = m_pos.x * board.squareSize;
 		float z = m_pos.y * board.squareSize;
 		m_LOSHighlightObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
-		m_LOSHighlightObj.name = $"highlight{m_pos.x}x{m_pos.y}";
+		m_LOSHighlightObj.name = new StringBuilder().Append("highlight").Append(m_pos.x).Append("x").Append(m_pos.y).ToString();
 		DestroyImmediate(m_LOSHighlightObj.GetComponent<MeshCollider>());
 		m_LOSHighlightObj.transform.parent = losHighlightsParent.transform;
 		m_LOSHighlightObj.transform.position = new Vector3(x, m_pos.height + m_highlightOffset, z);

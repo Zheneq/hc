@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro.Examples
@@ -85,7 +86,7 @@ namespace TMPro.Examples
 				}
 				else if (_001D == 1)
 				{
-					_0013.text = "The <color=#0050FF>count is: </color>" + num % 1000;
+					_0013.text = new StringBuilder().Append("The <color=#0050FF>count is: </color>").Append(num % 1000).ToString();
 				}
 				yield return null;
 				/*Error: Unable to find new state assignment for yield return*/;

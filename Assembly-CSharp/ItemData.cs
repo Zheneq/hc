@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -9,7 +10,10 @@ public class ItemData : NetworkBehaviour
 
 	private ActorData m_actorData;
 
-	public int credits => m_credits;
+	public int credits
+	{
+		get { return m_credits; }
+	}
 
 	private void Awake()
 	{
@@ -143,7 +147,7 @@ public class ItemData : NetworkBehaviour
 			if (numCredits > m_credits)
 			{
 				ActorData actorData = m_actorData;
-				Log.Error("Spending " + numCredits + " credits from actor " + actorData.DisplayName + "  but they only have " + m_credits + " credits.");
+				Log.Error(new StringBuilder().Append("Spending ").Append(numCredits).Append(" credits from actor ").Append(actorData.DisplayName).Append("  but they only have ").Append(m_credits).Append(" credits.").ToString());
 			}
 		}
 		m_credits -= numCredits;

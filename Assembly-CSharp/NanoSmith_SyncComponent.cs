@@ -8,9 +8,9 @@ public class NanoSmith_SyncComponent : NetworkBehaviour
 
 	public int Networkm_extraAbsorbOnVacuumBomb
 	{
-		get => m_extraAbsorbOnVacuumBomb;
+		get { return m_extraAbsorbOnVacuumBomb; }
 		[param: In]
-		set => SetSyncVar(value, ref m_extraAbsorbOnVacuumBomb, 1u);
+		set { SetSyncVar(value, ref m_extraAbsorbOnVacuumBomb, 1u); }
 	}
 
 	private void UNetVersion()

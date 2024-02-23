@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClaymoreSlam : AbilityMod
@@ -75,6 +76,6 @@ public class AbilityMod_ClaymoreSlam : AbilityMod
 		desc += PropDesc(m_energyLossOnMidHitMod, "[EnergyLossOnMidHit]", isAbilityPresent, isAbilityPresent ? claymoreSlam.m_energyLossOnMidHit : 0);
 		desc += PropDesc(m_energyLossOnSideHitMod, "[EnergyLossOnSideHit]", isAbilityPresent, isAbilityPresent ? claymoreSlam.m_energyLossOnSideHit : 0);
 		desc += PropDesc(m_healPerMidHit, "[HealPerMidHit]", isAbilityPresent);
-		return desc + PropDesc(m_healPerSideHit, "[HealPerSideHit]", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healPerSideHit, "[HealPerSideHit]", isAbilityPresent)).ToString();
 	}
 }

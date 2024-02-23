@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Text;
+using UnityEngine;
 
 public class SamuraiBuffNotifySequence : SimpleTimingSequence
 {
@@ -12,7 +13,7 @@ public class SamuraiBuffNotifySequence : SimpleTimingSequence
 		m_syncComp = Caster.GetComponent<Samurai_SyncComponent>();
 		if (m_syncComp == null && Application.isEditor)
 		{
-			Debug.LogError(GetType() + " did not find sync component on caster");
+			Debug.LogError(new StringBuilder().Append(GetType()).Append(" did not find sync component on caster").ToString());
 		}
 	}
 

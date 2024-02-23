@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_FanLaser : GenericAbility_TargetSelectBase
@@ -33,7 +34,7 @@ public class TargetSelect_FanLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr(ContextKeys.s_HitCount.GetName(), "on every hit actor, number of laser hits on target") + GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "on every hit actor, 1 if in laser end AoE, 0 otherwise");
+		return new StringBuilder().Append(GetContextUsageStr(ContextKeys.s_HitCount.GetName(), "on every hit actor, number of laser hits on target")).Append(GetContextUsageStr(ContextKeys.s_InAoe.GetName(), "on every hit actor, 1 if in laser end AoE, 0 otherwise")).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)

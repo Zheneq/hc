@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 
 public class UISearchQueueTooltip : UITooltipBase
@@ -45,7 +46,7 @@ public class UISearchQueueTooltip : UITooltipBase
 			{
 				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipText, true);
 				UIManager.SetGameObjectActive(m_searchQueueSizeRankTooltipTextLabel, true);
-				m_searchQueueSizeRankTooltipText.text = $"{queueInfo.QueuedPlayers}";
+				m_searchQueueSizeRankTooltipText.text = new StringBuilder().Append(queueInfo.QueuedPlayers).ToString();
 			}
 			else
 			{

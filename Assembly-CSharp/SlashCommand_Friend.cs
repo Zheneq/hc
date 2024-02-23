@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 
 public class SlashCommand_Friend : SlashCommand
@@ -50,7 +51,7 @@ public class SlashCommand_Friend : SlashCommand
 					message = StringUtil.TR("NoteRecorded", "SlashCommand");
 					for (int i = 2; i < array.Length; i++)
 					{
-						strData = strData + array[i] + " ";
+						strData = new StringBuilder().Append(strData).Append(array[i]).Append(" ").ToString();
 					}
 					strData = strData.Trim();
 					using (Dictionary<long, FriendInfo>.ValueCollection.Enumerator enumerator = ClientGameManager.Get().FriendList.Friends.Values.GetEnumerator())

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
@@ -56,6 +57,6 @@ public class AbilityMod_SoldierDashAndOverwatch : AbilityMod
 		desc += PropDesc(m_overwatchDamageMod, "[OverwatchDamage]", isValid, isValid ? soldierDashAndOverwatch.m_coneDamage : 0);
 		desc += PropDesc(m_overwatchHitEffectMod, "[OverwatchHitEffect]", isValid, isValid ? soldierDashAndOverwatch.m_overwatchHitEffect : null);
 		desc += PropDesc(m_nearDistThresholdMod, "[NearDistThreshold]", isValid, isValid ? soldierDashAndOverwatch.m_nearDistThreshold : 0f);
-		return desc + PropDesc(m_extraDamageForNearTargetsMod, "[ExtraDamageForNearTargets]", isValid, isValid ? soldierDashAndOverwatch.m_extraDamageForNearTargets : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraDamageForNearTargetsMod, "[ExtraDamageForNearTargets]", isValid, isValid ? soldierDashAndOverwatch.m_extraDamageForNearTargets : 0)).ToString();
 	}
 }

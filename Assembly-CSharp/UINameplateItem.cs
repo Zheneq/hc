@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -846,7 +847,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 		localPosition.z = 0f;
 		uINameplateStatus.transform.localPosition = localPosition;
 		uINameplateStatus.m_StatusIcon.sprite = iconForStatusType.icon;
-		uINameplateStatus.m_StatusText.text = "-" + iconForStatusType.popupText;
+		uINameplateStatus.m_StatusText.text = new StringBuilder().Append("-").Append(iconForStatusType.popupText).ToString();
 		float nameplateStatusFadeColorMultiplier = HUD_UIResources.Get().m_nameplateStatusFadeColorMultiplier;
 		uINameplateStatus.m_StatusText.color = uINameplateStatus.m_StatusText.color * nameplateStatusFadeColorMultiplier;
 		Color color = uINameplateStatus.m_StatusText.color;
@@ -1432,7 +1433,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 					{
 						UIManager.SetGameObjectActive(allyAbilityModifier.m_abilityModifierText, true);
 						allyAbilityModifier.m_targetingTextAnimationController.SetBool("IsOn", true);
-						allyAbilityModifier.m_abilityModifierText.text = targetedActorValue + " +";
+						allyAbilityModifier.m_abilityModifierText.text = new StringBuilder().Append(targetedActorValue).Append(" +").ToString();
 						int num;
 						if (inConfirm)
 						{
@@ -2217,16 +2218,16 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			{
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					m_healthLabel.text = $"{hitPointsAfterResolution.ToString()} + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)}>{num.ToString()}</color> + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor)}>{clientUnappliedHoTTotal_ToDisplay_zq.ToString()}</color>";
+					m_healthLabel.text = new StringBuilder().Append(hitPointsAfterResolution.ToString()).Append(" + <color=").Append(HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)).Append(">").Append(num.ToString()).Append("</color> + <color=").Append(HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor)).Append(">").Append(clientUnappliedHoTTotal_ToDisplay_zq.ToString()).Append("</color>").ToString();
 				}
 				else
 				{
-					m_healthLabel.text = $"{hitPointsAfterResolution.ToString()} + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)}>{num.ToString()}</color>";
+					m_healthLabel.text = new StringBuilder().Append(hitPointsAfterResolution.ToString()).Append(" + <color=").Append(HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)).Append(">").Append(num.ToString()).Append("</color>").ToString();
 				}
 			}
 			else
 			{
-				m_healthLabel.text = $"<color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)}>{(hitPointsAfterResolution + num).ToString()}</color>";
+				m_healthLabel.text = new StringBuilder().Append("<color=").Append(HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextShieldColor)).Append(">").Append((hitPointsAfterResolution + num).ToString()).Append("</color>").ToString();
 			}
 		}
 		else if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
@@ -2234,7 +2235,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 			m_mouseOverHitBoxCanvasGroup.ignoreParentGroups = (m_actorData.GetAbilityData().GetSelectedAbility() == null);
 			if (m_mouseIsOverHP)
 			{
-				m_healthLabel.text = $"{hitPointsAfterResolution.ToString()} + <color={HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor)}>{clientUnappliedHoTTotal_ToDisplay_zq.ToString()}</color>";
+				m_healthLabel.text = new StringBuilder().Append(hitPointsAfterResolution.ToString()).Append(" + <color=").Append(HUD_UIResources.ColorToHex(HUD_UIResources.Get().m_nameplateHealthTextHotColor)).Append(">").Append(clientUnappliedHoTTotal_ToDisplay_zq.ToString()).Append("</color>").ToString();
 			}
 			else
 			{
@@ -2335,7 +2336,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 				{
 					str = "OUT";
 				}
-				maxEnergyAnimator.Play("NameplateMaxEnergyDefault" + (string)str);
+				maxEnergyAnimator.Play(new StringBuilder().Append("NameplateMaxEnergyDefault").Append((string)str).ToString());
 				m_isMaxEnergy = flag3;
 			}
 		}

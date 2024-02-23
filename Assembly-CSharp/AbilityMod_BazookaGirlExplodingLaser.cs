@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
@@ -64,6 +65,6 @@ public class AbilityMod_BazookaGirlExplodingLaser : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_explosionDamageMod, "[Explosion Damage]", isAbilityPresent, isAbilityPresent ? bazookaGirlExplodingLaser.m_explosionDamageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_explosionIgnoreLosMod, "[Explosion Ignore LoS?]", isAbilityPresent, isAbilityPresent && bazookaGirlExplodingLaser.m_explosionPenetrateLos);
 		desc += AbilityModHelper.GetModPropertyDesc(m_explosionIgnoreCoverMod, "[Explosion Ignore Cover?]", isAbilityPresent, isAbilityPresent && bazookaGirlExplodingLaser.m_explosionIgnoreCover);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_explosionEffectOverride, "{ Explosion Enemy Hit Effect Override }", isAbilityPresent, isAbilityPresent ? bazookaGirlExplodingLaser.m_effectOnExplosionHitTargets : null);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_explosionEffectOverride, "{ Explosion Enemy Hit Effect Override }", isAbilityPresent, isAbilityPresent ? bazookaGirlExplodingLaser.m_effectOnExplosionHitTargets : null)).ToString();
 	}
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -64,7 +65,7 @@ public class UIAbilityButtonModPanel : MonoBehaviour
 			if (!(m_theAbility.ability == null))
 			{
 				UIAbilityTooltip uIAbilityTooltip = (UIAbilityTooltip)tooltip;
-				string movieAssetName = "Video/AbilityPreviews/" + m_theAbility.ability.m_previewVideo;
+				string movieAssetName = new StringBuilder().Append("Video/AbilityPreviews/").Append(m_theAbility.ability.m_previewVideo).ToString();
 				uIAbilityTooltip.Setup(m_theAbility.ability, m_selectedMod, movieAssetName);
 				return true;
 			}

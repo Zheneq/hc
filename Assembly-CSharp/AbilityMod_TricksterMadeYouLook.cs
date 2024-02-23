@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TricksterMadeYouLook : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_TricksterMadeYouLook : AbilityMod
 			desc += m_cooldownReductionForTravelHit.GetDescription(abilityData);
 		}
 		desc += PropDesc(m_damageAmountMod, "[DamageAmount]", isValid, isValid ? tricksterMadeYouLook.m_damageAmount : 0);
-		return desc + PropDesc(m_enemyOnHitEffectMod, "[EnemyOnHitEffect]", isValid, isValid ? tricksterMadeYouLook.m_enemyOnHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_enemyOnHitEffectMod, "[EnemyOnHitEffect]", isValid, isValid ? tricksterMadeYouLook.m_enemyOnHitEffect : null)).ToString();
 	}
 }

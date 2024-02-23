@@ -10,7 +10,8 @@ public class ValkyrieNarrowingProjectileSequence : ArcingProjectileSequence
 		base.Initialize(extraParams);
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (!(extraSequenceParams is FxAttributeParam fxAttributeParam)
+			FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
+			if (fxAttributeParam == null
 			    || fxAttributeParam.m_paramNameCode == FxAttributeParam.ParamNameCode.None
 			    || fxAttributeParam.m_paramTarget != FxAttributeParam.ParamTarget.MainVfx)
 			{

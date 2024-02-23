@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
@@ -60,7 +61,7 @@ public class AbilityMod_ScoundrelBouncingLaser : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_baseDamageMod, "[Base Damage]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_damageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_minDamageMod, "[Min Base Damage Mod]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_minDamageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageChangePerHitMod, "[Damage Change Per Hit]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_damageChangePerHit : 0);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_bonusDamagePerBounceMod, "[Bonus Damage Per Bounce]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_bonusDamagePerBounce : 0);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_bonusDamagePerBounceMod, "[Bonus Damage Per Bounce]", isAbilityPresent, isAbilityPresent ? scoundrelBouncingLaser.m_bonusDamagePerBounce : 0)).ToString();
 	}
 
 	protected override void AppendModSpecificTooltipCheckNumbers(Ability abilityAsBase, List<int> numbers)

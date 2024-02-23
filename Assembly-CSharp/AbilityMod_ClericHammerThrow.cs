@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_ClericHammerThrow : AbilityMod
 {
@@ -57,6 +58,6 @@ public class AbilityMod_ClericHammerThrow : AbilityMod
 		desc += PropDesc(m_innerEnemyHitEffectMod, "[InnerEnemyHitEffect]", isValid, isValid ? clericHammerThrow.m_innerEnemyHitEffect : null);
 		desc += PropDesc(m_outerEnemyHitEffectWithNoInnerHits, "[OuterEnemyHitEffectWithNoInnerHits]", isValid);
 		desc += PropDesc(m_extraInnerDamagePerOuterHit, "[ExtraInnerDamagePerOuterHit]", isValid);
-		return desc + PropDesc(m_extraTechPointGainInAreaBuff, "[ExtraEnergyGainInAreaBuff]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraTechPointGainInAreaBuff, "[ExtraEnergyGainInAreaBuff]", isValid)).ToString();
 	}
 }

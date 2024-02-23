@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NekoFlipDash : AbilityMod
@@ -115,6 +116,6 @@ public class AbilityMod_NekoFlipDash : AbilityMod
 		desc += PropDesc(m_explodingTargetDiscDamageMod, "[ExplodingTargetDiscDamage]", isValid, isValid ? nekoFlipDash.m_explodingTargetDiscDamage : 0);
 		desc += PropDesc(m_discsReturningThisTurnExtraDamageMod, "[DiscsReturningThisTurnExtraDamage]", isValid, isValid ? nekoFlipDash.m_discsReturningThisTurnExtraDamage : 0);
 		desc += PropDesc(m_cdrIfHasReturnDiscHitMod, "[CdrIfHasReturnDiscHit]", isValid, isValid ? nekoFlipDash.m_cdrIfHasReturnDiscHit : 0);
-		return desc + PropDesc(m_cdrOnEnlargeDiscIfCastSameTurnMod, "[CdrOnEnlargeDiscIfCastSameTurn]", isValid, isValid ? nekoFlipDash.m_cdrOnEnlargeDiscIfCastSameTurn : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrOnEnlargeDiscIfCastSameTurnMod, "[CdrOnEnlargeDiscIfCastSameTurn]", isValid, isValid ? nekoFlipDash.m_cdrOnEnlargeDiscIfCastSameTurn : 0)).ToString();
 	}
 }

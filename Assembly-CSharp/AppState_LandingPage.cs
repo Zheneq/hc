@@ -15,7 +15,10 @@ public class AppState_LandingPage : AppState
 
 	private bool m_goToCharacterSelect;
 
-	public bool ReceivedLobbyStatusInfo => m_receivedLobbyinfo;
+	public bool ReceivedLobbyStatusInfo
+	{
+		get { return m_receivedLobbyinfo; }
+	}
 
 	public static AppState_LandingPage Get()
 	{

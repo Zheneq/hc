@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class LobbyInventoryItemTemplate
@@ -70,7 +71,7 @@ public class LobbyInventoryItemTemplate
 				case 0:
 					break;
 				default:
-					return $"[{Index}] {DisplayName}, {Type}";
+					return new StringBuilder().Append("[").Append(Index).Append("] ").Append(DisplayName).Append(", ").Append(Type).ToString();
 				}
 			}
 		}

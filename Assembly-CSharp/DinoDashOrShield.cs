@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ public class DinoDashOrShield : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "\n-- On Hit Data for dash --\n" + m_dashOnHitData.GetInEditorDesc();
+		return new StringBuilder().Append(base.GetOnHitDataDesc()).Append("\n-- On Hit Data for dash --\n").Append(m_dashOnHitData.GetInEditorDesc()).ToString();
 	}
 
 	public override List<GenericAbility_TargetSelectBase> GetRelevantTargetSelectCompForEditor()

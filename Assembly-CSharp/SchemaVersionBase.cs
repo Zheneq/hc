@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Globalization;
+using System.Text;
 
 [Serializable]
 [JsonConverter(typeof(JsonConverter))]
@@ -33,7 +34,7 @@ public class SchemaVersionBase
 	{
 		get
 		{
-			return $"0x{IntValue:x}";
+			return new StringBuilder().Append("0x").AppendFormat("{0:x}", IntValue).ToString();
 		}
 		set
 		{

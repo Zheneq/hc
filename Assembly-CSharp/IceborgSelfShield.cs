@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ public class IceborgSelfShield : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		return usageForEditor + ContextVars.GetContextUsageStr(ContextKeys.s_CasterLowHealth.GetName(), "set to 1 if caster is low health, 0 otherwise", false);
+		return new StringBuilder().Append(usageForEditor).Append(ContextVars.GetContextUsageStr(ContextKeys.s_CasterLowHealth.GetName(), "set to 1 if caster is low health, 0 otherwise", false)).ToString();
 	}
 
 	protected override void SetupTargetersAndCachedVars()

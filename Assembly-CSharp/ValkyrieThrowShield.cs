@@ -148,7 +148,8 @@ public class ValkyrieThrowShield : Ability
 
 	public float GetExtraKnockbackDistance(ActorData hitActor)
 	{
-		if (!(Targeter is AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser))
+		AbilityUtil_Targeter_BounceLaser abilityUtil_Targeter_BounceLaser = Targeter as AbilityUtil_Targeter_BounceLaser;
+		if (abilityUtil_Targeter_BounceLaser == null)
 		{
 			return 0f;
 		}

@@ -21,7 +21,10 @@ public class AnimationEventAttribute : Attribute
 		set;
 	}
 
-	public Color DisplayColor => new Color(R, G, B);
+	public Color DisplayColor
+	{
+		get { return new Color(R, G, B); }
+	}
 
 	public bool IsAudio
 	{

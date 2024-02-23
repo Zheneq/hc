@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_Ninja360Attack : AbilityMod
@@ -66,6 +67,6 @@ public class AbilityMod_Ninja360Attack : AbilityMod
 		desc += PropDesc(m_innerConeEnemyHitEffectMod, "[InnerConeEnemyHitEffect]", isValid, isValid ? ninja360Attack.m_innerConeEnemyHitEffect : null);
 		desc += PropDesc(m_energyGainOnMarkedHitMod, "[EnergyGainOnMarkedHit]", isValid, isValid ? ninja360Attack.m_energyGainOnMarkedHit : 0);
 		desc += PropDesc(m_selfHealOnMarkedHitMod, "[SelfHealOnMarkedHit]", isValid, isValid ? ninja360Attack.m_selfHealOnMarkedHit : 0);
-		return desc + PropDesc(m_applyDeathmarkEffectMod, "[ApplyDeathmarkEffect]", isValid, isValid && ninja360Attack.m_applyDeathmarkEffect);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_applyDeathmarkEffectMod, "[ApplyDeathmarkEffect]", isValid, isValid && ninja360Attack.m_applyDeathmarkEffect)).ToString();
 	}
 }

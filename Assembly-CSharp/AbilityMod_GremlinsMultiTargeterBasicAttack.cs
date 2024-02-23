@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_GremlinsMultiTargeterBasicAttack : AbilityMod
@@ -37,7 +38,7 @@ public class AbilityMod_GremlinsMultiTargeterBasicAttack : AbilityMod
 				{
 					for (int i = 0; i < m_directHitDamagePerShot.Count; i++)
 					{
-						AddToken(tokens, m_directHitDamagePerShot[i], "Damage_DirectHit_" + i, string.Empty, component.m_directHitDamageAmount);
+						AddToken(tokens, m_directHitDamagePerShot[i], new StringBuilder().Append("Damage_DirectHit_").Append(i).ToString(), string.Empty, component.m_directHitDamageAmount);
 					}
 				}
 			}
@@ -54,7 +55,7 @@ public class AbilityMod_GremlinsMultiTargeterBasicAttack : AbilityMod
 		string desc = string.Empty;
 		for (int i = 0; i < m_directHitDamagePerShot.Count; i++)
 		{
-			desc += AbilityModHelper.GetModPropertyDesc(m_directHitDamagePerShot[i], "[Direct Hit Damage Per Shot " + i + "]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_directHitDamageAmount : 0);
+			desc += AbilityModHelper.GetModPropertyDesc(m_directHitDamagePerShot[i], new StringBuilder().Append("[Direct Hit Damage Per Shot ").Append(i).Append("]").ToString(), isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_directHitDamageAmount : 0);
 		}
 		desc += AbilityModHelper.GetModPropertyDesc(m_bombShapeMod, "[Bomb Shape]", isAbilityPresent, isAbilityPresent ? gremlinsMultiTargeterBasicAttack.m_bombShape : AbilityAreaShape.SingleSquare);
 		desc += AbilityModHelper.GetModPropertyDesc(m_maxAngleWithFirst, "[Max Angle With First]", isAbilityPresent, isAbilityPresent ? gremlinsMultiTargeterBasicAttack.m_maxAngleWithFirst : 0f);
@@ -67,6 +68,6 @@ public class AbilityMod_GremlinsMultiTargeterBasicAttack : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_mineDamageMod, "[Mine Damage]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_damageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_mineDurationMod, "[Mine Duration]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_mineDuration : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_effectOnEnemyOverride, "{ Effect on Enemy Hit Override }", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_enemyHitEffect : null);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_energyGainOnExplosion : 0);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_energyOnMineExplosionMod, "[Energy Gain on Mine Explosion (on splort and mines left behind from primary/ult)]", isAbilityPresent, isAbilityPresent ? gremlinsLandMineInfoComponent.m_energyGainOnExplosion : 0)).ToString();
 	}
 }

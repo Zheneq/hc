@@ -2,6 +2,7 @@ using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
@@ -241,9 +242,9 @@ public class ClientExceptionDetector : MonoBehaviour
 			}
 			m_exceptionStackTrace = stackTrace;
 			m_exceptionStackTrace = m_exceptionStackTrace.Trim();
-			m_exceptionStackTrace = s_stackTraceSeparator + m_exceptionStackTrace.Replace("\n", s_stackTraceSeparator);
+			m_exceptionStackTrace = new StringBuilder().Append(s_stackTraceSeparator).Append(m_exceptionStackTrace.Replace("\n", s_stackTraceSeparator)).ToString();
 			m_exceptionDateTime = ((!flag) ? DateTime.Now.ToString("MM/dd/yy hh:mm:ss") : fileDateTime);
-			text = $"{m_exceptionLogString}\n{m_exceptionStackTrace}";
+			text = new StringBuilder().Append(m_exceptionLogString).Append("\n").Append(m_exceptionStackTrace).ToString();
 			if (ClientGameManager.Get() != null)
 			{
 				if (ClientGameManager.Get().IsConnectedToLobbyServer)
@@ -355,7 +356,7 @@ public class ClientExceptionDetector : MonoBehaviour
 		}
 		goto IL_0385;
 		IL_0219:
-		m_crashServerReportThreadedJob = new ClientCrashReportThreadedJob(crashDumpDirectoryPath, BugReportType.Exception, text, $"{arg}: {arg2}");
+		m_crashServerReportThreadedJob = new ClientCrashReportThreadedJob(crashDumpDirectoryPath, BugReportType.Exception, text, new StringBuilder().Append(arg).Append(": ").Append(arg2).ToString());
 		goto IL_022a;
 		IL_0385:
 		int stopUploadingReports;

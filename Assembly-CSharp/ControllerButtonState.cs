@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class ControllerButtonState
@@ -110,7 +111,10 @@ public class ControllerButtonState
 		}
 	}
 
-	public bool BeingUsed => m_value || m_up || m_down;
+	public bool BeingUsed
+	{
+		get { return m_value || m_up || m_down; }
+	}
 
 	public void GatherState(string buttonStr)
 	{
@@ -160,6 +164,6 @@ public class ControllerButtonState
 		{
 			arg2 = "0";
 		}
-		return $"{arg}{arg2}";
+		return new StringBuilder().Append(arg).Append(arg2).ToString();
 	}
 }

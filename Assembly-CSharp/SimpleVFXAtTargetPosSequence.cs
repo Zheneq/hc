@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SimpleVFXAtTargetPosSequence : Sequence
@@ -355,7 +356,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 			str += "<color=cyan>Can do Gameplay Hits</color>\n";
 			if (m_hitDelayTime > 0f)
 			{
-				str += "Gameplay Hit happens " + m_hitDelayTime + " second(s) after VFX start.\n\n";
+				str += new StringBuilder().Append("Gameplay Hit happens ").Append(m_hitDelayTime).Append(" second(s) after VFX start.\n\n").ToString();
 			}
 		}
 		else
@@ -371,7 +372,7 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		}
 		else if (m_startDelayTime > 0f)
 		{
-			str += "Starts " + m_startDelayTime + " second(s) after sequence spawn.";
+			str += new StringBuilder().Append("Starts ").Append(m_startDelayTime).Append(" second(s) after sequence spawn.").ToString();
 		}
 		return str;
 	}

@@ -188,7 +188,9 @@ public class ValkyrieGuard : Ability
 		{
 			return base.GetRotateToTargetPos(targets, caster);
 		}
-		VectorUtils.GetDirectionAndOffsetToClosestSide(targetSquare, targets[0].FreePos, false, out Vector3 offset);
+
+		Vector3 offset;
+		VectorUtils.GetDirectionAndOffsetToClosestSide(targetSquare, targets[0].FreePos, false, out offset);
 		return targetSquare.ToVector3() + offset;
 	}
 

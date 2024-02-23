@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -83,7 +84,8 @@ public class EndGameRewardItem : MonoBehaviour
 			{
 				str = string.Format(StringUtil.TR("LevelRequirement", "Rewards"), Data.Level);
 			}
-			str = str + " " + GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName();
+
+			str = new StringBuilder().Append(str).Append(" ").Append(GameWideData.Get().GetCharacterResourceLink(CharType).GetDisplayName()).ToString();
 		}
 		str = str.Trim();
 		m_rewardSubText.text = str;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class GameWideData : MonoBehaviour
@@ -162,7 +163,7 @@ public class GameWideData : MonoBehaviour
 					case 0:
 						break;
 					default:
-						throw new Exception($"GameWideData failed to load (invalid data for character index {i})");
+						throw new Exception(new StringBuilder().Append("GameWideData failed to load (invalid data for character index ").Append(i).Append(")").ToString());
 					}
 				}
 			}
@@ -212,7 +213,7 @@ public class GameWideData : MonoBehaviour
 		}
 		while (true)
 		{
-			throw new Exception("Character resource link not found for: " + characterType.ToString() + " in GameWideData.");
+			throw new Exception(new StringBuilder().Append("Character resource link not found for: ").Append(characterType.ToString()).Append(" in GameWideData.").ToString());
 		}
 	}
 
@@ -241,7 +242,7 @@ public class GameWideData : MonoBehaviour
 				}
 			}
 		}
-		Debug.Log("attempting to find: " + mapDisplayName);
+		Debug.Log(new StringBuilder().Append("attempting to find: ").Append(mapDisplayName).ToString());
 		MapData[] mapData = m_mapData;
 		foreach (MapData mapData2 in mapData)
 		{
@@ -383,18 +384,18 @@ public class GameWideData : MonoBehaviour
 				int typeSpecificData2 = unlockCondition.typeSpecificData2;
 				if (typeSpecificData != 0)
 				{
-					text += $"{GetCharacterResourceLink(typeSpecificData).m_displayName} Level {typeSpecificData2}";
+					text += new StringBuilder().Append(GetCharacterResourceLink(typeSpecificData).m_displayName).Append(" Level ").Append(typeSpecificData2).ToString();
 				}
 			}
 			else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.PlayerLevel)
 			{
 				int typeSpecificData3 = unlockCondition.typeSpecificData;
-				text += $"Account Level {typeSpecificData3}";
+				text += new StringBuilder().Append("Account Level ").Append(typeSpecificData3).ToString();
 			}
 			else if (unlockCondition.ConditionType == GameBalanceVars.UnlockData.UnlockType.ELO)
 			{
 				int typeSpecificData4 = unlockCondition.typeSpecificData;
-				text += $"ELO of {typeSpecificData4}";
+				text += new StringBuilder().Append("ELO of ").Append(typeSpecificData4).ToString();
 			}
 		}
 		while (true)

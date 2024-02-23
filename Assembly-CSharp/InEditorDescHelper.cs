@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public static class InEditorDescHelper
@@ -23,7 +24,7 @@ public static class InEditorDescHelper
 		string text;
 		if (bold)
 		{
-			text = "<b>" + input + "</b>";
+			text = new StringBuilder().Append("<b>").Append(input).Append("</b>").ToString();
 		}
 		else
 		{
@@ -41,7 +42,7 @@ public static class InEditorDescHelper
 
 	public static string BoldedStirng(string input)
 	{
-		return "<b>" + input + "</b>";
+		return new StringBuilder().Append("<b>").Append(input).Append("</b>").ToString();
 	}
 
 	public static string DiffColorStr(string input)
@@ -60,12 +61,12 @@ public static class InEditorDescHelper
 		{
 			color = "white";
 		}
-		string str = "CVar[ " + ColoredString(name, (string)color) + " ]";
+		string str = new StringBuilder().Append("CVar[ ").Append(ColoredString(name, (string)color)).Append(" ]").ToString();
 		if (!actorContext)
 		{
-			return "General_" + str;
+			return new StringBuilder().Append("General_").Append(str).ToString();
 		}
-		return "Actor_" + str;
+		return new StringBuilder().Append("Actor_").Append(str).ToString();
 	}
 
 	public static string AssembleFieldWithDiff(string header, string indent, string otherSep, float myVal, bool showOther, float otherVal, ShowFieldDelegateFloat showFieldDelegate = null)
@@ -92,12 +93,12 @@ public static class InEditorDescHelper
 		}
 		if (num2 || flag)
 		{
-			text = text + indent + header + ColoredString(myVal.ToString());
+			text = new StringBuilder().Append(text).Append(indent).Append(header).Append(ColoredString(myVal.ToString())).ToString();
 		}
 		if (flag)
 		{
 			string text2 = text;
-			text = text2 + DiffColorStr(otherSep + otherVal) + " ( diff = " + Mathf.Abs(otherVal - myVal) + " )";
+			text = new StringBuilder().Append(text2).Append(DiffColorStr(new StringBuilder().Append(otherSep).Append(otherVal).ToString())).Append(" ( diff = ").Append(Mathf.Abs(otherVal - myVal)).Append(" )").ToString();
 		}
 		if (text.Length > 0)
 		{
@@ -117,12 +118,13 @@ public static class InEditorDescHelper
 				goto IL_0072;
 			}
 		}
-		text = text + indent + header + ColoredString(myVal.ToString());
+
+		text = new StringBuilder().Append(text).Append(indent).Append(header).Append(ColoredString(myVal.ToString())).ToString();
 		goto IL_0072;
 		IL_0072:
 		if (flag)
 		{
-			text += DiffColorStr(otherSep + otherVal);
+			text += DiffColorStr(new StringBuilder().Append(otherSep).Append(otherVal).ToString());
 		}
 		if (text.Length > 0)
 		{
@@ -151,12 +153,13 @@ public static class InEditorDescHelper
 				goto IL_0075;
 			}
 		}
-		text = text + indent + header + ColoredString(myVal.ToString());
+
+		text = new StringBuilder().Append(text).Append(indent).Append(header).Append(ColoredString(myVal.ToString())).ToString();
 		goto IL_0075;
 		IL_0075:
 		if (flag)
 		{
-			text += DiffColorStr(otherSep + otherVal);
+			text += DiffColorStr(new StringBuilder().Append(otherSep).Append(otherVal).ToString());
 		}
 		if (text.Length > 0)
 		{
@@ -186,12 +189,12 @@ public static class InEditorDescHelper
 			}
 		}
 		string text2 = text;
-		text = text2 + indent + header + "\n" + indent + "    " + ColoredString(GetGameObjectEntryStr(myVal));
+		text = new StringBuilder().Append(text2).Append(indent).Append(header).Append("\n").Append(indent).Append("    ").Append(ColoredString(GetGameObjectEntryStr(myVal))).ToString();
 		goto IL_0089;
 		IL_0089:
 		if (flag)
 		{
-			text += DiffColorStr(otherSep + GetGameObjectEntryStr(otherVal));
+			text += DiffColorStr(new StringBuilder().Append(otherSep).Append(GetGameObjectEntryStr(otherVal)).ToString());
 		}
 		if (text.Length > 0)
 		{
@@ -215,7 +218,7 @@ public static class InEditorDescHelper
 				}
 			}
 		}
-		return "< " + obj.name + " >";
+		return new StringBuilder().Append("< ").Append(obj.name).Append(" >").ToString();
 	}
 
 	private static bool HasDifference<T>(T[] myObjList, T[] otherObjList)
@@ -323,10 +326,11 @@ public static class InEditorDescHelper
 				goto IL_02b6;
 			}
 		}
-		text = text + indent + header;
+
+		text = new StringBuilder().Append(text).Append(indent).Append(header).ToString();
 		if (flag)
 		{
-			text = text + "    \t\t | " + header + " in base";
+			text = new StringBuilder().Append(text).Append("    \t\t | ").Append(header).Append(" in base").ToString();
 		}
 		text += "\n";
 		int num5;
@@ -352,7 +356,7 @@ public static class InEditorDescHelper
 						text2 = ColoredString(myObjList[i].ToString());
 						if (typeof(T).IsEnum)
 						{
-							text2 = "[ " + text2 + " ] ";
+							text2 = new StringBuilder().Append("[ ").Append(text2).Append(" ] ").ToString();
 						}
 					}
 					else
@@ -360,11 +364,12 @@ public static class InEditorDescHelper
 						text2 = ColoredString(stringFormatter(myObjList[i]));
 					}
 				}
-				empty = empty + indent + "    " + text2;
+
+				empty = new StringBuilder().Append(empty).Append(indent).Append("    ").Append(text2).ToString();
 			}
 			else
 			{
-				empty = empty + indent + "    (none)          ";
+				empty = new StringBuilder().Append(empty).Append(indent).Append("    (none)          ").ToString();
 			}
 			text += empty;
 			if (flag)
@@ -379,7 +384,7 @@ public static class InEditorDescHelper
 							str2 = otherObjList[i].ToString();
 							if (typeof(T).IsEnum)
 							{
-								str2 = "[ " + str2 + " ] ";
+								str2 = new StringBuilder().Append("[ ").Append(str2).Append(" ] ").ToString();
 							}
 						}
 						else
@@ -387,11 +392,11 @@ public static class InEditorDescHelper
 							str2 = stringFormatter(otherObjList[i]);
 						}
 					}
-					text += DiffColorStr(str + str2);
+					text += DiffColorStr(new StringBuilder().Append(str).Append(str2).ToString());
 				}
 				else
 				{
-					text += DiffColorStr(str + "    (none)");
+					text += DiffColorStr(new StringBuilder().Append(str).Append("    (none)").ToString());
 				}
 			}
 			text += "\n";

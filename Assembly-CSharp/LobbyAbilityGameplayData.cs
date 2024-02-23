@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class LobbyAbilityGameplayData
@@ -18,7 +19,10 @@ public class LobbyAbilityGameplayData
 	public Dictionary<int, LobbyAbilityVfxSwapData> AbilityVfxSwapData;
 
 	[JsonIgnore]
-	public string FullName => $"{Name} ({TypeName})";
+	public string FullName
+	{
+		get { return new StringBuilder().Append(Name).Append(" (").Append(TypeName).Append(")").ToString(); }
+	}
 
 	public LobbyAbilityGameplayData()
 	{

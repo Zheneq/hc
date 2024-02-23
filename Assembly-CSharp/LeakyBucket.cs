@@ -26,10 +26,16 @@ public class LeakyBucket
 	}
 
 	[JsonIgnore]
-	public double MaxPoints => m_leakRate.Amount;
+	public double MaxPoints
+	{
+		get { return m_leakRate.Amount; }
+	}
 
 	[JsonIgnore]
-	public TimeSpan LeakPeriod => m_leakRate.Period;
+	public TimeSpan LeakPeriod
+	{
+		get { return m_leakRate.Period; }
+	}
 
 	public Rate LeakRate
 	{
@@ -67,7 +73,10 @@ public class LeakyBucket
 		}
 	}
 
-	private DateTime Now => DateTime.UtcNow + m_timeOffset;
+	private DateTime Now
+	{
+		get { return DateTime.UtcNow + m_timeOffset; }
+	}
 
 	private TimeSpan Elapsed
 	{

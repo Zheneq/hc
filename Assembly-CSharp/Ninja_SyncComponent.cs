@@ -46,37 +46,37 @@ public class Ninja_SyncComponent : NetworkBehaviour
 
 	public short Networkm_rewindHToHp
 	{
-		get => m_rewindHToHp;
+		get { return m_rewindHToHp; }
 		[param: In]
-		set => SetSyncVar(value, ref m_rewindHToHp, 1u);
+		set { SetSyncVar(value, ref m_rewindHToHp, 1u); }
 	}
 
 	public short Networkm_rewindToSquareX
 	{
-		get => m_rewindToSquareX;
+		get { return m_rewindToSquareX; }
 		[param: In]
-		set => SetSyncVar(value, ref m_rewindToSquareX, 2u);
+		set { SetSyncVar(value, ref m_rewindToSquareX, 2u); }
 	}
 
 	public short Networkm_rewindToSquareY
 	{
-		get => m_rewindToSquareY;
+		get { return m_rewindToSquareY; }
 		[param: In]
-		set => SetSyncVar(value, ref m_rewindToSquareY, 4u);
+		set { SetSyncVar(value, ref m_rewindToSquareY, 4u); }
 	}
 
 	public bool Networkm_shurikenDashingThisTurn
 	{
-		get => m_shurikenDashingThisTurn;
+		get { return m_shurikenDashingThisTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_shurikenDashingThisTurn, 8u);
+		set { SetSyncVar(value, ref m_shurikenDashingThisTurn, 8u); }
 	}
 
 	public int Networkm_totalDeathmarkDamage
 	{
-		get => m_totalDeathmarkDamage;
+		get { return m_totalDeathmarkDamage; }
 		[param: In]
-		set => SetSyncVar(value, ref m_totalDeathmarkDamage, 16u);
+		set { SetSyncVar(value, ref m_totalDeathmarkDamage, 16u); }
 	}
 
 	static Ninja_SyncComponent()

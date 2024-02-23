@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text;
 
 public class FileLog
 {
@@ -39,9 +40,15 @@ public class FileLog
 		private set;
 	}
 
-	public StreamWriter File => m_file;
+	public StreamWriter File
+	{
+		get { return m_file; }
+	}
 
-	public bool IsOpen => m_file != null;
+	public bool IsOpen
+	{
+		get { return m_file != null; }
+	}
 
 	public FileLog()
 	{
@@ -55,7 +62,7 @@ public class FileLog
 		{
 			dateTime = DateTime.Now;
 		}
-		return $"{basePath}/{dateTime.Year:d4}-{dateTime.Month:d2}-{dateTime.Day:d2}";
+		return new StringBuilder().Append(basePath).Append("/").AppendFormat("{0:d4}", dateTime.Year).Append("-").AppendFormat("{0:d2}", dateTime.Month).Append("-").AppendFormat("{0:d2}", dateTime.Day).ToString();
 	}
 
 	public void Open(string filePath)
@@ -70,7 +77,7 @@ public class FileLog
 				{
 					string text = AsDatedDirectory(Path.GetDirectoryName(BaseFilePath), m_logFileCreationTime);
 					Directory.CreateDirectory(text);
-					CurrentFilePath = $"{text}/{Path.GetFileName(BaseFilePath)}";
+					CurrentFilePath = new StringBuilder().Append(text).Append("/").Append(Path.GetFileName(BaseFilePath)).ToString();
 				}
 				else
 				{
@@ -174,7 +181,7 @@ public class FileLog
 											{
 												if (!RawLogging)
 												{
-													m_file.Write($"{args.timestamp.ToString(Log.TimestampFormat)} [{Log.ToStringCode(args.level)}] ");
+													m_file.Write(new StringBuilder().Append(args.timestamp.ToString(Log.TimestampFormat)).Append(" [").Append(Log.ToStringCode(args.level)).Append("] ").ToString());
 												}
 												if (args.level >= Log.Level.Warning)
 												{
@@ -199,7 +206,8 @@ public class FileLog
 															{
 																arg = "errorid";
 															}
-															array3[0] = str + $" ({arg} {args.message.GetHashCode():x8})";
+
+															array3[0] = new StringBuilder().Append(str).Append(" (").Append(arg).Append(" ").AppendFormat("{0:x8}", args.message.GetHashCode()).Append(")").ToString();
 															string[] array4 = array;
 															foreach (string value in array4)
 															{

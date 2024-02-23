@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -107,7 +108,7 @@ public class UITextConsoleMenu : MonoBehaviour
 				case 1:
 					break;
 				case 0:
-					UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + m_handle + " ");
+					UIFrontEnd.Get().m_frontEndChatConsole.SelectInput(new StringBuilder().Append("/whisper ").Append(m_handle).Append(" ").ToString());
 					SetVisible(false);
 					break;
 				case 3:

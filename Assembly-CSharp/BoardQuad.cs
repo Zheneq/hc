@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -35,7 +36,7 @@ public class BoardQuad
 		result = new List<BoardSquare>();
 		if (Application.isEditor)
 		{
-			Log.Error("BoardRegion " + m_name + " has a BoardQuad with null corners.");
+			Log.Error(new StringBuilder().Append("BoardRegion ").Append(m_name).Append(" has a BoardQuad with null corners.").ToString());
 		}
 		goto IL_0100;
 		IL_0100:

@@ -23,7 +23,10 @@ public class ScriptableObjectList
 		}
 	}
 
-	public int Length => values.Count;
+	public int Length
+	{
+		get { return values.Count; }
+	}
 
 	public ScriptableObjectList(Type subclassType, string assetPath)
 	{

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -10,9 +11,20 @@ public class AbilityTarget
 
 	private static AbilityTarget s_abilityTargetForTargeterUpdate = new AbilityTarget();
 
-	public Vector3 FreePos => m_freePos;
-	public GridPos GridPos => m_gridPos;
-	public Vector3 AimDirection => m_dir;
+	public Vector3 FreePos
+	{
+		get { return m_freePos; }
+	}
+
+	public GridPos GridPos
+	{
+		get { return m_gridPos; }
+	}
+
+	public Vector3 AimDirection
+	{
+		get { return m_dir; }
+	}
 
 	private AbilityTarget()
 	{
@@ -287,6 +299,6 @@ public class AbilityTarget
 
 	public string GetDebugString()
 	{
-		return "[GridPos= " + m_gridPos.ToStringWithCross() + " | FreePos= (" + m_freePos.x + ", " + m_freePos.z + ")]";
+		return new StringBuilder().Append("[GridPos= ").Append(m_gridPos.ToStringWithCross()).Append(" | FreePos= (").Append(m_freePos.x).Append(", ").Append(m_freePos.z).Append(")]").ToString();
 	}
 }

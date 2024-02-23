@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SoldierGrenade : AbilityMod
@@ -37,7 +38,7 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 				{
 					AddToken_IntDiff(
 						tokens,
-						shapeToDamage.m_shape + "_Damage",
+						new StringBuilder().Append(shapeToDamage.m_shape).Append("_Damage").ToString(),
 						string.Empty,
 						shapeToDamage.m_damage,
 						true,
@@ -59,14 +60,18 @@ public class AbilityMod_SoldierGrenade : AbilityMod
 			desc += "Using Layered Shape Override, entries:\n";
 			foreach (SoldierGrenade.ShapeToDamage shapeToDamage in m_additionalShapeToDamageOverride)
 			{
-				desc += "Shape: " + shapeToDamage.m_shape + " Damage: " +
-				        AbilityModHelper.GetDiffString(shapeToDamage.m_damage, isValid ? soldierGrenade.m_damageAmount : 0,
-					        AbilityModPropertyInt.ModOp.Override) + "\n";
+				desc += new StringBuilder().Append("Shape: ")
+					.Append(shapeToDamage.m_shape)
+					.Append(" Damage: ")
+					.Append(AbilityModHelper.GetDiffString(shapeToDamage.m_damage, isValid ? soldierGrenade.m_damageAmount : 0,
+						AbilityModPropertyInt.ModOp.Override))
+					.Append("\n")
+					.ToString();
 			}
 		}
 		desc += PropDesc(m_damageAmountMod, "[DamageAmount]", isValid, isValid ? soldierGrenade.m_damageAmount : 0);
 		desc += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", isValid, isValid ? soldierGrenade.m_enemyHitEffect : null);
 		desc += PropDesc(m_allyHealAmountMod, "[AllyHealAmount]", isValid, isValid ? soldierGrenade.m_allyHealAmount : 0);
-		return desc + PropDesc(m_allyHitEffectMod, "[AllyHitEffect]", isValid, isValid ? soldierGrenade.m_allyHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_allyHitEffectMod, "[AllyHitEffect]", isValid, isValid ? soldierGrenade.m_allyHitEffect : null)).ToString();
 	}
 }

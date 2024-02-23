@@ -1,3 +1,5 @@
+using System.Text;
+
 public class SlashCommand_Version : SlashCommand
 {
 	public SlashCommand_Version()
@@ -8,7 +10,7 @@ public class SlashCommand_Version : SlashCommand
 
 	public override void OnSlashCommand(string arguments)
 	{
-		string text = $"Current Version: {BuildVersion.FullVersionString}";
+		string text = new StringBuilder().Append("Current Version: ").Append(BuildVersion.FullVersionString).ToString();
 		TextConsole.Get().Write(text);
 		ClientGameManager clientGameManager = ClientGameManager.Get();
 		if (clientGameManager.EnvironmentType == EnvironmentType.External)

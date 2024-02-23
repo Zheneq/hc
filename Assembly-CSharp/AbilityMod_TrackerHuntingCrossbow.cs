@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
@@ -57,19 +58,19 @@ public class AbilityMod_TrackerHuntingCrossbow : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageOnTrackedMod, "[Damage on Tracked Target]", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_laserDamageAmount : 0);
 		if (m_damageChangeOnSubsequentTargets != 0)
 		{
-			desc += "[Damage Change on Subsequent Targets] = " + m_damageChangeOnSubsequentTargets + "\n";
+			desc += new StringBuilder().Append("[Damage Change on Subsequent Targets] = ").Append(m_damageChangeOnSubsequentTargets).Append("\n").ToString();
 		}
 		if (m_extraDamageWhenInBrush > 0)
 		{
-			desc += "[Extra Damage when in " + (m_requireFunctioningBrush ? "Functioning" : "") + " Brush] = " + m_extraDamageWhenInBrush + "\n";
+			desc += new StringBuilder().Append("[Extra Damage when in ").Append(m_requireFunctioningBrush ? "Functioning" : "").Append(" Brush] = ").Append(m_extraDamageWhenInBrush).Append("\n").ToString();
 		}
 		if (m_additionalEnemyEffectWhenInBrush != null && m_additionalEnemyEffectWhenInBrush.m_applyEffect)
 		{
-			desc += AbilityModHelper.GetModEffectDataDesc(m_additionalEnemyEffectWhenInBrush.m_effectData, "{ Additional Effect on Enemy when in " + (m_requireFunctioningBrush ? "Functioning Brush" : "Brush") + " }", "", isAbilityPresent);
+			desc += AbilityModHelper.GetModEffectDataDesc(m_additionalEnemyEffectWhenInBrush.m_effectData, new StringBuilder().Append("{ Additional Effect on Enemy when in ").Append(m_requireFunctioningBrush ? "Functioning Brush" : "Brush").Append(" }").ToString(), "", isAbilityPresent);
 		}
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserWidthMod, "[Laser Width]", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_laserInfo.width : 0f);
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserLengthMod, "[Laser Length]", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_laserInfo.range : 0f);
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserMaxTargetsMod, "[Laser Max Targets]", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_laserInfo.maxTargets : 0);
-		return desc + PropDesc(m_huntedEffectDataOverride, "{ Hunted/Tracked Effect Override }", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_huntedEffectData : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_huntedEffectDataOverride, "{ Hunted/Tracked Effect Override }", isAbilityPresent, isAbilityPresent ? trackerHuntingCrossbow.m_huntedEffectData : null)).ToString();
 	}
 }

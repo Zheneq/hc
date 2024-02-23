@@ -138,21 +138,25 @@ public static class CompilerExtensions
 		}
 		else
 		{
-			result = char.ToUpper(value[0]) + value.Substring(1);
+			result = new StringBuilder().Append(char.ToUpper(value[0])).Append(value.Substring(1)).ToString();
 		}
 		return result;
 	}
 
 	public static string ToDebugString<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
 	{
-		return "{ " + string.Join(", ", dictionary.Select(delegate(KeyValuePair<TKey, TValue> kv)
-		{
-			TKey key = kv.Key;
-			string str = key.ToString();
-			string str2 = "=";
-			TValue value = kv.Value;
-			return str + str2 + value.ToString();
-		}).ToArray<string>()) + " }";
+		return new StringBuilder().Append("{ ")
+			.Append(string.Join(", ", dictionary.Select(delegate(KeyValuePair<TKey, TValue> kv)
+				{
+					TKey key = kv.Key;
+					string str = key.ToString();
+					string str2 = "=";
+					TValue value = kv.Value;
+					return new StringBuilder().Append(str).Append(str2).Append(value.ToString()).ToString();
+				})
+				.ToArray<string>()))
+			.Append(" }")
+			.ToString();
 	}
 
 	public static string GetAttribute(this XmlNode value, string attributeName)
@@ -440,7 +444,7 @@ public static class CompilerExtensions
 		Type underlyingType = Nullable.GetUnderlyingType(type);
 		if (underlyingType != null)
 		{
-			return underlyingType.Name + "?";
+			return new StringBuilder().Append(underlyingType.Name).Append("?").ToString();
 		}
 		if (!type.IsGenericType)
 		{

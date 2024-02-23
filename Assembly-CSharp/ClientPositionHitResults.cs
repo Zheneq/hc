@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientPositionHitResults
@@ -40,7 +41,7 @@ public class ClientPositionHitResults
 		}
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Debug.LogWarning(ClientAbilityResults.s_executePositionHitHeader + " Executing Position Hit");
+			Debug.LogWarning(new StringBuilder().Append(ClientAbilityResults.s_executePositionHitHeader).Append(" Executing Position Hit").ToString());
 		}
 		using (List<ClientEffectStartData>.Enumerator enumerator = m_effectsToStart.GetEnumerator())
 		{

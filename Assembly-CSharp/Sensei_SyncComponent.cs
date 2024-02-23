@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -41,7 +42,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 
 	public sbyte Networkm_syncCurrentNumOrbs
 	{
-		get => m_syncCurrentNumOrbs;
+		get { return m_syncCurrentNumOrbs; }
 		[param: In]
 		set
 		{
@@ -57,30 +58,30 @@ public class Sensei_SyncComponent : NetworkBehaviour
 
 	public sbyte Networkm_syncTurnsForSecondYingYangDash
 	{
-		get => m_syncTurnsForSecondYingYangDash;
+		get { return m_syncTurnsForSecondYingYangDash; }
 		[param: In]
-		set => SetSyncVar(value, ref m_syncTurnsForSecondYingYangDash, 2u);
+		set { SetSyncVar(value, ref m_syncTurnsForSecondYingYangDash, 2u); }
 	}
 
 	public bool Networkm_syncLastYingYangDashedToAlly
 	{
-		get => m_syncLastYingYangDashedToAlly;
+		get { return m_syncLastYingYangDashedToAlly; }
 		[param: In]
-		set => SetSyncVar(value, ref m_syncLastYingYangDashedToAlly, 4u);
+		set { SetSyncVar(value, ref m_syncLastYingYangDashedToAlly, 4u); }
 	}
 
 	public float Networkm_syncBideExtraDamagePct
 	{
-		get => m_syncBideExtraDamagePct;
+		get { return m_syncBideExtraDamagePct; }
 		[param: In]
-		set => SetSyncVar(value, ref m_syncBideExtraDamagePct, 8u);
+		set { SetSyncVar(value, ref m_syncBideExtraDamagePct, 8u); }
 	}
 
 	public sbyte Networkm_lastPrimaryUsedMode
 	{
-		get => m_lastPrimaryUsedMode;
+		get { return m_lastPrimaryUsedMode; }
 		[param: In]
-		set => SetSyncVar(value, ref m_lastPrimaryUsedMode, 16u);
+		set { SetSyncVar(value, ref m_lastPrimaryUsedMode, 16u); }
 	}
 
 	private void HookSetNumOrbs(sbyte value)
@@ -139,7 +140,7 @@ public class Sensei_SyncComponent : NetworkBehaviour
 				m_owner,
 				joint,
 				false,
-				"SenseiDashIndicator_" + i,
+				new StringBuilder().Append("SenseiDashIndicator_").Append(i).ToString(),
 				AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{

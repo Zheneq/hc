@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class LootTableEntry
@@ -69,6 +70,6 @@ public class LootTableEntry
 
 	public override string ToString()
 	{
-		return $"{Type}, Index={Index}, Weight={Weight}, Amount=({MinValue} ~ {MaxValue})";
+		return new StringBuilder().Append(Type).Append(", Index=").Append(Index).Append(", Weight=").Append(Weight).Append(", Amount=(").Append(MinValue).Append(" ~ ").Append(MaxValue).Append(")").ToString();
 	}
 }

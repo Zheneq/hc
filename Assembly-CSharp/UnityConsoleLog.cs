@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 
 public static class UnityConsoleLog
@@ -210,7 +211,7 @@ public static class UnityConsoleLog
 					if (!stackTrace.IsNullOrEmpty())
 					{
 						string arg = stackTrace.Replace("\n", s_stackTraceSeparator);
-						logString = $"{logString}{s_stackTraceSeparator}{arg}";
+						logString = new StringBuilder().Append(logString).Append(s_stackTraceSeparator).Append(arg).ToString();
 					}
 				}
 				Log.Write(level, Log.Category.Unity, file, line, logString);
@@ -244,7 +245,7 @@ public static class UnityConsoleLog
 				ConsoleMessageType messageType = (ConsoleMessageType)num;
 				TextConsole.Get().Write(new TextConsole.Message
 				{
-					Text = $"{logString}\n{stackTrace}",
+					Text = new StringBuilder().Append(logString).Append("\n").Append(stackTrace).ToString(),
 					MessageType = messageType
 				});
 				return;
@@ -287,7 +288,7 @@ public static class UnityConsoleLog
 				}
 			}
 			num2 += "(at ".Length;
-			file = stack.Substring(num2, num - num2) + ".cs";
+			file = new StringBuilder().Append(stack, num2, num - num2).Append(".cs").ToString();
 			int num3 = stack.IndexOf(')', num);
 			string value = stack.Substring(num + 4, num3 - (num + 4));
 			line = Convert.ToInt32(value);

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TrackerFlewTheCoop : AbilityMod
@@ -41,12 +42,12 @@ public class AbilityMod_TrackerFlewTheCoop : AbilityMod
 		if (m_addVisionAroundStartSquare)
 		{
 			desc += "* Adding Vision on Starting Square\n";
-			desc += "[Vision Radius] = " + InEditorDescHelper.ColoredString(m_visionRadius.ToString()) + "\n";
-			desc += "[Vision Duration] = " + InEditorDescHelper.ColoredString(m_visionDuration.ToString()) + "\n";
-			desc += "[Vision Brush Reveal Type] = " + InEditorDescHelper.ColoredString(m_brushRevealType.ToString()) + "\n";
+			desc += new StringBuilder().Append("[Vision Radius] = ").Append(InEditorDescHelper.ColoredString(m_visionRadius.ToString())).Append("\n").ToString();
+			desc += new StringBuilder().Append("[Vision Duration] = ").Append(InEditorDescHelper.ColoredString(m_visionDuration.ToString())).Append("\n").ToString();
+			desc += new StringBuilder().Append("[Vision Brush Reveal Type] = ").Append(InEditorDescHelper.ColoredString(m_brushRevealType.ToString())).Append("\n").ToString();
 		}
 		desc += PropDesc(m_extraDroneDamageDuration, "[For this many turns:", isAbilityPresent);
 		desc += PropDesc(m_extraDroneDamage, "[Extra Drone Damage]", isAbilityPresent);
-		return desc + PropDesc(m_extraDroneUntrackedDamage, "[Extra Drone Untracked Damage]", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraDroneUntrackedDamage, "[Extra Drone Untracked Damage]", isAbilityPresent)).ToString();
 	}
 }

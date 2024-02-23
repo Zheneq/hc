@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -59,6 +60,6 @@ public class CurrencyData
 
 	public override string ToString()
 	{
-		return $"{m_Type.ToString()}: {m_Amount:N0}";
+		return new StringBuilder().Append(m_Type.ToString()).Append(": ").AppendFormat("{0:N0}", m_Amount).ToString();
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
@@ -41,6 +42,6 @@ public class AbilityMod_NanoSmithWeaponsOfWar : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_shieldGainPerTurnMod, "[Shield Gain Per Round]", isValid);
 		desc += AbilityModHelper.GetModPropertyDesc(m_allyTargetEffectOverride, "{ Ally Target Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_targetAllyOnHitEffect : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_enemySweepOnHitEffectOverride, "{ Enemy Sweep On Hit Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_enemySweepOnHitEffect : null);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_allySweepOnHitEffectOverride, "{ Ally Sweep On Hit Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_allySweepOnHitEffect : null);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_allySweepOnHitEffectOverride, "{ Ally Sweep On Hit Effect Override }", isValid, isValid ? nanoSmithWeaponsOfWar.m_allySweepOnHitEffect : null)).ToString();
 	}
 }

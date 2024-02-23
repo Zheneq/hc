@@ -606,7 +606,8 @@ public abstract class UIBaseIndicator : MonoBehaviour
 			RectTransform rectTransform = base.gameObject.transform as RectTransform;
 			Vector2 vector4 = new Vector2(rectTransform.rect.width, rectTransform.rect.height);
 			Rect rectA = new Rect(vector2 - vector4 / 2f, vector4);
-			UIUtils.SweepRectRect(rectA, m_screenRect, vector3, out float hitTime);
+			float hitTime;
+			UIUtils.SweepRectRect(rectA, m_screenRect, vector3, out hitTime);
 			rectTransform.anchoredPosition = vector2 + vector3 * hitTime;
 			return;
 		}

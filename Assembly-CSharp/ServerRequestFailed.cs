@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public class ServerRequestFailed : Exception
 {
@@ -8,7 +9,7 @@ public class ServerRequestFailed : Exception
 	}
 
 	public ServerRequestFailed(string context, string remoteMessage, string remoteStackTrace)
-		: base($"{context}: {remoteMessage}\n{remoteStackTrace}")
+		: base(new StringBuilder().Append(context).Append(": ").Append(remoteMessage).Append("\n").Append(remoteStackTrace).ToString())
 	{
 	}
 }

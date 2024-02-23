@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -591,7 +592,7 @@ public class UIPlayerProgressPanel : UIScene
 					}
 					else
 					{
-						m_freelancerDropdown.AddOption(0 - characterRole, StringUtil.TR("CharacterRole_" + characterRole, "Global"), characterRole);
+						m_freelancerDropdown.AddOption(0 - (int)characterRole, StringUtil.TR(new StringBuilder().Append("CharacterRole_").Append(characterRole).ToString(), "Global"), characterRole);
 					}
 				}
 			}
@@ -661,7 +662,7 @@ public class UIPlayerProgressPanel : UIScene
 			UIPlayerProgressDropdownList freelancerDropdown = m_freelancerDropdown;
 			
 			freelancerDropdown.CheckOptionDisplayState(((int x) => true));
-			num = ((role == CharacterRole.None) ? ((int)selectedFreelancer) : (0 - role));
+			num = ((role == CharacterRole.None) ? ((int)selectedFreelancer) : (0 - (int)role));
 		}
 		else
 		{
@@ -764,7 +765,7 @@ public class UIPlayerProgressPanel : UIScene
 				while (enumerator.MoveNext())
 				{
 					AchievementType current = enumerator.Current;
-					m_achievementDropdown.AddOption((int)current, StringUtil.TR("AchievementCategory_" + current, "Global"));
+					m_achievementDropdown.AddOption((int)current, StringUtil.TR(new StringBuilder().Append("AchievementCategory_").Append(current).ToString(), "Global"));
 				}
 			}
 			m_achievementDropdown.AddHitbox(m_achievementsPanel.m_categoryDropdownBtn.m_button.spriteController.gameObject);

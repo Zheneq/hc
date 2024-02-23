@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -321,7 +322,7 @@ public class UIManager : MonoBehaviour
 			for (int i = 0; i < this.LayerInfos.Length; i++)
 			{
 				this.LayerInfos[i].CameraLayerContainer = new GameObject();
-				this.LayerInfos[i].CameraLayerContainer.name = "(Camera)" + this.LayerInfos[i].LayerName;
+				this.LayerInfos[i].CameraLayerContainer.name = new StringBuilder().Append("(Camera)").Append(this.LayerInfos[i].LayerName).ToString();
 				UIManager.ReparentTransform(this.LayerInfos[i].CameraLayerContainer.transform, base.gameObject.transform);
 				this.LayerInfos[i].Init();
 				KeyValuePair<int, int> item = new KeyValuePair<int, int>(i, this.LayerInfos[i].Priority);
@@ -375,7 +376,7 @@ public class UIManager : MonoBehaviour
 				return runtimeSceneInfo;
 			}
 		}
-		Debug.LogError("Failed to register scene: " + ((IUIScene)scene).GetSceneType());
+		Debug.LogError(new StringBuilder().Append("Failed to register scene: ").Append(((IUIScene)scene).GetSceneType()).ToString());
 		return null;
 	}
 

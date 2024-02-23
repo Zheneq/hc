@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SpaceMarineDropPod : AbilityMod
@@ -59,6 +60,6 @@ public class AbilityMod_SpaceMarineDropPod : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_powerupTechPointMod, "[PowerUp TechPoint Amount]", isValid, isValid ? powerupTechPointMod : 0);
 		desc += AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectInfoOnDropPod, "-- Ground Effect on Drop Pod Location --", isValid);
 		desc += PropDesc(m_extraPowerupHealIfDirectHitMod, "[ExtraPowerupHealIfDirectHit]", isValid, isValid ? spaceMarineDropPod.m_extraPowerupHealIfDirectHit : 0);
-		return desc + PropDesc(m_extraPowerupEnergyIfDirectHitMod, "[ExtraPowerupEnergy]", isValid, isValid ? spaceMarineDropPod.m_extraPowerupEnergyIfDirectHit : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraPowerupEnergyIfDirectHitMod, "[ExtraPowerupEnergy]", isValid, isValid ? spaceMarineDropPod.m_extraPowerupEnergyIfDirectHit : 0)).ToString();
 	}
 }

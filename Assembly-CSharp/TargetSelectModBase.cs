@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -25,14 +26,14 @@ public class TargetSelectModBase
 		{
 			if (m_targetDataOverride != null)
 			{
-				str = str + InEditorDescHelper.ColoredString("* Using TargetData Override *") + "\n";
+				str = new StringBuilder().Append(str).Append(InEditorDescHelper.ColoredString("* Using TargetData Override *")).Append("\n").ToString();
 				TargetData[] targetDataOverride = m_targetDataOverride;
 				foreach (TargetData targetData in targetDataOverride)
 				{
-					str = str + "    [Paradigm] " + ((targetData.m_targetingParadigm <= (Ability.TargetingParadigm)0) ? "INVALID" : targetData.m_targetingParadigm.ToString());
+					str = new StringBuilder().Append(str).Append("    [Paradigm] ").Append((targetData.m_targetingParadigm <= (Ability.TargetingParadigm)0) ? "INVALID" : targetData.m_targetingParadigm.ToString()).ToString();
 					string text = str;
-					str = text + ", [Range (without range mods)] " + targetData.m_minRange + " to " + targetData.m_range;
-					str = str + ", [Require Los] = " + targetData.m_checkLineOfSight + "\n";
+					str = new StringBuilder().Append(text).Append(", [Range (without range mods)] ").Append(targetData.m_minRange).Append(" to ").Append(targetData.m_range).ToString();
+					str = new StringBuilder().Append(str).Append(", [Require Los] = ").Append(targetData.m_checkLineOfSight).Append("\n").ToString();
 				}
 			}
 		}
@@ -43,7 +44,7 @@ public class TargetSelectModBase
 		str += GetModSpecificInEditorDesc(targetSelectBase, header);
 		if (str.Length > 0)
 		{
-			str = header + "\n" + str + "\n";
+			str = new StringBuilder().Append(header).Append("\n").Append(str).Append("\n").ToString();
 		}
 		return str;
 	}

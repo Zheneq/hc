@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine.Networking;
 
 internal static class GameplayRandom
@@ -96,7 +97,7 @@ internal static class GameplayRandom
 	{
 		if (standardDeviation <= 0.0)
 		{
-			string paramName = $"Shape must be positive. Received {standardDeviation}.";
+			string paramName = new StringBuilder().Append("Shape must be positive. Received ").Append(standardDeviation).Append(".").ToString();
 			throw new ArgumentOutOfRangeException(paramName);
 		}
 		return mean + standardDeviation * GetNormal();
@@ -119,7 +120,7 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					string paramName = $"Mean must be positive. Received {mean}.";
+					string paramName = new StringBuilder().Append("Mean must be positive. Received ").Append(mean).Append(".").ToString();
 					throw new ArgumentOutOfRangeException(paramName);
 				}
 				}
@@ -187,7 +188,7 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					string paramName = $"Shape must be positive. Received {shape}.";
+					string paramName = new StringBuilder().Append("Shape must be positive. Received ").Append(shape).Append(".").ToString();
 					throw new ArgumentOutOfRangeException(paramName);
 				}
 				}
@@ -217,7 +218,7 @@ internal static class GameplayRandom
 				return scale * Math.Pow(0.0 - Math.Log(GetUniform()), 1.0 / shape);
 			}
 		}
-		string paramName = $"Shape and scale parameters must be positive. Recieved shape {shape} and scale{scale}.";
+		string paramName = new StringBuilder().Append("Shape and scale parameters must be positive. Recieved shape ").Append(shape).Append(" and scale").Append(scale).Append(".").ToString();
 		throw new ArgumentOutOfRangeException(paramName);
 	}
 
@@ -233,7 +234,7 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					string message = $"Scale must be positive. Received {scale}.";
+					string message = new StringBuilder().Append("Scale must be positive. Received ").Append(scale).Append(".").ToString();
 					throw new ArgumentException(message);
 				}
 				}
@@ -255,7 +256,7 @@ internal static class GameplayRandom
 					break;
 				default:
 				{
-					string message = $"Degrees of freedom must be positive. Received {degreesOfFreedom}.";
+					string message = new StringBuilder().Append("Degrees of freedom must be positive. Received ").Append(degreesOfFreedom).Append(".").ToString();
 					throw new ArgumentException(message);
 				}
 				}
@@ -297,7 +298,7 @@ internal static class GameplayRandom
 				return gamma / (gamma + gamma2);
 			}
 		}
-		string paramName = $"Beta parameters must be positive. Received {a} and {b}.";
+		string paramName = new StringBuilder().Append("Beta parameters must be positive. Received ").Append(a).Append(" and ").Append(b).Append(".").ToString();
 		throw new ArgumentOutOfRangeException(paramName);
 	}
 }

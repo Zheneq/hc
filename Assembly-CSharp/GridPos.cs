@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public struct GridPos
@@ -46,9 +47,15 @@ public struct GridPos
 		}
 	}
 
-	public float worldX => (float)m_x * Board.SquareSizeStatic;
+	public float worldX
+	{
+		get { return (float)m_x * Board.SquareSizeStatic; }
+	}
 
-	public float worldY => (float)m_y * Board.SquareSizeStatic;
+	public float worldY
+	{
+		get { return (float)m_y * Board.SquareSizeStatic; }
+	}
 
 	public GridPos(int x, int y, int height)
 	{
@@ -59,12 +66,12 @@ public struct GridPos
 
 	public override string ToString()
 	{
-		return $"({x}, {y})";
+		return new StringBuilder().Append("(").Append(x).Append(", ").Append(y).Append(")").ToString();
 	}
 
 	public string ToStringWithCross()
 	{
-		return $"({x} x {y})";
+		return new StringBuilder().Append("(").Append(x).Append(" x ").Append(y).Append(")").ToString();
 	}
 
 	public static GridPos FromVector3(Vector3 vec)

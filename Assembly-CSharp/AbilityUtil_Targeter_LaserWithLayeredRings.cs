@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_LaserWithCone
@@ -20,7 +21,7 @@ public class AbilityUtil_Targeter_LaserWithLayeredRings : AbilityUtil_Targeter_L
 		}
 		if (m_coneRadiusList.Count == 0)
 		{
-			Log.Error("no radius list passed to " + GetType());
+			Log.Error(new StringBuilder().Append("no radius list passed to ").Append(GetType()).ToString());
 			m_coneRadiusList.Add(new RadiusToLayerIndex(1f));
 		}
 		RadiusToLayerIndex.SortAndSetLayerIndex(m_coneRadiusList);

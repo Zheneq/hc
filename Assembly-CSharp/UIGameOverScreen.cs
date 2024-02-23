@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -115,7 +116,10 @@ public class UIGameOverScreen : UIScene
 
 		private List<UpdatingInfo> TypesBeingUpdated = new List<UpdatingInfo>();
 
-		public List<UpdatingInfo> CurrentInfos => TypesBeingUpdated;
+		public List<UpdatingInfo> CurrentInfos
+		{
+			get { return TypesBeingUpdated; }
+		}
 
 		public GameOverExperienceUpdateSubState(UpdatingInfo StartInfo)
 		{
@@ -420,7 +424,10 @@ public class UIGameOverScreen : UIScene
 			private set;
 		}
 
-		public float PercentageProgress => Mathf.Clamp01((Time.unscaledTime - SubStateStartTime) / (TimeToAutoTransition - SubStateStartTime));
+		public float PercentageProgress
+		{
+			get { return Mathf.Clamp01((Time.unscaledTime - SubStateStartTime) / (TimeToAutoTransition - SubStateStartTime)); }
+		}
 
 		public GameOverSubState()
 		{
@@ -680,7 +687,7 @@ public class UIGameOverScreen : UIScene
 			m_NormalXPGainSlider.fillAmount = 0f;
 			m_QuestXPSlider.fillAmount = 0f;
 			m_GGXPSlider.fillAmount = 0f;
-			m_XPLabel.text = "0 / " + GetXPForType(XPBarType, m_LastLevelDisplayed);
+			m_XPLabel.text = new StringBuilder().Append("0 / ").Append(GetXPForType(XPBarType, m_LastLevelDisplayed)).ToString();
 			m_playingLevelUp = false;
 			CharacterResourceLink charLink = null;
 			if (LastCharType != 0)
@@ -1119,7 +1126,10 @@ public class UIGameOverScreen : UIScene
 		private set;
 	}
 
-	public MatchResultsNotification Results => m_results;
+	public MatchResultsNotification Results
+	{
+		get { return m_results; }
+	}
 
 	public int NumRewardsEarned
 	{
@@ -1151,11 +1161,20 @@ public class UIGameOverScreen : UIScene
 		set;
 	}
 
-	private bool NotificationArrived => m_results != null;
+	private bool NotificationArrived
+	{
+		get { return m_results != null; }
+	}
 
-	private bool IsRankedGame => m_gameType == GameType.Ranked;
+	private bool IsRankedGame
+	{
+		get { return m_gameType == GameType.Ranked; }
+	}
 
-	private Team ClientTeam => (GameManager.Get().PlayerInfo.TeamId == Team.TeamB) ? Team.TeamB : Team.TeamA;
+	private Team ClientTeam
+	{
+		get { return (GameManager.Get().PlayerInfo.TeamId == Team.TeamB) ? Team.TeamB : Team.TeamA; }
+	}
 
 	private Team FriendlyTeam
 	{
@@ -1333,7 +1352,7 @@ public class UIGameOverScreen : UIScene
 			num = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
 		}
 		string empty = string.Empty;
-		empty = ((num <= 0) ? $"<color=#7f7f7f>x{num}</color>" : $"<color=green>x{num}</color>");
+		empty = ((num <= 0) ? new StringBuilder().Append("<color=#7f7f7f>x").Append(num).Append("</color>").ToString() : new StringBuilder().Append("<color=green>x").Append(num).Append("</color>").ToString());
 		string text = StringUtil.TR("GGBoostUsageDescription", "GameOver");
 		if (num == 0)
 		{
@@ -1722,7 +1741,7 @@ public class UIGameOverScreen : UIScene
 	public void HandleBankBalanceChange(CurrencyData currencyData)
 	{
 		int currentAmount = ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack);
-		m_GGPackCount.text = $"x{currentAmount}";
+		m_GGPackCount.text = new StringBuilder().Append("x").Append(currentAmount).ToString();
 		for (int i = 0; i < m_ggButtonLevelsAnims.Length; i++)
 		{
 			if (!m_ggButtonLevelsAnims[i].gameObject.activeInHierarchy)
@@ -1860,7 +1879,7 @@ public class UIGameOverScreen : UIScene
 			}
 
 			IL_038f:
-			m_tutorialLevelText.text = num2 - 1 + "/" + (endLevel - 1);
+			m_tutorialLevelText.text = new StringBuilder().Append(num2 - 1).Append("/").Append(endLevel - 1).ToString();
 			for (int i = m_tutorialLevelSliderBars.Count; i < endLevel - 1; i++)
 			{
 				UITutorialSeasonLevelBar uITutorialSeasonLevelBar = Instantiate(m_tutorialLevelBarPrefab);
@@ -3125,7 +3144,7 @@ public class UIGameOverScreen : UIScene
 		}
 		else
 		{
-			Log.Warning("Did not find icon for tier: " + tier);
+			Log.Warning(new StringBuilder().Append("Did not find icon for tier: ").Append(tier).ToString());
 		}
 		string[] array = tierName.Split(' ');
 		if (array != null)
@@ -3417,7 +3436,8 @@ public class UIGameOverScreen : UIScene
 		GameOverWorldObjects.Get().Setup(gameResult, FriendlyTeam, m_GGPack_XPMult);
 		UIManager.SetGameObjectActive(m_redTeamVictoryContainer, !SelfWon);
 		UIManager.SetGameObjectActive(m_blueTeamVictoryContainer, SelfWon);
-		bool doActive = GameManager.Get().GameplayOverrides?.EnableFacebook ?? false;
+		LobbyGameplayOverrides lobbyGameplayOverrides = GameManager.Get().GameplayOverrides;
+		bool doActive = lobbyGameplayOverrides != null && lobbyGameplayOverrides.EnableFacebook;
 		UIManager.SetGameObjectActive(m_shareFacebookButton, doActive);
 		SetVisible(true);
 		SetupLabelText(myTeamScore, enemyTeamScore);
@@ -3625,7 +3645,7 @@ public class UIGameOverScreen : UIScene
 			num2 = DisplayInfo.GetTotalQuestCurrencyReward(CurrencyType);
 		}
 		int num3 = num + (int)(num2 * UpdateInfo.PercentageProgress);
-		DisplayInfo.m_currencyGainText.text = "+" + num3;
+		DisplayInfo.m_currencyGainText.text = new StringBuilder().Append("+").Append(num3).ToString();
 	}
 
 	private void UpdateExpSubStateHelper(GameOverExperienceUpdateSubState.UpdatingInfo UpdateInfo, XPDisplayInfo DisplayInfo, int TotalXPToGain, int XPGainFromPreviousState, int StartLevel, int XPGainedSoFar)
@@ -3673,7 +3693,7 @@ public class UIGameOverScreen : UIScene
 							DisplayInfo.m_GGXPSlider.fillAmount = 1f;
 						}
 						DisplayInfo.m_barLevelLabel.text = (num2 - 1).ToString();
-						DisplayInfo.m_XPLabel.text = xPForType2 + " / " + xPForType2;
+						DisplayInfo.m_XPLabel.text = new StringBuilder().Append(xPForType2).Append(" / ").Append(xPForType2).ToString();
 						DisplayInfo.m_playingLevelUp = true;
 						UIAnimationEventManager.Get().PlayAnimation(DisplayInfo.m_barLevelUpAnimator, "resultsAccountLevelUpDefaultIN", DisplayInfo.LevelUpAnimDone, "resultsAccountLevelUpDefaultIDLE");
 						UpdateInfo.SetPaused(true);
@@ -3697,7 +3717,7 @@ public class UIGameOverScreen : UIScene
 				DisplayInfo.m_QuestXPSlider.fillAmount = num / (float)xPForType;
 			}
 			DisplayInfo.m_barLevelLabel.text = num2.ToString();
-			DisplayInfo.m_XPLabel.text = num + " / " + xPForType;
+			DisplayInfo.m_XPLabel.text = new StringBuilder().Append(num).Append(" / ").Append(xPForType).ToString();
 			return;
 		}
 	}
@@ -3729,7 +3749,7 @@ public class UIGameOverScreen : UIScene
 							}
 						}
 						int num2 = (int)(num * UpdateInfo.PercentageProgress);
-						m_influenceDisplay.m_currencyGainText.text = "+" + num2;
+						m_influenceDisplay.m_currencyGainText.text = new StringBuilder().Append("+").Append(num2).ToString();
 						return;
 					}
 				}
@@ -3807,7 +3827,7 @@ public class UIGameOverScreen : UIScene
 								int num = normalBarXPTotal + m_results.ConsumableXpGained;
 								int xPGainedSoFar = Mathf.RoundToInt(UpdateInfo.PercentageProgress * normalBarXPTotal);
 								int num2 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * num);
-								m_expGain.text = "+" + xPGainedSoFar;
+								m_expGain.text = new StringBuilder().Append("+").Append(xPGainedSoFar).ToString();
 								UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, normalBarXPTotal, m_results.SeasonXpAtStart, m_results.SeasonLevelAtStart, xPGainedSoFar);
 								if (m_results.NumCharactersPlayed > 1)
 								{
@@ -3869,7 +3889,7 @@ public class UIGameOverScreen : UIScene
 						int normalBarXPTotal2 = GetNormalBarXPTotal();
 						int num4 = normalBarXPTotal2 + m_results.ConsumableXpGained;
 						int num5 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * gGXpGained);
-						m_expGain.text = "+" + (normalBarXPTotal2 + num5);
+						m_expGain.text = new StringBuilder().Append("+").Append(normalBarXPTotal2 + num5).ToString();
 						UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, gGXpGained, m_results.SeasonXpAtStart + normalBarXPTotal2, m_results.SeasonLevelAtStart, num5);
 						if (m_results.NumCharactersPlayed > 1)
 						{
@@ -3934,7 +3954,7 @@ public class UIGameOverScreen : UIScene
 					int questXpGained = m_results.QuestXpGained;
 					int num6 = GetNormalBarXPTotal() + m_results.GGXpGained;
 					int num7 = Mathf.RoundToInt(UpdateInfo.PercentageProgress * questXpGained);
-					m_expGain.text = "+" + (num6 + num7);
+					m_expGain.text = new StringBuilder().Append("+").Append(num6 + num7).ToString();
 					UpdateExpSubStateHelper(UpdateInfo, m_playerXPInfo, questXpGained, m_results.SeasonXpAtStart + num6, m_results.SeasonLevelAtStart, num7);
 					return;
 				}
@@ -4113,7 +4133,8 @@ public class UIGameOverScreen : UIScene
 							}
 						}
 					}
-					m_rankPointsText.text = "+" + num3.ToString("F1");
+
+					m_rankPointsText.text = new StringBuilder().Append("+").Append(num3.ToString("F1")).ToString();
 					if (ShouldDisplayTierPoints)
 					{
 						m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
@@ -4243,7 +4264,8 @@ public class UIGameOverScreen : UIScene
 									}
 								}
 							}
-							m_rankPointsText.text = "-" + num3.ToString("F1");
+
+							m_rankPointsText.text = new StringBuilder().Append("-").Append(num3.ToString("F1")).ToString();
 							if (ShouldDisplayTierPoints)
 							{
 								m_rankLevelText.text = Mathf.RoundToInt(num4).ToString();
@@ -4882,19 +4904,19 @@ public class UIGameOverScreen : UIScene
 					{
 						ContinueBtnFailSafeTime = -1f;
 						UIManager.SetGameObjectActive(m_ContinueBtn, true);
-						string text = $"Failsafe triggered on state {m_currentSubState.SubStateType}";
+						string text = new StringBuilder().Append("Failsafe triggered on state ").Append(m_currentSubState.SubStateType).ToString();
 						GameOverExperienceUpdateSubState gameOverExperienceUpdateSubState = m_currentSubState as GameOverExperienceUpdateSubState;
 						if (gameOverExperienceUpdateSubState != null)
 						{
 							text += " - SubstateInfo updating ";
 							for (int i = 0; i < gameOverExperienceUpdateSubState.CurrentInfos.Count; i++)
 							{
-								text += $"{gameOverExperienceUpdateSubState.CurrentInfos[i].UpdateType.ToString()} stuck at {gameOverExperienceUpdateSubState.CurrentInfos[i].PercentageProgress} and is paused: {gameOverExperienceUpdateSubState.CurrentInfos[i].IsPaused} ";
+								text += new StringBuilder().Append(gameOverExperienceUpdateSubState.CurrentInfos[i].UpdateType.ToString()).Append(" stuck at ").Append(gameOverExperienceUpdateSubState.CurrentInfos[i].PercentageProgress).Append(" and is paused: ").Append(gameOverExperienceUpdateSubState.CurrentInfos[i].IsPaused).Append(" ").ToString();
 							}
 						}
 						else
 						{
-							text = text + " - SubstateInfo updating stuck at: " + m_currentSubState.PercentageProgress;
+							text = new StringBuilder().Append(text).Append(" - SubstateInfo updating stuck at: ").Append(m_currentSubState.PercentageProgress).ToString();
 						}
 						Debug.LogError(text);
 					}

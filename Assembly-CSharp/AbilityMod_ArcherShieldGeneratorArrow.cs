@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
@@ -58,6 +59,6 @@ public class AbilityMod_ArcherShieldGeneratorArrow : AbilityMod
 		desc += PropDesc(m_cooldownReductionOnDash, "[CooldownReductionOnDashAbility]", isValid);
 		desc += PropDesc(m_extraAbsorbPerEnemyHit, "[ExtraAbsorbPerEnemyHit]", isValid);
 		desc += PropDesc(m_extraAbsorbIfEnemyHit, "[ExtraAbsorbIfAnyEnemyHit]", isValid);
-		return desc + PropDesc(m_extraAbsorbIfOnlyOneAllyHit, "[ExtraAbsorbIfOnlyOneAllyHit]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraAbsorbIfOnlyOneAllyHit, "[ExtraAbsorbIfOnlyOneAllyHit]", isValid)).ToString();
 	}
 }

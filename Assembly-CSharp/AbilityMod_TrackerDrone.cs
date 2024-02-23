@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TrackerDrone : AbilityMod
@@ -65,25 +66,25 @@ public class AbilityMod_TrackerDrone : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_untrackedHitDamageMod, "[Damage on Untracked]", isValid, isValid ? trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount : 0);
 		if (m_extraDamageWhenMovingOnTracked > 0)
 		{
-			desc = desc + "[Extra Damage on Tracked] = " + InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnTracked.ToString()) + "\n";
+			desc = new StringBuilder().Append(desc).Append("[Extra Damage on Tracked] = ").Append(InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnTracked.ToString())).Append("\n").ToString();
 			if (isValid && m_trackedHitDamageMod != null)
 			{
 				int modifiedValue = m_trackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_droneHitDamageAmount);
-				desc = desc + "\tTotal Damage on Tracked = " + InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnTracked).ToString()) + "\n";
+				desc = new StringBuilder().Append(desc).Append("\tTotal Damage on Tracked = ").Append(InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnTracked).ToString())).Append("\n").ToString();
 			}
 		}
 		if (m_extraDamageWhenMovingOnUntracked > 0)
 		{
-			desc = desc + "[Extra Damage on Untracked] = " + InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnUntracked.ToString()) + "\n";
+			desc = new StringBuilder().Append(desc).Append("[Extra Damage on Untracked] = ").Append(InEditorDescHelper.ColoredString(m_extraDamageWhenMovingOnUntracked.ToString())).Append("\n").ToString();
 			if (isValid && m_untrackedHitDamageMod != null)
 			{
 				int modifiedValue = m_untrackedHitDamageMod.GetModifiedValue(trackerDroneInfoComponent.m_untrackedDroneHitDamageAmount);
-				desc = desc + "\tTotal Damage on Untracked = " + InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnUntracked).ToString()) + "\n";
+				desc = new StringBuilder().Append(desc).Append("\tTotal Damage on Untracked = ").Append(InEditorDescHelper.ColoredString((modifiedValue + m_extraDamageWhenMovingOnUntracked).ToString())).Append("\n").ToString();
 			}
 		}
 		desc += AbilityModHelper.GetModPropertyDesc(m_trackedHitEffectOverride, "{ Tracked Hit Effect Override }", isValid, isValid ? trackerDroneInfoComponent.m_droneHitEffect : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_untrackedHitEffectOverride, "{ Untracked Hit Effect Override }", isValid, isValid ? trackerDroneInfoComponent.m_untrackedDroneHitEffect : null);
 		desc += PropDesc(m_droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f);
-		return desc + PropDesc(m_droneVisionRadiusMod, "[DroneVisionRadius]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_droneVisionRadius : 0f);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_droneVisionRadiusMod, "[DroneVisionRadius]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_droneVisionRadius : 0f)).ToString();
 	}
 }

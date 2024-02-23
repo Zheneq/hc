@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -172,9 +173,15 @@ namespace TMPro
 			}
 		}
 
-		public bool isDefaultWidth => m_isDefaultWidth;
+		public bool isDefaultWidth
+		{
+			get { return m_isDefaultWidth; }
+		}
 
-		public bool isDefaultHeight => m_isDefaultHeight;
+		public bool isDefaultHeight
+		{
+			get { return m_isDefaultHeight; }
+		}
 
 		public bool isAutoFitting
 		{
@@ -188,9 +195,15 @@ namespace TMPro
 			}
 		}
 
-		public Vector3[] corners => m_corners;
+		public Vector3[] corners
+		{
+			get { return m_corners; }
+		}
 
-		public Vector3[] worldCorners => m_worldCorners;
+		public Vector3[] worldCorners
+		{
+			get { return m_worldCorners; }
+		}
 
 		public Vector4 margins
 		{
@@ -240,7 +253,7 @@ namespace TMPro
 
 		protected override void Awake()
 		{
-			Debug.LogWarning("The Text Container component is now Obsolete and can safely be removed from [" + base.gameObject.name + "].", this);
+			Debug.LogWarning(new StringBuilder().Append("The Text Container component is now Obsolete and can safely be removed from [").Append(base.gameObject.name).Append("].").ToString(), this);
 		}
 
 		protected override void OnEnable()

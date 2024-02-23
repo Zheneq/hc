@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace AbilityContextNamespace
 {
@@ -27,7 +28,7 @@ namespace AbilityContextNamespace
 
 		public string GetInEditorDesc(string indent)
 		{
-			string text = indent + "Team = " + m_teamFilter.ToString() + "\n";
+			string text = new StringBuilder().Append(indent).Append("Team = ").Append(m_teamFilter.ToString()).Append("\n").ToString();
 			if (m_numCompareConditions != null)
 			{
 				foreach (NumericContextValueCompareCond numCompareCondition in m_numCompareConditions)

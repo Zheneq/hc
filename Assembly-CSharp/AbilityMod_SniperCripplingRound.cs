@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SniperCripplingRound : AbilityMod
@@ -40,6 +41,6 @@ public class AbilityMod_SniperCripplingRound : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_explosionDamageMod, "[Explosion Damage]", isValid, isValid ? sniperCripplingRound.m_explosionDamageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_enemyHitEffectDurationMod, "[Effect Duration]", isValid, isValid ? sniperCripplingRound.m_effectOnLaserHitTargets.m_effectData.m_duration : 0);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_additionalEnemyHitEffect, "{ Additional Enemy Hit Effect }", string.Empty, isValid);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Laser Targets]", isValid, 1);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_maxTargetsMod, "[Max Laser Targets]", isValid, 1)).ToString();
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MartyrSpendCrystals : AbilityMod
@@ -92,6 +93,6 @@ public class AbilityMod_MartyrSpendCrystals : AbilityMod
 		desc += PropDesc(m_allyHealPerEnemyHitMod, "[AllyHealPerEnemyHit]", isValid, isValid ? martyrSpendCrystals.m_allyHealPerEnemyHit : 0);
 		desc += PropDesc(m_clearEnergyOnCastMod, "[ClearEnergyOnCast]", isValid, isValid && martyrSpendCrystals.m_clearEnergyOnCast);
 		desc += PropDesc(m_selfEnergyGainOnCastMod, "[SelfEnergyGainOnCast]", isValid, isValid ? martyrSpendCrystals.m_selfEnergyGainOnCast : 0);
-		return desc + PropDesc(m_cdrOnProtectAllyAbilityMod, "[CdrOnProtectAllyAbility]", isValid, isValid ? martyrSpendCrystals.m_cdrOnProtectAllyAbility : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrOnProtectAllyAbilityMod, "[CdrOnProtectAllyAbility]", isValid, isValid ? martyrSpendCrystals.m_cdrOnProtectAllyAbility : 0)).ToString();
 	}
 }

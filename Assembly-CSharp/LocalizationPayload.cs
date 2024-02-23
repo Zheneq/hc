@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using NetSerializer;
 
 [Serializable]
@@ -105,7 +106,7 @@ public class LocalizationPayload
 		string[] array = attedLocIdentifier.Split("@".ToCharArray(), 2);
 		if (array.Length != 2)
 		{ 
-			throw new Exception($"Bad argument ({attedLocIdentifier}) to LocalizationPayload, expected string with an @ in it.");
+			throw new Exception(new StringBuilder().Append("Bad argument (").Append(attedLocIdentifier).Append(") to LocalizationPayload, expected string with an @ in it.").ToString());
 		}
 		return new LocalizationPayload
 		{

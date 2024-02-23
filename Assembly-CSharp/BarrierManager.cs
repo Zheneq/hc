@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -142,7 +143,7 @@ public class BarrierManager : NetworkBehaviour
 				CallRpcUpdateBarriers();
 				if (m_barrierIdSync.Count > 120)
 				{
-					Debug.LogError("More than " + 120 + " barriers active?");
+					Debug.LogError(new StringBuilder().Append("More than ").Append(120).Append(" barriers active?").ToString());
 				}
 			}
 			barrierToAdd.OnStart(delayVisionUpdate, out visionUpdaters);

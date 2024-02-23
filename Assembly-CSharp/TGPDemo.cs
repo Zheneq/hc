@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TGPDemo : MonoBehaviour
@@ -111,7 +112,7 @@ public class TGPDemo : MonoBehaviour
 			lightRotX = eulerAngles.x;
 			Vector3 eulerAngles2 = sceneLight.transform.eulerAngles;
 			lightRotY = eulerAngles2.y;
-			qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+			qualityLabel.text = new StringBuilder().Append("Quality: ").Append(QualitySettings.names[QualitySettings.GetQualityLevel()]).ToString();
 			Shader.WarmupAllShaders();
 			UpdateGUI();
 			return;
@@ -278,7 +279,7 @@ public class TGPDemo : MonoBehaviour
 		{
 			str = "Rim Outline";
 		}
-		string text2 = "Toony Colors Pro/" + str + "/OneDirLight/" + text;
+		string text2 = new StringBuilder().Append("Toony Colors Pro/").Append(str).Append("/OneDirLight/").Append(text).ToString();
 		Shader shader = FindShader(text2);
 		if (shader == null)
 		{
@@ -289,7 +290,7 @@ public class TGPDemo : MonoBehaviour
 				case 0:
 					break;
 				default:
-					Log.Error("SHADER NOT FOUND: " + text2);
+					Log.Error(new StringBuilder().Append("SHADER NOT FOUND: ").Append(text2).ToString());
 					return;
 				}
 			}
@@ -298,7 +299,8 @@ public class TGPDemo : MonoBehaviour
 		{
 			matsOutline[i].shader = shader;
 		}
-		text2 = "Toony Colors Pro/Normal/OneDirLight/" + text;
+
+		text2 = new StringBuilder().Append("Toony Colors Pro/Normal/OneDirLight/").Append(text).ToString();
 		shader = FindShader(text2);
 		if (shader == null)
 		{
@@ -309,7 +311,7 @@ public class TGPDemo : MonoBehaviour
 				case 0:
 					break;
 				default:
-					Log.Error("SHADER NOT FOUND: " + text2);
+					Log.Error(new StringBuilder().Append("SHADER NOT FOUND: ").Append(text2).ToString());
 					return;
 				}
 			}
@@ -325,7 +327,7 @@ public class TGPDemo : MonoBehaviour
 			{
 				text3 += " Rim";
 			}
-			Shader shader2 = FindShader("Toony Colors Pro/Normal/OneDirLight/" + text3);
+			Shader shader2 = FindShader(new StringBuilder().Append("Toony Colors Pro/Normal/OneDirLight/").Append(text3).ToString());
 			if (shader2 != null)
 			{
 				matsSimple[j].shader = shader2;
@@ -414,7 +416,7 @@ public class TGPDemo : MonoBehaviour
 				return shader;
 			}
 		}
-		Log.Error("SHADER NOT FOUND: " + name);
+		Log.Error(new StringBuilder().Append("SHADER NOT FOUND: ").Append(name).ToString());
 		return null;
 	}
 
@@ -515,12 +517,12 @@ public class TGPDemo : MonoBehaviour
 	private void NextQuality()
 	{
 		QualitySettings.IncreaseLevel(true);
-		qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+		qualityLabel.text = new StringBuilder().Append("Quality: ").Append(QualitySettings.names[QualitySettings.GetQualityLevel()]).ToString();
 	}
 
 	private void PrevQuality()
 	{
 		QualitySettings.DecreaseLevel(true);
-		qualityLabel.text = "Quality: " + QualitySettings.names[QualitySettings.GetQualityLevel()];
+		qualityLabel.text = new StringBuilder().Append("Quality: ").Append(QualitySettings.names[QualitySettings.GetQualityLevel()]).ToString();
 	}
 }

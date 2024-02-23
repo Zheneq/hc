@@ -30,7 +30,7 @@ public static class CrashReportArchiver
 					case 0:
 						break;
 					default:
-						Log.Error("Failed to create " + text);
+						Log.Error(new StringBuilder().Append("Failed to create ").Append(text).ToString());
 						return false;
 					}
 				}
@@ -91,7 +91,7 @@ public static class CrashReportArchiver
 										default:
 										{
 											string name = stringBuilder.ToString();
-											userKeyValues["StackTraceHash"] = $"{StringUtil.CaseInsensitiveHash(name):X8}";
+											userKeyValues["StackTraceHash"] = new StringBuilder().AppendFormat("{0:X8}", StringUtil.CaseInsensitiveHash(name)).ToString();
 											goto end_IL_030c;
 										}
 										}
@@ -168,7 +168,7 @@ public static class CrashReportArchiver
 									}
 								}
 								string name2 = stringBuilder2.ToString();
-								userKeyValues["StackTraceHash"] = $"{StringUtil.CaseInsensitiveHash(name2):X8}";
+								userKeyValues["StackTraceHash"] = new StringBuilder().AppendFormat("{0:X8}", StringUtil.CaseInsensitiveHash(name2)).ToString();
 							}
 							finally
 							{
@@ -206,10 +206,10 @@ public static class CrashReportArchiver
 							}
 							if (compressResult == CompressResult.Success)
 							{
-								Log.Info("Created crash report archive: " + resultPath);
+								Log.Info(new StringBuilder().Append("Created crash report archive: ").Append(resultPath).ToString());
 								return true;
 							}
-							Log.Error("CrashReportArchiver.CompressDirectoryToPersistentDataPath failed: " + compressResult);
+							Log.Error(new StringBuilder().Append("CrashReportArchiver.CompressDirectoryToPersistentDataPath failed: ").Append(compressResult).ToString());
 							return false;
 						}
 						}
@@ -296,7 +296,7 @@ public static class CrashReportArchiver
 			string[] files = Directory.GetFiles(sourceDirectoryPath);
 			string[] directories = Directory.GetDirectories(sourceDirectoryPath);
 			string processName = GetProcessName();
-			string path = $"Channel150_{processName}_temp.zip";
+			string path = new StringBuilder().Append("Channel150_").Append(processName).Append("_temp.zip").ToString();
 			string text = Path.Combine(destinationDirectoryPath, path);
 			long num = 0L;
 			FileStream fileStream = File.Create(text);
@@ -334,7 +334,7 @@ public static class CrashReportArchiver
 										{
 											if (text3.LastIndexOf(".htm") < 0)
 											{
-												text4 = Path.Combine(fileName, Path.GetFileName(text3) + ".txt");
+												text4 = Path.Combine(fileName, new StringBuilder().Append(Path.GetFileName(text3)).Append(".txt").ToString());
 												continue;
 											}
 										}
@@ -468,7 +468,7 @@ public static class CrashReportArchiver
 	private static bool CreateSystemInfoFile(string directoryPath, Dictionary<string, string> userKeyValues, BugReportType bugReportType, string fullVersionString)
 	{
 		string text = Path.Combine(directoryPath, "system_info.xml");
-		Log.Info($"Creating system info file: {text}");
+		Log.Info(new StringBuilder().Append("Creating system info file: ").Append(text).ToString());
 		bool result = true;
 		try
 		{
@@ -506,7 +506,7 @@ public static class CrashReportArchiver
 		}
 		catch (Exception ex)
 		{
-			Log.Error($"Error creating system info file. Exception {ex.ToString()}.");
+			Log.Error(new StringBuilder().Append("Error creating system info file. Exception ").Append(ex.ToString()).Append(".").ToString());
 			return false;
 		}
 	}
@@ -538,14 +538,14 @@ public static class CrashReportArchiver
 	private static void PopulateProcessInfo(StreamWriter text, Dictionary<string, string> userKeyValues)
 	{
 		text.WriteLine("  <Process>");
-		text.WriteLine("    <PageFaultCount>" + TryGetMemoryCounter(userKeyValues, "MemoryPageFaultCount") + "</PageFaultCount>");
-		text.WriteLine("    <WorkingSetSize>" + TryGetMemoryCounter(userKeyValues, "MemoryWorkingSetSize") + "</WorkingSetSize>");
-		text.WriteLine("    <PeakWorkingSetSize>" + TryGetMemoryCounter(userKeyValues, "MemoryPeakWorkingSetSize") + "</PeakWorkingSetSize>");
-		text.WriteLine("    <PagefileUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryPagefileUsage") + "</PagefileUsage>");
-		text.WriteLine("    <PeakPagefileUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryPeakPagefileUsage") + "</PeakPagefileUsage>");
-		text.WriteLine("    <PrivateUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryPrivateUsage") + "</PrivateUsage>");
-		text.WriteLine("    <VirtualMemoryAvailable>" + TryGetMemoryCounter(userKeyValues, "MemoryTotalVirtual") + "</VirtualMemoryAvailable>");
-		text.WriteLine("    <VirtualMemoryUsage>" + TryGetMemoryCounter(userKeyValues, "MemoryUsedVirtual") + "</VirtualMemoryUsage>");
+		text.WriteLine(new StringBuilder().Append("    <PageFaultCount>").Append(TryGetMemoryCounter(userKeyValues, "MemoryPageFaultCount")).Append("</PageFaultCount>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <WorkingSetSize>").Append(TryGetMemoryCounter(userKeyValues, "MemoryWorkingSetSize")).Append("</WorkingSetSize>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <PeakWorkingSetSize>").Append(TryGetMemoryCounter(userKeyValues, "MemoryPeakWorkingSetSize")).Append("</PeakWorkingSetSize>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <PagefileUsage>").Append(TryGetMemoryCounter(userKeyValues, "MemoryPagefileUsage")).Append("</PagefileUsage>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <PeakPagefileUsage>").Append(TryGetMemoryCounter(userKeyValues, "MemoryPeakPagefileUsage")).Append("</PeakPagefileUsage>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <PrivateUsage>").Append(TryGetMemoryCounter(userKeyValues, "MemoryPrivateUsage")).Append("</PrivateUsage>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <VirtualMemoryAvailable>").Append(TryGetMemoryCounter(userKeyValues, "MemoryTotalVirtual")).Append("</VirtualMemoryAvailable>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <VirtualMemoryUsage>").Append(TryGetMemoryCounter(userKeyValues, "MemoryUsedVirtual")).Append("</VirtualMemoryUsage>").ToString());
 		text.WriteLine("  </Process>");
 	}
 
@@ -576,23 +576,23 @@ public static class CrashReportArchiver
 			}
 		}
 		text.WriteLine("  <System>");
-		text.WriteLine("    <MachineName>" + SanitizeXml(Environment.MachineName) + "</MachineName>");
-		text.WriteLine("    <Channel>" + SanitizeXml("Channel_150") + "</Channel>");
-		text.WriteLine("    <BuildVersion>" + SanitizeXml(fullVersionString) + "</BuildVersion>");
-		text.WriteLine("    <BuildType>" + SanitizeXml(HydrogenConfig.Get().EnvironmentName) + "</BuildType>");
+		text.WriteLine(new StringBuilder().Append("    <MachineName>").Append(SanitizeXml(Environment.MachineName)).Append("</MachineName>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <Channel>").Append(SanitizeXml("Channel_150")).Append("</Channel>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <BuildVersion>").Append(SanitizeXml(fullVersionString)).Append("</BuildVersion>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <BuildType>").Append(SanitizeXml(HydrogenConfig.Get().EnvironmentName)).Append("</BuildType>").ToString());
 		string input2 = DateTime.Now.ToString("MM/dd/yy hh:mm:ss");
-		text.WriteLine("    <Time>" + SanitizeXml(input2) + "</Time>");
-		text.WriteLine("    <BuildNum>" + SanitizeXml(input) + "</BuildNum>");
-		text.WriteLine("    <Application>" + SanitizeXml(GetProcessName()) + "</Application>");
+		text.WriteLine(new StringBuilder().Append("    <Time>").Append(SanitizeXml(input2)).Append("</Time>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <BuildNum>").Append(SanitizeXml(input)).Append("</BuildNum>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <Application>").Append(SanitizeXml(GetProcessName())).Append("</Application>").ToString());
 		if (bugReportType == BugReportType.Crash)
 		{
-			text.WriteLine("    <ProcessName>" + SanitizeXml(GetProcessName()) + "</ProcessName>");
+			text.WriteLine(new StringBuilder().Append("    <ProcessName>").Append(SanitizeXml(GetProcessName())).Append("</ProcessName>").ToString());
 		}
 		else
 		{
-			text.WriteLine("    <ProcessName>" + SanitizeXml($"{GetProcessName()}_{bugReportType.ToString()}Report") + "</ProcessName>");
+			text.WriteLine(new StringBuilder().Append("    <ProcessName>").Append(SanitizeXml(new StringBuilder().Append(GetProcessName()).Append("_").Append(bugReportType.ToString()).Append("Report").ToString())).Append("</ProcessName>").ToString());
 		}
-		text.WriteLine("    <CorrelationID>" + SanitizeXml(Guid.NewGuid().ToString()) + "</CorrelationID>");
+		text.WriteLine(new StringBuilder().Append("    <CorrelationID>").Append(SanitizeXml(Guid.NewGuid().ToString())).Append("</CorrelationID>").ToString());
 		object input3;
 		if (HydrogenConfig.Get().Ticket == null)
 		{
@@ -602,9 +602,9 @@ public static class CrashReportArchiver
 		{
 			input3 = HydrogenConfig.Get().Ticket.UserName;
 		}
-		text.WriteLine("    <UserID>" + SanitizeXml((string)input3) + "</UserID>");
-		text.WriteLine("    <TotalMemory>" + TryGetMemoryCounter(userKeyValues, "MemoryTotalPhysical") + "</TotalMemory>");
-		text.WriteLine("    <UsedMemory>" + TryGetMemoryCounter(userKeyValues, "MemoryUsedPhysical") + "</UsedMemory>");
+		text.WriteLine(new StringBuilder().Append("    <UserID>").Append(SanitizeXml((string)input3)).Append("</UserID>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <TotalMemory>").Append(TryGetMemoryCounter(userKeyValues, "MemoryTotalPhysical")).Append("</TotalMemory>").ToString());
+		text.WriteLine(new StringBuilder().Append("    <UsedMemory>").Append(TryGetMemoryCounter(userKeyValues, "MemoryUsedPhysical")).Append("</UsedMemory>").ToString());
 		PopulateNetworkCards(text);
 		text.WriteLine("  </System>");
 	}
@@ -626,7 +626,7 @@ public static class CrashReportArchiver
 					text.Write(addressBytes[j].ToString("x2"));
 				}
 				text.WriteLine("</Address>");
-				text.WriteLine("        <Description>" + FormatEscapedXml("{0}", networkInterface.Description) + "</Description>");
+				text.WriteLine(new StringBuilder().Append("        <Description>").Append(FormatEscapedXml("{0}", networkInterface.Description)).Append("</Description>").ToString());
 				text.WriteLine("      </Card>");
 			}
 		}
@@ -646,8 +646,8 @@ public static class CrashReportArchiver
 			{
 				KeyValuePair<string, string> current = enumerator.Current;
 				text.WriteLine("    <Pair>");
-				text.WriteLine("      <Key>" + SanitizeXml(current.Key) + "</Key>");
-				text.WriteLine("      <Value>" + SanitizeXml(current.Value) + "</Value>");
+				text.WriteLine(new StringBuilder().Append("      <Key>").Append(SanitizeXml(current.Key)).Append("</Key>").ToString());
+				text.WriteLine(new StringBuilder().Append("      <Value>").Append(SanitizeXml(current.Value)).Append("</Value>").ToString());
 				text.WriteLine("    </Pair>");
 			}
 			while (true)
@@ -684,7 +684,7 @@ public static class CrashReportArchiver
 					case 0:
 						break;
 					default:
-						text = $"{text.Substring(0, 2044)}...";
+						text = new StringBuilder().Append(text, 0, 2044).Append("...").ToString();
 						return text;
 					}
 				}

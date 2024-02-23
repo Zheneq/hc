@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class SlashCommand_InviteToGame : SlashCommand
 {
@@ -26,7 +27,7 @@ public class SlashCommand_InviteToGame : SlashCommand
 				}
 				else if (!response.ErrorMessage.IsNullOrEmpty())
 				{
-					message.Text = $"Failed: {response.ErrorMessage}#NeedsLocalization";
+					message.Text = new StringBuilder().Append("Failed: ").Append(response.ErrorMessage).Append("#NeedsLocalization").ToString();
 				}
 				else
 				{

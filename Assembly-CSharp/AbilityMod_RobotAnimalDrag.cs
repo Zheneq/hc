@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RobotAnimalDrag : AbilityMod
@@ -56,11 +57,11 @@ public class AbilityMod_RobotAnimalDrag : AbilityMod
 			{
 				if (powerUp != null)
 				{
-					desc += powerUp.name + ", ";
+					desc += new StringBuilder().Append(powerUp.name).Append(", ").ToString();
 				}
 			}
 			desc += "\n";
-			desc += "     in shape " + m_powerUpsSpawnShape + "\n";
+			desc += new StringBuilder().Append("     in shape ").Append(m_powerUpsSpawnShape).Append("\n").ToString();
 		}
 		return desc;
 	}

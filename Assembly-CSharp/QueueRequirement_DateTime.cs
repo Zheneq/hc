@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 [Serializable]
 public class QueueRequirement_DateTime : QueueRequirement
@@ -8,9 +9,15 @@ public class QueueRequirement_DateTime : QueueRequirement
 
 	private DateTime m_dateTime;
 
-	public override bool AnyGroupMember => false;
+	public override bool AnyGroupMember
+	{
+		get { return false; }
+	}
 
-	public override RequirementType Requirement => m_requirementType;
+	public override RequirementType Requirement
+	{
+		get { return m_requirementType; }
+	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
@@ -33,7 +40,7 @@ public class QueueRequirement_DateTime : QueueRequirement
 							case 0:
 								break;
 							default:
-								throw new Exception($"Unknown QueueRequirement_DateTime requirement: {Requirement}");
+								throw new Exception(new StringBuilder().Append("Unknown QueueRequirement_DateTime requirement: ").Append(Requirement).ToString());
 							}
 						}
 					}
@@ -73,7 +80,7 @@ public class QueueRequirement_DateTime : QueueRequirement
 							case 0:
 								break;
 							default:
-								throw new Exception($"Unknown requirement is failed: {Requirement}");
+								throw new Exception(new StringBuilder().Append("Unknown requirement is failed: ").Append(Requirement).ToString());
 							}
 						}
 					}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
@@ -78,6 +79,6 @@ public class AbilityMod_TricksterCatchMeIfYouCan : AbilityMod
 		desc += PropDesc(m_useAllyMultiHitEffectMod, "[UseAllyMultiHitEffect]", isValid, isValid && tricksterCatchMeIfYouCan.m_useAllyMultiHitEffect);
 		desc += PropDesc(m_allyMultipleHitEffectMod, "[AllyMultipleHitEffect]", isValid, isValid ? tricksterCatchMeIfYouCan.m_allyMultipleHitEffect : null);
 		desc += PropDesc(m_selfHealingAmountMod, "[SelfHealingAmount]", isValid, isValid ? tricksterCatchMeIfYouCan.m_selfHealingAmount : 0);
-		return desc + PropDesc(m_selfHitEffectMod, "[SelfHitEffect]", isValid, isValid ? tricksterCatchMeIfYouCan.m_selfHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_selfHitEffectMod, "[SelfHitEffect]", isValid, isValid ? tricksterCatchMeIfYouCan.m_selfHitEffect : null)).ToString();
 	}
 }

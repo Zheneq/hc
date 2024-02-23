@@ -40,30 +40,30 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public bool Networkm_suitWasActiveOnTurnStart
 	{
-		get => m_suitWasActiveOnTurnStart;
+		get { return m_suitWasActiveOnTurnStart; }
 		[param: In]
-		set => SetSyncVar(value, ref m_suitWasActiveOnTurnStart, 1u);
+		set { SetSyncVar(value, ref m_suitWasActiveOnTurnStart, 1u); }
 	}
 
 	public bool Networkm_suitActive
 	{
-		get => m_suitActive;
+		get { return m_suitActive; }
 		[param: In]
-		set => SetSyncVar(value, ref m_suitActive, 2u);
+		set { SetSyncVar(value, ref m_suitActive, 2u); }
 	}
 
 	public uint Networkm_suitShieldingOnTurnStart
 	{
-		get => m_suitShieldingOnTurnStart;
+		get { return m_suitShieldingOnTurnStart; }
 		[param: In]
-		set => SetSyncVar(value, ref m_suitShieldingOnTurnStart, 4u);
+		set { SetSyncVar(value, ref m_suitShieldingOnTurnStart, 4u); }
 	}
 
 	public uint Networkm_lastSuitLostTurn
 	{
-		get => m_lastSuitLostTurn;
+		get { return m_lastSuitLostTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_lastSuitLostTurn, 8u);
+		set { SetSyncVar(value, ref m_lastSuitLostTurn, 8u); }
 	}
 
 	static Scamp_SyncComponent()

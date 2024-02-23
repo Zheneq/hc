@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -95,7 +96,7 @@ public class ActorVFX : NetworkBehaviour
 					{
 						if (statusVfxPrefabToJoint2.m_status != StatusType.NUM)
 						{
-							StatusIndicatorVFX statusIndicatorVFX = new StatusIndicatorVFX(statusVfxPrefabToJoint2.m_statusVfxPrefab, this.m_actorData, statusVfxPrefabToJoint2.m_status, statusVfxPrefabToJoint2.m_vfxJoint, statusVfxPrefabToJoint2.m_alignToRootOrientation, "AttachedStatusVfx_" + statusVfxPrefabToJoint2.m_status.ToString());
+							StatusIndicatorVFX statusIndicatorVFX = new StatusIndicatorVFX(statusVfxPrefabToJoint2.m_statusVfxPrefab, this.m_actorData, statusVfxPrefabToJoint2.m_status, statusVfxPrefabToJoint2.m_vfxJoint, statusVfxPrefabToJoint2.m_alignToRootOrientation, new StringBuilder().Append("AttachedStatusVfx_").Append(statusVfxPrefabToJoint2.m_status.ToString()).ToString());
 							if (statusIndicatorVFX.HasVfxInstance())
 							{
 								this.m_statusIndicatorVFXList.Add(statusIndicatorVFX);

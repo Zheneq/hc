@@ -16,9 +16,15 @@ public class QueueRequirement_TimeOfWeek : QueueRequirement
 		set;
 	}
 
-	public override RequirementType Requirement => RequirementType.TimeOfWeek;
+	public override RequirementType Requirement
+	{
+		get { return RequirementType.TimeOfWeek; }
+	}
 
-	public override bool AnyGroupMember => false;
+	public override bool AnyGroupMember
+	{
+		get { return false; }
+	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{

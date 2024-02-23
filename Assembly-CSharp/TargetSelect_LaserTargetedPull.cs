@@ -169,7 +169,8 @@ public class TargetSelect_LaserTargetedPull : GenericAbility_TargetSelectBase
 							break;
 						}
 						BoardSquare currentBoardSquare2 = visibleActorsInRangeByTooltipSubject[i].GetCurrentBoardSquare();
-						flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, currentBoardSquare2, false, out int _);
+						int foo;
+						flag = KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquareSafe, currentBoardSquare2, false, out foo);
 					}
 					if (!flag)
 					{

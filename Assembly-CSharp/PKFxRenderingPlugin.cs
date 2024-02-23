@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class PKFxRenderingPlugin : PKFxCamera
@@ -55,7 +56,7 @@ public class PKFxRenderingPlugin : PKFxCamera
 			}
 			else
 			{
-				Debug.LogError("[PKFX] Failed to load mesh " + this.m_SceneMeshPkmmPath + " as scene mesh");
+				Debug.LogError(new StringBuilder().Append("[PKFX] Failed to load mesh ").Append(this.m_SceneMeshPkmmPath).Append(" as scene mesh").ToString());
 			}
 		}
 		if (!this.m_EnableDistortion)
@@ -102,7 +103,7 @@ public class PKFxRenderingPlugin : PKFxCamera
 					}
 					else
 					{
-						Debug.LogWarning("[PKFX] " + this.m_BoundShaders[i].m_ShaderName + " has no ShaderGroup, it will not be loaded");
+						Debug.LogWarning(new StringBuilder().Append("[PKFX] ").Append(this.m_BoundShaders[i].m_ShaderName).Append(" has no ShaderGroup, it will not be loaded").ToString());
 					}
 				}
 			}

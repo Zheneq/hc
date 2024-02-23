@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
@@ -38,9 +39,7 @@ public class AbilityMod_BazookaGirlStickyBomb : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_enemyOnExplosionEffectOverride, "{ Enemy on Explode Effect }", isAbilityPresent, isAbilityPresent ? bazookaGirlStickyBomb.m_bombInfo.onExplodeEffect : null);
 		if (m_cooldownModOnAction != AbilityData.ActionType.INVALID_ACTION && m_cooldownAddAmount != 0)
 		{
-			desc += (m_cooldownAddAmount < 0 ? "Reduces" : "Increases") + " cooldown on "
-			        + AbilityModHelper.GetAbilityNameFromActionType(m_cooldownModOnAction, abilityData) +
-			        " by " + Mathf.Abs(m_cooldownAddAmount) + " per explosion";
+			desc += new StringBuilder().Append(m_cooldownAddAmount < 0 ? "Reduces" : "Increases").Append(" cooldown on ").Append(AbilityModHelper.GetAbilityNameFromActionType(m_cooldownModOnAction, abilityData)).Append(" by ").Append(Mathf.Abs(m_cooldownAddAmount)).Append(" per explosion").ToString();
 		}
 		return desc;
 	}

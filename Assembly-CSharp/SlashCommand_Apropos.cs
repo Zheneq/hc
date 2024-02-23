@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class SlashCommand_Apropos : SlashCommand
 {
@@ -40,7 +41,7 @@ public class SlashCommand_Apropos : SlashCommand
 					while (enumerator2.MoveNext())
 					{
 						string str = enumerator2.Current;
-						message.Text = message.Text + ", " + str;
+						message.Text = new StringBuilder().Append(message.Text).Append(", ").Append(str).ToString();
 					}
 				}
 			}

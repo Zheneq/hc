@@ -26,7 +26,8 @@ public class ValkyrieDirectionalShieldSequence : SimpleAttachedVFXSequence
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is ExtraParams ep)
+			ExtraParams ep = extraSequenceParams as ExtraParams;
+			if (ep != null)
 			{
 				m_aimDirection = Caster.GetActorCover().GetCoverOffset((ActorCover.CoverDirections)ep.m_aimDirection);
 			}

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class RampartBarricade_Prep : Ability
@@ -44,7 +45,7 @@ public class RampartBarricade_Prep : Ability
 		}
 		else
 		{
-			Log.Error(GetDebugIdentifier("") + " did not find passive component Passive_Rampart");
+			Log.Error(new StringBuilder().Append(GetDebugIdentifier("")).Append(" did not find passive component Passive_Rampart").ToString());
 		}
 		SetCachedFields();
 		Targeter = new AbilityUtil_Targeter_RampartKnockbackBarrier(this, GetLaserWidth(), GetLaserRange(), LaserLengthIgnoreLos(), GetKnockbackDistance(), m_knockbackType, PenetrateLos(), m_snapToGrid, AllowAimAtDiagonals());

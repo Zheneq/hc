@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 namespace TMPro.Examples
@@ -94,7 +95,7 @@ namespace TMPro.Examples
 				{
 					_0016 = "<color=green>";
 				}
-				_0018.SetText(_0016 + "{0:2}</color> FPS \n{1:2} <#8080ff>MS", num, arg);
+				_0018.SetText(new StringBuilder().Append(_0016).Append("{0:2}</color> FPS \n{1:2} <#8080ff>MS").ToString(), num, arg);
 				_0012 = 0;
 				_000E = realtimeSinceStartup;
 				return;

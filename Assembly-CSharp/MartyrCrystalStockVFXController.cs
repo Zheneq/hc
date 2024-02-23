@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, IGameEventListener
@@ -63,7 +64,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 		for (int j = 0; j < m_jointToVfxList.Count; j++)
 		{
 			AdditionalAttachedActorVfx.JointToVfx jointToVfx = m_jointToVfxList[j];
-			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+			AttachedActorVFXInfo attachedActorVFXInfo = new AttachedActorVFXInfo(jointToVfx.m_vfxCommonPrefab, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, new StringBuilder().Append("MartyrCrystalVfx_").Append(jointToVfx.m_name).ToString(), AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 			if (attachedActorVFXInfo.HasVfxInstance())
 			{
 				attachedActorVFXInfo.SetInstanceLocalPosition(jointToVfx.m_localOffset);
@@ -84,7 +85,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 			}
 			if (gameObject != null)
 			{
-				AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(gameObject, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, "MartyrCrystalVfx_Partial_" + jointToVfx.m_name, AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
+				AttachedActorVFXInfo attachedActorVFXInfo2 = new AttachedActorVFXInfo(gameObject, base.gameObject, jointToVfx.m_joint, jointToVfx.m_alignToRootOrientation, new StringBuilder().Append("MartyrCrystalVfx_Partial_").Append(jointToVfx.m_name).ToString(), AttachedActorVFXInfo.FriendOrFoeVisibility.Both);
 				if (attachedActorVFXInfo2.HasVfxInstance())
 				{
 					attachedActorVFXInfo2.SetInstanceLocalPosition(jointToVfx.m_localOffset);

@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -122,7 +123,7 @@ public class UILockboxRewardItem : MonoBehaviour
 				{
 					TextMeshProUGUI rewardName = m_rewardName;
 					string text = rewardName.text;
-					rewardName.text = text + " (+" + num4 + ")";
+					rewardName.text = new StringBuilder().Append(text).Append(" (+").Append(num4).Append(")").ToString();
 				}
 			}
 		}
@@ -210,11 +211,11 @@ public class UILockboxRewardItem : MonoBehaviour
 			if (isoCount > template.Value)
 			{
 				int num6 = isoCount - template.Value;
-				m_isoCountText.text = "+" + template.Value + " (+" + num6 + ")";
+				m_isoCountText.text = new StringBuilder().Append("+").Append(template.Value).Append(" (+").Append(num6).Append(")").ToString();
 			}
 			else
 			{
-				m_isoCountText.text = "+" + isoCount;
+				m_isoCountText.text = new StringBuilder().Append("+").Append(isoCount).ToString();
 			}
 		}
 		m_isDuplicate = isDuplicate;
@@ -276,7 +277,7 @@ public class UILockboxRewardItem : MonoBehaviour
 						{
 							str = "Invalid";
 						}
-						string stateName = "LockboxRewardDuplicate" + (string)str;
+						string stateName = new StringBuilder().Append("LockboxRewardDuplicate").Append((string)str).ToString();
 						m_duplicateAnimator.Play(stateName, -1, 0f);
 						return;
 					}

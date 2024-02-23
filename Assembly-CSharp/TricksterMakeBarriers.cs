@@ -28,7 +28,8 @@ public class TricksterMakeBarriers : Ability
 		if (chainAbilities.Length > 0)
 		{
 			Ability ability = chainAbilities[0];
-			if (ability != null && ability is TricksterMakeBarriers_Damage tricksterMakeBarriersDamage)
+			TricksterMakeBarriers_Damage tricksterMakeBarriersDamage = ability as TricksterMakeBarriers_Damage;
+			if (ability != null && !ReferenceEquals(tricksterMakeBarriersDamage, null))
 			{
 				m_chainAbility = tricksterMakeBarriersDamage;
 			}

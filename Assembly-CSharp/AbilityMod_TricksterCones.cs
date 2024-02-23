@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TricksterCones : AbilityMod
@@ -81,6 +82,6 @@ public class AbilityMod_TricksterCones : AbilityMod
 		desc += PropDesc(m_spawnSpoilForEnemyHitMod, "[SpawnSpoilForEnemyHit]", isValid, isValid && tricksterCones.m_spawnSpoilForEnemyHit);
 		desc += PropDesc(m_spawnSpoilForAllyHitMod, "[SpawnSpoilForAllyHit]", isValid, isValid && tricksterCones.m_spawnSpoilForAllyHit);
 		desc += PropDesc(m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", isValid, isValid ? tricksterCones.m_spoilSpawnInfo : null);
-		return desc + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterCones.m_onlySpawnSpoilOnMultiHit);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterCones.m_onlySpawnSpoilOnMultiHit)).ToString();
 	}
 }

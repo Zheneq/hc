@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
@@ -55,6 +56,6 @@ public class AbilityMod_ClaymoreSilenceLaser : AbilityMod
 		desc += PropDesc(m_explosionDamageAfterFirstHitMod, "[ExplosionDamageAfterFirstHit]", isAbilityPresent, isAbilityPresent ? claymoreSilenceLaser.m_explosionDamageAfterFirstHit : 0);
 		desc += PropDesc(m_explosionReduceCooldownOnlyIfHitByAllyMod, "[ExplosionReduceCooldownOnlyIfHitByAlly]", isAbilityPresent, isAbilityPresent && claymoreSilenceLaser.m_explosionReduceCooldownOnlyIfHitByAlly);
 		desc += PropDesc(m_explosionCooldownReductionMod, "[ExplosionCooldownReduction]", isAbilityPresent, isAbilityPresent ? claymoreSilenceLaser.m_explosionCooldownReduction : 0);
-		return desc + PropDesc(m_canExplodeOncePerTurnMod, "[ExplodeOncePerTurn]", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_canExplodeOncePerTurnMod, "[ExplodeOncePerTurn]", isAbilityPresent)).ToString();
 	}
 }

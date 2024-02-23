@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 
 public class AppState_CreateGame : AppState
@@ -100,7 +101,7 @@ public class AppState_CreateGame : AppState
 				object obj;
 				if (response.LocalizedFailure == null)
 				{
-					obj = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : $"{response.ErrorMessage}#NeedsLocalization");
+					obj = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString());
 				}
 				else
 				{

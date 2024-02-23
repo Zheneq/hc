@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 [JsonConverter(typeof(JsonConverter))]
@@ -39,9 +40,15 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 
 	public List<CurrencyData> Data;
 
-	public CurrencyData this[int i] => Data[i];
+	public CurrencyData this[int i]
+	{
+		get { return Data[i]; }
+	}
 
-	public int Count => Data.Count;
+	public int Count
+	{
+		get { return Data.Count; }
+	}
 
 	public CurrencyWallet()
 	{
@@ -151,7 +158,7 @@ public class CurrencyWallet : IEnumerable<CurrencyData>, IEnumerable
 			{
 				while (true)
 				{
-					Log.Error($"Cannot withdraw {currencyType} amount {amount}, insufficient amount available.");
+					Log.Error(new StringBuilder().Append("Cannot withdraw ").Append(currencyType).Append(" amount ").Append(amount).Append(", insufficient amount available.").ToString());
 					return null;
 				}
 			}

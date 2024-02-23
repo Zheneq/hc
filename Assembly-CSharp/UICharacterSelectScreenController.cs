@@ -2,6 +2,7 @@ using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -75,7 +76,10 @@ public class UICharacterSelectScreenController : MonoBehaviour
 
 	private UICharacterSelectFactionFilter m_lastFilterBtnClicked;
 
-	public Canvas m_nameLabelCanvas => GetComponentInParent<Canvas>();
+	public Canvas m_nameLabelCanvas
+	{
+		get { return GetComponentInParent<Canvas>(); }
+	}
 
 	public bool DoesASelectedGame_OverrideFreelancerSelection
 	{
@@ -494,7 +498,9 @@ public class UICharacterSelectScreenController : MonoBehaviour
 								return false;
 							}
 						}
-						if (clientGameManager.GameTypeAvailabilies.TryGetValue(clientGameManager.GroupInfo.SelectedQueueType, out GameTypeAvailability value))
+
+						GameTypeAvailability value;
+						if (clientGameManager.GameTypeAvailabilies.TryGetValue(clientGameManager.GroupInfo.SelectedQueueType, out value))
 						{
 							int maxWillFillPerTeam = value.MaxWillFillPerTeam;
 							if (maxWillFillPerTeam < num3 + 1)
@@ -948,9 +954,12 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					Log.Warning("FAKING Selection of SubType for {0} XP penalty warning", gameType);
 				}
 			}
-			if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
+
+			GameTypeAvailability value;
+			if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out value))
 			{
-				if (!value.XPPenaltyTimeout.IsNullOrEmpty() && value.XPPenaltyTimeout.TryGetValue(num, out DateTime value2))
+				DateTime value2;
+				if (!value.XPPenaltyTimeout.IsNullOrEmpty() && value.XPPenaltyTimeout.TryGetValue(num, out value2))
 				{
 					if (value2 > clientGameManager.UtcNow())
 					{
@@ -1849,7 +1858,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 			{
 				DateTime d = new DateTime(m_createGameTimestamps[i]);
 				TimeSpan timeSpan = DateTime.UtcNow - d;
-				m_timeElapsedLabels[i].text = StringUtil.TR("TimeElapsed", "Global") + ": " + string.Format(StringUtil.TR("TimeFormat", "Global"), Mathf.FloorToInt((float)timeSpan.TotalMinutes), timeSpan.Seconds);
+				m_timeElapsedLabels[i].text = new StringBuilder().Append(StringUtil.TR("TimeElapsed", "Global")).Append(": ").Append(string.Format(StringUtil.TR("TimeFormat", "Global"), Mathf.FloorToInt((float)timeSpan.TotalMinutes), timeSpan.Seconds)).ToString();
 			}
 		}
 		while (true)
@@ -2171,7 +2180,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 					return;
 				}
 				int unlockFreelancerCurrencyPrice = UICharacterScreen.GetCurrentSpecificState().CharacterResourceLinkOfCharacterTypeToDisplay.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
-				m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
+				m_buyInGameLabel.text = new StringBuilder().Append("<sprite name=credit>").Append(unlockFreelancerCurrencyPrice).ToString();
 				UIManager.SetGameObjectActive(m_buyInGameButton, unlockFreelancerCurrencyPrice > 0);
 				string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
 				float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(UICharacterScreen.GetCurrentSpecificState().CharacterTypeToDisplay, accountCurrency);
@@ -2675,7 +2684,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 
 	public void RestoreFunctionalityOnGameStop(GameResult gameResult)
 	{
-		Log.Info("Restoring Functionality on game stop. GameResult: " + gameResult);
+		Log.Info(new StringBuilder().Append("Restoring Functionality on game stop. GameResult: ").Append(gameResult).ToString());
 		NavigationBar.Get().m_searchQueueText.text = string.Empty;
 		UIManager.SetGameObjectActive(NavigationBar.Get().m_cancelBtn, true);
 		CheckCancelBtnLabels();

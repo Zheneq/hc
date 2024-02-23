@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientActionBuffer : MonoBehaviour
@@ -65,7 +66,7 @@ public class ClientActionBuffer : MonoBehaviour
 			}
 			while (true)
 			{
-				Log.Warning("On Ability Phase Start: <color=magenta>" + m_abilityPhase.ToString() + "</color>\n@time = " + Time.time);
+				Log.Warning(new StringBuilder().Append("On Ability Phase Start: <color=magenta>").Append(m_abilityPhase.ToString()).Append("</color>\n@time = ").Append(Time.time).ToString());
 				return;
 			}
 		}

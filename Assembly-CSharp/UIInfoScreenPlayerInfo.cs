@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,23 +55,24 @@ public class UIInfoScreenPlayerInfo : MonoBehaviour
 			PlayerDetails playerDetails = GameFlow.Get().playerDetails[data.GetPlayer()];
 			if (playerDetails.m_accPrivateElo == playerDetails.m_usedMatchmakingElo)
 			{
-				m_playerName.text += $" A: {playerDetails.m_accPrivateElo:F0}";
+				m_playerName.text += new StringBuilder().Append(" A: ").AppendFormat("{0:F0}", playerDetails.m_accPrivateElo).ToString();
 			}
 			else if (playerDetails.m_charPrivateElo == playerDetails.m_usedMatchmakingElo)
 			{
-				m_playerName.text += $" C: {playerDetails.m_usedMatchmakingElo:F0}";
+				m_playerName.text += new StringBuilder().Append(" C: ").AppendFormat("{0:F0}", playerDetails.m_usedMatchmakingElo).ToString();
 			}
 			else
 			{
-				m_playerName.text += $" M: {playerDetails.m_usedMatchmakingElo:F0}";
+				m_playerName.text += new StringBuilder().Append(" M: ").AppendFormat("{0:F0}", playerDetails.m_usedMatchmakingElo).ToString();
 			}
-			m_playerClass.text += $" C: {playerDetails.m_charPrivateElo:F0}";
+
+			m_playerClass.text += new StringBuilder().Append(" C: ").AppendFormat("{0:F0}", playerDetails.m_charPrivateElo).ToString();
 		}
 		ActorBehavior actorBehavior = data.GetActorBehavior();
 		m_playerContribution.text = actorBehavior.totalPlayerContribution.ToString();
 		m_playerGold.text = data.GetItemData().credits.ToString();
 		m_playerTime.text = "?";
-		string text = actorBehavior.totalPlayerKills + " : " + actorBehavior.totalDeaths + " : " + actorBehavior.totalPlayerAssists;
+		string text = new StringBuilder().Append(actorBehavior.totalPlayerKills).Append(" : ").Append(actorBehavior.totalDeaths).Append(" : ").Append(actorBehavior.totalPlayerAssists).ToString();
 		m_playerKDA.text = text;
 		m_playerIcon.sprite = data.GetAliveHUDIcon();
 		if (GameFlowData.Get() != null && GameFlowData.Get().activeOwnedActorData == data)

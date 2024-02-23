@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public class SlashCommand_Replay_FastForward : SlashCommand
 {
@@ -33,7 +34,7 @@ public class SlashCommand_Replay_FastForward : SlashCommand
 									turn = Convert.ToInt32(array[0]),
 									phase = AbilityPriority.INVALID
 								});
-								TextConsole.Get().Write($"Fastforwarded to turn {array[0]}.");
+								TextConsole.Get().Write(new StringBuilder().Append("Fastforwarded to turn ").Append(array[0]).Append(".").ToString());
 								return;
 							}
 						}

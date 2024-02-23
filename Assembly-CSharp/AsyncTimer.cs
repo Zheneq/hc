@@ -39,7 +39,10 @@ public class AsyncTimer
 
 	private AsyncDelegate m_delegate;
 
-	public AsyncDelegate AsyncDelegate => m_delegate;
+	public AsyncDelegate AsyncDelegate
+	{
+		get { return m_delegate; }
+	}
 
 	public AsyncPump AsyncPump
 	{

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -46,7 +47,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal = 0f;
 		}
-		empty = str + AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[LaserWidth]", flag, baseVal);
+
+		empty = new StringBuilder().Append(str).Append(AbilityModHelper.GetModPropertyDesc(laserWidthMod, "[LaserWidth]", flag, baseVal)).ToString();
 		string str2 = empty;
 		AbilityModPropertyFloat minMeetingDistFromCasterMod = m_minMeetingDistFromCasterMod;
 		float baseVal2;
@@ -58,7 +60,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal2 = 0f;
 		}
-		empty = str2 + AbilityModHelper.GetModPropertyDesc(minMeetingDistFromCasterMod, "[MinMeetingDistFromCaster]", flag, baseVal2);
+
+		empty = new StringBuilder().Append(str2).Append(AbilityModHelper.GetModPropertyDesc(minMeetingDistFromCasterMod, "[MinMeetingDistFromCaster]", flag, baseVal2)).ToString();
 		empty += AbilityModHelper.GetModPropertyDesc(m_maxMeetingDistFromCasterMod, "[MaxMeetingDistFromCaster]", flag, (!flag) ? 0f : targetSelect_DualMeetingLasers.m_maxMeetingDistFromCaster);
 		string str3 = empty;
 		AbilityModPropertyFloat laserStartForwardOffsetMod = m_laserStartForwardOffsetMod;
@@ -71,7 +74,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal3 = 0f;
 		}
-		empty = str3 + AbilityModHelper.GetModPropertyDesc(laserStartForwardOffsetMod, "[LaserStartForwardOffset]", flag, baseVal3);
+
+		empty = new StringBuilder().Append(str3).Append(AbilityModHelper.GetModPropertyDesc(laserStartForwardOffsetMod, "[LaserStartForwardOffset]", flag, baseVal3)).ToString();
 		string str4 = empty;
 		AbilityModPropertyFloat laserStartSideOffsetMod = m_laserStartSideOffsetMod;
 		float baseVal4;
@@ -83,7 +87,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal4 = 0f;
 		}
-		empty = str4 + AbilityModHelper.GetModPropertyDesc(laserStartSideOffsetMod, "[LaserStartSideOffset]", flag, baseVal4);
+
+		empty = new StringBuilder().Append(str4).Append(AbilityModHelper.GetModPropertyDesc(laserStartSideOffsetMod, "[LaserStartSideOffset]", flag, baseVal4)).ToString();
 		string str5 = empty;
 		AbilityModPropertyFloat aoeBaseRadiusMod = m_aoeBaseRadiusMod;
 		float baseVal5;
@@ -95,7 +100,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal5 = 0f;
 		}
-		empty = str5 + AbilityModHelper.GetModPropertyDesc(aoeBaseRadiusMod, "[AoeBaseRadius]", flag, baseVal5);
+
+		empty = new StringBuilder().Append(str5).Append(AbilityModHelper.GetModPropertyDesc(aoeBaseRadiusMod, "[AoeBaseRadius]", flag, baseVal5)).ToString();
 		string str6 = empty;
 		AbilityModPropertyFloat aoeMinRadiusMod = m_aoeMinRadiusMod;
 		float baseVal6;
@@ -107,7 +113,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal6 = 0f;
 		}
-		empty = str6 + AbilityModHelper.GetModPropertyDesc(aoeMinRadiusMod, "[AoeMinRadius]", flag, baseVal6);
+
+		empty = new StringBuilder().Append(str6).Append(AbilityModHelper.GetModPropertyDesc(aoeMinRadiusMod, "[AoeMinRadius]", flag, baseVal6)).ToString();
 		string str7 = empty;
 		AbilityModPropertyFloat aoeMaxRadiusMod = m_aoeMaxRadiusMod;
 		float baseVal7;
@@ -119,7 +126,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal7 = 0f;
 		}
-		empty = str7 + AbilityModHelper.GetModPropertyDesc(aoeMaxRadiusMod, "[AoeMaxRadius]", flag, baseVal7);
+
+		empty = new StringBuilder().Append(str7).Append(AbilityModHelper.GetModPropertyDesc(aoeMaxRadiusMod, "[AoeMaxRadius]", flag, baseVal7)).ToString();
 		string str8 = empty;
 		AbilityModPropertyFloat aoeRadiusChangePerUnitFromMinMod = m_aoeRadiusChangePerUnitFromMinMod;
 		float baseVal8;
@@ -131,7 +139,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal8 = 0f;
 		}
-		empty = str8 + AbilityModHelper.GetModPropertyDesc(aoeRadiusChangePerUnitFromMinMod, "[AoeRadiusChangePerUnitFromMin]", flag, baseVal8);
+
+		empty = new StringBuilder().Append(str8).Append(AbilityModHelper.GetModPropertyDesc(aoeRadiusChangePerUnitFromMinMod, "[AoeRadiusChangePerUnitFromMin]", flag, baseVal8)).ToString();
 		string str9 = empty;
 		AbilityModPropertyFloat radiusMultIfPartialBlockMod = m_radiusMultIfPartialBlockMod;
 		float baseVal9;
@@ -143,7 +152,8 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal9 = 0f;
 		}
-		empty = str9 + AbilityModHelper.GetModPropertyDesc(radiusMultIfPartialBlockMod, "[RadiusMultIfPartialBlock]", flag, baseVal9);
+
+		empty = new StringBuilder().Append(str9).Append(AbilityModHelper.GetModPropertyDesc(radiusMultIfPartialBlockMod, "[RadiusMultIfPartialBlock]", flag, baseVal9)).ToString();
 		string str10 = empty;
 		AbilityModPropertyBool aoeIgnoreMinCoverDistMod = m_aoeIgnoreMinCoverDistMod;
 		int baseVal10;
@@ -155,6 +165,6 @@ public class TargetSelectMod_DualMeetingLasers : TargetSelectModBase
 		{
 			baseVal10 = 0;
 		}
-		return str10 + AbilityModHelper.GetModPropertyDesc(aoeIgnoreMinCoverDistMod, "[AoeIgnoreMinCoverDist]", flag, (byte)baseVal10 != 0);
+		return new StringBuilder().Append(str10).Append(AbilityModHelper.GetModPropertyDesc(aoeIgnoreMinCoverDistMod, "[AoeIgnoreMinCoverDist]", flag, (byte)baseVal10 != 0)).ToString();
 	}
 }

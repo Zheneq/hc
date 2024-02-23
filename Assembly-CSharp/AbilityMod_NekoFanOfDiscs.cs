@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NekoFanOfDiscs : AbilityMod
@@ -91,6 +92,6 @@ public class AbilityMod_NekoFanOfDiscs : AbilityMod
 		desc += PropDesc(m_returnTripEnergyOnCasterPerDiscMissMod, "[EnergyOnCasterPerDiscMiss]", isValid, isValid ? nekoFanOfDiscs.m_returnTripEnergyOnCasterPerDiscMiss : 0);
 		desc += PropDesc(m_effectOnSelfIfMissOnCastMod, "[EffectOnSelfIfMissOnCast]", isValid, isValid ? nekoFanOfDiscs.m_effectOnSelfIfMissOnCast : null);
 		desc += PropDesc(m_effectOnSelfIfMissOnDiscReturnMod, "[EffectOnSelfIfMissOnDiscReturn]", isValid, isValid ? nekoFanOfDiscs.m_effectOnSelfIfMissOnDiscReturn : null);
-		return desc + PropDesc(m_zeroEnergyRequiredTurnsMod, "[ZeroEnergyRequiredTurns]", isValid, isValid ? nekoFanOfDiscs.m_zeroEnergyRequiredTurns : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_zeroEnergyRequiredTurnsMod, "[ZeroEnergyRequiredTurns]", isValid, isValid ? nekoFanOfDiscs.m_zeroEnergyRequiredTurns : 0)).ToString();
 	}
 }

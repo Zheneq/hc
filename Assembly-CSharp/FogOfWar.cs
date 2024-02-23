@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -465,7 +466,7 @@ public class FogOfWar : MonoBehaviour
 				}
 				else
 				{
-					Log.Info($"Trying to set visible shade of square ({x}, {y}), but it's out of bounds");
+					Log.Info(new StringBuilder().Append("Trying to set visible shade of square (").Append(x).Append(", ").Append(y).Append("), but it's out of bounds").ToString());
 				}
 			}
 		}

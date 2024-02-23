@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class MantaBasicAttack : Ability
@@ -50,9 +51,7 @@ public class MantaBasicAttack : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\n" +
-		       "On Sequence, for HitActorGroupOnAnimEventSequence components, use:\n"
-		       + c_innerConeIdentifier + " for Inner cone group identifier\n";
+		return new StringBuilder().Append("<color=cyan>-- For Art --</color>\n").Append("On Sequence, for HitActorGroupOnAnimEventSequence components, use:\n").Append(c_innerConeIdentifier).Append(" for Inner cone group identifier\n").ToString();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()

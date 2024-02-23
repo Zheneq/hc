@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -346,13 +347,13 @@ public class UIStoreViewHeroPage : UIScene
 			if (m_panels[i].Panel == panel)
 			{
 				m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
-				m_panels[i].Button.m_totalCount.text = "/" + totalCount;
+				m_panels[i].Button.m_totalCount.text = new StringBuilder().Append("/").Append(totalCount).ToString();
 			}
 			num += m_panels[i].Panel.GetNumTotal();
 			num2 += m_panels[i].Panel.GetNumOwned();
 		}
 		m_totalOwnedText.text = num2.ToString();
-		m_totalTotalText.text = "/" + num;
+		m_totalTotalText.text = new StringBuilder().Append("/").Append(num).ToString();
 		if (num == 0)
 		{
 			while (true)
@@ -478,7 +479,7 @@ public class UIStoreViewHeroPage : UIScene
 						default:
 							{
 								int unlockFreelancerCurrencyPrice = m_charLink.m_charUnlockData.GetUnlockFreelancerCurrencyPrice();
-								m_buyInGameLabel.text = "<sprite name=credit>" + unlockFreelancerCurrencyPrice;
+								m_buyInGameLabel.text = new StringBuilder().Append("<sprite name=credit>").Append(unlockFreelancerCurrencyPrice).ToString();
 								UIManager.SetGameObjectActive(m_buyInGameButton, unlockFreelancerCurrencyPrice > 0);
 								string accountCurrency = HydrogenConfig.Get().Ticket.AccountCurrency;
 								float freelancerPrice = CommerceClient.Get().GetFreelancerPrice(m_charLink.m_characterType, accountCurrency);

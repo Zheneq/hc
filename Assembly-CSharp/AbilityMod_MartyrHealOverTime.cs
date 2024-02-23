@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MartyrHealOverTime : AbilityMod
@@ -62,6 +63,6 @@ public class AbilityMod_MartyrHealOverTime : AbilityMod
 		desc += PropDesc(m_baseSelfHealIfTargetAllyMod, "[BaseSelfHealIfTargetAlly]", isValid, isValid ? martyrHealOverTime.m_baseSelfHealIfTargetAlly : 0);
 		desc += PropDesc(m_selfHealPerCrystalIfTargetAllyMod, "[SelfHealPerCrystalIfTargetAlly]", isValid, isValid ? martyrHealOverTime.m_selfHealPerCrystalIfTargetAlly : 0);
 		desc += PropDesc(m_addHealEffectOnSelfIfTargetAllyMod, "[AddHealEffectOnSelfIfTargetAlly]", isValid, isValid && martyrHealOverTime.m_addHealEffectOnSelfIfTargetAlly);
-		return desc + PropDesc(m_healEffectOnSelfIfTargetAllyMod, "[HealEffectOnSelfIfTargetAlly]", isValid, isValid ? martyrHealOverTime.m_healEffectOnSelfIfTargetAlly : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healEffectOnSelfIfTargetAllyMod, "[HealEffectOnSelfIfTargetAlly]", isValid, isValid ? martyrHealOverTime.m_healEffectOnSelfIfTargetAlly : null)).ToString();
 	}
 }

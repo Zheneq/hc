@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -135,7 +136,10 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 
 	private static Dictionary<long, int> s_groupToColorMap = new Dictionary<long, int>();
 
-	public ActorData EntryActorData => m_actor;
+	public ActorData EntryActorData
+	{
+		get { return m_actor; }
+	}
 
 	private void ShowAbilityTooltip(Ability ability, AbilityMod abilityMod, UIAbilityTooltip tooltip)
 	{
@@ -519,7 +523,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 			}
 			if (m_KDANumber != null)
 			{
-				m_KDANumber.text = $"{statline.TotalPlayerAssists}:{statline.TotalDeaths}:{statline.TotalPlayerKills}";
+				m_KDANumber.text = new StringBuilder().Append(statline.TotalPlayerAssists).Append(":").Append(statline.TotalDeaths).Append(":").Append(statline.TotalPlayerKills).ToString();
 			}
 			if (m_TimePerTurn != null)
 			{
@@ -529,7 +533,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 				}
 				else
 				{
-					m_TimePerTurn.text = $"{statline.TotalPlayerLockInTime / (float)statline.TotalPlayerTurns:F2}";
+					m_TimePerTurn.text = new StringBuilder().AppendFormat("{0:F2}", statline.TotalPlayerLockInTime / (float)statline.TotalPlayerTurns).ToString();
 				}
 			}
 			if (secretButtonClicked)
@@ -729,18 +733,19 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 					{
 						if (secretButtonClicked)
 						{
-							m_DebugBotDifficultyText.text = $"AI Level: {(int)(lobbyPlayerInfo.Difficulty + 1)}";
+							m_DebugBotDifficultyText.text = new StringBuilder().Append("AI Level: ").Append((int)(lobbyPlayerInfo.Difficulty + 1)).ToString();
 						}
 					}
 					Dictionary<int, ForbiddenDevKnowledge> forbiddenDevKnowledge = GameManager.Get().ForbiddenDevKnowledge;
 					if (!forbiddenDevKnowledge.IsNullOrEmpty())
 					{
-						if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out ForbiddenDevKnowledge value))
+						ForbiddenDevKnowledge value;
+						if (forbiddenDevKnowledge.TryGetValue(lobbyPlayerInfo.PlayerId, out value))
 						{
 							if (m_DebugAccountELO != null)
 							{
 								string arg = (value.UsedMatchmakingElo == value.AccMatchmakingElo) ? "green" : "orange";
-								m_DebugAccountELO.text = $"<color={arg}>{value.UsedMatchmakingElo:F0}</color>";
+								m_DebugAccountELO.text = new StringBuilder().Append("<color=").Append(arg).Append(">").AppendFormat("{0:F0}", value.UsedMatchmakingElo).Append("</color>").ToString();
 							}
 							if (m_DebugCharacterELO != null)
 							{
@@ -751,7 +756,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 									s_nextColorId++;
 									s_groupToColorMap.Add(value.GroupIdAtStartOfMatch, value2);
 								}
-								m_DebugCharacterELO.text = $"<color={s_groupColors[value2]}>{value.CharMatchmakingElo:F0}</color>";
+
+								m_DebugCharacterELO.text = new StringBuilder().Append("<color=").Append(s_groupColors[value2]).Append(">").AppendFormat("{0:F0}", value.CharMatchmakingElo).Append("</color>").ToString();
 							}
 							goto IL_0916;
 						}

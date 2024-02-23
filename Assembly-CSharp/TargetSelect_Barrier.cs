@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
@@ -22,7 +23,7 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return "For placing a barrier, with optional laser templates in front and back.\n" + GetContextUsageStr(ContextKeys.s_BarrierWidth.GetName(), "non-actor specific context, set as width of barrier", false) + GetContextUsageStr(ContextKeys.s_CenterPos.GetName(), "non-actor specific context, center position of barrier", false) + GetContextUsageStr(ContextKeys.s_FacingDir.GetName(), "non-actor specific context, facing direction of barrier", false);
+		return new StringBuilder().Append("For placing a barrier, with optional laser templates in front and back.\n").Append(GetContextUsageStr(ContextKeys.s_BarrierWidth.GetName(), "non-actor specific context, set as width of barrier", false)).Append(GetContextUsageStr(ContextKeys.s_CenterPos.GetName(), "non-actor specific context, center position of barrier", false)).Append(GetContextUsageStr(ContextKeys.s_FacingDir.GetName(), "non-actor specific context, facing direction of barrier", false)).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> keys)
@@ -53,7 +54,9 @@ public class TargetSelect_Barrier : GenericAbility_TargetSelectBase
 	private List<ActorData> GetLaserHitActors(List<AbilityTarget> targets, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, IncludeAllies(), IncludeEnemies());
-		GetBarrierPositionAndFacing(targets, m_snapToGrid, out Vector3 position, out Vector3 facing);
+		Vector3 position;
+		Vector3 facing;
+		GetBarrierPositionAndFacing(targets, m_snapToGrid, out position, out facing);
 		return GetLaserHitActors(position, facing, caster, nonActorTargetInfo, m_snapToGrid, m_barrierWidth, m_laserRangeFront, m_laserRangeBack, m_ignoreLos, m_laserRangeIgnoreLos, relevantTeams);
 	}
 

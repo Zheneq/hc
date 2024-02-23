@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NanoSmithBlastShield : AbilityMod
@@ -36,6 +37,6 @@ public class AbilityMod_NanoSmithBlastShield : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_shieldEffectOverride, "{ Shield Effect }", isValid, isValid ? nanoSmithBlastShield.m_shieldEffect : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_healOnEndIfHasRemainingAbsorbMod, "[Heal If Has Remaining Absorb]", isValid, isValid ? nanoSmithBlastShield.m_healOnEndIfHasRemainingAbsorb : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_energyGainOnShieldTargetMod, "[Energy Gain on Shield Target]", isValid, isValid ? nanoSmithBlastShield.m_energyGainOnShieldTarget : 0);
-		return desc + PropDesc(m_extraEffectOnCasterIfTargetingAllyMod, "[ExtraEffectOnCasterIfTargetingAlly]", isValid, isValid ? nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEffectOnCasterIfTargetingAllyMod, "[ExtraEffectOnCasterIfTargetingAlly]", isValid, isValid ? nanoSmithBlastShield.m_extraEffectOnCasterIfTargetingAlly : null)).ToString();
 	}
 }

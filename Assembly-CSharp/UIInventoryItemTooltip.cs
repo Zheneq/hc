@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -38,7 +39,7 @@ public class UIInventoryItemTooltip : UITooltipBase
 		}
 		string text = InventoryWideData.TypeDisplayString(item);
 		m_titleText.text = item.GetDisplayName();
-		m_rarityText.text = item.Rarity.GetRarityString() + " " + text;
+		m_rarityText.text = new StringBuilder().Append(item.Rarity.GetRarityString()).Append(" ").Append(text).ToString();
 		if (item.Type != InventoryItemType.Experience)
 		{
 			if (item.Type != InventoryItemType.FreelancerExpBonus)
@@ -52,14 +53,14 @@ public class UIInventoryItemTooltip : UITooltipBase
 		string colorHexString = item.Rarity.GetColorHexString();
 		if (!colorHexString.IsNullOrEmpty())
 		{
-			m_titleText.text = "<color=" + colorHexString + ">" + m_titleText.text + "</color>";
-			m_rarityText.text = "<color=" + colorHexString + ">" + m_rarityText.text + "</color>";
+			m_titleText.text = new StringBuilder().Append("<color=").Append(colorHexString).Append(">").Append(m_titleText.text).Append("</color>").ToString();
+			m_rarityText.text = new StringBuilder().Append("<color=").Append(colorHexString).Append(">").Append(m_rarityText.text).Append("</color>").ToString();
 		}
 		m_desciptionText.text = item.GetDescription();
 		UIManager.SetGameObjectActive(m_descriptionDivider, !item.GetDescription().IsNullOrEmpty());
 		m_obtainedText.text = item.GetObtainDescription();
 		UIManager.SetGameObjectActive(m_obtainedDivider, !item.GetObtainDescription().IsNullOrEmpty());
-		m_flavorText.text = "<i>" + item.GetFlavorText() + "</i>";
+		m_flavorText.text = new StringBuilder().Append("<i>").Append(item.GetFlavorText()).Append("</i>").ToString();
 		UIManager.SetGameObjectActive(m_flavorDivider, !item.GetFlavorText().IsNullOrEmpty());
 		UIManager.SetGameObjectActive(m_flavorText, !item.GetFlavorText().IsNullOrEmpty());
 	}

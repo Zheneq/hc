@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,7 +33,7 @@ public class UIPlayerProgressRewardListEntry : MonoBehaviour
 					TextMeshProUGUI[] levelTexts = m_levelTexts;
 					foreach (TextMeshProUGUI textMeshProUGUI in levelTexts)
 					{
-						textMeshProUGUI.text = $"+{reward.repeatLevels.ToString()}";
+						textMeshProUGUI.text = new StringBuilder().Append("+").Append(reward.repeatLevels.ToString()).ToString();
 					}
 					while (true)
 					{

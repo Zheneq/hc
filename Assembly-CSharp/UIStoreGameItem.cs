@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -86,7 +87,7 @@ public class UIStoreGameItem : MonoBehaviour
 									m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice2, accountCurrency);
 									UIManager.SetGameObjectActive(m_discountBanner, gamePackPrice2 < originalPrice2);
 									UIManager.SetGameObjectActive(m_originalPriceContainer, gamePackPrice2 < originalPrice2);
-									m_originalPrice.text = "<s>" + UIStorePanel.GetLocalizedPriceString(originalPrice2, accountCurrency) + "</s>";
+									m_originalPrice.text = new StringBuilder().Append("<s>").Append(UIStorePanel.GetLocalizedPriceString(originalPrice2, accountCurrency)).Append("</s>").ToString();
 									UIManager.SetGameObjectActive(m_upgradeOriginalPriceContainer, gamePackPrice2 == originalPrice2);
 									break;
 								}
@@ -106,7 +107,7 @@ public class UIStoreGameItem : MonoBehaviour
 						UIManager.SetGameObjectActive(m_upgradeOriginalPriceContainer, false);
 						m_currentPrice.text = UIStorePanel.GetLocalizedPriceString(gamePackPrice, accountCurrency);
 						UIManager.SetGameObjectActive(m_discountBanner, originalPrice > gamePackPrice);
-						m_originalPrice.text = "<s>" + UIStorePanel.GetLocalizedPriceString(originalPrice, accountCurrency) + "</s>";
+						m_originalPrice.text = new StringBuilder().Append("<s>").Append(UIStorePanel.GetLocalizedPriceString(originalPrice, accountCurrency)).Append("</s>").ToString();
 						UIManager.SetGameObjectActive(m_originalPriceContainer, originalPrice > gamePackPrice);
 					}
 					m_banner.sprite = pack.Sprite;

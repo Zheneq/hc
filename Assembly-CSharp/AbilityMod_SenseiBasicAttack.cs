@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SenseiBasicAttack : AbilityMod
@@ -80,6 +81,6 @@ public class AbilityMod_SenseiBasicAttack : AbilityMod
 		desc += PropDesc(m_cdrOnAbilityMod, "[CdrOnAbility]", isValid, isValid ? senseiBasicAttack.m_cdrOnAbility : 0);
 		desc += PropDesc(m_cdrMinTriggerHitCountMod, "[CdrMinTriggerHitCount]", isValid, isValid ? senseiBasicAttack.m_cdrMinTriggerHitCount : 0);
 		desc += PropDesc(m_absorbPerEnemyHitOnTurnStartMod, "[AbsorbPerEnemyHitOnTurnStart]", isValid, isValid ? senseiBasicAttack.m_absorbPerEnemyHitOnTurnStart : 0);
-		return desc + PropDesc(m_absorbAmountIfTriggeredHitCountMod, "[AbsorbAmountIfTriggeredHitCount]", isValid, isValid ? senseiBasicAttack.m_absorbAmountIfTriggeredHitCount : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_absorbAmountIfTriggeredHitCountMod, "[AbsorbAmountIfTriggeredHitCount]", isValid, isValid ? senseiBasicAttack.m_absorbAmountIfTriggeredHitCount : 0)).ToString();
 	}
 }

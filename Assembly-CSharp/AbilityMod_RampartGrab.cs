@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RampartGrab : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_RampartGrab : AbilityMod
 		desc += PropDesc(m_laserWidthMod, "[LaserWidth]", isAbilityPresent, isAbilityPresent ? rampartGrab.m_laserWidth : 0f);
 		desc += PropDesc(m_penetrateLosMod, "[PenetrateLos]", isAbilityPresent, isAbilityPresent && rampartGrab.m_penetrateLos);
 		desc += PropDesc(m_destinationSelectRangeMod, "[DestinationSelectRange]", isAbilityPresent, isAbilityPresent ? rampartGrab.m_destinationSelectRange : 0f);
-		return desc + PropDesc(m_destinationAngleDegWithBackMod, "[DestinationAngleDegWithBack]", isAbilityPresent, isAbilityPresent ? rampartGrab.m_destinationAngleDegWithBack : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_destinationAngleDegWithBackMod, "[DestinationAngleDegWithBack]", isAbilityPresent, isAbilityPresent ? rampartGrab.m_destinationAngleDegWithBack : 0)).ToString();
 	}
 }

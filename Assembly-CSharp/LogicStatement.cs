@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public static class LogicStatement
 {
@@ -161,7 +162,7 @@ public static class LogicStatement
 			int num = 65;
 			for (int i = 0; i < prereqs.Conditions.Count; i++)
 			{
-				text = ((!text.IsNullOrEmpty()) ? (text + " & " + Convert.ToChar(num)) : Convert.ToChar(num).ToString());
+				text = ((!text.IsNullOrEmpty()) ? new StringBuilder().Append(text).Append(" & ").Append(Convert.ToChar(num)).ToString() : Convert.ToChar(num).ToString());
 				num++;
 			}
 		}

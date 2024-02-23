@@ -54,7 +54,8 @@ public class ThiefPowerupReturnProjectileSequence : ArcingProjectileSequence
 		base.Initialize(extraParams);
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is PowerupTypeExtraParams powerupTypeExtraParams)
+			PowerupTypeExtraParams powerupTypeExtraParams = extraSequenceParams as PowerupTypeExtraParams;
+			if (powerupTypeExtraParams != null)
 			{
 				m_powerupCategoryInt = powerupTypeExtraParams.powerupCategory;
 			}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
@@ -60,6 +61,6 @@ public class AbilityMod_ValkyriePullToLaserCenter : AbilityMod
 		desc += PropDesc(m_centerHitWidthMod, "[CenterHitWidth]", isValid, isValid ? valkyriePullToLaserCenter.m_centerHitWidth : 0f);
 		desc += PropDesc(m_maxKnockbackDistMod, "[MaxKnockbackDist]", isValid, isValid ? valkyriePullToLaserCenter.m_maxKnockbackDist : 0f);
 		desc += PropDesc(m_knockbackTypeMod, "[KnockbackType]", isValid, isValid ? valkyriePullToLaserCenter.m_knockbackType : KnockbackType.AwayFromSource);
-		return desc + PropDesc(m_nextTurnStabSkipsDamageReduction, "[NextTurnStabSkipsDamageReduction]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_nextTurnStabSkipsDamageReduction, "[NextTurnStabSkipsDamageReduction]", isValid)).ToString();
 	}
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro
@@ -57,15 +58,21 @@ namespace TMPro
 			}
 		}
 
-		public CanvasRenderer canvasRenderer => m_inlineGraphicCanvasRenderer;
+		public CanvasRenderer canvasRenderer
+		{
+			get { return m_inlineGraphicCanvasRenderer; }
+		}
 
-		public UIVertex[] uiVertex => m_uiVertex;
+		public UIVertex[] uiVertex
+		{
+			get { return m_uiVertex; }
+		}
 
 		private void Awake()
 		{
 			if (!TMP_Settings.warningsDisabled)
 			{
-				Debug.LogWarning("InlineGraphicManager component is now Obsolete and has been removed from [" + base.gameObject.name + "] along with its InlineGraphic child.", this);
+				Debug.LogWarning(new StringBuilder().Append("InlineGraphicManager component is now Obsolete and has been removed from [").Append(base.gameObject.name).Append("] along with its InlineGraphic child.").ToString(), this);
 			}
 			if (inlineGraphic.gameObject != null)
 			{

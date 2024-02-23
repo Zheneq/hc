@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,7 +50,7 @@ public class UITutorialSeasonLevelBar : MonoBehaviour
 			{
 				str = "DisabledIDLE";
 			}
-			animator.Play(animationBaseString + (string)str);
+			animator.Play(new StringBuilder().Append(animationBaseString).Append((string)str).ToString());
 		}
 		return true;
 	}

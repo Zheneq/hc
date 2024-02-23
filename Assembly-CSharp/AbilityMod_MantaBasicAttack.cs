@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MantaBasicAttack : AbilityMod
@@ -57,6 +58,6 @@ public class AbilityMod_MantaBasicAttack : AbilityMod
 		desc += PropDesc(m_effectInnerMod, "[EffectInner]", isValid, isValid ? mantaBasicAttack.m_effectInner : null);
 		desc += PropDesc(m_effectOuterMod, "[EffectOuter]", isValid, isValid ? mantaBasicAttack.m_effectOuter : null);
 		desc += PropDesc(m_additionalDirtyFightingExplosionEffect, "[ExtraBugExplosionEffect]", isValid);
-		return desc + PropDesc(m_disruptBrushInConeMod, "[DisruptBrushInCone]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_disruptBrushInConeMod, "[DisruptBrushInCone]", isValid)).ToString();
 	}
 }

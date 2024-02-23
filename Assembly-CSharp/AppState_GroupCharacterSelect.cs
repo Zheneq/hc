@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AppState_GroupCharacterSelect : AppState
@@ -212,7 +213,7 @@ public class AppState_GroupCharacterSelect : AppState
 						string description;
 						if (response.LocalizedFailure == null)
 						{
-							description = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : $"{response.ErrorMessage}#NeedsLocalization");
+							description = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString());
 						}
 						else
 						{
@@ -518,7 +519,7 @@ public class AppState_GroupCharacterSelect : AppState
 							case 0:
 								break;
 							default:
-								UIDialogPopupManager.OpenOneButtonDialog(string.Empty, $"{response.ErrorMessage}#NeedsLocalization", StringUtil.TR("Ok", "Global"));
+								UIDialogPopupManager.OpenOneButtonDialog(string.Empty, new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString(), StringUtil.TR("Ok", "Global"));
 								return;
 							}
 						}
@@ -680,7 +681,7 @@ public class AppState_GroupCharacterSelect : AppState
 				}
 				else
 				{
-					description = $"{response.ErrorMessage}#NeedsLocalization";
+					description = new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString();
 				}
 				UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 			}

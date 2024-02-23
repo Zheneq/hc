@@ -1,3 +1,5 @@
+using System.Text;
+
 public class DebugCommand_Discord : DebugCommand
 {
 	public override bool AvailableInFrontEnd()
@@ -88,7 +90,7 @@ public class DebugCommand_Discord : DebugCommand
 						}
 					}
 					Log.Info("Discord | debugOutput={0}", result3);
-					TextConsole.Get().Write("Discord | debugOutput=" + result3);
+					TextConsole.Get().Write(new StringBuilder().Append("Discord | debugOutput=").Append(result3).ToString());
 					DiscordClientInterface.s_debugOutput = result3;
 				}
 				goto IL_02b0;

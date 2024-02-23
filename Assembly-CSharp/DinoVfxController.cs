@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class DinoVfxController : CopyableVfxControllerComponent
@@ -48,7 +49,7 @@ public class DinoVfxController : CopyableVfxControllerComponent
 			}
 			else if (Application.isEditor)
 			{
-				Debug.LogWarning("Failed to spawn vfx on joint in " + GetType());
+				Debug.LogWarning(new StringBuilder().Append("Failed to spawn vfx on joint in ").Append(GetType()).ToString());
 			}
 		}
 	}

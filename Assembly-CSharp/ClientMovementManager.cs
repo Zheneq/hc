@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -140,13 +141,13 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			for (int i = 0; i < m_movingActors.Count; i++)
 			{
 				string text2 = text;
-				text = text2 + "\n\t" + i + ". " + m_movingActors[i].ToString();
+				text = new StringBuilder().Append(text2).Append("\n\t").Append(i).Append(". ").Append(m_movingActors[i].ToString()).ToString();
 			}
-			Debug.LogError("Client received ServerMovementStarting message for movement type " + currentMovementType.ToString() + ", but ClientMovementManager still has " + m_movingActors.Count + " moving actors:" + text);
+			Debug.LogError(new StringBuilder().Append("Client received ServerMovementStarting message for movement type ").Append(currentMovementType.ToString()).Append(", but ClientMovementManager still has ").Append(m_movingActors.Count).Append(" moving actors:").Append(text).ToString());
 		}
 		if (m_currentMovementType != 0)
 		{
-			Debug.LogError("Client received ServerMovementStarting message for movement type " + currentMovementType.ToString() + ", but ClientMovementManager is still in MovementType " + m_currentMovementType.ToString() + ".");
+			Debug.LogError(new StringBuilder().Append("Client received ServerMovementStarting message for movement type ").Append(currentMovementType.ToString()).Append(", but ClientMovementManager is still in MovementType ").Append(m_currentMovementType.ToString()).Append(".").ToString());
 		}
 		m_movingActors.Clear();
 		for (int j = 0; j < num; j++)
@@ -209,7 +210,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			{
 				if (!actorMovementEntry.m_doomed)
 				{
-					Debug.LogError("One of the actors claimed to be moving is dead (" + actor.DebugNameString() + "), but the server doesn't consider him doomed.");
+					Debug.LogError(new StringBuilder().Append("One of the actors claimed to be moving is dead (").Append(actor.DebugNameString()).Append("), but the server doesn't consider him doomed.").ToString());
 				}
 				flag = true;
 			}
@@ -226,7 +227,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 								goto IL_0127;
 							}
 						}
-						Debug.LogError("One of the actors claimed to be moving is ragdolled (" + actor.DebugNameString() + "), but the server doesn't consider him doomed.");
+						Debug.LogError(new StringBuilder().Append("One of the actors claimed to be moving is ragdolled (").Append(actor.DebugNameString()).Append("), but the server doesn't consider him doomed.").ToString());
 					}
 					goto IL_0127;
 				}
@@ -383,10 +384,10 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						}
 						else
 						{
-							obj = "(" + dest.x + ", " + dest.y + ")";
+							obj = new StringBuilder().Append("(").Append(dest.x).Append(", ").Append(dest.y).Append(")").ToString();
 						}
 						string text = (string)obj;
-						Debug.LogError("Friendly-to-client actor " + mover.DebugNameString() + " started moving to boardsquare " + text + " with MovementType " + actorMovementType.ToString() + ", and ClientMovementManager has him moving, but manager's current movement type is " + m_currentMovementType.ToString() + "  Declaring it done...");
+						Debug.LogError(new StringBuilder().Append("Friendly-to-client actor ").Append(mover.DebugNameString()).Append(" started moving to boardsquare ").Append(text).Append(" with MovementType ").Append(actorMovementType.ToString()).Append(", and ClientMovementManager has him moving, but manager's current movement type is ").Append(m_currentMovementType.ToString()).Append("  Declaring it done...").ToString());
 					}
 					actorMovementEntry.m_progressState = ActorMovementEntry.MovementProgressState.FinishedMovement;
 					break;
@@ -485,14 +486,14 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			{
 				if (m_movedButUnhandledActors.Count > 0)
 				{
-					string str = "There were " + m_movedButUnhandledActors.Count + " actor(s) with unhandled movement even after examining new movement.  Unhandled actors:";
+					string str = new StringBuilder().Append("There were ").Append(m_movedButUnhandledActors.Count).Append(" actor(s) with unhandled movement even after examining new movement.  Unhandled actors:").ToString();
 					for (int k = 0; k < m_movedButUnhandledActors.Count; k++)
 					{
-						str = str + "\n\t" + m_movedButUnhandledActors[k].DebugNameString();
+						str = new StringBuilder().Append(str).Append("\n\t").Append(m_movedButUnhandledActors[k].DebugNameString()).ToString();
 					}
 					while (true)
 					{
-						Debug.LogError(str + "\nClearing them...");
+						Debug.LogError(new StringBuilder().Append(str).Append("\nClearing them...").ToString());
 						m_movedButUnhandledActors.Clear();
 						return;
 					}
@@ -529,7 +530,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 		int num = reader.ReadInt32();
 		sbyte b = reader.ReadSByte();
 		List<ActorData> list = new List<ActorData>();
-		string text = "Actors not done resolving (turn " + num + ")";
+		string text = new StringBuilder().Append("Actors not done resolving (turn ").Append(num).Append(")").ToString();
 		for (int i = 0; i < b; i++)
 		{
 			int num2 = reader.ReadInt32();
@@ -541,7 +542,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			if (actorData != null)
 			{
 				list.Add(actorData);
-				text = text + "\n\t" + actorData.DebugNameString();
+				text = new StringBuilder().Append(text).Append("\n\t").Append(actorData.DebugNameString()).ToString();
 			}
 		}
 		while (true)
@@ -577,7 +578,7 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						case 0:
 							break;
 						default:
-							Debug.Log("ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe.");
+							Debug.Log(new StringBuilder().Append("ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; but our state is Idle, so it doesn't apply to us.\n").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nIgnoring failsafe.").ToString());
 							return;
 						}
 					}
@@ -591,12 +592,12 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 						case 0:
 							break;
 						default:
-							Debug.LogWarning("ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; but the client doesn't know of any actors still resolving, so that's unexpected.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nIgnoring failsafe... I guess...");
+							Debug.LogWarning(new StringBuilder().Append("ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; but the client doesn't know of any actors still resolving, so that's unexpected.\n").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nIgnoring failsafe... I guess...").ToString());
 							return;
 						}
 					}
 				}
-				Debug.LogWarning("ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n" + text + "\n(This client = " + GameFlowData.Get().GetActiveOwnedActorDataDebugNameString() + ".)\nExecuting failsafe...");
+				Debug.LogWarning(new StringBuilder().Append("ServerMovementManager sent 'hurry' failsafe to clients, and we ARE included in the list of actors-still-resolving; the failsafe applies to us.\n").Append(text).Append("\n(This client = ").Append(GameFlowData.Get().GetActiveOwnedActorDataDebugNameString()).Append(".)\nExecuting failsafe...").ToString());
 				ExecuteMovementFailsafe();
 				return;
 			}

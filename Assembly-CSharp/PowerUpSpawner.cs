@@ -56,27 +56,33 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 	private bool m_initialized;
 	private bool m_isReady = true;
 
-	public BoardSquare boardSquare => m_boardSquare;
+	public BoardSquare boardSquare
+	{
+		get { return m_boardSquare; }
+	}
 
-	public bool IsEnabled => m_spawningEnabled && m_isReady;
+	public bool IsEnabled
+	{
+		get { return m_spawningEnabled && m_isReady; }
+	}
 
 	public uint Networkm_sequenceSourceId
 	{
-		get => m_sequenceSourceId;
+		get { return m_sequenceSourceId; }
 		[param: In]
-		set => SetSyncVar(value, ref m_sequenceSourceId, 1u);
+		set { SetSyncVar(value, ref m_sequenceSourceId, 1u); }
 	}
 
 	public int Networkm_nextPowerupPrefabIndex
 	{
-		get => m_nextPowerupPrefabIndex;
+		get { return m_nextPowerupPrefabIndex; }
 		[param: In]
-		set => SetSyncVar(value, ref m_nextPowerupPrefabIndex, 2u);
+		set { SetSyncVar(value, ref m_nextPowerupPrefabIndex, 2u); }
 	}
 
 	public int Networkm_nextSpawnTurn
 	{
-		get => m_nextSpawnTurn;
+		get { return m_nextSpawnTurn; }
 		[param: In]
 		set
 		{
@@ -92,9 +98,9 @@ public class PowerUpSpawner : NetworkBehaviour, PowerUp.IPowerUpListener, IGameE
 
 	public bool Networkm_spawningEnabled
 	{
-		get => m_spawningEnabled;
+		get { return m_spawningEnabled; }
 		[param: In]
-		set => SetSyncVar(value, ref m_spawningEnabled, 8u);
+		set { SetSyncVar(value, ref m_spawningEnabled, 8u); }
 	}
 
 	private int ChooseNextPrefabSpawnIndex(bool isForFirstSpawn = false)

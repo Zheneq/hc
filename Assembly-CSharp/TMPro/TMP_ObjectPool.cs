@@ -18,9 +18,15 @@ namespace TMPro
 			private set;
 		}
 
-		public int countActive => countAll - countInactive;
+		public int countActive
+		{
+			get { return countAll - countInactive; }
+		}
 
-		public int countInactive => m_Stack.Count;
+		public int countInactive
+		{
+			get { return m_Stack.Count; }
+		}
 
 		public TMP_ObjectPool(UnityAction<T> actionOnGet, UnityAction<T> actionOnRelease)
 		{

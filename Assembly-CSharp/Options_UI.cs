@@ -207,7 +207,10 @@ public class Options_UI : UIScene, IGameEventListener
 
 	public TextMeshProUGUI m_optionsLabelText;
 
-	public string ActiveStateName => m_activeState.ToString();
+	public string ActiveStateName
+	{
+		get { return m_activeState.ToString(); }
+	}
 
 	public static Options_UI Get()
 	{
@@ -1167,7 +1170,7 @@ public class Options_UI : UIScene, IGameEventListener
 					case 0:
 						break;
 					default:
-						Get().SetResolutionText(m_pendingState.resolutionWidth + " x " + m_pendingState.resolutionHeight);
+						Get().SetResolutionText(new StringBuilder().Append(m_pendingState.resolutionWidth).Append(" x ").Append(m_pendingState.resolutionHeight).ToString());
 						return;
 					}
 				}
@@ -1184,7 +1187,7 @@ public class Options_UI : UIScene, IGameEventListener
 		UIManager.SetGameObjectActive(m_windowModeDropdown, false);
 		m_pendingState.resolutionWidth = Screen.currentResolution.width;
 		m_pendingState.resolutionHeight = Screen.currentResolution.height;
-		SetResolutionText(m_pendingState.resolutionWidth + " x " + m_pendingState.resolutionHeight);
+		SetResolutionText(new StringBuilder().Append(m_pendingState.resolutionWidth).Append(" x ").Append(m_pendingState.resolutionHeight).ToString());
 	}
 
 	public void OnResolution(BaseEventData data)
@@ -1309,7 +1312,7 @@ public class Options_UI : UIScene, IGameEventListener
 					case 0:
 						break;
 					default:
-						Get().SetGameResolutionText(m_pendingState.gameResolutionWidth + " x " + m_pendingState.gameResolutionHeight);
+						Get().SetGameResolutionText(new StringBuilder().Append(m_pendingState.gameResolutionWidth).Append(" x ").Append(m_pendingState.gameResolutionHeight).ToString());
 						return;
 					}
 				}
@@ -1326,7 +1329,7 @@ public class Options_UI : UIScene, IGameEventListener
 		UIManager.SetGameObjectActive(m_gameWindowModeDropdown, false);
 		m_pendingState.gameResolutionWidth = Screen.currentResolution.width;
 		m_pendingState.gameResolutionHeight = Screen.currentResolution.height;
-		SetGameResolutionText(m_pendingState.gameResolutionWidth + " x " + m_pendingState.gameResolutionHeight);
+		SetGameResolutionText(new StringBuilder().Append(m_pendingState.gameResolutionWidth).Append(" x ").Append(m_pendingState.gameResolutionHeight).ToString());
 	}
 
 	public void OnGameResolution(BaseEventData data)
@@ -1645,7 +1648,7 @@ public class Options_UI : UIScene, IGameEventListener
 			TextMeshProUGUI[] componentsInChildren = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 			for (int i = 0; i < componentsInChildren.Length; i++)
 			{
-				componentsInChildren[i].text = resolution.width + " x " + resolution.height;
+				componentsInChildren[i].text = new StringBuilder().Append(resolution.width).Append(" x ").Append(resolution.height).ToString();
 			}
 			while (true)
 			{
@@ -1820,7 +1823,7 @@ public class Options_UI : UIScene, IGameEventListener
 				}
 			}
 		}
-		SetGameResolutionText(resolutionSetting.resolution.width + " x " + resolutionSetting.resolution.height);
+		SetGameResolutionText(new StringBuilder().Append(resolutionSetting.resolution.width).Append(" x ").Append(resolutionSetting.resolution.height).ToString());
 	}
 
 	public void OnSpecificResolution(BaseEventData data)
@@ -1848,7 +1851,7 @@ public class Options_UI : UIScene, IGameEventListener
 		}
 		else
 		{
-			SetResolutionText(resolutionSetting.resolution.width + " x " + resolutionSetting.resolution.height);
+			SetResolutionText(new StringBuilder().Append(resolutionSetting.resolution.width).Append(" x ").Append(resolutionSetting.resolution.height).ToString());
 		}
 	}
 

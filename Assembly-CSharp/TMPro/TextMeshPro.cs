@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
@@ -107,7 +108,10 @@ namespace TMPro
 		}
 
 		[Obsolete("The TextContainer is now obsolete. Use the RectTransform instead.")]
-		public TextContainer textContainer => null;
+		public TextContainer textContainer
+		{
+			get { return null; }
+		}
 
 		public new Transform transform
 		{
@@ -224,7 +228,7 @@ namespace TMPro
 					case 0:
 						break;
 					default:
-						Debug.LogWarning("Please assign a Font Asset to this " + transform.name + " gameobject.", this);
+						Debug.LogWarning(new StringBuilder().Append("Please assign a Font Asset to this ").Append(transform.name).Append(" gameobject.").ToString(), this);
 						return;
 					}
 				}
@@ -290,7 +294,7 @@ namespace TMPro
 				}
 				if (m_fontAsset == null)
 				{
-					Debug.LogWarning("The LiberationSans SDF Font Asset was not found. There is no Font Asset assigned to " + base.gameObject.name + ".", this);
+					Debug.LogWarning(new StringBuilder().Append("The LiberationSans SDF Font Asset was not found. There is no Font Asset assigned to ").Append(base.gameObject.name).Append(".").ToString(), this);
 					return;
 				}
 				if (m_fontAsset.characterDictionary == null)
@@ -916,7 +920,9 @@ namespace TMPro
 					isUsingAlternateTypeface = true;
 					m_currentFontAsset = fontAssetForWeight;
 				}
-				fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out TMP_Glyph glyph);
+
+				TMP_Glyph glyph;
+				fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out glyph);
 				if (glyph == null)
 				{
 					TMP_SpriteAsset spriteAsset = base.spriteAsset;
@@ -1025,7 +1031,7 @@ namespace TMPro
 						fontAssetForWeight = TMP_FontUtilities.SearchForGlyph(m_currentFontAsset, num2, out glyph);
 						if (!TMP_Settings.warningsDisabled)
 						{
-							Debug.LogWarning("Character with ASCII value of " + num2 + " was not found in the Font Asset Glyph Table. It was replaced by a space.", this);
+							Debug.LogWarning(new StringBuilder().Append("Character with ASCII value of ").Append(num2).Append(" was not found in the Font Asset Glyph Table. It was replaced by a space.").ToString(), this);
 						}
 					}
 				}
@@ -1169,7 +1175,6 @@ namespace TMPro
 						{
 							continue;
 						}
-						ref TMP_MeshInfo reference = ref m_textInfo.meshInfo[j];
 						int size;
 						if (referenceCount > 1024)
 						{
@@ -1179,7 +1184,7 @@ namespace TMPro
 						{
 							size = Mathf.Max(Mathf.NextPowerOfTwo(referenceCount), 256);
 						}
-						reference.ResizeMeshInfo(size, m_isVolumetricText);
+						m_textInfo.meshInfo[j].ResizeMeshInfo(size, m_isVolumetricText);
 						continue;
 					}
 				}
@@ -1562,7 +1567,6 @@ namespace TMPro
 								break;
 								IL_2b9b:
 								m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex = m_firstCharacterOfLine;
-								ref TMP_LineInfo reference = ref m_textInfo.lineInfo[m_lineNumber];
 								int num22;
 								if (m_firstCharacterOfLine > m_firstVisibleCharacterOfLine)
 								{
@@ -1574,9 +1578,8 @@ namespace TMPro
 								}
 								int firstVisibleCharacterIndex = num22;
 								m_firstVisibleCharacterOfLine = num22;
-								reference.firstVisibleCharacterIndex = firstVisibleCharacterIndex;
+								m_textInfo.lineInfo[m_lineNumber].firstVisibleCharacterIndex = firstVisibleCharacterIndex;
 								m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex = (m_lastCharacterOfLine = m_characterCount);
-								ref TMP_LineInfo reference2 = ref m_textInfo.lineInfo[m_lineNumber];
 								int num23;
 								if (m_lastVisibleCharacterOfLine < m_firstVisibleCharacterOfLine)
 								{
@@ -1588,7 +1591,7 @@ namespace TMPro
 								}
 								firstVisibleCharacterIndex = num23;
 								m_lastVisibleCharacterOfLine = num23;
-								reference2.lastVisibleCharacterIndex = firstVisibleCharacterIndex;
+								m_textInfo.lineInfo[m_lineNumber].lastVisibleCharacterIndex = firstVisibleCharacterIndex;
 								m_textInfo.lineInfo[m_lineNumber].characterCount = m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex - m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex + 1;
 								m_textInfo.lineInfo[m_lineNumber].visibleCharacterCount = m_lineVisibleCharacterCount;
 								float num24;
@@ -1798,7 +1801,6 @@ namespace TMPro
 												TMP_TextInfo.Resize(ref m_textInfo.pageInfo, m_pageNumber + 1, true);
 											}
 											m_textInfo.pageInfo[m_pageNumber].ascender = num18;
-											ref TMP_PageInfo reference3 = ref m_textInfo.pageInfo[m_pageNumber];
 											float descender;
 											if (num30 < m_textInfo.pageInfo[m_pageNumber].descender)
 											{
@@ -1808,7 +1810,7 @@ namespace TMPro
 											{
 												descender = m_textInfo.pageInfo[m_pageNumber].descender;
 											}
-											reference3.descender = descender;
+											m_textInfo.pageInfo[m_pageNumber].descender = descender;
 											if (m_pageNumber == 0)
 											{
 												if (m_characterCount == 0)
@@ -1927,7 +1929,7 @@ namespace TMPro
 													}
 													else
 													{
-														Debug.LogWarning("Unable to use Ellipsis character since it wasn't found in the current Font Asset [" + m_fontAsset.name + "]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.", this);
+														Debug.LogWarning(new StringBuilder().Append("Unable to use Ellipsis character since it wasn't found in the current Font Asset [").Append(m_fontAsset.name).Append("]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.").ToString(), this);
 													}
 													m_totalCharacterCount = num16 + 1;
 													GenerateTextMesh();
@@ -2166,7 +2168,8 @@ namespace TMPro
 								{
 									int character = m_textInfo.characterInfo[m_characterCount - 1].character;
 									KerningPairKey kerningPairKey = new KerningPairKey(character, num8);
-									m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out KerningPair value);
+									KerningPair value;
+									m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out value);
 									if (value != null)
 									{
 										m_xAdvance += value.XadvanceOffset * num6;
@@ -2624,7 +2627,7 @@ namespace TMPro
 										}
 										else
 										{
-											Debug.LogWarning("Unable to use Ellipsis character since it wasn't found in the current Font Asset [" + m_fontAsset.name + "]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.", this);
+											Debug.LogWarning(new StringBuilder().Append("Unable to use Ellipsis character since it wasn't found in the current Font Asset [").Append(m_fontAsset.name).Append("]. Consider regenerating this font asset to include the Ellipsis character (u+2026).\nNote: Warnings can be disabled in the TMP Settings file.").ToString(), this);
 										}
 										m_totalCharacterCount = num16 + 1;
 										GenerateTextMesh();
@@ -2700,7 +2703,6 @@ namespace TMPro
 								m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex = m_firstCharacterOfLine;
 								m_textInfo.lineInfo[m_lineNumber].firstVisibleCharacterIndex = (m_firstVisibleCharacterOfLine = ((m_firstCharacterOfLine <= m_firstVisibleCharacterOfLine) ? m_firstVisibleCharacterOfLine : m_firstCharacterOfLine));
 								m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex = (m_lastCharacterOfLine = ((m_characterCount - 1 > 0) ? (m_characterCount - 1) : 0));
-								ref TMP_LineInfo reference4 = ref m_textInfo.lineInfo[m_lineNumber];
 								int num53;
 								if (m_lastVisibleCharacterOfLine < m_firstVisibleCharacterOfLine)
 								{
@@ -2712,7 +2714,7 @@ namespace TMPro
 								}
 								firstVisibleCharacterIndex = num53;
 								m_lastVisibleCharacterOfLine = num53;
-								reference4.lastVisibleCharacterIndex = firstVisibleCharacterIndex;
+								m_textInfo.lineInfo[m_lineNumber].lastVisibleCharacterIndex = firstVisibleCharacterIndex;
 								m_textInfo.lineInfo[m_lineNumber].characterCount = m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex - m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex + 1;
 								m_textInfo.lineInfo[m_lineNumber].visibleCharacterCount = m_lineVisibleCharacterCount;
 								m_textInfo.lineInfo[m_lineNumber].lineExtents.min = new Vector2(m_textInfo.characterInfo[m_firstVisibleCharacterOfLine].bottomLeft.x, num43);
@@ -3985,7 +3987,7 @@ namespace TMPro
 					return;
 				}
 			}
-			Debug.LogWarning("Can't Generate Mesh! No Font Asset has been assigned to Object ID: " + GetInstanceID());
+			Debug.LogWarning(new StringBuilder().Append("Can't Generate Mesh! No Font Asset has been assigned to Object ID: ").Append(GetInstanceID()).ToString());
 		}
 
 		protected override Vector3[] GetTextContainerLocalCorners()
@@ -4078,7 +4080,7 @@ namespace TMPro
 				{
 					if (m_subTextObjects[num] != null)
 					{
-						Debug.Log("Destroying Sub Text object[" + num + "].");
+						Debug.Log(new StringBuilder().Append("Destroying Sub Text object[").Append(num).Append("].").ToString());
 						UnityEngine.Object.DestroyImmediate(m_subTextObjects[num]);
 						num++;
 						goto IL_0031;

@@ -13,14 +13,14 @@ public class Cleric_SyncComponent : NetworkBehaviour
 
 	public int Networkm_turnsAreaBuffActive
 	{
-		get => m_turnsAreaBuffActive;
+		get { return m_turnsAreaBuffActive; }
 		[param: In]
-		set => SetSyncVar(value, ref m_turnsAreaBuffActive, 1u);
+		set { SetSyncVar(value, ref m_turnsAreaBuffActive, 1u); }
 	}
 
 	public int Networkm_meleeKnockbackAnimRange
 	{
-		get => m_meleeKnockbackAnimRange;
+		get { return m_meleeKnockbackAnimRange; }
 		[param: In]
 		set
 		{

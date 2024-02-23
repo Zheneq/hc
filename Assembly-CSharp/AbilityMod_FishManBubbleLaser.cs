@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FishManBubbleLaser : AbilityMod
@@ -65,6 +66,6 @@ public class AbilityMod_FishManBubbleLaser : AbilityMod
 		desc += PropDesc(m_explosionHealingToAlliesMod, "[ExplosionHealingToAllies]", isValid, isValid ? fishManBubbleLaser.m_explosionHealingToAllies : 0);
 		desc += PropDesc(m_explosionDamageToEnemiesMod, "[ExplosionDamageToEnemies]", isValid, isValid ? fishManBubbleLaser.m_explosionDamageToEnemies : 0);
 		desc += PropDesc(m_explosionEffectToAlliesMod, "[ExplosionEffectToAllies]", isValid, isValid ? fishManBubbleLaser.m_explosionEffectToAllies : null);
-		return desc + PropDesc(m_explosionEffectToEnemiesMod, "[ExplosionEffectToEnemies]", isValid, isValid ? fishManBubbleLaser.m_explosionEffectToEnemies : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_explosionEffectToEnemiesMod, "[ExplosionEffectToEnemies]", isValid, isValid ? fishManBubbleLaser.m_explosionEffectToEnemies : null)).ToString();
 	}
 }

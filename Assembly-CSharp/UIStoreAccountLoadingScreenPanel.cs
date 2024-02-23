@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine.UI;
 
 public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
@@ -113,7 +114,7 @@ public class UIStoreAccountLoadingScreenPanel : UIStoreBaseInventoryPanel
 	public override bool ItemTooltipPopulate(UITooltipBase tooltip, UIStoreItemBtn slot, GameBalanceVars.PlayerUnlockable item)
 	{
 		GameBalanceVars.LoadingScreenBackground loadingScreenBackground = item as GameBalanceVars.LoadingScreenBackground;
-		string tooltipText = loadingScreenBackground.GetObtainedDescription() + Environment.NewLine + loadingScreenBackground.GetPurchaseDescription();
+		string tooltipText = new StringBuilder().AppendLine(loadingScreenBackground.GetObtainedDescription()).Append(loadingScreenBackground.GetPurchaseDescription()).ToString();
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 		uITitledTooltip.Setup(loadingScreenBackground.GetLoadingScreenBackgroundName(), tooltipText, string.Empty);
 		return true;

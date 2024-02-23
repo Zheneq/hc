@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
@@ -38,6 +39,6 @@ public class AbilityMod_SpaceMarineMissileBarrage : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_damageMod, "[Damage]", isValid, isValid ? spaceMarineMissileBarrage.m_damage : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_activeDurationMod, "[Active Duration]", isValid, 1);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_missileHitEffectOverride, "{ Missile Hit Effect Override }", string.Empty, isValid, isValid ? spaceMarineMissileBarrage.m_effectOnTargets : null);
-		return desc + PropDesc(m_extraDamagePerTarget, "[Extra Damage Per Target]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraDamagePerTarget, "[Extra Damage Per Target]", isValid)).ToString();
 	}
 }

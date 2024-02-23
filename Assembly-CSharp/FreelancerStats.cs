@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -314,7 +315,7 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex < 0 || statIndex >= m_name.Count)
 		{
-			Log.Warning($"Calling GetDisplayNameOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
+			Log.Warning(new StringBuilder().Append("Calling GetDisplayNameOfStat of freelancer ").Append(m_freelancerTypeStr).Append(" for stat index ").Append(statIndex).Append(", but the index is out-of-bounds.").ToString());
 			return "";
 		}
 		return StringUtil.TR_FreelancerStatName(m_freelancerTypeStr, statIndex);
@@ -329,7 +330,7 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex < 0 || statIndex >= m_descriptions.Count)
 		{
-			Log.Warning($"Calling GetLocalizedDescriptionOfStat of freelancer {m_freelancerTypeStr} for stat index {statIndex}, but the index is out-of-bounds.");
+			Log.Warning(new StringBuilder().Append("Calling GetLocalizedDescriptionOfStat of freelancer ").Append(m_freelancerTypeStr).Append(" for stat index ").Append(statIndex).Append(", but the index is out-of-bounds.").ToString());
 			return "";
 		}
 		return StringUtil.TR_FreelancerStatDescription(m_freelancerTypeStr, statIndex);
@@ -344,7 +345,7 @@ public class FreelancerStats : NetworkBehaviour
 	{
 		if (statIndex < 0 || statIndex >= m_values.Count)
 		{
-			Debug.LogError($"Calling GetValueOfStat for stat index {statIndex}, but the index is out-of-bounds.");
+			Debug.LogError(new StringBuilder().Append("Calling GetValueOfStat for stat index ").Append(statIndex).Append(", but the index is out-of-bounds.").ToString());
 			return 0;
 		}
 		return m_values[statIndex];

@@ -1,19 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class ELOKeyComponent_Coordination : ELOKeyComponent
 {
     private bool m_isInGeneralMode = true;
     private byte m_groupSize = 1;
 
-    public override KeyModeEnum KeyMode => KeyModeEnum.SPECIFICSvsGENERAL;
+    public override KeyModeEnum KeyMode
+    {
+        get { return KeyModeEnum.SPECIFICSvsGENERAL; }
+    }
 
-    public override BinaryModePhaseEnum BinaryModePhase =>
-        m_isInGeneralMode ? BinaryModePhaseEnum.PRIMARY : BinaryModePhaseEnum.SECONDARY;
+    public override BinaryModePhaseEnum BinaryModePhase
+    {
+        get { return m_isInGeneralMode ? BinaryModePhaseEnum.PRIMARY : BinaryModePhaseEnum.SECONDARY; }
+    }
 
-    public static uint PhaseWidth => 2u;
-    public bool InGeneralMode => m_isInGeneralMode;
+    public static uint PhaseWidth
+    {
+        get { return 2u; }
+    }
+
+    public bool InGeneralMode
+    {
+        get { return m_isInGeneralMode; }
+    }
 
     public override char GetComponentChar()
     {
@@ -21,7 +34,7 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
             ? '-'
             : m_groupSize == 1
                 ? 'S'
-                : $"{m_groupSize}".ToCharArray().ElementAt(0);
+                : new StringBuilder().Append(m_groupSize).ToString().ToCharArray().ElementAt(0);
     }
 
     public override char GetPhaseChar()
@@ -45,7 +58,7 @@ public class ELOKeyComponent_Coordination : ELOKeyComponent
             case 4:
                 return "four player";
             default:
-                return $"{m_groupSize} player";
+                return new StringBuilder().Append(m_groupSize).Append(" player").ToString();
         }
     }
 

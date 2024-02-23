@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -247,7 +248,7 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 			sprite = (Sprite)Resources.Load(banner.m_resourceString, typeof(Sprite));
 			if (sprite == null)
 			{
-				Log.Warning(Log.Category.UI, $"Could not load banner resource from [{banner.m_resourceString}] as sprite.");
+				Log.Warning(Log.Category.UI, new StringBuilder().Append("Could not load banner resource from [").Append(banner.m_resourceString).Append("] as sprite.").ToString());
 			}
 		}
 		else
@@ -291,7 +292,7 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 					sprite = Resources.Load<Sprite>(ribbon.m_resourceString);
 					if (sprite == null)
 					{
-						Log.Warning(Log.Category.UI, $"Could not load ribbon resource from [{ribbon.m_resourceString}] as sprite.");
+						Log.Warning(Log.Category.UI, new StringBuilder().Append("Could not load ribbon resource from [").Append(ribbon.m_resourceString).Append("] as sprite.").ToString());
 					}
 					m_ribbonImage.sprite = sprite;
 					UIManager.SetGameObjectActive(m_ribbonImage, sprite != null);

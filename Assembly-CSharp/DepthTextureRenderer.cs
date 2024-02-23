@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 [ExecuteInEditMode]
@@ -143,7 +144,7 @@ public class DepthTextureRenderer : MonoBehaviour
 				CleanUpTextures();
 				if (m_depthCamObj == null)
 				{
-					m_depthCamObj = new GameObject($"DepthTextureCamera_{m_layerNames[0]}");
+					m_depthCamObj = new GameObject(new StringBuilder().Append("DepthTextureCamera_").Append(m_layerNames[0]).ToString());
 					m_depthCam = m_depthCamObj.AddComponent<Camera>();
 					m_depthCam.enabled = false;
 				}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +51,10 @@ public class CanvasLayerInfo
 	[NonSerialized]
 	private UILayerManager m_parentInfo;
 
-	public UILayerManager ParentInfo => m_parentInfo;
+	public UILayerManager ParentInfo
+	{
+		get { return m_parentInfo; }
+	}
 
 	public int SetSceneVisible(IEnumerable<SceneType> aScenes, bool visible, SceneVisibilityParameters parameters)
 	{
@@ -119,7 +123,7 @@ public class CanvasLayerInfo
 				StaticCanvasScenes = new GameObject[SceneDisplayInfos.Length];
 				for (int i = 0; i < SceneDisplayInfos.Length; i++)
 				{
-					StaticCanvasScenes[i] = new GameObject("(SceneContainer)" + SceneDisplayInfos[i].SceneName, typeof(RectTransform));
+					StaticCanvasScenes[i] = new GameObject(new StringBuilder().Append("(SceneContainer)").Append(SceneDisplayInfos[i].SceneName).ToString(), typeof(RectTransform));
 					UIManager.ReparentTransform(StaticCanvasScenes[i].transform, gameObject.gameObject.transform);
 					(StaticCanvasScenes[i].transform as RectTransform).anchorMin = Vector2.zero;
 					(StaticCanvasScenes[i].transform as RectTransform).anchorMax = Vector2.one;
@@ -138,7 +142,7 @@ public class CanvasLayerInfo
 				SemiStaticCanvasScenes = new GameObject[SceneDisplayInfos.Length];
 				for (int j = 0; j < SceneDisplayInfos.Length; j++)
 				{
-					SemiStaticCanvasScenes[j] = new GameObject("(SceneContainer)" + SceneDisplayInfos[j].SceneName, typeof(RectTransform));
+					SemiStaticCanvasScenes[j] = new GameObject(new StringBuilder().Append("(SceneContainer)").Append(SceneDisplayInfos[j].SceneName).ToString(), typeof(RectTransform));
 					UIManager.ReparentTransform(SemiStaticCanvasScenes[j].transform, gameObject2.gameObject.transform);
 					(SemiStaticCanvasScenes[j].transform as RectTransform).anchorMin = Vector2.zero;
 					(SemiStaticCanvasScenes[j].transform as RectTransform).anchorMax = Vector2.one;
@@ -157,7 +161,7 @@ public class CanvasLayerInfo
 				CameraMovementCanvasScenes = new GameObject[SceneDisplayInfos.Length];
 				for (int k = 0; k < SceneDisplayInfos.Length; k++)
 				{
-					CameraMovementCanvasScenes[k] = new GameObject("(SceneContainer)" + SceneDisplayInfos[k].SceneName, typeof(RectTransform));
+					CameraMovementCanvasScenes[k] = new GameObject(new StringBuilder().Append("(SceneContainer)").Append(SceneDisplayInfos[k].SceneName).ToString(), typeof(RectTransform));
 					UIManager.ReparentTransform(CameraMovementCanvasScenes[k].transform, gameObject3.gameObject.transform);
 					(CameraMovementCanvasScenes[k].transform as RectTransform).anchorMin = Vector2.zero;
 					(CameraMovementCanvasScenes[k].transform as RectTransform).anchorMax = Vector2.one;
@@ -176,7 +180,7 @@ public class CanvasLayerInfo
 				PerFrameCanvasScenes = new GameObject[SceneDisplayInfos.Length];
 				for (int l = 0; l < SceneDisplayInfos.Length; l++)
 				{
-					PerFrameCanvasScenes[l] = new GameObject("(SceneContainer)" + SceneDisplayInfos[l].SceneName, typeof(RectTransform));
+					PerFrameCanvasScenes[l] = new GameObject(new StringBuilder().Append("(SceneContainer)").Append(SceneDisplayInfos[l].SceneName).ToString(), typeof(RectTransform));
 					UIManager.ReparentTransform(PerFrameCanvasScenes[l].transform, gameObject4.gameObject.transform);
 					(PerFrameCanvasScenes[l].transform as RectTransform).anchorMin = Vector2.zero;
 					(PerFrameCanvasScenes[l].transform as RectTransform).anchorMax = Vector2.one;
@@ -535,11 +539,11 @@ public class CanvasLayerInfo
 			{
 				if (flag)
 				{
-					DefaultCanvasScenes[i] = new GameObject("(SceneContainer)" + SceneDisplayInfos[i].SceneName);
+					DefaultCanvasScenes[i] = new GameObject(new StringBuilder().Append("(SceneContainer)").Append(SceneDisplayInfos[i].SceneName).ToString());
 					UIManager.ReparentTransform(DefaultCanvasScenes[i].transform, DefaultWorldContainer.gameObject.transform);
 					continue;
 				}
-				DefaultCanvasScenes[i] = new GameObject("(SceneContainer)" + SceneDisplayInfos[i].SceneName, typeof(RectTransform));
+				DefaultCanvasScenes[i] = new GameObject(new StringBuilder().Append("(SceneContainer)").Append(SceneDisplayInfos[i].SceneName).ToString(), typeof(RectTransform));
 				UIManager.ReparentTransform(DefaultCanvasScenes[i].transform, DefaultLayerCanvas.gameObject.transform);
 				(DefaultCanvasScenes[i].transform as RectTransform).anchorMin = Vector2.zero;
 				(DefaultCanvasScenes[i].transform as RectTransform).anchorMax = Vector2.one;

@@ -27,17 +27,40 @@ public class LobbyPlayerCommonInfo
 	public PlayerGameConnectionType GameConnectionType;
 	public PlayerGameOptionFlag GameOptionFlags;
 
-	public bool IsRemoteControlled => ControllingPlayerInfo != null;
-	public bool IsSpectator => TeamId == Team.Spectator;
-	public CharacterType CharacterType => CharacterInfo?.CharacterType ?? CharacterType.None;
-	public bool IsReady => ReadyState == ReadyState.Ready || IsAIControlled || IsRemoteControlled;
+	public bool IsRemoteControlled
+	{
+		get { return ControllingPlayerInfo != null; }
+	}
+
+	public bool IsSpectator
+	{
+		get { return TeamId == Team.Spectator; }
+	}
+
+	public CharacterType CharacterType
+	{
+		get { return CharacterInfo?.CharacterType ?? CharacterType.None; }
+	}
+
+	public bool IsReady
+	{
+		get { return ReadyState == ReadyState.Ready || IsAIControlled || IsRemoteControlled; }
+	}
+
 	public bool ReplacedWithBots { get; set; }
-	public bool IsAIControlled => IsNPCBot || IsLoadTestBot || ReplacedWithBots;
-	public bool IsHumanControlled => !IsAIControlled;
+	public bool IsAIControlled
+	{
+		get { return IsNPCBot || IsLoadTestBot || ReplacedWithBots; }
+	}
+
+	public bool IsHumanControlled
+	{
+		get { return !IsAIControlled; }
+	}
 
 	public bool IsNPCBot
 	{
-		get => GameAccountType == PlayerGameAccountType.None;
+		get { return GameAccountType == PlayerGameAccountType.None; }
 		set
 		{
 			if (value)
@@ -49,7 +72,7 @@ public class LobbyPlayerCommonInfo
 
 	public bool IsLoadTestBot
 	{
-		get => GameAccountType == PlayerGameAccountType.LoadTest;
+		get { return GameAccountType == PlayerGameAccountType.LoadTest; }
 		set
 		{
 			if (value)

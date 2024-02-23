@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 
 public class PKFxSoundManager : MonoBehaviour
@@ -64,7 +65,7 @@ public class PKFxSoundManager : MonoBehaviour
 			m_onStartSoundDelegate(soundDescriptor);
 			return;
 		}
-		string text = "PKFxSounds/" + Path.ChangeExtension(soundDescriptor.Path, null);
+		string text = new StringBuilder().Append("PKFxSounds/").Append(Path.ChangeExtension(soundDescriptor.Path, null)).ToString();
 		AudioClip audioClip = Resources.Load(text) as AudioClip;
 		if (audioClip != null)
 		{
@@ -132,7 +133,7 @@ public class PKFxSoundManager : MonoBehaviour
 				}
 			}
 		}
-		Debug.LogError("[PKFX] Could not load sound layer " + text);
+		Debug.LogError(new StringBuilder().Append("[PKFX] Could not load sound layer ").Append(text).ToString());
 	}
 
 	public static void RegisterCustomHandler(StartSoundDelegate customDelegate)

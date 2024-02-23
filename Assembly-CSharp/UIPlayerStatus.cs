@@ -54,7 +54,10 @@ public class UIPlayerStatus : MonoBehaviour
 
 	public const int c_maxNumTargetingAbilityIndicators = 8;
 
-	public ActorData ActorDataRef => m_actor;
+	public ActorData ActorDataRef
+	{
+		get { return m_actor; }
+	}
 
 	private void Start()
 	{

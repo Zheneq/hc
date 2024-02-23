@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
@@ -47,6 +48,6 @@ public class AbilityMod_TrackerTranquilizerDarts : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_enemySingleHitEffectMod, "{ Enemy Single Hit Effect Override }", isAbilityPresent, isAbilityPresent ? trackerTranquilizerDarts.m_enemySingleHitEffect : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_enemyMultiHitEffectMod, "{ Enemy Multi Hit Effect Override }", isAbilityPresent, isAbilityPresent ? trackerTranquilizerDarts.m_enemyMultiHitEffect : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_allySingleHitEffectMod, "{ Ally Single Hit Effect Override }", isAbilityPresent, isAbilityPresent ? trackerTranquilizerDarts.m_allySingleHitEffect : null);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_allyMultiHitEffectMod, "{ Ally Multi Hit Effect Override }", isAbilityPresent, isAbilityPresent ? trackerTranquilizerDarts.m_allyMultiHitEffect : null);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_allyMultiHitEffectMod, "{ Ally Multi Hit Effect Override }", isAbilityPresent, isAbilityPresent ? trackerTranquilizerDarts.m_allyMultiHitEffect : null)).ToString();
 	}
 }

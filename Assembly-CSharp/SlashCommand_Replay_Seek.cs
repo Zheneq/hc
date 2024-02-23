@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public class SlashCommand_Replay_Seek : SlashCommand
 {
@@ -31,7 +32,7 @@ public class SlashCommand_Replay_Seek : SlashCommand
 								turn = Convert.ToInt32(array[0]),
 								phase = AbilityPriority.INVALID
 							});
-							TextConsole.Get().Write($"Seeking to turn {array[0]}.");
+							TextConsole.Get().Write(new StringBuilder().Append("Seeking to turn ").Append(array[0]).Append(".").ToString());
 							return;
 						}
 					}

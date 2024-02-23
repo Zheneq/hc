@@ -2,6 +2,7 @@ using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -320,7 +321,9 @@ public class UIGameSettingsPanel : UIScene
 					{
 						continue;
 					}
-					if (clientGameManager.IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out bool isActive))
+
+					bool isActive;
+					if (clientGameManager.IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out isActive))
 					{
 						if (!isActive)
 						{
@@ -422,7 +425,8 @@ public class UIGameSettingsPanel : UIScene
 			toggleBtn.SetOn(gameConfig.Map == gameMapConfig.Map);
 			UIManager.SetGameObjectActive(toggleBtn, true);
 			toggleBtn.gameObject.GetComponent<TextMeshProUGUI>().text = GameWideData.Get().GetMapDisplayName(gameMapConfig.Map);
-			if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out bool isActive))
+			bool isActive;
+			if (ClientGameManager.Get().IsMapInGameType(GameType.Custom, gameMapConfig.Map, out isActive))
 			{
 				if (!isActive)
 				{
@@ -522,7 +526,9 @@ public class UIGameSettingsPanel : UIScene
 			{
 				continue;
 			}
-			if (!ClientGameManager.Get().IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out bool isActive))
+
+			bool isActive;
+			if (!ClientGameManager.Get().IsMapInGameType(GameType.Custom, m_theMapList[i].MapConfig.Map, out isActive))
 			{
 				continue;
 			}
@@ -1030,7 +1036,7 @@ public class UIGameSettingsPanel : UIScene
 				{
 					LobbyPlayerInfo lobbyPlayerInfo = controllingPlayerInfo.Clone();
 					lobbyPlayerInfo.IsGameOwner = false;
-					lobbyPlayerInfo.Handle = $"{controllingPlayerInfo.GetHandle()}";
+					lobbyPlayerInfo.Handle = new StringBuilder().Append(controllingPlayerInfo.GetHandle()).ToString();
 					lobbyPlayerInfo.PlayerId = 0;
 					lobbyPlayerInfo.CharacterInfo = teamMemberEntry.m_playerInfo.CharacterInfo.Clone();
 					lobbyPlayerInfo.ControllingPlayerId = controllingPlayerInfo.PlayerId;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -259,13 +260,25 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 
 	private static List<ControlPoint> s_controlPoints;
 
-	public int CurrentProgressTugOfWar => m_currentProgressTugOfWar;
+	public int CurrentProgressTugOfWar
+	{
+		get { return m_currentProgressTugOfWar; }
+	}
 
-	public int ProgressTeamA => m_progressTeamA;
+	public int ProgressTeamA
+	{
+		get { return m_progressTeamA; }
+	}
 
-	public int ProgressTeamB => m_progressTeamB;
+	public int ProgressTeamB
+	{
+		get { return m_progressTeamB; }
+	}
 
-	public State CurrentControlPointState => m_currentControlPointState;
+	public State CurrentControlPointState
+	{
+		get { return m_currentControlPointState; }
+	}
 
 	public int Networkm_currentProgressTugOfWar
 	{
@@ -784,7 +797,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					while (true)
 					{
 						m_autoBoundary = HighlightUtils.Get().CreateBoundaryHighlight(m_region.GetSquaresInRegion(), Color.yellow);
-						m_autoBoundary.name = m_displayName + " Auto-Boundary";
+						m_autoBoundary.name = new StringBuilder().Append(m_displayName).Append(" Auto-Boundary").ToString();
 						UnityEngine.Object.DontDestroyOnLoad(m_autoBoundary);
 						Vector3 position = m_autoBoundary.transform.position;
 						m_autoBoundaryHeight = position.y;
@@ -1116,7 +1129,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 			}
 			if (m_totalObjectivePointsToDispense >= 0)
 			{
-				string text = " (" + (m_totalObjectivePointsToDispense - m_numObjectivePointsDispensed) + " ObjPts)";
+				string text = new StringBuilder().Append(" (").Append(m_totalObjectivePointsToDispense - m_numObjectivePointsDispensed).Append(" ObjPts)").ToString();
 				controllerLabel.text += text;
 			}
 			string text2 = string.Empty;
@@ -1134,11 +1147,12 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					num2 = m_progressTeamB;
 					num3 = m_progressTeamA;
 				}
-				text2 = "\n(Progress: Ally " + num2 + ", Enemy " + num3 + ")";
+
+				text2 = new StringBuilder().Append("\n(Progress: Ally ").Append(num2).Append(", Enemy ").Append(num3).Append(")").ToString();
 			}
 			if (CurrentControlPointState == State.Locked)
 			{
-				progressLabel.text = $"Locked for {m_lockedTurnsRemaining} turns";
+				progressLabel.text = new StringBuilder().Append("Locked for ").Append(m_lockedTurnsRemaining).Append(" turns").ToString();
 				return;
 			}
 			if (CurrentControlPointState == State.Disabled)

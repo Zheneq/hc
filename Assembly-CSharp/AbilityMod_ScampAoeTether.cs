@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScampAoeTether : AbilityMod
@@ -56,6 +57,6 @@ public class AbilityMod_ScampAoeTether : AbilityMod
 		desc += PropDesc(m_tetherApplyEnemyEffectMod, "[TetherApplyEnemyEffect]", isValid, isValid ? scampAoeTether.m_tetherApplyEnemyEffect : null);
 		desc += PropDesc(m_tetherBreakDamageMod, "[TetherBreakDamage]", isValid, isValid ? scampAoeTether.m_tetherBreakDamage : 0);
 		desc += PropDesc(m_tetherBreakEnemyEffecfMod, "[TetherBreakEnemyEffecf]", isValid, isValid ? scampAoeTether.m_tetherBreakEnemyEffecf : null);
-		return desc + PropDesc(m_cdrIfNoTetherTriggerMod, "[CdrIfNoTetherTrigger]", isValid, isValid ? scampAoeTether.m_cdrIfNoTetherTrigger : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfNoTetherTriggerMod, "[CdrIfNoTetherTrigger]", isValid, isValid ? scampAoeTether.m_cdrIfNoTetherTrigger : 0)).ToString();
 	}
 }

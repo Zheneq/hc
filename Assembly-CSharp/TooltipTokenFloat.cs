@@ -1,3 +1,5 @@
+using System.Text;
+
 public class TooltipTokenFloat : TooltipTokenEntry
 {
 	public float m_number;
@@ -10,12 +12,12 @@ public class TooltipTokenFloat : TooltipTokenEntry
 
 	public override string GetStringToReplace()
 	{
-		return "[" + m_name + "]";
+		return new StringBuilder().Append("[").Append(m_name).Append("]").ToString();
 	}
 
 	public override string GetReplacementString()
 	{
-		return "<color=#FFC000>" + m_number.ToString("n1") + "</color>";
+		return new StringBuilder().Append("<color=#FFC000>").Append(m_number.ToString("n1")).Append("</color>").ToString();
 	}
 
 	public override string GetInEditorValuePreview()

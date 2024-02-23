@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 
 public class SlashCommand_GroupLeave : SlashCommand
@@ -23,7 +24,7 @@ public class SlashCommand_GroupLeave : SlashCommand
 							break;
 						default:
 						{
-							string arg = (r.LocalizedFailure != null) ? r.LocalizedFailure.ToString() : ((r.ErrorMessage == null) ? StringUtil.TR("UnknownError", "Global") : $"{r.ErrorMessage}#needsLocalization");
+							string arg = (r.LocalizedFailure != null) ? r.LocalizedFailure.ToString() : ((r.ErrorMessage == null) ? StringUtil.TR("UnknownError", "Global") : new StringBuilder().Append(r.ErrorMessage).Append("#needsLocalization").ToString());
 							TextConsole.Get().Write(new TextConsole.Message
 							{
 								Text = string.Format(StringUtil.TR("FailedMessage", "Global"), arg),

@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -218,25 +219,25 @@ public static class UIUtils
 		string text2 = Mathf.RoundToInt(color.r * 255f).ToString("X");
 		if (text2.Length == 1)
 		{
-			text2 = "0" + text2;
+			text2 = new StringBuilder().Append("0").Append(text2).ToString();
 		}
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
 		if (text3.Length == 1)
 		{
-			text3 = "0" + text3;
+			text3 = new StringBuilder().Append("0").Append(text3).ToString();
 		}
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
 		if (text4.Length == 1)
 		{
-			text4 = "0" + text4;
+			text4 = new StringBuilder().Append("0").Append(text4).ToString();
 		}
 		string text5 = Mathf.RoundToInt(color.a * 255f).ToString("X");
 		if (text5.Length == 1)
 		{
-			text5 = "0" + text5;
+			text5 = new StringBuilder().Append("0").Append(text5).ToString();
 		}
 		string text6 = text;
-		return text6 + text2 + text3 + text4 + text5 + ">";
+		return new StringBuilder().Append(text6).Append(text2).Append(text3).Append(text4).Append(text5).Append(">").ToString();
 	}
 
 	public static string ColorToNGUIRichTextTag(Color color)
@@ -245,20 +246,20 @@ public static class UIUtils
 		string text2 = Mathf.RoundToInt(color.r * 255f).ToString("X");
 		if (text2.Length == 1)
 		{
-			text2 = "0" + text2;
+			text2 = new StringBuilder().Append("0").Append(text2).ToString();
 		}
 		string text3 = Mathf.RoundToInt(color.g * 255f).ToString("X");
 		if (text3.Length == 1)
 		{
-			text3 = "0" + text3;
+			text3 = new StringBuilder().Append("0").Append(text3).ToString();
 		}
 		string text4 = Mathf.RoundToInt(color.b * 255f).ToString("X");
 		if (text4.Length == 1)
 		{
-			text4 = "0" + text4;
+			text4 = new StringBuilder().Append("0").Append(text4).ToString();
 		}
 		string text5 = text;
-		return text5 + text2 + text3 + text4 + "]";
+		return new StringBuilder().Append(text5).Append(text2).Append(text3).Append(text4).Append("]").ToString();
 	}
 
 	public static void SweepRectRect(Rect rectA, Rect rectB, Vector2 velocity, out float hitTime)

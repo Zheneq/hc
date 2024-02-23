@@ -2,6 +2,7 @@ using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -250,7 +251,7 @@ public class UILootMatrixScreen : UIScene
 
 	private void InventoryComponentUpdated(InventoryComponent component)
 	{
-		m_inventoryItemStr = string.Join(" | ", component.Items.Select((InventoryItem x) => x.Id + "," + x.TemplateId + "=" + x.Count).ToArray());
+		m_inventoryItemStr = string.Join(" | ", component.Items.Select((InventoryItem x) => new StringBuilder().Append(x.Id).Append(",").Append(x.TemplateId).Append("=").Append(x.Count).ToString()).ToArray());
 		UpdateLockBoxCount(component);
 	}
 
@@ -412,7 +413,7 @@ public class UILootMatrixScreen : UIScene
 				case 0:
 					break;
 				default:
-					throw new Exception("This is not a loot matrix. Template: " + m_template.Index + " -> " + m_template.GetDisplayName());
+					throw new Exception(new StringBuilder().Append("This is not a loot matrix. Template: ").Append(m_template.Index).Append(" -> ").Append(m_template.GetDisplayName()).ToString());
 				}
 			}
 		}
@@ -430,7 +431,7 @@ public class UILootMatrixScreen : UIScene
 				case 0:
 					break;
 				default:
-					throw new Exception("Loot matrix " + m_template.Index + " does not have a prefab.");
+					throw new Exception(new StringBuilder().Append("Loot matrix ").Append(m_template.Index).Append(" does not have a prefab.").ToString());
 				}
 			}
 		}
@@ -442,7 +443,7 @@ public class UILootMatrixScreen : UIScene
 		string text = m_template.GetDisplayName();
 		if (m_template.AssociatedCharacter != 0)
 		{
-			text = $"<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index={2 * (int)m_template.AssociatedCharacter}>\u200b</size></voffset>{text}";
+			text = new StringBuilder().Append("<voffset=0.15em><size=30><sprite=\"CharacterSprites\" index=").Append(2 * (int)m_template.AssociatedCharacter).Append(">\u200b</size></voffset>").Append(text).ToString();
 		}
 		m_title.text = text;
 		m_vfxOpenTime = Time.time + 0.5f;
@@ -695,10 +696,10 @@ public class UILootMatrixScreen : UIScene
 			{
 				foreach (InventoryItem item in list)
 				{
-					text = text + Environment.NewLine + " - " + item.GetTemplate().GetDisplayName();
+					text = new StringBuilder().AppendLine(text).Append(" - ").Append(item.GetTemplate().GetDisplayName()).ToString();
 					if (item.Count > 1)
 					{
-						text = text + " x" + item.Count;
+						text = new StringBuilder().Append(text).Append(" x").Append(item.Count).ToString();
 					}
 				}
 				TextConsole.Get().Write(new TextConsole.Message

@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -30,7 +31,7 @@ public static class ErrorCheck
 				case 0:
 					break;
 				default:
-					Log.Error(c.ToString() + " '" + c.name + "' has a null gameObject");
+					Log.Error(new StringBuilder().Append(c.ToString()).Append(" '").Append(c.name).Append("' has a null gameObject").ToString());
 					return;
 				}
 			}
@@ -81,7 +82,7 @@ public static class ErrorCheck
 		}
 		else if (c.gameObject == null)
 		{
-			Log.Error(c.ToString() + " '" + c.name + "' has a null gameObject");
+			Log.Error(new StringBuilder().Append(c.ToString()).Append(" '").Append(c.name).Append("' has a null gameObject").ToString());
 		}
 	}
 

@@ -27,14 +27,14 @@ public class Exo_SyncComponent : NetworkBehaviour
 
 	public bool Networkm_anchored
 	{
-		get => m_anchored;
+		get { return m_anchored; }
 		[param: In]
-		set => SetSyncVar(value, ref m_anchored, 1u);
+		set { SetSyncVar(value, ref m_anchored, 1u); }
 	}
 
 	public bool Networkm_wasAnchoredOnTurnStart
 	{
-		get => m_wasAnchoredOnTurnStart;
+		get { return m_wasAnchoredOnTurnStart; }
 		[param: In]
 		set
 		{
@@ -50,30 +50,30 @@ public class Exo_SyncComponent : NetworkBehaviour
 
 	public bool Networkm_laserBarrierIsUp
 	{
-		get => m_laserBarrierIsUp;
+		get { return m_laserBarrierIsUp; }
 		[param: In]
-		set => SetSyncVar(value, ref m_laserBarrierIsUp, 4u);
+		set { SetSyncVar(value, ref m_laserBarrierIsUp, 4u); }
 	}
 
 	public Vector3 Networkm_anchoredLaserAimDirection
 	{
-		get => m_anchoredLaserAimDirection;
+		get { return m_anchoredLaserAimDirection; }
 		[param: In]
-		set => SetSyncVar(value, ref m_anchoredLaserAimDirection, 8u);
+		set { SetSyncVar(value, ref m_anchoredLaserAimDirection, 8u); }
 	}
 
 	public short Networkm_turnsAnchored
 	{
-		get => m_turnsAnchored;
+		get { return m_turnsAnchored; }
 		[param: In]
-		set => SetSyncVar(value, ref m_turnsAnchored, 16u);
+		set { SetSyncVar(value, ref m_turnsAnchored, 16u); }
 	}
 
 	public short Networkm_lastBasicAttackUsedTurn
 	{
-		get => m_lastBasicAttackUsedTurn;
+		get { return m_lastBasicAttackUsedTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_lastBasicAttackUsedTurn, 32u);
+		set { SetSyncVar(value, ref m_lastBasicAttackUsedTurn, 32u); }
 	}
 
 	static Exo_SyncComponent()

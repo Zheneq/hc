@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class GrydCycleDash : Ability
@@ -31,7 +32,7 @@ public class GrydCycleDash : Ability
 				goto IL_0074;
 			}
 		}
-		Debug.LogError("GrydCycleDash has wrong number of Target Data entries - to match Num Legs it should be " + GetExpectedNumberOfTargeters());
+		Debug.LogError(new StringBuilder().Append("GrydCycleDash has wrong number of Target Data entries - to match Num Legs it should be ").Append(GetExpectedNumberOfTargeters()).ToString());
 		goto IL_0074;
 		IL_0074:
 		SetupTargeter();

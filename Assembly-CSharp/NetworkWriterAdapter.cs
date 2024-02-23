@@ -5,9 +5,15 @@ internal class NetworkWriterAdapter : IBitStream
 {
 	private NetworkWriter m_stream;
 
-	public bool isReading => false;
+	public bool isReading
+	{
+		get { return false; }
+	}
 
-	public bool isWriting => true;
+	public bool isWriting
+	{
+		get { return true; }
+	}
 
 	public uint Position
 	{
@@ -26,7 +32,10 @@ internal class NetworkWriterAdapter : IBitStream
 		}
 	}
 
-	public NetworkWriter Writer => m_stream;
+	public NetworkWriter Writer
+	{
+		get { return m_stream; }
+	}
 
 	internal NetworkWriterAdapter(NetworkWriter stream)
 	{

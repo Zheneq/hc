@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public struct CharacterCardInfo
@@ -18,7 +19,7 @@ public struct CharacterCardInfo
 
 	public string ToIdString()
 	{
-		return $"{(int)PrepCard}/{(int)CombatCard}/{(int)DashCard}";
+		return new StringBuilder().Append((int)PrepCard).Append("/").Append((int)CombatCard).Append("/").Append((int)DashCard).ToString();
 	}
 
 	public override bool Equals(object obj)

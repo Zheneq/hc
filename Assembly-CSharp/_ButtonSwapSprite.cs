@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -234,7 +235,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 		GameObject gameObject = base.gameObject;
 		while (gameObject.transform.parent != null && gameObject.transform.parent != gameObject)
 		{
-			text = gameObject.transform.parent.name + "/" + text;
+			text = new StringBuilder().Append(gameObject.transform.parent.name).Append("/").Append(text).ToString();
 			gameObject = gameObject.transform.parent.gameObject;
 		}
 		if (!(HitchDetector.Get() != null))
@@ -243,7 +244,7 @@ public class _ButtonSwapSprite : MonoBehaviour
 		}
 		while (true)
 		{
-			HitchDetector.Get().RecordFrameTimeForHitch(text + " was clicked");
+			HitchDetector.Get().RecordFrameTimeForHitch(new StringBuilder().Append(text).Append(" was clicked").ToString());
 			return;
 		}
 	}

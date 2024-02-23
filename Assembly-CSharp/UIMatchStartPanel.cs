@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -119,7 +120,7 @@ public class UIMatchStartPanel : UIScene
 		{
 			if (HitchDetector.Get() != null)
 			{
-				HitchDetector.Get().RecordFrameTimeForHitch("Setting Match Start Panel Visible: " + visible);
+				HitchDetector.Get().RecordFrameTimeForHitch(new StringBuilder().Append("Setting Match Start Panel Visible: ").Append(visible).ToString());
 			}
 			RectTransform matchFoundContainer = m_MatchFoundContainer;
 			int doActive;
@@ -397,7 +398,7 @@ public class UIMatchStartPanel : UIScene
 						float num = Time.realtimeSinceStartup - m_loadoutSelectStartTime;
 						float num2 = Mathf.Max(0f, (float)gameInfo.LoadoutSelectTimeout.TotalSeconds - num);
 						m_matchFoundText.text = StringUtil.TR("SelectModsAndCatalysts", "Global");
-						m_countdownTimerText.text = $"{(int)num2 + 1}";
+						m_countdownTimerText.text = new StringBuilder().Append((int)num2 + 1).ToString();
 						AnnouncerSounds.GetAnnouncerSounds().PlayCountdownAnnouncementIfAppropriate(m_previousTimeRemaining, num2);
 						if (Mathf.Floor(m_previousTimeRemaining) != Mathf.Floor(num2))
 						{
@@ -417,13 +418,13 @@ public class UIMatchStartPanel : UIScene
 					{
 						float num3 = Time.realtimeSinceStartup - m_selectStartTime;
 						float num4 = Mathf.Max(0f, (float)GameManager.Get().GameInfo.SelectTimeout.TotalSeconds - num3);
-						m_chooseNewFreelancerTimerText.text = $"{(int)num4 + 1}";
-						m_resolvingDuplicateFreelancerTimerText.text = $"{(int)num4 + 1}";
+						m_chooseNewFreelancerTimerText.text = new StringBuilder().Append((int)num4 + 1).ToString();
+						m_resolvingDuplicateFreelancerTimerText.text = new StringBuilder().Append((int)num4 + 1).ToString();
 					}
 					else if (matchStartCountdown == MatchStartCountdown.LoadingMatch)
 					{
 						UICharacterSelectScreenController.Get().NotifyGameIsLoading();
-						m_matchFoundText.text = "\n" + StringUtil.TR("LoadingMatch", "Global");
+						m_matchFoundText.text = new StringBuilder().Append("\n").Append(StringUtil.TR("LoadingMatch", "Global")).ToString();
 						m_countdownTimerText.text = string.Empty;
 						UIManager.SetGameObjectActive(m_countdownNumberController, false);
 						UpdateCharacterList();

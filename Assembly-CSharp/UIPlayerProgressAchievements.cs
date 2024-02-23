@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -149,7 +150,7 @@ public class UIPlayerProgressAchievements : UIPlayerProgressSubPanel
 	public void Setup()
 	{
 		Init();
-		m_categoryDropdownBtn.Setup(StringUtil.TR("AchievementCategory_" + m_achievementType, "Global"));
+		m_categoryDropdownBtn.Setup(StringUtil.TR(new StringBuilder().Append("AchievementCategory_").Append(m_achievementType).ToString(), "Global"));
 		UIManager.SetGameObjectActive(m_freelancerDropdownBtn, m_achievementType == AchievementType.Freelancer);
 		if (m_achievementType == AchievementType.Freelancer)
 		{

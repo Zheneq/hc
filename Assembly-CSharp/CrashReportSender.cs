@@ -13,7 +13,7 @@ public static class CrashReportSender
 			Log.Info("Attempting to build URL to send crash report at path {0}", crashReportFilePath);
 			string fileName = Path.GetFileName(crashReportFilePath);
 			string str = "http://debug.triongames.com/";
-			str = str + "v2/archive/" + fileName;
+			str = new StringBuilder().Append(str).Append("v2/archive/").Append(fileName).ToString();
 			Log.Info("Attempting to start WebClient to send crash report to URL {0}", str);
 			WebClient webClient = new WebClient();
 			try
@@ -113,7 +113,7 @@ public static class CrashReportSender
 					end_IL_0194:;
 				}
 			}
-			Log.Error($"{ex.ToString()}, status {ex.Status.ToString()}, response: {arg}");
+			Log.Error(new StringBuilder().Append(ex.ToString()).Append(", status ").Append(ex.Status.ToString()).Append(", response: ").Append(arg).ToString());
 			return result;
 		}
 		catch (Exception exception)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class LobbyGameplayData
@@ -34,7 +35,10 @@ public class LobbyGameplayData
 	public LobbyFactionData FactionData;
 
 	[JsonIgnore]
-	public IFreelancerSetQueryInterface FreelancerSetQueryInterface => new LobbyGameplayFreelancerSetQueryInterface(this);
+	public IFreelancerSetQueryInterface FreelancerSetQueryInterface
+	{
+		get { return new LobbyGameplayFreelancerSetQueryInterface(this); }
+	}
 
 	public LobbyGameplayData()
 	{
@@ -207,7 +211,7 @@ public class LobbyGameplayData
 				case 0:
 					break;
 				default:
-					throw new ArgumentException($"Invalid itemTemplateId {itemTemplateId}");
+					throw new ArgumentException(new StringBuilder().Append("Invalid itemTemplateId ").Append(itemTemplateId).ToString());
 				}
 			}
 		}
@@ -224,7 +228,7 @@ public class LobbyGameplayData
 				return karmaTemplate;
 			}
 		}
-		throw new InvalidOperationException($"Invalid karmaTemplateId={karmaTemplateId}");
+		throw new InvalidOperationException(new StringBuilder().Append("Invalid karmaTemplateId=").Append(karmaTemplateId).ToString());
 	}
 
 	public LootTable GetLootTable(int lootTableId)
@@ -237,7 +241,7 @@ public class LobbyGameplayData
 				return lootTable;
 			}
 		}
-		throw new InvalidOperationException($"Invalid lootTableId={lootTableId}");
+		throw new InvalidOperationException(new StringBuilder().Append("Invalid lootTableId=").Append(lootTableId).ToString());
 	}
 
 	public int GetDefaultItemValue()
@@ -259,7 +263,7 @@ public class LobbyGameplayData
 				return FactionData.m_factionCompetitions[competitionId - 1];
 			}
 		}
-		throw new ArgumentException($"Invalid Faction competitionId={competitionId}");
+		throw new ArgumentException(new StringBuilder().Append("Invalid Faction competitionId=").Append(competitionId).ToString());
 	}
 
 	public FactionGroup GetFactionGroup(int factionID)
@@ -293,7 +297,7 @@ public class LobbyGameplayData
 				}
 			}
 		}
-		throw new ArgumentException($"Invalid Faction competitionId={competitionId} factionId={factionId}");
+		throw new ArgumentException(new StringBuilder().Append("Invalid Faction competitionId=").Append(competitionId).Append(" factionId=").Append(factionId).ToString());
 	}
 
 	public virtual void LoadFromFile(string dirName)

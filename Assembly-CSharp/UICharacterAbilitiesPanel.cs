@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -482,7 +483,7 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 				{
 					return false;
 				}
-				(tooltip as UIFrontendTauntMouseoverVideo).Setup(c_videoDir + swap.m_swapVideoPath);
+				(tooltip as UIFrontendTauntMouseoverVideo).Setup(new StringBuilder().Append(c_videoDir).Append(swap.m_swapVideoPath).ToString());
 				return true;
 			});
 			m_vfxSwapButtons.Add(newButton);
@@ -563,7 +564,7 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 
 			if (optionalAdditionaUpdate != null)
 			{
-				optionalAdditionaUpdate.text = $"{usedPoints}/{maxPoints}";
+				optionalAdditionaUpdate.text = new StringBuilder().Append(usedPoints).Append("/").Append(maxPoints).ToString();
 			}
 		}
 	}
@@ -782,7 +783,7 @@ public class UICharacterAbilitiesPanel : MonoBehaviour
 
 			if (abilityEntry != null && abilityEntry.ability != null && abilityEntry.ability.m_previewVideo != null)
 			{
-				m_abilityPreviewPanel.Play(c_videoDir + abilityEntry.ability.m_previewVideo);
+				m_abilityPreviewPanel.Play(new StringBuilder().Append(c_videoDir).Append(abilityEntry.ability.m_previewVideo).ToString());
 				continue;
 			}
 

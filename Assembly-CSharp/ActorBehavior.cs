@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -93,53 +94,240 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	private static int kListm_syncEnemySourcesForDamageOrDebuff = -1894796663;
 	private static int kListm_syncAllySourcesForHealAndBuff = 1807084515;
 
-	public int totalDeaths => m_totalDeaths;
-	public int totalPlayerKills => m_totalPlayerKills;
-	public int totalPlayerAssists => m_totalPlayerAssists;
-	public int totalMinionKills => m_totalMinionKills;
-	public int totalPlayerContribution => m_totalPlayerDamage + EffectiveHealingFromAbility + m_totalPlayerAbsorb;
-	public int totalPlayerDamage => m_totalPlayerDamage;
-	public int totalPlayerHealing => m_totalPlayerHealing;
-	public int totalPlayerHealingFromAbility => m_totalPlayerHealingFromAbility;
-	public int totalPlayerOverheal => m_totalPlayerOverheal;
-	public int totalPlayerAbsorb => m_totalPlayerAbsorb;
-	public int totalPlayerPotentialAbsorb => m_totalPlayerPotentialAbsorb;
-	public int totalEnergyGained => m_totalEnergyGained;
-	public int totalPlayerDamageReceived => m_totalPlayerDamageReceived;
-	public int totalPlayerHealingReceived => m_totalPlayerHealingReceived;
-	public int totalPlayerAbsorbReceived => m_totalPlayerAbsorbReceived;
-	public float totalPlayerLockInTime => m_totalPlayerLockInTime;
-	public int totalPlayerTurns => m_totalPlayerTurns;
-	public int netDamageAvoidedByEvades => Mathf.Max(0, m_damageDodgedByEvades - m_damageInterceptedByEvades);
-	public int damageDodgedByEvades => m_damageDodgedByEvades;
-	public int damageInterceptedByEvades => m_damageInterceptedByEvades;
-	public int myIncomingDamageReducedByCover => m_myIncomingDamageReducedByCover;
-	public int myOutgoingDamageReducedByCover => m_myOutgoingDamageReducedByCover;
-	public int myIncomingOverkillDamageTaken => m_myIncomingOverkillDamageTaken;
-	public int myOutgoingOverkillDamageDealt => m_myOutgoingOverkillDamageDealt;
-	public int myOutgoingExtraDamageFromEmpowered => m_myOutgoingExtraDamageFromEmpowered;
-	public int myOutgoingReducedDamageFromWeakened => m_myOutgoingDamageReducedFromWeakened;
-	public int myOutgoingExtraDamageFromTargetsVulnerable => m_myOutgoingExtraDamageFromTargetsVulnerable;
-	public int myOutgoingReducedDamageFromTargetsArmored => m_myOutgoingDamageReducedFromTargetsArmored;
-	public int myIncomingDamageReducedByArmored => m_myIncomingDamageReducedByArmored;
-	public int myIncomingExtraDamageIncreasedByVulnerable => m_myIncomingExtraDamageIncreasedByVulnerable;
-	public int teamOutgoingDamageIncreasedByEmpoweredFromMe => m_teamOutgoingDamageIncreasedByEmpoweredFromMe;
-	public int teamIncomingDamageReducedByWeakenedFromMe => m_teamIncomingDamageReducedByWeakenedFromMe;
-	public int teamIncomingDamageReducedByArmoredFromMe => m_teamIncomingDamageReducedByArmoredFromMe;
-	public int teamOutgoingDamageIncreasedByVulnerableFromMe => m_teamOutgoingDamageIncreasedByVulnerableFromMe;
-	public int teamExtraEnergyGainFromMe => m_teamExtraEnergyGainFromMe;
-	public float movementDeniedByMe => m_movementDeniedByMe;
-	public int totalEnemySighted => m_totalEnemySighted;
-	private float NumTurnsForStatCalc => Mathf.Max(1f, m_totalPlayerTurns);
-	private float NumLifeForStatCalc => Mathf.Max(1f, m_totalDeaths + 1f);
-	public float EnergyGainPerTurn => m_totalEnergyGained / NumTurnsForStatCalc;
-	public float DamagePerTurn => m_totalPlayerDamage / NumTurnsForStatCalc;
-	public float NumEnemiesSightedPerTurn => m_totalEnemySighted / NumTurnsForStatCalc;
-	public float HealAndAbsorbPerTurn => (EffectiveHealingFromAbility + m_totalPlayerAbsorb) / NumTurnsForStatCalc;
-	public float MovementDeniedPerTurn => m_movementDeniedByMe / NumTurnsForStatCalc;
-	public float TeamEnergyBoostedByMePerTurn => teamExtraEnergyGainFromMe / NumTurnsForStatCalc;
-	public float TeamDamageSwingPerTurn => (m_teamOutgoingDamageIncreasedByEmpoweredFromMe + m_teamIncomingDamageReducedByWeakenedFromMe) / NumTurnsForStatCalc;
-	public int NetBoostedOutgoingDamage => m_myOutgoingExtraDamageFromEmpowered - m_myOutgoingDamageReducedFromWeakened;
+	public int totalDeaths
+	{
+		get { return m_totalDeaths; }
+	}
+
+	public int totalPlayerKills
+	{
+		get { return m_totalPlayerKills; }
+	}
+
+	public int totalPlayerAssists
+	{
+		get { return m_totalPlayerAssists; }
+	}
+
+	public int totalMinionKills
+	{
+		get { return m_totalMinionKills; }
+	}
+
+	public int totalPlayerContribution
+	{
+		get { return m_totalPlayerDamage + EffectiveHealingFromAbility + m_totalPlayerAbsorb; }
+	}
+
+	public int totalPlayerDamage
+	{
+		get { return m_totalPlayerDamage; }
+	}
+
+	public int totalPlayerHealing
+	{
+		get { return m_totalPlayerHealing; }
+	}
+
+	public int totalPlayerHealingFromAbility
+	{
+		get { return m_totalPlayerHealingFromAbility; }
+	}
+
+	public int totalPlayerOverheal
+	{
+		get { return m_totalPlayerOverheal; }
+	}
+
+	public int totalPlayerAbsorb
+	{
+		get { return m_totalPlayerAbsorb; }
+	}
+
+	public int totalPlayerPotentialAbsorb
+	{
+		get { return m_totalPlayerPotentialAbsorb; }
+	}
+
+	public int totalEnergyGained
+	{
+		get { return m_totalEnergyGained; }
+	}
+
+	public int totalPlayerDamageReceived
+	{
+		get { return m_totalPlayerDamageReceived; }
+	}
+
+	public int totalPlayerHealingReceived
+	{
+		get { return m_totalPlayerHealingReceived; }
+	}
+
+	public int totalPlayerAbsorbReceived
+	{
+		get { return m_totalPlayerAbsorbReceived; }
+	}
+
+	public float totalPlayerLockInTime
+	{
+		get { return m_totalPlayerLockInTime; }
+	}
+
+	public int totalPlayerTurns
+	{
+		get { return m_totalPlayerTurns; }
+	}
+
+	public int netDamageAvoidedByEvades
+	{
+		get { return Mathf.Max(0, m_damageDodgedByEvades - m_damageInterceptedByEvades); }
+	}
+
+	public int damageDodgedByEvades
+	{
+		get { return m_damageDodgedByEvades; }
+	}
+
+	public int damageInterceptedByEvades
+	{
+		get { return m_damageInterceptedByEvades; }
+	}
+
+	public int myIncomingDamageReducedByCover
+	{
+		get { return m_myIncomingDamageReducedByCover; }
+	}
+
+	public int myOutgoingDamageReducedByCover
+	{
+		get { return m_myOutgoingDamageReducedByCover; }
+	}
+
+	public int myIncomingOverkillDamageTaken
+	{
+		get { return m_myIncomingOverkillDamageTaken; }
+	}
+
+	public int myOutgoingOverkillDamageDealt
+	{
+		get { return m_myOutgoingOverkillDamageDealt; }
+	}
+
+	public int myOutgoingExtraDamageFromEmpowered
+	{
+		get { return m_myOutgoingExtraDamageFromEmpowered; }
+	}
+
+	public int myOutgoingReducedDamageFromWeakened
+	{
+		get { return m_myOutgoingDamageReducedFromWeakened; }
+	}
+
+	public int myOutgoingExtraDamageFromTargetsVulnerable
+	{
+		get { return m_myOutgoingExtraDamageFromTargetsVulnerable; }
+	}
+
+	public int myOutgoingReducedDamageFromTargetsArmored
+	{
+		get { return m_myOutgoingDamageReducedFromTargetsArmored; }
+	}
+
+	public int myIncomingDamageReducedByArmored
+	{
+		get { return m_myIncomingDamageReducedByArmored; }
+	}
+
+	public int myIncomingExtraDamageIncreasedByVulnerable
+	{
+		get { return m_myIncomingExtraDamageIncreasedByVulnerable; }
+	}
+
+	public int teamOutgoingDamageIncreasedByEmpoweredFromMe
+	{
+		get { return m_teamOutgoingDamageIncreasedByEmpoweredFromMe; }
+	}
+
+	public int teamIncomingDamageReducedByWeakenedFromMe
+	{
+		get { return m_teamIncomingDamageReducedByWeakenedFromMe; }
+	}
+
+	public int teamIncomingDamageReducedByArmoredFromMe
+	{
+		get { return m_teamIncomingDamageReducedByArmoredFromMe; }
+	}
+
+	public int teamOutgoingDamageIncreasedByVulnerableFromMe
+	{
+		get { return m_teamOutgoingDamageIncreasedByVulnerableFromMe; }
+	}
+
+	public int teamExtraEnergyGainFromMe
+	{
+		get { return m_teamExtraEnergyGainFromMe; }
+	}
+
+	public float movementDeniedByMe
+	{
+		get { return m_movementDeniedByMe; }
+	}
+
+	public int totalEnemySighted
+	{
+		get { return m_totalEnemySighted; }
+	}
+
+	private float NumTurnsForStatCalc
+	{
+		get { return Mathf.Max(1f, m_totalPlayerTurns); }
+	}
+
+	private float NumLifeForStatCalc
+	{
+		get { return Mathf.Max(1f, m_totalDeaths + 1f); }
+	}
+
+	public float EnergyGainPerTurn
+	{
+		get { return m_totalEnergyGained / NumTurnsForStatCalc; }
+	}
+
+	public float DamagePerTurn
+	{
+		get { return m_totalPlayerDamage / NumTurnsForStatCalc; }
+	}
+
+	public float NumEnemiesSightedPerTurn
+	{
+		get { return m_totalEnemySighted / NumTurnsForStatCalc; }
+	}
+
+	public float HealAndAbsorbPerTurn
+	{
+		get { return (EffectiveHealingFromAbility + m_totalPlayerAbsorb) / NumTurnsForStatCalc; }
+	}
+
+	public float MovementDeniedPerTurn
+	{
+		get { return m_movementDeniedByMe / NumTurnsForStatCalc; }
+	}
+
+	public float TeamEnergyBoostedByMePerTurn
+	{
+		get { return teamExtraEnergyGainFromMe / NumTurnsForStatCalc; }
+	}
+
+	public float TeamDamageSwingPerTurn
+	{
+		get { return (m_teamOutgoingDamageIncreasedByEmpoweredFromMe + m_teamIncomingDamageReducedByWeakenedFromMe) / NumTurnsForStatCalc; }
+	}
+
+	public int NetBoostedOutgoingDamage
+	{
+		get { return m_myOutgoingExtraDamageFromEmpowered - m_myOutgoingDamageReducedFromWeakened; }
+	}
 
 	public float DamageEfficiency
 	{
@@ -168,12 +356,35 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 	}
 
-	public int EffectiveHealing => Mathf.Max(0, m_totalPlayerHealing - m_totalPlayerOverheal);
-	public int EffectiveHealingFromAbility => Mathf.Max(0, m_totalPlayerHealingFromAbility - m_totalPlayerOverheal);
-	public float NetDamageDodgedPerLife => netDamageAvoidedByEvades / NumLifeForStatCalc;
-	public float IncomingDamageReducedByCoverPerLife => m_myIncomingDamageReducedByCover / NumLifeForStatCalc;
-	public float DamageTakenPerLife => m_totalPlayerDamageReceived / NumLifeForStatCalc;
-	public float AvgLifeSpan => NumTurnsForStatCalc / NumLifeForStatCalc;
+	public int EffectiveHealing
+	{
+		get { return Mathf.Max(0, m_totalPlayerHealing - m_totalPlayerOverheal); }
+	}
+
+	public int EffectiveHealingFromAbility
+	{
+		get { return Mathf.Max(0, m_totalPlayerHealingFromAbility - m_totalPlayerOverheal); }
+	}
+
+	public float NetDamageDodgedPerLife
+	{
+		get { return netDamageAvoidedByEvades / NumLifeForStatCalc; }
+	}
+
+	public float IncomingDamageReducedByCoverPerLife
+	{
+		get { return m_myIncomingDamageReducedByCover / NumLifeForStatCalc; }
+	}
+
+	public float DamageTakenPerLife
+	{
+		get { return m_totalPlayerDamageReceived / NumLifeForStatCalc; }
+	}
+
+	public float AvgLifeSpan
+	{
+		get { return NumTurnsForStatCalc / NumLifeForStatCalc; }
+	}
 
 	public CharacterType? CharacterType
 	{
@@ -204,8 +415,15 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		}
 	}
 
-	public int totalDeathsOnTurnStart => m_totalDeathsOnTurnStart;
-	public int serverIncomingDamageReducedByCoverThisTurn => m_serverIncomingDamageReducedByCoverThisTurn;
+	public int totalDeathsOnTurnStart
+	{
+		get { return m_totalDeathsOnTurnStart; }
+	}
+
+	public int serverIncomingDamageReducedByCoverThisTurn
+	{
+		get { return m_serverIncomingDamageReducedByCoverThisTurn; }
+	}
 
 	// TODO
 	public bool DebugTraceClientContribution
@@ -596,20 +814,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 		int effectiveHealingFromAbility = EffectiveHealingFromAbility;
 		string text = "\n";
 		return
-			string.Format(StringUtil.TR("TotalContribution", "Global"), totalPlayerContribution)
-			+ text
-			+ string.Format(StringUtil.TR("DamageContribution", "Global"), totalPlayerDamage)
-			+ text
-			+ string.Format(StringUtil.TR("HealingContribution", "Global"), totalPlayerHealingFromAbility, effectiveHealingFromAbility)
-			+ text
-			+ string.Format(StringUtil.TR("ShieldingContribution", "Global"), totalPlayerAbsorb, totalPlayerPotentialAbsorb)
-			+ text
-			+ string.Format(StringUtil.TR("DamageReceivedContribution", "Global"), totalPlayerDamageReceived)
-			+ text
-			+ string.Format(StringUtil.TR("HealingReceivedContribution", "Global"), totalPlayerHealingReceived)
-			+ text
-			+ string.Format(StringUtil.TR("ShieldingDamageContribution", "Global"), totalPlayerAbsorbReceived)
-			+ text;
+			new StringBuilder().Append(string.Format(StringUtil.TR("TotalContribution", "Global"), totalPlayerContribution)).Append(text).Append(string.Format(StringUtil.TR("DamageContribution", "Global"), totalPlayerDamage)).Append(text).Append(string.Format(StringUtil.TR("HealingContribution", "Global"), totalPlayerHealingFromAbility, effectiveHealingFromAbility)).Append(text).Append(string.Format(StringUtil.TR("ShieldingContribution", "Global"), totalPlayerAbsorb, totalPlayerPotentialAbsorb)).Append(text).Append(string.Format(StringUtil.TR("DamageReceivedContribution", "Global"), totalPlayerDamageReceived)).Append(text).Append(string.Format(StringUtil.TR("HealingReceivedContribution", "Global"), totalPlayerHealingReceived)).Append(text).Append(string.Format(StringUtil.TR("ShieldingDamageContribution", "Global"), totalPlayerAbsorbReceived)).Append(text).ToString();
 	}
 
 	private void Awake()
@@ -744,26 +949,26 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 	public string GetGeneralStatDebugString()
 	{
 		string text = "";
-		text += "Total Kills = " + totalPlayerKills + "\n";
-		text += "Total Assists = " + totalPlayerAssists + "\n";
-		text += "Total Deaths = " + totalDeaths + "\n";
-		text += "\nTotal Damage = " + totalPlayerDamage + "\n";
-		text += "ExtraDamage From Might = " + myOutgoingExtraDamageFromEmpowered + "\n";
-		text += "LostDamage Due to Cover = " + myOutgoingDamageReducedByCover + "\n";
-		text += "LostDamage due to Weaken = " + myOutgoingReducedDamageFromWeakened + "\n";
-		text += "Overkill Damage Dealt = " + myOutgoingOverkillDamageDealt + "\n";
-		text += "\nDamage Taken = " + totalPlayerDamageReceived + "\n";
-		text += "Net Damage Dodged By Evades = " + netDamageAvoidedByEvades + "\n";
-		text += "\nTotal Healing = " + totalPlayerHealing + "\n";
-		text += "Overheal = " + totalPlayerOverheal + "\n";
-		text += "Shielding Dealt, Effective = " + totalPlayerAbsorb + ", Total = " + totalPlayerPotentialAbsorb + "\n";
-		text += "Team Outgoing ExtraDamage from my Mighted = " + teamOutgoingDamageIncreasedByEmpoweredFromMe + "\n";
-		text += "Team Incoming LostDamage from my Weakened = " + teamIncomingDamageReducedByWeakenedFromMe + "\n";
-		text += "\nEnergy Gain = " + totalEnergyGained + "\n";
-		text += "Team Extra Energy from Me (energized + direct) = " + teamExtraEnergyGainFromMe + "\n";
-		text += "\nMovement Denied by me = " + movementDeniedByMe + "\n";
-		text += "\nNum Enemies Sighted Total = " + totalEnemySighted + "\n";
-		text += "\nAverage Life Span = " + AvgLifeSpan + "\n";
+		text += new StringBuilder().Append("Total Kills = ").Append(totalPlayerKills).Append("\n").ToString();
+		text += new StringBuilder().Append("Total Assists = ").Append(totalPlayerAssists).Append("\n").ToString();
+		text += new StringBuilder().Append("Total Deaths = ").Append(totalDeaths).Append("\n").ToString();
+		text += new StringBuilder().Append("\nTotal Damage = ").Append(totalPlayerDamage).Append("\n").ToString();
+		text += new StringBuilder().Append("ExtraDamage From Might = ").Append(myOutgoingExtraDamageFromEmpowered).Append("\n").ToString();
+		text += new StringBuilder().Append("LostDamage Due to Cover = ").Append(myOutgoingDamageReducedByCover).Append("\n").ToString();
+		text += new StringBuilder().Append("LostDamage due to Weaken = ").Append(myOutgoingReducedDamageFromWeakened).Append("\n").ToString();
+		text += new StringBuilder().Append("Overkill Damage Dealt = ").Append(myOutgoingOverkillDamageDealt).Append("\n").ToString();
+		text += new StringBuilder().Append("\nDamage Taken = ").Append(totalPlayerDamageReceived).Append("\n").ToString();
+		text += new StringBuilder().Append("Net Damage Dodged By Evades = ").Append(netDamageAvoidedByEvades).Append("\n").ToString();
+		text += new StringBuilder().Append("\nTotal Healing = ").Append(totalPlayerHealing).Append("\n").ToString();
+		text += new StringBuilder().Append("Overheal = ").Append(totalPlayerOverheal).Append("\n").ToString();
+		text += new StringBuilder().Append("Shielding Dealt, Effective = ").Append(totalPlayerAbsorb).Append(", Total = ").Append(totalPlayerPotentialAbsorb).Append("\n").ToString();
+		text += new StringBuilder().Append("Team Outgoing ExtraDamage from my Mighted = ").Append(teamOutgoingDamageIncreasedByEmpoweredFromMe).Append("\n").ToString();
+		text += new StringBuilder().Append("Team Incoming LostDamage from my Weakened = ").Append(teamIncomingDamageReducedByWeakenedFromMe).Append("\n").ToString();
+		text += new StringBuilder().Append("\nEnergy Gain = ").Append(totalEnergyGained).Append("\n").ToString();
+		text += new StringBuilder().Append("Team Extra Energy from Me (energized + direct) = ").Append(teamExtraEnergyGainFromMe).Append("\n").ToString();
+		text += new StringBuilder().Append("\nMovement Denied by me = ").Append(movementDeniedByMe).Append("\n").ToString();
+		text += new StringBuilder().Append("\nNum Enemies Sighted Total = ").Append(totalEnemySighted).Append("\n").ToString();
+		text += new StringBuilder().Append("\nAverage Life Span = ").Append(AvgLifeSpan).Append("\n").ToString();
 		return text;
 	}
 
@@ -783,7 +988,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_clientEffectSourceActors.Add(caster.ActorIndex);
 			if (DebugTraceClientContribution)
 			{
-				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.DebugNameString("white") + " recording EFFECT from " + caster.DebugNameString("yellow"));
+				Debug.LogWarning(new StringBuilder().Append("<color=magenta>ActorBehavior: </color>").Append(m_actor.DebugNameString("white")).Append(" recording EFFECT from ").Append(caster.DebugNameString("yellow")).ToString());
 			}
 		}
 	}
@@ -798,7 +1003,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_clientDamageSourceActors.Add(caster.ActorIndex);
 			if (DebugTraceClientContribution)
 			{
-				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.DebugNameString("white") + " recording DAMAGE from " + caster.DebugNameString("yellow"));
+				Debug.LogWarning(new StringBuilder().Append("<color=magenta>ActorBehavior: </color>").Append(m_actor.DebugNameString("white")).Append(" recording DAMAGE from ").Append(caster.DebugNameString("yellow")).ToString());
 			}
 		}
 	}
@@ -813,7 +1018,7 @@ public class ActorBehavior : NetworkBehaviour, StatDisplaySettings.IPersistatedS
 			m_clientHealSourceActors.Add(caster.ActorIndex);
 			if (DebugTraceClientContribution)
 			{
-				Debug.LogWarning("<color=magenta>ActorBehavior: </color>" + m_actor.DebugNameString("white") + " recording HEALING from " + caster.DebugNameString("yellow"));
+				Debug.LogWarning(new StringBuilder().Append("<color=magenta>ActorBehavior: </color>").Append(m_actor.DebugNameString("white")).Append(" recording HEALING from ").Append(caster.DebugNameString("yellow")).ToString());
 			}
 		}
 	}

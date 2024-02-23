@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class PersistedAccountData : ICloneable
@@ -271,6 +272,6 @@ public class PersistedAccountData : ICloneable
 
 	public override string ToString()
 	{
-		return $"[{AccountId}] {Handle}";
+		return new StringBuilder().Append("[").Append(AccountId).Append("] ").Append(Handle).ToString();
 	}
 }

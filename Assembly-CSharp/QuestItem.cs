@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -146,7 +147,7 @@ public class QuestItem : MonoBehaviour
 		string text2 = StringUtil.TR_QuestDescription(questId);
 		if (text != string.Empty)
 		{
-			empty = $"<size=20>{text}</size>\n<#a9a9a9>{text2}";
+			empty = new StringBuilder().Append("<size=20>").Append(text).Append("</size>\n<#a9a9a9>").Append(text2).ToString();
 		}
 		else
 		{
@@ -169,7 +170,7 @@ public class QuestItem : MonoBehaviour
 		{
 			currentProgress = maxProgress;
 		}
-		string text3 = $"{currentProgress}/{maxProgress}";
+		string text3 = new StringBuilder().Append(currentProgress).Append("/").Append(maxProgress).ToString();
 		m_progressText.text = text3;
 		m_progressBar.fillAmount = (float)currentProgress / (1f * (float)maxProgress);
 		int num = 0;

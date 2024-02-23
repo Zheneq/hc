@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -377,7 +378,7 @@ public class MyNetworkManager : NetworkManager
 		{
 			if (LogFilter.logDebug)
 			{
-				Debug.Log("NetworkManager StartClient match: " + matchInfo);
+				Debug.Log(new StringBuilder().Append("NetworkManager StartClient match: ").Append(matchInfo).ToString());
 			}
 			client.Connect(matchInfo);
 		}

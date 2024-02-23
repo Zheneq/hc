@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -55,7 +56,7 @@ public class Claymore_SyncComponent : NetworkBehaviour
 			int dirtyFightingDamageOnActor = GetDirtyFightingDamageOnActor(targetActor);
 			if (dirtyFightingDamageOnActor > 0)
 			{
-				return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingDamageOnActor, false);
+				return new StringBuilder().Append("\n+ ").Append(AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, dirtyFightingDamageOnActor, false)).ToString();
 			}
 		}
 		return null;

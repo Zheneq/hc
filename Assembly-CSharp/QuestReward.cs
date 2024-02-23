@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -260,7 +261,7 @@ public class QuestReward : MonoBehaviour
 				{
 					if (currencyReward.Type == CurrencyType.Experience)
 					{
-						string path = "Localization/" + StringUtil.TR("EXP", "TEXTURE");
+						string path = new StringBuilder().Append("Localization/").Append(StringUtil.TR("EXP", "TEXTURE")).ToString();
 						m_rewardImage.sprite = (Resources.Load(path, typeof(Sprite)) as Sprite);
 					}
 					else if (currencyReward.Type == CurrencyType.UnlockFreelancerToken)

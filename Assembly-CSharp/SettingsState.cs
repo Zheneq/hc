@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -1145,7 +1146,7 @@ public class SettingsState : ICloneable
 			}
 			if (flag)
 			{
-				setResolutionText(thisResolutionWidth.ToString() + " x " + thisResolutionHeight.ToString());
+				setResolutionText(new StringBuilder().Append(thisResolutionWidth.ToString()).Append(" x ").Append(thisResolutionHeight.ToString()).ToString());
 			}
 			else
 			{
@@ -1155,7 +1156,7 @@ public class SettingsState : ICloneable
 		}
 		case SettingsState.WindowMode.Fullscreen:
 			setModeText(StringUtil.TR("Fullscreen", "Options"));
-			setResolutionText(Screen.currentResolution.width.ToString() + " x " + Screen.currentResolution.height.ToString());
+			setResolutionText(new StringBuilder().Append(Screen.currentResolution.width.ToString()).Append(" x ").Append(Screen.currentResolution.height.ToString()).ToString());
 			break;
 		case SettingsState.WindowMode.Inherit:
 			setModeText(StringUtil.TR("Same as Menu", "Options"));

@@ -17,9 +17,15 @@ public class UICharacterMovementItem : MonoBehaviour
 
 	private List<ActorData> actorDataRef = new List<ActorData>();
 
-	public List<ActorData> Actors => actorDataRef;
+	public List<ActorData> Actors
+	{
+		get { return actorDataRef; }
+	}
 
-	public BoardSquare BoardPosition => boardSquareRef;
+	public BoardSquare BoardPosition
+	{
+		get { return boardSquareRef; }
+	}
 
 	public void Setup(BoardSquare square, ActorData data)
 	{

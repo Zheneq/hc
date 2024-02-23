@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine.UI;
 
 public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
@@ -474,7 +475,7 @@ public class UIStoreAccountFluxPanel : UIStoreBaseInventoryPanel
 				default:
 				{
 					GameBalanceVars.LoadingScreenBackground loadingScreenBackground = item as GameBalanceVars.LoadingScreenBackground;
-					string tooltipText = loadingScreenBackground.GetObtainedDescription() + Environment.NewLine + loadingScreenBackground.GetPurchaseDescription();
+					string tooltipText = new StringBuilder().AppendLine(loadingScreenBackground.GetObtainedDescription()).Append(loadingScreenBackground.GetPurchaseDescription()).ToString();
 					UITitledTooltip uITitledTooltip3 = tooltip as UITitledTooltip;
 					uITitledTooltip3.Setup(loadingScreenBackground.GetLoadingScreenBackgroundName(), tooltipText, string.Empty);
 					return true;

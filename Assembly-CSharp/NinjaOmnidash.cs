@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class NinjaOmnidash : Ability
@@ -107,9 +108,7 @@ public class NinjaOmnidash : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Design --</color>\n" +
-		       "If using [Skip Evade] option, please set phase to one that is not Evasion.\n" +
-		       "Please edit [Deathmark] info on Ninja sync component.";
+		return new StringBuilder().Append("<color=cyan>-- For Design --</color>\n").Append("If using [Skip Evade] option, please set phase to one that is not Evasion.\n").Append("Please edit [Deathmark] info on Ninja sync component.").ToString();
 	}
 
 	internal override ActorData.MovementType GetMovementType()
@@ -349,8 +348,10 @@ public class NinjaOmnidash : Ability
 		       && m_syncComp != null
 		       && GetDeathmarkTriggerDamage() > 0
 		       && IsActorMarked(targetActor)
-			? "\n+ " + AbilityUtils.CalculateDamageForTargeter(
-				ActorData, targetActor, this, GetDeathmarkTriggerDamage(), false)
+			? new StringBuilder().Append("\n+ ")
+				.Append(AbilityUtils.CalculateDamageForTargeter(
+					ActorData, targetActor, this, GetDeathmarkTriggerDamage(), false))
+				.ToString()
 			: null;
 	}
 

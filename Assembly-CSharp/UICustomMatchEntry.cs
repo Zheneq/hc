@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -13,8 +14,8 @@ public class UICustomMatchEntry : MonoBehaviour
 	public void Setup(LobbyGameInfo game)
 	{
 		m_gameName.text = game.GameConfig.RoomName;
-		m_playerCount.text = game.ActivePlayers + "/" + game.GameConfig.TotalPlayers;
-		m_spectatorCount.text = game.ActiveSpectators + "/" + game.GameConfig.Spectators;
+		m_playerCount.text = new StringBuilder().Append(game.ActivePlayers).Append("/").Append(game.GameConfig.TotalPlayers).ToString();
+		m_spectatorCount.text = new StringBuilder().Append(game.ActiveSpectators).Append("/").Append(game.GameConfig.Spectators).ToString();
 		m_mapName.text = GameWideData.Get().GetMapDisplayName(game.GameConfig.Map);
 		bool canAddSpectators = game.ActiveSpectators < game.GameConfig.Spectators;
 		foreach (RectTransform t in m_joinAsSpectatorButton.transform.parent.GetComponentsInChildren<RectTransform>())

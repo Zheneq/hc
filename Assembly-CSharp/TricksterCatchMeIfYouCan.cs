@@ -340,12 +340,13 @@ public class TricksterCatchMeIfYouCan : Ability
 		}
 		if (isValid)
 		{
+			int foo;
 			isValid = KnockbackUtils.CanBuildStraightLineChargePath(
 				caster,
 				targetSquare,
 				caster.GetCurrentBoardSquare(),
 				m_chargeThroughInvalidSquares,
-				out _);
+				out foo);
 		}
 		return isValid;
 	}

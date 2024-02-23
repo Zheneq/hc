@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,8 +25,8 @@ public class EmoticonSelectBtn : MonoBehaviour
 	public void Setup(ChatEmojiManager.ChatEmoji emoji, bool unlocked)
 	{
 		emojiRef = emoji;
-		m_DefaultSprite.text = $"<sprite=\"EmoticonsAssets\" index={emoji.m_frameToDisplayForSelect}>";
-		m_HoverSprite.text = $"<sprite=\"EmoticonsAssets\" index={emoji.m_startIndex}>";
+		m_DefaultSprite.text = new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(emoji.m_frameToDisplayForSelect).Append(">").ToString();
+		m_HoverSprite.text = new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(emoji.m_startIndex).Append(">").ToString();
 		currentEmojiFrame = emoji.m_startIndex;
 		m_lastTimeUpdate = -1f;
 		if (unlocked)
@@ -49,7 +50,7 @@ public class EmoticonSelectBtn : MonoBehaviour
 		{
 			if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 			{
-				UIFrontEnd.Get().m_frontEndChatConsole.AppendInput(emojiRef.GetEmojiTag() + " ", true);
+				UIFrontEnd.Get().m_frontEndChatConsole.AppendInput(new StringBuilder().Append(emojiRef.GetEmojiTag()).Append(" ").ToString(), true);
 				UIFrontEnd.Get().m_frontEndChatConsole.SelectInput(string.Empty);
 				UIFrontEnd.Get().m_frontEndChatConsole.DehighlightTextAndPositionCarat();
 				EmoticonPanel.Get().SetPanelOpen(false);
@@ -72,7 +73,7 @@ public class EmoticonSelectBtn : MonoBehaviour
 				{
 					while (true)
 					{
-						HUD_UI.Get().m_textConsole.AppendInput(emojiRef.GetEmojiTag() + " ", true);
+						HUD_UI.Get().m_textConsole.AppendInput(new StringBuilder().Append(emojiRef.GetEmojiTag()).Append(" ").ToString(), true);
 						EmoticonPanel.Get().SetPanelOpen(false);
 						return;
 					}
@@ -102,8 +103,9 @@ public class EmoticonSelectBtn : MonoBehaviour
 				{
 					currentEmojiFrame = emojiRef.m_startIndex;
 				}
-				m_DefaultSprite.text = $"<sprite=\"EmoticonsAssets\" index={emojiRef.m_frameToDisplayForSelect}>";
-				m_HoverSprite.text = $"<sprite=\"EmoticonsAssets\" index={currentEmojiFrame}>";
+
+				m_DefaultSprite.text = new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(emojiRef.m_frameToDisplayForSelect).Append(">").ToString();
+				m_HoverSprite.text = new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(currentEmojiFrame).Append(">").ToString();
 				return;
 			}
 		}

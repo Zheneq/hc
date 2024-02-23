@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -63,12 +64,13 @@ public class OnHitEffecField
 				result = "- Effect to Apply -\n";
 				if (!string.IsNullOrEmpty(m_identifier))
 				{
-					result = result + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
+					result = new StringBuilder().Append(result).Append("Identifier: ").Append(InEditorDescHelper.ColoredString(m_identifier, "white")).Append("\n").ToString();
 				}
-				result = result + "Conditions:\n" + m_conditions.GetInEditorDesc("    ");
+
+				result = new StringBuilder().Append(result).Append("Conditions:\n").Append(m_conditions.GetInEditorDesc("    ")).ToString();
 				if (m_skipRemainingEffectEntriesIfMatch)
 				{
-					result = result + InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white") + "\n";
+					result = new StringBuilder().Append(result).Append(InEditorDescHelper.ColoredString("    * Skipping later entries if this one applies to target", "white")).Append("\n").ToString();
 				}
 				result += "Effect Data:\n";
 				if (diff)
@@ -99,7 +101,8 @@ public class OnHitEffecField
 		{
 			other2 = null;
 		}
-		result = str + effectData.GetInEditorDescription("    ", false, flag, (StandardActorEffectData)other2) + "\n";
+
+		result = new StringBuilder().Append(str).Append(effectData.GetInEditorDescription("    ", false, flag, (StandardActorEffectData)other2)).Append("\n").ToString();
 		goto IL_012f;
 	}
 }

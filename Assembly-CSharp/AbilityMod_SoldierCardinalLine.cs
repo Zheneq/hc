@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SoldierCardinalLine : AbilityMod
@@ -62,6 +63,6 @@ public class AbilityMod_SoldierCardinalLine : AbilityMod
 		desc += PropDesc(m_aoeDamageMod, "[AoeDamage]", isValid, isValid ? soldierCardinalLine.m_aoeDamage : 0);
 		desc += PropDesc(m_numSubsequentTurnsMod, "[NumSubsequentTurns]", isValid, isValid ? soldierCardinalLine.m_numSubsequentTurns : 0);
 		desc += PropDesc(m_damageOnSubsequentTurnsMod, "[DamageOnSubsequentTurns]", isValid, isValid ? soldierCardinalLine.m_damageOnSubsequentTurns : 0);
-		return desc + PropDesc(m_enemyEffectOnSubsequentTurnsMod, "[EnemyEffectOnSubsequentTurns]", isValid, isValid ? soldierCardinalLine.m_enemyEffectOnSubsequentTurns : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_enemyEffectOnSubsequentTurnsMod, "[EnemyEffectOnSubsequentTurns]", isValid, isValid ? soldierCardinalLine.m_enemyEffectOnSubsequentTurns : null)).ToString();
 	}
 }

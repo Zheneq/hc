@@ -2,6 +2,7 @@ using Corale.Colore.Razer.Keyboard;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
@@ -803,7 +804,7 @@ public class InputManager : MonoBehaviour
 			}
 			if (shortStr)
 			{
-				result = $"{modifierKeyString}{modifierKeyString2}-{keyString}";
+				result = new StringBuilder().Append(modifierKeyString).Append(modifierKeyString2).Append("-").Append(keyString).ToString();
 			}
 			else
 			{
@@ -811,11 +812,12 @@ public class InputManager : MonoBehaviour
 				{
 					if (modifierKeyString2.IsNullOrEmpty())
 					{
-						result = $"{modifierKeyString} {keyString}";
+						result = new StringBuilder().Append(modifierKeyString).Append(" ").Append(keyString).ToString();
 						goto IL_00de;
 					}
 				}
-				result = $"{modifierKeyString} {modifierKeyString2} {keyString}";
+
+				result = new StringBuilder().Append(modifierKeyString).Append(" ").Append(modifierKeyString2).Append(" ").Append(keyString).ToString();
 			}
 		}
 		goto IL_00de;
@@ -1128,7 +1130,7 @@ public class InputManager : MonoBehaviour
 	{
 		string arg = StringUtil.TR_KeyBindCommand(keyPreference.ToString());
 		string fullKeyString = GetFullKeyString(keyPreference, true);
-		TextConsole.Get().Write($"key:{arg} maps to:{fullKeyString}");
+		TextConsole.Get().Write(new StringBuilder().Append("key:").Append(arg).Append(" maps to:").Append(fullKeyString).ToString());
 	}
 
 	private void BuildRazorKeyLookupMap()

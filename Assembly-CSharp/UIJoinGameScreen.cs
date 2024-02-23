@@ -82,7 +82,8 @@ public class UIJoinGameScreen : UIScene
 			bool joinAsSpectator = data.selectedObject == entry.m_joinAsSpectatorButton.gameObject;
 			if (join || joinAsSpectator)
 			{
-				if (!m_buttonLookup.TryGetValue(entry, out LobbyGameInfo value))
+				LobbyGameInfo value;
+				if (!m_buttonLookup.TryGetValue(entry, out value))
 				{
 					return;
 				}

@@ -54,51 +54,51 @@ public class Iceborg_SyncComponent : NetworkBehaviour
 
 	public short Networkm_damageFieldLastCastTurn
 	{
-		get => m_damageFieldLastCastTurn;
+		get { return m_damageFieldLastCastTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_damageFieldLastCastTurn, 2u);
+		set { SetSyncVar(value, ref m_damageFieldLastCastTurn, 2u); }
 	}
 
 	public bool Networkm_damageAreaCanMoveThisTurn
 	{
-		get => m_damageAreaCanMoveThisTurn;
+		get { return m_damageAreaCanMoveThisTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_damageAreaCanMoveThisTurn, 4u);
+		set { SetSyncVar(value, ref m_damageAreaCanMoveThisTurn, 4u); }
 	}
 
 	public short Networkm_damageAreaCenterX
 	{
-		get => m_damageAreaCenterX;
+		get { return m_damageAreaCenterX; }
 		[param: In]
-		set => SetSyncVar(value, ref m_damageAreaCenterX, 8u);
+		set { SetSyncVar(value, ref m_damageAreaCenterX, 8u); }
 	}
 
 	public short Networkm_damageAreaCenterY
 	{
-		get => m_damageAreaCenterY;
+		get { return m_damageAreaCenterY; }
 		[param: In]
-		set => SetSyncVar(value, ref m_damageAreaCenterY, 16u);
+		set { SetSyncVar(value, ref m_damageAreaCenterY, 16u); }
 	}
 
 	public Vector3 Networkm_damageAreaFreePos
 	{
-		get => m_damageAreaFreePos;
+		get { return m_damageAreaFreePos; }
 		[param: In]
-		set => SetSyncVar(value, ref m_damageAreaFreePos, 32u);
+		set { SetSyncVar(value, ref m_damageAreaFreePos, 32u); }
 	}
 
 	public short Networkm_numNovaEffectsOnTurnStart
 	{
-		get => m_numNovaEffectsOnTurnStart;
+		get { return m_numNovaEffectsOnTurnStart; }
 		[param: In]
-		set => SetSyncVar(value, ref m_numNovaEffectsOnTurnStart, 64u);
+		set { SetSyncVar(value, ref m_numNovaEffectsOnTurnStart, 64u); }
 	}
 
 	public bool Networkm_selfShieldLowHealthOnTurnStart
 	{
-		get => m_selfShieldLowHealthOnTurnStart;
+		get { return m_selfShieldLowHealthOnTurnStart; }
 		[param: In]
-		set => SetSyncVar(value, ref m_selfShieldLowHealthOnTurnStart, 128u);
+		set { SetSyncVar(value, ref m_selfShieldLowHealthOnTurnStart, 128u); }
 	}
 
 	static Iceborg_SyncComponent()

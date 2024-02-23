@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using TMPro;
 using UnityEngine;
@@ -64,7 +65,8 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 								if (item is GameBalanceVars.StoreItemForPurchase)
 								{
 									int itemTemplateId = ((GameBalanceVars.StoreItemForPurchase)item).m_itemTemplateId;
-									m_realCurrencyData.Price = CommerceClient.Get().GetStoreItemPrice(itemTemplateId, accountCurrency, out float _);
+									float float1;
+									m_realCurrencyData.Price = CommerceClient.Get().GetStoreItemPrice(itemTemplateId, accountCurrency, out float1);
 								}
 								else if (item is GameBalanceVars.ColorUnlockData)
 								{
@@ -182,7 +184,7 @@ public abstract class UIStoreBaseInventoryPanel : UIStoreBasePanel
 				}
 				else
 				{
-					m_labels[i].text = $"<sprite name={text}>{UIStorePanel.FormatIntToString(m_currencyData.Amount, true)}";
+					m_labels[i].text = new StringBuilder().Append("<sprite name=").Append(text).Append(">").Append(UIStorePanel.FormatIntToString(m_currencyData.Amount, true)).ToString();
 				}
 			}
 			while (true)

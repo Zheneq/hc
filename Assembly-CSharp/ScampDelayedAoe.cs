@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -29,8 +30,7 @@ public class ScampDelayedAoe : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor()
-		       + ContextVars.GetContextUsageStr(s_cvarMissingShields.GetName(), "amount of missing shield on Scamp", false);
+		return new StringBuilder().Append(base.GetUsageForEditor()).Append(ContextVars.GetContextUsageStr(s_cvarMissingShields.GetName(), "amount of missing shield on Scamp", false)).ToString();
 	}
 
 	public override List<string> GetContextNamesForEditor()

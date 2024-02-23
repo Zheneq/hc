@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -285,7 +286,7 @@ public class UISeasonPanelViewEntry : MonoBehaviour
 					{
 						if (this.m_expLabel != null)
 						{
-							this.m_expLabel.text = score + " / " + faction.Tiers[k].ContributionToComplete;
+							this.m_expLabel.text = new StringBuilder().Append(score).Append(" / ").Append(faction.Tiers[k].ContributionToComplete).ToString();
 							flag = true;
 						}
 					}

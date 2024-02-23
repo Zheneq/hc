@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class PersistedStats : ICloneable
@@ -533,7 +534,7 @@ public class PersistedStats : ICloneable
 		case StatDisplaySettings.StatType.MatchesWon:
 			return MatchesWon;
 		default:
-			Log.Warning("Attempting to display a stat that isn't categorized: " + TypeOfStat);
+			Log.Warning(new StringBuilder().Append("Attempting to display a stat that isn't categorized: ").Append(TypeOfStat).ToString());
 			return null;
 		}
 	}

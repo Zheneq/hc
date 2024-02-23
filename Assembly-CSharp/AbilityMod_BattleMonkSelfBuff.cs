@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BattleMonkSelfBuff : AbilityMod
@@ -48,6 +49,6 @@ public class AbilityMod_BattleMonkSelfBuff : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_allyTargetShapeMod, "[Ally Target Shape]", isAbilityPresent);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnAllyHit, "{ Effect on Ally Hit }", string.Empty, isAbilityPresent);
 		desc += PropDesc(m_selfEffectDurationPerHit, "[Duration of Effect On Self Per Received Hit]", isAbilityPresent);
-		return desc + AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelfNextTurn, "{ Effect on Self Next Turn }", string.Empty, isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelfNextTurn, "{ Effect on Self Next Turn }", string.Empty, isAbilityPresent)).ToString();
 	}
 }

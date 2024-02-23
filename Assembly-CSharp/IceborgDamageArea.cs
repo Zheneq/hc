@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -49,7 +50,7 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		string usageForEditor = base.GetUsageForEditor();
 		usageForEditor += ContextVars.GetContextUsageStr(IceborgConeOrLaser.s_cvarHasSlow.GetName(), "Set on enemies hit, 1 if has Slow, 0 otherwise");
-		return usageForEditor + ContextVars.GetContextUsageStr(s_cvarTurnsSinceInitialCast.GetName(), "turns since initial cast, 0 on first turn", false);
+		return new StringBuilder().Append(usageForEditor).Append(ContextVars.GetContextUsageStr(s_cvarTurnsSinceInitialCast.GetName(), "turns since initial cast, 0 on first turn", false)).ToString();
 	}
 
 	public override List<string> GetContextNamesForEditor()

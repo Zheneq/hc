@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SparkDash : AbilityMod
@@ -47,6 +48,6 @@ public class AbilityMod_SparkDash : AbilityMod
 		desc += PropDesc(m_hitActorsInBetweenMod, "[Hit Actors In Between?]", isAbilityPresent, isAbilityPresent && sparkDash.m_hitActorsInBetween);
 		desc += PropDesc(m_chargeHitWidthMod, "[Charge Width]", isAbilityPresent, isAbilityPresent ? sparkDash.m_chargeHitWidth : 0f);
 		desc += PropDesc(m_effectOnEnemyInBetweenMod, "[Effect on Enemy In Between]", isAbilityPresent, isAbilityPresent ? sparkDash.m_effectOnEnemyInBetween : null);
-		return desc + PropDesc(m_effectOnAllyInBetweenMod, "[Effect on Ally In Between]", isAbilityPresent, isAbilityPresent ? sparkDash.m_effectOnAllyInBetween : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_effectOnAllyInBetweenMod, "[Effect on Ally In Between]", isAbilityPresent, isAbilityPresent ? sparkDash.m_effectOnAllyInBetween : null)).ToString();
 	}
 }

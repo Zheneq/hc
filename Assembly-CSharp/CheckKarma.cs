@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class CheckKarma
@@ -75,6 +76,6 @@ public class CheckKarma
 
 	public override string ToString()
 	{
-		return $"KarmaTemplateId {KarmaTemplateId}, KarmaRewardEntry ({KarmaRewardEntry}), InteropValues (count {InteropValues.Count})";
+		return new StringBuilder().Append("KarmaTemplateId ").Append(KarmaTemplateId).Append(", KarmaRewardEntry (").Append(KarmaRewardEntry).Append("), InteropValues (count ").Append(InteropValues.Count).Append(")").ToString();
 	}
 }

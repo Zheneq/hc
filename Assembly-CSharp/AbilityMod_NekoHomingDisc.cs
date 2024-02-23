@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NekoHomingDisc : AbilityMod
@@ -62,6 +63,6 @@ public class AbilityMod_NekoHomingDisc : AbilityMod
 		desc += PropDesc(m_extraReturnDamagePerDistMod, "[ExtraReturnDamagePerDist]", isValid, isValid ? nekoHomingDisc.m_extraReturnDamagePerDist : 0f);
 		desc += PropDesc(m_returnTripEnemyEffectMod, "[ReturnTripEnemyEffect]", isValid, isValid ? nekoHomingDisc.m_returnTripEnemyEffect : null);
 		desc += PropDesc(m_cdrIfHitNoOneOnCastMod, "[CdrIfHitNoOneOnCast]", isValid, isValid ? nekoHomingDisc.m_cdrIfHitNoOneOnCast : 0);
-		return desc + PropDesc(m_cdrIfHitNoOneOnReturnMod, "[CdrIfHitNoOneOnReturn]", isValid, isValid ? nekoHomingDisc.m_cdrIfHitNoOneOnReturn : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfHitNoOneOnReturnMod, "[CdrIfHitNoOneOnReturn]", isValid, isValid ? nekoHomingDisc.m_cdrIfHitNoOneOnReturn : 0)).ToString();
 	}
 }

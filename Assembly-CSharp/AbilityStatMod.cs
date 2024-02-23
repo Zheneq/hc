@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -17,7 +18,7 @@ public class AbilityStatMod
 
 	public override string ToString()
 	{
-		return "[" + stat.ToString() + "] " + modType.ToString() + " " + modValue;
+		return new StringBuilder().Append("[").Append(stat.ToString()).Append("] ").Append(modType.ToString()).Append(" ").Append(modValue).ToString();
 	}
 
 	public string GetOperationsString()
@@ -64,7 +65,7 @@ public class AbilityStatMod
 		{
 			c2 = '\0';
 		}
-		return $"{stat.ToString()} {c}{text}{c2}";
+		return new StringBuilder().Append(stat.ToString()).Append(" ").Append(c).Append(text).Append(c2).ToString();
 	}
 
 	public string GetInEditorDescription(string header = "- StatMod -", string indent = "", bool showDiff = false, AbilityStatMod other = null)
@@ -81,9 +82,9 @@ public class AbilityStatMod
 		bool flag = (byte)num != 0;
 		string otherSep = "\t        \t | in base  =";
 		string text = "\n";
-		string text2 = InEditorDescHelper.BoldedStirng(header) + " " + modType.ToString() + text;
+		string text2 = new StringBuilder().Append(InEditorDescHelper.BoldedStirng(header)).Append(" ").Append(modType.ToString()).Append(text).ToString();
 		string str = text2;
-		string header2 = "[ " + stat.ToString() + " ] = ";
+		string header2 = new StringBuilder().Append("[ ").Append(stat.ToString()).Append(" ] = ").ToString();
 		float myVal = modValue;
 		float otherVal;
 		if (flag)
@@ -94,8 +95,8 @@ public class AbilityStatMod
 		{
 			otherVal = 0f;
 		}
-		
-		text2 = str + InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, flag, otherVal, ((float f) => f != 0f));
-		return text2 + text;
+
+		text2 = new StringBuilder().Append(str).Append(InEditorDescHelper.AssembleFieldWithDiff(header2, indent, otherSep, myVal, flag, otherVal, ((float f) => f != 0f))).ToString();
+		return new StringBuilder().Append(text2).Append(text).ToString();
 	}
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -172,7 +173,10 @@ public class UITextConsole : MonoBehaviour
 	//[CompilerGenerated]
 	//private static Action OnGroupUpdateNotification;
 
-	private bool m_changeChannelAlpha => UIManager.Get().CurrentState == UIManager.ClientState.InGame;
+	private bool m_changeChannelAlpha
+	{
+		get { return UIManager.Get().CurrentState == UIManager.ClientState.InGame; }
+	}
 
 	private static void InitializeAutoComplete()
 	{
@@ -736,7 +740,7 @@ public class UITextConsole : MonoBehaviour
 
 	public void SetupWhisper(string whisperee)
 	{
-		m_chatCommand = m_whisperCommand.Command + " " + whisperee;
+		m_chatCommand = new StringBuilder().Append(m_whisperCommand.Command).Append(" ").Append(whisperee).ToString();
 		RefreshChatRoomDisplay();
 		SelectInput(string.Empty);
 		MoveCaretToEnd();
@@ -786,7 +790,7 @@ public class UITextConsole : MonoBehaviour
 				if (m_textInput.caretPosition > 0)
 				{
 					m_textInput.caretPosition--;
-					m_textInput.text = m_textInput.text.Substring(0, m_textInput.caretPosition) + m_textInput.text.Substring(m_textInput.caretPosition + 1);
+					m_textInput.text = new StringBuilder().Append(m_textInput.text, 0, m_textInput.caretPosition).Append(m_textInput.text.Substring(m_textInput.caretPosition + 1)).ToString();
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Delete))
@@ -808,15 +812,15 @@ public class UITextConsole : MonoBehaviour
 		{
 			m_textInput.text = m_textInput.text.Substring(0, 200);
 		}
-		if (!m_textInput.text.StartsWith(StringUtil.TR("/reply", "SlashCommand") + " "))
+		if (!m_textInput.text.StartsWith(new StringBuilder().Append(StringUtil.TR("/reply", "SlashCommand")).Append(" ").ToString()))
 		{
-			if (!m_textInput.text.StartsWith(StringUtil.TR("/reply", "SlashCommandAlias1") + " "))
+			if (!m_textInput.text.StartsWith(new StringBuilder().Append(StringUtil.TR("/reply", "SlashCommandAlias1")).Append(" ").ToString()))
 			{
 				goto IL_01e3;
 			}
 		}
 		int num = m_textInput.text.IndexOf(' ');
-		m_textInput.text = GenerateReplyPrefix() + m_textInput.text.Substring(num + 1);
+		m_textInput.text = new StringBuilder().Append(GenerateReplyPrefix()).Append(m_textInput.text.Substring(num + 1)).ToString();
 		MoveCaretToEnd();
 		goto IL_01e3;
 		IL_01e3:
@@ -1298,11 +1302,11 @@ public class UITextConsole : MonoBehaviour
 					default:
 						if (component != m_textInput)
 						{
-							string text = "ENTER INPUT FALSE: " + component.name;
+							string text = new StringBuilder().Append("ENTER INPUT FALSE: ").Append(component.name).ToString();
 							Transform transform = component.transform;
 							while (transform.parent != null)
 							{
-								text = text + " -> " + transform.parent.name;
+								text = new StringBuilder().Append(text).Append(" -> ").Append(transform.parent.name).ToString();
 								transform = transform.parent;
 							}
 							Log.Info(text);
@@ -1410,11 +1414,11 @@ public class UITextConsole : MonoBehaviour
 		{
 			if (GameFlowData.Get() == null)
 			{
-				SelectInput(StringUtil.TR("/general", "SlashCommand") + " ");
+				SelectInput(new StringBuilder().Append(StringUtil.TR("/general", "SlashCommand")).Append(" ").ToString());
 			}
 			else
 			{
-				SelectInput(StringUtil.TR("/game", "SlashCommand") + " ");
+				SelectInput(new StringBuilder().Append(StringUtil.TR("/game", "SlashCommand")).Append(" ").ToString());
 			}
 			MoveCaretToEnd();
 		}
@@ -1653,7 +1657,8 @@ public class UITextConsole : MonoBehaviour
 				{
 					if (m_textInput.text.StartsWith("/"))
 					{
-						GetAutoCompletePossibilities(true, out string _);
+						string string1;
+						GetAutoCompletePossibilities(true, out string1);
 						goto IL_0725;
 					}
 				}
@@ -1883,7 +1888,7 @@ public class UITextConsole : MonoBehaviour
 		}
 		for (int i = 0; i < m_whisperedPlayers.Count; i++)
 		{
-			list.Add(StringUtil.TR("/whisper", "SlashCommand") + " " + m_whisperedPlayers[i]);
+			list.Add(new StringBuilder().Append(StringUtil.TR("/whisper", "SlashCommand")).Append(" ").Append((object)m_whisperedPlayers[i]).ToString());
 		}
 		return list;
 		IL_0152:
@@ -1991,7 +1996,7 @@ public class UITextConsole : MonoBehaviour
 				{
 					list2 = m_playerAutocomplete;
 					text = array3[1];
-					beforeAutocomplete = m_friendCommand.Command + " " + array3[0];
+					beforeAutocomplete = new StringBuilder().Append(m_friendCommand.Command).Append(" ").Append(array3[0]).ToString();
 				}
 			}
 			else
@@ -2053,7 +2058,7 @@ public class UITextConsole : MonoBehaviour
 								}
 								if (num6 == num2)
 								{
-									text4 = list2[num2] + " ";
+									text4 = new StringBuilder().Append((object)list2[num2]).Append(" ").ToString();
 									if (text != text4)
 									{
 										if (!m_allCommand.IsSlashCommand(text4.Trim()))
@@ -2155,11 +2160,11 @@ public class UITextConsole : MonoBehaviour
 		IL_060d:
 		if (doAutocomplete)
 		{
-			string text7 = text4 + text3.TrimStart();
+			string text7 = new StringBuilder().Append(text4).Append(text3.TrimStart()).ToString();
 			int num7 = (!text4.IsNullOrEmpty()) ? text4.Length : 0;
 			if (!beforeAutocomplete.IsNullOrEmpty())
 			{
-				text7 = beforeAutocomplete + " " + text7;
+				text7 = new StringBuilder().Append(beforeAutocomplete).Append(" ").Append(text7).ToString();
 				int num8 = num7;
 				int num9;
 				if (beforeAutocomplete.IsNullOrEmpty())
@@ -2288,7 +2293,7 @@ public class UITextConsole : MonoBehaviour
 							}
 						}
 					}
-					string text = $"<size=36><sprite=\"CharacterSprites\" index={2 * (int)characterType + num2}>\u200b</size>{textEntry}";
+					string text = new StringBuilder().Append("<size=36><sprite=\"CharacterSprites\" index=").Append(2 * (int)characterType + num2).Append(">\u200b</size>").Append(textEntry).ToString();
 					textEntry = text;
 				}
 			}
@@ -2363,14 +2368,14 @@ public class UITextConsole : MonoBehaviour
 		string empty = string.Empty;
 		if (message.DisplayDevTag)
 		{
-			message.SenderHandle = StringUtil.TR("DevTag", "Global") + message.SenderHandle;
+			message.SenderHandle = new StringBuilder().Append(StringUtil.TR("DevTag", "Global")).Append(message.SenderHandle).ToString();
 		}
 		switch (message.MessageType)
 		{
 		case ConsoleMessageType.GlobalChat:
 		{
 			string arg = ColorToHex(HUD_UIResources.Get().m_GlobalChatColor);
-			string text3 = "<link=channel:" + StringUtil.TR("/general", "SlashCommand").Substring(1) + ">" + StringUtil.TR("GlobalChannel", "Chat") + "</link>";
+			string text3 = new StringBuilder().Append("<link=channel:").Append(StringUtil.TR("/general", "SlashCommand").Substring(1)).Append(">").Append(StringUtil.TR("GlobalChannel", "Chat")).Append("</link>").ToString();
 			if (selfMessage)
 			{
 				while (true)
@@ -2380,11 +2385,11 @@ public class UITextConsole : MonoBehaviour
 					case 0:
 						break;
 					default:
-						return $"<color=#{arg}>{text3} {message.SenderHandle}:  {message.Text}</color>";
+						return new StringBuilder().Append("<color=#").Append(arg).Append(">").Append(text3).Append(" ").Append(message.SenderHandle).Append(":  ").Append(message.Text).Append("</color>").ToString();
 					}
 				}
 			}
-			return $"<color=#{arg}>{text3} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+			return new StringBuilder().Append("<color=#").Append(arg).Append(">").Append(text3).Append(" [<link=name>").Append(message.SenderHandle).Append("</link>]:  ").Append(message.Text).Append("</color>").ToString();
 		}
 		case ConsoleMessageType.GameChat:
 		{
@@ -2398,11 +2403,11 @@ public class UITextConsole : MonoBehaviour
 					case 0:
 						break;
 					default:
-						return string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " </color>{1}<color=#{0}>: {2}</color>", arg2, message.SenderHandle, message.Text);
+						return string.Format(new StringBuilder().Append("<color=#{0}>").Append(StringUtil.TR("GameChannel", "Chat")).Append(" </color>{1}<color=#{0}>: {2}</color>").ToString(), arg2, message.SenderHandle, message.Text);
 					}
 				}
 			}
-			return string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " <link=name>{1}</link>: {2}</color>", arg2, message.SenderHandle, message.Text);
+			return string.Format(new StringBuilder().Append("<color=#{0}>").Append(StringUtil.TR("GameChannel", "Chat")).Append(" <link=name>{1}</link>: {2}</color>").ToString(), arg2, message.SenderHandle, message.Text);
 		}
 		case ConsoleMessageType.TeamChat:
 		{
@@ -2410,11 +2415,11 @@ public class UITextConsole : MonoBehaviour
 			string text3;
 			if (message.SenderTeam == Team.Spectator)
 			{
-				text3 = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">" + StringUtil.TR("SpectatorChannel", "Chat") + "</link>";
+				text3 = new StringBuilder().Append("<link=channel:").Append(StringUtil.TR("/team", "SlashCommand").Substring(1)).Append(">").Append(StringUtil.TR("SpectatorChannel", "Chat")).Append("</link>").ToString();
 			}
 			else
 			{
-				text3 = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">" + StringUtil.TR("TeamChannel", "Chat") + "</link>";
+				text3 = new StringBuilder().Append("<link=channel:").Append(StringUtil.TR("/team", "SlashCommand").Substring(1)).Append(">").Append(StringUtil.TR("TeamChannel", "Chat")).Append("</link>").ToString();
 			}
 			if (message.SenderHandle.IsNullOrEmpty())
 			{
@@ -2425,7 +2430,7 @@ public class UITextConsole : MonoBehaviour
 					case 0:
 						break;
 					default:
-						return $"<color=#{arg}>{text3}:  {message.Text}</color>";
+						return new StringBuilder().Append("<color=#").Append(arg).Append(">").Append(text3).Append(":  ").Append(message.Text).Append("</color>").ToString();
 					}
 				}
 			}
@@ -2442,12 +2447,12 @@ public class UITextConsole : MonoBehaviour
 					}
 				}
 			}
-			return $"<color=#{arg}>{text3} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+			return new StringBuilder().Append("<color=#").Append(arg).Append(">").Append(text3).Append(" [<link=name>").Append(message.SenderHandle).Append("</link>]:  ").Append(message.Text).Append("</color>").ToString();
 		}
 		case ConsoleMessageType.GroupChat:
 		{
 			string arg = ColorToHex(HUD_UIResources.Get().m_GroupChatColor);
-			string text3 = "<link=channel:" + StringUtil.TR("/group", "SlashCommand").Substring(1) + ">" + StringUtil.TR("GroupChannel", "Chat") + "</link>";
+			string text3 = new StringBuilder().Append("<link=channel:").Append(StringUtil.TR("/group", "SlashCommand").Substring(1)).Append(">").Append(StringUtil.TR("GroupChannel", "Chat")).Append("</link>").ToString();
 			string text4;
 			if (message.SenderHandle.IsNullOrEmpty())
 			{
@@ -2459,13 +2464,13 @@ public class UITextConsole : MonoBehaviour
 			}
 			else
 			{
-				text4 = " [<link=name>" + message.SenderHandle + "</link>]";
+				text4 = new StringBuilder().Append(" [<link=name>").Append(message.SenderHandle).Append("</link>]").ToString();
 			}
 			if (selfMessage)
 			{
 				return string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", arg, text3, text4, message.Text);
 			}
-			return $"<color=#{arg}>{text3}{text4}:  {message.Text}</color>";
+			return new StringBuilder().Append("<color=#").Append(arg).Append(">").Append(text3).Append(text4).Append(":  ").Append(message.Text).Append("</color>").ToString();
 		}
 		case ConsoleMessageType.WhisperChat:
 		{
@@ -2482,7 +2487,7 @@ public class UITextConsole : MonoBehaviour
 				text2 = string.Empty;
 			}
 			string arg = ColorToHex(HUD_UIResources.Get().m_whisperChatColor);
-			return $"<color=#{arg}>{text2} [<link=name>{text}</link>]:  {message.Text}</color>";
+			return new StringBuilder().Append("<color=#").Append(arg).Append(">").Append(text2).Append(" [<link=name>").Append(text).Append("</link>]:  ").Append(message.Text).Append("</color>").ToString();
 		}
 		case ConsoleMessageType.SystemMessage:
 		case ConsoleMessageType.Exception:
@@ -2790,7 +2795,7 @@ public class UITextConsole : MonoBehaviour
 		{
 			if (!text.StartsWith("/"))
 			{
-				text = m_chatCommand + " " + text;
+				text = new StringBuilder().Append(m_chatCommand).Append(" ").Append(text).ToString();
 			}
 			int num;
 			if (GameManager.Get() != null && GameManager.Get().GameInfo != null)
@@ -3068,10 +3073,10 @@ public class UITextConsole : MonoBehaviour
 			string lastWhisperSenderHandle = textConsole.LastWhisperSenderHandle;
 			if (!lastWhisperSenderHandle.IsNullOrEmpty())
 			{
-				return StringUtil.TR("/whisper", "SlashCommandAlias1") + " " + lastWhisperSenderHandle + " ";
+				return new StringBuilder().Append(StringUtil.TR("/whisper", "SlashCommandAlias1")).Append(" ").Append(lastWhisperSenderHandle).Append(" ").ToString();
 			}
 		}
-		return StringUtil.TR("/whisper", "SlashCommandAlias1") + " ";
+		return new StringBuilder().Append(StringUtil.TR("/whisper", "SlashCommandAlias1")).Append(" ").ToString();
 	}
 
 	public void ChangeChatRoom()
@@ -3262,7 +3267,7 @@ public class UITextConsole : MonoBehaviour
 										chatText = array[1];
 										if (array.Length > 2)
 										{
-											chatText = chatText + " " + array[2];
+											chatText = new StringBuilder().Append(chatText).Append(" ").Append(array[2]).ToString();
 										}
 										m_textInput.text = chatText;
 										goto end_IL_011d;
@@ -3273,7 +3278,7 @@ public class UITextConsole : MonoBehaviour
 							goto end_IL_011d;
 							IL_0188:
 							array = chatText.Split((string[])null, 3, StringSplitOptions.RemoveEmptyEntries);
-							m_chatCommand = current.Command + " " + array[1];
+							m_chatCommand = new StringBuilder().Append(current.Command).Append(" ").Append(array[1]).ToString();
 							if (array.Length >= 3)
 							{
 								m_textInput.text = array[2];
@@ -3296,7 +3301,7 @@ public class UITextConsole : MonoBehaviour
 							chatText = string.Empty;
 							for (int i = 1; i < array.Length; i++)
 							{
-								chatText = ((!chatText.IsNullOrEmpty()) ? (chatText + " " + array[i]) : array[i]);
+								chatText = ((!chatText.IsNullOrEmpty()) ? new StringBuilder().Append(chatText).Append(" ").Append(array[i]).ToString() : array[i]);
 							}
 							m_textInput.text = chatText;
 							goto end_IL_011d;
@@ -3322,7 +3327,7 @@ public class UITextConsole : MonoBehaviour
 								}
 								else
 								{
-									chatText = chatText + " " + array[j];
+									chatText = new StringBuilder().Append(chatText).Append(" ").Append(array[j]).ToString();
 								}
 							}
 							m_textInput.text = chatText;
@@ -3394,7 +3399,7 @@ public class UITextConsole : MonoBehaviour
 		}
 		else
 		{
-			m_chatRoomName.text = "[" + m_chatCommand.Substring(1, 1).ToUpper() + m_chatCommand.Substring(2) + "]";
+			m_chatRoomName.text = new StringBuilder().Append("[").Append(m_chatCommand.Substring(1, 1).ToUpper()).Append(m_chatCommand.Substring(2)).Append("]").ToString();
 		}
 		goto IL_01e8;
 		IL_036a:
@@ -3487,7 +3492,7 @@ public class UITextConsole : MonoBehaviour
 		string empty = string.Empty;
 		empty += ((int)(color.r * 255f)).ToString("X2");
 		empty += ((int)(color.g * 255f)).ToString("X2");
-		return empty + ((int)(color.b * 255f)).ToString("X2");
+		return new StringBuilder().Append(empty).Append(((int)(color.b * 255f)).ToString("X2")).ToString();
 	}
 
 	public void DehighlightTextAndPositionCarat()
@@ -3497,7 +3502,7 @@ public class UITextConsole : MonoBehaviour
 
 	public void ChangeChannel(string channelName)
 	{
-		m_textInput.text = "/" + channelName + " " + m_textInput.text;
+		m_textInput.text = new StringBuilder().Append("/").Append(channelName).Append(" ").Append(m_textInput.text).ToString();
 		RefreshChatRoomDisplay();
 		SelectInput(string.Empty);
 		MoveCaretToEnd();

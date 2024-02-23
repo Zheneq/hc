@@ -12,9 +12,15 @@ public class QueueRequirement_AccessLevel : QueueRequirement
 		set;
 	}
 
-	public override bool AnyGroupMember => m_anyGroupMember;
+	public override bool AnyGroupMember
+	{
+		get { return m_anyGroupMember; }
+	}
 
-	public override RequirementType Requirement => RequirementType.AccessLevel;
+	public override RequirementType Requirement
+	{
+		get { return RequirementType.AccessLevel; }
+	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{

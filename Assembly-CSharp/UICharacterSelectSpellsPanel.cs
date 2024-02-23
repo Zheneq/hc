@@ -159,7 +159,8 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 	public void SpellClicked(UISpellsSelectButton spellButton, bool clickedFromUI = true)
 	{
 		AbilityRunPhase phase = spellButton.GetPhase();
-		if (m_phaseToButtons.TryGetValue(phase, out UISpellsSelectButton[] buttons))
+		UISpellsSelectButton[] buttons;
+		if (m_phaseToButtons.TryGetValue(phase, out buttons))
 		{
 			foreach (UISpellsSelectButton uISpellsSelectButton in buttons)
 			{
@@ -251,13 +252,16 @@ public class UICharacterSelectSpellsPanel : MonoBehaviour
 			return;
 		}
 		CharacterCardInfo cards = default(CharacterCardInfo);
-		cards.PrepCard = m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Prep, out Card selectedPrepCard)
+		Card selectedPrepCard;
+		cards.PrepCard = m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Prep, out selectedPrepCard)
 			? selectedPrepCard.m_cardType
 			: CardType.None;
-		cards.CombatCard = m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Combat, out Card selectedCombatCard)
+		Card selectedCombatCard;
+		cards.CombatCard = m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Combat, out selectedCombatCard)
 			? selectedCombatCard.m_cardType
 			: CardType.None;
-		cards.DashCard = m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Dash, out Card selectedDashCard)
+		Card selectedDashCard;
+		cards.DashCard = m_phaseToSelectedCard.TryGetValue(AbilityRunPhase.Dash, out selectedDashCard)
 			? selectedDashCard.m_cardType
 			: CardType.None;
 		AppState_CharacterSelect.Get().UpdateSelectedCards(cards);

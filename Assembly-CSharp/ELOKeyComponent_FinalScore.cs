@@ -10,13 +10,25 @@ public class ELOKeyComponent_FinalScore : ELOKeyComponent
     }
 
     private GameTypeMode m_gameTypeMode;
-    public override KeyModeEnum KeyMode => KeyModeEnum.BINARY;
+    public override KeyModeEnum KeyMode
+    {
+        get { return KeyModeEnum.BINARY; }
+    }
 
-    public override BinaryModePhaseEnum BinaryModePhase => m_gameTypeMode == GameTypeMode.ABSOLUTE
-        ? BinaryModePhaseEnum.PRIMARY
-        : BinaryModePhaseEnum.SECONDARY;
+    public override BinaryModePhaseEnum BinaryModePhase
+    {
+        get
+        {
+            return m_gameTypeMode == GameTypeMode.ABSOLUTE
+                ? BinaryModePhaseEnum.PRIMARY
+                : BinaryModePhaseEnum.SECONDARY;
+        }
+    }
 
-    public static uint PhaseWidth => 2u;
+    public static uint PhaseWidth
+    {
+        get { return 2u; }
+    }
 
     public override char GetComponentChar()
     {

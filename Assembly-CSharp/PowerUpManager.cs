@@ -13,7 +13,10 @@ public class PowerUpManager : MonoBehaviour
 	private GameObject m_powerupSequencesRoot;
 	private Dictionary<int, PowerUp> m_guidToPowerupDictionary = new Dictionary<int, PowerUp>();
 
-	public List<PowerUp.IPowerUpListener> powerUpListeners => m_powerUpListeners;
+	public List<PowerUp.IPowerUpListener> powerUpListeners
+	{
+		get { return m_powerUpListeners; }
+	}
 
 	public static void AddListenerStatic(PowerUp.IPowerUpListener listener)
 	{

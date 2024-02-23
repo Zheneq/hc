@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -240,7 +241,7 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 		{
 			int minutes = (int)(totalSeconds / 60f);
 			int seconds = (int)totalSeconds % 60;
-			timeStr = seconds < 10 ? $"{minutes}:0{seconds}" : $"{minutes}:{seconds}";
+			timeStr = seconds < 10 ? new StringBuilder().Append(minutes).Append(":0").Append(seconds).ToString() : new StringBuilder().Append(minutes).Append(":").Append(seconds).ToString();
 		}
 		else if (UITimerPanel.Get() != null)
 		{
@@ -268,14 +269,16 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 			contributionB += item.GetActorBehavior().totalPlayerContribution;
 		}
 
-		GenerateTeamELOValues(teamId, out UIGameOverPanel.TeamELOs matchmaking,
-			out UIGameOverPanel.TeamELOs account, out UIGameOverPanel.TeamELOs character);
+		UIGameOverPanel.TeamELOs matchmaking;
+		UIGameOverPanel.TeamELOs account;
+		UIGameOverPanel.TeamELOs character;
+		GenerateTeamELOValues(teamId, out matchmaking, out account, out character);
 		m_debugStatusString.text =
-			$"<color=#cfcfcf>Time: <color=yellow>{timeStr}</color>     Turn: <color=yellow>{currentTurn}</color>";
+			new StringBuilder().Append("<color=#cfcfcf>Time: <color=yellow>").Append(timeStr).Append("</color>     Turn: <color=yellow>").Append(currentTurn).Append("</color>").ToString();
 		m_debugStatusString.text +=
-			$"     Score: A: <color=#007fff>{scoreA}</color> B: <color=#ff3f3f>{scoreB}</color>";
+			new StringBuilder().Append("     Score: A: <color=#007fff>").Append(scoreA).Append("</color> B: <color=#ff3f3f>").Append(scoreB).Append("</color>").ToString();
 		m_debugStatusString.text +=
-			$"     Contribution A: <color=#007fff>{contributionA}</color> B: <color=#ff3f3f>{contributionB}</color>";
+			new StringBuilder().Append("     Contribution A: <color=#007fff>").Append(contributionA).Append("</color> B: <color=#ff3f3f>").Append(contributionB).Append("</color>").ToString();
 		m_debugStatusString.text += matchmaking.ToHTML("     Used");
 		m_debugStatusString.text += account.ToHTML("     Acc");
 		m_debugStatusString.text += character.ToHTML("     Char");
@@ -298,7 +301,8 @@ public class UIGameStatsWindow : UIScene, IGameEventListener
 
 		foreach (LobbyPlayerInfo current in GameManager.Get().TeamInfo.TeamPlayerInfo)
 		{
-			if (forbiddenDevKnowledge.TryGetValue(current.PlayerId, out ForbiddenDevKnowledge value))
+			ForbiddenDevKnowledge value;
+			if (forbiddenDevKnowledge.TryGetValue(current.PlayerId, out value))
 			{
 				matchmaking.AddPlayer(current.TeamId, value.UsedMatchmakingElo);
 				account.AddPlayer(current.TeamId, value.AccMatchmakingElo);

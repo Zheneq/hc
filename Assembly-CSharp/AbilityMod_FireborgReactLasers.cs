@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
@@ -71,7 +72,8 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + PropDesc(extraShieldIfLowHealthMod, "[ExtraShieldIfLowHealth]", flag, baseVal);
+
+			text = new StringBuilder().Append(str).Append(PropDesc(extraShieldIfLowHealthMod, "[ExtraShieldIfLowHealth]", flag, baseVal)).ToString();
 			string str2 = text;
 			AbilityModPropertyInt lowHealthThreshMod = m_lowHealthThreshMod;
 			int baseVal2;
@@ -83,7 +85,8 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal2);
+
+			text = new StringBuilder().Append(str2).Append(PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal2)).ToString();
 			string str3 = text;
 			AbilityModPropertyInt shieldPerHitReceivedForNextTurnMod = m_shieldPerHitReceivedForNextTurnMod;
 			int baseVal3;
@@ -95,7 +98,8 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + PropDesc(shieldPerHitReceivedForNextTurnMod, "[ShieldPerHitReceivedForNextTurn]", flag, baseVal3);
+
+			text = new StringBuilder().Append(str3).Append(PropDesc(shieldPerHitReceivedForNextTurnMod, "[ShieldPerHitReceivedForNextTurn]", flag, baseVal3)).ToString();
 			string str4 = text;
 			AbilityModPropertyInt earlyDepleteShieldOnNextTurnMod = m_earlyDepleteShieldOnNextTurnMod;
 			int baseVal4;
@@ -107,7 +111,8 @@ public class AbilityMod_FireborgReactLasers : GenericAbility_AbilityMod
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + PropDesc(earlyDepleteShieldOnNextTurnMod, "[EarlyDepleteShieldOnNextTurn]", flag, baseVal4);
+
+			text = new StringBuilder().Append(str4).Append(PropDesc(earlyDepleteShieldOnNextTurnMod, "[EarlyDepleteShieldOnNextTurn]", flag, baseVal4)).ToString();
 		}
 		return text;
 	}

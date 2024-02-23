@@ -21,7 +21,10 @@ public class HUD_UI : UIScene
 
 	private Camera HUDCam;
 
-	public UITextConsole m_textConsole => UIChatBox.GetChatBox(UIManager.ClientState.InGame);
+	public UITextConsole m_textConsole
+	{
+		get { return UIChatBox.GetChatBox(UIManager.ClientState.InGame); }
+	}
 
 	public Canvas m_mainCanvas
 	{

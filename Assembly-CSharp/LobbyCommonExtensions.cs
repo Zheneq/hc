@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public static class LobbyCommonExtensions
 {
@@ -17,7 +18,7 @@ public static class LobbyCommonExtensions
 		case CurrencyType.RankedCurrency:
 			return StringUtil.TR("RankedCurrency", "Global");
 		default:
-			throw new Exception($"No string for {type}");
+			throw new Exception(new StringBuilder().Append("No string for ").Append(type).ToString());
 		}
 	}
 }

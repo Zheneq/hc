@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 
 public class GenericAbility_Container : Ability
 {
@@ -121,12 +122,12 @@ public class GenericAbility_Container : Ability
 
 	protected virtual void GenModImpl_SetModRef(AbilityMod abilityMod)
 	{
-		Log.Error("Please implement GenModImpl_SetModRef in derived class " + GetType());
+		Log.Error(new StringBuilder().Append("Please implement GenModImpl_SetModRef in derived class ").Append(GetType()).ToString());
 	}
 
 	protected virtual void GenModImpl_ClearModRef()
 	{
-		Log.Error("Please implement GenModImpl_ClearModRef in derived class " + GetType());
+		Log.Error(new StringBuilder().Append("Please implement GenModImpl_ClearModRef in derived class ").Append(GetType()).ToString());
 	}
 
 	protected virtual void SetTargetSelectModReference()

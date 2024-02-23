@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -291,7 +292,7 @@ public class ProcessPerformanceMetrics
 			}
 			else
 			{
-				path = $"/proc/{id}/stat";
+				path = new StringBuilder().Append("/proc/").Append(id).Append("/stat").ToString();
 			}
 			string[] array = File.ReadAllLines(path);
 			Match match = s_cpuRegex.Match(array[0]);

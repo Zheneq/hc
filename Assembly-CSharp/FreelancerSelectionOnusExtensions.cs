@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public static class FreelancerSelectionOnusExtensions
 {
@@ -13,7 +14,7 @@ public static class FreelancerSelectionOnusExtensions
 		case FreelancerSelectionOnus.Assigned:
 			return QuestTriggerType.AssignedFreelancerCompletedGame;
 		default:
-			throw new Exception($"No game completion trigger associated with FreelancerSelectionOnus.{onus}");
+			throw new Exception(new StringBuilder().Append("No game completion trigger associated with FreelancerSelectionOnus.").Append(onus).ToString());
 		}
 	}
 }

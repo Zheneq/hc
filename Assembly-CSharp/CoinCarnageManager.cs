@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -758,7 +759,7 @@ public class CoinCarnageManager : NetworkBehaviour
 									}
 									if (m_spawnedTurnInLocationInstances.ContainsKey(team))
 									{
-										Log.Error("Turn in location already spawned for " + team);
+										Log.Error(new StringBuilder().Append("Turn in location already spawned for ").Append(team).ToString());
 										m_spawnedTurnInLocationInstances[team] = gameObject4;
 									}
 									else
@@ -803,7 +804,8 @@ public class CoinCarnageManager : NetworkBehaviour
 			{
 				str2 = "Enemy";
 			}
-			text = str + (string)str2;
+
+			text = new StringBuilder().Append(str).Append((string)str2).ToString();
 		}
 		else
 		{
@@ -833,7 +835,7 @@ public class CoinCarnageManager : NetworkBehaviour
 		Networkm_turnsUntilTurnInSpawn = newValue;
 		if (m_turnsUntilTurnInSpawn > 0)
 		{
-			string alertText = $"[TEMP] {m_turnsUntilTurnInSpawn} turns until turn-in available!";
+			string alertText = new StringBuilder().Append("[TEMP] ").Append(m_turnsUntilTurnInSpawn).Append(" turns until turn-in available!").ToString();
 			InterfaceManager.Get().DisplayAlert(alertText, Color.cyan, 7f);
 		}
 		if (m_turnsUntilTurnInSpawn != 0)
@@ -869,7 +871,7 @@ public class CoinCarnageManager : NetworkBehaviour
 		Networkm_turnsUntilTurnInDeSpawn = newValue;
 		if (m_turnsUntilTurnInDeSpawn > 0)
 		{
-			string alertText = $"[TEMP] {m_turnsUntilTurnInDeSpawn} turns until turn-in is no longer available!";
+			string alertText = new StringBuilder().Append("[TEMP] ").Append(m_turnsUntilTurnInDeSpawn).Append(" turns until turn-in is no longer available!").ToString();
 			InterfaceManager.Get().DisplayAlert(alertText, Color.cyan, 7f);
 		}
 	}
@@ -1264,7 +1266,7 @@ public class CoinCarnageManager : NetworkBehaviour
 
 	private string GetCoinCountString(ActorData actor)
 	{
-		return "coin count: " + GetCoinCountForActor(actor);
+		return new StringBuilder().Append("coin count: ").Append(GetCoinCountForActor(actor)).ToString();
 	}
 
 	private void UpdateDebugUI()
@@ -1291,7 +1293,8 @@ public class CoinCarnageManager : NetworkBehaviour
 						}
 					}
 				}
-				m_debugTextLeft.text = "Coin count [active/total tracked] = " + num + " / " + m_coins.Count.ToString() + "\n";
+
+				m_debugTextLeft.text = new StringBuilder().Append("Coin count [active/total tracked] = ").Append(num).Append(" / ").Append(m_coins.Count.ToString()).Append("\n").ToString();
 				m_debugTextRight.text = "\n";
 				using (Dictionary<ActorData, int>.Enumerator enumerator2 = m_actorToCoinCount.GetEnumerator())
 				{
@@ -1303,12 +1306,12 @@ public class CoinCarnageManager : NetworkBehaviour
 						if (key.GetTeam() == Team.TeamA)
 						{
 							string text3 = text;
-							text = text3 + key.DisplayName + " -> " + value + "\n";
+							text = new StringBuilder().Append(text3).Append(key.DisplayName).Append(" -> ").Append(value).Append("\n").ToString();
 						}
 						else if (key.GetTeam() == Team.TeamB)
 						{
 							string text3 = text2;
-							text2 = text3 + key.DisplayName + " -> " + value + "\n";
+							text2 = new StringBuilder().Append(text3).Append(key.DisplayName).Append(" -> ").Append(value).Append("\n").ToString();
 						}
 					}
 				}

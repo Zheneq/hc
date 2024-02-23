@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class KarmaTemplate
@@ -38,6 +39,6 @@ public class KarmaTemplate
 
 	public override string ToString()
 	{
-		return $"[{Index}] {Name}, OneTimeOnly={OneTimeOnly}";
+		return new StringBuilder().Append("[").Append(Index).Append("] ").Append(Name).Append(", OneTimeOnly=").Append(OneTimeOnly).ToString();
 	}
 }

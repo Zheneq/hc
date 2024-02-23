@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class GrydCardinalBombSequence : Sequence
@@ -242,7 +243,7 @@ public class GrydCardinalBombSequence : Sequence
 							}
 							if (Application.isEditor)
 							{
-								Debug.LogError(base.name + " has bad segment data for projectile");
+								Debug.LogError(new StringBuilder().Append(base.name).Append(" has bad segment data for projectile").ToString());
 							}
 						}
 					}

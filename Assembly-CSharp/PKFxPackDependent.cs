@@ -63,7 +63,7 @@ public class PKFxPackDependent : MonoBehaviour
 			{
 				if (!PKFxManager.TryLoadPackRelative())
 				{
-					PKFxManager.LoadPack(PKFxManager.m_PackPath + "/PackFx");
+					PKFxManager.LoadPack(new StringBuilder().Append(PKFxManager.m_PackPath).Append("/PackFx").ToString());
 				}
 			}
 			PKFxManager.m_PackLoaded = true;

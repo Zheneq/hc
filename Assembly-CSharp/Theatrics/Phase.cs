@@ -1,6 +1,7 @@
 using CameraManagerInternal;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -321,15 +322,12 @@ namespace Theatrics
 							result = true;
 							if (CameraManager.CamDebugTraceOn)
 							{
-								CameraManager.LogForDebugging($"Ragdolling hit on {hitActor} when HP is already 0");
+								CameraManager.LogForDebugging(new StringBuilder().Append("Ragdolling hit on ").Append(hitActor).Append(" when HP is already 0").ToString());
 							}
 						}
 						if (result && CameraManager.CamDebugTraceOn)
 						{
-							CameraManager.LogForDebugging("Using Low Position for " + actorAnimation.ToString() +
-								"\nhpDelta: " + deltaHP +
-								" | hpForDisplay: " + hitPointsToDisplay +
-								" | expectedHpAfterHit: " + expectedClientHpForDisplay);
+							CameraManager.LogForDebugging(new StringBuilder().Append("Using Low Position for ").Append(actorAnimation.ToString()).Append("\nhpDelta: ").Append(deltaHP).Append(" | hpForDisplay: ").Append(hitPointsToDisplay).Append(" | expectedHpAfterHit: ").Append(expectedClientHpForDisplay).ToString());
 						}
 					}
 					break;
@@ -345,12 +343,14 @@ namespace Theatrics
 			{
 				if (CameraManager.CamDebugTraceOn)
 				{
-					CameraManager.LogForDebugging("Not merging bounds, centerDist too far: " + centerDist, CameraManager.CameraLogType.SimilarBounds);
+					CameraManager.LogForDebugging(new StringBuilder().Append("Not merging bounds, centerDist too far: ").Append(centerDist).ToString(), CameraManager.CameraLogType.SimilarBounds);
 				}
 				return false;
 			}
 			bool usedInflatedBounds = false;
-			bool boundSidesWithinDistance = CameraManager.BoundSidesWithinDistance(prev, bounds, maxSideDiff, out Vector3 maxBoundDiff, out Vector3 minBoundDiff);
+			Vector3 maxBoundDiff;
+			Vector3 minBoundDiff;
+			bool boundSidesWithinDistance = CameraManager.BoundSidesWithinDistance(prev, bounds, maxSideDiff, out maxBoundDiff, out minBoundDiff);
 			if (canUseInflatedBounds && !boundSidesWithinDistance)
 			{
 				Bounds inflatedBounds = prev;
@@ -364,14 +364,7 @@ namespace Theatrics
 			if (CameraManager.CamDebugTraceOn)
 			{
 				CameraManager.LogForDebugging(
-					$"Considering bounds as similar, " +
-					$"result = <color=yellow>{boundSidesWithinDistance}</color> " +
-					$"| centerDist = {centerDist} " +
-					$"| minBoundsDiff: {minBoundDiff} " +
-					$"| maxBoundsDiff: {maxBoundDiff} " +
-					$"| used inflated bounds: {usedInflatedBounds}" +
-					$"\nPrev Bound: {prev}" +
-					$"\nCompare to Bound: {bounds}",
+					new StringBuilder().Append("Considering bounds as similar, ").Append("result = <color=yellow>").Append(boundSidesWithinDistance).Append("</color> ").Append("| centerDist = ").Append(centerDist).Append(" ").Append("| minBoundsDiff: ").Append(minBoundDiff).Append(" ").Append("| maxBoundsDiff: ").Append(maxBoundDiff).Append(" ").Append("| used inflated bounds: ").Append(usedInflatedBounds).Append("\nPrev Bound: ").Append(prev).Append("\nCompare to Bound: ").Append(bounds).ToString(),
 					CameraManager.CameraLogType.SimilarBounds);
 			}
 			return boundSidesWithinDistance;
@@ -439,11 +432,7 @@ namespace Theatrics
 			flag5 = flag5 && !isResolutionPaused;
 			if (!flag5 && m_timeSinceActorAnimationPlayed > 20f && !isResolutionPaused)
 			{
-				Log.Error($"Stuck when trying to advance to next actor anim entry, \n" +
-					$"play order release focus: {isPlayOrderReleaseFocus}\n" +
-					$"past waiting for first action: {isPastWaitingForFirstAction}\n" +
-					$"minNotStartedPLayOrderIndex: {minNotStartedPlayOrderIndex }\n" +
-					$"playOrderIndex: {m_playOrderIndex}");
+				Log.Error(new StringBuilder().Append("Stuck when trying to advance to next actor anim entry, \n").Append("play order release focus: ").Append(isPlayOrderReleaseFocus).Append("\n").Append("past waiting for first action: ").Append(isPastWaitingForFirstAction).Append("\n").Append("minNotStartedPLayOrderIndex: ").Append(minNotStartedPlayOrderIndex).Append("\n").Append("playOrderIndex: ").Append(m_playOrderIndex).ToString());
 				flag5 = true;
 			}
 			if (flag5)
@@ -456,8 +445,8 @@ namespace Theatrics
 				bool flag7 = true;
 				foreach (ActorAnimation actorAnimation3 in m_actorAnimations)
 				{
-					ActorModelData actorModelData = actorAnimation3?.Caster?.GetActorModelData(); 
-					Animator animator = actorModelData?.GetModelAnimator();
+					ActorModelData actorModelData = actorAnimation3 != null ? actorAnimation3.Caster != null ? actorAnimation3.Caster.GetActorModelData() : null : null; 
+					Animator animator = actorModelData != null ? actorModelData.GetModelAnimator() : null;
 					bool isCasterAlreadyInRagdoll = actorAnimation3.Caster != null
 						&& actorAnimation3.GetAnimationIndex() <= 0
 						&& actorAnimation3.Caster.IsInRagdoll();
@@ -485,7 +474,7 @@ namespace Theatrics
 						{
 							if (!m_loggedWarningForInKnockdownAnim)
 							{
-								string message = actorAnimation3 + " is stuck in knockdown when trying to play animation for ability, forcing idle";
+								string message = new StringBuilder().Append(actorAnimation3).Append(" is stuck in knockdown when trying to play animation for ability, forcing idle").ToString();
 								if (Application.isEditor)
 								{
 									Log.Error(message);
@@ -515,18 +504,11 @@ namespace Theatrics
 										hitActors += ", ";
 									}
 								}
-								Log.Error($"{actorAnimation3} is not ready to play. " +
-									$"Current animation state: {(actorModelData != null ? actorModelData.GetCurrentAnimatorStateName() : "NULL actor model data")}, " +
-									$"playing idle animation: {(actorModelData != null ? actorModelData.IsPlayingIdleAnim().ToString() : "NULL actor model data")}, " +
-									$"to hit({hitActors}), " +
-									$"playing damage reaction: {isPlayingDamageReaction}, " +
-									$"attack animation parameter: {attackParam}, " +
-									$"animator layer count: {(animator != null ? animator.layerCount.ToString() : "NULL")}" +
-									$"{(actorAnimation3.PlayState == ActorAnimation.PlaybackState.NotStarted ? (", sequences ready: " + actorAnimation3.FindIfSequencesReadyToPlay(Index, true)) : "")}");
+								Log.Error(new StringBuilder().Append(actorAnimation3).Append(" is not ready to play. ").Append("Current animation state: ").Append(actorModelData != null ? actorModelData.GetCurrentAnimatorStateName() : "NULL actor model data").Append(", ").Append("playing idle animation: ").Append(actorModelData != null ? actorModelData.IsPlayingIdleAnim().ToString() : "NULL actor model data").Append(", ").Append("to hit(").Append(hitActors).Append("), ").Append("playing damage reaction: ").Append(isPlayingDamageReaction).Append(", ").Append("attack animation parameter: ").Append(attackParam).Append(", ").Append("animator layer count: ").Append(animator != null ? animator.layerCount.ToString() : "NULL").Append(actorAnimation3.PlayState == ActorAnimation.PlaybackState.NotStarted ? new StringBuilder().Append(", sequences ready: ").Append(actorAnimation3.FindIfSequencesReadyToPlay(Index, true)).ToString() : "").ToString());
 							}
 							if (m_timeSinceActorAnimationPlayed > 8f)
 							{
-								Log.Error($"{actorAnimation3} timed out, skipping");
+								Log.Error(new StringBuilder().Append(actorAnimation3).Append(" timed out, skipping").ToString());
 								m_displayedHungErrorForCurrentActorAnim = false;
 								if (ClientResolutionManager.Get() != null)
 								{
@@ -542,7 +524,8 @@ namespace Theatrics
 				m_playOrderGroupChanged = m_playOrderGroupIndex != minNotStartedGroupIndex;
 				if (m_cameraTargetPlayOrderIndex != minNotStartedPlayOrderIndex && isPlayOrderReleaseFocus)
 				{
-					Bounds bounds = turn.CalcAbilitiesBounds(this, minNotStartedPlayOrderIndex, out bool isDefaultBounds);
+					bool isDefaultBounds;
+					Bounds bounds = turn.CalcAbilitiesBounds(this, minNotStartedPlayOrderIndex, out isDefaultBounds);
 					bool isEvasionOrKnockback = Index == AbilityPriority.Evasion || Index == AbilityPriority.Combat_Knockback;
 					_001B = false;
 					m_cinematicCamera = false;
@@ -599,7 +582,7 @@ namespace Theatrics
 					}
 					if (TheatricsManager.DebugTraceExecution)
 					{
-						TheatricsManager.LogForDebugging("Cam set target for player order index " + minNotStartedPlayOrderIndex + " group " + minNotStartedGroupIndex + " group changed " + m_playOrderGroupChanged + " timeInResolve = " + m_turn.TimeInResolve + " anticipating CamStartEvent...");
+						TheatricsManager.LogForDebugging(new StringBuilder().Append("Cam set target for player order index ").Append(minNotStartedPlayOrderIndex).Append(" group ").Append(minNotStartedGroupIndex).Append(" group changed ").Append(m_playOrderGroupChanged).Append(" timeInResolve = ").Append(m_turn.TimeInResolve).Append(" anticipating CamStartEvent...").ToString());
 					}
 				}
 				if (flag7)
@@ -663,12 +646,7 @@ namespace Theatrics
 							if (TheatricsManager.DebugTraceExecution)
 							{
 								TheatricsManager.LogForDebugging(
-									"Queued " + actorAnimation
-									+ "\ngroup " + actorAnimation.m_playOrderGroupIndex
-									+ " camStartEventDelay: " + camStartEventDelay
-									+ " easeInTime: " + easeInTime
-									+ " camera bounds similar as last: " + m_cameraBoundsSameAsLast
-									+ " phase " + Index.ToString());
+									new StringBuilder().Append("Queued ").Append(actorAnimation).Append("\ngroup ").Append(actorAnimation.m_playOrderGroupIndex).Append(" camStartEventDelay: ").Append(camStartEventDelay).Append(" easeInTime: ").Append(easeInTime).Append(" camera bounds similar as last: ").Append(m_cameraBoundsSameAsLast).Append(" phase ").Append(Index.ToString()).ToString());
 							}
 							actorAnimation.Play(turn);
 							m_timeSinceActorAnimationPlayed = 0f;
@@ -709,8 +687,7 @@ namespace Theatrics
 					m_evasionMoveStartDesiredTime = GameTime.time + camStartDelay;
 					if (TheatricsManager.DebugTraceExecution)
 					{
-						TheatricsManager.LogForDebugging("Setting evade start time: "
-							+ m_evasionMoveStartDesiredTime + " maxEvadeStartDelay: " + camStartDelay);
+						TheatricsManager.LogForDebugging(new StringBuilder().Append("Setting evade start time: ").Append(m_evasionMoveStartDesiredTime).Append(" maxEvadeStartDelay: ").Append(camStartDelay).ToString());
 					}
 				}
 				foreach (ActorAnimation actorAnimation5 in m_actorAnimations)
@@ -762,7 +739,7 @@ namespace Theatrics
 					}
 					if (TheatricsManager.DebugTraceExecution)
 					{
-						TheatricsManager.LogForDebugging("Evasion Move Start, MaxCamStartDelay= " + m_maxCamStartDelay);
+						TheatricsManager.LogForDebugging(new StringBuilder().Append("Evasion Move Start, MaxCamStartDelay= ").Append(m_maxCamStartDelay).ToString());
 					}
 				}
 			}

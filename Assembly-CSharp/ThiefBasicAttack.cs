@@ -266,9 +266,10 @@ public class ThiefBasicAttack : Ability
 
 	private void AccumulateDamageFromTargeter(ActorData targetActor, AbilityUtil_Targeter targeter, Dictionary<AbilityTooltipSymbol, int> symbolToDamage)
 	{
-		bool hitPowerups = targeter is AbilityUtil_Targeter_ThiefFanLaser targeterThiefFanLaser
-		             && targeterThiefFanLaser.m_powerupsHitSoFar != null
-		             && targeterThiefFanLaser.m_powerupsHitSoFar.Count > 0;
+		AbilityUtil_Targeter_ThiefFanLaser targeterThiefFanLaser = targeter as AbilityUtil_Targeter_ThiefFanLaser;
+		bool hitPowerups = targeterThiefFanLaser != null
+		                   && targeterThiefFanLaser.m_powerupsHitSoFar != null
+		                   && targeterThiefFanLaser.m_powerupsHitSoFar.Count > 0;
 		List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes == null)
 		{
@@ -305,7 +306,8 @@ public class ThiefBasicAttack : Ability
 		
 		for (int i = 0; i < Targeters.Count && i <= currentTargeterIndex; i++)
 		{
-			if (!(Targeters[i] is AbilityUtil_Targeter_ThiefFanLaser targeter))
+			AbilityUtil_Targeter_ThiefFanLaser targeter = Targeters[i] as AbilityUtil_Targeter_ThiefFanLaser;
+			if (targeter == null)
 			{
 				continue;
 			}

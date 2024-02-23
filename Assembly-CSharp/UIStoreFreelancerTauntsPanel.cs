@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 
 public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 {
@@ -46,7 +47,7 @@ public class UIStoreFreelancerTauntsPanel : UIStoreBaseInventoryPanel
 				CharacterTaunt characterTaunt = GameWideData.Get().GetCharacterResourceLink((CharacterType)item.Index1).m_taunts[item.ID];
 				if (characterTaunt.m_tauntVideoPath.Length > 0)
 				{
-					uIFrontendTauntMouseoverVideo.Setup("Video/taunts/" + characterTaunt.m_tauntVideoPath);
+					uIFrontendTauntMouseoverVideo.Setup(new StringBuilder().Append("Video/taunts/").Append(characterTaunt.m_tauntVideoPath).ToString());
 					return true;
 				}
 				return false;

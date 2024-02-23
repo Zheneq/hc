@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Text;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.Events;
@@ -990,7 +991,7 @@ namespace TMPro
 				{
 					if (this.m_TextComponent != null)
 					{
-						GameObject gameObject = new GameObject(base.transform.name + " Input Caret", new Type[]
+						GameObject gameObject = new GameObject(new StringBuilder().Append(base.transform.name).Append(" Input Caret").ToString(), new Type[]
 						{
 							typeof(RectTransform)
 						});
@@ -2430,12 +2431,13 @@ namespace TMPro
 					this.stringSelectPositionInternal = this.GetStringIndexFromCaretPosition(this.caretSelectPositionInternal);
 					if (this.caretPositionInternal < this.caretSelectPositionInternal)
 					{
-						this.m_Text = this.text.Substring(0, this.stringPositionInternal) + this.text.Substring(this.stringSelectPositionInternal, this.text.Length - this.stringSelectPositionInternal);
+						this.m_Text = new StringBuilder().Append(this.text, 0, this.stringPositionInternal).Append(this.text, this.stringSelectPositionInternal, this.text.Length - this.stringSelectPositionInternal).ToString();
 						this.stringSelectPositionInternal = this.stringPositionInternal;
 						this.caretSelectPositionInternal = this.caretPositionInternal;
 						return;
 					}
-					this.m_Text = this.text.Substring(0, this.stringSelectPositionInternal) + this.text.Substring(this.stringPositionInternal, this.text.Length - this.stringPositionInternal);
+
+					this.m_Text = new StringBuilder().Append(this.text, 0, this.stringSelectPositionInternal).Append(this.text, this.stringPositionInternal, this.text.Length - this.stringPositionInternal).ToString();
 					this.stringPositionInternal = this.stringSelectPositionInternal;
 					this.stringPositionInternal = this.stringSelectPositionInternal;
 					this.caretPositionInternal = this.caretSelectPositionInternal;
@@ -2444,12 +2446,12 @@ namespace TMPro
 			}
 			if (this.stringPositionInternal < this.stringSelectPositionInternal)
 			{
-				this.m_Text = this.text.Substring(0, this.stringPositionInternal) + this.text.Substring(this.stringSelectPositionInternal, this.text.Length - this.stringSelectPositionInternal);
+				this.m_Text = new StringBuilder().Append(this.text, 0, this.stringPositionInternal).Append(this.text, this.stringSelectPositionInternal, this.text.Length - this.stringSelectPositionInternal).ToString();
 				this.stringSelectPositionInternal = this.stringPositionInternal;
 			}
 			else
 			{
-				this.m_Text = this.text.Substring(0, this.stringSelectPositionInternal) + this.text.Substring(this.stringPositionInternal, this.text.Length - this.stringPositionInternal);
+				this.m_Text = new StringBuilder().Append(this.text, 0, this.stringSelectPositionInternal).Append(this.text, this.stringPositionInternal, this.text.Length - this.stringPositionInternal).ToString();
 				this.stringPositionInternal = this.stringSelectPositionInternal;
 			}
 			this.m_isSelectAll = false;
@@ -2700,7 +2702,7 @@ namespace TMPro
 				string text;
 				if (Input.compositionString.Length > 0)
 				{
-					text = this.text.Substring(0, this.m_StringPosition) + Input.compositionString + this.text.Substring(this.m_StringPosition);
+					text = new StringBuilder().Append(this.text, 0, this.m_StringPosition).Append(Input.compositionString).Append(this.text.Substring(this.m_StringPosition)).ToString();
 				}
 				else
 				{
@@ -2724,7 +2726,8 @@ namespace TMPro
 				{
 					this.SetCaretVisible();
 				}
-				this.m_TextComponent.text = str + "​";
+
+				this.m_TextComponent.text = new StringBuilder().Append(str).Append("​").ToString();
 				this.MarkGeometryAsDirty();
 				this.m_IsScrollbarUpdateRequired = true;
 			}

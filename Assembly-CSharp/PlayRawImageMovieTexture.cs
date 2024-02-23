@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,10 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 
 	private MovieStates m_movieState;
 
-	public MovieStates MovieState => m_movieState;
+	public MovieStates MovieState
+	{
+		get { return m_movieState; }
+	}
 
 	public void Update()
 	{
@@ -93,7 +97,7 @@ public class PlayRawImageMovieTexture : MonoBehaviour
 	{
 		m_movieState = MovieStates.Invalid;
 		Unload();
-		string url = "file://" + Application.streamingAssetsPath + "/" + movieAssetName + ".ogv";
+		string url = new StringBuilder().Append("file://").Append(Application.streamingAssetsPath).Append("/").Append(movieAssetName).Append(".ogv").ToString();
 		m_streamer = new WWW(url);
 		m_movieTexture = m_streamer.GetMovieTexture();
 		if (!m_movieTexture)

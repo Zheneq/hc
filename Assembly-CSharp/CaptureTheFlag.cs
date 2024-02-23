@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -1296,7 +1297,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		Debug.LogError("CaptureTheFlag trying to handle non-CtF event type " + eventType.ToString() + ".");
+		Debug.LogError(new StringBuilder().Append("CaptureTheFlag trying to handle non-CtF event type ").Append(eventType.ToString()).Append(".").ToString());
 	}
 
 	private void TurnInFlag_Client(CTF_Flag flag, ActorData capturingActor, BoardSquare captureSquare, int eventGuid)
@@ -1481,7 +1482,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		Debug.LogWarning($"CaptureTheFlag trying to find string for turnin point changed, but failed.  Relationship = {relationship.ToString()}, new state = {newState.ToString()}.  Returning empty string...");
+		Debug.LogWarning(new StringBuilder().Append("CaptureTheFlag trying to find string for turnin point changed, but failed.  Relationship = ").Append(relationship.ToString()).Append(", new state = ").Append(newState.ToString()).Append(".  Returning empty string...").ToString());
 		return string.Empty;
 	}
 
@@ -2075,7 +2076,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			if (region.GetSquaresInRegion().Count > 0)
 			{
 				GameObject gameObject = HighlightUtils.Get().CreateBoundaryHighlight(region.GetSquaresInRegion(), Color.yellow);
-				gameObject.name = base.name + " " + boundaryName;
+				gameObject.name = new StringBuilder().Append(base.name).Append(" ").Append(boundaryName).ToString();
 				UnityEngine.Object.DontDestroyOnLoad(gameObject);
 				Vector3 position = gameObject.transform.position;
 				m_autoBoundaryHeight = position.y;

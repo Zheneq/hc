@@ -276,7 +276,8 @@ namespace TMPro.Examples
 			if (Input.GetMouseButton(0))
 			{
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				if (Physics.Raycast(ray, out RaycastHit hitInfo, 300f, 23552))
+				RaycastHit hitInfo;
+				if (Physics.Raycast(ray, out hitInfo, 300f, 23552))
 				{
 					if (hitInfo.transform == _0012)
 					{

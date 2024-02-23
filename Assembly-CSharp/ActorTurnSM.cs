@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -152,8 +153,7 @@ public class ActorTurnSM : NetworkBehaviour
 			expectedTargetersNum = selectedAbility.GetExpectedNumberOfTargeters();
 			if (m_targets.Count > targetersNum || m_targets.Count > expectedTargetersNum)
 			{
-				Log.Error("SelectTarget has been called more times than there are targeters for the selected ability. " +
-					"m_targets.Count {0}, numTargets {1}, numExpectedTargets {2}", m_targets.Count, targetersNum, expectedTargetersNum);
+				Log.Error(new StringBuilder().Append("SelectTarget has been called more times than there are targeters for the selected ability. ").Append("m_targets.Count {0}, numTargets {1}, numExpectedTargets {2}").ToString(), m_targets.Count, targetersNum, expectedTargetersNum);
 			}
 			selectedAbility.Targeter.AbilityCasted(component.GetGridPos(), abilityTarget.GridPos);
 		}
@@ -414,7 +414,7 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			if (CheckStateForEndTurnRequestFromInput())
 			{
-				Log.Info("Buffered lock in at " + GameTime.time);
+				Log.Info(new StringBuilder().Append("Buffered lock in at ").Append(GameTime.time).ToString());
 				UISounds.GetUISounds().Play("ui/ingame/v1/hud/lockin");
 				RequestEndTurn();
 				if (HUD_UI.Get() != null)
@@ -593,7 +593,7 @@ public class ActorTurnSM : NetworkBehaviour
 			{
 				HandledSpaceInput = true;
 				UISounds.GetUISounds().Play("ui/ingame/v1/hud/lockin");
-				Log.Info("Lock in request at " + GameTime.time);
+				Log.Info(new StringBuilder().Append("Lock in request at ").Append(GameTime.time).ToString());
 				RequestEndTurn();
 				if (HUD_UI.Get() != null)
 				{
@@ -603,7 +603,7 @@ public class ActorTurnSM : NetworkBehaviour
 			else if (CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST || CurrentState == TurnStateEnum.VALIDATING_MOVE_REQUEST)
 			{
 				LockInBuffered = true;
-				Log.Info("Lockin to be buffered at " + GameTime.time);
+				Log.Info(new StringBuilder().Append("Lockin to be buffered at ").Append(GameTime.time).ToString());
 			}
 		}
 	}
@@ -1161,7 +1161,7 @@ public class ActorTurnSM : NetworkBehaviour
 							text = lastTargetedAbility.m_abilityName;
 						}
 					}
-					Debug.LogError("Player " + m_actorData.DisplayName + " skipped turn (could be AFK) in client ActorTurnSM state " + GetState().GetType().ToString() + ". LastTargetedAbility: " + text + ", targeterIndex: " + lastTargetIndex + ". GuiUtility.hotControl: " + GUIUtility.hotControl);
+					Debug.LogError(new StringBuilder().Append("Player ").Append(m_actorData.DisplayName).Append(" skipped turn (could be AFK) in client ActorTurnSM state ").Append(GetState().GetType().ToString()).Append(". LastTargetedAbility: ").Append(text).Append(", targeterIndex: ").Append(lastTargetIndex).Append(". GuiUtility.hotControl: ").Append(GUIUtility.hotControl).ToString());
 				}
 			}
 			else if (msgEnum == (int)TurnMessage.TURN_START
@@ -1171,7 +1171,7 @@ public class ActorTurnSM : NetworkBehaviour
 				&& GetState() != m_turnStates[(int)TurnStateEnum.CONFIRMED]
 				&& GetState() != m_turnStates[(int)TurnStateEnum.RESOLVING])
 			{
-				Debug.LogError("Player " + m_actorData.DisplayName + " received TURN_START in client ActorTurnSM state " + GetState().GetType().ToString() + " which doesn't handle that transition.");
+				Debug.LogError(new StringBuilder().Append("Player ").Append(m_actorData.DisplayName).Append(" received TURN_START in client ActorTurnSM state ").Append(GetState().GetType().ToString()).Append(" which doesn't handle that transition.").ToString());
 			}
 		}
 		GetState().OnMsg((TurnMessage)msgEnum, extraData);

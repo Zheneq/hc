@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_FishManSplittingLaser : AbilityMod
@@ -80,6 +81,6 @@ public class AbilityMod_FishManSplittingLaser : AbilityMod
 		desc += PropDesc(m_maxSplitAngleMod, "[MaxSplitAngle]", isValid, isValid ? fishManSplittingLaser.m_maxSplitAngle : 0f);
 		desc += PropDesc(m_lengthForMinAngleMod, "[LengthForMinAngle]", isValid, isValid ? fishManSplittingLaser.m_lengthForMinAngle : 0f);
 		desc += PropDesc(m_lengthForMaxAngleMod, "[LengthForMaxAngle]", isValid, isValid ? fishManSplittingLaser.m_lengthForMaxAngle : 0f);
-		return desc + PropDesc(m_numSplitBeamPairsMod, "[NumSplitBeamPairs]", isValid, isValid ? fishManSplittingLaser.m_numSplitBeamPairs : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_numSplitBeamPairsMod, "[NumSplitBeamPairs]", isValid, isValid ? fishManSplittingLaser.m_numSplitBeamPairs : 0)).ToString();
 	}
 }

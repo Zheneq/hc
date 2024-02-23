@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class ELODancecard
@@ -17,15 +18,15 @@ public class ELODancecard
         {
             if (m_turnsAsBot == 0)
             {
-                return $"account #{m_accountId} {m_turnsAsPlayer} turns";
+                return new StringBuilder().Append("account #").Append(m_accountId).Append(" ").Append(m_turnsAsPlayer).Append(" turns").ToString();
             }
 
             if (m_turnsAsPlayer == 0)
             {
-                return $"{m_botDifficulty} bot {m_turnsAsBot} turns";
+                return new StringBuilder().Append(m_botDifficulty).Append(" bot ").Append(m_turnsAsBot).Append(" turns").ToString();
             }
 
-            return $"account #{m_accountId} {m_turnsAsPlayer} turns, {m_turnsAsBot} turns as {m_botDifficulty} bot";
+            return new StringBuilder().Append("account #").Append(m_accountId).Append(" ").Append(m_turnsAsPlayer).Append(" turns, ").Append(m_turnsAsBot).Append(" turns as ").Append(m_botDifficulty).Append(" bot").ToString();
         }
     }
 

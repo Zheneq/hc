@@ -31,9 +31,15 @@ public abstract class SlashCommand
 		set;
 	}
 
-	public bool AvailableInFrontEnd => (Type & SlashCommandType.InFrontEnd) != 0;
+	public bool AvailableInFrontEnd
+	{
+		get { return (Type & SlashCommandType.InFrontEnd) != 0; }
+	}
 
-	public bool AvailableInGame => (Type & SlashCommandType.InGame) != 0;
+	public bool AvailableInGame
+	{
+		get { return (Type & SlashCommandType.InGame) != 0; }
+	}
 
 	public SlashCommand(string command, SlashCommandType type)
 	{

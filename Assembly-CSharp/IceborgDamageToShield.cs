@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -22,7 +23,7 @@ public class IceborgDamageToShield : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "-- On Hit Data for Persistent Aoe Hits --\n" + m_persistentAoeOnHitData.GetInEditorDesc();
+		return new StringBuilder().Append(base.GetOnHitDataDesc()).Append("-- On Hit Data for Persistent Aoe Hits --\n").Append(m_persistentAoeOnHitData.GetInEditorDesc()).ToString();
 	}
 
 	protected override void SetupTargetersAndCachedVars()

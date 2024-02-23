@@ -162,8 +162,10 @@ public class TricksterBasicAttack : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (Targeter is AbilityUtil_Targeter_TricksterLaser abilityUtil_Targeter_TricksterLaser
-		    && abilityUtil_Targeter_TricksterLaser.m_actorToHitCount.TryGetValue(targetActor, out int numHits))
+		AbilityUtil_Targeter_TricksterLaser abilityUtil_Targeter_TricksterLaser = Targeter as AbilityUtil_Targeter_TricksterLaser;
+		int numHits;
+		if (abilityUtil_Targeter_TricksterLaser != null
+		    && abilityUtil_Targeter_TricksterLaser.m_actorToHitCount.TryGetValue(targetActor, out numHits))
 		{
 			int numFromCover = abilityUtil_Targeter_TricksterLaser.m_actorToCoverCount[targetActor];
 			int damage = CalcDamageFromNumHits(numHits, numFromCover);

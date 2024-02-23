@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_NekoEnlargeDisc : AbilityMod
 {
@@ -56,6 +57,6 @@ public class AbilityMod_NekoEnlargeDisc : AbilityMod
 		desc += PropDesc(m_allyHitEffectMod, "[AllyHitEffect]", isValid, isValid ? nekoEnlargeDisc.m_allyHitEffect : null);
 		desc += PropDesc(m_shieldPerTargetHitOnReturnMod, "[ShieldPerTargetHitOnThrow]", isValid, isValid ? nekoEnlargeDisc.m_shieldPerTargetHitOnReturn : 0);
 		desc += PropDesc(m_shieldEffectDataMod, "[ShieldEffectData]", isValid, isValid ? nekoEnlargeDisc.m_shieldEffectData : null);
-		return desc + PropDesc(m_cdrIfHitNoOneMod, "[CdrIfHitNoOne]", isValid, isValid ? nekoEnlargeDisc.m_cdrIfHitNoOne : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfHitNoOneMod, "[CdrIfHitNoOne]", isValid, isValid ? nekoEnlargeDisc.m_cdrIfHitNoOne : 0)).ToString();
 	}
 }

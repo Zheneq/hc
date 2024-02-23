@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public static class GameBalanceVarsExtensions
@@ -1069,7 +1070,7 @@ public static class GameBalanceVarsExtensions
 					case 0:
 						break;
 					default:
-						throw new Exception("Overcon doesn't exist for " + unlockable.ID);
+						throw new Exception(new StringBuilder().Append("Overcon doesn't exist for ").Append(unlockable.ID).ToString());
 					}
 				}
 			}
@@ -1087,7 +1088,7 @@ public static class GameBalanceVarsExtensions
 					case 0:
 						break;
 					default:
-						throw new Exception("inventoryItem " + (unlockable as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId + " doesn't exist");
+						throw new Exception(new StringBuilder().Append("inventoryItem ").Append((unlockable as GameBalanceVars.StoreItemForPurchase).m_itemTemplateId).Append(" doesn't exist").ToString());
 					}
 				}
 			}
@@ -1280,7 +1281,7 @@ public static class GameBalanceVarsExtensions
 				}
 			}
 		}
-		throw new Exception("Sprite Not Implemented for " + unlockable.GetType());
+		throw new Exception(new StringBuilder().Append("Sprite Not Implemented for ").Append(unlockable.GetType()).ToString());
 	}
 
 	public static Sprite GetItemFg(this GameBalanceVars.PlayerUnlockable unlockable)

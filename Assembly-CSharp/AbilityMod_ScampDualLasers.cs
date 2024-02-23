@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 
 public class AbilityMod_ScampDualLasers : AbilityMod
@@ -52,6 +53,6 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		}
 
 		desc += PropDesc(m_extraDamageTurnAfterLosingSuitMod, "[ExtraDamageTurnAfterLosingSuit]", isValid, isValid ? scampDualLasers.m_extraDamageTurnAfterLosingSuit : 0);
-		return desc + PropDesc(m_extraAoeRadiusTurnAfterLosingSuitMod, "[ExtraAoeRadiusTurnAfterLosingSuit]", isValid, isValid ? scampDualLasers.m_extraAoeRadiusTurnAfterLosingSuit : 0f);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraAoeRadiusTurnAfterLosingSuitMod, "[ExtraAoeRadiusTurnAfterLosingSuit]", isValid, isValid ? scampDualLasers.m_extraAoeRadiusTurnAfterLosingSuit : 0f)).ToString();
 	}
 }

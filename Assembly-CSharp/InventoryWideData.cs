@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class InventoryWideData : MonoBehaviour
@@ -395,7 +396,7 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					throw new Exception($"Inventory template item list is malformed: template {templateId} not found.");
+					throw new Exception(new StringBuilder().Append("Inventory template item list is malformed: template ").Append(templateId).Append(" not found.").ToString());
 				}
 			}
 		}
@@ -427,7 +428,7 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					throw new Exception($"Karma template list is malformed: template {templateId} not found.");
+					throw new Exception(new StringBuilder().Append("Karma template list is malformed: template ").Append(templateId).Append(" not found.").ToString());
 				}
 			}
 		}
@@ -459,7 +460,7 @@ public class InventoryWideData : MonoBehaviour
 				case 0:
 					break;
 				default:
-					throw new Exception($"Loot table list is malformed: table {tableId} not found.");
+					throw new Exception(new StringBuilder().Append("Loot table list is malformed: table ").Append(tableId).Append(" not found.").ToString());
 				}
 			}
 		}
@@ -740,7 +741,7 @@ public class InventoryWideData : MonoBehaviour
 			}
 			catch (ArgumentOutOfRangeException)
 			{
-				Log.Error($"The style not found: char {(CharacterType)itemTemplate.TypeSpecificData[0]}, skin {itemTemplate.TypeSpecificData[1]}, pat {itemTemplate.TypeSpecificData[2]}, style {itemTemplate.TypeSpecificData[3]}");
+				Log.Error(new StringBuilder().Append("The style not found: char ").Append((CharacterType)itemTemplate.TypeSpecificData[0]).Append(", skin ").Append(itemTemplate.TypeSpecificData[1]).Append(", pat ").Append(itemTemplate.TypeSpecificData[2]).Append(", style ").Append(itemTemplate.TypeSpecificData[3]).ToString());
 				return "QuestRewards/general";
 			}
 		}
@@ -880,7 +881,7 @@ public class InventoryWideData : MonoBehaviour
 			}
 			return "QuestRewards/general";
 		}
-		throw new Exception("Sprite Not Implemented for " + itemTemplate.Type);
+		throw new Exception(new StringBuilder().Append("Sprite Not Implemented for ").Append(itemTemplate.Type).ToString());
 	}
 
 	public static string GetTypeString(InventoryItemTemplate template, int count)

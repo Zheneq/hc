@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public class ELOPlayerKey
 {
@@ -43,25 +44,46 @@ public class ELOPlayerKey
     private List<int> charPredictionWeights = new List<int>();
     private Dictionary<long, EloTracking> m_eloTrackings = new Dictionary<long, EloTracking>();
 
-    public static uint MaxIterations => ELOKeyComponent_Coordination.PhaseWidth
-                                        * ELOKeyComponent_FinalScore.PhaseWidth
-                                        * ELOKeyComponent_Softened.PhaseWidth
-                                        * ELOKeyComponent_Queue.PhaseWidth;
+    public static uint MaxIterations
+    {
+        get
+        {
+            return ELOKeyComponent_Coordination.PhaseWidth
+                   * ELOKeyComponent_FinalScore.PhaseWidth
+                   * ELOKeyComponent_Softened.PhaseWidth
+                   * ELOKeyComponent_Queue.PhaseWidth;
+        }
+    }
 
-    public static ELOPlayerKey MatchmakingEloKey => s_matchmakingKey;
-    public static ELOPlayerKey PublicFacingKey => s_publicKey;
+    public static ELOPlayerKey MatchmakingEloKey
+    {
+        get { return s_matchmakingKey; }
+    }
 
-    public ELOKeyComponent_Coordination CoordinationComponent =>
-        GetComponent(MatchmakingQueueConfig.EloKeyFlags.GROUP) as ELOKeyComponent_Coordination;
+    public static ELOPlayerKey PublicFacingKey
+    {
+        get { return s_publicKey; }
+    }
 
-    public ELOKeyComponent_FinalScore FinalScoreComponent =>
-        GetComponent(MatchmakingQueueConfig.EloKeyFlags.RELATIVE) as ELOKeyComponent_FinalScore;
+    public ELOKeyComponent_Coordination CoordinationComponent
+    {
+        get { return GetComponent(MatchmakingQueueConfig.EloKeyFlags.GROUP) as ELOKeyComponent_Coordination; }
+    }
 
-    public ELOKeyComponent_Softened SoftenedComponent =>
-        GetComponent(MatchmakingQueueConfig.EloKeyFlags.SOFTENED_PUBLIC) as ELOKeyComponent_Softened;
+    public ELOKeyComponent_FinalScore FinalScoreComponent
+    {
+        get { return GetComponent(MatchmakingQueueConfig.EloKeyFlags.RELATIVE) as ELOKeyComponent_FinalScore; }
+    }
 
-    public ELOKeyComponent_Queue QueueComponent =>
-        GetComponent(MatchmakingQueueConfig.EloKeyFlags.QUEUE) as ELOKeyComponent_Queue;
+    public ELOKeyComponent_Softened SoftenedComponent
+    {
+        get { return GetComponent(MatchmakingQueueConfig.EloKeyFlags.SOFTENED_PUBLIC) as ELOKeyComponent_Softened; }
+    }
+
+    public ELOKeyComponent_Queue QueueComponent
+    {
+        get { return GetComponent(MatchmakingQueueConfig.EloKeyFlags.QUEUE) as ELOKeyComponent_Queue; }
+    }
 
     public string KeyText
     {
@@ -162,7 +184,7 @@ public class ELOPlayerKey
             }
         }
 
-        throw new Exception($"Bad ELO flag {flag}");
+        throw new Exception(new StringBuilder().Append("Bad ELO flag ").Append(flag).ToString());
     }
 
     private ELOPlayerKey Set(MatchmakingQueueConfig.EloKeyFlags flags, GameType gameType, bool isCasual)
@@ -276,7 +298,7 @@ public class ELOPlayerKey
     {
         if (accountEloValues == null || charEloValues == null)
         {
-            throw new Exception($"Broken ExperienceComponent for player {accountId}");
+            throw new Exception(new StringBuilder().Append("Broken ExperienceComponent for player ").Append(accountId).ToString());
         }
 
         InitializePerCharacter(groupSize);
@@ -409,7 +431,7 @@ public class ELOPlayerKey
     {
         if (!m_eloTrackings.TryGetValue(accountId, out EloTracking value))
         {
-            throw new Exception($"failed to find elo for character {accountId}");
+            throw new Exception(new StringBuilder().Append("failed to find elo for character ").Append(accountId).ToString());
         }
 
         float elo = acMode != ACEnum.ACCOUNT

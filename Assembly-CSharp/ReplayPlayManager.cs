@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -98,7 +99,7 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 			Debug.LogFormat("Failed; {0}", ex);
 			try
 			{
-				m_prospectiveReplay = JsonUtility.FromJson<Replay>(File.ReadAllText(filename + ".arr"));
+				m_prospectiveReplay = JsonUtility.FromJson<Replay>(File.ReadAllText(new StringBuilder().Append(filename).Append(".arr").ToString()));
 			}
 			catch (Exception ex2)
 			{

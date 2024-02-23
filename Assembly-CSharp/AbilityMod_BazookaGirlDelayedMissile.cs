@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
@@ -67,15 +68,16 @@ public class AbilityMod_BazookaGirlDelayedMissile : AbilityMod
 				{
 					damage = bazookaGirlDelayedMissile.m_additionalShapeToHitInfo[i].m_damage;
 				}
-				desc += "* [Shape] = " + shapeToHitInfoMod.m_shape + "\n";
+
+				desc += new StringBuilder().Append("* [Shape] = ").Append(shapeToHitInfoMod.m_shape).Append("\n").ToString();
 				desc += PropDesc(shapeToHitInfoMod.m_damageMod, "[Damage]", isAbilityPresent, damage);
 				desc += PropDesc(shapeToHitInfoMod.m_onExplosionEffectInfo, "[Effect]");
 			}
 		}
 		if (m_cooldownReductionsWhenNoHits.HasCooldownReduction())
 		{
-			desc += "Cooldown Reduction on Miss\n" + m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
+			desc += new StringBuilder().Append("Cooldown Reduction on Miss\n").Append(m_cooldownReductionsWhenNoHits.GetDescription(abilityData)).ToString();
 		}
-		return desc + PropDesc(m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_useFakeMarkerIndexStartMod, "[UseFakeMarkerIndexStart]", isAbilityPresent, isAbilityPresent ? bazookaGirlDelayedMissile.m_useFakeMarkerIndexStart : 0)).ToString();
 	}
 }

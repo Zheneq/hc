@@ -12,7 +12,10 @@ public class LobbyPlayerGroupInfo
 	public string MemberDisplayName;
 	public List<UpdateGroupMemberData> Members;
 
-	public LobbyCharacterInfo ChararacterInfo => m_ChararacterInfo;
+	public LobbyCharacterInfo ChararacterInfo
+	{
+		get { return m_ChararacterInfo; }
+	}
 
 	public LobbyPlayerGroupInfo()
 	{

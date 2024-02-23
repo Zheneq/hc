@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SoldierStimPack : AbilityMod
@@ -48,6 +49,6 @@ public class AbilityMod_SoldierStimPack : AbilityMod
 		desc += PropDesc(m_grenadeExtraRangeMod, "[GrenadeExtraRange]", isValid, isValid ? soldierStimPack.m_grenadeExtraRange : 0f);
 		desc += PropDesc(m_dashShootExtraEffectMod, "[DashShootExtraEffect]", isValid, isValid ? soldierStimPack.m_dashShootExtraEffect : null);
 		desc += PropDesc(m_cooldownResetHealthThresholdMod, "[CooldownResetHealthThreshold]", isValid, isValid ? soldierStimPack.m_cooldownResetHealthThreshold : 0f);
-		return desc + PropDesc(m_cdrIfDashAndShootUsedMod, "[CdrIfDashAndShootUsed]", isValid, isValid ? soldierStimPack.m_cdrIfDashAndShootUsed : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfDashAndShootUsedMod, "[CdrIfDashAndShootUsed]", isValid, isValid ? soldierStimPack.m_cdrIfDashAndShootUsed : 0)).ToString();
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro.SpriteAssetUtilities
@@ -19,7 +20,7 @@ namespace TMPro.SpriteAssetUtilities
 
 			public override string ToString()
 			{
-				return "x: " + x.ToString("f2") + " y: " + y.ToString("f2") + " h: " + h.ToString("f2") + " w: " + w.ToString("f2");
+				return new StringBuilder().Append("x: ").Append(x.ToString("f2")).Append(" y: ").Append(y.ToString("f2")).Append(" h: ").Append(h.ToString("f2")).Append(" w: ").Append(w.ToString("f2")).ToString();
 			}
 		}
 
@@ -32,7 +33,7 @@ namespace TMPro.SpriteAssetUtilities
 
 			public override string ToString()
 			{
-				return "w: " + w.ToString("f2") + " h: " + h.ToString("f2");
+				return new StringBuilder().Append("w: ").Append(w.ToString("f2")).Append(" h: ").Append(h.ToString("f2")).ToString();
 			}
 		}
 

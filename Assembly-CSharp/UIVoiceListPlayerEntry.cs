@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,7 +21,7 @@ public class UIVoiceListPlayerEntry : MonoBehaviour
 		SetSpeaking(userInfo.IsSpeaking);
 		for (int i = 0; i < m_playerNames.Length; i++)
 		{
-			m_playerNames[i].text = userInfo.UserName + "#" + userInfo.Discriminator;
+			m_playerNames[i].text = new StringBuilder().Append(userInfo.UserName).Append("#").Append(userInfo.Discriminator).ToString();
 		}
 		while (true)
 		{

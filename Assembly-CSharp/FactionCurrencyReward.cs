@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class FactionCurrencyReward : FactionReward
@@ -8,7 +9,7 @@ public class FactionCurrencyReward : FactionReward
 	public InventoryItemTemplate GetItemTemplate()
 	{
 		InventoryItemTemplate inventoryItemTemplate = new InventoryItemTemplate();
-		inventoryItemTemplate.DisplayName = CurrencyReward.Amount + " ";
+		inventoryItemTemplate.DisplayName = new StringBuilder().Append(CurrencyReward.Amount).Append(" ").ToString();
 		bool flag = CurrencyReward.Amount != 1;
 		switch (CurrencyReward.Type)
 		{
@@ -24,7 +25,7 @@ public class FactionCurrencyReward : FactionReward
 		default:
 		{
 			string str = CurrencyReward.Type.ToString();
-			string term = str + ((!flag) ? string.Empty : "s");
+			string term = new StringBuilder().Append(str).Append((!flag) ? string.Empty : "s").ToString();
 			inventoryItemTemplate.DisplayName += StringUtil.TR(term, "Rewards");
 			break;
 		}

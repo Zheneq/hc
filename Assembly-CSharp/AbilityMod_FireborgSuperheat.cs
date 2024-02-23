@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 {
@@ -51,7 +52,8 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + PropDesc(superheatDurationMod, "[SuperheatDuration]", flag, baseVal);
+
+			text = new StringBuilder().Append(str).Append(PropDesc(superheatDurationMod, "[SuperheatDuration]", flag, baseVal)).ToString();
 			string str2 = text;
 			AbilityModPropertyInt igniteExtraDamageIfSuperheatedMod = m_igniteExtraDamageIfSuperheatedMod;
 			int baseVal2;
@@ -63,7 +65,8 @@ public class AbilityMod_FireborgSuperheat : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + PropDesc(igniteExtraDamageIfSuperheatedMod, "[IgniteExtraDamageIfSuperheated]", flag, baseVal2);
+
+			text = new StringBuilder().Append(str2).Append(PropDesc(igniteExtraDamageIfSuperheatedMod, "[IgniteExtraDamageIfSuperheated]", flag, baseVal2)).ToString();
 		}
 		return text;
 	}

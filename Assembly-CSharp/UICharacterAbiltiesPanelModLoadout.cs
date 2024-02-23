@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -93,7 +94,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		m_buyNewLoadoutBtn.spriteController.RegisterScrollListener(OnListScroll);
 		for (int i = 0; i < m_buyLoadoutSlotTexts.Length; i++)
 		{
-			m_buyLoadoutSlotTexts[i].text = string.Format(StringUtil.TR("BuyLoadoutSlotFor", "SceneGlobal"), "<sprite name=credit>" + GameBalanceVars.Get().FreelancerLoadoutSlotFluxCost);
+			m_buyLoadoutSlotTexts[i].text = string.Format(StringUtil.TR("BuyLoadoutSlotFor", "SceneGlobal"), new StringBuilder().Append("<sprite name=credit>").Append(GameBalanceVars.Get().FreelancerLoadoutSlotFluxCost).ToString());
 		}
 		while (true)
 		{
@@ -289,7 +290,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 		}
 		if (!response.Success)
 		{
-			Log.Error("Failed to update loadouts: " + response.ErrorMessage);
+			Log.Error(new StringBuilder().Append("Failed to update loadouts: ").Append(response.ErrorMessage).ToString());
 		}
 		if (ClientGameManager.Get() == null)
 		{
@@ -516,7 +517,7 @@ public class UICharacterAbiltiesPanelModLoadout : MonoBehaviour
 					}
 					else
 					{
-						Debug.LogError(base.name + " field Mod Item Prefab reference is null, please set it in scene");
+						Debug.LogError(new StringBuilder().Append(base.name).Append(" field Mod Item Prefab reference is null, please set it in scene").ToString());
 					}
 				}
 				if (i < m_modListItems.Count)

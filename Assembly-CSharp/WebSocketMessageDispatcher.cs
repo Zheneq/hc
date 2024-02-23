@@ -275,10 +275,11 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 
 	private MessageTypeHandler SetupMessageType<TMessage>() where TMessage : WebSocketMessage, new()
 	{
+		MessageTypeHandler value;
 		lock (m_messageTypeHandlers)
 		{
 			Type typeFromHandle = typeof(TMessage);
-			if (!m_messageTypeHandlers.TryGetValue(typeFromHandle, out MessageTypeHandler value))
+			if (!m_messageTypeHandlers.TryGetValue(typeFromHandle, out value))
 			{
 				value = new MessageTypeHandler();
 				value.MessageType = typeof(TMessage);
@@ -316,9 +317,10 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 
 	public void HandleMessage(TSession session, WebSocketMessage message)
 	{
+		MessageTypeHandler value;
 		lock (m_messageTypeHandlers)
 		{
-			if (!m_messageTypeHandlers.TryGetValue(message.GetType(), out MessageTypeHandler value))
+			if (!m_messageTypeHandlers.TryGetValue(message.GetType(), out value))
 			{
 				while (true)
 				{
@@ -410,7 +412,8 @@ public class WebSocketMessageDispatcher<TSession> where TSession : class
 									break;
 								default:
 								{
-									if (value.ResponseMessageHandlers.TryGetValue(message.ResponseId, out MessageHandler value2))
+									MessageHandler value2;
+									if (value.ResponseMessageHandlers.TryGetValue(message.ResponseId, out value2))
 									{
 										while (true)
 										{

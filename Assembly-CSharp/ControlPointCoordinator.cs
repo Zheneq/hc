@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -138,7 +139,7 @@ public class ControlPointCoordinator : MonoBehaviour
 			{
 				if (m_controlPointSpawnInfo[index] == null)
 				{
-					Log.Error($"Trying to spawn a controlPoint on coordinator {base.name}, but the spawn location is null (index = {index}).");
+					Log.Error(new StringBuilder().Append("Trying to spawn a controlPoint on coordinator ").Append(base.name).Append(", but the spawn location is null (index = ").Append(index).Append(").").ToString());
 					return;
 				}
 				if (m_controlPointSpawnInfo[index].m_controlPointPrefab == null)
@@ -150,7 +151,7 @@ public class ControlPointCoordinator : MonoBehaviour
 						case 0:
 							break;
 						default:
-							Log.Error($"Trying to spawn a controlPoint on coordinator {base.name}, but the prefab for spawn location {index} is null.");
+							Log.Error(new StringBuilder().Append("Trying to spawn a controlPoint on coordinator ").Append(base.name).Append(", but the prefab for spawn location ").Append(index).Append(" is null.").ToString());
 							return;
 						}
 					}
@@ -175,7 +176,7 @@ public class ControlPointCoordinator : MonoBehaviour
 						case 0:
 							break;
 						default:
-							throw new ApplicationException($"Control point prefab {m_controlPointSpawnInfo[index].m_controlPointPrefab.name} does not have a control point component.");
+							throw new ApplicationException(new StringBuilder().Append("Control point prefab ").Append(m_controlPointSpawnInfo[index].m_controlPointPrefab.name).Append(" does not have a control point component.").ToString());
 						}
 					}
 				}
@@ -186,7 +187,7 @@ public class ControlPointCoordinator : MonoBehaviour
 				return;
 			}
 		}
-		Log.Error($"Trying to spawn a controlPoint on coordinator {base.name}, but the index ({index}) is invalid.");
+		Log.Error(new StringBuilder().Append("Trying to spawn a controlPoint on coordinator ").Append(base.name).Append(", but the index (").Append(index).Append(") is invalid.").ToString());
 	}
 
 	private void SpawnRandomControlPoint()

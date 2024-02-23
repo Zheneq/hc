@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 
 public class PKFxFX : PKFxPackDependent
@@ -305,7 +306,7 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (!this.AttributeExists(attr.m_Descriptor))
 		{
-			Debug.LogError("[PKFX] FX.SetAttribute : " + attr.m_Descriptor.Name + " doesn't exist");
+			Debug.LogError(new StringBuilder().Append("[PKFX] FX.SetAttribute : ").Append(attr.m_Descriptor.Name).Append(" doesn't exist").ToString());
 		}
 		else
 		{
@@ -358,7 +359,7 @@ public class PKFxFX : PKFxPackDependent
 	{
 		if (!this.SamplerExists(sampler.m_Descriptor))
 		{
-			Debug.LogError("[PKFX] FX.SetSampler : " + sampler.m_Descriptor.Name + " doesn't exist");
+			Debug.LogError(new StringBuilder().Append("[PKFX] FX.SetSampler : ").Append(sampler.m_Descriptor.Name).Append(" doesn't exist").ToString());
 		}
 		else
 		{
@@ -525,7 +526,7 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else
 			{
-				Debug.LogWarning("[PKFX] The FX wants to sample Positions but the Mesh " + mesh.name + " doesn't have them.");
+				Debug.LogWarning(new StringBuilder().Append("[PKFX] The FX wants to sample Positions but the Mesh ").Append(mesh.name).Append(" doesn't have them.").ToString());
 			}
 			Marshal.Copy(array, 0, outPtr, array.Length);
 			outPtr = new IntPtr(outPtr.ToInt64() + (long)(vertexCount * 4 * 3));
@@ -547,7 +548,7 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else
 			{
-				Debug.LogWarning("[PKFX] The FX wants to sample Normals but the Mesh " + mesh.name + " doesn't have them.");
+				Debug.LogWarning(new StringBuilder().Append("[PKFX] The FX wants to sample Normals but the Mesh ").Append(mesh.name).Append(" doesn't have them.").ToString());
 			}
 			Marshal.Copy(array3, 0, outPtr, array3.Length);
 			outPtr = new IntPtr(outPtr.ToInt64() + (long)(vertexCount * 4 * 3));
@@ -570,7 +571,7 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else
 			{
-				Debug.LogWarning("[PKFX] The FX wants to sample Tangents but the Mesh " + mesh.name + " doesn't have them.");
+				Debug.LogWarning(new StringBuilder().Append("[PKFX] The FX wants to sample Tangents but the Mesh ").Append(mesh.name).Append(" doesn't have them.").ToString());
 			}
 			Marshal.Copy(array5, 0, outPtr, array5.Length);
 			outPtr = new IntPtr(outPtr.ToInt64() + (long)(vertexCount * 4 * 4));
@@ -591,7 +592,7 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else
 			{
-				Debug.LogWarning("[PKFX] The FX wants to sample UVs but the Mesh " + mesh.name + " doesn't have them.");
+				Debug.LogWarning(new StringBuilder().Append("[PKFX] The FX wants to sample UVs but the Mesh ").Append(mesh.name).Append(" doesn't have them.").ToString());
 			}
 			Marshal.Copy(array7, 0, outPtr, array7.Length);
 			outPtr = new IntPtr(outPtr.ToInt64() + (long)(vertexCount * 4 * 2));
@@ -614,7 +615,7 @@ public class PKFxFX : PKFxPackDependent
 			}
 			else
 			{
-				Debug.LogWarning("[PKFX] The FX wants to sample Vertex Colors but the Mesh " + mesh.name + " doesn't have them.");
+				Debug.LogWarning(new StringBuilder().Append("[PKFX] The FX wants to sample Vertex Colors but the Mesh ").Append(mesh.name).Append(" doesn't have them.").ToString());
 			}
 			Marshal.Copy(array9, 0, outPtr, array9.Length);
 			outPtr = new IntPtr(outPtr.ToInt64() + (long)(vertexCount * 4 * 4));
@@ -1012,7 +1013,7 @@ public class PKFxFX : PKFxPackDependent
 					byte[] rawTextureData = sampler.m_Texture.GetRawTextureData();
 					if (rawTextureData.Length == 0)
 					{
-						Debug.LogError("[PKFX] Sampler " + sampler.m_Descriptor.Name + " : Could not get raw texture data. Enable read/write in import settings.");
+						Debug.LogError(new StringBuilder().Append("[PKFX] Sampler ").Append(sampler.m_Descriptor.Name).Append(" : Could not get raw texture data. Enable read/write in import settings.").ToString());
 					}
 					if (sampler.m_Texture.format == TextureFormat.DXT1)
 					{

@@ -36,9 +36,9 @@ public class TricksterAfterImageNetworkBehaviour : NetworkBehaviour
 
 	public int Networkm_maxAfterImageCount
 	{
-		get => m_maxAfterImageCount;
+		get { return m_maxAfterImageCount; }
 		[param: In]
-		set => SetSyncVar(value, ref m_maxAfterImageCount, 2u);
+		set { SetSyncVar(value, ref m_maxAfterImageCount, 2u); }
 	}
 
 	static TricksterAfterImageNetworkBehaviour()

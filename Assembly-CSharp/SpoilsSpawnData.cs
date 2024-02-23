@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -36,7 +37,7 @@ public class SpoilsSpawnData
 	{
 		bool showOther = diff && other != null;
 		string otherSep = "\t        \t | in base  =";
-		string desc = InEditorDescHelper.BoldedStirng(header) + "\n";
+		string desc = new StringBuilder().Append(InEditorDescHelper.BoldedStirng(header)).Append("\n").ToString();
 		if (HasResponse())
 		{
 			float otherNum = showOther ? other.m_numToSpawn : 0;

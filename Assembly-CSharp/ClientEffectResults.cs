@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientEffectResults
@@ -98,7 +99,7 @@ public class ClientEffectResults
 		}
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+			Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientHitResultHeader).Append(GetDebugDescription()).Append(": no Sequence to start, executing results directly").ToString());
 		}
 		RunClientEffectHits();
 	}
@@ -150,7 +151,7 @@ public class ClientEffectResults
 		}
 		else
 		{
-			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+			Debug.LogError(new StringBuilder().Append("ClientEffectResults error-- Sequence hitting actor ").Append(target.DebugNameString()).Append(", but that actor isn't in our hit results.").ToString());
 		}
 	}
 
@@ -314,7 +315,7 @@ public class ClientEffectResults
 
 	public string GetDebugDescription()
 	{
-		return m_effectCaster.DebugNameString() + "'s effect, guid = " + m_effectGUID;
+		return new StringBuilder().Append(m_effectCaster.DebugNameString()).Append("'s effect, guid = ").Append(m_effectGUID).ToString();
 	}
 
 	internal string UnexecutedHitsDebugStr()

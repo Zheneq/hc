@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class DebugCommands
 {
@@ -105,6 +106,6 @@ public class DebugCommands
     command.OnDecreaseClick();
     if (command.GetType() == typeof (DebugCommand_Category) || command.GetType() == typeof (DebugCommand_Back))
       return;
-    ClientGameManager.Get().symbol_001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
+    ClientGameManager.Get().symbol_001D(new StringBuilder().Append("Decrease ").Append(command.GetDebugItemName()).ToString(), command.GetDebugItemValue());
   }
 }

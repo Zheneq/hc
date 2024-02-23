@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +27,9 @@ public class _InputFieldCursorFix : MonoBehaviour
 	{
 		if (m_caretObject == null)
 		{
-			if (base.gameObject.transform.Find(base.gameObject.name + " Input Caret") != null)
+			if (base.gameObject.transform.Find(new StringBuilder().Append(base.gameObject.name).Append(" Input Caret").ToString()) != null)
 			{
-				m_caretObject = (base.gameObject.transform.Find(base.gameObject.name + " Input Caret").transform as RectTransform);
+				m_caretObject = (base.gameObject.transform.Find(new StringBuilder().Append(base.gameObject.name).Append(" Input Caret").ToString()).transform as RectTransform);
 			}
 		}
 		if (m_theScalar == null)

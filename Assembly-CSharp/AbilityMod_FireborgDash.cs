@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 {
@@ -76,7 +77,8 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + PropDesc(addGroundFireMod, "[AddGroundFire]", flag, (byte)baseVal != 0);
+
+			text = new StringBuilder().Append(str).Append(PropDesc(addGroundFireMod, "[AddGroundFire]", flag, (byte)baseVal != 0)).ToString();
 			text += PropDesc(m_groundFireDurationMod, "[GroundFireDuration]", flag, flag ? fireborgDash.m_groundFireDuration : 0);
 			string str2 = text;
 			AbilityModPropertyInt groundFireDurationIfSuperheatedMod = m_groundFireDurationIfSuperheatedMod;
@@ -89,7 +91,8 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + PropDesc(groundFireDurationIfSuperheatedMod, "[GroundFireDurationIfSuperheated]", flag, baseVal2);
+
+			text = new StringBuilder().Append(str2).Append(PropDesc(groundFireDurationIfSuperheatedMod, "[GroundFireDurationIfSuperheated]", flag, baseVal2)).ToString();
 			string str3 = text;
 			AbilityModPropertyBool igniteIfNormalMod = m_igniteIfNormalMod;
 			int baseVal3;
@@ -101,7 +104,8 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + PropDesc(igniteIfNormalMod, "[IgniteIfNormal]", flag, (byte)baseVal3 != 0);
+
+			text = new StringBuilder().Append(str3).Append(PropDesc(igniteIfNormalMod, "[IgniteIfNormal]", flag, (byte)baseVal3 != 0)).ToString();
 			text += PropDesc(m_igniteIfSuperheatedMod, "[IgniteIfSuperheated]", flag, flag && fireborgDash.m_igniteIfSuperheated);
 			string str4 = text;
 			AbilityModPropertyInt shieldPerEnemyHitMod = m_shieldPerEnemyHitMod;
@@ -114,7 +118,8 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + PropDesc(shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, baseVal4);
+
+			text = new StringBuilder().Append(str4).Append(PropDesc(shieldPerEnemyHitMod, "[ShieldPerEnemyHit]", flag, baseVal4)).ToString();
 			string str5 = text;
 			AbilityModPropertyInt shieldDurationMod = m_shieldDurationMod;
 			int baseVal5;
@@ -126,7 +131,8 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			{
 				baseVal5 = 0;
 			}
-			text = str5 + PropDesc(shieldDurationMod, "[ShieldDuration]", flag, baseVal5);
+
+			text = new StringBuilder().Append(str5).Append(PropDesc(shieldDurationMod, "[ShieldDuration]", flag, baseVal5)).ToString();
 			text += PropDesc(m_cdrPerTurnIfLowHealthMod, "[CdrPerTurnIfLowHealth]", flag, flag ? fireborgDash.m_cdrPerTurnIfLowHealth : 0);
 			string str6 = text;
 			AbilityModPropertyInt lowHealthThreshMod = m_lowHealthThreshMod;
@@ -139,7 +145,8 @@ public class AbilityMod_FireborgDash : GenericAbility_AbilityMod
 			{
 				baseVal6 = 0;
 			}
-			text = str6 + PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal6);
+
+			text = new StringBuilder().Append(str6).Append(PropDesc(lowHealthThreshMod, "[LowHealthThresh]", flag, baseVal6)).ToString();
 		}
 		return text;
 	}

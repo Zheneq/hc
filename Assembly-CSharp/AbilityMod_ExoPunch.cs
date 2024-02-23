@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ExoPunch : AbilityMod
@@ -60,6 +61,6 @@ public class AbilityMod_ExoPunch : AbilityMod
 		desc += PropDesc(m_targetHitEffectMod, "[TargetHitEffect]", isValid, isValid ? exoPunch.m_targetHitEffect : null);
 		desc += PropDesc(m_nearDistThresholdMod, "[NearDistThreshold]", isValid, isValid ? exoPunch.m_nearDistThreshold : 0f);
 		desc += PropDesc(m_nearEnemyExtraDamageMod, "[NearEnemyExtraDamage]", isValid, isValid ? exoPunch.m_nearEnemyExtraDamage : 0);
-		return desc + PropDesc(m_nearEnemyExtraEffectMod, "[NearEnemyExtraEffect]", isValid, isValid ? exoPunch.m_nearEnemyExtraEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_nearEnemyExtraEffectMod, "[NearEnemyExtraEffect]", isValid, isValid ? exoPunch.m_nearEnemyExtraEffect : null)).ToString();
 	}
 }

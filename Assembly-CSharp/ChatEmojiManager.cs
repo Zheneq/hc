@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -79,7 +80,7 @@ public class ChatEmojiManager : MonoBehaviour
 								if (unlocalizedChatEmojiName == current.m_emojiName)
 								{
 									PerEmojiDisplayInfo perEmojiDisplayInfo = new PerEmojiDisplayInfo();
-									m_textField.text = m_textField.text.Replace(current.m_emojiTag, "<size=" + Get().m_displayTextSize + "><link=emoji-" + current.m_emojiTag + "><sprite=\"EmoticonsAssets\" index=" + current.m_startIndex + "></link>\u200b</size>");
+									m_textField.text = m_textField.text.Replace(current.m_emojiTag, new StringBuilder().Append("<size=").Append(Get().m_displayTextSize).Append("><link=emoji-").Append(current.m_emojiTag).Append("><sprite=\"EmoticonsAssets\" index=").Append(current.m_startIndex).Append("></link>\u200b</size>").ToString());
 									perEmojiDisplayInfo.m_refInfo = current;
 									perEmojiDisplayInfo.m_currentIndex = current.m_startIndex;
 									perEmojiDisplayInfo.m_lastTimeUpdate = Time.time;
@@ -113,12 +114,12 @@ public class ChatEmojiManager : MonoBehaviour
 					{
 						if (current.m_currentIndex < current.m_refInfo.m_endIndex)
 						{
-							m_textField.text = m_textField.text.Replace("<sprite=\"EmoticonsAssets\" index=" + current.m_currentIndex + ">", "<sprite=\"EmoticonsAssets\" index=" + (current.m_currentIndex + 1) + ">");
+							m_textField.text = m_textField.text.Replace(new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(current.m_currentIndex).Append(">").ToString(), new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(current.m_currentIndex + 1).Append(">").ToString());
 							current.m_currentIndex++;
 						}
 						else
 						{
-							m_textField.text = m_textField.text.Replace("<sprite=\"EmoticonsAssets\" index=" + current.m_currentIndex + ">", "<sprite=\"EmoticonsAssets\" index=" + current.m_refInfo.m_startIndex + ">");
+							m_textField.text = m_textField.text.Replace(new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(current.m_currentIndex).Append(">").ToString(), new StringBuilder().Append("<sprite=\"EmoticonsAssets\" index=").Append(current.m_refInfo.m_startIndex).Append(">").ToString());
 							current.m_currentIndex = current.m_refInfo.m_startIndex;
 						}
 						current.m_lastTimeUpdate = Time.time;

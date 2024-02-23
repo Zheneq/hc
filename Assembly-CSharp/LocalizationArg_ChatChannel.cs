@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class LocalizationArg_ChatChannel : LocalizationArg
@@ -15,6 +16,6 @@ public class LocalizationArg_ChatChannel : LocalizationArg
 
 	public override string TR()
 	{
-		return StringUtil.TR($"ChannelName_{m_value.ToString()}", "Chat");
+		return StringUtil.TR(new StringBuilder().Append("ChannelName_").Append(m_value.ToString()).ToString(), "Chat");
 	}
 }

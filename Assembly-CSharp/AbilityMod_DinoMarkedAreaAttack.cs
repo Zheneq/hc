@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
@@ -49,6 +50,6 @@ public class AbilityMod_DinoMarkedAreaAttack : GenericAbility_AbilityMod
 		desc += PropDesc(m_shapeMod, "[Shape]", isValid, isValid ? dinoMarkedAreaAttack.m_shape : AbilityAreaShape.SingleSquare);
 		desc += PropDesc(m_delayedHitIgnoreLosMod, "[DelayedHitIgnoreLos]", isValid, isValid && dinoMarkedAreaAttack.m_delayedHitIgnoreLos);
 		desc += PropDesc(m_extraDamageForSingleMarkMod, "[ExtraDamageForSingleMark]", isValid, isValid ? dinoMarkedAreaAttack.m_extraDamageForSingleMark : 0);
-		return desc + PropDesc(m_energyToAllyOnDamageHitMod, "[EnergyToAllyOnDamageHit]", isValid, isValid ? dinoMarkedAreaAttack.m_energyToAllyOnDamageHit : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_energyToAllyOnDamageHitMod, "[EnergyToAllyOnDamageHit]", isValid, isValid ? dinoMarkedAreaAttack.m_energyToAllyOnDamageHit : 0)).ToString();
 	}
 }

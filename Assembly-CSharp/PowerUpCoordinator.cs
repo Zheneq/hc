@@ -20,20 +20,23 @@ public class PowerUpCoordinator : NetworkBehaviour, PowerUp.IPowerUpListener
 	private int m_nextPowerUpIndex;
 	private bool m_spawningEnabled = true;
 
-	public PowerUp currentPowerUp => m_currentPowerUp;
+	public PowerUp currentPowerUp
+	{
+		get { return m_currentPowerUp; }
+	}
 
 	public int Networkm_nextSpawnTurn
 	{
-		get => m_nextSpawnTurn;
+		get { return m_nextSpawnTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_nextSpawnTurn, 1u);
+		set { SetSyncVar(value, ref m_nextSpawnTurn, 1u); }
 	}
 
 	public int Networkm_nextPowerUpIndex
 	{
-		get => m_nextPowerUpIndex;
+		get { return m_nextPowerUpIndex; }
 		[param: In]
-		set => SetSyncVar(value, ref m_nextPowerUpIndex, 2u);
+		set { SetSyncVar(value, ref m_nextPowerUpIndex, 2u); }
 	}
 
 	private void Start()

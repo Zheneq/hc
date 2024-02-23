@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -170,7 +171,10 @@ namespace TMPro
 			}
 		}
 
-		public override Material materialForRendering => TMP_MaterialManager.GetMaterialForRendering(this, m_sharedMaterial);
+		public override Material materialForRendering
+		{
+			get { return TMP_MaterialManager.GetMaterialForRendering(this, m_sharedMaterial); }
+		}
 
 		public bool isDefaultMaterial
 		{
@@ -227,7 +231,7 @@ namespace TMPro
 
 		public static TMP_SubMeshUI AddSubTextObject(TextMeshProUGUI textComponent, MaterialReference materialReference)
 		{
-			GameObject gameObject = new GameObject("TMP UI SubObject [" + materialReference.material.name + "]", typeof(RectTransform));
+			GameObject gameObject = new GameObject(new StringBuilder().Append("TMP UI SubObject [").Append(materialReference.material.name).Append("]").ToString(), typeof(RectTransform));
 			gameObject.transform.SetParent(textComponent.transform, false);
 			gameObject.layer = textComponent.gameObject.layer;
 			RectTransform component = gameObject.GetComponent<RectTransform>();

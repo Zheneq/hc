@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -133,30 +134,31 @@ public class OnHitIntField
 		string identifier = GetIdentifier();
 		if (!string.IsNullOrEmpty(identifier))
 		{
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Base", m_baseValue, string.Empty);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Min", m_minValue, string.Empty);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_Max", m_maxValue, string.Empty);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_BaseAddMin", m_baseAddTotalMinValue, string.Empty);
-			TooltipTokenHelper.AddTokenInt(tokens, identifier + "_BaseAddMax", m_baseAddTotalMaxValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, new StringBuilder().Append(identifier).Append("_Base").ToString(), m_baseValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, new StringBuilder().Append(identifier).Append("_Min").ToString(), m_minValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, new StringBuilder().Append(identifier).Append("_Max").ToString(), m_maxValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, new StringBuilder().Append(identifier).Append("_BaseAddMin").ToString(), m_baseAddTotalMinValue, string.Empty);
+			TooltipTokenHelper.AddTokenInt(tokens, new StringBuilder().Append(identifier).Append("_BaseAddMax").ToString(), m_baseAddTotalMaxValue, string.Empty);
 		}
 	}
 
 	public string GetInEditorDesc()
 	{
-		string str = "Field Type < " + InEditorDescHelper.ColoredString(m_hitType.ToString()) + " >\n";
+		string str = new StringBuilder().Append("Field Type < ").Append(InEditorDescHelper.ColoredString(m_hitType.ToString())).Append(" >\n").ToString();
 		if (!string.IsNullOrEmpty(m_identifier))
 		{
-			str = str + "Identifier: " + InEditorDescHelper.ColoredString(m_identifier, "white") + "\n";
+			str = new StringBuilder().Append(str).Append("Identifier: ").Append(InEditorDescHelper.ColoredString(m_identifier, "white")).Append("\n").ToString();
 		}
-		str = str + "Conditions:\n" + m_conditions.GetInEditorDesc("    ");
-		str = str + "BaseValue= " + InEditorDescHelper.ColoredString(m_baseValue) + "\n";
+
+		str = new StringBuilder().Append(str).Append("Conditions:\n").Append(m_conditions.GetInEditorDesc("    ")).ToString();
+		str = new StringBuilder().Append(str).Append("BaseValue= ").Append(InEditorDescHelper.ColoredString(m_baseValue)).Append("\n").ToString();
 		if (m_minValue > 0)
 		{
-			str = str + "MinValue= " + InEditorDescHelper.ColoredString(m_minValue) + "\n";
+			str = new StringBuilder().Append(str).Append("MinValue= ").Append(InEditorDescHelper.ColoredString(m_minValue)).Append("\n").ToString();
 		}
 		if (m_maxValue > 0)
 		{
-			str = str + "MaxValue= " + InEditorDescHelper.ColoredString(m_maxValue) + "\n";
+			str = new StringBuilder().Append(str).Append("MaxValue= ").Append(InEditorDescHelper.ColoredString(m_maxValue)).Append("\n").ToString();
 		}
 		if (m_baseAddModifiers.Count > 0)
 		{

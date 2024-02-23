@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using Fabric;
 using UnityEngine;
 
@@ -140,14 +141,14 @@ public class ChatterManager : MonoBehaviour
 		}
 		if (this.m_currentCooldownSec > 0f)
 		{
-			this.ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to global chatter cooldown");
+			this.ChatterDebugLog(new StringBuilder().Append("<color=red>Rejecting chatter: </color>").Append(chatter.GetCommonData().m_audioEvent).Append(" due to global chatter cooldown").ToString());
 			return;
 		}
 		if (this.m_chatterAvailability.ContainsKey(chatter.GetCommonData().m_audioEvent))
 		{
 			if (this.m_chatterAvailability[chatter.GetCommonData().m_audioEvent] > Time.time)
 			{
-				this.ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to individual chatter cooldown");
+				this.ChatterDebugLog(new StringBuilder().Append("<color=red>Rejecting chatter: </color>").Append(chatter.GetCommonData().m_audioEvent).Append(" due to individual chatter cooldown").ToString());
 				return;
 			}
 		}
@@ -155,11 +156,11 @@ public class ChatterManager : MonoBehaviour
 		{
 			if (this.m_chatterGroupAvailability[chatter.GetCommonData().m_globalChatterGroup] > Time.time)
 			{
-				this.ChatterDebugLog("<color=red>Rejecting chatter: </color>" + chatter.GetCommonData().m_audioEvent + " due to group chatter cooldown");
+				this.ChatterDebugLog(new StringBuilder().Append("<color=red>Rejecting chatter: </color>").Append(chatter.GetCommonData().m_audioEvent).Append(" due to group chatter cooldown").ToString());
 				return;
 			}
 		}
-		this.ChatterDebugLog("<color=yellow>Submitted chatter: </color>" + chatter.GetCommonData().m_audioEvent);
+		this.ChatterDebugLog(new StringBuilder().Append("<color=yellow>Submitted chatter: </color>").Append(chatter.GetCommonData().m_audioEvent).ToString());
 		float num = (float)chatter.GetCommonData().m_priority;
 		if (GameFlowData.Get())
 		{

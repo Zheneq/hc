@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -155,7 +156,7 @@ public class FriendListBannerEntry : MonoBehaviour
 		string text = friendInfo.FriendHandle;
 		if (!friendInfo.FriendNote.IsNullOrEmpty())
 		{
-			text = $"{friendInfo.FriendHandle}({friendInfo.FriendNote})";
+			text = new StringBuilder().Append(friendInfo.FriendHandle).Append("(").Append(friendInfo.FriendNote).Append(")").ToString();
 		}
 		m_playerName.text = text;
 		if (m_hitbox.gameObject.GetComponent<_MouseEventPasser>() == null)
@@ -292,7 +293,8 @@ public class FriendListBannerEntry : MonoBehaviour
 					{
 						str = string.Format(StringUtil.TR("BannerDescription", "FriendList"), m_playerName.text, title);
 					}
-					str = str + Environment.NewLine + m_friendInfo.FriendNote;
+
+					str = new StringBuilder().AppendLine(str).Append(m_friendInfo.FriendNote).ToString();
 					uITitledTooltip.Setup(m_playerStatusLabel.text, str, string.Empty);
 					return true;
 				}

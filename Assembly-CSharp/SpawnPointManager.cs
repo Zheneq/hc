@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SpawnPointManager : MonoBehaviour
@@ -320,7 +321,7 @@ public class SpawnPointManager : MonoBehaviour
 		}
 		if (result == null)
 		{
-			Log.Error("Failed to find a spawn square for " + spawner.DisplayName);
+			Log.Error(new StringBuilder().Append("Failed to find a spawn square for ").Append(spawner.DisplayName).ToString());
 		}
 		else if (result.occupant != null)
 		{
@@ -353,7 +354,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (result == null)
 			{
-				Log.Error("Couldn't find an initial spawn square for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.");
+				Log.Error(new StringBuilder().Append("Couldn't find an initial spawn square for actor on team ").Append(spawner.GetTeam().ToString()).Append(", make sure Initial Spawn Points are set up.").ToString());
 				foreach (BoardSquare boardSquare3 in squaresInRegion)
 				{
 					List<BoardSquare> list = new List<BoardSquare>(8);
@@ -374,7 +375,7 @@ public class SpawnPointManager : MonoBehaviour
 			}
 			if (result == null)
 			{
-				Log.Error("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team " + spawner.GetTeam().ToString() + ", make sure Initial Spawn Points are set up.");
+				Log.Error(new StringBuilder().Append("Couldn't even find a viable spawn square adjacent to any initial spawn squares for actor on team ").Append(spawner.GetTeam().ToString()).Append(", make sure Initial Spawn Points are set up.").ToString());
 				for (int i = 0; i < 128; i++)
 				{
 					if (result == null)
@@ -401,11 +402,12 @@ public class SpawnPointManager : MonoBehaviour
 			return;
 		}
 		Gizmos.color = ActorData.s_teamAColor;
+		Board board = Board.Get();
 		if (m_spawnPointsTeamA != null)
 		{
 			foreach (SpawnPointCoord spawnPointCoord in m_spawnPointsTeamA)
 			{
-				BoardSquare square = Board.Get()?.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y);
+				BoardSquare square = board != null ? board.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y) : null;
 				if (square != null)
 				{
 					Gizmos.DrawWireSphere(square.ToVector3(), 0.7f);
@@ -417,7 +419,7 @@ public class SpawnPointManager : MonoBehaviour
 		{
 			foreach (SpawnPointCoord spawnPointCoord in m_spawnPointsTeamB)
 			{
-				BoardSquare square = Board.Get()?.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y);
+				BoardSquare square = board?.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y);
 				if (square != null)
 				{
 					Gizmos.DrawWireSphere(square.ToVector3(), 0.7f);

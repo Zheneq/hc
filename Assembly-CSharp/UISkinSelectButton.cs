@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -71,17 +72,17 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 			int num = 0;
 			if (skinData.m_unlockCharacterLevel > 1)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), skinData.m_unlockCharacterLevel) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("UnlockedAtCharacterLevel", "Global"), skinData.m_unlockCharacterLevel)).ToString();
 				num++;
 			}
 			if (skinData.m_gameCurrencyCost > 0)
 			{
-				m_unlockTooltipText = m_unlockTooltipText + string.Format(StringUtil.TR("BuyForNumberISO", "Global"), skinData.m_gameCurrencyCost) + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).AppendLine(string.Format(StringUtil.TR("BuyForNumberISO", "Global"), skinData.m_gameCurrencyCost)).ToString();
 				num++;
 			}
 			if (num > 1)
 			{
-				m_unlockTooltipText = StringUtil.TR("ObtainedByMethods", "Global") + Environment.NewLine + m_unlockTooltipText + Environment.NewLine;
+				m_unlockTooltipText = new StringBuilder().AppendLine(StringUtil.TR("ObtainedByMethods", "Global")).AppendLine(m_unlockTooltipText).ToString();
 			}
 		}
 		else
@@ -94,7 +95,7 @@ public class UISkinSelectButton : UICharacterVisualsSelectButton
 		}
 		while (true)
 		{
-			m_unlockTooltipText = m_unlockTooltipText + "<i>" + skinData.m_flavorText + "</i>";
+			m_unlockTooltipText = new StringBuilder().Append(m_unlockTooltipText).Append("<i>").Append(skinData.m_flavorText).Append("</i>").ToString();
 			return;
 		}
 	}

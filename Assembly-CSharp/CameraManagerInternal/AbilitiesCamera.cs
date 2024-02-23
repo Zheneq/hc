@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace CameraManagerInternal
@@ -116,7 +117,10 @@ namespace CameraManagerInternal
 
 		private bool m_targetSetForLowPosition;
 
-		internal bool IsDisabledUntilSetTarget => m_targetSetTurn != GameFlowData.Get().CurrentTurn;
+		internal bool IsDisabledUntilSetTarget
+		{
+			get { return m_targetSetTurn != GameFlowData.Get().CurrentTurn; }
+		}
 
 		internal static AbilitiesCamera Get()
 		{
@@ -204,7 +208,7 @@ namespace CameraManagerInternal
 			}
 			if (CameraManager.CamDebugTraceOn)
 			{
-				CameraManager.LogForDebugging("Setting bounds: " + m_target.ToString() + " -> " + bounds.ToString() + " | quickTransition " + quickerTransition + " | useLowPosition " + flag, CameraManager.CameraLogType.Ability);
+				CameraManager.LogForDebugging(new StringBuilder().Append("Setting bounds: ").Append(m_target.ToString()).Append(" -> ").Append(bounds.ToString()).Append(" | quickTransition ").Append(quickerTransition).Append(" | useLowPosition ").Append(flag).ToString(), CameraManager.CameraLogType.Ability);
 			}
 			m_target = bounds;
 			if (!(m_secondsRemainingToPauseForUserControl <= 0f))
@@ -296,7 +300,11 @@ namespace CameraManagerInternal
 				m_READ_ONLY_Height = position2.y - (float)Board.Get().BaselineHeight;
 				m_READ_ONLY_Distance = (base.transform.position - m_target.center).magnitude;
 			}
-			CameraControls.Get().CalcDesiredTransform(base.transform, out Vector3 positionDelta, out Quaternion rotationThisFrame, out float zoomDelta);
+
+			Vector3 positionDelta;
+			Quaternion rotationThisFrame;
+			float zoomDelta;
+			CameraControls.Get().CalcDesiredTransform(base.transform, out positionDelta, out rotationThisFrame, out zoomDelta);
 			if (!Mathf.Approximately(zoomDelta, 0f))
 			{
 				AdjustZoomParam(zoomDelta, true, m_mouseWheelInputZoomEaseTime);
@@ -392,11 +400,11 @@ namespace CameraManagerInternal
 					string stringToDisplay = debugCategoryInfo.m_stringToDisplay;
 					debugCategoryInfo.m_stringToDisplay = string.Concat(stringToDisplay, "Position: ", base.transform.position, " | Rotation: ", base.transform.rotation.eulerAngles, "\n");
 					stringToDisplay = debugCategoryInfo.m_stringToDisplay;
-					debugCategoryInfo.m_stringToDisplay = stringToDisplay + "FOV: " + Camera.main.fieldOfView + "\n";
+					debugCategoryInfo.m_stringToDisplay = new StringBuilder().Append(stringToDisplay).Append("FOV: ").Append(Camera.main.fieldOfView).Append("\n").ToString();
 					stringToDisplay = debugCategoryInfo.m_stringToDisplay;
-					debugCategoryInfo.m_stringToDisplay = stringToDisplay + "Height: " + m_READ_ONLY_Height + " | Distance: " + m_READ_ONLY_Distance + "\n";
+					debugCategoryInfo.m_stringToDisplay = new StringBuilder().Append(stringToDisplay).Append("Height: ").Append(m_READ_ONLY_Height).Append(" | Distance: ").Append(m_READ_ONLY_Distance).Append("\n").ToString();
 					stringToDisplay = debugCategoryInfo.m_stringToDisplay;
-					debugCategoryInfo.m_stringToDisplay = stringToDisplay + "Time Remaining Under User Control: " + m_secondsRemainingToPauseForUserControl + "\n";
+					debugCategoryInfo.m_stringToDisplay = new StringBuilder().Append(stringToDisplay).Append("Time Remaining Under User Control: ").Append(m_secondsRemainingToPauseForUserControl).Append("\n").ToString();
 				}
 				return;
 			}
@@ -519,7 +527,7 @@ namespace CameraManagerInternal
 			}
 			while (true)
 			{
-				CameraManager.LogForDebugging("EaseToTarget " + m_target.ToString() + " easeInTime: " + easeInTime + "\nDesired X Rotation = " + num2 + "\nSeconds remaining under user control = " + m_secondsRemainingToPauseForUserControl, CameraManager.CameraLogType.Ability);
+				CameraManager.LogForDebugging(new StringBuilder().Append("EaseToTarget ").Append(m_target.ToString()).Append(" easeInTime: ").Append(easeInTime).Append("\nDesired X Rotation = ").Append(num2).Append("\nSeconds remaining under user control = ").Append(m_secondsRemainingToPauseForUserControl).ToString(), CameraManager.CameraLogType.Ability);
 				return;
 			}
 		}
@@ -637,69 +645,62 @@ namespace CameraManagerInternal
 			Ray ray = new Ray(base.transform.position, vector);
 			Plane plane = new Plane(Vector3.up, m_target.center);
 			Vector3 b = Vector3.zero;
-			if (plane.Raycast(ray, out float enter))
+			float enter;
+			if (plane.Raycast(ray, out enter))
 			{
 				Vector3 point = ray.GetPoint(enter);
 				b = m_target.center - point;
 			}
 			Vector3 b2 = Vector3.zero;
 			Vector3[] array = new Vector3[8];
-			ref Vector3 reference = ref array[0];
 			Vector3 min = m_target.min;
 			float x = min.x;
 			Vector3 max = m_target.max;
 			float y2 = max.y;
 			Vector3 min2 = m_target.min;
-			reference = new Vector3(x, y2, min2.z) - b;
-			ref Vector3 reference2 = ref array[1];
+			array[0] = new Vector3(x, y2, min2.z) - b;
 			Vector3 min3 = m_target.min;
 			float x2 = min3.x;
 			Vector3 max2 = m_target.max;
 			float y3 = max2.y;
 			Vector3 max3 = m_target.max;
-			reference2 = new Vector3(x2, y3, max3.z) - b;
-			ref Vector3 reference3 = ref array[2];
+			array[1] = new Vector3(x2, y3, max3.z) - b;
 			Vector3 max4 = m_target.max;
 			float x3 = max4.x;
 			Vector3 max5 = m_target.max;
 			float y4 = max5.y;
 			Vector3 min4 = m_target.min;
-			reference3 = new Vector3(x3, y4, min4.z) - b;
-			ref Vector3 reference4 = ref array[3];
+			array[2] = new Vector3(x3, y4, min4.z) - b;
 			Vector3 max6 = m_target.max;
 			float x4 = max6.x;
 			Vector3 max7 = m_target.max;
 			float y5 = max7.y;
 			Vector3 max8 = m_target.max;
-			reference4 = new Vector3(x4, y5, max8.z) - b;
-			ref Vector3 reference5 = ref array[4];
+			array[3] = new Vector3(x4, y5, max8.z) - b;
 			Vector3 min5 = m_target.min;
 			float x5 = min5.x;
 			Vector3 min6 = m_target.min;
 			float y6 = min6.y;
 			Vector3 min7 = m_target.min;
-			reference5 = new Vector3(x5, y6, min7.z) - b;
-			ref Vector3 reference6 = ref array[5];
+			array[4] = new Vector3(x5, y6, min7.z) - b;
 			Vector3 min8 = m_target.min;
 			float x6 = min8.x;
 			Vector3 min9 = m_target.min;
 			float y7 = min9.y;
 			Vector3 max9 = m_target.max;
-			reference6 = new Vector3(x6, y7, max9.z) - b;
-			ref Vector3 reference7 = ref array[6];
+			array[5] = new Vector3(x6, y7, max9.z) - b;
 			Vector3 max10 = m_target.max;
 			float x7 = max10.x;
 			Vector3 min10 = m_target.min;
 			float y8 = min10.y;
 			Vector3 min11 = m_target.min;
-			reference7 = new Vector3(x7, y8, min11.z) - b;
-			ref Vector3 reference8 = ref array[7];
+			array[6] = new Vector3(x7, y8, min11.z) - b;
 			Vector3 max11 = m_target.max;
 			float x8 = max11.x;
 			Vector3 min12 = m_target.min;
 			float y9 = min12.y;
 			Vector3 max12 = m_target.max;
-			reference8 = new Vector3(x8, y9, max12.z) - b;
+			array[7] = new Vector3(x8, y9, max12.z) - b;
 			Vector3[] array2 = array;
 			Plane[] array3 = GeometryUtility.CalculateFrustumPlanes(Camera.main);
 			for (int i = 0; i < array3.Length; i++)
@@ -756,7 +757,9 @@ namespace CameraManagerInternal
 						{
 							continue;
 						}
-						if (!plane4.Raycast(ray2, out float enter2))
+
+						float enter2;
+						if (!plane4.Raycast(ray2, out enter2))
 						{
 							continue;
 						}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SorceressDebuffLaser : AbilityMod
@@ -68,11 +69,11 @@ public class AbilityMod_SorceressDebuffLaser : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_cooldownReductionOnNumHit, "[Cooldown Reduction Op on Num Hit]");
 		if (m_cooldownFlatReduction != 0)
 		{
-			desc += "[Flat Cooldown Reduction (after applying modValueOnNumHit)] = " + m_cooldownFlatReduction + "\n";
+			desc += new StringBuilder().Append("[Flat Cooldown Reduction (after applying modValueOnNumHit)] = ").Append(m_cooldownFlatReduction).Append("\n").ToString();
 		}
 		if (m_maxCooldownReduction > 0)
 		{
-			desc += "[Max Cooldown Reduction] = " + m_maxCooldownReduction + "\n";
+			desc += new StringBuilder().Append("[Max Cooldown Reduction] = ").Append(m_maxCooldownReduction).Append("\n").ToString();
 		}
 		return desc;
 	}

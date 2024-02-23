@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TricksterBasicAttack : AbilityMod
@@ -55,6 +56,6 @@ public class AbilityMod_TricksterBasicAttack : AbilityMod
 		desc += PropDesc(m_selfEffectForMultiHitMod, "[SelfEffectForMultiHit]", isValid, isValid ? tricksterBasicAttack.m_selfEffectForMultiHit : null);
 		desc += PropDesc(m_energyGainPerLaserHitMod, "[EnergyGainPerLaserHit]", isValid, isValid ? tricksterBasicAttack.m_energyGainPerLaserHit : 0);
 		desc += PropDesc(m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", isValid, isValid ? tricksterBasicAttack.m_spoilSpawnInfo : null);
-		return desc + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterBasicAttack.m_onlySpawnSpoilOnMultiHit);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterBasicAttack.m_onlySpawnSpoilOnMultiHit)).ToString();
 	}
 }

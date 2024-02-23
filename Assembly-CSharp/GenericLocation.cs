@@ -4,7 +4,10 @@ public class GenericLocation : MonoBehaviour
 {
 	private BoardSquare m_boardSquare;
 
-	public BoardSquare boardSquare => m_boardSquare;
+	public BoardSquare boardSquare
+	{
+		get { return m_boardSquare; }
+	}
 
 	public void Initialize()
 	{

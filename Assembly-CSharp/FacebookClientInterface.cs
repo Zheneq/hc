@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 using UnityEngine;
 
@@ -66,7 +67,7 @@ public class FacebookClientInterface : MonoBehaviour
 		form.AddField("message", this.m_message);
 		Dictionary<string, string> headers = form.headers;
 		byte[] rawData = form.data;
-		string url = "https://graph.facebook.com/v2.4/me/photos?access_token=" + accessToken;
+		string url = new StringBuilder().Append("https://graph.facebook.com/v2.4/me/photos?access_token=").Append(accessToken).ToString();
 		WWW www = new WWW(url, rawData, headers);
 		yield return www;
 		if (!www.error.IsNullOrEmpty())

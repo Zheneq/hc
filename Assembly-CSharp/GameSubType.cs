@@ -135,9 +135,14 @@ public class GameSubType
 	public GameBalanceVars.GameRewardBucketType RewardBucket = GameBalanceVars.GameRewardBucketType.NoRewards;
 	public TimeSpan LoadoutSelectionTimeoutOverride;
 
-	public bool NeedsPreSelectedFreelancer =>
-		!HasMod(SubTypeMods.OverrideFreelancerSelection)
-		&& !HasMod(SubTypeMods.RankedFreelancerSelection);
+	public bool NeedsPreSelectedFreelancer
+	{
+		get
+		{
+			return !HasMod(SubTypeMods.OverrideFreelancerSelection)
+			       && !HasMod(SubTypeMods.RankedFreelancerSelection);
+		}
+	}
 
 	public GameSubType Clone()
 	{

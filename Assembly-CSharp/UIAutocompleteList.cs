@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -125,10 +126,10 @@ public class UIAutocompleteList : MonoBehaviour
 	private void SelectEntry(UIAutocompleteEntry entry)
 	{
 		string text = m_parent.m_textInput.text.Substring(m_parent.m_textInput.selectionFocusPosition);
-		string text2 = entry.GetTextValue().TrimEnd() + " " + text.Trim();
+		string text2 = new StringBuilder().Append(entry.GetTextValue().TrimEnd()).Append(" ").Append(text.Trim()).ToString();
 		if (!m_beforeAutocomplete.IsNullOrEmpty())
 		{
-			text2 = m_beforeAutocomplete + " " + text2;
+			text2 = new StringBuilder().Append(m_beforeAutocomplete).Append(" ").Append(text2).ToString();
 		}
 		m_parent.m_textInput.text = text2;
 		m_parent.m_textInput.Select();
@@ -231,14 +232,14 @@ public class UIAutocompleteList : MonoBehaviour
 		{
 			if (!text.ToLower().EndsWith(text2.ToLower()))
 			{
-				text3 = text2[text2.Length - 1] + text3;
+				text3 = new StringBuilder().Append(text2[text2.Length - 1]).Append(text3).ToString();
 				text2 = text2.Remove(text2.Length - 1, 1);
 				continue;
 			}
 			break;
 		}
 		m_parent.IgnoreNextTextChange();
-		m_parent.m_textInput.text = text + text3 + " " + str;
+		m_parent.m_textInput.text = new StringBuilder().Append(text).Append(text3).Append(" ").Append(str).ToString();
 		m_parent.m_textInput.selectionAnchorPosition = m_caratPosition;
 		m_parent.m_textInput.selectionFocusPosition = m_caratPosition + text3.Length + 1;
 	}

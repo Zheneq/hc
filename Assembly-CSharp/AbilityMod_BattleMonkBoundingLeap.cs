@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
@@ -54,6 +55,6 @@ public class AbilityMod_BattleMonkBoundingLeap : AbilityMod
 		desc += PropDesc(m_maxBouncesMod, "[MaxBounces]", isAbilityPresent, isAbilityPresent ? battleMonkBoundingLeap.m_maxBounces : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_hitAlliesInBetween, "[Hit Allies In-Between]", isAbilityPresent);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_allyHitEffect, "{ Ally Hit Effect }", string.Empty, isAbilityPresent);
-		return desc + PropDesc(m_healAmountIfNotDamagedThisTurn, "{ Heal Amount If Not Damaged This Turn }", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healAmountIfNotDamagedThisTurn, "{ Heal Amount If Not Damaged This Turn }", isAbilityPresent)).ToString();
 	}
 }

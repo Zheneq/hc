@@ -24,16 +24,16 @@ public class Archer_SyncComponent : NetworkBehaviour
 
 	public int Networkm_healReactionTargetActor
 	{
-		get => m_healReactionTargetActor;
+		get { return m_healReactionTargetActor; }
 		[param: In]
-		set => SetSyncVar(value, ref m_healReactionTargetActor, 1u);
+		set { SetSyncVar(value, ref m_healReactionTargetActor, 1u); }
 	}
 
 	public int Networkm_extraAbsorbForShieldGenerator
 	{
-		get => m_extraAbsorbForShieldGenerator;
+		get { return m_extraAbsorbForShieldGenerator; }
 		[param: In]
-		set => SetSyncVar(value, ref m_extraAbsorbForShieldGenerator, 32u);
+		set { SetSyncVar(value, ref m_extraAbsorbForShieldGenerator, 32u); }
 	}
 
 	static Archer_SyncComponent()

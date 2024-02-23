@@ -50,7 +50,8 @@ namespace TMPro
 
 		private TMP_Style GetStyleInternal(int hashCode)
 		{
-			if (m_StyleDictionary.TryGetValue(hashCode, out TMP_Style value))
+			TMP_Style value;
+			if (m_StyleDictionary.TryGetValue(hashCode, out value))
 			{
 				while (true)
 				{

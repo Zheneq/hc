@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class ClientBootstrap : MonoBehaviour
 			UnityConsoleLog.MinLevel = Log.FromString(hydrogenConfig.MinConsoleLogLevel);
 			if (Path.GetFileName(hydrogenConfig.LogFilePath).IsNullOrEmpty())
 			{
-				hydrogenConfig.LogFilePath = $"{hydrogenConfig.LogFilePath}/AtlasReactor-{hydrogenConfig.ProcessCode}.log";
+				hydrogenConfig.LogFilePath = new StringBuilder().Append(hydrogenConfig.LogFilePath).Append("/AtlasReactor-").Append(hydrogenConfig.ProcessCode).Append(".log").ToString();
 			}
 			m_fileLog = new FileLog
 			{
@@ -144,9 +145,9 @@ public class ClientBootstrap : MonoBehaviour
 	private void ParseCommandLine()
 	{
 		HydrogenConfig envConfig = HydrogenConfig.Get();
-		Log.Info("Command line: " + string.Join(" ", m_commandLine));
-		string buildConfigPath = Application.dataPath + "/../../../Build/AtlasReactor/Config/AtlasReactorConfig.json";
-		string configPath = Application.dataPath + "/../../Config/AtlasReactorConfig.json";
+		Log.Info(new StringBuilder().Append("Command line: ").Append(string.Join(" ", m_commandLine)).ToString());
+		string buildConfigPath = new StringBuilder().Append(Application.dataPath).Append("/../../../Build/AtlasReactor/Config/AtlasReactorConfig.json").ToString();
+		string configPath = new StringBuilder().Append(Application.dataPath).Append("/../../Config/AtlasReactorConfig.json").ToString();
 		string environment = "";
 		if (Application.isEditor)
 		{
@@ -164,7 +165,7 @@ public class ClientBootstrap : MonoBehaviour
 				string option = optionAndValue[0];
 				string value = optionAndValue.Length > 1 ? optionAndValue[1] : "True";
 				option = option.TrimStart('-');
-				cliConfig.Add($"{{ \"{option}\" : \"{value}\" }}");
+				cliConfig.Add(new StringBuilder().Append("{ \"").Append(option).Append("\" : \"").Append(value).Append("\" }").ToString());
 				i++;
 			}
 			else if ((cliItem == "-c" || cliItem == "-config" || cliItem == "--config") && hasNext)
@@ -174,22 +175,22 @@ public class ClientBootstrap : MonoBehaviour
 			}
 			else if ((cliItem == "-s" || cliItem == "-server" || cliItem == "--server") && hasNext)
 			{
-				cliConfig.Add($"{{ \"DirectoryServerAddress\" : \"{m_commandLine[i + 1]}\" }}");
+				cliConfig.Add(new StringBuilder().Append("{ \"DirectoryServerAddress\" : \"").Append(m_commandLine[i + 1]).Append("\" }").ToString());
 				i++;
 			}
 			else if ((cliItem == "-p" || cliItem == "-processcode" || cliItem == "--processcode") && hasNext)
 			{
-				cliConfig.Add($"{{ \"ProcessCode\" : \"{m_commandLine[i + 1]}\" }}");
+				cliConfig.Add(new StringBuilder().Append("{ \"ProcessCode\" : \"").Append(m_commandLine[i + 1]).Append("\" }").ToString());
 				i++;
 			}
 			else if ((cliItem == "-t" || cliItem == "-ticket" || cliItem == "--ticket") && hasNext)
 			{
-				cliConfig.Add($"{{ \"TicketFile\" : \"{m_commandLine[i + 1].Replace('\\', '/')}\" }}");
+				cliConfig.Add(new StringBuilder().Append("{ \"TicketFile\" : \"").Append(m_commandLine[i + 1].Replace('\\', '/')).Append("\" }").ToString());
 				i++;
 			}
 			else if ((cliItem == "-l" || cliItem == "-language" || cliItem == "--language") && hasNext)
 			{
-				cliConfig.Add($"{{ \"Language\" : \"{m_commandLine[i + 1].Replace('\\', '/')}\" }}");
+				cliConfig.Add(new StringBuilder().Append("{ \"Language\" : \"").Append(m_commandLine[i + 1].Replace('\\', '/')).Append("\" }").ToString());
 				i++;
 			}
 			else if ((cliItem == "-e" || cliItem == "-environment" || cliItem == "--environment") && hasNext)
@@ -224,7 +225,7 @@ public class ClientBootstrap : MonoBehaviour
 		envConfig.LoadFromFile(configPath, false);
 		if (!environment.IsNullOrEmpty())
 		{
-			string envConfigPath = configPath.Replace(".json", $".{environment}.json");
+			string envConfigPath = configPath.Replace(".json", new StringBuilder().Append(".").Append(environment).Append(".json").ToString());
 			envConfig.LoadFromFile(envConfigPath, false);
 		}
 		envConfig.LoadFromFile(saltConfigPath, false);
@@ -240,7 +241,7 @@ public class ClientBootstrap : MonoBehaviour
 	{
 		if (m_fileLog != null && m_fileLog.File != null)
 		{
-			m_fileLog.File.Write(DateTime.Now.ToString(Log.TimestampFormat) + " [SYS] ");
+			m_fileLog.File.Write(new StringBuilder().Append(DateTime.Now.ToString(Log.TimestampFormat)).Append(" [SYS] ").ToString());
 			m_fileLog.File.WriteLine(format, args);
 			m_fileLog.File.Flush();
 		}
@@ -258,7 +259,7 @@ public class ClientBootstrap : MonoBehaviour
 	private void HandlePlayerInfoUpdateResponse(PlayerInfoUpdateResponse response)
 	{
 		string responseStr = response.Success ? "Success" : response.ErrorMessage;
-		Log.Info($"Loadtest lobby ready response: {responseStr}");
+		Log.Info(new StringBuilder().Append("Loadtest lobby ready response: ").Append(responseStr).ToString());
 		LobbyGameConfig lobbyGameConfig = new LobbyGameConfig
 		{
 			GameType = GameType.Coop

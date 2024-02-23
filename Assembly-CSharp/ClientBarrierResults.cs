@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientBarrierResults
@@ -60,7 +61,7 @@ public class ClientBarrierResults
 				}
 			}
 		}
-		Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+		Debug.LogError(new StringBuilder().Append("ClientBarrierResults error-- Sequence hitting actor ").Append(target.DebugNameString()).Append(", but that actor isn't in our hit results.").ToString());
 	}
 
 	internal void OnBarrierHitPosition(Vector3 position)
@@ -106,7 +107,7 @@ public class ClientBarrierResults
 
 	public string GetDebugDescription()
 	{
-		return m_barrierCaster.DebugNameString() + "'s barrier, guid = " + m_barrierGUID;
+		return new StringBuilder().Append(m_barrierCaster.DebugNameString()).Append("'s barrier, guid = ").Append(m_barrierGUID).ToString();
 	}
 
 	internal string UnexecutedHitsDebugStr()

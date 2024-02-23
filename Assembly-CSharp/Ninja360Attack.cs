@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class Ninja360Attack : Ability
@@ -119,7 +120,7 @@ public class Ninja360Attack : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Design --</color>\nPlease edit [Deathmark] info on Ninja sync component.\n<color=cyan>-- For Art --</color>\nOn Sequence, for HitActorGroupOnAnimEventSequence components, use:\n" + 1 + " for Inner cone group identifier\n";
+		return new StringBuilder().Append("<color=cyan>-- For Design --</color>\nPlease edit [Deathmark] info on Ninja sync component.\n<color=cyan>-- For Art --</color>\nOn Sequence, for HitActorGroupOnAnimEventSequence components, use:\n").Append(1).Append(" for Inner cone group identifier\n").ToString();
 	}
 
 	public override bool CanShowTargetableRadiusPreview()
@@ -310,8 +311,10 @@ public class Ninja360Attack : Ability
 		       && m_syncComp != null
 		       && m_syncComp.m_deathmarkOnTriggerDamage > 0
 		       && IsActorMarked(targetActor)
-			? "\n+ " + AbilityUtils.CalculateDamageForTargeter(
-				ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false)
+			? new StringBuilder().Append("\n+ ")
+				.Append(AbilityUtils.CalculateDamageForTargeter(
+					ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false))
+				.ToString()
 			: null;
 	}
 

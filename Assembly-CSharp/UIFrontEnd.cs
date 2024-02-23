@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -54,17 +55,35 @@ public class UIFrontEnd : MonoBehaviour
 
 	private bool m_attachedHandler;
 
-	public FrontEndNavPanel m_frontEndNavPanel => FrontEndNavPanel.Get();
+	public FrontEndNavPanel m_frontEndNavPanel
+	{
+		get { return FrontEndNavPanel.Get(); }
+	}
 
-	public UIPlayerNavPanel m_playerPanel => UIPlayerNavPanel.Get();
+	public UIPlayerNavPanel m_playerPanel
+	{
+		get { return UIPlayerNavPanel.Get(); }
+	}
 
-	public UILandingPageScreen m_landingPageScreen => UILandingPageScreen.Get();
+	public UILandingPageScreen m_landingPageScreen
+	{
+		get { return UILandingPageScreen.Get(); }
+	}
 
-	public UIJoinGameScreen m_joinGameScreen => UIJoinGameScreen.Get();
+	public UIJoinGameScreen m_joinGameScreen
+	{
+		get { return UIJoinGameScreen.Get(); }
+	}
 
-	public UICreateGameScreen m_createGameScreen => UICreateGameScreen.Get();
+	public UICreateGameScreen m_createGameScreen
+	{
+		get { return UICreateGameScreen.Get(); }
+	}
 
-	public UITextConsole m_frontEndChatConsole => UIChatBox.GetChatBox(UIManager.ClientState.InFrontEnd);
+	public UITextConsole m_frontEndChatConsole
+	{
+		get { return UIChatBox.GetChatBox(UIManager.ClientState.InFrontEnd); }
+	}
 
 	public static UIFrontEnd Get()
 	{
@@ -510,7 +529,7 @@ public class UIFrontEnd : MonoBehaviour
 							case 0:
 								break;
 							default:
-								return $"{array[0]} ({array[1]})";
+								return new StringBuilder().Append(array[0]).Append(" (").Append(array[1]).Append(")").ToString();
 							}
 						}
 					}

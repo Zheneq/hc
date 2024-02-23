@@ -8,7 +8,10 @@ public class CardManager : NetworkBehaviour
 	private CardManagerData m_dataPrefabInstanceComponent;
 	private static CardManager s_instance;
 
-	public GameObject[] m_cardIndex => m_dataPrefabInstanceComponent == null ? null : m_dataPrefabInstanceComponent.m_cardIndex;
+	public GameObject[] m_cardIndex
+	{
+		get { return m_dataPrefabInstanceComponent == null ? null : m_dataPrefabInstanceComponent.m_cardIndex; }
+	}
 
 	public bool ShowingInGameCardUI { get; set; }
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -185,7 +186,7 @@ public class PkFxCustomShader : ScriptableObject
 				case 0:
 					break;
 				default:
-					Debug.LogError("[PKFX] CustomShader.SetConstant : " + constant.m_Descriptor.Name + " doesn't exist");
+					Debug.LogError(new StringBuilder().Append("[PKFX] CustomShader.SetConstant : ").Append(constant.m_Descriptor.Name).Append(" doesn't exist").ToString());
 					return;
 				}
 			}

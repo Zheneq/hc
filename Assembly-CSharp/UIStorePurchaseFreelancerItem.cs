@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,7 +36,7 @@ public class UIStorePurchaseFreelancerItem : MonoBehaviour
 			if (totalProgress > 0)
 			{
 				m_collectionProgressBar.fillAmount = (float)currentProgress / (float)totalProgress;
-				m_collectionProgressText.text = currentProgress + "/" + totalProgress;
+				m_collectionProgressText.text = new StringBuilder().Append(currentProgress).Append("/").Append(totalProgress).ToString();
 				UIManager.SetGameObjectActive(m_ownedCompleteContainer, currentProgress == totalProgress);
 			}
 			else

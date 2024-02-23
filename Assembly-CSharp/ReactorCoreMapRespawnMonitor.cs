@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class ReactorCoreMapRespawnMonitor : MonoBehaviour
@@ -71,7 +72,7 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogWarning("Did not find prefab to spawn for ReactorCore respawn portraits on " + base.name);
+				Debug.LogWarning(new StringBuilder().Append("Did not find prefab to spawn for ReactorCore respawn portraits on ").Append(base.name).ToString());
 			}
 			if (m_portraitAssetType == PortraitAssetType.PlainTexture)
 			{

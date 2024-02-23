@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
@@ -56,6 +57,6 @@ public class AbilityMod_RampartAoeBuffDebuff : AbilityMod
 		desc += PropDesc(m_allyHitEffectMod, "[AllyHitEffect]", isAbilityPresent, isAbilityPresent ? rampartAoeBuffDebuff.m_allyHitEffect : null);
 		desc += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", isAbilityPresent, isAbilityPresent ? rampartAoeBuffDebuff.m_enemyHitEffect : null);
 		desc += PropDesc(m_damageToEnemiesMod, "[DamageToEnemies]", isAbilityPresent, isAbilityPresent ? rampartAoeBuffDebuff.m_damageToEnemies : 0);
-		return desc + PropDesc(m_healingToAlliesMod, "[HealingToAllies]", isAbilityPresent, isAbilityPresent ? rampartAoeBuffDebuff.m_healingToAllies : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healingToAlliesMod, "[HealingToAllies]", isAbilityPresent, isAbilityPresent ? rampartAoeBuffDebuff.m_healingToAllies : 0)).ToString();
 	}
 }

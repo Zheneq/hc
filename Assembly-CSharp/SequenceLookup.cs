@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SequenceLookup : MonoBehaviour
@@ -182,7 +183,7 @@ public class SequenceLookup : MonoBehaviour
 				}
 			}
 		}
-		Debug.LogError("Did not find name hash of sequence prefab: " + sequencePrefab.name + ", please update sequence lookup");
+		Debug.LogError(new StringBuilder().Append("Did not find name hash of sequence prefab: ").Append(sequencePrefab.name).Append(", please update sequence lookup").ToString());
 		return -1;
 	}
 

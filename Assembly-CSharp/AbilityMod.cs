@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod : MonoBehaviour
@@ -151,13 +152,13 @@ public class AbilityMod : MonoBehaviour
 
 	public virtual OnHitAuthoredData GenModImpl_GetModdedOnHitData(OnHitAuthoredData onHitDataFromBase)
 	{
-		Log.Error("Please implement GenModImpl_GetModdedOnHitData in derived class " + GetType());
+		Log.Error(new StringBuilder().Append("Please implement GenModImpl_GetModdedOnHitData in derived class ").Append(GetType()).ToString());
 		return onHitDataFromBase;
 	}
 
 	public virtual void GenModImpl_SetTargetSelectMod(GenericAbility_TargetSelectBase targetSelect)
 	{
-		Log.Error("Please implement GenModImpl_SetTargetSelectMod in derived class " + GetType());
+		Log.Error(new StringBuilder().Append("Please implement GenModImpl_SetTargetSelectMod in derived class ").Append(GetType()).ToString());
 	}
 
 	public virtual List<StatusType> GetStatusTypesForTooltip()
@@ -257,7 +258,7 @@ public class AbilityMod : MonoBehaviour
 		}
 		catch (Exception ex)
 		{
-			Debug.LogError("Exception while trying to add mod specific tooltip tokens for " + GetDebugIdentifier("") + " | " + GetTargetAbilityType().ToString() + "\nStackTrace:\n" + ex.StackTrace);
+			Debug.LogError(new StringBuilder().Append("Exception while trying to add mod specific tooltip tokens for ").Append(GetDebugIdentifier("")).Append(" | ").Append(GetTargetAbilityType().ToString()).Append("\nStackTrace:\n").Append(ex.StackTrace).ToString());
 		}
 		if (ability != null)
 		{
@@ -350,11 +351,11 @@ public class AbilityMod : MonoBehaviour
 		}
 
 		int modifiedValue = modProp.GetModifiedValue(baseVal);
-		entries.Add(new TooltipTokenInt(tokenName + "_Final", desc + " | Final Value", Mathf.Abs(modifiedValue)));
+		entries.Add(new TooltipTokenInt(new StringBuilder().Append(tokenName).Append("_Final").ToString(), new StringBuilder().Append(desc).Append(" | Final Value").ToString(), Mathf.Abs(modifiedValue)));
 		if (addCompare && (baseVal != 0 || addForZeroBase))
 		{
 			int val = Mathf.Abs(modifiedValue - baseVal);
-			entries.Add(new TooltipTokenInt(tokenName + "_Diff", desc + " | Difference", val));
+			entries.Add(new TooltipTokenInt(new StringBuilder().Append(tokenName).Append("_Diff").ToString(), new StringBuilder().Append(desc).Append(" | Difference").ToString(), val));
 		}
 	}
 
@@ -366,19 +367,19 @@ public class AbilityMod : MonoBehaviour
 		}
 
 		float modifiedValue = modProp.GetModifiedValue(baseVal);
-		entries.Add(new TooltipTokenInt(tokenName + "_Final", desc + " | Final Value", Mathf.RoundToInt(modifiedValue)));
+		entries.Add(new TooltipTokenInt(new StringBuilder().Append(tokenName).Append("_Final").ToString(), new StringBuilder().Append(desc).Append(" | Final Value").ToString(), Mathf.RoundToInt(modifiedValue)));
 		if (addCompare && baseVal != 0f)
 		{
 			int val = Mathf.Abs(Mathf.RoundToInt(modifiedValue - baseVal));
-			entries.Add(new TooltipTokenInt(tokenName + "_Diff", desc + " | Difference", val));
+			entries.Add(new TooltipTokenInt(new StringBuilder().Append(tokenName).Append("_Diff").ToString(), new StringBuilder().Append(desc).Append(" | Difference").ToString(), val));
 		}
 		if (addDecimal)
 		{
-			entries.Add(new TooltipTokenFloat(tokenName + "_Decimal", desc + " | As Decimal Num", modifiedValue));
+			entries.Add(new TooltipTokenFloat(new StringBuilder().Append(tokenName).Append("_Decimal").ToString(), new StringBuilder().Append(desc).Append(" | As Decimal Num").ToString(), modifiedValue));
 		}
 		if (addAsPct)
 		{
-			entries.Add(new TooltipTokenPct(tokenName + "_Pct", desc + " | as percent", Mathf.RoundToInt(100f * modifiedValue)));
+			entries.Add(new TooltipTokenPct(new StringBuilder().Append(tokenName).Append("_Pct").ToString(), new StringBuilder().Append(desc).Append(" | as percent").ToString(), Mathf.RoundToInt(100f * modifiedValue)));
 		}
 	}
 
@@ -386,13 +387,13 @@ public class AbilityMod : MonoBehaviour
 	{
 		if (val > 0)
 		{
-			tokens.Add(new TooltipTokenInt(name, desc + " | Final Value", val));
+			tokens.Add(new TooltipTokenInt(name, new StringBuilder().Append(desc).Append(" | Final Value").ToString(), val));
 			if (addDiff && otherVal > 0)
 			{
 				int num = Mathf.Abs(val - otherVal);
 				if (num > 0)
 				{
-					tokens.Add(new TooltipTokenInt(name + "_Diff", desc + " | Difference", num));
+					tokens.Add(new TooltipTokenInt(new StringBuilder().Append(name).Append("_Diff").ToString(), new StringBuilder().Append(desc).Append(" | Difference").ToString(), num));
 				}
 			}
 		}
@@ -403,9 +404,9 @@ public class AbilityMod : MonoBehaviour
 		if (laserInfoMod != null)
 		{
 			bool flag = compareWithBase && baseLaserInfo != null;
-			AddToken(tokens, laserInfoMod.m_rangeMod, tokenName + "_Range", "laser range", flag ? baseLaserInfo.range : 0f, flag);
-			AddToken(tokens, laserInfoMod.m_widthMod, tokenName + "_Width", "laser width", flag ? baseLaserInfo.width : 0f, flag);
-			AddToken(tokens, laserInfoMod.m_maxTargetsMod, tokenName + "_MaxTargets", "laser max targets", flag ? baseLaserInfo.maxTargets : 0, flag);
+			AddToken(tokens, laserInfoMod.m_rangeMod, new StringBuilder().Append(tokenName).Append("_Range").ToString(), "laser range", flag ? baseLaserInfo.range : 0f, flag);
+			AddToken(tokens, laserInfoMod.m_widthMod, new StringBuilder().Append(tokenName).Append("_Width").ToString(), "laser width", flag ? baseLaserInfo.width : 0f, flag);
+			AddToken(tokens, laserInfoMod.m_maxTargetsMod, new StringBuilder().Append(tokenName).Append("_MaxTargets").ToString(), "laser max targets", flag ? baseLaserInfo.maxTargets : 0, flag);
 		}
 	}
 
@@ -414,8 +415,8 @@ public class AbilityMod : MonoBehaviour
 		if (coneInfoMod != null)
 		{
 			bool flag = compareWithBase && baseConeInfo != null;
-			AddToken(tokens, coneInfoMod.m_radiusMod, tokenName + "_Radius", "cone radius", flag ? baseConeInfo.m_radiusInSquares : 0f, flag);
-			AddToken(tokens, coneInfoMod.m_widthAngleMod, tokenName + "_Width", "cone width angle", flag ? baseConeInfo.m_widthAngleDeg : 0f, flag);
+			AddToken(tokens, coneInfoMod.m_radiusMod, new StringBuilder().Append(tokenName).Append("_Radius").ToString(), "cone radius", flag ? baseConeInfo.m_radiusInSquares : 0f, flag);
+			AddToken(tokens, coneInfoMod.m_widthAngleMod, new StringBuilder().Append(tokenName).Append("_Width").ToString(), "cone width angle", flag ? baseConeInfo.m_widthAngleDeg : 0f, flag);
 		}
 	}
 
@@ -478,7 +479,7 @@ public class AbilityMod : MonoBehaviour
 		string color = "lime";
 		if (m_useRunPriorityOverride)
 		{
-			text += InEditorDescHelper.ColoredString("[Run Phase Override] = " + m_runPriorityOverride.ToString() + "\n", color);
+			text += InEditorDescHelper.ColoredString(new StringBuilder().Append("[Run Phase Override] = ").Append(m_runPriorityOverride.ToString()).Append("\n").ToString(), color);
 		}
 		text += PropDesc(m_techPointCostMod, InEditorDescHelper.ColoredString("[TechPoint Cost]", color), flag, flag ? targetAbilityOnAbilityData.m_techPointsCost : 0);
 		text += PropDesc(m_maxCooldownMod, InEditorDescHelper.ColoredString("[Max Cooldown]", color), flag, flag ? targetAbilityOnAbilityData.m_cooldown : 0);
@@ -492,31 +493,31 @@ public class AbilityMod : MonoBehaviour
 		text += PropDesc(m_targetDataCheckLosMod, InEditorDescHelper.ColoredString("[TargetData Check LoS]", color));
 		if (m_useTargetDataOverrides && m_targetDataOverrides != null)
 		{
-			text += InEditorDescHelper.ColoredString("Using Target Data override, with " + m_targetDataOverrides.Length + " entries:\n", color);
+			text += InEditorDescHelper.ColoredString(new StringBuilder().Append("Using Target Data override, with ").Append(m_targetDataOverrides.Length).Append(" entries:\n").ToString(), color);
 			foreach (TargetData targetData in m_targetDataOverrides)
 			{
-				text += "    [Paradigm] " + (targetData.m_targetingParadigm > 0 ? targetData.m_targetingParadigm.ToString() : "INVALID");
-				text += ", [Range (without range mods)] " + targetData.m_minRange + " to " + targetData.m_range;
-				text += ", [Require Los] = " + targetData.m_checkLineOfSight + "\n";
+				text += new StringBuilder().Append("    [Paradigm] ").Append(targetData.m_targetingParadigm > 0 ? targetData.m_targetingParadigm.ToString() : "INVALID").ToString();
+				text += new StringBuilder().Append(", [Range (without range mods)] ").Append(targetData.m_minRange).Append(" to ").Append(targetData.m_range).ToString();
+				text += new StringBuilder().Append(", [Require Los] = ").Append(targetData.m_checkLineOfSight).Append("\n").ToString();
 			}
 		}
 		bool flag2 = false;
 		if (m_effectToSelfOnCast != null && m_effectToSelfOnCast.m_applyEffect)
 		{
 			text += InEditorDescHelper.ColoredString("Applies effect to Self on Cast:\n", color);
-			text += m_effectToSelfOnCast.m_effectData.GetInEditorDescription("") + "\n";
+			text += new StringBuilder().Append(m_effectToSelfOnCast.m_effectData.GetInEditorDescription("")).Append("\n").ToString();
 			flag2 = true;
 		}
 		if (m_effectToTargetEnemyOnHit != null && m_effectToTargetEnemyOnHit.m_applyEffect)
 		{
 			text += InEditorDescHelper.ColoredString("Applies effect to Targeted Enemy on Hit:\n", color);
-			text += m_effectToTargetEnemyOnHit.m_effectData.GetInEditorDescription("") + "\n";
+			text += new StringBuilder().Append(m_effectToTargetEnemyOnHit.m_effectData.GetInEditorDescription("")).Append("\n").ToString();
 			flag2 = true;
 		}
 		if (m_effectToTargetAllyOnHit != null && m_effectToTargetAllyOnHit.m_applyEffect)
 		{
 			text += InEditorDescHelper.ColoredString("Applies effect to Targeted Ally on Hit:\n", color);
-			text += m_effectToTargetAllyOnHit.m_effectData.GetInEditorDescription("") + "\n";
+			text += new StringBuilder().Append(m_effectToTargetAllyOnHit.m_effectData.GetInEditorDescription("")).Append("\n").ToString();
 			if (m_useAllyEffectForTargetedCaster)
 			{
 				text += "\t(also applies to self if targeted)\n";
@@ -525,7 +526,7 @@ public class AbilityMod : MonoBehaviour
 		}
 		if (m_effectTriggerChance < 1f && flag2)
 		{
-			text += InEditorDescHelper.ColoredString($"        {m_effectTriggerChance * 100f}% of the time", color);
+			text += InEditorDescHelper.ColoredString(new StringBuilder().Append("        ").Append(m_effectTriggerChance * 100f).Append("% of the time").ToString(), color);
 			if (m_effectTriggerChanceMultipliedPerHit)
 			{
 				text += InEditorDescHelper.ColoredString(" (per hit)", color);
@@ -563,11 +564,11 @@ public class AbilityMod : MonoBehaviour
 		}
 		if (m_useActionAnimTypeOverride)
 		{
-			text += InEditorDescHelper.ColoredString("Using Action Anim Type Override, " + m_actionAnimTypeOverride.ToString() + "\n\n", color);
+			text += InEditorDescHelper.ColoredString(new StringBuilder().Append("Using Action Anim Type Override, ").Append(m_actionAnimTypeOverride.ToString()).Append("\n\n").ToString(), color);
 		}
 		if (m_useMovementAdjustmentOverride)
 		{
-			text += InEditorDescHelper.ColoredString("Using Movement Adjustment Override, " + m_movementAdjustmentOverride.ToString() + "\n\n", color);
+			text += InEditorDescHelper.ColoredString(new StringBuilder().Append("Using Movement Adjustment Override, ").Append(m_movementAdjustmentOverride.ToString()).Append("\n\n").ToString(), color);
 		}
 		if (m_chainAbilityModInfo != null)
 		{
@@ -583,7 +584,7 @@ public class AbilityMod : MonoBehaviour
 			{
 				if (ability != null)
 				{
-					text += "    Chain Ability: " + ability.m_abilityName + "\n";
+					text += new StringBuilder().Append("    Chain Ability: ").Append(ability.m_abilityName).Append("\n").ToString();
 					if (ability.m_abilityName == "Base Ability")
 					{
 						text += "        (Please give a name to this ability for easier identification)\n";
@@ -593,10 +594,10 @@ public class AbilityMod : MonoBehaviour
 		}
 		if (m_tagsModType != TagOverrideType.Ignore)
 		{
-			text += InEditorDescHelper.ColoredString("Using Tag Mods, type = " + m_tagsModType.ToString() + ":\n", color);
+			text += InEditorDescHelper.ColoredString(new StringBuilder().Append("Using Tag Mods, type = ").Append(m_tagsModType.ToString()).Append(":\n").ToString(), color);
 			foreach (AbilityTags item in m_abilityTagsInMod)
 			{
-				text = text + "    " + item.ToString() + "\n";
+				text = new StringBuilder().Append(text).Append("    ").Append(item.ToString()).Append("\n").ToString();
 			}
 		}
 		if (m_statModsWhileEquipped != null && m_statModsWhileEquipped.Length > 0)
@@ -604,7 +605,7 @@ public class AbilityMod : MonoBehaviour
 			text += InEditorDescHelper.ColoredString("Stat Mods while Equipped:\n", color);
 			foreach (AbilityStatMod abilityStatMod in m_statModsWhileEquipped)
 			{
-				text += "    " + abilityStatMod.ToString() + "\n";
+				text += new StringBuilder().Append("    ").Append(abilityStatMod.ToString()).Append("\n").ToString();
 			}
 			text += "\n";
 		}
@@ -613,7 +614,7 @@ public class AbilityMod : MonoBehaviour
 			text += InEditorDescHelper.ColoredString("Buff/Debuff Status on ability request (in Decision):\n", color);
 			foreach (StatusType statusType in m_statusWhenRequestedOverride)
 			{
-				text += "    [ " + InEditorDescHelper.ColoredString(statusType.ToString()) + " ]\n";
+				text += new StringBuilder().Append("    [ ").Append(InEditorDescHelper.ColoredString(statusType.ToString())).Append(" ]\n").ToString();
 			}
 			text += "\n";
 		}
@@ -634,10 +635,10 @@ public class AbilityMod : MonoBehaviour
 		{
 			if (Application.isEditor)
 			{
-				Debug.LogError("Exception while trying to generate mod specific description. StackTrace:\n" + ex.StackTrace);
+				Debug.LogError(new StringBuilder().Append("Exception while trying to generate mod specific description. StackTrace:\n").Append(ex.StackTrace).ToString());
 			}
 		}
-		return text + str;
+		return new StringBuilder().Append(text).Append(str).ToString();
 	}
 
 	protected virtual string ModSpecificAutogenDesc(AbilityData abilityData)
@@ -826,10 +827,10 @@ public class AbilityMod : MonoBehaviour
 
 	public string GetDebugIdentifier(string colorString = "")
 	{
-		string text = "Mod[ " + m_abilityScopeId + " ] " + m_name + " ";
+		string text = new StringBuilder().Append("Mod[ ").Append(m_abilityScopeId).Append(" ] ").Append(m_name).Append(" ").ToString();
 		if (colorString.Length > 0)
 		{
-			return "<color=" + colorString + ">" + text + "</color>";
+			return new StringBuilder().Append("<color=").Append(colorString).Append(">").Append(text).Append("</color>").ToString();
 		}
 		return text;
 	}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ArcherDashAndShoot : AbilityMod
@@ -61,6 +62,6 @@ public class AbilityMod_ArcherDashAndShoot : AbilityMod
 		desc += PropDesc(m_aoeTargetEffectMod, "[AoeTargetEffect]", isValid, isValid ? archerDashAndShoot.m_aoeTargetEffect : null);
 		desc += PropDesc(m_healingDebuffTargetEffect, "[HealingDebuffTargetEffect]");
 		desc += PropDesc(m_cooldownAdjustmentEachTurnUnderHealthThreshold, "[CooldownAdjustmentEachTurnUnderHealthThreshold]", isValid, isValid ? archerDashAndShoot.m_cooldown : 0);
-		return desc + PropDesc(m_healthThresholdForCooldownOverride, "[HealthThresholdForCooldownOverride]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healthThresholdForCooldownOverride, "[HealthThresholdForCooldownOverride]", isValid)).ToString();
 	}
 }

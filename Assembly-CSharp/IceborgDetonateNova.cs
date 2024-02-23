@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 
 public class IceborgDetonateNova : GenericAbility_Container
@@ -21,7 +22,7 @@ public class IceborgDetonateNova : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor() + ContextVars.GetContextUsageStr(s_cvarNumNovaCores.GetName(), "Number of nova cores detonating", false);
+		return new StringBuilder().Append(base.GetUsageForEditor()).Append(ContextVars.GetContextUsageStr(s_cvarNumNovaCores.GetName(), "Number of nova cores detonating", false)).ToString();
 	}
 
 	public override string GetOnHitDataDesc()

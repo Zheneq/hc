@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -304,7 +305,7 @@ public class UIDecisionTimer : MonoBehaviour
 		}
 		else
 		{
-			secondsLabel.text = "0" + num;
+			secondsLabel.text = new StringBuilder().Append("0").Append(num).ToString();
 		}
 		int num2 = Mathf.FloorToInt((timeToDisplay - (float)num) * 100f);
 		if (num2 > 9)
@@ -316,12 +317,13 @@ public class UIDecisionTimer : MonoBehaviour
 				case 0:
 					break;
 				default:
-					millisecondsLabel.text = ":" + num2;
+					millisecondsLabel.text = new StringBuilder().Append(":").Append(num2).ToString();
 					return;
 				}
 			}
 		}
-		millisecondsLabel.text = ":0" + num2;
+
+		millisecondsLabel.text = new StringBuilder().Append(":0").Append(num2).ToString();
 	}
 
 	private void UpdateCurrentTimeBar()

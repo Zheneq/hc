@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -85,16 +86,16 @@ public class UIPlayerPanelGroupMenu : UITooltipBase
 					}
 					break;
 				case 4:
-					TextConsole.Get().OnInputSubmitted("/kick " + m_memberHandle);
+					TextConsole.Get().OnInputSubmitted(new StringBuilder().Append("/kick ").Append(m_memberHandle).ToString());
 					break;
 				case 6:
 					TextConsole.Get().OnInputSubmitted("/leave");
 					break;
 				case 3:
-					TextConsole.Get().OnInputSubmitted("/promote " + m_memberHandle);
+					TextConsole.Get().OnInputSubmitted(new StringBuilder().Append("/promote ").Append(m_memberHandle).ToString());
 					break;
 				case 0:
-					UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + m_memberHandle + " ");
+					UIFrontEnd.Get().m_frontEndChatConsole.SelectInput(new StringBuilder().Append("/whisper ").Append(m_memberHandle).Append(" ").ToString());
 					break;
 				case 5:
 					UILandingPageFullScreenMenus.Get().SetReportContainerVisible(true, m_memberHandle, m_memberAccountId, m_botMasqueradingAsHuman);

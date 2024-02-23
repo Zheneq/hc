@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -85,7 +86,10 @@ public class QuestListPanel : UIScene
 
 	private DateTime? m_timeTillNextAlert;
 
-	public DisplayStates DisplayState => m_displayState;
+	public DisplayStates DisplayState
+	{
+		get { return m_displayState; }
+	}
 
 	public static QuestListPanel Get()
 	{
@@ -960,7 +964,7 @@ public class QuestListPanel : UIScene
 				default:
 					m_alertMissionEntry.Setup(null);
 					UIManager.SetGameObjectActive(m_normalAlertText, true);
-					m_normalAlertText.text = string.Format(StringUtil.TR("BonusAlertDescription" + notification.CurrentAlert.BonusType, "Global"), notification.CurrentAlert.BonusMultiplier);
+					m_normalAlertText.text = string.Format(StringUtil.TR(new StringBuilder().Append("BonusAlertDescription").Append(notification.CurrentAlert.BonusType).ToString(), "Global"), notification.CurrentAlert.BonusMultiplier);
 					return;
 				}
 			}
@@ -1063,7 +1067,8 @@ public class QuestListPanel : UIScene
 			{
 				num5 = SeasonWideData.Get().GetPlayerFacingSeasonNumber(uIPlayerSeasonDisplayInfo.SeasonNumber);
 			}
-			m_chapterHeader.text = string.Format(StringUtil.TR("SeasonNumber", "Global"), num5) + ": " + string.Format(StringUtil.TR("ChapterNumber", "Global"), num2 + 1) + "  (" + num4 + "/" + uISeasonChapterEntry.QuestInfo.Count + ")";
+
+			m_chapterHeader.text = new StringBuilder().Append(string.Format(StringUtil.TR("SeasonNumber", "Global"), num5)).Append(": ").Append(string.Format(StringUtil.TR("ChapterNumber", "Global"), num2 + 1)).Append("  (").Append(num4).Append("/").Append(uISeasonChapterEntry.QuestInfo.Count).Append(")").ToString();
 			return;
 		}
 	}

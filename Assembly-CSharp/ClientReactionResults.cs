@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientReactionResults
@@ -134,7 +135,7 @@ public class ClientReactionResults
 			}
 			if (ClientAbilityResults.DebugTraceOn)
 			{
-				Log.Warning(ClientAbilityResults.s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+				Log.Warning(new StringBuilder().Append(ClientAbilityResults.s_clientHitResultHeader).Append(GetDebugDescription()).Append(": no Sequence to start, executing results directly").ToString());
 			}
 			m_effectResults.RunClientEffectHits();
 			return;

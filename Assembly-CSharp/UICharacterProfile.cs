@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -143,7 +144,7 @@ public class UICharacterProfile : MonoBehaviour
 
 	public void HandleBankBalanceChange(CurrencyData currencyData)
 	{
-		m_GGPackCount.text = $"x{ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack)}";
+		m_GGPackCount.text = new StringBuilder().Append("x").Append(ClientGameManager.Get().PlayerWallet.GetCurrentAmount(CurrencyType.GGPack)).ToString();
 	}
 
 	public void Setup()
@@ -704,7 +705,7 @@ public class UICharacterProfile : MonoBehaviour
 				int clientUnappliedHoTTotal_ToDisplay_zq = activeOwnedActorData.GetHoTTotalToDisplay();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;
+					m_pendingHealthText.text = new StringBuilder().Append("+").Append(clientUnappliedHoTTotal_ToDisplay_zq).ToString();
 				}
 				else
 				{
@@ -712,7 +713,7 @@ public class UICharacterProfile : MonoBehaviour
 				}
 				if (num > 0)
 				{
-					m_shieldText.text = "+" + num;
+					m_shieldText.text = new StringBuilder().Append("+").Append(num).ToString();
 				}
 				else
 				{

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -227,7 +228,7 @@ public class UIStoreItemBtn : MonoBehaviour
 			}
 			else
 			{
-				text2 = item.Name + "#NotLocalized";
+				text2 = new StringBuilder().Append(item.Name).Append("#NotLocalized").ToString();
 			}
 			this.SetVisible(!(item is GameBalanceVars.PlayerTitle), this.m_nameTexts);
 			this.SetText(string.Concat(new string[]
@@ -275,7 +276,7 @@ public class UIStoreItemBtn : MonoBehaviour
 				{
 					if (this.m_currencyLabels[i].m_currencyType != CurrencyType.NONE)
 					{
-						throw new NotImplementedException("Implement for type " + this.m_currencyLabels[i].m_currencyType);
+						throw new NotImplementedException(new StringBuilder().Append("Implement for type ").Append(this.m_currencyLabels[i].m_currencyType).ToString());
 					}
 					text3 = null;
 					if (item is GameBalanceVars.ColorUnlockData)

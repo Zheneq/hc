@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ThiefOnTheRun : AbilityMod
@@ -58,6 +59,6 @@ public class AbilityMod_ThiefOnTheRun : AbilityMod
 		desc += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", isValid, isValid ? thiefOnTheRun.m_enemyHitEffect : null);
 		desc += PropDesc(m_effectOnSelfThroughSmokeFieldMod, "[EffectOnSelfThroughSmokeField]", isValid, isValid ? thiefOnTheRun.m_effectOnSelfThroughSmokeField : null);
 		desc += PropDesc(m_cooldownReductionIfNoEnemyMod, "[CooldownReductionIfNoEnemy]", isValid, isValid ? thiefOnTheRun.m_cooldownReductionIfNoEnemy : 0);
-		return desc + PropDesc(m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", isValid, isValid ? thiefOnTheRun.m_spoilSpawnInfo : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_spoilSpawnInfoMod, "[SpoilSpawnInfo]", isValid, isValid ? thiefOnTheRun.m_spoilSpawnInfo : null)).ToString();
 	}
 }

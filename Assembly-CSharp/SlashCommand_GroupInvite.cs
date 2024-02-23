@@ -1,3 +1,4 @@
+using System.Text;
 using LobbyGameClientMessages;
 
 public class SlashCommand_GroupInvite : SlashCommand
@@ -75,7 +76,7 @@ public class SlashCommand_GroupInvite : SlashCommand
 													}
 													else if (!response.ErrorMessage.IsNullOrEmpty())
 													{
-														text2 = $"Failed: {response.ErrorMessage}#NeedsLocalization";
+														text2 = new StringBuilder().Append("Failed: ").Append(response.ErrorMessage).Append("#NeedsLocalization").ToString();
 													}
 													else
 													{
@@ -101,7 +102,7 @@ public class SlashCommand_GroupInvite : SlashCommand
 						}
 						else if (!r.ErrorMessage.IsNullOrEmpty())
 						{
-							text = $"Failed: {r.ErrorMessage}#NeedsLocalization";
+							text = new StringBuilder().Append("Failed: ").Append(r.ErrorMessage).Append("#NeedsLocalization").ToString();
 						}
 						else
 						{

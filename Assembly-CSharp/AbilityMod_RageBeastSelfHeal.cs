@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RageBeastSelfHeal : AbilityMod
@@ -44,6 +45,6 @@ public class AbilityMod_RageBeastSelfHeal : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_lowHealthHealOnCastMod, "[Low Health, Heal on Cast]", isValid, isValid ? rageBeastSelfHeal.m_healingOnCastIfUnder : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_lowHealthHealOnTickMod, "[Low Health, Heal on Tick]", isValid, isValid ? rageBeastSelfHeal.m_healingOnTickIfUnder : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_highHealthOnCastMod, "[High Health, Heal on Cast]", isValid, isValid ? rageBeastSelfHeal.m_healingOnCastIfOver : 0);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_highHealthOnTickMod, "[High Health, Heal on Tick]", isValid, isValid ? rageBeastSelfHeal.m_healingOnTickIfOver : 0);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_highHealthOnTickMod, "[High Health, Heal on Tick]", isValid, isValid ? rageBeastSelfHeal.m_healingOnTickIfOver : 0)).ToString();
 	}
 }

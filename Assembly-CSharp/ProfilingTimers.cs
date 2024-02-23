@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 public class ProfilingTimers
 {
@@ -65,7 +66,10 @@ public class ProfilingTimers
 		private set;
 	}
 
-	public long Frequency => Stopwatch.Frequency;
+	public long Frequency
+	{
+		get { return Stopwatch.Frequency; }
+	}
 
 	public ProfilingTimers()
 	{
@@ -256,7 +260,7 @@ public class ProfilingTimers
 				ParameterInfo[] parameters = method.GetParameters();
 				
 				string arg3 = string.Join(",", parameters.Select(((ParameterInfo p) => p.ParameterType.Name)).ToArray());
-				arg2 = $"UnknownMethod({arg3})";
+				arg2 = new StringBuilder().Append("UnknownMethod(").Append(arg3).Append(")").ToString();
 			}
 		}
 		else
@@ -264,7 +268,7 @@ public class ProfilingTimers
 			arg = method.ReflectedType.Name;
 			arg2 = method.Name;
 		}
-		return $"{arg}.{arg2}";
+		return new StringBuilder().Append(arg).Append(".").Append(arg2).ToString();
 	}
 
 	public void UnknownMethod()

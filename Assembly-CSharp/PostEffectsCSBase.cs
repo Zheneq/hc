@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 [RequireComponent(typeof(Camera))]
@@ -21,7 +22,7 @@ public class PostEffectsCSBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					Log.Info("Missing shader in " + ToString());
+					Log.Info(new StringBuilder().Append("Missing shader in ").Append(ToString()).ToString());
 					base.enabled = false;
 					return null;
 				}
@@ -46,7 +47,7 @@ public class PostEffectsCSBase : MonoBehaviour
 		if (!s.isSupported)
 		{
 			NotSupported();
-			Log.Info("The shader " + s.ToString() + " on effect " + ToString() + " is not supported on this platform!");
+			Log.Info(new StringBuilder().Append("The shader ").Append(s.ToString()).Append(" on effect ").Append(ToString()).Append(" is not supported on this platform!").ToString());
 			return null;
 		}
 		m2Create = new Material(s);
@@ -78,7 +79,7 @@ public class PostEffectsCSBase : MonoBehaviour
 				case 0:
 					break;
 				default:
-					Log.Info("Missing shader in " + ToString());
+					Log.Info(new StringBuilder().Append("Missing shader in ").Append(ToString()).ToString());
 					return null;
 				}
 			}
@@ -142,7 +143,7 @@ public class PostEffectsCSBase : MonoBehaviour
 
 	public virtual bool CheckResources()
 	{
-		Log.Warning("CheckResources () for " + ToString() + " should be overwritten.");
+		Log.Warning(new StringBuilder().Append("CheckResources () for ").Append(ToString()).Append(" should be overwritten.").ToString());
 		return isSupported;
 	}
 
@@ -242,12 +243,12 @@ public class PostEffectsCSBase : MonoBehaviour
 
 	public void ReportAutoDisable()
 	{
-		Log.Warning("The image effect " + ToString() + " has been disabled as it's not supported on the current platform.");
+		Log.Warning(new StringBuilder().Append("The image effect ").Append(ToString()).Append(" has been disabled as it's not supported on the current platform.").ToString());
 	}
 
 	private bool CheckShader(Shader s)
 	{
-		Log.Info("The shader " + s.ToString() + " on effect " + ToString() + " is not part of the Unity 3.2f+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package.");
+		Log.Info(new StringBuilder().Append("The shader ").Append(s.ToString()).Append(" on effect ").Append(ToString()).Append(" is not part of the Unity 3.2f+ effects suite anymore. For best performance and quality, please ensure you are using the latest Standard Assets Image Effects (Pro only) package.").ToString());
 		if (!s.isSupported)
 		{
 			while (true)

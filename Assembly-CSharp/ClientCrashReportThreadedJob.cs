@@ -37,8 +37,15 @@ public class ClientCrashReportThreadedJob : ThreadedJob
     private string m_archiveFileName;
     private byte[] m_crashReportBytes;
 
-    internal bool IsFinished => m_state == State.Succeeded || m_state == State.Failed || m_state == State.Canceled;
-    internal bool IsSucceeded => m_stateSucceeeded;
+    internal bool IsFinished
+    {
+        get { return m_state == State.Succeeded || m_state == State.Failed || m_state == State.Canceled; }
+    }
+
+    internal bool IsSucceeded
+    {
+        get { return m_stateSucceeeded; }
+    }
 
     internal ClientCrashReportThreadedJob(
         string crashDumpDirectoryPath,
@@ -65,7 +72,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
                 long num = SystemInfo.systemMemorySize;
                 m_userKeyValues["MemoryTotalPhysical"] = (num * 1048576).ToString();
                 string[] commandLineArgs = Environment.GetCommandLineArgs() ?? new string[0];
-                m_userKeyValues["CommandLine"] = $"\"{string.Join(string.Empty, Environment.GetCommandLineArgs())}\"";
+                m_userKeyValues["CommandLine"] = new StringBuilder().Append("\"").Append(string.Join(string.Empty, Environment.GetCommandLineArgs())).Append("\"").ToString();
                 m_userKeyValues["Language"] = Application.systemLanguage.ToString();
                 m_userKeyValues["SettingsPath"] = Application.persistentDataPath;
                 m_userKeyValues["SupportsRenderTextureFormat_Depth"] = SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.Depth).ToString();
@@ -83,7 +90,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
                 {
                     for (int i = 0; i < resolutions.Length; i++)
                     {
-                        m_userKeyValues[$"Resolution{i}"] = resolutions[i].ToString();
+                        m_userKeyValues[new StringBuilder().Append("Resolution").Append(i).ToString()] = resolutions[i].ToString();
                     }
                 }
 
@@ -214,7 +221,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
                             m_stateSucceeeded = false;
                         }
 
-                        using (new StreamWriter(m_crashDumpDirectoryPath + "\\crash.dmp"))
+                        using (new StreamWriter(new StringBuilder().Append(m_crashDumpDirectoryPath).Append("\\crash.dmp").ToString()))
                         {
                         }
                     }
@@ -237,7 +244,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
                 {
                     try
                     {
-                        using (StreamWriter userMsgWriter = new StreamWriter(m_crashDumpDirectoryPath + "\\UserMessage.txt"))
+                        using (StreamWriter userMsgWriter = new StreamWriter(new StringBuilder().Append(m_crashDumpDirectoryPath).Append("\\UserMessage.txt").ToString()))
                         {
                             userMsgWriter.Write(m_userMessage);
                         }
@@ -254,7 +261,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
             {
                 try
                 {
-                    StringBuilder stringBuilder = new StringBuilder(m_logMessage != null ? m_logMessage + "\n" : string.Empty);
+                    StringBuilder stringBuilder = new StringBuilder(m_logMessage != null ? new StringBuilder().Append(m_logMessage).Append("\n").ToString() : string.Empty);
                     if (File.Exists(m_outputLogPath))
                     {
                         File.Copy(m_outputLogPath, m_outputLogPathCopy, true);
@@ -384,7 +391,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
                     try
                     {
                         Log.Info("Attempting to build URL to send crash report {0}", m_archiveFileName);
-                        string crashServerAndArchiveURL = $"http://debug.triongames.com/v2/archive/{m_archiveFileName}";
+                        string crashServerAndArchiveURL = new StringBuilder().Append("http://debug.triongames.com/v2/archive/").Append(m_archiveFileName).ToString();
                         ClientCrashReportDetector.Get().UploadArchive(crashServerAndArchiveURL, m_crashReportBytes, OnUploadArchiveEndStatus);
                     }
                     catch (Exception exception)
@@ -434,7 +441,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
     {
         if (!response.Success)
         {
-            Log.Error($"Crash archive naming failed: {response.ErrorMessage}");
+            Log.Error(new StringBuilder().Append("Crash archive naming failed: ").Append(response.ErrorMessage).ToString());
             Cancel();
             m_state = State.Failed;
             return;
@@ -447,7 +454,7 @@ public class ClientCrashReportThreadedJob : ThreadedJob
 
         if (m_state != State.WaitingForArchiveNameResponse)
         {
-            Log.Error($"Unexpected worker thread state when receiving archive name: {m_state}");
+            Log.Error(new StringBuilder().Append("Unexpected worker thread state when receiving archive name: ").Append(m_state).ToString());
             Cancel();
             m_state = State.Failed;
             return;

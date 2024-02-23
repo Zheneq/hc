@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -190,7 +191,7 @@ public class Fireborg_SyncComponent : NetworkBehaviour
 					case 0:
 						break;
 					default:
-						return "\n+ " + AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, num2, false);
+						return new StringBuilder().Append("\n+ ").Append(AbilityUtils.CalculateDamageForTargeter(caster, targetActor, ability, num2, false)).ToString();
 					}
 				}
 			}

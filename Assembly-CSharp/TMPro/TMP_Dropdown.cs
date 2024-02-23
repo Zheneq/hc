@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -531,7 +532,7 @@ namespace TMPro
 			TMP_Dropdown.DropdownItem dropdownItem = this.CreateItem(itemTemplate);
 			dropdownItem.rectTransform.SetParent(itemTemplate.rectTransform.parent, false);
 			dropdownItem.gameObject.SetActive(true);
-			dropdownItem.gameObject.name = "Item " + items.Count + ((data.text == null) ? string.Empty : (": " + data.text));
+			dropdownItem.gameObject.name = new StringBuilder().Append("Item ").Append(items.Count).Append((data.text == null) ? string.Empty : new StringBuilder().Append(": ").Append(data.text).ToString()).ToString();
 			if (dropdownItem.toggle != null)
 			{
 				dropdownItem.toggle.isOn = false;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NanoSmithChainLightning : AbilityMod
@@ -65,6 +66,6 @@ public class AbilityMod_NanoSmithChainLightning : AbilityMod
 		desc += PropDesc(m_chainEnemyHitEffectMod, "[ChainEnemyHitEffect]", isValid, isValid ? nanoSmithChainLightning.m_chainEnemyHitEffect : null);
 		desc += PropDesc(m_chainCanHitInvisibleActorsMod, "[ChainCanHitInvisibleActors]", isValid, isValid && nanoSmithChainLightning.m_chainCanHitInvisibleActors);
 		desc += PropDesc(m_extraAbsorbPerHitForVacuumBombMod, "[ExtraAbsorbPerHitForVacuumBomb]", isValid, isValid ? nanoSmithChainLightning.m_extraAbsorbPerHitForVacuumBomb : 0);
-		return desc + PropDesc(m_maxExtraAbsorbForVacuumBombMod, "[MaxExtraAbsorbForVacuumBomb]", isValid, isValid ? nanoSmithChainLightning.m_maxExtraAbsorbForVacuumBomb : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_maxExtraAbsorbForVacuumBombMod, "[MaxExtraAbsorbForVacuumBomb]", isValid, isValid ? nanoSmithChainLightning.m_maxExtraAbsorbForVacuumBomb : 0)).ToString();
 	}
 }

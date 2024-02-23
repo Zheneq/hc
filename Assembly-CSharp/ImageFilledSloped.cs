@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.Sprites;
 using UnityEngine.UI;
@@ -62,9 +63,15 @@ public class ImageFilledSloped : Image
 		}
 	}
 
-	public float fillAmountTrimmed => Mathf.Lerp(m_FillMin, m_FillMax, base.fillAmount);
+	public float fillAmountTrimmed
+	{
+		get { return Mathf.Lerp(m_FillMin, m_FillMax, base.fillAmount); }
+	}
 
-	public float fillStartTrimmed => Mathf.Lerp(m_FillMin, m_FillMax, fillStart);
+	public float fillStartTrimmed
+	{
+		get { return Mathf.Lerp(m_FillMin, m_FillMax, fillStart); }
+	}
 
 	protected override void OnPopulateMesh(VertexHelper toFill)
 	{
@@ -91,7 +98,7 @@ public class ImageFilledSloped : Image
 				}
 			}
 		}
-		Debug.LogError($"{ToString()}: Image Filled Sloped only supports Image Type: Filled");
+		Debug.LogError(new StringBuilder().Append(ToString()).Append(": Image Filled Sloped only supports Image Type: Filled").ToString());
 	}
 
 	private void GenerateFilledSprite(VertexHelper toFill, bool preserveAspect)

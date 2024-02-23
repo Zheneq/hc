@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class PkFxProfilerCaptureButton : MonoBehaviour
@@ -39,8 +40,8 @@ public class PkFxProfilerCaptureButton : MonoBehaviour
 				while (true)
 				{
 					_FrameCaptured = 0;
-					PKFxManager.WriteProfileReport(Application.persistentDataPath + "/ProfileReport.pkpr");
-					Debug.Log("[PKFX] Profiling report written to " + Application.persistentDataPath + "/ProfileReport.pkpr");
+					PKFxManager.WriteProfileReport(new StringBuilder().Append(Application.persistentDataPath).Append("/ProfileReport.pkpr").ToString());
+					Debug.Log(new StringBuilder().Append("[PKFX] Profiling report written to ").Append(Application.persistentDataPath).Append("/ProfileReport.pkpr").ToString());
 					_InCapture = false;
 					PKFxManager.ProfilerSetEnable(false);
 					return;

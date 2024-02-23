@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro
@@ -276,7 +277,7 @@ namespace TMPro
 
 		public static TMP_SubMesh AddSubTextObject(TextMeshPro textComponent, MaterialReference materialReference)
 		{
-			GameObject gameObject = new GameObject("TMP SubMesh [" + materialReference.material.name + "]", typeof(TMP_SubMesh));
+			GameObject gameObject = new GameObject(new StringBuilder().Append("TMP SubMesh [").Append(materialReference.material.name).Append("]").ToString(), typeof(TMP_SubMesh));
 			TMP_SubMesh component = gameObject.GetComponent<TMP_SubMesh>();
 			gameObject.transform.SetParent(textComponent.transform, false);
 			gameObject.transform.localPosition = Vector3.zero;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace I2.Loc
@@ -1297,7 +1298,7 @@ namespace I2.Loc
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<string, LanguageCodeDef> current = enumerator.Current;
+					System.Collections.Generic.KeyValuePair<string, LanguageCodeDef> current = enumerator.Current;
 					if (LanguageMatchesFilter(current.Key, filters))
 					{
 						LanguageCodeDef value = current.Value;
@@ -1307,7 +1308,7 @@ namespace I2.Loc
 			}
 			if (ShowWarnings)
 			{
-				Debug.Log($"Language '{Filter}' not recognized. Please, add the language code to GoogleTranslation.cs");
+				Debug.Log(string.Format("Language '{0}' not recognized. Please, add the language code to GoogleTranslation.cs", Filter));
 			}
 			return string.Empty;
 		}
@@ -1320,7 +1321,7 @@ namespace I2.Loc
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<string, LanguageCodeDef> current = enumerator.Current;
+					System.Collections.Generic.KeyValuePair<string, LanguageCodeDef> current = enumerator.Current;
 					if (!string.IsNullOrEmpty(Filter))
 					{
 						if (!LanguageMatchesFilter(current.Key, filters))
@@ -1330,11 +1331,11 @@ namespace I2.Loc
 					}
 					string[] array = new string[1];
 					LanguageCodeDef value = current.Value;
-					array[0] = "[" + value.Code + "]";
+					array[0] = new StringBuilder().Append("[").Append(value.Code).Append("]").ToString();
 					string text = string.Concat(array);
 					if (!CodesToExclude.Contains(text))
 					{
-						list.Add(current.Key + " " + text);
+						list.Add(new StringBuilder().Append(current.Key).Append(" ").Append(text).ToString());
 					}
 				}
 			}
@@ -1343,8 +1344,8 @@ namespace I2.Loc
 				string text2 = list[num].Substring(0, list[num].IndexOf(" ["));
 				if (list[num + 1].StartsWith(text2))
 				{
-					list[num] = text2 + "/" + list[num];
-					list.Insert(num + 1, text2 + "/");
+					list[num] = new StringBuilder().Append(text2).Append("/").Append((object)list[num]).ToString();
+					list.Insert(num + 1, new StringBuilder().Append(text2).Append("/").ToString());
 				}
 			}
 			while (true)
@@ -1369,7 +1370,7 @@ namespace I2.Loc
 				}
 			}
 			string[] filters = Filter.ToLowerInvariant().Split(" /(),".ToCharArray());
-			foreach (KeyValuePair<string, LanguageCodeDef> item in mLanguageDef)
+			foreach (System.Collections.Generic.KeyValuePair<string, LanguageCodeDef> item in mLanguageDef)
 			{
 				if (LanguageMatchesFilter(item.Key, filters))
 				{
@@ -1421,11 +1422,12 @@ namespace I2.Loc
 			if (num > 0)
 			{
 				empty = Language.Substring(0, num);
-				if (Language == empty + "/" + empty)
+				if (Language == new StringBuilder().Append(empty).Append("/").Append(empty).ToString())
 				{
 					return empty;
 				}
-				Language = Language.Replace("/", " (") + ")";
+
+				Language = new StringBuilder().Append(Language.Replace("/", " (")).Append(")").ToString();
 			}
 			return Language;
 		}
@@ -1437,7 +1439,7 @@ namespace I2.Loc
 			{
 				return Language;
 			}
-			return Language + " [" + code + "]";
+			return new StringBuilder().Append(Language).Append(" [").Append(code).Append("]").ToString();
 		}
 
 		public static void UnPackCodeFromLanguageName(string CodedLanguage, out string Language, out string code)
@@ -1483,7 +1485,7 @@ namespace I2.Loc
 			{
 				while (enumerator.MoveNext())
 				{
-					KeyValuePair<string, LanguageCodeDef> current = enumerator.Current;
+					System.Collections.Generic.KeyValuePair<string, LanguageCodeDef> current = enumerator.Current;
 					LanguageCodeDef value = current.Value;
 					if (InternationalCode == value.Code)
 					{

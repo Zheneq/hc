@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -304,8 +305,10 @@ public class NinjaShurikenOrDash : Ability
 		    && m_syncComp.m_deathmarkOnTriggerDamage > 0
 		    && IsActorMarked(targetActor))
 		{
-			return "\n+ " + AbilityUtils.CalculateDamageForTargeter(
-				ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false);
+			return new StringBuilder().Append("\n+ ")
+				.Append(AbilityUtils.CalculateDamageForTargeter(
+					ActorData, targetActor, this, m_syncComp.m_deathmarkOnTriggerDamage, false))
+				.ToString();
 		}
 		return null;
 	}

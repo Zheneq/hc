@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -45,7 +46,7 @@ public class ConfirmedState : TurnState
 							case 0:
 								break;
 							default:
-								Log.Error(component.DebugNameString() + " handling TURN_START message in Confirmed state");
+								Log.Error(new StringBuilder().Append(component.DebugNameString()).Append(" handling TURN_START message in Confirmed state").ToString());
 								m_SM.SetupForNewTurn();
 								m_SM.NextState = TurnStateEnum.DECIDING;
 								return;
@@ -159,7 +160,7 @@ public class ConfirmedState : TurnState
 				case 0:
 					break;
 				default:
-					Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'Movement Resolved' message in the Confirmed state, which is unexpected.");
+					Log.Error(new StringBuilder().Append(m_SM.GetComponent<ActorData>().DisplayName).Append("Received a 'Movement Resolved' message in the Confirmed state, which is unexpected.").ToString());
 					m_SM.NextState = TurnStateEnum.WAITING;
 					return;
 				}
@@ -173,11 +174,11 @@ public class ConfirmedState : TurnState
 		{
 			if (NetworkServer.active)
 			{
-				Log.Error(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.");
+				Log.Error(new StringBuilder().Append(m_SM.GetComponent<ActorData>().DisplayName).Append("Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.").ToString());
 			}
 			else
 			{
-				Log.Warning(m_SM.GetComponent<ActorData>().DisplayName + "Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.");
+				Log.Warning(new StringBuilder().Append(m_SM.GetComponent<ActorData>().DisplayName).Append("Received a 'CLIENTS_RESOLVED_ABILITIES' message in the Confirmed state, which is unexpected.").ToString());
 			}
 			m_SM.NextState = TurnStateEnum.WAITING;
 			return;

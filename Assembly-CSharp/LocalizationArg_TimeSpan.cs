@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class LocalizationArg_TimeSpan : LocalizationArg
@@ -60,7 +61,7 @@ public class LocalizationArg_TimeSpan : LocalizationArg
 		}
 		
 		return secondaryUnit == null
-			? string.Format(StringUtil.TR($"Just{primaryUnit}", "TimeSpanFragment"), primaryValue)
-			: string.Format(StringUtil.TR($"{primaryUnit}And{secondaryUnit}", "TimeSpanFragment"), primaryValue, secondaryValue);
+			? string.Format(StringUtil.TR(new StringBuilder().Append("Just").Append(primaryUnit).ToString(), "TimeSpanFragment"), primaryValue)
+			: string.Format(StringUtil.TR(new StringBuilder().Append(primaryUnit).Append("And").Append(secondaryUnit).ToString(), "TimeSpanFragment"), primaryValue, secondaryValue);
 	}
 }

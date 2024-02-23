@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_ArcherArrowRain : AbilityMod
 {
@@ -66,6 +67,6 @@ public class AbilityMod_ArcherArrowRain : AbilityMod
 		desc += PropDesc(m_enemyHitEffectMod, "[EnemyHitEffect]", isValid, isValid ? archerArrowRain.m_enemyHitEffect : null);
 		desc += PropDesc(m_additionalEnemyHitEffect, "[AdditionalEnemyHitEffect]");
 		desc += PropDesc(m_singleEnemyHitEffectMod, "[SingleEnemyHitEffect]");
-		return desc + PropDesc(m_techPointRefundNoHits, "[EnergyRefundIfNoTargetsHit]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_techPointRefundNoHits, "[EnergyRefundIfNoTargetsHit]", isValid)).ToString();
 	}
 }

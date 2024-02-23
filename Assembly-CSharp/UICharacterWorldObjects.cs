@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public abstract class UICharacterWorldObjects : MonoBehaviour
@@ -443,7 +444,7 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 			{
 				if (!characterLink.IsVisualInfoSelectionValid(visualInfo))
 				{
-					Log.Error($"Character {characterLink.m_displayName} could not find Actor Skin resource link for {visualInfo.ToString()}");
+					Log.Error(new StringBuilder().Append("Character ").Append(characterLink.m_displayName).Append(" could not find Actor Skin resource link for ").Append(visualInfo.ToString()).ToString());
 					visualInfo = default(CharacterVisualInfo);
 				}
 			}
@@ -595,7 +596,7 @@ public abstract class UICharacterWorldObjects : MonoBehaviour
 																gameObject = loadedCharacter.heroPrefabLink.InstantiatePrefab();
 																if (gameObject == null)
 																{
-																	throw new ApplicationException($"Failed to instantiate prefab for {characterLink.m_characterType} {visualInfo.ToString()}");
+																	throw new ApplicationException(new StringBuilder().Append("Failed to instantiate prefab for ").Append(characterLink.m_characterType).Append(" ").Append(visualInfo.ToString()).ToString());
 																}
 																component = gameObject.GetComponent<ActorModelData>();
 																bool flag = false;

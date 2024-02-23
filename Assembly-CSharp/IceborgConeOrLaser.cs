@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 
 public class IceborgConeOrLaser : GenericAbility_Container
@@ -21,7 +22,7 @@ public class IceborgConeOrLaser : GenericAbility_Container
 	{
 		string usageForEditor = base.GetUsageForEditor();
 		usageForEditor += ContextVars.GetContextUsageStr(s_cvarHasSlow.GetName(), "Set on enemies hit, 1 if has Slow, 0 otherwise");
-		return usageForEditor + ContextVars.GetContextUsageStr(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise");
+		return new StringBuilder().Append(usageForEditor).Append(ContextVars.GetContextUsageStr(Iceborg_SyncComponent.s_cvarHasNova.GetName(), "set to 1 if target has nova core on start of turn, 0 otherwise")).ToString();
 	}
 
 	public override List<string> GetContextNamesForEditor()

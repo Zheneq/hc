@@ -1,6 +1,7 @@
 using Fabric;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using Unity;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -87,7 +88,10 @@ public class GameFlow : NetworkBehaviour
 	private static int kRpcRpcDisplayConsoleText = -789469928;
 	private static int kRpcRpcSetMatchTime = -559523706;
 
-	internal Dictionary<Player, PlayerDetails> playerDetails => m_playerDetails;
+	internal Dictionary<Player, PlayerDetails> playerDetails
+	{
+		get { return m_playerDetails; }
+	}
 
 	static GameFlow()
 	{
@@ -279,7 +283,7 @@ public class GameFlow : NetworkBehaviour
 		networkWriterAdapter.Serialize(ref value);
 		if (value < 0 || value > 20)
 		{
-			Log.Error("Invalid number of players: " + value);
+			Log.Error(new StringBuilder().Append("Invalid number of players: ").Append(value).ToString());
 			value = Mathf.Clamp(value, 0, 20);
 		}
 		foreach (var current in m_playerDetails)
@@ -310,7 +314,7 @@ public class GameFlow : NetworkBehaviour
 			networkReaderAdapter.Serialize(ref value);
 			if (value < 0 || value > 20)
 			{
-				Log.Error("Invalid number of players: " + value);
+				Log.Error(new StringBuilder().Append("Invalid number of players: ").Append(value).ToString());
 				value = Mathf.Clamp(value, 0, 20);
 			}
 			m_playerDetails.Clear();

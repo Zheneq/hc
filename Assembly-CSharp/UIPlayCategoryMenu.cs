@@ -720,7 +720,8 @@ public class UIPlayCategoryMenu : MonoBehaviour
 								}
 								else
 								{
-									if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
+									GameTypeAvailability value;
+									if (clientGameManager.GameTypeAvailabilies.TryGetValue(gameType, out value))
 									{
 										DateTime? penaltyTimeout = value.PenaltyTimeout;
 										if (penaltyTimeout.HasValue)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -35,19 +36,19 @@ public class BarrierResponseOnShot
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens, string name, bool addCompare, BarrierResponseOnShot other)
 	{
 		bool addDiff = addCompare && other != null;
-		AbilityMod.AddToken_IntDiff(tokens, name + "_OnShot_HealOnOwner", "", m_healOnOwnerFromEnemyShot, addDiff, addDiff ? other.m_healOnOwnerFromEnemyShot : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_OnShot_EnergyOnOwner", "", m_energyGainOnOwnerFromEnemyShot, addDiff, addDiff ? other.m_energyGainOnOwnerFromEnemyShot : 0);
-		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnOwnerFromEnemyShot, name + "_OnShot_EffectOnOwner", addDiff ? other.m_effectOnOwnerFromEnemyShot : null, addDiff);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_OnShot_DamageOnEnemy", "", m_damageOnEnemyOnShot, addDiff, addDiff ? other.m_damageOnEnemyOnShot : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_OnShot_EnergyLossOnEnemy", "", m_energyLossOnEnemyOnShot, addDiff, addDiff ? other.m_energyLossOnEnemyOnShot : 0);
-		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnEnemyOnShot, name + "_OnShot_EffectOnEnemy", addDiff ? other.m_effectOnEnemyOnShot : null, addDiff);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_OnShot_HealOnOwner").ToString(), "", m_healOnOwnerFromEnemyShot, addDiff, addDiff ? other.m_healOnOwnerFromEnemyShot : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_OnShot_EnergyOnOwner").ToString(), "", m_energyGainOnOwnerFromEnemyShot, addDiff, addDiff ? other.m_energyGainOnOwnerFromEnemyShot : 0);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnOwnerFromEnemyShot, new StringBuilder().Append(name).Append("_OnShot_EffectOnOwner").ToString(), addDiff ? other.m_effectOnOwnerFromEnemyShot : null, addDiff);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_OnShot_DamageOnEnemy").ToString(), "", m_damageOnEnemyOnShot, addDiff, addDiff ? other.m_damageOnEnemyOnShot : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_OnShot_EnergyLossOnEnemy").ToString(), "", m_energyLossOnEnemyOnShot, addDiff, addDiff ? other.m_energyLossOnEnemyOnShot : 0);
+		AbilityMod.AddToken_EffectInfo(tokens, m_effectOnEnemyOnShot, new StringBuilder().Append(name).Append("_OnShot_EffectOnEnemy").ToString(), addDiff ? other.m_effectOnEnemyOnShot : null, addDiff);
 	}
 
 	public string GetInEditorDescription(string header = "- Response -", string indent = "", bool showDiff = false, BarrierResponseOnShot other = null)
 	{
 		bool addDiff = showDiff && other != null;
 		string otherSep = "\t        \t | in base  =";
-		string desc = "\n" + InEditorDescHelper.BoldedStirng(header) + "\n";
+		string desc = new StringBuilder().Append("\n").Append(InEditorDescHelper.BoldedStirng(header)).Append("\n").ToString();
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ Heal on Owner on Enemy shot ] = ", indent, otherSep, m_healOnOwnerFromEnemyShot, addDiff, addDiff ? other.m_healOnOwnerFromEnemyShot : 0);
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ EnergyGain on Owner on Enemy shot ] = ", indent, otherSep, m_energyGainOnOwnerFromEnemyShot, addDiff, addDiff ? other.m_energyGainOnOwnerFromEnemyShot : 0);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnOwnerFromEnemyShot, "{ Effect on Owner on Enemy shot }", indent, addDiff, addDiff ? other.m_effectOnOwnerFromEnemyShot : null);
@@ -55,6 +56,6 @@ public class BarrierResponseOnShot
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ EnergyLoss on Enemy on shot ] = ", indent, otherSep, m_energyLossOnEnemyOnShot, addDiff, addDiff ? other.m_energyLossOnEnemyOnShot : 0);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnEnemyOnShot, "{ Effect on Enemy on shot }", indent, addDiff, addDiff ? other.m_effectOnEnemyOnShot : null);
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ On Shot Sequence Prefab ]", indent, otherSep, m_onShotSequencePrefab, addDiff, addDiff ? other.m_onShotSequencePrefab : null);
-		return desc + InEditorDescHelper.AssembleFieldWithDiff("[ Use Shooter Pos As Target Pos For Sequence ] = ", indent, otherSep, m_useShooterPosAsReactionSequenceTargetPos, addDiff, addDiff && other.m_useShooterPosAsReactionSequenceTargetPos);
+		return new StringBuilder().Append(desc).Append(InEditorDescHelper.AssembleFieldWithDiff("[ Use Shooter Pos As Target Pos For Sequence ] = ", indent, otherSep, m_useShooterPosAsReactionSequenceTargetPos, addDiff, addDiff && other.m_useShooterPosAsReactionSequenceTargetPos)).ToString();
 	}
 }

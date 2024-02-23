@@ -85,7 +85,7 @@ public struct VisionProviderInfo
 		}
 		else
 		{
-			PersistentSatellite persistentSatellite = actorData.GetComponent<SatelliteController>()?.GetSatellite(m_satelliteIndex);
+			PersistentSatellite persistentSatellite = actorData.GetComponent<SatelliteController>() != null ? actorData.GetComponent<SatelliteController>().GetSatellite(m_satelliteIndex) : null;
 			if (persistentSatellite != null && persistentSatellite.IsVisible())
 			{
 				result = Board.Get().GetSquareFromVec3(persistentSatellite.transform.position);

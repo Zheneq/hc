@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MantaConeDirtyFighting : AbilityMod
@@ -65,6 +66,6 @@ public class AbilityMod_MantaConeDirtyFighting : AbilityMod
 		desc += PropDesc(m_effectExplosionDamageMod, "[EffectExplosionDamage]", isValid, isValid ? mantaConeDirtyFighting.m_effectExplosionDamage : 0);
 		desc += PropDesc(m_explodeOnlyFromSelfDamageMod, "[ExplodeOnlyFromSelfDamage]", isValid, isValid && mantaConeDirtyFighting.m_explodeOnlyFromSelfDamage);
 		desc += PropDesc(m_techPointGainPerExplosionMod, "[TechPointGainPerExplosion]", isValid, isValid ? mantaConeDirtyFighting.m_techPointGainPerExplosion : 0);
-		return desc + PropDesc(m_healPerExplosionMod, "[HealAmountPerExplosion]", isValid, isValid ? mantaConeDirtyFighting.m_healAmountPerExplosion : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healPerExplosionMod, "[HealAmountPerExplosion]", isValid, isValid ? mantaConeDirtyFighting.m_healAmountPerExplosion : 0)).ToString();
 	}
 }

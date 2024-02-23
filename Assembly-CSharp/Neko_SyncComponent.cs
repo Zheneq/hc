@@ -61,32 +61,32 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
 
     public int Networkm_homingActorIndex
     {
-        get => m_homingActorIndex;
-        [param: In] set => SetSyncVar(value, ref m_homingActorIndex, 4u);
+        get { return m_homingActorIndex; }
+        [param: In] set { SetSyncVar(value, ref m_homingActorIndex, 4u); }
     }
 
     public bool Networkm_superDiscActive
     {
-        get => m_superDiscActive;
-        [param: In] set => SetSyncVar(value, ref m_superDiscActive, 8u);
+        get { return m_superDiscActive; }
+        [param: In] set { SetSyncVar(value, ref m_superDiscActive, 8u); }
     }
 
     public int Networkm_superDiscBoardX
     {
-        get => m_superDiscBoardX;
-        [param: In] set => SetSyncVar(value, ref m_superDiscBoardX, 16u);
+        get { return m_superDiscBoardX; }
+        [param: In] set { SetSyncVar(value, ref m_superDiscBoardX, 16u); }
     }
 
     public int Networkm_superDiscBoardY
     {
-        get => m_superDiscBoardY;
-        [param: In] set => SetSyncVar(value, ref m_superDiscBoardY, 32u);
+        get { return m_superDiscBoardY; }
+        [param: In] set { SetSyncVar(value, ref m_superDiscBoardY, 32u); }
     }
 
     public int Networkm_numUltConsecUsedTurns
     {
-        get => m_numUltConsecUsedTurns;
-        [param: In] set => SetSyncVar(value, ref m_numUltConsecUsedTurns, 64u);
+        get { return m_numUltConsecUsedTurns; }
+        [param: In] set { SetSyncVar(value, ref m_numUltConsecUsedTurns, 64u); }
     }
 
     static Neko_SyncComponent()

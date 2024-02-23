@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine.UI;
 
 public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
@@ -103,11 +104,11 @@ public class UIStoreAccountOverconsPanel : UIStoreBaseInventoryPanel
 				}
 			}
 		}
-		string text = StringUtil.TR("/overcon", "SlashCommand") + " " + nameToOverconEntry.GetCommandName();
+		string text = new StringBuilder().Append(StringUtil.TR("/overcon", "SlashCommand")).Append(" ").Append(nameToOverconEntry.GetCommandName()).ToString();
 		string text2 = nameToOverconEntry.GetObtainedDescription().Trim();
 		if (!text2.IsNullOrEmpty())
 		{
-			text = text + Environment.NewLine + text2;
+			text = new StringBuilder().AppendLine(text).Append(text2).ToString();
 		}
 		UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
 		uITitledTooltip.Setup(nameToOverconEntry.GetDisplayName(), text, string.Empty);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -24,10 +25,11 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override string GetUsageForEditor()
 	{
-		return base.GetUsageForEditor()
-		       + ContextVars.GetContextUsageStr(
-			       c_inCenter,
-			       "value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise");
+		return new StringBuilder().Append(base.GetUsageForEditor())
+			.Append(ContextVars.GetContextUsageStr(
+				c_inCenter,
+				"value set to 1 if delayed hit actor is in center of a shape, not set explicitly otherwise"))
+			.ToString();
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -39,7 +41,7 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "-- On Hit Data for Delayed Hits --\n" + m_delayedOnHitData.GetInEditorDesc();
+		return new StringBuilder().Append(base.GetOnHitDataDesc()).Append("-- On Hit Data for Delayed Hits --\n").Append(m_delayedOnHitData.GetInEditorDesc()).ToString();
 	}
 
 	public override void PreProcessTargetingNumbers(

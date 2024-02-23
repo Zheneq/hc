@@ -4,7 +4,10 @@ public class SceneStateParameters
 {
 	public UIManager.ClientState? NewClientGameState;
 
-	public static bool IsHUDHidden => UIScreenManager.Get().GetHideHUDCompletely();
+	public static bool IsHUDHidden
+	{
+		get { return UIScreenManager.Get().GetHideHUDCompletely(); }
+	}
 
 	public static bool IsGroupLeader
 	{
@@ -46,7 +49,10 @@ public class SceneStateParameters
 		}
 	}
 
-	public static bool IsInQueue => GameManager.Get().QueueInfo != null;
+	public static bool IsInQueue
+	{
+		get { return GameManager.Get().QueueInfo != null; }
+	}
 
 	public static bool IsWaitingForGroup
 	{
@@ -154,7 +160,10 @@ public class SceneStateParameters
 		}
 	}
 
-	public static TimeSpan TimeInQueue => (!(ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)) ? (DateTime.UtcNow - ClientGameManager.Get().QueueEntryTime) : TimeSpan.FromMinutes(0.0);
+	public static TimeSpan TimeInQueue
+	{
+		get { return (!(ClientGameManager.Get().QueueEntryTime == DateTime.MinValue)) ? (DateTime.UtcNow - ClientGameManager.Get().QueueEntryTime) : TimeSpan.FromMinutes(0.0); }
+	}
 
 	public static CharacterType SelectedCharacterInGroup
 	{

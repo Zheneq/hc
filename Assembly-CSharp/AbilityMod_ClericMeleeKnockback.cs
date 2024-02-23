@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClericMeleeKnockback : AbilityMod
@@ -64,6 +65,6 @@ public class AbilityMod_ClericMeleeKnockback : AbilityMod
 		desc += PropDesc(m_extraTechPointsPerHitWithAreaBuff, "[ExtraEnergyPerHitWithAreaBuff]", isValid);
 		desc += PropDesc(m_connectLaserWidthMod, "[ConnectLaserWidth]", isValid, isValid ? clericMeleeKnockback.m_connectLaserWidth : 0f);
 		desc += PropDesc(m_connectLaserDamageMod, "[ConnectLaserDamage]", isValid, isValid ? clericMeleeKnockback.m_connectLaserDamage : 0);
-		return desc + PropDesc(m_connectLaserEnemyHitEffectMod, "[ConnectLaserEnemyHitEffect]", isValid, isValid ? clericMeleeKnockback.m_connectLaserEnemyHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_connectLaserEnemyHitEffectMod, "[ConnectLaserEnemyHitEffect]", isValid, isValid ? clericMeleeKnockback.m_connectLaserEnemyHitEffect : null)).ToString();
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MartyrProtectAlly : AbilityMod
@@ -77,6 +78,6 @@ public class AbilityMod_MartyrProtectAlly : AbilityMod
 		desc += PropDesc(m_baseAbsorbOnAllyMod, "[BaseAbsorbOnAlly]", isValid, isValid ? martyrProtectAlly.m_baseAbsorbOnAlly : 0);
 		desc += PropDesc(m_absorbOnAllyPerCrystalSpentMod, "[AbsorbOnAllyPerCrystalSpent]", isValid, isValid ? martyrProtectAlly.m_absorbOnAllyPerCrystalSpent : 0);
 		desc += PropDesc(m_extraEnergyPerRedirectDamageMod, "[ExtraEnergyPerRedirectDamage]", isValid, isValid ? martyrProtectAlly.m_extraEnergyPerRedirectDamage : 0f);
-		return desc + PropDesc(m_healOnTurnStartPerRedirectDamageMod, "[HealOnTurnStartPerRedirectDamage]", isValid, isValid ? martyrProtectAlly.m_healOnTurnStartPerRedirectDamage : 0f);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_healOnTurnStartPerRedirectDamageMod, "[HealOnTurnStartPerRedirectDamage]", isValid, isValid ? martyrProtectAlly.m_healOnTurnStartPerRedirectDamage : 0f)).ToString();
 	}
 }

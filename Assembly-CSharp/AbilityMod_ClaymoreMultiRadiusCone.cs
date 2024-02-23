@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
@@ -88,6 +89,6 @@ public class AbilityMod_ClaymoreMultiRadiusCone : AbilityMod
 		desc += PropDesc(m_outerTpGain, "[TpGainOuter]", isAbilityPresent, isAbilityPresent ? claymoreMultiRadiusCone.m_tpGainOuter : 0);
 		desc += PropDesc(m_effectInnerMod, "[EffectInner]", isAbilityPresent, isAbilityPresent ? claymoreMultiRadiusCone.m_effectInner : null);
 		desc += PropDesc(m_effectMiddleMod, "[EffectMiddle]", isAbilityPresent, isAbilityPresent ? claymoreMultiRadiusCone.m_effectMiddle : null);
-		return desc + PropDesc(m_effectOuterMod, "[EffectOuter]", isAbilityPresent, isAbilityPresent ? claymoreMultiRadiusCone.m_effectOuter : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_effectOuterMod, "[EffectOuter]", isAbilityPresent, isAbilityPresent ? claymoreMultiRadiusCone.m_effectOuter : null)).ToString();
 	}
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 
@@ -221,7 +222,7 @@ public class UISideHealthBar : MonoBehaviour
 				int clientUnappliedHoTTotal_ToDisplay_zq = actor.GetHoTTotalToDisplay();
 				if (clientUnappliedHoTTotal_ToDisplay_zq > 0)
 				{
-					m_pendingHealthText.text = "+" + clientUnappliedHoTTotal_ToDisplay_zq;
+					m_pendingHealthText.text = new StringBuilder().Append("+").Append(clientUnappliedHoTTotal_ToDisplay_zq).ToString();
 				}
 				else
 				{
@@ -229,7 +230,7 @@ public class UISideHealthBar : MonoBehaviour
 				}
 				if (num > 0)
 				{
-					m_shieldText.text = "+" + num;
+					m_shieldText.text = new StringBuilder().Append("+").Append(num).ToString();
 				}
 				else
 				{

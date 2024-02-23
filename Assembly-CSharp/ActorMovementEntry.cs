@@ -1,3 +1,5 @@
+using System.Text;
+
 public class ActorMovementEntry
 {
 	public enum MovementProgressState
@@ -25,6 +27,6 @@ public class ActorMovementEntry
 		string debugName = m_actor.DebugNameString();
 		string str = m_progressState.ToString();
 		string str2 = (!m_doomed) ? string.Empty : " (doomed)";
-		return debugName + ": " + str + str2;
+		return new StringBuilder().Append(debugName).Append(": ").Append(str).Append(str2).ToString();
 	}
 }

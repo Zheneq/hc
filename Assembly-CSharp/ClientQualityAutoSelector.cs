@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class ClientQualityAutoSelector : MonoBehaviour
@@ -181,7 +182,7 @@ public class ClientQualityAutoSelector : MonoBehaviour
 		{
 			if (HydrogenConfig.Get().Ticket != null)
 			{
-				result = $"{HydrogenConfig.Get().Ticket.AccountId}:ClosedAutoLowQualNotification";
+				result = new StringBuilder().Append(HydrogenConfig.Get().Ticket.AccountId).Append(":ClosedAutoLowQualNotification").ToString();
 				goto IL_005b;
 			}
 		}

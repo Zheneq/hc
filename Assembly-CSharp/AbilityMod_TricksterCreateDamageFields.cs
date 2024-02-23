@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_TricksterCreateDamageFields : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_TricksterCreateDamageFields : AbilityMod
 		desc += PropDesc(m_extraEnemyEffectOnCastMod, "[ExtraEnemyEffectOnCast]", isValid, isValid ? tricksterCreateDamageFields.m_extraEnemyEffectOnCast : null);
 		desc += PropDesc(m_spawnSpoilForEnemyHitMod, "[SpawnSpoilForEnemyHit]", isValid, isValid && tricksterCreateDamageFields.m_spawnSpoilForEnemyHit);
 		desc += PropDesc(m_spawnSpoilForAllyHitMod, "[SpawnSpoilForAllyHit]", isValid, isValid && tricksterCreateDamageFields.m_spawnSpoilForAllyHit);
-		return desc + PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterCreateDamageFields.m_onlySpawnSpoilOnMultiHit);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_onlySpawnSpoilOnMultiHitMod, "[OnlySpawnSpoilOnMultiHit]", isValid, isValid && tricksterCreateDamageFields.m_onlySpawnSpoilOnMultiHit)).ToString();
 	}
 }

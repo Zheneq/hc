@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -31,7 +32,10 @@ public class GroundEffectField
 	public GameObject enemyHitSequencePrefab;
 	public bool perSquareSequences;
 
-	internal bool penetrateLos => true;
+	internal bool penetrateLos
+	{
+		get { return true; }
+	}
 
 	public void ReportAbilityTooltipNumbers(ref List<AbilityTooltipNumber> numbers, AbilityTooltipSubject enemySubject, AbilityTooltipSubject allySubject)
 	{
@@ -60,14 +64,14 @@ public class GroundEffectField
 	public void AddTooltipTokens(List<TooltipTokenEntry> tokens, string name, bool addCompare = false, GroundEffectField other = null)
 	{
 		bool addDiff = addCompare && other != null;
-		AbilityMod.AddToken_IntDiff(tokens, name + "_Duration", "", duration, addDiff, addDiff ? other.duration : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_HitDelayTurns", "", hitDelayTurns, addDiff, addDiff ? other.hitDelayTurns : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_Damage", "", damageAmount, addDiff, addDiff ? other.damageAmount : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_SubsequentDamage", "", subsequentDamageAmount, addDiff, addDiff ? other.subsequentDamageAmount : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_Healing", "", healAmount, addDiff, addDiff ? other.healAmount : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_SubsequentHealing", "", subsequentHealAmount, addDiff, addDiff ? other.subsequentHealAmount : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_AllyEnergyGain", "", energyGain, addDiff, addDiff ? other.energyGain : 0);
-		AbilityMod.AddToken_IntDiff(tokens, name + "_SubsequentEnergyGain", "", subsequentEnergyGain, addDiff, addDiff ? other.subsequentEnergyGain : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_Duration").ToString(), "", duration, addDiff, addDiff ? other.duration : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_HitDelayTurns").ToString(), "", hitDelayTurns, addDiff, addDiff ? other.hitDelayTurns : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_Damage").ToString(), "", damageAmount, addDiff, addDiff ? other.damageAmount : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_SubsequentDamage").ToString(), "", subsequentDamageAmount, addDiff, addDiff ? other.subsequentDamageAmount : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_Healing").ToString(), "", healAmount, addDiff, addDiff ? other.healAmount : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_SubsequentHealing").ToString(), "", subsequentHealAmount, addDiff, addDiff ? other.subsequentHealAmount : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_AllyEnergyGain").ToString(), "", energyGain, addDiff, addDiff ? other.energyGain : 0);
+		AbilityMod.AddToken_IntDiff(tokens, new StringBuilder().Append(name).Append("_SubsequentEnergyGain").ToString(), "", subsequentEnergyGain, addDiff, addDiff ? other.subsequentEnergyGain : 0);
 		AbilityMod.AddToken_EffectInfo(tokens, effectOnEnemies, "EnemyHitEffect", addDiff ? other.effectOnEnemies : null, addDiff);
 		AbilityMod.AddToken_EffectInfo(tokens, effectOnAllies, "AllyHitEffect", addDiff ? other.effectOnAllies : null, addDiff);
 	}
@@ -81,10 +85,10 @@ public class GroundEffectField
 	{
 		bool addDiff = diff && other != null;
 		string otherSep = "\t        \t | in base  =";
-		string desc = InEditorDescHelper.BoldedStirng(header) + "\n";
+		string desc = new StringBuilder().Append(InEditorDescHelper.BoldedStirng(header)).Append("\n").ToString();
 		if (duration <= 0)
 		{
-			desc += indent + "WARNING: IS PERMANENT (duration <= 0). Woof Woof Woof Woof\n";
+			desc += new StringBuilder().Append(indent).Append("WARNING: IS PERMANENT (duration <= 0). Woof Woof Woof Woof\n").ToString();
 		}
 		else
 		{
@@ -106,18 +110,18 @@ public class GroundEffectField
 		desc += InEditorDescHelper.AssembleFieldWithDiff("[ Subsequent EnergyGain ] = ", indent, otherSep, subsequentEnergyGain, addDiff, addDiff ? other.subsequentEnergyGain : 0);
 		if (effectOnEnemies.m_applyEffect)
 		{
-			desc += indent + "Effect on Enemies:\n";
+			desc += new StringBuilder().Append(indent).Append("Effect on Enemies:\n").ToString();
 			desc += effectOnEnemies.m_effectData.GetInEditorDescription(indent, false, addDiff, addDiff ? other.effectOnEnemies.m_effectData : null);
 		}
 		if (effectOnAllies.m_applyEffect)
 		{
-			desc += indent + "Effect on Allies:\n";
+			desc += new StringBuilder().Append(indent).Append("Effect on Allies:\n").ToString();
 			desc += effectOnAllies.m_effectData.GetInEditorDescription(indent, false, addDiff, addDiff ? other.effectOnAllies.m_effectData : null);
 		}
 		desc += InEditorDescHelper.AssembleFieldWithDiff("Persistent Sequence Prefab", indent, otherSep, persistentSequencePrefab, addDiff, addDiff ? other.persistentSequencePrefab : null);
 		desc += InEditorDescHelper.AssembleFieldWithDiff("Hit Pulse Sequence", indent, otherSep, hitPulseSequencePrefab, addDiff, addDiff ? other.hitPulseSequencePrefab : null);
 		desc += InEditorDescHelper.AssembleFieldWithDiff("Ally Hit Sequence", indent, otherSep, allyHitSequencePrefab, addDiff, addDiff ? other.allyHitSequencePrefab : null);
 		desc += InEditorDescHelper.AssembleFieldWithDiff("Enemy Hit Sequence", indent, otherSep, enemyHitSequencePrefab, addDiff, addDiff ? other.enemyHitSequencePrefab : null);
-		return desc + "-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n";
+		return new StringBuilder().Append(desc).Append("-  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n").ToString();
 	}
 }

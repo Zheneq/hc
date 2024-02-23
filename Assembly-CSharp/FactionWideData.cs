@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class FactionWideData : MonoBehaviour
@@ -122,7 +123,7 @@ public class FactionWideData : MonoBehaviour
 			{
 				return faction.FactionPlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
 			}
-			throw new ArgumentException($"Current level {currentLevel} is outside the player faction level range {1}-{faction.FactionPlayerProgressInfo.Length}");
+			throw new ArgumentException(new StringBuilder().Append("Current level ").Append(currentLevel).Append(" is outside the player faction level range ").Append(1).Append("-").Append(faction.FactionPlayerProgressInfo.Length).ToString());
 		}
 		return -1;
 	}

@@ -9,7 +9,10 @@ public class AudioWarningCleanup : MonoBehaviour, IEventListener
 	[HideInInspector]
 	private bool m_registering;
 
-	bool IEventListener.IsDestroyed => !m_registering;
+	bool IEventListener.IsDestroyed
+	{
+		get { return !m_registering; }
+	}
 
 	private void Start()
 	{

@@ -8,7 +8,10 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 
 	private GameBalanceVars.GameResultBadge m_BadgeInfo;
 
-	public GameBalanceVars.GameResultBadge BadgeInfo => m_BadgeInfo;
+	public GameBalanceVars.GameResultBadge BadgeInfo
+	{
+		get { return m_BadgeInfo; }
+	}
 
 	public void Setup(BadgeInfo badgeInfo, CharacterType characterType, Dictionary<StatDisplaySettings.StatType, PercentileInfo> percentiles)
 	{
@@ -37,7 +40,8 @@ public class UIGameOverBadgeWidget : MonoBehaviour
 				int? num2 = null;
 				int? num3 = null;
 				int? num4 = null;
-				if (percentiles.TryGetValue(m_BadgeInfo.BadgePointCalcType, out PercentileInfo value))
+				PercentileInfo value;
+				if (percentiles.TryGetValue(m_BadgeInfo.BadgePointCalcType, out value))
 				{
 					num = value.AgainstAll;
 					num2 = value.AgainstSameFreelancer;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ScampSuitToggle : AbilityMod
@@ -60,6 +61,6 @@ public class AbilityMod_ScampSuitToggle : AbilityMod
 		desc += PropDesc(m_passiveEnergyRegenMod, "[PassiveEnergyRegen]", isValid, isValid ? scampSuitToggle.m_passiveEnergyRegen : 0);
 		desc += PropDesc(m_considerRespawnForSuitGainEffectMod, "[ConsiderRespawnForSuitGainEffect]", isValid, isValid && scampSuitToggle.m_considerRespawnForSuitGainEffect);
 		desc += PropDesc(m_effectForSuitGainedMod, "[EffectForSuitGained]", isValid, isValid ? scampSuitToggle.m_effectForSuitGained : null);
-		return desc + PropDesc(m_effectForSuitLostMod, "[EffectForSuitLost]", isValid, isValid ? scampSuitToggle.m_effectForSuitLost : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_effectForSuitLostMod, "[EffectForSuitLost]", isValid, isValid ? scampSuitToggle.m_effectForSuitLost : null)).ToString();
 	}
 }

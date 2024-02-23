@@ -41,7 +41,11 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 	}
 
-	public float squareSize => m_squareSize;
+	public float squareSize
+	{
+		get { return m_squareSize; }
+	}
+
 	public int BaselineHeight
 	{
 		get
@@ -54,7 +58,11 @@ public class Board : MonoBehaviour, IGameEventListener
 		}
 	}
 
-	public float LosCheckHeight => BaselineHeight + BoardSquare.s_LoSHeightOffset;
+	public float LosCheckHeight
+	{
+		get { return BaselineHeight + BoardSquare.s_LoSHeightOffset; }
+	}
+
 	public Vector3 PlayerLookDir { get; private set; }
 	public Vector3 PlayerMouseIntersectionPos { get; private set; }
 	public Vector3 PlayerMouseLookDir { get; private set; }
@@ -66,7 +74,10 @@ public class Board : MonoBehaviour, IGameEventListener
 	public Vector3 PlayerClampedCornerPos { get; private set; }
 	public BoardSquare PlayerClampedSquare { get; private set; }
 	public bool MouseOverSquareInRange { get; set; }
-	public bool MarkedForUpdateValidSquares => m_needToUpdateValidSquares;
+	public bool MarkedForUpdateValidSquares
+	{
+		get { return m_needToUpdateValidSquares; }
+	}
 
 	public static Board Get()
 	{

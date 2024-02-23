@@ -8,9 +8,9 @@ public class Soldier_SyncComponent : NetworkBehaviour
 
 	public sbyte Networkm_lastPrimaryUsedMode
 	{
-		get => m_lastPrimaryUsedMode;
+		get { return m_lastPrimaryUsedMode; }
 		[param: In]
-		set => SetSyncVar(value, ref m_lastPrimaryUsedMode, 1u);
+		set { SetSyncVar(value, ref m_lastPrimaryUsedMode, 1u); }
 	}
 
 	private void UNetVersion()

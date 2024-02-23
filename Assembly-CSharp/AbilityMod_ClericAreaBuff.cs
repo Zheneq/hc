@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClericAreaBuff : AbilityMod
@@ -88,6 +89,6 @@ public class AbilityMod_ClericAreaBuff : AbilityMod
 		desc += PropDesc(m_visionAreaIgnoreLosMod, "[VisionAreaIgnoreLos]", isValid, isValid && clericAreaBuff.m_visionAreaIgnoreLos);
 		desc += PropDesc(m_extraShieldsPerTurnActive, "[ExtraShieldsPerTurnActive]", isValid);
 		desc += PropDesc(m_allyTechPointGainPerTurnActive, "[AllyEnergyGainPerTurnActive]", isValid);
-		return desc + PropDesc(m_extraHealForPurifyOnBuffedAllies, "[ExtraHealForPurifyOnBuffedAllies]", isValid);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraHealForPurifyOnBuffedAllies, "[ExtraHealForPurifyOnBuffedAllies]", isValid)).ToString();
 	}
 }

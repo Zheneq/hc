@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class LootTable
@@ -71,6 +72,6 @@ public class LootTable
 
 	public override string ToString()
 	{
-		return $"[{Index}] {Name}, {SelectionRule}, {Entries.Count}";
+		return new StringBuilder().Append("[").Append(Index).Append("] ").Append(Name).Append(", ").Append(SelectionRule).Append(", ").Append(Entries.Count).ToString();
 	}
 }

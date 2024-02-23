@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NekoBoomerangDisc : AbilityMod
@@ -62,6 +63,6 @@ public class AbilityMod_NekoBoomerangDisc : AbilityMod
 		desc += PropDesc(m_extraDamageIfHitByReturnDiscMod, "[ExtraDamageIfHitByReturnDisc]", isValid, isValid ? nekoBoomerangDisc.m_extraDamageIfHitByReturnDisc : 0);
 		desc += PropDesc(m_extraReturnDamageIfHitNoOneMod, "[ExtraReturnDamageIfHitNoOne]", isValid, isValid ? nekoBoomerangDisc.m_extraReturnDamageIfHitNoOne : 0);
 		desc += PropDesc(m_shieldPerTargetHitOnThrowMod, "[ShieldPerTargetHitOnThrow]", isValid, isValid ? nekoBoomerangDisc.m_shieldPerTargetHitOnThrow : 0);
-		return desc + PropDesc(m_shieldEffectDataMod, "[ShieldEffectData]", isValid, isValid ? nekoBoomerangDisc.m_shieldEffectData : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_shieldEffectDataMod, "[ShieldEffectData]", isValid, isValid ? nekoBoomerangDisc.m_shieldEffectData : null)).ToString();
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SenseiBideAttachedSequence : Sequence
@@ -167,7 +168,7 @@ public class SenseiBideAttachedSequence : Sequence
 				{
 					m_fxInstances[curFxIndex].SetActive(true);
 				}
-				Debug.LogWarning("Setting index from " + m_lastActiveIndex + " to " + curFxIndex);
+				Debug.LogWarning(new StringBuilder().Append("Setting index from ").Append(m_lastActiveIndex).Append(" to ").Append(curFxIndex).ToString());
 				m_lastActiveIndex = curFxIndex;
 			}
 		}

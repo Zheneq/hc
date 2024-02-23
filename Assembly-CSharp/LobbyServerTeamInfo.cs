@@ -15,13 +15,22 @@ public class LobbyServerTeamInfo
 	public Dictionary<long, TierPlacement> TierCurrents;
 
 	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> TeamAPlayerInfo => TeamInfo(Team.TeamA);
+	public IEnumerable<LobbyServerPlayerInfo> TeamAPlayerInfo
+	{
+		get { return TeamInfo(Team.TeamA); }
+	}
 
 	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> TeamBPlayerInfo => TeamInfo(Team.TeamB);
+	public IEnumerable<LobbyServerPlayerInfo> TeamBPlayerInfo
+	{
+		get { return TeamInfo(Team.TeamB); }
+	}
 
 	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> SpectatorInfo => TeamInfo(Team.Spectator);
+	public IEnumerable<LobbyServerPlayerInfo> SpectatorInfo
+	{
+		get { return TeamInfo(Team.Spectator); }
+	}
 
 	public IEnumerable<LobbyServerPlayerInfo> TeamInfo(Team team)
 	{

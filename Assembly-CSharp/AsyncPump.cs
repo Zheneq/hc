@@ -29,7 +29,10 @@ public class AsyncPump : SynchronizationContext
 
 	private readonly long TicksPerMillisecond;
 
-	public new static AsyncPump Current => SynchronizationContext.Current as AsyncPump;
+	public new static AsyncPump Current
+	{
+		get { return SynchronizationContext.Current as AsyncPump; }
+	}
 
 	public bool IsRunning
 	{
@@ -37,9 +40,15 @@ public class AsyncPump : SynchronizationContext
 		private set;
 	}
 
-	public long ProcessingLatencyTicks => ProcessingLatency.Current;
+	public long ProcessingLatencyTicks
+	{
+		get { return ProcessingLatency.Current; }
+	}
 
-	public int ProcessingLatencyMilliseconds => (int)(ProcessingLatencyTicks / TicksPerMillisecond);
+	public int ProcessingLatencyMilliseconds
+	{
+		get { return (int)(ProcessingLatencyTicks / TicksPerMillisecond); }
+	}
 
 	public int ArtificalLatencyMilliseconds
 	{
@@ -47,9 +56,15 @@ public class AsyncPump : SynchronizationContext
 		set;
 	}
 
-	public int CurrentRunLoopMilliseconds => (int)((CurrentTick - m_currentRunLoopStartTick) / TicksPerMillisecond);
+	public int CurrentRunLoopMilliseconds
+	{
+		get { return (int)((CurrentTick - m_currentRunLoopStartTick) / TicksPerMillisecond); }
+	}
 
-	public long CurrentTick => Now();
+	public long CurrentTick
+	{
+		get { return Now(); }
+	}
 
 	public int MaxWaitMilliseconds
 	{

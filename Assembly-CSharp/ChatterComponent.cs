@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ChatterComponent : MonoBehaviour, IGameEventListener
@@ -18,7 +19,7 @@ public class ChatterComponent : MonoBehaviour, IGameEventListener
 		{
 			if (chatter == null)
 			{
-				Log.Error("Chatter component on " + base.gameObject.name + " contains a null chatter entry");
+				Log.Error(new StringBuilder().Append("Chatter component on ").Append(base.gameObject.name).Append(" contains a null chatter entry").ToString());
 			}
 			else
 			{

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -410,7 +411,8 @@ public class UILoadingScreenPanel : UIScene
 					{
 						m_mapLoadingImage.sprite = (Resources.Load("Stages/information_stage_image", typeof(Sprite)) as Sprite);
 					}
-					m_mapName.text = "- " + GameWideData.Get().GetMapDisplayName(gameInfo.GameConfig.Map) + " -";
+
+					m_mapName.text = new StringBuilder().Append("- ").Append(GameWideData.Get().GetMapDisplayName(gameInfo.GameConfig.Map)).Append(" -").ToString();
 					SetTutorialTip();
 					m_gameMode.text = gameInfo.GameConfig.GameType.GetDisplayName();
 					GameSubType.GameLoadScreenInstructions instructionsToDisplay = gameInfo.GameConfig.InstanceSubType.InstructionsToDisplay;

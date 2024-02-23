@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -342,11 +343,11 @@ public class SinglePlayerState
 		{
 			if (activatableObject == null)
 			{
-				Log.Error("Null activation-object in 'Activations On Enter' for state " + m_stateIndex + ".");
+				Log.Error(new StringBuilder().Append("Null activation-object in 'Activations On Enter' for state ").Append(m_stateIndex).Append(".").ToString());
 			}
 			else if (activatableObject.m_sceneObject == null)
 			{
-				Log.Error("Activation-object has null scene-object in 'Activations On Enter' for state " + m_stateIndex + ".");
+				Log.Error(new StringBuilder().Append("Activation-object has null scene-object in 'Activations On Enter' for state ").Append(m_stateIndex).Append(".").ToString());
 			}
 			else
 			{
@@ -429,11 +430,11 @@ public class SinglePlayerState
 		{
 			if (activatableObject == null)
 			{
-				Log.Error("Null activation-object in 'Activations On Exit' for state " + m_stateIndex + ".  Tell Colin.");
+				Log.Error(new StringBuilder().Append("Null activation-object in 'Activations On Exit' for state ").Append(m_stateIndex).Append(".  Tell Colin.").ToString());
 			}
 			else if (activatableObject.m_sceneObject == null)
 			{
-				Log.Error("Activation-object has null scene-object in 'Activations On Exit' for state " + m_stateIndex + ".  Tell Colin.");
+				Log.Error(new StringBuilder().Append("Activation-object has null scene-object in 'Activations On Exit' for state ").Append(m_stateIndex).Append(".  Tell Colin.").ToString());
 			}
 			else
 			{
@@ -521,13 +522,13 @@ public class SinglePlayerState
 		int num = SinglePlayerCoordinator.Get().m_script.Length - 1;
 		if (m_stateTitle != string.Empty)
 		{
-			empty = "state '" + m_stateTitle + "' (state " + m_stateIndex + " of " + num + ")";
+			empty = new StringBuilder().Append("state '").Append(m_stateTitle).Append("' (state ").Append(m_stateIndex).Append(" of ").Append(num).Append(")").ToString();
 		}
 		else
 		{
-			empty = "state " + m_stateIndex + " of " + num;
+			empty = new StringBuilder().Append("state ").Append(m_stateIndex).Append(" of ").Append(num).ToString();
 		}
-		Log.Info($"{HydrogenConfig.Get().Ticket.Handle} SinglePlayer level {name}: {action} {empty} on turn {currentTurn}.  Time elapsed: {timeForLogging}.");
+		Log.Info(new StringBuilder().Append(HydrogenConfig.Get().Ticket.Handle).Append(" SinglePlayer level ").Append(name).Append(": ").Append(action).Append(" ").Append(empty).Append(" on turn ").Append(currentTurn).Append(".  Time elapsed: ").Append(timeForLogging).Append(".").ToString());
 	}
 
 	public void OnTurnTick()

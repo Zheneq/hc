@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -645,15 +646,15 @@ public class UISeasonsBaseContract : MonoBehaviour
 					}
 					if (maxCount == 1)
 					{
-						text2 = ((num2 != 1) ? (text2 + $"    {text3}") : (text2 + $"    <color=white>{text3}</color>"));
+						text2 = ((num2 != 1) ? new StringBuilder().Append(text2).Append("    ").Append(text3).ToString() : new StringBuilder().Append(text2).Append("    <color=white>").Append(text3).Append("</color>").ToString());
 					}
 					else if (num2 == maxCount)
 					{
-						text2 += $"    <color=white>{text3} ({num2}/{maxCount})</color>";
+						text2 += new StringBuilder().Append("    <color=white>").Append(text3).Append(" (").Append(num2).Append("/").Append(maxCount).Append(")</color>").ToString();
 					}
 					else
 					{
-						text2 += $"    {text3} ({num2}/{maxCount})";
+						text2 += new StringBuilder().Append("    ").Append(text3).Append(" (").Append(num2).Append("/").Append(maxCount).Append(")").ToString();
 					}
 				}
 				goto IL_02d4;
@@ -675,7 +676,8 @@ public class UISeasonsBaseContract : MonoBehaviour
 			{
 				text2 += Environment.NewLine;
 			}
-			text2 = text2 + "<i>" + text4 + "</i>";
+
+			text2 = new StringBuilder().Append(text2).Append("<i>").Append(text4).Append("</i>").ToString();
 		}
 		m_DetailText.text = text2;
 		UpdateDetailsTextHeight();
@@ -830,7 +832,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 		{
 			m_progessFilled.fillAmount = 0f;
 		}
-		string text = $"{num}/{maxProgress}";
+		string text = new StringBuilder().Append(num).Append("/").Append(maxProgress).ToString();
 		m_progressText.text = text;
 	}
 
@@ -888,7 +890,7 @@ public class UISeasonsBaseContract : MonoBehaviour
 			}
 			else
 			{
-				arg = $"{(int)timeSpan.TotalHours:D2}:{timeSpan.Minutes:D2}";
+				arg = new StringBuilder().AppendFormat("{0:D2}", (int)timeSpan.TotalHours).Append(":").AppendFormat("{0:D2}", timeSpan.Minutes).ToString();
 			}
 			m_remainingTime.text = string.Format(StringUtil.TR("QuestRemainingTime", "Global"), arg);
 			return;

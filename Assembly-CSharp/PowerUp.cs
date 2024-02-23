@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -94,7 +95,10 @@ public class PowerUp : NetworkBehaviour
 
 	public IPowerUpListener powerUpListener { get; set; }
 
-	public BoardSquare boardSquare => m_boardSquare;
+	public BoardSquare boardSquare
+	{
+		get { return m_boardSquare; }
+	}
 
 	public Team PickupTeam
 	{
@@ -286,7 +290,7 @@ public class PowerUp : NetworkBehaviour
 	{
 		if (m_ability == null)
 		{
-			Log.Error("PowerUp " + this + " needs a valid Ability assigned in the inspector for its prefab");
+			Log.Error(new StringBuilder().Append("PowerUp ").Append(this).Append(" needs a valid Ability assigned in the inspector for its prefab").ToString());
 		}
 		transform.parent = PowerUpManager.Get().GetSpawnedPowerupsRoot().transform;
 		tag = "powerup";

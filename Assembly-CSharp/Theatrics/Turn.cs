@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -102,7 +103,7 @@ namespace Theatrics
 			bool resolutionTimedOut = TimeInPhase >= GameFlowData.Get().m_resolveTimeoutLimit * 0.8f;
 			if (resolutionTimedOut)
 			{
-				Log.Error("Theatrics: phase: " + ServerClientUtils.GetCurrentActionPhase().ToString() + " timed out for turn " + TurnID + ",  timeline index " + m_phaseIndex);
+				Log.Error(new StringBuilder().Append("Theatrics: phase: ").Append(ServerClientUtils.GetCurrentActionPhase().ToString()).Append(" timed out for turn ").Append(TurnID).Append(",  timeline index ").Append(m_phaseIndex).ToString());
 			}
 			bool flag4 = !flag3 && !resolutionTimedOut;
 			if (flag4)
@@ -127,10 +128,10 @@ namespace Theatrics
 			}
 			else
 			{
-				TheatricsManager.Get().DebugLog("Theatrics: finished timeline index " + m_phaseIndex + " with duration " + TimeInPhase + " @absolute time " + GameTime.time);
+				TheatricsManager.Get().DebugLog(new StringBuilder().Append("Theatrics: finished timeline index ").Append(m_phaseIndex).Append(" with duration ").Append(TimeInPhase).Append(" @absolute time ").Append(GameTime.time).ToString());
 				if (TheatricsManager.DebugTraceExecution)
 				{
-					TheatricsManager.LogForDebugging("Phase Finished: " + m_phaseIndex);
+					TheatricsManager.LogForDebugging(new StringBuilder().Append("Phase Finished: ").Append(m_phaseIndex).ToString());
 				}
 			}
 			if (!flag4

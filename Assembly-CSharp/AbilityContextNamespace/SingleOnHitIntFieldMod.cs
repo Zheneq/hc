@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace AbilityContextNamespace
@@ -86,11 +87,11 @@ namespace AbilityContextNamespace
 			{
 				return;
 			}
-			AbilityMod.AddToken(tokens, m_baseValueMod, name + "_Base", "", baseIntField.m_baseValue);
-			AbilityMod.AddToken(tokens, m_minValueMod, name + "_Min", "", baseIntField.m_minValue);
-			AbilityMod.AddToken(tokens, m_maxValueMod, name + "_Max", "", baseIntField.m_maxValue);
-			AbilityMod.AddToken(tokens, m_baseAddTotalMinValueMod, name + "_BaseAddTotalMin", "", baseIntField.m_baseAddTotalMinValue);
-			AbilityMod.AddToken(tokens, m_baseAddTotalMaxValueMod, name + "_BaseAddTotalMax", "", baseIntField.m_baseAddTotalMaxValue);
+			AbilityMod.AddToken(tokens, m_baseValueMod, new StringBuilder().Append(name).Append("_Base").ToString(), "", baseIntField.m_baseValue);
+			AbilityMod.AddToken(tokens, m_minValueMod, new StringBuilder().Append(name).Append("_Min").ToString(), "", baseIntField.m_minValue);
+			AbilityMod.AddToken(tokens, m_maxValueMod, new StringBuilder().Append(name).Append("_Max").ToString(), "", baseIntField.m_maxValue);
+			AbilityMod.AddToken(tokens, m_baseAddTotalMinValueMod, new StringBuilder().Append(name).Append("_BaseAddTotalMin").ToString(), "", baseIntField.m_baseAddTotalMinValue);
+			AbilityMod.AddToken(tokens, m_baseAddTotalMaxValueMod, new StringBuilder().Append(name).Append("_BaseAddTotalMax").ToString(), "", baseIntField.m_baseAddTotalMaxValue);
 
 			if (!m_useBaseAddModifierOverrides || m_baseAddModifierOverrides == null)
 			{
@@ -105,7 +106,7 @@ namespace AbilityContextNamespace
 					int num = Mathf.RoundToInt(numericContextOperand.m_modifier.value);
 					if (num > 0)
 					{
-						tokens.Add(new TooltipTokenInt(name + "_Add_" + i + "_Main", "", num));
+						tokens.Add(new TooltipTokenInt(new StringBuilder().Append(name).Append("_Add_").Append(i).Append("_Main").ToString(), "", num));
 					}
 					if (numericContextOperand.m_additionalModifiers != null)
 					{
@@ -114,7 +115,7 @@ namespace AbilityContextNamespace
 							int num2 = Mathf.RoundToInt(numericContextOperand.m_additionalModifiers[j].value);
 							if (num2 > 0)
 							{
-								tokens.Add(new TooltipTokenInt(name + "_Add_" + i + "_Extra_" + j, "", num2));
+								tokens.Add(new TooltipTokenInt(new StringBuilder().Append(name).Append("_Add_").Append(i).Append("_Extra_").Append(j).ToString(), "", num2));
 							}
 						}
 					}

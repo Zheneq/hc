@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Text;
 
 public static class Log
 {
@@ -81,7 +82,7 @@ public static class Log
 		{
 			if (repeatCount > 0)
 			{
-				return $"{formattedMessage} (repeated {repeatCount} times)";
+				return new StringBuilder().Append(formattedMessage).Append(" (repeated ").Append(repeatCount).Append(" times)").ToString();
 			}
 			return formattedMessage;
 		}

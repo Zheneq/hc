@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class TargetSelect_BouncingLaser : GenericAbility_TargetSelectBase
@@ -28,7 +29,7 @@ public class TargetSelect_BouncingLaser : GenericAbility_TargetSelectBase
 
 	public override string GetUsageForEditor()
 	{
-		return GetContextUsageStr("HitOrder", "on every enemy, order in which they are hit.") + GetContextUsageStr("EndpointIndex", "on every enemy, 0-based index of which segment hit that enemy");
+		return new StringBuilder().Append(GetContextUsageStr("HitOrder", "on every enemy, order in which they are hit.")).Append(GetContextUsageStr("EndpointIndex", "on every enemy, 0-based index of which segment hit that enemy")).ToString();
 	}
 
 	public override void ListContextNamesForEditor(List<string> names)

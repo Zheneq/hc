@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AsyncManager : MonoBehaviour
@@ -58,7 +59,7 @@ public class AsyncManager : MonoBehaviour
 		}
 		else
 		{
-			Log.Error("Failed to find async operation for ticket #" + ticket, new object[0]);
+			Log.Error(new StringBuilder().Append("Failed to find async operation for ticket #").Append(ticket).ToString(), new object[0]);
 		}
 	}
 

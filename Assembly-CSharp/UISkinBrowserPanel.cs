@@ -530,7 +530,6 @@ public class UISkinBrowserPanel : MonoBehaviour
 						{
 							uIPatternData2.m_possibleColors[num15].m_name = selectedCharacter.GetPatternColorName(i, j, num15);
 							uIPatternData2.m_possibleColors[num15].m_description = selectedCharacter.GetPatternColorDescription(i, j, num15);
-							ref UIColorData reference = ref uIPatternData2.m_possibleColors[num15];
 							int sortOrder;
 							if (characterColor.m_sortOrder == 0)
 							{
@@ -540,7 +539,7 @@ public class UISkinBrowserPanel : MonoBehaviour
 							{
 								sortOrder = characterColor.m_sortOrder;
 							}
-							reference.m_sortOrder = sortOrder;
+							uIPatternData2.m_possibleColors[num15].m_sortOrder = sortOrder;
 							uIPatternData2.m_possibleColors[num15].m_unlockCharacterLevel = colorUnlockData.GetUnlockCharacterLevel(characterUnlockData.character);
 							uIPatternData2.m_possibleColors[num15].m_isoCurrencyCost = colorUnlockData.GetUnlockISOPrice();
 							uIPatternData2.m_possibleColors[num15].m_freelancerCurrencyCost = colorUnlockData.GetUnlockFreelancerCurrencyPrice();

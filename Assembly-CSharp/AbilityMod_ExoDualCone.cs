@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ExoDualCone : AbilityMod
@@ -80,6 +81,6 @@ public class AbilityMod_ExoDualCone : AbilityMod
 		desc += PropDesc(m_effectOnHitMod, "[EffectOnHit]", isValid, isValid ? exoDualCone.m_effectOnHit : null);
 		desc += PropDesc(m_effectOnOverlapHitMod, "[EffectOnOverlapHit]", isValid, isValid ? exoDualCone.m_effectOnOverlapHit : null);
 		desc += PropDesc(m_extraDamageForConsecitiveHitMod, "[ExtraDamageForConsecitiveHit]", isValid, isValid ? exoDualCone.m_extraDamageForConsecutiveUse : 0);
-		return desc + PropDesc(m_extraEnergyForConsecutiveUseMod, "[ExtraEnergyForConsecutiveUse]", isValid, isValid ? exoDualCone.m_extraEnergyForConsecutiveUse : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEnergyForConsecutiveUseMod, "[ExtraEnergyForConsecutiveUse]", isValid, isValid ? exoDualCone.m_extraEnergyForConsecutiveUse : 0)).ToString();
 	}
 }

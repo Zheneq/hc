@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 public class UIConeCursor : MonoBehaviour
@@ -24,7 +25,7 @@ public class UIConeCursor : MonoBehaviour
 				case 0:
 					break;
 				default:
-					Log.Error("ConeCursor with invalid radius (" + m_worldRadius + ").  Disabling...");
+					Log.Error(new StringBuilder().Append("ConeCursor with invalid radius (").Append(m_worldRadius).Append(").  Disabling...").ToString());
 					UIManager.SetGameObjectActive(base.gameObject, false);
 					return;
 				}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MartyrBasicAttack : AbilityMod
@@ -62,6 +63,6 @@ public class AbilityMod_MartyrBasicAttack : AbilityMod
 		desc += PropDesc(m_innerRingRadiusMod, "[InnerRingRadius]", isValid, isValid ? martyrBasicAttack.m_innerRingRadius : 0f);
 		desc += PropDesc(m_innerRingExtraRadiusPerCrystalMod, "[InnerRingExtraRadiusPerCrystal]", isValid, isValid ? martyrBasicAttack.m_innerRingExtraRadiusPerCrystal : 0f);
 		desc += PropDesc(m_innerRingDamageMod, "[InnerRingDamage]", isValid, isValid ? martyrBasicAttack.m_innerRingDamage : 0);
-		return desc + PropDesc(m_innerRingDamagePerCrystalMod, "[InnerRingDamagePerCrystal]", isValid, isValid ? martyrBasicAttack.m_innerRingDamagePerCrystal : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_innerRingDamagePerCrystalMod, "[InnerRingDamagePerCrystal]", isValid, isValid ? martyrBasicAttack.m_innerRingDamagePerCrystal : 0)).ToString();
 	}
 }

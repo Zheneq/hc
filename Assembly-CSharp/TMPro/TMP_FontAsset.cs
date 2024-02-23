@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace TMPro
@@ -75,7 +76,10 @@ namespace TMPro
 			}
 		}
 
-		public FaceInfo fontInfo => m_fontInfo;
+		public FaceInfo fontInfo
+		{
+			get { return m_fontInfo; }
+		}
 
 		public Dictionary<int, TMP_Glyph> characterDictionary
 		{
@@ -89,9 +93,15 @@ namespace TMPro
 			}
 		}
 
-		public Dictionary<int, KerningPair> kerningDictionary => m_kerningDictionary;
+		public Dictionary<int, KerningPair> kerningDictionary
+		{
+			get { return m_kerningDictionary; }
+		}
 
-		public KerningTable kerningInfo => m_kerningInfo;
+		public KerningTable kerningInfo
+		{
+			get { return m_kerningInfo; }
+		}
 
 		private void OnEnable()
 		{
@@ -267,7 +277,7 @@ namespace TMPro
 					}
 					else if (!TMP_Settings.warningsDisabled)
 					{
-						Debug.LogWarning("Kerning Key for [" + kerningPairKey.ascii_Left + "] and [" + kerningPairKey.ascii_Right + "] already exists.");
+						Debug.LogWarning(new StringBuilder().Append("Kerning Key for [").Append(kerningPairKey.ascii_Left).Append("] and [").Append(kerningPairKey.ascii_Right).Append("] already exists.").ToString());
 					}
 				}
 				hashCode = TMP_TextUtilities.GetSimpleHashCode(base.name);

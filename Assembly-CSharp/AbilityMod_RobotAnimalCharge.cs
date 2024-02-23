@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RobotAnimalCharge : AbilityMod
@@ -53,18 +54,18 @@ public class AbilityMod_RobotAnimalCharge : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_lifePerHitMod, "[Life Per Hit Mod]", isAbilityPresent, isAbilityPresent ? robotAnimalCharge.m_lifePerHit : 0f);
 		if (m_healOnNextTurnStartIfKilledTarget > 0)
 		{
-			desc += "[Heal on Next Turn Start If Killed Target] = " + m_healOnNextTurnStartIfKilledTarget + "\n";
+			desc += new StringBuilder().Append("[Heal on Next Turn Start If Killed Target] = ").Append(m_healOnNextTurnStartIfKilledTarget).Append("\n").ToString();
 		}
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnSelf, "{ Effect on Self }", string.Empty, isAbilityPresent);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectToSelfPerAdjacentAlly, "{ Effect on Self Per Adjacent Ally }", string.Empty, isAbilityPresent);
 		if (m_techPointsPerAdjacentAlly > 0)
 		{
-			desc += "[Tech Points Per Adjacent Ally] = " + m_techPointsPerAdjacentAlly + "\n";
+			desc += new StringBuilder().Append("[Tech Points Per Adjacent Ally] = ").Append(m_techPointsPerAdjacentAlly).Append("\n").ToString();
 		}
 		desc += PropDesc(m_requireTargetActorMod, "[RequireTargetActor]", isAbilityPresent, isAbilityPresent && robotAnimalCharge.m_requireTargetActor);
 		desc += PropDesc(m_canIncludeEnemyMod, "[CanIncludeEnemy]", isAbilityPresent, isAbilityPresent && robotAnimalCharge.m_canIncludeEnemy);
 		desc += PropDesc(m_canIncludeAllyMod, "[CanIncludeAlly]", isAbilityPresent, isAbilityPresent && robotAnimalCharge.m_canIncludeAlly);
 		desc += PropDesc(m_cdrOnHittingAllyMod, "[CdrOnHittingAlly]", isAbilityPresent, isAbilityPresent ? robotAnimalCharge.m_cdrOnHittingAlly : 0);
-		return desc + PropDesc(m_cdrOnHittingEnemyMod, "[CdrOnHittingEnemy]", isAbilityPresent, isAbilityPresent ? robotAnimalCharge.m_cdrOnHittingEnemy : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrOnHittingEnemyMod, "[CdrOnHittingEnemy]", isAbilityPresent, isAbilityPresent ? robotAnimalCharge.m_cdrOnHittingEnemy : 0)).ToString();
 	}
 }

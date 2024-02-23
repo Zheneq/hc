@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -387,7 +388,7 @@ public class FriendListPanel : MonoBehaviour
 				string text = friendInfo.FriendHandle;
 				if (!friendInfo.FriendNote.IsNullOrEmpty())
 				{
-					text = $"{friendInfo.FriendHandle}({friendInfo.FriendNote})";
+					text = new StringBuilder().Append(friendInfo.FriendHandle).Append("(").Append(friendInfo.FriendNote).Append(")").ToString();
 				}
 				componentsInChildren[i].m_playerName.text = text;
 				return;
@@ -573,13 +574,13 @@ public class FriendListPanel : MonoBehaviour
 
 	public void RequestToSendMessage(FriendInfo friendInfo)
 	{
-		UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + friendInfo.FriendHandle + " ");
+		UIFrontEnd.Get().m_frontEndChatConsole.SelectInput(new StringBuilder().Append("/whisper ").Append(friendInfo.FriendHandle).Append(" ").ToString());
 		SetVisible(false);
 	}
 
 	public void RequestToViewProfile(FriendInfo friendInfo)
 	{
-		Debug.Log("Request To View Profile: " + friendInfo.FriendHandle);
+		Debug.Log(new StringBuilder().Append("Request To View Profile: ").Append(friendInfo.FriendHandle).ToString());
 	}
 
 	public void RequestToInviteToGame(FriendInfo friendInfo)

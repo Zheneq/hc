@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class MasterSkinVfxData : MonoBehaviour
@@ -107,7 +108,7 @@ public class MasterSkinVfxData : MonoBehaviour
 					}
 					else
 					{
-						Log.Warning("MasterSkinVfxData has multiple joint overrides defined for " + fxJointOverride.m_characterType);
+						Log.Warning(new StringBuilder().Append("MasterSkinVfxData has multiple joint overrides defined for ").Append(fxJointOverride.m_characterType).ToString());
 					}
 				}
 			}

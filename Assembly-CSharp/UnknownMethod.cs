@@ -4,17 +4,35 @@ using System.Reflection;
 
 public class UnknownMethod : MethodBase
 {
-	public override Type DeclaringType => null;
+	public override Type DeclaringType
+	{
+		get { return null; }
+	}
 
-	public override MemberTypes MemberType => (MemberTypes)0;
+	public override MemberTypes MemberType
+	{
+		get { return (MemberTypes)0; }
+	}
 
-	public override string Name => null;
+	public override string Name
+	{
+		get { return null; }
+	}
 
-	public override Type ReflectedType => null;
+	public override Type ReflectedType
+	{
+		get { return null; }
+	}
 
-	public override MethodAttributes Attributes => MethodAttributes.PrivateScope;
+	public override MethodAttributes Attributes
+	{
+		get { return MethodAttributes.PrivateScope; }
+	}
 
-	public override RuntimeMethodHandle MethodHandle => default(RuntimeMethodHandle);
+	public override RuntimeMethodHandle MethodHandle
+	{
+		get { return default(RuntimeMethodHandle); }
+	}
 
 	public override object[] GetCustomAttributes(bool inherit)
 	{

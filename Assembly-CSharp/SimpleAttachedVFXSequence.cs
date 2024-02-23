@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SimpleAttachedVFXSequence : Sequence
@@ -907,13 +908,13 @@ public class SimpleAttachedVFXSequence : Sequence
 		}
 		if (m_jointReferenceType != 0)
 		{
-			str = str + "<Joint Reference Type> is <color=cyan>" + m_jointReferenceType.ToString() + "</color>\n\n";
+			str = new StringBuilder().Append(str).Append("<Joint Reference Type> is <color=cyan>").Append(m_jointReferenceType.ToString()).Append("</color>\n\n").ToString();
 		}
 		if (m_fxJoint != null)
 		{
 			if (m_fxAttachToJoint)
 			{
-				str = str + "<color=cyan>VFX is attaching to joint (" + m_fxJoint.m_joint + ")</color>\n";
+				str = new StringBuilder().Append(str).Append("<color=cyan>VFX is attaching to joint (").Append(m_fxJoint.m_joint).Append(")</color>\n").ToString();
 				if (m_aimAtTarget)
 				{
 					str += "<[x] Aim At Target> ignored, attaching to joint\n";
@@ -922,7 +923,7 @@ public class SimpleAttachedVFXSequence : Sequence
 			}
 			else
 			{
-				str = str + "VFX spawning at joint (<color=cyan>" + m_fxJoint.m_joint + "</color>), not set to attach.\n\n";
+				str = new StringBuilder().Append(str).Append("VFX spawning at joint (<color=cyan>").Append(m_fxJoint.m_joint).Append("</color>), not set to attach.\n\n").ToString();
 			}
 		}
 		if (m_useRootOrientation)
@@ -958,7 +959,7 @@ public class SimpleAttachedVFXSequence : Sequence
 			if (m_hitDelay > 0f)
 			{
 				string text = str;
-				str = text + "Using <Hit Delay> for timing, Gameplay Hit and <Hit FX Prefab> will spawn " + m_hitDelay + " second(s) after VFX spawn\n\n";
+				str = new StringBuilder().Append(text).Append("Using <Hit Delay> for timing, Gameplay Hit and <Hit FX Prefab> will spawn ").Append(m_hitDelay).Append(" second(s) after VFX spawn\n\n").ToString();
 			}
 		}
 		goto IL_0266;

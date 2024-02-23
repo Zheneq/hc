@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -60,7 +61,7 @@ public class UITauntButton : MonoBehaviour
 				default:
 				{
 					UIFrontendTauntMouseoverVideo uIFrontendTauntMouseoverVideo = tooltip as UIFrontendTauntMouseoverVideo;
-					uIFrontendTauntMouseoverVideo.Setup("Video/taunts/" + m_tauntVideoPath);
+					uIFrontendTauntMouseoverVideo.Setup(new StringBuilder().Append("Video/taunts/").Append(m_tauntVideoPath).ToString());
 					return true;
 				}
 				}
@@ -84,22 +85,22 @@ public class UITauntButton : MonoBehaviour
 		SetImageArraySprite(m_icons, GetTauntSprite(characterTaunt, abilityData));
 		UIManager.SetGameObjectActive(m_locked, !isUnlocked);
 		string colorHexString = m_tauntUnlockData.Rarity.GetColorHexString();
-		string text = "<color=" + colorHexString + ">" + charLink.GetTauntName(tauntIndex) + "</color>";
+		string text = new StringBuilder().Append("<color=").Append(colorHexString).Append(">").Append(charLink.GetTauntName(tauntIndex)).Append("</color>").ToString();
 		SetTextArrayText(m_nameTexts, text);
 		string text2 = string.Format(StringUtil.TR("TauntFor", "Global"), GetTauntAbilityName(characterTaunt, abilityData));
 		if (!m_tauntUnlockData.ObtainedDescription.IsNullOrEmpty())
 		{
-			text2 = text2 + Environment.NewLine + m_tauntUnlockData.GetObtainedDescription();
+			text2 = new StringBuilder().AppendLine(text2).Append(m_tauntUnlockData.GetObtainedDescription()).ToString();
 		}
 		if (!characterTaunt.m_flavorText.IsNullOrEmpty())
 		{
 			string text3 = text2;
-			text2 = text3 + Environment.NewLine + "<i>" + characterTaunt.m_flavorText + "</i>";
+			text2 = new StringBuilder().AppendLine(text3).Append("<i>").Append(characterTaunt.m_flavorText).Append("</i>").ToString();
 		}
 		SetTextArrayText(m_descriptionTexts, text2);
 		if (!isUnlocked)
 		{
-			string text4 = "<sprite name=iso>" + GetIsoCost();
+			string text4 = new StringBuilder().Append("<sprite name=iso>").Append(GetIsoCost()).ToString();
 			if (characterTaunt.m_obtainedText.Trim().IsNullOrEmpty())
 			{
 				int unlockCharacterLevel = m_tauntUnlockData.GetUnlockCharacterLevel(charLink.m_characterType);
@@ -212,7 +213,7 @@ public class UITauntButton : MonoBehaviour
 		}
 		else if (Application.isEditor)
 		{
-			Log.Warning("Trying to get taunt index for " + characterTaunt.m_actionForTaunt);
+			Log.Warning(new StringBuilder().Append("Trying to get taunt index for ").Append(characterTaunt.m_actionForTaunt).ToString());
 		}
 		if (ability != null)
 		{

@@ -196,11 +196,16 @@ public class UIGameOverRewardTooltip : UITooltipBase
 	public void Setup(Dictionary<string, int> factionInfo, RewardTooltipType tooltipType)
 	{
 		m_baseTypeLabel.text = StringUtil.TR("FactionContributionMatch", "TrustWar");
-		factionInfo.TryGetValue("Match", out int value);
-		factionInfo.TryGetValue("Win", out int value2);
-		factionInfo.TryGetValue("Banner", out int value3);
-		factionInfo.TryGetValue("Emblem", out int value4);
-		factionInfo.TryGetValue("Skin", out int value5);
+		int value;
+		factionInfo.TryGetValue("Match", out value);
+		int value2;
+		factionInfo.TryGetValue("Win", out value2);
+		int value3;
+		factionInfo.TryGetValue("Banner", out value3);
+		int value4;
+		factionInfo.TryGetValue("Emblem", out value4);
+		int value5;
+		factionInfo.TryGetValue("Skin", out value5);
 		m_baseAmountGain.text = value.ToString();
 		m_winAmountGain.text = value2.ToString();
 		m_skinAmountGain.text = value5.ToString();

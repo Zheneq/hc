@@ -1,3 +1,5 @@
+using System.Text;
+
 public static class GameTypeExtensions
 {
 	public static bool IsHumanVsHumanGame(this GameType gameType)
@@ -134,7 +136,7 @@ public static class GameTypeExtensions
 		case GameType.Ranked:
 			return StringUtil.TR("Ranked", "Global");
 		default:
-			return gameType.ToString() + "#NotLocalized";
+			return new StringBuilder().Append(gameType.ToString()).Append("#NotLocalized").ToString();
 		}
 	}
 }

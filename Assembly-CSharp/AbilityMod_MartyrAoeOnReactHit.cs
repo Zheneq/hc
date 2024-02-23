@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
@@ -76,6 +77,6 @@ public class AbilityMod_MartyrAoeOnReactHit : AbilityMod
 		desc += PropDesc(m_reactEnemyHitEffectMod, "[ReactEnemyHitEffect]", isValid, isValid ? martyrAoeOnReactHit.m_reactEnemyHitEffect : null);
 		desc += PropDesc(m_reactHealOnTargetMod, "[ReactHealOnTarget]", isValid, isValid ? martyrAoeOnReactHit.m_reactHealOnTarget : 0);
 		desc += PropDesc(m_reactEnergyOnCasterPerReactMod, "[ReactEnergyOnCasterPerReact]", isValid, isValid ? martyrAoeOnReactHit.m_reactEnergyOnCasterPerReact : 0);
-		return desc + PropDesc(m_cdrIfNoReactionTriggeredMod, "[CdrIfNoReactionTriggered]", isValid, isValid ? martyrAoeOnReactHit.m_cdrIfNoReactionTriggered : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfNoReactionTriggeredMod, "[CdrIfNoReactionTriggered]", isValid, isValid ? martyrAoeOnReactHit.m_cdrIfNoReactionTriggered : 0)).ToString();
 	}
 }

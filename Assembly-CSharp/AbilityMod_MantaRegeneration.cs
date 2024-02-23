@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_MantaRegeneration : AbilityMod
@@ -45,6 +46,6 @@ public class AbilityMod_MantaRegeneration : AbilityMod
 		desc += PropDesc(m_techPointGainPerIncomingHit, "[EnergyPerHit]", isValid, isValid ? mantaRegeneration.m_techPointGainPerIncomingHit : 0);
 		desc += PropDesc(m_healEffectDataMod, "[HealEffectData]", isValid, isValid ? mantaRegeneration.m_healEffectData : null);
 		desc += PropDesc(m_otherSelfEffectMod, "[OtherSelfEffect]", isValid, isValid ? mantaRegeneration.m_otherSelfEffect : null);
-		return desc + m_cooldownReductionsWhenNoHits.GetDescription(abilityData);
+		return new StringBuilder().Append(desc).Append(m_cooldownReductionsWhenNoHits.GetDescription(abilityData)).ToString();
 	}
 }

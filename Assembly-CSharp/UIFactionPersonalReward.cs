@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,7 +34,7 @@ public class UIFactionPersonalReward : MonoBehaviour
 			text = RewardUtils.GetTypeDisplayString(rewardType, factionCurrencyReward.CurrencyReward.Amount > 1);
 			if (factionCurrencyReward.CurrencyReward.Amount > 1)
 			{
-				text = text + " x" + factionCurrencyReward.CurrencyReward.Amount;
+				text = new StringBuilder().Append(text).Append(" x").Append(factionCurrencyReward.CurrencyReward.Amount).ToString();
 			}
 		}
 		FactionUnlockReward factionUnlockReward = reward as FactionUnlockReward;

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -20,8 +21,16 @@ public class PlayerDetails
 	public int m_idleTurns;
 
 	public bool ReplacedWithBots { get; private set; }
-	public bool IsAIControlled => IsNPCBot || IsLoadTestBot || ReplacedWithBots;
-	public bool IsHumanControlled => !IsAIControlled;
+	public bool IsAIControlled
+	{
+		get { return IsNPCBot || IsLoadTestBot || ReplacedWithBots; }
+	}
+
+	public bool IsHumanControlled
+	{
+		get { return !IsAIControlled; }
+	}
+
 	public bool IsNPCBot
 	{
 		get
@@ -52,7 +61,11 @@ public class PlayerDetails
 		}
 	}
 
-	public bool IsSpectator => m_team == Team.Spectator;
+	public bool IsSpectator
+	{
+		get { return m_team == Team.Spectator; }
+	}
+
 	public bool IsConnected
 	{
 		get
@@ -129,6 +142,6 @@ public class PlayerDetails
 
 	public override string ToString()
 	{
-		return $"{m_handle}[{m_accountId}] team={m_team} disconnected={m_disconnected} replacedWithBots={ReplacedWithBots}";
+		return new StringBuilder().Append(m_handle).Append("[").Append(m_accountId).Append("] team=").Append(m_team).Append(" disconnected=").Append(m_disconnected).Append(" replacedWithBots=").Append(ReplacedWithBots).ToString();
 	}
 }

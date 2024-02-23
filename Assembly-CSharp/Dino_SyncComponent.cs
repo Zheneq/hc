@@ -21,23 +21,23 @@ public class Dino_SyncComponent : NetworkBehaviour
 
 	public int Networkm_dashOrShieldLastCastTurn
 	{
-		get => m_dashOrShieldLastCastTurn;
+		get { return m_dashOrShieldLastCastTurn; }
 		[param: In]
-		set => SetSyncVar(value, ref m_dashOrShieldLastCastTurn, 1u);
+		set { SetSyncVar(value, ref m_dashOrShieldLastCastTurn, 1u); }
 	}
 
 	public bool Networkm_dashOrShieldInReadyStance
 	{
-		get => m_dashOrShieldInReadyStance;
+		get { return m_dashOrShieldInReadyStance; }
 		[param: In]
-		set => SetSyncVar(value, ref m_dashOrShieldInReadyStance, 2u);
+		set { SetSyncVar(value, ref m_dashOrShieldInReadyStance, 2u); }
 	}
 
 	public short Networkm_layerConePowerLevel
 	{
-		get => m_layerConePowerLevel;
+		get { return m_layerConePowerLevel; }
 		[param: In]
-		set => SetSyncVar(value, ref m_layerConePowerLevel, 4u);
+		set { SetSyncVar(value, ref m_layerConePowerLevel, 4u); }
 	}
 
 	static Dino_SyncComponent()

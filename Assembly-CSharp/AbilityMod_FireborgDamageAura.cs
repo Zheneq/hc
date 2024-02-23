@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 {
@@ -70,7 +71,8 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			{
 				baseVal = 0;
 			}
-			text = str + PropDesc(excludeTargetedActorMod, "[ExcludeTargetedActor]", flag, (byte)baseVal != 0);
+
+			text = new StringBuilder().Append(str).Append(PropDesc(excludeTargetedActorMod, "[ExcludeTargetedActor]", flag, (byte)baseVal != 0)).ToString();
 			string str2 = text;
 			AbilityModPropertyInt auraDurationMod = m_auraDurationMod;
 			int baseVal2;
@@ -82,7 +84,8 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			{
 				baseVal2 = 0;
 			}
-			text = str2 + PropDesc(auraDurationMod, "[AuraDuration]", flag, baseVal2);
+
+			text = new StringBuilder().Append(str2).Append(PropDesc(auraDurationMod, "[AuraDuration]", flag, baseVal2)).ToString();
 			string str3 = text;
 			AbilityModPropertyInt auraDurationIfSuperheatedMod = m_auraDurationIfSuperheatedMod;
 			int baseVal3;
@@ -94,7 +97,8 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			{
 				baseVal3 = 0;
 			}
-			text = str3 + PropDesc(auraDurationIfSuperheatedMod, "[AuraDurationIfSuperheated]", flag, baseVal3);
+
+			text = new StringBuilder().Append(str3).Append(PropDesc(auraDurationIfSuperheatedMod, "[AuraDurationIfSuperheated]", flag, baseVal3)).ToString();
 			string str4 = text;
 			AbilityModPropertyBool igniteIfNormalMod = m_igniteIfNormalMod;
 			int baseVal4;
@@ -106,7 +110,8 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			{
 				baseVal4 = 0;
 			}
-			text = str4 + PropDesc(igniteIfNormalMod, "[IgniteIfNormal]", flag, (byte)baseVal4 != 0);
+
+			text = new StringBuilder().Append(str4).Append(PropDesc(igniteIfNormalMod, "[IgniteIfNormal]", flag, (byte)baseVal4 != 0)).ToString();
 			string str5 = text;
 			AbilityModPropertyBool igniteIfSuperheatedMod = m_igniteIfSuperheatedMod;
 			int baseVal5;
@@ -118,7 +123,8 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			{
 				baseVal5 = 0;
 			}
-			text = str5 + PropDesc(igniteIfSuperheatedMod, "[IgniteIfSuperheated]", flag, (byte)baseVal5 != 0);
+
+			text = new StringBuilder().Append(str5).Append(PropDesc(igniteIfSuperheatedMod, "[IgniteIfSuperheated]", flag, (byte)baseVal5 != 0)).ToString();
 			string str6 = text;
 			AbilityModPropertyEffectInfo onCastTargetAllyEffectMod = m_onCastTargetAllyEffectMod;
 			object baseVal6;
@@ -130,7 +136,8 @@ public class AbilityMod_FireborgDamageAura : GenericAbility_AbilityMod
 			{
 				baseVal6 = null;
 			}
-			text = str6 + PropDesc(onCastTargetAllyEffectMod, "[OnCastTargetAllyEffect]", flag, (StandardEffectInfo)baseVal6);
+
+			text = new StringBuilder().Append(str6).Append(PropDesc(onCastTargetAllyEffectMod, "[OnCastTargetAllyEffect]", flag, (StandardEffectInfo)baseVal6)).ToString();
 			text += PropDesc(m_cdrOnUltCastMod, "[CdrOnUltCast]", flag, flag ? fireborgDamageAura.m_cdrOnUltCast : 0);
 		}
 		return text;

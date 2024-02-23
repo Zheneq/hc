@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public class AppState_GameTypeSelect : AppState
@@ -330,7 +331,7 @@ public class AppState_GameTypeSelect : AppState
 					}
 					else
 					{
-						description = $"{response.ErrorMessage}#NeedsLocalization";
+						description = new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString();
 					}
 					UIDialogPopupManager.OpenOneButtonDialog(string.Empty, description, StringUtil.TR("Ok", "Global"));
 				}
@@ -429,7 +430,7 @@ public class AppState_GameTypeSelect : AppState
 				}
 				else if (gameType != GameType.Tutorial)
 				{
-					description = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : $"{response.ErrorMessage}#NeedsLocalization");
+					description = (response.ErrorMessage.IsNullOrEmpty() ? StringUtil.TR("UnknownErrorTryAgain", "Frontend") : new StringBuilder().Append(response.ErrorMessage).Append("#NeedsLocalization").ToString());
 				}
 				else
 				{

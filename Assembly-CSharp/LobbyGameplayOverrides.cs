@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -588,7 +589,7 @@ public class LobbyGameplayOverrides
 				{
 					arg = "disabled";
 				}
-				list.Add($"Cards have been {arg}");
+				list.Add(new StringBuilder().Append("Cards have been ").Append(arg).ToString());
 			}
 			if (other.EnableMods != EnableMods)
 			{
@@ -601,7 +602,7 @@ public class LobbyGameplayOverrides
 				{
 					arg2 = "disabled";
 				}
-				list.Add($"Mods have been {arg2}");
+				list.Add(new StringBuilder().Append("Mods have been ").Append(arg2).ToString());
 			}
 			if (other.EnableTaunts != EnableTaunts)
 			{
@@ -614,7 +615,7 @@ public class LobbyGameplayOverrides
 				{
 					arg3 = "disabled";
 				}
-				list.Add($"Taunts have been {arg3}");
+				list.Add(new StringBuilder().Append("Taunts have been ").Append(arg3).ToString());
 			}
 			if (other.EnableAllMods != EnableAllMods)
 			{
@@ -627,7 +628,7 @@ public class LobbyGameplayOverrides
 				{
 					arg4 = "disabled";
 				}
-				list.Add($"All mods mode has been {arg4}");
+				list.Add(new StringBuilder().Append("All mods mode has been ").Append(arg4).ToString());
 			}
 			if (other.EnableShop != EnableShop)
 			{
@@ -640,7 +641,7 @@ public class LobbyGameplayOverrides
 				{
 					arg5 = "disabled";
 				}
-				list.Add($"Shop has been {arg5}");
+				list.Add(new StringBuilder().Append("Shop has been ").Append(arg5).ToString());
 			}
 			if (other.EnableSeasons != EnableSeasons)
 			{
@@ -653,7 +654,7 @@ public class LobbyGameplayOverrides
 				{
 					arg6 = "disabled";
 				}
-				list.Add($"Seasons has been {arg6}");
+				list.Add(new StringBuilder().Append("Seasons has been ").Append(arg6).ToString());
 			}
 			if (other.EnableQuests != EnableQuests)
 			{
@@ -661,27 +662,27 @@ public class LobbyGameplayOverrides
 			}
 			if (other.EventFreePlayerXPBonusPercent != EventFreePlayerXPBonusPercent)
 			{
-				list.Add($"XP Bonus (Free Player) is now {other.EventFreePlayerXPBonusPercent} %");
+				list.Add(new StringBuilder().Append("XP Bonus (Free Player) is now ").Append(other.EventFreePlayerXPBonusPercent).Append(" %").ToString());
 			}
 			if (other.EventPaidPlayerXPBonusPercent != EventPaidPlayerXPBonusPercent)
 			{
-				list.Add($"XP Bonus (Paid Player) is now {other.EventPaidPlayerXPBonusPercent} %");
+				list.Add(new StringBuilder().Append("XP Bonus (Paid Player) is now ").Append(other.EventPaidPlayerXPBonusPercent).Append(" %").ToString());
 			}
 			if (other.EventISOBonusPercent != EventISOBonusPercent)
 			{
-				list.Add($"ISO Bonus is now {other.EventISOBonusPercent} %");
+				list.Add(new StringBuilder().Append("ISO Bonus is now ").Append(other.EventISOBonusPercent).Append(" %").ToString());
 			}
 			if (other.EventGGBoostBonusPercent != EventGGBoostBonusPercent)
 			{
-				list.Add($"GG Boost Bonus is now {other.EventGGBoostBonusPercent} %");
+				list.Add(new StringBuilder().Append("GG Boost Bonus is now ").Append(other.EventGGBoostBonusPercent).Append(" %").ToString());
 			}
 			if (other.EventTrustInfluenceBonusPercent != EventTrustInfluenceBonusPercent)
 			{
-				list.Add($"Trust Influence Bonus is now {other.EventTrustInfluenceBonusPercent} %");
+				list.Add(new StringBuilder().Append("Trust Influence Bonus is now ").Append(other.EventTrustInfluenceBonusPercent).Append(" %").ToString());
 			}
 			if (other.EventFreelancerCurrencyPerMatchBonusPercent != EventFreelancerCurrencyPerMatchBonusPercent)
 			{
-				list.Add($"Freelancer Currency Bonus is now {other.EventFreelancerCurrencyPerMatchBonusPercent} %");
+				list.Add(new StringBuilder().Append("Freelancer Currency Bonus is now ").Append(other.EventFreelancerCurrencyPerMatchBonusPercent).Append(" %").ToString());
 			}
 			foreach (GameType item in other.DisabledGameTypes.Union(DisabledGameTypes).Distinct())
 			{
@@ -738,7 +739,7 @@ public class LobbyGameplayOverrides
 						{
 							arg7 = "Removing admin lock from";
 						}
-						list.Add($"{arg7} map {current2}");
+						list.Add(new StringBuilder().Append(arg7).Append(" map ").Append(current2).ToString());
 					}
 				}
 			}
@@ -790,7 +791,7 @@ public class LobbyGameplayOverrides
 						{
 							arg10 = "not allowed";
 						}
-						list.Add($"Overriding character {arg8} to be {arg9} for players and {arg10} for bots");
+						list.Add(new StringBuilder().Append("Overriding character ").Append(arg8).Append(" to be ").Append(arg9).Append(" for players and ").Append(arg10).Append(" for bots").ToString());
 					}
 					else
 					{
@@ -813,7 +814,7 @@ public class LobbyGameplayOverrides
 						{
 							arg13 = "not allowed";
 						}
-						list.Add($"Adding overriding character {arg11} to be {arg12} for players and {arg13} for bots");
+						list.Add(new StringBuilder().Append("Adding overriding character ").Append(arg11).Append(" to be ").Append(arg12).Append(" for players and ").Append(arg13).Append(" for bots").ToString());
 					}
 					goto IL_065c;
 					IL_065c:
@@ -868,7 +869,7 @@ public class LobbyGameplayOverrides
 					CharacterConfig current4 = enumerator5.Current;
 					if (!other.CharacterConfigOverrides.ContainsKey(current4.CharacterType))
 					{
-						list.Add($"Removing overrides for character {current4.CharacterType.ToString()}");
+						list.Add(new StringBuilder().Append("Removing overrides for character ").Append(current4.CharacterType.ToString()).ToString());
 					}
 				}
 			}
@@ -895,7 +896,7 @@ public class LobbyGameplayOverrides
 					{
 						arg15 = "not allowed";
 					}
-					list.Add($"Overriding catalyst {arg14} to be {arg15}");
+					list.Add(new StringBuilder().Append("Overriding catalyst ").Append(arg14).Append(" to be ").Append(arg15).ToString());
 				}
 			}
 			using (Dictionary<CardType, CardConfigOverride>.ValueCollection.Enumerator enumerator7 = CardConfigOverrides.Values.GetEnumerator())
@@ -905,7 +906,7 @@ public class LobbyGameplayOverrides
 					CardConfigOverride current6 = enumerator7.Current;
 					if (!other.CardConfigOverrides.ContainsKey(current6.CardType))
 					{
-						list.Add($"Removing overrides for catalyst {current6.CardType.ToString()}");
+						list.Add(new StringBuilder().Append("Removing overrides for catalyst ").Append(current6.CardType.ToString()).ToString());
 					}
 				}
 			}
@@ -1035,7 +1036,7 @@ public class LobbyGameplayOverrides
 						CharacterAbilityConfigOverride characterAbilityConfigOverride2 = other.CharacterAbilityConfigOverrides.TryGetValue(current10.CharacterType);
 						if (characterAbilityConfigOverride2 == null)
 						{
-							list.Add($"Removing all mod and taunt overrides for {current10.CharacterType}");
+							list.Add(new StringBuilder().Append("Removing all mod and taunt overrides for ").Append(current10.CharacterType).ToString());
 						}
 						else
 						{
@@ -1060,7 +1061,7 @@ public class LobbyGameplayOverrides
 												if (abilityConfigOverride4.AbilityModConfigs.TryGetValue(current11.AbilityModIndex) == null)
 												{
 													LobbyAbilityModGameplayData abilityModData2 = abilityData2.GetAbilityModData(current11.AbilityModIndex);
-													list.Add($"Removing override for {characterAbilityConfigOverride2.CharacterType.ToString()} ability '{abilityData2.Name}' mod '{abilityModData2.Name}'");
+													list.Add(new StringBuilder().Append("Removing override for ").Append(characterAbilityConfigOverride2.CharacterType.ToString()).Append(" ability '").Append(abilityData2.Name).Append("' mod '").Append(abilityModData2.Name).Append("'").ToString());
 												}
 											}
 										}
@@ -1075,7 +1076,7 @@ public class LobbyGameplayOverrides
 												if (abilityConfigOverride4.AbilityTauntConfigs.TryGetValue(current12.AbilityTauntIndex) == null)
 												{
 													LobbyAbilityTauntData abilityTauntData2 = abilityData2.GetAbilityTauntData(current12.AbilityTauntID);
-													list.Add($"Removing override for {characterAbilityConfigOverride2.CharacterType.ToString()} ability '{abilityData2.Name}' taunt '{abilityTauntData2.Name}'");
+													list.Add(new StringBuilder().Append("Removing override for ").Append(characterAbilityConfigOverride2.CharacterType.ToString()).Append(" ability '").Append(abilityData2.Name).Append("' taunt '").Append(abilityTauntData2.Name).Append("'").ToString());
 												}
 											}
 										}
@@ -1118,7 +1119,7 @@ public class LobbyGameplayOverrides
 										continue;
 									}
 								}
-								list.Add($"Overriding faction(competitionId={otherFactionTierConfigOverride.CompetitionId} factionId={otherFactionTierConfigOverride.FactionId} tierId={otherFactionTierConfigOverride.TierId}) ContributionToComplete to be {otherFactionTierConfigOverride.ContributionToComplete}");
+								list.Add(new StringBuilder().Append("Overriding faction(competitionId=").Append(otherFactionTierConfigOverride.CompetitionId).Append(" factionId=").Append(otherFactionTierConfigOverride.FactionId).Append(" tierId=").Append(otherFactionTierConfigOverride.TierId).Append(") ContributionToComplete to be ").Append(otherFactionTierConfigOverride.ContributionToComplete).ToString());
 							}
 						}
 					}
@@ -1139,7 +1140,7 @@ public class LobbyGameplayOverrides
 		catch (Exception ex)
 		{
 			Log.Exception(ex);
-			list.Add($"LobbyGameplayOverrides.GetDifferences failed: {ex.Message}");
+			list.Add(new StringBuilder().Append("LobbyGameplayOverrides.GetDifferences failed: ").Append(ex.Message).ToString());
 			return list;
 		}
 	}

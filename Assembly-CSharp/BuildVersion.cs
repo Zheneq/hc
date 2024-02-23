@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 public static class BuildVersion
 {
@@ -12,21 +13,45 @@ public static class BuildVersion
 
 	private const string s_changelistNumber = "265834";
 
-	public static int ReleaseNumber => 122;
+	public static int ReleaseNumber
+	{
+		get { return 122; }
+	}
 
-	public static int BuildNumber => 100;
+	public static int BuildNumber
+	{
+		get { return 100; }
+	}
 
-	public static string BuildLetter => "k".ToUpper();
+	public static string BuildLetter
+	{
+		get { return "k".ToUpper(); }
+	}
 
-	public static string BranchName => BuildBranch.BranchName;
+	public static string BranchName
+	{
+		get { return BuildBranch.BranchName; }
+	}
 
-	public static string ChangelistNumber => "265834";
+	public static string ChangelistNumber
+	{
+		get { return "265834"; }
+	}
 
-	public static string MiniVersionString => $"{BranchName}-{ReleaseNumber}";
+	public static string MiniVersionString
+	{
+		get { return new StringBuilder().Append(BranchName).Append("-").Append(ReleaseNumber).ToString(); }
+	}
 
-	public static string ShortVersionString => $"{BranchName}-{ReleaseNumber}-{BuildNumber}";
+	public static string ShortVersionString
+	{
+		get { return new StringBuilder().Append(BranchName).Append("-").Append(ReleaseNumber).Append("-").Append(BuildNumber).ToString(); }
+	}
 
-	public static string FullVersionString => $"{BranchName}-{ReleaseNumber}-{BuildNumber}-{BuildLetter}-{ChangelistNumber}";
+	public static string FullVersionString
+	{
+		get { return new StringBuilder().Append(BranchName).Append("-").Append(ReleaseNumber).Append("-").Append(BuildNumber).Append("-").Append(BuildLetter).Append("-").Append(ChangelistNumber).ToString(); }
+	}
 
 	public static string GetBuildDescriptionString(DateTime buildDate = default(DateTime), string buildHostName = null)
 	{
@@ -37,24 +62,24 @@ public static class BuildVersion
 			string arg;
 			if (timeSpan.TotalHours < 1.0)
 			{
-				arg = $"{timeSpan.TotalMinutes:0} minutes ago";
+				arg = new StringBuilder().AppendFormat("{0:0}", timeSpan.TotalMinutes).Append(" minutes ago").ToString();
 			}
 			else if (timeSpan.TotalDays < 1.0)
 			{
-				arg = $"{timeSpan.TotalHours:0} hours ago";
+				arg = new StringBuilder().AppendFormat("{0:0}", timeSpan.TotalHours).Append(" hours ago").ToString();
 			}
 			else
 			{
-				arg = $"{timeSpan.TotalDays:0} days ago";
+				arg = new StringBuilder().AppendFormat("{0:0}", timeSpan.TotalDays).Append(" days ago").ToString();
 			}
 			string arg2 = ((DateTimeOffset)buildDate).ToLocalTime().ToString();
-			text += $", built {arg} at {arg2}";
+			text += new StringBuilder().Append(", built ").Append(arg).Append(" at ").Append(arg2).ToString();
 		}
 		if (!buildHostName.IsNullOrEmpty())
 		{
 			if (buildHostName != "unknown")
 			{
-				text += $" on {buildHostName}";
+				text += new StringBuilder().Append(" on ").Append(buildHostName).ToString();
 			}
 		}
 		return text;

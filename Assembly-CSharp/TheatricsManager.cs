@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Theatrics;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -32,8 +33,15 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal const string c_actorAnimDebugHeader = "<color=cyan>Theatrics: </color>";
 
-	internal static bool DebugTraceExecution => false;
-	internal static bool TraceTheatricsSerialization => false;
+	internal static bool DebugTraceExecution
+	{
+		get { return false; }
+	}
+
+	internal static bool TraceTheatricsSerialization
+	{
+		get { return false; }
+	}
 
 	internal static TheatricsManager Get()
 	{
@@ -468,10 +476,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal string GetTheatricsStateString()
 	{
-		string result = "[Theatrics state] Phase to update: " + m_phaseToUpdate.ToString() +
-			", time in phase: " + (Time.time - m_phaseStartTime) +
-			", lastPhaseEnded: " + m_lastPhaseEnded +
-			"\nNum of phases so far: " + m_turn.m_abilityPhases.Count + "\n";
+		string result = new StringBuilder().Append("[Theatrics state] Phase to update: ").Append(m_phaseToUpdate.ToString()).Append(", time in phase: ").Append(Time.time - m_phaseStartTime).Append(", lastPhaseEnded: ").Append(m_lastPhaseEnded).Append("\nNum of phases so far: ").Append(m_turn.m_abilityPhases.Count).Append("\n").ToString();
 		List<ActorData> actorsNotDone = new List<ActorData>();
 		for (int num = 0; num < m_turn.m_abilityPhases.Count; num++)
 		{
@@ -482,7 +487,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				ActorAnimation actorAnimation = phase.m_actorAnimations[i];
 				if (actorAnimation.PlayState != ActorAnimation.PlaybackState.ReleasedFocus)
 				{
-					lineActorAnimsNotDone += "\t" + actorAnimation.ToString() + "\n";
+					lineActorAnimsNotDone += new StringBuilder().Append("\t").Append(actorAnimation.ToString()).Append("\n").ToString();
 					if (!actorsNotDone.Contains(actorAnimation.Caster))
 					{
 						actorsNotDone.Add(actorAnimation.Caster);
@@ -491,7 +496,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 			}
 			if (lineActorAnimsNotDone.Length > 0)
 			{
-				result += "Phase " + phase.Index.ToString() + ", ActorAnims not done:\n" + lineActorAnimsNotDone;
+				result += new StringBuilder().Append("Phase ").Append(phase.Index.ToString()).Append(", ActorAnims not done:\n").Append(lineActorAnimsNotDone).ToString();
 			}
 		}
 		foreach (ActorData actor in actorsNotDone)
@@ -502,10 +507,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 				Animator modelAnimator = actor.GetModelAnimator();
 				if (actorModelData != null && modelAnimator != null)
 				{
-					result += actor.DebugNameString() +
-						" InIdle=" + actorModelData.IsPlayingIdleAnim() +
-						", DamageAnim=" + actorModelData.IsPlayingDamageAnim() +
-						", AttackParam=" + modelAnimator.GetInteger("Attack") + "\n";
+					result += new StringBuilder().Append(actor.DebugNameString()).Append(" InIdle=").Append(actorModelData.IsPlayingIdleAnim()).Append(", DamageAnim=").Append(actorModelData.IsPlayingDamageAnim()).Append(", AttackParam=").Append(modelAnimator.GetInteger("Attack")).Append("\n").ToString();
 				}
 			}
 		}
@@ -514,7 +516,7 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
 
 	internal static void LogForDebugging(string str)
 	{
-		Debug.LogWarning("<color=cyan>Theatrics: </color>" + str + "\n@time= " + Time.time);
+		Debug.LogWarning(new StringBuilder().Append("<color=cyan>Theatrics: </color>").Append(str).Append("\n@time= ").Append(Time.time).ToString());
 	}
 
 	private void UNetVersion()

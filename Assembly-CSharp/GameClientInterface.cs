@@ -14,7 +14,10 @@ public class GameClientInterface : WebSocketInterface
 
 	protected WebSocketMessageDispatcher<GameClientInterface> m_messageDispatcher;
 
-	public bool IsConnected => base.State == WebSocket.SocketState.Open;
+	public bool IsConnected
+	{
+		get { return base.State == WebSocket.SocketState.Open; }
+	}
 
 	private Action OnConnectedHolder;
 	public event Action OnConnected

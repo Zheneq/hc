@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ExoTetherTrap : AbilityMod
@@ -58,6 +59,6 @@ public class AbilityMod_ExoTetherTrap : AbilityMod
 		desc += PropDesc(m_breakTetherOnNonGroundBasedMovementMod, "[BreakTetherOnNonGroundBasedMovement]", isValid, isValid && exoTetherTrap.m_breakTetherOnNonGroundBasedMovement);
 		desc += PropDesc(m_extraDamagePerMoveDistMod, "[ExtraDamagePerMoveDist]", isValid, isValid ? exoTetherTrap.m_extraDamagePerMoveDist : 0f);
 		desc += PropDesc(m_maxExtraDamageFromMoveDistMod, "[MaxExtraDamageFromMoveDist]", isValid, isValid ? exoTetherTrap.m_maxExtraDamageFromMoveDist : 0);
-		return desc + PropDesc(m_cdrOnTetherEndIfNotTriggeredMod, "[CdrOnTetherEndIfNotTriggered]", isValid, isValid ? exoTetherTrap.m_cdrOnTetherEndIfNotTriggered : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrOnTetherEndIfNotTriggeredMod, "[CdrOnTetherEndIfNotTriggered]", isValid, isValid ? exoTetherTrap.m_cdrOnTetherEndIfNotTriggered : 0)).ToString();
 	}
 }

@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <LangVersion>7</LangVersion>
+    <LangVersion>4</LangVersion>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <WarningLevel>4</WarningLevel>
@@ -2807,12 +2807,21 @@
     <Compile Include="_TopPhaseIndicator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Accessibility">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Accessibility.dll</HintPath>
+    </Reference>
+    <Reference Include="ArabicSupport">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\ArabicSupport.dll</HintPath>
+    </Reference>
     <Reference Include="ArabicSupport, Version=1.0.5079.40370, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dependencies\ArabicSupport.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
       <HintPath>..\dependencies\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-UnityScript">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Assembly-UnityScript.dll</HintPath>
     </Reference>
     <Reference Include="C5">
       <HintPath>..\dependencies\C5.dll</HintPath>
@@ -2823,27 +2832,99 @@
     <Reference Include="Fabric.Core">
       <HintPath>..\dependencies\Fabric.Core.dll</HintPath>
     </Reference>
+    <Reference Include="I18N">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\I18N.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.CJK">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\I18N.CJK.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.MidEast">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\I18N.MidEast.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.Other">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\I18N.Other.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.Rare">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\I18N.Rare.dll</HintPath>
+    </Reference>
+    <Reference Include="I18N.West">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\I18N.West.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=2.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dependencies\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Data.Tds">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Mono.Data.Tds.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Mono.Posix.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Mono.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.WebBrowser">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Mono.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\mscorlib.dll</HintPath>
+    </Reference>
     <Reference Include="NetSerializer">
       <HintPath>..\dependencies\NetSerializer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\dependencies\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NPOI">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core">
       <HintPath>..\dependencies\System.Core.dll</HintPath>
     </Reference>
+    <Reference Include="System.Data">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.EnterpriseServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Runtime.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Transactions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Windows.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\System.Xml.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\dependencies\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>..\dependencies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PerformanceTesting">
+      <HintPath>D:\Games\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\UnityEngine.PerformanceTesting.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\dependencies\UnityEngine.UI.dll</HintPath>

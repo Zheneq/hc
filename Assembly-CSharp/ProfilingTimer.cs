@@ -62,9 +62,15 @@ public class ProfilingTimer
 		private set;
 	}
 
-	public double RecentLoad => (double)RecentElapsedTicks / (double)ProfilingTimers.Get().RecentElapsedTicks * 100.0;
+	public double RecentLoad
+	{
+		get { return (double)RecentElapsedTicks / (double)ProfilingTimers.Get().RecentElapsedTicks * 100.0; }
+	}
 
-	public double RecentBytesRate => (double)RecentBytes * (double)ProfilingTimers.Get().Frequency / (double)ProfilingTimers.Get().RecentElapsedTicks;
+	public double RecentBytesRate
+	{
+		get { return (double)RecentBytes * (double)ProfilingTimers.Get().Frequency / (double)ProfilingTimers.Get().RecentElapsedTicks; }
+	}
 
 	public DateTime LastWarning
 	{

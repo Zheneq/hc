@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public static class JsonUtil
 {
@@ -134,7 +135,7 @@ public static class JsonUtil
 											}
 											catch (Exception arg)
 											{
-												throw new Exception($"{prop.Name} {prop.Value} | {arg}");
+												throw new Exception(new StringBuilder().Append(prop.Name).Append(" ").Append(prop.Value).Append(" | ").Append(arg).ToString());
 											}
 											return;
 										}
@@ -172,11 +173,11 @@ public static class JsonUtil
 				string item;
 				if (jProperty != null)
 				{
-					item = $"(UPDATED) {p2.ToString()} -> {jProperty.ToString()}";
+					item = new StringBuilder().Append("(UPDATED) ").Append(p2.ToString()).Append(" -> ").Append(jProperty.ToString()).ToString();
 				}
 				else
 				{
-					item = $"(DELETED) {p2.ToString()}";
+					item = new StringBuilder().Append("(DELETED) ").Append(p2.ToString()).ToString();
 				}
 				list.Add(item);
 			}
@@ -186,7 +187,7 @@ public static class JsonUtil
 			while (enumerator2.MoveNext())
 			{
 				JProperty current = enumerator2.Current;
-				string item2 = $"(ADDED) {current.ToString()}";
+				string item2 = new StringBuilder().Append("(ADDED) ").Append(current.ToString()).ToString();
 				list.Add(item2);
 			}
 			while (true)

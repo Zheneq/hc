@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 [Serializable]
 public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSupplier
@@ -218,7 +219,7 @@ public class PlayerGameSummary : StatDisplaySettings.IPersistatedStatValueSuppli
 
 	public string ToPlayerInfoString()
 	{
-		return $"- - - - - - - - - -\n[User Name] {InGameName}\n[Account Id] {AccountId}\n[Character Played] {CharacterPlayed}\n[Skin] {CharacterSkinIndex}\n[Team] {Team}\n";
+		return new StringBuilder().Append("- - - - - - - - - -\n[User Name] ").Append(InGameName).Append("\n[Account Id] ").Append(AccountId).Append("\n[Character Played] ").Append(CharacterPlayed).Append("\n[Skin] ").Append(CharacterSkinIndex).Append("\n[Team] ").Append(Team).Append("\n").ToString();
 	}
 
 	public float? GetTankingPerLife()

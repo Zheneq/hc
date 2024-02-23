@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SamuraiWindBlade : AbilityMod
@@ -60,6 +61,6 @@ public class AbilityMod_SamuraiWindBlade : AbilityMod
 		desc += PropDesc(m_damageChangePerTargetMod, "[DamageChangePerTarget]", isValid, isValid ? samuraiWindBlade.m_damageChangePerTarget : 0);
 		desc += PropDesc(m_laserHitEffectMod, "[LaserHitEffect]", isValid, isValid ? samuraiWindBlade.m_laserHitEffect : null);
 		desc += PropDesc(m_shieldingPerEnemyHitNextTurnMod, "[ShieldingPerEnemyHitNextTurn]", isValid, isValid ? samuraiWindBlade.m_shieldingPerEnemyHitNextTurn : 0);
-		return desc + PropDesc(m_shieldingDurationMod, "[ShieldingDuration]", isValid, isValid ? samuraiWindBlade.m_shieldingDuration : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_shieldingDurationMod, "[ShieldingDuration]", isValid, isValid ? samuraiWindBlade.m_shieldingDuration : 0)).ToString();
 	}
 }

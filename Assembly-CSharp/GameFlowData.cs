@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -440,12 +441,12 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		if (actorData.GetTeam() != Team.TeamA && m_ownedActorDatas.Count != 0)
 		{
 			m_ownedActorDatas.Add(actorData);
-			Log.Info($"GameFlowData.AddOwnedActorData {m_ownedActorDatas.Count} {actorData}");
+			Log.Info(new StringBuilder().Append("GameFlowData.AddOwnedActorData ").Append(m_ownedActorDatas.Count).Append(" ").Append(actorData).ToString());
 		}
 		else
 		{
 			m_ownedActorDatas.Insert(0, actorData);
-			Log.Info($"GameFlowData.AddOwnedActorData {0} {actorData}");
+			Log.Info(new StringBuilder().Append("GameFlowData.AddOwnedActorData ").Append(0).Append(" ").Append(actorData).ToString());
 		}
 		if (activeOwnedActorData == null)
 		{
@@ -786,7 +787,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	public void AddActor(ActorData actor)
 	{
-		Log.Info($"Registering actor {actor}");
+		Log.Info(new StringBuilder().Append("Registering actor ").Append(actor).ToString());
 		m_actors.Add(actor);
 		if (NetworkServer.active)
 		{
@@ -812,7 +813,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			&& GameManager.Get().GameConfig != null
 			&& GameManager.Get().GameConfig.GameType != GameType.Tutorial)
 		{
-			Log.Warning($"Failed to find actor index {actorIndex}");
+			Log.Warning(new StringBuilder().Append("Failed to find actor index ").Append(actorIndex).ToString());
 		}
 		return result;
 	}
@@ -827,7 +828,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				return component;
 			}
 		}
-		Log.Warning($"Failed to find player index {playerIndex}");
+		Log.Warning(new StringBuilder().Append("Failed to find player index ").Append(playerIndex).ToString());
 		return null;
 	}
 
@@ -940,7 +941,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		Networkm_gameState = value;
 		m_timeInState = 0f;
 		m_timeInStateUnscaled = 0f;
-		Log.Info($"Game state: {value}");
+		Log.Info(new StringBuilder().Append("Game state: ").Append(value).ToString());
 		switch (m_gameState)
 		{
 			case GameState.StartingGame:
@@ -993,7 +994,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		m_timeInDecision = 0f;
 		Networkm_currentTurn = m_currentTurn + 1;
 		NotifyOnTurnTick();
-		Log.Info($"Turn: {CurrentTurn}");
+		Log.Info(new StringBuilder().Append("Turn: ").Append(CurrentTurn).ToString());
 		if (Board.Get() != null)
 		{
 			Board.Get().MarkForUpdateValidSquares(true);
@@ -1067,7 +1068,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		}
 		if (ClientAbilityResults.DebugTraceOn)
 		{
-			Log.Warning("Turn Start: <color=magenta>" + Get().CurrentTurn + "</color>");
+			Log.Warning(new StringBuilder().Append("Turn Start: <color=magenta>").Append(Get().CurrentTurn).Append("</color>").ToString());
 		}
 		if (ControlpadGameplay.Get() != null)
 		{

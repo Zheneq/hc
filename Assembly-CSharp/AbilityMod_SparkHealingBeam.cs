@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SparkHealingBeam : AbilityMod
@@ -82,7 +83,7 @@ public class AbilityMod_SparkHealingBeam : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserInfoMod, "LaserInfo", isAbilityPresent, isAbilityPresent ? sparkHealingBeam.m_laserInfo : null);
 		if (m_xDamageThreshold > 0)
 		{
-			desc += "Applying Effect for taking X Damage, threshold = " + m_xDamageThreshold + "\n";
+			desc += new StringBuilder().Append("Applying Effect for taking X Damage, threshold = ").Append(m_xDamageThreshold).Append("\n").ToString();
 			desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetForTakingXDamage, "{ Effect on Target for Taking X Damage }", "", isAbilityPresent);
 		}
 		return desc;

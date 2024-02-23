@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using LobbyGameClientMessages;
 using Unity;
 using UnityEngine;
@@ -263,9 +264,15 @@ public class GameManager : MonoBehaviour
 
 	public LobbyTeamInfo TeamInfo { get; private set; }
 
-	public LobbyGameConfig GameConfig => GameInfo.GameConfig;
+	public LobbyGameConfig GameConfig
+	{
+		get { return GameInfo.GameConfig; }
+	}
 
-	public LobbyGameplayOverrides GameplayOverrides => m_gameplayOverridesForCurrentGame ?? m_gameplayOverrides;
+	public LobbyGameplayOverrides GameplayOverrides
+	{
+		get { return m_gameplayOverridesForCurrentGame ?? m_gameplayOverrides; }
+	}
 
 	public LobbyMatchmakingQueueInfo QueueInfo { get; private set; }
 
@@ -279,7 +286,10 @@ public class GameManager : MonoBehaviour
 
 	public bool EnableHiddenGameItems { get; set; }
 
-	public GameStatus GameStatus => m_gameStatus;
+	public GameStatus GameStatus
+	{
+		get { return m_gameStatus; }
+	}
 
 	public float GameStatusTime { get; private set; }
 	
@@ -563,7 +573,7 @@ public class GameManager : MonoBehaviour
 			case FreelancerDuplicationRuleTypes.alwaysDupAcrossGame:
 				return false;
 			default:
-				throw new Exception($"Unhandled FreelancerDuplicationRuleTypes {freelancerDuplicationRuleTypes}");
+				throw new Exception(new StringBuilder().Append("Unhandled FreelancerDuplicationRuleTypes ").Append(freelancerDuplicationRuleTypes).ToString());
 		}
 	}
 }

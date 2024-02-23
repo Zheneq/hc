@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -35,11 +36,20 @@ public class _SelectableBtn : MonoBehaviour
 
 	private bool m_isDisabled;
 
-	public bool IsHover => m_isHover;
+	public bool IsHover
+	{
+		get { return m_isHover; }
+	}
 
-	public bool IsPressed => m_isPressed;
+	public bool IsPressed
+	{
+		get { return m_isPressed; }
+	}
 
-	public bool IsDisabled => m_isDisabled;
+	public bool IsDisabled
+	{
+		get { return m_isDisabled; }
+	}
 
 	private GameObject CreateNewContainer(string name)
 	{
@@ -400,7 +410,7 @@ public class _SelectableBtn : MonoBehaviour
 					}
 				}
 			}
-			string name = m_animPrefix + stateName;
+			string name = new StringBuilder().Append(m_animPrefix).Append(stateName).ToString();
 			int num = Animator.StringToHash(name);
 			bool flag = false;
 			if (layer < 0)

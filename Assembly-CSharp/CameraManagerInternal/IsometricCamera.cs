@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine;
 
 namespace CameraManagerInternal
@@ -88,7 +89,10 @@ namespace CameraManagerInternal
 
 		private bool m_targetWithBoardSquareWasNeverSet = true;
 
-		internal Vector3 TargetPosition => m_targetPosition;
+		internal Vector3 TargetPosition
+		{
+			get { return m_targetPosition; }
+		}
 
 		private void Awake()
 		{
@@ -99,7 +103,7 @@ namespace CameraManagerInternal
 					return;
 				}
 			}
-			Log.Warning("Please remove misconfigured IsometricCamera component from " + base.gameObject);
+			Log.Warning(new StringBuilder().Append("Please remove misconfigured IsometricCamera component from ").Append(base.gameObject).ToString());
 			base.enabled = false;
 		}
 
@@ -193,7 +197,7 @@ namespace CameraManagerInternal
 					{
 						str = "NULL";
 					}
-					CameraManager.LogForDebugging("SetTargetObject to " + (string)str, CameraManager.CameraLogType.Isometric);
+					CameraManager.LogForDebugging(new StringBuilder().Append("SetTargetObject to ").Append((string)str).ToString(), CameraManager.CameraLogType.Isometric);
 				}
 			}
 			object obj;
@@ -539,13 +543,13 @@ namespace CameraManagerInternal
 							stringToDisplay = debugCategoryInfo.m_stringToDisplay;
 							debugCategoryInfo.m_stringToDisplay = string.Concat(stringToDisplay, "\tEased Position: ", m_targetPosition, "\n");
 							stringToDisplay = debugCategoryInfo.m_stringToDisplay;
-							debugCategoryInfo.m_stringToDisplay = stringToDisplay + "FOV: " + Camera.main.fieldOfView + "\n";
+							debugCategoryInfo.m_stringToDisplay = new StringBuilder().Append(stringToDisplay).Append("FOV: ").Append(Camera.main.fieldOfView).Append("\n").ToString();
 							stringToDisplay = debugCategoryInfo.m_stringToDisplay;
 							debugCategoryInfo.m_stringToDisplay = string.Concat(stringToDisplay, "Zoom: ", m_zoomParameter, "\n");
 							stringToDisplay = debugCategoryInfo.m_stringToDisplay;
 							debugCategoryInfo.m_stringToDisplay = string.Concat(stringToDisplay, "\tZoom Offset: ", vector2, "\n");
 							stringToDisplay = debugCategoryInfo.m_stringToDisplay;
-							debugCategoryInfo.m_stringToDisplay = stringToDisplay + "\tZoom Goal: " + m_zoomGoalValue + "\n";
+							debugCategoryInfo.m_stringToDisplay = new StringBuilder().Append(stringToDisplay).Append("\tZoom Goal: ").Append(m_zoomGoalValue).Append("\n").ToString();
 							return;
 						}
 					}

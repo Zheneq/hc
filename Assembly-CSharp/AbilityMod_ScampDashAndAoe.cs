@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 using UnityEngine;
 
@@ -56,6 +57,6 @@ public class AbilityMod_ScampDashAndAoe : GenericAbility_AbilityMod
 		desc += PropDesc(m_shieldDownCooldownMod, "[ShieldDownCooldown]", isValid, isValid ? scampDashAndAoe.m_shieldDownCooldown : 0);
 		desc += PropDesc(m_cdrOnSuitApplyMod, "[CdrOnSuitApply]", isValid, isValid ? scampDashAndAoe.m_cdrOnSuitApply : 0);
 		desc += PropDesc(m_shieldDownNoCooldownHealthThreshMod, "[ShieldDownNoCooldownHealthThresh]", isValid, isValid ? scampDashAndAoe.m_shieldDownNoCooldownHealthThresh : 0);
-		return desc + PropDesc(m_extraEnergyForDashOnOrbMod, "[ExtraEnergyForDashOnOrb]", isValid, isValid ? scampDashAndAoe.m_extraEnergyForDashOnOrb : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_extraEnergyForDashOnOrbMod, "[ExtraEnergyForDashOnOrb]", isValid, isValid ? scampDashAndAoe.m_extraEnergyForDashOnOrb : 0)).ToString();
 	}
 }

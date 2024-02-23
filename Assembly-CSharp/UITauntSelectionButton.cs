@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,7 +35,7 @@ public class UITauntSelectionButton : MonoBehaviour
 	public void SelectedTaunt(BaseEventData data)
 	{
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-		Debug.Log("Selected taunt " + m_tauntRef.m_name + " with ID " + m_tauntRef.m_uniqueTauntID + " to play TauntNumber #" + m_tauntRef.m_tauntNumber);
+		Debug.Log(new StringBuilder().Append("Selected taunt ").Append(m_tauntRef.m_name).Append(" with ID ").Append(m_tauntRef.m_uniqueTauntID).Append(" to play TauntNumber #").Append(m_tauntRef.m_tauntNumber).ToString());
 		if (activeOwnedActorData != null)
 		{
 			activeOwnedActorData.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(m_actionType, true, m_tauntRef.m_tauntNumber, m_tauntRef.m_uniqueTauntID);
@@ -59,7 +60,7 @@ public class UITauntSelectionButton : MonoBehaviour
 			}
 			while (true)
 			{
-				m_tauntName.text = $"{m_abilityEntry.ability.GetNameString()}: {activeOwnedActorData.GetCharacterResourceLink().GetTauntName(i)}";
+				m_tauntName.text = new StringBuilder().Append(m_abilityEntry.ability.GetNameString()).Append(": ").Append(activeOwnedActorData.GetCharacterResourceLink().GetTauntName(i)).ToString();
 				return;
 			}
 		}

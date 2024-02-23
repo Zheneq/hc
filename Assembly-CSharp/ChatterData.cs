@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -132,7 +133,7 @@ public class ChatterData
 				{
 					while (true)
 					{
-						Log.Error($"Chatter component {component} is on an object that does not have ActorData; non-All locality isn't allowed. (audio event {chatter.GetCommonData().m_audioEvent})");
+						Log.Error(new StringBuilder().Append("Chatter component ").Append(component).Append(" is on an object that does not have ActorData; non-All locality isn't allowed. (audio event ").Append(chatter.GetCommonData().m_audioEvent).Append(")").ToString());
 						return false;
 					}
 				}

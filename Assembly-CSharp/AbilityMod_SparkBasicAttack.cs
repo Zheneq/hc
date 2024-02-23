@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SparkBasicAttack : AbilityMod
@@ -84,6 +85,6 @@ public class AbilityMod_SparkBasicAttack : AbilityMod
 		desc += PropDesc(m_tetherDurationMod, "[TetherDuration]", isAbilityPresent, isAbilityPresent ? sparkBasicAttack.m_tetherDuration : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_laserInfoMod, "LaserInfo", isAbilityPresent, isAbilityPresent ? sparkBasicAttack.m_laserInfo : null);
 		desc += AbilityModHelper.GetModPropertyDesc(m_energyGainCyclePeriod, "Energy Gain Every X Turns", isAbilityPresent);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_energyGainPerCycle, "Energy Gain Per Cycle", isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_energyGainPerCycle, "Energy Gain Per Cycle", isAbilityPresent)).ToString();
 	}
 }

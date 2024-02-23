@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -50,7 +51,7 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 			}
 			if (m_actorData == null)
 			{
-				Log.Error(base.gameObject.name + " AnimationEventReceiver failed to initialize properly, can't find ActorData in the hierarchy " + text);
+				Log.Error(new StringBuilder().Append(base.gameObject.name).Append(" AnimationEventReceiver failed to initialize properly, can't find ActorData in the hierarchy ").Append(text).ToString());
 			}
 		}
 		return m_actorData;
@@ -206,7 +207,7 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			Debug.LogWarning($"ShowGeometryEvent: attempted to show object name '{eventName}', no such object found");
+			Debug.LogWarning(new StringBuilder().Append("ShowGeometryEvent: attempted to show object name '").Append(eventName).Append("', no such object found").ToString());
 			return;
 		}
 	}
@@ -229,7 +230,7 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
 		}
 		while (true)
 		{
-			Debug.LogWarning($"HideGeometryEvent: attempted to hide object name '{eventName}', no such object found");
+			Debug.LogWarning(new StringBuilder().Append("HideGeometryEvent: attempted to hide object name '").Append(eventName).Append("', no such object found").ToString());
 			return;
 		}
 	}

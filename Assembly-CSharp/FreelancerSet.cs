@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 [Serializable]
 public class FreelancerSet
@@ -121,7 +122,7 @@ public class FreelancerSet
 		}
 		while (true)
 		{
-			throw new Exception($"The {gameConfig.GameType} sub type {subTypeName} has been poorly configured; each TeamComposition Rule should have only one of Types, Roles, or FactionGroups.");
+			throw new Exception(new StringBuilder().Append("The ").Append(gameConfig.GameType).Append(" sub type ").Append(subTypeName).Append(" has been poorly configured; each TeamComposition Rule should have only one of Types, Roles, or FactionGroups.").ToString());
 		}
 	}
 }

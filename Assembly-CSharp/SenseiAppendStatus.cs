@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SenseiAppendStatus : Ability
@@ -80,11 +81,7 @@ public class SenseiAppendStatus : Ability
 
 	public override string GetSetupNotesForEditor()
 	{
-		return "<color=cyan>-- For Art --</color>\n" + SetupNoteVarName("Cast On Enemy Sequence Prefab") +
-		       "\nFor initial cast, it targeting Enemy\n\n" + SetupNoteVarName("Cast On Ally Sequence Prefab") +
-		       "\nFor initial casst, if targeting Ally ...\n\n" + SetupNoteVarName("Status Apply On Ally Sequence Prefab") +
-		       "\nFor impact on target that actually adds buff/debuff\n\n" + SetupNoteVarName("Status Apply On Enemy Sequence Prefab") +
-		       "\nFor impact on target that actually adds buff/debuff\n\n";
+		return new StringBuilder().Append("<color=cyan>-- For Art --</color>\n").Append(SetupNoteVarName("Cast On Enemy Sequence Prefab")).Append("\nFor initial cast, it targeting Enemy\n\n").Append(SetupNoteVarName("Cast On Ally Sequence Prefab")).Append("\nFor initial casst, if targeting Ally ...\n\n").Append(SetupNoteVarName("Status Apply On Ally Sequence Prefab")).Append("\nFor impact on target that actually adds buff/debuff\n\n").Append(SetupNoteVarName("Status Apply On Enemy Sequence Prefab")).Append("\nFor impact on target that actually adds buff/debuff\n\n").ToString();
 	}
 
 	public override float GetTargetableRadiusInSquares(ActorData caster)

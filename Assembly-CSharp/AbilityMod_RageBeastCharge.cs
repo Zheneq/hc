@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RageBeastCharge : AbilityMod
@@ -42,6 +43,6 @@ public class AbilityMod_RageBeastCharge : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_chargeLineRadiusMod, "[Charge Line Radius/Half-Width Mod]", isValid, isValid ? rageBeastCharge.m_damageRadius : 0f);
 		desc += AbilityModHelper.GetModPropertyDesc(m_chargeEndRadius, "[Charge End Radius Mod]", isValid, isValid ? rageBeastCharge.m_radiusBeyondEnd : 0f);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnTargetsHit, "{ Effect on Target Hit }", string.Empty, isValid);
-		return desc + PropDesc(m_enemyHitEffectNearChargeEndMod, "[EnemyHitEffectNearChargeEnd]", isValid, isValid ? rageBeastCharge.m_enemyHitEffectNearChargeEnd : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_enemyHitEffectNearChargeEndMod, "[EnemyHitEffectNearChargeEnd]", isValid, isValid ? rageBeastCharge.m_enemyHitEffectNearChargeEnd : null)).ToString();
 	}
 }

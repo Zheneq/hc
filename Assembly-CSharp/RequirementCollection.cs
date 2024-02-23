@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using NetSerializer;
 using Newtonsoft.Json;
 
@@ -187,7 +188,7 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			}
 			if (reader.TokenType != JsonToken.StartArray)
 			{
-				throw new Exception($"Bad JSON definition of RequirementCollection, expected '[' not {reader.TokenType}='{reader.Value}'");
+				throw new Exception(new StringBuilder().Append("Bad JSON definition of RequirementCollection, expected '[' not ").Append(reader.TokenType).Append("='").Append(reader.Value).Append("'").ToString());
 			}
 			reader.Read();
 			RequirementCollection requirementCollection = Create();
@@ -199,7 +200,7 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			}
 			if (reader.TokenType != JsonToken.EndArray)
 			{
-				throw new Exception($"Bad JSON definition of RequirementCollection, expected ']' not {reader.TokenType}='{reader.Value}'");
+				throw new Exception(new StringBuilder().Append("Bad JSON definition of RequirementCollection, expected ']' not ").Append(reader.TokenType).Append("='").Append(reader.Value).Append("'").ToString());
 			}
 			return requirementCollection;
 		}

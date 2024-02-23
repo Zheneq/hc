@@ -1,6 +1,7 @@
 using CameraManagerInternal;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -85,7 +86,7 @@ public class CameraShot
 				component3 = Camera.main.GetComponent<AnimatedCamera>();
 				Log.Warning("Missing AnimatedCamera component on main camera. Generating dynamically for now.");
 			}
-			m_cameraPoseObject = actor.gameObject.FindInChildren("camera" + GetCameraIndex(shotIndex));
+			m_cameraPoseObject = actor.gameObject.FindInChildren(new StringBuilder().Append("camera").Append(GetCameraIndex(shotIndex)).ToString());
 			component3.SetAnimator(m_cameraPoseObject);
 			AudioManager.PostEvent("sw_game_state", AudioManager.EventAction.SetSwitch, "game_state_action_cam");
 			AudioManager.PostEvent("Set_state_action_cam");
@@ -116,7 +117,7 @@ public class CameraShot
 				component2 = Camera.main.GetComponent<Fixed_CasterAndTargetsCamera>();
 				Log.Warning("Missing Fixed_CasterAndTargetsCamera component on main camera. Generating dynamically for now.");
 			}
-			m_cameraPoseObject = actor.gameObject.FindInChildren("camera" + GetCameraIndex(shotIndex));
+			m_cameraPoseObject = actor.gameObject.FindInChildren(new StringBuilder().Append("camera").Append(GetCameraIndex(shotIndex)).ToString());
 			component2.SetAnimator(m_cameraPoseObject);
 			if (component != null)
 			{
@@ -310,12 +311,12 @@ public class CameraShot
 	{
 		string empty = string.Empty;
 		string text = empty;
-		empty = text + linePrefix + "[Shot Name] " + m_name + "\n";
+		empty = new StringBuilder().Append(text).Append(linePrefix).Append("[Shot Name] ").Append(m_name).Append("\n").ToString();
 		text = empty;
-		empty = text + linePrefix + "[Duration] " + m_duration + "\n";
+		empty = new StringBuilder().Append(text).Append(linePrefix).Append("[Duration] ").Append(m_duration).Append("\n").ToString();
 		text = empty;
-		empty = text + linePrefix + "[Type] " + m_type.ToString() + "\n";
+		empty = new StringBuilder().Append(text).Append(linePrefix).Append("[Type] ").Append(m_type.ToString()).Append("\n").ToString();
 		text = empty;
-		return text + linePrefix + "[Transition In Type] " + m_transitionInType.ToString() + "\n";
+		return new StringBuilder().Append(text).Append(linePrefix).Append("[Transition In Type] ").Append(m_transitionInType.ToString()).Append("\n").ToString();
 	}
 }

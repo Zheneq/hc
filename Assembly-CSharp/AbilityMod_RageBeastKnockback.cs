@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RageBeastKnockback : AbilityMod
@@ -53,6 +54,6 @@ public class AbilityMod_RageBeastKnockback : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_collisionDamageFromGeoMod, "[ !!!UNUSED: Collision Damage from Geo]", isValid, isValid ? rageBeastKnockback.m_damageCollisionWithGeo : 0);
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnGeoCollision, "[Effect on Geo Collision]", string.Empty, isValid);
 		desc += AbilityModHelper.GetModPropertyDesc(m_knockbackDistanceMinMod, "[Knockback Min Distance]", isValid, isValid ? rageBeastKnockback.m_knockbackDistanceMin : 0f);
-		return desc + AbilityModHelper.GetModPropertyDesc(m_knockbackDistanceMaxMod, "[Knockback Max Distance]", isValid, isValid ? rageBeastKnockback.m_knockbackDistanceMax : 0f);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModPropertyDesc(m_knockbackDistanceMaxMod, "[Knockback Max Distance]", isValid, isValid ? rageBeastKnockback.m_knockbackDistanceMax : 0f)).ToString();
 	}
 }

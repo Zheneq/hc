@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using AbilityContextNamespace;
 
 public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
@@ -57,6 +58,6 @@ public class AbilityMod_DinoDashOrShield : GenericAbility_AbilityMod
 		desc += PropDesc(m_healIfNoDashMod, "[HealIfNoDash]", isValid, isValid ? dinoDashOrShield.m_healIfNoDash : 0);
 		desc += PropDesc(m_cdrIfNoDashMod, "[CdrIfNoDash]", isValid, isValid ? dinoDashOrShield.m_cdrIfNoDash : 0);
 		desc += PropDesc(m_delayedCooldownMod, "[DelayedCooldown]", isValid, isValid ? dinoDashOrShield.m_delayedCooldown : 0);
-		return desc + PropDesc(m_fullyChargeUpLayerConeMod, "[FullyChargeUpLayerCone]", isValid, isValid && dinoDashOrShield.m_fullyChargeUpLayerCone);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_fullyChargeUpLayerConeMod, "[FullyChargeUpLayerCone]", isValid, isValid && dinoDashOrShield.m_fullyChargeUpLayerCone)).ToString();
 	}
 }

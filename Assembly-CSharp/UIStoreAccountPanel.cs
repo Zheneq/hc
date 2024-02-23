@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -160,7 +161,7 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 			if (m_panels[i].Panel == panel)
 			{
 				m_panels[i].Button.m_ownedCount.text = ownedCount.ToString();
-				m_panels[i].Button.m_totalCount.text = "/" + totalCount;
+				m_panels[i].Button.m_totalCount.text = new StringBuilder().Append("/").Append(totalCount).ToString();
 			}
 			num += m_panels[i].Panel.GetNumTotal();
 			num2 += m_panels[i].Panel.GetNumOwned();
@@ -168,7 +169,7 @@ public class UIStoreAccountPanel : UIStoreBasePanel
 		while (true)
 		{
 			m_totalOwnedText.text = num2.ToString();
-			m_totalTotalText.text = "/" + num;
+			m_totalTotalText.text = new StringBuilder().Append("/").Append(num).ToString();
 			if (num == 0)
 			{
 				m_ownedBar.fillAmount = 0f;

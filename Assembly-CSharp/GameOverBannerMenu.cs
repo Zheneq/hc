@@ -1,5 +1,6 @@
 using LobbyGameClientMessages;
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -234,7 +235,7 @@ public class GameOverBannerMenu : UITooltipBase
 					{
 						if (UIFrontEnd.Get().m_frontEndChatConsole != null)
 						{
-							UIFrontEnd.Get().m_frontEndChatConsole.SelectInput("/whisper " + m_playerHandle + " ");
+							UIFrontEnd.Get().m_frontEndChatConsole.SelectInput(new StringBuilder().Append("/whisper ").Append(m_playerHandle).Append(" ").ToString());
 							goto IL_01ba;
 						}
 					}
@@ -245,7 +246,7 @@ public class GameOverBannerMenu : UITooltipBase
 					{
 						if (HUD_UI.Get().m_textConsole != null)
 						{
-							HUD_UI.Get().m_textConsole.SelectInput("/whisper " + m_playerHandle + " ");
+							HUD_UI.Get().m_textConsole.SelectInput(new StringBuilder().Append("/whisper ").Append(m_playerHandle).Append(" ").ToString());
 						}
 					}
 				}

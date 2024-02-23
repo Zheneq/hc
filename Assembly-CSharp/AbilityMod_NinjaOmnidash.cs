@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_NinjaOmnidash : AbilityMod
@@ -89,6 +90,6 @@ public class AbilityMod_NinjaOmnidash : AbilityMod
 		desc += PropDesc(m_dashPenetrateLineOfSightMod, "[DashPenetrateLineOfSight]", isValid, isValid && ninjaOmnidash.m_dashPenetrateLineOfSight);
 		desc += PropDesc(m_canQueueMoveAfterEvadeMod, "[CanQueueMoveAfterEvade]", isValid, isValid && ninjaOmnidash.m_canQueueMoveAfterEvade);
 		desc += PropDesc(m_applyDeathmarkEffectMod, "[ApplyDeathmarkEffect]", isValid, isValid && ninjaOmnidash.m_applyDeathmarkEffect);
-		return desc + PropDesc(m_cdrOnAbilityMod, "[CdrOnAbility]", isValid, isValid ? ninjaOmnidash.m_cdrOnAbility : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrOnAbilityMod, "[CdrOnAbility]", isValid, isValid ? ninjaOmnidash.m_cdrOnAbility : 0)).ToString();
 	}
 }

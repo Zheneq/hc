@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BattleMonkBasicAttack : AbilityMod
@@ -42,6 +43,6 @@ public class AbilityMod_BattleMonkBasicAttack : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_coneDamageMod, "[Cone Damage]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_damageAmount : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_healPerTargetHitMod, "[Heal Per Target Hit]", isAbilityPresent, isAbilityPresent ? battleMonkBasicAttack.m_healAmountPerTargetHit : 0);
 		desc += AbilityModHelper.GetModPropertyDesc(m_extraDamagePerTarget, "[Extra Damage Per Target Hit]", isAbilityPresent);
-		return desc + AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffect, "{ Enemy Hit Effect }", string.Empty, isAbilityPresent);
+		return new StringBuilder().Append(desc).Append(AbilityModHelper.GetModEffectInfoDesc(m_enemyHitEffect, "{ Enemy Hit Effect }", string.Empty, isAbilityPresent)).ToString();
 	}
 }

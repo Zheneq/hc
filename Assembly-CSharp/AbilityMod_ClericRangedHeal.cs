@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ClericRangedHeal : AbilityMod
@@ -75,6 +76,6 @@ public class AbilityMod_ClericRangedHeal : AbilityMod
 		desc += PropDesc(m_techPointGainPerIncomingHitThisTurn, "[EnergyPerIncomingHitThisTurn]", isValid);
 		desc += PropDesc(m_enemyDebuffRadiusAroundTargetMod, "[EnemyDebuffRadiusAroundTarget]", isValid, isValid ? clericRangedHeal.m_enemyDebuffRadiusAroundTarget : 0f);
 		desc += PropDesc(m_enemyDebuffRadiusAroundCasterMod, "[EnemyDebuffRadiusAroundCaster]", isValid, isValid ? clericRangedHeal.m_enemyDebuffRadiusAroundCaster : 0f);
-		return desc + PropDesc(m_enemyDebuffInRadiusEffectMod, "[EnemyDebuffInRadiusEffect]", isValid, isValid ? clericRangedHeal.m_enemyDebuffInRadiusEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_enemyDebuffInRadiusEffectMod, "[EnemyDebuffInRadiusEffect]", isValid, isValid ? clericRangedHeal.m_enemyDebuffInRadiusEffect : null)).ToString();
 	}
 }

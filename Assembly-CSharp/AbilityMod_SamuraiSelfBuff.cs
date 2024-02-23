@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SamuraiSelfBuff : AbilityMod
@@ -69,6 +70,6 @@ public class AbilityMod_SamuraiSelfBuff : AbilityMod
 		desc += PropDesc(m_damageIncreaseSubseqHitsMod, "[DamageIncreaseSubseqHits]", isValid, isValid ? samuraiSelfBuff.m_damageIncreaseSubseqHits : 0);
 		desc += PropDesc(m_techPointGainPerIncomingHitMod, "[TechPointGainPerIncomingHit]", isValid, isValid ? samuraiSelfBuff.m_techPointGainPerIncomingHit : 0);
 		desc += PropDesc(m_buffInResponseToIndirectDamageMod, "[BuffInResponseToIndirectDamage]", isValid, isValid && samuraiSelfBuff.m_buffInResponseToIndirectDamage);
-		return desc + PropDesc(m_cdrIfNotHitMod, "[CdrIfNotHit]", isValid, isValid ? samuraiSelfBuff.m_cdrIfNotHit : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_cdrIfNotHitMod, "[CdrIfNotHit]", isValid, isValid ? samuraiSelfBuff.m_cdrIfNotHit : 0)).ToString();
 	}
 }

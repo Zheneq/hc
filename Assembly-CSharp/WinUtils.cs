@@ -196,7 +196,7 @@ public static class WinUtils
 		if (User32.OpenClipboard(IntPtr.Zero))
 		{
 			User32.EmptyClipboard();
-			byte[] bytes = Encoding.Unicode.GetBytes(text + '\0');
+			byte[] bytes = Encoding.Unicode.GetBytes(new StringBuilder().Append(text).Append('\0').ToString());
 			int length = bytes.GetLength(0);
 			UIntPtr dwBytes = new UIntPtr(Convert.ToUInt32(length));
 			IntPtr hMem = Kernel32.GlobalAlloc(8194u, dwBytes);
@@ -211,6 +211,6 @@ public static class WinUtils
 	public static void OpenContainingFolder(string path)
 	{
 		path = path.Replace('/', '\\');
-		Process.Start("explorer.exe", "/select," + path);
+		Process.Start("explorer.exe", new StringBuilder().Append("/select,").Append(path).ToString());
 	}
 }

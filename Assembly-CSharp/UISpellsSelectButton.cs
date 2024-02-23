@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -102,7 +103,7 @@ public class UISpellsSelectButton : MonoBehaviour
 		if (!card.m_useAbility.m_flavorText.IsNullOrEmpty())
 		{
 			string text2 = text;
-			text = text2 + Environment.NewLine + "<i>" + card.m_useAbility.m_flavorText + "</i>";
+			text = new StringBuilder().AppendLine(text2).Append("<i>").Append(card.m_useAbility.m_flavorText).Append("</i>").ToString();
 		}
 		SetDescription(text);
 		SetCatalystIcon(card.GetIconSprite());

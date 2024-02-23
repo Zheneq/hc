@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -342,7 +343,7 @@ public class CollectTheCoins : NetworkBehaviour
 				return;
 			}
 		default:
-			Debug.LogError("CollectTheCoins trying to handle non-Ctc event type " + eventType.ToString() + ".");
+			Debug.LogError(new StringBuilder().Append("CollectTheCoins trying to handle non-Ctc event type ").Append(eventType.ToString()).Append(".").ToString());
 			break;
 		}
 	}
@@ -363,7 +364,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- trying to assign 0 spawn coins to actor {actor.DebugNameString()}.");
+					Debug.LogError(new StringBuilder().Append("CollectTheCoins (client)-- trying to assign 0 spawn coins to actor ").Append(actor.DebugNameString()).Append(".").ToString());
 					return;
 				}
 			}
@@ -413,7 +414,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- actor {actor.DebugNameString()} trying to drop coins on a null square.");
+					Debug.LogError(new StringBuilder().Append("CollectTheCoins (client)-- actor ").Append(actor.DebugNameString()).Append(" trying to drop coins on a null square.").ToString());
 					return;
 				}
 			}
@@ -427,7 +428,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- actor {actor.DebugNameString()} trying to drop coins on square {BoardSquare.DebugString(square)}, but that actor isn't in m_clientData.m_actorsToCoins_unresolved.");
+					Debug.LogError(new StringBuilder().Append("CollectTheCoins (client)-- actor ").Append(actor.DebugNameString()).Append(" trying to drop coins on square ").Append(BoardSquare.DebugString(square)).Append(", but that actor isn't in m_clientData.m_actorsToCoins_unresolved.").ToString());
 					return;
 				}
 			}
@@ -444,7 +445,7 @@ public class CollectTheCoins : NetworkBehaviour
 				case 0:
 					break;
 				default:
-					Debug.LogError($"CollectTheCoins (client)-- actor {actor.DebugNameString()} trying to drop coins on square {BoardSquare.DebugString(square)}, but that actor has 0 coins.");
+					Debug.LogError(new StringBuilder().Append("CollectTheCoins (client)-- actor ").Append(actor.DebugNameString()).Append(" trying to drop coins on square ").Append(BoardSquare.DebugString(square)).Append(", but that actor has 0 coins.").ToString());
 					return;
 				}
 			}

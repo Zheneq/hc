@@ -1,6 +1,7 @@
 using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -106,7 +107,10 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	private int m_ourDivisionId = -1;
 
-	public static Dictionary<int, PerGroupSizeTierInfo> TierInfoPerGroupSize => s_tierInfoPerGroupSize;
+	public static Dictionary<int, PerGroupSizeTierInfo> TierInfoPerGroupSize
+	{
+		get { return s_tierInfoPerGroupSize; }
+	}
 
 	internal static UIRankedModeSelectScreen Get()
 	{
@@ -219,7 +223,9 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						m_ourTier = value.Tier;
 						RankedScoreboardEntry value2 = TierInfoPerGroupSize[num2].OurEntry.Value;
 						m_ourDivisionId = value2.InstanceId;
-						GetTierLocalizedName(m_ourTier, m_ourDivisionId, num2, out string _, out string instanceName);
+						string foo;
+						string instanceName;
+						GetTierLocalizedName(m_ourTier, m_ourDivisionId, num2, out foo, out instanceName);
 						m_InstanceLabel.text = instanceName;
 						RankedScoreboardEntry value3 = TierInfoPerGroupSize[num2].OurEntry.Value;
 						int winStreak = value3.WinStreak;
@@ -573,7 +579,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 
 	public void UpdateUnlockStatus()
 	{
-		ClientGameManager.Get().GetBlockingQueueRestriction(GameType.Ranked, out QueueBlockOutReasonDetails Details);
+		QueueBlockOutReasonDetails Details;
+		ClientGameManager.Get().GetBlockingQueueRestriction(GameType.Ranked, out Details);
 		bool flag = false;
 		if (Details.RequirementTypeNotMet.HasValue)
 		{
@@ -586,7 +593,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						if (Details.NumGamesRequired.HasValue)
 						{
 							flag = true;
-							m_UnlockText.text = $"{Details.NumGamesPlayed.Value}/{Details.NumGamesRequired.Value}";
+							m_UnlockText.text = new StringBuilder().Append(Details.NumGamesPlayed.Value).Append("/").Append(Details.NumGamesRequired.Value).ToString();
 							m_UnlockFillBar.fillAmount = UIPlayerProfileRankDisplay.GetRankFillAmt((float)Details.NumGamesPlayed.Value / (float)Details.NumGamesRequired.Value);
 						}
 					}
@@ -984,7 +991,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 							DateTime? penaltyTimeout = ClientGameManager.Get().GroupInfo.Members[i].PenaltyTimeout;
 							if (penaltyTimeout.HasValue)
 							{
-								text2 = text2 + ClientGameManager.Get().GroupInfo.Members[i].MemberDisplayName + " ";
+								text2 = new StringBuilder().Append(text2).Append(ClientGameManager.Get().GroupInfo.Members[i].MemberDisplayName).Append(" ").ToString();
 							}
 						}
 						while (true)
@@ -1046,7 +1053,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 						int key = current.Key;
 						RankedScoreboardEntry value = current.Value.OurEntry.Value;
 						int tier = value.Tier;
-						if (tierInfoPerGroupSize.TryGetValue(key, out PerGroupSizeTierInfo value2) && value2.OurEntry.HasValue)
+						PerGroupSizeTierInfo value2;
+						if (tierInfoPerGroupSize.TryGetValue(key, out value2) && value2.OurEntry.HasValue)
 						{
 							string text = null;
 							RankedScoreboardEntry value3 = value2.OurEntry.Value;
@@ -1175,7 +1183,7 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 				{
 					lobbyInterface.WriteErrorToConsole(overviewResponse.LocalizedFailure, overviewResponse.ErrorMessage);
 				}
-				Log.Error("Failed to load overall Ranked Leaderboard info: " + overviewResponse.ErrorMessage);
+				Log.Error(new StringBuilder().Append("Failed to load overall Ranked Leaderboard info: ").Append(overviewResponse.ErrorMessage).ToString());
 			});
 		}
 		HandleGroupUpdateNotification();
@@ -1289,7 +1297,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			if (clientGameManager != null)
 			{
 				GameType key = GameType.Ranked;
-				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out GameTypeAvailability value))
+				GameTypeAvailability value;
+				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out value))
 				{
 					if (tier <= value.PerTierDefinitions.Count)
 					{
@@ -1321,7 +1330,8 @@ public class UIRankedModeSelectScreen : MonoBehaviour
 			if (clientGameManager != null)
 			{
 				GameType key = GameType.Ranked;
-				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out GameTypeAvailability value))
+				GameTypeAvailability value;
+				if (clientGameManager.GameTypeAvailabilies.TryGetValue(key, out value))
 				{
 					if (tier <= value.PerTierDefinitions.Count)
 					{

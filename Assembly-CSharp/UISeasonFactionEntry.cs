@@ -1,3 +1,4 @@
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -152,7 +153,7 @@ public class UISeasonFactionEntry : MonoBehaviour
 				{
 					if (m_expLabel != null)
 					{
-						m_expLabel.text = score + " / " + faction.Tiers[num3].ContributionToComplete;
+						m_expLabel.text = new StringBuilder().Append(score).Append(" / ").Append(faction.Tiers[num3].ContributionToComplete).ToString();
 						flag = true;
 					}
 					num2 = num3 + 1;

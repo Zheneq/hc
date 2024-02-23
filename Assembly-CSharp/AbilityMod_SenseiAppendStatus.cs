@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SenseiAppendStatus : AbilityMod
@@ -59,6 +60,6 @@ public class AbilityMod_SenseiAppendStatus : AbilityMod
 		desc += PropDesc(m_endEffectIfAppendedStatusMod, "[EndEffectIfAppendedStatus]", isValid, isValid && senseiAppendStatus.m_endEffectIfAppendedStatus);
 		desc += PropDesc(m_effectAddedOnEnemyAttackMod, "[EffectAddedOnEnemyAttack]", isValid, isValid ? senseiAppendStatus.m_effectAddedOnEnemyAttack : null);
 		desc += PropDesc(m_effectAddedOnAllyAttackMod, "[EffectAddedOnAllyAttack]", isValid, isValid ? senseiAppendStatus.m_effectAddedOnAllyAttack : null);
-		return desc + PropDesc(m_energyGainOnAllyAppendHitMod, "[EnergyGainOnAllyAppendHit]", isValid, isValid ? senseiAppendStatus.m_energyGainOnAllyAppendHit : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_energyGainOnAllyAppendHitMod, "[EnergyGainOnAllyAppendHit]", isValid, isValid ? senseiAppendStatus.m_energyGainOnAllyAppendHit : 0)).ToString();
 	}
 }

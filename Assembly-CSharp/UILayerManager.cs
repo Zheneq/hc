@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 [Serializable]
@@ -14,7 +15,10 @@ public class UILayerManager
 
 	private bool init;
 
-	public UICameraLayerInfo ParentInfo => m_parentInfo;
+	public UICameraLayerInfo ParentInfo
+	{
+		get { return m_parentInfo; }
+	}
 
 	public int ObjectLayerValue
 	{
@@ -59,7 +63,7 @@ public class UILayerManager
 			for (int i = 0; i < CanvasLayers.Length; i++)
 			{
 				CanvasLayers[i].ScenesContainer = new GameObject();
-				CanvasLayers[i].ScenesContainer.name = "(Canvas Container)" + CanvasLayers[i].CanvasLayerName;
+				CanvasLayers[i].ScenesContainer.name = new StringBuilder().Append("(Canvas Container)").Append(CanvasLayers[i].CanvasLayerName).ToString();
 				UIManager.ReparentTransform(CanvasLayers[i].ScenesContainer.transform, LayersContainer.gameObject.transform);
 				CanvasLayers[i].Init(this);
 				KeyValuePair<int, int> item = new KeyValuePair<int, int>(i, CanvasLayers[i].LayerPriority);

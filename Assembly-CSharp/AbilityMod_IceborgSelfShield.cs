@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 {
@@ -47,7 +48,7 @@ public class AbilityMod_IceborgSelfShield : GenericAbility_AbilityMod
 				desc += "Status to apply when ability is requested, if low health:\n";
 				foreach (StatusType statusType in m_lowHealthStatusWhenRequested)
 				{
-					desc += "\t" + statusType + "\n";
+					desc += new StringBuilder().Append("\t").Append(statusType).Append("\n").ToString();
 				}
 			}
 			desc += PropDesc(m_shieldOnNextTurnIfDepletedMod, "[ShieldOnNextTurnIfDepleted]", isValid, isValid ? iceborgSelfShield.m_shieldOnNextTurnIfDepleted : 0);

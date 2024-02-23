@@ -2,6 +2,7 @@ using LobbyGameClientMessages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -182,7 +183,7 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						string text = string.Format(StringUtil.TR("MatchesPlayed", "Global"), m_matchesPlayed);
 						if (m_matchesPlayed > 0)
 						{
-							text = text + Environment.NewLine + string.Format(StringUtil.TR("WinPercentage", "Global"), m_matchesWon * 100 / m_matchesPlayed);
+							text = new StringBuilder().AppendLine(text).Append(string.Format(StringUtil.TR("WinPercentage", "Global"), m_matchesWon * 100 / m_matchesPlayed)).ToString();
 						}
 						uISimpleTooltip.Setup(text);
 						return true;
@@ -317,7 +318,8 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 						CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(current.CharacterType);
 						if (characterResourceLink.m_characterRole == m_characterRole)
 						{
-							GetStats(current, flag, out PersistedStats stats2);
+							PersistedStats stats2;
+							GetStats(current, flag, out stats2);
 							if (stats2 != null)
 							{
 								stats.CombineStats(stats2);
@@ -326,7 +328,7 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 					}
 				}
 			}
-			m_freelancerDropdownBtn.Setup(StringUtil.TR("CharacterRole_" + m_characterRole, "Global"), m_characterRole);
+			m_freelancerDropdownBtn.Setup(StringUtil.TR(new StringBuilder().Append("CharacterRole_").Append(m_characterRole).ToString(), "Global"), m_characterRole);
 		}
 		else
 		{
@@ -336,7 +338,8 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 			{
 				if (value.CharacterType.IsValidForHumanGameplay())
 				{
-					GetStats(value, flag, out PersistedStats stats3);
+					PersistedStats stats3;
+					GetStats(value, flag, out stats3);
 					if (stats3 != null)
 					{
 						stats.CombineStats(stats3);
@@ -395,7 +398,7 @@ public class UIPlayerProgressStats : UIPlayerProgressSubPanel
 
 	private string GetPercentilesResponseKey()
 	{
-		return $"{m_gameType}|{m_characterType}|{m_season}";
+		return new StringBuilder().Append(m_gameType).Append("|").Append(m_characterType).Append("|").Append(m_season).ToString();
 	}
 
 	private void UpdateAllPercentiles(CalculateFreelancerStatsResponse response)

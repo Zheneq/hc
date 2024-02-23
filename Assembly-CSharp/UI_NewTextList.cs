@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -268,7 +269,7 @@ public class UI_NewTextList : MonoBehaviour
 				}
 				catch (ArgumentOutOfRangeException innerException)
 				{
-					throw new Exception($"UpdateRecentlyAddedTextLines substring issue. Text = \"{originalText.text}\". Index = {index}", innerException);
+					throw new Exception(new StringBuilder().Append("UpdateRecentlyAddedTextLines substring issue. Text = \"").Append(originalText.text).Append("\". Index = ").Append(index).ToString(), innerException);
 				}
 				if (empty.Contains("</color>"))
 				{
@@ -276,7 +277,7 @@ public class UI_NewTextList : MonoBehaviour
 					{
 						int num2 = originalText.text.LastIndexOf("<color=");
 						int num3 = originalText.text.IndexOf(">", num2);
-						empty = originalText.text.Substring(num2, num3 - num2 + 1) + empty;
+						empty = new StringBuilder().Append(originalText.text, num2, num3 - num2 + 1).Append(empty).ToString();
 					}
 				}
 				m_recentlyAddedText[i].theText.text = empty;
@@ -472,7 +473,7 @@ public class UI_NewTextList : MonoBehaviour
 														case 0:
 															break;
 														default:
-															textMeshProUGUI.text = text3 + "<u>" + text2 + "</u>" + text4;
+															textMeshProUGUI.text = new StringBuilder().Append(text3).Append("<u>").Append(text2).Append("</u>").Append(text4).ToString();
 															return;
 														}
 													}
@@ -612,7 +613,7 @@ public class UI_NewTextList : MonoBehaviour
 			if (text.EndsWith("</u>"))
 			{
 				string str2 = text.Substring(3, text.Length - 7);
-				m_hoveredText.text = str + str2 + text2;
+				m_hoveredText.text = new StringBuilder().Append(str).Append(str2).Append(text2).ToString();
 			}
 		}
 		m_hoveredLink = -1;

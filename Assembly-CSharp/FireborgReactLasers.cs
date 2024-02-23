@@ -1,6 +1,7 @@
 using AbilityContextNamespace;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -112,7 +113,7 @@ public class FireborgReactLasers : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		return usageForEditor + Fireborg_SyncComponent.GetSuperheatedCvarUsage();
+		return new StringBuilder().Append(usageForEditor).Append(Fireborg_SyncComponent.GetSuperheatedCvarUsage()).ToString();
 	}
 
 	public override List<string> GetContextNamesForEditor()
@@ -124,7 +125,7 @@ public class FireborgReactLasers : GenericAbility_Container
 
 	public override string GetOnHitDataDesc()
 	{
-		return base.GetOnHitDataDesc() + "-- On Hit Data for Reaction --\n" + m_onHitDataForSecondLaser.GetInEditorDesc();
+		return new StringBuilder().Append(base.GetOnHitDataDesc()).Append("-- On Hit Data for Reaction --\n").Append(m_onHitDataForSecondLaser.GetInEditorDesc()).ToString();
 	}
 
 	protected override void SetupTargetersAndCachedVars()

@@ -1,5 +1,6 @@
 using AbilityContextNamespace;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class FireborgDash : GenericAbility_Container
@@ -35,7 +36,7 @@ public class FireborgDash : GenericAbility_Container
 	public override string GetUsageForEditor()
 	{
 		string usageForEditor = base.GetUsageForEditor();
-		return usageForEditor + Fireborg_SyncComponent.GetSuperheatedCvarUsage();
+		return new StringBuilder().Append(usageForEditor).Append(Fireborg_SyncComponent.GetSuperheatedCvarUsage()).ToString();
 	}
 
 	public override List<string> GetContextNamesForEditor()

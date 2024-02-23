@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -209,7 +210,7 @@ public class UIInfoDialogPanel : MonoBehaviour
 		{
 		}
 		int num = NextId();
-		string name = $"Info Dialog {num}";
+		string name = new StringBuilder().Append("Info Dialog ").Append(num).ToString();
 		GameObject gameObject = UnityEngine.Object.Instantiate(m_infoParentPrefab);
 		gameObject.name = name;
 		gameObject.transform.SetParent(base.transform);

@@ -8,13 +8,28 @@ public class LobbyTeamInfo
 {
 	public List<LobbyPlayerInfo> TeamPlayerInfo;
 	[JsonIgnore]
-	public IEnumerable<LobbyPlayerInfo> TeamAPlayerInfo => TeamInfo(Team.TeamA);
+	public IEnumerable<LobbyPlayerInfo> TeamAPlayerInfo
+	{
+		get { return TeamInfo(Team.TeamA); }
+	}
+
 	[JsonIgnore]
-	public IEnumerable<LobbyPlayerInfo> TeamBPlayerInfo => TeamInfo(Team.TeamB);
+	public IEnumerable<LobbyPlayerInfo> TeamBPlayerInfo
+	{
+		get { return TeamInfo(Team.TeamB); }
+	}
+
 	[JsonIgnore]
-	public IEnumerable<LobbyPlayerInfo> SpectatorInfo => TeamInfo(Team.Spectator);
+	public IEnumerable<LobbyPlayerInfo> SpectatorInfo
+	{
+		get { return TeamInfo(Team.Spectator); }
+	}
+
 	[JsonIgnore]
-	public int TotalPlayerCount => TeamPlayerInfo?.Count ?? 0;
+	public int TotalPlayerCount
+	{
+		get { return TeamPlayerInfo?.Count ?? 0; }
+	}
 
 	public IEnumerable<LobbyPlayerInfo> TeamInfo(Team team)
 	{

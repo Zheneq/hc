@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
@@ -57,6 +58,6 @@ public class AbilityMod_RampartMeleeBasicAttack : AbilityMod
 		desc += PropDesc(m_laserEnemyHitEffectMod, "[LaserEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? rampartMeleeBasicAttack.m_laserEnemyHitEffect : null);
 		desc += PropDesc(m_coneDamageMod, "[ConeDamage]", isAbilityPresent, isAbilityPresent ? rampartMeleeBasicAttack.m_coneDamage : 0);
 		desc += PropDesc(m_coneEnemyHitEffectMod, "[ConeEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? rampartMeleeBasicAttack.m_coneEnemyHitEffect : null);
-		return desc + PropDesc(m_bonusDamageForOverlapMod, "[BonusDamageForOverlap]", isAbilityPresent, isAbilityPresent ? rampartMeleeBasicAttack.m_bonusDamageForOverlap : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_bonusDamageForOverlapMod, "[BonusDamageForOverlap]", isAbilityPresent, isAbilityPresent ? rampartMeleeBasicAttack.m_bonusDamageForOverlap : 0)).ToString();
 	}
 }

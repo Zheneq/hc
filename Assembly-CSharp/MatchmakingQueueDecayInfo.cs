@@ -4,7 +4,10 @@ using System.Linq;
 
 internal class MatchmakingQueueDecayInfo : IDecayInfo
 {
-	public bool IsActive => !m_leaderboardTiers.IsNullOrEmpty();
+	public bool IsActive
+	{
+		get { return !m_leaderboardTiers.IsNullOrEmpty(); }
+	}
 
 	public DateTime UtcNow
 	{

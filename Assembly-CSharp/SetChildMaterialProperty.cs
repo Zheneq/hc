@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class SetChildMaterialProperty : MonoBehaviour
@@ -59,7 +60,7 @@ public class SetChildMaterialProperty : MonoBehaviour
 		}
 		if (m_positionObject == null)
 		{
-			Debug.LogError(base.gameObject.name + " SetChildMaterialProperty component did not find position object: " + m_positionObjectName);
+			Debug.LogError(new StringBuilder().Append(base.gameObject.name).Append(" SetChildMaterialProperty component did not find position object: ").Append(m_positionObjectName).ToString());
 		}
 		if (!m_targetRendererName.IsNullOrEmpty())
 		{
@@ -70,7 +71,7 @@ public class SetChildMaterialProperty : MonoBehaviour
 			}
 			else
 			{
-				Debug.LogError(base.name + " SetChildMaterialProperty did not find Target Renderer: " + m_targetRendererName);
+				Debug.LogError(new StringBuilder().Append(base.name).Append(" SetChildMaterialProperty did not find Target Renderer: ").Append(m_targetRendererName).ToString());
 				m_failedToFindTargetRenderer = true;
 			}
 		}
@@ -219,27 +220,27 @@ public class SetChildMaterialProperty : MonoBehaviour
 		{
 			if (!m_positionObjectName.Equals(other.m_positionObjectName))
 			{
-				diffDescriptions.Add(str + "Position Object Name different");
+				diffDescriptions.Add(new StringBuilder().Append(str).Append("Position Object Name different").ToString());
 				result = false;
 			}
 			if (m_objectType != other.m_objectType)
 			{
-				diffDescriptions.Add(str + "Object Type different");
+				diffDescriptions.Add(new StringBuilder().Append(str).Append("Object Type different").ToString());
 				result = false;
 			}
 			if (!m_targetRendererName.Equals(other.m_targetRendererName))
 			{
-				diffDescriptions.Add(str + "Target Renderer Name different");
+				diffDescriptions.Add(new StringBuilder().Append(str).Append("Target Renderer Name different").ToString());
 				result = false;
 			}
 			if (m_propertyType != other.m_propertyType)
 			{
-				diffDescriptions.Add(str + "Property Type different");
+				diffDescriptions.Add(new StringBuilder().Append(str).Append("Property Type different").ToString());
 				result = false;
 			}
 			if (!m_materialPropertyName.Equals(other.m_materialPropertyName))
 			{
-				diffDescriptions.Add(str + "Material Property Name different");
+				diffDescriptions.Add(new StringBuilder().Append(str).Append("Material Property Name different").ToString());
 				result = false;
 			}
 		}

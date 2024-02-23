@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class BackgroundScroller : MonoBehaviour
@@ -51,7 +52,7 @@ public class BackgroundScroller : MonoBehaviour
 				case 0:
 					break;
 				default:
-					Log.Error($"BackgroundScroller {base.name} does not have a collider");
+					Log.Error(new StringBuilder().Append("BackgroundScroller ").Append(base.name).Append(" does not have a collider").ToString());
 					return;
 				}
 			}
@@ -69,7 +70,7 @@ public class BackgroundScroller : MonoBehaviour
 				BoxCollider component2 = gameObject.GetComponent<BoxCollider>();
 				if (component2 == null)
 				{
-					Log.Error($"Block {gameObject.name} in {base.name} does not have a collider");
+					Log.Error(new StringBuilder().Append("Block ").Append(gameObject.name).Append(" in ").Append(base.name).Append(" does not have a collider").ToString());
 					m_visibleBlocks.Remove(gameObject);
 					return;
 				}

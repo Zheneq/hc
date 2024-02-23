@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -119,7 +120,7 @@ public class UIAbilityTooltip : UITooltipBase
 		{
 			TextMeshProUGUI tooltipDescription = m_tooltipDescription;
 			string text = tooltipDescription.text;
-			tooltipDescription.text = text + Environment.NewLine + Environment.NewLine + "<i>" + ability.m_flavorText + "</i>";
+			tooltipDescription.text = new StringBuilder().AppendLine(text).AppendLine().Append("<i>").Append(ability.m_flavorText).Append("</i>").ToString();
 		}
 		if (m_freeActionsLabelObj != null)
 		{
@@ -227,7 +228,7 @@ public class UIAbilityTooltip : UITooltipBase
 		{
 			if (mod != null)
 			{
-				m_modTitle.text = $"{mod.GetName()} <#8E8E8E>";
+				m_modTitle.text = new StringBuilder().Append(mod.GetName()).Append(" <#8E8E8E>").ToString();
 				if (m_modCostContainer != null)
 				{
 					for (int i = 0; i < m_modCostNotches.Length; i++)

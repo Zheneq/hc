@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -65,8 +66,15 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private BoardSquarePathInfo m_gameplayPath;
 	private BoardSquarePathInfo m_aestheticPath;
 
-	internal HashSet<BoardSquare> SquaresCanMoveTo => m_squaresCanMoveTo;
-	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility => m_squareCanMoveToWithQueuedAbility;
+	internal HashSet<BoardSquare> SquaresCanMoveTo
+	{
+		get { return m_squaresCanMoveTo; }
+	}
+
+	internal HashSet<BoardSquare> SquaresCanMoveToWithQueuedAbility
+	{
+		get { return m_squareCanMoveToWithQueuedAbility; }
+	}
 
 	public string GetCurrentMoveStateStr()
 	{
@@ -830,7 +838,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool needFogOfWarUpdate = false;
 		if (m_aestheticPath == null)
 		{
-			Log.Error($"{m_actor.DisplayName} trying to UpdatePath with a null aesthetic path; exiting.");
+			Log.Error(new StringBuilder().Append(m_actor.DisplayName).Append(" trying to UpdatePath with a null aesthetic path; exiting.").ToString());
 			return;
 		}
 		if (m_aestheticPath.next == null)

@@ -33,13 +33,13 @@ public class WebSocket : IDisposable
 
     public bool IsAsync
     {
-        get => m_webSocket.EnableAsyncIO;
-        set => m_webSocket.EnableAsyncIO = value;
+        get { return m_webSocket.EnableAsyncIO; }
+        set { m_webSocket.EnableAsyncIO = value; }
     }
 
     public bool IsCompressed
     {
-        get => m_webSocket.Compression == CompressionMethod.Deflate;
+        get { return m_webSocket.Compression == CompressionMethod.Deflate; }
         set
         {
             WebSocketSharp.WebSocket webSocket = m_webSocket;
@@ -49,24 +49,26 @@ public class WebSocket : IDisposable
 
     public TimeSpan MaxWaitTime
     {
-        get => m_webSocket.WaitTime;
-        set => m_webSocket.WaitTime = value;
+        get { return m_webSocket.WaitTime; }
+        set { m_webSocket.WaitTime = value; }
     }
 
     public int MaxSendBufferSize
     {
-        get => m_webSocket.MaxSendBufferSize;
-        set => m_webSocket.MaxSendBufferSize = value;
+        get { return m_webSocket.MaxSendBufferSize; }
+        set { m_webSocket.MaxSendBufferSize = value; }
     }
 
     public int MaxMessageSize { get; set; }
 
     public int MaxMessagesPerSecond
     {
-        get => (int)m_messagesRateLimiter.LeakRate.AmountPerSecond;
-        set =>
+        get { return (int)m_messagesRateLimiter.LeakRate.AmountPerSecond; }
+        set
+        {
             m_messagesRateLimiter.LeakRate = new Rate(value * m_messagesRateLimiterPeriod.TotalSeconds,
                 m_messagesRateLimiterPeriod);
+        }
     }
 
     public bool IsRaw { get; set; }
@@ -83,7 +85,11 @@ public class WebSocket : IDisposable
     public Type LastMaxMesssageType { get; private set; }
     public int LastMesssageSize { get; private set; }
     public Type LastMesssageType { get; private set; }
-    public Uri Url => m_webSocket.Url;
+    public Uri Url
+    {
+        get { return m_webSocket.Url; }
+    }
+
     public WebSocketMessageFactory MessageFactory { get; private set; }
 
     public event Action<WebSocketMessage> OnMessage;
@@ -110,7 +116,7 @@ public class WebSocket : IDisposable
     {
         if (address.IndexOf("://") == -1)
         {
-            address = "ws://" + address;
+            address = new StringBuilder().Append("ws://").Append(address).ToString();
         }
 
         ConnectionAddress = address;
@@ -322,7 +328,7 @@ public class WebSocket : IDisposable
 
             if (MaxMessageSize != 0 && args.RawData.Length > MaxMessageSize)
             {
-                string message = $"Message size {args.RawData.Length}";
+                string message = new StringBuilder().Append("Message size ").Append(args.RawData.Length).ToString();
                 HandleError(this, new ErrorEventArgs(message, new Exception(message)));
                 Close(CloseStatusCode.TooBig, message);
             }
@@ -331,7 +337,7 @@ public class WebSocket : IDisposable
                 if (MaxMessagesPerSecond != 0 && !m_messagesRateLimiter.TryAdd())
                 {
                     string message =
-                        $"Message rate {(m_messagesRateLimiter.CurrentPoints + 1.0) / m_messagesRateLimiterPeriod.TotalSeconds:F2}/sec";
+                        new StringBuilder().Append("Message rate ").AppendFormat("{0:F2}", (m_messagesRateLimiter.CurrentPoints + 1.0) / m_messagesRateLimiterPeriod.TotalSeconds).Append("/sec").ToString();
                     ErrorEventArgs args3 = new ErrorEventArgs(message, new Exception(message));
                     HandleError(this, args3);
                     Close(CloseStatusCode.TooBig, message);

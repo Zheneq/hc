@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_RobotAnimalBite : AbilityMod
@@ -57,11 +58,11 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		desc += AbilityModHelper.GetModEffectInfoDesc(m_effectOnEnemyOverride, "{ Effect on Enemy }", string.Empty, isAbilityPresent);
 		if (m_extraDamageOnConsecutiveCast > 0)
 		{
-			desc += "[Extra Damage on Consecutive Casts] = " + m_extraDamageOnConsecutiveCast + "\n";
+			desc += new StringBuilder().Append("[Extra Damage on Consecutive Casts] = ").Append(m_extraDamageOnConsecutiveCast).Append("\n").ToString();
 		}
 		if (m_extraDamageOnConsecutiveHit > 0)
 		{
-			desc += "[Extra Damage on Consecutive Hit] = " + m_extraDamageOnConsecutiveHit + "\n";
+			desc += new StringBuilder().Append("[Extra Damage on Consecutive Hit] = ").Append(m_extraDamageOnConsecutiveHit).Append("\n").ToString();
 		}
 		if (m_perAdjacentEnemyEffectOnSelfNextTurn != null && m_perAdjacentEnemyEffectOnSelfNextTurn.m_applyEffect)
 		{
@@ -69,10 +70,10 @@ public class AbilityMod_RobotAnimalBite : AbilityMod
 		}
 		if (m_varianceExtraDamageMin >= 0 && m_varianceExtraDamageMax - m_varianceExtraDamageMin > 0)
 		{
-			desc += "[Variance Extra Damage] = " + m_varianceExtraDamageMin + " - " + m_varianceExtraDamageMax + "\n";
+			desc += new StringBuilder().Append("[Variance Extra Damage] = ").Append(m_varianceExtraDamageMin).Append(" - ").Append(m_varianceExtraDamageMax).Append("\n").ToString();
 			if (m_varianceExtraDamageToSelf > Mathf.Epsilon)
 			{
-				desc += "[Variance Extra Damage to Self] = " + Mathf.RoundToInt(m_varianceExtraDamageMin * m_varianceExtraDamageToSelf) + " - " + Mathf.RoundToInt(m_varianceExtraDamageMax * m_varianceExtraDamageToSelf) + "\n";
+				desc += new StringBuilder().Append("[Variance Extra Damage to Self] = ").Append(Mathf.RoundToInt(m_varianceExtraDamageMin * m_varianceExtraDamageToSelf)).Append(" - ").Append(Mathf.RoundToInt(m_varianceExtraDamageMax * m_varianceExtraDamageToSelf)).Append("\n").ToString();
 			}
 		}
 		return desc;

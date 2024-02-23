@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_SamuraiSwordDash : AbilityMod
@@ -88,6 +89,6 @@ public class AbilityMod_SamuraiSwordDash : AbilityMod
 		desc += PropDesc(m_knockbackExtraDamageByDistMod, "[KnockbackExtraDamageByDist]", isValid, isValid ? samuraiSwordDash.m_knockbackExtraDamageByDist : 0);
 		desc += PropDesc(m_knockbackExtraDamageChangePerDistMod, "[KnockbackExtraDamageChangePerDist]", isValid, isValid ? samuraiSwordDash.m_knockbackExtraDamageChangePerDist : 0);
 		desc += PropDesc(m_knockbackDistMod, "[KnockbackDist]", isValid, isValid ? samuraiSwordDash.m_knockbackDist : 0f);
-		return desc + PropDesc(m_knockbackTypeMod, "[KnockbackType]", isValid, isValid ? samuraiSwordDash.m_knockbackType : KnockbackType.AwayFromSource);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_knockbackTypeMod, "[KnockbackType]", isValid, isValid ? samuraiSwordDash.m_knockbackType : KnockbackType.AwayFromSource)).ToString();
 	}
 }

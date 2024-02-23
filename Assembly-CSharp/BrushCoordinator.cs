@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -112,16 +113,16 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 				{
 					if (brushRegion.m_disruptedVFX != null && brushRegion.m_disruptedVFX.GetComponent<PKFxFX>() == null)
 					{
-						Debug.LogError("Brush Region at index " + i + " has Disrupted VFX field set but it doesn't have a PKFxFX component");
+						Debug.LogError(new StringBuilder().Append("Brush Region at index ").Append(i).Append(" has Disrupted VFX field set but it doesn't have a PKFxFX component").ToString());
 					}
 					if (brushRegion.m_functioningVFX != null && brushRegion.m_functioningVFX.GetComponent<PKFxFX>() == null)
 					{
-						Debug.LogError("Brush Region at index " + i + " has Functioning VFX field set but it doesn't have a PKFxFX component");
+						Debug.LogError(new StringBuilder().Append("Brush Region at index ").Append(i).Append(" has Functioning VFX field set but it doesn't have a PKFxFX component").ToString());
 					}
 				}
 				else
 				{
-					Debug.LogError("Brush Region at index " + i + " is null");
+					Debug.LogError(new StringBuilder().Append("Brush Region at index ").Append(i).Append(" is null").ToString());
 				}
 			}
 		}
@@ -141,13 +142,13 @@ public class BrushCoordinator : NetworkBehaviour, IGameEventListener
 					}
 					else
 					{
-						Log.Error($"Two brush regions ({item.BrushRegion} and {i}) are claiming the same boardSquare ({item.name})");
+						Log.Error(new StringBuilder().Append("Two brush regions (").Append(item.BrushRegion).Append(" and ").Append(i).Append(") are claiming the same boardSquare (").Append(item.name).Append(")").ToString());
 					}
 				}
 			}
 			else
 			{
-				Log.Error($"Null brush region ({i}); fix brush coordinator's data.");
+				Log.Error(new StringBuilder().Append("Null brush region (").Append(i).Append("); fix brush coordinator's data.").ToString());
 			}
 		}
 	}

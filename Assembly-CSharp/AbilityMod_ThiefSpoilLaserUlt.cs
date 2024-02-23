@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
@@ -72,6 +73,6 @@ public class AbilityMod_ThiefSpoilLaserUlt : AbilityMod
 		desc += PropDesc(m_ignorePickupTeamRestrictionMod, "[IgnorePickupTeamRestriction]", isValid, isValid && thiefSpoilLaserUlt.m_ignorePickupTeamRestriction);
 		desc += PropDesc(m_maxPowerupsHitMod, "[MaxPowerupsHit]", isValid, isValid ? thiefSpoilLaserUlt.m_maxPowerupsHit : 0);
 		desc += PropDesc(m_copyBuffsOnEnemyHitMod, "[CopyBuffsOnEnemyHit]", isValid, isValid && thiefSpoilLaserUlt.m_copyBuffsOnEnemyHit);
-		return desc + PropDesc(m_copyBuffDurationMod, "[CopyBuffDuration]", isValid, isValid ? thiefSpoilLaserUlt.m_copyBuffDuration : 0);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_copyBuffDurationMod, "[CopyBuffDuration]", isValid, isValid ? thiefSpoilLaserUlt.m_copyBuffDuration : 0)).ToString();
 	}
 }

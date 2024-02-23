@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 [Serializable]
 public class FriendInfo
@@ -50,6 +51,6 @@ public class FriendInfo
 
 	public override string ToString()
 	{
-		return $"{FriendHandle} ({FriendAccountId}) {FriendStatus.ToString()}";
+		return new StringBuilder().Append(FriendHandle).Append(" (").Append(FriendAccountId).Append(") ").Append(FriendStatus.ToString()).ToString();
 	}
 }

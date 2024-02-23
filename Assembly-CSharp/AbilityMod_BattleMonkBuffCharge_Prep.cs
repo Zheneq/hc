@@ -36,7 +36,8 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 				{
 					foreach (Ability ability in battleMonkBuffCharge_Prep.m_chainAbilities)
 					{
-						if (ability != null && ability is BattleMonkBuffCharge_Dash dash)
+						BattleMonkBuffCharge_Dash dash = ability as BattleMonkBuffCharge_Dash;
+						if (ability != null && !ReferenceEquals(dash, null))
 						{
 							battleMonkBuffCharge_Dash = dash;
 							break;
@@ -61,7 +62,8 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		{
 			foreach (Ability ability in battleMonkBuffCharge_Prep.m_chainAbilities)
 			{
-				if (ability != null && ability is BattleMonkBuffCharge_Dash dash)
+				BattleMonkBuffCharge_Dash dash = ability as BattleMonkBuffCharge_Dash;
+				if (ability != null && !ReferenceEquals(dash, null))
 				{
 					battleMonkBuffCharge_Dash = dash;
 					break;
@@ -97,7 +99,8 @@ public class AbilityMod_BattleMonkBuffCharge_Prep : AbilityMod
 		{
 			foreach (Ability ability in battleMonkBuffCharge_Prep.m_chainAbilities)
 			{
-				if (ability != null && ability is BattleMonkBuffCharge_Dash dash)
+				BattleMonkBuffCharge_Dash dash = ability as BattleMonkBuffCharge_Dash;
+				if (ability != null && !ReferenceEquals(dash, null))
 				{
 					battleMonkBuffCharge_Dash = dash;
 					break;

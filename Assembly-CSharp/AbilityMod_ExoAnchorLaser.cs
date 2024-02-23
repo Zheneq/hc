@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_ExoAnchorLaser : AbilityMod
@@ -82,7 +83,7 @@ public class AbilityMod_ExoAnchorLaser : AbilityMod
 			desc += "Using Status when anchored and not sweeping override\n";
 			foreach (StatusType statusOverride in m_statusWhenAnchoredAndNotSweepingOverride)
 			{
-				desc += "\t" + statusOverride + "\n";
+				desc += new StringBuilder().Append("\t").Append(statusOverride).Append("\n").ToString();
 			}
 		}
 		return desc;

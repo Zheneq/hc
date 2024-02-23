@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -274,7 +275,7 @@ public class CharacterResourceLink : MonoBehaviour
 	{
 		if (!this.IsVisualInfoSelectionValid(selection))
 		{
-			Log.Warning(Log.Category.Loading, "Invalid skin selection used to load CharacterType " + this.m_characterType.ToString() + ", reverting to default. Input = " + selection.ToString(), new object[0]);
+			Log.Warning(Log.Category.Loading, new StringBuilder().Append("Invalid skin selection used to load CharacterType ").Append(this.m_characterType.ToString()).Append(", reverting to default. Input = ").Append(selection.ToString()).ToString(), new object[0]);
 			selection.ResetToDefault();
 		}
 		LoadedCharacterSelection loadedCharacter;
@@ -318,7 +319,7 @@ public class CharacterResourceLink : MonoBehaviour
 				}
 				else
 				{
-					Log.Error("Selected skin index is out of bounds, using default. Input value = " + skinIndex, new object[0]);
+					Log.Error(new StringBuilder().Append("Selected skin index is out of bounds, using default. Input value = ").Append(skinIndex).ToString(), new object[0]);
 					if (this.m_skins.Count > 0)
 					{
 						skin = this.m_skins[0];
@@ -335,7 +336,7 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		else
 		{
-			Log.Info(Log.Category.Loading, "Starting async load for Character " + base.name + " " + selection.ToString(), new object[0]);
+			Log.Info(Log.Category.Loading, new StringBuilder().Append("Starting async load for Character ").Append(base.name).Append(" ").Append(selection.ToString()).ToString(), new object[0]);
 			loadedCharacter = new LoadedCharacterSelection();
 			loadedCharacter.isLoading = true;
 			this.m_loadedCharacterCache.Add(selection, loadedCharacter);
@@ -362,7 +363,7 @@ public class CharacterResourceLink : MonoBehaviour
 					goto IL_649;
 				}
 			}
-			Log.Info(Log.Category.Loading, "Starting async load for actor model prefab for Character " + base.name + " " + selection.ToString(), new object[0]);
+			Log.Info(Log.Category.Loading, new StringBuilder().Append("Starting async load for actor model prefab for Character ").Append(base.name).Append(" ").Append(selection.ToString()).ToString(), new object[0]);
 			IEnumerator e2 = loadedCharacter.heroPrefabLink.PreLoadPrefabAsync();
 			do
 			{
@@ -1218,7 +1219,7 @@ public class CharacterResourceLink : MonoBehaviour
 		}
 		else
 		{
-			Debug.LogWarning("Vfx Swap Data is null on " + base.gameObject.name);
+			Debug.LogWarning(new StringBuilder().Append("Vfx Swap Data is null on ").Append(base.gameObject.name).ToString());
 		}
 	}
 

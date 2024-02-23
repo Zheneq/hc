@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class AbilityMod_BlasterDelayedLaser : AbilityMod
@@ -56,6 +57,6 @@ public class AbilityMod_BlasterDelayedLaser : AbilityMod
 		desc += PropDesc(m_effectOnHitMod, "[EffectOnHit]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_effectOnHit : null);
 		desc += PropDesc(m_extraDamageToNearEnemyMod, "[ExtraDamageToNearEnemy]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_extraDamageToNearEnemy : 0);
 		desc += PropDesc(m_nearDistanceMod, "[NearDistance]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_nearDistance : 0f);
-		return desc + PropDesc(m_onCastEnemyHitEffectMod, "[OnCastEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_onCastEnemyHitEffect : null);
+		return new StringBuilder().Append(desc).Append(PropDesc(m_onCastEnemyHitEffectMod, "[OnCastEnemyHitEffect]", isAbilityPresent, isAbilityPresent ? blasterDelayedLaser.m_onCastEnemyHitEffect : null)).ToString();
 	}
 }

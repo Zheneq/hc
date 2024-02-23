@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ClientAbilityResults
@@ -17,15 +18,22 @@ public class ClientAbilityResults
 	public static string s_clientResolutionNetMsgHeader = "<color=white>ClientResolution NetworkMessage: </color>";
 	public static string s_clientHitResultHeader = "<color=yellow>ClientHitResults: </color>";
 
-	public static bool DebugTraceOn => false;
-	public static bool DebugSerializeSizeOn => false;
+	public static bool DebugTraceOn
+	{
+		get { return false; }
+	}
+
+	public static bool DebugSerializeSizeOn
+	{
+		get { return false; }
+	}
 
 	public ClientAbilityResults(int casterActorIndex, int abilityAction, List<ServerClientUtils.SequenceStartData> seqStartDataList, Dictionary<ActorData, ClientActorHitResults> actorToHitResults, Dictionary<Vector3, ClientPositionHitResults> posToHitResults)
 	{
 		m_casterActor = GameFlowData.Get().FindActorByActorIndex(casterActorIndex);
 		if (m_casterActor == null)
 		{
-			Debug.LogError("ClientAbilityResults error: Actor with index " + casterActorIndex + " is null.");
+			Debug.LogError(new StringBuilder().Append("ClientAbilityResults error: Actor with index ").Append(casterActorIndex).Append(" is null.").ToString());
 			m_castedAbility = null;
 			m_actionType = AbilityData.ActionType.INVALID_ACTION;
 		}
@@ -117,7 +125,7 @@ public class ClientAbilityResults
 		{
 			if (DebugTraceOn)
 			{
-				Log.Warning(s_clientHitResultHeader + GetDebugDescription() + ": no Sequence to start, executing results directly");
+				Log.Warning(new StringBuilder().Append(s_clientHitResultHeader).Append(GetDebugDescription()).Append(": no Sequence to start, executing results directly").ToString());
 			}
 			RunClientAbilityHits();
 		}
@@ -143,7 +151,7 @@ public class ClientAbilityResults
 		}
 		else
 		{
-			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+			Debug.LogError(new StringBuilder().Append("ClientAbilityResults error-- Sequence hitting actor ").Append(target.DebugNameString()).Append(", but that actor isn't in our hit results.").ToString());
 		}
 	}
 
@@ -197,7 +205,7 @@ public class ClientAbilityResults
 			{
 				if (seqStartData != null)
 				{
-					text += "SeqStartData Actors with prefab ID " + seqStartData.GetSequencePrefabId() + ": " + seqStartData.GetTargetActorsString() + "\n";
+					text += new StringBuilder().Append("SeqStartData Actors with prefab ID ").Append(seqStartData.GetSequencePrefabId()).Append(": ").Append(seqStartData.GetTargetActorsString()).Append("\n").ToString();
 				}
 			}
 		}
@@ -239,6 +247,6 @@ public class ClientAbilityResults
 	{
 		string actor = m_casterActor != null ? m_casterActor.DebugNameString() : "(null actor)";
 		string ability = m_castedAbility != null ? m_castedAbility.m_abilityName : "(null ability)";
-		return actor + "'s " + ability;
+		return new StringBuilder().Append(actor).Append("'s ").Append(ability).ToString();
 	}
 }

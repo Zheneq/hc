@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 namespace AbilityContextNamespace
@@ -97,7 +98,7 @@ namespace AbilityContextNamespace
 
 		public static string GetContextUsageStr(string contextName, string usage, bool actorContext = true)
 		{
-			return InEditorDescHelper.ContextVarName(contextName, actorContext) + " => " + usage + "\n";
+			return new StringBuilder().Append(InEditorDescHelper.ContextVarName(contextName, actorContext)).Append(" => ").Append(usage).Append("\n").ToString();
 		}
 	}
 }

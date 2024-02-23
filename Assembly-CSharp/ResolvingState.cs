@@ -1,3 +1,4 @@
+using System.Text;
 using UnityEngine.Networking;
 
 public class ResolvingState : TurnState
@@ -51,8 +52,7 @@ public class ResolvingState : TurnState
 			case TurnMessage.TURN_START:
 			{
 				ActorData component = m_SM.GetComponent<ActorData>();
-				Log.Error($"{(component != null ? component.DebugNameString() : "NULL actor")} " +
-				          $"handling TURN_START message in Resolving state");
+				Log.Error(new StringBuilder().Append(component != null ? component.DebugNameString() : "NULL actor").Append(" ").Append("handling TURN_START message in Resolving state").ToString());
 				m_SM.SetupForNewTurn();
 				m_SM.NextState = TurnStateEnum.DECIDING;
 				return;
@@ -88,9 +88,7 @@ public class ResolvingState : TurnState
 			string activeOwnedDisplayName = GameFlowData.Get().activeOwnedActorData != null
 				? GameFlowData.Get().activeOwnedActorData.DisplayName
 				: "NULL";
-			Log.Error($"{(NetworkServer.active ? "Server" : "Client")} timed out " +
-			          $"{m_SM.GetComponent<ActorData>().DisplayName} of resolving state " +
-			          $"(owned actor = {activeOwnedDisplayName})");
+			Log.Error(new StringBuilder().Append(NetworkServer.active ? "Server" : "Client").Append(" timed out ").Append(m_SM.GetComponent<ActorData>().DisplayName).Append(" of resolving state ").Append("(owned actor = ").Append(activeOwnedDisplayName).Append(")").ToString());
 			m_SM.NextState = TurnStateEnum.WAITING;
 		}
 		if (GameFlowData.Get() == null

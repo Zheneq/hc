@@ -118,11 +118,20 @@ namespace NVIDIA
 
 		private Camera _000F;
 
-		public static bool GetFlag0013 => _0013;
+		public static bool GetFlag0013
+		{
+			get { return _0013; }
+		}
 
-		public static bool GetFlag0018 => _0018;
+		public static bool GetFlag0018
+		{
+			get { return _0018; }
+		}
 
-		public static bool IsAvailable => anselIsAvailable();
+		public static bool IsAvailable
+		{
+			get { return anselIsAvailable(); }
+		}
 
 		public void Init()
 		{

@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using WebSocketSharp;
@@ -15,7 +16,7 @@ public class MyNetworkClientConnection : NetworkConnection
 
 	public TimeSpan HeartbeatTimeout
 	{
-		get => m_gameClientInterface?.HeartbeatTimeout ?? TimeSpan.Zero;
+		get { return m_gameClientInterface?.HeartbeatTimeout ?? TimeSpan.Zero; }
 		set
 		{
 			if (m_gameClientInterface != null)
@@ -41,7 +42,7 @@ public class MyNetworkClientConnection : NetworkConnection
 		base.Initialize(networkAddress, networkHostId, networkConnectionId, hostTopology);
 		m_myNetworkClient = NetworkManager.singleton.client as MyNetworkClient;
 		string arg = m_myNetworkClient.UseSSL ? "wss://" : "ws://";
-		m_gameServerAddress = $"{arg}{NetworkManager.singleton.networkAddress}:{NetworkManager.singleton.networkPort}";
+		m_gameServerAddress = new StringBuilder().Append(arg).Append(NetworkManager.singleton.networkAddress).Append(":").Append(NetworkManager.singleton.networkPort).ToString();
 		Log.Info("MyNetworkClientConnection.Initialize address={0}", m_gameServerAddress);
 		Connect();
 	}

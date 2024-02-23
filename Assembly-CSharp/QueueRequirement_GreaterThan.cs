@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 [Serializable]
 public class QueueRequirement_GreaterThan : QueueRequirement
@@ -14,9 +15,15 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		set;
 	}
 
-	public override bool AnyGroupMember => m_anyGroupMember;
+	public override bool AnyGroupMember
+	{
+		get { return m_anyGroupMember; }
+	}
 
-	public override RequirementType Requirement => m_requirementType;
+	public override RequirementType Requirement
+	{
+		get { return m_requirementType; }
+	}
 
 	public override bool DoesApplicantPass(IQueueRequirementSystemInfo systemInfo, IQueueRequirementApplicant applicant, GameType gameType, GameSubType gameSubType)
 	{
@@ -25,7 +32,7 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		default:
 			while (true)
 			{
-				throw new Exception($"Unknown QueueRequirement_GreaterThan requirement: {Requirement}");
+				throw new Exception(new StringBuilder().Append("Unknown QueueRequirement_GreaterThan requirement: ").Append(Requirement).ToString());
 			}
 		case RequirementType.TotalMatches:
 			return applicant.TotalMatches >= MinValue;
@@ -70,7 +77,7 @@ public class QueueRequirement_GreaterThan : QueueRequirement
 		default:
 			while (true)
 			{
-				throw new Exception($"Unknown requirement is failed: {Requirement}");
+				throw new Exception(new StringBuilder().Append("Unknown requirement is failed: ").Append(Requirement).ToString());
 			}
 		case RequirementType.TotalMatches:
 		{

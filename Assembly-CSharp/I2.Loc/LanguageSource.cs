@@ -193,7 +193,7 @@ namespace I2.Loc
 				}
 			}
 			Text = Text.Replace("\\n", "\n");
-			if (Text.IndexOfAny((Separator + "\n\"").ToCharArray()) >= 0)
+			if (Text.IndexOfAny(new StringBuilder().Append(Separator).Append("\n\"").ToString().ToCharArray()) >= 0)
 			{
 				while (true)
 				{
@@ -325,7 +325,9 @@ namespace I2.Loc
 							int[] array2 = new int[num4];
 							for (int i = 0; i < num4; i++)
 							{
-								GoogleLanguages.UnPackCodeFromLanguageName(array[i + num], out string Language, out string code);
+								string Language;
+								string code;
+								GoogleLanguages.UnPackCodeFromLanguageName(array[i + num], out Language, out code);
 								int num5 = -1;
 								if (!string.IsNullOrEmpty(code))
 								{
@@ -376,7 +378,7 @@ namespace I2.Loc
 										}
 										else
 										{
-											obj = Category + "/" + array[0];
+											obj = new StringBuilder().Append(Category).Append("/").Append(array[0]).ToString();
 										}
 										string Term = (string)obj;
 										bool flag = false;
@@ -568,7 +570,7 @@ namespace I2.Loc
 					}
 				}
 			}
-			string @string = PlayerPrefs.GetString("I2Source_" + Google_SpreadsheetKey, string.Empty);
+			string @string = PlayerPrefs.GetString(new StringBuilder().Append("I2Source_").Append(Google_SpreadsheetKey).ToString(), string.Empty);
 			if (!string.IsNullOrEmpty(@string))
 			{
 				Import_Google_Result(@string, eSpreadsheetUpdateMode.Replace);
@@ -578,8 +580,9 @@ namespace I2.Loc
 			{
 				if (GoogleUpdateFrequency != 0)
 				{
-					string string2 = PlayerPrefs.GetString("LastGoogleUpdate_" + sourcePlayerPrefName, string.Empty);
-					if (DateTime.TryParse(string2, out DateTime result))
+					string string2 = PlayerPrefs.GetString(new StringBuilder().Append("LastGoogleUpdate_").Append(sourcePlayerPrefName).ToString(), string.Empty);
+					DateTime result;
+					if (DateTime.TryParse(string2, out result))
 					{
 						double totalDays = (DateTime.Now - result).TotalDays;
 						eGoogleUpdateFrequency googleUpdateFrequency = GoogleUpdateFrequency;
@@ -625,7 +628,7 @@ namespace I2.Loc
 					}
 				}
 			}
-			PlayerPrefs.SetString("LastGoogleUpdate_" + sourcePlayerPrefName, DateTime.Now.ToString());
+			PlayerPrefs.SetString(new StringBuilder().Append("LastGoogleUpdate_").Append(sourcePlayerPrefName).ToString(), DateTime.Now.ToString());
 			CoroutineManager.pInstance.StartCoroutine(Import_Google_Coroutine());
 		}
 
@@ -635,7 +638,7 @@ namespace I2.Loc
 			{
 				return base.name;
 			}
-			return SceneManager.GetActiveScene().name + "_" + base.name;
+			return new StringBuilder().Append(SceneManager.GetActiveScene().name).Append("_").Append(base.name).ToString();
 		}
 
 		private IEnumerator Import_Google_Coroutine()
@@ -672,7 +675,7 @@ namespace I2.Loc
 							case 0:
 								break;
 							default:
-								PlayerPrefs.SetString("I2Source_" + Google_SpreadsheetKey, www.text);
+								PlayerPrefs.SetString(new StringBuilder().Append("I2Source_").Append(Google_SpreadsheetKey).ToString(), www.text);
 								PlayerPrefs.Save();
 								Import_Google_Result(www.text, eSpreadsheetUpdateMode.Replace);
 								if (this.Event_OnSourceUpdateFromGoogleHolder != null)
@@ -680,7 +683,7 @@ namespace I2.Loc
 									this.Event_OnSourceUpdateFromGoogleHolder(this);
 								}
 								LocalizationManager.LocalizeAll();
-								Debug.Log("Done Google Sync '" + www.text + "'");
+								Debug.Log(new StringBuilder().Append("Done Google Sync '").Append(www.text).Append("'").ToString());
 								yield break;
 							}
 						}
@@ -942,7 +945,7 @@ namespace I2.Loc
 			Transform parent = base.transform.parent;
 			while ((bool)parent)
 			{
-				text = parent.name + "_" + text;
+				text = new StringBuilder().Append(parent.name).Append("_").Append(text).ToString();
 				parent = parent.parent;
 			}
 			while (true)
@@ -1232,7 +1235,9 @@ namespace I2.Loc
 			{
 				UpdateDictionary();
 			}
-			if (mDictionary.TryGetValue(term, out TermData value))
+
+			TermData value;
+			if (mDictionary.TryGetValue(term, out value))
 			{
 				return value;
 			}

@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Text;
 
 [Serializable]
 public class LobbySessionInfo
@@ -26,11 +27,11 @@ public class LobbySessionInfo
 		{
 			if (!Handle.IsNullOrEmpty())
 			{
-				return $"{Handle} [{AccountId} {SessionToken:x}]";
+				return new StringBuilder().Append(Handle).Append(" [").Append(AccountId).Append(" ").AppendFormat("{0:x}", SessionToken).Append("]").ToString();
 			}
 			if (SessionToken != 0)
 			{
-				return $"[{AccountId} {SessionToken:x}]";
+				return new StringBuilder().Append("[").Append(AccountId).Append(" ").AppendFormat("{0:x}", SessionToken).Append("]").ToString();
 			}
 			if (!ProcessCode.IsNullOrEmpty())
 			{
