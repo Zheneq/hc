@@ -188,7 +188,8 @@ public class SamuraiDashAndAimedSlash : Ability
 
 	public override bool GetCustomTargeterNumbers(ActorData targetActor, int currentTargeterIndex, TargetingNumberUpdateScratch results)
 	{
-		if (!(Targeters[currentTargeterIndex] is AbilityUtil_Targeter_DashAndAim targeter))
+		AbilityUtil_Targeter_DashAndAim targeter = Targeters[currentTargeterIndex] as AbilityUtil_Targeter_DashAndAim;
+		if (targeter == null)
 		{
 			return false;
 		}

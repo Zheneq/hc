@@ -71,7 +71,7 @@ public class AbilityUtil_Targeter_MultipleCones : AbilityUtil_Targeter
 	{
 		ClearActorsInRange();
 		Vector3 casterPos = targetingActor.GetLoSCheckPos();
-		Vector3 vec = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		Vector3 vec = currentTarget != null ? currentTarget.AimDirection : targetingActor.transform.forward;
 		float num = VectorUtils.HorizontalAngle_Deg(vec);
 		CreateConeCursorHighlights(casterPos, num);
 		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(

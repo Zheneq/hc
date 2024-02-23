@@ -385,7 +385,8 @@ public class GameEventManager
 	public void AddListener(IGameEventListener listener, EventType eventType)
 	{
 		WeakReference item = new WeakReference(listener, false);
-		if (!m_listenersByEvent.TryGetValue(eventType, out List<WeakReference> value))
+		List<WeakReference> value;
+		if (!m_listenersByEvent.TryGetValue(eventType, out value))
 		{
 			while (true)
 			{
@@ -417,7 +418,8 @@ public class GameEventManager
 
 	public void RemoveListener(IGameEventListener listener, EventType eventType)
 	{
-		if (!m_listenersByEvent.TryGetValue(eventType, out List<WeakReference> value))
+		List<WeakReference> value;
+		if (!m_listenersByEvent.TryGetValue(eventType, out value))
 		{
 			return;
 		}
@@ -476,7 +478,8 @@ public class GameEventManager
 		bool result = false;
 		try
 		{
-			if (m_listenersByEvent.TryGetValue(eventType, out List<WeakReference> value))
+			List<WeakReference> value;
+			if (m_listenersByEvent.TryGetValue(eventType, out value))
 			{
 				m_firingEventsCount++;
 				int i = 0;

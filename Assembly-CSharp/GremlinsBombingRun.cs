@@ -137,12 +137,13 @@ public class GremlinsBombingRun : Ability
 		}
 		if (m_numSteps < 2)
 		{
+			int foo;
 			isValid = KnockbackUtils.CanBuildStraightLineChargePath(
 				caster,
 				square,
 				caster.GetCurrentBoardSquare(),
 				false,
-				out _);
+				out foo);
 		}
 		else
 		{
@@ -266,12 +267,14 @@ public class GremlinsBombingRun : Ability
 			{
 				continue;
 			}
+
+			int numSquaresInPath;
 			bool canJump = KnockbackUtils.CanBuildStraightLineChargePath(
 				caster,
 				squareInRange,
 				fromSquare,
 				false,
-				out var numSquaresInPath);
+				out numSquaresInPath);
 
 			if (canJump
 			    && numSquaresInPath > GetMinSquaresPerJump()

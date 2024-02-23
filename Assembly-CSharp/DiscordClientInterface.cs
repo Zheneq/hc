@@ -91,7 +91,8 @@ public class DiscordClientInterface : MonoBehaviour
 				{
 					foreach (RegistryKey registryKey in from keyName in key.GetSubKeyNames() select key.OpenSubKey(keyName))
 					{
-						if (registryKey.GetValue("DisplayName") is string text && text.Contains("Discord"))
+						var text = registryKey.GetValue("DisplayName") as string;
+						if (text != null && text.Contains("Discord"))
 						{
 							return true;
 						}
@@ -210,36 +211,34 @@ public class DiscordClientInterface : MonoBehaviour
 
 	private void Authorize()
 	{
-		m_webSocket.Send(JsonConvert.SerializeObject(new RpcRequest
+		RpcRequest value = new RpcRequest
 		{
 			nonce = Guid.NewGuid().ToString(),
-			args = new Dictionary<object, object>
-			{
-				["client_id"] = m_authInfo.ClientId,
-				["scopes"] = new List<string>
-				{
-					"rpc",
-					"rpc.api",
-					"guilds.join"
-				},
-				["rpc_token"] = m_authInfo.RpcToken
-			},
+			args = new Dictionary<object, object>(),
 			cmd = "AUTHORIZE"
-		}));
+		};
+		value.args["rpc_token"] = m_authInfo.RpcToken;
+		value.args["scopes"] = new List<string>
+		{
+			"rpc",
+			"rpc.api",
+			"guilds.join"
+		};
+		value.args["client_id"] = m_authInfo.ClientId;
+		m_webSocket.Send(JsonConvert.SerializeObject(value));
 	}
 
 	public void Authenticate(DiscordUserInfo userInfo)
 	{
 		m_userInfo = userInfo;
-		m_webSocket.Send(JsonConvert.SerializeObject(new RpcRequest
+		RpcRequest value = new RpcRequest
 		{
 			nonce = Guid.NewGuid().ToString(),
-			args = new Dictionary<object, object>
-			{
-				["access_token"] = m_userInfo.AccessToken
-			},
+			args = new Dictionary<object, object>(),
 			cmd = "AUTHENTICATE"
-		}));
+		};
+		value.args["access_token"] = m_userInfo.AccessToken;
+		m_webSocket.Send(JsonConvert.SerializeObject(value));
 	}
 
 	private void Invoke(string jsonMessage)
@@ -276,20 +275,20 @@ public class DiscordClientInterface : MonoBehaviour
 			RpcResponse rpcResponse = JsonConvert.DeserializeObject<RpcResponse>(jsonMessage, m_jsonDateFormatSettings);
 			JObject resp = rpcResponse.data != null ? JObject.Parse(rpcResponse.data.ToString()) : null;
 			Debug(rpcResponse);
-			switch (rpcResponse.cmd)
+			if (rpcResponse.cmd == "CONNECTION_OPEN")
 			{
-				case "CONNECTION_OPEN":
-				{
-					Debug("Connected to 127.0.0.1:{0}", RpcPort);
-					OnConnected(m_authInfo == null);
-					m_retryToConnect = false;
-					m_rpcPortOffset = 0;
-					break;
-				}
-				case "CONNECTION_ERROR":
-					Debug("Connection error to 127.0.0.1:{0}", RpcPort);
-					break;
-				case "CONNECTION_CLOSE" when m_retryToConnect:
+				Debug("Connected to 127.0.0.1:{0}", RpcPort);
+				OnConnected(m_authInfo == null);
+				m_retryToConnect = false;
+				m_rpcPortOffset = 0;
+			}
+			else if (rpcResponse.cmd == "CONNECTION_ERROR")
+			{
+				Debug("Connection error to 127.0.0.1:{0}", RpcPort);
+			}
+			else if (rpcResponse.cmd == "CONNECTION_CLOSE")
+			{
+				if (m_retryToConnect)
 				{
 					m_rpcPortOffset++;
 					if (RPC_PORT_BEGIN + m_rpcPortOffset > RPC_PORT_END)
@@ -304,129 +303,124 @@ public class DiscordClientInterface : MonoBehaviour
 						m_webSocket = null;
 						TryConnect();
 					}
-
-					break;
 				}
-				case "CONNECTION_CLOSE":
+				else
 				{
 					Debug("Disconnected from discord");
 					if (m_authInfo != null)
 					{
 						OnLeft();
 					}
+
 					Disconnect();
 					OnDisconnected();
-					break;
 				}
-				case "DISPATCH":
-					switch (rpcResponse.evt)
+			}
+			else if (rpcResponse.cmd == "DISPATCH")
+			{
+				if (rpcResponse.evt == "READY" && (m_authInfo != null && m_userInfo == null))
+				{
+					Authorize();
+				}
+				else if (rpcResponse.evt == "CAPTURE_SHORTCUT_CHANGE" && resp != null)
+				{
+					JToken jtoken = resp.SelectToken("shortcut").ElementAt(0);
+					int keyType = Convert.ToInt32(jtoken.SelectToken("type").ToString());
+					int keyCode = Convert.ToInt32(jtoken.SelectToken("code").ToString());
+					string text = jtoken.SelectToken("name").ToString();
+					if (ClientGameManager.Get() != null)
 					{
-						case "READY" when m_authInfo != null && m_userInfo == null:
-							Authorize();
-							break;
-						case "CAPTURE_SHORTCUT_CHANGE" when resp != null:
+						ClientGameManager.Get().SetPushToTalkKey(keyType, keyCode, text);
+					}
+
+					if (m_pushToTalkScanCallback != null) m_pushToTalkScanCallback.Invoke(keyType, keyCode, text);
+					ScanPushToTalkKey(false, null);
+					RefreshSettings();
+				}
+				else if (rpcResponse.evt == "VOICE_STATE_CREATE" && resp != null)
+				{
+					bool found = false;
+					ulong userId = ulong.Parse(resp.SelectToken("user.id").ToString());
+					foreach (DiscordUserInfo user in m_discordChannelUsers)
+					{
+						if (user.UserId == userId)
 						{
-							JToken jtoken = resp.SelectToken("shortcut").ElementAt(0);
-							int keyType = Convert.ToInt32(jtoken.SelectToken("type").ToString());
-							int keyCode = Convert.ToInt32(jtoken.SelectToken("code").ToString());
-							string text = jtoken.SelectToken("name").ToString();
-							if (ClientGameManager.Get() != null)
-							{
-								ClientGameManager.Get().SetPushToTalkKey(keyType, keyCode, text);
-							}
-							m_pushToTalkScanCallback?.Invoke(keyType, keyCode, text);
-							ScanPushToTalkKey(false, null);
-							RefreshSettings();
-							break;
-						}
-						case "VOICE_STATE_CREATE" when resp != null:
-						{
-							bool found = false;
-							ulong userId = ulong.Parse(resp.SelectToken("user.id").ToString());
-							foreach (DiscordUserInfo user in m_discordChannelUsers)
-							{
-								if (user.UserId == userId)
-								{
-									found = true;
-									break;
-								}
-							}
-							if (!found)
-							{
-								DiscordUserInfo discordUserInfo = new DiscordUserInfo
-								{
-									UserId = userId,
-									UserName = resp.SelectToken("user.username").ToString(),
-									Discriminator = resp.SelectToken("user.discriminator").ToString()
-								};
-								m_discordChannelUsers.Add(discordUserInfo);
-								OnUserJoined(discordUserInfo);
-							}
-							break;
-						}
-						case "VOICE_STATE_DELETE" when resp != null:
-						{
-							ulong userId = ulong.Parse(resp.SelectToken("user.id").ToString());
-							for (int i = 0; i < m_discordChannelUsers.Count; i++)
-							{
-								if (m_discordChannelUsers[i].UserId == userId)
-								{
-									DiscordUserInfo user = m_discordChannelUsers[i];
-									m_discordChannelUsers.RemoveAt(i);
-									OnUserLeft(user);
-									break;
-								}
-							}
-							break;
-						}
-						default:
-						{
-							if ((rpcResponse.evt == "SPEAKING_START" || rpcResponse.evt == "SPEAKING_STOP") && resp != null)
-							{
-								ulong userId = ulong.Parse(resp.SelectToken("user_id").ToString());
-								foreach (DiscordUserInfo user in m_discordChannelUsers)
-								{
-									if (user.UserId == userId)
-									{
-										user.IsSpeaking = rpcResponse.evt == "SPEAKING_START";
-										OnUserSpeakingChanged(user);
-										break;
-									}
-								}
-							}
+							found = true;
 							break;
 						}
 					}
-					break;
-				case "AUTHORIZE":
-				{
-					OnAuthorized(resp.SelectToken("code").ToString());
-					break;
+
+					if (!found)
+					{
+						DiscordUserInfo discordUserInfo = new DiscordUserInfo
+						{
+							UserId = userId,
+							UserName = resp.SelectToken("user.username").ToString(),
+							Discriminator = resp.SelectToken("user.discriminator").ToString()
+						};
+						m_discordChannelUsers.Add(discordUserInfo);
+						OnUserJoined(discordUserInfo);
+					}
 				}
-				case "AUTHENTICATE" when rpcResponse.evt.IsNullOrEmpty():
+				else if (rpcResponse.evt == "VOICE_STATE_DELETE" && resp != null)
 				{
-					m_userInfo.UserId = ulong.Parse(resp.SelectToken("user.id").ToString());
-					OnAuthenticated(m_userInfo);
-					break;
+					ulong userId = ulong.Parse(resp.SelectToken("user.id").ToString());
+					for (int i = 0; i < m_discordChannelUsers.Count; i++)
+					{
+						if (m_discordChannelUsers[i].UserId == userId)
+						{
+							DiscordUserInfo user = m_discordChannelUsers[i];
+							m_discordChannelUsers.RemoveAt(i);
+							OnUserLeft(user);
+							break;
+						}
+					}
 				}
-				case "AUTHENTICATE":
-					Debug("Failed to authenticate RPC connection {0}", resp);
-					break;
-				case "TRY_SELECT_VOICE_CHANNEL":
+				else
 				{
-					int code = int.Parse(resp.SelectToken("code").ToString());
-					bool force = code == 0x138B;
-					TrySelectVoiceChannel(force);
-					break;
+					if ((rpcResponse.evt == "SPEAKING_START" || rpcResponse.evt == "SPEAKING_STOP") && resp != null)
+					{
+						ulong userId = ulong.Parse(resp.SelectToken("user_id").ToString());
+						foreach (DiscordUserInfo user in m_discordChannelUsers)
+						{
+							if (user.UserId == userId)
+							{
+								user.IsSpeaking = rpcResponse.evt == "SPEAKING_START";
+								OnUserSpeakingChanged(user);
+								break;
+							}
+						}
+					}
 				}
-				case "SELECT_VOICE_CHANNEL" when rpcResponse.evt.IsNullOrEmpty():
-					Debug("Connected to voice channel {0}", m_channelInfo.VoiceChannelId);
-					OnJoined();
-					break;
-				case "SELECT_VOICE_CHANNEL":
-					Debug("Failed to connect to voice channel {0} {1}. Retrying", m_channelInfo.VoiceChannelId, resp);
-					RetrySelectVoiceChannel(resp);
-					break;
+			}
+			else if (rpcResponse.cmd == "AUTHORIZE")
+			{
+				OnAuthorized(resp.SelectToken("code").ToString());
+			}
+			else if (rpcResponse.cmd == "AUTHENTICATE" && rpcResponse.evt.IsNullOrEmpty())
+			{
+				m_userInfo.UserId = ulong.Parse(resp.SelectToken("user.id").ToString());
+				OnAuthenticated(m_userInfo);
+			}
+			else if (rpcResponse.cmd == "AUTHENTICATE")
+			{
+				Debug("Failed to authenticate RPC connection {0}", resp);
+			}
+			else if (rpcResponse.cmd == "TRY_SELECT_VOICE_CHANNEL")
+			{
+				int code = int.Parse(resp.SelectToken("code").ToString());
+				bool force = code == 0x138B;
+				TrySelectVoiceChannel(force);
+			}
+			else if (rpcResponse.cmd == "SELECT_VOICE_CHANNEL" && rpcResponse.evt.IsNullOrEmpty())
+			{
+				Debug("Connected to voice channel {0}", m_channelInfo.VoiceChannelId);
+				OnJoined();
+			}
+			else if (rpcResponse.cmd == "SELECT_VOICE_CHANNEL")
+			{
+				Debug("Failed to connect to voice channel {0} {1}. Retrying", m_channelInfo.VoiceChannelId, resp);
+				RetrySelectVoiceChannel(resp);
 			}
 		}
 		catch (Exception ex)
@@ -483,7 +477,8 @@ public class DiscordClientInterface : MonoBehaviour
 	private void InitializeSdk()
 	{
 		string name = "Hydrogen.DiscordSdk";
-		Mutex mutex = new Mutex(true, name, out bool flag);
+		bool flag;
+		Mutex mutex = new Mutex(true, name, out flag);
 		if (!flag || mutex == null)
 		{
 			Debug("failed to initialize Sdk. Discord does not support launching multiple Sdk processes on the same computer at one time.");
@@ -582,12 +577,10 @@ public class DiscordClientInterface : MonoBehaviour
 		RpcRequest rpcRequest = new RpcRequest
 		{
 			nonce = Guid.NewGuid().ToString(),
-			args = new Dictionary<object, object>
-			{
-				["channel_id"] = m_channelInfo.VoiceChannelId.ToString(),
-				["timeout"] = RPC_COMMAND_TIMEOUT_SEC
-			}
+			args = new Dictionary<object, object>()
 		};
+		rpcRequest.args["timeout"] = RPC_COMMAND_TIMEOUT_SEC;
+		rpcRequest.args["channel_id"] = m_channelInfo.VoiceChannelId.ToString();
 		if (force)
 		{
 			rpcRequest.args["force"] = force;
@@ -626,19 +619,17 @@ public class DiscordClientInterface : MonoBehaviour
 		RpcRequest rpcRequest = new RpcRequest
 		{
 			nonce = Guid.NewGuid().ToString(),
-			args = new Dictionary<object, object>
-			{
-				["input"] = new
-				{
-					volume = options_UI.GetVoiceVolume()
-				},
-				["output"] = new
-				{
-					volume = options_UI.GetMicVolume()
-				},
-				["mute"] = options_UI.GetVoiceMute()
-			},
+			args = new Dictionary<object, object>(),
 			cmd = "SET_VOICE_SETTINGS"
+		};
+		rpcRequest.args["mute"] = options_UI.GetVoiceMute();
+		rpcRequest.args["output"] = new
+		{
+			volume = options_UI.GetMicVolume()
+		};
+		rpcRequest.args["input"] = new
+		{
+			volume = options_UI.GetVoiceVolume()
 		};
 		Dictionary<object, object> mode = new Dictionary<object, object>();
 		rpcRequest.args["mode"] = mode;
@@ -668,15 +659,14 @@ public class DiscordClientInterface : MonoBehaviour
 			return false;
 		}
 		m_pushToTalkScanCallback = callback;
-		m_webSocket.Send(JsonConvert.SerializeObject(new RpcRequest
+		RpcRequest value = new RpcRequest
 		{
 			nonce = Guid.NewGuid().ToString(),
-			args = new Dictionary<object, object>
-			{
-				["action"] = start ? "START" : "STOP"
-			},
+			args = new Dictionary<object, object>(),
 			cmd = "CAPTURE_SHORTCUT"
-		}));
+		};
+		value.args["action"] = start ? "START" : "STOP";
+		m_webSocket.Send(JsonConvert.SerializeObject(value));
 		return true;
 	}
 

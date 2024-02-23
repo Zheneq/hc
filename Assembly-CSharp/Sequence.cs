@@ -1375,8 +1375,9 @@ public abstract class Sequence : MonoBehaviour
 
 	public void OverridePhaseTimingParams(PhaseTimingParameters timingParams, IExtraSequenceParams iParams)
 	{
+		PhaseTimingExtraParams phaseTimingExtraParams = iParams as PhaseTimingExtraParams;
 		if (iParams == null
-		    || !(iParams is PhaseTimingExtraParams phaseTimingExtraParams)
+		    || phaseTimingExtraParams == null
 		    || timingParams == null
 		    || !timingParams.m_acceptOverrideFromParams)
 		{

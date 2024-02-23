@@ -64,7 +64,8 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 			{
 				active = true;
 				firstTargetPos = firstTargetSquare.ToVector3();
-				dir = VectorUtils.GetDirectionAndOffsetToClosestSide(firstTargetSquare, currentTarget.FreePos, m_allowAimAtDiagonals, out Vector3 offset);
+				Vector3 offset;
+				dir = VectorUtils.GetDirectionAndOffsetToClosestSide(firstTargetSquare, currentTarget.FreePos, m_allowAimAtDiagonals, out offset);
 				currentTargetPos = firstTargetPos + offset;
 			}
 		}
@@ -94,7 +95,8 @@ public class AbilityUtil_Targeter_RampartKnockbackBarrier : AbilityUtil_Targeter
 		List<ActorData> actorsInFront = AreaEffectUtils.GetActorsInLaser(laserCoords.start, dir, laserRangeInSquares, m_width, targetingActor, relevantTeams, m_penetrateLos, -1, m_lengthIgnoreLos, false, out laserCoords.end, null, null, true);
 		if (actorsInFront.Count > 0)
 		{
-			List<ActorData> actorBehind = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * dir, 2f, m_width, targetingActor, relevantTeams, true, -1, true, true, out Vector3 laserEndPos, null, null, true);
+			Vector3 laserEndPos;
+			List<ActorData> actorBehind = AreaEffectUtils.GetActorsInLaser(laserCoords.start, -1f * dir, 2f, m_width, targetingActor, relevantTeams, true, -1, true, true, out laserEndPos, null, null, true);
 			for (int i = actorsInFront.Count - 1; i >= 0; i--)
 			{
 				if (actorBehind.Contains(actorsInFront[i]))

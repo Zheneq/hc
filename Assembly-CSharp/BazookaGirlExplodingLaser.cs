@@ -216,10 +216,8 @@ public class BazookaGirlExplodingLaser : Ability
 		{
 			damage += GetExplosionDamage();
 		}
-		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>
-		{
-			[AbilityTooltipSymbol.Damage] = damage
-		};
+		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+		dictionary[AbilityTooltipSymbol.Damage] = damage;
 		return dictionary;
 	}
 

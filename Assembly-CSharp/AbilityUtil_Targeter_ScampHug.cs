@@ -68,6 +68,9 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 		if (IsInKnockbackMode())
 		{
 			bool isLaser = m_targetingMode == ScampHug.TargetingMode.Laser;
+			ActorData firstHitActor;
+			List<ActorData> aoeHitActors;
+			BoardSquare knockbackDestSquare;
 			ScampHug.GetHitActorsAndKnockbackDestinationStatic(
 				currentTarget,
 				targetingActor,
@@ -76,9 +79,9 @@ public class AbilityUtil_Targeter_ScampHug : AbilityUtil_Targeter
 				m_dashWidthInSquares,
 				m_dashRangeInSquares,
 				m_aoeShape,
-				out ActorData firstHitActor,
-				out List<ActorData> aoeHitActors,
-				out BoardSquare knockbackDestSquare);
+				out firstHitActor,
+				out aoeHitActors,
+				out knockbackDestSquare);
 			bool active = false;
 			Vector3 damageOrigin = Vector3.zero;
 			if (firstHitActor != null)

@@ -441,8 +441,9 @@ public class NinjaShurikenOrDash : Ability
 				}
 				if (flag5)
 				{
+					int foo;
 					flag2 = GetIsTeleport()
-					        || KnockbackUtils.CanBuildStraightLineChargePath(caster, curTargetSquare, prevTargetSquare, false, out _);
+					        || KnockbackUtils.CanBuildStraightLineChargePath(caster, curTargetSquare, prevTargetSquare, false, out foo);
 				}
 			}
 		}

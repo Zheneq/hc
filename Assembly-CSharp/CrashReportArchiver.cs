@@ -521,7 +521,8 @@ public static class CrashReportArchiver
 	private static string TryGetMemoryCounter(Dictionary<string, string> userKeyValues, string key)
 	{
 		object input;
-		if (userKeyValues.TryGetValue(key, out string value))
+		string value;
+		if (userKeyValues.TryGetValue(key, out value))
 		{
 			if (!string.IsNullOrEmpty(value))
 			{

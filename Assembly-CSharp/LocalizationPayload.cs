@@ -54,8 +54,10 @@ public class LocalizationPayload
 			foreach (byte[] buffer in argumentsAsBinaryData)
 			{
 				MemoryStream stream = new MemoryStream(buffer);
-				Serializer.Deserialize(stream, out object ob);
-				if (ob is LocalizationArg arg)
+				object ob;
+				Serializer.Deserialize(stream, out ob);
+				LocalizationArg arg = ob as LocalizationArg;
+				if (arg != null)
 				{
 					list.Add(arg);
 				}

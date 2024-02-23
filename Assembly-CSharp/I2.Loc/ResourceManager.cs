@@ -117,7 +117,9 @@ namespace I2.Loc
 			{
 				return (T)null;
 			}
-			if (mResourcesCache.TryGetValue(Path, out UnityEngine.Object value))
+
+			UnityEngine.Object value;
+			if (mResourcesCache.TryGetValue(Path, out value))
 			{
 				if (value != null)
 				{

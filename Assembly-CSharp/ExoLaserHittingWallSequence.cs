@@ -23,7 +23,8 @@ public class ExoLaserHittingWallSequence : Sequence
 		m_hittingWall = false;
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is GroundLineSequence.ExtraParams extraParams2)
+			GroundLineSequence.ExtraParams extraParams2 = extraSequenceParams as GroundLineSequence.ExtraParams;
+			if (extraParams2 != null)
 			{
 				float dist = Vector3.Distance(extraParams2.startPos, extraParams2.endPos);
 				ExoAnchorLaser exoAnchorLaser = Caster.GetAbilityData().GetAbilityOfType(typeof(ExoAnchorLaser)) as ExoAnchorLaser;

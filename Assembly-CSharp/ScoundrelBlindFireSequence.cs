@@ -75,7 +75,8 @@ public class ScoundrelBlindFireSequence : Sequence
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is ConeExtraParams coneExtraParams)
+			ConeExtraParams coneExtraParams = extraSequenceParams as ConeExtraParams;
+			if (coneExtraParams != null)
 			{
 				if (coneExtraParams.maxDistInSquares > 0f)
 				{
@@ -86,7 +87,9 @@ public class ScoundrelBlindFireSequence : Sequence
 					m_angleRange = coneExtraParams.halfAngleDegrees;
 				}
 			}
-			if (extraSequenceParams is SimpleAttachedVFXSequence.ImpactDelayParams impactDelayParams)
+
+			SimpleAttachedVFXSequence.ImpactDelayParams impactDelayParams = extraSequenceParams as SimpleAttachedVFXSequence.ImpactDelayParams;
+			if (impactDelayParams != null)
 			{
 				if (impactDelayParams.impactDelayTime > 0f)
 				{

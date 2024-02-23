@@ -110,7 +110,8 @@ public abstract class SlashCommand
 		{
 			if (num < num2)
 			{
-				if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandAliasKey(internalCommand, num), out string Translation))
+				string Translation;
+				if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandAliasKey(internalCommand, num), out Translation))
 				{
 					Aliases.Add(Translation);
 					num++;
@@ -127,7 +128,8 @@ public abstract class SlashCommand
 
 	private string LocalizeSlashCommand(string command)
 	{
-		if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandKey(command), out string Translation))
+		string Translation;
+		if (LocalizationManager.TryGetTermTranslation(ScriptLocalization.GetSlashCommandKey(command), out Translation))
 		{
 			while (true)
 			{

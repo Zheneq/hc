@@ -124,10 +124,10 @@ public class SniperCripplingRound : Ability
 		{
 			damage += GetExplosionDamage();
 		}
-		return new Dictionary<AbilityTooltipSymbol, int>
-		{
-			[AbilityTooltipSymbol.Damage] = damage
-		};
+
+		var ints = new Dictionary<AbilityTooltipSymbol, int>();
+		ints[AbilityTooltipSymbol.Damage] = damage;
+		return ints;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)

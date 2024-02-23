@@ -62,7 +62,8 @@ public class Loot
 
 	public Karma GetKarma(int karmaTemplateId)
 	{
-		Karmas.TryGetValue(karmaTemplateId, out Karma value);
+		Karma value;
+		Karmas.TryGetValue(karmaTemplateId, out value);
 		return value;
 	}
 

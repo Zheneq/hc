@@ -22,19 +22,19 @@ public class NanosmithBoltLaserSequence : Sequence
 			stream.Serialize(ref skipImpactFx);
 			stream.Serialize(ref useOverrideStartPos);
 			stream.Serialize(ref overrideStartPos);
-			int boltEndPositionNum = boltEndPositions?.Length ?? 0;
+			int boltEndPositionNum = boltEndPositions != null ? boltEndPositions.Length : 0;
 			stream.Serialize(ref boltEndPositionNum);
 			for (int i = 0; i < boltEndPositionNum; i++)
 			{
 				Vector3 boltEndPosition = boltEndPositions[i];
 				stream.Serialize(ref boltEndPosition);
 			}
-			int boltHitActorNum = boltHitActors?.Count ?? 0;
+			int boltHitActorNum = boltHitActors != null ? boltHitActors.Count : 0;
 			stream.Serialize(ref boltHitActorNum);
 			for (int i = 0; i < boltHitActorNum; i++)
 			{
 				ActorData[] actors = boltHitActors[i];
-				int actorNum = actors?.Length ?? 0;
+				int actorNum = actors != null ? actors.Length : 0;
 				stream.Serialize(ref actorNum);
 				for (int j = 0; j < actorNum; j++)
 				{
@@ -210,7 +210,8 @@ public class NanosmithBoltLaserSequence : Sequence
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is ExtraParams extraParams2)
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
+			if (extraParams2 != null)
 			{
 				m_curIndex = extraParams2.curIndex;
 				m_maxIndex = extraParams2.maxIndex;

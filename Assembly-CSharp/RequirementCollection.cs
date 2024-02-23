@@ -28,8 +28,10 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 		foreach (byte[] data in RequirementsAsBinaryData)
 		{
 			MemoryStream stream = new MemoryStream(data);
-			InternalSerializer.Deserialize(stream, out object arg);
-			if (arg != null && arg is QueueRequirement req)
+			object arg;
+			InternalSerializer.Deserialize(stream, out arg);
+			QueueRequirement req = arg as QueueRequirement;
+			if (arg != null && req != null)
 			{
 				yield return req;
 				flag = true;

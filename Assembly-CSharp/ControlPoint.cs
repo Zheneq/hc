@@ -354,7 +354,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref State currentControlPointState = ref m_currentControlPointState;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -364,7 +363,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref currentControlPointState, 32u);
+			SetSyncVar(value, ref m_currentControlPointState, 32u);
 		}
 	}
 
@@ -377,7 +376,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int lockedTurnsRemaining = ref m_lockedTurnsRemaining;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -387,7 +385,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref lockedTurnsRemaining, 64u);
+			SetSyncVar(value, ref m_lockedTurnsRemaining, 64u);
 		}
 	}
 
@@ -426,7 +424,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref bool grantingVisionForTeamA = ref m_grantingVisionForTeamA;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -436,7 +433,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref grantingVisionForTeamA, 512u);
+			SetSyncVar(value, ref m_grantingVisionForTeamA, 512u);
 		}
 	}
 
@@ -449,7 +446,6 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref bool grantingVisionForTeamB = ref m_grantingVisionForTeamB;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -459,7 +455,7 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref grantingVisionForTeamB, 1024u);
+			SetSyncVar(value, ref m_grantingVisionForTeamB, 1024u);
 		}
 	}
 
@@ -1034,7 +1030,17 @@ public class ControlPoint : NetworkBehaviour, IGameEventListener
 					}
 				}
 			}
-			CalcCurrentStatus(out bool _, out bool _, out bool _, out bool _, out bool alliedCapturing, out bool alliedControlled, out bool enemyCapturing, out bool enemyControlled, out bool contested);
+
+			bool foo;
+			bool foo1;
+			bool foo2;
+			bool foo3;
+			bool alliedCapturing;
+			bool alliedControlled;
+			bool enemyCapturing;
+			bool enemyControlled;
+			bool contested;
+			CalcCurrentStatus(out foo, out foo1, out foo2, out foo3, out alliedCapturing, out alliedControlled, out enemyCapturing, out enemyControlled, out contested);
 			Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
 			Team controllingTeam = GetControllingTeam();
 			Team winningTeam = GetWinningTeam();

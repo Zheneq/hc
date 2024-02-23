@@ -29,12 +29,14 @@ public class DinoLayerCones : GenericAbility_Container
 		}
 		base.SetupTargetersAndCachedVars();
 		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
-		if (targetSelectComp != null && targetSelectComp is TargetSelect_LayerCones targeter1)
+		TargetSelect_LayerCones targeter1 = targetSelectComp as TargetSelect_LayerCones;
+		if (targetSelectComp != null && !ReferenceEquals(targeter1, null))
 		{
 			targeter1.m_delegateNumActiveLayers = GetNumLayersActive;
 		}
 
-		if (Targeter is AbilityUtil_Targeter_LayerCones targeter2)
+		AbilityUtil_Targeter_LayerCones targeter2 = Targeter as AbilityUtil_Targeter_LayerCones;
+		if (targeter2 != null)
 		{
 			targeter2.m_delegateNumActiveLayers = GetNumLayersActive;
 		}
@@ -50,7 +52,8 @@ public class DinoLayerCones : GenericAbility_Container
 	public int GetLayerCount()
 	{
 		GenericAbility_TargetSelectBase targetSelectComp = GetTargetSelectComp();
-		return targetSelectComp != null && targetSelectComp is TargetSelect_LayerCones cones
+		TargetSelect_LayerCones cones = targetSelectComp as TargetSelect_LayerCones;
+		return targetSelectComp != null && !ReferenceEquals(cones, null)
 			? cones.GetLayerCount()
 			: 1;
 	}

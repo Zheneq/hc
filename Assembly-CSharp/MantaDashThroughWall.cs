@@ -359,11 +359,13 @@ public class MantaDashThroughWall : Ability
 			{
 				float x = direction.x;
 				direction.x = 0f;
-				if (!VectorUtils.RaycastInDirection(occupantLoSPos, -1f * direction.normalized, Board.Get().squareSize, out _))
+				RaycastHit foo;
+				if (!VectorUtils.RaycastInDirection(occupantLoSPos, -1f * direction.normalized, Board.Get().squareSize, out foo))
 				{
 					direction.z = 0f;
 					direction.x = x;
-					VectorUtils.RaycastInDirection(occupantLoSPos, -1f * direction.normalized, Board.Get().squareSize, out _);
+					RaycastHit foo1;
+					VectorUtils.RaycastInDirection(occupantLoSPos, -1f * direction.normalized, Board.Get().squareSize, out foo1);
 				}
 			}
 			int angleWithHorizontal = Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(direction));

@@ -101,7 +101,8 @@ public class PlayerData : NetworkBehaviour
 
 	public PlayerDetails LookupDetails()
 	{
-		GameFlow.Get().playerDetails.TryGetValue(m_player, out PlayerDetails details);
+		PlayerDetails details;
+		GameFlow.Get().playerDetails.TryGetValue(m_player, out details);
 		return details;
 	}
 
@@ -144,10 +145,11 @@ public class PlayerData : NetworkBehaviour
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
+		PlayerDetails details;
 		if (NetworkClient.active
-			&& !NetworkServer.active
-			&& GameFlow.Get().playerDetails.TryGetValue(m_player, out PlayerDetails details)
-			&& details.IsLocal())
+		    && !NetworkServer.active
+		    && GameFlow.Get().playerDetails.TryGetValue(m_player, out details)
+		    && details.IsLocal())
 		{
 			ClientGameManager.Get().Client.Send(
 				(int)MyMsgType.ClientRequestTimeUpdate,
@@ -236,7 +238,8 @@ public class PlayerData : NetworkBehaviour
 		}
 		if (reconnecting)
 		{
-			IsometricCamera isometricCamera = CameraManager.Get()?.GetIsometricCamera();
+			CameraManager cameraManager = CameraManager.Get();
+			IsometricCamera isometricCamera = cameraManager != null ? cameraManager.GetIsometricCamera() : null;
 			if (isometricCamera != null)
 			{
 				isometricCamera.OnReconnect();

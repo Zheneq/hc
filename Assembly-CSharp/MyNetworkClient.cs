@@ -22,7 +22,8 @@ public class MyNetworkClient : NetworkClient
 
 	public override void Disconnect()
 	{
-		if (m_Connection is MyNetworkClientConnection myNetworkClientConnection)
+		MyNetworkClientConnection myNetworkClientConnection = m_Connection as MyNetworkClientConnection;
+		if (myNetworkClientConnection != null)
 		{
 			myNetworkClientConnection.Close();
 		}

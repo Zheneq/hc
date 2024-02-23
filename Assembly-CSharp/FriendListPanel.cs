@@ -250,7 +250,8 @@ public class FriendListPanel : MonoBehaviour
 		for (int i = 0; i < componentsInChildren.Length; i++)
 		{
 			long friendAccountId = componentsInChildren[i].m_friendInfo.FriendAccountId;
-			if (accountData.SocialComponent.FriendInfo.TryGetValue(friendAccountId, out SocialComponent.FriendData value))
+			SocialComponent.FriendData value;
+			if (accountData.SocialComponent.FriendInfo.TryGetValue(friendAccountId, out value))
 			{
 				componentsInChildren[i].UpdateVisualInfo(value.LastSeenTitleID, value.LastSeenTitleLevel, value.LastSeenBackbroundID, value.LastSeenForegroundID, value.LastSeenRibbonID, value.LastSeenNote);
 			}

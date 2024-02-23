@@ -185,7 +185,10 @@ public class GenericAbility_Container : Ability
 		{
 			return false;
 		}
-		GetHitContextForTargetingNumbers(currentTargeterIndex, out Dictionary<ActorData, ActorHitContext> actorHitContext, out ContextVars abilityContext);
+
+		Dictionary<ActorData, ActorHitContext> actorHitContext;
+		ContextVars abilityContext;
+		GetHitContextForTargetingNumbers(currentTargeterIndex, out actorHitContext, out abilityContext);
 		if (!actorHitContext.ContainsKey(targetActor))
 		{
 			return false;

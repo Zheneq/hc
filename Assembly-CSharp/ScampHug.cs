@@ -81,10 +81,11 @@ public class ScampHug : Ability
 			return true;
 		}
 		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		int foo;
 		return targetSquare != null
 		       && targetSquare != caster.GetCurrentBoardSquare()
 		       && targetSquare.IsValidForGameplay()
-		       && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+		       && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out foo);
 	}
 
 	public override AbilityPriority GetRunPriority()
@@ -162,6 +163,7 @@ public class ScampHug : Ability
 			float d = Vector3.Dot(lhs, currentTarget.AimDirection) + 0.5f;
 			laserEndPoint = start + d * currentTarget.AimDirection;
 			float magnitude = (laserEndPoint - start).magnitude;
+			Vector3 foo;
 			List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
 				start,
 				currentTarget.AimDirection,
@@ -173,7 +175,7 @@ public class ScampHug : Ability
 				1,
 				true,
 				includeInvisibles,
-				out _,
+				out foo,
 				null);
 			if (actorsInLaser.Count > 0)
 			{

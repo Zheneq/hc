@@ -39,7 +39,7 @@ public class LobbyPlayerCommonInfo
 
 	public CharacterType CharacterType
 	{
-		get { return CharacterInfo?.CharacterType ?? CharacterType.None; }
+		get { return CharacterInfo != null ? CharacterInfo.CharacterType : CharacterType.None; }
 	}
 
 	public bool IsReady

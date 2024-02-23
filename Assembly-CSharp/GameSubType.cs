@@ -193,7 +193,7 @@ public class GameSubType
 
 	public void ValidateSelf(IFreelancerSetQueryInterface qi, LobbyGameConfig gameConfig)
 	{
-		TeamComposition?.ValidateSelf(qi, gameConfig, GetResolvedDuplicationRule(), GetNameAsPayload().Term);
+		if (TeamComposition != null) TeamComposition.ValidateSelf(qi, gameConfig, GetResolvedDuplicationRule(), GetNameAsPayload().Term);
 	}
 
 	public static TimeSpan ConformTurnTimeSpanFromSeconds(double totalSeconds)

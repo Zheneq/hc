@@ -342,8 +342,12 @@ public class FireborgReactLasers : GenericAbility_Container
 						}
 						while (true)
 						{
-							clientResolutionAction.GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList);
-							clientResolutionAction2.GetReactionHitResultsByCaster(caster, out Dictionary<ActorData, ClientActorHitResults> actorHitResList2, out Dictionary<Vector3, ClientPositionHitResults> posHitResList2);
+							Dictionary<ActorData, ClientActorHitResults> actorHitResList;
+							Dictionary<Vector3, ClientPositionHitResults> posHitResList;
+							clientResolutionAction.GetHitResults(out actorHitResList, out posHitResList);
+							Dictionary<ActorData, ClientActorHitResults> actorHitResList2;
+							Dictionary<Vector3, ClientPositionHitResults> posHitResList2;
+							clientResolutionAction2.GetReactionHitResultsByCaster(caster, out actorHitResList2, out posHitResList2);
 							if (actorHitResList != null && posHitResList != null)
 							{
 								if (actorHitResList2 != null)

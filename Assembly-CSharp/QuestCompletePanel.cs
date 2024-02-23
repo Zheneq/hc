@@ -80,7 +80,9 @@ public class QuestCompletePanel : UIScene
 						}
 						foreach (QuestProgress value in ClientGameManager.Get().GetPlayerAccountData().QuestComponent.Progress.Values)
 						{
-							QuestItem.GetQuestProgress(value.Id, out int currentProgress, out int _);
+							int currentProgress;
+							int foo;
+							QuestItem.GetQuestProgress(value.Id, out currentProgress, out foo);
 							if (currentProgress <= 0)
 							{
 							}
@@ -268,7 +270,9 @@ public class QuestCompletePanel : UIScene
 				QuestTemplate questTemplate = QuestWideData.Get().GetQuestTemplate(questProgresses[i].Id);
 				if (questTemplate.AchievmentType != 0)
 				{
-					QuestItem.GetQuestProgress(questTemplate.Index, out int currentProgress, out int _);
+					int currentProgress;
+					int foo;
+					QuestItem.GetQuestProgress(questTemplate.Index, out currentProgress, out foo);
 					SteamUserStats.SetStat(new StringBuilder().Append("AR_QUEST_ID_").Append(questTemplate.Index).ToString(), currentProgress);
 				}
 			}

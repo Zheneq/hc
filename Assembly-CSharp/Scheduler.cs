@@ -67,7 +67,8 @@ public class Scheduler
 	{
 		lock (m_scheduledTasks)
 		{
-			if (m_scheduledTasks.TryGetValue(action, out ScheduledTask value))
+			ScheduledTask value;
+			if (m_scheduledTasks.TryGetValue(action, out value))
 			{
 				value.Cancel();
 				TaskComplete(value, EventArgs.Empty);

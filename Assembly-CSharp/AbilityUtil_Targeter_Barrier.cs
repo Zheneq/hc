@@ -56,7 +56,8 @@ public class AbilityUtil_Targeter_Barrier : AbilityUtil_Targeter
 				active = true;
 				vector2 = square.ToVector3();
 				Vector3 freePos = currentTargetIndex > 0 ? currentTarget.FreePos : firstTarget.FreePos;
-				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(square, freePos, m_allowAimAtDiagonals, out Vector3 offset);
+				Vector3 offset;
+				vector = VectorUtils.GetDirectionAndOffsetToClosestSide(square, freePos, m_allowAimAtDiagonals, out offset);
 				m_barrierCenterPos = vector2 + offset;
 			}
 		}

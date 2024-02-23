@@ -419,7 +419,7 @@ public class SpawnPointManager : MonoBehaviour
 		{
 			foreach (SpawnPointCoord spawnPointCoord in m_spawnPointsTeamB)
 			{
-				BoardSquare square = board?.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y);
+				BoardSquare square = board != null ? board.GetSquareFromIndex(spawnPointCoord.x, spawnPointCoord.y) : null;
 				if (square != null)
 				{
 					Gizmos.DrawWireSphere(square.ToVector3(), 0.7f);

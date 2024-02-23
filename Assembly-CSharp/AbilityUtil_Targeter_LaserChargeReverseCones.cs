@@ -90,7 +90,8 @@ public class AbilityUtil_Targeter_LaserChargeReverseCones : AbilityUtil_Targeter
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		Vector3 laserEndPos = VectorUtils.GetLaserEndPoint(travelBoardSquareWorldPositionForLos, currentTarget.AimDirection, m_dashRangeInSquares * Board.Get().squareSize, false, targetingActor);
 		float magnitude = (laserEndPos - travelBoardSquareWorldPositionForLos).magnitude;
-		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPos, currentTarget.AimDirection, magnitude, targetingActor, out BoardSquare pathEndSquare);
+		BoardSquare pathEndSquare;
+		magnitude = ClaymoreCharge.GetMaxPotentialChargeDistance(travelBoardSquareWorldPositionForLos, laserEndPos, currentTarget.AimDirection, magnitude, targetingActor, out pathEndSquare);
 		BoardSquarePathInfo path = KnockbackUtils.BuildStraightLineChargePath(targetingActor, pathEndSquare, targetingActor.GetCurrentBoardSquare(), true);
 		List<ActorData> actors = ClaymoreCharge.GetActorsOnPath(path, targetingActor.GetEnemyTeamAsList(), targetingActor);
 		TargeterUtils.RemoveActorsInvisibleToClient(ref actors);

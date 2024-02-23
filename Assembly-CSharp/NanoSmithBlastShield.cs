@@ -100,10 +100,8 @@ public class NanoSmithBlastShield : Ability
 			int allies = Targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Ally);
 			if (allies > 0)
 			{
-				dictionary = new Dictionary<AbilityTooltipSymbol, int>
-				{
-					[AbilityTooltipSymbol.Absorb] = GetExtraEffectOnCasterIfTargetingAlly().m_effectData.m_absorbAmount
-				};
+				dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+				dictionary[AbilityTooltipSymbol.Absorb] = GetExtraEffectOnCasterIfTargetingAlly().m_effectData.m_absorbAmount;
 			}
 		}
 		return dictionary;

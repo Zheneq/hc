@@ -35,7 +35,8 @@ public class BattleMonkBuffCharge_Prep : Ability
 		m_selfBuff.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		if (m_chainAbilities.Length > 0)
 		{
-			if (m_chainAbilities[0] is BattleMonkBuffCharge_Dash battleMonkBuffChargeDash)
+			BattleMonkBuffCharge_Dash battleMonkBuffChargeDash = m_chainAbilities[0] as BattleMonkBuffCharge_Dash;
+			if (!ReferenceEquals(battleMonkBuffChargeDash, null))
 			{
 				battleMonkBuffChargeDash.SetTooltip();
 				foreach (AbilityTooltipNumber current in battleMonkBuffChargeDash.GetAbilityTooltipNumbers())
@@ -51,7 +52,8 @@ public class BattleMonkBuffCharge_Prep : Ability
 	{
 		if (m_chainAbilities.Length > 0)
 		{
-			if (m_chainAbilities[0] is BattleMonkBuffCharge_Dash dash)
+			BattleMonkBuffCharge_Dash dash = m_chainAbilities[0] as BattleMonkBuffCharge_Dash;
+			if (!ReferenceEquals(dash, null))
 			{
 				m_dashAbility = dash;
 			}
@@ -61,9 +63,10 @@ public class BattleMonkBuffCharge_Prep : Ability
 
 	private void SetupTargeter()
 	{
+		BattleMonkBuffCharge_Dash dash = m_chainAbilities[0] as BattleMonkBuffCharge_Dash;
 		if (m_dashAbility == null
 		    && m_chainAbilities.Length > 0
-		    && m_chainAbilities[0] is BattleMonkBuffCharge_Dash dash)
+		    && !ReferenceEquals(dash, null))
 		{
 			m_dashAbility = dash;
 		}
@@ -197,7 +200,8 @@ public class BattleMonkBuffCharge_Prep : Ability
 		if (m_chainAbilities.Length > 0)
 		{
 			Ability ability = m_chainAbilities[0];
-			if (ability is BattleMonkBuffCharge_Dash battleMonkBuffChargeDash)
+			BattleMonkBuffCharge_Dash battleMonkBuffChargeDash = ability as BattleMonkBuffCharge_Dash;
+			if (!ReferenceEquals(battleMonkBuffChargeDash, null))
 			{
 				AddTokenInt(tokens, "Damage", string.Empty, abilityMod_BattleMonkBuffCharge_Prep != null
 					? abilityMod_BattleMonkBuffCharge_Prep.m_damageMod.GetModifiedValue(battleMonkBuffChargeDash.m_damage)

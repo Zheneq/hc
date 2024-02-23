@@ -29,7 +29,7 @@ public class AbilityMod_TrackerDrone : AbilityMod
 	protected override void AddModSpecificTooltipTokens(List<TooltipTokenEntry> tokens, Ability targetAbility)
 	{
 		TrackerDrone trackerDrone = targetAbility as TrackerDrone;
-		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone?.GetComponent<TrackerDroneInfoComponent>();
+		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone != null ? trackerDrone.GetComponent<TrackerDroneInfoComponent>() : null;
 		if (trackerDroneInfoComponent != null)
 		{
 			AddToken(tokens, m_trackedHitDamageMod, "Damage_Tracked", "Tracked damage", trackerDroneInfoComponent.m_droneHitDamageAmount);
@@ -54,7 +54,7 @@ public class AbilityMod_TrackerDrone : AbilityMod
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		TrackerDrone trackerDrone = GetTargetAbilityOnAbilityData(abilityData) as TrackerDrone;
-		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone?.GetComponent<TrackerDroneInfoComponent>();
+		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerDrone != null ? trackerDrone.GetComponent<TrackerDroneInfoComponent>() : null;
 		bool isValid = trackerDroneInfoComponent != null && trackerDrone != null;
 		string desc = "";
 		desc += AbilityModHelper.GetModPropertyDesc(m_hitInvisibleTargetsMod, "[Hit Invisible Targets]", isValid, isValid && trackerDroneInfoComponent.m_hitInvisibleTargets);

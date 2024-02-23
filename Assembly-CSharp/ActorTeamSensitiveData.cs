@@ -174,7 +174,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			}
 			if (!ClientGameManager.Get().IsSpectator)
 			{
-				ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+				GameFlowData gameFlowData = GameFlowData.Get();
+				ActorData actorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 				if (m_associatedActor == null || actorData == null || m_associatedActor.GetTeam() != actorData.GetTeam())
 				{
 					return;
@@ -250,7 +251,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			return;
 		}
 		m_actorIndex = actorIndex;
-		m_associatedActor = GameFlowData.Get()?.FindActorByActorIndex(m_actorIndex);
+		GameFlowData gameFlowData = GameFlowData.Get();
+		m_associatedActor = gameFlowData != null ? gameFlowData.FindActorByActorIndex(m_actorIndex) : null;
 		if (!NetworkServer.active)
 		{
 			if (m_associatedActor != null)
@@ -308,7 +310,8 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 			&& Actor == null
 			&& m_actorIndex != ActorData.s_invalidActorIndex)
 		{
-			m_associatedActor = GameFlowData.Get()?.FindActorByActorIndex(m_actorIndex);
+			GameFlowData gameFlowData = GameFlowData.Get();
+			m_associatedActor = gameFlowData != null ? gameFlowData.FindActorByActorIndex(m_actorIndex) : null;
 			if (Actor != null)
 			{
 				if (m_typeObservingMe == ObservedBy.Friendlies)
@@ -546,7 +549,9 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 		if (IsBitDirty(setBits, DirtyBit.LineData))
 		{
 			byte bitField = reader.ReadByte();
-			ServerClientUtils.GetBoolsFromBitfield(bitField, out bool movementLineFlag, out bool numNodesInSnaredFlag);
+			bool movementLineFlag;
+			bool numNodesInSnaredFlag;
+			ServerClientUtils.GetBoolsFromBitfield(bitField, out movementLineFlag, out numNodesInSnaredFlag);
 			if (movementLineFlag)
 			{
 				m_movementLine = LineData.DeSerializeLine(reader);
@@ -995,13 +1000,17 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				});
 			}
 		}
-		else if (!ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetAccountId(), out FriendInfo value) || value.FriendStatus != FriendStatus.Blocked)
+		else
 		{
-			TextConsole.Get().Write(new TextConsole.Message
+			FriendInfo value;
+			if (!ClientGameManager.Get().FriendList.Friends.TryGetValue(Actor.GetAccountId(), out value) || value.FriendStatus != FriendStatus.Blocked)
 			{
-				Text = localizedPing.TR(),
-				MessageType = ConsoleMessageType.TeamChat
-			});
+				TextConsole.Get().Write(new TextConsole.Message
+				{
+					Text = localizedPing.TR(),
+					MessageType = ConsoleMessageType.TeamChat
+				});
+			}
 		}
 	}
 

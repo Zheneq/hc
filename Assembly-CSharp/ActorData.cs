@@ -1581,12 +1581,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnClientQueuedActionChanged()
 	{
-		OnClientQueuedActionChangedDelegates?.Invoke();
+		if (OnClientQueuedActionChangedDelegates != null) OnClientQueuedActionChangedDelegates.Invoke();
 	}
 
 	public void OnSelectedAbilityChanged(Ability ability)
 	{
-		OnSelectedAbilityChangedDelegates?.Invoke(ability);
+		if (OnSelectedAbilityChangedDelegates != null) OnSelectedAbilityChangedDelegates.Invoke(ability);
 	}
 
 	private void Awake()
@@ -1752,7 +1752,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.AddActor(this);
 			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddActor(this);
 		}
-		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out var playerDetails) && playerDetails.IsLocal())
+
+		PlayerDetails playerDetails;
+		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out playerDetails) && playerDetails.IsLocal())
 		{
 			Log.Info("ActorData.Start {0} {1}", this, playerDetails);
 			GameFlowData.Get().AddOwnedActorData(this);
@@ -2451,7 +2453,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Log.Error("Method called too early, results may be incorrect");
 			return false;
 		}
-		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails value))
+
+		PlayerDetails value;
+		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out value))
 		{
 			return value.IsHumanControlled;
 		}
@@ -2464,7 +2468,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			return false;
 		}
-		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
+
+		PlayerDetails playerDetails;
+		if (!GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out playerDetails))
 		{
 			return false;
 		}
@@ -2477,7 +2483,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public long GetAccountId()
 	{
-		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
+		PlayerDetails playerDetails;
+		if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out playerDetails))
 		{
 			if (IsBotMasqueradingAsHuman() || playerDetails.IsLoadTestBot || IsHumanControlled())
 			{
@@ -2491,7 +2498,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (PlayerData != null)
 		{
-			if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out PlayerDetails playerDetails))
+			PlayerDetails playerDetails;
+			if (GameFlow.Get().playerDetails.TryGetValue(PlayerData.GetPlayer(), out playerDetails))
 			{
 				return playerDetails.m_accountId;
 			}
@@ -2789,7 +2797,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 				if (characterResourceLink != null)
 				{
-					prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(m_visualInfo, out CharacterSkin _);
+					CharacterSkin foo;
+					prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(m_visualInfo, out foo);
 				}
 				if (prefabResourceLink != null && !prefabResourceLink.IsEmpty)
 				{
@@ -2798,7 +2807,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					{
 						CharacterVisualInfo visualInfo = m_visualInfo;
 						visualInfo.ResetToDefault();
-						prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(visualInfo, out CharacterSkin _);
+						CharacterSkin foo;
+						prefabResourceLink = characterResourceLink.GetHeroPrefabLinkFromSelection(visualInfo, out foo);
 					}
 					bool addMasterSkinVfx = false;
 					if (MasterSkinVfxData.Get() != null && MasterSkinVfxData.Get().m_addMasterSkinVfx && characterResourceLink.IsVisualInfoSelectionValid(m_visualInfo))
@@ -3308,7 +3318,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			Animator modelAnimator = GetModelAnimator();
 			if (modelAnimator != null)
 			{
-				modelAnimator.SetBool("Cover", ActorCover.CalcCoverLevelGeoOnly(out bool[] _, CurrentBoardSquare));
+				bool[] foo;
+				modelAnimator.SetBool("Cover", ActorCover.CalcCoverLevelGeoOnly(out foo, CurrentBoardSquare));
 			}
 			if (MoveFromBoardSquare == null)
 			{
@@ -3545,7 +3556,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				}
 			}
 		}
-		OnTurnStartDelegates?.Invoke();
+		if (OnTurnStartDelegates != null) OnTurnStartDelegates.Invoke();
 	}
 
 	public bool HasQueuedMovement()
@@ -4342,7 +4353,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void OnAnimEvent(UnityEngine.Object eventObject, GameObject sourceObject)
 	{
-		OnAnimationEventDelegates?.Invoke(eventObject, sourceObject);
+		if (OnAnimationEventDelegates != null) OnAnimationEventDelegates.Invoke(eventObject, sourceObject);
 	}
 
 	public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)

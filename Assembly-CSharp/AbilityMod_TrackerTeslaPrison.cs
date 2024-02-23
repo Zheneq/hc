@@ -24,7 +24,7 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		TrackerTeslaPrison trackerTeslaPrison = targetAbility as TrackerTeslaPrison;
 		bool isAbilityPresent = trackerTeslaPrison != null;
 		AddToken_BarrierMod(tokens, m_barrierDataMod, "Wall", isAbilityPresent ? trackerTeslaPrison.m_prisonBarrierData : null);
-		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerTeslaPrison?.GetComponent<TrackerDroneInfoComponent>();
+		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerTeslaPrison != null ? trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>() : null;
 		AddToken(tokens, m_droneTargeterMaxRangeFromCasterMod, "TargeterMaxRangeFromCaster", "", trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f, trackerDroneInfoComponent != null);
 	}
 
@@ -36,7 +36,7 @@ public class AbilityMod_TrackerTeslaPrison : AbilityMod
 		desc += AbilityModHelper.GetModPropertyDesc(m_barrierDataMod, "{ Barrier Data Mod }", isAbilityPresent ? trackerTeslaPrison.m_prisonBarrierData : null);
 		desc += AbilityModHelper.GetModGroundEffectInfoDesc(m_groundEffectInfoInCage, "-- Ground Effect Inside Cage --", isAbilityPresent);
 		desc += PropDesc(m_additionalEffectOnEnemiesInShapeMod, "[AdditionalEffectOnEnemiesInShape]", isAbilityPresent, isAbilityPresent ? trackerTeslaPrison.m_additionalEffectOnEnemiesInShape : null);
-		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerTeslaPrison?.GetComponent<TrackerDroneInfoComponent>();
+		TrackerDroneInfoComponent trackerDroneInfoComponent = trackerTeslaPrison != null ? trackerTeslaPrison.GetComponent<TrackerDroneInfoComponent>() : null;
 		return new StringBuilder().Append(desc).Append(PropDesc(m_droneTargeterMaxRangeFromCasterMod, "[DroneTargeterMaxRangeFromCaster]", trackerDroneInfoComponent != null, trackerDroneInfoComponent != null ? trackerDroneInfoComponent.m_targeterMaxRangeFromCaster : 0f)).ToString();
 	}
 }

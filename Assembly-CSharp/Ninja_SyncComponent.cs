@@ -200,7 +200,8 @@ public class Ninja_SyncComponent : NetworkBehaviour
 		}
 		if (m_rangeIndicatorObj != null)
 		{
-			bool flag = ShouldShowRangeIndicator(out float dashToUnmarkedRange);
+			float dashToUnmarkedRange;
+			bool flag = ShouldShowRangeIndicator(out dashToUnmarkedRange);
 			if (flag && !m_rangeIndicatorObj.activeSelf)
 			{
 				m_rangeIndicatorObj.SetActive(true);

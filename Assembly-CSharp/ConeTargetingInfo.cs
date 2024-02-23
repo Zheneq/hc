@@ -84,8 +84,8 @@ public class ConeTargetingInfo
 			widthAngleDeg = m_widthAngleDeg;
 		}
 		coneTargetingInfo.m_widthAngleDeg = widthAngleDeg;
-		coneTargetingInfo.m_backwardsOffset = (modProp?.m_backwardsOffsetMod.GetModifiedValue(m_backwardsOffset) ?? m_backwardsOffset);
-		coneTargetingInfo.m_penetrateLos = (modProp?.m_penetrateLosMod.GetModifiedValue(m_penetrateLos) ?? m_penetrateLos);
+		coneTargetingInfo.m_backwardsOffset = (modProp != null ? modProp.m_backwardsOffsetMod.GetModifiedValue(m_backwardsOffset) : m_backwardsOffset);
+		coneTargetingInfo.m_penetrateLos = (modProp != null ? modProp.m_penetrateLosMod.GetModifiedValue(m_penetrateLos) : m_penetrateLos);
 		bool affectsCaster;
 		if (modProp != null)
 		{
@@ -106,7 +106,7 @@ public class ConeTargetingInfo
 			affectsAllies = m_affectsAllies;
 		}
 		coneTargetingInfo.m_affectsAllies = affectsAllies;
-		coneTargetingInfo.m_affectsEnemies = (modProp?.m_affectsEnemyOverride.GetModifiedValue(m_affectsEnemies) ?? m_affectsEnemies);
+		coneTargetingInfo.m_affectsEnemies = (modProp != null ? modProp.m_affectsEnemyOverride.GetModifiedValue(m_affectsEnemies) : m_affectsEnemies);
 		return coneTargetingInfo;
 	}
 }

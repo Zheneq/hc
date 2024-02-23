@@ -42,10 +42,10 @@ public class BazookaGirlRocketJump : Ability
 		{
 			return null;
 		}
-		return new Dictionary<AbilityTooltipSymbol, int>
-		{
-			[AbilityTooltipSymbol.Damage] = GetDamageAmount()
-		};
+
+		var ints = new Dictionary<AbilityTooltipSymbol, int>();
+		ints[AbilityTooltipSymbol.Damage] = GetDamageAmount();
+		return ints;
 	}
 
 	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)

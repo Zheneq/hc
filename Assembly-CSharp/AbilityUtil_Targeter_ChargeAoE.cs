@@ -111,12 +111,14 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		{
 			if (TrimPathOnTargetHit && rangeFromLineInSquares > 0f)
 			{
+				bool collision;
+				Vector3 foo;
 				Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(
 					targetingActor,
 					startSquare.ToVector3(),
 					targetSquare.ToVector3(),
-					out var collision,
-					out Vector3 _);
+					out collision,
+					out foo);
 				if (collision)
 				{
 					targetSquare = KnockbackUtils.GetLastValidBoardSquareInLine(startSquare.ToVector3(), abilityLineEndpoint);
@@ -129,6 +131,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 		    && TrimPathOnTargetHit
 		    && rangeFromLineInSquares > 0f)
 		{
+			BoardSquare foo;
 			TargetSelect_ChargeAoE.TrimChargePathOnActorHit(
 				boardSquarePathInfo,
 				startSquare,
@@ -136,7 +139,7 @@ public class AbilityUtil_Targeter_ChargeAoE : AbilityUtil_Targeter
 				targetingActor,
 				affectedTeams,
 				false,
-				out BoardSquare _);
+				out foo);
 		}
 		if (!SkipEvadeMovementLines)
 		{

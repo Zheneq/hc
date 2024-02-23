@@ -276,7 +276,8 @@ public static class GameBalanceVarsExtensions
 							FactionWideData factionWideData = FactionWideData.Get();
 							unlockConditionValue.typeSpecificData = unlockCondition.typeSpecificData;
 							unlockConditionValue.typeSpecificData2 = unlockCondition.typeSpecificData2;
-							if (clientGameManager.ActiveFactionCompetition == unlockCondition.typeSpecificData && clientGameManager.FactionScores.TryGetValue(unlockCondition.typeSpecificData2, out long value))
+							long value;
+							if (clientGameManager.ActiveFactionCompetition == unlockCondition.typeSpecificData && clientGameManager.FactionScores.TryGetValue(unlockCondition.typeSpecificData2, out value))
 							{
 								unlockConditionValue.typeSpecificData3 = factionWideData.GetCompetitionFactionTierReached(unlockCondition.typeSpecificData, unlockCondition.typeSpecificData2, value);
 							}
@@ -368,7 +369,8 @@ public static class GameBalanceVarsExtensions
 							FactionWideData factionWideData = FactionWideData.Get();
 							unlockConditionValue.typeSpecificData = unlockCondition.typeSpecificData;
 							unlockConditionValue.typeSpecificData2 = unlockCondition.typeSpecificData2;
-							if (clientGameManager.ActiveFactionCompetition == unlockCondition.typeSpecificData && clientGameManager.FactionScores.TryGetValue(unlockCondition.typeSpecificData2, out long value))
+							long value;
+							if (clientGameManager.ActiveFactionCompetition == unlockCondition.typeSpecificData && clientGameManager.FactionScores.TryGetValue(unlockCondition.typeSpecificData2, out value))
 							{
 								unlockConditionValue.typeSpecificData3 = factionWideData.GetCompetitionFactionTierReached(unlockCondition.typeSpecificData, unlockCondition.typeSpecificData2, value);
 							}
@@ -808,7 +810,8 @@ public static class GameBalanceVarsExtensions
 				case 0:
 					break;
 				default:
-					return ClientGameManager.Get().GetPlayerCharacterData((CharacterType)unlockable.Index1)?.CharacterComponent.GetSkin(unlockable.ID).Unlocked ?? false;
+					PersistedCharacterData persistedCharacterData = ClientGameManager.Get().GetPlayerCharacterData((CharacterType)unlockable.Index1);
+					return persistedCharacterData != null && persistedCharacterData.CharacterComponent.GetSkin(unlockable.ID).Unlocked;
 				}
 			}
 		}

@@ -60,8 +60,8 @@ public class AbilityMod_SparkEnergized : AbilityMod
 	protected override string ModSpecificAutogenDesc(AbilityData abilityData)
 	{
 		SparkEnergized sparkEnergized = GetTargetAbilityOnAbilityData(abilityData) as SparkEnergized;
-		SparkHealingBeam sparkHealingBeam = sparkEnergized?.GetComponent<SparkHealingBeam>();
-		SparkBasicAttack sparkBasicAttack = sparkEnergized?.GetComponent<SparkBasicAttack>();
+		SparkHealingBeam sparkHealingBeam = sparkEnergized != null ? sparkEnergized.GetComponent<SparkHealingBeam>() : null;
+		SparkBasicAttack sparkBasicAttack = sparkEnergized != null ? sparkEnergized.GetComponent<SparkBasicAttack>() : null;
 		bool isEnergizedPresent = sparkEnergized != null;
 		bool areBeamAndEnergizedPresent = isEnergizedPresent && sparkHealingBeam != null;
 		bool areBasicAndEnergizedPresent = isEnergizedPresent && sparkBasicAttack != null;

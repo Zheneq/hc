@@ -130,7 +130,8 @@ public class LobbyGameplayOverrides
 
 	public CharacterConfig GetCharacterConfig(CharacterType characterType)
 	{
-		CharacterConfigOverrides.TryGetValue(characterType, out CharacterConfig value);
+		CharacterConfig value;
+		CharacterConfigOverrides.TryGetValue(characterType, out value);
 		if (value == null)
 		{
 			CharacterConfigs.TryGetValue(characterType, out value);
@@ -343,7 +344,7 @@ public class LobbyGameplayOverrides
 				}
 			}
 		}
-		return abilityConfig.GetAbilityTauntConfig(tauntId)?.Allowed ?? true;
+		return abilityConfig.GetAbilityTauntConfig(tauntId) == null || abilityConfig.GetAbilityTauntConfig(tauntId).Allowed;
 	}
 
 	public bool IsAbilityModAllowed(CharacterType characterType, int abilityIndex, int modIndex)
@@ -499,7 +500,22 @@ public class LobbyGameplayOverrides
 			goto IL_004a;
 			IL_004a:
 			return (byte)result != 0;
-		})?.Allowed ?? true;
+		}) == null || characterSkinConfigOverride.SkinConfigs.FirstOrDefault(delegate(SkinConfigOverride c)
+		{
+			int result;
+			if (c.SkinIndex == skinIndex)
+			{
+				if (c.PatternIndex == patternIndex)
+				{
+					result = ((c.ColorIndex == colorIndex) ? 1 : 0);
+					goto IL_004a;
+				}
+			}
+			result = 0;
+			goto IL_004a;
+			IL_004a:
+			return (byte)result != 0;
+		}).Allowed;
 	}
 
 	public QuestConfigOverride GetQuestConfig(int questId)
@@ -1096,7 +1112,7 @@ public class LobbyGameplayOverrides
 							while (enumerator15.MoveNext())
 							{
 								FactionTierConfigOverride otherFactionTierConfigOverride = enumerator15.Current;
-								FactionTierConfigOverride factionTierConfigOverride = FactionCompetitionConfigOverrides.TryGetValue(current13.Index)?.FactionTierConfigs.Find(delegate(FactionTierConfigOverride o)
+								FactionTierConfigOverride factionTierConfigOverride = FactionCompetitionConfigOverrides.TryGetValue(current13.Index) != null ? FactionCompetitionConfigOverrides.TryGetValue(current13.Index).FactionTierConfigs.Find(delegate(FactionTierConfigOverride o)
 								{
 									int result;
 									if (o.CompetitionId == otherFactionTierConfigOverride.CompetitionId)
@@ -1111,7 +1127,7 @@ public class LobbyGameplayOverrides
 									goto IL_004f;
 									IL_004f:
 									return (byte)result != 0;
-								});
+								}) : null;
 								if (factionTierConfigOverride != null)
 								{
 									if (otherFactionTierConfigOverride.ContributionToComplete == factionTierConfigOverride.ContributionToComplete)

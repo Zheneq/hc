@@ -20,6 +20,6 @@ public class Passive_Rampart : Passive
 
 	public void SetCachedShieldBarrierData(AbilityModPropertyBarrierDataV2 barrierMod)
 	{
-		m_cachedShieldBarrierData = (barrierMod?.GetModifiedValue(m_normalShieldBarrierData));
+		m_cachedShieldBarrierData = (barrierMod != null ? barrierMod.GetModifiedValue(m_normalShieldBarrierData) : null);
 	}
 }

@@ -131,32 +131,32 @@ public class ELOPlayerKey
             gameType = GameType.Casual;
         }
 
-        ELOKeyComponent.BinaryModePhaseEnum func(uint modulo)
-        {
-            switch (modulo)
-            {
-                case 0u:
-                    return ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
-                case 1u:
-                    return ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
-                default:
-                    return ELOKeyComponent.BinaryModePhaseEnum.TERTIARY;
-            }
-        }
-
         ELOPlayerKey eLOPlayerKey = new ELOPlayerKey();
-        eLOPlayerKey.CoordinationComponent.Initialize(func(iteration % ELOKeyComponent_Coordination.PhaseWidth),
+        eLOPlayerKey.CoordinationComponent.Initialize(Func(iteration % ELOKeyComponent_Coordination.PhaseWidth),
             gameType, isCasual);
         iteration /= ELOKeyComponent_Coordination.PhaseWidth;
-        eLOPlayerKey.FinalScoreComponent.Initialize(func(iteration % ELOKeyComponent_FinalScore.PhaseWidth), gameType,
+        eLOPlayerKey.FinalScoreComponent.Initialize(Func(iteration % ELOKeyComponent_FinalScore.PhaseWidth), gameType,
             isCasual);
         iteration /= ELOKeyComponent_FinalScore.PhaseWidth;
-        eLOPlayerKey.SoftenedComponent.Initialize(func(iteration % ELOKeyComponent_Softened.PhaseWidth), gameType,
+        eLOPlayerKey.SoftenedComponent.Initialize(Func(iteration % ELOKeyComponent_Softened.PhaseWidth), gameType,
             isCasual);
         iteration /= ELOKeyComponent_Softened.PhaseWidth;
-        eLOPlayerKey.QueueComponent.Initialize(func(iteration % ELOKeyComponent_Queue.PhaseWidth), gameType, isCasual);
+        eLOPlayerKey.QueueComponent.Initialize(Func(iteration % ELOKeyComponent_Queue.PhaseWidth), gameType, isCasual);
         iteration /= ELOKeyComponent_Queue.PhaseWidth;
         return eLOPlayerKey;
+    }
+
+    private static ELOKeyComponent.BinaryModePhaseEnum Func(uint modulo)
+    {
+        switch (modulo)
+        {
+            case 0u:
+                return ELOKeyComponent.BinaryModePhaseEnum.PRIMARY;
+            case 1u:
+                return ELOKeyComponent.BinaryModePhaseEnum.SECONDARY;
+            default:
+                return ELOKeyComponent.BinaryModePhaseEnum.TERTIARY;
+        }
     }
 
     public static ELOPlayerKey GenerateGenericKeyForGameType(GameType gt)
@@ -168,7 +168,8 @@ public class ELOPlayerKey
 
     private ELOKeyComponent GetComponent(MatchmakingQueueConfig.EloKeyFlags flag)
     {
-        return GetComponentAndPhase(flag, out _);
+        ELOKeyComponent.BinaryModePhaseEnum foo;
+        return GetComponentAndPhase(flag, out foo);
     }
 
     private ELOKeyComponent GetComponentAndPhase(
@@ -189,7 +190,8 @@ public class ELOPlayerKey
 
     private ELOPlayerKey Set(MatchmakingQueueConfig.EloKeyFlags flags, GameType gameType, bool isCasual)
     {
-        GetComponentAndPhase(flags, out ELOKeyComponent.BinaryModePhaseEnum phase)
+        ELOKeyComponent.BinaryModePhaseEnum phase;
+        GetComponentAndPhase(flags, out phase)
             .Initialize(phase, gameType, isCasual);
         return this;
     }
@@ -429,7 +431,8 @@ public class ELOPlayerKey
 
     private float GetNormalizedPlayerElo(long accountId, ACEnum acMode)
     {
-        if (!m_eloTrackings.TryGetValue(accountId, out EloTracking value))
+        EloTracking value;
+        if (!m_eloTrackings.TryGetValue(accountId, out value))
         {
             throw new Exception(new StringBuilder().Append("failed to find elo for character ").Append(accountId).ToString());
         }
@@ -483,7 +486,8 @@ public class ELOPlayerKey
 
     private int GetMatchCount(long accountId, ACEnum acMode)
     {
-        if (m_eloTrackings.TryGetValue(accountId, out EloTracking value))
+        EloTracking value;
+        if (m_eloTrackings.TryGetValue(accountId, out value))
         {
             return acMode == ACEnum.ACCOUNT
                 ? value.accountMatches
@@ -542,8 +546,10 @@ public class ELOPlayerKey
     {
         bool result = false;
         bool won = actualResult > 0.5f;
-        GetKFactor(accountId, acEnum, eloRange, placementKFactor, highKDuration, won, out float KFactor,
-            out float MaxDelta);
+        float KFactor;
+        float MaxDelta;
+        GetKFactor(accountId, acEnum, eloRange, placementKFactor, highKDuration, won, out KFactor,
+            out MaxDelta);
         if (KFactor > 0f)
         {
             float normalizedPlayerElo = GetNormalizedPlayerElo(accountId, acEnum);

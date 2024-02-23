@@ -87,7 +87,9 @@ internal class GroupJoinManager
 				}
 			}
 		}
-		if (m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out LeakyBucket value) && value != null)
+
+		LeakyBucket value;
+		if (m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out value) && value != null)
 		{
 			if (!value.CanAdd())
 			{
@@ -116,7 +118,8 @@ internal class GroupJoinManager
 	{
 		if (status == GroupInviteResponseType.PlayerRejected)
 		{
-			if (!m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out LeakyBucket value))
+			LeakyBucket value;
+			if (!m_restrictSpammers.TryGetValue(request.LeaderFullHandle, out value))
 			{
 				value = new LeakyBucket(2.0, TimeSpan.FromMinutes(10.0));
 				m_restrictSpammers.Add(request.LeaderFullHandle, value);

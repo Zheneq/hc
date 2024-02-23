@@ -213,7 +213,8 @@ public class BuildNormalPathHeap
 
 	public BoardSquarePathInfo TryGetNodeInHeapBySquare(BoardSquare square)
 	{
-		if (m_squareToIndex.TryGetValue(square, out int value))
+		int value;
+		if (m_squareToIndex.TryGetValue(square, out value))
 		{
 			while (true)
 			{
@@ -231,7 +232,8 @@ public class BuildNormalPathHeap
 
 	public void UpdatePriority(BoardSquarePathInfo adjSquarePathInfo)
 	{
-		if (m_squareToIndex.TryGetValue(adjSquarePathInfo.square, out int value))
+		int value;
+		if (m_squareToIndex.TryGetValue(adjSquarePathInfo.square, out value))
 		{
 			while (true)
 			{

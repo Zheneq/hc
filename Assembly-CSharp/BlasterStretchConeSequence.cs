@@ -110,7 +110,8 @@ public class BlasterStretchConeSequence : Sequence
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is ExtraParams extraParam)
+			ExtraParams extraParam = extraSequenceParams as ExtraParams;
+			if (extraParam != null)
 			{
 				m_maxDistInWorld = extraParam.lengthInSquares * Board.Get().squareSize;
 				m_angleRangeDegrees = extraParam.angleInDegrees;
@@ -147,7 +148,8 @@ public class BlasterStretchConeSequence : Sequence
 		startPos.y = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
 		float laserRangeInSquares = maxDist / Board.Get().squareSize;
 		int maxTargets = m_projectilesStopOnEnemy ? 1 : 4;
-		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, 0.1f, Caster, Caster.GetEnemyTeamAsList(), false, maxTargets, false, true, out Vector3 laserEndPos, null);
+		Vector3 laserEndPos;
+		AreaEffectUtils.GetActorsInLaser(startPos, forward, laserRangeInSquares, 0.1f, Caster, Caster.GetEnemyTeamAsList(), false, maxTargets, false, true, out laserEndPos, null);
 		return (startPos - laserEndPos).magnitude;
 	}
 

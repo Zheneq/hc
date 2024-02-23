@@ -205,9 +205,10 @@ public class SoldierCardinalLine : Ability
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
+		AbilityUtil_Targeter_SoldierCardinalLines targeter = Targeters[currentTargeterIndex] as AbilityUtil_Targeter_SoldierCardinalLines;
 		if (currentTargeterIndex > 0
 		    && currentTargeterIndex < Targeters.Count
-		    && Targeters[currentTargeterIndex] is AbilityUtil_Targeter_SoldierCardinalLines targeter)
+		    && targeter != null)
 		{
 			List<AbilityTooltipSubject> tooltipSubjectTypes = targeter.GetTooltipSubjectTypes(targetActor);
 			if (tooltipSubjectTypes != null && tooltipSubjectTypes.Contains(AbilityTooltipSubject.Enemy))

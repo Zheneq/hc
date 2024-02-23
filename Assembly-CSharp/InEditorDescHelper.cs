@@ -111,7 +111,7 @@ public static class InEditorDescHelper
 	{
 		string text = string.Empty;
 		bool flag = showOther && myVal != otherVal;
-		if (!(showFieldDelegate?.Invoke(myVal) ?? true))
+		if (!(showFieldDelegate != null && !showFieldDelegate(myVal)))
 		{
 			if (!flag)
 			{

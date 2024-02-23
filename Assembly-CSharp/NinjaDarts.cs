@@ -71,9 +71,13 @@ public class NinjaDarts : Ability
 			GetTargeterMaxAngle(),
 			GetTargeterMinInterpDistance(),
 			GetTargeterMaxInterpDistance());
-		if (ChangeAngleByCursorDistance() && abilityUtil_Targeter is AbilityUtil_Targeter_ThiefFanLaser targeter)
+		if (ChangeAngleByCursorDistance())
 		{
-			targeter.m_customDamageOriginDelegate = GetCustomDamageOriginForTargeter;
+			AbilityUtil_Targeter_ThiefFanLaser targeter = abilityUtil_Targeter as AbilityUtil_Targeter_ThiefFanLaser;
+			if (targeter != null)
+			{
+				targeter.m_customDamageOriginDelegate = GetCustomDamageOriginForTargeter;
+			}
 		}
 		Targeter = abilityUtil_Targeter;
 	}

@@ -105,7 +105,9 @@ public class SeasonWideData : MonoBehaviour
 
 	public static bool IsDateInTimedSeason(SeasonTemplate season, DateTime dateTime)
 	{
-		if (GetTimeBounds(season, out DateTime startTime, out DateTime endTime))
+		DateTime startTime;
+		DateTime endTime;
+		if (GetTimeBounds(season, out startTime, out endTime))
 		{
 			while (true)
 			{

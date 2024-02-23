@@ -288,7 +288,6 @@ public class LightShafts : MonoBehaviour
 		m_CoordEpi.filterMode = FilterMode.Point;
 		InitRenderTexture(ref m_DepthEpi, m_EpipolarSamples, m_EpipolarLines, 0, RenderTextureFormat.RFloat);
 		m_DepthEpi.filterMode = FilterMode.Point;
-		ref RenderTexture interpolationEpi = ref m_InterpolationEpi;
 		int epipolarSamples = m_EpipolarSamples;
 		int epipolarLines = m_EpipolarLines;
 		int format;
@@ -300,7 +299,7 @@ public class LightShafts : MonoBehaviour
 		{
 			format = 12;
 		}
-		InitRenderTexture(ref interpolationEpi, epipolarSamples, epipolarLines, 0, (RenderTextureFormat)format);
+		InitRenderTexture(ref m_InterpolationEpi, epipolarSamples, epipolarLines, 0, (RenderTextureFormat)format);
 		m_InterpolationEpi.filterMode = FilterMode.Point;
 		InitRenderTexture(ref m_RaymarchedLightEpi, m_EpipolarSamples, m_EpipolarLines, 24, RenderTextureFormat.ARGBFloat);
 		m_RaymarchedLightEpi.filterMode = FilterMode.Point;
@@ -740,7 +739,9 @@ public class LightShafts : MonoBehaviour
 
 	private void SetFrustumRays(Material material)
 	{
-		GetFrustumRays(out Matrix4x4 frustumRays, out Vector3 cameraPosLocal);
+		Matrix4x4 frustumRays;
+		Vector3 cameraPosLocal;
+		GetFrustumRays(out frustumRays, out cameraPosLocal);
 		material.SetVector("_CameraPosLocal", cameraPosLocal);
 		material.SetMatrix("_FrustumRays", frustumRays);
 		material.SetFloat("_FrustumApex", GetFrustumApex());

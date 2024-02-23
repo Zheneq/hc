@@ -197,7 +197,7 @@ public class SparkBasicAttack : Ability
 
 	private void SetCachedFields()
 	{
-		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod?.m_laserInfoMod);
+		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod != null ? m_abilityMod.m_laserInfoMod : null);
 		StandardEffectInfo effectInfo = m_abilityMod != null
 			? m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect)
 			: m_laserHitEffect.GetShallowCopy();

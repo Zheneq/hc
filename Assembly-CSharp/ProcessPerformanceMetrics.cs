@@ -195,8 +195,12 @@ public class ProcessPerformanceMetrics
 		}
 		m_lastMainThreadTotalCpuUsageSeconds = num3;
 		MemoryUsedMb = (float)currentProcess.WorkingSet64 / 1024f / 1024f;
-		ThreadPool.GetMaxThreads(out int workerThreads, out int completionPortThreads);
-		ThreadPool.GetAvailableThreads(out int workerThreads2, out int completionPortThreads2);
+		int workerThreads;
+		int completionPortThreads;
+		ThreadPool.GetMaxThreads(out workerThreads, out completionPortThreads);
+		int workerThreads2;
+		int completionPortThreads2;
+		ThreadPool.GetAvailableThreads(out workerThreads2, out completionPortThreads2);
 		WorkerThreadsMax = workerThreads;
 		WorkerThreadsActive = workerThreads - workerThreads2;
 		IOWorkerThreadsMax = completionPortThreads;

@@ -49,10 +49,10 @@ public class RageBeastSelfHeal : Ability
 		{
 			return null;
 		}
-		return new Dictionary<AbilityTooltipSymbol, int>
-		{
-			[AbilityTooltipSymbol.Healing] = GetHealingForCurrentHealth(targetActor)
-		};
+
+		var ints = new Dictionary<AbilityTooltipSymbol, int>();
+		ints[AbilityTooltipSymbol.Healing] = GetHealingForCurrentHealth(targetActor);
+		return ints;
 	}
 
 	public override List<int> Debug_GetExpectedNumbersInTooltip()

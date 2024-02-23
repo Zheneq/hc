@@ -84,7 +84,11 @@ public class NetworkStats
 						while (enumerator.MoveNext())
 						{
 							NetworkConnection current = enumerator.Current;
-							current.GetStatsOut(out int numMsgs, out int numBufferedMsgs, out int numBytes, out int lastBufferedPerSecond);
+							int numMsgs;
+							int numBufferedMsgs;
+							int numBytes;
+							int lastBufferedPerSecond;
+							current.GetStatsOut(out numMsgs, out numBufferedMsgs, out numBytes, out lastBufferedPerSecond);
 							int num = 0;
 							if (m_lastClientOutNumBytes.ContainsKey(current.connectionId))
 							{
@@ -108,7 +112,11 @@ public class NetworkStats
 						while (enumerator2.MoveNext())
 						{
 							NetworkConnection current2 = enumerator2.Current;
-							current2.GetStatsOut(out int numMsgs2, out int numBufferedMsgs2, out int numBytes2, out int lastBufferedPerSecond2);
+							int numMsgs2;
+							int numBufferedMsgs2;
+							int numBytes2;
+							int lastBufferedPerSecond2;
+							current2.GetStatsOut(out numMsgs2, out numBufferedMsgs2, out numBytes2, out lastBufferedPerSecond2);
 							int num3 = 0;
 							if (m_lastServerOutNumBytes.ContainsKey(current2.connectionId))
 							{
@@ -141,7 +149,11 @@ public class NetworkStats
 	private void OnServerDisconnect(NetworkConnection conn)
 	{
 		TimeSpan timeSpan = DateTime.UtcNow - m_serverConnectTime[conn.connectionId];
-		conn.GetStatsOut(out int numMsgs, out int numBufferedMsgs, out int numBytes, out int lastBufferedPerSecond);
+		int numMsgs;
+		int numBufferedMsgs;
+		int numBytes;
+		int lastBufferedPerSecond;
+		conn.GetStatsOut(out numMsgs, out numBufferedMsgs, out numBytes, out lastBufferedPerSecond);
 		Log.Info("NS: Removed server connection {0} - OutNumMsgs: {1} OutNumBufferedMsgs: {2} OutNumBytes: {3} OutLastBufferedPerSecond: {4} SecondsConnected: {5} AverageBytesPerSecond: {6}", conn.connectionId, numMsgs, numBufferedMsgs, numBytes, lastBufferedPerSecond, (int)timeSpan.TotalSeconds, (int)((double)numBytes / timeSpan.TotalSeconds));
 		m_serverConnections.Remove(conn);
 	}
@@ -155,10 +167,15 @@ public class NetworkStats
 
 	private void OnClientDisconnect(NetworkConnection conn)
 	{
-		if (m_clientConnectTime.TryGetValue(conn.connectionId, out DateTime value))
+		DateTime value;
+		if (m_clientConnectTime.TryGetValue(conn.connectionId, out value))
 		{
 			TimeSpan timeSpan = DateTime.UtcNow - value;
-			conn.GetStatsOut(out int numMsgs, out int numBufferedMsgs, out int numBytes, out int lastBufferedPerSecond);
+			int numMsgs;
+			int numBufferedMsgs;
+			int numBytes;
+			int lastBufferedPerSecond;
+			conn.GetStatsOut(out numMsgs, out numBufferedMsgs, out numBytes, out lastBufferedPerSecond);
 			Log.Info("NS: Removed client connection {0} - OutNumMsgs: {1} OutNumBufferedMsgs: {2} OutNumBytes: {3} OutLastBufferedPerSecond: {4} SecondsConnected: {5} AverageBytesPerSecond: {6}", conn.connectionId, numMsgs, numBufferedMsgs, numBytes, lastBufferedPerSecond, (int)timeSpan.TotalSeconds, (int)((double)numBytes / timeSpan.TotalSeconds));
 			m_clientConnections.Remove(conn);
 		}

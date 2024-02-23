@@ -128,17 +128,17 @@ public class ClientGameManager : MonoBehaviour
 
 	public LobbySessionInfo SessionInfo
 	{
-		get { return m_lobbyGameClientInterface?.SessionInfo; }
+		get { return m_lobbyGameClientInterface != null ? m_lobbyGameClientInterface.SessionInfo : null; }
 	}
 
 	public string Handle
 	{
-		get { return m_lobbyGameClientInterface?.SessionInfo?.Handle; }
+		get { return m_lobbyGameClientInterface != null ? m_lobbyGameClientInterface.SessionInfo != null ? m_lobbyGameClientInterface.SessionInfo.Handle : null : null; }
 	}
 
 	public long AccountId
 	{
-		get { return m_lobbyGameClientInterface?.SessionInfo?.AccountId ?? -1L; }
+		get { return m_lobbyGameClientInterface != null ? m_lobbyGameClientInterface.SessionInfo != null ? m_lobbyGameClientInterface.SessionInfo.AccountId : -1L : -1L; }
 	}
 
 	private Action<RegisterGameClientResponse> OnConnectedToLobbyServerHolder;
@@ -1416,7 +1416,8 @@ public class ClientGameManager : MonoBehaviour
 
 	public bool IsCharacterAvailable(CharacterType characterType, GameType gameType)
 	{
-		bool enableHiddenCharacters = GameManager.Get()?.GameplayOverrides.EnableHiddenCharacters ?? false;
+		GameManager gameManager = GameManager.Get();
+		bool enableHiddenCharacters = gameManager != null && gameManager.GameplayOverrides.EnableHiddenCharacters;
 		CharacterResourceLink characterResourceLink = null;
 		foreach (CharacterResourceLink crl in GameWideData.Get().m_characterResourceLinks)
 		{
@@ -1966,8 +1967,8 @@ public class ClientGameManager : MonoBehaviour
 	{
 		if (m_lobbyGameClientInterface != null)
 		{
-			BotDifficulty allyBotDifficulty = allyDifficulty ?? BotDifficulty.Hard;
-			BotDifficulty enemyBotDifficulty = enemyDifficulty ?? BotDifficulty.Easy;
+			BotDifficulty allyBotDifficulty = allyDifficulty != null ? allyDifficulty.Value : BotDifficulty.Hard;
+			BotDifficulty enemyBotDifficulty = enemyDifficulty != null ? enemyDifficulty.Value : BotDifficulty.Easy;
 			m_lobbyGameClientInterface.JoinQueue(gameType, allyBotDifficulty, enemyBotDifficulty, onResponseCallback);
 		}
 		else
@@ -2103,12 +2104,12 @@ public class ClientGameManager : MonoBehaviour
 		
 		Log.Info(new StringBuilder().Append("Leaving game ").Append(isPermanent ? "permanently" : "temporarily").Append(" with result ").Append(gameResult).ToString());
 		m_gameResult = gameResult;
-		m_lobbyGameClientInterface?.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.LeaveGame(isPermanent, gameResult, delegate(LeaveGameResponse response)
 		{
 			if (!response.Success)
 			{
 				TextConsole.Get().Write(new StringBuilder().Append("Failed to leave game: ").Append(response.ErrorMessage).ToString());
-				Log.Warning(new StringBuilder().Append("Request to leave game ").Append(gameManager.GameInfo?.Name ?? string.Empty).Append(" failed: ").Append(response.ErrorMessage).ToString());
+				Log.Warning(new StringBuilder().Append("Request to leave game ").Append(gameManager.GameInfo != null ? gameManager.GameInfo.Name != null ? gameManager.GameInfo.Name : string.Empty : string.Empty).Append(" failed: ").Append(response.ErrorMessage).ToString());
 			}
 		});
 					
@@ -2133,7 +2134,7 @@ public class ClientGameManager : MonoBehaviour
 		MatchFreelancerStats stats,
 		Action<CalculateFreelancerStatsResponse> onResponseCallback)
 	{
-		m_lobbyGameClientInterface?.CalculateFreelancerStats(bucketType, characterType, null, stats, onResponseCallback);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, null, stats, onResponseCallback);
 	}
 
 	public void CalculateFreelancerStats(
@@ -2142,7 +2143,7 @@ public class ClientGameManager : MonoBehaviour
 		PersistedStats stats,
 		Action<CalculateFreelancerStatsResponse> onResponseCallback)
 	{
-		m_lobbyGameClientInterface?.CalculateFreelancerStats(bucketType, characterType, stats, null, onResponseCallback);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, stats, null, onResponseCallback);
 	}
 
 	public void CalculateFreelancerStats(
@@ -2150,7 +2151,7 @@ public class ClientGameManager : MonoBehaviour
 		CharacterType characterType,
 		Action<CalculateFreelancerStatsResponse> onResponseCallback)
 	{
-		m_lobbyGameClientInterface?.CalculateFreelancerStats(bucketType, characterType, null, null, onResponseCallback);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.CalculateFreelancerStats(bucketType, characterType, null, null, onResponseCallback);
 	}
 
 	public void UpdateReadyState(
@@ -2204,7 +2205,7 @@ public class ClientGameManager : MonoBehaviour
 				ContextualReadyState = new ContextualReadyState
 				{
 					ReadyState = readyState,
-					GameProcessCode = GameInfo?.GameServerProcessCode
+					GameProcessCode = GameInfo != null ? GameInfo.GameServerProcessCode : null
 				}
 			};
 			if (allyDifficulty != null)
@@ -2257,7 +2258,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedGameMode(GameType gametype)
 	{
-		m_lobbyGameClientInterface?.UpdateGroupGameType(gametype, delegate(PlayerGroupInfoUpdateResponse response)
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.UpdateGroupGameType(gametype, delegate(PlayerGroupInfoUpdateResponse response)
 		{
 			UICharacterScreen.Get().ReceivedGameTypeChangeResponse();
 			if (!response.Success)
@@ -2275,7 +2276,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedCharacter(CharacterType character, int playerId = 0)
 	{
-		m_lobbyGameClientInterface?.UpdatePlayerInfo(
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.UpdatePlayerInfo(
 			new LobbyPlayerInfoUpdate
 			{
 				PlayerId = playerId,
@@ -2349,7 +2350,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public void RequestLoadouts(bool ranked)
 	{
-		m_lobbyGameClientInterface?.UpdatePlayerInfo(
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.UpdatePlayerInfo(
 			new LobbyPlayerInfoUpdate
 			{
 				PlayerId = 0,
@@ -2515,7 +2516,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedAbilityVfxSwaps(CharacterAbilityVfxSwapInfo swaps, int playerId = 0)
 	{
-		m_lobbyGameClientInterface?.UpdatePlayerInfo(
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.UpdatePlayerInfo(
 			new LobbyPlayerInfoUpdate
 			{
 				PlayerId = playerId,
@@ -2600,7 +2601,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateBotDifficulty(BotDifficulty? allyDifficulty, BotDifficulty? enemyDifficulty, int playerId = 0)
 	{
-		m_lobbyGameClientInterface?.UpdatePlayerInfo(new LobbyPlayerInfoUpdate
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.UpdatePlayerInfo(new LobbyPlayerInfoUpdate
 		{
 			PlayerId = playerId,
 			AllyDifficulty = allyDifficulty,
@@ -2610,37 +2611,37 @@ public class ClientGameManager : MonoBehaviour
 
 	public void SendSetRegionRequest(Region region)
 	{
-		m_lobbyGameClientInterface?.SendSetRegionRequest(region);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendSetRegionRequest(region);
 	}
 
 	public void SendRankedTradeRequest_AcceptOrOffer(CharacterType desiredCharacter)
 	{
-		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._001D);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._001D);
 	}
 
 	public void SendRankedTradeRequest_Reject(CharacterType desiredCharacter)
 	{
-		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._000E);
+		if (m_lobbyGameClientInterface != null)m_lobbyGameClientInterface.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._000E);
 	}
 
 	public void SendRankedTradeRequest_StopTrading()
 	{
-		m_lobbyGameClientInterface?.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType._0012);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType._0012);
 	}
 
 	public void SendRankedBanRequest(CharacterType type)
 	{
-		m_lobbyGameClientInterface?.SendRankedBanRequest(type);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendRankedBanRequest(type);
 	}
 
 	public void SendRankedSelectRequest(CharacterType type)
 	{
-		m_lobbyGameClientInterface?.SendRankedSelectionRequest(type);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendRankedSelectionRequest(type);
 	}
 
 	public void SendRankedHoverClickRequest(CharacterType type)
 	{
-		m_lobbyGameClientInterface?.SendRankedHoverClickRequest(type);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendRankedHoverClickRequest(type);
 	}
 
 	public void UpdateGameInfo(LobbyGameConfig gameConfig, LobbyTeamInfo teamInfo)
@@ -2650,17 +2651,17 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateGameInfo(LobbyGameInfo gameInfo, LobbyTeamInfo teamInfo)
 	{
-		m_lobbyGameClientInterface?.UpdateGameInfo(gameInfo, teamInfo);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.UpdateGameInfo(gameInfo, teamInfo);
 	}
 
 	public void InvitePlayerToGame(string playerHandle, Action<GameInvitationResponse> onResponseCallback)
 	{
-		m_lobbyGameClientInterface?.InvitePlayerToGame(playerHandle, onResponseCallback);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.InvitePlayerToGame(playerHandle, onResponseCallback);
 	}
 
 	public void SpectateGame(string playerHandle, Action<GameSpectatorResponse> onResponseCallback)
 	{
-		m_lobbyGameClientInterface?.SpectateGame(playerHandle, onResponseCallback);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SpectateGame(playerHandle, onResponseCallback);
 	}
 
 	public bool RequestCrashReportArchiveName(int numArchiveBytes, Action<CrashReportArchiveNameResponse> onResponseCallback = null)
@@ -2711,12 +2712,12 @@ public class ClientGameManager : MonoBehaviour
 
 	public void SendUseOverconRequest(int id, string overconName, int actorId, int turn)
 	{
-		m_lobbyGameClientInterface?.SendUseOverconRequest(id, overconName, actorId, turn);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendUseOverconRequest(id, overconName, actorId, turn);
 	}
 
 	public void SendSetDevTagRequest(bool active, Action<SetDevTagResponse> onResponseCallback)
 	{
-		m_lobbyGameClientInterface?.SendSetDevTagRequest(active, onResponseCallback);
+		if (m_lobbyGameClientInterface != null) m_lobbyGameClientInterface.SendSetDevTagRequest(active, onResponseCallback);
 	}
 
 	public bool SendUIActionNotification(string context)
@@ -2774,8 +2775,9 @@ public class ClientGameManager : MonoBehaviour
 						IEnumerable<ushort> enumerable = from p in gameTypeSubTypes.Keys
 														 where (p & notification.SubTypeMask) != 0
 														 select p;
+						GameSubType gameSubType;
 						if (!enumerable.IsNullOrEmpty()
-						    && gameTypeSubTypes.TryGetValue(enumerable.First(), out GameSubType gameSubType)
+						    && gameTypeSubTypes.TryGetValue(enumerable.First(), out gameSubType)
 						    && gameSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
 						{
 							value = true;
@@ -4202,7 +4204,7 @@ public class ClientGameManager : MonoBehaviour
 
 		m_assetsLoadingState.LevelLoadProgress = m_loadLevelOperationDone
 			? 1f
-			: m_loadLevelOperation?.progress ?? 0f;
+			: m_loadLevelOperation != null ? m_loadLevelOperation.progress : 0f;
 		m_assetsLoadingState.CharacterLoadProgress = Mathf.Clamp(m_loadedCharacterResourceCount / (float)TeamInfo.TotalPlayerCount, 0f, 1f);
 		m_assetsLoadingState.VfxPreloadProgress = ClientVFXLoader.Get() != null ? ClientVFXLoader.Get().Progress : 0f;
 		m_assetsLoadingState.SpawningProgress = m_spawnableObjectCount > 0 ? Mathf.Clamp(ClientScene.objects.Count / (float)m_spawnableObjectCount, 0f, 1f) : 0f;

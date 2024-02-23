@@ -91,11 +91,9 @@ public class NinjaRewind : Ability
 		{
 			int rewindHToHp = m_syncComp.m_rewindHToHp;
 			int hitPoints = actorData.HitPoints;
-			dictionary = new Dictionary<AbilityTooltipSymbol, int>
-			{
-				[AbilityTooltipSymbol.Damage] = 0,
-				[AbilityTooltipSymbol.Healing] = 0
-			};
+			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+			dictionary[AbilityTooltipSymbol.Healing] = 0;
+			dictionary[AbilityTooltipSymbol.Damage] = 0;
 			if (hitPoints > rewindHToHp)
 			{
 				dictionary[AbilityTooltipSymbol.Damage] = hitPoints - rewindHToHp;

@@ -595,7 +595,8 @@ public class Options_UI : UIScene, IGameEventListener
 		{
 			s_hwnd = value;
 			Get().m_pauseUpdate = false;
-			if (!WinUtils.User32.GetWindowRect(s_hwnd, out WinUtils.User32.RECT rect))
+			WinUtils.User32.RECT rect;
+			if (!WinUtils.User32.GetWindowRect(s_hwnd, out rect))
 			{
 				while (true)
 				{
@@ -608,7 +609,9 @@ public class Options_UI : UIScene, IGameEventListener
 					}
 				}
 			}
-			if (!WinUtils.User32.GetClientRect(s_hwnd, out WinUtils.User32.RECT rect2))
+
+			WinUtils.User32.RECT rect2;
+			if (!WinUtils.User32.GetClientRect(s_hwnd, out rect2))
 			{
 				while (true)
 				{

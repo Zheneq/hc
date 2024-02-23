@@ -372,8 +372,10 @@ public class BlasterDashAndBlast : Ability
 				isValidTarget = vector.magnitude <= maxDistance;
 			}
 		}
+
+		int foo;
 		return isValidTarget
-		       && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, currentBoardSquare, false, out int _);
+		       && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, currentBoardSquare, false, out foo);
 	}
 
 	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
@@ -381,7 +383,7 @@ public class BlasterDashAndBlast : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damageAmountNormal);
 		StandardEffectInfo moddedEffectForSelf = GetModdedEffectForSelf();
-		moddedEffectForSelf?.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
+		if (moddedEffectForSelf != null) moddedEffectForSelf.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		return numbers;
 	}
 

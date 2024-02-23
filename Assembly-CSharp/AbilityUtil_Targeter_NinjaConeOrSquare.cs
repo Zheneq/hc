@@ -137,7 +137,7 @@ public class AbilityUtil_Targeter_NinjaConeOrSquare : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors2);
 			if (m_affectsCaster == AffectsActor.Possible)
 			{
-				if (m_affectCasterDelegate?.Invoke(targetingActor, actors2, flag) ?? flag)
+				if (m_affectCasterDelegate != null ? m_affectCasterDelegate(targetingActor, actors2, flag) : flag)
 				{
 					actors2.Add(targetingActor);
 				}

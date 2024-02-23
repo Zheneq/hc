@@ -430,7 +430,8 @@ public class ActorController : NetworkBehaviour
 
 	internal void ShowOvercon(int overconId, bool allyOnly)
 	{
-		ActorData activeOwnedActorData = GameFlowData.Get()?.activeOwnedActorData;
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData activeOwnedActorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		if (m_actor != null
 			&& activeOwnedActorData != null
 			&& m_actor.IsActorVisibleToClient()

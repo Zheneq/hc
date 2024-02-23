@@ -190,7 +190,8 @@ public class SamuraiWindBlade : Ability
 		{
 			for (int i = 0; i < Targeters.Count && i <= currentTargetIndex; i++)
 			{
-				if (Targeters[i] is AbilityUtil_Targeter_BendingLaser targeter)
+				AbilityUtil_Targeter_BendingLaser targeter = Targeters[i] as AbilityUtil_Targeter_BendingLaser;
+				if (targeter != null)
 				{
 					foreach (ActorData current in targeter.m_ordererdHitActors)
 					{

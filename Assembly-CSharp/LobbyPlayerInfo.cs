@@ -45,7 +45,7 @@ public class LobbyPlayerInfo
 	[JsonIgnore]
 	public CharacterType CharacterType
 	{
-		get { return CharacterInfo?.CharacterType ?? CharacterType.None; }
+		get { return CharacterInfo != null ? CharacterInfo.CharacterType : CharacterType.None; }
 	}
 
 	[JsonIgnore]
@@ -113,7 +113,7 @@ public class LobbyPlayerInfo
 			Difficulty = serverInfo.Difficulty,
 			BotCanTaunt = serverInfo.BotCanTaunt,
 			TeamId = serverInfo.TeamId,
-			CharacterInfo = serverInfo.CharacterInfo?.Clone(),
+			CharacterInfo = serverInfo.CharacterInfo != null ? serverInfo.CharacterInfo.Clone() : null,
 			RemoteCharacterInfos = list,
 			ReadyState = serverInfo.ReadyState,
 			ControllingPlayerId = serverInfo.IsRemoteControlled ? serverInfo.ControllingPlayerInfo.PlayerId : 0,

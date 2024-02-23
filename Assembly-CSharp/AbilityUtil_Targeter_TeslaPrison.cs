@@ -124,7 +124,9 @@ public class AbilityUtil_Targeter_TeslaPrison : AbilityUtil_Targeter_TrackerDron
 										}
 										int num5 = num;
 										float num6 = 0.05f;
-										BarrierPoseInfo.GetBarrierPosesForSquaresMadeOfCornerAndMidsection(boardSquareSafe2, m_squareCornerLength, m_squareMidsectionLength, 0f - num6, out List<List<BarrierPoseInfo>> corners, out List<BarrierPoseInfo> midSections);
+										List<List<BarrierPoseInfo>> corners;
+										List<BarrierPoseInfo> midSections;
+										BarrierPoseInfo.GetBarrierPosesForSquaresMadeOfCornerAndMidsection(boardSquareSafe2, m_squareCornerLength, m_squareMidsectionLength, 0f - num6, out corners, out midSections);
 										using (List<List<BarrierPoseInfo>>.Enumerator enumerator = corners.GetEnumerator())
 										{
 											while (enumerator.MoveNext())

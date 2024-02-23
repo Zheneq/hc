@@ -228,7 +228,6 @@ namespace NVIDIA
 				Transform transform = _000F.transform;
 				_000B._001D = _000F.fieldOfView;
 				_000B._000E = new float[2];
-				ref CameraData reference = ref _000B;
 				float[] array = new float[3];
 				Vector3 position = transform.position;
 				array[0] = position.x;
@@ -236,8 +235,7 @@ namespace NVIDIA
 				array[1] = position2.y;
 				Vector3 position3 = transform.position;
 				array[2] = position3.z;
-				reference._0012 = array;
-				ref CameraData reference2 = ref _000B;
+				_000B._0012 = array;
 				float[] array2 = new float[4];
 				Quaternion rotation = transform.rotation;
 				array2[0] = rotation.x;
@@ -247,7 +245,7 @@ namespace NVIDIA
 				array2[2] = rotation3.z;
 				Quaternion rotation4 = transform.rotation;
 				array2[3] = rotation4.w;
-				reference2._0015 = array2;
+				_000B._0015 = array2;
 				anselUpdateCamera(ref _000B);
 				_000F.ResetProjectionMatrix();
 				_000F.transform.position = new Vector3(_000B._0012[0], _000B._0012[1], _000B._0012[2]);

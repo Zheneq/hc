@@ -91,7 +91,9 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 		{
 			if (targetingActor.GetCurrentBoardSquare().GetLOS(boardSquare.x, boardSquare.y))
 			{
-				BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, travelBoardSquareWorldPositionForLos, clampedTargeterRange, out bool collision, out Vector3 _);
+				bool collision;
+				Vector3 foo;
+				BarrierManager.Get().GetAbilityLineEndpoint(targetingActor, travelBoardSquareWorldPositionForLos, clampedTargeterRange, out collision, out foo);
 				if (!collision)
 				{
 					list2 = AreaEffectUtils.GetActorsInLaser(clampedTargeterRange, normalized, laserRangeInSquares, m_widthInSquares, targetingActor, GetAffectedTeams(), m_penetrateLoS, m_maxTargets, m_penetrateLoS, false, out laserEndPos, null, actors);
@@ -146,7 +148,11 @@ public class AbilityUtil_Targeter_Cross : AbilityUtil_Targeter
 			}
 		}
 		float adjustAmount = 0f;
-		AreaEffectUtils.GetBoxBoundsInGridPos(crossStart, crossEnd, adjustAmount, out int minX, out int minY, out int maxX, out int maxY);
+		int minX;
+		int minY;
+		int maxX;
+		int maxY;
+		AreaEffectUtils.GetBoxBoundsInGridPos(crossStart, crossEnd, adjustAmount, out minX, out minY, out maxX, out maxY);
 		for (int i = minX; i <= maxX; i++)
 		{
 			for (int j = minY; j <= maxY; j++)

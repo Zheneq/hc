@@ -76,14 +76,15 @@ public class AbilityUtil_Targeter_Blindfire : AbilityUtil_Targeter
 		{
 			CreateBoundsHighlights(casterPos, component);
 		}
-		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		Vector3 aimDirection = currentTarget != null ? currentTarget.AimDirection : targetingActor.transform.forward;
 		if (component.IsDirInCover(aimDirection) || !m_restrictWithinCover)
 		{
 			float num = VectorUtils.HorizontalAngle_Deg(aimDirection);
 			float newDirAngleDegrees;
 			if (m_restrictWithinCover)
 			{
-				component.ClampConeToValidCover(num, m_coneAngleDegrees, out newDirAngleDegrees, out Vector3 _);
+				Vector3 foo;
+				component.ClampConeToValidCover(num, m_coneAngleDegrees, out newDirAngleDegrees, out foo);
 			}
 			else
 			{

@@ -422,7 +422,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < m_availableCharacterResourceLinkPrefabs.Length; i++)
 		{
 			GameObject gameObject = m_availableCharacterResourceLinkPrefabs[i];
-			CharacterResourceLink crl = gameObject?.GetComponent<CharacterResourceLink>();
+			CharacterResourceLink crl = gameObject != null ? gameObject.GetComponent<CharacterResourceLink>() : null;
 			if (crl != null && crl.m_displayName == className)
 			{
 				result = i;
@@ -629,7 +629,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			if (isChange)
 			{
-				s_onActiveOwnedActorChange?.Invoke(value);
+				if (s_onActiveOwnedActorChange != null) s_onActiveOwnedActorChange.Invoke(value);
 			}
 			if (isTeamChange)
 			{
@@ -791,7 +791,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		m_actors.Add(actor);
 		if (NetworkServer.active)
 		{
-			s_onAddActor?.Invoke(actor);
+			if (s_onAddActor != null) s_onAddActor.Invoke(actor);
 		}
 	}
 
@@ -896,7 +896,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			m_actors.Remove(actor);
 		}
 		SetLocalPlayerData();
-		s_onRemoveActor?.Invoke(actor);
+		if (s_onRemoveActor != null) s_onRemoveActor.Invoke(actor);
 	}
 
 	public int CurrentTurn
@@ -970,7 +970,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				m_timeInDecision = 0f;
 				break;
 		}
-		s_onGameStateChanged?.Invoke(m_gameState);
+		if (s_onGameStateChanged != null) s_onGameStateChanged.Invoke(m_gameState);
 	}
 
 	public int GetNumAvailableCharacterResourceLinks()
@@ -981,7 +981,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public string GetFirstAvailableCharacterResourceLinkName()
 	{
 		GameObject gameObject = m_availableCharacterResourceLinkPrefabs[0];
-		CharacterResourceLink crl = gameObject?.GetComponent<CharacterResourceLink>();
+		CharacterResourceLink crl = gameObject != null ? gameObject.GetComponent<CharacterResourceLink>() : null;
 		if (crl != null)
 		{
 			return crl.m_displayName;
@@ -1654,9 +1654,10 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				if (gameObject != null)
 				{
 					PlayerData component = gameObject.GetComponent<PlayerData>();
+					PlayerDetails playerDetails;
 					if (component != null
-						&& GameFlow.Get().playerDetails.TryGetValue(component.GetPlayer(), out PlayerDetails playerDetails)
-						&& playerDetails.IsLocal())
+					    && GameFlow.Get().playerDetails.TryGetValue(component.GetPlayer(), out playerDetails)
+					    && playerDetails.IsLocal())
 					{
 						m_localPlayerData = component;
 						break;

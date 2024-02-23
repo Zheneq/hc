@@ -354,7 +354,8 @@ public class SoldierDashAndOverwatch : Ability
 		}
 
 		AbilityUtil_Targeter abilityUtil_Targeter = Targeters[1];
-		if (!(abilityUtil_Targeter is AbilityUtil_Targeter_ConeOrLaser targeter))
+		AbilityUtil_Targeter_ConeOrLaser targeter = abilityUtil_Targeter as AbilityUtil_Targeter_ConeOrLaser;
+		if (targeter == null)
 		{
 			return 0;
 		}
@@ -391,7 +392,8 @@ public class SoldierDashAndOverwatch : Ability
 			bool isAllowedDashTarget = !OnlyDashNextToCover();
 			if (OnlyDashNextToCover())
 			{
-				ActorCover.CalcCoverLevelGeoOnly(out bool[] hasCover, boardSquareSafe);
+				bool[] hasCover;
+				ActorCover.CalcCoverLevelGeoOnly(out hasCover, boardSquareSafe);
 				foreach (bool cover in hasCover)
 				{
 					if (cover)
@@ -403,8 +405,9 @@ public class SoldierDashAndOverwatch : Ability
 			}
 			if (isAllowedDashTarget)
 			{
+				int foo;
 				return KnockbackUtils.CanBuildStraightLineChargePath(
-					caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out _);
+					caster, boardSquareSafe, caster.GetCurrentBoardSquare(), false, out foo);
 			}
 		}
 		return false;

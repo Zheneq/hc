@@ -398,7 +398,9 @@ public class AbilityUtil_Targeter_BounceActor : AbilityUtil_Targeter
 							}
 						}
 					}
-					if (!KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, lastSquare, false, out int _))
+
+					int foo;
+					if (!KnockbackUtils.CanBuildStraightLineChargePath(caster, boardSquare2, lastSquare, false, out foo))
 					{
 						continue;
 					}

@@ -121,7 +121,10 @@ public class RankedData
 				}
 			}
 		}
-		if (!decayInfo.GetDecayAmount(Tier - 1, out int amount, out TimeSpan start))
+
+		int amount;
+		TimeSpan start;
+		if (!decayInfo.GetDecayAmount(Tier - 1, out amount, out start))
 		{
 			while (true)
 			{
@@ -170,7 +173,9 @@ public class RankedData
 			if (num3 > 0)
 			{
 				LastDecay -= TimeSpan.FromDays(num3);
-				if (decayInfo.GetDecayAmount(Tier - 1, out int _, out TimeSpan _))
+				int foo;
+				TimeSpan foo1;
+				if (decayInfo.GetDecayAmount(Tier - 1, out foo, out foo1))
 				{
 					while (true)
 					{

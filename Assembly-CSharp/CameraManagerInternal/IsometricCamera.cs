@@ -227,7 +227,8 @@ namespace CameraManagerInternal
 			{
 				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 				EasedOutVector3 targetPosition = m_targetPosition;
-				if (new Plane(Vector3.up, targetPosition).Raycast(ray, out float enter))
+				float enter;
+				if (new Plane(Vector3.up, targetPosition).Raycast(ray, out enter))
 				{
 					m_targetObjectOffset = targetPosition - ray.GetPoint(enter);
 				}
@@ -343,9 +344,8 @@ namespace CameraManagerInternal
 			Quaternion quaternion = Quaternion.LookRotation(forward);
 			if (flag)
 			{
-				ref Vector3 desiredRotationEulerAngles = ref CameraControls.Get().m_desiredRotationEulerAngles;
 				Vector3 eulerAngles = quaternion.eulerAngles;
-				desiredRotationEulerAngles.y = (int)eulerAngles.y / 45 * 45;
+				CameraControls.Get().m_desiredRotationEulerAngles.y = (int)eulerAngles.y / 45 * 45;
 				return;
 			}
 			Vector3 eulerAngles2 = quaternion.eulerAngles;

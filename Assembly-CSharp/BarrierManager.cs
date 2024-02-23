@@ -541,7 +541,9 @@ public class BarrierManager : NetworkBehaviour
 					{
 						hasBarrierCovers = true;
 					}
-					AddBarrier(barrier, false, out List<ActorData> _);
+
+					List<ActorData> foo;
+					AddBarrier(barrier, false, out foo);
 					break;
 				}
 			}
@@ -599,7 +601,9 @@ public class BarrierManager : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateMovementOnSync(Team)' called on server");
 			return;
 		}
-		ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData actorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		if (actorData != null && actorData.GetTeam() == team)
 		{
 			actorData.GetActorMovement().UpdateSquaresCanMoveTo();
@@ -614,7 +618,9 @@ public class BarrierManager : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateVisionOnSync(Team)' called on server");
 			return;
 		}
-		ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData actorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		if (actorData != null && actorData.GetTeam() == team)
 		{
 			actorData.GetFogOfWar().MarkForRecalculateVisibility();

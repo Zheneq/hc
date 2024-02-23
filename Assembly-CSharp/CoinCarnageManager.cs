@@ -90,14 +90,13 @@ public class CoinCarnageManager : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref int coinTurninIdxTeamA = ref m_coinTurninIdxTeamA;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
 				base.syncVarHookGuard = true;
 				HookSetTurninRegionLocationA(value);
 				base.syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref coinTurninIdxTeamA, 1u);
+			SetSyncVar(value, ref m_coinTurninIdxTeamA, 1u);
 		}
 	}
 
@@ -110,7 +109,6 @@ public class CoinCarnageManager : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref int coinTurninIdxTeamB = ref m_coinTurninIdxTeamB;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -120,7 +118,7 @@ public class CoinCarnageManager : NetworkBehaviour
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref coinTurninIdxTeamB, 2u);
+			SetSyncVar(value, ref m_coinTurninIdxTeamB, 2u);
 		}
 	}
 
@@ -133,14 +131,13 @@ public class CoinCarnageManager : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref int turnsUntilTurnInSpawn = ref m_turnsUntilTurnInSpawn;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
 				base.syncVarHookGuard = true;
 				HookSetTurnsUntilTurnInSpawn(value);
 				base.syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref turnsUntilTurnInSpawn, 4u);
+			SetSyncVar(value, ref m_turnsUntilTurnInSpawn, 4u);
 		}
 	}
 
@@ -153,7 +150,6 @@ public class CoinCarnageManager : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref int turnsUntilTurnInDeSpawn = ref m_turnsUntilTurnInDeSpawn;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -163,7 +159,7 @@ public class CoinCarnageManager : NetworkBehaviour
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref turnsUntilTurnInDeSpawn, 8u);
+			SetSyncVar(value, ref m_turnsUntilTurnInDeSpawn, 8u);
 		}
 	}
 
@@ -653,7 +649,8 @@ public class CoinCarnageManager : NetworkBehaviour
 					break;
 				default:
 				{
-					if (m_spawnedTurnInLocationInstances.TryGetValue(team, out GameObject value))
+					GameObject value;
+					if (m_spawnedTurnInLocationInstances.TryGetValue(team, out value))
 					{
 						while (true)
 						{

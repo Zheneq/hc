@@ -116,6 +116,10 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 			aoeRadius += m_delegateExtraAoeRadius(currentTarget, targetingActor, m_aoeBaseRadius);
 		}
 
+		List<List<ActorData>> laserHitActorsList;
+		List<Vector3> laserEndPosList;
+		int aoeEndPosIndex;
+		List<ActorData> aoeHitActors;
 		AbilityCommon_DualMeetingLasers.CalcHitActors(
 			targetPos,
 			laserStartPosList,
@@ -126,11 +130,11 @@ public class AbilityUtil_Targeter_ScampDualLasers : AbilityUtil_Targeter
 			GetAffectedTeams(targetingActor),
 			false,
 			null,
-			out List<List<ActorData>> laserHitActorsList,
-			out List<Vector3> laserEndPosList,
-			out var aoeEndPosIndex,
+			out laserHitActorsList,
+			out laserEndPosList,
+			out aoeEndPosIndex,
 			out aoeRadius,
-			out List<ActorData> aoeHitActors);
+			out aoeHitActors);
 		Vector3 damageOrigin = laserStartPosList.Count < 2 ? laserEndPosList[0] : targetPos;
 		float distFromMin = AbilityCommon_DualMeetingLasers.CalcMeetingPosDistFromMin(
 			targetingActor.GetLoSCheckPos(), targetPos, m_minMeetingDistFromCaster);

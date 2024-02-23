@@ -547,7 +547,8 @@ public class InventoryComponent
 
 	public Karma GetKarma(int karmaTemplateId)
 	{
-		Karmas.TryGetValue(karmaTemplateId, out Karma value);
+		Karma value;
+		Karmas.TryGetValue(karmaTemplateId, out value);
 		return value;
 	}
 
@@ -629,7 +630,8 @@ public class InventoryComponent
 	public void AddCharacterItemDropBalanceValue(CharacterType bindingCharacterType, int delta = 1)
 	{
 		int characterItemDropBalance = LobbyGameplayData.Get().GetCharacterItemDropBalance();
-		CharacterItemDropBalanceValues.TryGetValue(bindingCharacterType, out int value);
+		int value;
+		CharacterItemDropBalanceValues.TryGetValue(bindingCharacterType, out value);
 		CharacterItemDropBalanceValues[bindingCharacterType] = MathUtil.Clamp(value + delta, 0, characterItemDropBalance);
 		bool flag = true;
 		IEnumerator enumerator = Enum.GetValues(typeof(CharacterType)).GetEnumerator();
@@ -642,7 +644,8 @@ public class InventoryComponent
 					break;
 				}
 				CharacterType key = (CharacterType)enumerator.Current;
-				CharacterItemDropBalanceValues.TryGetValue(key, out int value2);
+				int value2;
+				CharacterItemDropBalanceValues.TryGetValue(key, out value2);
 				if (value2 == 0)
 				{
 					while (true)
@@ -691,7 +694,8 @@ public class InventoryComponent
 				while (enumerator2.MoveNext())
 				{
 					CharacterType key2 = (CharacterType)enumerator2.Current;
-					CharacterItemDropBalanceValues.TryGetValue(key2, out int value3);
+					int value3;
+					CharacterItemDropBalanceValues.TryGetValue(key2, out value3);
 					CharacterItemDropBalanceValues[key2] = MathUtil.Clamp(value3 - 1, 0, characterItemDropBalance);
 				}
 				while (true)
@@ -730,7 +734,8 @@ public class InventoryComponent
 	public int GetBalancedCharacterItemDropWeight(CharacterType characterType)
 	{
 		int characterItemDropBalance = LobbyGameplayData.Get().GetCharacterItemDropBalance();
-		CharacterItemDropBalanceValues.TryGetValue(characterType, out int value);
+		int value;
+		CharacterItemDropBalanceValues.TryGetValue(characterType, out value);
 		return MathUtil.Clamp(characterItemDropBalance - value, 0, characterItemDropBalance);
 	}
 

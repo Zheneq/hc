@@ -421,7 +421,8 @@ public class FishManGeyser : Ability
 			return null;
 		}
 		Dictionary<AbilityTooltipSymbol, int> dictionary = new Dictionary<AbilityTooltipSymbol, int>();
-		if (Targeter is AbilityUtil_Targeter_MultipleShapes targeter)
+		AbilityUtil_Targeter_MultipleShapes targeter = Targeter as AbilityUtil_Targeter_MultipleShapes;
+		if (targeter != null)
 		{
 			foreach (AbilityUtil_Targeter_MultipleShapes.HitActorContext context in targeter.GetHitActorContext())
 			{

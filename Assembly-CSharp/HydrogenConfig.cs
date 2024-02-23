@@ -338,7 +338,8 @@ public class HydrogenConfig : JsonConfig
 	public void SaveGameTypeSubMaskPreference(GameType gameType, ushort mask, Dictionary<GameType, GameTypeAvailability> GameTypeAvailabilies)
 	{
 		List<string> list = new List<string>();
-		if (GameTypeAvailabilies.TryGetValue(gameType, out GameTypeAvailability value))
+		GameTypeAvailability value;
+		if (GameTypeAvailabilies.TryGetValue(gameType, out value))
 		{
 			if (!value.SubTypes.IsNullOrEmpty())
 			{

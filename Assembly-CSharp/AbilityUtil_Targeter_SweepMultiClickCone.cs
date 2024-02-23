@@ -144,7 +144,8 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
 		if (useAngleRestrictions)
 		{
-			list = GetSweepHitActorsAndAngles(sweepStartAimDirection, ref endAimDirection, targetingActor, out m_sweepAngle, out Vector3 coneCenterAngle);
+			Vector3 coneCenterAngle;
+			list = GetSweepHitActorsAndAngles(sweepStartAimDirection, ref endAimDirection, targetingActor, out m_sweepAngle, out coneCenterAngle);
 			if (m_highlights.Count < 2)
 			{
 				m_highlights.Add(HighlightUtils.Get().CreateDynamicConeMesh(m_rangeInSquares, m_sweepAngle, true));
@@ -160,7 +161,8 @@ public class AbilityUtil_Targeter_SweepMultiClickCone : AbilityUtil_Targeter
 		}
 		else
 		{
-			list = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, aimDirection, GetLineRange(), GetLineWidth(), targetingActor, GetAffectedTeams(), m_penetrateLos, GetLineMaxTargets(), m_penetrateLos, false, out Vector3 laserEndPos, null);
+			Vector3 laserEndPos;
+			list = AreaEffectUtils.GetActorsInLaser(travelBoardSquareWorldPositionForLos, aimDirection, GetLineRange(), GetLineWidth(), targetingActor, GetAffectedTeams(), m_penetrateLos, GetLineMaxTargets(), m_penetrateLos, false, out laserEndPos, null);
 			HighlightUtils.Get().ResizeRectangularCursor(GetLineWidth() * squareSize, (laserEndPos - travelBoardSquareWorldPositionForLos).magnitude, m_highlights[0]);
 			DrawSquareIndicators_Line(targetingActor, travelBoardSquareWorldPositionForLos, laserEndPos, GetLineWidth(), m_penetrateLos);
 		}

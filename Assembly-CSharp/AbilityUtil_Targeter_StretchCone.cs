@@ -132,7 +132,9 @@ public class AbilityUtil_Targeter_StretchCone : AbilityUtil_Targeter
 		vector.y = 0f;
 		vector.Normalize();
 		float forwardDir_degrees = VectorUtils.HorizontalAngle_Deg(vector);
-		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, m_minLengthSquares, m_maxLengthSquares, m_minAngleDegrees, m_maxAngleDegrees, m_stretchStyle, out float lengthInSquares, out float angleInDegrees, m_discreteWidthAngleChange, m_numDiscreteWidthChanges, m_interpMinDistOverride, m_interpRangeOverride);
+		float lengthInSquares;
+		float angleInDegrees;
+		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, m_minLengthSquares, m_maxLengthSquares, m_minAngleDegrees, m_maxAngleDegrees, m_stretchStyle, out lengthInSquares, out angleInDegrees, m_discreteWidthAngleChange, m_numDiscreteWidthChanges, m_interpMinDistOverride, m_interpRangeOverride);
 		if (m_coneLengthSquaresOverrideDelegate != null)
 		{
 			lengthInSquares = m_coneLengthSquaresOverrideDelegate();

@@ -134,7 +134,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
                 Ability selectedAbility = m_abilityData.GetSelectedAbility();
                 if (selectedAbility != null && selectedAbility.GetRunPriority() == AbilityPriority.Evasion)
                 {
-                    if (selectedAbility is NekoFlipDash nekoFlipDash)
+                    NekoFlipDash nekoFlipDash = selectedAbility as NekoFlipDash;
+                    if (!ReferenceEquals(nekoFlipDash, null))
                     {
                         if (actorTurnSM.GetAbilityTargets().Count >= (nekoFlipDash.ThrowDiscFromStart() ? 1 : 0))
                         {
@@ -346,7 +347,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
             int count = m_boardX.Count;
             float losHeight = Board.Get().BaselineHeight + BoardSquare.s_LoSHeightOffset;
             bool isAlly = activeOwnedActorData.GetTeam() == m_actorData.GetTeam();
-            Vector3 casterPos = GetCasterPos(out bool hasQueuedEvades);
+            bool hasQueuedEvades;
+            Vector3 casterPos = GetCasterPos(out hasQueuedEvades);
             bool isValidatingActionRequest = m_actorData.GetActorTurnSM().CurrentState == TurnStateEnum.VALIDATING_ACTION_REQUEST;
             if (isValidatingActionRequest && setCasterPosLastFrame)
             {
@@ -449,7 +451,8 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
                             returnDiskEndRadius = m_primaryAbility.GetDiscReturnEndRadius();
                         }
 
-                        bool isDiscEnlarged = IsDiscAtPosEnlarged(m_boardX[i], m_boardY[i], out bool enlargeDiscUsed);
+                        bool enlargeDiscUsed;
+                        bool isDiscEnlarged = IsDiscAtPosEnlarged(m_boardX[i], m_boardY[i], out enlargeDiscUsed);
                         if (isDiscEnlarged)
                         {
                             returnDiskLaserWidth = m_enlargeDiscAbility.GetLaserWidth();
@@ -562,6 +565,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
             return;
         }
 
+        Vector3 foo;
         List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
             startLosPos,
             dir,
@@ -573,7 +577,7 @@ public class Neko_SyncComponent : NetworkBehaviour, IForceActorOutlineChecker
             0,
             true,
             false,
-            out _,
+            out foo,
             null);
         foreach (ActorData item in actorsInLaser)
         {

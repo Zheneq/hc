@@ -68,7 +68,8 @@ public static class Log
 			{
 				for (int i = 0; i < args.Length; i++)
 				{
-					if (args[i] is Exception ex)
+					Exception ex = args[i] as Exception;
+					if (ex != null)
 					{
 						args[i] = ex.ToReadableString();
 					}

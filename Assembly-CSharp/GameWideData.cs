@@ -274,7 +274,9 @@ public class GameWideData : MonoBehaviour
 				m_mapDataDictionary.Add(mapData2.Name, mapData2);
 			}
 		}
-		if (m_mapDataDictionary.TryGetValue(mapName, out MapData value))
+
+		MapData value;
+		if (m_mapDataDictionary.TryGetValue(mapName, out value))
 		{
 			while (true)
 			{
@@ -329,7 +331,9 @@ public class GameWideData : MonoBehaviour
 				m_keyBindingDataDictionary.Add(keyBindingCommand.Name, keyBindingCommand);
 			}
 		}
-		if (m_keyBindingDataDictionary.TryGetValue(keyBindName, out KeyBindingCommand value))
+
+		KeyBindingCommand value;
+		if (m_keyBindingDataDictionary.TryGetValue(keyBindName, out value))
 		{
 			while (true)
 			{

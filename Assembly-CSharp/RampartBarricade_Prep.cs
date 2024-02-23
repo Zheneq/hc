@@ -164,7 +164,9 @@ public class RampartBarricade_Prep : Ability
 
 	public override Vector3 GetRotateToTargetPos(List<AbilityTarget> targets, ActorData caster)
 	{
-		GetBarrierPositionAndFacing(targets, out Vector3 position, out Vector3 facing);
+		Vector3 position;
+		Vector3 facing;
+		GetBarrierPositionAndFacing(targets, out position, out facing);
 		return position + facing;
 	}
 
@@ -177,7 +179,8 @@ public class RampartBarricade_Prep : Ability
 			BoardSquare targetPos = Board.Get().GetSquare(targets[0].GridPos);
 			if (targetPos != null)
 			{
-				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(targetPos, targets[0].FreePos, AllowAimAtDiagonals(), out Vector3 offset);
+				Vector3 offset;
+				facing = VectorUtils.GetDirectionAndOffsetToClosestSide(targetPos, targets[0].FreePos, AllowAimAtDiagonals(), out offset);
 				position = targetPos.ToVector3() + offset;
 			}
 		}

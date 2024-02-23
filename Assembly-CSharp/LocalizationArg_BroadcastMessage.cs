@@ -29,12 +29,15 @@ public class LocalizationArg_BroadcastMessage : LocalizationArg
 	public override string TR()
 	{
 		string currentLanguageCode = LocalizationManager.CurrentLanguageCode;
-		if (m_packedMessages.TryGetValue(currentLanguageCode, out string localizedMessage) && !localizedMessage.IsNullOrEmpty())
+		string localizedMessage;
+		if (m_packedMessages.TryGetValue(currentLanguageCode, out localizedMessage) && !localizedMessage.IsNullOrEmpty())
 		{
 			return m_packedMessages[currentLanguageCode].SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(m_timeInAdvance, true));
 
 		}
-		if (m_packedMessages.TryGetValue("en", out string message))
+
+		string message;
+		if (m_packedMessages.TryGetValue("en", out message))
 		{
 			return message.SafeReplace("${TIME}", StringUtil.GetTimeDifferenceText(m_timeInAdvance, true));
 

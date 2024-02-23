@@ -64,7 +64,9 @@ public class AbilityUtil_Targeter_ReverseStretchCone : AbilityUtil_Targeter
 		vector.y = 0f;
 		vector.Normalize();
 		float num = VectorUtils.HorizontalAngle_Deg(vector);
-		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, m_minLengthSquares, m_maxLengthSquares, m_minAngleDegrees, m_maxAngleDegrees, m_stretchStyle, out float lengthInSquares, out float angleInDegrees, m_discreteWidthAngleChange, m_numDiscreteWidthChanges, m_interpMinDistOverride, m_interpRangeOverride);
+		float lengthInSquares;
+		float angleInDegrees;
+		AreaEffectUtils.GatherStretchConeDimensions(freePos, worldPositionForLoS, m_minLengthSquares, m_maxLengthSquares, m_minAngleDegrees, m_maxAngleDegrees, m_stretchStyle, out lengthInSquares, out angleInDegrees, m_discreteWidthAngleChange, m_numDiscreteWidthChanges, m_interpMinDistOverride, m_interpRangeOverride);
 		worldPositionForLoS -= lengthInSquares * Board.Get().squareSize * vector;
 		CreateConeCursorHighlights(worldPositionForLoS, vector, lengthInSquares, angleInDegrees);
 		List<ActorData> actors = AreaEffectUtils.GetActorsInCone(worldPositionForLoS, num, angleInDegrees, lengthInSquares - m_coneBackwardOffsetInSquares, m_coneBackwardOffsetInSquares, true, targetingActor, TargeterUtils.GetRelevantTeams(targetingActor, m_includeAllies, m_includeEnemies), null);

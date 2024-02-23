@@ -205,12 +205,12 @@ public class SparkHealingBeam : Ability
 
 	public StandardEffectInfo GetTargetEffectForXDamage()
 	{
-		return m_abilityMod?.m_effectOnTargetForTakingXDamage;
+		return m_abilityMod != null ? m_abilityMod.m_effectOnTargetForTakingXDamage : null;
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod?.m_laserInfoMod);
+		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod != null ? m_abilityMod.m_laserInfoMod : null);
 		StandardEffectInfo standardEffectInfo = m_abilityMod != null
 			? m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect)
 			: m_laserHitEffect.GetShallowCopy();
@@ -224,12 +224,12 @@ public class SparkHealingBeam : Ability
 
 	public StandardActorEffectData GetAllyTetherEffectData()
 	{
-		return m_cachedAllyEffect ?? m_laserHitEffect.m_effectData;
+		return m_cachedAllyEffect != null ? m_cachedAllyEffect : m_laserHitEffect.m_effectData;
 	}
 
 	public LaserTargetingInfo GetLaserInfo()
 	{
-		return m_cachedLaserInfo ?? m_laserInfo;
+		return m_cachedLaserInfo != null ? m_cachedLaserInfo : m_laserInfo;
 	}
 
 	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
@@ -238,7 +238,9 @@ public class SparkHealingBeam : Ability
 		{
 			return true;
 		}
-		ActorData targetActor = Board.Get().GetSquare(target.GridPos)?.OccupantActor;
+
+		BoardSquare boardSquare = Board.Get().GetSquare(target.GridPos);
+		ActorData targetActor = boardSquare != null ? boardSquare.OccupantActor : null;
 		return CanTargetActorInDecision(caster, targetActor, false, true, false, ValidateCheckPath.Ignore, true, false);
 	}
 

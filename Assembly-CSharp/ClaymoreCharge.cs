@@ -362,7 +362,8 @@ public class ClaymoreCharge : Ability
 				true);
 			if (boardSquarePathInfo != null && trimBeforeFirstInvalid)
 			{
-				destination = GetTrimmedDestinationInPath(boardSquarePathInfo, out bool _);
+				bool foo;
+				destination = GetTrimmedDestinationInPath(boardSquarePathInfo, out foo);
 			}
 		}
 		return destination;

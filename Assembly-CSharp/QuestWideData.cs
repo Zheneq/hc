@@ -118,7 +118,8 @@ public class QuestWideData : MonoBehaviour
 	public bool IsDailyQuest(int questId)
 	{
 		int result;
-		if (m_dailyQuestsCache.TryGetValue(questId, out bool value))
+		bool value;
+		if (m_dailyQuestsCache.TryGetValue(questId, out value))
 		{
 			result = (value ? 1 : 0);
 		}

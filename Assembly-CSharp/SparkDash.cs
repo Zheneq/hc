@@ -386,12 +386,13 @@ public class SparkDash : Ability
 			BoardSquare prevTargetSquare = Board.Get().GetSquare(currentTargets[targetIndex - 1].GridPos);
 			BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
 
+			int foo;
 			isSecondTargetValid = targetSquare != null
-				&& targetSquare.IsValidForGameplay()
-				&& targetSquare != prevTargetSquare
-				&& targetSquare != caster.GetCurrentBoardSquare()
-				&& AreaEffectUtils.IsSquareInShape(targetSquare, GetChooseDestShape(), target.FreePos, prevTargetSquare, false, caster)
-				&& KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out int _);
+			                      && targetSquare.IsValidForGameplay()
+			                      && targetSquare != prevTargetSquare
+			                      && targetSquare != caster.GetCurrentBoardSquare()
+			                      && AreaEffectUtils.IsSquareInShape(targetSquare, GetChooseDestShape(), target.FreePos, prevTargetSquare, false, caster)
+			                      && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out foo);
 		}
 		return isSecondTargetValid && isFirstTargetValid;
 	}

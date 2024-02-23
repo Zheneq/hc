@@ -163,7 +163,8 @@ public class FireborgDualCones : GenericAbility_Container
 		}
 		while (true)
 		{
-			actorHitContext[targetActor].m_contextVars.TryGetInt(ContextKeys.s_HitCount.GetKey(), out int value);
+			int value;
+			actorHitContext[targetActor].m_contextVars.TryGetInt(ContextKeys.s_HitCount.GetKey(), out value);
 			if (value > 1)
 			{
 				while (true)
@@ -228,9 +229,11 @@ public class FireborgDualCones : GenericAbility_Container
 
 	private int GetTargeterHitCountOnTarget(ActorData targetActor)
 	{
-		if (base.Targeter.GetActorContextVars().TryGetValue(targetActor, out ActorHitContext value))
+		ActorHitContext value;
+		if (base.Targeter.GetActorContextVars().TryGetValue(targetActor, out value))
 		{
-			if (value.m_contextVars.TryGetInt(ContextKeys.s_HitCount.GetKey(), out int value2))
+			int value2;
+			if (value.m_contextVars.TryGetInt(ContextKeys.s_HitCount.GetKey(), out value2))
 			{
 				while (true)
 				{

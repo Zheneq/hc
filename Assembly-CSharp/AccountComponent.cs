@@ -681,7 +681,8 @@ public class AccountComponent : ICloneable
 
 	public bool IsLoadingScreenBackgroundActive(int loadingScreenBackgroundId)
 	{
-		UnlockedLoadingScreenBackgroundIdsToActivatedState.TryGetValue(loadingScreenBackgroundId, out bool value);
+		bool value;
+		UnlockedLoadingScreenBackgroundIdsToActivatedState.TryGetValue(loadingScreenBackgroundId, out value);
 		return value;
 	}
 

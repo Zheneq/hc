@@ -36,17 +36,22 @@ public class ScampDualLasers : GenericAbility_Container
 		m_syncComp = GetComponent<Scamp_SyncComponent>();
 		m_cachedShieldDownOnHitData = m_abilityMod != null ? m_abilityMod.m_shieldDownOnHitDataMod.GetModdedOnHitData(m_shieldDownOnHitData) : m_shieldDownOnHitData;
 		base.SetupTargetersAndCachedVars();
-		if (Targeter is AbilityUtil_Targeter_ScampDualLasers targeter)
+		AbilityUtil_Targeter_ScampDualLasers targeter = Targeter as AbilityUtil_Targeter_ScampDualLasers;
+		if (targeter != null)
 		{
 			targeter.m_delegateLaserCount = GetNumLasers;
 			targeter.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
-		if (m_targetSelectComp is TargetSelect_DualMeetingLasers targetSelectComp)
+
+		TargetSelect_DualMeetingLasers targetSelectComp = m_targetSelectComp as TargetSelect_DualMeetingLasers;
+		if (!ReferenceEquals(targetSelectComp, null))
 		{
 			targetSelectComp.m_delegateLaserCount = GetNumLasers;
 			targetSelectComp.m_delegateExtraAoeRadius = GetExtraAoeRadius;
 		}
-		if (m_shieldDownTargetSelect is TargetSelect_DualMeetingLasers shieldDownTargetSelect)
+
+		TargetSelect_DualMeetingLasers shieldDownTargetSelect = m_shieldDownTargetSelect as TargetSelect_DualMeetingLasers;
+		if (!ReferenceEquals(shieldDownTargetSelect, null))
 		{
 			shieldDownTargetSelect.m_delegateLaserCount = GetNumLasers;
 			shieldDownTargetSelect.m_delegateExtraAoeRadius = GetExtraAoeRadius;
@@ -59,7 +64,8 @@ public class ScampDualLasers : GenericAbility_Container
 		Targeters.AddRange(!hasShield && m_shieldDownTargetSelect != null
 			? m_shieldDownTargetSelect.CreateTargeters(this)
 			: m_targetSelectComp.CreateTargeters(this));
-		if (Targeter is AbilityUtil_Targeter_ScampDualLasers targeter)
+		AbilityUtil_Targeter_ScampDualLasers targeter = Targeter as AbilityUtil_Targeter_ScampDualLasers;
+		if (targeter != null)
 		{
 			targeter.m_delegateLaserCount = GetNumLasers;
 			targeter.m_delegateExtraAoeRadius = GetExtraAoeRadius;

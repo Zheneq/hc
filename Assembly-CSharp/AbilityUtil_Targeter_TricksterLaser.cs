@@ -116,7 +116,9 @@ public class AbilityUtil_Targeter_TricksterLaser : AbilityUtil_Targeter
 		list.Add(targetingActor);
 		list.AddRange(validAfterImages);
 		float widthInWorld = m_width * Board.Get().squareSize;
-		m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(currentTarget.FreePos, targetingActor, list, false, out Vector3 _, out Vector3 freePosForAim);
+		Vector3 foo;
+		Vector3 freePosForAim;
+		m_afterImageSyncComp.CalcTargetingCenterAndAimAtPos(currentTarget.FreePos, targetingActor, list, false, out foo, out freePosForAim);
 		Dictionary<ActorData, Vector3> dictionary = new Dictionary<ActorData, Vector3>();
 		m_actorToHitCount.Clear();
 		m_actorToCoverCount.Clear();

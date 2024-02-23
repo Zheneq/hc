@@ -371,7 +371,8 @@ public class QuestComponent
 	{
 		if (QuestMetaDatas != null)
 		{
-			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+			QuestMetaData value;
+			if (QuestMetaDatas.TryGetValue(questId, out value))
 			{
 				while (true)
 				{
@@ -392,7 +393,8 @@ public class QuestComponent
 	{
 		if (QuestMetaDatas != null)
 		{
-			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+			QuestMetaData value;
+			if (QuestMetaDatas.TryGetValue(questId, out value))
 			{
 				return value.RejectedCount;
 			}
@@ -404,7 +406,8 @@ public class QuestComponent
 	{
 		if (QuestMetaDatas != null)
 		{
-			if (QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+			QuestMetaData value;
+			if (QuestMetaDatas.TryGetValue(questId, out value))
 			{
 				return value.AbandonedCount;
 			}
@@ -414,7 +417,8 @@ public class QuestComponent
 
 	public int GetWeight(int questId)
 	{
-		if (QuestMetaDatas != null && QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+		QuestMetaData value;
+		if (QuestMetaDatas != null && QuestMetaDatas.TryGetValue(questId, out value))
 		{
 			while (true)
 			{
@@ -432,7 +436,8 @@ public class QuestComponent
 
 	public QuestMetaData GetOrCreateQuestMetaData(int questId)
 	{
-		if (!QuestMetaDatas.TryGetValue(questId, out QuestMetaData value))
+		QuestMetaData value;
+		if (!QuestMetaDatas.TryGetValue(questId, out value))
 		{
 			value = new QuestMetaData();
 			value.UtcCompletedTimes = new List<DateTime>();

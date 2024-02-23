@@ -270,7 +270,8 @@ namespace I2.Loc
 
 		public static string GetTermTranslation(string Term, bool FixForRTL, int maxLineLengthForRTL)
 		{
-			if (TryGetTermTranslation(Term, out string Translation, FixForRTL, maxLineLengthForRTL))
+			string Translation;
+			if (TryGetTermTranslation(Term, out Translation, FixForRTL, maxLineLengthForRTL))
 			{
 				return Translation;
 			}
@@ -355,7 +356,7 @@ namespace I2.Loc
 			{
 				el.OnLocalize(Force);
 			}
-			OnLocalizeEvent?.Invoke();
+			if (OnLocalizeEvent != null) OnLocalizeEvent.Invoke();
 			ResourceManager.pInstance.CleanResourceCache();
 		}
 

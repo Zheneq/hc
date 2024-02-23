@@ -28,7 +28,7 @@ public class LobbyTeamInfo
 	[JsonIgnore]
 	public int TotalPlayerCount
 	{
-		get { return TeamPlayerInfo?.Count ?? 0; }
+		get { return TeamPlayerInfo != null ? TeamPlayerInfo.Count : 0; }
 	}
 
 	public IEnumerable<LobbyPlayerInfo> TeamInfo(Team team)

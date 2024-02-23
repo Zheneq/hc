@@ -315,6 +315,7 @@ public class NekoFanOfDiscs : Ability
 		List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		targetSquares = new List<BoardSquare>();
+		List<Vector3> targetPosForSequences;
 		Dictionary<ActorData, int> hitActorsAndHitCount = AbilityCommon_FanLaser.GetHitActorsAndHitCount(
 			targets,
 			caster,
@@ -327,7 +328,7 @@ public class NekoFanOfDiscs : Ability
 			GetAngleInterpMinDist(),
 			GetAngleInterpMaxDist(),
 			out actorsForSequence,
-			out List<Vector3> targetPosForSequences,
+			out targetPosForSequences,
 			out numLasersWithHits,
 			nonActorTargetInfo,
 			false,

@@ -108,7 +108,12 @@ public class AbilityUtil_Targeter_SoldierCardinalLines : AbilityUtil_Targeter
 						Vector3 item = VectorUtils.HorizontalAngleToClosestCardinalDirection(angleWithHorizontal);
 						list.Add(item);
 					}
-					GetHitActors(list, centerOfShape, targetingActor, out Dictionary<ActorData, Vector3> _, out List<List<ActorData>> actorsInDirsDirect, out List<Vector3> _, out List<Vector3> _, out m_directHitActorToCenterDist, out m_aoeHitActors);
+
+					Dictionary<ActorData, Vector3> foo;
+					List<List<ActorData>> actorsInDirsDirect;
+					List<Vector3> foo2;
+					List<Vector3> foo3;
+					GetHitActors(list, centerOfShape, targetingActor, out foo, out actorsInDirsDirect, out foo2, out foo3, out m_directHitActorToCenterDist, out m_aoeHitActors);
 					for (int i = 0; i < list.Count; i++)
 					{
 						Vector3 vector2 = list[i];

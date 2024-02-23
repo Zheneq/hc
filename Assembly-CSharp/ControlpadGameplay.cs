@@ -724,7 +724,8 @@ public class ControlpadGameplay : MonoBehaviour
 		float num4 = num2 * GameTime.deltaTime;
 		if (abilityBeingTargeted != null)
 		{
-			if (abilityBeingTargeted.HasAimingOriginOverride(clientActor, currentIndex, targetsSoFar, out Vector3 overridePos))
+			Vector3 overridePos;
+			if (abilityBeingTargeted.HasAimingOriginOverride(clientActor, currentIndex, targetsSoFar, out overridePos))
 			{
 				ControllerAimingOriginPos = overridePos;
 				goto IL_0330;
@@ -738,13 +739,17 @@ public class ControlpadGameplay : MonoBehaviour
 		float angle = num5 + num3;
 		float value = magnitude + num4;
 		value = Mathf.Clamp(value, 0.01f, 50f);
-		if (abilityBeingTargeted != null && abilityBeingTargeted.HasRestrictedFreeAimDegrees(clientActor, currentIndex, targetsSoFar, out float min, out float max))
+		float max;
+		float min;
+		if (abilityBeingTargeted != null && abilityBeingTargeted.HasRestrictedFreeAimDegrees(clientActor, currentIndex, targetsSoFar, out min, out max))
 		{
 			angle = VectorUtils.ClampAngle_Deg(angle, min, max);
 		}
 		if (abilityBeingTargeted != null)
 		{
-			if (abilityBeingTargeted.HasRestrictedFreePosDistance(clientActor, currentIndex, targetsSoFar, out float min2, out float max2))
+			float max2;
+			float min2;
+			if (abilityBeingTargeted.HasRestrictedFreePosDistance(clientActor, currentIndex, targetsSoFar, out min2, out max2))
 			{
 				value = Mathf.Clamp(value, min2, max2);
 			}

@@ -110,10 +110,9 @@ public class ClericGiantAoE : Ability
 		dist = Mathf.Max(0, dist - 1);
 		int damage = GetDamageAmount() - Mathf.RoundToInt(dist * GetDamageDecreasePerSquare());
 		int healing = GetHealAmount() - Mathf.RoundToInt(dist * GetHealDecreasePerSquare());
-		return new Dictionary<AbilityTooltipSymbol, int>
-		{
-			[AbilityTooltipSymbol.Damage] = damage,
-			[AbilityTooltipSymbol.Healing] = healing
-		};
+		var ints = new Dictionary<AbilityTooltipSymbol, int>();
+		ints[AbilityTooltipSymbol.Healing] = healing;
+		ints[AbilityTooltipSymbol.Damage] = damage;
+		return ints;
 	}
 }

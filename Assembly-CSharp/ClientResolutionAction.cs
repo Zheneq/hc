@@ -93,16 +93,12 @@ public class ClientResolutionAction : IComparable
 
 	public ActorData GetCaster()
 	{
-		return m_abilityResults?.GetCaster()
-			?? m_effectResults?.GetCaster()
-			?? null;
+		return m_abilityResults != null ? m_abilityResults.GetCaster() != null ? m_abilityResults.GetCaster() : (m_effectResults != null ? m_effectResults.GetCaster() != null ? m_effectResults.GetCaster() : null : null) : m_effectResults != null ? m_effectResults.GetCaster() != null ? m_effectResults.GetCaster() : null : null;
 	}
 
 	public AbilityData.ActionType GetSourceAbilityActionType()
 	{
-		return m_abilityResults?.GetSourceActionType()
-			?? m_effectResults?.GetSourceActionType()
-			?? AbilityData.ActionType.INVALID_ACTION;
+		return m_abilityResults != null ? m_abilityResults.GetSourceActionType() : m_effectResults != null ? m_effectResults.GetSourceActionType() : AbilityData.ActionType.INVALID_ACTION;
 	}
 
 	public bool IsResolutionActionType(ResolutionActionType testType)
@@ -112,9 +108,7 @@ public class ClientResolutionAction : IComparable
 
 	public bool HasReactionHitByCaster(ActorData caster)
 	{
-		return m_abilityResults?.HasReactionByCaster(caster)
-			?? m_effectResults?.HasReactionByCaster(caster)
-			?? false;
+		return m_abilityResults != null ? m_abilityResults.HasReactionByCaster(caster) : m_effectResults != null ? m_effectResults.HasReactionByCaster(caster) : false;
 	}
 
 	public void GetHitResults(out Dictionary<ActorData, ClientActorHitResults> actorHitResList, out Dictionary<Vector3, ClientPositionHitResults> posHitResList)

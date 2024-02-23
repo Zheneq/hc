@@ -83,15 +83,20 @@ public class SimpleVFXAtTargetPosSequence : Sequence
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
-			if (extraSequenceParams is IgnoreStartEventExtraParam ignoreStartEventExtraParam)
+			IgnoreStartEventExtraParam ignoreStartEventExtraParam = extraSequenceParams as IgnoreStartEventExtraParam;
+			if (ignoreStartEventExtraParam != null)
 			{
 				m_ignoreStartEvent = ignoreStartEventExtraParam.ignoreStartEvent;
 			}
-			if (extraSequenceParams is PositionOverrideParam positionOverrideParam)
+
+			PositionOverrideParam positionOverrideParam = extraSequenceParams as PositionOverrideParam;
+			if (positionOverrideParam != null)
 			{
 				m_fxSpawnPosition = positionOverrideParam.m_positionOverride;
 			}
-			if (extraSequenceParams is FxAttributeParam fxAttributeParam
+
+			FxAttributeParam fxAttributeParam = extraSequenceParams as FxAttributeParam;
+			if (fxAttributeParam != null
 			    && fxAttributeParam.m_paramNameCode != FxAttributeParam.ParamNameCode.None)
 			{
 				string attributeName = fxAttributeParam.GetAttributeName();

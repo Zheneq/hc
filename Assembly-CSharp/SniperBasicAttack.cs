@@ -48,7 +48,8 @@ public class SniperBasicAttack : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		if (Targeter is AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser)
+		AbilityUtil_Targeter_Laser abilityUtil_Targeter_Laser = Targeter as AbilityUtil_Targeter_Laser;
+		if (abilityUtil_Targeter_Laser != null)
 		{
 			ActorData actorData = GetComponent<ActorData>();
 			if (actorData != null)

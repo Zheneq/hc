@@ -144,7 +144,8 @@ public class Board : MonoBehaviour, IGameEventListener
 
 	private void Update()
 	{
-		ActorData activeOwnedActorData = GameFlowData.Get()?.activeOwnedActorData;
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData activeOwnedActorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		if (Camera.main != null)
 		{
 			Vector3 cameraPosition = Camera.main.transform.position;
@@ -388,7 +389,8 @@ public class Board : MonoBehaviour, IGameEventListener
 		if (m_cameraGuideMeshCollider != null)
 		{
 			Ray ray = new Ray(worldPos + Vector3.up * m_maxHeight, Vector3.down);
-			if (m_cameraGuideMeshCollider.Raycast(ray, out RaycastHit hitInfo, 5000f))
+			RaycastHit hitInfo;
+			if (m_cameraGuideMeshCollider.Raycast(ray, out hitInfo, 5000f))
 			{
 				m_lastValidGuidedHeight = (int)hitInfo.point.y;
 				if (debugRay)

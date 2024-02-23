@@ -42,7 +42,8 @@ public class MantaCreateBarriers : Ability
 		}
 		foreach (Ability ability in GetChainAbilities())
 		{
-			if (ability != null && ability is MantaCreateBarriersChainFinal final)
+			MantaCreateBarriersChainFinal final = ability as MantaCreateBarriersChainFinal;
+			if (ability != null && !ReferenceEquals(final, null))
 			{
 				m_finalDamageChain = final;
 				break;

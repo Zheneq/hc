@@ -199,7 +199,8 @@ public class NinjaBasicAttackSequence : Sequence
 
 	private void SpawnHitFX(ActorData target)
 	{
-		if (!m_targetToHitInfo.TryGetValue(target, out HitInfo value))
+		HitInfo value;
+		if (!m_targetToHitInfo.TryGetValue(target, out value))
 		{
 			return;
 		}

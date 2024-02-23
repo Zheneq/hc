@@ -483,7 +483,8 @@ public class FogOfWarEffect : ImageEffectBase, IGameEventListener
 			float y = num;
 			Plane plane = new Plane(Vector3.up, new Vector3(0f, y, 0f));
 			float num2 = fogOfWarCam.orthographicSize / 2f;
-			if (plane.Raycast(ray, out float enter))
+			float enter;
+			if (plane.Raycast(ray, out enter))
 			{
 				Vector3 point = ray.GetPoint(enter);
 				Vector3 vector2 = point - transform.position;

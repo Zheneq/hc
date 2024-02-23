@@ -241,8 +241,9 @@ public class SenseiDash : Ability
 		    && targetSquare.IsValidForGameplay()
 		    && targetSquare != caster.GetCurrentBoardSquare())
 		{
+			int foo;
 			canDashToTarget = KnockbackUtils.CanBuildStraightLineChargePath(
-				caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+				caster, targetSquare, caster.GetCurrentBoardSquare(), false, out foo);
 		}
 		
 		return canDashToTarget && isTargetValid;

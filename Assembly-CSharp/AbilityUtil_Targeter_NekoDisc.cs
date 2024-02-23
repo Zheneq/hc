@@ -55,6 +55,7 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 				targetingActor == GameFlowData.Get().activeOwnedActorData));
 		}
 		Vector3 losCheckPos = targetingActor.GetLoSCheckPos();
+		Vector3 laserEndPos;
 		AreaEffectUtils.GetActorsInLaser(
 			losCheckPos,
 			currentTarget.AimDirection,
@@ -66,7 +67,7 @@ public class AbilityUtil_Targeter_NekoDisc : AbilityUtil_Targeter_Laser
 			GetMaxTargets(),
 			false,
 			false,
-			out Vector3 laserEndPos,
+			out laserEndPos,
 			null);
 		Vector3 coneLosCheckPos = AbilityCommon_LaserWithCone.GetConeLosCheckPos(losCheckPos, laserEndPos);
 		List<ActorData> actors = AreaEffectUtils.GetActorsInRadius(

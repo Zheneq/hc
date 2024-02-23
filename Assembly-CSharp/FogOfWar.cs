@@ -119,9 +119,10 @@ public class FogOfWar : MonoBehaviour
 			for (int y = minY; y <= maxY; y++)
 			{
 				BoardSquare square = Board.Get().GetSquareFromIndex(x, y);
+				VisibleSquareEntry value;
 				if (square != null
-					&& (!m_visibleSquares.TryGetValue(square, out VisibleSquareEntry value)
-						|| GetVisTypePriority(flag) > GetHighestVisTypePriority(value.m_visibleFlags)))
+				    && (!m_visibleSquares.TryGetValue(square, out value)
+				        || GetVisTypePriority(flag) > GetHighestVisTypePriority(value.m_visibleFlags)))
 				{
 					float distance = radiusAsStraightLineDist
 						? square.HorizontalDistanceInSquaresTo(center)
@@ -175,7 +176,8 @@ public class FogOfWar : MonoBehaviour
 				}
 				if (!isSquareHidden)
 				{
-					m_visibleSquares.TryGetValue(square, out VisibleSquareEntry value);
+					VisibleSquareEntry value;
+					m_visibleSquares.TryGetValue(square, out value);
 					value.m_visibleFlags |= (int)flag;
 					m_visibleSquares[square] = value;
 				}
@@ -357,7 +359,7 @@ public class FogOfWar : MonoBehaviour
 				}
 			}
 			Team team = m_owner ? m_owner.GetTeam() : m_ownerPlayer.GetTeamViewing();
-			ActorStatus actorStatus = m_owner?.GetActorStatus() ?? null;
+			ActorStatus actorStatus = m_owner != null ? m_owner.GetActorStatus() != null ? m_owner.GetActorStatus() : null : null;
 			List<ActorData> teammates;
 			List<ActorData> opponents;
 			if (team != Team.Invalid)
@@ -410,7 +412,7 @@ public class FogOfWar : MonoBehaviour
 				if (opponent != null)
 				{
 					BoardSquare travelBoardSquare = opponent.GetTravelBoardSquare();
-					bool isRevealed = opponent.GetActorStatus()?.HasStatus(StatusType.Revealed) ?? false;
+					bool isRevealed = opponent.GetActorStatus() != null ? opponent.GetActorStatus().HasStatus(StatusType.Revealed) : false;
 					bool isRevealedByFlagOnClient = !NetworkServer.active && CaptureTheFlag.IsActorRevealedByFlag_Client(opponent);
 					if (travelBoardSquare && (isRevealed || isRevealedByFlagOnClient))
 					{
@@ -418,7 +420,8 @@ public class FogOfWar : MonoBehaviour
 					}
 					if (travelBoardSquare && m_owner && m_owner.IsLineOfSightVisibleException(opponent))
 					{
-						m_visibleSquares.TryGetValue(travelBoardSquare, out VisibleSquareEntry value);
+						VisibleSquareEntry value;
+						m_visibleSquares.TryGetValue(travelBoardSquare, out value);
 						value.m_visibleFlags |= (int)BoardSquare.VisibilityFlags.Revealed;
 						m_visibleSquares[travelBoardSquare] = value;
 					}

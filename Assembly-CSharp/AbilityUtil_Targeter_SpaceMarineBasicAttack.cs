@@ -58,8 +58,9 @@ public class AbilityUtil_Targeter_SpaceMarineBasicAttack : AbilityUtil_Targeter
 		Vector3 losCheckPos = targetingActor.GetLoSCheckPos();
 		List<Team> affectedTeams = GetAffectedTeams();
 		m_laserPart.m_lengthIgnoreWorldGeo = LengthIgnoreWorldGeo;
+		Vector3 endPos;
 		m_lastAddedLaserHitActors = m_laserPart.GetHitActors(
-			losCheckPos, currentTarget.AimDirection, targetingActor, affectedTeams, out Vector3 endPos);
+			losCheckPos, currentTarget.AimDirection, targetingActor, affectedTeams, out endPos);
 		foreach (ActorData hitActor in m_lastAddedLaserHitActors)
 		{
 			AddActorInRange(hitActor, losCheckPos, targetingActor);

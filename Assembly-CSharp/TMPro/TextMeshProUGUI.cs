@@ -1129,7 +1129,6 @@ namespace TMPro
 					}
 					continue;
 				}
-				ref TMP_MeshInfo reference2 = ref m_textInfo.meshInfo[j];
 				int size2;
 				if (referenceCount > 1024)
 				{
@@ -1139,7 +1138,7 @@ namespace TMPro
 				{
 					size2 = Mathf.NextPowerOfTwo(referenceCount);
 				}
-				reference2.ResizeMeshInfo(size2);
+				m_textInfo.meshInfo[j].ResizeMeshInfo(size2);
 				continue;
 				IL_0e4a:
 				if (m_materialReferences[j].isFallbackMaterial)
@@ -1601,7 +1600,6 @@ namespace TMPro
 										}
 									}
 									m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex = m_firstCharacterOfLine;
-									ref TMP_LineInfo reference = ref m_textInfo.lineInfo[m_lineNumber];
 									int num22;
 									if (m_firstCharacterOfLine > m_firstVisibleCharacterOfLine)
 									{
@@ -1613,9 +1611,8 @@ namespace TMPro
 									}
 									int firstVisibleCharacterIndex = num22;
 									m_firstVisibleCharacterOfLine = num22;
-									reference.firstVisibleCharacterIndex = firstVisibleCharacterIndex;
+									m_textInfo.lineInfo[m_lineNumber].firstVisibleCharacterIndex = firstVisibleCharacterIndex;
 									m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex = (m_lastCharacterOfLine = m_characterCount);
-									ref TMP_LineInfo reference2 = ref m_textInfo.lineInfo[m_lineNumber];
 									int num23;
 									if (m_lastVisibleCharacterOfLine < m_firstVisibleCharacterOfLine)
 									{
@@ -1627,7 +1624,7 @@ namespace TMPro
 									}
 									firstVisibleCharacterIndex = num23;
 									m_lastVisibleCharacterOfLine = num23;
-									reference2.lastVisibleCharacterIndex = firstVisibleCharacterIndex;
+									m_textInfo.lineInfo[m_lineNumber].lastVisibleCharacterIndex = firstVisibleCharacterIndex;
 									m_textInfo.lineInfo[m_lineNumber].characterCount = m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex - m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex + 1;
 									m_textInfo.lineInfo[m_lineNumber].visibleCharacterCount = m_lineVisibleCharacterCount;
 									m_textInfo.lineInfo[m_lineNumber].lineExtents.min = new Vector2(m_textInfo.characterInfo[m_firstVisibleCharacterOfLine].bottomLeft.x, num21);
@@ -1683,7 +1680,6 @@ namespace TMPro
 									goto IL_30e2;
 									IL_1967:
 									m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex = m_firstCharacterOfLine;
-									ref TMP_LineInfo reference3 = ref m_textInfo.lineInfo[m_lineNumber];
 									int num25;
 									if (m_firstCharacterOfLine > m_firstVisibleCharacterOfLine)
 									{
@@ -1695,7 +1691,7 @@ namespace TMPro
 									}
 									firstVisibleCharacterIndex = num25;
 									m_firstVisibleCharacterOfLine = num25;
-									reference3.firstVisibleCharacterIndex = firstVisibleCharacterIndex;
+									m_textInfo.lineInfo[m_lineNumber].firstVisibleCharacterIndex = firstVisibleCharacterIndex;
 									m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex = (m_lastCharacterOfLine = ((m_characterCount - 1 > 0) ? (m_characterCount - 1) : 0));
 									m_textInfo.lineInfo[m_lineNumber].lastVisibleCharacterIndex = (m_lastVisibleCharacterOfLine = ((m_lastVisibleCharacterOfLine >= m_firstVisibleCharacterOfLine) ? m_lastVisibleCharacterOfLine : m_firstVisibleCharacterOfLine));
 									m_textInfo.lineInfo[m_lineNumber].characterCount = m_textInfo.lineInfo[m_lineNumber].lastCharacterIndex - m_textInfo.lineInfo[m_lineNumber].firstCharacterIndex + 1;
@@ -2260,7 +2256,8 @@ namespace TMPro
 										{
 											int character = m_textInfo.characterInfo[m_characterCount - 1].character;
 											KerningPairKey kerningPairKey = new KerningPairKey(character, num4);
-											m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out KerningPair value);
+											KerningPair value;
+											m_currentFontAsset.kerningDictionary.TryGetValue(kerningPairKey.key, out value);
 											if (value != null)
 											{
 												m_xAdvance += value.XadvanceOffset * num2;

@@ -32,8 +32,8 @@ public class AbilityMod_ScampDualLasers : AbilityMod
 		ScampDualLasers scampDualLasers = targetAbility as ScampDualLasers;
 		if (scampDualLasers != null)
 		{
-			m_defaultOnHitDataMod?.AddTooltipTokens(tokens, scampDualLasers.m_onHitData);
-			m_shieldDownOnHitDataMod?.AddTooltipTokens(tokens, scampDualLasers.m_shieldDownOnHitData);
+			if (m_defaultOnHitDataMod != null) m_defaultOnHitDataMod.AddTooltipTokens(tokens, scampDualLasers.m_onHitData);
+			if (m_shieldDownOnHitDataMod != null) m_shieldDownOnHitDataMod.AddTooltipTokens(tokens, scampDualLasers.m_shieldDownOnHitData);
 			AddToken(tokens, m_extraDamageTurnAfterLosingSuitMod, "ExtraDamageTurnAfterLosingSuit", string.Empty, scampDualLasers.m_extraDamageTurnAfterLosingSuit);
 			AddToken(tokens, m_extraAoeRadiusTurnAfterLosingSuitMod, "ExtraAoeRadiusTurnAfterLosingSuit", string.Empty, scampDualLasers.m_extraAoeRadiusTurnAfterLosingSuit);
 		}

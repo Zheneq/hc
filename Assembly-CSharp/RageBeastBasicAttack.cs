@@ -227,7 +227,9 @@ public class RageBeastBasicAttack : Ability
 		List<AbilityTooltipSubject> tooltipSubjectTypes = Targeter.GetTooltipSubjectTypes(targetActor);
 		if (tooltipSubjectTypes != null)
 		{
-			GetExtraDamageAndTPForCurrentLocation(true, out int damageAmount, out _);
+			int damageAmount;
+			int foo;
+			GetExtraDamageAndTPForCurrentLocation(true, out damageAmount, out foo);
 			if (tooltipSubjectTypes.Contains(AbilityTooltipSubject.Near))
 			{
 				dictionary[AbilityTooltipSymbol.Damage] = ModdedInnerDamage() + damageAmount;
@@ -242,7 +244,9 @@ public class RageBeastBasicAttack : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		GetExtraDamageAndTPForCurrentLocation(true, out _, out int techPointAmount);
+		int foo;
+		int techPointAmount;
+		GetExtraDamageAndTPForCurrentLocation(true, out foo, out techPointAmount);
 		int num = 0;
 		if (ModdedInnerTpGain() > 0 || techPointAmount > 0)
 		{

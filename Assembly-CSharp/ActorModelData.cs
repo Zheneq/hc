@@ -1098,7 +1098,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 			if (modelAnimator.layerCount >= 1)
 			{
 				AnimatorStateInfo currentAnimatorStateInfo = modelAnimator.GetCurrentAnimatorStateInfo(0);
-				if (m_animatorStateNameHashToName.TryGetValue(currentAnimatorStateInfo.shortNameHash, out string value))
+				string value;
+				if (m_animatorStateNameHashToName.TryGetValue(currentAnimatorStateInfo.shortNameHash, out value))
 				{
 					result = value;
 				}
@@ -1131,7 +1132,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 
 	public string GetAnimatorHashToString(int hash)
 	{
-		if (m_animatorStateNameHashToName.TryGetValue(hash, out string value))
+		string value;
+		if (m_animatorStateNameHashToName.TryGetValue(hash, out value))
 		{
 			while (true)
 			{
@@ -2677,7 +2679,8 @@ public class ActorModelData : MonoBehaviour, IGameEventListener
 				if (m_renderers != null)
 				{
 					ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
-					if (m_parentActorData.BeingTargetedByClientAbility(out bool _, out updatingInConfirm))
+					bool foo;
+					if (m_parentActorData.BeingTargetedByClientAbility(out foo, out updatingInConfirm))
 					{
 						goto IL_009d;
 					}

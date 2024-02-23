@@ -20,7 +20,8 @@ public class BattleMonkBuffCharge_Dash : Ability
 		{
 			foreach (Ability ability in component.GetAbilitiesAsList())
 			{
-				if (ability is BattleMonkBuffCharge_Prep prep)
+				BattleMonkBuffCharge_Prep prep = ability as BattleMonkBuffCharge_Prep;
+				if (!ReferenceEquals(prep, null))
 				{
 					m_prepAbility = prep;
 				}

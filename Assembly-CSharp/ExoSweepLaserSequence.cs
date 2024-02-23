@@ -60,7 +60,8 @@ public class ExoSweepLaserSequence : Sequence
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
-			if (extraSequenceParams is ExtraParams extraParams2)
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
+			if (extraParams2 != null)
 			{
 				if (extraParams2.lengthInSquares > 0f)
 				{

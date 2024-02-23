@@ -50,8 +50,9 @@ public class DinoMarkedAreaAttack : GenericAbility_Container
 		Dictionary<ActorData, ActorHitContext> actorHitContext,
 		ContextVars abilityContext)
 	{
+		ActorHitContext hitContext;
 		if (ActorData.GetTeam() != targetActor.GetTeam()
-		    && actorHitContext.TryGetValue(targetActor, out ActorHitContext hitContext))
+		    && actorHitContext.TryGetValue(targetActor, out hitContext))
 		{
 			hitContext.m_contextVars.SetValue(s_cvarInCenter.GetKey(), 1);
 		}

@@ -26,7 +26,9 @@ public class SpaceMarineJetpack : Ability
 		{
 			Targeter = new AbilityUtil_Targeter_Jetpack(this, m_landingShape, m_penetrateLineOfSight);
 		}
-		if (Targeter is AbilityUtil_Targeter_Jetpack abilityUtil_Targeter_Jetpack)
+
+		AbilityUtil_Targeter_Jetpack abilityUtil_Targeter_Jetpack = Targeter as AbilityUtil_Targeter_Jetpack;
+		if (abilityUtil_Targeter_Jetpack != null)
 		{
 			abilityUtil_Targeter_Jetpack.m_affectsCaster =
 				HasAbsorbOnCasterPerEnemyHit()
@@ -83,7 +85,7 @@ public class SpaceMarineJetpack : Ability
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		GetEffectOnSelf().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Self);
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, m_damage);
-		GetEffectOnEnemies()?.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		if (GetEffectOnEnemies() != null) GetEffectOnEnemies().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
 		return numbers;
 	}
 
@@ -91,7 +93,7 @@ public class SpaceMarineJetpack : Ability
 	{
 		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
 		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, GetDamage());
-		GetEffectOnEnemies()?.ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
+		if (GetEffectOnEnemies() != null) GetEffectOnEnemies().ReportAbilityTooltipNumbers(ref numbers, AbilityTooltipSubject.Enemy);
 		if (HasAbsorbOnCasterPerEnemyHit())
 		{
 			AbilityTooltipHelper.ReportAbsorb(ref numbers, AbilityTooltipSubject.Self, 1);
@@ -109,10 +111,8 @@ public class SpaceMarineJetpack : Ability
 		Dictionary<AbilityTooltipSymbol, int> dictionary = null;
 		if (HasAbsorbOnCasterPerEnemyHit())
 		{
-			dictionary = new Dictionary<AbilityTooltipSymbol, int>
-			{
-				[AbilityTooltipSymbol.Absorb] = (Targeter.GetActorsInRange().Count - 1) * m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount
-			};
+			dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+			dictionary[AbilityTooltipSymbol.Absorb] = (Targeter.GetActorsInRange().Count - 1) * m_abilityMod.m_effectOnCasterPerEnemyHit.m_effectData.m_absorbAmount;
 		}
 		return dictionary;
 	}

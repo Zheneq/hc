@@ -60,7 +60,7 @@ public class LaserTargetingInfo
 				mod = null;
 			}
 		}
-		laserTargetingInfo.range = (mod?.GetRange(this) ?? range);
+		laserTargetingInfo.range = (mod != null ? mod.GetRange(this) : range);
 		float num;
 		if (mod != null)
 		{

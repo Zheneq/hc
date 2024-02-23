@@ -280,17 +280,20 @@ public class SoldierConeOrLaser : Ability
 
 	public override int GetAdditionalTechPointGainForNameplateItem(ActorData caster, int currentTargeterIndex)
 	{
-		if ((GetExtraEnergyForCone() > 0 || GetExtraEnergyForLaser() > 0)
-		    && Targeter is AbilityUtil_Targeter_ConeOrLaser targeter)
+		if (GetExtraEnergyForCone() > 0 || GetExtraEnergyForLaser() > 0)
 		{
-			int enemies = targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
-			if (targeter.m_updatingWithCone)
+			AbilityUtil_Targeter_ConeOrLaser targeter = Targeter as AbilityUtil_Targeter_ConeOrLaser;
+			if (targeter != null)
 			{
-				return enemies * GetExtraEnergyForCone();
-			}
-			else
-			{
-				return enemies * GetExtraEnergyForLaser();
+				int enemies = targeter.GetVisibleActorsCountByTooltipSubject(AbilityTooltipSubject.Enemy);
+				if (targeter.m_updatingWithCone)
+				{
+					return enemies * GetExtraEnergyForCone();
+				}
+				else
+				{
+					return enemies * GetExtraEnergyForLaser();
+				}
 			}
 		}
 		return 0;

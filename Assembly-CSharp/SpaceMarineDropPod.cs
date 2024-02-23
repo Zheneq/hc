@@ -112,10 +112,8 @@ public class SpaceMarineDropPod : Ability
 					ActorData);
 				if (isHit)
 				{
-					dictionary = new Dictionary<AbilityTooltipSymbol, int>
-					{
-						[AbilityTooltipSymbol.Damage] = ModdedDamage() + groundEffectData.damageAmount
-					};
+					dictionary = new Dictionary<AbilityTooltipSymbol, int>();
+					dictionary[AbilityTooltipSymbol.Damage] = ModdedDamage() + groundEffectData.damageAmount;
 				}
 			}
 		}

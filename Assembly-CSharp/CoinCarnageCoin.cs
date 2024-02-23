@@ -18,14 +18,13 @@ public class CoinCarnageCoin : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref bool pickedUp = ref m_pickedUp;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
 				base.syncVarHookGuard = true;
 				HookSetPickedUp(value);
 				base.syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref pickedUp, 1u);
+			SetSyncVar(value, ref m_pickedUp, 1u);
 		}
 	}
 

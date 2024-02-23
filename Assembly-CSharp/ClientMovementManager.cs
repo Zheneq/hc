@@ -155,7 +155,8 @@ public class ClientMovementManager : MonoBehaviour, IGameEventListener
 			int actorIndex = reader.ReadInt32();
 			byte bitField = reader.ReadByte();
 			ActorData actor = GameFlowData.Get().FindActorByActorIndex(actorIndex);
-			ServerClientUtils.GetBoolsFromBitfield(bitField, out bool @out);
+			bool @out;
+			ServerClientUtils.GetBoolsFromBitfield(bitField, out @out);
 			ActorMovementEntry item = new ActorMovementEntry(actor, @out);
 			m_movingActors.Add(item);
 		}

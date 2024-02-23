@@ -58,7 +58,8 @@ public class SenseiBideAttachedSequence : Sequence
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
 			OverridePhaseTimingParams(m_phaseTimingParameters, extraSequenceParams);
-			if (extraSequenceParams is ActorIndexExtraParam actorIndexExtraParam && GameFlowData.Get() != null)
+			ActorIndexExtraParam actorIndexExtraParam = extraSequenceParams as ActorIndexExtraParam;
+			if (actorIndexExtraParam != null && GameFlowData.Get() != null)
 			{
 				int actorIndex = actorIndexExtraParam.m_actorIndex;
 				actorData = GameFlowData.Get().FindActorByActorIndex(actorIndex);

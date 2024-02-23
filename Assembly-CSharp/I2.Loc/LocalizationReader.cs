@@ -17,7 +17,12 @@ namespace I2.Loc
 			string line;
 			while ((line = stringReader.ReadLine()) != null)
 			{
-				if (TextAsset_ReadLine(line, out string key, out string value, out string _, out string _, out string _)
+				string key;
+				string value;
+				string foo;
+				string foo1;
+				string foo2;
+				if (TextAsset_ReadLine(line, out key, out value, out foo, out foo1, out foo2)
 				    && !string.IsNullOrEmpty(key)
 				    && !string.IsNullOrEmpty(value))
 				{

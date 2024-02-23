@@ -1885,7 +1885,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 		{
 			return;
 		}
-		if (!clientExceptionDetector.GetClientErrorReport(request.CrashReportHash, out ClientErrorReport clientErrorReport))
+
+		ClientErrorReport clientErrorReport;
+		if (!clientExceptionDetector.GetClientErrorReport(request.CrashReportHash, out clientErrorReport))
 		{
 			Log.Warning("Lobby asked us to describe error {0}, but we've never seen it!", request.CrashReportHash);
 			return;

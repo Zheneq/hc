@@ -260,14 +260,14 @@ public static class GameplayUtils
 			IsPerspective = lobbyPlayerInfoId == perspectivePlayerId,
 			IsAlly = perspectiveTeam == actorData.GetTeam(),
 			IsHumanControlled = playerDetails != null && playerDetails.IsHumanControlled,
-			IsBotMasqueradingAsHuman = playerDetails?.m_botsMasqueradeAsHumans ?? false,
+			IsBotMasqueradingAsHuman = playerDetails != null && playerDetails.m_botsMasqueradeAsHumans,
 			HumanReplacedByBot = playerDetails != null && playerDetails.ReplacedWithBots,
 			AccountID = actorData.GetOriginalAccountId(),
-			TitleID = lobbyPlayerInfo?.TitleID ?? 0,
-			TitleLevel = lobbyPlayerInfo?.TitleLevel ?? 0,
-			BannerID = lobbyPlayerInfo?.BannerID ?? 0,
-			EmblemID = lobbyPlayerInfo?.EmblemID ?? 0,
-			RibbonID = lobbyPlayerInfo?.RibbonID ?? 0,
+			TitleID = lobbyPlayerInfo != null ? lobbyPlayerInfo.TitleID : 0,
+			TitleLevel = lobbyPlayerInfo != null ? lobbyPlayerInfo.TitleLevel : 0,
+			BannerID = lobbyPlayerInfo != null ? lobbyPlayerInfo.BannerID : 0,
+			EmblemID = lobbyPlayerInfo != null ? lobbyPlayerInfo.EmblemID : 0,
+			RibbonID = lobbyPlayerInfo != null ? lobbyPlayerInfo.RibbonID : 0,
 			AbilityEntries = abilityData.abilityEntries.Select(entry => new MatchResultsStatline.AbilityEntry
 			{
 				AbilityModId = entry != null

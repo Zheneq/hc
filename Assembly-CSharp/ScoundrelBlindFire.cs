@@ -89,10 +89,9 @@ public class ScoundrelBlindFire : Ability
 			&& tooltipSubjectTypes.Count > 0
 			&& tooltipSubjectTypes.Contains(AbilityTooltipSubject.Primary))
 		{
-			return new Dictionary<AbilityTooltipSymbol, int>
-			{
-				[AbilityTooltipSymbol.Damage] = ModdedDamageAmount()
-			};
+			var ints = new Dictionary<AbilityTooltipSymbol, int>();
+			ints[AbilityTooltipSymbol.Damage] = ModdedDamageAmount();
+			return ints;
 		}
 		return null;
 	}

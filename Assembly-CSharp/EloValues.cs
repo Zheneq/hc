@@ -34,7 +34,9 @@ public class EloValues : ICloneable
 	{
 		get
 		{
-			GetElo(ELOPlayerKey.PublicFacingKey.KeyText, out float elo, out int _);
+			float elo;
+			int foo;
+			GetElo(ELOPlayerKey.PublicFacingKey.KeyText, out elo, out foo);
 			return elo;
 		}
 		set { UpdateElo(ELOPlayerKey.PublicFacingKey.KeyText, value, 0); }
@@ -45,7 +47,9 @@ public class EloValues : ICloneable
 	{
 		get
 		{
-			GetElo(ELOPlayerKey.MatchmakingEloKey.KeyText, out float elo, out int _);
+			float elo;
+			int foo;
+			GetElo(ELOPlayerKey.MatchmakingEloKey.KeyText, out elo, out foo);
 			return elo;
 		}
 		set { UpdateElo(ELOPlayerKey.MatchmakingEloKey.KeyText, value, 0); }
@@ -58,7 +62,8 @@ public class EloValues : ICloneable
 
 	public void UpdateElo(string key, float value, int countDelta)
 	{
-		if (Values.TryGetValue(key, out EloDatum datum))
+		EloDatum datum;
+		if (Values.TryGetValue(key, out datum))
 		{
 			datum.Elo = Math.Max(1f, value);
 			datum.Count = Math.Max(0, datum.Count + countDelta);
@@ -76,7 +81,8 @@ public class EloValues : ICloneable
 
 	public void ApplyDelta(string key, float eloDelta, int countDelta)
 	{
-		if (Values.TryGetValue(key, out EloDatum value))
+		EloDatum value;
+		if (Values.TryGetValue(key, out value))
 		{
 			value.Elo = Math.Max(1f, value.Elo + eloDelta);
 			value.Count = Math.Max(0, value.Count + countDelta);
@@ -94,7 +100,8 @@ public class EloValues : ICloneable
 
 	public void GetElo(string key, out float elo, out int count)
 	{
-		if (Values.TryGetValue(key, out EloDatum value))
+		EloDatum value;
+		if (Values.TryGetValue(key, out value))
 		{
 			elo = value.Elo;
 			count = value.Count;

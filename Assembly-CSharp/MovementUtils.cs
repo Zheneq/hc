@@ -626,11 +626,12 @@ public static class MovementUtils
 		Vector3 b2 = Vector3.Cross(vector2, new Vector3(0f, 1f, 0f)).normalized * 0.5f;
 		float magnitude = vector2.magnitude;
 		vector2.Normalize();
+		RaycastHit hitInfo;
 		return !MovingOverHole(src, dst)
-			&& !Physics.Raycast(vector + b2, vector2, out RaycastHit hitInfo, magnitude, mask)
-			&& !Physics.Raycast(vector, vector2, out hitInfo, magnitude, mask)
-			&& !Physics.Raycast(vector - b2, vector2, out hitInfo, magnitude, mask)
-			&& !BarrierManager.Get().IsMovementBlocked(mover, src, dst);
+		       && !Physics.Raycast(vector + b2, vector2, out hitInfo, magnitude, mask)
+		       && !Physics.Raycast(vector, vector2, out hitInfo, magnitude, mask)
+		       && !Physics.Raycast(vector - b2, vector2, out hitInfo, magnitude, mask)
+		       && !BarrierManager.Get().IsMovementBlocked(mover, src, dst);
 	}
 
 	public static void CreateUnskippableAestheticPath(ref BoardSquarePathInfo path, ActorData.MovementType movementType)

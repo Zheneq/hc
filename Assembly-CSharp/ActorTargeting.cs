@@ -68,7 +68,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		}
 		ActorTurnSM actorTurnSM = m_actorData.GetActorTurnSM();
 		AbilityData abilityData = m_actorData.GetAbilityData();
-		ActorData activeOwnedActorData = GameFlowData.Get()?.activeOwnedActorData;
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData activeOwnedActorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		for (int i = 0; i < AbilityData.NUM_ACTIONS; i++)
 		{
 			AbilityData.ActionType type = (AbilityData.ActionType)i;
@@ -81,7 +82,7 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			{
 				foreach (AbilityUtil_Targeter targeter in abilityOfActionType.Targeters)
 				{
-					targeter?.ResetTargeter(clearInstantly);
+					if (targeter != null) targeter.ResetTargeter(clearInstantly);
 				}
 			}
 		}
@@ -221,7 +222,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 		bool hasTargetsInRange = false;
 		for (int i = 0; i <= currentTargeterIndex; i++)
 		{
-			if (abilityTargeting.Targeters[i].IsActorInTargetRange(target, out bool inCover))
+			bool inCover;
+			if (abilityTargeting.Targeters[i].IsActorInTargetRange(target, out inCover))
 			{
 				hasTargetsInRange = true;
 				flag = (i == 0 || flag) && inCover;
@@ -678,7 +680,8 @@ public class ActorTargeting : NetworkBehaviour, IGameEventListener
 			isShowingTargeting = true;
 		}
 		List<AbilityRequestData> abilityRequestDataForClient = GetAbilityRequestDataForClient();
-		ActorData y = Board.Get().PlayerFreeSquare?.OccupantActor;
+		BoardSquare playerFreeSquare = Board.Get().PlayerFreeSquare;
+		ActorData y = playerFreeSquare != null ? playerFreeSquare.OccupantActor : null;
 		if (m_actorData != y && !InputManager.Get().IsKeyBindingHeld(KeyPreference.ShowAllyAbilityInfo))
 		{
 			s_updatedAbilityCooldownsActors.Clear();

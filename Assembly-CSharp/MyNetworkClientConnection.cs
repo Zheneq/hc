@@ -16,7 +16,7 @@ public class MyNetworkClientConnection : NetworkConnection
 
 	public TimeSpan HeartbeatTimeout
 	{
-		get { return m_gameClientInterface?.HeartbeatTimeout ?? TimeSpan.Zero; }
+		get { return m_gameClientInterface != null ? m_gameClientInterface.HeartbeatTimeout : TimeSpan.Zero; }
 		set
 		{
 			if (m_gameClientInterface != null)

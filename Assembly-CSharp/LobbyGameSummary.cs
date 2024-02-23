@@ -36,7 +36,8 @@ public class LobbyGameSummary
 	{
 		foreach (Dictionary<int, ELODancecard> eloDancecards in m_ELODancecard.Values)
 		{
-			if (eloDancecards.TryGetValue(playerId, out ELODancecard value))
+			ELODancecard value;
+			if (eloDancecards.TryGetValue(playerId, out value))
 			{
 				return value;
 			}
@@ -47,7 +48,8 @@ public class LobbyGameSummary
 
 	public void CreateELODancecard(int playerId, Team teamId, long accountId, long groupId, byte groupSize)
 	{
-		if (m_ELODancecard.TryGetValue(teamId, out Dictionary<int, ELODancecard> value))
+		Dictionary<int, ELODancecard> value;
+		if (m_ELODancecard.TryGetValue(teamId, out value))
 		{
 			value.Add(playerId, ELODancecard.Create(accountId, groupId, groupSize));
 		}
@@ -60,9 +62,11 @@ public class LobbyGameSummary
 
 	public void UpdateELODancecard(int playerId, Team teamId, long accountId, bool isBot, BotDifficulty difficulty)
 	{
-		if (m_ELODancecard.TryGetValue(teamId, out Dictionary<int, ELODancecard> value))
+		Dictionary<int, ELODancecard> value;
+		if (m_ELODancecard.TryGetValue(teamId, out value))
 		{
-			if (value.TryGetValue(playerId, out ELODancecard value2))
+			ELODancecard value2;
+			if (value.TryGetValue(playerId, out value2))
 			{
 				value2.Increment(isBot, difficulty);
 			}

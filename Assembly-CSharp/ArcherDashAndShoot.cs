@@ -104,7 +104,8 @@ public class ArcherDashAndShoot : Ability
 		    && targetSquare.IsValidForGameplay()
 		    && targetSquare != caster.GetCurrentBoardSquare())
 		{
-			return KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+			int foo;
+			return KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out foo);
 		}
 		return false;
 	}
@@ -186,7 +187,8 @@ public class ArcherDashAndShoot : Ability
 	{
 		if (targetIndex == 1)
 		{
-			HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out Vector3 overridePos);
+			Vector3 overridePos;
+			HasAimingOriginOverride(aimingActor, targetIndex, targetsSoFar, out overridePos);
 			Vector3 vec = aimingActor.GetFreePos() - overridePos;
 			vec.Normalize();
 			float num = VectorUtils.HorizontalAngle_Deg(vec);

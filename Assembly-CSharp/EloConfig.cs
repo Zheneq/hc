@@ -16,15 +16,13 @@ public class EloConfig
 		PlacementElo = 1500f;
 		NewPlayerHandicapPeriodInGames = 5;
 		NewPlayerPvPQueueDuration = 1;
-		BotEloValues = new Dictionary<BotDifficulty, float>
-		{
-			[BotDifficulty.Tutorial] = 1085f,
-			[BotDifficulty.Stupid] = 1085f,
-			[BotDifficulty.Easy] = 1420f,
-			[BotDifficulty.Medium] = 1455f,
-			[BotDifficulty.Hard] = 1475f,
-			[BotDifficulty.Expert] = 1485f
-		};
+		BotEloValues = new Dictionary<BotDifficulty, float>();
+		BotEloValues[BotDifficulty.Tutorial] = 1085f;
+		BotEloValues[BotDifficulty.Stupid] = 1085f;
+		BotEloValues[BotDifficulty.Easy] = 1420f;
+		BotEloValues[BotDifficulty.Medium] = 1455f;
+		BotEloValues[BotDifficulty.Hard] = 1475f;
+		BotEloValues[BotDifficulty.Expert] = 1485f;
 	}
 
 	public EloConfig Clone()

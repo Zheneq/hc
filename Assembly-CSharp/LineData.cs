@@ -574,7 +574,12 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			bool isChasing = m_movementLine != null
 				&& m_movementSnaredLine == null
 				&& m_movementLine.isChasing;
-			GetMovementLineVisibilityFromStatus(opacity, out bool fullMovement, out bool snaredMovement, out bool showLostMovement, out Color fullPathColor, out Color snaredColor);
+			bool fullMovement;
+			bool snaredMovement;
+			bool showLostMovement;
+			Color fullPathColor;
+			Color snaredColor;
+			GetMovementLineVisibilityFromStatus(opacity, out fullMovement, out snaredMovement, out showLostMovement, out fullPathColor, out snaredColor);
 			if (fullPathColor.a > 0f && (fullMovement || isChasing))
 			{
 				ShowLine(m_movementLine, fullPathColor);
@@ -633,7 +638,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			MovementPathStart previousLine = theLine.m_lineObject != null ? theLine.m_movePathStart : null;
 			theLine.m_lineObject = DrawLine(theLine.m_positions, color, previousLine, theLine.isChasing, m_actor, startOffset);
 			theLine.m_currentColor = color;
-			theLine.m_movePathStart = theLine.m_lineObject?.GetComponentInChildren<MovementPathStart>(true);
+			theLine.m_movePathStart = theLine.m_lineObject != null ? theLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true) : null;
 			if (!MovementLinesCanBeVisible())
 			{
 				HideLine(theLine);
@@ -652,7 +657,7 @@ public class LineData : NetworkBehaviour, IGameEventListener
 			MovementPathStart previousLine = m_potentialMovementLine.m_lineObject != null ? m_potentialMovementLine.m_movePathStart : null;
 			m_potentialMovementLine.m_lineObject = DrawLine(m_potentialMovementLine.m_positions, color, previousLine, m_potentialMovementLine.isChasing, m_actor);
 			m_potentialMovementLine.m_currentColor = color;
-			m_potentialMovementLine.m_movePathStart = (m_potentialMovementLine.m_lineObject?.GetComponentInChildren<MovementPathStart>(true));
+			m_potentialMovementLine.m_movePathStart = (m_potentialMovementLine.m_lineObject != null ? m_potentialMovementLine.m_lineObject.GetComponentInChildren<MovementPathStart>(true) : null);
 			if (!MovementLinesCanBeVisible())
 			{
 				HideLine(m_potentialMovementLine);

@@ -146,7 +146,7 @@ public class SparkEnergized : Ability
 
 	public StandardEffectInfo GetEnemyEffectForTurnStart()
 	{
-		return m_abilityMod?.m_effectOnEnemyOnNextTurn;
+		return m_abilityMod != null ? m_abilityMod.m_effectOnEnemyOnNextTurn : null;
 	}
 
 	public StandardActorEffectData GetAllyBuffEffect()

@@ -234,10 +234,11 @@ public class SamuraiSwordDash : Ability
 		if (GetKnockbackExtraDamageByDist() > 0 || GetKnockbackExtraDamageChangePerDist() != 0)
 		{
 			damage = GetKnockbackExtraDamageByDist();
+			int numSquaresInPath;
 			if (endSquare != null
 			    && startSquare != null
 			    && GetKnockbackExtraDamageChangePerDist() != 0
-			    && KnockbackUtils.CanBuildStraightLineChargePath(ActorData, endSquare, startSquare, false, out int numSquaresInPath))
+			    && KnockbackUtils.CanBuildStraightLineChargePath(ActorData, endSquare, startSquare, false, out numSquaresInPath))
 			{
 				int factor = numSquaresInPath - 2;
 				if (factor > 0)
@@ -263,7 +264,8 @@ public class SamuraiSwordDash : Ability
 
 	public override Dictionary<AbilityTooltipSymbol, int> GetCustomNameplateItemTooltipValues(ActorData targetActor, int currentTargeterIndex)
 	{
-		if (Targeter is AbilityUtil_Targeter_SamuraiShowdown targeter && targeter.OrderedHitActors.Contains(targetActor))
+		AbilityUtil_Targeter_SamuraiShowdown targeter = Targeter as AbilityUtil_Targeter_SamuraiShowdown;
+		if (targeter != null && targeter.OrderedHitActors.Contains(targetActor))
 		{
 			Dictionary<AbilityTooltipSymbol, int> symbolToValue = new Dictionary<AbilityTooltipSymbol, int>();
 			bool isValidTarget = true;

@@ -91,7 +91,7 @@ public class BoardSquare : MonoBehaviour
 		set
 		{
 			m_occupant = value;
-			m_occupantActor = m_occupant?.GetComponent<ActorData>();
+			m_occupantActor = m_occupant != null ? m_occupant.GetComponent<ActorData>() : null;
 		}
 	}
 
@@ -103,7 +103,7 @@ public class BoardSquare : MonoBehaviour
 		}
 		set
 		{
-			occupant = value?.gameObject;
+			occupant = value != null ? value.gameObject : null;
 		}
 	}
 

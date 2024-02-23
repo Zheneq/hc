@@ -1548,7 +1548,8 @@ public class BestSolutions
 			List<CharacterRole> value3;
 			if (flag8)
 			{
-				if (dictionary6.TryGetValue(players[num5].LanguageCode, out int value2))
+				int value2;
+				if (dictionary6.TryGetValue(players[num5].LanguageCode, out value2))
 				{
 					dictionary6[players[num5].LanguageCode] = value2 + 1;
 				}
@@ -1577,7 +1578,8 @@ public class BestSolutions
 			}
 			else
 			{
-				if (dictionary7.TryGetValue(players[num5].LanguageCode, out int value4))
+				int value4;
+				if (dictionary7.TryGetValue(players[num5].LanguageCode, out value4))
 				{
 					dictionary7[players[num5].LanguageCode] = value4 + 1;
 				}
@@ -1622,7 +1624,8 @@ public class BestSolutions
 			goto IL_047f;
 			IL_040e:
 			Dictionary<CharacterType, bool> dictionary11 = dictionary10;
-			if (dictionary11.TryGetValue(selectedCharacter, out bool value5))
+			bool value5;
+			if (dictionary11.TryGetValue(selectedCharacter, out value5))
 			{
 				if (!value5)
 				{

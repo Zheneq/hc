@@ -127,7 +127,8 @@ public class AssetBundleManager : MonoBehaviour
 		{
 			if (operation.assetBundleOperation.request.assetBundle == null)
 			{
-				if (FileSystemUtils.TryRead(bundlePath, out string arg))
+				string arg;
+				if (FileSystemUtils.TryRead(bundlePath, out arg))
 				{
 					arg = "AsyncOperation error";
 				}

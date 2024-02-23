@@ -32,7 +32,8 @@ public class NekoDiscReturnProjectileSequence : ArcingProjectileSequence
 		base.Initialize(extraParams);
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is DiscReturnProjectileExtraParams discReturnProjectileExtraParams)
+			DiscReturnProjectileExtraParams discReturnProjectileExtraParams = extraSequenceParams as DiscReturnProjectileExtraParams;
+			if (discReturnProjectileExtraParams != null)
 			{
 				m_setAnimDistParam = discReturnProjectileExtraParams.setAnimDistParamWithThisProjectile;
 				m_shouldSetForNormalDiscParam = discReturnProjectileExtraParams.setAnimParamForNormalDisc;

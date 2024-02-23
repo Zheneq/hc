@@ -51,7 +51,7 @@ public class AbilityUtil_Targeter_AoE_Smooth : AbilityUtil_Targeter
 
 	protected virtual float GetRadius(AbilityTarget currentTarget, ActorData targetingActor)
 	{
-		return m_customRadiusDelegate?.Invoke(currentTarget, targetingActor) ?? m_radius;
+		return m_customRadiusDelegate != null ? m_customRadiusDelegate(currentTarget, targetingActor) : m_radius;
 	}
 
 	protected virtual bool GetPenetrateLoS()

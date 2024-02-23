@@ -176,7 +176,7 @@ public class Barrier
 		BlocksPositionTargeting = blocksPositionTargeting;
 		m_considerAsCover = considerAsCover;
 		m_owner = owner;
-		m_team = m_owner?.GetTeam() ?? barrierTeam;
+		m_team = m_owner != null ? m_owner.GetTeam() : barrierTeam;
 		m_time = new EffectDuration();
 		m_time.duration = maxDuration;
 		m_barrierSequencePrefabs = barrierSequencePrefabs;

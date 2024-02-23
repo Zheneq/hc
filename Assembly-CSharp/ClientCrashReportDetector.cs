@@ -26,7 +26,7 @@ public class ClientCrashReportDetector : MonoBehaviour
 		try
 		{
 			DirectoryInfo parent = Directory.GetParent(Application.dataPath);
-			string path = parent?.FullName ?? string.Empty;
+			string path = parent != null ? parent.FullName : string.Empty;
 			string[] directories = Directory.GetDirectories(path);
 			int i = 0;
 			while (i < directories.Length)

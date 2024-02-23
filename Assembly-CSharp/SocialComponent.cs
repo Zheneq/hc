@@ -68,7 +68,8 @@ public class SocialComponent : ICloneable
 
 	public FriendData GetOrCreateFriendInfo(long friendAccountId)
 	{
-		if (!FriendInfo.TryGetValue(friendAccountId, out FriendData value))
+		FriendData value;
+		if (!FriendInfo.TryGetValue(friendAccountId, out value))
 		{
 			value = new FriendData();
 			FriendInfo[friendAccountId] = value;

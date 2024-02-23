@@ -9,7 +9,7 @@ public class NinjaMultiAttackSequence : Sequence
 
 		public override void XSP_SerializeToStream(IBitStream stream)
 		{
-			int count = actorToHits?.Count ?? 0;
+			int count = actorToHits != null ? actorToHits.Count : 0;
 			stream.Serialize(ref count);
 			foreach (KeyValuePair<ActorData, int> actorToHit in actorToHits)
 			{
@@ -98,7 +98,8 @@ public class NinjaMultiAttackSequence : Sequence
 	{
 		foreach (IExtraSequenceParams extraSequenceParams in extraParams)
 		{
-			if (extraSequenceParams is ExtraParams extraParams2)
+			ExtraParams extraParams2 = extraSequenceParams as ExtraParams;
+			if (extraParams2 != null)
 			{
 				m_actorsToHits = extraParams2.actorToHits;
 			}

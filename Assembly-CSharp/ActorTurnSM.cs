@@ -194,7 +194,9 @@ public class ActorTurnSM : NetworkBehaviour
 				SendCastAbility(selectedActionType);
 			}
 		}
-		Board.Get()?.MarkForUpdateValidSquares();
+
+		Board board = Board.Get();
+		if (board != null) board.MarkForUpdateValidSquares();
 		return result;
 	}
 
@@ -610,7 +612,8 @@ public class ActorTurnSM : NetworkBehaviour
 
 	public void GetActionText(out string textStr, out Color textColor)
 	{
-		Ability ability = GetComponent<AbilityData>()?.GetSelectedAbility();
+		AbilityData abilityData = GetComponent<AbilityData>();
+		Ability ability = abilityData != null ? abilityData.GetSelectedAbility() : null;
 		if (CurrentState == TurnStateEnum.CONFIRMED)
 		{
 			if (ability != null)
@@ -994,7 +997,7 @@ public class ActorTurnSM : NetworkBehaviour
 	{
 		BoardSquare playerClampedSquare = Board.Get().PlayerClampedSquare;
 		ActorData actorData = GetComponent<ActorData>();
-		BoardSquare boardSquare = actorData?.MoveFromBoardSquare;
+		BoardSquare boardSquare = actorData != null ? actorData.MoveFromBoardSquare : null;
 		bool isWaypoint = Options_UI.Get().GetShiftClickForMovementWaypoints() == InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
 		bool isExplicitWaypoint = Options_UI.Get().GetShiftClickForMovementWaypoints() && InputManager.Get().IsKeyBindingHeld(KeyPreference.MovementWaypointModifier);
 		if (boardSquare != playerClampedSquare)
@@ -1056,7 +1059,8 @@ public class ActorTurnSM : NetworkBehaviour
 				Log.Info(string.Concat("Setting State to ", NextState, " at ", GameTime.time));
 				if (NetworkClient.active && actor == GameFlowData.Get().activeOwnedActorData)
 				{
-					actor.GetComponent<LineData>()?.OnClientRequestedMovementChange();
+					LineData lineData = actor.GetComponent<LineData>();
+					lineData.OnClientRequestedMovementChange();
 				}
 			}
 		}

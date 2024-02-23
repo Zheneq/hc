@@ -508,7 +508,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int turninRegionState_TeamA = ref m_turninRegionState_TeamA;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -518,7 +517,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref turninRegionState_TeamA, 1u);
+			SetSyncVar(value, ref m_turninRegionState_TeamA, 1u);
 		}
 	}
 
@@ -531,7 +530,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int turninRegionState_TeamB = ref m_turninRegionState_TeamB;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -541,7 +539,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref turninRegionState_TeamB, 2u);
+			SetSyncVar(value, ref m_turninRegionState_TeamB, 2u);
 		}
 	}
 
@@ -554,7 +552,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int turninRegionState_Neutral = ref m_turninRegionState_Neutral;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -564,7 +561,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref turninRegionState_Neutral, 4u);
+			SetSyncVar(value, ref m_turninRegionState_Neutral, 4u);
 		}
 	}
 
@@ -577,14 +574,13 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int turninRegionIndex_TeamA = ref m_turninRegionIndex_TeamA;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
 				base.syncVarHookGuard = true;
 				HookSetTurninRegionIndex_TeamA(value);
 				base.syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref turninRegionIndex_TeamA, 8u);
+			SetSyncVar(value, ref m_turninRegionIndex_TeamA, 8u);
 		}
 	}
 
@@ -597,7 +593,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int turninRegionIndex_TeamB = ref m_turninRegionIndex_TeamB;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -607,7 +602,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref turninRegionIndex_TeamB, 16u);
+			SetSyncVar(value, ref m_turninRegionIndex_TeamB, 16u);
 		}
 	}
 
@@ -620,7 +615,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int turninRegionIndex_Neutral = ref m_turninRegionIndex_Neutral;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -630,7 +624,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref turninRegionIndex_Neutral, 32u);
+			SetSyncVar(value, ref m_turninRegionIndex_Neutral, 32u);
 		}
 	}
 
@@ -643,14 +637,13 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 		[param: In]
 		set
 		{
-			ref int numFlagDrops = ref m_numFlagDrops;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
 				base.syncVarHookGuard = true;
 				HookSetNumFlagDrops(value);
 				base.syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref numFlagDrops, 64u);
+			SetSyncVar(value, ref m_numFlagDrops, 64u);
 		}
 	}
 
@@ -2379,7 +2372,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 			AdjustPositionOfObjToOscillation(m_autoBoundary_turnin_teamB, 0f);
 			SetBoundaryColor(color: new Color(color2.r * 0.5f, color2.g * 0.5f, color2.b * 0.5f, color2.a * 0.5f), autoBoundary: m_autoBoundary_turnin_teamB);
 		}
-		GetFlagCarrierDamageTillDropProgressForUI(out float cur, out float max);
+
+		float max;
+		float cur;
+		GetFlagCarrierDamageTillDropProgressForUI(out cur, out max);
 		UI_CTF_BriefcasePanel uI_CTF_BriefcasePanel = UI_CTF_BriefcasePanel.Get();
 		if (uI_CTF_BriefcasePanel != null)
 		{

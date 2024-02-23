@@ -49,7 +49,8 @@ public class ScampSlamDown : Ability
 			CalculateMaxTargeterAngle(),
 			m_targeterMinInterpDistance,
 			m_targeterMaxInterpDistance);
-		if (targeter is AbilityUtil_Targeter_ThiefFanLaser targeterThiefFanLaser)
+		AbilityUtil_Targeter_ThiefFanLaser targeterThiefFanLaser = targeter as AbilityUtil_Targeter_ThiefFanLaser;
+		if (targeterThiefFanLaser != null)
 		{
 			targeterThiefFanLaser.m_delegateLaserLength = GetLaserLengthForTargeter;
 			targeterThiefFanLaser.m_delegateLaserWidth = GetLaserWidthForTargeter;

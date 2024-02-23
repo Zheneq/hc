@@ -116,7 +116,7 @@ public class SparkBeamTrackerComponent : NetworkBehaviour
 		}
 		if (m_actorData.GetActorTurnSM().CurrentState == TurnStateEnum.TARGETING_ACTION)
 		{
-			Ability ability = m_actorData.GetAbilityData()?.GetLastSelectedAbility();
+			Ability ability = m_actorData.GetAbilityData() != null ? m_actorData.GetAbilityData().GetLastSelectedAbility() : null;
 			if (ability != null)
 			{
 				return ability is SparkBasicAttack || ability is SparkHealingBeam;

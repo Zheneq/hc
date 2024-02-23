@@ -127,7 +127,8 @@ public class MartyrHealingExplosion : MartyrLaserBase
 
 	private int GetCurrentLaserDamage(ActorData caster)
 	{
-		int additionalDamage = (GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold)?.m_additionalDamage ?? 0;
+		MartyrBasicAttackThreshold martyrBasicAttackThreshold = GetCurrentPowerEntry(caster) as MartyrBasicAttackThreshold;
+		int additionalDamage = martyrBasicAttackThreshold != null ? martyrBasicAttackThreshold.m_additionalDamage : 0;
 		return GetBaseDamage()
 			+ m_syncComponent.SpentDamageCrystals(caster) * GetBonusDamagePerCrystalSpent()
 			+ additionalDamage;

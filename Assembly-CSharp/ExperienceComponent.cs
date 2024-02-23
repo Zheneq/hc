@@ -115,7 +115,9 @@ public class ExperienceComponent : ICloneable
 				{
 					continue;
 				}
-				if (MatchesPerGameType.TryGetValue(gameType, out int value))
+
+				int value;
+				if (MatchesPerGameType.TryGetValue(gameType, out value))
 				{
 					num += value;
 				}
@@ -141,7 +143,8 @@ public class ExperienceComponent : ICloneable
 					GameType gameType = (GameType)enumerator.Current;
 					if (gameType.IsHumanVsHumanGame())
 					{
-						if (WinsPerGameType.TryGetValue(gameType, out int value))
+						int value;
+						if (WinsPerGameType.TryGetValue(gameType, out value))
 						{
 							num += value;
 						}

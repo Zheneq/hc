@@ -60,7 +60,9 @@ public class BounceBombInfo
 		float totalMaxDistanceInSquares = (!(maxTotalDistanceOverride > 0f)) ? maxTotalDistance : maxTotalDistanceOverride;
 		List<Team> list = new List<Team>();
 		list.Add(caster.GetEnemyTeam());
-		bounceEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(adjustedStartPosition, aimDirection, maxDistancePerBounceInSquares, totalMaxDistanceInSquares, maxBounces, caster, width, 1, includeInvisibles, list, false, out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors, out List<ActorData> _, nonActorTargetInfoInSegment);
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors;
+		List<ActorData> foo;
+		bounceEndPoints = VectorUtils.CalculateBouncingLaserEndpoints(adjustedStartPosition, aimDirection, maxDistancePerBounceInSquares, totalMaxDistanceInSquares, maxBounces, caster, width, 1, includeInvisibles, list, false, out bounceHitActors, out foo, nonActorTargetInfoInSegment);
 		Vector3 start = adjustedStartPosition;
 		if (bounceEndPoints.Count > 0)
 		{
@@ -69,7 +71,8 @@ public class BounceBombInfo
 				start = bounceEndPoints[bounceEndPoints.Count - 2];
 			}
 			Vector3 end = bounceEndPoints[bounceEndPoints.Count - 1];
-			if (AreaEffectUtils.GetEndPointForValidGameplaySquare(start, end, out Vector3 adjustedEndPoint))
+			Vector3 adjustedEndPoint;
+			if (AreaEffectUtils.GetEndPointForValidGameplaySquare(start, end, out adjustedEndPoint))
 			{
 				bounceEndPoints[bounceEndPoints.Count - 1] = adjustedEndPoint;
 			}

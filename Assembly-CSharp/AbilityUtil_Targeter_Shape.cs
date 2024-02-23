@@ -167,7 +167,7 @@ public class AbilityUtil_Targeter_Shape : AbilityUtil_Targeter
 			TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			if (m_affectsCaster == AffectsActor.Possible)
 			{
-				bool includeCaster = m_affectCasterDelegate?.Invoke(targetingActor, actors, isCasterInShape) ?? isCasterInShape;
+				bool includeCaster = m_affectCasterDelegate != null ? m_affectCasterDelegate(targetingActor, actors, isCasterInShape) : isCasterInShape;
 				if (includeCaster)
 				{
 					actors.Add(targetingActor);

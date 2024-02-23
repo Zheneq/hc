@@ -29,7 +29,8 @@ public class Passive_TricksterAfterImage : Passive
 		}
 		foreach (Passive passive in passiveData.m_passives)
 		{
-			if (passive != null && passive is Passive_TricksterAfterImage image)
+			Passive_TricksterAfterImage image = passive as Passive_TricksterAfterImage;
+			if (passive != null && !ReferenceEquals(image, null))
 			{
 				return image;
 			}

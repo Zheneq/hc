@@ -217,7 +217,7 @@ public class AbilityUtil_Targeter_LayerCones : AbilityUtil_Targeter
 		{
 			ResetSquareIndicatorIndexToUse();
 			Vector3 travelBoardSquareWorldPositionForLos = targetingActor.GetLoSCheckPos();
-			Vector3 vec = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+			Vector3 vec = currentTarget != null ? currentTarget.AimDirection : targetingActor.transform.forward;
 			float coneCenterAngleDegrees = VectorUtils.HorizontalAngle_Deg(vec);
 			AreaEffectUtils.OperateOnSquaresInCone(m_indicatorHandler, travelBoardSquareWorldPositionForLos, coneCenterAngleDegrees, m_coneWidthAngle, GetMaxConeRadius(), m_coneBackwardOffsetInSquares, targetingActor, m_penetrateLoS);
 			HideUnusedSquareIndicators();

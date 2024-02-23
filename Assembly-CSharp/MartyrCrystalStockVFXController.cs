@@ -101,7 +101,7 @@ public class MartyrCrystalStockVFXController : CopyableVfxControllerComponent, I
 
 	private void Update()
 	{
-		ActorData actorData = m_actorModelData?.m_parentActorData;
+		ActorData actorData = m_actorModelData != null ? m_actorModelData.m_parentActorData : null;
 		bool isRendered = actorData == null
 			|| actorData.IsActorVisibleToClient()
 				&& (actorData.GetModelRenderer() == null || actorData.GetModelRenderer().enabled);

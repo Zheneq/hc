@@ -58,7 +58,6 @@ public class SinglePlayerManager : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref int currentScriptIndex = ref m_currentScriptIndex;
 			if (NetworkServer.localClientActive)
 			{
 				if (!base.syncVarHookGuard)
@@ -68,7 +67,7 @@ public class SinglePlayerManager : NetworkBehaviour
 					base.syncVarHookGuard = false;
 				}
 			}
-			SetSyncVar(value, ref currentScriptIndex, 1u);
+			SetSyncVar(value, ref m_currentScriptIndex, 1u);
 		}
 	}
 
@@ -81,14 +80,13 @@ public class SinglePlayerManager : NetworkBehaviour
 		[param: In]
 		set
 		{
-			ref bool canEndTurn = ref m_canEndTurn;
 			if (NetworkServer.localClientActive && !base.syncVarHookGuard)
 			{
 				base.syncVarHookGuard = true;
 				HookSetCanEndTurn(value);
 				base.syncVarHookGuard = false;
 			}
-			SetSyncVar(value, ref canEndTurn, 2u);
+			SetSyncVar(value, ref m_canEndTurn, 2u);
 		}
 	}
 
@@ -507,22 +505,26 @@ public class SinglePlayerManager : NetworkBehaviour
 
 	public bool EnableHiddenMovementText()
 	{
-		return GetCurrentState()?.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableHiddenMovementText) ?? true;
+		SinglePlayerState singlePlayerState = GetCurrentState();
+		return singlePlayerState == null || singlePlayerState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableHiddenMovementText);
 	}
 
 	public bool EnableBrush()
 	{
-		return GetCurrentState()?.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableBrush) ?? true;
+		SinglePlayerState singlePlayerState = GetCurrentState();
+		return singlePlayerState == null || singlePlayerState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableBrush);
 	}
 
 	public bool EnableCooldownIndicators()
 	{
-		return GetCurrentState()?.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableCooldownIndicators) ?? true;
+		SinglePlayerState singlePlayerState = GetCurrentState();
+		return singlePlayerState == null || singlePlayerState.GetHasTag(SinglePlayerState.SinglePlayerTag.EnableCooldownIndicators);
 	}
 
 	public bool DisableAdvanceTurn()
 	{
-		return GetCurrentState()?.GetHasTag(SinglePlayerState.SinglePlayerTag.DisableAdvanceTurn) ?? true;
+		SinglePlayerState singlePlayerState = GetCurrentState();
+		return singlePlayerState == null || singlePlayerState.GetHasTag(SinglePlayerState.SinglePlayerTag.DisableAdvanceTurn);
 	}
 
 	public void OnTurnTick()

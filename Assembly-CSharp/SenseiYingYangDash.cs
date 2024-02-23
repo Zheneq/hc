@@ -405,7 +405,8 @@ public class SenseiYingYangDash : Ability
 					targetSquare, GetChooseDestShape(), target.FreePos, prevTargetSquare, false, caster);
 				if (isSquareInShape)
 				{
-					isDashValid = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out _);
+					int foo;
+					isDashValid = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out foo);
 				}
 			}
 		}

@@ -80,7 +80,8 @@ public class FactionWideData : MonoBehaviour
 
 	public FactionTier GetFactionTier(int competitionId, int factionId, int tierId)
 	{
-		return GetFaction(competitionId, factionId)?.Tiers.ElementAt(tierId);
+		Faction faction = GetFaction(competitionId, factionId);
+		return faction != null ? faction.Tiers.ElementAt(tierId) : null;
 	}
 
 	public int GetCompetitionFactionTierReached(int competitionId, int factionId, long factionScore)

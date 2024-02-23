@@ -249,7 +249,7 @@ public class WebSocket : IDisposable
             }
 
             WebSocketMessage obj = new ConnectionOpenedNotification();
-            OnMessage?.Invoke(obj);
+            if (OnMessage != null) OnMessage.Invoke(obj);
         }
         catch (Exception exception)
         {
@@ -281,7 +281,7 @@ public class WebSocket : IDisposable
                 text = LastErrorMessage;
             }
 
-            OnMessage?.Invoke(new ConnectionClosedNotification
+            if (OnMessage != null) OnMessage.Invoke(new ConnectionClosedNotification
             {
                 Reason = text,
                 Code = (CloseStatusCode)args.Code
@@ -301,7 +301,7 @@ public class WebSocket : IDisposable
             ConnectionErrorNotification connectionErrorNotification = new ConnectionErrorNotification();
             connectionErrorNotification.ErrorMessage = args.Message;
             WebSocketMessage obj = connectionErrorNotification;
-            OnMessage?.Invoke(obj);
+            if (OnMessage != null) OnMessage.Invoke(obj);
         }
         catch (Exception exception)
         {
@@ -365,7 +365,7 @@ public class WebSocket : IDisposable
                             IsBinary = false;
                         }
 
-                        OnMessage?.Invoke(obj);
+                        if (OnMessage != null) OnMessage.Invoke(obj);
                     }
                     else if (args.Type == Opcode.Binary)
                     {
@@ -386,7 +386,7 @@ public class WebSocket : IDisposable
                             IsBinary = true;
                         }
 
-                        OnMessage?.Invoke(obj2);
+                        if (OnMessage != null) OnMessage.Invoke(obj2);
                     }
                 }
             }
@@ -416,7 +416,7 @@ public class WebSocket : IDisposable
                 throw new Exception("Failed to read message from HTTP request");
             }
 
-            OnMessage?.Invoke(m_httpSocket.Message);
+            if (OnMessage != null) OnMessage.Invoke(m_httpSocket.Message);
             m_httpSocket.WaitForSend();
         }
         catch (Exception exception)

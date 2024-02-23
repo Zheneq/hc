@@ -294,7 +294,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		bool hasted = actorStatus.HasStatus(StatusType.Hasted) || queuedStatuses.Contains(StatusType.Hasted);
 		if ((debuff && snared && !hasted) || calculateAsIfSnared)
 		{
-			CalcSnaredMovementAdjustments(out float snaredMult, out int halfMoveAdjust, out int fullMoveAdjust);
+			float snaredMult;
+			int halfMoveAdjust;
+			int fullMoveAdjust;
+			CalcSnaredMovementAdjustments(out snaredMult, out halfMoveAdjust, out fullMoveAdjust);
 			if (forcePostAbility)
 			{
 				result = Mathf.Clamp(result + halfMoveAdjust, 0f, 99f);
@@ -312,7 +315,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		else if (hasted && (!debuff || !snared))
 		{
-			CalcHastedMovementAdjustments(out float mult, out int halfMoveAdjust, out int fullMoveAdjust);
+			float mult;
+			int halfMoveAdjust;
+			int fullMoveAdjust;
+			CalcHastedMovementAdjustments(out mult, out halfMoveAdjust, out fullMoveAdjust);
 			if (forcePostAbility)
 			{
 				result = Mathf.Clamp(result + (float)halfMoveAdjust, 0f, 99f);
@@ -677,12 +683,14 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		else if (eligibleSquares == null)
 		{
-			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out eligibleSquares, out HashSet<BoardSquare> _);
+			HashSet<BoardSquare> foo;
+			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, maxMoveDist, 0f, out eligibleSquares, out foo);
 			AddToSquareCanMoveToCache(squareToStartFrom, maxMoveDist, eligibleSquares);
 		}
 		else if (innerSquares == null)
 		{
-			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, innerMoveDist, 0f, out innerSquares, out HashSet<BoardSquare> _);
+			HashSet<BoardSquare> foo;
+			BuildSquaresCanMoveTo_InnerOuter(squareToStartFrom, innerMoveDist, 0f, out innerSquares, out foo);
 			AddToSquareCanMoveToCache(squareToStartFrom, innerMoveDist, innerSquares);
 		}
 		outMaxMoveSquares = eligibleSquares;
@@ -765,7 +773,8 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		Vector3 origin = testPos;
 		origin.y += 4f;
 		float radius = 0.1f;
-		if (Physics.SphereCast(origin, radius, Vector3.down, out RaycastHit hitInfo, 100f, layerMask))
+		RaycastHit hitInfo;
+		if (Physics.SphereCast(origin, radius, Vector3.down, out hitInfo, 100f, layerMask))
 		{
 			result.y = hitInfo.point.y;
 		}
@@ -1218,7 +1227,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 	private BoardSquarePathInfo GetGameplayPathClosestTo(Vector3 pos)
 	{
 		Vector3 b = new Vector3(pos.x, 0f, pos.z);
-		BoardSquarePathInfo boardSquarePathInfo = m_gameplayPath?.next;
+		BoardSquarePathInfo boardSquarePathInfo = m_gameplayPath != null ? m_gameplayPath.next : null;
 		BoardSquarePathInfo result = m_gameplayPath;
 		if (m_gameplayPath != null)
 		{
@@ -1413,7 +1422,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		normalPathNodeHeap.Insert(allocatedNode);
 		bool diagMovementAllowed = GameplayData.Get().m_diagonalMovement != GameplayData.DiagonalMovement.Disabled;
 		bool canExceedMaxMovement = GameplayData.Get().m_movementMaximumType != GameplayData.MovementMaximumType.CannotExceedMax;
-		bool destClaimed = claimedSquares?.Contains(dest) ?? false;
+		bool destClaimed = claimedSquares != null && claimedSquares.Contains(dest);
 
 		List<BoardSquare> neighbours = new List<BoardSquare>(8);
 		while (!normalPathNodeHeap.IsEmpty())
@@ -1662,7 +1671,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	public BoardSquarePathInfo GetAestheticPath()
 	{
-		return m_curMoveState?.GetAestheticPath();
+		return m_curMoveState != null ? m_curMoveState.GetAestheticPath() : null;
 	}
 
 	public BoardSquare GetTravelBoardSquare()

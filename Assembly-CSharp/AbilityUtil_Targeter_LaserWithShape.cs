@@ -120,7 +120,7 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		Vector3 aimDirection = currentTarget != null ? currentTarget.AimDirection : targetingActor.transform.forward;
 		Vector3 targetPos = currentTarget.FreePos;
 		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
 		if (SnapAimDirection()
@@ -193,7 +193,8 @@ public class AbilityUtil_Targeter_LaserWithShape : AbilityUtil_Targeter
 		    || hitEnv && m_explodeOnEnvironmentHit
 		    || m_explodeIfHitActor && actorsInLaser.Count > 0)
 		{
-			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out Vector3 adjustedEndPoint);
+			Vector3 adjustedEndPoint;
+			AreaEffectUtils.GetEndPointForValidGameplaySquare(adjustedCoords.start, adjustedCoords.end, out adjustedEndPoint);
 			BoardSquare endPointSquare = Board.Get().GetSquareFromVec3(adjustedEndPoint);
 			Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(m_shape, adjustedEndPoint, endPointSquare);
 			List<ActorData> actorsInShape = AreaEffectUtils.GetActorsInShape(m_shape, centerOfShape, endPointSquare, false, targetingActor, targetingActor.GetEnemyTeam(), null);

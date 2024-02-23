@@ -337,8 +337,10 @@ public static class AreaEffectUtils
 			bool isAbilityBlockedB = BarrierManager.Get().AreAbilitiesBlocked(caster, srcVec - offset, dstVec - offset, list);
 			if (isAbilityBlockedA || isAbilityBlockedB)
 			{
-				bool isLosBlockedA = isAbilityBlockedA || VectorUtils.RaycastInDirection(srcVec + offset, dir, dist, out _);
-				bool isLosBlockedB = isAbilityBlockedB || VectorUtils.RaycastInDirection(srcVec - offset, dir, dist, out _);
+				RaycastHit foo;
+				bool isLosBlockedA = isAbilityBlockedA || VectorUtils.RaycastInDirection(srcVec + offset, dir, dist, out foo);
+				RaycastHit foo1;
+				bool isLosBlockedB = isAbilityBlockedB || VectorUtils.RaycastInDirection(srcVec - offset, dir, dist, out foo1);
 				if (isLosBlockedA && isLosBlockedB)
 				{
 					hasLoS = false;
@@ -404,7 +406,8 @@ public static class AreaEffectUtils
 		{
 			foreach (ISquareInsideChecker squareInsideChecker in inAreaCheckers)
 			{
-				if (squareInsideChecker.IsSquareInside(testSquare, out bool inLos) && inLos)
+				bool inLos;
+				if (squareInsideChecker.IsSquareInside(testSquare, out inLos) && inLos)
 				{
 					return true;
 				}
@@ -692,16 +695,21 @@ public static class AreaEffectUtils
 		{
 			return result;
 		}
+
+		int minX;
+		int maxX;
+		int minY;
+		int maxY;
 		GetMaxConeBounds(
 			coneStart,
 			coneCenterAngleDegrees,
 			coneWidthDegrees,
 			coneLengthRadiusInSquares,
 			coneBackwardOffsetInSquares,
-			out int minX,
-			out int maxX,
-			out int minY,
-			out int maxY);
+			out minX,
+			out maxX,
+			out minY,
+			out maxY);
 		for (int i = minX; i < maxX; i++)
 		{
 			for (int j = minY; j < maxY; j++)
@@ -811,13 +819,15 @@ public static class AreaEffectUtils
 				}
 				else if (magnitude > 0f)
 				{
+					Vector3 intersectP1;
+					Vector3 intersectP2;
 					int circleCircleIntersections = GetCircleCircleIntersections(
 						offsetConeStart,
 						testPos,
 						radiusInSquares,
 						GetActorTargetingRadius(),
-						out Vector3 intersectP1,
-						out Vector3 intersectP2);
+						out intersectP1,
+						out intersectP2);
 					if (circleCircleIntersections > 0)
 					{
 						isInCone = IsPosInAngleOfCone(intersectP1, offsetConeStart, coneCenterAngleDegrees, coneWidthDegrees);
@@ -868,8 +878,10 @@ public static class AreaEffectUtils
 		Vector3 offsetStartPosB = startPos - laserOffset;
 		Vector3 dirA = testPos + laserOffset - offsetStartPosA;
 		Vector3 dirB = testPos - laserOffset - offsetStartPosB;
-		return !VectorUtils.RaycastInDirection(offsetStartPosA, dirA, dirA.magnitude, out _)
-		       || !VectorUtils.RaycastInDirection(offsetStartPosB, dirB, dirB.magnitude, out _);
+		RaycastHit foo;
+		RaycastHit foo1;
+		return !VectorUtils.RaycastInDirection(offsetStartPosA, dirA, dirA.magnitude, out foo)
+		       || !VectorUtils.RaycastInDirection(offsetStartPosB, dirB, dirB.magnitude, out foo1);
 	}
 
 	public static List<ActorData> GetActorsInCone(
@@ -1168,16 +1180,20 @@ public static class AreaEffectUtils
 			return;
 		}
 
+		int minX;
+		int maxX;
+		int minY;
+		int maxY;
 		GetMaxConeBounds(
 			coneStart,
 			coneCenterAngleDegrees,
 			coneWidthDegrees,
 			coneLengthRadiusInSquares,
 			coneBackwardOffsetInSquares,
-			out int minX,
-			out int maxX,
-			out int minY,
-			out int maxY);
+			out minX,
+			out maxX,
+			out minY,
+			out maxY);
 		
 		bool shouldEarlyOut = false;
 		for (int i = minX; i < maxX; i++)
@@ -1547,9 +1563,17 @@ public static class AreaEffectUtils
 		float actorTargetingRadius = GetActorTargetingRadius() * Board.Get().squareSize;
 		float laserWidth = laserWidthInSquares * Board.Get().squareSize;
 		float laserHalfWidth = 0.5f * laserWidth;
-		GetBoxCorners(startPos, endPos, laserWidthInSquares, out Vector3 ptA, out Vector3 ptB, out Vector3 ptC, out Vector3 ptD);
+		Vector3 ptA;
+		Vector3 ptB;
+		Vector3 ptC;
+		Vector3 ptD;
+		GetBoxCorners(startPos, endPos, laserWidthInSquares, out ptA, out ptB, out ptC, out ptD);
 		float adjustAmount = laserHalfWidth + actorTargetingRadius;
-		GetBoxBoundsInGridPos(startPos, endPos, adjustAmount, out int minX, out int minY, out int maxX, out int maxY);
+		int minX;
+		int minY;
+		int maxX;
+		int maxY;
+		GetBoxBoundsInGridPos(startPos, endPos, adjustAmount, out minX, out minY, out maxX, out maxY);
 		List<BoardSquare> result = new List<BoardSquare>();
 		for (int i = minX; i <= maxX; i++)
 		{
@@ -1605,7 +1629,11 @@ public static class AreaEffectUtils
 		endPos.y = 0f;
 		Vector3 vector = testSquare.ToVector3();
 		vector.y = 0f;
-		GetBoxCorners(startPos, endPos, laserWidthInSquares, out Vector3 ptA, out Vector3 ptB, out Vector3 ptC, out Vector3 ptD);
+		Vector3 ptA;
+		Vector3 ptB;
+		Vector3 ptC;
+		Vector3 ptD;
+		GetBoxCorners(startPos, endPos, laserWidthInSquares, out ptA, out ptB, out ptC, out ptD);
 		float actorTargetingRadius = GetActorTargetingRadius() * Board.Get().squareSize;
 		float laserWidth = laserWidthInSquares * Board.Get().squareSize;
 		float laserHalfWidth = 0.5f * laserWidth;
@@ -1668,7 +1696,11 @@ public static class AreaEffectUtils
 		float actorTargetingRadius = GetActorTargetingRadius() * Board.Get().squareSize;
 		float laserWidth = laserWidthInSquares * Board.Get().squareSize;
 		float laserHalfWidth = 0.5f * laserWidth;
-		GetBoxCorners(startPos, endPos, laserWidthInSquares, out Vector3 ptA, out Vector3 ptB, out Vector3 ptC, out Vector3 ptD);
+		Vector3 ptA;
+		Vector3 ptB;
+		Vector3 ptC;
+		Vector3 ptD;
+		GetBoxCorners(startPos, endPos, laserWidthInSquares, out ptA, out ptB, out ptC, out ptD);
 		foreach (ActorData actor in GameFlowData.Get().GetActors())
 		{
 			if (!IsActorTargetable(actor, validTeams))
@@ -1778,7 +1810,7 @@ public static class AreaEffectUtils
 			: new Vector3(0f, 0f, offsetRange);
 		if (hasLosForAbilities && !hasLosByBarriers)
 		{
-			nonActorTargetInfo?.AddRange(nonActorTargetInfoLocal);
+			if (nonActorTargetInfo != null) nonActorTargetInfo.AddRange(nonActorTargetInfoLocal);
 		}
 		if (hasLosByBarriers && hasLos && !hasLosForAbilities)
 		{
@@ -1786,8 +1818,10 @@ public static class AreaEffectUtils
 			testPos2.y = casterLosCheckPos.y;
 			Vector3 testVector2 = testPos2 - startPos;
 			testVector2.y = 0f;
-			hasLosForAbilities = !VectorUtils.RaycastInDirection(startPos + offset, testVector2, testVector2.magnitude, out _)
-			                     || !VectorUtils.RaycastInDirection(startPos - offset, testVector2, testVector2.magnitude, out _);
+			RaycastHit foo;
+			RaycastHit foo1;
+			hasLosForAbilities = !VectorUtils.RaycastInDirection(startPos + offset, testVector2, testVector2.magnitude, out foo)
+			                     || !VectorUtils.RaycastInDirection(startPos - offset, testVector2, testVector2.magnitude, out foo1);
 		}
 
 		return hasLosByBarriers && hasLosForAbilities && hasLos;
@@ -1818,9 +1852,17 @@ public static class AreaEffectUtils
 		float actorTargetingRadius = GetActorTargetingRadius() * Board.Get().squareSize;
 		float width = widthInSquares * Board.Get().squareSize;
 		float halfWidth = 0.5f * width;
-		GetBoxCorners(startPos, endPos, widthInSquares, out Vector3 ptA, out Vector3 ptB, out Vector3 ptC, out Vector3 ptD);
+		Vector3 ptA;
+		Vector3 ptB;
+		Vector3 ptC;
+		Vector3 ptD;
+		GetBoxCorners(startPos, endPos, widthInSquares, out ptA, out ptB, out ptC, out ptD);
 		float adjustAmount = halfWidth + actorTargetingRadius;
-		GetBoxBoundsInGridPos(startPos, endPos, adjustAmount, out int minX, out int minY, out int maxX, out int maxY);
+		int minX;
+		int minY;
+		int maxX;
+		int maxY;
+		GetBoxBoundsInGridPos(startPos, endPos, adjustAmount, out minX, out minY, out maxX, out maxY);
 		for (int i = minX; i <= maxX; i++)
 		{
 			for (int j = minY; j <= maxY; j++)
@@ -2412,7 +2454,9 @@ public static class AreaEffectUtils
 
 	public static List<BoardSquare> GetSquaresInShape(AbilityAreaShape shape, Vector3 freePos, BoardSquare centerSquare, bool ignoreLoS, ActorData caster)
 	{
-		GetSquareDimentionAndCornersToSubtract(shape, out int dimensions, out int cornersToSubtract);
+		int dimensions;
+		int cornersToSubtract;
+		GetSquareDimentionAndCornersToSubtract(shape, out dimensions, out cornersToSubtract);
 		if (dimensions % 2 == 1)
 		{
 			return GetSquaresInShape_OddByOdd(centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster);
@@ -2545,7 +2589,9 @@ public static class AreaEffectUtils
 		ActorData caster,
 		List<ISquareInsideChecker> losCheckOverrides = null)
 	{
-		GetSquareDimentionAndCornersToSubtract(shape, out int dimensions, out int cornersToSubtract);
+		int dimensions;
+		int cornersToSubtract;
+		GetSquareDimentionAndCornersToSubtract(shape, out dimensions, out cornersToSubtract);
 		if (dimensions % 2 == 1)
 		{
 			OperateOnSquaresInShape_OddByOdd(operationObj, centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster, losCheckOverrides);
@@ -2679,7 +2725,9 @@ public static class AreaEffectUtils
 		bool ignoreLoS,
 		ActorData caster)
 	{
-		GetSquareDimentionAndCornersToSubtract(shape, out int dimensions, out int cornersToSubtract);
+		int dimensions;
+		int cornersToSubtract;
+		GetSquareDimentionAndCornersToSubtract(shape, out dimensions, out cornersToSubtract);
 		if (dimensions % 2 == 1)
 		{
 			return IsSquareInShape_OddByOdd(testSquare, centerSquare, dimensions, cornersToSubtract, ignoreLoS, caster);
@@ -2838,7 +2886,9 @@ public static class AreaEffectUtils
 
 	public static bool IsPosInShape(Vector3 testPos, AbilityAreaShape shape, Vector3 freePos, BoardSquare centerSquare)
 	{
-		GetSquareDimentionAndCornersToSubtract(shape, out int _, out int _);
+		int foo;
+		int foo1;
+		GetSquareDimentionAndCornersToSubtract(shape, out foo, out foo1);
 		BoardSquare square = Board.Get().GetSquareFromVec3(testPos);
 		return square != null && IsSquareInShape(square, shape, freePos, centerSquare, true, null);
 	}

@@ -157,7 +157,7 @@ public class AbilityUtil_Targeter_LaserWithCone : AbilityUtil_Targeter
 	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
 	{
 		ClearActorsInRange();
-		Vector3 aimDirection = currentTarget?.AimDirection ?? targetingActor.transform.forward;
+		Vector3 aimDirection = currentTarget != null ? currentTarget.AimDirection : targetingActor.transform.forward;
 		Vector3 targetPos = currentTarget.FreePos;
 		BoardSquare targetSquare = Board.Get().GetSquare(currentTarget.GridPos);
 		if (SnapToTargetSquare()

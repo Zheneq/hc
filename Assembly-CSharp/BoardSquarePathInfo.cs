@@ -72,7 +72,9 @@ public class BoardSquarePathInfo : IComparable
 		{
 			return 1;
 		}
-		if (obj is BoardSquarePathInfo boardSquarePathInfo)
+
+		BoardSquarePathInfo boardSquarePathInfo = obj as BoardSquarePathInfo;
+		if (boardSquarePathInfo != null)
 		{
 			return FindMoveCostToEnd().CompareTo(boardSquarePathInfo.FindMoveCostToEnd());
 		}
@@ -292,7 +294,7 @@ public class BoardSquarePathInfo : IComparable
 	public BoardSquarePathInfo BackUpOnceFromEnd()
 	{
 		BoardSquarePathInfo pathEndpoint = GetPathEndpoint();
-		if (pathEndpoint?.prev != null)
+		if (pathEndpoint != null && pathEndpoint.prev != null)
 		{
 			BoardSquarePathInfo newLastStep = pathEndpoint.prev;
 			newLastStep.next = null;
@@ -374,7 +376,8 @@ public class BoardSquarePathInfo : IComparable
 
 	public bool WillDieAtEnd()
 	{
-		return GetPathEndpoint()?.m_moverDiesHere == true;
+		BoardSquarePathInfo boardSquarePathInfo = GetPathEndpoint();
+		return boardSquarePathInfo != null && boardSquarePathInfo.m_moverDiesHere;
 	}
 
 	public void CheckIsValidTriggeringPath(ActorData mover)

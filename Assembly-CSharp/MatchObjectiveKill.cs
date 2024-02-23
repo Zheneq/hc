@@ -80,7 +80,9 @@ public class MatchObjectiveKill : MatchObjective
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
 		if (objectivePoints != null && IsActorRelevant(actor))
 		{
-			GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
+			int pointsForDyingTeam;
+			int pointsForKillingTeam;
+			GetPointAdjusts(actor, out pointsForDyingTeam, out pointsForKillingTeam);
 			Team team = actor.GetTeam();
 			objectivePoints.AdjustPoints(pointsForDyingTeam, team);
 			objectivePoints.AdjustPoints(pointsForKillingTeam, team == Team.TeamA ? Team.TeamB : Team.TeamA);
@@ -92,7 +94,9 @@ public class MatchObjectiveKill : MatchObjective
 		ObjectivePoints objectivePoints = ObjectivePoints.Get();
 		if (objectivePoints != null && IsActorRelevant(actor))
 		{
-			GetPointAdjusts(actor, out int pointsForDyingTeam, out int pointsForKillingTeam);
+			int pointsForDyingTeam;
+			int pointsForKillingTeam;
+			GetPointAdjusts(actor, out pointsForDyingTeam, out pointsForKillingTeam);
 			Team team = actor.GetTeam();
 			objectivePoints.AdjustUnresolvedPoints(pointsForDyingTeam, team);
 			objectivePoints.AdjustUnresolvedPoints(pointsForKillingTeam, team == Team.TeamA ? Team.TeamB : Team.TeamA);

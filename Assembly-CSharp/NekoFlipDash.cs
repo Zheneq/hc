@@ -399,9 +399,10 @@ public class NekoFlipDash : Ability
 				{
 					isValidCast = true;
 					float dist = targetSquare.HorizontalDistanceInSquaresTo(caster.GetCurrentBoardSquare());
+					int foo;
 					isValidDash = dist <= GetRangeInSquares(m_dashTargeterIndex) &&
-					        dist >= GetMinRangeInSquares(m_dashTargeterIndex) &&
-					        KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+					              dist >= GetMinRangeInSquares(m_dashTargeterIndex) &&
+					              KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out foo);
 				}
 			}
 			else if (!CanTargetEnemies() && !CanTargetDiscs())
@@ -417,8 +418,10 @@ public class NekoFlipDash : Ability
 				{
 					isValidDashDist = base.CustomTargetValidation(caster, target, targetIndex, currentTargets);
 				}
+
+				int foo;
 				isValidDash = isValidDashDist
-				        && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out _);
+				              && KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, caster.GetCurrentBoardSquare(), false, out foo);
 			}
 		}
 		else
@@ -443,7 +446,8 @@ public class NekoFlipDash : Ability
 				    && discDist <= m_maxDistanceFromTarget
 				    && throwAngle <= m_maxAngleChange)
 				{
-					isValidDash = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out int _);
+					int foo;
+					isValidDash = KnockbackUtils.CanBuildStraightLineChargePath(caster, targetSquare, prevTargetSquare, false, out foo);
 				}
 			}
 		}
