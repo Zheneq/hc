@@ -21,8 +21,7 @@ public class PlayerAction_Movement : PlayerAction
 		m_isChase = isChase;
 	}
 
-	// rogues+custom: no chasing in rogues
-	public bool PrepareAction()
+	private bool PrepareMovementPhase() // call once
 	{
 		if (m_moveRequests == null)
 		{
@@ -54,6 +53,11 @@ public class PlayerAction_Movement : PlayerAction
 				//movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.EXECUTE_ACTION_START, true);
 				validRequests.Add(movementRequest);
 			}
+			else
+			{
+				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because it is invalid");
+				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
+			}
 		}
 		Log.Info($"{validRequests.Count} valid out of {m_moveRequests.Count} movement requests");
 		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(validRequests, m_isChase);
@@ -69,6 +73,24 @@ public class PlayerAction_Movement : PlayerAction
 				validRequests.RemoveAt(j);
 			}
 		}
+		return true;
+	}
+
+	// rogues+custom: no chasing in rogues
+	public bool PrepareAction()
+	{
+		if (!PrepareMovementPhase())
+		{
+			return false;
+		}
+
+		GatherMovementResults();
+		
+		return true;
+	}
+
+	private void GatherMovementResults() // call twice
+	{
 		ServerActionBuffer.Get().ClearNormalMovementResults();
 		// custom
 		ServerClashUtils.MovementClashCollection clashes = ServerClashUtils.IdentifyClashSegments_Movement(validRequests, m_isChase);
@@ -84,8 +106,6 @@ public class PlayerAction_Movement : PlayerAction
 			actorData.TeamSensitiveData_authority.MovementCameraBounds = ServerActionBuffer.Get()
 				.GetMovementBoundsForTeam(validRequestsThisPhase, actorData.GetTeam());
 		}
-		
-		return true;
 		// end custom
 	}
 
@@ -103,9 +123,9 @@ public class PlayerAction_Movement : PlayerAction
 			{
 				actorData.GetPassiveData().OnMovementResultsGathered(movementCollection);
 			}
-			actorData.GetActorMovement().ClearPath();
-			actorData.UpdateServerLastVisibleTurn();
 		}
+		Cleanup();
+		
 		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
 			movementCollection,
 			out List<ActorData> seenNonMovers_normal,
@@ -161,6 +181,15 @@ public class PlayerAction_Movement : PlayerAction
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveNumMoveActions(flag3 ? 2 : 1);
 		}
 		return validRequests.Count > 0;
+	}
+
+	private void Cleanup() // call once
+	{
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			actorData.GetActorMovement().ClearPath();
+			actorData.UpdateServerLastVisibleTurn();
+		}
 	}
 
 	// public override void OnExecutionComplete(bool isLastAction)
