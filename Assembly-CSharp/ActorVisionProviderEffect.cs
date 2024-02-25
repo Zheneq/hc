@@ -59,6 +59,11 @@ public class ActorVisionProviderEffect : Effect
 					m_canFunctionInGlobalBlind,
 					BoardSquare.VisibilityFlags.Team);
 		}
+
+		foreach (ActorData teamMember in GameFlowData.Get().GetAllTeamMembers(Caster.GetTeam()))
+		{
+			teamMember.GetFogOfWar()?.ImmediateUpdateVisibilityOfSquares();
+		}
 	}
 
 	public override void OnEnd()
