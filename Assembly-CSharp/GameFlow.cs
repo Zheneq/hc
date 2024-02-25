@@ -737,6 +737,16 @@ public class GameFlow : NetworkBehaviour
 					serverKnockbackManager.GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
 					ServerActionBuffer.Get().SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
 				}
+
+				// we do not want to disrupt brushes and stuff until effect results are gathered
+				foreach (PlayerAction action in m_executingPlayerActions)
+				{
+					if (action is PlayerAction_Ability abilityAction && abilityAction.GetRelevantPhase() == phase)
+					{
+						abilityAction.RunAbilityRequests();
+					}
+				}
+				
 				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
 				ServerActionBuffer.Get().SynchronizePositionsOfActorsParticipatingInPhase(actionBuffer.AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 				ServerEffectManager.Get().OnAbilityPhaseStart(phase);
@@ -823,9 +833,6 @@ public class GameFlow : NetworkBehaviour
 			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
-
-		// we do not want to disrupt brushes and stuff until effect results are gathered
-		actionAbilities?.RunAbilityRequests();
 
 		return hasActionsThisPhase;
 	}
