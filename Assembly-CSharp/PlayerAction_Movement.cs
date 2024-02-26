@@ -11,7 +11,6 @@ public class PlayerAction_Movement : PlayerAction
 	private bool m_isChase;
 	private MovementCollection movementCollection;
 	private List<MovementRequest> validRequestsThisPhase;
-	List<MovementRequest> validRequests = new List<MovementRequest>();
 
 	public PlayerAction_Movement(bool isChase)
 	{
@@ -44,30 +43,29 @@ public class PlayerAction_Movement : PlayerAction
 		foreach (MovementRequest movementRequest in moveRequests)
 		{
 			BoardSquare targetSquare = movementRequest.m_targetSquare;
-			if (movementRequest.m_path != null && movementRequest.m_path.next != null && targetSquare != null || movementRequest.IsChasing())
-			{
-				// rogues
-				//movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.EXECUTE_ACTION_START, true);
-				validRequests.Add(movementRequest);
-			}
-			else
+			if ((movementRequest.m_path?.next == null || targetSquare == null)
+			    && !movementRequest.IsChasing())
 			{
 				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because it is invalid");
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
 			}
+			// rogues
+			// else
+			// {
+			// 	movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.EXECUTE_ACTION_START, true);
+			// }
 		}
-		Log.Info($"{validRequests.Count} valid out of {moveRequests.Count} movement requests");
-		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(validRequests, m_isChase);
-		for (int j = validRequests.Count - 1; j >= 0; j--)
+		Log.Info($"{moveRequests.Count} valid movement requests");
+		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(moveRequests, m_isChase);
+		for (int j = moveRequests.Count - 1; j >= 0; j--)
 		{
-			MovementRequest movementRequest = validRequests[j];
+			MovementRequest movementRequest = moveRequests[j];
 			if ((m_isChase || !movementRequest.IsChasing()) // custom
 				&& (movementRequest.m_path == null || movementRequest.m_path.next == null))
 			{
 				Log.Warning($"{movementRequest.m_actor.m_displayName}'s movement path is null after stabilization");
-				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
+				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
 				movementRequest.m_actor.GetActorMovement().UpdateSquaresCanMoveTo();
-				validRequests.RemoveAt(j);
 			}
 		}
 		return true;
@@ -88,13 +86,14 @@ public class PlayerAction_Movement : PlayerAction
 
 	private void GatherMovementResults() // call twice
 	{
+		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		ServerActionBuffer.Get().ClearNormalMovementResults();
 		// custom
-		ServerClashUtils.MovementClashCollection clashes = ServerClashUtils.IdentifyClashSegments_Movement(validRequests, m_isChase);
-		ServerClashUtils.ResolveClashMovement(validRequests, clashes, m_isChase);
+		ServerClashUtils.MovementClashCollection clashes = ServerClashUtils.IdentifyClashSegments_Movement(moveRequests, m_isChase);
+		ServerClashUtils.ResolveClashMovement(moveRequests, clashes, m_isChase);
 		// end custom
-		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(validRequests, m_isChase);
-		validRequestsThisPhase = validRequests.Where(r => r.WasEverChasing() == m_isChase).ToList();
+		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(moveRequests, m_isChase);
+		validRequestsThisPhase = moveRequests.Where(r => r.WasEverChasing() == m_isChase).ToList();
 		movementCollection = new MovementCollection(validRequestsThisPhase);
 		
 		// custom
@@ -178,7 +177,7 @@ public class PlayerAction_Movement : PlayerAction
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveMoveCostUsed(increment);
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveNumMoveActions(flag3 ? 2 : 1);
 		}
-		return validRequests.Count > 0;
+		return moveRequests.Count > 0;
 	}
 
 	private static void Cleanup() // call once
