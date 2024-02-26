@@ -7,44 +7,41 @@ using System.Linq;
 #if SERVER
 public class PlayerAction_Movement : PlayerAction
 {
-	private List<MovementRequest> m_moveRequests;
-	
 	// custom
 	private bool m_isChase;
 	private MovementCollection movementCollection;
 	private List<MovementRequest> validRequestsThisPhase;
 	List<MovementRequest> validRequests = new List<MovementRequest>();
 
-	public PlayerAction_Movement(List<MovementRequest> moveRequests, bool isChase = false)
+	public PlayerAction_Movement(bool isChase)
 	{
-		m_moveRequests = moveRequests;
 		m_isChase = isChase;
 	}
 
 	private bool PrepareMovementPhase() // call once
 	{
-		if (m_moveRequests == null)
+		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
+		if (moveRequests == null)
 		{
 			Log.Error("No movement requests");
 			return false;
 		}
 		base.ExecuteAction();
-		for (int i = m_moveRequests.Count - 1; i >= 0; i--)
+		for (int i = moveRequests.Count - 1; i >= 0; i--)
 		{
-			MovementRequest movementRequest = m_moveRequests[i];
+			MovementRequest movementRequest = moveRequests[i];
 			if (movementRequest.m_actor.IsDead())
 			{
 				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because they are dead");
-				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor, false);
-				m_moveRequests.RemoveAt(i);
+				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
 			}
 		}
-		if (m_moveRequests.Count == 0)
+		if (moveRequests.Count == 0)
 		{
 			Log.Info("No movement requests");
 			return false;
 		}
-		foreach (MovementRequest movementRequest in m_moveRequests)
+		foreach (MovementRequest movementRequest in moveRequests)
 		{
 			BoardSquare targetSquare = movementRequest.m_targetSquare;
 			if (movementRequest.m_path != null && movementRequest.m_path.next != null && targetSquare != null || movementRequest.IsChasing())
@@ -59,7 +56,7 @@ public class PlayerAction_Movement : PlayerAction
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
 			}
 		}
-		Log.Info($"{validRequests.Count} valid out of {m_moveRequests.Count} movement requests");
+		Log.Info($"{validRequests.Count} valid out of {moveRequests.Count} movement requests");
 		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(validRequests, m_isChase);
 		for (int j = validRequests.Count - 1; j >= 0; j--)
 		{
@@ -112,7 +109,8 @@ public class PlayerAction_Movement : PlayerAction
 	// rogues+custom: no chasing in rogues
 	public override bool ExecuteAction()
 	{
-		if (m_moveRequests == null || m_moveRequests.Count == 0)
+		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
+		if (moveRequests == null || moveRequests.Count == 0)
 		{
 			return false;
 		}
@@ -183,7 +181,7 @@ public class PlayerAction_Movement : PlayerAction
 		return validRequests.Count > 0;
 	}
 
-	private void Cleanup() // call once
+	private static void Cleanup() // call once
 	{
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
