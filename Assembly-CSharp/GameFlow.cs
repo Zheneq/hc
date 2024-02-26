@@ -607,6 +607,10 @@ public class GameFlow : NetworkBehaviour
 			case ActionBufferPhase.Movement:
 			{
 				CompleteExecutingPlayerActions();
+				if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
+				{
+					ServerCombatManager.Get().ResolveHitPoints();
+				}
 				if (!ServerMovementManager.Get().WaitingOnClients && ServerResolutionManager.Get().ActionsDoneResolving())
 				{
 					int numChaseRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests().FindAll(req => req.WasEverChasing()).Count;
