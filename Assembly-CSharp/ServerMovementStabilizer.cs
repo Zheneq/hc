@@ -31,34 +31,32 @@ public class ServerMovementStabilizer
 
 	public void StabilizeMovement(List<MovementRequest> storedMovementRequests, bool stabilizeChasers)  // alsoStabilizeChasers in rogues
 	{
+		// TODO MOVEMENT probably lancers that used normal movement should somehow update their positions and be considered
+		// stationaries for chase movement stabilization. Then we can stabilize normal and chase requests separately.
 		PrepMoversForStabilization(storedMovementRequests);
 		bool pendingUpdate = true;
 		while (pendingUpdate)
 		{
-			bool updated = false;
-			if (!stabilizeChasers) // unconditional in rogues
+			bool updated = StabilizeMoversVsSnares(storedMovementRequests, stabilizeChasers);
+			if (!updated)
 			{
-				updated = StabilizeMoversVsSnares(storedMovementRequests);
-				if (!updated)
-				{
-					updated = StabilizeMoversVsObstacles(storedMovementRequests);
-				}
-				if (!updated)
-				{
-					updated = StabilizeMoversVsStationaries(storedMovementRequests);
-				}
-				if (!updated)
-				{
-					updated = StabilizeNormalMoversVsStationaryChasers(storedMovementRequests);
-				}
-				if (!updated)
-				{
-					updated = StabilizeMoversVsAfterImages(storedMovementRequests);
-				}
-				if (!updated)
-				{
-					updated = StabilizeMoversVsMovers(storedMovementRequests);
-				}
+				updated = StabilizeMoversVsObstacles(storedMovementRequests, stabilizeChasers);
+			}
+			if (!updated)
+			{
+				updated = StabilizeMoversVsStationaries(storedMovementRequests, stabilizeChasers);
+			}
+			if (!updated)
+			{
+				updated = StabilizeNormalMoversVsStationaryChasers(storedMovementRequests);
+			}
+			if (!updated)
+			{
+				updated = StabilizeMoversVsAfterImages(storedMovementRequests, stabilizeChasers);
+			}
+			if (!updated)
+			{
+				updated = StabilizeMoversVsMovers(storedMovementRequests, stabilizeChasers);
 			}
 			if (stabilizeChasers)
 			{
@@ -239,11 +237,12 @@ public class ServerMovementStabilizer
 		}
 	}
 
-	private bool StabilizeMoversVsSnares(List<MovementRequest> storedMovementRequests)
+	private bool StabilizeMoversVsSnares(List<MovementRequest> storedMovementRequests, bool chasersOnly) // custom bool
 	{
 		bool flag = false;
 		foreach (MovementRequest moveRequest in storedMovementRequests)
 		{
+			if (chasersOnly && !moveRequest.WasEverChasing()) continue; // custom
 			flag |= StabilizeMovementRequestVsSnares(moveRequest, out _);
 		}
 		return flag;
@@ -294,11 +293,12 @@ public class ServerMovementStabilizer
 		return result;
 	}
 
-	private bool StabilizeMoversVsObstacles(List<MovementRequest> storedMovementRequests)
+	private bool StabilizeMoversVsObstacles(List<MovementRequest> storedMovementRequests, bool chasersOnly) // custom bool
 	{
 		bool flag = false;
 		foreach (MovementRequest moveRequest in storedMovementRequests)
 		{
+			if (chasersOnly && !moveRequest.WasEverChasing()) continue; // custom
 			flag |= StabilizeMovementRequestVsObstacles(moveRequest, out _);
 		}
 		return flag;
@@ -388,7 +388,7 @@ public class ServerMovementStabilizer
 		return result;
 	}
 
-	private bool StabilizeMoversVsStationaries(List<MovementRequest> storedMovementRequests)
+	private bool StabilizeMoversVsStationaries(List<MovementRequest> storedMovementRequests, bool chasersOnly) // custom bool
 	{
 		bool result = false;
 		foreach (ActorData stationaryActor in ServerActionBuffer.Get().GetStationaryActors())
@@ -400,6 +400,7 @@ public class ServerMovementStabilizer
 
 			foreach (MovementRequest movementRequest in storedMovementRequests)
 			{
+				if (chasersOnly && !movementRequest.WasEverChasing()) continue; // custom
 				if (movementRequest.IsChasing()
 				    || movementRequest.m_path.WillDieAtEnd()
 				    || movementRequest.IsClashStabilized())
@@ -433,7 +434,7 @@ public class ServerMovementStabilizer
 		return result;
 	}
 
-	private bool StabilizeMoversVsAfterImages(List<MovementRequest> storedMovementRequests)
+	private bool StabilizeMoversVsAfterImages(List<MovementRequest> storedMovementRequests, bool chasersOnly) // custom bool
 	{
 		bool result = false;
 		List<ActorData> afterImageActors = new List<ActorData>();
@@ -448,6 +449,7 @@ public class ServerMovementStabilizer
 		{
 			foreach (MovementRequest movementRequest in storedMovementRequests)
 			{
+				if (chasersOnly && !movementRequest.WasEverChasing()) continue; // custom
 				if (movementRequest.IsChasing()
 				    || movementRequest.m_actor == afterImageActor
 				    || movementRequest.m_path.WillDieAtEnd()
@@ -482,7 +484,7 @@ public class ServerMovementStabilizer
 		return result;
 	}
 
-	private bool StabilizeMoversVsMovers(List<MovementRequest> storedMovementRequests)
+	private bool StabilizeMoversVsMovers(List<MovementRequest> storedMovementRequests, bool chasersOnly) // custom bool
 	{
 		bool flag = false;
 		storedMovementRequests.Sort();
@@ -501,6 +503,7 @@ public class ServerMovementStabilizer
 			for (int j = i + 1; j < storedMovementRequests.Count; j++)
 			{
 				MovementRequest movementRequest2 = storedMovementRequests[j];
+				if (chasersOnly && !movementRequest2.WasEverChasing()) continue; // custom
 				if (movementRequest2.IsChasing()
 				    || movementRequest2.m_path.WillDieAtEnd()
 				    || movementRequest.m_targetSquare != movementRequest2.m_targetSquare
