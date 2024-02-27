@@ -29,34 +29,38 @@ public class ServerMovementStabilizer
 		}
 	}
 
-	public void StabilizeMovement(List<MovementRequest> storedMovementRequests, bool alsoStabilizeChasers)
+	public void StabilizeMovement(List<MovementRequest> storedMovementRequests, bool stabilizeChasers)  // alsoStabilizeChasers in rogues
 	{
 		PrepMoversForStabilization(storedMovementRequests);
 		bool pendingUpdate = true;
 		while (pendingUpdate)
 		{
-			bool updated = StabilizeMoversVsSnares(storedMovementRequests);
-			if (!updated)
+			bool updated = false;
+			if (!stabilizeChasers) // unconditional in rogues
 			{
-				updated = StabilizeMoversVsObstacles(storedMovementRequests);
+				updated = StabilizeMoversVsSnares(storedMovementRequests);
+				if (!updated)
+				{
+					updated = StabilizeMoversVsObstacles(storedMovementRequests);
+				}
+				if (!updated)
+				{
+					updated = StabilizeMoversVsStationaries(storedMovementRequests);
+				}
+				if (!updated)
+				{
+					updated = StabilizeNormalMoversVsStationaryChasers(storedMovementRequests);
+				}
+				if (!updated)
+				{
+					updated = StabilizeMoversVsAfterImages(storedMovementRequests);
+				}
+				if (!updated)
+				{
+					updated = StabilizeMoversVsMovers(storedMovementRequests);
+				}
 			}
-			if (!updated)
-			{
-				updated = StabilizeMoversVsStationaries(storedMovementRequests);
-			}
-			if (!updated)
-			{
-				updated = StabilizeNormalMoversVsStationaryChasers(storedMovementRequests);
-			}
-			if (!updated)
-			{
-				updated = StabilizeMoversVsAfterImages(storedMovementRequests);
-			}
-			if (!updated)
-			{
-				updated = StabilizeMoversVsMovers(storedMovementRequests);
-			}
-			if (alsoStabilizeChasers)
+			if (stabilizeChasers)
 			{
 				if (!updated)
 				{
@@ -77,7 +81,7 @@ public class ServerMovementStabilizer
 			}
 			pendingUpdate = updated;
 		}
-		if (alsoStabilizeChasers)
+		if (stabilizeChasers)
 		{
 			SanitizeMovement(storedMovementRequests);
 		}

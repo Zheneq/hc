@@ -17,7 +17,7 @@ public class PlayerAction_Movement : PlayerAction
 		m_isChase = isChase;
 	}
 
-	private bool PrepareMovementPhase() // call once
+	private bool PrepareMovementPhase()
 	{
 		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		if (moveRequests == null)
@@ -84,7 +84,7 @@ public class PlayerAction_Movement : PlayerAction
 		return true;
 	}
 
-	private void GatherMovementResults() // call twice
+	private void GatherMovementResults()
 	{
 		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		ServerActionBuffer.Get().ClearNormalMovementResults();
@@ -180,7 +180,7 @@ public class PlayerAction_Movement : PlayerAction
 		return moveRequests.Count > 0;
 	}
 
-	private static void Cleanup() // call once
+	private static void Cleanup()
 	{
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
