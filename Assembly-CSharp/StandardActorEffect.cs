@@ -16,6 +16,7 @@ public class StandardActorEffect : Effect
 	private bool m_shouldPlaySequences = true;
 	private List<StatusType> m_statusAdded = new List<StatusType>();
 	private List<StatusType> m_statusesToAddOnTurnStart = new List<StatusType>();
+	private List<AbilityStatMod> m_statModsApplied = new List<AbilityStatMod>();
 	private int m_absorbToAddOnTurnStart;
 	private bool m_canBeDispelledByStatus;
 
@@ -225,6 +226,7 @@ public class StandardActorEffect : Effect
 		{
 			if (abilityStatMod.stat != StatType.INVALID)
 			{
+				m_statModsApplied.Add(abilityStatMod); // custom
 				actorStats.AddStatMod(abilityStatMod.stat, abilityStatMod.modType, abilityStatMod.modValue);
 			}
 			// rogues
@@ -302,7 +304,11 @@ public class StandardActorEffect : Effect
 			ActorStats actorStats = Target.GetActorStats();
 			// rogues
 			//EquipmentStats equipmentStats = Target.GetEquipmentStats();
-			foreach (AbilityStatMod abilityStatMod in m_data.m_statMods)
+			
+			// custom
+			foreach (AbilityStatMod abilityStatMod in m_statModsApplied)
+			// rogues
+			// foreach (AbilityStatMod abilityStatMod in m_data.m_statMods)
 			{
 				if (abilityStatMod.stat != StatType.INVALID)
 				{
@@ -692,7 +698,9 @@ public class StandardActorEffect : Effect
 
 	public override bool HasDispellableMovementDebuff()
 	{
-		foreach (AbilityStatMod abilityStatMod in m_data.m_statMods)
+		foreach (AbilityStatMod abilityStatMod in m_statModsApplied)
+		// rogues
+		// foreach (AbilityStatMod abilityStatMod in m_data.m_statMods)
 		{
 			if (abilityStatMod.stat != StatType.Movement_Horizontal)
 			{
@@ -709,7 +717,10 @@ public class StandardActorEffect : Effect
 			}
 		}
 		
-		foreach (StatusType statusChange in m_data.m_statusChanges)
+		// custom
+		foreach (StatusType statusChange in m_statusAdded)
+		// rogues
+		// foreach (StatusType statusChange in m_data.m_statusChanges)
 		{
 			if (ActorStatus.IsDispellableMovementDebuff(statusChange))
 			{
@@ -718,6 +729,53 @@ public class StandardActorEffect : Effect
 		}
 		
 		return false;
+	}
+
+	// custom -- see also HasDispellableMovementDebuff
+	public override bool DispelMovementDebuff()
+	{
+		List<AbilityStatMod> statModsToRemove = new List<AbilityStatMod>();
+		foreach (AbilityStatMod abilityStatMod in m_statModsApplied)
+		{
+			if (abilityStatMod.stat != StatType.Movement_Horizontal)
+			{
+				continue;
+			}
+			
+			bool isDebuff = abilityStatMod.modType == ModType.Multiplier
+				? abilityStatMod.modValue < 1f
+				: abilityStatMod.modValue < 0f;
+
+			if (isDebuff)
+			{
+				statModsToRemove.Add(abilityStatMod);
+			}
+		}
+		
+		ActorStats actorStats = Target.GetActorStats();
+		foreach (AbilityStatMod abilityStatMod in statModsToRemove)
+		{
+			m_statModsApplied.Remove(abilityStatMod);
+			actorStats.RemoveStatMod(abilityStatMod.stat, abilityStatMod.modType, abilityStatMod.modValue);
+		}
+
+		List<StatusType> statusesToRemove = new List<StatusType>();
+		foreach (StatusType statusChange in m_statusAdded)
+		{
+			if (ActorStatus.IsDispellableMovementDebuff(statusChange))
+			{
+				statusesToRemove.Add(statusChange);
+			}
+		}
+		
+		ActorStatus actorStatus = Target.GetComponent<ActorStatus>();
+		foreach (StatusType statusType in statusesToRemove)
+		{
+			m_statusAdded.Remove(statusType);
+			actorStatus.RemoveStatus(statusType);
+		}
+		
+		return true;
 	}
 
 	public void OverrideCanBeDispelledByStatusImmunity(bool canBeDispelled)

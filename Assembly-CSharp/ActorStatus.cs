@@ -609,7 +609,13 @@ public class ActorStatus : NetworkBehaviour
 						    && effect.CanBeDispelledByStatusImmunity()
 						    && !effectsToRemove.Contains(effect))
 						{
-							effectsToRemove.Add(effect);
+							// custom - attempt to dispel slow/root, remove the whole effect if failed
+							if (!effect.DispelMovementDebuff())
+							{
+								effectsToRemove.Add(effect);
+							}
+							// rogues
+							// effectsToRemove.Add(effect); 
 						}
 					}
 
