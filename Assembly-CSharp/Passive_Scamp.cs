@@ -141,6 +141,7 @@ public class Passive_Scamp : Passive
 			actorHitResults.AddMiscHitEvent(new MiscHitEventData_AddToCasterCooldown(
 				m_tetherAbilityActionType,
 				-m_pendingCdrOnTether));
+			actorHitResults.SetIgnoreTechpointInteractionForHit(true);
 			MovementResults.SetupAndExecuteAbilityResultsOutsideResolution(
 				Owner,
 				Owner,

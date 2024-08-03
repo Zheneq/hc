@@ -96,6 +96,10 @@ public class ScampAoeTetherEffect: StandardActorEffect
 			actorHitResults.AddBaseDamage(m_tetherBreakDamage);
 			actorHitResults.AddStandardEffectInfo(m_tetherBreakEnemyEffect);
 		}
+		else
+		{
+			actorHitResults.SetIgnoreTechpointInteractionForHit(true);
+		}
 		EndAllEffectSequences(actorHitResults);
 		effectResults.StoreActorHit(actorHitResults);
 	}
