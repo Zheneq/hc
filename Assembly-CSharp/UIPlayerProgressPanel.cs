@@ -464,7 +464,7 @@ public class UIPlayerProgressPanel : UIScene
 		m_playerAccountData = newData;
 		m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(m_playerName.fontSize * 0.7f));
 		m_InfoUpdated++;
-#if !VANILLA && !SERVER
+#if EVOS
         // Custom titles
         m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, newData.Handle, string.Empty);
 #else

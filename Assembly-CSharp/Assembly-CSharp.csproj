@@ -55,8 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client Release|AnyCPU' ">
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>EVOS</DefineConstants>
     <GitTagRegex>client*</GitTagRegex>
     <OutputPath>bin\ClientRelease\</OutputPath>
   </PropertyGroup>
@@ -66,8 +65,7 @@
     <OutputPath>bin\ClientVanilla\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client Debug|AnyCPU' ">
-    <DefineConstants>
-    </DefineConstants>
+    <DefineConstants>EVOS</DefineConstants>
     <GitTagRegex>client*</GitTagRegex>
     <OutputPath>bin\ClientDebug\</OutputPath>
   </PropertyGroup>
@@ -3108,8 +3106,4 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\GitInfo.2.3.0\build\GitInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitInfo.2.3.0\build\GitInfo.targets'))" />
   </Target>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>

@@ -3354,7 +3354,7 @@ public class ClientGameManager : MonoBehaviour
 				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 				if (gameBalanceVars != null)
 				{
-#if !VANILLA && !SERVER
+#if EVOS
                     // Custom titles
                     OnPlayerTitleChange(gameBalanceVars.GetTitle(response.CurrentTitleID, m_lobbyGameClientInterface?.SessionInfo?.Handle, string.Empty));
 #else

@@ -286,7 +286,7 @@ public class FriendListBannerEntry : MonoBehaviour
 				default:
 				{
 					UITitledTooltip uITitledTooltip = tooltip as UITitledTooltip;
-#if !VANILLA && !SERVER
+#if EVOS
                             // Custom titles
                             string title = GameWideData.Get().m_gameBalanceVars.GetTitle(m_friendInfo.TitleID, m_friendInfo.FriendHandle, string.Empty, m_friendInfo.TitleLevel);
 #else

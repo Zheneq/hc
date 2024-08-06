@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-#if !VANILLA && !SERVER
+#if EVOS
 // Custom titles
 public class CoroutineRunner : MonoBehaviour
 {

@@ -690,7 +690,7 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		if (m_playertitle != null)
 		{
-#if !VANILLA && !SERVER
+#if EVOS
             // Custom titles
             m_playertitle.text = GameBalanceVars.Get().GetTitle(statline.TitleID, statline.DisplayName, string.Empty, statline.TitleLevel);
 #else

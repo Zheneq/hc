@@ -413,7 +413,7 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		else if (item.m_itemType == PurchaseItemType.Title)
 		{
 			GameBalanceVars gameBalanceVars2 = GameBalanceVars.Get();
-#if !VANILLA && !SERVER
+#if EVOS
             string title = gameBalanceVars2.GetTitle(item.m_titleID, ClientGameManager.Get().Handle, string.Empty, -1);
 #else 
 			string title = gameBalanceVars2.GetTitle(item.m_titleID, string.Empty, -1);

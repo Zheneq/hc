@@ -15,7 +15,7 @@ public class ClientBootstrap : MonoBehaviour
 	private string[] m_commandLine;
 	private AsyncPump m_asyncPump;
 
-#if !VANILLA && !SERVER
+#if EVOS
     // Custom titles
     private float timeSinceLastRefresh = 0f;
     private const float refreshInterval = 300f; //5min
@@ -143,7 +143,7 @@ public class ClientBootstrap : MonoBehaviour
 			ClientGameManager.Get().OnConnectedToLobbyServer += HandleConnectedToLobbyServer;
 		}
 
-#if !VANILLA && !SERVER
+#if EVOS
         // Custom titles Init and fetch
         PlayerTitleManager.GetInstance().Init();
 #endif
@@ -173,7 +173,7 @@ public class ClientBootstrap : MonoBehaviour
 			m_asyncPump.Run(0);
 		}
 
-#if !VANILLA && !SERVER
+#if EVOS
         // Custom titles refresh
         timeSinceLastRefresh += Time.deltaTime;
         if (timeSinceLastRefresh >= refreshInterval)

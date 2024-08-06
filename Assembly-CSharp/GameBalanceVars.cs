@@ -1124,20 +1124,7 @@ public class GameBalanceVars
             : RepeatingCharacterProgressInfo.ExperienceToNextLevel;
     }
 
-#if VANILLA || SERVER
-    public string GetTitle(int titleID, string returnOnEmptyOverride = "", int titleLevel = -1)
-    {
-        foreach (PlayerTitle title in PlayerTitles)
-        {
-            if (title.ID == titleID)
-            {
-                return title.GetTitleText(titleLevel);
-            }
-        }
-
-        return returnOnEmptyOverride;
-    }
-#else
+#if EVOS
     // Custom titles
     public string GetTitle(int titleID, string handle, string returnOnEmptyOverride = "", int titleLevel = -1)
     {
@@ -1161,7 +1148,21 @@ public class GameBalanceVars
 
         return returnOnEmptyOverride;
     }
+#else
+    public string GetTitle(int titleID, string returnOnEmptyOverride = "", int titleLevel = -1)
+    {
+        foreach (PlayerTitle title in PlayerTitles)
+        {
+            if (title.ID == titleID)
+            {
+                return title.GetTitleText(titleLevel);
+            }
+        }
+
+        return returnOnEmptyOverride;
+    }
 #endif
+    
     public int GetMaxTitleLevel(int titleID)
     {
         foreach (TitleLevelDefinition titleLevelDef in TitleLevelDefinitions)

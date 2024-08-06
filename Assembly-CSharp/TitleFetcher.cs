@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-#if !VANILLA && !SERVER
+#if EVOS
 // Custom titles
 public class TitleFetcher
 {

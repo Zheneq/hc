@@ -122,7 +122,7 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
 		else
 		{
 			m_playerName.text = info.GetHandle();
-#if !VANILLA && !SERVER
+#if EVOS
             // Custom titles
             m_playerTitle.text = GameBalanceVars.Get().GetTitle(info.TitleID, info.GetHandle(), string.Empty, info.TitleLevel);
 #else

@@ -44,7 +44,7 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 			
 			UIManager.SetGameObjectActive(m_EmblemImage, doActive);
 			m_PlayerName.text = current.Handle;
-#if !VANILLA && !SERVER
+#if EVOS
             // Custom titles
             m_PlayerTitle.text = GameBalanceVars.Get().GetTitle(current.TitleID, current.Handle, string.Empty, current.TitleLevel);
 #else

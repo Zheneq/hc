@@ -30,7 +30,7 @@ public class UIGGPackNotification : MonoBehaviour
 	public void Setup(UISideNotifications.UIGGPackNotificationInfo info)
 	{
 		m_UserNameLabel.text = info.GGPackUserName;
-#if !VANILLA && !SERVER
+#if EVOS
         // Custom titles
         m_TitleLabel.text = GameBalanceVars.Get().GetTitle(info.GGPackUserTitle, info.GGPackUserName, string.Empty, info.GGPackUserTitleLevel);
 #else

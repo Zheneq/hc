@@ -420,7 +420,7 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (text == null)
 		{
-#if !VANILLA && !SERVER
+#if EVOS
             // Custom titles
             text = GameBalanceVars.Get().GetTitle(accountComponent.SelectedTitleID, ClientGameManager.Get().Handle, string.Empty);
 #else

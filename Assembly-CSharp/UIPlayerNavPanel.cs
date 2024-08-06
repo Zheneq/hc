@@ -705,7 +705,7 @@ public class UIPlayerNavPanel : MonoBehaviour
 			{
 				FriendListPanel.Get().m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(FriendListPanel.Get().m_playerName.fontSize * 0.7f));
 			}
-#if !VANILLA && !SERVER
+#if EVOS
             // Custom titles
             m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, newData.Handle, string.Empty);
 #else

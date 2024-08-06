@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-#if !VANILLA && !SERVER
+#if EVOS
 // Custom titles
 public class PlayerTitleManager
 {
