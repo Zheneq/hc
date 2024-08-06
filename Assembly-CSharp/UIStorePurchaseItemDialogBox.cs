@@ -413,7 +413,11 @@ public class UIStorePurchaseItemDialogBox : UIDialogBox
 		else if (item.m_itemType == PurchaseItemType.Title)
 		{
 			GameBalanceVars gameBalanceVars2 = GameBalanceVars.Get();
+#if !VANILLA && !SERVER
+            string title = gameBalanceVars2.GetTitle(item.m_titleID, ClientGameManager.Get().Handle, string.Empty, -1);
+#else 
 			string title = gameBalanceVars2.GetTitle(item.m_titleID, string.Empty, -1);
+#endif
 			text2 = string.Format(StringUtil.TR("PurchaseItem", "Store"), title);
 			text = string.Format(StringUtil.TR("PurchaseItemDesc", "Store"), title);
 			for (int j = 0; j < gameBalanceVars2.PlayerTitles.Length; j++)

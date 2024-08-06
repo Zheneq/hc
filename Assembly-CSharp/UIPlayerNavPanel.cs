@@ -705,7 +705,12 @@ public class UIPlayerNavPanel : MonoBehaviour
 			{
 				FriendListPanel.Get().m_playerName.text = HydrogenConfig.Get().Ticket.GetFormattedHandle(Mathf.FloorToInt(FriendListPanel.Get().m_playerName.fontSize * 0.7f));
 			}
+#if !VANILLA && !SERVER
+            // Custom titles
+            m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, newData.Handle, string.Empty);
+#else
 			m_playerTitle.text = GameBalanceVars.Get().GetTitle(newData.AccountComponent.SelectedTitleID, string.Empty);
+#endif
 			UIManager.SetGameObjectActive(m_playerTitle, true);
 			m_canvasGroup.alpha = 1f;
 			m_receivedDataOnce = true;

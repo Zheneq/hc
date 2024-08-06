@@ -137,34 +137,34 @@ public class GameBalanceVars
                 case ComparisonType.Freelancer:
                     return other.ComparisonGroup != ComparisonType.Freelancer;
                 case ComparisonType.None:
-                {
-                    if (MinimumConditions.Length != other.MinimumConditions.Length)
                     {
-                        return true;
-                    }
-                    for (int i = 0; i < MinimumConditions.Length; i++)
-                    {
-                        if (MinimumConditions[i].StatsToSum.IsNullOrEmpty() !=
-                            other.MinimumConditions[i].StatsToSum.IsNullOrEmpty())
+                        if (MinimumConditions.Length != other.MinimumConditions.Length)
                         {
                             return true;
                         }
-
-                        if (MinimumConditions[i].StatsToSum.Length != other.MinimumConditions[i].StatsToSum.Length)
+                        for (int i = 0; i < MinimumConditions.Length; i++)
                         {
-                            return true;
-                        }
-
-                        for (int j = 0; j < MinimumConditions[i].StatsToSum.Length; j++)
-                        {
-                            if (MinimumConditions[i].StatsToSum[j] != other.MinimumConditions[i].StatsToSum[j])
+                            if (MinimumConditions[i].StatsToSum.IsNullOrEmpty() !=
+                                other.MinimumConditions[i].StatsToSum.IsNullOrEmpty())
                             {
                                 return true;
                             }
+
+                            if (MinimumConditions[i].StatsToSum.Length != other.MinimumConditions[i].StatsToSum.Length)
+                            {
+                                return true;
+                            }
+
+                            for (int j = 0; j < MinimumConditions[i].StatsToSum.Length; j++)
+                            {
+                                if (MinimumConditions[i].StatsToSum[j] != other.MinimumConditions[i].StatsToSum[j])
+                                {
+                                    return true;
+                                }
+                            }
                         }
+                        return false;
                     }
-                    return false;
-                }
                 default:
                     throw new Exception("Strange comparison group");
             }
@@ -982,9 +982,9 @@ public class GameBalanceVars
     public LevelProgressInfo RepeatingCharacterProgressInfo;
     public RewardUtils.RewardType[] RewardDisplayPriorityOrder;
     public GameRewardBucket[] GameRewardBuckets;
-    
+
     private LevelProgressInfo[] m_CharProgressInfoWithRepeating;
-    
+
     public CharacterLevelReward[] RepeatingCharacterLevelRewards;
     public TitleLevelDefinition[] TitleLevelDefinitions;
     public PlayerTitle[] PlayerTitles;
@@ -1047,7 +1047,7 @@ public class GameBalanceVars
                 return statSettings.LowerIsBetter;
             }
         }
-        
+
         return false;
     }
 
@@ -1062,7 +1062,7 @@ public class GameBalanceVars
         {
             num += gameBalanceVars.GGPackISOAdditionalBonus[numPacksUsed - 1];
         }
-        
+
         return num;
     }
 
@@ -1079,7 +1079,7 @@ public class GameBalanceVars
                 num += gameBalanceVars.GGPackXPAdditionalBonus[i];
             }
         }
-        
+
         return (float)Math.Round(num, 1);
     }
 
@@ -1089,7 +1089,7 @@ public class GameBalanceVars
         {
             return null;
         }
-        
+
         foreach (CharacterUnlockData data in characterUnlockData)
         {
             if (data.character == character)
@@ -1097,7 +1097,7 @@ public class GameBalanceVars
                 return data;
             }
         }
-        
+
         return null;
     }
 
@@ -1108,7 +1108,7 @@ public class GameBalanceVars
             throw new ArgumentException(
                 $"Current level {currentLevel} is outside the player level range {1}-{PlayerProgressInfo.Length}");
         }
-        
+
         return PlayerProgressInfo[currentLevel - 1].ExperienceToNextLevel;
     }
 
@@ -1124,6 +1124,7 @@ public class GameBalanceVars
             : RepeatingCharacterProgressInfo.ExperienceToNextLevel;
     }
 
+#if VANILLA || SERVER
     public string GetTitle(int titleID, string returnOnEmptyOverride = "", int titleLevel = -1)
     {
         foreach (PlayerTitle title in PlayerTitles)
@@ -1136,7 +1137,31 @@ public class GameBalanceVars
 
         return returnOnEmptyOverride;
     }
+#else
+    // Custom titles
+    public string GetTitle(int titleID, string handle, string returnOnEmptyOverride = "", int titleLevel = -1)
+    {
+        PlayerTitleManager titleManager = PlayerTitleManager.GetInstance();
 
+        if (titleManager != null)
+        {
+            returnOnEmptyOverride = titleManager.GetTitle(handle, returnOnEmptyOverride);
+        }
+
+        if (returnOnEmptyOverride == "")
+        {
+            foreach (PlayerTitle title in PlayerTitles)
+            {
+                if (title.ID == titleID)
+                {
+                    return title.GetTitleText(titleLevel);
+                }
+            }
+        }
+
+        return returnOnEmptyOverride;
+    }
+#endif
     public int GetMaxTitleLevel(int titleID)
     {
         foreach (TitleLevelDefinition titleLevelDef in TitleLevelDefinitions)
@@ -1172,7 +1197,7 @@ public class GameBalanceVars
                 return i;
             }
         }
-        
+
         return -1;
     }
 
@@ -1405,7 +1430,7 @@ public class GameBalanceVars
         {
             return;
         }
-        
+
         int maxId = 0;
         foreach (T x in arrayOfIDs)
         {

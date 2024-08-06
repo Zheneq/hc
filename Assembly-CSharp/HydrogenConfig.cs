@@ -144,6 +144,10 @@ public class HydrogenConfig : JsonConfig
 	public string CrashReportUrl = "https://evos-emu.com/api/archive/";
 #endif
 
+#if !VANILLA && !SERVER
+    //Custom titles
+    public string ApiTitleUrl = "https://stats-production.evos.live/api/titles";
+#endif
 	public HydrogenConfig()
 	{
 		LogFilePath = "${CONFIGPATH}/../Logs/";

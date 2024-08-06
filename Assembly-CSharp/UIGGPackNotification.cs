@@ -30,7 +30,12 @@ public class UIGGPackNotification : MonoBehaviour
 	public void Setup(UISideNotifications.UIGGPackNotificationInfo info)
 	{
 		m_UserNameLabel.text = info.GGPackUserName;
+#if !VANILLA && !SERVER
+        // Custom titles
+        m_TitleLabel.text = GameBalanceVars.Get().GetTitle(info.GGPackUserTitle, info.GGPackUserName, string.Empty, info.GGPackUserTitleLevel);
+#else
 		m_TitleLabel.text = GameBalanceVars.Get().GetTitle(info.GGPackUserTitle, string.Empty, info.GGPackUserTitleLevel);
+#endif
 		GameBalanceVars.PlayerBanner banner = GameBalanceVars.Get().GetBanner(info.GGPackUserBannerForeground);
 		GameBalanceVars.PlayerBanner banner2 = GameBalanceVars.Get().GetBanner(info.GGPackUserBannerBackground);
 		GameBalanceVars.PlayerRibbon ribbon = GameBalanceVars.Get().GetRibbon(info.GGPackUserRibbon);

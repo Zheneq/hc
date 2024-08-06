@@ -778,6 +778,7 @@
     <Compile Include="CopyableVfxControllerComponent.cs" />
     <Compile Include="CopyFoV.cs" />
     <Compile Include="CopyMainCameraDepth.cs" />
+    <Compile Include="CoroutineRunner.cs" />
     <Compile Include="Costs.cs" />
     <Compile Include="CountryPrice.cs" />
     <Compile Include="CountryPrices.cs" />
@@ -1931,6 +1932,7 @@
     <Compile Include="PlayerSelectionEffect.cs" />
     <Compile Include="PlayerSkinData.cs" />
     <Compile Include="PlayerTauntData.cs" />
+    <Compile Include="PlayerTitleManager.cs" />
     <Compile Include="PlayRawImageMovieTexture.cs" />
     <Compile Include="PointCondition.cs" />
     <Compile Include="PointsForCharacter.cs" />
@@ -2465,6 +2467,7 @@
     <Compile Include="TimeBank.cs" />
     <Compile Include="TimeMultiplierAdjuster.cs" />
     <Compile Include="TimeRange.cs" />
+    <Compile Include="TitleFetcher.cs" />
     <Compile Include="TMPro.Examples\Benchmark01.cs" />
     <Compile Include="TMPro.Examples\Benchmark01_UGUI.cs" />
     <Compile Include="TMPro.Examples\Benchmark02.cs" />
@@ -3104,4 +3107,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\GitInfo.2.3.0\build\GitInfo.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\GitInfo.2.3.0\build\GitInfo.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

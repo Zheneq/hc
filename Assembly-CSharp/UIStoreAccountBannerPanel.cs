@@ -420,7 +420,12 @@ public class UIStoreAccountBannerPanel : UIStoreBaseInventoryPanel
 		}
 		if (text == null)
 		{
+#if !VANILLA && !SERVER
+            // Custom titles
+            text = GameBalanceVars.Get().GetTitle(accountComponent.SelectedTitleID, ClientGameManager.Get().Handle, string.Empty);
+#else
 			text = GameBalanceVars.Get().GetTitle(accountComponent.SelectedTitleID, string.Empty);
+#endif
 		}
 		if (playerRibbon == null)
 		{

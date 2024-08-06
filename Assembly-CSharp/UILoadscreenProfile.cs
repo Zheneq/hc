@@ -137,7 +137,12 @@ public class UILoadscreenProfile : MonoBehaviour
 		UIManager.SetGameObjectActive(this, true);
 		m_profileImage.sprite = charLink.GetCharacterSelectIcon();
 		m_profileName.text = playerInfo.GetHandle();
+#if !VANILLA && !SERVER
+        // Custom titles
+        m_playerTitle.text = GameBalanceVars.Get().GetTitle(playerInfo.TitleID, playerInfo.Handle, string.Empty, playerInfo.TitleLevel);
+#else
 		m_playerTitle.text = GameBalanceVars.Get().GetTitle(playerInfo.TitleID, string.Empty, playerInfo.TitleLevel);
+#endif
 		m_playerId = playerInfo.PlayerId;
 		int isBot;
 		if (playerInfo.IsNPCBot)

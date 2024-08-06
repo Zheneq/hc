@@ -3354,7 +3354,12 @@ public class ClientGameManager : MonoBehaviour
 				GameBalanceVars gameBalanceVars = GameBalanceVars.Get();
 				if (gameBalanceVars != null)
 				{
+#if !VANILLA && !SERVER
+                    // Custom titles
+                    OnPlayerTitleChange(gameBalanceVars.GetTitle(response.CurrentTitleID, m_lobbyGameClientInterface?.SessionInfo?.Handle, string.Empty));
+#else
 					OnPlayerTitleChange(gameBalanceVars.GetTitle(response.CurrentTitleID, string.Empty));
+#endif
 				}
 			});
 		}

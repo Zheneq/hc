@@ -690,7 +690,12 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 		}
 		if (m_playertitle != null)
 		{
+#if !VANILLA && !SERVER
+            // Custom titles
+            m_playertitle.text = GameBalanceVars.Get().GetTitle(statline.TitleID, statline.DisplayName, string.Empty, statline.TitleLevel);
+#else
 			m_playertitle.text = GameBalanceVars.Get().GetTitle(statline.TitleID, string.Empty, statline.TitleLevel);
+#endif
 		}
 		GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(statline.BannerID);
 		if (banner != null)

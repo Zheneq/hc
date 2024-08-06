@@ -293,7 +293,12 @@ public class HUD_UI : UIScene
 											path2 = banner2.m_resourceString;
 										}
 										m_tauntPlayerBanner.m_bannerFG.sprite = (Sprite)Resources.Load(path2, typeof(Sprite));
+#if !VANILLA && !SERVER
+                                        // Custom titles
+                                        m_tauntPlayerBanner.m_playerTitle.text = GameWideData.Get().m_gameBalanceVars.GetTitle(list[i].TitleID, actorData.GetDisplayName(), string.Empty, list[i].TitleLevel);
+#else
 										m_tauntPlayerBanner.m_playerTitle.text = GameWideData.Get().m_gameBalanceVars.GetTitle(list[i].TitleID, string.Empty, list[i].TitleLevel);
+#endif
 										GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(list[i].RibbonID);
 										if (ribbon != null)
 										{
