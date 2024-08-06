@@ -315,7 +315,7 @@ public class BlasterDashAndBlast : Ability
 		if (AmOvercharged(ActorData))
 		{
 #if VANILLA
-			// reactor TODO CLIENT BUG!
+			// reactor NOTE: client bug
 			return GetDamageAmountOvercharged() + GetMultiStackOverchargeDamage();
 #else
 			// custom

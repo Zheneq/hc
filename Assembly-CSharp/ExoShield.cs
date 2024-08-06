@@ -291,6 +291,7 @@ public class ExoShield : Ability
 			return true;
 		}
 #if VANILLA
+		// NOTE: no vanilla mods actually modify this
 		return m_freeActionWhileAnchored // reactor
 #else
 		return FreeActionWhileAnchored()  // custom

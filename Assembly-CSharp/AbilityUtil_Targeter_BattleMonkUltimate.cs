@@ -85,7 +85,8 @@ public class AbilityUtil_Targeter_BattleMonkUltimate : AbilityUtil_Targeter_Shap
 				foreach (Team enemyTeam in targetingActor.GetOtherTeams())
 				{
 					actors.AddRange(
-						AreaEffectUtils.GetActorsInShape(m_enemyShape,
+						AreaEffectUtils.GetActorsInShape(
+							m_enemyShape,
 							currentTarget.FreePos,
 							gameplayRefSquare,
 							m_enemyShapePenetratesLoS,

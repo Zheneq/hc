@@ -454,8 +454,7 @@ public class ObjectivePoints : NetworkBehaviour
 			}
 			else if (team == Team.TeamB)
 			{
-				// NOTE CHANGE bugfix?
-				// TODO LOW check
+				// NOTE: client bug
 #if VANILLA
 				victoryConditionString = !m_teamAVictoryCondition.m_conditionString.IsNullOrEmpty()
 					? StringUtil.TR(m_teamAVictoryCondition.m_conditionString)

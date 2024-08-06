@@ -408,6 +408,7 @@ public class ClericAreaBuff : Ability
 		if (m_syncComp != null)
 		{
 #if VANILLA
+			// NOTE: no vanilla mods actually modify this
 			// reactor
 			cost = m_syncComp.m_turnsAreaBuffActive * m_extraTpCostPerTurnActive;
 #else
