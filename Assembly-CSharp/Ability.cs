@@ -411,7 +411,7 @@ public class Ability : MonoBehaviour
 				list.Add(new TooltipTokenInt(techPointInteraction.m_type.ToString(), "Energy Gain", num));
 			}
 		}
-#if VANILLA
+		// reactor
 		if (m_techPointsCost > 0)
 		{
 			list.Add(new TooltipTokenInt("EnergyCost", "Energy Cost", m_techPointsCost));
@@ -420,18 +420,17 @@ public class Ability : MonoBehaviour
 		{
 			list.Add(new TooltipTokenInt("MaxStocks", "Max Stocks/Charges", m_maxStocks));
 		}
-#else
-		// TODO LOW check
-		// NOTE CHANGE (rogues) were base cost and base stocks in reactor
-		if (GetModdedCost() > 0)
-		{
-			list.Add(new TooltipTokenInt("EnergyCost", "Energy Cost", GetModdedCost()));
-		}
-		if (GetModdedMaxStocks() > 0)
-		{
-			list.Add(new TooltipTokenInt("MaxStocks", "Max Stocks/Charges", GetModdedMaxStocks()));
-		}
-#endif
+		// rogues
+		// It applies mod modifications to base ability description
+		// Also if modded cost is 0, it's not added
+		// if (GetModdedCost() > 0)  
+		// {
+		// 	list.Add(new TooltipTokenInt("EnergyCost", "Energy Cost", GetModdedCost()));
+		// }
+		// if (GetModdedMaxStocks() > 0)
+		// {
+		// 	list.Add(new TooltipTokenInt("MaxStocks", "Max Stocks/Charges", GetModdedMaxStocks()));
+		// }
 
 		return list;
 	}
