@@ -44,7 +44,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			Log.Info($"Scamp_SyncComponent.m_suitWasActiveOnTurnStart = {value}");
+			Log.InfoEx($"Scamp_SyncComponent.m_suitWasActiveOnTurnStart = {value}");
 			SetSyncVar(value, ref m_suitWasActiveOnTurnStart, 1u);
 		}
 	}
@@ -55,7 +55,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			Log.Info($"Scamp_SyncComponent.m_suitActive = {value}");
+			Log.InfoEx($"Scamp_SyncComponent.m_suitActive = {value}");
 			SetSyncVar(value, ref m_suitActive, 2u);
 		}
 	}
@@ -66,7 +66,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			Log.Info($"Scamp_SyncComponent.m_suitShieldingOnTurnStart = {value}");
+			Log.InfoEx($"Scamp_SyncComponent.m_suitShieldingOnTurnStart = {value}");
 			SetSyncVar(value, ref m_suitShieldingOnTurnStart, 4u);
 		}
 	}
@@ -77,7 +77,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 		[param: In]
 		set
 		{
-			Log.Info($"Scamp_SyncComponent.m_lastSuitLostTurn = {value}");
+			Log.InfoEx($"Scamp_SyncComponent.m_lastSuitLostTurn = {value}");
 			SetSyncVar(value, ref m_lastSuitLostTurn, 8u);
 		}
 	}
@@ -245,7 +245,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void CallRpcResetTargetersForSuitMode(bool hasShielding)
 	{
-		Log.Info($"Scamp_SyncComponent.CallRpcResetTargetersForSuitMode hasShielding = {hasShielding}");
+		Log.InfoEx($"Scamp_SyncComponent.CallRpcResetTargetersForSuitMode hasShielding = {hasShielding}");
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcResetTargetersForSuitMode called on client.");
@@ -262,7 +262,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void CallRpcSetAnimParamForSuit(bool activeNow)
 	{
-		Log.Info($"Scamp_SyncComponent.CallRpcSetAnimParamForSuit activeNow = {activeNow}");
+		Log.InfoEx($"Scamp_SyncComponent.CallRpcSetAnimParamForSuit activeNow = {activeNow}");
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcSetAnimParamForSuit called on client.");
@@ -279,7 +279,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void CallRpcPlayShieldRemoveAnim()
 	{
-		Log.Info($"Scamp_SyncComponent.CallRpcPlayShieldRemoveAnim");
+		Log.InfoEx($"Scamp_SyncComponent.CallRpcPlayShieldRemoveAnim");
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcPlayShieldRemoveAnim called on client.");
@@ -295,7 +295,7 @@ public class Scamp_SyncComponent : NetworkBehaviour
 
 	public void CallRpcResetAttackParam()
 	{
-		Log.Info($"Scamp_SyncComponent.CallRpcResetAttackParam");
+		Log.InfoEx($"Scamp_SyncComponent.CallRpcResetAttackParam");
 		if (!NetworkServer.active)
 		{
 			Debug.LogError("RPC Function RpcResetAttackParam called on client.");

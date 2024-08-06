@@ -937,7 +937,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 
 	private void Client_ClearAestheticPath()
 	{
-		Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: null"); // custom debug
+		Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: null"); // custom debug
 		if (m_aestheticPath != null)
 		{
 			m_aestheticPath = null;
@@ -1059,12 +1059,12 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		}
 		if (m_aestheticPath != null && m_aestheticPath.next != null)
 		{
-			Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: UpdatePath {m_aestheticPath.square?.GetGridPos()} -> {m_aestheticPath.next.square?.GetGridPos()}"); // custom debug
+			Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: UpdatePath {m_aestheticPath.square?.GetGridPos()} -> {m_aestheticPath.next.square?.GetGridPos()}"); // custom debug
 			m_aestheticPath = m_aestheticPath.next;
 		}
 		else
 		{
-			Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: UpdatePath - end"); // custom debug
+			Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: UpdatePath - end"); // custom debug
 			m_aestheticPath = null;
 		}
 		if (needFogOfWarUpdate)
@@ -1567,7 +1567,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 			// removed in rogues
 			m_actor.ForceUpdateActorModelVisibility();
 		}
-		Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: BeginTravellingAlongPath\n{m_gameplayPath?.GetDebugPathStringToEnd("")}"); // custom debug
+		Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: BeginTravellingAlongPath\n{m_gameplayPath?.GetDebugPathStringToEnd("")}"); // custom debug
 		m_aestheticPath = m_gameplayPath.Clone(null);
 		if (movementType == ActorData.MovementType.Normal)
 		{
@@ -1577,7 +1577,7 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			MovementUtils.CreateUnskippableAestheticPath(ref m_aestheticPath, movementType);
 		}
-		Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: BeginTravellingAlongPath processed\n{m_aestheticPath?.GetDebugPathStringToEnd("")}"); // custom debug
+		Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: BeginTravellingAlongPath processed\n{m_aestheticPath?.GetDebugPathStringToEnd("")}"); // custom debug
 		CalculateMoveTimeout();
 		m_actor.SetTransformPositionToSquare(gameplayPath.square);
 		UpdateMovementState();
@@ -1604,10 +1604,10 @@ public class ActorMovement : MonoBehaviour, IGameEventListener
 		{
 			m_actor.SetTransformPositionToSquare(src);
 			m_gameplayPath = gameplayPath;
-			Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: BeginChargeOrKnockback\n{m_aestheticPath?.GetDebugPathStringToEnd("")}"); // custom debug
+			Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: BeginChargeOrKnockback\n{m_aestheticPath?.GetDebugPathStringToEnd("")}"); // custom debug
 			m_aestheticPath = m_gameplayPath.Clone(null);
 			MovementUtils.CreateUnskippableAestheticPath(ref m_aestheticPath, movementType);
-			Log.Info($"AESTHETIC PATH {m_actor?.DisplayName}: BeginChargeOrKnockback processed\n{m_aestheticPath?.GetDebugPathStringToEnd("")}"); // custom debug
+			Log.InfoEx($"AESTHETIC PATH {m_actor?.DisplayName}: BeginChargeOrKnockback processed\n{m_aestheticPath?.GetDebugPathStringToEnd("")}"); // custom debug
 			CalculateMoveTimeout();
 			m_actor.SetTransformPositionToSquare(src);
 			UpdateMovementState();

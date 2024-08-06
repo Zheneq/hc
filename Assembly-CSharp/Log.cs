@@ -267,4 +267,15 @@ public static class Log
 		}
 		return Level.Unknown;
 	}
+
+	/// <summary>
+	/// Extended logs, included if compile constant is defined
+	/// </summary>
+	/// <param name="msg"></param>
+	public static void InfoEx(string msg)
+	{
+#if LOG
+		Log.Info(msg);
+#endif
+	}
 }

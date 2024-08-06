@@ -19,6 +19,7 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>LOG</DefineConstants>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -32,7 +33,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ServerRelease\</OutputPath>
-    <DefineConstants>SERVER SERVER2</DefineConstants>
+    <DefineConstants>SERVER SERVER2 LOG</DefineConstants>
     <GitTagRegex>[0-9]*</GitTagRegex>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>

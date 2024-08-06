@@ -1421,7 +1421,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private void SetGameState(GameState value)
 	{
-		Log.Info($"GameFlowData::SetGameState {value}");
+		Log.InfoEx($"GameFlowData::SetGameState {value}");
 		// rogues
 		//PveLog.DebugLog(string.Concat(new object[]
 		//{

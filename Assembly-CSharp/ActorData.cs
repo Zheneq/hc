@@ -2144,7 +2144,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			? string.Format("{0}{1} adds {3} Energy to {2}", casterName, sourceName, target.DisplayName, healAmount)
 			: string.Format("{0}{1} removes {3} Energy from {2}", casterName, sourceName, target.DisplayName, healAmount);
 		CombatTextCategory category = isHeal ? CombatTextCategory.TP_Recovery : CombatTextCategory.TP_Damage;
-		Log.Info($"Combat log: energy {combatText}, {logText}"); // custom log
+		Log.InfoEx($"Combat log: energy {combatText}, {logText}"); // custom log
 		target.CallRpcCombatText(combatText, logText, category, BuffIconToDisplay.None);
 	}
 
@@ -3156,12 +3156,12 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	{
 		if (this == observer)
 		{
-			if (debugLog) Log.Info($"{DisplayName} is visible to self");
+			if (debugLog) Log.InfoEx($"{DisplayName} is visible to self");
 			return true;
 		}
 		if (!NetworkServer.active && observer == GameFlowData.Get().activeOwnedActorData)
 		{
-			if (debugLog) Log.Info($"{DisplayName} is {(IsActorVisibleToClient() ? "" : "not ")} visible to client");
+			if (debugLog) Log.InfoEx($"{DisplayName} is {(IsActorVisibleToClient() ? "" : "not ")} visible to client");
 			return IsActorVisibleToClient();
 		}
 		if (!NetworkServer.active)
@@ -3170,20 +3170,20 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 		if (IsAlwaysVisibleTo(observer.PlayerData))
 		{
-			if (debugLog) Log.Info($"{DisplayName} is always visible to {observer.DisplayName}");
+			if (debugLog) Log.InfoEx($"{DisplayName} is always visible to {observer.DisplayName}");
 			return true;
 		}
 		if (IsNeverVisibleTo(observer.PlayerData, true, forceViewingTeam))
 		{
-			if (debugLog) Log.Info($"{DisplayName} is never visible to {observer.DisplayName}");
+			if (debugLog) Log.InfoEx($"{DisplayName} is never visible to {observer.DisplayName}");
 			return false;
 		}
 
 		bool isActorVisibleToActor = observer.GetFogOfWar().IsVisible(GetTravelBoardSquare());
-		if (debugLog) Log.Info($"{DisplayName} ({GetTravelBoardSquare()?.GetGridPos()}) is " +
-		                       $"{(isActorVisibleToActor ? "" : "not ")}" +
-		                       $"visible to {observer.DisplayName} ({observer.GetTravelBoardSquare()?.GetGridPos()}) " +
-		                       $"in fog of war");
+		if (debugLog) Log.InfoEx($"{DisplayName} ({GetTravelBoardSquare()?.GetGridPos()}) is " +
+		                         $"{(isActorVisibleToActor ? "" : "not ")}" +
+		                         $"visible to {observer.DisplayName} ({observer.GetTravelBoardSquare()?.GetGridPos()}) " +
+		                         $"in fog of war");
 		return isActorVisibleToActor;
 	}
 
@@ -4720,7 +4720,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 
 	public void MoveToBoardSquareLocal(BoardSquare dest, MovementType movementType, BoardSquarePathInfo path, bool moverWillDisappear)
 	{
-		Log.Info($"MoveToBoardSquareLocal {DisplayName} {CurrentBoardSquare?.GetGridPos()} -> {dest?.GetGridPos()} {movementType} moverWillDisappear={moverWillDisappear}\n{path?.GetDebugPathStringToEnd("")}");  // custom debug
+		Log.InfoEx($"MoveToBoardSquareLocal {DisplayName} {CurrentBoardSquare?.GetGridPos()} -> {dest?.GetGridPos()} {movementType} moverWillDisappear={moverWillDisappear}\n{path?.GetDebugPathStringToEnd("")}");  // custom debug
 		m_disappearingAfterCurrentMovement = moverWillDisappear;
 		if (dest == null)
 		{

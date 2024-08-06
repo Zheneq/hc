@@ -193,19 +193,19 @@ public class TimeBank : NetworkBehaviour
 		{
 			return;
 		}
-		Log.Debug($"Timebank {actorData.m_displayName} before resolve: " +
+		Log.InfoEx($"Timebank {actorData.m_displayName} before resolve: " +
 		         $"m_reserveUsed={m_reserveUsed} " +
 		         $"m_reserveRemaining={m_reserveRemaining} " +
 		         $"m_clientConsumableUsed={m_clientConsumableUsed} " +
-		         $"m_consumablesRemaining={m_consumablesRemaining}");
+		         $"m_consumablesRemaining={m_consumablesRemaining}"); // custom log
 		if ((m_reserveUsed > m_reserveRemaining || m_clientConsumableUsed)
 		    && m_consumablesRemaining > 0)
 		{
-			Log.Debug($"Timebank {actorData.m_displayName} used");
+			Log.InfoEx($"Timebank {actorData.m_displayName} used"); // custom log
 			if (m_clientConsumableUsed)
 			{
 				Networkm_consumablesRemaining = Mathf.Max(m_consumablesRemaining - 1, 0);
-				Log.Debug($"Timebank {actorData.m_displayName} decreased");
+				Log.InfoEx($"Timebank {actorData.m_displayName} decreased"); // custom log
 			}
 #if SERVER
 			// added in rogues
@@ -216,11 +216,11 @@ public class TimeBank : NetworkBehaviour
 		float recharge = Mathf.Min(m_reserveRemaining + GameWideData.Get().m_tbRecharge, GameWideData.Get().m_tbRechargeCap);
 		Networkm_reserveRemaining = Mathf.Max(m_reserveRemaining, recharge);
 		Networkm_resolved = true;
-		Log.Debug($"Timebank {actorData.m_displayName} after resolve: " +
-		          $"m_reserveUsed={m_reserveUsed} " +
-		          $"m_reserveRemaining={m_reserveRemaining} " +
-		          $"m_clientConsumableUsed={m_clientConsumableUsed} " +
-		          $"m_consumablesRemaining={m_consumablesRemaining}");
+		Log.InfoEx($"Timebank {actorData.m_displayName} after resolve: " +
+		           $"m_reserveUsed={m_reserveUsed} " +
+		           $"m_reserveRemaining={m_reserveRemaining} " +
+		           $"m_clientConsumableUsed={m_clientConsumableUsed} " +
+		           $"m_consumablesRemaining={m_consumablesRemaining}"); // custom log
 	}
 
 	private void UNetVersion()

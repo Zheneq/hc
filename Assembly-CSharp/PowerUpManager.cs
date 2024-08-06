@@ -74,7 +74,7 @@ public class PowerUpManager : MonoBehaviour
 	{
 		if (m_guidToPowerupDictionary.ContainsKey(guid))
 		{
-			Log.Error($"Trying to add powerup guid more than once {guid}, {pup.name}"); // no params in reactor
+			Log.Error($"Trying to add powerup guid more than once {guid}, {pup.name}"); // log message expanded in rogues
 		}
 		m_guidToPowerupDictionary.Add(guid, pup);
 	}

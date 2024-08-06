@@ -665,20 +665,20 @@ public class ObjectivePoints : NetworkBehaviour
 			Debug.LogWarning("[Server] function 'System.Void ObjectivePoints::CheckForEndOfGame()' called on client");
 			return;
 		}
-		Log.Info($"CheckForEndOfGame m_matchState: {m_matchState}, m_skipEndOfGameCheck: {m_skipEndOfGameCheck}"); // custom log
+		Log.InfoEx($"CheckForEndOfGame m_matchState: {m_matchState}, m_skipEndOfGameCheck: {m_skipEndOfGameCheck}"); // custom log
 		if (m_matchState == MatchState.InMatch
 			&& !m_skipEndOfGameCheck
 			&& !GameManager.Get().GameConfig.HasGameOption(GameOptionFlag.SkipEndOfGameCheck)  // removed in rogues
 			&& (DebugParameters.Get() == null || !DebugParameters.Get().GetParameterAsBool("DisableGameEndCheck")))  // removed in rogues
 		{
-			Log.Info($"CheckForEndOfGame checking conditions"); // custom log
+			Log.InfoEx($"CheckForEndOfGame checking conditions"); // custom log
 			bool isOvertime = m_timeLimitTurns == 0 || GameFlowData.Get().CurrentTurn >= m_timeLimitTurns;
 			int teamAPoints = m_points[0];
 			int teamBPoints = m_points[1];
 			bool hasTeamAWon = m_teamAVictoryCondition.ArePointConditionsMet(teamAPoints, teamBPoints, isOvertime, Team.TeamA);
 			bool hasTeamBWon = m_teamBVictoryCondition.ArePointConditionsMet(teamBPoints, teamAPoints, isOvertime, Team.TeamB);
-			Log.Info($"CheckForEndOfGame turn {GameFlowData.Get().CurrentTurn}/{m_timeLimitTurns}" + (isOvertime ? "[overtime]" : "") + ", " +
-			         $"teamAPoints {teamAPoints}, teamBPoints {teamBPoints}, hasTeamAWon {hasTeamAWon}, hasTeamBWon {hasTeamBWon}"); // custom log
+			Log.InfoEx($"CheckForEndOfGame turn {GameFlowData.Get().CurrentTurn}/{m_timeLimitTurns}" + (isOvertime ? "[overtime]" : "") + ", " +
+			           $"teamAPoints {teamAPoints}, teamBPoints {teamBPoints}, hasTeamAWon {hasTeamAWon}, hasTeamBWon {hasTeamBWon}"); // custom log
 			bool isGameOver;
 #if SERVER
 			// custom
@@ -722,10 +722,10 @@ public class ObjectivePoints : NetworkBehaviour
 					if (isOvertime)
 					{
 						m_inSuddenDeath = true;
-						Log.Info($"CheckForEndOfGame sudden death"); // custom log
+						Log.InfoEx($"CheckForEndOfGame sudden death"); // custom log
 						if (m_disablePowerupsAfterTimeLimit)
 						{
-							Log.Info($"CheckForEndOfGame disabling powerups"); // custom log
+							Log.InfoEx($"CheckForEndOfGame disabling powerups"); // custom log
 							PowerUpManager.Get().SetSpawningEnabled(false);
 						}
 					}
@@ -827,7 +827,7 @@ public class ObjectivePoints : NetworkBehaviour
 
 	public void AdjustPoints(int adjustAmount, Team teamToAdjust)
 	{
-		Log.Info($"ObjectivePoints::AdjustPoints: {teamToAdjust} - {adjustAmount}"); // custom log
+		Log.InfoEx($"ObjectivePoints::AdjustPoints: {teamToAdjust} - {adjustAmount}"); // custom log
 		if (adjustAmount != 0)
 		{
 			if (teamToAdjust == Team.TeamA)
