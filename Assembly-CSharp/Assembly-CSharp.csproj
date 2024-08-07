@@ -56,6 +56,12 @@
     <GitTagRegex>client*</GitTagRegex>
     <OutputPath>bin\ClientDebug\</OutputPath>
   </PropertyGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Client Debug' Or '$(Configuration)' == 'Client Release' ">
+    <ContentWithTargetPath Include="AtlasReactor_Data\Evos\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <TargetPath>..\Evos\%(Filename)%(Extension)</TargetPath>
+    </ContentWithTargetPath>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Ability.cs" />
     <Compile Include="AbilityAreaShape.cs" />
