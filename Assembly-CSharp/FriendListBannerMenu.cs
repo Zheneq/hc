@@ -97,11 +97,9 @@ public class FriendListBannerMenu : UITooltipBase
 
     private void OpenAddNoteBox()
     {
-        string title = StringUtil.TR("FriendNote", "Global");
-        string description = string.Format(StringUtil.TR("AddANoteFor", "Global"), m_friendInfo.FriendHandle);
         UIDialogPopupManager.OpenSingleLineInputDialog(
-            title,
-            description,
+            StringUtil.TR("FriendNote", "Global"),
+            string.Format(StringUtil.TR("AddANoteFor", "Global"), m_friendInfo.FriendHandle),
             StringUtil.TR("Ok", "Global"),
             StringUtil.TR("Cancel", "Global"),
             box =>
@@ -117,49 +115,48 @@ public class FriendListBannerMenu : UITooltipBase
     {
         for (int i = 0; i < m_menuButtons.Length; i++)
         {
-            if (!IsValidButtonAction((FriendMenuButtonAction)i))
+            FriendMenuButtonAction action = (FriendMenuButtonAction)i;
+            if (!IsValidButtonAction(action)
+                || (data as PointerEventData).pointerCurrentRaycast.gameObject != m_menuButtons[i].m_button.gameObject)
             {
                 continue;
             }
 
-            if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[i].m_button.gameObject)
+            switch (action)
             {
-                switch (i)
-                {
-                    case (int)FriendMenuButtonAction.SendMessage:
-                        FriendListPanel.Get().RequestToSendMessage(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.InviteToParty:
-                        FriendListPanel.Get().RequestToInviteToParty(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.ViewProfile:
-                        FriendListPanel.Get().RequestToViewProfile(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.BlockPlayer:
-                        FriendListPanel.Get().RequestToBlockPlayer(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.ReportPlayer:
-                        UILandingPageFullScreenMenus.Get().SetReportContainerVisible(
-                            true,
-                            m_friendInfo.FriendHandle,
-                            m_friendInfo.FriendAccountId);
-                        break;
-                    case (int)FriendMenuButtonAction.RemoveFriend:
-                        FriendListPanel.Get().RequestToRemoveFriend(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.InviteToGame:
-                        FriendListPanel.Get().RequestToInviteToGame(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.ObserveGame:
-                        FriendListPanel.Get().RequestToObserveGame(m_friendInfo);
-                        break;
-                    case (int)FriendMenuButtonAction.AddNote:
-                        OpenAddNoteBox();
-                        break;
-                }
-
-                break;
+                case FriendMenuButtonAction.SendMessage:
+                    FriendListPanel.Get().RequestToSendMessage(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.InviteToParty:
+                    FriendListPanel.Get().RequestToInviteToParty(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.ViewProfile:
+                    FriendListPanel.Get().RequestToViewProfile(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.BlockPlayer:
+                    FriendListPanel.Get().RequestToBlockPlayer(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.ReportPlayer:
+                    UILandingPageFullScreenMenus.Get().SetReportContainerVisible(
+                        true,
+                        m_friendInfo.FriendHandle,
+                        m_friendInfo.FriendAccountId);
+                    break;
+                case FriendMenuButtonAction.RemoveFriend:
+                    FriendListPanel.Get().RequestToRemoveFriend(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.InviteToGame:
+                    FriendListPanel.Get().RequestToInviteToGame(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.ObserveGame:
+                    FriendListPanel.Get().RequestToObserveGame(m_friendInfo);
+                    break;
+                case FriendMenuButtonAction.AddNote:
+                    OpenAddNoteBox();
+                    break;
             }
+
+            break;
         }
 
         SetVisible(false);
@@ -194,7 +191,7 @@ public class FriendListBannerMenu : UITooltipBase
             }
         }
 
-        if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[3].m_button.gameObject)
+        if ((data as PointerEventData).pointerCurrentRaycast.gameObject == m_menuButtons[(int)FriendMenuButtonAction.InviteToGroupChat].m_button.gameObject)
         {
             UIManager.SetGameObjectActive(m_groupSubMenu, true);
             m_groupSubMenu.Setup();
