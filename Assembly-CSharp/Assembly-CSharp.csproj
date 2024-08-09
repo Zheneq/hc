@@ -17,19 +17,6 @@
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>LOG</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Server Release|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\ServerRelease\</OutputPath>
@@ -50,7 +37,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <LangVersion>7</LangVersion>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-    <DefineConstants>TRACE;DEBUG;SERVER SERVER2</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SERVER SERVER2 LOG</DefineConstants>
     <GitTagRegex>[0-9]*</GitTagRegex>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -65,7 +52,7 @@
     <OutputPath>bin\ClientVanilla\</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client Debug|AnyCPU' ">
-    <DefineConstants>EVOS</DefineConstants>
+    <DefineConstants>EVOS LOG</DefineConstants>
     <GitTagRegex>client*</GitTagRegex>
     <OutputPath>bin\ClientDebug\</OutputPath>
   </PropertyGroup>
