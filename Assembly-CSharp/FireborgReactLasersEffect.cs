@@ -164,7 +164,7 @@ public class FireborgReactLasersEffect : Effect
             isReal,
             out List<ActorHitResults> actorHitResultsList,
             out PositionHitResults posHitResults,
-            out List<NonActorTargetInfo> nonActorTargetInfo,
+            out List<NonActorTargetInfo> _, // reactions can't have non-actor hits
             out Vector3 endPos);
 
         foreach (ActorHitResults actorHitResults in actorHitResultsList)

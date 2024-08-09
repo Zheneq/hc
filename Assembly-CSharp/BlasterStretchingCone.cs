@@ -287,7 +287,7 @@ public class BlasterStretchingCone : Ability
 		return 0;
 	}
 
-	// removed in rogues
+	// removed in rogues TODO BLASTER mod is not used in targeting numbers in dash
 	public int GetExtraDamageForEnemy(ActorData caster, ActorData target)
 	{
 		if (GetExtraDamagePerSquareDistanceFromEnemy() > 0f)
