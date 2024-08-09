@@ -12,16 +12,28 @@ using System.Security.Permissions;
 [assembly: AssemblyVersion (
     ThisAssembly.Git.BaseVersion.Major + "." +
     ThisAssembly.Git.BaseVersion.Minor + "." +
+#if SERVER
     ThisAssembly.Git.BaseVersion.Patch + "." +
     ThisAssembly.Git.Commits
+#else
+    ThisAssembly.Git.SemVer.Patch
+#endif
     )]
 
+#if SERVER
 [assembly: AssemblyFileVersion (
     ThisAssembly.Git.BaseVersion.Major + "." +
     ThisAssembly.Git.BaseVersion.Minor + "." +
     ThisAssembly.Git.BaseVersion.Patch + "." +
     ThisAssembly.Git.Commits
+)]
+#else
+[assembly: AssemblyFileVersion (
+    ThisAssembly.Git.BaseVersion.Major + "." +
+    ThisAssembly.Git.BaseVersion.Minor + "." +
+    ThisAssembly.Git.SemVer.Patch
     )]
+#endif
 
 [assembly: AssemblyInformationalVersion (BuildVersion.s_version)]
 

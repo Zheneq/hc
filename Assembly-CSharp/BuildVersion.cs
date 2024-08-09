@@ -16,12 +16,18 @@ public static class BuildVersion
 	public const string s_version =
 		ThisAssembly.Git.BaseVersion.Major + "." + 
 		ThisAssembly.Git.BaseVersion.Minor + 
-		(ThisAssembly.Git.BaseVersion.Patch != "0" ? "." + ThisAssembly.Git.BaseVersion.Patch : "") +
-		(ThisAssembly.Git.SemVer.DashLabel != "-client" ? ThisAssembly.Git.SemVer.DashLabel : ""
+#if SERVER
+		(ThisAssembly.Git.BaseVersion.Patch != "0" || ThisAssembly.Git.Commits != "0" ? "." + ThisAssembly.Git.BaseVersion.Patch : "") +
+		(ThisAssembly.Git.Commits != "0" ? "." + ThisAssembly.Git.Commits : "") +
+		ThisAssembly.Git.SemVer.DashLabel
+#else
+		(ThisAssembly.Git.SemVer.Patch != "0" ? "." + ThisAssembly.Git.SemVer.Patch : "") +
+		(ThisAssembly.Git.SemVer.DashLabel != "-client" ? ThisAssembly.Git.SemVer.DashLabel : "")
+#endif
 #if VANILLA
 		+ "-vanilla"
 #endif
-		);
+		;
 
 	public static int ReleaseNumber => s_releaseNumber;
 	public static int BuildNumber => s_buildNumber;
