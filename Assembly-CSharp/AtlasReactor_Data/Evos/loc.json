@@ -9,7 +9,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Create an entropic cloud that deals [Damage] direct damage when cast and lasts [Duration] turns. Enemies moving through or starting their turn in the cloud take [Damage] additional indirect damage. Allies within or moving through the cloud heal for [Healing] health.\n\nGain [RewardOnDamage_PerTarget] energy per enemy hit and [RewardOnHit_PerAllyTarget] energy per ally hit (excluding yourself).",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Target gains [^might^] for the duration of the shield.",
 		
-		"StatusIcon_27_BuffDesc@AbilitiesData": "See through walls and camouflage."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "See through walls and camouflage.",
+		
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"Russian":
 	{
@@ -23,7 +25,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Создает энтропичное облако, которое наносит [Damage] ед. прямого урона и действует [Duration] ход. Враги, прошедшие через него или начавшие свой ход в облаке, дополнительно получают [Damage] ед. непрямого урона. Союзники, находящиеся внутри облака или проходящие через него, восстанавливают [Healing] ед. здоровья.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за попадание по врагу и [RewardOnHit_PerAllyTarget] ед. энергии за попадание по союзнику (но не по себе).",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Цель получает [^мощь^] до конца действия щитов от этого умения.",
 		
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Позволяет видеть сквозь стены и камуфляж."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Позволяет видеть сквозь стены и камуфляж.",
+		
+		"GroupChatRoom@FriendList": "В группе"
 	},
 	"Chinese (Simplified)":
 	{
@@ -35,7 +39,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "可穿墙透视，识破伪装。"
+		"StatusIcon_27_BuffDesc@AbilitiesData": "可穿墙透视，识破伪装。",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"French":
 	{
@@ -47,7 +53,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Possible de voir à travers les murs et le camouflage."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Possible de voir à travers les murs et le camouflage.",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"German":
 	{
@@ -59,7 +67,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Sieht durch Wände und Tarnung."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Sieht durch Wände und Tarnung.",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"Italian":
 	{
@@ -71,7 +81,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Può vedere attraverso i muri e nel mimetismo."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Può vedere attraverso i muri e nel mimetismo.",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"Korean":
 	{
@@ -83,7 +95,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": ""
+		"StatusIcon_27_BuffDesc@AbilitiesData": "",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"Polish":
 	{
@@ -95,7 +109,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Pozwala widzieć jednostki zakamuflowane, i te za ścianą."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Pozwala widzieć jednostki zakamuflowane, i te za ścianą.",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"Portuguese":
 	{
@@ -107,7 +123,9 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Concede visão através de paredes e de inimigos camuflados."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Concede visão através de paredes e de inimigos camuflados.",
+
+		"GroupChatRoom@FriendList": "In group"
 	},
 	"Spanish":
 	{
@@ -119,6 +137,8 @@
 		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
 		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
 
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Ver a través de paredes y camuflaje."
+		"StatusIcon_27_BuffDesc@AbilitiesData": "Ver a través de paredes y camuflaje.",
+
+		"GroupChatRoom@FriendList": "In group"
 	}
 }
