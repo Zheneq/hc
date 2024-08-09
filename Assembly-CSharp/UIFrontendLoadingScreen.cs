@@ -321,8 +321,14 @@ public class UIFrontendLoadingScreen : UIScene
 	public void StartDisplayLoading(string subText = null)
 	{
 		SetDisplayState(DisplayStates.Loading);
-		ShowText(StringUtil.TR("NOWLOADING", "LoadingScreen"), subText);
-		m_animator.Play("FrontEndLoadingScreenDefaultIDLE");
+#if EVOS
+        if (subText == null) 
+        {
+            subText = $"EvoS - {BuildVersion.s_version}";
+        }
+#endif
+        ShowText(StringUtil.TR("NOWLOADING", "LoadingScreen"), subText);
+        m_animator.Play("FrontEndLoadingScreenDefaultIDLE");
 	}
 
 	public void StartDisplayPressKey()
