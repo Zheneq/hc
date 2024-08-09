@@ -47,6 +47,9 @@ public static class BuildVersion
 	public static string GetBuildDescriptionString(DateTime buildDate = default(DateTime), string buildHostName = null)
 	{
 		string text = $"{BuildDescriptionPrefixString}{FullVersionString}";
+#if !VANILLA
+		text += $" {s_version}";
+#endif
 		if (buildDate != DateTime.MinValue)
 		{
 			TimeSpan timeSpan = DateTime.UtcNow - buildDate;

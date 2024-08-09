@@ -5,12 +5,20 @@ public static class BuildInfo
 {
 	public static DateTime GetBuildDateUtc()
 	{
+#if !VANILLA
+		return DateTime.FromBinary(Builtin.CompileTime);
+#else
 		return DateTime.ParseExact("2019-04-10T21:33:02.7091615Z", "o", CultureInfo.InvariantCulture).ToUniversalTime();
+#endif
 	}
 
 	public static string GetBuildMachine()
 	{
+#if !VANILLA
+		return string.Empty;
+#else
 		return "rwc-hybuild4";
+#endif
 	}
 
 	public static string GetBuildInfoString()
