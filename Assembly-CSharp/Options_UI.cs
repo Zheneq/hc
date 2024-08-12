@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using I2.Loc;
 using LobbyGameClientMessages;
 using TMPro;
 using UnityEngine;
@@ -532,6 +533,11 @@ public class Options_UI : UIScene, IGameEventListener
             m_disallowCancelActionWhileConfirmedButton.spriteController.callback = OnDisallowCancelActionWhileConfirmed;
             m_disallowCancelActionWhileConfirmedButton.spriteController.RegisterScrollListener(OnScroll);
         }
+        
+#if EVOS        
+        // custom
+        AddCustomButtons();
+#endif
 
         m_activeState = new SettingsState();
         m_pendingState = new SettingsState();
@@ -553,6 +559,153 @@ public class Options_UI : UIScene, IGameEventListener
         SendNotifyOptions(false);
     }
 
+#if EVOS
+    // custom options
+    private Transform m_toggleButtonSource;
+    private RectTransform m_content;
+    private static readonly string[] c_rowNames = {
+        "graphicsQualityGridLayout",
+        "menuModeResolutionContainer",
+        "gameModeResolutionContainer",
+        "regionContainer",
+        "languageContainer",
+        "masterVolumeContainer",
+        "musicVolumeContainer",
+        "lockCursorGridLayout",
+        "freelancerChatterGridLayout",
+        "rightClickGridLayout",
+        "shiftClickWaypointGridLayout",
+        "cancelWhileConfirmed",
+        "showGlobalChat",
+        "showAllChat",
+        "enableProfanityFilter",
+        "tutorialVideos"
+    };
+    private List<RectTransform> m_rows;
+    private const int c_rowHeight = 52;
+    private const int c_vertStartOffset = -24;
+    
+    // custom
+    private void AddCustomButtons()
+    {
+        m_content = m_container
+            .Find("Options")
+            ?.Find("Scroll View")
+            ?.Find("Content") as RectTransform;
+        Transform rows = m_content
+            ?.Find("optionsGridLayout");
+
+        if (rows == null)
+        {
+            Log.Error("Failed to hack into options menu");
+            return;
+        }
+        
+        m_rows = new List<RectTransform>(c_rowNames.Length);
+        foreach (string rowName in c_rowNames)
+        {
+            RectTransform row = rows.Find(rowName) as RectTransform;
+            if (row == null)
+            {
+                Log.Error($"Failed to hack into options menu: row {rowName} not found");
+                return;
+            }
+            m_rows.Add(row);
+        }
+        m_toggleButtonSource = m_rows[c_rowNames.Length - 1];
+        
+        foreach (EvosOptions.Option option in EvosOptions.Get().m_options)
+        {
+            AddCustomToggle(
+                option.gameObjectName,
+                out var btnEnable,
+                out var btnDisable,
+                delegate
+                {
+                    option.stateSetter(m_pendingState, true);
+                    option.UpdateButtons(true);
+                },
+                delegate
+                {
+                    option.stateSetter(m_pendingState, false);
+                    option.UpdateButtons(false);
+                },
+                option.position,
+                option.termEnable,
+                option.termDisable);
+            option.AssignButtons(btnEnable, btnDisable);
+        }
+    }
+
+    private void AddCustomToggle(
+        string key,
+        out _SelectableBtn btnEnable,
+        out _SelectableBtn btnDisable,
+        _ButtonSwapSprite.ButtonClickCallback onEnable,
+        _ButtonSwapSprite.ButtonClickCallback onDisable,
+        int position = -1,
+        string termEnable = "On@Global",
+        string termDisable = "Off@Global")
+    {
+        if (m_toggleButtonSource == null || m_content == null)
+        {
+            btnEnable = null;
+            btnDisable = null;
+            return;
+        }
+        
+        GameObject myCustomButton = Instantiate(m_toggleButtonSource.gameObject, m_toggleButtonSource.parent);
+        myCustomButton.gameObject.name = key;
+
+        RectTransform btnTransform = myCustomButton.transform as RectTransform;
+        if (btnTransform != null)
+        {
+            if (position == -1)
+            {
+                position = m_rows.Count;
+            }
+            
+            m_rows.Insert(position, btnTransform);
+            for (int i = position; i < m_rows.Count; i++)
+            {
+                RectTransform elem = m_rows[i];
+                Vector2 pos = elem.anchoredPosition;
+                pos.y = c_vertStartOffset - c_rowHeight * i;
+                elem.anchoredPosition = pos;
+            }
+        }
+
+        btnEnable = myCustomButton.FindInChildren("enableBtn")?.GetComponent<_SelectableBtn>();
+        btnDisable = myCustomButton.FindInChildren("disableBtn")?.GetComponent<_SelectableBtn>();
+        
+        if (btnEnable != null && btnDisable != null)
+        {
+            btnEnable.spriteController.callback = onEnable;
+            btnEnable.spriteController.RegisterScrollListener(OnScroll);
+            foreach (Localize loc in btnEnable.gameObject.GetComponentsInChildren<Localize>())
+            {
+                loc.Term = termEnable;
+                loc.SecondaryTerm = termEnable;
+            }
+            
+            btnDisable.spriteController.callback = onDisable;
+            btnDisable.spriteController.RegisterScrollListener(OnScroll);
+            foreach (Localize loc in btnDisable.gameObject.GetComponentsInChildren<Localize>())
+            {
+                loc.Term = termDisable;
+                loc.SecondaryTerm = termDisable;
+            }
+        }
+        
+        m_content.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, c_rowHeight * m_rows.Count);
+    }
+
+    public bool GetOption(EvosOptions.StateGetter getter)
+    {
+        return getter(m_activeState);
+    }
+#endif
+    
     private void OnDestroy()
     {
         GameEventManager.Get().RemoveListener(this, GameEventManager.EventType.AppStateChanged);
@@ -734,7 +887,19 @@ public class Options_UI : UIScene, IGameEventListener
             m_activeState.resolutionHeight = Screen.height;
         }
 
+#if EVOS
+        // custom options
+        List<string> rowNames = StringUtil.TR("OptionLabelsDiscord", "Options").Split('\n').ToList();
+        foreach (EvosOptions.Option option in EvosOptions.Get().m_options)
+        {
+            int index = option.position == -1 ? rowNames.Count : option.position;
+            rowNames.Insert(index, StringUtil.TR(option.termTitle));
+        }
+        m_optionsLabelText.text = string.Join("\n", rowNames.ToArray());
+#else
         m_optionsLabelText.text = StringUtil.TR("OptionLabelsDiscord", "Options");
+#endif
+        
         if (DiscordClientInterface.IsEnabled
             && (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled))
         {
@@ -816,6 +981,7 @@ public class Options_UI : UIScene, IGameEventListener
                 AllowCancelActionWhileConfirmed = m_activeState.allowCancelActionWhileConfirmed,
                 Region = m_activeState.region,
                 OverrideGlyphLanguageCode = m_activeState.overrideGlyphLanguageCode
+                // NOTE not sending custom options here so that we don't have to modify binary protocol
             });
     }
 

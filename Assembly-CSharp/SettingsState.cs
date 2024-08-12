@@ -81,6 +81,10 @@ public class SettingsState : ICloneable
         allowCancelActionWhileConfirmed = true;
         overrideGlyphLanguage = false;
         overrideGlyphLanguageCode = string.Empty;
+
+#if EVOS
+        EvosOptions.Get().InitDefaults(this);
+#endif
     }
 
     private void VersionPreferences(int version)
@@ -290,6 +294,10 @@ public class SettingsState : ICloneable
         overrideGlyphLanguage = PlayerPrefs.GetInt("OptionsOverrideGlyphLanguage", 0) != 0;
         overrideGlyphLanguageCode = PlayerPrefs.GetString("OverrideGlyphLanguageCode", string.Empty);
         VersionPreferences(PlayerPrefs.GetInt("OptionsVersion", 0));
+
+#if EVOS
+        EvosOptions.Get().LoadFromPrefs(this);
+#endif
     }
 
     public void RevertVolume()
@@ -509,7 +517,7 @@ public class SettingsState : ICloneable
                 shiftClickForMovementWaypoints = newState.shiftClickForMovementWaypoints;
             }
         }
-
+        
         if (newState == null || showGlobalChat != newState.showGlobalChat)
         {
             yield return null;
@@ -637,6 +645,20 @@ public class SettingsState : ICloneable
             }
         }
 
+#if EVOS
+        foreach (EvosOptions.Option option in EvosOptions.Get().m_options)
+        {
+            if (newState == null || option.stateGetter(this) != option.stateGetter(newState))
+            {
+                yield return null;
+                if (newState != null)
+                {
+                    option.stateSetter(this, option.stateGetter(newState));
+                }
+            }
+        }
+#endif
+
         Options_UI.Get().m_pauseUpdate = false;
         if (newState != null)
         {
@@ -697,6 +719,10 @@ public class SettingsState : ICloneable
             overrideGlyphLanguage
                 ? StringUtil.TR(overrideGlyphLanguageCode, "LanguageSelection")
                 : StringUtil.TR(LanguageOptions.GlyphSettings.ToString(), "LanguageSelection"));
+
+#if EVOS
+        EvosOptions.Get().UpdateButtons(this);
+#endif
     }
 
     private static void UpdateModeResolution(
@@ -789,6 +815,10 @@ public class SettingsState : ICloneable
             PlayerPrefs.SetInt("Screenmanager Resolution Width", Screen.currentResolution.width);
             PlayerPrefs.SetInt("Screenmanager Resolution Height", Screen.currentResolution.height);
         }
+
+#if EVOS
+        EvosOptions.Get().SaveToPrefs(this);
+#endif
 
         PlayerPrefs.Save();
     }

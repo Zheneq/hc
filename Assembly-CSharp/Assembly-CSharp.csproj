@@ -890,6 +890,7 @@
     <Compile Include="EventLogData.cs" />
     <Compile Include="EventLogger.cs" />
     <Compile Include="EventLogMessage.cs" />
+    <Compile Include="EvosOptions.cs" />
     <Compile Include="ExampleAbility_Flash.cs" />
     <Compile Include="ExoAnchoredLaserCooldownEffect.cs" />
     <Compile Include="ExoAnchorLaser.cs" />
