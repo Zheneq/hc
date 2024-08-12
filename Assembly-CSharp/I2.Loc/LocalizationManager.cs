@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text.RegularExpressions;
 using ArabicSupport;
 using UnityEngine;
@@ -9,6 +10,34 @@ namespace I2.Loc
 {
 	public static class LocalizationManager
 	{
+#if EVOS
+		private static Dictionary<string, Dictionary<string, string>> _locOverrides;
+
+		private static Dictionary<string, Dictionary<string, string>> LocOverrides
+		{
+			get
+			{
+				if (_locOverrides == null)
+				{
+					try
+					{
+						string fullPath = Path.GetFullPath(Path.Combine(Application.dataPath, "Evos/loc.json"));
+						Debug.Log($"Loading localization patch from {fullPath}");
+						string data = File.ReadAllText(fullPath);
+						_locOverrides = DefaultJsonSerializer.Deserialize<Dictionary<string, Dictionary<string, string>>>(data);
+					}
+					catch (Exception e)
+					{
+						Debug.LogError($"Failed to load localization patch: {e}");
+						_locOverrides = new Dictionary<string, Dictionary<string, string>>();
+					}
+				}
+
+				return _locOverrides;
+			}
+		}
+#endif
+		
 		public delegate void OnLocalizeCallback();
 
 		private static string mCurrentLanguage;
@@ -267,6 +296,21 @@ namespace I2.Loc
 
 		public static string GetTermTranslation(string Term, bool FixForRTL, int maxLineLengthForRTL)
 		{
+#if EVOS
+			var locOverrides = LocOverrides;
+			if (!locOverrides.IsNullOrEmpty() && Term != null)
+			{
+				if (locOverrides.TryGetValue(CurrentLanguage, out var strings)
+				    && strings.TryGetValue(Term, out string result)
+				    && !result.IsNullOrEmpty())
+				{
+					return FixForRTL
+						? ApplyRTLfix(result, maxLineLengthForRTL)
+						: result;
+				}
+			}
+#endif
+			
 			if (TryGetTermTranslation(Term, out string Translation, FixForRTL, maxLineLengthForRTL))
 			{
 				return Translation;
