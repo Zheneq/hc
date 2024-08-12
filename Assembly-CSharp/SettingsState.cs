@@ -650,19 +650,19 @@ public class SettingsState : ICloneable
         {
             case GraphicsQuality.Low:
             case GraphicsQuality.VeryLow:
-                Options_UI.Get().m_graphicsLowButton.SetSelected(true, false, string.Empty, string.Empty);
-                Options_UI.Get().m_graphicsMediumButton.SetSelected(false, false, string.Empty, string.Empty);
-                Options_UI.Get().m_graphicsHighButton.SetSelected(false, false, string.Empty, string.Empty);
+                Options_UI.Get().m_graphicsLowButton.SetSelected(true);
+                Options_UI.Get().m_graphicsMediumButton.SetSelected(false);
+                Options_UI.Get().m_graphicsHighButton.SetSelected(false);
                 break;
             case GraphicsQuality.Medium:
-                Options_UI.Get().m_graphicsLowButton.SetSelected(false, false, string.Empty, string.Empty);
-                Options_UI.Get().m_graphicsMediumButton.SetSelected(true, false, string.Empty, string.Empty);
-                Options_UI.Get().m_graphicsHighButton.SetSelected(false, false, string.Empty, string.Empty);
+                Options_UI.Get().m_graphicsLowButton.SetSelected(false);
+                Options_UI.Get().m_graphicsMediumButton.SetSelected(true);
+                Options_UI.Get().m_graphicsHighButton.SetSelected(false);
                 break;
             case GraphicsQuality.High:
-                Options_UI.Get().m_graphicsLowButton.SetSelected(false, false, string.Empty, string.Empty);
-                Options_UI.Get().m_graphicsMediumButton.SetSelected(false, false, string.Empty, string.Empty);
-                Options_UI.Get().m_graphicsHighButton.SetSelected(true, false, string.Empty, string.Empty);
+                Options_UI.Get().m_graphicsLowButton.SetSelected(false);
+                Options_UI.Get().m_graphicsMediumButton.SetSelected(false);
+                Options_UI.Get().m_graphicsHighButton.SetSelected(true);
                 break;
         }
 
@@ -697,87 +697,87 @@ public class SettingsState : ICloneable
 
         if (lockCursorMode == LockCursorMode.On)
         {
-            Options_UI.Get().m_lockCursorButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_unlockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_smartLockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_lockCursorButton.SetSelected(true);
+            Options_UI.Get().m_unlockCursorButton.SetSelected(false);
+            Options_UI.Get().m_smartLockCursorButton.SetSelected(false);
         }
         else if (lockCursorMode == LockCursorMode.Off)
         {
-            Options_UI.Get().m_lockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_unlockCursorButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_smartLockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_lockCursorButton.SetSelected(false);
+            Options_UI.Get().m_unlockCursorButton.SetSelected(true);
+            Options_UI.Get().m_smartLockCursorButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_lockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_unlockCursorButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_smartLockCursorButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_lockCursorButton.SetSelected(false);
+            Options_UI.Get().m_unlockCursorButton.SetSelected(false);
+            Options_UI.Get().m_smartLockCursorButton.SetSelected(true);
         }
 
         if (enableChatter)
         {
-            Options_UI.Get().m_enableChatterButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disableChatterButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_enableChatterButton.SetSelected(true);
+            Options_UI.Get().m_disableChatterButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_enableChatterButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disableChatterButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_enableChatterButton.SetSelected(false);
+            Options_UI.Get().m_disableChatterButton.SetSelected(true);
         }
 
         if (rightClickingConfirmsAbilityTargets)
         {
-            Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_rightClickTargetingCancel.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(true);
+            Options_UI.Get().m_rightClickTargetingCancel.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_rightClickTargetingCancel.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(false);
+            Options_UI.Get().m_rightClickTargetingCancel.SetSelected(true);
         }
 
         if (shiftClickForMovementWaypoints)
         {
-            Options_UI.Get().m_shiftClickForWaypoints.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_shiftClickForNewPath.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_shiftClickForWaypoints.SetSelected(true);
+            Options_UI.Get().m_shiftClickForNewPath.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_shiftClickForWaypoints.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_shiftClickForNewPath.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_shiftClickForWaypoints.SetSelected(false);
+            Options_UI.Get().m_shiftClickForNewPath.SetSelected(true);
         }
 
         if (showGlobalChat)
         {
-            Options_UI.Get().m_showGlobalChatButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_hideGlobalChatButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_showGlobalChatButton.SetSelected(true);
+            Options_UI.Get().m_hideGlobalChatButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_showGlobalChatButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_hideGlobalChatButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_showGlobalChatButton.SetSelected(false);
+            Options_UI.Get().m_hideGlobalChatButton.SetSelected(true);
         }
 
         if (showAllChat)
         {
-            Options_UI.Get().m_showAllChatButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_hideAllChatButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_showAllChatButton.SetSelected(true);
+            Options_UI.Get().m_hideAllChatButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_showAllChatButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_hideAllChatButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_showAllChatButton.SetSelected(false);
+            Options_UI.Get().m_hideAllChatButton.SetSelected(true);
         }
 
         if (enableProfanityFilter)
         {
-            Options_UI.Get().m_enableProfanityFilterButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disableProfanityFilterButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_enableProfanityFilterButton.SetSelected(true);
+            Options_UI.Get().m_disableProfanityFilterButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_enableProfanityFilterButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disableProfanityFilterButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_enableProfanityFilterButton.SetSelected(false);
+            Options_UI.Get().m_disableProfanityFilterButton.SetSelected(true);
         }
 
         if (DiscordClientInterface.IsEnabled
@@ -785,54 +785,54 @@ public class SettingsState : ICloneable
         {
             if (autoJoinDiscord)
             {
-                Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(true, false, string.Empty, string.Empty);
-                Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
+                Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(true);
+                Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false);
             }
             else
             {
-                Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
-                Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(true, false, string.Empty, string.Empty);
+                Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false);
+                Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(true);
             }
 
             if (gameModeVoiceChat == VoiceChatMode.Team)
             {
-                Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
-                Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
+                Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false);
+                Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(true);
             }
             else
             {
-                Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(true, false, string.Empty, string.Empty);
-                Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
+                Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(true);
+                Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false);
             }
         }
         else
         {
-            Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false);
+            Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false);
+            Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false);
+            Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false);
         }
 
         if (hideTutorialVideos)
         {
-            Options_UI.Get().m_hideTutorialVideosButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_showTutorialVideosButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_hideTutorialVideosButton.SetSelected(true);
+            Options_UI.Get().m_showTutorialVideosButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_hideTutorialVideosButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_showTutorialVideosButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_hideTutorialVideosButton.SetSelected(false);
+            Options_UI.Get().m_showTutorialVideosButton.SetSelected(true);
         }
 
         if (allowCancelActionWhileConfirmed)
         {
-            Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(true, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(false, false, string.Empty, string.Empty);
+            Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(true);
+            Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(false);
         }
         else
         {
-            Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(false, false, string.Empty, string.Empty);
-            Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(true, false, string.Empty, string.Empty);
+            Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(false);
+            Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(true);
         }
 
         if (overrideGlyphLanguage)
