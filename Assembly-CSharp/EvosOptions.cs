@@ -58,8 +58,20 @@ public class EvosOptions
         }
     }
 
+    public const string AllowResettingWaypoints = "OptionsAllowResettingWaypoints";
+
     public readonly List<Option> m_options = new List<Option>
     {
+        new Option(
+            "allowResettingWaypoints",
+            AllowResettingWaypoints,
+            true,
+            pendingState => pendingState.allowResettingWaypoints,
+            (pendingState, value) => pendingState.allowResettingWaypoints = value,
+            "AllowResettingWaypoints@EvosOptions",
+            "AllowResettingWaypointsYes@EvosOptions",
+            "AllowResettingWaypointsNo@EvosOptions",
+            11)
     };
     private readonly Dictionary<string, Option> m_optionDict;
     

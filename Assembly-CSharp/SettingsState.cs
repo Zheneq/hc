@@ -38,6 +38,10 @@ public class SettingsState : ICloneable
     public bool overrideGlyphLanguage;
     public string overrideGlyphLanguageCode;
     private bool m_isResolutionInitialized;
+    
+#if EVOS
+    public bool allowResettingWaypoints;
+#endif
 
     public object Clone()
     {

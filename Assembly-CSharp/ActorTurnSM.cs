@@ -1500,18 +1500,23 @@ public class ActorTurnSM : NetworkBehaviour
 			else // has queued movement
 			{
 #if EVOS
-				if (isWaypoint && actorData.CanMoveToBoardSquare(playerClampedSquare)) // set waypoint if waypointing
+				if (EvosOptions.Get().GetOption(EvosOptions.AllowResettingWaypoints))
 				{
-					SelectMovementSquareForMovement(playerClampedSquare);
-				}
-				else
-				{
-					if (!SelectMovementSquareForChasing(playerClampedSquare)) // otherwise try chasing
+					if (isWaypoint && actorData.CanMoveToBoardSquare(playerClampedSquare)) // set waypoint if waypointing
 					{
-						SelectMovementSquareForMovement(playerClampedSquare); // fallback to default behavior per settings
+						SelectMovementSquareForMovement(playerClampedSquare);
 					}
+					else
+					{
+						if (!SelectMovementSquareForChasing(playerClampedSquare)) // otherwise try chasing
+						{
+							SelectMovementSquareForMovement(playerClampedSquare); // fallback to default behavior per settings
+						}
+					}
+
+					return;
 				}
-#else
+#endif
 				bool flag3 = (!isWaypoint || !actorData.CanMoveToBoardSquare(playerClampedSquare)) && SelectMovementSquareForChasing(playerClampedSquare);
 				if (playerClampedSquare == boardSquare || flag3)
 				{
@@ -1521,7 +1526,6 @@ public class ActorTurnSM : NetworkBehaviour
 				{
 					SelectMovementSquareForMovement(playerClampedSquare);  // , forceDelayExecution in rogues
 				}
-#endif
 			}
 		}
 	}

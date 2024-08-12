@@ -1,144 +1,164 @@
 {
-	"English":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Drop mines in all adjacent squares that deal [Damage] indirect damage and last for [MineDuration] turns. If there is an enemy on the adjacent square, the corresponding mine will detonate instead, dealing [Damage] direct damage.\n\nGain [EnergyGainOnMineHit] energy per enemy hit.",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Tether a target to their current position for the turn, if they move further than [TetherDistance] spaces away they take [Damage_TetherBreak] indirect damage.\n\nGain [RewardOnDamage_PerTarget] energy per enemy damaged.",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Increase the number of shurikens by [LaserCount_Diff]. Additional damage per shuriken is reduced by [ExtraDamagePerSubseqHit_Diff]. Additional energy gained per shuriken is reduced by [EnergyPerDartHit_Diff].",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Range is increased by [TargetDataMaxRange_Diff].",
-		
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Create an entropic cloud that deals [Damage] direct damage when cast and lasts [Duration] turns. Enemies moving through or starting their turn in the cloud take [Damage] additional indirect damage. Allies within or moving through the cloud heal for [Healing] health.\n\nGain [RewardOnDamage_PerTarget] energy per enemy hit and [RewardOnHit_PerAllyTarget] energy per ally hit (excluding yourself).",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Target gains [^might^] for the duration of the shield.",
-		
-		"StatusIcon_27_BuffDesc@AbilitiesData": "See through walls and camouflage.",
-		
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"Russian":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Бросает мины в окружающие клетки, которые наносят [Damage] ед. непрямого урона и действуют [MineDuration] хода. Если на какой-либо из клеток стоит враг, соотвествующая мина сдетонирует и нанесёт [Damage] ед. прямого урона.\n\nДает [EnergyGainOnMineHit] ед. энергии за каждое попадание по врагу.",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Изолирует цель в текущей позиции на один ход и наносит [Damage_TetherBreak] ед. непрямого урона, если враг выходит за пределы [TetherDistance] клеток от этого места.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за каждую цель, которой был нанесён урон.",
-		"Mod_NinjaDarts_Wave of Steel_Name@AbilitiesData": "Стальная волна",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Увеличивает число сюрикенов на [LaserCount_Diff]. Снижает дополнительный урон на [ExtraDamagePerSubseqHit_Diff] ед. и дополнительную энергию на [EnergyPerDartHit_Diff] ед. за сюрикен.",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Name@AbilitiesData": "Любовь на расстоянии",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Увеличивает дальность на [TargetDataMaxRange_Diff].",
-		
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Создает энтропичное облако, которое наносит [Damage] ед. прямого урона и действует [Duration] ход. Враги, прошедшие через него или начавшие свой ход в облаке, дополнительно получают [Damage] ед. непрямого урона. Союзники, находящиеся внутри облака или проходящие через него, восстанавливают [Healing] ед. здоровья.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за попадание по врагу и [RewardOnHit_PerAllyTarget] ед. энергии за попадание по союзнику (но не по себе).",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Цель получает [^мощь^] до конца действия щитов от этого умения.",
-		
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Позволяет видеть сквозь стены и камуфляж.",
-		
-		"GroupChatRoom@FriendList": "В группе"
-	},
-	"Chinese (Simplified)":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "可穿墙透视，识破伪装。",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"French":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "La portée est augmentée de [TargetDataMaxRange_Diff].",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Possible de voir à travers les murs et le camouflage.",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"German":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Erhöht die Reichweite um [TargetDataMaxRange_Diff].",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Sieht durch Wände und Tarnung.",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"Italian":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Può vedere attraverso i muri e nel mimetismo.",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"Korean":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"Polish":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Pozwala widzieć jednostki zakamuflowane, i te za ścianą.",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"Portuguese":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Concede visão através de paredes e de inimigos camuflados.",
-
-		"GroupChatRoom@FriendList": "In group"
-	},
-	"Spanish":
-	{
-		"Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-		"Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-		"Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-		"Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-
-		"Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-		"Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-
-		"StatusIcon_27_BuffDesc@AbilitiesData": "Ver a través de paredes y camuflaje.",
-
-		"GroupChatRoom@FriendList": "In group"
-	}
+  "English": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Drop mines in all adjacent squares that deal [Damage] indirect damage and last for [MineDuration] turns. If there is an enemy on the adjacent square, the corresponding mine will detonate instead, dealing [Damage] direct damage.\n\nGain [EnergyGainOnMineHit] energy per enemy hit.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Tether a target to their current position for the turn, if they move further than [TetherDistance] spaces away they take [Damage_TetherBreak] indirect damage.\n\nGain [RewardOnDamage_PerTarget] energy per enemy damaged.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Increase the number of shurikens by [LaserCount_Diff]. Additional damage per shuriken is reduced by [ExtraDamagePerSubseqHit_Diff]. Additional energy gained per shuriken is reduced by [EnergyPerDartHit_Diff].",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Range is increased by [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Create an entropic cloud that deals [Damage] direct damage when cast and lasts [Duration] turns. Enemies moving through or starting their turn in the cloud take [Damage] additional indirect damage. Allies within or moving through the cloud heal for [Healing] health.\n\nGain [RewardOnDamage_PerTarget] energy per enemy hit and [RewardOnHit_PerAllyTarget] energy per ally hit (excluding yourself).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Target gains [^might^] for the duration of the shield.",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "See through walls and camouflage.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Russian": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Бросает мины в окружающие клетки, которые наносят [Damage] ед. непрямого урона и действуют [MineDuration] хода. Если на какой-либо из клеток стоит враг, соотвествующая мина сдетонирует и нанесёт [Damage] ед. прямого урона.\n\nДает [EnergyGainOnMineHit] ед. энергии за каждое попадание по врагу.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Изолирует цель в текущей позиции на один ход и наносит [Damage_TetherBreak] ед. непрямого урона, если враг выходит за пределы [TetherDistance] клеток от этого места.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за каждую цель, которой был нанесён урон.",
+    "Mod_NinjaDarts_Wave of Steel_Name@AbilitiesData": "Стальная волна",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Увеличивает число сюрикенов на [LaserCount_Diff]. Снижает дополнительный урон на [ExtraDamagePerSubseqHit_Diff] ед. и дополнительную энергию на [EnergyPerDartHit_Diff] ед. за сюрикен.",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Name@AbilitiesData": "Любовь на расстоянии",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Увеличивает дальность на [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Создает энтропичное облако, которое наносит [Damage] ед. прямого урона и действует [Duration] ход. Враги, прошедшие через него или начавшие свой ход в облаке, дополнительно получают [Damage] ед. непрямого урона. Союзники, находящиеся внутри облака или проходящие через него, восстанавливают [Healing] ед. здоровья.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за попадание по врагу и [RewardOnHit_PerAllyTarget] ед. энергии за попадание по союзнику (но не по себе).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Цель получает [^мощь^] до конца действия щитов от этого умения.",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Позволяет видеть сквозь стены и камуфляж.",
+	  
+    "GroupChatRoom@FriendList": "В группе",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Chinese (Simplified)": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "可穿墙透视，识破伪装。",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "French": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "La portée est augmentée de [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Possible de voir à travers les murs et le camouflage.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "German": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Erhöht die Reichweite um [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Sieht durch Wände und Tarnung.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Italian": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Può vedere attraverso i muri e nel mimetismo.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Korean": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Polish": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Pozwala widzieć jednostki zakamuflowane, i te za ścianą.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Portuguese": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Concede visão através de paredes e de inimigos camuflados.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  },
+  "Spanish": {
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
+	  
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Ver a través de paredes y camuflaje.",
+	  
+    "GroupChatRoom@FriendList": "In group",
+	  
+    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
+    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+  }
 }
