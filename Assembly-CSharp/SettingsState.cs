@@ -646,164 +646,42 @@ public class SettingsState : ICloneable
 
     public void ApplyToOptionsUI()
     {
-        switch (graphicsQuality)
-        {
-            case GraphicsQuality.Low:
-            case GraphicsQuality.VeryLow:
-                Options_UI.Get().m_graphicsLowButton.SetSelected(true);
-                Options_UI.Get().m_graphicsMediumButton.SetSelected(false);
-                Options_UI.Get().m_graphicsHighButton.SetSelected(false);
-                break;
-            case GraphicsQuality.Medium:
-                Options_UI.Get().m_graphicsLowButton.SetSelected(false);
-                Options_UI.Get().m_graphicsMediumButton.SetSelected(true);
-                Options_UI.Get().m_graphicsHighButton.SetSelected(false);
-                break;
-            case GraphicsQuality.High:
-                Options_UI.Get().m_graphicsLowButton.SetSelected(false);
-                Options_UI.Get().m_graphicsMediumButton.SetSelected(false);
-                Options_UI.Get().m_graphicsHighButton.SetSelected(true);
-                break;
-        }
+        Options_UI.Get().UpdateGraphicsQualityButtons(graphicsQuality);
 
         UpdateModeResolution(
             windowMode,
             resolutionWidth,
             resolutionHeight,
-            modeText => Options_UI.Get().SetWindowModeText(modeText),
-            resolutionText => Options_UI.Get().SetResolutionText(resolutionText));
+            Options_UI.Get().SetWindowModeText,
+            Options_UI.Get().SetResolutionText);
 
         UpdateModeResolution(
             gameWindowMode,
             gameResolutionWidth,
             gameResolutionHeight,
-            modeText => Options_UI.Get().SetGameWindowModeText(modeText),
-            resolutionText => Options_UI.Get().SetGameResolutionText(resolutionText));
+            Options_UI.Get().SetGameWindowModeText,
+            Options_UI.Get().SetGameResolutionText);
 
-        switch (region)
-        {
-            case Region.US:
-                Options_UI.Get().SetRegionText(StringUtil.TR("NorthAmerica", "Options"));
-                break;
-            case Region.EU:
-                Options_UI.Get().SetRegionText(StringUtil.TR("Europe", "Options"));
-                break;
-        }
-
+        Options_UI.Get().SetRegionText(region);
+        
         Options_UI.Get().m_masterVolumeLabel.text = Convert.ToString(masterVolume);
         Options_UI.Get().m_masterVolumeSlider.value = masterVolume / 100f;
         Options_UI.Get().m_musicVolumeLabel.text = Convert.ToString(musicVolume);
         Options_UI.Get().m_musicVolumeSlider.value = musicVolume / 100f;
-
-        if (lockCursorMode == LockCursorMode.On)
-        {
-            Options_UI.Get().m_lockCursorButton.SetSelected(true);
-            Options_UI.Get().m_unlockCursorButton.SetSelected(false);
-            Options_UI.Get().m_smartLockCursorButton.SetSelected(false);
-        }
-        else if (lockCursorMode == LockCursorMode.Off)
-        {
-            Options_UI.Get().m_lockCursorButton.SetSelected(false);
-            Options_UI.Get().m_unlockCursorButton.SetSelected(true);
-            Options_UI.Get().m_smartLockCursorButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_lockCursorButton.SetSelected(false);
-            Options_UI.Get().m_unlockCursorButton.SetSelected(false);
-            Options_UI.Get().m_smartLockCursorButton.SetSelected(true);
-        }
-
-        if (enableChatter)
-        {
-            Options_UI.Get().m_enableChatterButton.SetSelected(true);
-            Options_UI.Get().m_disableChatterButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_enableChatterButton.SetSelected(false);
-            Options_UI.Get().m_disableChatterButton.SetSelected(true);
-        }
-
-        if (rightClickingConfirmsAbilityTargets)
-        {
-            Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(true);
-            Options_UI.Get().m_rightClickTargetingCancel.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_rightClickTargetingConfirm.SetSelected(false);
-            Options_UI.Get().m_rightClickTargetingCancel.SetSelected(true);
-        }
-
-        if (shiftClickForMovementWaypoints)
-        {
-            Options_UI.Get().m_shiftClickForWaypoints.SetSelected(true);
-            Options_UI.Get().m_shiftClickForNewPath.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_shiftClickForWaypoints.SetSelected(false);
-            Options_UI.Get().m_shiftClickForNewPath.SetSelected(true);
-        }
-
-        if (showGlobalChat)
-        {
-            Options_UI.Get().m_showGlobalChatButton.SetSelected(true);
-            Options_UI.Get().m_hideGlobalChatButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_showGlobalChatButton.SetSelected(false);
-            Options_UI.Get().m_hideGlobalChatButton.SetSelected(true);
-        }
-
-        if (showAllChat)
-        {
-            Options_UI.Get().m_showAllChatButton.SetSelected(true);
-            Options_UI.Get().m_hideAllChatButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_showAllChatButton.SetSelected(false);
-            Options_UI.Get().m_hideAllChatButton.SetSelected(true);
-        }
-
-        if (enableProfanityFilter)
-        {
-            Options_UI.Get().m_enableProfanityFilterButton.SetSelected(true);
-            Options_UI.Get().m_disableProfanityFilterButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_enableProfanityFilterButton.SetSelected(false);
-            Options_UI.Get().m_disableProfanityFilterButton.SetSelected(true);
-        }
+        
+        Options_UI.Get().UpdateLockCursorButtons(lockCursorMode);
+        Options_UI.Get().UpdateChatterButtons(enableChatter);
+        Options_UI.Get().UpdateRightClickButtons(rightClickingConfirmsAbilityTargets);
+        Options_UI.Get().UpdateShiftClickWaypointsButtons(shiftClickForMovementWaypoints);
+        Options_UI.Get().UpdateShowGlobalChatButtons(showGlobalChat);
+        Options_UI.Get().UpdateShowAllChatButtons(showAllChat);
+        Options_UI.Get().UpdateProfanityFilterButtons(enableProfanityFilter);
 
         if (DiscordClientInterface.IsEnabled
             && (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled))
         {
-            if (autoJoinDiscord)
-            {
-                Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(true);
-                Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(false);
-            }
-            else
-            {
-                Options_UI.Get().m_enableAutoJoinDiscordButton.SetSelected(false);
-                Options_UI.Get().m_disableAutoJoinDiscordButton.SetSelected(true);
-            }
-
-            if (gameModeVoiceChat == VoiceChatMode.Team)
-            {
-                Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(false);
-                Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(true);
-            }
-            else
-            {
-                Options_UI.Get().m_groupGameModeVoiceChatButton.SetSelected(true);
-                Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false);
-            }
+            Options_UI.Get().UpdateAutoJoinDiscordButtons(autoJoinDiscord);
+            Options_UI.Get().UpdateVoiceChatModeButtons(gameModeVoiceChat != VoiceChatMode.Team);
         }
         else
         {
@@ -813,36 +691,12 @@ public class SettingsState : ICloneable
             Options_UI.Get().m_teamGameModeVoiceChatButton.SetSelected(false);
         }
 
-        if (hideTutorialVideos)
-        {
-            Options_UI.Get().m_hideTutorialVideosButton.SetSelected(true);
-            Options_UI.Get().m_showTutorialVideosButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_hideTutorialVideosButton.SetSelected(false);
-            Options_UI.Get().m_showTutorialVideosButton.SetSelected(true);
-        }
-
-        if (allowCancelActionWhileConfirmed)
-        {
-            Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(true);
-            Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(false);
-        }
-        else
-        {
-            Options_UI.Get().m_allowCancelActionWhileConfirmedButton.SetSelected(false);
-            Options_UI.Get().m_disallowCancelActionWhileConfirmedButton.SetSelected(true);
-        }
-
-        if (overrideGlyphLanguage)
-        {
-            Options_UI.Get().SetLanguageText(StringUtil.TR(overrideGlyphLanguageCode, "LanguageSelection"));
-        }
-        else
-        {
-            Options_UI.Get().SetLanguageText(StringUtil.TR(LanguageOptions.GlyphSettings.ToString(), "LanguageSelection"));
-        }
+        Options_UI.Get().UpdateTutorialVideosButtons(hideTutorialVideos);
+        Options_UI.Get().UpdateAllowCancelActionWhileConfirmedButtons(allowCancelActionWhileConfirmed);
+        Options_UI.Get().SetLanguageText(
+            overrideGlyphLanguage
+                ? StringUtil.TR(overrideGlyphLanguageCode, "LanguageSelection")
+                : StringUtil.TR(LanguageOptions.GlyphSettings.ToString(), "LanguageSelection"));
     }
 
     private static void UpdateModeResolution(

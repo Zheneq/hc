@@ -945,25 +945,31 @@ public class Options_UI : UIScene, IGameEventListener
     public void OnGraphicsQualityLow(BaseEventData data)
     {
         m_pendingState.graphicsQuality = GraphicsQuality.Low;
-        m_graphicsLowButton.SetSelected(true);
-        m_graphicsMediumButton.SetSelected(false);
-        m_graphicsHighButton.SetSelected(false);
+        UpdateGraphicsQualityButtons(GraphicsQuality.Low);
     }
 
     public void OnGraphicsQualityMedium(BaseEventData data)
     {
         m_pendingState.graphicsQuality = GraphicsQuality.Medium;
-        m_graphicsLowButton.SetSelected(false);
-        m_graphicsMediumButton.SetSelected(true);
-        m_graphicsHighButton.SetSelected(false);
+        UpdateGraphicsQualityButtons(GraphicsQuality.Medium);
     }
 
     public void OnGraphicsQualityHigh(BaseEventData data)
     {
         m_pendingState.graphicsQuality = GraphicsQuality.High;
-        m_graphicsLowButton.SetSelected(false);
-        m_graphicsMediumButton.SetSelected(false);
-        m_graphicsHighButton.SetSelected(true);
+        UpdateGraphicsQualityButtons(GraphicsQuality.High);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateGraphicsQualityButtons(GraphicsQuality quality)
+    {
+        bool isLow = quality == GraphicsQuality.Low || quality == GraphicsQuality.VeryLow;
+        bool isMedium = quality == GraphicsQuality.Medium;
+        bool isHigh = quality == GraphicsQuality.High;
+        
+        m_graphicsLowButton.SetSelected(isLow);
+        m_graphicsMediumButton.SetSelected(isMedium);
+        m_graphicsHighButton.SetSelected(isHigh);
     }
 
     public void OnWindowMode(BaseEventData data)
@@ -1209,6 +1215,20 @@ public class Options_UI : UIScene, IGameEventListener
             txt.text = text;
         }
     }
+    
+    // custom, inlined in vanilla
+    public void SetRegionText(Region region)
+    {
+        switch (region)
+        {
+            case Region.US:
+                SetRegionText(StringUtil.TR("NorthAmerica", "Options"));
+                break;
+            case Region.EU:
+                SetRegionText(StringUtil.TR("Europe", "Options"));
+                break;
+        }
+    }
 
     public void OnLanguage(BaseEventData data)
     {
@@ -1251,179 +1271,234 @@ public class Options_UI : UIScene, IGameEventListener
     public void OnRegionNorthAmerica(BaseEventData data)
     {
         m_pendingState.region = Region.US;
-        SetRegionText(StringUtil.TR("NorthAmerica", "Options"));
+        SetRegionText(Region.US);
         UIManager.SetGameObjectActive(m_regionDropdown, false);
     }
 
     public void OnRegionEurope(BaseEventData data)
     {
         m_pendingState.region = Region.EU;
-        SetRegionText(StringUtil.TR("Europe", "Options"));
+        SetRegionText(Region.EU);
         UIManager.SetGameObjectActive(m_regionDropdown, false);
     }
 
     public void OnLockCursor(BaseEventData data)
     {
         m_pendingState.lockCursorMode = SettingsState.LockCursorMode.On;
-        m_lockCursorButton.SetSelected(true);
-        m_unlockCursorButton.SetSelected(false);
-        m_smartLockCursorButton.SetSelected(false);
+        UpdateLockCursorButtons(SettingsState.LockCursorMode.On);
     }
 
     public void OnUnlockCursor(BaseEventData data)
     {
         m_pendingState.lockCursorMode = SettingsState.LockCursorMode.Off;
-        m_lockCursorButton.SetSelected(false);
-        m_unlockCursorButton.SetSelected(true);
-        m_smartLockCursorButton.SetSelected(false);
+        UpdateLockCursorButtons(SettingsState.LockCursorMode.Off);
     }
 
     public void OnSmartLockCursor(BaseEventData data)
     {
         m_pendingState.lockCursorMode = SettingsState.LockCursorMode.Smart;
-        m_lockCursorButton.SetSelected(false);
-        m_unlockCursorButton.SetSelected(false);
-        m_smartLockCursorButton.SetSelected(true);
+        UpdateLockCursorButtons(SettingsState.LockCursorMode.Smart);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateLockCursorButtons(SettingsState.LockCursorMode lockCursorMode)
+    {
+        bool isLock = lockCursorMode == SettingsState.LockCursorMode.On;
+        bool isUnlock = lockCursorMode == SettingsState.LockCursorMode.Off;
+        
+        m_lockCursorButton.SetSelected(isLock);
+        m_unlockCursorButton.SetSelected(isUnlock);
+        m_smartLockCursorButton.SetSelected(!isLock && !isUnlock);
     }
 
     public void OnEnableChatter(BaseEventData data)
     {
         m_pendingState.enableChatter = true;
-        m_enableChatterButton.SetSelected(true);
-        m_disableChatterButton.SetSelected(false);
+        UpdateChatterButtons(true);
     }
 
     public void OnDisableChatter(BaseEventData data)
     {
         m_pendingState.enableChatter = false;
-        m_enableChatterButton.SetSelected(false);
-        m_disableChatterButton.SetSelected(true);
+        UpdateChatterButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateChatterButtons(bool isEnabled)
+    {
+        m_enableChatterButton.SetSelected(isEnabled);
+        m_disableChatterButton.SetSelected(!isEnabled);
     }
 
     public void OnShowGlobalChat(BaseEventData data)
     {
         m_pendingState.showGlobalChat = true;
-        m_showGlobalChatButton.SetSelected(true);
-        m_hideGlobalChatButton.SetSelected(false);
+        UpdateShowGlobalChatButtons(true);
     }
 
     public void OnHideGlobalChat(BaseEventData data)
     {
         m_pendingState.showGlobalChat = false;
-        m_showGlobalChatButton.SetSelected(false);
-        m_hideGlobalChatButton.SetSelected(true);
+        UpdateShowGlobalChatButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateShowGlobalChatButtons(bool isEnabled)
+    {
+        m_showGlobalChatButton.SetSelected(isEnabled);
+        m_hideGlobalChatButton.SetSelected(!isEnabled);
     }
 
     public void OnShowAllChat(BaseEventData data)
     {
         m_pendingState.showAllChat = true;
-        m_showAllChatButton.SetSelected(true);
-        m_hideAllChatButton.SetSelected(false);
+        UpdateShowAllChatButtons(true);
     }
 
     public void OnHideAllChat(BaseEventData data)
     {
         m_pendingState.showAllChat = false;
-        m_showAllChatButton.SetSelected(false);
-        m_hideAllChatButton.SetSelected(true);
+        UpdateShowAllChatButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateShowAllChatButtons(bool isEnabled)
+    {
+        m_showAllChatButton.SetSelected(isEnabled);
+        m_hideAllChatButton.SetSelected(!isEnabled);
     }
 
     public void OnEnableProfanityFilter(BaseEventData data)
     {
         m_pendingState.enableProfanityFilter = true;
-        m_enableProfanityFilterButton.SetSelected(true);
-        m_disableProfanityFilterButton.SetSelected(false);
+        UpdateProfanityFilterButtons(true);
     }
 
     public void OnDisableProfanityFilter(BaseEventData data)
     {
         m_pendingState.enableProfanityFilter = false;
-        m_enableProfanityFilterButton.SetSelected(false);
-        m_disableProfanityFilterButton.SetSelected(true);
+        UpdateProfanityFilterButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateProfanityFilterButtons(bool isEnabled)
+    {
+        m_enableProfanityFilterButton.SetSelected(isEnabled);
+        m_disableProfanityFilterButton.SetSelected(!isEnabled);
     }
 
     public void OnEnableAutoJoinDiscord(BaseEventData data)
     {
         m_pendingState.autoJoinDiscord = true;
-        m_enableAutoJoinDiscordButton.SetSelected(true);
-        m_disableAutoJoinDiscordButton.SetSelected(false);
+        UpdateAutoJoinDiscordButtons(true);
     }
 
     public void OnDisableAutoJoinDiscord(BaseEventData data)
     {
         m_pendingState.autoJoinDiscord = false;
-        m_enableAutoJoinDiscordButton.SetSelected(false);
-        m_disableAutoJoinDiscordButton.SetSelected(true);
+        UpdateAutoJoinDiscordButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateAutoJoinDiscordButtons(bool isEnabled)
+    {
+        m_enableAutoJoinDiscordButton.SetSelected(isEnabled);
+        m_disableAutoJoinDiscordButton.SetSelected(!isEnabled);
     }
 
     public void OnGroupGameModeVoiceChat(BaseEventData data)
     {
         m_pendingState.gameModeVoiceChat = SettingsState.VoiceChatMode.Group;
-        m_groupGameModeVoiceChatButton.SetSelected(true);
-        m_teamGameModeVoiceChatButton.SetSelected(false);
+        UpdateVoiceChatModeButtons(true);
     }
 
     public void OnTeamGameModeVoiceChat(BaseEventData data)
     {
         m_pendingState.gameModeVoiceChat = SettingsState.VoiceChatMode.Team;
-        m_groupGameModeVoiceChatButton.SetSelected(false);
-        m_teamGameModeVoiceChatButton.SetSelected(true);
+        UpdateVoiceChatModeButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateVoiceChatModeButtons(bool isGame)
+    {
+        m_groupGameModeVoiceChatButton.SetSelected(isGame);
+        m_teamGameModeVoiceChatButton.SetSelected(!isGame);
     }
 
     public void OnRightClickConfirm(BaseEventData data)
     {
         m_pendingState.rightClickingConfirmsAbilityTargets = true;
-        m_rightClickTargetingConfirm.SetSelected(true);
-        m_rightClickTargetingCancel.SetSelected(false);
+        UpdateRightClickButtons(true);
     }
 
     public void OnRightClickCancel(BaseEventData data)
     {
         m_pendingState.rightClickingConfirmsAbilityTargets = false;
-        m_rightClickTargetingConfirm.SetSelected(false);
-        m_rightClickTargetingCancel.SetSelected(true);
+        UpdateRightClickButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateRightClickButtons(bool isConfirm)
+    {
+        m_rightClickTargetingConfirm.SetSelected(isConfirm);
+        m_rightClickTargetingCancel.SetSelected(!isConfirm);
     }
 
     public void OnShiftClickWaypointsConfirm(BaseEventData data)
     {
         m_pendingState.shiftClickForMovementWaypoints = true;
-        m_shiftClickForWaypoints.SetSelected(true);
-        m_shiftClickForNewPath.SetSelected(false);
+        UpdateShiftClickWaypointsButtons(true);
     }
 
     public void OnShiftClickWaypointsCancel(BaseEventData data)
     {
         m_pendingState.shiftClickForMovementWaypoints = false;
-        m_shiftClickForWaypoints.SetSelected(false);
-        m_shiftClickForNewPath.SetSelected(true);
+        UpdateShiftClickWaypointsButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateShiftClickWaypointsButtons(bool isWaypoints)
+    {
+        m_shiftClickForWaypoints.SetSelected(isWaypoints);
+        m_shiftClickForNewPath.SetSelected(!isWaypoints);
     }
 
     public void OnHideTutorialVideos(BaseEventData data)
     {
         m_pendingState.hideTutorialVideos = true;
-        m_hideTutorialVideosButton.SetSelected(true);
-        m_showTutorialVideosButton.SetSelected(false);
+        UpdateTutorialVideosButtons(true);
     }
 
     public void OnShowTutorialVideos(BaseEventData data)
     {
         m_pendingState.hideTutorialVideos = false;
-        m_hideTutorialVideosButton.SetSelected(false);
-        m_showTutorialVideosButton.SetSelected(true);
+        UpdateTutorialVideosButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateTutorialVideosButtons(bool isHide)
+    {
+        m_hideTutorialVideosButton.SetSelected(isHide);
+        m_showTutorialVideosButton.SetSelected(!isHide);
     }
 
     public void OnAllowCancelActionWhileConfirmed(BaseEventData data)
     {
         m_pendingState.allowCancelActionWhileConfirmed = true;
-        m_allowCancelActionWhileConfirmedButton.SetSelected(true);
-        m_disallowCancelActionWhileConfirmedButton.SetSelected(false);
+        UpdateAllowCancelActionWhileConfirmedButtons(true);
     }
 
     public void OnDisallowCancelActionWhileConfirmed(BaseEventData data)
     {
         m_pendingState.allowCancelActionWhileConfirmed = false;
-        m_allowCancelActionWhileConfirmedButton.SetSelected(false);
-        m_disallowCancelActionWhileConfirmedButton.SetSelected(true);
+        UpdateAllowCancelActionWhileConfirmedButtons(false);
+    }
+    
+    // custom, inlined in vanilla
+    public void UpdateAllowCancelActionWhileConfirmedButtons(bool isAllowed)
+    {
+        m_allowCancelActionWhileConfirmedButton.SetSelected(isAllowed);
+        m_disallowCancelActionWhileConfirmedButton.SetSelected(!isAllowed);
     }
 
     private float ResolutionRound(float f, float digits)
@@ -1728,8 +1803,7 @@ public class Options_UI : UIScene, IGameEventListener
     public void SetShowGlobalChat(bool show)
     {
         m_activeState.showGlobalChat = show;
-        m_showGlobalChatButton.SetSelected(show);
-        m_hideGlobalChatButton.SetSelected(!show);
+        UpdateShowGlobalChatButtons(show);
     }
 
     public bool GetShowAllChat()
@@ -1740,8 +1814,7 @@ public class Options_UI : UIScene, IGameEventListener
     public void SetShowAllChat(bool show)
     {
         m_activeState.showAllChat = show;
-        m_showAllChatButton.SetSelected(show);
-        m_hideAllChatButton.SetSelected(!show);
+        UpdateShowAllChatButtons(show);
     }
 
     public bool GetEnableProfanityFilter()
@@ -1752,8 +1825,7 @@ public class Options_UI : UIScene, IGameEventListener
     public void SetEnableProfanityFilter(bool show)
     {
         m_activeState.enableProfanityFilter = show;
-        m_enableProfanityFilterButton.SetSelected(show);
-        m_disableProfanityFilterButton.SetSelected(!show);
+        UpdateProfanityFilterButtons(show);
     }
 
     public bool GetEnableAutoJoinDiscord()
@@ -1764,8 +1836,7 @@ public class Options_UI : UIScene, IGameEventListener
     public void SetEnableAutoJoinDiscord(bool show)
     {
         m_activeState.autoJoinDiscord = show;
-        m_enableAutoJoinDiscordButton.SetSelected(show);
-        m_disableAutoJoinDiscordButton.SetSelected(!show);
+        UpdateAutoJoinDiscordButtons(show);
     }
 
     public bool GetVoicePushToTalk()
@@ -1837,12 +1908,10 @@ public class Options_UI : UIScene, IGameEventListener
         {
             case SettingsState.VoiceChatMode.None:
             case SettingsState.VoiceChatMode.Group:
-                m_groupGameModeVoiceChatButton.SetSelected(true);
-                m_teamGameModeVoiceChatButton.SetSelected(false);
+                UpdateVoiceChatModeButtons(true);
                 break;
             case SettingsState.VoiceChatMode.Team:
-                m_groupGameModeVoiceChatButton.SetSelected(false);
-                m_teamGameModeVoiceChatButton.SetSelected(true);
+                UpdateVoiceChatModeButtons(false);
                 break;
         }
     }
