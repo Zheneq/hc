@@ -1293,6 +1293,13 @@ public class Options_UI : UIScene, IGameEventListener
         m_disableChatterButton.SetSelected(false);
     }
 
+    public void OnDisableChatter(BaseEventData data)
+    {
+        m_pendingState.enableChatter = false;
+        m_enableChatterButton.SetSelected(false);
+        m_disableChatterButton.SetSelected(true);
+    }
+
     public void OnShowGlobalChat(BaseEventData data)
     {
         m_pendingState.showGlobalChat = true;
@@ -1361,13 +1368,6 @@ public class Options_UI : UIScene, IGameEventListener
         m_pendingState.gameModeVoiceChat = SettingsState.VoiceChatMode.Team;
         m_groupGameModeVoiceChatButton.SetSelected(false);
         m_teamGameModeVoiceChatButton.SetSelected(true);
-    }
-
-    public void OnDisableChatter(BaseEventData data)
-    {
-        m_pendingState.enableChatter = false;
-        m_enableChatterButton.SetSelected(false);
-        m_disableChatterButton.SetSelected(true);
     }
 
     public void OnRightClickConfirm(BaseEventData data)
