@@ -132,6 +132,8 @@ public class GameFlow : NetworkBehaviour
 	private List<PlayerAction> m_executingPlayerActions = new List<PlayerAction>();
 	// custom
 	private HashSet<AbilityPriority> m_nonEmptyPhases = new HashSet<AbilityPriority>();
+	// custom
+	private bool m_failedToLoad;
 #endif
 
 	static GameFlow()
@@ -1120,6 +1122,13 @@ public class GameFlow : NetworkBehaviour
 			num++;
 		}
 		moreToSpawn = false;
+
+		// custom
+		if (m_failedToLoad)
+		{
+			Log.Error("Stopping game because one of the players failed to load");
+			ObjectivePoints.Get().EndGame();
+		}
 	}
 
 	// added in rogues
@@ -1349,8 +1358,8 @@ public class GameFlow : NetworkBehaviour
 			Log.Error("No primary Player for connection playerId: " + playerID.ToString());
 			if (playerID.m_accountId != 0)
 			{
-				Log.Error($"Stopping game because account {playerID.m_accountId} failed to load");
-				ObjectivePoints.Get().EndGame();
+				Log.Error($"Will not start game because account {playerID.m_accountId} failed to load");
+				m_failedToLoad = true;
 			}
 		}
 	}
