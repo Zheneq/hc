@@ -2557,21 +2557,23 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public void SetLocalPlayerData()
 	{
 		m_localPlayerData = null;
-		if (GameFlow.Get() != null)
+		if (GameFlow.Get() == null)
 		{
-			foreach (GameObject gameObject in m_players)
+			return;
+		}
+		foreach (GameObject player in m_players)
+		{
+			if (player == null)
 			{
-				if (gameObject != null)
-				{
-					PlayerData component = gameObject.GetComponent<PlayerData>();
-					if (component != null
-						&& GameFlow.Get().playerDetails.TryGetValue(component.GetPlayer(), out PlayerDetails playerDetails)
-						&& playerDetails.IsLocal())
-					{
-						m_localPlayerData = component;
-						break;
-					}
-				}
+				continue;
+			}
+			PlayerData playerData = player.GetComponent<PlayerData>();
+			if (playerData != null
+			    && GameFlow.Get().playerDetails.TryGetValue(playerData.GetPlayer(), out PlayerDetails playerDetails)
+			    && playerDetails.IsLocal())
+			{
+				m_localPlayerData = playerData;
+				break;
 			}
 		}
 	}
