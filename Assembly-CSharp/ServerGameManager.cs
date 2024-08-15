@@ -251,7 +251,12 @@ public class ServerGameManager : MonoBehaviour
 		UIFrontendLoadingScreen.Get()?.StartDisplayError("Starting Server...");
 		NetworkManager.singleton.useWebSockets = true;
 		NetworkManager.singleton.networkPort = HydrogenConfig.Get().PublicPort;
-		NetworkManager.singleton.StartServer();
+		if (!NetworkManager.singleton.StartServer())
+		{
+			Log.Error("Failed to start server. Shutting down.");
+			DisconnectFromMonitorServer();
+			Application.Quit();
+		}
 		// new networking lib
 		//TelepathyTransport telepathyTransport = Transport.activeTransport as TelepathyTransport;
 		//bool flag = false;
