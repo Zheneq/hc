@@ -8,9 +8,6 @@ public static class BuildVersion
 	private const int s_buildNumber = 100;
 	private const string s_buildLetter = "k";
 	private const string s_changelistNumber = "265834";
-#if SERVER
-	public const string s_buildTag = ThisAssembly.Git.Tag; // custom
-#endif
 	
 	// NOTE custom
 	public const string s_version =
@@ -35,7 +32,7 @@ public static class BuildVersion
 	public static string BranchName => BuildBranch.BranchName;
 	public static string ChangelistNumber => s_changelistNumber;
 #if SERVER
-	public static string BuildTag => s_buildTag; // custom
+	public static string BuildTag => s_version; // custom
 #endif
 	public static string MiniVersionString => $"{BranchName}-{ReleaseNumber}";
 	
