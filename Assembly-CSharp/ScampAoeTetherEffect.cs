@@ -50,7 +50,12 @@ public class ScampAoeTetherEffect: StandardActorEffect
     {
         return (Target.GetFreePos() - Caster.GetFreePos()).sqrMagnitude > s_tetherBreakDistSqr;
     }
-    
+
+    public override bool ShouldEndEarly()
+    {
+	    return ServerActionBuffer.Get().AbilityPhase >= HitPhase;
+    }
+
     public override List<ServerClientUtils.SequenceStartData> GetEffectHitSeqDataList()
     {
         if (!IsBroken())
@@ -77,29 +82,27 @@ public class ScampAoeTetherEffect: StandardActorEffect
 
 	public override void GatherEffectResults(ref EffectResults effectResults, bool isReal)
 	{
-		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Target, Caster.GetFreePos()));
-		if (IsBroken())
+		if (!IsBroken())
 		{
-			if (isReal)
-			{
-				m_passive.OnTetherBroken();
-			}
+			// we don't want to have any results in this case (e.g. so that target pos is not revealed)
+			return;
+		}
+		if (isReal)
+		{
+			m_passive.OnTetherBroken();
+		}
 
-			KnockbackHitData knockbackData = new KnockbackHitData(
-				Target,
-				Caster,
-				KnockbackType.PullToSourceActor,
-				Vector3.zero,
-				Caster.GetCurrentBoardSquare().ToVector3(),
-				m_maxKnockbackDist);
-			actorHitResults.AddKnockbackData(knockbackData);
-			actorHitResults.AddBaseDamage(m_tetherBreakDamage);
-			actorHitResults.AddStandardEffectInfo(m_tetherBreakEnemyEffect);
-		}
-		else
-		{
-			actorHitResults.SetIgnoreTechpointInteractionForHit(true);
-		}
+		ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(Target, Caster.GetFreePos()));
+		KnockbackHitData knockbackData = new KnockbackHitData(
+			Target,
+			Caster,
+			KnockbackType.PullToSourceActor,
+			Vector3.zero,
+			Caster.GetCurrentBoardSquare().ToVector3(),
+			m_maxKnockbackDist);
+		actorHitResults.AddKnockbackData(knockbackData);
+		actorHitResults.AddBaseDamage(m_tetherBreakDamage);
+		actorHitResults.AddStandardEffectInfo(m_tetherBreakEnemyEffect);
 		EndAllEffectSequences(actorHitResults);
 		effectResults.StoreActorHit(actorHitResults);
 	}
@@ -113,5 +116,15 @@ public class ScampAoeTetherEffect: StandardActorEffect
 	{
 		return Target;
 	}
+
+    public override bool CasterMustHaveAccuratePositionOnClients()
+    {
+        return true;
+    }
+
+    public override bool TargetMustHaveAccuratePositionOnClients()
+    {
+        return true;
+    }
 }
 #endif
