@@ -365,6 +365,8 @@ public class FireborgReactLasers : GenericAbility_Container
         }
 
         actorHitResults.Clear();
+        positionHitResults.Clear();
+        nonActorTargetInfo.Clear();
         actorHitResults.Add(casterHitResults);
     }
 

@@ -146,6 +146,8 @@ public class ScampDelayedAoe : GenericAbility_Container
 		base.ProcessGatheredHits(targets, caster, abilityResults, actorHitResults, positionHitResults, nonActorTargetInfo);
 
 		actorHitResults.Clear();
+		positionHitResults.Clear();
+		nonActorTargetInfo.Clear();
 
 		ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
 		casterHitResults.AddEffect(new ScampDelayedAoeEffect(
