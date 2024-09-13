@@ -69,6 +69,11 @@ public class IceborgDamageArea : GenericAbility_Container
 	{
 		m_syncComp = GetComponent<Iceborg_SyncComponent>();
 		base.SetupTargetersAndCachedVars();
+
+#if SERVER // TODO HACK
+		m_groundFieldData.effectOnEnemies.m_applyEffect = true;
+#endif
+		
 		SetCachedFields();
 		if (GetTargetSelectComp() is TargetSelect_Shape)
 		{

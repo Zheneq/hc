@@ -73,7 +73,7 @@ public class IceborgDamageAreaEffect : StandardGroundEffect
         else
         {            
             actorHitRes.AddBaseDamage(m_damageChangePerTurn * m_syncComp.GetTurnsSinceInitialCast());
-            if(actorHitRes.BaseDamage < m_minDamage)
+            if (actorHitRes.BaseDamage < m_minDamage)
             {
                 actorHitRes.SetBaseDamage(m_minDamage);
             }
