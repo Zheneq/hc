@@ -978,7 +978,7 @@ public class UIRankedModeDraftScreen : UIScene
 					RankedTradeData rankedTradeData = enumerator.Current;
 					if (rankedTradeData.OfferingPlayerId == playerID)
 					{
-						if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType._0012)
+						if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType.StopTrading)
 						{
 							return true;
 						}
@@ -2386,7 +2386,7 @@ public class UIRankedModeDraftScreen : UIScene
 				while (enumerator.MoveNext())
 				{
 					RankedTradeData rankedTradeData = enumerator.Current;
-					if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType._001D)
+					if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType.AcceptOrOffer)
 					{
 						if (rankedTradeData.AskedPlayerId == m_blueTeamMembers[k].PlayerID)
 						{
@@ -2406,7 +2406,7 @@ public class UIRankedModeDraftScreen : UIScene
 						}
 						continue;
 					}
-					if (rankedTradeData.TradeAction != RankedTradeData.TradeActionType._0012)
+					if (rankedTradeData.TradeAction != RankedTradeData.TradeActionType.StopTrading)
 					{
 						continue;
 					}

@@ -1299,17 +1299,17 @@ public class ClientGameManager : MonoBehaviour
 
 	public void SendRankedTradeRequest_AcceptOrOffer(CharacterType desiredCharacter)
 	{
-		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._001D);
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType.AcceptOrOffer);
 	}
 
 	public void SendRankedTradeRequest_Reject(CharacterType desiredCharacter)
 	{
-		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType._000E);
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType.Reject);
 	}
 
 	public void SendRankedTradeRequest_StopTrading()
 	{
-		m_lobbyGameClientInterface?.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType._0012);
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(CharacterType.None, RankedTradeData.TradeActionType.StopTrading);
 	}
 
 	public void SendRankedBanRequest(CharacterType type)
