@@ -39,21 +39,9 @@ public class AppState_RankModeDraft : AppState
 	private void Update()
 	{
 		GameStatus gameStatus = GameManager.Get().GameStatus;
-		if (gameStatus < GameStatus.Launched)
+		if (gameStatus >= GameStatus.Launched && gameStatus != GameStatus.Stopped)
 		{
-			return;
-		}
-		while (true)
-		{
-			if (gameStatus != GameStatus.Stopped)
-			{
-				while (true)
-				{
-					AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
-					return;
-				}
-			}
-			return;
+			AppState_GameLoading.Get().Enter(GameManager.Get().GameInfo.GameConfig.GameType);
 		}
 	}
 }
