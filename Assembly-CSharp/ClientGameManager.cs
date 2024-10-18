@@ -3302,7 +3302,7 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateRemoteCharacter(CharacterType[] characters, int[] remoteSlotIndexes, Action<UpdateRemoteCharacterResponse> onResponse = null)
 	{
-		if (m_lobbyGameClientInterface == null || m_lobbyGameClientInterface.IsConnected)
+		if (m_lobbyGameClientInterface == null || !m_lobbyGameClientInterface.IsConnected)
 		{
 			Log.Error("Not connected to lobby server.");
 			return;
