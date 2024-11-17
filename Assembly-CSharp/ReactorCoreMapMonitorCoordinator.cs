@@ -61,6 +61,12 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 
 	private void Awake()
 	{
+#if EVOS
+        if (Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.Low) 
+        {
+            return;
+        }
+#endif
 		if (s_instance != null)
 		{
 			Log.Error(string.Concat(GetType(), " has existing instance in scene on Awake, may have duplicates"));
@@ -73,7 +79,11 @@ public class ReactorCoreMapMonitorCoordinator : MonoBehaviour, IGameEventListene
 
 	private void Start()
 	{
-		if (!(m_largePortraitObject != null))
+		if (!(m_largePortraitObject != null) 
+#if EVOS
+            || Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.Low
+#endif
+            )
 		{
 			return;
 		}

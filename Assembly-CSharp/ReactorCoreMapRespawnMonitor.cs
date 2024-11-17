@@ -34,11 +34,16 @@ public class ReactorCoreMapRespawnMonitor : MonoBehaviour
 
 	private void Start()
 	{
-		if (!(ReactorCoreMapMonitorCoordinator.Get() != null))
+		if (!(ReactorCoreMapMonitorCoordinator.Get() != null) 
+#if EVOS
+            || Options_UI.Get().GetCurrentGraphicsQuality() == GraphicsQuality.Low
+#endif
+            )
 		{
 			return;
 		}
-		while (true)
+
+        while (true)
 		{
 			ReactorCoreMapMonitorCoordinator reactorCoreMapMonitorCoordinator = ReactorCoreMapMonitorCoordinator.Get();
 			GameObject gameObject = null;
