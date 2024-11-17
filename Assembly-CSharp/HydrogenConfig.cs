@@ -155,6 +155,7 @@ public class HydrogenConfig : JsonConfig
     public bool DisableButtons;
     public bool StraightPlay;
     public bool AllowChatTags;
+    public int vsync;
 #endif
 
 	public HydrogenConfig()
@@ -200,6 +201,7 @@ public class HydrogenConfig : JsonConfig
         DisableButtons = false;
         StraightPlay = false;
         AllowChatTags = false;
+        vsync = 1;
 #endif
 	}
 

@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class ClientTargetFramerateSetter : MonoBehaviour
 {
+#if EVOS
+	public int m_ingameMaxFramerate = 240;
+#else
 	public int m_ingameMaxFramerate = 120;
+#endif
 
 	public int m_frontendMaxFramerate = 60;
 
@@ -15,7 +19,10 @@ public class ClientTargetFramerateSetter : MonoBehaviour
 	private void Start()
 	{
 		Application.targetFrameRate = m_frontendMaxFramerate;
-	}
+#if EVOS
+		QualitySettings.vSyncCount = HydrogenConfig.Get().vsync;
+#endif
+    }
 
 	private void OnApplicationFocus(bool focusStatus)
 	{
