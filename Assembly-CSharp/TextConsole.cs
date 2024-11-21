@@ -27,11 +27,10 @@ public class TextConsole
 
     public string LastWhisperSenderHandle { get; private set; }
 
-    public event Action<Message, AllowedEmojis> OnMessage;
+    public event Action<Message, AllowedEmojis> OnMessage = delegate { };
 
     public TextConsole()
     {
-        OnMessage = delegate { };
         ClientGameManager.Get().OnChatNotification += HandleChatNotification;
     }
 
