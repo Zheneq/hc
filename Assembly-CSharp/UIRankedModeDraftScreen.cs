@@ -325,7 +325,7 @@ public class UIRankedModeDraftScreen : UIScene
 	{
 		if (m_lastFilterBtnClicked != null && m_lastFilterBtnClicked != btn)
 		{
-			m_lastFilterBtnClicked.m_btn.SetSelected(false, false, string.Empty, string.Empty);
+			m_lastFilterBtnClicked.m_btn.SetSelected(false);
 		}
 		m_lastFilterBtnClicked = btn;
 		UpdateCharacterButtonHighlights();
@@ -2740,7 +2740,7 @@ public class UIRankedModeDraftScreen : UIScene
 		{
 			componentsInChildren[i].text = (pageIndex + 1).ToString();
 		}
-		btn.SetSelected(false, false, string.Empty, string.Empty);
+		btn.SetSelected(false);
 		btn.spriteController.callback = PageClicked;
 	}
 
