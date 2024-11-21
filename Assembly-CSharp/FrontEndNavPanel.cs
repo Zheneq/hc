@@ -187,9 +187,9 @@ public class FrontEndNavPanel : MonoBehaviour
         UIManager.SetGameObjectActive(m_microphoneConnectedBtn, false);
         UIManager.SetGameObjectActive(m_microphoneOfflineBtn, true);
         DiscordClientInterface discord = DiscordClientInterface.Get();
-        discord.OnJoined = (Action)Delegate.Combine(discord.OnJoined, new Action(DiscordOnJoined));
+        discord.OnJoined += discord.OnJoined;
         discord.OnError += DiscordOnError;
-        discord.OnDisconnected = (Action)Delegate.Combine(discord.OnDisconnected, new Action(DiscordOnDisconnected));
+        discord.OnDisconnected += discord.OnDisconnected;
         CheckMicrophoneEnabled();
     }
 
@@ -209,9 +209,9 @@ public class FrontEndNavPanel : MonoBehaviour
         DiscordClientInterface discord = DiscordClientInterface.Get();
         if (discord != null)
         {
-            discord.OnJoined = (Action)Delegate.Remove(discord.OnJoined, new Action(DiscordOnJoined));
+            discord.OnJoined -= discord.OnJoined;
             discord.OnError -= DiscordOnError;
-            discord.OnDisconnected = (Action)Delegate.Remove(discord.OnDisconnected, new Action(DiscordOnDisconnected));
+            discord.OnDisconnected -= discord.OnDisconnected;
         }
 
         if (s_instance == this)
