@@ -113,7 +113,7 @@ public class FrontEndNavPanel : MonoBehaviour
         m_menuBtnList.Add(m_landingPageBtn);
         m_menuBtnList.Add(m_SeasonBtn);
         m_menuBtnList.Add(m_LootMatrixBtn);
-        m_menuBtn.SetSelected(false, false, string.Empty, string.Empty);
+        m_menuBtn.SetSelected(false);
     }
 
     private void Start()
@@ -293,7 +293,7 @@ public class FrontEndNavPanel : MonoBehaviour
         {
             if (Input.GetButtonDown("GamepadButtonLeftShoulder"))
             {
-                m_gamePadHoverBtn.SetSelected(false, false, string.Empty, string.Empty);
+                m_gamePadHoverBtn.SetSelected(false);
                 if (m_gamePadHoverBtn == m_landingPageBtn)
                 {
                     m_gamePadHoverBtn = m_LootMatrixBtn;
@@ -315,11 +315,11 @@ public class FrontEndNavPanel : MonoBehaviour
                     m_gamePadHoverBtn = m_CollectionBtn;
                 }
 
-                m_gamePadHoverBtn.SetSelected(true, false, string.Empty, string.Empty);
+                m_gamePadHoverBtn.SetSelected(true);
             }
             else if (Input.GetButtonDown("GamepadButtonRightShoulder"))
             {
-                m_gamePadHoverBtn.SetSelected(false, false, string.Empty, string.Empty);
+                m_gamePadHoverBtn.SetSelected(false);
                 if (m_gamePadHoverBtn == m_landingPageBtn)
                 {
                     m_gamePadHoverBtn = m_PlayBtn;
@@ -341,7 +341,7 @@ public class FrontEndNavPanel : MonoBehaviour
                     m_gamePadHoverBtn = m_landingPageBtn;
                 }
 
-                m_gamePadHoverBtn.SetSelected(true, false, string.Empty, string.Empty);
+                m_gamePadHoverBtn.SetSelected(true);
             }
 
             if (Input.GetButtonDown("GamepadButtonA") && m_currentNavBtn != m_gamePadHoverBtn)
@@ -563,7 +563,7 @@ public class FrontEndNavPanel : MonoBehaviour
             && UISeasonsPanel.Get() != null
             && UISeasonsPanel.Get().IsVisible())
         {
-            m_SeasonBtn.SetSelected(false, false, string.Empty, string.Empty);
+            m_SeasonBtn.SetSelected(false);
             UISeasonsPanel.Get().SetVisible(false);
         }
 
@@ -596,8 +596,7 @@ public class FrontEndNavPanel : MonoBehaviour
                     StringUtil.TR("Locked", "Global"),
                     string.Format(
                         StringUtil.TR("RequiresMatchesPlayed", "Global"),
-                        QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, activeSeason) - seasonLevel),
-                    string.Empty);
+                        QuestWideData.GetEndLevel(seasonTemplate.Prerequisites, activeSeason) - seasonLevel));
                 return true;
             }
         }
@@ -605,8 +604,7 @@ public class FrontEndNavPanel : MonoBehaviour
         {
             (tooltip as UITitledTooltip).Setup(
                 StringUtil.TR("Locked", "Global"),
-                StringUtil.TR("SeasonsDisabled", "Global"),
-                string.Empty);
+                StringUtil.TR("SeasonsDisabled", "Global"));
             return true;
         }
 
@@ -668,8 +666,7 @@ public class FrontEndNavPanel : MonoBehaviour
 
         (tooltip as UITitledTooltip).Setup(
             StringUtil.TR("Locked", "Global"),
-            string.Format(StringUtil.TR("DailyQuestsUnlockRequirements", "Quests")),
-            string.Empty);
+            string.Format(StringUtil.TR("DailyQuestsUnlockRequirements", "Quests")));
         return true;
     }
 
@@ -691,7 +688,7 @@ public class FrontEndNavPanel : MonoBehaviour
 
         if (UILootMatrixScreen.Get().IsVisible)
         {
-            m_LootMatrixBtn.SetSelected(false, false, string.Empty, string.Empty);
+            m_LootMatrixBtn.SetSelected(false);
             UILootMatrixScreen.Get().SetVisible(false);
         }
     }
@@ -715,12 +712,12 @@ public class FrontEndNavPanel : MonoBehaviour
         if (m_notificationsBtn.IsSelected())
         {
             QuestListPanel.Get().SetVisible(false);
-            m_notificationsBtn.SetSelected(false, false, string.Empty, string.Empty);
+            m_notificationsBtn.SetSelected(false);
         }
         else
         {
             QuestListPanel.Get().SetVisible(true);
-            m_notificationsBtn.SetSelected(true, false, string.Empty, string.Empty);
+            m_notificationsBtn.SetSelected(true);
         }
     }
 
@@ -729,7 +726,7 @@ public class FrontEndNavPanel : MonoBehaviour
         if (!UIMainMenu.Get().IsOpen() && m_notificationsBtn.IsSelected())
         {
             QuestListPanel.Get().SetVisible(false);
-            m_notificationsBtn.SetSelected(false, false, string.Empty, string.Empty);
+            m_notificationsBtn.SetSelected(false);
         }
 
         UIMainMenu.Get().SetMenuVisible(!UIMainMenu.Get().IsOpen());
@@ -1037,13 +1034,13 @@ public class FrontEndNavPanel : MonoBehaviour
         if (m_currentNavBtn != null)
         {
             CloseCurrentTabPanel();
-            m_currentNavBtn.SetSelected(false, false, string.Empty, string.Empty);
+            m_currentNavBtn.SetSelected(false);
         }
 
         UIManager.SetGameObjectActive(m_PlayButtonNoticeContainer, m_PlayBtn != btn);
         if (btn != null)
         {
-            btn.SetSelected(true, false, string.Empty, string.Empty);
+            btn.SetSelected(true);
         }
 
         m_previousNavBtn = m_currentNavBtn;
@@ -1158,7 +1155,7 @@ public class FrontEndNavPanel : MonoBehaviour
             else
             {
                 SetPlayMenuCatgeoryVisible(true);
-                if (!(AppState.GetCurrent() == AppState_CharacterSelect.Get()) && !UIMatchStartPanel.Get().IsVisible())
+                if (AppState.GetCurrent() != AppState_CharacterSelect.Get() && !UIMatchStartPanel.Get().IsVisible())
                 {
                     AppState_GroupCharacterSelect.Get().Enter();
                 }
