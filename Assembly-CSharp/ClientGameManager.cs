@@ -3307,7 +3307,9 @@ public class ClientGameManager : MonoBehaviour
 			Log.Error("Not connected to lobby server.");
 			return;
 		}
-		if (remoteSlotIndexes.IsNullOrEmpty() || characters.IsNullOrEmpty() || remoteSlotIndexes.Length != characters.Length)
+		if (remoteSlotIndexes.IsNullOrEmpty()
+		    || characters.IsNullOrEmpty()
+		    || remoteSlotIndexes.Length != characters.Length)
 		{
 			return;
 		}
@@ -3319,7 +3321,8 @@ public class ClientGameManager : MonoBehaviour
 						
 			for (int i = 0; i < characters.Length; i++)
 			{
-				if (!(lastRemoteCharacters.Count > remoteSlotIndexes[i] && lastRemoteCharacters[remoteSlotIndexes[i]] == characters[i]))
+				if (lastRemoteCharacters.Count <= remoteSlotIndexes[i]
+				    || lastRemoteCharacters[remoteSlotIndexes[i]] != characters[i])
 				{
 					flag = true;
 					break;
