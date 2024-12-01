@@ -38,7 +38,11 @@ public class UIPlayerBanner : MonoBehaviour
 
             if (m_playerTitle != null)
             {
+#if EVOS
+                m_playerTitle.text = GameBalanceVars.Get().GetTitle(accountData.AccountComponent.SelectedTitleID, accountData.Handle);
+#else
                 m_playerTitle.text = GameBalanceVars.Get().GetTitle(accountData.AccountComponent.SelectedTitleID);
+#endif
             }
 
             if (m_playerLevel != null)
