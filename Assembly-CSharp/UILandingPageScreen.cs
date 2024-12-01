@@ -811,6 +811,15 @@ public class UILandingPageScreen : UIScene
 			UIManager.SetGameObjectActive(m_seasonLevelSlider, true);
 			m_seasonExpAmountText.text = UIStorePanel.FormatIntToString(m_curExp) + " / " + UIStorePanel.FormatIntToString(m_expToLevel);
 			m_seasonLevelText.text = m_curLevel.ToString();
+#if EVOS
+            if (HydrogenConfig.Get().DisableButtons)
+            {
+                UIManager.SetGameObjectActive(m_MoreInfoBtn, false);
+                UIManager.SetGameObjectActive(m_LootMatrixButton, false);
+                UIManager.SetGameObjectActive(m_SideShowcaseMoreInfoButton, false);
+                UIManager.SetGameObjectActive(m_SideShowcaseMoreInfoText, false);
+            }
+#endif
 		}
 	}
 

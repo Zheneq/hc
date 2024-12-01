@@ -149,6 +149,14 @@ public class HydrogenConfig : JsonConfig
     //Custom titles
     public string ApiTitleUrl = "https://stats-production.evos.live/api/titles";
 #endif
+
+#if EVOS
+    // Custom mods
+    public bool DisableButtons;
+    public bool StraightPlay;
+    public bool AllowChatTags;
+#endif
+
 	public HydrogenConfig()
 	{
 		LogFilePath = "${CONFIGPATH}/../Logs/";
@@ -187,6 +195,12 @@ public class HydrogenConfig : JsonConfig
 		EnableNoInputIdleDisconnect = true;
 		EnableRandomFrameHitchDetection = false;
 		EnableHitchDetection = false;
+#if EVOS
+        // Custom mods defaults false
+        DisableButtons = false;
+        StraightPlay = false;
+        AllowChatTags = false;
+#endif
 	}
 
 	public static HydrogenConfig Get()

@@ -87,7 +87,18 @@ public class TextConsole
                         && GameManager.Get().GameInfo.GameStatus != GameStatus.Stopped;
 
         input = ChatEmojiManager.Get().UnlocalizeEmojis(input);
+#if EVOS
+        ClientGameManager clientGameManager = ClientGameManager.Get();
+
+        if (!HydrogenConfig.Get().AllowChatTags
+            || clientGameManager == null
+            || clientGameManager.ClientAccessLevel != ClientAccessLevel.Admin)
+        {
+            input = RemoveRichTextTags(input);
+        }
+#else
         input = RemoveRichTextTags(input);
+#endif
 
         string arguments;
         string command;
@@ -114,7 +125,15 @@ public class TextConsole
         command = command.Trim();
         if (!SlashCommands.Get().RunSlashCommand(command, arguments) && DebugCommands.Get() != null)
         {
+#if EVOS
+            if (clientGameManager != null
+                && clientGameManager.ClientAccessLevel == ClientAccessLevel.Admin)
+            {
+                DebugCommands.Get().RunDebugCommand(command, arguments);
+            }
+#else
             DebugCommands.Get().RunDebugCommand(command, arguments);
+#endif
         }
     }
 

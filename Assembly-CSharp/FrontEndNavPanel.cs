@@ -62,7 +62,18 @@ public class FrontEndNavPanel : MonoBehaviour
         m_PlayBtn.spriteController.callback = PlayBtnClicked;
         m_CollectionBtn.spriteController.callback = CollectionsBtnClicked;
         m_CashShopBtn.spriteController.callback = CashShopBtnClicked;
+#if EVOS
+        if (HydrogenConfig.Get().StraightPlay)
+        {
+            m_landingPageBtn.spriteController.callback = PlayBtnClicked;
+        }
+        else
+        {
+            m_landingPageBtn.spriteController.callback = LandingPageBtnClicked;
+        }
+#else
         m_landingPageBtn.spriteController.callback = LandingPageBtnClicked;
+#endif
         m_SeasonBtn.spriteController.callback = SeasonsBtnClicked;
         m_LootMatrixBtn.spriteController.callback = LootMatrixBtnClicked;
         m_notificationsBtn.spriteController.callback = NotificationBtnClicked;
@@ -147,7 +158,8 @@ public class FrontEndNavPanel : MonoBehaviour
             freelancerTokens = playerWallet.GetCurrentAmount(CurrencyType.UnlockFreelancerToken);
         }
 
-        m_freelancerCurrencyText.text = "<sprite name=credit>" + UIStorePanel.FormatIntToString(freelancerCurrency, true);
+        m_freelancerCurrencyText.text =
+            "<sprite name=credit>" + UIStorePanel.FormatIntToString(freelancerCurrency, true);
         m_freelancerCurrencyText.GetComponent<UITooltipHoverObject>().Setup(
             TooltipType.Simple,
             delegate(UITooltipBase tooltip)
@@ -191,6 +203,13 @@ public class FrontEndNavPanel : MonoBehaviour
         discord.OnError += DiscordOnError;
         discord.OnDisconnected += discord.OnDisconnected;
         CheckMicrophoneEnabled();
+#if EVOS
+        if (HydrogenConfig.Get().DisableButtons)
+        {
+            UIManager.SetGameObjectActive(m_CashShopBtn, false);
+            UIManager.SetGameObjectActive(m_LootMatrixBtn, false);
+        }
+#endif
     }
 
     private void OnDestroy()
@@ -1194,9 +1213,17 @@ public class FrontEndNavPanel : MonoBehaviour
         UIManager.SetGameObjectActive(m_PlayBtn, shouldShow);
         UIManager.SetGameObjectActive(m_CollectionBtn, shouldShow);
         UIManager.SetGameObjectActive(m_SeasonBtn, shouldShow);
+#if EVOS
+        UIManager.SetGameObjectActive(m_LootMatrixBtn, !HydrogenConfig.Get().DisableButtons && shouldShow);
+#else
         UIManager.SetGameObjectActive(m_LootMatrixBtn, shouldShow);
+#endif
         UIManager.SetGameObjectActive(m_WatchBtn, false);
+#if EVOS
+        UIManager.SetGameObjectActive(m_CashShopBtn, !HydrogenConfig.Get().DisableButtons && shouldShow);
+#else
         UIManager.SetGameObjectActive(m_CashShopBtn, shouldShow);
+#endif
         SetPlayMenuCatgeoryVisible(shouldShow);
     }
 }
