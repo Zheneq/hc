@@ -317,6 +317,15 @@ public class UIRankedModeDraftScreen : UIScene
 
     private bool IsBanned(CharacterType characterType)
     {
+#if EVOS
+        // Never banned
+        if (characterType == CharacterType.PendingWillFill
+            || characterType == CharacterType.TestFreelancer1
+            || characterType == CharacterType.TestFreelancer2)
+        {
+            return false;
+        }
+#endif
         return !m_friendlyBannedCharacterTypes.IsNullOrEmpty() && m_friendlyBannedCharacterTypes.Contains(characterType)
                || !m_enemyBannedCharacterTypes.IsNullOrEmpty() && m_enemyBannedCharacterTypes.Contains(characterType);
     }
@@ -2562,6 +2571,12 @@ public class UIRankedModeDraftScreen : UIScene
         listAssassins.Sort(CompareCharacterTypeName);
         listTanks.Sort(CompareCharacterTypeName);
         listSupports.Sort(CompareCharacterTypeName);
+#if EVOS
+        // Add Fill as an option
+        listAssassins.Add(CharacterType.PendingWillFill);
+        listTanks.Add(CharacterType.TestFreelancer1);
+        listSupports.Add(CharacterType.TestFreelancer2);
+#endif
 
         int numAssassinsPerRow = Mathf.CeilToInt(listAssassins.Count / 2f);
         int numTanksPerRow = Mathf.CeilToInt(listTanks.Count / 2f);
@@ -2673,7 +2688,16 @@ public class UIRankedModeDraftScreen : UIScene
             CharacterType characterType = btn.m_characterType;
             bool isAvailableForPlayer = IsCharacterAvailableForPlayer(characterType);
             bool isAvailable = IsCharacterTypeSelectable(characterType) && (isAvailableForPlayer || isPickingBans);
-            if (IsCharacterVisibleForPlayer(characterType))
+            bool isCharacterVisibleForPlayer = IsCharacterVisibleForPlayer(characterType);
+#if EVOS
+            if (characterType == CharacterType.PendingWillFill
+                || characterType == CharacterType.TestFreelancer1
+                || characterType == CharacterType.TestFreelancer2)
+            {
+                isCharacterVisibleForPlayer = true;
+            }
+#endif
+            if (isCharacterVisibleForPlayer)
             {
                 btn.SetEnabled(isAvailable, ClientGameManager.Get().GetPlayerCharacterData(characterType));
                 btn.SetSelected(
@@ -2698,7 +2722,18 @@ public class UIRankedModeDraftScreen : UIScene
             CharacterType characterType = btn.m_characterType;
             bool isAvailableForPlayer = IsCharacterAvailableForPlayer(characterType);
             bool isAvailable = IsCharacterTypeSelectable(characterType) && (isAvailableForPlayer || isPickingBans);
-            if (IsCharacterVisibleForPlayer(characterType))
+            bool isCharacterVisibleForPlayer = IsCharacterVisibleForPlayer(characterType);
+#if EVOS
+            //Fill in draft
+            if (characterType == CharacterType.PendingWillFill
+                || characterType == CharacterType.TestFreelancer1
+                || characterType == CharacterType.TestFreelancer2)
+            {
+                isAvailable = true;
+                isCharacterVisibleForPlayer = true;
+            }
+#endif
+            if (isCharacterVisibleForPlayer)
             {
                 bool selected = HoveredCharacter == btn.m_characterType
                                 || SelectedCharacter == btn.m_characterType

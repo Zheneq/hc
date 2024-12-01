@@ -6,14 +6,23 @@
     "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Range is increased by [TargetDataMaxRange_Diff].",
     "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Create an entropic cloud that deals [Damage] direct damage when cast and lasts [Duration] turns. Enemies moving through or starting their turn in the cloud take [Damage] additional indirect damage. Allies within or moving through the cloud heal for [Healing] health.\n\nGain [RewardOnDamage_PerTarget] energy per enemy hit and [RewardOnHit_PerAllyTarget] energy per ally hit (excluding yourself).",
     "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Target gains [^might^] for the duration of the shield.",
-	  
     "StatusIcon_27_BuffDesc@AbilitiesData": "See through walls and camouflage.",
-	  
+
     "GroupChatRoom@FriendList": "In group",
-	  
+
     "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
     "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing",
+
+    "Tournament_Draft_Bans@GameWideData": "Tournament Draft With Bans",
+    "Tournament_Draft_NoBans@GameWideData": "Tournament Draft No Bans",
+    "Tournament_NoDraft@GameWideData": "Tournament No Draft",
+    "Draft_Bans@GameWideData": "Draft With Bans",
+    "Draft_NoBans@GameWideData": "Draft With No Bans",
+
+    "Random_Character_Firepower@Global": "Select a random character in the category Firepower",
+    "Random_Character_Tank@Global": "Select a random character in the category Frontliner",
+    "Random_Character_Support@Global": "Select a random character in the category Support"
   },
   "Russian": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Бросает мины в окружающие клетки, которые наносят [Damage] ед. непрямого урона и действуют [MineDuration] хода. Если на какой-либо из клеток стоит враг, соотвествующая мина сдетонирует и нанесёт [Damage] ед. прямого урона.\n\nДает [EnergyGainOnMineHit] ед. энергии за каждое попадание по врагу.",
@@ -24,14 +33,24 @@
     "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Увеличивает дальность на [TargetDataMaxRange_Diff].",
     "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Создает энтропичное облако, которое наносит [Damage] ед. прямого урона и действует [Duration] ход. Враги, прошедшие через него или начавшие свой ход в облаке, дополнительно получают [Damage] ед. непрямого урона. Союзники, находящиеся внутри облака или проходящие через него, восстанавливают [Healing] ед. здоровья.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за попадание по врагу и [RewardOnHit_PerAllyTarget] ед. энергии за попадание по союзнику (но не по себе).",
     "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Цель получает [^мощь^] до конца действия щитов от этого умения.",
-	  
+
     "StatusIcon_27_BuffDesc@AbilitiesData": "Позволяет видеть сквозь стены и камуфляж.",
-	  
+
     "GroupChatRoom@FriendList": "В группе",
-	  
+
     "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
     "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "AllowResettingWaypointsNo@EvosOptions": "Do nothing",
+
+    "Tournament_Draft_Bans@GameWideData": "Турнирный драфт с банами",
+    "Tournament_Draft_NoBans@GameWideData": "Турнирный драфт без банов",
+    "Tournament_NoDraft@GameWideData": "Турнир без драфта",
+    "Draft_Bans@GameWideData": "Драфт с банами",
+    "Draft_NoBans@GameWideData": "Драфт без банов",
+
+    "Random_Character_Firepower@Global": "Выбрать случайного персонажа в категории Огневая мощь",
+    "Random_Character_Tank@Global": "Выбрать случайного персонажа в категории Фронтлайнер",
+    "Random_Character_Support@Global": "Выбрать случайного персонажа в категории Поддержка"
   },
   "Chinese (Simplified)": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
@@ -40,14 +59,24 @@
     "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
     "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
     "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
+
     "StatusIcon_27_BuffDesc@AbilitiesData": "可穿墙透视，识破伪装。",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+
+    "GroupChatRoom@FriendList": "在群组",
+
+    "AllowResettingWaypoints@EvosOptions": "重新选择当前目的地时",
+    "AllowResettingWaypointsYes@EvosOptions": "重置路径点",
+    "AllowResettingWaypointsNo@EvosOptions": "不执行任何操作",
+
+    "Tournament_Draft_Bans@GameWideData": "锦标赛选秀带禁用",
+    "Tournament_Draft_NoBans@GameWideData": "锦标赛选秀无禁用",
+    "Tournament_NoDraft@GameWideData": "锦标赛无选秀",
+    "Draft_Bans@GameWideData": "选秀带禁用",
+    "Draft_NoBans@GameWideData": "选秀无禁用",
+
+    "Random_Character_Firepower@Global": "选择火力类别中的随机角色",
+    "Random_Character_Tank@Global": "选择前线类别中的随机角色",
+    "Random_Character_Support@Global": "选择支援类别中的随机角色"
   },
   "French": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
@@ -56,109 +85,174 @@
     "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "La portée est augmentée de [TargetDataMaxRange_Diff].",
     "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
     "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
+
     "StatusIcon_27_BuffDesc@AbilitiesData": "Possible de voir à travers les murs et le camouflage.",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+
+    "GroupChatRoom@FriendList": "Dans le groupe",
+
+    "AllowResettingWaypoints@EvosOptions": "Lors de la re-sélection de la destination actuelle",
+    "AllowResettingWaypointsYes@EvosOptions": "Réinitialiser les points de cheminement",
+    "AllowResettingWaypointsNo@EvosOptions": "Ne rien faire",
+
+    "Tournament_Draft_Bans@GameWideData": "Brouillon de tournoi avec interdictions",
+    "Tournament_Draft_NoBans@GameWideData": "Brouillon de tournoi sans interdictions",
+    "Tournament_NoDraft@GameWideData": "Tournoi sans brouillon",
+    "Draft_Bans@GameWideData": "Brouillon avec interdictions",
+    "Draft_NoBans@GameWideData": "Brouillon sans interdictions",
+
+    "Random_Character_Firepower@Global": "Sélectionner un personnage aléatoire dans la catégorie Puissance de feu",
+    "Random_Character_Tank@Global": "Sélectionner un personnage aléatoire dans la catégorie Frontliner",
+    "Random_Character_Support@Global": "Sélectionner un personnage aléatoire dans la catégorie Soutien"
   },
   "German": {
-    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Erhöht die Reichweite um [TargetDataMaxRange_Diff].",
-    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
-    "StatusIcon_27_BuffDesc@AbilitiesData": "Sieht durch Wände und Tarnung.",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Lass Minen in allen angrenzenden Feldern fallen, die [Damage] indirekten Schaden verursachen und [MineDuration] Runden andauern. Wenn sich ein Gegner im angrenzenden Feld befindet, detoniert die entsprechende Mine und verursacht [Damage] direkten Schaden.\n\nErhalte [EnergyGainOnMineHit] Energie pro getroffenen Gegner.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Fesselt ein Ziel für diese Runde an seine aktuelle Position. Wenn es sich weiter als [TetherDistance] Felder entfernt, erleidet es [Damage_TetherBreak] indirekten Schaden.\n\nErhalte [RewardOnDamage_PerTarget] Energie pro getroffenen Gegner.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Erhöht die Anzahl der Shuriken um [LaserCount_Diff]. Zusätzlicher Schaden pro Shuriken wird um [ExtraDamagePerSubseqHit_Diff] reduziert. Zusätzliche Energie pro Shuriken wird um [EnergyPerDartHit_Diff] reduziert.",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Die Reichweite wird um [TargetDataMaxRange_Diff] erhöht.",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Erzeugt eine entropische Wolke, die beim Einsatz [Damage] direkten Schaden verursacht und [Duration] Runden anhält. Feinde, die sich durch die Wolke bewegen oder in ihr starten, erleiden [Damage] zusätzlichen indirekten Schaden. Verbündete, die sich in der Wolke befinden oder durch sie hindurchgehen, werden um [Healing] Gesundheit geheilt.\n\nErhalte [RewardOnDamage_PerTarget] Energie pro getroffenen Feind und [RewardOnHit_PerAllyTarget] Energie pro getroffenem Verbündeten (außer dir selbst).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Das Ziel erhält [^Macht^] für die Dauer des Schildes.",
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Durch Wände und Tarnungen sehen.",
+
+    "GroupChatRoom@FriendList": "In der Gruppe",
+
+    "AllowResettingWaypoints@EvosOptions": "Beim erneuten Auswählen des aktuellen Ziels",
+    "AllowResettingWaypointsYes@EvosOptions": "Wegpunkte zurücksetzen",
+    "AllowResettingWaypointsNo@EvosOptions": "Nichts tun",
+
+    "Tournament_Draft_Bans@GameWideData": "Turnierentwurf mit Sperrungen",
+    "Tournament_Draft_NoBans@GameWideData": "Turnierentwurf ohne Sperrungen",
+    "Tournament_NoDraft@GameWideData": "Turnier ohne Entwurf",
+    "Draft_Bans@GameWideData": "Entwurf mit Sperrungen",
+    "Draft_NoBans@GameWideData": "Entwurf ohne Sperrungen",
+
+    "Random_Character_Firepower@Global": "Zufälligen Charakter der Kategorie Feuerkraft auswählen",
+    "Random_Character_Tank@Global": "Zufälligen Charakter der Kategorie Frontkämpfer auswählen",
+    "Random_Character_Support@Global": "Zufälligen Charakter der Kategorie Unterstützung auswählen"
   },
   "Italian": {
-    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
-    "StatusIcon_27_BuffDesc@AbilitiesData": "Può vedere attraverso i muri e nel mimetismo.",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Lascia mine in tutte le caselle adiacenti che infliggono [Damage] danni indiretti e durano per [MineDuration] turni. Se c'è un nemico nella casella adiacente, la mina corrispondente esploderà invece, infliggendo [Damage] danni diretti.\n\nOttieni [EnergyGainOnMineHit] energia per ogni nemico colpito.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Vincola un bersaglio alla sua posizione attuale per il turno. Se si sposta di oltre [TetherDistance] caselle, subisce [Damage_TetherBreak] danni indiretti.\n\nOttieni [RewardOnDamage_PerTarget] energia per ogni nemico danneggiato.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Aumenta il numero di shuriken di [LaserCount_Diff]. Il danno aggiuntivo per shuriken è ridotto di [ExtraDamagePerSubseqHit_Diff]. L'energia aggiuntiva ottenuta per shuriken è ridotta di [EnergyPerDartHit_Diff].",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "La portata è aumentata di [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Crea una nube entropica che infligge [Damage] danni diretti quando lanciata e dura [Duration] turni. I nemici che si muovono attraverso o iniziano il turno nella nube subiscono [Damage] danni indiretti aggiuntivi. Gli alleati all'interno della nube o che vi passano attraverso guariscono [Healing] salute.\n\nOttieni [RewardOnDamage_PerTarget] energia per ogni nemico colpito e [RewardOnHit_PerAllyTarget] energia per ogni alleato colpito (escluso te stesso).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Il bersaglio ottiene [^potenza^] per la durata dello scudo.",
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Vedi attraverso i muri e il camuffamento.",
+
+    "GroupChatRoom@FriendList": "Nel gruppo",
+
+    "AllowResettingWaypoints@EvosOptions": "Alla riselezione della destinazione attuale",
+    "AllowResettingWaypointsYes@EvosOptions": "Ripristina i punti di riferimento",
+    "AllowResettingWaypointsNo@EvosOptions": "Non fare nulla",
+
+    "Tournament_Draft_Bans@GameWideData": "Bozza torneo con divieti",
+    "Tournament_Draft_NoBans@GameWideData": "Bozza torneo senza divieti",
+    "Tournament_NoDraft@GameWideData": "Torneo senza bozza",
+    "Draft_Bans@GameWideData": "Bozza con divieti",
+    "Draft_NoBans@GameWideData": "Bozza senza divieti",
+
+    "Random_Character_Firepower@Global": "Seleziona un personaggio casuale nella categoria Potenza di Fuoco",
+    "Random_Character_Tank@Global": "Seleziona un personaggio casuale nella categoria Frontline",
+    "Random_Character_Support@Global": "Seleziona un personaggio casuale nella categoria Supporto"
   },
   "Korean": {
-    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
-    "StatusIcon_27_BuffDesc@AbilitiesData": "",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "모든 인접한 칸에 지뢰를 떨어뜨려 [Damage] 간접 피해를 주고 [MineDuration] 턴 동안 지속됩니다. 인접한 칸에 적이 있는 경우 해당 지뢰는 폭발하여 [Damage] 직접 피해를 줍니다.\n\n적이 맞을 때마다 [EnergyGainOnMineHit] 에너지를 얻습니다.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "대상을 현재 위치에 묶어두고, 만약 그 대상이 [TetherDistance] 칸 이상 이동할 경우 [Damage_TetherBreak] 간접 피해를 입습니다.\n\n적이 피해를 입을 때마다 [RewardOnDamage_PerTarget] 에너지를 얻습니다.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "수리검의 수가 [LaserCount_Diff]만큼 증가합니다. 수리검 당 추가 피해는 [ExtraDamagePerSubseqHit_Diff]만큼 감소합니다. 수리검 맞출 때마다 얻는 에너지는 [EnergyPerDartHit_Diff]만큼 감소합니다.",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "사정거리가 [TargetDataMaxRange_Diff]만큼 증가합니다.",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "엔트로피 구름을 생성하여 시전 시 [Damage] 직접 피해를 입히고 [Duration] 턴 동안 지속됩니다. 구름 안을 지나가거나 구름 안에서 턴을 시작하는 적은 [Damage] 간접 피해를 추가로 입습니다. 구름 안에 있는 아군은 [Healing] 체력을 회복합니다.\n\n적이 맞을 때마다 [RewardOnDamage_PerTarget] 에너지를 얻고, 아군이 맞을 때마다 (자신 제외) [RewardOnHit_PerAllyTarget] 에너지를 얻습니다.",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "대상은 보호막 지속 시간 동안 [^힘^]을 얻습니다.",
+    "StatusIcon_27_BuffDesc@AbilitiesData": "벽과 위장을 투시합니다.",
+
+    "GroupChatRoom@FriendList": "그룹에서",
+
+    "AllowResettingWaypoints@EvosOptions": "현재 목적지를 다시 선택하면",
+    "AllowResettingWaypointsYes@EvosOptions": "경유지 초기화",
+    "AllowResettingWaypointsNo@EvosOptions": "아무것도 하지 않음",
+
+    "Tournament_Draft_Bans@GameWideData": "밴 있는 토너먼트 드래프트",
+    "Tournament_Draft_NoBans@GameWideData": "밴 없는 토너먼트 드래프트",
+    "Tournament_NoDraft@GameWideData": "드래프트 없는 토너먼트",
+    "Draft_Bans@GameWideData": "밴 있는 드래프트",
+    "Draft_NoBans@GameWideData": "밴 없는 드래프트",
+
+    "Random_Character_Firepower@Global": "무작위 화력 캐릭터 선택",
+    "Random_Character_Tank@Global": "무작위 전방 캐릭터 선택",
+    "Random_Character_Support@Global": "무작위 지원 캐릭터 선택"
   },
   "Polish": {
-    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
-    "StatusIcon_27_BuffDesc@AbilitiesData": "Pozwala widzieć jednostki zakamuflowane, i te za ścianą.",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Zrzuć miny na wszystkie sąsiednie pola, które zadają [Damage] obrażeń pośrednich i trwają [MineDuration] tur. Jeśli na sąsiednim polu znajduje się przeciwnik, odpowiednia mina wybuchnie, zadając [Damage] obrażeń bezpośrednich.\n\nZdobądź [EnergyGainOnMineHit] energii za każdego trafionego przeciwnika.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Przywiązuje cel do jego aktualnej pozycji na turę. Jeśli przemieści się dalej niż [TetherDistance] pola, otrzymuje [Damage_TetherBreak] obrażeń pośrednich.\n\nZdobądź [RewardOnDamage_PerTarget] energii za każdego trafionego przeciwnika.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Zwiększa liczbę shurikenów o [LaserCount_Diff]. Dodatkowe obrażenia na shuriken są zmniejszone o [ExtraDamagePerSubseqHit_Diff]. Dodatkowa energia uzyskana na shuriken jest zmniejszona o [EnergyPerDartHit_Diff].",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Zasięg zwiększony o [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Tworzy entropijną chmurę, która zadaje [Damage] obrażeń bezpośrednich podczas rzucania i trwa [Duration] tur. Wrogowie poruszający się przez chmurę lub rozpoczynający turę w jej obrębie otrzymują [Damage] dodatkowych obrażeń pośrednich. Sojusznicy w chmurze lub przechodzący przez nią zostają uzdrowieni o [Healing] zdrowia.\n\nZdobądź [RewardOnDamage_PerTarget] energii za każdego trafionego przeciwnika oraz [RewardOnHit_PerAllyTarget] energii za każdego trafionego sojusznika (z wyłączeniem siebie).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Cel zyskuje [^moc^] na czas trwania tarczy.",
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Widzenie przez ściany i kamuflaż.",
+
+    "GroupChatRoom@FriendList": "W grupie",
+
+    "AllowResettingWaypoints@EvosOptions": "Po ponownym wybraniu bieżącego celu",
+    "AllowResettingWaypointsYes@EvosOptions": "Resetuj punkty nawigacyjne",
+    "AllowResettingWaypointsNo@EvosOptions": "Nie rób nic",
+
+    "Tournament_Draft_Bans@GameWideData": "Projekt turnieju z zakazami",
+    "Tournament_Draft_NoBans@GameWideData": "Projekt turnieju bez zakazów",
+    "Tournament_NoDraft@GameWideData": "Turniej bez projektu",
+
+    "Draft_Bans@GameWideData": "Projekt z zakazami",
+    "Draft_NoBans@GameWideData": "Projekt bez zakazów",
+
+    "Random_Character_Firepower@Global": "Wybierz losową postać z kategorii Siła Ognia",
+    "Random_Character_Tank@Global": "Wybierz losową postać z kategorii Czołg",
+    "Random_Character_Support@Global": "Wybierz losową postać z kategorii Wsparcie"
   },
   "Portuguese": {
-    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
-    "StatusIcon_27_BuffDesc@AbilitiesData": "Concede visão através de paredes e de inimigos camuflados.",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Solte minas em todos os quadrados adjacentes que causam [Damage] dano indireto e duram [MineDuration] turnos. Se houver um inimigo no quadrado adjacente, a mina correspondente detonará, causando [Damage] dano direto.\n\nGanhe [EnergyGainOnMineHit] energia por inimigo atingido.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Amarre um alvo à sua posição atual por este turno. Se ele se mover mais do que [TetherDistance] espaços, ele sofrerá [Damage_TetherBreak] dano indireto.\n\nGanhe [RewardOnDamage_PerTarget] energia por inimigo atingido.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Aumenta o número de shurikens em [LaserCount_Diff]. O dano adicional por shuriken é reduzido em [ExtraDamagePerSubseqHit_Diff]. A energia adicional obtida por shuriken é reduzida em [EnergyPerDartHit_Diff].",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "O alcance é aumentado em [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Cria uma nuvem entrópica que causa [Damage] dano direto ao ser lançada e dura [Duration] turnos. Inimigos que se movem através ou começam o turno na nuvem sofrem [Damage] dano indireto adicional. Aliados dentro ou passando pela nuvem curam [Healing] de vida.\n\nGanhe [RewardOnDamage_PerTarget] energia por inimigo atingido e [RewardOnHit_PerAllyTarget] energia por aliado atingido (exceto você).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "O alvo ganha [^poder^] pela duração do escudo.",
+    "StatusIcon_27_BuffDesc@AbilitiesData": "Ver através de paredes e camuflagem.",
+
+    "GroupChatRoom@FriendList": "Em grupo",
+
+    "AllowResettingWaypoints@EvosOptions": "Ao selecionar novamente o destino atual",
+    "AllowResettingWaypointsYes@EvosOptions": "Redefinir pontos de passagem",
+    "AllowResettingWaypointsNo@EvosOptions": "Não fazer nada",
+
+    "Tournament_Draft_Bans@GameWideData": "Rascunho de torneio com banimentos",
+    "Tournament_Draft_NoBans@GameWideData": "Rascunho de torneio sem banimentos",
+    "Tournament_NoDraft@GameWideData": "Torneio sem rascunho",
+    "Draft_Bans@GameWideData": "Rascunho com banimentos",
+    "Draft_NoBans@GameWideData": "Rascunho sem banimentos",
+
+    "Random_Character_Firepower@Global": "Selecione um personagem aleatório na categoria Poder de Fogo",
+    "Random_Character_Tank@Global": "Selecione um personagem aleatório na categoria Linha de Frente",
+    "Random_Character_Support@Global": "Selecione um personagem aleatório na categoria Suporte"
   },
   "Spanish": {
-    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
-    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "",
-    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "",
-    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "",
-    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "",
-    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "",
-	  
+    "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Coloca minas en todas las casillas adyacentes que infligen [Damage] daño indirecto y duran [MineDuration] turnos. Si hay un enemigo en la casilla adyacente, la mina correspondiente detonará en su lugar, infligiendo [Damage] daño directo.\n\nObtén [EnergyGainOnMineHit] energía por cada enemigo golpeado.",
+    "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Amarra un objetivo a su posición actual durante el turno. Si se mueve más de [TetherDistance] casillas, recibirá [Damage_TetherBreak] daño indirecto.\n\nObtén [RewardOnDamage_PerTarget] energía por cada enemigo dañado.",
+    "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Aumenta el número de shurikens en [LaserCount_Diff]. El daño adicional por shuriken se reduce en [ExtraDamagePerSubseqHit_Diff]. La energía adicional obtenida por shuriken se reduce en [EnergyPerDartHit_Diff].",
+    "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "El alcance se incrementa en [TargetDataMaxRange_Diff].",
+    "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Crea una nube entrópica que inflige [Damage] daño directo cuando se lanza y dura [Duration] turnos. Los enemigos que se mueven a través o comienzan su turno en la nube reciben [Damage] daño indirecto adicional. Los aliados dentro o que se muevan a través de la nube sanan [Healing] de salud.\n\nObtén [RewardOnDamage_PerTarget] energía por cada enemigo golpeado y [RewardOnHit_PerAllyTarget] energía por cada aliado golpeado (excluyéndote a ti mismo).",
+    "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "El objetivo gana [^poder^] durante la duración del escudo.",
     "StatusIcon_27_BuffDesc@AbilitiesData": "Ver a través de paredes y camuflaje.",
-	  
-    "GroupChatRoom@FriendList": "In group",
-	  
-    "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
-    "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
-    "AllowResettingWaypointsNo@EvosOptions": "Do nothing"
+
+    "GroupChatRoom@FriendList": "En grupo",
+
+    "AllowResettingWaypoints@EvosOptions": "Al volver a seleccionar el destino actual",
+    "AllowResettingWaypointsYes@EvosOptions": "Restablecer puntos de referencia",
+    "AllowResettingWaypointsNo@EvosOptions": "No hacer nada",
+
+    "Tournament_Draft_Bans@GameWideData": "Borrador de torneo con prohibiciones",
+    "Tournament_Draft_NoBans@GameWideData": "Borrador de torneo sin prohibiciones",
+    "Tournament_NoDraft@GameWideData": "Torneo sin borrador",
+    "Draft_Bans@GameWideData": "Borrador con prohibiciones",
+    "Draft_NoBans@GameWideData": "Borrador sin prohibiciones",
+
+    "Random_Character_Firepower@Global": "Selecciona un personaje aleatorio en la categoría Poder de Fuego",
+    "Random_Character_Tank@Global": "Selecciona un personaje aleatorio en la categoría Frente",
+    "Random_Character_Support@Global": "Selecciona un personaje aleatorio en la categoría Apoyo"
   }
 }

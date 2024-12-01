@@ -637,7 +637,31 @@ public class CharacterResourceLink : MonoBehaviour
 
     public Sprite GetCharacterSelectIcon()
     {
+#if EVOS
+        //Fill in draft
+        string iconPath;
+
+        switch (m_characterType)
+        {
+            // Override icons only shows in draft
+            case CharacterType.PendingWillFill:
+                iconPath = "iconAssassin";
+                break;
+            case CharacterType.TestFreelancer1:
+                iconPath = "iconTank";
+                break;
+            case CharacterType.TestFreelancer2:
+                iconPath = "iconSupport";
+                break;
+            default:
+                iconPath = m_characterSelectIconResourceString;
+                break;
+        }
+
+        return (Sprite)Resources.Load(iconPath, typeof(Sprite));
+#else
         return (Sprite)Resources.Load(m_characterSelectIconResourceString, typeof(Sprite));
+#endif
     }
 
     public Sprite GetCharacterSelectIconBW()

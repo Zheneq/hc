@@ -100,6 +100,30 @@ public class UICharacterPanelSelectButton : MonoBehaviour
         if (!m_isTooltipInitialized)
         {
             UITooltipHoverObject tooltipHoverObject = m_button.spriteController.GetComponent<UITooltipHoverObject>();
+#if EVOS
+            //Fill in draft
+            if (characterResourceLink.m_characterType == CharacterType.PendingWillFill)
+            {
+                SetupTootlipForRandomDraft(
+                    tooltipHoverObject,
+                    LocalizationPayload.Create("CharacterRole_Assassin", "Global").ToString(),
+                    LocalizationPayload.Create("Random_Character_Firepower", "Global").ToString());
+            }
+            else if (characterResourceLink.m_characterType == CharacterType.TestFreelancer1)
+            {
+                SetupTootlipForRandomDraft(
+                    tooltipHoverObject,
+                    LocalizationPayload.Create("CharacterRole_Tank", "Global").ToString(),
+                    LocalizationPayload.Create("Random_Character_Tank", "Global").ToString());
+            }
+            else if (characterResourceLink.m_characterType == CharacterType.TestFreelancer2)
+            {
+                SetupTootlipForRandomDraft(
+                    tooltipHoverObject,
+                    LocalizationPayload.Create("CharacterRole_Support", "Global").ToString(),
+                    LocalizationPayload.Create("Random_Character_Support", "Global").ToString());
+            }
+#else
             if (characterResourceLink.m_characterType.IsWillFill())
             {
                 tooltipHoverObject.Setup(
@@ -118,6 +142,7 @@ public class UICharacterPanelSelectButton : MonoBehaviour
                         return false;
                     });
             }
+#endif
             else
             {
                 tooltipHoverObject.Setup(
@@ -175,6 +200,24 @@ public class UICharacterPanelSelectButton : MonoBehaviour
             UIManager.SetGameObjectActive(masterExpBarContainer, !m_isDisabled && m_isMaster);
         }
     }
+    
+#if EVOS
+    private void SetupTootlipForRandomDraft(UITooltipHoverObject tooltipHoverObject, string title, string text)
+    {
+        tooltipHoverObject.Setup(
+            TooltipType.Titled,
+            delegate(UITooltipBase tooltip)
+            {
+                if (!m_button.spriteController.IsClickable() || m_characterResourceLink == null)
+                {
+                    return false;
+                }
+
+                (tooltip as UITitledTooltip).Setup(title, text, string.Empty);
+                return true;
+            });
+    }
+#endif
 
     public virtual void SetEnabled(bool enabled, PersistedCharacterData playerCharacterData)
     {
