@@ -98,10 +98,19 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
             m_playerTitle.text = GameBalanceVars.Get().GetTitle(info.TitleID, string.Empty, info.TitleLevel);
 #endif
             m_playerLevel.text = string.Empty;
+#if EVOS
+            BannerManager.GetInstance()?.UpdateBanner(
+                info.BannerID,
+                info.EmblemID,
+                info.GetHandle(),
+                m_bannerImage,
+                m_profileImage);
+#else
             GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(info.BannerID);
             GameBalanceVars.PlayerBanner emblem = GameWideData.Get().m_gameBalanceVars.GetBanner(info.EmblemID);
             SetBanner(banner, GameBalanceVars.PlayerBanner.BannerType.Background);
             SetBanner(emblem, GameBalanceVars.PlayerBanner.BannerType.Foreground);
+#endif
             GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(info.RibbonID);
             SetRibbon(ribbon);
         }

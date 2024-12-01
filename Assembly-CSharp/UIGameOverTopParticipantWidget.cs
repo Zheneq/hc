@@ -31,7 +31,15 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 			}
 			UIManager.SetGameObjectActive(m_AllyTeamIndicator, current.TeamId == playerInfo.TeamId);
 			UIManager.SetGameObjectActive(m_EnemyTeamIndicator, current.TeamId != playerInfo.TeamId);
-			
+#if EVOS
+			BannerManager.GetInstance()?.UpdateBanner(
+				current.BannerID,
+				current.EmblemID,
+				current.GetHandle(),
+				m_BannerImage, 
+				m_EmblemImage,
+				!current.IsAIControlled);
+#else
 			GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(current.BannerID);
 			string bannerPath = banner != null ? banner.m_resourceString : "Banners/Background/02_blue";
 			m_BannerImage.sprite = Resources.Load<Sprite>(bannerPath);
@@ -41,8 +49,8 @@ public class UIGameOverTopParticipantWidget : MonoBehaviour
 			GameBalanceVars.PlayerBanner emblem = GameWideData.Get().m_gameBalanceVars.GetBanner(current.EmblemID);
 			string emblemPath = emblem != null ? emblem.m_resourceString : "Banners/Emblems/Chest01";
 			m_EmblemImage.sprite = Resources.Load<Sprite>(emblemPath);
-			
 			UIManager.SetGameObjectActive(m_EmblemImage, doActive);
+#endif
 			m_PlayerName.text = current.Handle;
 #if EVOS
             // Custom titles

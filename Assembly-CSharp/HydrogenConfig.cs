@@ -123,7 +123,7 @@ public class HydrogenConfig : JsonConfig
 	private static HydrogenConfig s_instance = new HydrogenConfig();
 
 	public string ProcessName => $"{ProcessType.ToString()}-{ProcessCode}";
-	
+
 #if SERVER
 	// TODO LOW use CommonServerConfig? It is not loaded now
 	// custom
@@ -140,14 +140,17 @@ public class HydrogenConfig : JsonConfig
 	public string ReplayUploadUrl;
 	public Dictionary<string, string> ReplayUploadHeaders;
 #endif
-	
+
 #if !VANILLA
-	public string CrashReportUrl = "https://evos-emu.com/api/archive/";
+    public string CrashReportUrl = "https://evos-emu.com/api/archive/";
 #endif
 
 #if EVOS
     //Custom titles
     public string ApiTitleUrl = "https://stats-production.evos.live/api/titles";
+    //Custom banners
+
+    public string ApiBannerUrl = "https://stats-production.evos.live/api/banners";
 #endif
 
 #if EVOS
@@ -156,6 +159,7 @@ public class HydrogenConfig : JsonConfig
     public bool StraightPlay;
     public bool AllowChatTags;
     public int vsync;
+    public bool DisableCustomBanners;
 #endif
 
 	public HydrogenConfig()
@@ -202,6 +206,7 @@ public class HydrogenConfig : JsonConfig
         StraightPlay = false;
         AllowChatTags = false;
         vsync = 1;
+        DisableCustomBanners = false;
 #endif
 	}
 

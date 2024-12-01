@@ -191,6 +191,14 @@ public class HUD_UI : UIScene
             UIManager.SetGameObjectActive(
                 m_tauntPlayerBanner.m_playerLevel,
                 false);
+#if EVOS
+            BannerManager.GetInstance()?.UpdateBanner(
+                playerInfo.BannerID,
+                playerInfo.EmblemID,
+                actorData.GetDisplayName(),
+                m_tauntPlayerBanner.m_bannerBG,
+                m_tauntPlayerBanner.m_bannerFG);
+#else
             GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(playerInfo.BannerID);
             string bannerPath = banner != null
                 ? banner.m_resourceString
@@ -201,6 +209,7 @@ public class HUD_UI : UIScene
                 ? emblem.m_resourceString
                 : UIPlayerBanner.standardResourceString;
             m_tauntPlayerBanner.m_bannerFG.sprite = (Sprite)Resources.Load(emblemPath, typeof(Sprite));
+#endif
             m_tauntPlayerBanner.m_playerTitle.text = GameWideData.Get()
                 .m_gameBalanceVars
                 .GetTitle(

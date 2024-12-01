@@ -305,6 +305,16 @@ public class UIGameOverPlayerEntry : MonoBehaviour
 #endif
         }
 
+#if EVOS
+        BannerManager.GetInstance()?.UpdateBanner(
+            statline.BannerID,
+            statline.EmblemID,
+            statline.DisplayName,
+            m_bannerImage,
+            m_emblemImage,
+            showEmblem);
+
+#else
         GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(statline.BannerID);
         if (banner != null)
         {
@@ -319,6 +329,8 @@ public class UIGameOverPlayerEntry : MonoBehaviour
         }
 
         UIManager.SetGameObjectActive(m_emblemImage, showEmblem);
+#endif
+        
         GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(statline.RibbonID);
         if (ribbon != null)
         {

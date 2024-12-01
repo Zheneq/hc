@@ -28,16 +28,27 @@ public class UIGGPackNotification : MonoBehaviour
 #endif
             string.Empty,
             info.GGPackUserTitleLevel);
-        GameBalanceVars.PlayerBanner bannerForeground =
-            GameBalanceVars.Get().GetBanner(info.GGPackUserBannerForeground);
-        GameBalanceVars.PlayerBanner bannerBackground =
-            GameBalanceVars.Get().GetBanner(info.GGPackUserBannerBackground);
         GameBalanceVars.PlayerRibbon ribbon =
             GameBalanceVars.Get().GetRibbon(info.GGPackUserRibbon);
+        
         for (int i = 0; i < m_ggButtonLevelImages.Length; i++)
         {
             UIManager.SetGameObjectActive(m_ggButtonLevelImages[i], i == info.NumGGPacksUsed - 1);
         }
+        
+#if EVOS
+        BannerManager.GetInstance()?.UpdateBanner(
+            info.GGPackUserBannerForeground,
+            info.GGPackUserBannerBackground,
+            info.GGPackUserName,
+            m_foregroundImage,
+            m_backgroundImage);
+
+#else
+        GameBalanceVars.PlayerBanner bannerForeground =
+            GameBalanceVars.Get().GetBanner(info.GGPackUserBannerForeground);
+        GameBalanceVars.PlayerBanner bannerBackground =
+            GameBalanceVars.Get().GetBanner(info.GGPackUserBannerBackground);
 
         if (bannerForeground != null)
         {
@@ -52,6 +63,7 @@ public class UIGGPackNotification : MonoBehaviour
             m_backgroundImage.sprite = sprite;
             UIManager.SetGameObjectActive(m_backgroundImage, sprite != null);
         }
+#endif
 
         if (ribbon != null)
         {

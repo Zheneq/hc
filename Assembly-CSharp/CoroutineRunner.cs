@@ -2,7 +2,7 @@
 using UnityEngine;
 
 #if EVOS
-// Custom titles
+// Custom
 public class CoroutineRunner : MonoBehaviour
 {
     private static CoroutineRunner _instance;

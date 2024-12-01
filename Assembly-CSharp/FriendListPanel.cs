@@ -215,10 +215,23 @@ public class FriendListPanel : MonoBehaviour
         foreach (FriendListBannerEntry entry in m_friendScrollList.GetComponentsInChildren<FriendListBannerEntry>(true))
         {
             long friendAccountId = entry.m_friendInfo.FriendAccountId;
+#if EVOS
+            string friendAccountHandle = entry.m_friendInfo.FriendHandle;
+#endif
             if (accountData.SocialComponent.FriendInfo.TryGetValue(
                     friendAccountId,
                     out SocialComponent.FriendData value))
             {
+#if EVOS
+                entry.UpdateVisualInfo(
+                    value.LastSeenTitleID,
+                    value.LastSeenTitleLevel,
+                    value.LastSeenBackbroundID,
+                    value.LastSeenForegroundID,
+                    value.LastSeenRibbonID,
+                    value.LastSeenNote,
+                    friendAccountHandle);
+#else
                 entry.UpdateVisualInfo(
                     value.LastSeenTitleID,
                     value.LastSeenTitleLevel,
@@ -226,6 +239,7 @@ public class FriendListPanel : MonoBehaviour
                     value.LastSeenForegroundID,
                     value.LastSeenRibbonID,
                     value.LastSeenNote);
+#endif
             }
         }
     }

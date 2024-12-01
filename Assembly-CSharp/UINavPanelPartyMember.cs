@@ -182,6 +182,14 @@ public class UINavPanelPartyMember : MonoBehaviour
             return;
         }
 
+#if EVOS
+        BannerManager.GetInstance()?.UpdateBanner(
+            info.BackgroundBannerID,
+            info.ForegroundBannerID,
+            info.MemberHandle,
+            m_bannerImage,
+            m_emblemImage);
+#else
         Sprite sprite;
         if (m_bannerImage != null)
         {
@@ -214,6 +222,7 @@ public class UINavPanelPartyMember : MonoBehaviour
 
             m_emblemImage.sprite = sprite;
         }
+#endif
 
         if (m_ribbonImage != null)
         {

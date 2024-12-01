@@ -146,6 +146,16 @@ public class UILoadscreenProfile : MonoBehaviour
             ribbonID = playerInfo.RibbonID;
         }
 
+#if EVOS
+        BannerManager.GetInstance()?.UpdateBanner(
+            bannerID,
+            emblemID,
+            playerInfo.GetHandle(),
+            m_bannerImage, 
+            m_emblemImage,
+            isEmblemVisible);
+
+#else
         GameBalanceVars.PlayerBanner banner = GameWideData.Get().m_gameBalanceVars.GetBanner(bannerID);
         m_bannerImage.sprite = Resources.Load<Sprite>(
             banner != null
@@ -157,6 +167,7 @@ public class UILoadscreenProfile : MonoBehaviour
                 ? emblem.m_resourceString
                 : UIPlayerBanner.standardEmblemResourceString);
         UIManager.SetGameObjectActive(m_emblemImage, isEmblemVisible);
+#endif
         GameBalanceVars.PlayerRibbon ribbon = GameWideData.Get().m_gameBalanceVars.GetRibbon(ribbonID);
         if (ribbon != null)
         {

@@ -201,7 +201,17 @@ public class FriendListBannerEntry : MonoBehaviour
                 m_playerStatusLabel.text = string.Empty;
                 break;
         }
-
+        
+#if EVOS
+        UpdateVisualInfo(
+            friendInfo.TitleID,
+            friendInfo.TitleLevel,
+            friendInfo.BannerID,
+            friendInfo.EmblemID,
+            friendInfo.RibbonID,
+            friendInfo.FriendNote,
+            friendInfo.FriendHandle);
+#else
         UpdateVisualInfo(
             friendInfo.TitleID,
             friendInfo.TitleLevel,
@@ -209,8 +219,27 @@ public class FriendListBannerEntry : MonoBehaviour
             friendInfo.EmblemID,
             friendInfo.RibbonID,
             friendInfo.FriendNote);
+#endif
     }
 
+
+#if EVOS
+    public void UpdateVisualInfo(
+        int titleId,
+        int titleLevel,
+        int bannerId,
+        int emblemId,
+        int ribbonId,
+        string friendNote,
+        string handle)
+    {
+        BannerManager.GetInstance()?.UpdateBanner(bannerId, emblemId, handle, m_bannerBG, m_bannerFG);
+
+        // Update title and level information
+        m_friendInfo.TitleID = titleId;
+        m_friendInfo.TitleLevel = titleLevel;
+    }
+#else
     public void UpdateVisualInfo(
         int titleId,
         int titleLevel,
@@ -230,6 +259,7 @@ public class FriendListBannerEntry : MonoBehaviour
         m_friendInfo.TitleID = titleId;
         m_friendInfo.TitleLevel = titleLevel;
     }
+#endif
 
     public void SetTextOnlineColor()
     {

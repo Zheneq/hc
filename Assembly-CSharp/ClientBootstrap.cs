@@ -146,6 +146,8 @@ public class ClientBootstrap : MonoBehaviour
 #if EVOS
         // Custom titles Init and fetch
         PlayerTitleManager.GetInstance().Init();
+        // Custom Banners init and fetch
+        BannerManager.GetInstance().Init();
 #endif
 	}
 
@@ -183,11 +185,12 @@ public class ClientBootstrap : MonoBehaviour
 		}
 
 #if EVOS
-        // Custom titles refresh
+        // Custom titles refresh and banners
         timeSinceLastRefresh += Time.deltaTime;
         if (timeSinceLastRefresh >= refreshInterval)
         {
             PlayerTitleManager.GetInstance().RefreshTitles();
+            BannerManager.GetInstance().RefreshBanners();
             timeSinceLastRefresh = 0f;
         }
 #endif

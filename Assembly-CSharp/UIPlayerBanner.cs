@@ -24,12 +24,17 @@ public class UIPlayerBanner : MonoBehaviour
     {
         m_onAccountDataUpdated = delegate(PersistedAccountData accountData)
         {
+#if EVOS
+            //Custom banners
+            UpdateBanner(accountData.Handle);
+#else
             SetBanner(
                 ClientGameManager.Get().GetCurrentBackgroundBanner(),
                 GameBalanceVars.PlayerBanner.BannerType.Background);
             SetBanner(
                 ClientGameManager.Get().GetCurrentForegroundBanner(),
                 GameBalanceVars.PlayerBanner.BannerType.Foreground);
+#endif
             SetRibbon(ClientGameManager.Get().GetCurrentRibbon());
             if (m_playerName != null)
             {
@@ -56,24 +61,46 @@ public class UIPlayerBanner : MonoBehaviour
             m_onAccountDataUpdated(ClientGameManager.Get().GetPlayerAccountData());
         }
 
+#if EVOS
+        //Custom banners
+        UpdateBanner(ClientGameManager.Get().GetPlayerAccountData().Handle);
+#else
         SetBanner(
             ClientGameManager.Get().GetCurrentBackgroundBanner(),
             GameBalanceVars.PlayerBanner.BannerType.Background);
         SetBanner(
             ClientGameManager.Get().GetCurrentForegroundBanner(),
             GameBalanceVars.PlayerBanner.BannerType.Foreground);
+#endif
         SetRibbon(ClientGameManager.Get().GetCurrentRibbon());
         m_onPlayerBannerChange = delegate(
             GameBalanceVars.PlayerBanner foregroundBanner,
             GameBalanceVars.PlayerBanner backgroundBanner)
         {
+#if EVOS
+            //Custom banners
+            UpdateBanner(m_playerName?.text);
+#else
             SetBanner(backgroundBanner, GameBalanceVars.PlayerBanner.BannerType.Background);
             SetBanner(foregroundBanner, GameBalanceVars.PlayerBanner.BannerType.Foreground);
+#endif
         };
         ClientGameManager.Get().OnPlayerBannerChange += m_onPlayerBannerChange;
         m_onPlayerRibbonChange = delegate { SetRibbon(ClientGameManager.Get().GetCurrentRibbon()); };
         ClientGameManager.Get().OnPlayerRibbonChange += m_onPlayerRibbonChange;
     }
+
+#if EVOS
+    private void UpdateBanner(string handle)
+    {
+        BannerManager.GetInstance()?.UpdateBanner(
+            ClientGameManager.Get().GetCurrentBackgroundBanner().GetID(),
+            ClientGameManager.Get().GetCurrentForegroundBanner().GetID(),
+            handle,
+            m_bannerImage,
+            m_profileImage);
+    }
+#endif
 
     private void OnDestroy()
     {

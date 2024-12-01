@@ -516,6 +516,7 @@
     <Compile Include="BankComponent.cs" />
     <Compile Include="BannedWords.cs" />
     <Compile Include="BannedWordsData.cs" />
+    <Compile Include="BannerFetcher.cs" />
     <Compile Include="Barrier.cs" />
     <Compile Include="BarrierManager.cs" />
     <Compile Include="BarrierModData.cs" />
@@ -785,6 +786,7 @@
     <Compile Include="CurrencyTransaction.cs" />
     <Compile Include="CurrencyType.cs" />
     <Compile Include="CurrencyWallet.cs" />
+    <Compile Include="BannerManager.cs" />
     <Compile Include="DamageSource.cs" />
     <Compile Include="DeathData.cs" />
     <Compile Include="DebugCommand.cs" />
@@ -3107,5 +3109,4 @@
       <Compile Include="$(IntermediateOutputPath)gen.cs" />
     </ItemGroup>
   </Target>
-
 </Project>
