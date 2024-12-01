@@ -801,6 +801,7 @@
     <Compile Include="DebugCommand_ForceMatchmaking.cs" />
     <Compile Include="DebugCommand_Gibberish.cs" />
     <Compile Include="DebugCommand_LogSystemInfo.cs" />
+    <Compile Include="DebugCommand_Options.cs" />
     <Compile Include="DebugCommand_SetExtraLowGraphicsQuality.cs" />
     <Compile Include="DebugCommand_SetGlobalShaderLOD.cs" />
     <Compile Include="DebugCommand_Snapshot.cs" />

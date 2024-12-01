@@ -20,6 +20,7 @@ public class DebugCommands
         m_debugCommands.Add(new DebugCommand_Snapshot());
         m_debugCommands.Add(new DebugCommand_Gibberish());
         m_debugCommands.Add(new DebugCommand_SetExtraLowGraphicsQuality());
+        m_debugCommands.Add(new DebugCommand_Options());
     }
 
     public static DebugCommands Get()
@@ -48,7 +49,7 @@ public class DebugCommands
             {
                 continue;
             }
-            
+
             executed = debugCommand.OnSlashCommand(arguments);
             if (executed)
             {
@@ -101,7 +102,8 @@ public class DebugCommands
     {
         command.OnIncreaseClick();
         if (command.GetType() != typeof(DebugCommand_Category)
-            && command.GetType() != typeof(DebugCommand_Back))
+            && command.GetType() != typeof(DebugCommand_Back)
+            && command.GetPath() != "Options")
         {
             ClientGameManager.Get().symbol_001D(command.GetDebugItemName(), command.GetDebugItemValue());
         }
@@ -110,7 +112,9 @@ public class DebugCommands
     public void OnDecreaseClick(DebugCommand command)
     {
         command.OnDecreaseClick();
-        if (command.GetType() != typeof(DebugCommand_Category) && command.GetType() != typeof(DebugCommand_Back))
+        if (command.GetType() != typeof(DebugCommand_Category)
+            && command.GetType() != typeof(DebugCommand_Back)
+            && command.GetPath() != "Options")
         {
             ClientGameManager.Get().symbol_001D("Decrease " + command.GetDebugItemName(), command.GetDebugItemValue());
         }
