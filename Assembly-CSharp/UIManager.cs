@@ -212,101 +212,106 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	public static void SetGameObjectActive(GameObject gObject, bool doActive, DisableGameObjectWithAnimOutInfo overrideAnimInfo = null)
+	public static void SetGameObjectActive(
+		GameObject gObject,
+		bool doActive,
+		DisableGameObjectWithAnimOutInfo overrideAnimInfo = null)
 	{
-		if (!(gObject == null))
+		if (gObject == null)
 		{
-			if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds != null)
-			{
-				if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds.Contains(gObject.GetInstanceID()))
-				{
-					DisableGameObjectWithAnimOutInfo disableGameObjectWithAnimOutInfo = overrideAnimInfo;
-					if (disableGameObjectWithAnimOutInfo == null)
-					{
-						disableGameObjectWithAnimOutInfo = gObject.GetComponent<DisableGameObjectWithAnimOutInfo>();
-					}
-					if (!(disableGameObjectWithAnimOutInfo == null))
-					{
-						if (disableGameObjectWithAnimOutInfo.m_animator == null)
-						{
-						}
-						else
-						{
-							if (doActive)
-							{
-								bool flag = false;
-								if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo != null)
-								{
-									if (disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length > 0)
-									{
-										for (int i = 0; i < disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo.Length; i++)
-										{
-											DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo = disableGameObjectWithAnimOutInfo.m_EnableGameObjectInfo[i];
-											if (!setGameObjectEnableInfo.m_AnimationNameToPlay.IsNullOrEmpty())
-											{
-												flag = true;
-												UIAnimationEventManager uianimationEventManager = UIAnimationEventManager.Get();
-												Animator animator = disableGameObjectWithAnimOutInfo.m_animator;
-												string animationNameToPlay = setGameObjectEnableInfo.m_AnimationNameToPlay;
-												UIAnimationEventManager.AnimationDoneCallback callbackOnDone = null;
-												string animationNameForDoneCallback = setGameObjectEnableInfo.m_AnimationNameForDoneCallback;
-												int animLayer = setGameObjectEnableInfo.m_AnimLayer;
-												float animStartTimeNormalized = setGameObjectEnableInfo.m_AnimStartTimeNormalized;
-												bool setAnimatorGameObjectActive = true;
-												bool checkCurrentState = true;
-												
-												uianimationEventManager.PlayAnimation(animator, animationNameToPlay, callbackOnDone, animationNameForDoneCallback, animLayer, animStartTimeNormalized, setAnimatorGameObjectActive, checkCurrentState, new UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam(UIManager.AnimationDoneCallback), gObject);
-											}
-										}
-									}
-								}
-								if (!flag)
-								{
-									gObject.SetActive(true);
-								}
-								return;
-							}
-							bool flag2 = false;
-							if (gObject.activeInHierarchy)
-							{
-								if (disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo != null && disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length > 0)
-								{
-									for (int j = 0; j < disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo.Length; j++)
-									{
-										DisableGameObjectWithAnimOutInfo.SetGameObjectEnableInfo setGameObjectEnableInfo2 = disableGameObjectWithAnimOutInfo.m_DisableGameObjectInfo[j];
-										if (!setGameObjectEnableInfo2.m_AnimationNameToPlay.IsNullOrEmpty())
-										{
-											flag2 = true;
-											UIAnimationEventManager uianimationEventManager2 = UIAnimationEventManager.Get();
-											Animator animator2 = disableGameObjectWithAnimOutInfo.m_animator;
-											string animationNameToPlay2 = setGameObjectEnableInfo2.m_AnimationNameToPlay;
-											UIAnimationEventManager.AnimationDoneCallback callbackOnDone2 = null;
-											string animationNameForDoneCallback2 = setGameObjectEnableInfo2.m_AnimationNameForDoneCallback;
-											int animLayer2 = setGameObjectEnableInfo2.m_AnimLayer;
-											float animStartTimeNormalized2 = setGameObjectEnableInfo2.m_AnimStartTimeNormalized;
-											bool setAnimatorGameObjectActive2 = true;
-											bool checkCurrentState2 = true;
-											
-											uianimationEventManager2.PlayAnimation(animator2, animationNameToPlay2, callbackOnDone2, animationNameForDoneCallback2, animLayer2, animStartTimeNormalized2, setAnimatorGameObjectActive2, checkCurrentState2, new UIAnimationEventManager.AnimationDoneCallbackWithGameObjectParam(UIManager.AnimationDoneCallback), gObject);
-										}
-									}
-								}
-							}
-							if (!flag2)
-							{
-								gObject.SetActive(false);
-								return;
-							}
-							return;
-						}
-					}
-					gObject.SetActive(doActive);
-					return;
-				}
-			}
+			return;
+		}
+
+		if (DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds == null
+		    || !DisableGameObjectWithAnimOutInfo.s_attachedObjectInstanceIds.Contains(gObject.GetInstanceID()))
+		{
 			if (gObject.activeSelf != doActive)
 			{
 				gObject.SetActive(doActive);
+			}
+
+			return;
+		}
+
+		DisableGameObjectWithAnimOutInfo animInfo = overrideAnimInfo;
+		if (animInfo == null)
+		{
+			animInfo = gObject.GetComponent<DisableGameObjectWithAnimOutInfo>();
+		}
+
+		if (animInfo == null || animInfo.m_animator == null)
+		{
+			gObject.SetActive(doActive);
+			return;
+		}
+
+		if (doActive)
+		{
+			bool updated = false;
+			if (animInfo.m_EnableGameObjectInfo != null
+			    && animInfo.m_EnableGameObjectInfo.Length > 0)
+			{
+				foreach (var info in animInfo.m_EnableGameObjectInfo)
+				{
+					if (info.m_AnimationNameToPlay.IsNullOrEmpty())
+					{
+						continue;
+					}
+
+					updated = true;
+
+					UIAnimationEventManager.Get().PlayAnimation(
+						animInfo.m_animator,
+						info.m_AnimationNameToPlay,
+						null,
+						info.m_AnimationNameForDoneCallback,
+						info.m_AnimLayer,
+						info.m_AnimStartTimeNormalized,
+						true,
+						true,
+						AnimationDoneCallback,
+						gObject);
+				}
+			}
+
+			if (!updated)
+			{
+				gObject.SetActive(true);
+			}
+		}
+		else
+		{
+			bool updated = false;
+			if (gObject.activeInHierarchy
+			    && animInfo.m_DisableGameObjectInfo != null
+			    && animInfo.m_DisableGameObjectInfo.Length > 0)
+			{
+				foreach (var info in animInfo.m_DisableGameObjectInfo)
+				{
+					if (info.m_AnimationNameToPlay.IsNullOrEmpty())
+					{
+						continue;
+					}
+
+					updated = true;
+
+					UIAnimationEventManager.Get().PlayAnimation(
+						animInfo.m_animator,
+						info.m_AnimationNameToPlay,
+						null,
+						info.m_AnimationNameForDoneCallback,
+						info.m_AnimLayer,
+						info.m_AnimStartTimeNormalized,
+						true,
+						true,
+						AnimationDoneCallback,
+						gObject);
+				}
+			}
+
+			if (!updated)
+			{
+				gObject.SetActive(false);
 			}
 		}
 	}
