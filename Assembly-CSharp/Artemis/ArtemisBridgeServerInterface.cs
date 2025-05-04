@@ -103,7 +103,10 @@ namespace ArtemisServer.BridgeServer
             
             // custom
             Log.Info($"ArtemisBridgeServerInterface initialized for {processType} {lobbyServerAddress} - {processCode}");
-            m_sessionInfo.ConnectionAddress = HydrogenConfig.Get().PublicAddress + ":" + HydrogenConfig.Get().PublicPort;
+            var advertisedPort = HydrogenConfig.Get().AdvertisedPort != 0
+                ? HydrogenConfig.Get().AdvertisedPort
+                : HydrogenConfig.Get().PublicPort;
+            m_sessionInfo.ConnectionAddress = HydrogenConfig.Get().PublicAddress + ":" + advertisedPort;
         }
 
         protected override void OnConnecting()
