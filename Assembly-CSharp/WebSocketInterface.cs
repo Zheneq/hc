@@ -278,17 +278,14 @@ public class WebSocketInterface
 		uriBuilder.Scheme = uri.Scheme;
 		uriBuilder.Host = uri.Host;
 		int port;
-		if (uri.Port > 0)
+		if (uri.Port > 0 && !uri.IsDefaultPort)
 		{
-			if (!uri.IsDefaultPort)
-			{
-				port = uri.Port;
-				goto IL_008e;
-			}
+			port = uri.Port;
 		}
-		port = defaultPort;
-		goto IL_008e;
-		IL_008e:
+		else
+		{
+			port = defaultPort;
+		}
 		uriBuilder.Port = port;
 		uriBuilder.Path = ((!(uri.AbsolutePath != "/")) ? ("/" + defaultPath) : uri.AbsolutePath);
 		m_serverAddress = uriBuilder.ToString();
