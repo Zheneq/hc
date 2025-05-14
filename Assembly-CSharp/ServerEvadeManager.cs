@@ -82,23 +82,8 @@ public class ServerEvadeManager
 		foreach (ServerEvadeUtils.EvadeInfo evadeInfo in allEvades)
 		{
 			BoardSquare idealDestination = evadeInfo.GetIdealDestination();
-			List<BoardSquare> destinationSquares = new List<BoardSquare>();
-			int borderRadius = 0;
-			while (destinationSquares.Count == 0 && borderRadius <= 4)
-			{
-				destinationSquares = GetDestinationSquaresInBorderOf(
-					idealDestination, borderRadius, evadeInfo, allEvades, invalidSquares,
-					additionalInvalidSquares_evaderSpecific, true);
-				borderRadius++;
-			}
-			borderRadius = 0;
-			while (destinationSquares.Count == 0 && borderRadius <= 4)
-			{
-				destinationSquares = GetDestinationSquaresInBorderOf(
-					idealDestination, borderRadius, evadeInfo, allEvades, invalidSquares,
-					additionalInvalidSquares_evaderSpecific, false);
-				borderRadius++;
-			}
+			List<BoardSquare> destinationSquares = FindDestinationSquares(
+				idealDestination, evadeInfo, allEvades, invalidSquares, additionalInvalidSquares_evaderSpecific);
 			BoardSquare bestDestination = null;
 			float bestDotProduct = -1f;
 			Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
@@ -137,6 +122,35 @@ public class ServerEvadeManager
 		}
 		ProcessClashes(allRequests, currentPriority, ref allEvades);
 		m_processedEvades = allEvades;
+	}
+
+	// inlined in rogues
+	private List<BoardSquare> FindDestinationSquares(
+		BoardSquare idealDestination,
+		ServerEvadeUtils.EvadeInfo evadeInfo,
+		List<ServerEvadeUtils.EvadeInfo> evades,
+		List<BoardSquare> invalidSquares,
+		List<BoardSquare> squaresOfInterest)
+	{
+		List<BoardSquare> destinationSquares = new List<BoardSquare>();
+		int borderRadius = 0;
+		while (destinationSquares.Count == 0 && borderRadius <= 4)
+		{
+			destinationSquares = GetDestinationSquaresInBorderOf(
+				idealDestination, borderRadius, evadeInfo, evades, invalidSquares,
+				squaresOfInterest, true);
+			borderRadius++;
+		}
+		borderRadius = 0;
+		while (destinationSquares.Count == 0 && borderRadius <= 4)
+		{
+			destinationSquares = GetDestinationSquaresInBorderOf(
+				idealDestination, borderRadius, evadeInfo, evades, invalidSquares,
+				squaresOfInterest, false);
+			borderRadius++;
+		}
+
+		return destinationSquares;
 	}
 
 	public void ProcessClashes(
@@ -197,23 +211,7 @@ public class ServerEvadeManager
 			foreach (ServerEvadeUtils.EvadeInfo evadeInfo in evadesInClash)
 			{
 				BoardSquare idealDestination = evadeInfo.GetIdealDestination();
-				List<BoardSquare> destinationSquares = new List<BoardSquare>();
-				int borderRadius = 0;
-				while (destinationSquares.Count == 0 && borderRadius <= 4)
-				{
-					destinationSquares = GetDestinationSquaresInBorderOf(
-						idealDestination, borderRadius, evadeInfo, evades, invalidSquares,
-						squaresOfInterest, true);
-					borderRadius++;
-				}
-				borderRadius = 0;
-				while (destinationSquares.Count == 0 && borderRadius <= 4)
-				{
-					destinationSquares = GetDestinationSquaresInBorderOf(
-						idealDestination, borderRadius, evadeInfo, evades, invalidSquares,
-						squaresOfInterest, false);
-					borderRadius++;
-				}
+				var destinationSquares = FindDestinationSquares(idealDestination, evadeInfo, evades, invalidSquares, squaresOfInterest);
 				BoardSquare bestDestination = null;
 				float bestDotProduct = -1f;
 				Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
