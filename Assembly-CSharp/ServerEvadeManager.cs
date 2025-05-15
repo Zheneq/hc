@@ -87,6 +87,26 @@ public class ServerEvadeManager
 			BoardSquare bestDestination = null;
 			float bestDotProduct = -1f;
 			Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
+			
+			// custom - if we have movement after dash, prefer squares closer to destination
+			ActorData mover = evadeInfo.GetMover();
+			if (ServerActionBuffer.Get().HasUnresolvedMovementRequest(mover)
+			    && !ServerActionBuffer.Get().IsChasing(mover))
+			{
+				List<GridPos> path = ServerActionBuffer.Get().GetGridPosPath(mover, out _);
+				if (path != null && path.Count > 0)
+				{
+					BoardSquare movementDestination = Board.Get().GetSquare(path[path.Count - 1]);
+					if (movementDestination != idealDestination)
+					{
+						bestSquareTestVector = movementDestination.ToVector3() - idealDestination.ToVector3();
+						bestSquareTestVector.y = 0;
+						bestSquareTestVector.Normalize();
+					}
+				}
+			}
+			// end custom
+			
 			foreach (BoardSquare square in destinationSquares)
 			{
 				Vector3 vector = square.ToVector3() - idealDestination.ToVector3();

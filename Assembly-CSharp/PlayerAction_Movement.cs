@@ -56,6 +56,7 @@ public class PlayerAction_Movement : PlayerAction
 			// }
 		}
 		Log.Info($"{moveRequests.Count} valid movement requests");
+		ServerActionBuffer.Get().GetMoveStabilizer().AdjustMovementStartsForMoveAfterEvade(moveRequests); // custom
 		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(moveRequests, m_isChase);
 		for (int j = moveRequests.Count - 1; j >= 0; j--)
 		{

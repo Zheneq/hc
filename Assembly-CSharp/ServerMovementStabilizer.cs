@@ -130,7 +130,6 @@ public class ServerMovementStabilizer
 		}
 	}
 
-	// TODO MOVEMENT unused
 	public void AdjustMovementStartsForMoveAfterEvade(List<MovementRequest> storedMovementRequests)
 	{
 		foreach (MovementRequest movementRequest in storedMovementRequests)
@@ -144,13 +143,26 @@ public class ServerMovementStabilizer
 			{
 				continue;
 			}
+			
+			// custom
+			// NOTE https://www.youtube.com/watch?v=to1XIhkmdHw&t=467s
+			// Tol-Ren does not pick up health spoil
+			// So if you land on your movement path, you just continue from there
+			BoardSquarePathInfo step = movementRequest.m_path.next;
+			if (step.square == currentBoardSquare)
+			{
+				movementRequest.m_path = step;
+				movementRequest.m_path.prev = null;
+				movementRequest.m_path.moveCost = 0;
+				movementRequest.m_path.CalcAndSetMoveCostToEnd();
+				return;
+			}
+			// end custom
+			
 			BoardSquarePathInfo pathToRequestedStart = movementRequest.m_actor.GetActorMovement()
 				.BuildPathTo(currentBoardSquare, movementRequest.m_path.square, 15f, true, null);
 			if (pathToRequestedStart != null)
 			{
-				// TODO SAMURAI
-				// NOTE It doesn't seem this was actually used: https://www.youtube.com/watch?v=to1XIhkmdHw&t=467s
-				// Tol-Ren does not pick up health spoil
 				movementRequest.m_actor.GetActorMovement().MoveRangeCompensation = pathToRequestedStart.FindMoveCostToEnd();
 				BoardSquarePathInfo endpoint = pathToRequestedStart.GetPathEndpoint();
 				if (endpoint.prev != null)
@@ -158,6 +170,7 @@ public class ServerMovementStabilizer
 					endpoint = endpoint.prev;
 				}
 				endpoint.next = movementRequest.m_path;
+				movementRequest.m_path.m_unskippable = true; // custom - highlight that character goes to the original movement start first
 				movementRequest.m_path.prev = endpoint;
 				movementRequest.m_path = pathToRequestedStart;
 				movementRequest.m_path.CalcAndSetMoveCostToEnd();
