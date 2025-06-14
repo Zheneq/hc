@@ -447,6 +447,19 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void OnAbilityPhaseEnd(AbilityPriority oldPhase)
 	{
+		// TODO HACK
+		// Request is supposed to be resolved on the final Update in ActorAnimation
+		// but in some cases it doesn't reach the end.
+		// custom
+		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
+		{
+			if (abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.RESOLVING)
+			{
+				ResolveAbilityRequest(abilityRequest);
+			}
+		}
+		// end custom
+			
 		m_knockbackManager.OnAbilityPhaseEnd(AbilityPhase);
 		BarrierManager.Get().OnAbilityPhaseEnd(AbilityPhase);
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
