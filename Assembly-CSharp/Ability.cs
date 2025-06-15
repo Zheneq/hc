@@ -2282,6 +2282,8 @@ public class Ability : MonoBehaviour
 				}
 			}
 		}
+		
+		Log.Info($"Added {actor}'s {GetType()} ability mod (now {m_currentAbilityMod?.m_abilityScopeId} - {m_currentAbilityMod?.GetName()})"); // custom debug
 #endif
 
 		OnApplyAbilityMod(abilityMod);
@@ -2351,6 +2353,8 @@ public class Ability : MonoBehaviour
 			}
 			m_statModsFromCurrentMod.Clear();
 		}
+		
+		Log.Info($"Removed {actor}'s {GetType()} ability mod (was {m_currentAbilityMod?.m_abilityScopeId} - {m_currentAbilityMod?.GetName()})"); // custom debug
 #endif
 
 		m_currentAbilityMod = null;
