@@ -2375,19 +2375,41 @@ public class ServerActionBuffer : NetworkBehaviour
 				ServerGameplayUtils.IntegrateHpDeltas(abilityRequest.m_additionalData.m_abilityResults.DamageResults, ref actorToHealthDelta);
 			}
 		}
+
+		// custom
+		Dictionary<ActorData, int> actorToKnockbackPhaseEffectShieldDelta = new Dictionary<ActorData, int>();
+		foreach (ActorData actorData in actors)
+		{
+			actorToKnockbackPhaseEffectShieldDelta.Add(actorData, 0);
+		}
+		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
+		{
+			foreach (var actorToHitResult in abilityRequest.m_additionalData.m_abilityResults.m_actorToHitResults)
+			{
+				actorToKnockbackPhaseEffectShieldDelta[actorToHitResult.Key] += actorToHitResult.Value.AppliedAbsorb;
+			}
+		}
+		// end custom
+
 		ServerEffectManager.Get().IntegrateHpDeltasForEffects(AbilityPriority.Combat_Knockback, ref actorToHealthDelta, false);
 		List<ActorData> dyingActors = new List<ActorData>();
 		foreach (ActorData actorData in actors)
 		{
 			int prevPhasesDelta = actorData.UnresolvedHealing + actorData.AbsorbPoints - actorData.UnresolvedDamage;
-			int knockbackPhaseDelta = actorToHealthDelta[actorData];
+			
+			// rogues
+			// int knockbackPhaseDelta = actorToHealthDelta[actorData];
+			// custom
+			int knockbackPhaseDelta = actorToHealthDelta[actorData] + actorToKnockbackPhaseEffectShieldDelta[actorData];
+			
 			if (actorData.HitPoints + prevPhasesDelta + knockbackPhaseDelta <= 0)
 			{
 				dyingActors.Add(actorData);
 			}
 			Log.Info($"IdentifyActorsDyingBeforeKnockbackMovement {actorData.DisplayName} " +
 			         $"{actorData.HitPoints}HP + {actorData.UnresolvedHealing} healing + {actorData.AbsorbPoints} shields " +
-			         $"- {actorData.UnresolvedDamage} damage - {-knockbackPhaseDelta} damage from knockbacks " +
+			         $"- {actorData.UnresolvedDamage} damage - {-actorToHealthDelta[actorData]} damage from knockbacks " +
+			         $"+ {actorToKnockbackPhaseEffectShieldDelta[actorData]} shields from knockbacks " +
 			         $"= {(actorData.HitPoints + prevPhasesDelta + knockbackPhaseDelta <= 0 ? "" : "not ")}dead"); // custom debug
 		}
 		return dyingActors;
