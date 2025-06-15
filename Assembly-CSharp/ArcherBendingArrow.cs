@@ -529,12 +529,12 @@ public class ArcherBendingArrow : Ability
 		    && (laserEndPos - endPoints[0]).magnitude > laserRangeInSquares * Board.Get().squareSize - 0.1f)
 		{
 			laserRangeInSquares = GetDistanceRemaining(caster, targets[0], out Vector3 adjustedStartPosWithOffset);
-			Vector3 vector2 = targets[1].FreePos;
+			Vector3 freePos = targets[1].FreePos;
 			if ((targets[1].FreePos - targets[0].FreePos).magnitude < Mathf.Epsilon)
 			{
-				vector2 += targets[0].AimDirection * 10f;
+				freePos += targets[0].AimDirection * 10f;
 			}
-			Vector3 targeterClampedAimDirection = GetTargeterClampedAimDirection((vector2 - adjustedStartPosWithOffset).normalized, targets);
+			Vector3 targeterClampedAimDirection = GetTargeterClampedAimDirection((freePos - adjustedStartPosWithOffset).normalized, targets); // TODO LOW Y not zeroed
 			adjustedStartPosWithOffset = VectorUtils.GetAdjustedStartPosWithOffset(
 				adjustedStartPosWithOffset, 
 				adjustedStartPosWithOffset + targeterClampedAimDirection,
