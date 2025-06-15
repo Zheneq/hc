@@ -30,6 +30,12 @@ public class LinkedBarrierData
 	{
 		//m_actorsMovedThroughThisTurn.Clear();
 	}
+	
+	// custom
+	public void MarkActorAsMovedThroughThisTurn(ActorData actor)
+	{
+		m_actorsMovedThroughThisTurn.Add(actor);
+	}
 #endif
 
 	public int GetNumHits()

@@ -686,6 +686,20 @@ public class ExoAnchorLaser : Ability
 			positionHitResults.AddBarrier(barrier);
 		}
 		BarrierManager.Get().LinkBarriers(list, linkData);
+			
+		// custom - Old barrier could have hit an enemy on Dash phase, we need to transfer hits to the new barrier
+		if (m_passive != null && m_passive.m_persistingBarrierInstance != null)
+		{
+			foreach (ActorData actor in GameFlowData.Get().GetActors())
+			{
+				if (m_passive.m_persistingBarrierInstance.ActorMovedThroughThisTurn(actor))
+				{
+					linkData.MarkActorAsMovedThroughThisTurn(actor);
+				}
+			}
+		}
+		// end custom
+		
 		abilityResults.StorePositionHit(positionHitResults);
 	}
 
