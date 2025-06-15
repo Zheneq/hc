@@ -11,12 +11,14 @@ public class ServerKnockbackStabilizer
 		Dictionary<ActorData, ServerKnockbackManager.KnockbackHits> incomingKnockbacks,
 		List<BoardSquare> additionalInvalidSquares)
 	{
+		Log.Info("StabilizeKnockbacks begin"); // custom debug
 		while (StabilizeKnockbacksForValidDestination(incomingKnockbacks, additionalInvalidSquares)
 		       || StabilizeKnockbacksVsObstacles(incomingKnockbacks) 
 		       || StabilizeKnockbacksVsStationaries(incomingKnockbacks)
 		       || StabilizeKnockbacksVsKnockbackees(incomingKnockbacks))
 		{
 		}
+		Log.Info("StabilizeKnockbacks end"); // custom debug
 	}
 
 	private bool StabilizeKnockbacksForValidDestination(
@@ -42,8 +44,10 @@ public class ServerKnockbackStabilizer
 		            && !additionalInvalidSquares.Contains(endpoint.square);
 		while (!isValidEndpoint)
 		{
+			Log.Info($"StabilizeKnockbackEntryForValidDestination: {knockbackEntry.Key} -> {endpoint.square?.GetGridPos()} is invalid"); // custom debug
 			if (endpoint.prev == null)
 			{
+				Log.Info($"StabilizeKnockbackEntryForValidDestination: Can't step back, skipping"); // custom debug
 				isValidEndpoint = true;
 			}
 			else
@@ -52,11 +56,13 @@ public class ServerKnockbackStabilizer
 				endpoint.prev.next = null;
 				endpoint = endpoint.prev;
 				isValidEndpoint = endpoint.square != null && endpoint.square.IsValidForGameplay();
+				Log.Info($"StabilizeKnockbackEntryForValidDestination: {knockbackEntry.Key} -> step back {endpoint.square?.GetGridPos()}"); // custom debug
 			}
 		}
 		if (initialEndpoint != endpoint)
 		{
 			knockbackEntry.Value.OnKnockbackPathStabilized(endpoint.square);
+			Log.Info($"StabilizeKnockbackEntryForValidDestination: stabilized {knockbackEntry.Key} -> {endpoint.square?.GetGridPos()}"); // custom debug
 			return true;
 		}
 		else
@@ -92,10 +98,12 @@ public class ServerKnockbackStabilizer
 			    || (BarrierManager.Get() != null
 			        && BarrierManager.Get().IsMovementBlocked(key, step.square, next.square)))
 			{
+				Log.Info($"StabilizeKnockbackEntryVsObstacles: {knockbackEntry.Key} -> {next.square?.GetGridPos()} is blocked"); // custom debug
 				step.next = null;
 				next.prev = null;
 				next = null;
 				knockbackEntry.Value.OnKnockbackPathStabilized(step.square);
+				Log.Info($"StabilizeKnockbackEntryVsObstacles: stabilized {knockbackEntry.Key} -> {step.square?.GetGridPos()}"); // custom debug
 				result = true;
 			}
 			else
@@ -124,10 +132,12 @@ public class ServerKnockbackStabilizer
 				ServerKnockbackManager.KnockbackHits value = keyValuePair.Value;
 				if (value.GetKnockbackEndSquare() == currentBoardSquare)
 				{
+					Log.Info($"StabilizeKnockbacksVsStationaries: {keyValuePair.Key} -> {currentBoardSquare?.GetGridPos()} is occupied by {actorData}"); // custom debug
 					BoardSquarePathInfo boardSquarePathInfo = value.GetKnockbackPath().BackUpOnceFromEnd();
 					if (value.GetKnockbackEndSquare() != boardSquarePathInfo.square)
 					{
 						value.OnKnockbackPathStabilized(boardSquarePathInfo.square);
+						Log.Info($"StabilizeKnockbacksVsStationaries: stabilized {keyValuePair.Key} -> {boardSquarePathInfo.square?.GetGridPos()}"); // custom debug
 						result = true;
 					}
 					else
@@ -160,10 +170,12 @@ public class ServerKnockbackStabilizer
 				ServerKnockbackManager.KnockbackHits knockback2 = incomingKnockbacksSorted[j].Value;
 				if (knockback1.GetKnockbackEndSquare() == knockback2.GetKnockbackEndSquare())
 				{
+					Log.Info($"StabilizeKnockbacksVsKnockbackees: {incomingKnockbacksSorted[j].Key} -> {knockback2.GetKnockbackEndSquare()?.GetGridPos()} is occupied by {incomingKnockbacksSorted[i].Key}"); // custom debug
 					BoardSquarePathInfo stepBack = knockback2.GetKnockbackPath().BackUpOnceFromEnd();
 					if (stepBack.square != knockback2.GetKnockbackEndSquare())
 					{
 						knockback2.OnKnockbackPathStabilized(stepBack.square);
+						Log.Info($"StabilizeKnockbacksVsKnockbackees: stabilized {incomingKnockbacksSorted[j].Key} -> {stepBack.square?.GetGridPos()}"); // custom debug
 						stabilized = true;
 					}
 					else

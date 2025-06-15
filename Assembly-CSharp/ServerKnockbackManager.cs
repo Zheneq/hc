@@ -224,6 +224,7 @@ public class ServerKnockbackManager
 				{
 					if (boardSquare != knockbackEndSquare)
 					{
+						Log.Info($"ProcessKnockbacks: {knockbackedActor} overriding destination -> {knockbackEndSquare.GetGridPos()} -> {boardSquare.GetGridPos()}"); // custom debug
 						knockbackHits.ReassignDestinationBeforeStabilization(boardSquare);
 					}
 					destinationsSoFar.Add(boardSquare);
