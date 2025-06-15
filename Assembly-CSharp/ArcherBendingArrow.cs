@@ -552,7 +552,9 @@ public class ArcherBendingArrow : Ability
 				false,
 				true,
 				out Vector3 endPos,
-				nonActorTargetInfo);
+				nonActorTargetInfo,
+				null,
+				true); // custom, false in rogues
 			TargeterUtils.SortActorsByDistanceToPos(ref actorsHitAfterBounce, endPos);
 			for (int i = actorsHitAfterBounce.Count - 1; i >= 0; i--)
 			{
