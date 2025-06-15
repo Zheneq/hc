@@ -409,13 +409,12 @@ public class SamuraiWindBlade : Ability
 		List<NonActorTargetInfo> nonActorTargetInfo)
 	{
 		List<Team> relevantTeams = TargeterUtils.GetRelevantTeams(caster, false, true);
-		endPoints = new List<Vector3>();
-		endPoints.Add(caster.GetLoSCheckPos());
-		float num = GetClampedRangeInSquares(caster, targets[0]);
+		endPoints = new List<Vector3> { caster.GetLoSCheckPos() };
+		float laserRangeInSquares = GetClampedRangeInSquares(caster, targets[0]);
 		List<ActorData> actorsInLaser = AreaEffectUtils.GetActorsInLaser(
 			endPoints[0],
 			targets[0].AimDirection,
-			num,
+			laserRangeInSquares,
 			GetLaserWidth(),
 			caster,
 			relevantTeams,
@@ -426,9 +425,10 @@ public class SamuraiWindBlade : Ability
 			out Vector3 laserEndPos,
 			nonActorTargetInfo);
 		endPoints.Add(laserEndPos);
-		if (actorsInLaser.Count < GetMaxTargets() && (laserEndPos - endPoints[0]).magnitude > num * Board.Get().squareSize - 0.1f)
+		if (actorsInLaser.Count < GetMaxTargets()
+		    && (laserEndPos - endPoints[0]).magnitude > laserRangeInSquares * Board.Get().squareSize - 0.1f)
 		{
-			num = GetDistanceRemaining(caster, targets[0], out Vector3 adjustedStartPosWithOffset);
+			laserRangeInSquares = GetDistanceRemaining(caster, targets[0], out Vector3 adjustedStartPosWithOffset);
 			Vector3 vector2 = targets[1].FreePos;
 			if ((targets[1].FreePos - targets[0].FreePos).magnitude < Mathf.Epsilon)
 			{
@@ -440,11 +440,10 @@ public class SamuraiWindBlade : Ability
 				adjustedStartPosWithOffset + targeterClampedAimDirection,
 				-0.2f);
 			endPoints[1] = adjustedStartPosWithOffset;
-			Vector3 item;
 			actorsHitAfterBounce = AreaEffectUtils.GetActorsInLaser(
 				adjustedStartPosWithOffset,
 				targeterClampedAimDirection,
-				num,
+				laserRangeInSquares,
 				GetLaserWidth(),
 				caster,
 				relevantTeams,
@@ -452,18 +451,18 @@ public class SamuraiWindBlade : Ability
 				GetMaxTargets(),
 				false,
 				true,
-				out item,
+				out Vector3 endPos,
 				nonActorTargetInfo);
 			for (int i = actorsHitAfterBounce.Count - 1; i >= 0; i--)
 			{
-				ActorData item2 = actorsHitAfterBounce[i];
-				if (actorsInLaser.Contains(item2))
+				ActorData item = actorsHitAfterBounce[i];
+				if (actorsInLaser.Contains(item))
 				{
 					actorsHitAfterBounce.RemoveAt(i);
 				}
 			}
 			actorsInLaser.AddRange(actorsHitAfterBounce);
-			endPoints.Add(item);
+			endPoints.Add(endPos);
 		}
 		else
 		{
