@@ -13,7 +13,7 @@ public class ServerKnockbackStabilizer
 	{
 		Log.Info("StabilizeKnockbacks begin"); // custom debug
 		while (StabilizeKnockbacksForValidDestination(incomingKnockbacks, additionalInvalidSquares)
-		       || StabilizeKnockbacksVsObstacles(incomingKnockbacks) 
+		       // || StabilizeKnockbacksVsObstacles(incomingKnockbacks) // rogues?
 		       || StabilizeKnockbacksVsStationaries(incomingKnockbacks)
 		       || StabilizeKnockbacksVsKnockbackees(incomingKnockbacks))
 		{
