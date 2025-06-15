@@ -273,7 +273,7 @@ public class FogOfWar : MonoBehaviour
 		return 0;
 	}
 
-	private float CalcHorizontalDistanceOnBoardTo(int firstX, int firstY, int secondX, int secondY)
+	public static float CalcHorizontalDistanceOnBoardTo(int firstX, int firstY, int secondX, int secondY) // custom, private and non-static in reactor
 	{
 		int xDist = Mathf.Abs(firstX - secondX);
 		int yDist = Mathf.Abs(firstY - secondY);

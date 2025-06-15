@@ -3210,7 +3210,63 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			return false;
 		}
 		bool IsBrushRevealed = GetBrushRegion() < 0 || BrushRegion.HasTeamMemberInRegion(GetEnemyTeam(), GetBrushRegion());
-		return !IsInBrush() || IsBrushRevealed;
+		if (!IsInBrush() || IsBrushRevealed)
+		{
+			return true;
+		}
+		
+		// custom - include vision providers like x-ray
+		// Based on FogOfWar.UpdateVisibilityOfSquares for vision providers
+		// TODO LOW why don't we just actually use fog of war?
+#if SERVER
+		bool isInGlobalBlind = GameplayMutators.IsStatusActive(StatusType.Blind, GameFlowData.Get().CurrentTurn);
+		BoardSquare square = GetTravelBoardSquare();
+		List<ActorData> allTeamMembers = GameFlowData.Get().GetAllTeamMembers(observer.m_team);
+		foreach (ActorData observerAlly in allTeamMembers)
+		{
+			ActorAdditionalVisionProviders actorAdditionalVisionProviders = observerAlly.GetAdditionalActorVisionProviders();
+			if (actorAdditionalVisionProviders != null)
+			{
+				foreach (VisionProviderInfo visionProvider in actorAdditionalVisionProviders.GetVisionProviders())
+				{
+					bool isSquareHidden = true;
+					BoardSquare center = visionProvider.GetBoardSquare();
+					if ((!isInGlobalBlind || visionProvider.m_canFunctionInGlobalBlind)
+					    && center != null)
+					{
+						int centerX = center.GetGridPos().x;
+						int centerY = center.GetGridPos().y;
+						float distance = visionProvider.m_radiusAsStraightLineDist
+							? square.HorizontalDistanceInSquaresTo(center)
+							: FogOfWar.CalcHorizontalDistanceOnBoardTo(centerX, centerY, square.x, square.y);
+						if (distance <= visionProvider.m_radius && (visionProvider.m_ignoreLos || center.GetLOS(square.x, square.y)))
+						{
+							if (visionProvider.m_brushRevealType == VisionProviderInfo.BrushRevealType.Never && GetBrushRegion() >= 0)
+							{
+								isSquareHidden = BrushCoordinator.Get().IsRegionFunctioning(GetBrushRegion());
+							}
+							else if (visionProvider.m_brushRevealType == VisionProviderInfo.BrushRevealType.Always && GetBrushRegion() >= 0)
+							{
+								isSquareHidden = false;
+							}
+							else
+							{
+								isSquareHidden = BrushCoordinator.Get().IsSquareHiddenFrom(square, center);
+							}
+						}
+					}
+
+					if (!isSquareHidden)
+					{
+						return true;
+					}
+				}
+			}
+		}
+#endif
+		// end custom
+
+		return false;
 	}
 
 	public void ApplyForceFromPoint(Vector3 pos, float amount, Vector3 overrideDir)
