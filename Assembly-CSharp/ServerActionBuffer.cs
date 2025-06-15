@@ -2362,35 +2362,35 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public List<ActorData> IdentifyActorsDyingBeforeKnockbackMovement()
 	{
-		Dictionary<ActorData, int> dictionary = new Dictionary<ActorData, int>();
+		Dictionary<ActorData, int> actorToHealthDelta = new Dictionary<ActorData, int>();
 		List<ActorData> actors = GameFlowData.Get().GetActors();
-		foreach (ActorData key in actors)
+		foreach (ActorData actorData in actors)
 		{
-			dictionary.Add(key, 0);
+			actorToHealthDelta.Add(actorData, 0);
 		}
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
 			if (abilityRequest != null && abilityRequest.m_ability.RunPriority == AbilityPriority.Combat_Knockback)
 			{
-				ServerGameplayUtils.IntegrateHpDeltas(abilityRequest.m_additionalData.m_abilityResults.DamageResults, ref dictionary);
+				ServerGameplayUtils.IntegrateHpDeltas(abilityRequest.m_additionalData.m_abilityResults.DamageResults, ref actorToHealthDelta);
 			}
 		}
-		ServerEffectManager.Get().IntegrateHpDeltasForEffects(AbilityPriority.Combat_Knockback, ref dictionary, false);
-		List<ActorData> list = new List<ActorData>();
+		ServerEffectManager.Get().IntegrateHpDeltasForEffects(AbilityPriority.Combat_Knockback, ref actorToHealthDelta, false);
+		List<ActorData> dyingActors = new List<ActorData>();
 		foreach (ActorData actorData in actors)
 		{
-			int num = actorData.UnresolvedHealing + actorData.AbsorbPoints - actorData.UnresolvedDamage;
-			int num2 = dictionary[actorData];
-			if (actorData.HitPoints + num + num2 <= 0)
+			int prevPhasesDelta = actorData.UnresolvedHealing + actorData.AbsorbPoints - actorData.UnresolvedDamage;
+			int knockbackPhaseDelta = actorToHealthDelta[actorData];
+			if (actorData.HitPoints + prevPhasesDelta + knockbackPhaseDelta <= 0)
 			{
-				list.Add(actorData);
+				dyingActors.Add(actorData);
 			}
 			Log.Info($"IdentifyActorsDyingBeforeKnockbackMovement {actorData.DisplayName} " +
 			         $"{actorData.HitPoints}HP + {actorData.UnresolvedHealing} healing + {actorData.AbsorbPoints} shields " +
-			         $"- {actorData.UnresolvedDamage} damage - {-num2} damage from knockbacks " +
-			         $"= {(actorData.HitPoints + num + num2 <= 0 ? "" : "not ")}dead"); // custom debug
+			         $"- {actorData.UnresolvedDamage} damage - {-knockbackPhaseDelta} damage from knockbacks " +
+			         $"= {(actorData.HitPoints + prevPhasesDelta + knockbackPhaseDelta <= 0 ? "" : "not ")}dead"); // custom debug
 		}
-		return list;
+		return dyingActors;
 	}
 
 	public List<AbilityRequest> GetAllStoredAbilityRequests()
