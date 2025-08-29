@@ -172,7 +172,8 @@ namespace ArtemisServer.BridgeServer
             UIFrontendLoadingScreen.Get().StartDisplayError("network error", e.Message);
 
             // custom
-            Reconnect();
+            Log.Error("Network error", e);
+            Application.Quit();
         }
 
         public void Update()

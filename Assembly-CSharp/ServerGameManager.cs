@@ -153,6 +153,15 @@ public class ServerGameManager : MonoBehaviour
 		// }
 		// custom temp
 		m_heartBeatDuration = TimeSpan.FromMinutes(1);
+		
+		// custom
+		if (ArtemisClientBase.IsPortInUse())
+		{
+			Debug.LogError($"Port {HydrogenConfig.Get().PublicPort} is in use, quitting");
+			Application.Quit();
+		}
+		// end custom
+		
 		ConnectToMonitorServer($"ws://{HydrogenConfig.Get().MonitorServerAddress}:{HydrogenConfig.Get().MonitorServerPort}/BridgeServer", -1);
 	}
 
@@ -255,7 +264,7 @@ public class ServerGameManager : MonoBehaviour
 		{
 			Log.Error("Failed to start server. Shutting down.");
 			DisconnectFromMonitorServer();
-			Application.Quit();
+			Application.Quit(); // TODO doesn't quit in wine?
 		}
 		// new networking lib
 		//TelepathyTransport telepathyTransport = Transport.activeTransport as TelepathyTransport;

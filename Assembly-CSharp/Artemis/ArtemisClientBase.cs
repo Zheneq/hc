@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.Networking;
 using WebSocketSharp;
@@ -257,6 +259,26 @@ namespace ArtemisServer.BridgeServer
             {
                 Debug.LogError("Unknown message ID " + messageType);
             }
+        }
+
+        public static bool IsPortInUse(int port)
+        {
+            try
+            {
+                using (TcpClient tcpClient = new TcpClient(new IPEndPoint(IPAddress.Any, port)))
+                {
+                    return false;
+                }
+            }
+            catch (SocketException)
+            {
+                return true;
+            }
+        }
+        
+        public static bool IsPortInUse()
+        {
+           return IsPortInUse(HydrogenConfig.Get().PublicPort);
         }
     }
 }
