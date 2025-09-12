@@ -6,31 +6,19 @@ using UnityEngine.UI;
 public class UIPlayerDisplay : MonoBehaviour
 {
 	public Animator m_animationController;
-
 	public Image m_background;
-
 	public Image m_centerPiece;
-
 	public Image m_tutorialBar;
-
 	public TextMeshProUGUI m_tutorialText;
-
 	public GameObject m_tutorialCameraControlsPanel;
-
 	public GameObject m_tutorialCombatPhasePanel;
-
 	public GameObject m_tutorialDashPhasePanel;
-
 	public GameObject m_tutorialPrepPhasePanel;
-
 	public UIPlayerStatus[] m_teamPlayerIcons;
-
 	public UIPlayerStatus[] m_enemyPlayerIcons;
 
 	private bool m_PanelVisibility;
-
 	private List<string> m_animsToPlayQueue;
-
 	private string showDisplayAnimName = "TopDisplayPanelShow";
 
 	private void Awake()
@@ -50,102 +38,57 @@ public class UIPlayerDisplay : MonoBehaviour
 
 	private void Update()
 	{
-		if (!IsAnimationPlaying())
+		if (!IsAnimationPlaying() && m_animsToPlayQueue.Count > 0)
 		{
-			if (m_animsToPlayQueue.Count > 0)
-			{
-				SetDisplaysVisible(true);
-				m_animsToPlayQueue.RemoveAt(0);
-			}
+			SetDisplaysVisible(true);
+			m_animsToPlayQueue.RemoveAt(0);
 		}
 		ProcessTeamsForSpectator();
 	}
 
 	public void UpdateCatalysts(ActorData theActor, List<Ability> cardAbilities)
 	{
-		int num = 0;
-		while (true)
+		foreach (var icon in m_teamPlayerIcons)
 		{
-			if (num < m_teamPlayerIcons.Length)
+			if (icon.ActorDataRef == theActor)
 			{
-				if (m_teamPlayerIcons[num].ActorDataRef == theActor)
-				{
-					m_teamPlayerIcons[num].UpdateCatalysts(cardAbilities);
-					break;
-				}
-				num++;
-				continue;
-			}
-			break;
-		}
-		for (int i = 0; i < m_enemyPlayerIcons.Length; i++)
-		{
-			if (!(m_enemyPlayerIcons[i].ActorDataRef == theActor))
-			{
-				continue;
-			}
-			while (true)
-			{
-				m_enemyPlayerIcons[i].UpdateCatalysts(cardAbilities);
-				return;
-			}
-		}
-		while (true)
-		{
-			switch (7)
-			{
-			default:
-				return;
-			case 0:
+				icon.UpdateCatalysts(cardAbilities);
 				break;
+			}
+		}
+
+		foreach (var icon in m_enemyPlayerIcons)
+		{
+			if (icon.ActorDataRef == theActor)
+			{
+				icon.UpdateCatalysts(cardAbilities);
+				return;
 			}
 		}
 	}
 
 	private bool IsAnimationPlaying()
 	{
-		if (m_animationController.GetCurrentAnimatorClipInfo(0) != null)
+		if (m_animationController.GetCurrentAnimatorClipInfo(0) != null
+		    && m_animationController.GetCurrentAnimatorClipInfo(0).Length > 0)
 		{
-			if (m_animationController.GetCurrentAnimatorClipInfo(0).Length > 0)
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return m_animationController.GetCurrentAnimatorClipInfo(0)[0].clip.name != "EmptyAnimation";
-					}
-				}
-			}
+			return m_animationController.GetCurrentAnimatorClipInfo(0)[0].clip.name != "EmptyAnimation";
 		}
 		return false;
 	}
 
 	private void SetDisplaysVisible(bool visible)
 	{
-		int num;
-		if (m_teamPlayerIcons[0].IsActiveDisplay())
-		{
-			num = GameFlowData.Get().GetPlayerAndBotTeamMembers(m_teamPlayerIcons[0].GetTeam()).Count;
-		}
-		else
-		{
-			num = m_teamPlayerIcons.Length;
-		}
+		int num = m_teamPlayerIcons[0].IsActiveDisplay()
+			? GameFlowData.Get().GetPlayerAndBotTeamMembers(m_teamPlayerIcons[0].GetTeam()).Count
+			: m_teamPlayerIcons.Length;
 		for (int i = 0; i < m_teamPlayerIcons.Length; i++)
 		{
 			if (i < num && m_teamPlayerIcons[i].IsActiveDisplay())
 			{
-				bool doActive = visible;
-				if ((bool)SinglePlayerManager.Get())
-				{
-					if (SinglePlayerManager.Get().GetTeamPlayerIconForceOff(i))
-					{
-						doActive = false;
-					}
-				}
+				bool doActive =
+					(SinglePlayerManager.Get() == null || !SinglePlayerManager.Get().GetTeamPlayerIconForceOff(i)) 
+					&& visible;
 				UIManager.SetGameObjectActive(m_teamPlayerIcons[i], doActive);
 			}
 			else
@@ -153,39 +96,22 @@ public class UIPlayerDisplay : MonoBehaviour
 				UIManager.SetGameObjectActive(m_teamPlayerIcons[i], false);
 			}
 		}
-		if (m_enemyPlayerIcons[0].IsActiveDisplay())
-		{
-			num = GameFlowData.Get().GetPlayerAndBotTeamMembers(m_enemyPlayerIcons[0].GetTeam()).Count;
-		}
-		else
-		{
-			num = m_enemyPlayerIcons.Length;
-		}
+		
+		num = m_enemyPlayerIcons[0].IsActiveDisplay()
+			? GameFlowData.Get().GetPlayerAndBotTeamMembers(m_enemyPlayerIcons[0].GetTeam()).Count
+			: m_enemyPlayerIcons.Length;
 		for (int j = 0; j < m_enemyPlayerIcons.Length; j++)
 		{
-			if (j < num)
+			if (j < num && m_enemyPlayerIcons[j].IsActiveDisplay())
 			{
-				if (m_enemyPlayerIcons[j].IsActiveDisplay())
-				{
-					bool doActive2 = visible;
-					if ((bool)SinglePlayerManager.Get() && SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(j))
-					{
-						doActive2 = false;
-					}
-					UIManager.SetGameObjectActive(m_enemyPlayerIcons[j], doActive2);
-					continue;
-				}
+				bool doActive =
+					(SinglePlayerManager.Get() == null || !SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(j))
+					&& visible;
+				UIManager.SetGameObjectActive(m_enemyPlayerIcons[j], doActive);
 			}
-			UIManager.SetGameObjectActive(m_enemyPlayerIcons[j], false);
-		}
-		while (true)
-		{
-			switch (4)
+			else
 			{
-			default:
-				return;
-			case 0:
-				break;
+				UIManager.SetGameObjectActive(m_enemyPlayerIcons[j], false);
 			}
 		}
 	}
@@ -196,228 +122,93 @@ public class UIPlayerDisplay : MonoBehaviour
 
 	public void DisplayPanelHideAnimDone()
 	{
-		if (m_PanelVisibility)
-		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					SetDisplaysVisible(true);
-					return;
-				}
-			}
-		}
-		SetDisplaysVisible(false);
+		SetDisplaysVisible(m_PanelVisibility);
 	}
 
 	public void NotifyDecisionTimerShow()
 	{
 		if (!IsAnimationPlaying())
 		{
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					m_PanelVisibility = true;
-					SetDisplaysVisible(true);
-					return;
-				}
-			}
+			m_PanelVisibility = true;
+			SetDisplaysVisible(true);
 		}
-		if (m_animsToPlayQueue == null)
+		else if (m_animsToPlayQueue != null && !m_animsToPlayQueue.Contains(showDisplayAnimName))
 		{
-			return;
-		}
-		while (true)
-		{
-			if (!m_animsToPlayQueue.Contains(showDisplayAnimName))
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					default:
-						return;
-					case 0:
-						break;
-					}
-				}
-			}
-			return;
 		}
 	}
 
 	public void NotifyLockedIn(bool isLocked)
 	{
-		for (int i = 0; i < m_teamPlayerIcons.Length; i++)
+		foreach (UIPlayerStatus icon in m_teamPlayerIcons)
 		{
-			m_teamPlayerIcons[i].NotifyLockedIn(isLocked);
+			icon.NotifyLockedIn(isLocked);
 		}
-		while (true)
+
+		foreach (UIPlayerStatus icon in m_enemyPlayerIcons)
 		{
-			for (int j = 0; j < m_enemyPlayerIcons.Length; j++)
-			{
-				m_enemyPlayerIcons[j].NotifyLockedIn(isLocked);
-			}
-			return;
+			icon.NotifyLockedIn(isLocked);
 		}
 	}
 
 	private void ProcessTeamsForSpectator()
 	{
-		int num;
-		if (ClientGameManager.Get() != null)
-		{
-			if (ClientGameManager.Get().PlayerInfo != null && ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator)
-			{
-				num = 1;
-				goto IL_008d;
-			}
-		}
-		if (GameManager.Get() != null)
-		{
-			if (GameManager.Get().PlayerInfo != null)
-			{
-				num = ((GameManager.Get().PlayerInfo.TeamId == Team.Spectator) ? 1 : 0);
-				goto IL_008d;
-			}
-		}
-		num = 0;
-		goto IL_008d;
-		IL_008d:
-		bool flag = (byte)num != 0;
-		if (GameFlowData.Get() == null)
+		bool isClientSpectator = ClientGameManager.Get() != null
+		         && ClientGameManager.Get().PlayerInfo != null
+		         && ClientGameManager.Get().PlayerInfo.TeamId == Team.Spectator;
+		bool isSpectator = GameManager.Get() != null
+		         && GameManager.Get().PlayerInfo != null
+		         && GameManager.Get().PlayerInfo.TeamId == Team.Spectator;
+		
+		if (GameFlowData.Get() == null
+		    || GameFlowData.Get().LocalPlayerData == null
+		    || (!isClientSpectator && !isSpectator))
 		{
 			return;
 		}
-		while (true)
+		
+		Team team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
+		if (team == Team.Invalid)
 		{
-			if (GameFlowData.Get().LocalPlayerData == null)
+			team = Team.TeamA;
+		}
+
+		List<ActorData> teamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(team);
+		Team otherTeam = team == Team.TeamA ? Team.TeamB : Team.TeamA;
+		List<ActorData> otherTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(otherTeam);
+		
+		int i = 0;
+		foreach (ActorData player in teamMembers)
+		{
+			if (i >= m_teamPlayerIcons.Length)
+			{
+				break;
+			}
+
+			if (GameplayUtils.IsPlayerControlled(player))
+			{
+				m_teamPlayerIcons[i].Setup(player);
+				bool doActive = SinglePlayerManager.Get() == null 
+				                || !SinglePlayerManager.Get().GetTeamPlayerIconForceOff(i);
+				UIManager.SetGameObjectActive(m_teamPlayerIcons[i], doActive);
+				i++;
+			}
+		}
+
+		i = 0;
+		foreach (ActorData player in otherTeamMembers)
+		{
+			if (i >= m_enemyPlayerIcons.Length)
 			{
 				return;
 			}
-			while (true)
+
+			if (GameplayUtils.IsPlayerControlled(player))
 			{
-				if (!flag)
-				{
-					while (true)
-					{
-						switch (5)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
-				}
-				Team team = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
-				if (team != 0)
-				{
-					if (team != Team.Invalid)
-					{
-						goto IL_0104;
-					}
-				}
-				team = Team.TeamA;
-				goto IL_0104;
-				IL_0104:
-				List<ActorData> playerAndBotTeamMembers = GameFlowData.Get().GetPlayerAndBotTeamMembers(team);
-				GameFlowData gameFlowData = GameFlowData.Get();
-				int team2;
-				if (team == Team.TeamA)
-				{
-					team2 = 1;
-				}
-				else
-				{
-					team2 = 0;
-				}
-				List<ActorData> playerAndBotTeamMembers2 = gameFlowData.GetPlayerAndBotTeamMembers((Team)team2);
-				int num2 = 0;
-				using (List<ActorData>.Enumerator enumerator = playerAndBotTeamMembers.GetEnumerator())
-				{
-					while (true)
-					{
-						if (!enumerator.MoveNext())
-						{
-							break;
-						}
-						ActorData current = enumerator.Current;
-						if (num2 >= m_teamPlayerIcons.Length)
-						{
-							break;
-						}
-						if (!GameplayUtils.IsPlayerControlled(current))
-						{
-						}
-						else
-						{
-							m_teamPlayerIcons[num2].Setup(current);
-							bool doActive = true;
-							if ((bool)SinglePlayerManager.Get())
-							{
-								if (SinglePlayerManager.Get().GetTeamPlayerIconForceOff(num2))
-								{
-									doActive = false;
-								}
-							}
-							UIManager.SetGameObjectActive(m_teamPlayerIcons[num2], doActive);
-							num2++;
-						}
-					}
-				}
-				num2 = 0;
-				using (List<ActorData>.Enumerator enumerator2 = playerAndBotTeamMembers2.GetEnumerator())
-				{
-					while (enumerator2.MoveNext())
-					{
-						ActorData current2 = enumerator2.Current;
-						if (num2 >= m_enemyPlayerIcons.Length)
-						{
-							while (true)
-							{
-								switch (6)
-								{
-								default:
-									return;
-								case 0:
-									break;
-								}
-							}
-						}
-						if (GameplayUtils.IsPlayerControlled(current2))
-						{
-							m_enemyPlayerIcons[num2].Setup(current2);
-							bool doActive2 = true;
-							if ((bool)SinglePlayerManager.Get())
-							{
-								if (SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(num2))
-								{
-									doActive2 = false;
-								}
-							}
-							UIManager.SetGameObjectActive(m_enemyPlayerIcons[num2], doActive2);
-							num2++;
-						}
-					}
-					while (true)
-					{
-						switch (5)
-						{
-						default:
-							return;
-						case 0:
-							break;
-						}
-					}
-				}
+				m_enemyPlayerIcons[i].Setup(player);
+				bool doActive = SinglePlayerManager.Get() == null
+				                || !SinglePlayerManager.Get().GetEnemyPlayerIconForceOff(i);
+				UIManager.SetGameObjectActive(m_enemyPlayerIcons[i], doActive);
+				i++;
 			}
 		}
 	}
@@ -431,31 +222,31 @@ public class UIPlayerDisplay : MonoBehaviour
 		ActorData activeOwnedActorData = GameFlowData.Get().activeOwnedActorData;
 		if (activeOwnedActorData != null)
 		{
-			int num = 0;
+			int i = 0;
 			foreach (ActorData ally in GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetTeam()))
 			{
-				if (num >= m_teamPlayerIcons.Length)
+				if (i >= m_teamPlayerIcons.Length)
 				{
 					break;
 				}
 
 				if (GameplayUtils.IsPlayerControlled(ally))
 				{
-					m_teamPlayerIcons[num].Setup(ally);
-					num++;
+					m_teamPlayerIcons[i].Setup(ally);
+					i++;
 				}
 			}
-			num = 0;
+			i = 0;
 			foreach (ActorData enemy in GameFlowData.Get().GetPlayerAndBotTeamMembers(activeOwnedActorData.GetEnemyTeam()))
 			{
-				if (num >= m_enemyPlayerIcons.Length)
+				if (i >= m_enemyPlayerIcons.Length)
 				{
 					break;
 				}
 				if (GameplayUtils.IsPlayerControlled(enemy))
 				{
-					m_enemyPlayerIcons[num].Setup(enemy);
-					num++;
+					m_enemyPlayerIcons[i].Setup(enemy);
+					i++;
 				}
 			}
 		}
