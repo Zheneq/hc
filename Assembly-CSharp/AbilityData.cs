@@ -2713,7 +2713,9 @@ public class AbilityData : NetworkBehaviour
 		bool flag6 = abilityOfActionType.RunPriority != AbilityPriority.Evasion || !HasQueuedAbilityInPhase(AbilityPriority.Evasion);
 		bool flag7 = !IsCard(abilityAction) || !HasQueuedCardAbility();  // HasQueuedCardAbility(true) in rogues
 		bool result = flag && flag2 && flag3 && flag4 && flag5 && flag6 && flag7;
-
+	
+#if SERVER
+		// custom logs
 		if (!result)
 		{
 			Log.InfoEx($"Ability {abilityOfActionType.GetNameString()} is not requestable by {m_actor}: " +
@@ -2725,6 +2727,7 @@ public class AbilityData : NetworkBehaviour
 			         $"action does not run in evasion phase or there are no other evasion actions queued: {flag6}, " +
 			         $"action is not a card or there are no other cards queued: {flag7}");
 		}
+#endif
 		
 		return result;
 	}
