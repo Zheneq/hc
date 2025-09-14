@@ -1,34 +1,32 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 
 [Serializable]
 public class LobbyServerTeamInfo
 {
-	public List<LobbyServerPlayerInfo> TeamPlayerInfo;
+    public List<LobbyServerPlayerInfo> TeamPlayerInfo;
+    public Dictionary<long, TierPlacement> TierChangeMins;
+    public Dictionary<long, TierPlacement> TierChangeMaxs;
+    public Dictionary<long, TierPlacement> TierCurrents;
 
-	public Dictionary<long, TierPlacement> TierChangeMins;
+    [JsonIgnore]
+    public IEnumerable<LobbyServerPlayerInfo> TeamAPlayerInfo => TeamInfo(Team.TeamA);
 
-	public Dictionary<long, TierPlacement> TierChangeMaxs;
+    [JsonIgnore]
+    public IEnumerable<LobbyServerPlayerInfo> TeamBPlayerInfo => TeamInfo(Team.TeamB);
 
-	public Dictionary<long, TierPlacement> TierCurrents;
+    [JsonIgnore]
+    public IEnumerable<LobbyServerPlayerInfo> SpectatorInfo => TeamInfo(Team.Spectator);
 
-	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> TeamAPlayerInfo => TeamInfo(Team.TeamA);
+    public IEnumerable<LobbyServerPlayerInfo> TeamInfo(Team team)
+    {
+        if (TeamPlayerInfo == null)
+        {
+            return Enumerable.Empty<LobbyServerPlayerInfo>();
+        }
 
-	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> TeamBPlayerInfo => TeamInfo(Team.TeamB);
-
-	[JsonIgnore]
-	public IEnumerable<LobbyServerPlayerInfo> SpectatorInfo => TeamInfo(Team.Spectator);
-
-	public IEnumerable<LobbyServerPlayerInfo> TeamInfo(Team team)
-	{
-		if (TeamPlayerInfo == null)
-		{
-			return Enumerable.Empty<LobbyServerPlayerInfo>();
-		}
-		return TeamPlayerInfo.Where((LobbyServerPlayerInfo p) => p.TeamId == team);
-	}
+        return TeamPlayerInfo.Where(p => p.TeamId == team);
+    }
 }
