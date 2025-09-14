@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using UnityEngine.Networking;
 
 [Serializable]
 public class LobbyServerTeamInfo
@@ -29,4 +30,29 @@ public class LobbyServerTeamInfo
 
         return TeamPlayerInfo.Where(p => p.TeamId == team);
     }
+
+#if SERVER
+    // added in rogues
+    public void Deserialize(NetworkReader reader)
+    {
+        int num = reader.ReadInt32();
+        TeamPlayerInfo = new List<LobbyServerPlayerInfo>(num);
+        for (int i = 0; i < num; i++)
+        {
+            LobbyServerPlayerInfo lobbyServerPlayerInfo = new LobbyServerPlayerInfo();
+            lobbyServerPlayerInfo.Deserialize(reader);
+            TeamPlayerInfo.Add(lobbyServerPlayerInfo);
+        }
+    }
+
+    // custom
+    public void Serialize(NetworkWriter writer)
+    {
+        writer.Write(TeamPlayerInfo.Count);
+        foreach (var lobbyServerPlayerInfo in TeamPlayerInfo)
+        {
+            lobbyServerPlayerInfo.Serialize(writer);
+        }
+    }
+#endif
 }

@@ -96,7 +96,13 @@ public class LobbyPlayerInfo
 			CharacterInfo = serverInfo.CharacterInfo?.Clone(),
 			RemoteCharacterInfos = list,
 			ReadyState = serverInfo.ReadyState,
+#if SERVER
+			// custom - ControllingPlayerInfo is not initialized
+			ControllingPlayerId = serverInfo.IsRemoteControlled ? serverInfo.ControllingPlayerId : 0,
+#else
+			// reactor
 			ControllingPlayerId = serverInfo.IsRemoteControlled ? serverInfo.ControllingPlayerInfo.PlayerId : 0,
+#endif
 			EffectiveClientAccessLevel = serverInfo.EffectiveClientAccessLevel,
 			DisplayedStat = serverInfo.AccountLevel >= maxPlayerLevel
 				? LocalizationPayload.Create("TotalSeasonLevelStatNumber", "Global", LocalizationArg_Int32.Create(serverInfo.TotalLevel))
