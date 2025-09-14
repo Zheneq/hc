@@ -290,7 +290,7 @@ public class SamuraiDashAndAimedSlash : Ability
 			int damage = GetDamageAmount();
 			if (m_syncComponent != null)
 			{
-				damage += m_syncComponent.GetExtraDamageFromQueuedSelfBuff();
+				damage += m_syncComponent.GetExtraDamageFromQueuedSelfBuff(); // TODO SAMURAI CalcExtraDamageFromSelfBuffAbility?
 			}
 			if (GetExtraDamageIfSingleTarget() > 0 && enemyCount == 1)
 			{
