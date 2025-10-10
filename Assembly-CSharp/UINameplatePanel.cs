@@ -4,442 +4,308 @@ using UnityEngine;
 
 public class UINameplatePanel : MonoBehaviour
 {
-	public UINameplateItem m_nameplateItemPrefab;
+    public UINameplateItem m_nameplateItemPrefab;
+    public Sprite[] m_buffIconSprites = new Sprite[13];
 
-	public Sprite[] m_buffIconSprites = new Sprite[13];
+    private Dictionary<ActorData, UINameplateItem> m_nameplates = new Dictionary<ActorData, UINameplateItem>();
+    private bool m_nameplateTextVisible = true;
+    private bool m_nameplateCombatTextvisible = true;
+    private List<int> m_sortedActorIndexNameplates = new List<int>();
 
-	private Dictionary<ActorData, UINameplateItem> m_nameplates = new Dictionary<ActorData, UINameplateItem>();
+    public Dictionary<ActorData, UINameplateItem> GetNameplates()
+    {
+        return m_nameplates;
+    }
 
-	private bool m_nameplateTextVisible = true;
+    public static void SetIndividualNameplateText(ActorData theActor, string textToDisplay)
+    {
+        Dictionary<ActorData, UINameplateItem> nameplates =
+            HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.GetNameplates();
+        if (nameplates.TryGetValue(theActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.SetDebugText(textToDisplay);
+        }
+    }
 
-	private bool m_nameplateCombatTextvisible = true;
+    public void StartTargetingNumberFadeout(ActorData actorData)
+    {
+        if (m_nameplates.TryGetValue(actorData, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.StartTargetingNumberFadeout();
+        }
+    }
 
-	private List<int> m_sortedActorIndexNameplates = new List<int>();
+    public void ShowTargetingNumberForConfirmedTargeting(ActorData actorData)
+    {
+        if (m_nameplates.TryGetValue(actorData, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.ShowTargetingNumberForConfirmedTargeting();
+        }
+    }
 
-	public Dictionary<ActorData, UINameplateItem> GetNameplates()
-	{
-		return m_nameplates;
-	}
+    public void UpdateBriefcaseThreshold(ActorData actorData, float percent)
+    {
+        if (m_nameplates.TryGetValue(actorData, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.UpdateBriefcaseThreshold(percent);
+        }
+    }
 
-	public static void SetIndividualNameplateText(ActorData theActor, string textToDisplay)
-	{
-		Dictionary<ActorData, UINameplateItem> nameplates = HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.GetNameplates();
-		if (nameplates.ContainsKey(theActor))
-		{
-			UINameplateItem uINameplateItem = nameplates[theActor];
-			uINameplateItem.SetDebugText(textToDisplay);
-		}
-	}
+    public void RefreshNameplates()
+    {
+        foreach (UINameplateItem nameplateItem in m_nameplates.Values)
+        {
+            nameplateItem.ForceFinishStatusAnims();
+        }
+    }
 
-	public void StartTargetingNumberFadeout(ActorData actorData)
-	{
-		if (m_nameplates.ContainsKey(actorData))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[actorData];
-			uINameplateItem.StartTargetingNumberFadeout();
-		}
-	}
+    public void SetTextVisible(bool visible)
+    {
+        if (m_nameplateTextVisible == visible)
+        {
+            return;
+        }
 
-	public void ShowTargetingNumberForConfirmedTargeting(ActorData actorData)
-	{
-		if (m_nameplates.ContainsKey(actorData))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[actorData];
-			uINameplateItem.ShowTargetingNumberForConfirmedTargeting();
-		}
-	}
+        m_nameplateTextVisible = visible;
+        foreach (UINameplateItem nameplateItem in m_nameplates.Values)
+        {
+            nameplateItem.SetTextVisible(visible);
+        }
+    }
 
-	public void UpdateBriefcaseThreshold(ActorData actorData, float percent)
-	{
-		if (!m_nameplates.ContainsKey(actorData))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[actorData];
-			uINameplateItem.UpdateBriefcaseThreshold(percent);
-			return;
-		}
-	}
+    public void ToggleCombatTextVisible()
+    {
+        m_nameplateCombatTextvisible = !m_nameplateCombatTextvisible;
+    }
 
-	public void RefreshNameplates()
-	{
-		using (Dictionary<ActorData, UINameplateItem>.Enumerator enumerator = m_nameplates.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				UINameplateItem value = enumerator.Current.Value;
-				value.ForceFinishStatusAnims();
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-	}
+    public void SetCombatTextVisible(bool visible)
+    {
+        m_nameplateCombatTextvisible = visible;
+    }
 
-	public void SetTextVisible(bool visible)
-	{
-		if (m_nameplateTextVisible == visible)
-		{
-			return;
-		}
-		while (true)
-		{
-			m_nameplateTextVisible = visible;
-			foreach (KeyValuePair<ActorData, UINameplateItem> nameplate in m_nameplates)
-			{
-				UINameplateItem value = nameplate.Value;
-				value.SetTextVisible(visible);
-			}
-			return;
-		}
-	}
+    public void PlayCombatText(ActorData actorData, string text, CombatTextCategory category, BuffIconToDisplay icon)
+    {
+        if (m_nameplateCombatTextvisible && m_nameplates.TryGetValue(actorData, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.PlayCombatText(actorData, text, category, icon);
+        }
+    }
 
-	public void ToggleCombatTextVisible()
-	{
-		m_nameplateCombatTextvisible = !m_nameplateCombatTextvisible;
-	}
+    public void SetDebugNameplateTextValues()
+    {
+        foreach (KeyValuePair<ActorData, UINameplateItem> nameplate in m_nameplates)
+        {
+            nameplate.Value.SetDebugText("State: " + nameplate.Key.GetActorTurnSM().CurrentState);
+        }
+    }
 
-	public void SetCombatTextVisible(bool visible)
-	{
-		m_nameplateCombatTextvisible = visible;
-	}
+    public void Update()
+    {
+        if (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("DebugNameplates"))
+        {
+            SetDebugNameplateTextValues();
+        }
+    }
 
-	public void PlayCombatText(ActorData actorData, string text, CombatTextCategory category, BuffIconToDisplay icon)
-	{
-		if (!m_nameplateCombatTextvisible || !m_nameplates.ContainsKey(actorData))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[actorData];
-			uINameplateItem.PlayCombatText(actorData, text, category, icon);
-			return;
-		}
-	}
+    public void AddActor(ActorData actorData)
+    {
+        UINameplateItem nameplateItem = Instantiate(m_nameplateItemPrefab);
+        m_nameplates[actorData] = nameplateItem;
+        nameplateItem.transform.SetParent(transform);
+        nameplateItem.Setup(actorData);
+        nameplateItem.transform.localPosition = Vector3.zero;
+        nameplateItem.transform.localScale = new Vector3(1f, 1f, 1f);
+        if (nameplateItem.transform as RectTransform != null)
+        {
+            (nameplateItem.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
+        }
 
-	public void SetDebugNameplateTextValues()
-	{
-		using (Dictionary<ActorData, UINameplateItem>.Enumerator enumerator = m_nameplates.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				KeyValuePair<ActorData, UINameplateItem> current = enumerator.Current;
-				ActorData key = current.Key;
-				UINameplateItem value = current.Value;
-				value.SetDebugText("State: " + key.GetActorTurnSM().CurrentState);
-			}
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-	}
+        UIManager.SetGameObjectActive(nameplateItem.m_parentTransform, false);
+        UIManager.SetGameObjectActive(nameplateItem.m_parentTransform, true);
+        CanvasLayerManager.Get().NotifyAddedNewNameplate();
+    }
 
-	public void Update()
-	{
-		if (DebugParameters.Get() == null)
-		{
-			return;
-		}
-		while (true)
-		{
-			if (DebugParameters.Get().GetParameterAsBool("DebugNameplates"))
-			{
-				while (true)
-				{
-					SetDebugNameplateTextValues();
-					return;
-				}
-			}
-			return;
-		}
-	}
+    public void NotifyFlagStatusChange(ActorData theActor, bool holdingFlag)
+    {
+        if (theActor != null && m_nameplates.TryGetValue(theActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.NotifyFlagStatusChange(holdingFlag);
+        }
+    }
 
-	public void AddActor(ActorData actorData)
-	{
-		UINameplateItem uINameplateItem = Object.Instantiate(m_nameplateItemPrefab);
-		m_nameplates[actorData] = uINameplateItem;
-		uINameplateItem.transform.SetParent(base.transform);
-		uINameplateItem.Setup(actorData);
-		uINameplateItem.transform.localPosition = Vector3.zero;
-		uINameplateItem.transform.localScale = new Vector3(1f, 1f, 1f);
-		if (uINameplateItem.transform as RectTransform != null)
-		{
-			(uINameplateItem.transform as RectTransform).anchoredPosition = new Vector2(10000f, 10000f);
-		}
-		UIManager.SetGameObjectActive(uINameplateItem.m_parentTransform, false);
-		UIManager.SetGameObjectActive(uINameplateItem.m_parentTransform, true);
-		CanvasLayerManager.Get().NotifyAddedNewNameplate();
-	}
+    public void NotifyStatusChange(ActorData theActor, StatusType status, bool gainedStatus)
+    {
+        if (m_nameplates.TryGetValue(theActor, out UINameplateItem nameplateItem))
+        {
+            if (gainedStatus)
+            {
+                nameplateItem.AddStatus(status);
+            }
+            else
+            {
+                nameplateItem.RemoveStatus(status);
+            }
+        }
+    }
 
-	public void NotifyFlagStatusChange(ActorData theActor, bool holdingFlag)
-	{
-		if (!(theActor != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			if (m_nameplates.ContainsKey(theActor))
-			{
-				while (true)
-				{
-					UINameplateItem uINameplateItem = m_nameplates[theActor];
-					uINameplateItem.NotifyFlagStatusChange(holdingFlag);
-					return;
-				}
-			}
-			return;
-		}
-	}
+    public void SetCatalystPipsVisible(ActorData theActor, bool visible)
+    {
+        if (m_nameplates.TryGetValue(theActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.SetCatalystsVisible(visible);
+        }
+    }
 
-	public void NotifyStatusChange(ActorData theActor, StatusType status, bool gainedStatus)
-	{
-		if (!m_nameplates.ContainsKey(theActor))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theActor];
-			if (gainedStatus)
-			{
-				while (true)
-				{
-					switch (3)
-					{
-					case 0:
-						break;
-					default:
-						uINameplateItem.AddStatus(status);
-						return;
-					}
-				}
-			}
-			uINameplateItem.RemoveStatus(status);
-			return;
-		}
-	}
+    public void UpdateCatalysts(ActorData theActor, List<Ability> cardAbilities)
+    {
+        if (m_nameplates.TryGetValue(theActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.UpdateCatalysts(cardAbilities);
+        }
+    }
 
-	public void SetCatalystPipsVisible(ActorData theActor, bool visible)
-	{
-		if (m_nameplates.ContainsKey(theActor))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theActor];
-			uINameplateItem.SetCatalystsVisible(visible);
-		}
-	}
+    public void NotifyStatusDurationChange(ActorData theActor, StatusType status, int newDuration)
+    {
+        if (m_nameplates.TryGetValue(theActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.UpdateStatusDuration(status, newDuration);
+        }
+    }
 
-	public void UpdateCatalysts(ActorData theActor, List<Ability> cardAbilities)
-	{
-		if (!m_nameplates.ContainsKey(theActor))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theActor];
-			uINameplateItem.UpdateCatalysts(cardAbilities);
-			return;
-		}
-	}
+    public void UpdateTargetingAbilityIndicator(
+        ActorData targetingActor,
+        Ability ability,
+        AbilityData.ActionType action,
+        int index)
+    {
+        if (m_nameplates.TryGetValue(targetingActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.UpdateTargetingAbilityIndicator(ability, action, index);
+        }
+    }
 
-	public void NotifyStatusDurationChange(ActorData theActor, StatusType status, int newDuration)
-	{
-		if (!m_nameplates.ContainsKey(theActor))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theActor];
-			uINameplateItem.UpdateStatusDuration(status, newDuration);
-			return;
-		}
-	}
+    public void TurnOffTargetingAbilityIndicator(ActorData targetingActor, int fromIndex)
+    {
+        if (m_nameplates.TryGetValue(targetingActor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.TurnOffTargetingAbilityIndicator(fromIndex);
+        }
+    }
 
-	public void UpdateTargetingAbilityIndicator(ActorData targetingActor, Ability ability, AbilityData.ActionType action, int index)
-	{
-		if (!m_nameplates.ContainsKey(targetingActor))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[targetingActor];
-			uINameplateItem.UpdateTargetingAbilityIndicator(ability, action, index);
-			return;
-		}
-	}
+    public void SpawnOverconForActor(ActorData actor, UIOverconData.NameToOverconEntry entry, bool skipValidation)
+    {
+        if (m_nameplates.TryGetValue(actor, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.SpawnOvercon(entry, skipValidation);
+        }
+    }
 
-	public void TurnOffTargetingAbilityIndicator(ActorData targetingActor, int fromIndex)
-	{
-		if (m_nameplates.ContainsKey(targetingActor))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[targetingActor];
-			uINameplateItem.TurnOffTargetingAbilityIndicator(fromIndex);
-		}
-	}
+    public void UpdateSelfNameplate(
+        ActorData theTargeted,
+        Ability abilityTargeting,
+        bool inCover,
+        int currentTargeterIndex,
+        bool inConfirm)
+    {
+        if (m_nameplates.TryGetValue(theTargeted, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.UpdateSelfNameplate(abilityTargeting, inCover, currentTargeterIndex, inConfirm);
+        }
+    }
 
-	public void SpawnOverconForActor(ActorData actor, UIOverconData.NameToOverconEntry entry, bool skipValidation)
-	{
-		if (m_nameplates.ContainsKey(actor))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[actor];
-			uINameplateItem.SpawnOvercon(entry, skipValidation);
-		}
-	}
+    public void UpdateNameplateTargeted(
+        ActorData targetingActor,
+        ActorData theTargeted,
+        Ability abilityTargeting,
+        bool inCover,
+        int currentTargeterIndex,
+        bool inConfirm)
+    {
+        if (m_nameplates.TryGetValue(theTargeted, out var nameplateItem))
+        {
+            nameplateItem.UpdateNameplateTargeted(
+                targetingActor,
+                abilityTargeting,
+                inCover,
+                currentTargeterIndex,
+                inConfirm);
+        }
+    }
 
-	public void UpdateSelfNameplate(ActorData theTargeted, Ability abilityTargeting, bool inCover, int currentTargeterIndex, bool inConfirm)
-	{
-		if (m_nameplates.ContainsKey(theTargeted))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theTargeted];
-			uINameplateItem.UpdateSelfNameplate(abilityTargeting, inCover, currentTargeterIndex, inConfirm);
-		}
-	}
+    public void UpdateNameplateUntargeted(ActorData theTargeted, bool doInstantHide = false)
+    {
+        if (m_nameplates.TryGetValue(theTargeted, out UINameplateItem nameplateItem))
+        {
+            nameplateItem.UpdateNameplateUntargeted(doInstantHide);
+        }
+    }
 
-	public void UpdateNameplateTargeted(ActorData targetingActor, ActorData theTargeted, Ability abilityTargeting, bool inCover, int currentTargeterIndex, bool inConfirm)
-	{
-		if (m_nameplates.ContainsKey(theTargeted))
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theTargeted];
-			uINameplateItem.UpdateNameplateTargeted(targetingActor, abilityTargeting, inCover, currentTargeterIndex, inConfirm);
-		}
-	}
+    public void RemoveActor(ActorData actorData)
+    {
+        if (m_nameplates.TryGetValue(actorData, out UINameplateItem nameplateItem))
+        {
+            m_nameplates.Remove(actorData);
+            if (nameplateItem != null)
+            {
+                Destroy(nameplateItem.gameObject);
+            }
+        }
+    }
 
-	public void UpdateNameplateUntargeted(ActorData theTargeted, bool doInstantHide = false)
-	{
-		if (!m_nameplates.ContainsKey(theTargeted))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[theTargeted];
-			uINameplateItem.UpdateNameplateUntargeted(doInstantHide);
-			return;
-		}
-	}
+    private void Clear()
+    {
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            Destroy(child.gameObject);
+        }
 
-	public void RemoveActor(ActorData actorData)
-	{
-		if (!m_nameplates.ContainsKey(actorData))
-		{
-			return;
-		}
-		while (true)
-		{
-			UINameplateItem uINameplateItem = m_nameplates[actorData];
-			m_nameplates.Remove(actorData);
-			if (uINameplateItem != null)
-			{
-				Object.Destroy(uINameplateItem.gameObject);
-			}
-			return;
-		}
-	}
+        m_nameplates.Clear();
+    }
 
-	private void Clear()
-	{
-		for (int i = 0; i < base.transform.childCount; i++)
-		{
-			Transform child = base.transform.GetChild(i);
-			Object.Destroy(child.gameObject);
-		}
-		while (true)
-		{
-			m_nameplates.Clear();
-			return;
-		}
-	}
+    public void SortNameplates()
+    {
+        IOrderedEnumerable<KeyValuePair<ActorData, UINameplateItem>> sortedNameplates = m_nameplates
+            .OrderBy(r => r.Value.m_distanceFromCamera);
+        bool isUpdateNeeded = false;
+        if (sortedNameplates.Count() != m_sortedActorIndexNameplates.Count)
+        {
+            isUpdateNeeded = true;
+        }
+        else
+        {
+            List<int>.Enumerator oldSortedNameplates = m_sortedActorIndexNameplates.GetEnumerator();
+            IEnumerator<KeyValuePair<ActorData, UINameplateItem>>
+                newSortedNameplates = sortedNameplates.GetEnumerator();
+            while (oldSortedNameplates.MoveNext() && newSortedNameplates.MoveNext())
+            {
+                int oldIndex = oldSortedNameplates.Current;
+                int newIndex = newSortedNameplates.Current.Key.ActorIndex;
+                if (oldIndex != newIndex)
+                {
+                    isUpdateNeeded = true;
+                    break;
+                }
+            }
+        }
 
-	public void SortNameplates()
-	{
-		IOrderedEnumerable<KeyValuePair<ActorData, UINameplateItem>> orderedEnumerable = m_nameplates.OrderBy((KeyValuePair<ActorData, UINameplateItem> r) => r.Value.m_distanceFromCamera);
-		bool flag = false;
-		if (orderedEnumerable.Count() != m_sortedActorIndexNameplates.Count())
-		{
-			flag = true;
-		}
-		else
-		{
-			List<int>.Enumerator enumerator = m_sortedActorIndexNameplates.GetEnumerator();
-			IEnumerator<KeyValuePair<ActorData, UINameplateItem>> enumerator2 = orderedEnumerable.GetEnumerator();
-			while (enumerator.MoveNext())
-			{
-				if (enumerator2.MoveNext())
-				{
-					int current = enumerator.Current;
-					int actorIndex = enumerator2.Current.Key.ActorIndex;
-					if (current != actorIndex)
-					{
-						flag = true;
-						break;
-					}
-					continue;
-				}
-				break;
-			}
-		}
-		if (!flag)
-		{
-			return;
-		}
-		while (true)
-		{
-			m_sortedActorIndexNameplates.Clear();
-			IEnumerator<KeyValuePair<ActorData, UINameplateItem>> enumerator3 = orderedEnumerable.GetEnumerator();
-			try
-			{
-				while (enumerator3.MoveNext())
-				{
-					KeyValuePair<ActorData, UINameplateItem> current2 = enumerator3.Current;
-					int sortOrder = current2.Value.GetSortOrder();
-					int num = m_nameplates.Count - m_sortedActorIndexNameplates.Count;
-					if (sortOrder != num)
-					{
-						current2.Value.SetSortOrder(num);
-					}
-					m_sortedActorIndexNameplates.Add(current2.Key.ActorIndex);
-				}
-			}
-			finally
-			{
-				if (enumerator3 != null)
-				{
-					while (true)
-					{
-						switch (7)
-						{
-						case 0:
-							break;
-						default:
-							enumerator3.Dispose();
-							goto end_IL_0163;
-						}
-					}
-				}
-				end_IL_0163:;
-			}
-			CanvasLayerManager.Get().UpdateNameplateOrder();
-			return;
-		}
-	}
+        if (isUpdateNeeded)
+        {
+            m_sortedActorIndexNameplates.Clear();
+
+            foreach (KeyValuePair<ActorData, UINameplateItem> nameplateItem in sortedNameplates)
+            {
+                int oldIndex = nameplateItem.Value.GetSortOrder();
+                int newIndex = m_nameplates.Count - m_sortedActorIndexNameplates.Count;
+                if (oldIndex != newIndex)
+                {
+                    nameplateItem.Value.SetSortOrder(newIndex);
+                }
+
+                m_sortedActorIndexNameplates.Add(nameplateItem.Key.ActorIndex);
+            }
+
+            CanvasLayerManager.Get().UpdateNameplateOrder();
+        }
+    }
 }
