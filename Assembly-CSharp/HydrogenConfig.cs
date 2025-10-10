@@ -142,7 +142,7 @@ public class HydrogenConfig : JsonConfig
 #endif
 
 #if !VANILLA
-    public string CrashReportUrl = "https://evos-emu.com/api/archive/";
+    public string CrashReportUrl = "https://ar.zheneq.net/api/archive/";
 #endif
 
 #if EVOS
