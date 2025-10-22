@@ -949,7 +949,11 @@ public class Options_UI : UIScene, IGameEventListener
         }
 
         ClientGameManager.Get().NotifyOptions(
+#if EVOS
+            new EvosOptionsNotification
+#else
             new OptionsNotification
+#endif
             {
                 UserDialog = userDialog,
                 DeviceIdentifier = SystemInfo.deviceUniqueIdentifier,
@@ -980,8 +984,10 @@ public class Options_UI : UIScene, IGameEventListener
                 HideTutorialVideos = m_activeState.hideTutorialVideos,
                 AllowCancelActionWhileConfirmed = m_activeState.allowCancelActionWhileConfirmed,
                 Region = m_activeState.region,
-                OverrideGlyphLanguageCode = m_activeState.overrideGlyphLanguageCode
-                // NOTE not sending custom options here so that we don't have to modify binary protocol
+                OverrideGlyphLanguageCode = m_activeState.overrideGlyphLanguageCode,
+#if EVOS
+                AllowResettingWaypoints = m_activeState.allowResettingWaypoints,
+#endif
             });
     }
 

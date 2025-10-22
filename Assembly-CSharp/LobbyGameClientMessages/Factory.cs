@@ -294,6 +294,13 @@ namespace LobbyGameClientMessages
 			typeof(LobbyAlertMissionDataNotification),
 			typeof(LobbySeasonQuestDataNotification)
 		};
+		
+#if EVOS
+		public static IEnumerable<Type> EvosMessageTypes => new[]
+		{
+			typeof(EvosOptionsNotification),
+		};
+#endif
 
 		public static WebSocketMessageFactory Get()
 		{
@@ -302,6 +309,9 @@ namespace LobbyGameClientMessages
 				s_instance = new WebSocketMessageFactory();
 				s_instance.AddMessageTypes(MessageTypes);
 				s_instance.AddMessageTypes(QueueRequirement.MessageTypes);
+#if EVOS
+				s_instance.AddMessageTypes(EvosMessageTypes);
+#endif
 			}
 			return s_instance;
 		}

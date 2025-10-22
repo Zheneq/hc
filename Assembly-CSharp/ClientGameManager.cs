@@ -4667,7 +4667,11 @@ public class ClientGameManager : MonoBehaviour
 		Log.Error("Not connected to lobby server.");
 	}
 
+#if EVOS
+	public void NotifyOptions(EvosOptionsNotification notification)
+#else
 	public void NotifyOptions(OptionsNotification notification)
+#endif
 	{
 		if (m_lobbyGameClientInterface != null && m_lobbyGameClientInterface.IsConnected)
 		{

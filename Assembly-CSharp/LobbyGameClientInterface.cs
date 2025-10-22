@@ -1161,8 +1161,12 @@ public class LobbyGameClientInterface : WebSocketInterface
 		};
 		SendMessage(customKeyBindNotification);
 	}
-
+	
+#if EVOS
+	public bool NotifyOptions(EvosOptionsNotification notification)
+#else
 	public bool NotifyOptions(OptionsNotification notification)
+#endif
 	{
 		notification.RequestId = m_messageDispatcher.GetRequestId();
 		return SendMessage(notification);
