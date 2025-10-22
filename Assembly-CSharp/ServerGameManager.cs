@@ -2041,7 +2041,14 @@ public class ServerGameManager : MonoBehaviour
 		// rogues
 		// serverPlayerState.ConnectionPersistent.Disconnect();
 		// custom
-		DisconnectNow(serverPlayerState.ConnectionPersistent);
+		StartCoroutine(DisconnectAsync(serverPlayerState.ConnectionPersistent));
+	}
+	
+	// custom
+	private IEnumerator DisconnectAsync(NetworkConnection conn)
+	{
+		yield return null; // Move execution to the main thread to avoid concurrent usage of Unity network string buffer
+		DisconnectNow(conn);
 	}
 
 	private void HandleReconnectPlayerRequest(ReconnectPlayerRequest request)
