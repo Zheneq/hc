@@ -71,8 +71,8 @@ public class ControllerInputSnapshot
         RightStickY = Input.GetAxis("GamepadRightStickY");
         LeftTrigger = Input.GetAxis("GamepadLeftTrigger");
         RightTrigger = Input.GetAxis("GamepadRightTrigger");
-        DpadX = Input.GetAxisRaw("GamepadDpadX");
-        DpadY = Input.GetAxisRaw("GamepadDpadY");
+        DpadX = Input.GetAxis("GamepadDpadX");
+        DpadY = Input.GetAxis("GamepadDpadY");
         Button_A.GatherState("GamepadButtonA");
         Button_B.GatherState("GamepadButtonB");
         Button_X.GatherState("GamepadButtonX");
