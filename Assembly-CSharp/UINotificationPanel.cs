@@ -20,12 +20,22 @@ public class UINotificationPanel : MonoBehaviour
     private GamePhaseDisplay m_phaseDisplayRef;
     private bool m_turnCountUpdated;
     private bool m_phaseDisplayRefUpdated;
-
+    
+#if EVOS
+    private Vector3 m_originalPos;
+    private Vector2 m_originalAnchor;
+#endif
+    
     private void Start()
     {
         UIManager.SetGameObjectActive(this, false);
         m_phaseDisplayRefUpdated = false;
         m_turnCountUpdated = false;
+        
+#if EVOS
+        m_originalPos = gameObject.transform.position;
+        m_originalAnchor = GetComponent<RectTransform>()?.anchorMin ?? new Vector2(0.5f, 1f);
+#endif
     }
 
     public void NotifyTurnCountSet()
@@ -118,4 +128,46 @@ public class UINotificationPanel : MonoBehaviour
     {
         UIManager.SetGameObjectActive(this, false);
     }
+    
+#if EVOS
+    private bool IsExtendedCooldownViewEnabled() => EvosOptions.Get().GetOption(EvosOptions.ExtendedCooldownView);
+    
+    public void UpdateExtendedCooldownView()
+    {
+        if (IsExtendedCooldownViewEnabled())
+        {
+            EnableExtendedCooldownView();
+        }
+        else
+        {
+            DisableExtendedCooldownView();
+        }
+    }
+
+    private void EnableExtendedCooldownView()
+    {
+        var rectTransform = GetComponent<RectTransform>();
+        if (!(rectTransform is null))
+        {
+            Vector2 anchor = m_originalAnchor;
+            anchor.y = -1f;
+            rectTransform.anchorMin = anchor;
+        }
+        
+        Vector3 transformPosition = m_originalPos;
+        transformPosition.y = -2.85f;
+        gameObject.transform.position = transformPosition;
+    }
+
+    private void DisableExtendedCooldownView()
+    {
+        var rectTransform = GetComponent<RectTransform>();
+        if (!(rectTransform is null))
+        {
+            rectTransform.anchorMin = m_originalAnchor;
+        }
+        
+        gameObject.transform.position = m_originalPos;
+    }
+#endif
 }

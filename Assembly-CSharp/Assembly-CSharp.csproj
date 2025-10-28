@@ -725,6 +725,7 @@
     <Compile Include="ClientResolutionActionMessageData.cs" />
     <Compile Include="ClientResolutionManager.cs" />
     <Compile Include="ClientTargetFramerateSetter.cs" />
+    <Compile Include="ClientUIManager.cs" />
     <Compile Include="ClientVFXLoader.cs" />
     <Compile Include="CoinCarnageCoin.cs" />
     <Compile Include="CoinCarnageManager.cs" />

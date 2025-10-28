@@ -92,6 +92,9 @@ public class AppState_InGameDeployment : AppStateInGame
 		}
 		UnregisterGameStoppedHandler();
 		GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
+#if EVOS
+		UIMainScreenPanel.Get()?.m_playerDisplayPanel?.UpdateExtendedCooldownView();
+#endif
 	}
 
 	private void OnGameStateChanged(GameState newState)

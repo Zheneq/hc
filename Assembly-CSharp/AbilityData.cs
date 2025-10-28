@@ -53,6 +53,10 @@ public class AbilityData : NetworkBehaviour
 	private List<bool> m_cardUsed = new List<bool>();
 #endif
 
+#if EVOS
+	internal event Action onQueuedAbilitiesChanged;
+#endif
+
 	[Header("-- Whether to skip for localization for abilities and mods --")]
 	public bool m_ignoreForLocalization;
 
@@ -975,6 +979,7 @@ public class AbilityData : NetworkBehaviour
 		{
 			SendAbilityPing(false, actionType, ability);
 		}
+		
 		return false;
 	}
 
@@ -1116,6 +1121,7 @@ public class AbilityData : NetworkBehaviour
 				actorController.SendSelectAbilityRequest();
 			}
 		}
+
 		return true;
 	}
 
@@ -1303,6 +1309,10 @@ public class AbilityData : NetworkBehaviour
 		{
 			m_actor.GetActorTargeting().MarkForForceRedraw();
 		}
+		
+#if EVOS
+		onQueuedAbilitiesChanged?.Invoke();
+#endif
 	}
 
 	private void OnRespawn()
@@ -3621,7 +3631,17 @@ public class AbilityData : NetworkBehaviour
 		}
 		if ((num & 0x10) != 0)
 		{
-			m_selectedActionForTargeting = (ActionType)reader.ReadInt32();
+			ActionType selectedActionForTargeting = (ActionType)reader.ReadInt32();
+#if EVOS
+			bool changed = selectedActionForTargeting != m_selectedActionForTargeting;
+#endif
+			m_selectedActionForTargeting = selectedActionForTargeting;
+#if EVOS
+			if (changed)
+			{
+				onQueuedAbilitiesChanged?.Invoke();
+			}
+#endif
 		}
 	}
 

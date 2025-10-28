@@ -41,6 +41,7 @@ public class SettingsState : ICloneable
     
 #if EVOS
     public bool allowResettingWaypoints;
+    public bool extendedCooldownView;
 #endif
 
     public object Clone()
@@ -658,6 +659,7 @@ public class SettingsState : ICloneable
                 if (newState != null)
                 {
                     option.stateSetter(this, option.stateGetter(newState));
+                    option.stateApplier();
                 }
             }
         }

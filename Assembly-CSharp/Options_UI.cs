@@ -987,6 +987,7 @@ public class Options_UI : UIScene, IGameEventListener
                 OverrideGlyphLanguageCode = m_activeState.overrideGlyphLanguageCode,
 #if EVOS
                 AllowResettingWaypoints = m_activeState.allowResettingWaypoints,
+                ExtendedCooldownView = m_activeState.extendedCooldownView,
 #endif
             });
     }

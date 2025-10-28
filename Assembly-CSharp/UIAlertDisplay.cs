@@ -48,6 +48,10 @@ public class UIAlertDisplay : MonoBehaviour
     private List<AlertMessage> m_messagesToRemove = new List<AlertMessage>();
 
     private float m_originalLabelBgAlpha = 1f;
+    
+#if EVOS
+    private Vector3 m_originalPos;
+#endif
 
     public void Start()
     {
@@ -74,6 +78,10 @@ public class UIAlertDisplay : MonoBehaviour
             Color color = m_optionalLabelBackground[0].color;
             m_originalLabelBgAlpha = color.a;
         }
+        
+#if EVOS
+        m_originalPos = gameObject.transform.position;
+#endif
     }
 
     public void DisplayAlert(
@@ -297,4 +305,32 @@ public class UIAlertDisplay : MonoBehaviour
     {
         Update();
     }
+    
+#if EVOS
+    private bool IsExtendedCooldownViewEnabled() => EvosOptions.Get().GetOption(EvosOptions.ExtendedCooldownView);
+    
+    public void UpdateExtendedCooldownView()
+    {
+        if (IsExtendedCooldownViewEnabled())
+        {
+            EnableExtendedCooldownView();
+        }
+        else
+        {
+            DisableExtendedCooldownView();
+        }
+    }
+
+    private void EnableExtendedCooldownView()
+    {
+        Vector3 transformPosition = m_originalPos;
+        transformPosition.y = -1.15f;
+        gameObject.transform.position = transformPosition;
+    }
+
+    private void DisableExtendedCooldownView()
+    {
+        gameObject.transform.position = m_originalPos;
+    }
+#endif
 }

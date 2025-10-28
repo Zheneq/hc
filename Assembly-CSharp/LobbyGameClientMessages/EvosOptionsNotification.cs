@@ -1,4 +1,5 @@
 using System;
+using UnityEngine.Serialization;
 
 #if EVOS
 namespace LobbyGameClientMessages
@@ -45,7 +46,7 @@ namespace LobbyGameClientMessages
 		
 		// Evos options
 		public bool AllowResettingWaypoints;
-		public bool ShowCooldowns;
+		public bool ExtendedCooldownView;
 	}
 }
 #endif

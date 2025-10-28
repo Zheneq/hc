@@ -322,6 +322,9 @@ public class ClientGameManager : MonoBehaviour
 		ClearLobbyState();
 		LoginQuestCompleteNotifications = new List<QuestCompleteNotification>();
 		WaitingForSkinSelectResponse = new List<CharacterVisualInfo>();
+#if EVOS
+		gameObject.AddComponent<ClientUIManager>();
+#endif
 	}
 
 	private void Start()

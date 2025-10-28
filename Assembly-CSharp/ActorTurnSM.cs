@@ -88,6 +88,10 @@ public class ActorTurnSM : NetworkBehaviour
 	private static int kRpcRpcTurnMessage = -107921272;
 	private static int kRpcRpcStoreAutoQueuedAbilityRequest = 675585254;
 
+#if EVOS
+	internal event Action<TurnMessage> onTurnMessage;
+	internal event Action<TurnStateEnum> onStateTransition;
+#endif
 
 	// added in rogues
 #if SERVER
@@ -1179,6 +1183,9 @@ public class ActorTurnSM : NetworkBehaviour
 		{
 			Board.Get().MarkForUpdateValidSquares();
 		}
+#if EVOS
+		onStateTransition?.Invoke(CurrentState);
+#endif
 	}
 
 	public void ResetTurnStartNow()
@@ -1358,6 +1365,9 @@ public class ActorTurnSM : NetworkBehaviour
 			//}
 			UpdateStates();
 		}
+#if EVOS
+		onTurnMessage?.Invoke(msg);
+#endif
 	}
 
 	[Command]
@@ -1740,6 +1750,10 @@ public class ActorTurnSM : NetworkBehaviour
 		//}
 
 		UpdateStates();
+		
+#if EVOS
+		onTurnMessage?.Invoke((TurnMessage)msgEnum);
+#endif
 	}
 
 	[ClientRpc]

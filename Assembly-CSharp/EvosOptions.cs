@@ -7,6 +7,7 @@ public class EvosOptions
 {
     public delegate bool StateGetter(SettingsState state);
     public delegate void StateSetter(SettingsState state, bool value);
+    public delegate void StateApplier();
     
     public class Option
     {
@@ -15,6 +16,7 @@ public class EvosOptions
         public readonly bool defaultValue;
         public readonly StateGetter stateGetter;
         public readonly StateSetter stateSetter;
+        public readonly StateApplier stateApplier;
         public readonly int position;
         public readonly string termTitle;
         public readonly string termEnable;
@@ -29,6 +31,7 @@ public class EvosOptions
             bool defaultValue,
             StateGetter stateGetter,
             StateSetter stateSetter,
+            StateApplier stateApplier,
             string termTitle,
             string termEnable = "On@Global",
             string termDisable = "Off@Global",
@@ -39,6 +42,7 @@ public class EvosOptions
             this.defaultValue = defaultValue;
             this.stateGetter = stateGetter;
             this.stateSetter = stateSetter;
+            this.stateApplier = stateApplier;
             this.position = position;
             this.termTitle = termTitle;
             this.termEnable = termEnable;
@@ -59,6 +63,7 @@ public class EvosOptions
     }
 
     public const string AllowResettingWaypoints = "OptionsAllowResettingWaypoints";
+    public const string ExtendedCooldownView = "OptionsExtendedCooldownView";
 
     public readonly List<Option> m_options = new List<Option>
     {
@@ -68,10 +73,20 @@ public class EvosOptions
             true,
             pendingState => pendingState.allowResettingWaypoints,
             (pendingState, value) => pendingState.allowResettingWaypoints = value,
+            () => { },
             "AllowResettingWaypoints@EvosOptions",
             "AllowResettingWaypointsYes@EvosOptions",
             "AllowResettingWaypointsNo@EvosOptions",
-            11)
+            11),
+        new Option(
+            "extendedCooldownView",
+            ExtendedCooldownView,
+            false,
+            pendingState => pendingState.extendedCooldownView,
+            (pendingState, value) => pendingState.extendedCooldownView = value,
+            () => UIMainScreenPanel.Get()?.m_playerDisplayPanel?.UpdateExtendedCooldownView(),
+            "ExtendedCooldownView@EvosOptions",
+            position: 13)
     };
     private readonly Dictionary<string, Option> m_optionDict;
     

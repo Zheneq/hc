@@ -173,6 +173,10 @@ public class UIScreenManager : MonoBehaviour
             HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SetTextVisible(!hideNameplateText);
             HUD_UI.Get().m_mainScreenPanel.m_nameplatePanel.SetCombatTextVisible(!hideNameplateText);
         }
+        
+#if EVOS
+        UIMainScreenPanel.Get()?.m_playerDisplayPanel?.UpdateAbilityVisibility(visible);
+#endif
     }
 
     public void SetHUDHideDebug(

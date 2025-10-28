@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -256,4 +257,39 @@ public class UIPlayerDisplay : MonoBehaviour
 		}
 		SetDisplaysVisible(true);
 	}
+	
+#if EVOS
+	private List<UIPlayerStatus> AllPlayerIcons() => m_teamPlayerIcons.ToList().Concat(m_enemyPlayerIcons.ToList()).ToList();
+	
+	public void UpdateExtendedCooldownView()
+	{
+		if (ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback())
+		{
+			Log.Info("UIPlayerDisplay UpdateExtendedCooldownView skipped during replay");
+			return;
+		}
+
+		if (ClientUIManager.Get() != null)
+		{
+			ClientUIManager.Get().UpdateExtendedCooldownView(AllPlayerIcons());
+		}
+		else
+		{
+			Log.Warning("Failed to update extended cooldown view: ClientUIManager is null");
+		}
+	}
+
+	public void UpdateAbilityVisibility(bool isVisible)
+	{
+		if (!UIPlayerStatus.IsExtendedCooldownViewEnabled())
+		{
+			return;
+		}
+		
+		foreach (UIPlayerStatus icon in AllPlayerIcons())
+		{
+			icon.UpdateAbilityVisibility(isVisible);
+		}
+	}
+#endif
 }
