@@ -215,7 +215,8 @@ public class ClientGameManager : MonoBehaviour
 
 	public bool IsCharacterAvailable(CharacterType characterType, GameType gameType)
 	{
-		bool enableHiddenCharacters = GameManager.Get()?.GameplayOverrides.EnableHiddenCharacters ?? false;
+		GameManager gameManager = GameManager.Get();
+		bool enableHiddenCharacters = gameManager != null && gameManager.GameplayOverrides.EnableHiddenCharacters;
 		CharacterResourceLink characterResourceLink = null;
 		foreach (CharacterResourceLink crl in GameWideData.Get().m_characterResourceLinks)
 		{

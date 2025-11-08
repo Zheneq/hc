@@ -86,7 +86,7 @@ public class DinoMarkedAreaEffect : Effect
                     new ServerClientUtils.SequenceStartData(
                         m_markerSeqPrefab,
                         targetSquare,
-                        targetSquare.OccupantActor?.AsArray(),
+                        targetSquare.OccupantActor != null ? targetSquare.OccupantActor.AsArray() : null,
                         Caster,
                         SequenceSource),
                     SequenceSource,
@@ -149,7 +149,7 @@ public class DinoMarkedAreaEffect : Effect
                 BoardSquare squareOverride = m_targetSquares
                     .FirstOrDefault(s => s == actorData.GetCurrentBoardSquare());
 
-                Vector3 origin = squareOverride?.ToVector3() ?? targetSquare.ToVector3(); // we ignore cover, so it doesn't really matter which one we pick
+                Vector3 origin = squareOverride != null ? squareOverride.ToVector3() : targetSquare.ToVector3(); // we ignore cover, so it doesn't really matter which one we pick
                 ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, origin));
                 ActorHitContext actorHitContext = new ActorHitContext();
                 actorHitContext.m_contextVars.SetValue(

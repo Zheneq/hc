@@ -257,7 +257,11 @@ public class ServerGameManager : MonoBehaviour
 		// artemis
 		ListenPort = HydrogenConfig.Get().PublicPort;
 		Log.Info("Starting Server...");
-		UIFrontendLoadingScreen.Get()?.StartDisplayError("Starting Server...");
+		UIFrontendLoadingScreen loadingScreen = UIFrontendLoadingScreen.Get();
+		if (loadingScreen != null)
+		{
+			loadingScreen.StartDisplayError("Starting Server...");
+		}
 		NetworkManager.singleton.useWebSockets = true;
 		NetworkManager.singleton.networkPort = HydrogenConfig.Get().PublicPort;
 		if (!NetworkManager.singleton.StartServer())
@@ -566,8 +570,9 @@ public class ServerGameManager : MonoBehaviour
 		{
 			return;
 		}
-		
-		string processCode = GameManager.Get()?.GameInfo?.GameServerProcessCode;
+
+		GameManager gameManager = GameManager.Get();
+		string processCode = gameManager != null ? gameManager.GameInfo?.GameServerProcessCode : null;
 		if (url.IsNullOrEmpty())
 		{
 			Log.Error("Failed to upload replay: no process code");
@@ -1481,7 +1486,11 @@ public class ServerGameManager : MonoBehaviour
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					actorData.GetAbilityData()?.CurrentCardIDs.Dirty(i);
+					AbilityData abilityData = actorData.GetAbilityData();
+					if (abilityData != null)
+					{
+						abilityData.CurrentCardIDs.Dirty(i);
+					}
 				}
 			}
 		}
@@ -1521,7 +1530,11 @@ public class ServerGameManager : MonoBehaviour
 		GameLoadingState gameLoadingState = serverPlayerState.GameLoadingState;
 		gameLoadingState.LoadingProgressUpdateCount += 1;
 		float loadingProgress = loadingProgressInfo.TotalLoadingProgress / 100f;
-		UILoadingScreenPanel.Get()?.SetLoadingProgress(loadingProgressInfo.PlayerId, loadingProgress, false);  // no check in rogues
+		UILoadingScreenPanel loadingScreenPanel = UILoadingScreenPanel.Get();
+		if (loadingScreenPanel != null) {
+			loadingScreenPanel.SetLoadingProgress(loadingProgressInfo.PlayerId, loadingProgress, false); // no check in rogues
+		}
+
 		foreach (ServerPlayerState serverPlayerState2 in m_serverPlayerStates.Values)
 		{
 			// custom
@@ -1882,7 +1895,7 @@ public class ServerGameManager : MonoBehaviour
 						&& !sps.LocalClient
 						&& !sps.GameLoadingState.IsLoaded)
 					{
-						int connectionId = sps?.ConnectionPersistent.connectionId ?? -1;
+						int connectionId = sps.ConnectionPersistent.connectionId;
 						Log.Info($"Player {sps.PlayerInfo.Handle} {sps.SessionInfo.AccountId} (connectionId {connectionId})" +
 								 $" has failed to load, and will now be controlled by a bot ({sps.GameLoadingState}). {gameManager.GameInfo.Name}");
 
@@ -1977,6 +1990,8 @@ public class ServerGameManager : MonoBehaviour
 	// custom
 	public bool AreAllClientsConnected()
 	{
+		GameFlowData gameFlowData = GameFlowData.Get();
+		int currentTurn = gameFlowData != null ? gameFlowData.CurrentTurn :-1;
 		foreach (ServerPlayerState serverPlayerState in m_serverPlayerStates.Values)
 		{
 			// TODO HACK
@@ -1988,7 +2003,7 @@ public class ServerGameManager : MonoBehaviour
 			if (serverPlayerState.ConnectionPersistent == null
 			     || serverPlayerState.ConnectionPersistent.connectionId <= 0)
 			{
-				Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} is not connected");
+				Log.Info($"AreAllClientsConnected: Turn {currentTurn}, {serverPlayerState.PlayerInfo?.Handle} is not connected");
 				return false;
 			}
 
@@ -1998,25 +2013,25 @@ public class ServerGameManager : MonoBehaviour
 
 				if (!player.m_valid)
 				{
-					Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} is not valid");
+					Log.Info($"AreAllClientsConnected: Turn {currentTurn}, {serverPlayerState.PlayerInfo?.Handle} is not valid");
 					return false;
 				}
 
 				PlayerDetails playerDetails = GameFlow.Get().playerDetails.TryGetValue(player);
 				if (playerDetails == null)
 				{
-					Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} player details not found");
+					Log.Info($"AreAllClientsConnected: Turn {currentTurn}, {serverPlayerState.PlayerInfo?.Handle} player details not found");
 					return false;
 				}
 
 				if (playerDetails.m_disconnected)
 				{
-					Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, {serverPlayerState?.PlayerInfo?.Handle} is marked as disconnected");
+					Log.Info($"AreAllClientsConnected: Turn {currentTurn}, {serverPlayerState.PlayerInfo?.Handle} is marked as disconnected");
 					return false;
 				}
 			}
 		}
-		Log.Info($"AreAllClientsConnected: Turn {GameFlowData.Get()?.CurrentTurn}, all players are connected");
+		Log.Info($"AreAllClientsConnected: Turn {currentTurn}, all players are connected");
 		return true;
 	}
 
@@ -2074,12 +2089,18 @@ public class ServerGameManager : MonoBehaviour
 	private void HandleShutdownGameRequest(ShutdownGameRequest request)
 	{
 		Log.Info("Received shutdown game request");
-		if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+		ObjectivePoints objectivePoints = ObjectivePoints.Get();
+		if (objectivePoints != null && objectivePoints.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
 		{
-			ObjectivePoints.Get().EndGame();
+			objectivePoints.EndGame();
 		}
-		GameManager.Get()?.StopGame();
-		
+
+		GameManager gameManager = GameManager.Get();
+		if (gameManager != null)
+		{
+			gameManager.StopGame();
+		}
+
 		// custom
 		Log.Info("Shutting down");
 		Application.Quit();
@@ -2089,11 +2110,12 @@ public class ServerGameManager : MonoBehaviour
     private void HandleAdminShutdownGameRequest(AdminShutdownGameRequest request)
     {
         Log.Info("Received shutdown game request with result {0}", request.GameResult);
-        if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+        ObjectivePoints objectivePoints = ObjectivePoints.Get();
+        if (objectivePoints != null && objectivePoints.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
         {
-            ObjectivePoints.Get().Networkm_gameResult = request.GameResult;
+            objectivePoints.Networkm_gameResult = request.GameResult;
             Get().SendUnlocalizedConsoleMessage($"<color=red>Game over: Admin Game Shutdown (result: {request.GameResult}).</color>");
-            ObjectivePoints.Get().EndGame();
+            objectivePoints.EndGame();
         }
     }
 
@@ -2101,7 +2123,8 @@ public class ServerGameManager : MonoBehaviour
     private void HandleClearCooldownsRequest(AdminClearCooldownsRequest request)
     {
         Log.Info("Received clear cooldowns request");
-        if (ObjectivePoints.Get()?.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
+        ObjectivePoints objectivePoints = ObjectivePoints.Get();
+        if (objectivePoints != null && objectivePoints.Networkm_matchState == ObjectivePoints.MatchState.InMatch)
         {
             foreach (ActorData actorData in GameFlowData.Get().GetActors())
             {

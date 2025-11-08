@@ -171,10 +171,19 @@ public class AnimationEventReceiver : MonoBehaviour, IAnimationEvents
             AudioManager.PostEvent(m_surfaceFoleyEventNames[eventObject.name], GetActorData().gameObject);
         }
         ActorData actorData = GetActorData();
-		TheatricsManager.Get()?.OnAnimationEvent(actorData, eventObject, sourceObject);
-		CameraManager.Get()?.OnAnimationEvent(actorData, eventObject);
-		
-		actorData.OnAnimEvent(eventObject, sourceObject);
+        TheatricsManager theatricsManager = TheatricsManager.Get();
+        if (theatricsManager != null)
+        {
+	        theatricsManager.OnAnimationEvent(actorData, eventObject, sourceObject);
+        }
+
+        CameraManager cameraManager = CameraManager.Get();
+        if (cameraManager != null)
+        {
+	        cameraManager.OnAnimationEvent(actorData, eventObject);
+        }
+
+        actorData.OnAnimEvent(eventObject, sourceObject);
         if (m_attachmentsParent != null)
         {
             if (eventObject.name == "VFX_ShowAttachments")

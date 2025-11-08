@@ -166,7 +166,8 @@ public class UISystemEscapeMenu : UIScene
 	public void OnLeaveGameClick(BaseEventData data)
 	{
 		SetParent(false);
-		LobbyGameInfo gameInfo = GameManager.Get().GameInfo;
+		GameManager gameManager = GameManager.Get();
+		LobbyGameInfo gameInfo = gameManager.GameInfo;
 		bool allowsReconnect = gameInfo.GameConfig.GameType.AllowsReconnect() && gameInfo.GameStatus != GameStatus.Stopped;
 		if (ReplayPlayManager.Get() != null && ReplayPlayManager.Get().IsPlayback())
 		{
@@ -178,8 +179,8 @@ public class UISystemEscapeMenu : UIScene
 		if (gameInfo.GameConfig.GameType != GameType.Tutorial && gameInfo.GameConfig.GameType != GameType.NewPlayerSolo)
 		{
 			title = StringUtil.TR("LeaveGame", "Global");
-			bool antiSocial = GameManager.Get()?.GameInfo?.GameConfig?.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial) ?? false;
-			if (ClientGameManager.Get().HasLeavingPenalty(GameManager.Get().GameConfig.GameType) && !antiSocial)
+			bool antiSocial = gameManager.GameInfo?.GameConfig?.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial) ?? false;
+			if (ClientGameManager.Get().HasLeavingPenalty(gameManager.GameConfig.GameType) && !antiSocial)
 			{
 				description = StringUtil.TR("QuitGamePromptWithPenalty", "Global");
 			}
@@ -196,9 +197,10 @@ public class UISystemEscapeMenu : UIScene
 		UIDialogPopupManager.OpenTwoButtonDialog(title, description, StringUtil.TR("Yes", "Global"), StringUtil.TR("No", "Global"), delegate
 		{
 			ClientGameManager.Get().LeaveGame(!allowsReconnect, GameResult.ClientLeft);
-			if (UITutorialFullscreenPanel.Get()?.IsAnyPanelVisible() ?? false)
+			UITutorialFullscreenPanel tutorialFullscreenPanel = UITutorialFullscreenPanel.Get();
+			if (tutorialFullscreenPanel != null && tutorialFullscreenPanel.IsAnyPanelVisible())
 			{
-				UITutorialFullscreenPanel.Get().ClearAllPanels();
+				tutorialFullscreenPanel.ClearAllPanels();
 			}
 		});
 	}

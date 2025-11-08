@@ -637,7 +637,10 @@ public class AbilityData : NetworkBehaviour
 						&& characterData.CharacterComponent.Taunts[i].Unlocked)
 					{
 						TauntCameraSet tauntCamSetData = m_actor.m_tauntCamSetData;
-						CameraShotSequence cameraShotSequence = tauntCamSetData?.GetTauntCam(characterTaunt.m_uniqueID);
+						CameraShotSequence cameraShotSequence = tauntCamSetData != null
+							? tauntCamSetData.GetTauntCam(characterTaunt.m_uniqueID)
+							: null;
+
 						if (cameraShotSequence != null && abilityOfActionType.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex))
 						{
 							list.Add(cameraShotSequence);
@@ -1059,8 +1062,8 @@ public class AbilityData : NetworkBehaviour
 
 	public bool RedoTurn(Ability ability, ActionType actionType, List<ActionType> actionsToCancel, bool cancelMovement, bool retargetingModifierKeyHeld)
 	{
-		ActorController actorController = m_actor?.GetActorController();
-		ActorTurnSM actorTurnSM = m_actor?.GetActorTurnSM();
+		ActorController actorController = m_actor != null ? m_actor.GetActorController() : null;
+		ActorTurnSM actorTurnSM = m_actor != null ? m_actor.GetActorTurnSM() : null;
 		if (ability != null && !ability.IsSimpleAction() && retargetingModifierKeyHeld)
 		{
 			if (!actionsToCancel.IsNullOrEmpty() && actionsToCancel.Contains(actionType))
@@ -1265,7 +1268,7 @@ public class AbilityData : NetworkBehaviour
 				if (m_currentCardIds[i] > 0)
 				{
 					Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
-					useAbility = spawnedCardInstance?.m_useAbility;
+					useAbility = spawnedCardInstance != null ? spawnedCardInstance.m_useAbility : null;
 				}
 				SetupCardAbility(i, useAbility);
 			}
@@ -1341,7 +1344,7 @@ public class AbilityData : NetworkBehaviour
 
 	public void SetSelectedAbility(Ability selectedAbility)
 	{
-		ActorTurnSM actorTurnSM = m_actor?.GetActorTurnSM();
+		ActorTurnSM actorTurnSM = m_actor != null ? m_actor.GetActorTurnSM() : null;
 		bool isActiveOwnedActorData = GameFlowData.Get().activeOwnedActorData == m_actor && m_actor != null;
 		if (m_selectedAbility && isActiveOwnedActorData)
 		{
@@ -1905,7 +1908,7 @@ public class AbilityData : NetworkBehaviour
 		for (int i = 0; i < m_abilities.Length; i++)
 		{
 			AbilityEntry abilityEntry = m_abilities[i];
-			string key = abilityEntry.ability?.m_abilityName;
+			string key = abilityEntry.ability != null ? abilityEntry.ability.m_abilityName : null;
 			int num;
 			if (abilityEntry.ability == null || !m_cooldowns.ContainsKey(key))
 			{
@@ -3144,7 +3147,7 @@ public class AbilityData : NetworkBehaviour
 			for (int i = 0; i < m_currentCardIds.Count; i++)
 			{
 				Card spawnedCardInstance = GetSpawnedCardInstance((CardType)m_currentCardIds[i]);
-				SetupCardAbility(i, spawnedCardInstance?.m_useAbility);
+				SetupCardAbility(i, spawnedCardInstance != null ? spawnedCardInstance.m_useAbility : null);
 			}
 			UpdateCardBarUI();
 		}

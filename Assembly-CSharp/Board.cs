@@ -164,7 +164,8 @@ public class Board : MonoBehaviour, IGameEventListener
 
 	private void Update()
 	{
-		ActorData activeOwnedActorData = GameFlowData.Get()?.activeOwnedActorData;
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData activeOwnedActorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		if (Camera.main != null)
 		{
 			Vector3 cameraPosition = Camera.main.transform.position;

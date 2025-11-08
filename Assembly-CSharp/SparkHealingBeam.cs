@@ -212,12 +212,12 @@ public class SparkHealingBeam : Ability
 
 	public StandardEffectInfo GetTargetEffectForXDamage()
 	{
-		return m_abilityMod?.m_effectOnTargetForTakingXDamage;
+		return m_abilityMod != null ? m_abilityMod.m_effectOnTargetForTakingXDamage : null;
 	}
 
 	private void SetCachedFields()
 	{
-		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod?.m_laserInfoMod);
+		m_cachedLaserInfo = m_laserInfo.GetModifiedCopy(m_abilityMod != null ? m_abilityMod.m_laserInfoMod : null);
 		StandardEffectInfo standardEffectInfo = m_abilityMod != null
 			? m_abilityMod.m_tetherBaseEffectOverride.GetModifiedValue(m_laserHitEffect)
 			: m_laserHitEffect.GetShallowCopy();
@@ -245,7 +245,9 @@ public class SparkHealingBeam : Ability
 		{
 			return true;
 		}
-		ActorData targetActor = Board.Get().GetSquare(target.GridPos)?.OccupantActor;
+
+		BoardSquare targetSquare = Board.Get().GetSquare(target.GridPos);
+		ActorData targetActor = targetSquare != null ? targetSquare.OccupantActor : null;
 		return CanTargetActorInDecision(caster, targetActor, false, true, false, ValidateCheckPath.Ignore, true, false);
 	}
 

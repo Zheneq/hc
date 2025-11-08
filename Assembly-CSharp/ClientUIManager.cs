@@ -60,7 +60,11 @@ public class ClientUIManager : MonoBehaviour
         HUD_UI.Get().m_mainScreenPanel.m_notificationPanel.UpdateExtendedCooldownView();
 		
         // Moving UI elements can introduce a hitch which can cause Unity to skip animation events
-        UIMainScreenPanel.Get()?.m_nameplatePanel?.RefreshNameplates();
+        UIMainScreenPanel uiMainScreenPanel = UIMainScreenPanel.Get();
+        if (uiMainScreenPanel != null && uiMainScreenPanel.m_nameplatePanel != null)
+        {
+            uiMainScreenPanel.m_nameplatePanel.RefreshNameplates();
+        }
     }
 }
 #endif

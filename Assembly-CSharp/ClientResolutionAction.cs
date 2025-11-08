@@ -136,9 +136,7 @@ public class ClientResolutionAction : IComparable
 	// removed in rogues
 	public ActorData GetCaster()
 	{
-		return m_abilityResults?.GetCaster()
-			?? m_effectResults?.GetCaster()
-			?? null;
+		return m_abilityResults?.GetCaster() ?? m_effectResults?.GetCaster();
 	}
 
 	// removed in rogues

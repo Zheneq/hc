@@ -992,7 +992,9 @@ public class BarrierManager : NetworkBehaviour
 			Debug.LogWarning("[Client] function 'System.Void BarrierManager::ClientUpdateMovementOnSync(Team)' called on server");
 			return;
 		}
-		ActorData actorData = GameFlowData.Get()?.activeOwnedActorData;
+
+		GameFlowData gameFlowData = GameFlowData.Get();
+		ActorData actorData = gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		if (actorData != null && actorData.GetTeam() == team)
 		{
 			actorData.GetActorMovement().UpdateSquaresCanMoveTo();

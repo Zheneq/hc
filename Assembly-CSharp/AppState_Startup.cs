@@ -19,10 +19,13 @@ public class AppState_Startup : AppState
 
 	protected override void OnEnter()
 	{
+		AppState_FrontendLoadingScreen loadingScreen = AppState_FrontendLoadingScreen.Get();
 #if SERVER
-		AppState_FrontendLoadingScreen.Get()?.Enter(null);  // TODO LOW NULL custom check bc it's null on the server. Remove it altogether?
+		if (loadingScreen != null) {  // TODO LOW NULL custom check bc it's null on the server. Remove it altogether?
+			loadingScreen.Enter(null);
+		}
 #else
-        AppState_FrontendLoadingScreen.Get().Enter(null);
+		loadingScreen.Enter(null);
 #endif
 	}
 

@@ -586,7 +586,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		for (int i = 0; i < m_availableCharacterResourceLinkPrefabs.Length; i++)
 		{
 			GameObject gameObject = m_availableCharacterResourceLinkPrefabs[i];
-			CharacterResourceLink crl = gameObject?.GetComponent<CharacterResourceLink>();
+			CharacterResourceLink crl = gameObject != null ? gameObject.GetComponent<CharacterResourceLink>() : null;
 			if (crl != null && crl.m_displayName == className)
 			{
 				result = i;
@@ -997,7 +997,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	{
 		get
 		{
-			return Get()?.activeOwnedActorData;
+			GameFlowData gameFlowData = Get();
+			return gameFlowData != null ? gameFlowData.activeOwnedActorData : null;
 		}
 	}
 #endif
@@ -1479,7 +1480,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 	public string GetFirstAvailableCharacterResourceLinkName()
 	{
 		GameObject gameObject = m_availableCharacterResourceLinkPrefabs[0];
-		CharacterResourceLink crl = gameObject?.GetComponent<CharacterResourceLink>();
+		CharacterResourceLink crl = gameObject != null ? gameObject.GetComponent<CharacterResourceLink>() : null;
 		if (crl != null)
 		{
 			return crl.m_displayName;
@@ -1511,7 +1512,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		
 		// custom
 #if SERVER
-		UIFrontendLoadingScreen.Get()?.StartDisplayError($"Turn: {CurrentTurn}");
+		UIFrontendLoadingScreen uiFrontendLoadingScreen = UIFrontendLoadingScreen.Get();
+		if (uiFrontendLoadingScreen != null)
+		{
+			uiFrontendLoadingScreen.StartDisplayError($"Turn: {CurrentTurn}");
+		}
 #endif
 	}
 
@@ -1612,7 +1617,8 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		if (NetworkServer.active)
 		{
 			// custom
-			bool allClientsConnected = ServerGameManager.Get() != null && ServerGameManager.Get().AreAllClientsConnected();
+			ServerGameManager serverGameManager = ServerGameManager.Get();
+			bool allClientsConnected = serverGameManager != null && serverGameManager.AreAllClientsConnected();
 			if (allClientsConnected)
 			{
 				LastTurnWithAllPlayersConnected = m_currentTurn;
@@ -1631,8 +1637,11 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				    && HydrogenConfig.Get().PendingReconnectTurnTime > Get().m_turnTime)
 				{
 					Log.Info($"Disconnect detected, extending turn time");
-					ServerGameManager.Get()?.SendUnlocalizedConsoleMessage(
-						"Not all players are connected. Giving disconnected players more time to reconnect.");
+					if (serverGameManager != null)
+					{
+						serverGameManager.SendUnlocalizedConsoleMessage(
+							"Not all players are connected. Giving disconnected players more time to reconnect.");
+					}
 
 					m_timeRemainingInDecision = HydrogenConfig.Get().PendingReconnectTurnTime;
 				}

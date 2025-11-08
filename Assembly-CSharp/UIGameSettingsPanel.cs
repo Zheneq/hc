@@ -612,7 +612,7 @@ public class UIGameSettingsPanel : UIScene
                     UITeamMemberEntry uITeamMemberEntry = m_teamAMemberEntries.Union(m_teamBMemberEntries)
                         .FirstOrDefault(p => p.GetPlayerInfo() != null && p.GetPlayerInfo().PlayerId == slot.PlayerId);
 
-                    LobbyPlayerInfo playerInfo = uITeamMemberEntry?.GetPlayerInfo();
+                    LobbyPlayerInfo playerInfo = uITeamMemberEntry != null ? uITeamMemberEntry.GetPlayerInfo() : null;
                     if (playerInfo == null)
                     {
                         continue;

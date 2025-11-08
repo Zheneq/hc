@@ -119,7 +119,7 @@ public class TrackerDroneInfoComponent : MonoBehaviour
 
 	public StandardActorEffectData GetHuntedEffectData()
 	{
-		return m_basicAttackAbility?.GetHuntedEffect();
+		return m_basicAttackAbility != null ? m_basicAttackAbility.GetHuntedEffect() : null;
 	}
 
 	public StandardEffectInfo GetTrackedHitEffect()
