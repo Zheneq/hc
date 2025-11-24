@@ -130,6 +130,19 @@ public class InterfaceManager : NetworkBehaviour
         {
             UIFrontendLoadingScreen.Get().StartDisplayFadeOut();
         }
+
+#if EVOS
+        // for reconnections
+        UIMainScreenPanel uiMainScreenPanel = UIMainScreenPanel.Get();
+        if (uiMainScreenPanel != null)
+        {
+            UIPlayerDisplay playerDisplayPanel = uiMainScreenPanel.m_playerDisplayPanel;
+            if (playerDisplayPanel != null)
+            {
+                playerDisplayPanel.UpdateExtendedCooldownView();
+            }
+        }
+#endif
     }
 
     public bool ShouldHandleMouseClick()

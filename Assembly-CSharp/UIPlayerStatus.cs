@@ -74,7 +74,7 @@ public class UIPlayerStatus : MonoBehaviour
 
     private void EnableExtendedCooldownView()
     {
-        if (m_actor == null)
+        if (m_actor == null || isExtendedCooldownViewApplied)
         {
             return;
         }
@@ -146,6 +146,11 @@ public class UIPlayerStatus : MonoBehaviour
 
     private void DisableExtendedCooldownView()
     {
+        if (!isExtendedCooldownViewApplied)
+        {
+            return;
+        }
+        
         gameObject.transform.position = m_originalPos;
         gameObject.transform.localScale = m_originalScale;
         m_targetingAbilityIconsGrid.constraint = GridLayoutGroup.Constraint.FixedRowCount;
