@@ -59,5 +59,20 @@ public enum StatusType
 	IncreasedIncomingHealing,
 	CantPickUpFlag,
 	VisionPowerup,
-	NUM
+	NUM,
+	
+#if EVOS
+	Evos_Start = 1000,
+        
+	BazookaGirl_StickyBomb,
+	Blaster_Overcharged,
+	Claymore_DirtyFighting,
+	Dino_PowerDrive,
+	Fireborg_Ignited,
+	Iceborg_IceCore,
+	Ninja_VoidMark,
+	Samurai_Fury,
+        
+	Evos_Max,
+#endif
 }

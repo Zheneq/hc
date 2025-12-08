@@ -62,6 +62,12 @@ public class ActorStatus : NetworkBehaviour
 
 	public int GetDurationOfStatus(StatusType status)
 	{
+#if EVOS // TODO HACK
+		if (status >= StatusType.NUM)
+		{
+			return 0;
+		}
+#endif
 		return (int)m_statusDurations[(int)status];
 	}
 
@@ -292,6 +298,12 @@ public class ActorStatus : NetworkBehaviour
 
 	public bool HasStatus(StatusType status, bool includePending = true)
 	{
+#if EVOS // TODO HACK
+		if (status >= StatusType.NUM)
+		{
+			return true;
+		}
+#endif
 		int count = ((int)status < m_statusCounts.Count) ? (int)m_statusCounts[(int)status] : 0;
 		count += m_clientStatusCountAdjustments[(int)status];
 		bool hasStatus = count > 0;

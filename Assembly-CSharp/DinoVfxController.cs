@@ -63,7 +63,7 @@ public class DinoVfxController : CopyableVfxControllerComponent
 		int powerLevel = 0;
 		if (m_syncComp != null)
 		{
-			powerLevel = m_syncComp.m_layerConePowerLevel;
+			powerLevel = m_syncComp.m_layerConePowerLevel; // TODO Dino power levels
 			powerLevel = Mathf.Min(powerLevel, m_spawnedVfxList.Count - 1);
 		}
 		else if (m_spawnedVfxList.Count > 0)

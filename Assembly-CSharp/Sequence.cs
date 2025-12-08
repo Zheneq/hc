@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Evos.ActorStatus;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -453,6 +454,13 @@ public abstract class Sequence : MonoBehaviour
 	{
 		MarkedForRemoval = true;
 		enabled = false;
+#if EVOS
+		var evosActorStatusManager = EvosActorStatusManager.Get();
+		if (evosActorStatusManager != null)
+		{
+			evosActorStatusManager.OnSequenceRemoved(this);
+		}
+#endif
 	}
 
 	internal static void MarkSequenceArrayForRemoval(Sequence[] sequencesArray)

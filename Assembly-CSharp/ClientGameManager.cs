@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Evos;
+using Evos.ActorStatus;
 using LobbyGameClientMessages;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -325,6 +327,8 @@ public class ClientGameManager : MonoBehaviour
 		WaitingForSkinSelectResponse = new List<CharacterVisualInfo>();
 #if EVOS
 		gameObject.AddComponent<ClientUIManager>();
+		gameObject.AddComponent<EvosAssetBundleManager>();
+		gameObject.AddComponent<EvosActorStatusManager>();
 #endif
 	}
 
