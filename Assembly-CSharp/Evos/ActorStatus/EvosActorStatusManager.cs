@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Evos.ActorStatus
@@ -44,14 +45,12 @@ namespace Evos.ActorStatus
         public void OnSequenceAdded(Sequence[] sequences, int prefabID)
         {
             StatusType status = EvosActorStatusRepo.GetStatusTypeBySequencePrefabId(prefabID);
-            if (status == StatusType.INVALID)
+            if (status == StatusType.INVALID || sequences.IsNullOrEmpty())
             {
                 return;
             }
-            foreach (Sequence sequence in sequences)
-            {
-                OnSequenceAdded(sequence, status);
-            }
+            Log.Info($"OnSequenceAdded: {status.ToString()} {string.Join(", ", sequences.Select(x => x.ToString()).ToArray())}");
+            OnSequenceAdded(sequences.First(), status);
         }
 
         public void OnSequenceAdded(Sequence sequence, StatusType status)
