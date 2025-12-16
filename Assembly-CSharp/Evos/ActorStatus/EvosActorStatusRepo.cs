@@ -23,16 +23,17 @@ namespace Evos.ActorStatus
 
         private static readonly Dictionary<StatusType, EvosActorStatusData> Data = List.ToDictionary(x => x.Type);
 
-        private static readonly Dictionary<int, StatusType> PrefabIdToStatusType = new Dictionary<int, StatusType>
+        private static readonly Dictionary<int, SequenceStatusInfo> PrefabIdToStatusType = new Dictionary<int, SequenceStatusInfo>
         {
-            { 57, StatusType.BazookaGirl_StickyBomb },
-            { 67, StatusType.Blaster_Overcharged },
-            { 109, StatusType.Claymore_DirtyFighting },
+            { 57, new SequenceStatusInfo(StatusType.BazookaGirl_StickyBomb, true) },
+            { 59, new SequenceStatusInfo(StatusType.BazookaGirl_StickyBomb, false) },
+            { 67, new SequenceStatusInfo(StatusType.Blaster_Overcharged, false) },
+            { 109, new SequenceStatusInfo(StatusType.Claymore_DirtyFighting, false) },
             // { 0, StatusType.Dino_PowerDrive },
-            { 216, StatusType.Fireborg_Ignited },
-            { 272, StatusType.Iceborg_IceCore },
-            { 389, StatusType.Ninja_VoidMark },
-            { 481, StatusType.Samurai_Fury },
+            { 216, new SequenceStatusInfo(StatusType.Fireborg_Ignited, false) },
+            { 272, new SequenceStatusInfo(StatusType.Iceborg_IceCore, false) },
+            { 389, new SequenceStatusInfo(StatusType.Ninja_VoidMark, false) },
+            { 481, new SequenceStatusInfo(StatusType.Samurai_Fury, false) },
         };
     
         // see HUD_UIResources.GetIconForStatusType
@@ -66,9 +67,26 @@ namespace Evos.ActorStatus
             return result;
         }
 
-        public static StatusType GetStatusTypeBySequencePrefabId(int id)
+        public static SequenceStatusInfo GetSequenceStatusInfoByPrefabId(int id)
         {
-            return PrefabIdToStatusType.TryGetValue(id, out var status) ? status : StatusType.INVALID;
+            return PrefabIdToStatusType.TryGetValue(id, out var status) ? status : null;
+        }
+    }
+
+    public class SequenceStatusInfo
+    {
+        public readonly StatusType Type;
+        public readonly bool RemoveOnHit; // TODO something more straightforward
+
+        public SequenceStatusInfo(StatusType type, bool removeOnHit)
+        {
+            Type = type;
+            RemoveOnHit = removeOnHit;
+        }
+
+        public override string ToString()
+        {
+            return $"<{Type.ToString()} RemoveOnHit={RemoveOnHit}>";
         }
     }
 

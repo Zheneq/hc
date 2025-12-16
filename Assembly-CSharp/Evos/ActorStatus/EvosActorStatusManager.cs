@@ -5,6 +5,9 @@ using UnityEngine;
 namespace Evos.ActorStatus
 {
 #if EVOS
+    // TODO Sticky doesn't disappear immediately after exploding (Ice Core does) (react to seq 59? react to sequence hit?)
+    // TODO statuses do not show in lower left corner (and when they will, will it work in 4lancer?)
+    // TODO how does it work with duplicate characters? (Can we put casters' names in debuffs?)
     public class EvosActorStatusManager: MonoBehaviour
     {
         private static EvosActorStatusManager s_instance;
@@ -44,16 +47,16 @@ namespace Evos.ActorStatus
 
         public void OnSequenceAdded(Sequence[] sequences, int prefabID)
         {
-            StatusType status = EvosActorStatusRepo.GetStatusTypeBySequencePrefabId(prefabID);
-            if (status == StatusType.INVALID || sequences.IsNullOrEmpty())
+            SequenceStatusInfo statusInfo = EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(prefabID);
+            if (statusInfo is null || sequences.IsNullOrEmpty())
             {
                 return;
             }
-            Log.Info($"OnSequenceAdded: {status.ToString()} {string.Join(", ", sequences.Select(x => x.ToString()).ToArray())}");
-            OnSequenceAdded(sequences.First(), status);
+            Log.Info($"OnSequenceAdded: {statusInfo} {string.Join(", ", sequences.Select(x => x.ToString()).ToArray())}");
+            StartEffect(sequences.First(), statusInfo.Type);
         }
 
-        public void OnSequenceAdded(Sequence sequence, StatusType status)
+        private void StartEffect(Sequence sequence, StatusType status)
         {
             if (sequence.Targets.IsNullOrEmpty())
             {
@@ -79,7 +82,24 @@ namespace Evos.ActorStatus
             AppliedStatuses[sequence.Id] = new AppliedStatusInfo(sequence.Targets, status);
         }
 
+        public void OnSequenceHit(Sequence sequence)
+        {
+            SequenceStatusInfo statusInfo = EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(sequence.PrefabLookupId);
+            if (statusInfo is null || !statusInfo.RemoveOnHit)
+            {
+                return;
+            }
+            Log.Info($"OnSequenceHit: {statusInfo} {sequence}");
+            
+            EndEffect(sequence);
+        }
+
         public void OnSequenceRemoved(Sequence sequence)
+        {
+            EndEffect(sequence);
+        }
+
+        private void EndEffect(Sequence sequence)
         {
             int id = sequence.Id;
             if (!AppliedStatuses.TryGetValue(id, out AppliedStatusInfo info))

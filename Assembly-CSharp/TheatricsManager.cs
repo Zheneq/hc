@@ -2,6 +2,7 @@
 // SERVER
 using System.Collections.Generic;
 using System.Linq;
+using Evos.ActorStatus;
 //using Mirror;
 using Theatrics;
 using UnityEngine;
@@ -249,6 +250,14 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
         ActorModelData.RagdollActivation ragdollActivation = ActorModelData.RagdollActivation.HealthBased)
 	{
 		m_turn.OnSequenceHit(seq, target, impulseInfo, ragdollActivation);
+		
+#if EVOS
+		var evosActorStatusManager = EvosActorStatusManager.Get();
+		if (evosActorStatusManager != null)
+		{
+			evosActorStatusManager.OnSequenceHit(seq);
+		}
+#endif
 	}
 
 	// OnKnockbackMovementHitGathered
