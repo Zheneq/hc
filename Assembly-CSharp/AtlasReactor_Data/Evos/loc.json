@@ -14,6 +14,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
     "AllowResettingWaypointsNo@EvosOptions": "Do nothing",
     "ExtendedCooldownView@EvosOptions": "Always show cooldowns in main UI",
+    "EnableGamepadControls@EvosOptions": "Gamepad controls",
 
     "Tournament_Draft_Bans@GameWideData": "Tournament Draft With Bans",
     "Tournament_Draft_NoBans@GameWideData": "Tournament Draft No Bans",
@@ -44,6 +45,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Кратчайший путь",
     "AllowResettingWaypointsNo@EvosOptions": "Ничего не делать",
     "ExtendedCooldownView@EvosOptions": "Всегда показывать кулдауны",
+    "EnableGamepadControls@EvosOptions": "Управление с геймпада",
 
     "Tournament_Draft_Bans@GameWideData": "Турнирный драфт с банами",
     "Tournament_Draft_NoBans@GameWideData": "Турнирный драфт без банов",
@@ -72,6 +74,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "重置路径点",
     "AllowResettingWaypointsNo@EvosOptions": "不执行任何操作",
     "ExtendedCooldownView@EvosOptions": "始终在主界面显示冷却时间",
+    "EnableGamepadControls@EvosOptions": "手柄控制",
 
     "Tournament_Draft_Bans@GameWideData": "锦标赛选秀带禁用",
     "Tournament_Draft_NoBans@GameWideData": "锦标赛选秀无禁用",
@@ -99,6 +102,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Chemin le plus court",
     "AllowResettingWaypointsNo@EvosOptions": "Ne rien faire",
     "ExtendedCooldownView@EvosOptions": "Toujours afficher recharges",
+    "EnableGamepadControls@EvosOptions": "Commandes de la manette",
 
     "Tournament_Draft_Bans@GameWideData": "Brouillon de tournoi avec interdictions",
     "Tournament_Draft_NoBans@GameWideData": "Brouillon de tournoi sans interdictions",
@@ -125,6 +129,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Wegpunkte zurücksetzen",
     "AllowResettingWaypointsNo@EvosOptions": "Nichts tun",
     "ExtendedCooldownView@EvosOptions": "Abklingzeiten immer anzeigen",
+    "EnableGamepadControls@EvosOptions": "Gamepad-Steuerung",
 
     "Tournament_Draft_Bans@GameWideData": "Turnierentwurf mit Sperrungen",
     "Tournament_Draft_NoBans@GameWideData": "Turnierentwurf ohne Sperrungen",
@@ -152,6 +157,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Percorso più breve",
     "AllowResettingWaypointsNo@EvosOptions": "Non fare nulla",
     "ExtendedCooldownView@EvosOptions": "Mostra sempre cooldown",
+    "EnableGamepadControls@EvosOptions": "Controlli gamepad",
 
     "Tournament_Draft_Bans@GameWideData": "Bozza torneo con divieti",
     "Tournament_Draft_NoBans@GameWideData": "Bozza torneo senza divieti",
@@ -179,6 +185,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "경유지 초기화",
     "AllowResettingWaypointsNo@EvosOptions": "아무것도 하지 않음",
     "ExtendedCooldownView@EvosOptions": "항상 메인 UI에 재사용 대기시간 표시",
+    "EnableGamepadControls@EvosOptions": "게임패드 조작",
 
     "Tournament_Draft_Bans@GameWideData": "밴 있는 토너먼트 드래프트",
     "Tournament_Draft_NoBans@GameWideData": "밴 없는 토너먼트 드래프트",
@@ -206,6 +213,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Najkrótsza ścieżka",
     "AllowResettingWaypointsNo@EvosOptions": "Nie rób nic",
     "ExtendedCooldownView@EvosOptions": "Zawsze pokazuj czasy odnowienia",
+    "EnableGamepadControls@EvosOptions": "Sterowanie gamepadem",
 
     "Tournament_Draft_Bans@GameWideData": "Projekt turnieju z zakazami",
     "Tournament_Draft_NoBans@GameWideData": "Projekt turnieju bez zakazów",
@@ -234,6 +242,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Caminho mais curto",
     "AllowResettingWaypointsNo@EvosOptions": "Não fazer nada",
     "ExtendedCooldownView@EvosOptions": "Sempre mostrar cooldowns",
+    "EnableGamepadControls@EvosOptions": "Controles do gamepad",
 
     "Tournament_Draft_Bans@GameWideData": "Rascunho de torneio com banimentos",
     "Tournament_Draft_NoBans@GameWideData": "Rascunho de torneio sem banimentos",
@@ -261,6 +270,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Camino más corto",
     "AllowResettingWaypointsNo@EvosOptions": "No hacer nada",
     "ExtendedCooldownView@EvosOptions": "Mostrar enfriamientos siempre",
+    "EnableGamepadControls@EvosOptions": "Controles del gamepad",
 
     "Tournament_Draft_Bans@GameWideData": "Borrador de torneo con prohibiciones",
     "Tournament_Draft_NoBans@GameWideData": "Borrador de torneo sin prohibiciones",

@@ -895,8 +895,7 @@ public class UIFrontEnd : MonoBehaviour
             m_isStartDrag = false;
         }
 
-        if (GameManager.Get() != null
-            && !GameManager.Get().GameplayOverrides.DisableControlPadInput)
+        if (GameManager.Get() != null && !GameManager.Get().IsControlpadInputDisabled())
         {
             if (ControlpadGameplay.Get().GetAxisValue(ControlpadInputValue.RightStickX) != 0f)
             {

@@ -64,6 +64,7 @@ public class EvosOptions
 
     public const string AllowResettingWaypoints = "OptionsAllowResettingWaypoints";
     public const string ExtendedCooldownView = "OptionsExtendedCooldownView";
+    public const string EnableGamepadControls = "EnableGamepadControls";
 
     public readonly List<Option> m_options = new List<Option>
     {
@@ -86,7 +87,16 @@ public class EvosOptions
             (pendingState, value) => pendingState.extendedCooldownView = value,
             () => UIMainScreenPanel.Get()?.m_playerDisplayPanel?.UpdateExtendedCooldownView(),
             "ExtendedCooldownView@EvosOptions",
-            position: 13)
+            position: 13),
+        new Option(
+            "enableGamepadControls",
+            EnableGamepadControls,
+            false,
+            pendingState => pendingState.enableGamepadControls,
+            (pendingState, value) => pendingState.enableGamepadControls = value,
+            () => { },
+            "EnableGamepadControls@EvosOptions",
+            position: 14)
     };
     private readonly Dictionary<string, Option> m_optionDict;
     
@@ -106,7 +116,8 @@ public class EvosOptions
     {
         if (m_optionDict.TryGetValue(key, out Option value))
         {
-            return Options_UI.Get().GetOption(value.stateGetter);
+            Options_UI optionsUI = Options_UI.Get();
+            return optionsUI != null ? optionsUI.GetOption(value.stateGetter) : value.defaultValue;
         }
         
         Log.Error($"Custom option {key} does not exist!");

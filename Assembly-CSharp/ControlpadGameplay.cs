@@ -182,9 +182,7 @@ public class ControlpadGameplay : MonoBehaviour
         }
 
         m_lastCacheFrame = Time.frameCount;
-        if (GameManager.Get() != null
-            && GameManager.Get().GameplayOverrides != null
-            && !GameManager.Get().GameplayOverrides.DisableControlPadInput)
+        if (GameManager.Get() != null && !GameManager.Get().IsControlpadInputDisabled())
         {
             PrevFrameInput.CopySnapshotValuesFrom(CurFrameInput);
             CurFrameInput.CacheInputThisFrame();

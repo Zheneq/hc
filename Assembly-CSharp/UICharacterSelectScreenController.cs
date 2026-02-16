@@ -1164,7 +1164,7 @@ public class UICharacterSelectScreenController : MonoBehaviour
 		}
 		while (true)
 		{
-			if (GameManager.Get().GameplayOverrides.DisableControlPadInput)
+			if (GameManager.Get().IsControlpadInputDisabled())
 			{
 				return;
 			}

@@ -42,6 +42,7 @@ public class SettingsState : ICloneable
 #if EVOS
     public bool allowResettingWaypoints;
     public bool extendedCooldownView;
+    public bool enableGamepadControls;
 #endif
 
     public object Clone()

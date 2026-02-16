@@ -307,7 +307,7 @@ public class FrontEndNavPanel : MonoBehaviour
         }
 
         if (GameManager.Get() != null
-            && !GameManager.Get().GameplayOverrides.DisableControlPadInput
+            && !GameManager.Get().IsControlpadInputDisabled()
             && !m_playMenuCatgeory.IsVisible())
         {
             if (Input.GetButtonDown("GamepadButtonLeftShoulder"))

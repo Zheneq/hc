@@ -623,4 +623,16 @@ public class GameManager : MonoBehaviour
 	// 	}
 	// 	return !GameMission.IsMissionTagActive(MissionData.s_missionTagAllowDuplicateCharacters) && sameTeam;
 	// }
+	
+	// custom, inlined in reactor
+	public bool IsControlpadInputDisabled()
+	{
+		return  GameplayOverrides == null
+		        || GameplayOverrides.DisableControlPadInput
+#if EVOS
+		        || !EvosOptions.Get().GetOption(EvosOptions.EnableGamepadControls);
+#else
+				;
+#endif
+	}
 }
