@@ -988,6 +988,7 @@ public class Options_UI : UIScene, IGameEventListener
 #if EVOS
                 AllowResettingWaypoints = m_activeState.allowResettingWaypoints,
                 ExtendedCooldownView = m_activeState.extendedCooldownView,
+                EnableGamepadControls = m_activeState.enableGamepadControls,
 #endif
             });
     }

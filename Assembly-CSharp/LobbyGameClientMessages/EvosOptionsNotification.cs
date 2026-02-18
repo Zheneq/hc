@@ -47,6 +47,7 @@ namespace LobbyGameClientMessages
 		// Evos options
 		public bool AllowResettingWaypoints;
 		public bool ExtendedCooldownView;
+		public bool EnableGamepadControls;
 	}
 }
 #endif
