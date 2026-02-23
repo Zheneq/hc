@@ -65,6 +65,12 @@ public class ClientUIManager : MonoBehaviour
         {
             uiMainScreenPanel.m_nameplatePanel.RefreshNameplates();
         }
+
+        UITutorialFullscreenPanel uiTutorialFullscreenPanel = UITutorialFullscreenPanel.Get();
+        if (uiTutorialFullscreenPanel != null)
+        {
+            uiTutorialFullscreenPanel.FadeInAnimDone();
+        }
     }
 }
 #endif
