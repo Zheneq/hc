@@ -3,52 +3,51 @@ using UnityEngine;
 
 public class GrydMoveBomb : Ability
 {
-	[Header("-- Enemy direct hit")]
-	public bool m_explodeThisTurnOnDirectHit;
+    [Header("-- Enemy direct hit")]
+    public bool m_explodeThisTurnOnDirectHit;
+    [Header("-- Targeting")]
+    public int m_moveRange = 4;
+    public bool m_selectBombsThroughLoS = true;
+    public bool m_moveBombsThroughLoS;
+    [Header("-- Sequences")]
+    public GameObject m_castSequencePrefab;
 
-	[Header("-- Targeting")]
-	public int m_moveRange = 4;
+    private GrydPlaceBomb m_placeBombAbility;
 
-	public bool m_selectBombsThroughLoS = true;
+    private void Start()
+    {
+        if (m_abilityName == "Base Ability")
+        {
+            m_abilityName = "Move Bomb";
+        }
 
-	public bool m_moveBombsThroughLoS;
+        m_placeBombAbility = ActorData.GetAbilityData().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb;
+        SetupTargeter();
+    }
 
-	[Header("-- Sequences")]
-	public GameObject m_castSequencePrefab;
+    private void SetupTargeter()
+    {
+        Targeters.Clear();
+        Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, m_selectBombsThroughLoS));
+        Targeters.Add(new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, m_moveBombsThroughLoS));
+    }
 
-	private GrydPlaceBomb m_placeBombAbility;
+    public override int GetExpectedNumberOfTargeters()
+    {
+        return 2;
+    }
 
-	private void Start()
-	{
-		if (m_abilityName == "Base Ability")
-		{
-			m_abilityName = "Move Bomb";
-		}
-		m_placeBombAbility = (base.ActorData.GetAbilityData().GetAbilityOfType(typeof(GrydPlaceBomb)) as GrydPlaceBomb);
-		SetupTargeter();
-	}
+    public override bool CustomCanCastValidation(ActorData caster)
+    {
+        return true;
+    }
 
-	private void SetupTargeter()
-	{
-		base.Targeters.Clear();
-		AbilityUtil_Targeter_Shape item = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, m_selectBombsThroughLoS);
-		base.Targeters.Add(item);
-		AbilityUtil_Targeter_Shape item2 = new AbilityUtil_Targeter_Shape(this, AbilityAreaShape.SingleSquare, m_moveBombsThroughLoS);
-		base.Targeters.Add(item2);
-	}
-
-	public override int GetExpectedNumberOfTargeters()
-	{
-		return 2;
-	}
-
-	public override bool CustomCanCastValidation(ActorData caster)
-	{
-		return true;
-	}
-
-	public override bool CustomTargetValidation(ActorData caster, AbilityTarget target, int targetIndex, List<AbilityTarget> currentTargets)
-	{
-		return true;
-	}
+    public override bool CustomTargetValidation(
+        ActorData caster,
+        AbilityTarget target,
+        int targetIndex,
+        List<AbilityTarget> currentTargets)
+    {
+        return true;
+    }
 }

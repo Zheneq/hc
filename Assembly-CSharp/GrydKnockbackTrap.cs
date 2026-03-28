@@ -3,124 +3,108 @@ using UnityEngine;
 
 public class GrydKnockbackTrap : Ability
 {
-	[Header("-- Trap Ground Field")]
-	public GroundEffectField m_trapFieldInfo;
+    [Header("-- Trap Ground Field")]
+    public GroundEffectField m_trapFieldInfo;
+    [Header("-- Extra Damage")]
+    public int m_extraDamagePerTurn;
+    public int m_maxExtraDamage;
+    public int m_knockbackAmount = 2;
+    public bool m_lockToCardinalDirs = true;
+    [Header("-- Sequences --")]
+    public GameObject m_castSequencePrefab;
 
-	[Header("-- Extra Damage")]
-	public int m_extraDamagePerTurn;
+    private GroundEffectField m_cachedTrapFieldInfo;
 
-	public int m_maxExtraDamage;
+    private void Start()
+    {
+        if (m_abilityName == "Base Ability")
+        {
+            m_abilityName = "Knockback Trap";
+        }
 
-	public int m_knockbackAmount = 2;
+        Setup();
+    }
 
-	public bool m_lockToCardinalDirs = true;
+    private void Setup()
+    {
+        SetCachedFields();
+        GroundEffectField trapFieldInfo = GetTrapFieldInfo();
+        AbilityUtil_Targeter.AffectsActor affectsCaster = trapFieldInfo.IncludeAllies()
+            ? AbilityUtil_Targeter.AffectsActor.Possible
+            : AbilityUtil_Targeter.AffectsActor.Never;
+        Targeters.Clear();
+        for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
+        {
+            AbilityUtil_Targeter_KnockbackAoE targeter = new AbilityUtil_Targeter_KnockbackAoE(
+                this,
+                trapFieldInfo.shape,
+                trapFieldInfo.penetrateLos,
+                AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape,
+                trapFieldInfo.IncludeEnemies(),
+                trapFieldInfo.IncludeAllies(),
+                affectsCaster,
+                AbilityUtil_Targeter.AffectsActor.Never,
+                m_knockbackAmount,
+                KnockbackType.ForwardAlongAimDir);
+            targeter.SetUseMultiTargetUpdate(true);
+            targeter.m_lockToCardinalDirs = m_lockToCardinalDirs;
+            targeter.m_showArrowHighlight = true;
+            Targeters.Add(targeter);
+        }
+    }
 
-	[Header("-- Sequences --")]
-	public GameObject m_castSequencePrefab;
+    public override int GetExpectedNumberOfTargeters()
+    {
+        return 2;
+    }
 
-	private GroundEffectField m_cachedTrapFieldInfo;
+    private void SetCachedFields()
+    {
+        m_cachedTrapFieldInfo = m_trapFieldInfo;
+    }
 
-	private void Start()
-	{
-		if (m_abilityName == "Base Ability")
-		{
-			m_abilityName = "Knockback Trap";
-		}
-		Setup();
-	}
+    public GroundEffectField GetTrapFieldInfo()
+    {
+        return m_cachedTrapFieldInfo != null
+            ? m_cachedTrapFieldInfo
+            : m_trapFieldInfo;
+    }
 
-	private void Setup()
-	{
-		SetCachedFields();
-		GroundEffectField trapFieldInfo = GetTrapFieldInfo();
-		int num;
-		if (trapFieldInfo.IncludeAllies())
-		{
-			num = 1;
-		}
-		else
-		{
-			num = 0;
-		}
-		AbilityUtil_Targeter.AffectsActor affectsCaster = (AbilityUtil_Targeter.AffectsActor)num;
-		base.Targeters.Clear();
-		for (int i = 0; i < GetExpectedNumberOfTargeters(); i++)
-		{
-			AbilityUtil_Targeter_KnockbackAoE abilityUtil_Targeter_KnockbackAoE = new AbilityUtil_Targeter_KnockbackAoE(this, trapFieldInfo.shape, trapFieldInfo.penetrateLos, AbilityUtil_Targeter_Shape.DamageOriginType.CenterOfShape, trapFieldInfo.IncludeEnemies(), trapFieldInfo.IncludeAllies(), affectsCaster, AbilityUtil_Targeter.AffectsActor.Never, m_knockbackAmount, KnockbackType.ForwardAlongAimDir);
-			abilityUtil_Targeter_KnockbackAoE.SetUseMultiTargetUpdate(true);
-			abilityUtil_Targeter_KnockbackAoE.m_lockToCardinalDirs = m_lockToCardinalDirs;
-			abilityUtil_Targeter_KnockbackAoE.m_showArrowHighlight = true;
-			base.Targeters.Add(abilityUtil_Targeter_KnockbackAoE);
-		}
-		while (true)
-		{
-			switch (6)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
-	}
+    public int GetExtraDamagePerTurn()
+    {
+        return m_extraDamagePerTurn;
+    }
 
-	public override int GetExpectedNumberOfTargeters()
-	{
-		return 2;
-	}
+    public int GetMaxExtraDamage()
+    {
+        return m_maxExtraDamage;
+    }
 
-	private void SetCachedFields()
-	{
-		m_cachedTrapFieldInfo = m_trapFieldInfo;
-	}
+    protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
+    {
+        List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
+        int damageAmount = GetTrapFieldInfo().damageAmount;
+        AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, damageAmount);
+        return numbers;
+    }
 
-	public GroundEffectField GetTrapFieldInfo()
-	{
-		GroundEffectField result;
-		if (m_cachedTrapFieldInfo != null)
-		{
-			result = m_cachedTrapFieldInfo;
-		}
-		else
-		{
-			result = m_trapFieldInfo;
-		}
-		return result;
-	}
-
-	public int GetExtraDamagePerTurn()
-	{
-		return m_extraDamagePerTurn;
-	}
-
-	public int GetMaxExtraDamage()
-	{
-		return m_maxExtraDamage;
-	}
-
-	protected override List<AbilityTooltipNumber> CalculateAbilityTooltipNumbers()
-	{
-		List<AbilityTooltipNumber> numbers = new List<AbilityTooltipNumber>();
-		int damageAmount = GetTrapFieldInfo().damageAmount;
-		AbilityTooltipHelper.ReportDamage(ref numbers, AbilityTooltipSubject.Enemy, damageAmount);
-		return numbers;
-	}
-
-	protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
-	{
-		AbilityMod_ThiefHiddenTrap abilityMod_ThiefHiddenTrap = modAsBase as AbilityMod_ThiefHiddenTrap;
-		m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
-		AddTokenInt(tokens, "ExtraDamagePerTurn", string.Empty, (!abilityMod_ThiefHiddenTrap) ? m_extraDamagePerTurn : abilityMod_ThiefHiddenTrap.m_extraDamagePerTurnMod.GetModifiedValue(m_extraDamagePerTurn));
-		string empty = string.Empty;
-		int val;
-		if ((bool)abilityMod_ThiefHiddenTrap)
-		{
-			val = abilityMod_ThiefHiddenTrap.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage);
-		}
-		else
-		{
-			val = m_maxExtraDamage;
-		}
-		AddTokenInt(tokens, "MaxExtraDamage", empty, val);
-	}
+    protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
+    {
+        AbilityMod_ThiefHiddenTrap mod = modAsBase as AbilityMod_ThiefHiddenTrap;
+        m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
+        AddTokenInt(
+            tokens,
+            "ExtraDamagePerTurn",
+            string.Empty,
+            mod
+                ? mod.m_extraDamagePerTurnMod.GetModifiedValue(m_extraDamagePerTurn)
+                : m_extraDamagePerTurn);
+        AddTokenInt(
+            tokens,
+            "MaxExtraDamage",
+            string.Empty,
+            mod
+                ? mod.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage)
+                : m_maxExtraDamage);
+    }
 }
