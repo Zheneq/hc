@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +39,10 @@ public class GrydCardinalSegmentInfo
             AreaEffectUtils.BouncingLaserInfo laserInfo = hitActorToLaserInfo.Value;
             Vector3 segmentOrigin = laserInfo.m_segmentOrigin;
             ActorCover actorCover = hitActor.GetActorCover();
+            // reactor
             bool isInCover = actorCover.IsInCoverWrt(segmentOrigin);
+            // rogues
+            // bool isInCover = actorCover.IsInCoverWrt(segmentOrigin, out HitChanceBracketType hitChanceBracketType);
             if (actorToHitContext.ContainsKey(hitActor))
             {
                 actorToHitContext[hitActor].m_numHits++;
@@ -47,8 +52,12 @@ public class GrydCardinalSegmentInfo
                 }
 
                 if (actorCover != null
+                    // reactor
                     && !actorCover.IsInCoverWrt(actorToHitContext[hitActor].m_hitOrigin)
                     && actorCover.IsInCoverWrt(segmentOrigin))
+                    // rogues
+                    // && !actorCover.IsInCoverWrt(actorToHitContext[hitActor].m_hitOrigin, out hitChanceBracketType)
+                    // && actorCover.IsInCoverWrt(segmentOrigin, out hitChanceBracketType))
                 {
                     actorToHitContext[hitActor].m_hitOrigin = segmentOrigin;
                 }

@@ -1082,12 +1082,14 @@
     <Compile Include="GroupPlayerInfoUpdate.cs" />
     <Compile Include="GroupRequestWindow.cs" />
     <Compile Include="GroupSizeSpecification.cs" />
+    <Compile Include="GrydBombEffect.cs" />
     <Compile Include="GrydCardinalBomb.cs" />
     <Compile Include="GrydCardinalBombSequence.cs" />
     <Compile Include="GrydCardinalSegmentInfo.cs" />
     <Compile Include="GrydCycleDash.cs" />
     <Compile Include="GrydDetonateBomb.cs" />
     <Compile Include="GrydKnockbackTrap.cs" />
+    <Compile Include="GrydKnockbackTrapEffect.cs" />
     <Compile Include="GrydLaserT.cs" />
     <Compile Include="GrydMoveBomb.cs" />
     <Compile Include="GrydPlaceBomb.cs" />

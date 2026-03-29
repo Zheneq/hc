@@ -1,9 +1,12 @@
+// SERVER
+// ROGUES
 using UnityEngine.Networking;
 
 public class Gryd_SyncComponent : NetworkBehaviour
 {
     public GridPos m_bombLocation = GridPos.s_invalid;
 
+    // serialization is different in rogues
     public override bool OnSerialize(NetworkWriter writer, bool initialState)
     {
         bool result = base.OnSerialize(writer, initialState);
@@ -21,6 +24,7 @@ public class Gryd_SyncComponent : NetworkBehaviour
         return result;
     }
 
+    // serialization is different in rogues
     public override void OnDeserialize(NetworkReader reader, bool initialState)
     {
         base.OnDeserialize(reader, initialState);

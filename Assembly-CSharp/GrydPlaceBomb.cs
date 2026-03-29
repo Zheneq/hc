@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,4 +56,48 @@ public class GrydPlaceBomb : Ability
     {
         return !start.CoordsEqual(end) && (start.x == end.x || start.y == end.y);
     }
+
+#if SERVER
+    // added in rogues
+    public override ServerClientUtils.SequenceStartData GetAbilityRunSequenceStartData(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        return new ServerClientUtils.SequenceStartData(
+            m_castSequencePrefab,
+            Board.Get().GetSquare(targets[0].GridPos),
+            additionalData.m_abilityResults.HitActorsArray(),
+            caster,
+            additionalData.m_sequenceSource);
+    }
+
+    // added in rogues
+    public override void GatherAbilityResults(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ref AbilityResults abilityResults)
+    {
+        BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+        PositionHitResults positionHitResults =
+            new PositionHitResults(new PositionHitParameters(targetSquare.ToVector3()));
+        bool explodeFirstTurn = m_explodeThisTurnOnDirectHit
+                                && targetSquare.OccupantActor != null
+                                && targetSquare.OccupantActor.GetTeam() != caster.GetTeam();
+        positionHitResults.AddEffect(
+            new GrydBombEffect(
+                AsEffectSource(),
+                targetSquare,
+                caster,
+                m_damageAmount,
+                m_explosionLaserRange,
+                m_explosionLaserWidth,
+                explodeFirstTurn,
+                m_bombDuration,
+                m_persistentBombSequencePrefab,
+                m_explodeBombSequencePrefab,
+                0));
+        abilityResults.StorePositionHit(positionHitResults);
+    }
+#endif
 }

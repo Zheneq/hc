@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,12 +65,24 @@ public class GrydKnockbackTrap : Ability
         m_cachedTrapFieldInfo = m_trapFieldInfo;
     }
 
+    // reactor
     public GroundEffectField GetTrapFieldInfo()
     {
         return m_cachedTrapFieldInfo != null
             ? m_cachedTrapFieldInfo
             : m_trapFieldInfo;
     }
+
+    // rogues
+    // public GroundEffectField GetTrapFieldInfo()
+    // {
+    //     if (m_trapFieldInfo == null)
+    //     {
+    //         m_trapFieldInfo = ScriptableObject.CreateInstance<GroundEffectField>();
+    //     }
+    //
+    //     return m_trapFieldInfo;
+    // }
 
     public int GetExtraDamagePerTurn()
     {
@@ -91,7 +105,12 @@ public class GrydKnockbackTrap : Ability
     protected override void AddSpecificTooltipTokens(List<TooltipTokenEntry> tokens, AbilityMod modAsBase)
     {
         AbilityMod_ThiefHiddenTrap mod = modAsBase as AbilityMod_ThiefHiddenTrap;
-        m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
+        
+        // reactor
+        // m_trapFieldInfo.AddTooltipTokens(tokens, "GroundEffect");
+        // rogues
+        GetTrapFieldInfo().AddTooltipTokens(tokens, "GroundEffect");
+        
         AddTokenInt(
             tokens,
             "ExtraDamagePerTurn",
@@ -107,4 +126,55 @@ public class GrydKnockbackTrap : Ability
                 ? mod.m_maxExtraDamageMod.GetModifiedValue(m_maxExtraDamage)
                 : m_maxExtraDamage);
     }
+    
+#if SERVER
+    // added in rogues
+    public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+        return new List<ServerClientUtils.SequenceStartData>
+        {
+            new ServerClientUtils.SequenceStartData(
+                m_castSequencePrefab,
+                targetSquare,
+                additionalData.m_abilityResults.HitActorsArray(),
+                caster,
+                additionalData.m_sequenceSource)
+        };
+    }
+
+    // added in rogues
+    public override void GatherAbilityResults(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ref AbilityResults abilityResults)
+    {
+        BoardSquare targetSquare = Board.Get().GetSquare(targets[0].GridPos);
+        PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(targetSquare.ToVector3()));
+        Vector3 centerOfShape = AreaEffectUtils.GetCenterOfShape(GetTrapFieldInfo().shape, targets[0]);
+        Vector3 knockbackDir = targets[1].FreePos - centerOfShape;
+        if (m_lockToCardinalDirs)
+        {
+            knockbackDir = VectorUtils.HorizontalAngleToClosestCardinalDirection(
+                Mathf.RoundToInt(VectorUtils.HorizontalAngle_Deg(knockbackDir)));
+        }
+
+        GrydKnockbackTrapEffect effect = new GrydKnockbackTrapEffect(
+            AsEffectSource(),
+            targetSquare,
+            targets[0].FreePos,
+            null,
+            caster,
+            GetTrapFieldInfo(),
+            GetExtraDamagePerTurn(),
+            GetMaxExtraDamage(),
+            m_knockbackAmount,
+            knockbackDir);
+        positionHitResults.AddEffect(effect);
+        abilityResults.StorePositionHit(positionHitResults);
+    }
+#endif
 }

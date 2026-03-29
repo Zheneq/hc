@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,7 +56,11 @@ public class AbilityUtil_Targeter_GrydBomb : AbilityUtil_Targeter_Shape
             m_bombMoveRange,
             0.75f,
             targetingActor,
-            targetingActor.GetEnemyTeamAsList(),
+#if VANILLA
+            targetingActor.GetEnemyTeamAsList(), // reactor
+#else
+            targetingActor.GetOtherTeams(), // rogues
+#endif
             false,
             1,
             false,

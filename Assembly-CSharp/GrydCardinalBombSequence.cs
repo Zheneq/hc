@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +10,7 @@ public class GrydCardinalBombSequence : Sequence
         public List<SegmentDataEntry> m_segmentData;
         public List<HitActorEntry> m_hitActors;
 
+        // serialization is different in rogues
         public override void XSP_SerializeToStream(IBitStream stream)
         {
             sbyte segmentNum = (sbyte)(m_segmentData != null ? m_segmentData.Count : 0);
@@ -25,6 +28,7 @@ public class GrydCardinalBombSequence : Sequence
             }
         }
 
+        // serialization is different in rogues
         public override void XSP_DeserializeFromStream(IBitStream stream)
         {
             sbyte segmentNum = 0;
@@ -58,6 +62,7 @@ public class GrydCardinalBombSequence : Sequence
         public bool m_markedChildrenToStart;
         public GenericSequenceProjectileInfo m_projectileContainer;
 
+        // serialization is different in rogues
         public static void Serialize(IBitStream stream, SegmentDataEntry entry)
         {
             stream.Serialize(ref entry.m_segmentIndex);
@@ -72,6 +77,7 @@ public class GrydCardinalBombSequence : Sequence
             stream.Serialize(ref endY);
         }
 
+        // serialization is different in rogues
         public static void Deserialize(IBitStream stream, SegmentDataEntry entry)
         {
             stream.Serialize(ref entry.m_segmentIndex);
@@ -94,12 +100,14 @@ public class GrydCardinalBombSequence : Sequence
         public sbyte m_segmentIndex;
         public sbyte m_actorIndex;
 
+        // serialization is different in rogues
         public static void Serialize(IBitStream stream, HitActorEntry entry)
         {
             stream.Serialize(ref entry.m_segmentIndex);
             stream.Serialize(ref entry.m_actorIndex);
         }
 
+        // serialization is different in rogues
         public static void Deserialize(IBitStream stream, HitActorEntry entry)
         {
             stream.Serialize(ref entry.m_segmentIndex);

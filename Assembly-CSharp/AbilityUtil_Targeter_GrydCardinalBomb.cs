@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -66,7 +68,11 @@ public class AbilityUtil_Targeter_GrydCardinalBomb : AbilityUtil_Targeter
                     false,
                     0,
                     targetingActor,
-                    targetingActor.GetEnemyTeamAsList(),
+#if VANILLA
+                    targetingActor.GetEnemyTeamAsList(), // reactor
+#else
+                    targetingActor.GetOtherTeams(), // rogues
+#endif
                     null,
                     segment.m_hitActorsMap,
                     actorsToExclude);

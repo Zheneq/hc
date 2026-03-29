@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -220,4 +222,299 @@ public class GrydPlaceOrMoveBomb : Ability
             ? m_syncComp.m_bombLocation
             : GridPos.s_invalid;
     }
+
+#if SERVER
+    // added in rogues
+    private GrydBombEffect GetBombEffect(GridPos targetPos, ActorData caster)
+    {
+        foreach (Effect effect in ServerEffectManager.Get().GetWorldEffectsByCaster(caster, typeof(GrydBombEffect)))
+        {
+            if (targetPos.CoordsEqual(effect.TargetSquare.GetGridPos()))
+            {
+                return effect as GrydBombEffect;
+            }
+        }
+
+        return null;
+    }
+
+    // added in rogues
+    public override void Run(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        base.Run(targets, caster, additionalData);
+
+        if (m_syncComp == null)
+        {
+            return;
+        }
+
+        if (HasPlacedBomb())
+        {
+            if (m_explodeImmediatelyOnMove)
+            {
+                m_syncComp.m_bombLocation = GridPos.s_invalid;
+            }
+            else
+            {
+                m_syncComp.m_bombLocation = GetPushEndPos(targets[0].FreePos, out bool hitActor);
+                if (m_explodeImmediatelyOnMove || hitActor)
+                {
+                    m_syncComp.m_bombLocation = GridPos.s_invalid;
+                }
+            }
+        }
+        else
+        {
+            ActorData occupantActor = Board.Get().GetSquare(targets[0].GridPos).OccupantActor;
+            if (occupantActor != null && occupantActor.GetTeam() != caster.GetTeam())
+            {
+                m_syncComp.m_bombLocation = GridPos.s_invalid;
+            }
+            else
+            {
+                m_syncComp.m_bombLocation = targets[0].GridPos;
+            }
+        }
+    }
+
+    // added in rogues
+    public override List<ServerClientUtils.SequenceStartData> GetAbilityRunSequenceStartDataList(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ServerAbilityUtils.AbilityRunData additionalData)
+    {
+        List<ServerClientUtils.SequenceStartData> result = new List<ServerClientUtils.SequenceStartData>();
+        BoardSquare square = Board.Get().GetSquare(targets[0].GridPos);
+        GrydBombEffect bombEffect = GetBombEffect(GetPlacedBomb(), caster);
+        GameObject prefab = m_castSequencePrefab;
+        SplineProjectileSequence.DelayedProjectileExtraParams delayedProjectileExtraParams =
+            new SplineProjectileSequence.DelayedProjectileExtraParams();
+        bool isExploding;
+        if (bombEffect != null)
+        {
+            result.Add(
+                new ServerClientUtils.SequenceStartData(
+                    null,
+                    bombEffect.TargetSquare.ToVector3(),
+                    new ActorData[0],
+                    caster,
+                    additionalData.m_sequenceSource));
+            square = Board.Get().GetSquare(GetPushEndPos(targets[0].FreePos, out bool hitActor));
+            prefab = m_moveBombSequencePrefab;
+            delayedProjectileExtraParams.useOverrideStartPos = true;
+            delayedProjectileExtraParams.overrideStartPos = bombEffect.TargetSquare.ToVector3();
+            isExploding = m_explodeImmediatelyOnMove || hitActor;
+        }
+        else
+        {
+            isExploding = m_explodeThisTurnOnDirectHit
+                          && square.OccupantActor != null
+                          && square.OccupantActor.GetTeam() != caster.GetTeam();
+        }
+
+        result.Add(
+            new ServerClientUtils.SequenceStartData(
+                prefab,
+                square,
+                new ActorData[0],
+                caster,
+                additionalData.m_sequenceSource,
+                delayedProjectileExtraParams.ToArray()));
+        if (isExploding)
+        {
+            float explosionRangeInWorld = m_explosionLaserRange * Board.Get().squareSize;
+            result.Add(
+                new ServerClientUtils.SequenceStartData(
+                    m_explodeBombSequencePrefab,
+                    square.ToVector3(),
+                    Quaternion.LookRotation(new Vector3(explosionRangeInWorld, 0f, 0f)),
+                    additionalData.m_abilityResults.HitActorsArray(),
+                    caster,
+                    additionalData.m_sequenceSource));
+            result.Add(
+                new ServerClientUtils.SequenceStartData(
+                    m_explodeBombSequencePrefab,
+                    square.ToVector3(),
+                    Quaternion.LookRotation(new Vector3(-explosionRangeInWorld, 0f, 0f)),
+                    new ActorData[0],
+                    caster,
+                    additionalData.m_sequenceSource));
+            result.Add(
+                new ServerClientUtils.SequenceStartData(
+                    m_explodeBombSequencePrefab,
+                    square.ToVector3(),
+                    Quaternion.LookRotation(new Vector3(0f, 0f, explosionRangeInWorld)),
+                    new ActorData[0],
+                    caster,
+                    additionalData.m_sequenceSource));
+            result.Add(
+                new ServerClientUtils.SequenceStartData(
+                    m_explodeBombSequencePrefab,
+                    square.ToVector3(),
+                    Quaternion.LookRotation(new Vector3(0f, 0f, -explosionRangeInWorld)),
+                    new ActorData[0],
+                    caster,
+                    additionalData.m_sequenceSource));
+        }
+
+        return result;
+    }
+
+    // added in rogues
+    public override void GatherAbilityResults(
+        List<AbilityTarget> targets,
+        ActorData caster,
+        ref AbilityResults abilityResults)
+    {
+        GrydBombEffect bombEffect = GetBombEffect(GetPlacedBomb(), caster);
+        Vector3 vector;
+        BoardSquare square;
+        bool isExploding;
+        if (bombEffect != null)
+        {
+            vector = bombEffect.TargetSquare.ToVector3();
+            PositionHitResults positionHitResults = new PositionHitResults(new PositionHitParameters(vector));
+            positionHitResults.AddEffectForRemoval(bombEffect, ServerEffectManager.Get().GetWorldEffects());
+            abilityResults.StorePositionHit(positionHitResults);
+            GridPos pushEndPos = GetPushEndPos(targets[0].FreePos, out bool hitActor);
+            square = Board.Get().GetSquare(pushEndPos);
+            isExploding = m_explodeImmediatelyOnMove || hitActor;
+        }
+        else
+        {
+            square = Board.Get().GetSquare(targets[0].GridPos);
+            isExploding = m_explodeThisTurnOnDirectHit
+                          && square.OccupantActor != null
+                          && square.OccupantActor.GetTeam() != caster.GetTeam();
+            vector = square.ToVector3();
+        }
+
+        if (isExploding)
+        {
+            List<NonActorTargetInfo> nonActorTargetInfos = new List<NonActorTargetInfo>();
+            foreach (ActorData target in GetHitActors(caster, square, nonActorTargetInfos))
+            {
+                ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(target, vector));
+                actorHitResults.AddBaseDamage(m_damageAmount);
+                abilityResults.StoreActorHit(actorHitResults);
+            }
+
+            ActorHitResults casterHitResults = new ActorHitResults(new ActorHitParameters(caster, caster.GetFreePos()));
+            casterHitResults.AddMiscHitEvent(
+                new MiscHitEventData_AddToCasterCooldown(
+                    caster.GetAbilityData().GetActionTypeOfAbility(this),
+                    m_cooldownAfterExplode)
+                {
+                    m_ignoreCooldownMax = true
+                });
+            abilityResults.StoreActorHit(casterHitResults);
+            abilityResults.StoreNonActorTargetInfo(nonActorTargetInfos);
+        }
+        else
+        {
+            PositionHitResults positionHitResults =
+                new PositionHitResults(new PositionHitParameters(square.ToVector3()));
+            positionHitResults.AddEffect(
+                new GrydBombEffect(
+                    AsEffectSource(),
+                    square,
+                    caster,
+                    m_damageAmount,
+                    m_explosionLaserRange,
+                    m_explosionLaserWidth,
+                    false,
+                    m_bombDuration,
+                    m_persistentBombSequencePrefab,
+                    m_explodeBombSequencePrefab,
+                    m_cooldownAfterExplode));
+            abilityResults.StorePositionHit(positionHitResults);
+        }
+    }
+
+    // added in rogues
+    private List<ActorData> GetHitActors(
+        ActorData caster,
+        BoardSquare targetSquare,
+        List<NonActorTargetInfo> nonActorTargets)
+    {
+        Vector3 targetPos = caster.GetLoSCheckPos(targetSquare);
+        List<ActorData> result;
+        if (m_explosionLaserRange <= 0f)
+        {
+            result = new List<ActorData>();
+            if (targetSquare.OccupantActor != null
+                && targetSquare.OccupantActor.GetTeam() != caster.GetTeam())
+            {
+                result.Add(targetSquare.OccupantActor);
+            }
+        }
+        else
+        {
+            List<Team> otherTeams = caster.GetOtherTeams();
+            result = AreaEffectUtils.GetActorsInLaser(
+                targetPos,
+                new Vector3(1f, 0f, 0f),
+                m_explosionLaserRange,
+                m_explosionLaserWidth,
+                caster,
+                otherTeams,
+                false,
+                0,
+                false,
+                true,
+                out _,
+                nonActorTargets);
+            result.AddRange(
+                AreaEffectUtils.GetActorsInLaser(
+                    targetPos,
+                    new Vector3(-1f, 0f, 0f),
+                    m_explosionLaserRange,
+                    m_explosionLaserWidth,
+                    caster,
+                    otherTeams,
+                    false,
+                    0,
+                    false,
+                    true,
+                    out _,
+                    nonActorTargets,
+                    result));
+            result.AddRange(
+                AreaEffectUtils.GetActorsInLaser(
+                    targetPos,
+                    new Vector3(0f, 0f, 1f),
+                    m_explosionLaserRange,
+                    m_explosionLaserWidth,
+                    caster,
+                    otherTeams,
+                    false,
+                    0,
+                    false,
+                    true,
+                    out _,
+                    nonActorTargets,
+                    result));
+            result.AddRange(
+                AreaEffectUtils.GetActorsInLaser(
+                    targetPos,
+                    new Vector3(0f, 0f, -1f),
+                    m_explosionLaserRange,
+                    m_explosionLaserWidth,
+                    caster,
+                    otherTeams,
+                    false,
+                    0,
+                    false,
+                    true,
+                    out _,
+                    nonActorTargets,
+                    result));
+        }
+
+        return result;
+    }
+#endif
 }
