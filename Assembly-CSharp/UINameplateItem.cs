@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+#if EVOS
+using Evos.ActorStatus;
+#endif
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -57,12 +60,18 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
     public struct StatusDisplayInfo
     {
         public StatusType statusType;
+#if EVOS
+        public EvosActorStatusType evosStatusType;
+#endif
         public UINameplateStatus statusObject;
     }
 
     public struct StaticStatusDisplayInfo
     {
         public StatusType statusType;
+#if EVOS
+        public EvosActorStatusType evosStatusType;
+#endif
         public UIBuffIndicator statusObject;
         public bool m_removedBuff;
     }
@@ -602,9 +611,21 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         }
     }
 
-    public void StatusFadeOutDone(StatusType newType)
+    public void StatusFadeOutDone(StatusType newType
+#if EVOS
+        , EvosActorStatusType newEvosStatusType
+#endif
+        )
     {
-        HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(newType);
+#if EVOS
+        Log.Info($"UINameplateItem.StatusFadeOutDone: {m_actorData} {newType} {newEvosStatusType}");
+        
+        HUD_UIResources.StatusTypeIcon iconForStatusType = newType == StatusType.INVALID
+            ? EvosActorStatusRepo.GetIconForStatusType(newEvosStatusType)
+            : HUD_UIResources.GetIconForStatusType(newType);
+#else
+                HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(newType);
+#endif
         if (!iconForStatusType.displayIcon)
         {
             return;
@@ -637,6 +658,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         StatusDisplayInfo item;
         item.statusObject = uINameplateStatus;
         item.statusType = newType;
+#if EVOS
+        item.evosStatusType = newEvosStatusType;
+#endif
         m_statusEffectsAnimating.Add(item);
         m_currentStatusStackCount++;
     }
@@ -688,6 +712,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         {
             return;
         }
+  
+#if EVOS      
+        Log.Info($"UINameplateItem.AddStatus: {m_actorData} {newType}"); // TODO debug
+#endif
 
         UINameplateStatus uINameplateStatus = Instantiate(m_statusPrefab);
         uINameplateStatus.transform.SetParent(m_statusContainer.transform);
@@ -715,12 +743,19 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         StatusDisplayInfo item;
         item.statusObject = uINameplateStatus;
         item.statusType = newType;
+#if EVOS
+        item.evosStatusType = EvosActorStatusType.NONE;
+#endif
         m_statusEffectsAnimating.Add(item);
         m_currentStatusStackCount++;
     }
 
     public void RemoveStatus(StatusType newType)
     {
+#if EVOS      
+        Log.Info($"UINameplateItem.RemoveStatus: {m_actorData} {newType}"); // TODO debug
+#endif
+        
         for (int i = 0; i < m_statusEffects.Count; i++)
         {
             StaticStatusDisplayInfo value = m_statusEffects[i];
@@ -731,6 +766,72 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
             }
         }
     }
+    
+#if EVOS
+    public void AddStatus(EvosActorStatusType newType)
+    {
+        if (!gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        HUD_UIResources.StatusTypeIcon iconForStatusType = EvosActorStatusRepo.GetIconForStatusType(newType);
+        if (!iconForStatusType.displayIcon)
+        {
+            return;
+        }
+        
+        Log.Info($"UINameplateItem.AddStatus: {m_actorData} {newType}");
+
+        UINameplateStatus uINameplateStatus = Instantiate(m_statusPrefab);
+        uINameplateStatus.transform.SetParent(m_statusContainer.transform);
+        uINameplateStatus.transform.localScale = Vector3.one;
+        uINameplateStatus.transform.localEulerAngles = Vector3.zero;
+        (uINameplateStatus.transform.transform as RectTransform).anchoredPosition = new Vector2(
+            m_currentStatusStackCount * HUD_UIResources.Get().m_nameplateStatusHorizontalShiftAmt,
+            m_currentStatusStackCount * (uINameplateStatus.transform as RectTransform).rect.height);
+        Vector3 localPosition = uINameplateStatus.transform.localPosition;
+        localPosition.z = 0f;
+        uINameplateStatus.transform.localPosition = localPosition;
+        uINameplateStatus.m_StatusIcon.sprite = iconForStatusType.icon;
+        uINameplateStatus.m_StatusText.text = iconForStatusType.popupText;
+        uINameplateStatus.m_StatusText.font = iconForStatusType.isDebuff ? m_debuffFont : m_buffFont;
+
+        if (iconForStatusType.isDebuff)
+        {
+            uINameplateStatus.DisplayAsNegativeStatus(this);
+        }
+        else
+        {
+            uINameplateStatus.DisplayAsPositiveStatus(this);
+        }
+
+        StatusDisplayInfo item;
+        item.statusObject = uINameplateStatus;
+        item.statusType = StatusType.INVALID;
+        item.evosStatusType = newType;
+        m_statusEffectsAnimating.Add(item);
+        m_currentStatusStackCount++;
+    }
+
+    public bool RemoveStatus(EvosActorStatusType newType)
+    {
+        Log.Info($"UINameplateItem.RemoveStatus: {m_actorData} {newType}");
+        
+        for (int i = 0; i < m_statusEffects.Count; i++)
+        {
+            StaticStatusDisplayInfo value = m_statusEffects[i];
+            if (value.evosStatusType == newType)
+            {
+                value.m_removedBuff = true;
+                m_statusEffects[i] = value;
+                return true;
+            }
+        }
+
+        return false;
+    }
+#endif
 
     public void UpdateStatusDuration(StatusType status, int newDuration)
     {
@@ -1557,21 +1658,47 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                 uIBuffIndicator.transform.localScale = Vector3.one;
                 uIBuffIndicator.transform.localPosition = Vector3.zero;
                 uIBuffIndicator.transform.localEulerAngles = Vector3.zero;
+#if EVOS
+                if (animatingEffect.statusType == StatusType.INVALID)
+                {
+                    uIBuffIndicator.Setup(animatingEffect.evosStatusType);
+                }
+                else
+                {
+                    uIBuffIndicator.Setup(
+                        animatingEffect.statusType,
+                        m_actorData.GetActorStatus().GetDurationOfStatus(animatingEffect.statusType));
+                }
+#else
                 uIBuffIndicator.Setup(
                     animatingEffect.statusType,
                     m_actorData.GetActorStatus().GetDurationOfStatus(animatingEffect.statusType));
+#endif
                 CanvasGroup component = uIBuffIndicator.gameObject.GetComponent<CanvasGroup>();
                 component.alpha = 0f;
                 StaticStatusDisplayInfo newEffect;
                 newEffect.m_removedBuff = false;
                 newEffect.statusObject = uIBuffIndicator;
                 newEffect.statusType = animatingEffect.statusType;
+#if EVOS
+                newEffect.evosStatusType = animatingEffect.evosStatusType;
+#endif
+#if EVOS
+                HUD_UIResources.StatusTypeIcon iconForStatusType = animatingEffect.statusType == StatusType.INVALID
+                    ? EvosActorStatusRepo.GetIconForStatusType(animatingEffect.evosStatusType)
+                    : HUD_UIResources.GetIconForStatusType(animatingEffect.statusType);
+#else
                 HUD_UIResources.StatusTypeIcon
                     iconForStatusType = HUD_UIResources.GetIconForStatusType(animatingEffect.statusType);
+#endif
                 bool isFound = false;
                 foreach (StaticStatusDisplayInfo statusEffect in m_statusEffects)
                 {
-                    if (!statusEffect.m_removedBuff && statusEffect.statusType == newEffect.statusType)
+                    if (!statusEffect.m_removedBuff && statusEffect.statusType == newEffect.statusType
+#if EVOS
+                            && statusEffect.evosStatusType == newEffect.evosStatusType
+#endif
+                        )
                     {
                         isFound = true;
                         break;
@@ -1585,8 +1712,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                         int index = 0;
                         for (int j = 0; j < m_statusEffects.Count; j++)
                         {
+#if EVOS
+                            HUD_UIResources.StatusTypeIcon icon = m_statusEffects[j].statusType == StatusType.INVALID
+                                ? EvosActorStatusRepo.GetIconForStatusType(m_statusEffects[j].evosStatusType)
+                                : HUD_UIResources.GetIconForStatusType(m_statusEffects[j].statusType);
+#else
                             HUD_UIResources.StatusTypeIcon icon =
                                 HUD_UIResources.GetIconForStatusType(m_statusEffects[j].statusType);
+#endif
                             if (icon.isDebuff)
                             {
                                 index = j;
@@ -1610,6 +1743,16 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
             m_statusEffectsAnimating.Remove(animatingEffect);
             Destroy(nameplateStatus.gameObject);
             i--;
+            
+#if EVOS
+            if (animatingEffect.statusType == StatusType.INVALID)
+            {
+                 // TODO is it broken?
+                 Log.Info($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done");
+                 RemoveStatus(animatingEffect.evosStatusType);
+            }
+            else
+#endif    
             if (!m_actorData.GetActorStatus().HasStatus(animatingEffect.statusType))
             {
                 RemoveStatus(animatingEffect.statusType);
@@ -2001,7 +2144,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 
                     if (component.alpha <= 0f)
                     {
-                        StatusFadeOutDone(m_statusEffects[i].statusType);
+#if EVOS
+                        Log.Info($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done (visible)"); // TODO debug
+#endif
+                        StatusFadeOutDone(m_statusEffects[i].statusType
+#if EVOS
+                            , m_statusEffects[i].evosStatusType
+#endif
+                        );
                         Destroy(m_statusEffects[i].statusObject.gameObject);
                         m_statusEffects.RemoveAt(i);
                         i--;
@@ -2012,11 +2162,24 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                     component.alpha = 0f;
                     if (m_statusEffects[i].m_removedBuff)
                     {
-                        StatusFadeOutDone(m_statusEffects[i].statusType);
+#if EVOS
+                        Log.Info($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done (invisible)"); // TODO debug
+#endif
+                        StatusFadeOutDone(m_statusEffects[i].statusType
+#if EVOS
+                            , m_statusEffects[i].evosStatusType
+#endif
+                        );
                         Destroy(m_statusEffects[i].statusObject.gameObject);
                         m_statusEffects.RemoveAt(i);
                         i--;
                     }
+#if EVOS
+                    else if (m_statusEffects[i].evosStatusType != EvosActorStatusType.NONE)
+                    {
+                        Log.Error($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done but it is not removed");
+                    }
+#endif
                 }
             }
         }

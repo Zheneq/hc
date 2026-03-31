@@ -1,3 +1,6 @@
+#if EVOS
+using Evos.ActorStatus;
+#endif
 using TMPro;
 using UnityEngine.UI;
 
@@ -25,4 +28,14 @@ public class UIBuffTooltip : UITooltipBase
 		}
 		m_buffDescriptionLabel.text = text;
 	}
+	
+#if EVOS
+	public void Setup(EvosActorStatusType status)
+	{
+		HUD_UIResources.StatusTypeIcon iconForStatusType = EvosActorStatusRepo.GetIconForStatusType(status);
+		m_buffIcon.sprite = iconForStatusType.icon;
+		m_buffNameLabel.text = iconForStatusType.buffName;
+		m_buffDescriptionLabel.text = iconForStatusType.buffDescription;
+	}
+#endif
 }
