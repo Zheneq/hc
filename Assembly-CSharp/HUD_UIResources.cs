@@ -1,5 +1,4 @@
 using System;
-using Evos.ActorStatus;
 using UnityEngine;
 
 public class HUD_UIResources : MonoBehaviour
@@ -330,12 +329,6 @@ public class HUD_UIResources : MonoBehaviour
 
     public static StatusTypeIcon GetIconForStatusType(StatusType statusType)
     {
-#if EVOS
-        if (statusType > StatusType.Evos_Start)
-        {
-            return EvosActorStatusRepo.GetIconForStatusType(statusType);
-        }
-#endif
         StatusTypeIcon result = new StatusTypeIcon
         {
             icon = null,

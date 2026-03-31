@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+#if EVOS
+using Evos.ActorStatus;
+#endif
 //using Escalation;
 //using Mirror;
 using UnityEngine;
@@ -1601,6 +1604,9 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 		{
 			CollectTheCoins.Get().OnTurnTick();
 		}
+#if EVOS
+		EvosActorStatusManager.Get()?.OnTurnTick();
+#endif
 		m_timeRemainingInDecision = Get().m_turnTime;
 
 		// added in rogues

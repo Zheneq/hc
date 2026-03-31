@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -45,6 +46,15 @@ namespace Evos.ActorStatus
             }
         }
 
+        public void OnTurnTick()
+        {
+            // List<ActorData> actorDatas = GameFlowData.Get().GetActors().Where(a => a != null).ToList();
+            // foreach (ActorData actorData in actorDatas.Where(a => a.m_characterType == CharacterType.Dino))
+            // {
+            //     UpdateDinoPowerLevel(actorData);
+            // } 
+        }
+
         public void OnSequenceAdded(Sequence[] sequences, int prefabID)
         {
             SequenceStatusInfo statusInfo = EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(prefabID);
@@ -53,44 +63,40 @@ namespace Evos.ActorStatus
                 return;
             }
             Log.Info($"OnSequenceAdded: {statusInfo} {string.Join(", ", sequences.Select(x => x.ToString()).ToArray())}");
-            StartEffect(sequences.First(), statusInfo.Type);
+            StartEffect(sequences.First(), statusInfo);
         }
 
-        private void StartEffect(Sequence sequence, StatusType status)
+        private void StartEffect(Sequence sequence, SequenceStatusInfo statusInfo)
         {
             if (sequence.Targets.IsNullOrEmpty())
             {
                 return;
             }
-            var panel = UIMainScreenPanel.Get();
-            if (panel is null)
+
+            ActorData[] sequenceTargets = statusInfo.UseCaster ? new [] { sequence.Caster } : sequence.Targets;
+            if (sequenceTargets.Contains(null))
             {
-                Log.Error("EvosActorStatusManager.OnSequenceAdded: Failed to get UIMainScreenPanel");
-                return;
+                Log.Warning($"EvosActorStatusManager.OnSequenceAdded: Target actors for {statusInfo.Type} contains nulls");
+                sequenceTargets = sequenceTargets.Where(x => !(x is null)).ToArray();
             }
-            foreach (ActorData targetActor in sequence.Targets)
+
+            if (AddStatus(sequenceTargets, statusInfo.Type))
             {
-                if (panel.m_nameplatePanel.GetNameplates().TryGetValue(targetActor, out var nameplateItem))
-                {
-                    nameplateItem.AddStatus(status);
-                }
-                else
-                {
-                    Log.Error($"EvosActorStatusManager.OnSequenceAdded: Failed to get nameplate panel for {targetActor}");
-                }
+                AppliedStatuses[sequence.Id] = new AppliedStatusInfo(sequenceTargets, statusInfo.Type);
             }
-            AppliedStatuses[sequence.Id] = new AppliedStatusInfo(sequence.Targets, status);
         }
 
         public void OnSequenceHit(Sequence sequence)
         {
-            SequenceStatusInfo statusInfo = EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(sequence.PrefabLookupId);
+            SequenceStatusInfo statusInfo =
+                EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(sequence.PrefabLookupId);
             if (statusInfo is null || !statusInfo.RemoveOnHit)
             {
                 return;
             }
+
             Log.Info($"OnSequenceHit: {statusInfo} {sequence}");
-            
+
             EndEffect(sequence);
         }
 
@@ -106,36 +112,119 @@ namespace Evos.ActorStatus
             {
                 return;
             }
-            
+            Log.Info($"EndEffect: {sequence}");
+
+            if (RemoveStatus(info.Actors, info.Status))
+            {
+                AppliedStatuses.Remove(id);
+            }
+        }
+        
+        // TODO optimize?
+        public int GetStatusCount(ActorData actor, EvosActorStatusType status)
+        {
+            return AppliedStatuses.Values
+                .Count(appliedStatusInfo =>
+                    appliedStatusInfo.Status == status
+                    && appliedStatusInfo.Actors.Contains(actor));
+        }
+
+        public static bool AddStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType)
+        {
+            Log.Info($"EvosActorStatusManager.AddStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a.ToString()).ToArray())}");
+            return UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.AddStatus(type));
+        }
+
+        public static bool RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType)
+        {
+            Log.Info($"EvosActorStatusManager.RemoveStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a.ToString()).ToArray())}");
+            return UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.RemoveStatus(type));
+        }
+
+        private static bool UpdateStatus(
+            ActorData[] targetActors,
+            EvosActorStatusType evosStatusType,
+            Action<UINameplateItem, EvosActorStatusType> method)
+        {
             var panel = UIMainScreenPanel.Get();
             if (panel is null)
             {
-                Log.Error("EvosActorStatusManager.OnSequenceRemoved: Failed to get UIMainScreenPanel");
-                return;
+                Log.Error("EvosActorStatusManager.UpdateStatus: Failed to get UIMainScreenPanel");
+                return false;
             }
-            
-            foreach (ActorData targetActor in info.Actors)
+
+            foreach (ActorData targetActor in targetActors)
             {
+                if (targetActor is null)
+                {
+                    Log.Error($"EvosActorStatusManager.UpdateStatus: Target actor is null for status {evosStatusType}");
+                    continue;
+                }
+
                 if (panel.m_nameplatePanel.GetNameplates().TryGetValue(targetActor, out var nameplateItem))
                 {
-                    nameplateItem.RemoveStatus(info.Status);
+                    method.Invoke(nameplateItem, evosStatusType);
                 }
                 else
                 {
-                    Log.Error($"EvosActorStatusManager.OnSequenceRemoved: Failed to get nameplate panel for {targetActor}");
+                    Log.Error($"EvosActorStatusManager.UpdateStatus: Failed to get nameplate panel for {targetActor}");
                 }
             }
 
-            AppliedStatuses.Remove(id);
+            return true;
+        }
+    
+        private static readonly Dictionary<int, EvosActorStatusType> Statuses = new Dictionary<int, EvosActorStatusType>
+        {
+            { 0, EvosActorStatusType.Dino_PowerDrive_1 },
+            { 1, EvosActorStatusType.Dino_PowerDrive_2 },
+            { 2, EvosActorStatusType.Dino_PowerDrive_3 },
+        };
+        
+        public static void UpdateDinoPowerLevel(ActorData dino)
+        {
+            if (dino == null)
+            {
+                return;
+            }
+            
+            ActorData[] targetActors = { dino };
+            
+            var syncComp = dino.GetComponent<Dino_SyncComponent>();
+            var ability =
+                dino.GetAbilityData()?.GetAbilityOfActionType(AbilityData.ActionType.ABILITY_0) as DinoLayerCones;
+            if (syncComp == null || ability == null)
+            {
+                Log.Error($"EvosActorStatusManager.UpdateDinoPowerLevel: SyncComp or ability for {dino} not found!");
+                foreach (EvosActorStatusType statusToRemove in Statuses.Values)
+                {
+                    RemoveStatus(targetActors, statusToRemove);
+                }
+                return;
+            }
+            
+            int powerLevel = Math.Min(syncComp.m_layerConePowerLevel, ability.GetLayerCount() - 1);
+            Log.Info($"EvosActorStatusManager.UpdateDinoPowerLevel: Level {powerLevel} - {dino}");
+            Statuses.TryGetValue(powerLevel, out EvosActorStatusType status);
+            
+            foreach (EvosActorStatusType statusToRemove in Statuses.Values)
+            {
+                RemoveStatus(targetActors, statusToRemove);
+            }
+
+            if (status != EvosActorStatusType.NONE)
+            {
+                AddStatus(targetActors, status);
+            }
         }
     }
 
     internal class AppliedStatusInfo
     {
         public readonly ActorData[] Actors;
-        public readonly StatusType Status;
+        public readonly EvosActorStatusType Status;
 
-        public AppliedStatusInfo(ActorData[] actors, StatusType status)
+        public AppliedStatusInfo(ActorData[] actors, EvosActorStatusType status)
         {
             Actors = actors;
             Status = status;

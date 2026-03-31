@@ -51,7 +51,7 @@ namespace Evos
                 return null;
             }
             
-            Log.Info($"Loading evos asset {assetName} from {string.Join(",", EvosBundle.GetAllAssetNames())}");
+            // Log.Info($"Loading evos asset {assetName} from {string.Join(",", EvosBundle.GetAllAssetNames())}");
             return EvosBundle.LoadAsset<T>(assetName);
         }
     }

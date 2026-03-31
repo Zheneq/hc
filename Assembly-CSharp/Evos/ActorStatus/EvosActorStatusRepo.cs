@@ -11,33 +11,35 @@ namespace Evos.ActorStatus
         
         private static readonly List<EvosActorStatusData> List = new List<EvosActorStatusData>
         {
-            new EvosActorStatusData(StatusType.BazookaGirl_StickyBomb, BasePath + "status_effect_bazookagirl_sticky.png", true),
-            new EvosActorStatusData(StatusType.Blaster_Overcharged, BasePath + "status_effect_blaster_overcharged.png", false),
-            new EvosActorStatusData(StatusType.Claymore_DirtyFighting, BasePath + "status_effect_claymore_dirty.png", true),
-            new EvosActorStatusData(StatusType.Dino_PowerDrive, BasePath + "status_effect_dino_powerdrive.png", false),
-            new EvosActorStatusData(StatusType.Fireborg_Ignited, BasePath + "status_effect_fireborg_ignited.png", true),
-            new EvosActorStatusData(StatusType.Iceborg_IceCore, BasePath + "status_effect_iceborg_icecore.png", true),
-            new EvosActorStatusData(StatusType.Ninja_VoidMark, BasePath + "status_effect_ninja_voidmark.png", true),
-            new EvosActorStatusData(StatusType.Samurai_Fury, BasePath + "status_effect_samurai_fury.png", false),
+            new EvosActorStatusData(EvosActorStatusType.BazookaGirl_StickyBomb, BasePath + "status_effect_bazookagirl_sticky.png", true),
+            new EvosActorStatusData(EvosActorStatusType.Blaster_Overcharged, BasePath + "status_effect_blaster_overcharged.png", false),
+            new EvosActorStatusData(EvosActorStatusType.Claymore_DirtyFighting, BasePath + "status_effect_claymore_dirty.png", true),
+            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_1, BasePath + "status_effect_dino_powerdrive.png", false), // TODO
+            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_2, BasePath + "status_effect_dino_powerdrive.png", false), // TODO
+            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_3, BasePath + "status_effect_dino_powerdrive.png", false), // TODO
+            new EvosActorStatusData(EvosActorStatusType.Fireborg_Ignited, BasePath + "status_effect_fireborg_ignited.png", true),
+            new EvosActorStatusData(EvosActorStatusType.Iceborg_IceCore, BasePath + "status_effect_iceborg_icecore.png", true),
+            new EvosActorStatusData(EvosActorStatusType.Ninja_VoidMark, BasePath + "status_effect_ninja_voidmark.png", true),
+            new EvosActorStatusData(EvosActorStatusType.Samurai_Fury, BasePath + "status_effect_samurai_fury.png", false),
         };
 
-        private static readonly Dictionary<StatusType, EvosActorStatusData> Data = List.ToDictionary(x => x.Type);
+        private static readonly Dictionary<EvosActorStatusType, EvosActorStatusData> Data = List.ToDictionary(x => x.Type);
 
         private static readonly Dictionary<int, SequenceStatusInfo> PrefabIdToStatusType = new Dictionary<int, SequenceStatusInfo>
         {
-            { 57, new SequenceStatusInfo(StatusType.BazookaGirl_StickyBomb, true) },
-            { 59, new SequenceStatusInfo(StatusType.BazookaGirl_StickyBomb, false) },
-            { 67, new SequenceStatusInfo(StatusType.Blaster_Overcharged, false) },
-            { 109, new SequenceStatusInfo(StatusType.Claymore_DirtyFighting, false) },
-            // { 0, StatusType.Dino_PowerDrive },
-            { 216, new SequenceStatusInfo(StatusType.Fireborg_Ignited, false) },
-            { 272, new SequenceStatusInfo(StatusType.Iceborg_IceCore, false) },
-            { 389, new SequenceStatusInfo(StatusType.Ninja_VoidMark, false) },
-            { 481, new SequenceStatusInfo(StatusType.Samurai_Fury, false) },
+            { 57, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, false) }, // TODO it would be cool if it removed on explosion
+            // { 59, new SequenceStatusInfo(EvosStatusType.BazookaGirl_StickyBomb, true) }, // is added and hits on explosion
+            { 67, new SequenceStatusInfo(EvosActorStatusType.Blaster_Overcharged, false) },
+            { 109, new SequenceStatusInfo(EvosActorStatusType.Claymore_DirtyFighting, false) },
+            // { 0, EvosStatusType.Dino_PowerDrive },
+            { 216, new SequenceStatusInfo(EvosActorStatusType.Fireborg_Ignited, false) },
+            { 272, new SequenceStatusInfo(EvosActorStatusType.Iceborg_IceCore, false) },
+            { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, false, useCaster: true) },
+            // { 481, new SequenceStatusInfo(EvosStatusType.Samurai_Fury, false) },
         };
     
         // see HUD_UIResources.GetIconForStatusType
-        public static HUD_UIResources.StatusTypeIcon GetIconForStatusType(StatusType statusType)
+        public static HUD_UIResources.StatusTypeIcon GetIconForStatusType(EvosActorStatusType statusType)
         {
             HUD_UIResources.StatusTypeIcon result = new HUD_UIResources.StatusTypeIcon
             {
@@ -55,13 +57,13 @@ namespace Evos.ActorStatus
             if (evosAssetBundleManager != null && Data.TryGetValue(statusType, out var data))
             {
                 result.icon = evosAssetBundleManager.LoadAsset<Sprite>(data.AssetPath);
-                result.type = data.Type;
+                result.type = StatusType.INVALID;
                 result.isDebuff = data.IsDebuff;
                 result.displayIcon = true;
                 result.displayInStatusList = true;
-                result.popupText = StringUtil.GetStatusIconPopupText((int)data.Type);
-                result.buffDescription = StringUtil.GetStatusIconBuffDesc((int)data.Type);
-                result.buffName = StringUtil.GetStatusIconBuffName((int)data.Type);
+                result.popupText = StringUtil.GetStatusIconPopupText(1000 + (int)data.Type); // TODO magic numbers
+                result.buffDescription = StringUtil.GetStatusIconBuffDesc(1000 + (int)data.Type);
+                result.buffName = StringUtil.GetStatusIconBuffName(1000 + (int)data.Type);
             }
 
             return result;
@@ -75,28 +77,30 @@ namespace Evos.ActorStatus
 
     public class SequenceStatusInfo
     {
-        public readonly StatusType Type;
+        public readonly EvosActorStatusType Type;
         public readonly bool RemoveOnHit; // TODO something more straightforward
+        public readonly bool UseCaster; // instead of target
 
-        public SequenceStatusInfo(StatusType type, bool removeOnHit)
+        public SequenceStatusInfo(EvosActorStatusType type, bool removeOnHit, bool useCaster = false)
         {
             Type = type;
             RemoveOnHit = removeOnHit;
+            UseCaster = useCaster;
         }
 
         public override string ToString()
         {
-            return $"<{Type.ToString()} RemoveOnHit={RemoveOnHit}>";
+            return $"<{Type.ToString()} RemoveOnHit={RemoveOnHit} UseCaster={UseCaster}>";
         }
     }
 
     public class EvosActorStatusData
     {
-        public readonly StatusType Type;
+        public readonly EvosActorStatusType Type;
         public readonly string AssetPath;
         public readonly bool IsDebuff;
 
-        public EvosActorStatusData(StatusType type, string assetPath, bool isDebuff)
+        public EvosActorStatusData(EvosActorStatusType type, string assetPath, bool isDebuff)
         {
             Type = type;
             AssetPath = assetPath;
