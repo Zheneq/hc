@@ -9,11 +9,17 @@ namespace Evos.ActorStatus
     // TODO Sticky doesn't disappear immediately after exploding (Ice Core does) (react to seq 59? react to sequence hit?)
     // TODO statuses do not show in lower left corner (and when they will, will it work in 4lancer?)
     // TODO how does it work with duplicate characters? (Can we put casters' names in debuffs?)
+    // TODO for duplicate effects, one of the icons is missing
+    // TODO instantly readded statuses are instantly removed from nameplate
     public class EvosActorStatusManager: MonoBehaviour
     {
         private static EvosActorStatusManager s_instance;
 
         private readonly Dictionary<int, AppliedStatusInfo> AppliedStatuses = new Dictionary<int, AppliedStatusInfo>();
+
+        private readonly Dictionary<ActorData, List<EvosActorStatusType>> PendingRemoval = new Dictionary<ActorData, List<EvosActorStatusType>>();
+
+        private const int NO_SEQUENCE_ID = -1; // TODO can't use same id for multiple actors
     
         public static EvosActorStatusManager Get()
         {
@@ -43,6 +49,12 @@ namespace Evos.ActorStatus
             if (newState == GameState.StartingGame || newState == GameState.EndingGame)
             {
                 AppliedStatuses.Clear();
+                PendingRemoval.Clear();
+                foreach (ActorData actorData in GameFlowData.Get().GetActors())
+                {
+                    Log.Info($"EvosActorStatusManager: Initializing pending removal for {actorData}");
+                    PendingRemoval.Add(actorData, new List<EvosActorStatusType>());
+                }
             }
         }
 
@@ -68,22 +80,20 @@ namespace Evos.ActorStatus
 
         private void StartEffect(Sequence sequence, SequenceStatusInfo statusInfo)
         {
-            if (sequence.Targets.IsNullOrEmpty())
+            ActorData[] sequenceTargets = statusInfo.UseCaster ? new [] { sequence.Caster } : sequence.Targets;
+            if (sequenceTargets.IsNullOrEmpty())
             {
+                Log.Warning($"StartEffect: no targets for {statusInfo}");
                 return;
             }
 
-            ActorData[] sequenceTargets = statusInfo.UseCaster ? new [] { sequence.Caster } : sequence.Targets;
             if (sequenceTargets.Contains(null))
             {
                 Log.Warning($"EvosActorStatusManager.OnSequenceAdded: Target actors for {statusInfo.Type} contains nulls");
                 sequenceTargets = sequenceTargets.Where(x => !(x is null)).ToArray();
             }
 
-            if (AddStatus(sequenceTargets, statusInfo.Type))
-            {
-                AppliedStatuses[sequence.Id] = new AppliedStatusInfo(sequenceTargets, statusInfo.Type);
-            }
+            AddStatus(sequenceTargets, statusInfo.Type, sequence.Id);
         }
 
         public void OnSequenceHit(Sequence sequence)
@@ -114,10 +124,7 @@ namespace Evos.ActorStatus
             }
             Log.Info($"EndEffect: {sequence}");
 
-            if (RemoveStatus(info.Actors, info.Status))
-            {
-                AppliedStatuses.Remove(id);
-            }
+            RemoveStatus(info.Actors, info.Status, sequence.Id);
         }
         
         // TODO optimize?
@@ -129,16 +136,53 @@ namespace Evos.ActorStatus
                     && appliedStatusInfo.Actors.Contains(actor));
         }
 
-        public static bool AddStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType)
+        public bool AddStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
         {
             Log.Info($"EvosActorStatusManager.AddStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a.ToString()).ToArray())}");
-            return UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.AddStatus(type));
+            bool result = UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.AddStatus(type));
+            if (result)
+            {
+                AppliedStatuses[sequenceId] = new AppliedStatusInfo(targetActors,evosStatusType);
+            }
+
+            return result;
         }
 
-        public static bool RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType)
+        public bool RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
         {
             Log.Info($"EvosActorStatusManager.RemoveStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a.ToString()).ToArray())}");
-            return UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.RemoveStatus(type));
+            bool result = UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.RemoveStatus(type));
+            if (AppliedStatuses.Remove(sequenceId))
+            {
+                foreach (ActorData targetActor in targetActors)
+                {
+                    GetPendingRemovalFor(targetActor).Add(evosStatusType);
+                }
+            }
+
+            return result;
+        }
+
+        private List<EvosActorStatusType> GetPendingRemovalFor(ActorData actor)
+        {
+            if (!PendingRemoval.TryGetValue(actor, out var result))
+            {
+                result = new List<EvosActorStatusType>();
+                PendingRemoval.Add(actor, new List<EvosActorStatusType>());
+                Log.Error($"EvosActorStatusManager: Pending removal not initialized for {actor}");
+            }
+
+            return result;
+        }
+
+        public bool IsPendingRemoval(ActorData actor, EvosActorStatusType status)
+        {
+            return GetPendingRemovalFor(actor).Contains(status);
+        }
+
+        public bool PendingRemovalProcessed(ActorData actor, EvosActorStatusType status)
+        {
+            return GetPendingRemovalFor(actor).Remove(status);
         }
 
         private static bool UpdateStatus(
@@ -181,7 +225,7 @@ namespace Evos.ActorStatus
             { 2, EvosActorStatusType.Dino_PowerDrive_3 },
         };
         
-        public static void UpdateDinoPowerLevel(ActorData dino)
+        public void UpdateDinoPowerLevel(ActorData dino)
         {
             if (dino == null)
             {
@@ -198,7 +242,7 @@ namespace Evos.ActorStatus
                 Log.Error($"EvosActorStatusManager.UpdateDinoPowerLevel: SyncComp or ability for {dino} not found!");
                 foreach (EvosActorStatusType statusToRemove in Statuses.Values)
                 {
-                    RemoveStatus(targetActors, statusToRemove);
+                    RemoveStatus(targetActors, statusToRemove, NO_SEQUENCE_ID);
                 }
                 return;
             }
@@ -209,12 +253,12 @@ namespace Evos.ActorStatus
             
             foreach (EvosActorStatusType statusToRemove in Statuses.Values)
             {
-                RemoveStatus(targetActors, statusToRemove);
+                RemoveStatus(targetActors, statusToRemove, NO_SEQUENCE_ID);
             }
 
             if (status != EvosActorStatusType.NONE)
             {
-                AddStatus(targetActors, status);
+                AddStatus(targetActors, status, NO_SEQUENCE_ID);
             }
         }
     }

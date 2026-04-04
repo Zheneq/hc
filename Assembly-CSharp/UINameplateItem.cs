@@ -1692,18 +1692,25 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                     iconForStatusType = HUD_UIResources.GetIconForStatusType(animatingEffect.statusType);
 #endif
                 bool isFound = false;
-                foreach (StaticStatusDisplayInfo statusEffect in m_statusEffects)
-                {
-                    if (!statusEffect.m_removedBuff && statusEffect.statusType == newEffect.statusType
 #if EVOS
-                            && statusEffect.evosStatusType == newEffect.evosStatusType
+                if (newEffect.statusType != StatusType.INVALID) // we want duplicates
+                {
 #endif
-                        )
+                    foreach (StaticStatusDisplayInfo statusEffect in m_statusEffects)
                     {
-                        isFound = true;
-                        break;
+                        if (!statusEffect.m_removedBuff && statusEffect.statusType == newEffect.statusType
+#if EVOS
+                            // && statusEffect.evosStatusType == newEffect.evosStatusType
+#endif
+                           )
+                        {
+                            isFound = true;
+                            break;
+                        }
                     }
+#if EVOS
                 }
+#endif
 
                 if (!isFound)
                 {
@@ -1747,9 +1754,14 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 #if EVOS
             if (animatingEffect.statusType == StatusType.INVALID)
             {
-                 // TODO is it broken?
-                 Log.Info($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done");
-                 RemoveStatus(animatingEffect.evosStatusType);
+                 if (!gainedStatus
+                     && (EvosActorStatusManager.Get() == null
+                        || EvosActorStatusManager.Get().IsPendingRemoval(m_actorData, animatingEffect.evosStatusType)))
+                 {
+                     Log.Info($"UINameplateItem.LateUpdate: Status {animatingEffect.statusType}/{animatingEffect.evosStatusType} fadeout done (removing)");
+                     RemoveStatus(animatingEffect.evosStatusType);
+                     EvosActorStatusManager.Get().PendingRemovalProcessed(m_actorData, animatingEffect.evosStatusType);
+                 }
             }
             else
 #endif    
@@ -2175,10 +2187,11 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                         i--;
                     }
 #if EVOS
-                    else if (m_statusEffects[i].evosStatusType != EvosActorStatusType.NONE)
-                    {
-                        Log.Error($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done but it is not removed");
-                    }
+                    // seems legal in fog of war
+                    // else if (m_statusEffects[i].evosStatusType != EvosActorStatusType.NONE)
+                    // {
+                    //     Log.Error($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done but it is not removed");
+                    // }
 #endif
                 }
             }

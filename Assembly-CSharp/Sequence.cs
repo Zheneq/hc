@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Evos.ActorStatus;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -1354,10 +1355,12 @@ public abstract class Sequence : MonoBehaviour
 		return $"[Sequence: {GetType()}, " +
 		       $"Object: {gameObject.name}, " +
 		       $"id: {Id}, " +
+		       $"prefab: {PrefabLookupId}, " +
 		       $"initialized: {m_initialized}, " +
 		       $"enabled: {enabled}, " +
 		       $"MarkedForRemoval: {MarkedForRemoval}, " +
-		       $"Caster: {(Caster == null ? "NULL" : Caster.ToString())}]";
+		       $"Caster: {(Caster == null ? "NULL" : Caster.ToString())}, " +
+		       $"Targets: {(Targets == null ? "NULL" : string.Join(", ",Targets.Select(x => x.ToString()).ToArray()))}]";
 	}
 
 	public string GetTargetsString()
