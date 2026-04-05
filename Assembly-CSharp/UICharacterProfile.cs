@@ -525,6 +525,12 @@ public class UICharacterProfile : MonoBehaviour
             return;
         }
 
+#if EVOS
+        Log.Info($"Updating UICharacterProfile for {GameFlowData.Get().activeOwnedActorData}, "
+                 + $"old statuses = {previousStatuses} + {previousEvosStatuses}, "
+                 + $"new statuses = {activeStatusTypes} + {activeEvosStatusTypes}"); // TODO when applying stickies two turns in a row the status is absent on the third turn's decision phase
+#endif
+        
         UIBuffIndicator[] buffIndicators = m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
         UIBuffIndicator[] debuffIndicators = m_debuffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
 

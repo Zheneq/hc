@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -442,4 +443,11 @@ public class SequenceManager : MonoBehaviour
 
         return text;
     }
+    
+#if EVOS
+    public List<Sequence> GetSequencesForSource(SequenceSource source)
+    {
+        return m_sequences.Where(sequence => sequence != null && sequence.Source == source).ToList();
+    }
+#endif
 }

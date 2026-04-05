@@ -1356,6 +1356,7 @@ public abstract class Sequence : MonoBehaviour
 		       $"Object: {gameObject.name}, " +
 		       $"id: {Id}, " +
 		       $"prefab: {PrefabLookupId}, " +
+		       $"source: {Source.RootID}, " +
 		       $"initialized: {m_initialized}, " +
 		       $"enabled: {enabled}, " +
 		       $"MarkedForRemoval: {MarkedForRemoval}, " +

@@ -250,14 +250,6 @@ public class TheatricsManager : NetworkBehaviour, IGameEventListener
         ActorModelData.RagdollActivation ragdollActivation = ActorModelData.RagdollActivation.HealthBased)
 	{
 		m_turn.OnSequenceHit(seq, target, impulseInfo, ragdollActivation);
-		
-#if EVOS
-		var evosActorStatusManager = EvosActorStatusManager.Get();
-		if (evosActorStatusManager != null)
-		{
-			evosActorStatusManager.OnSequenceHit(seq);
-		}
-#endif
 	}
 
 	// OnKnockbackMovementHitGathered

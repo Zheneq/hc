@@ -27,14 +27,14 @@ namespace Evos.ActorStatus
 
         private static readonly Dictionary<int, SequenceStatusInfo> PrefabIdToStatusType = new Dictionary<int, SequenceStatusInfo>
         {
-            { 57, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, false) }, // TODO it would be cool if it removed on explosion
-            // { 59, new SequenceStatusInfo(EvosStatusType.BazookaGirl_StickyBomb, true) }, // is added and hits on explosion
-            { 67, new SequenceStatusInfo(EvosActorStatusType.Blaster_Overcharged, false) },
-            { 109, new SequenceStatusInfo(EvosActorStatusType.Claymore_DirtyFighting, false) },
+            { 57, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb) }, // TODO it would be cool if it removed on explosion
+            { 59, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, SequenceType.RemoveOnHit, primaryPrefabId: 57) }, // is added and hits on explosion
+            { 67, new SequenceStatusInfo(EvosActorStatusType.Blaster_Overcharged) },
+            { 109, new SequenceStatusInfo(EvosActorStatusType.Claymore_DirtyFighting) },
             // { 0, EvosStatusType.Dino_PowerDrive },
-            { 216, new SequenceStatusInfo(EvosActorStatusType.Fireborg_Ignited, false) },
-            { 272, new SequenceStatusInfo(EvosActorStatusType.Iceborg_IceCore, false) },
-            { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, false, useCaster: true) },
+            { 216, new SequenceStatusInfo(EvosActorStatusType.Fireborg_Ignited) },
+            { 272, new SequenceStatusInfo(EvosActorStatusType.Iceborg_IceCore) },
+            { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, useCaster: true) },
             // { 481, new SequenceStatusInfo(EvosStatusType.Samurai_Fury, false) },
         };
     
@@ -75,22 +75,36 @@ namespace Evos.ActorStatus
         }
     }
 
+    public enum SequenceType
+    {
+        NONE,
+        
+        Normal,
+        RemoveOnHit,
+    }
+
     public class SequenceStatusInfo
     {
         public readonly EvosActorStatusType Type;
-        public readonly bool RemoveOnHit; // TODO something more straightforward
+        public readonly SequenceType SequenceType; // TODO something more straightforward
         public readonly bool UseCaster; // instead of target
+        public readonly int PrimaryPrefabId; // TODO something more straightforward
 
-        public SequenceStatusInfo(EvosActorStatusType type, bool removeOnHit, bool useCaster = false)
+        public SequenceStatusInfo(
+            EvosActorStatusType type,
+            SequenceType sequenceType = SequenceType.Normal,
+            bool useCaster = false,
+            int primaryPrefabId = -1)
         {
             Type = type;
-            RemoveOnHit = removeOnHit;
+            SequenceType = sequenceType;
             UseCaster = useCaster;
+            PrimaryPrefabId = primaryPrefabId;
         }
 
         public override string ToString()
         {
-            return $"<{Type.ToString()} RemoveOnHit={RemoveOnHit} UseCaster={UseCaster}>";
+            return $"<{Type.ToString()} {SequenceType} RemoveOnHit={SequenceType} UseCaster={UseCaster}>";
         }
     }
 
