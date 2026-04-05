@@ -7,7 +7,6 @@ namespace Evos.ActorStatus
 {
 #if EVOS
     // TODO Sticky doesn't disappear immediately after exploding (Ice Core does) (react to seq 59? react to sequence hit?)
-    // TODO statuses do not show in lower left corner (and when they will, will it work in 4lancer?)
     // TODO how does it work with duplicate characters? (Can we put casters' names in debuffs?)
     // TODO for duplicate effects, one of the icons is missing
     // TODO instantly readded statuses are instantly removed from nameplate

@@ -611,6 +611,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         }
     }
 
+    /*
+     * Status icon finished fading out.
+     */
     public void StatusFadeOutDone(StatusType newType
 #if EVOS
         , EvosActorStatusType newEvosStatusType
@@ -814,6 +817,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         m_currentStatusStackCount++;
     }
 
+    /**
+     * Mark status as pending removal, triggers logic in <see cref="LateUpdate" />
+     */
     public bool RemoveStatus(EvosActorStatusType newType)
     {
         Log.Info($"UINameplateItem.RemoveStatus: {m_actorData} {newType}");
@@ -1641,6 +1647,9 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         SetInteractable(m_abilityPreviewCanvasGroup, m_abilityPreviewCanvasGroup.alpha > 0f);
     }
 
+    /**
+     * Nameplate popup for gaining/losing status finished playing.
+     */
     public void NotifyStatusAnimationDone(UINameplateStatus nameplateStatus, bool gainedStatus)
     {
         for (int i = 0; i < m_statusEffectsAnimating.Count; i++)
@@ -1698,11 +1707,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 #endif
                     foreach (StaticStatusDisplayInfo statusEffect in m_statusEffects)
                     {
-                        if (!statusEffect.m_removedBuff && statusEffect.statusType == newEffect.statusType
-#if EVOS
-                            // && statusEffect.evosStatusType == newEffect.evosStatusType
-#endif
-                           )
+                        if (!statusEffect.m_removedBuff && statusEffect.statusType == newEffect.statusType)
                         {
                             isFound = true;
                             break;
@@ -1719,6 +1724,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                         int index = 0;
                         for (int j = 0; j < m_statusEffects.Count; j++)
                         {
+                            // insert after last buff
 #if EVOS
                             HUD_UIResources.StatusTypeIcon icon = m_statusEffects[j].statusType == StatusType.INVALID
                                 ? EvosActorStatusRepo.GetIconForStatusType(m_statusEffects[j].evosStatusType)
@@ -1742,6 +1748,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                     }
                     else
                     {
+                        // insert in the end
                         m_statusEffects.Add(newEffect);
                     }
                 }
@@ -1758,9 +1765,10 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                      && (EvosActorStatusManager.Get() == null
                         || EvosActorStatusManager.Get().IsPendingRemoval(m_actorData, animatingEffect.evosStatusType)))
                  {
-                     Log.Info($"UINameplateItem.LateUpdate: Status {animatingEffect.statusType}/{animatingEffect.evosStatusType} fadeout done (removing)");
-                     RemoveStatus(animatingEffect.evosStatusType);
-                     EvosActorStatusManager.Get().PendingRemovalProcessed(m_actorData, animatingEffect.evosStatusType);
+                     Log.Info($"UINameplateItem.NotifyStatusAnimationDone: Status {animatingEffect.statusType}/{animatingEffect.evosStatusType} fadeout done (removing)"); // TODO debug
+                     // we started this chain by calling RemoveStatus, no need to start it again
+                     // RemoveStatus(animatingEffect.evosStatusType);
+                     // EvosActorStatusManager.Get().PendingRemovalProcessed(m_actorData, animatingEffect.evosStatusType);
                  }
             }
             else

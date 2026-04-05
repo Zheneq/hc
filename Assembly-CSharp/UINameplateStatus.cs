@@ -2,6 +2,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/**
+ * Nameplate popup that appears when the actor is gaining or losing a status.
+ */
 public class UINameplateStatus : MonoBehaviour
 {
 	public Image m_StatusIcon;
