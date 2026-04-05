@@ -4,516 +4,442 @@ using UnityEngine.Networking;
 
 public class SequenceManager : MonoBehaviour
 {
-	internal bool m_sequencesWaitForClientEnable;
+    internal bool m_sequencesWaitForClientEnable;
 
-	private int m_curId;
+    private int m_curId;
+    private List<Sequence> m_sequences = new List<Sequence>(16);
 
-	private List<Sequence> m_sequences = new List<Sequence>(16);
+    private static SequenceManager s_instance;
 
-	private static SequenceManager s_instance;
+    private AbilityPriority m_lastHandledAbilityPriority;
+    private bool m_quitting;
 
-	private AbilityPriority m_lastHandledAbilityPriority;
+    public const bool c_clientOnlySequences = true;
 
-	private bool m_quitting;
+    private static bool m_forceActorsAsInvisible;
+    public static bool SequenceDebugTraceOn => false;
 
-	public const bool c_clientOnlySequences = true;
+    public static bool SequenceForceActorsAsInvisible => false;
 
-	private static bool m_forceActorsAsInvisible;
+    private int GetNewId()
+    {
+        m_curId++;
+        return m_curId;
+    }
 
-	public static bool SequenceDebugTraceOn => false;
+    private void Awake()
+    {
+        s_instance = this;
+    }
 
-	public static bool SequenceForceActorsAsInvisible
-	{
-		get
-		{
-			return false;
-		}
-		set
-		{
-		}
-	}
+    private void OnDestroy()
+    {
+        s_instance = null;
+    }
 
-	private int GetNewId()
-	{
-		m_curId++;
-		return m_curId;
-	}
+    private void OnApplicationQuit()
+    {
+        m_quitting = true;
+    }
 
-	private void Awake()
-	{
-		s_instance = this;
-	}
+    internal static SequenceManager Get()
+    {
+        return s_instance;
+    }
 
-	private void OnDestroy()
-	{
-		s_instance = null;
-	}
+    internal void HandleOnGameStopped()
+    {
+        HashSet<GameObject> sequenceObjects = new HashSet<GameObject>();
+        foreach (Sequence sequence in m_sequences)
+        {
+            if (sequence != null)
+            {
+                sequenceObjects.Add(sequence.gameObject);
+            }
+        }
 
-	private void OnApplicationQuit()
-	{
-		m_quitting = true;
-	}
+        m_sequences.Clear();
+        foreach (GameObject sequenceObject in sequenceObjects)
+        {
+            Destroy(sequenceObject);
+        }
+    }
 
-	internal static SequenceManager Get()
-	{
-		return s_instance;
-	}
+    internal void ClientOnTurnResolveEnd()
+    {
+        for (int i = m_sequences.Count - 1; i >= 0; i--)
+        {
+            if (m_sequences[i] == null)
+            {
+                m_sequences.RemoveAt(i);
+            }
+        }
 
-	internal void HandleOnGameStopped()
-	{
-		HashSet<GameObject> hashSet = new HashSet<GameObject>();
-		using (List<Sequence>.Enumerator enumerator = m_sequences.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				Sequence current = enumerator.Current;
-				if (current != null)
-				{
-					hashSet.Add(current.gameObject);
-				}
-			}
-		}
-		m_sequences.Clear();
-		foreach (GameObject item in hashSet)
-		{
-			Object.Destroy(item);
-		}
-	}
+        List<Sequence> sequences = m_sequences;
 
-	internal void ClientOnTurnResolveEnd()
-	{
-		for (int num = m_sequences.Count - 1; num >= 0; num--)
-		{
-			if (m_sequences[num] == null)
-			{
-				m_sequences.RemoveAt(num);
-			}
-		}
-		List<Sequence> sequences = m_sequences;
-		
-		List<Sequence> list = sequences.FindAll(((Sequence sequence) => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd));
-		HashSet<GameObject> objectsToDestroy = new HashSet<GameObject>();
-		using (List<Sequence>.Enumerator enumerator = list.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				Sequence current = enumerator.Current;
-				objectsToDestroy.Add(current.gameObject);
-			}
-		}
-		list = m_sequences.FindAll((Sequence sequence) => objectsToDestroy.Contains(sequence.gameObject));
-		m_sequences.RemoveAll((Sequence sequence) => objectsToDestroy.Contains(sequence.gameObject));
-		foreach (GameObject item in objectsToDestroy)
-		{
-			Object.Destroy(item);
-		}
-	}
+        List<Sequence> sequencesToRemove =
+            sequences.FindAll(sequence => sequence.MarkedForRemoval || sequence.RemoveAtTurnEnd);
+        HashSet<GameObject> objectsToDestroy = new HashSet<GameObject>();
+        foreach (Sequence sequence in sequencesToRemove)
+        {
+            objectsToDestroy.Add(sequence.gameObject);
+        }
 
-	internal void MarkSequenceToEndBySourceId(int sequencePrefabLookupId, int seqSourceId, Vector3 targetPos)
-	{
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			Sequence sequence = m_sequences[i];
-			if (!(sequence != null))
-			{
-				continue;
-			}
-			if (sequence.MarkedForRemoval)
-			{
-				continue;
-			}
-			if (sequence.Source.RootID != (uint)seqSourceId)
-			{
-				continue;
-			}
-			if (sequence.PrefabLookupId != sequencePrefabLookupId)
-			{
-				continue;
-			}
-			if (!(sequence.TargetPos == targetPos))
-			{
-				continue;
-			}
-			while (true)
-			{
-				sequence.MarkForRemoval();
-				return;
-			}
-		}
-		while (true)
-		{
-			switch (4)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
-	}
+        sequencesToRemove = m_sequences.FindAll(sequence => objectsToDestroy.Contains(sequence.gameObject));
+        m_sequences.RemoveAll(sequence => objectsToDestroy.Contains(sequence.gameObject));
+        foreach (GameObject sequenceObject in objectsToDestroy)
+        {
+            Destroy(sequenceObject);
+        }
+    }
 
-	internal void OnDestroySequence(Sequence seq)
-	{
-	}
+    internal void MarkSequenceToEndBySourceId(int sequencePrefabLookupId, int seqSourceId, Vector3 targetPos)
+    {
+        foreach (Sequence sequence in m_sequences)
+        {
+            if (sequence != null
+                && !sequence.MarkedForRemoval
+                && sequence.Source.RootID == (uint)seqSourceId
+                && sequence.PrefabLookupId == sequencePrefabLookupId
+                && sequence.TargetPos == targetPos)
+            {
+                sequence.MarkForRemoval();
+                return;
+            }
+        }
+    }
 
-	internal void OnTurnStart(int currentTurn)
-	{
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			Sequence sequence = m_sequences[i];
-			if (sequence == null)
-			{
-				Log.Error("Null sequence in list, index {0}", i);
-			}
-			else
-			{
-				sequence.AgeInTurns++;
-				sequence.OnTurnStart(currentTurn);
-			}
-		}
-		while (true)
-		{
-			SendAbilityPhaseStart(AbilityPriority.INVALID);
-			m_lastHandledAbilityPriority = AbilityPriority.INVALID;
-			if (m_sequences.Count > 200)
-			{
-				while (true)
-				{
-					Debug.LogError("More than " + 200 + " sequences tracked concurrently");
-					_001D();
-					return;
-				}
-			}
-			return;
-		}
-	}
+    internal void OnDestroySequence(Sequence seq)
+    {
+    }
 
-	public void ClearAllSequences()
-	{
-		using (List<Sequence>.Enumerator enumerator = m_sequences.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				Sequence current = enumerator.Current;
-				Object.Destroy(current.gameObject);
-			}
-			while (true)
-			{
-				switch (7)
-				{
-				case 0:
-					break;
-				default:
-					goto end_IL_000e;
-				}
-			}
-			end_IL_000e:;
-		}
-		m_sequences.Clear();
-	}
+    internal void OnTurnStart(int currentTurn)
+    {
+        for (int i = 0; i < m_sequences.Count; i++)
+        {
+            Sequence sequence = m_sequences[i];
+            if (sequence == null)
+            {
+                Log.Error("Null sequence in list, index {0}", i);
+            }
+            else
+            {
+                sequence.AgeInTurns++;
+                sequence.OnTurnStart(currentTurn);
+            }
+        }
 
-	private void _001D()
-	{
-		Dictionary<string, int> dictionary = new Dictionary<string, int>();
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			string empty = string.Empty;
-			Sequence sequence = m_sequences[i];
-			if (sequence != null)
-			{
-				empty = sequence.name;
-			}
-			else
-			{
-				empty = "NULL";
-			}
-			if (dictionary.ContainsKey(empty))
-			{
-				dictionary[empty]++;
-			}
-			else
-			{
-				dictionary[empty] = 1;
-			}
-		}
-		while (true)
-		{
-			string text = string.Empty;
-			using (Dictionary<string, int>.Enumerator enumerator = dictionary.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
-				{
-					KeyValuePair<string, int> current = enumerator.Current;
-					string text2 = text;
-					text = text2 + "[ " + current.Key + " ] count = " + current.Value + "\n";
-				}
-			}
-			Log.Error(text);
-			return;
-		}
-	}
+        SendAbilityPhaseStart(AbilityPriority.INVALID);
+        m_lastHandledAbilityPriority = AbilityPriority.INVALID;
+        if (m_sequences.Count > 200)
+        {
+            Debug.LogError("More than " + 200 + " sequences tracked concurrently");
+            DebugLogExistingSequences();
+        }
+    }
 
-	internal void SendAbilityPhaseStart(AbilityPriority abilityPhase)
-	{
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			Sequence sequence = m_sequences[i];
-			if (sequence == null)
-			{
-				Log.Error("Null sequence in list, index {0}", i);
-			}
-			else
-			{
-				sequence.OnAbilityPhaseStart(abilityPhase);
-			}
-		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
-	}
+    public void ClearAllSequences()
+    {
+        foreach (Sequence current in m_sequences)
+        {
+            Destroy(current.gameObject);
+        }
 
-	internal void OnAbilityPhaseStart(AbilityPriority abilityPhase)
-	{
-		for (int i = (int)(m_lastHandledAbilityPriority + 1); i <= (int)abilityPhase; i++)
-		{
-			SendAbilityPhaseStart((AbilityPriority)i);
-		}
-		while (true)
-		{
-			m_lastHandledAbilityPriority = abilityPhase;
-			return;
-		}
-	}
+        m_sequences.Clear();
+    }
 
-	internal Sequence[] CreateClientSequences(GameObject prefab, BoardSquare targetSquare, Vector3 targetPos, Quaternion targetRotation, ActorData[] targets, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams)
-	{
-		short baseSequenceLookupId = (short)((!(SequenceLookup.Get() != null)) ? (-1) : SequenceLookup.Get().GetSequenceIdOfPrefab(prefab));
-		if (source == null)
-		{
-			Log.Error("Code error: sequences must always be created with a SequenceSource (typically, AbilityRunData.m_sequenceSource, Effect.SequenceSource, or PowerUp.SequenceSource.");
-		}
-		if (caster != null)
-		{
-			prefab = caster.ReplaceSequence(prefab);
-		}
-		if (prefab == null)
-		{
-			if (SequenceLookup.Get() != null)
-			{
-				prefab = SequenceLookup.Get().GetSimpleHitSequencePrefab();
-			}
-		}
-		Sequence[] array = null;
-		if (prefab != null)
-		{
-			GameObject gameObject = Object.Instantiate(prefab, Vector3.zero, Quaternion.identity);
-			if ((bool)gameObject)
-			{
-				array = gameObject.GetComponents<Sequence>();
-				Sequence[] array2 = array;
-				foreach (Sequence sequence in array2)
-				{
-					sequence.BaseInitialize_Client(targetSquare, targetPos, targetRotation, targets, caster, GetNewId(), prefab, baseSequenceLookupId, source, extraParams);
-					m_sequences.Add(sequence);
-				}
-			}
-		}
-		else if (source != null)
-		{
-			if (Application.isEditor)
-			{
-				Log.Warning("Creating sequences for null prefab.  Hitting immediately (without informing theatrics)...");
-			}
-			Sequence seq = null;
-			if (targets != null)
-			{
-				foreach (ActorData target in targets)
-				{
-					source.OnSequenceHit(seq, target, null);
-				}
-			}
-			source.OnSequenceHit(seq, targetPos);
-		}
-		return array;
-	}
+    private void DebugLogExistingSequences()
+    {
+        Dictionary<string, int> counts = new Dictionary<string, int>();
+        foreach (Sequence sequence in m_sequences)
+        {
+            string sequenceName = sequence != null ? sequence.name : "NULL";
+            if (counts.ContainsKey(sequenceName))
+            {
+                counts[sequenceName]++;
+            }
+            else
+            {
+                counts[sequenceName] = 1;
+            }
+        }
 
-	internal Sequence[] CreateClientSequences(GameObject prefab, Vector3 targetPos, ActorData[] targets, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams)
-	{
-		return CreateClientSequences(prefab, null, targetPos, Quaternion.identity, targets, caster, source, extraParams);
-	}
+        string text = string.Empty;
+        foreach (KeyValuePair<string, int> nameToCount in counts)
+        {
+            text += "[ " + nameToCount.Key + " ] count = " + nameToCount.Value + "\n";
+        }
 
-	internal Sequence[] CreateClientSequences(GameObject prefab, Vector3 targetPos, Quaternion targetRotation, ActorData[] targets, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams)
-	{
-		return CreateClientSequences(prefab, null, targetPos, targetRotation, targets, caster, source, extraParams);
-	}
+        Log.Error(text);
+    }
 
-	internal Sequence[] CreateClientSequences(GameObject prefab, BoardSquare targetSquare, ActorData[] targets, ActorData caster, SequenceSource source, Sequence.IExtraSequenceParams[] extraParams)
-	{
-		Vector3 targetPos = (!(targetSquare != null)) ? Vector3.zero : targetSquare.ToVector3();
-		return CreateClientSequences(prefab, targetSquare, targetPos, Quaternion.identity, targets, caster, source, extraParams);
-	}
+    internal void SendAbilityPhaseStart(AbilityPriority abilityPhase)
+    {
+        for (int i = 0; i < m_sequences.Count; i++)
+        {
+            Sequence sequence = m_sequences[i];
+            if (sequence == null)
+            {
+                Log.Error("Null sequence in list, index {0}", i);
+            }
+            else
+            {
+                sequence.OnAbilityPhaseStart(abilityPhase);
+            }
+        }
+    }
 
-	public static bool UsingClientOnlySequences()
-	{
-		return true;
-	}
+    internal void OnAbilityPhaseStart(AbilityPriority abilityPhase)
+    {
+        for (int i = (int)(m_lastHandledAbilityPriority + 1); i <= (int)abilityPhase; i++)
+        {
+            SendAbilityPhaseStart((AbilityPriority)i);
+        }
 
-	public GameObject FindTempSatellite(SequenceSource seqSource)
-	{
-		GameObject result = null;
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			if (m_sequences[i] == null)
-			{
-				Log.Error("Null sequence in list, index {0}", i);
-			}
-			else
-			{
-				if (!(m_sequences[i].Source == seqSource))
-				{
-					continue;
-				}
-				TempSatelliteSequence tempSatelliteSequence = m_sequences[i] as TempSatelliteSequence;
-				if (tempSatelliteSequence != null)
-				{
-					result = tempSatelliteSequence.GetTempSatellite();
-					break;
-				}
-			}
-		}
-		return result;
-	}
+        m_lastHandledAbilityPriority = abilityPhase;
+    }
 
-	internal Sequence FindSequence(int sequenceId)
-	{
-		return m_sequences.Find((Sequence entry) => entry.Id == sequenceId);
-	}
+    internal Sequence[] CreateClientSequences(
+        GameObject prefab,
+        BoardSquare targetSquare,
+        Vector3 targetPos,
+        Quaternion targetRotation,
+        ActorData[] targets,
+        ActorData caster,
+        SequenceSource source,
+        Sequence.IExtraSequenceParams[] extraParams)
+    {
+        short baseSequenceLookupId =
+            (short)(SequenceLookup.Get() != null ? SequenceLookup.Get().GetSequenceIdOfPrefab(prefab) : -1);
+        if (source == null)
+        {
+            Log.Error(
+                "Code error: sequences must always be created with a SequenceSource (typically, AbilityRunData.m_sequenceSource, Effect.SequenceSource, or PowerUp.SequenceSource.");
+        }
 
-	public void OnAnimationEvent(ActorData animatedActor, Object eventObject, GameObject sourceObject, SequenceSource source)
-	{
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			Sequence sequence = m_sequences[i];
-			if (sequence == null)
-			{
-				Log.Error("Null sequence in list, index {0}", i);
-				continue;
-			}
-			SequenceSource source2 = sequence.Source;
-			if (source2 == source)
-			{
-				sequence.AnimationEvent(eventObject, sourceObject);
-			}
-		}
-		while (true)
-		{
-			switch (3)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
-	}
+        if (caster != null)
+        {
+            prefab = caster.ReplaceSequence(prefab);
+        }
 
-	public List<ActorData> FindSequenceTargets(ActorData caster)
-	{
-		List<ActorData> list = new List<ActorData>();
-		using (List<Sequence>.Enumerator enumerator = m_sequences.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				Sequence current = enumerator.Current;
-				if (current.Caster == caster && current.Targets != null)
-				{
-					list.AddRange(current.Targets);
-				}
-			}
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return list;
-				}
-			}
-		}
-	}
+        if (prefab == null && SequenceLookup.Get() != null)
+        {
+            prefab = SequenceLookup.Get().GetSimpleHitSequencePrefab();
+        }
 
-	internal void DoClientEnable(SequenceSource source)
-	{
-		if (!NetworkClient.active)
-		{
-			while (true)
-			{
-				switch (4)
-				{
-				case 0:
-					break;
-				default:
-					Log.Error("Attempted to call client only method without client.");
-					return;
-				}
-			}
-		}
-		for (int i = 0; i < m_sequences.Count; i++)
-		{
-			Sequence sequence = m_sequences[i];
-			if (!(sequence != null))
-			{
-				continue;
-			}
-			if (sequence.Source == source)
-			{
-				sequence.OnDoClientEnable();
-			}
-		}
-		while (true)
-		{
-			switch (1)
-			{
-			default:
-				return;
-			case 0:
-				break;
-			}
-		}
-	}
+        Sequence[] sequences = null;
+        if (prefab != null)
+        {
+            GameObject sequenceObject = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+            if ((bool)sequenceObject)
+            {
+                sequences = sequenceObject.GetComponents<Sequence>();
+                foreach (Sequence sequence in sequences)
+                {
+                    sequence.BaseInitialize_Client(
+                        targetSquare,
+                        targetPos,
+                        targetRotation,
+                        targets,
+                        caster,
+                        GetNewId(),
+                        prefab,
+                        baseSequenceLookupId,
+                        source,
+                        extraParams);
+                    m_sequences.Add(sequence);
+                }
+            }
+        }
+        else if (source != null)
+        {
+            if (Application.isEditor)
+            {
+                Log.Warning(
+                    "Creating sequences for null prefab.  Hitting immediately (without informing theatrics)...");
+            }
 
-	public string GetSequenceHitsSeenDebugString(SequenceSource source, bool justFirstSequence = true)
-	{
-		string text = string.Empty;
-		if (source != null)
-		{
-			for (int i = 0; i < m_sequences.Count; i++)
-			{
-				Sequence sequence = m_sequences[i];
-				if (!(sequence != null))
-				{
-					continue;
-				}
-				if (sequence.Source == source)
-				{
-					string text2 = text;
-					text = text2 + "* Sequence hits seen on sequence <" + sequence.name + ">, MarkedForRemoval = " + sequence.MarkedForRemoval + ", active = " + sequence.enabled + ", SourceRootID = " + sequence.Source.RootID + ":\n\t" + sequence.Source.GetHitActorsString() + "\n" + sequence.Source.GetHitPositionsString() + "* Sequence Target IDs: " + sequence.GetTargetsString() + "\n";
-					text = text + "* Has Received Anim Event before initialized: " + sequence.HasReceivedAnimEventBeforeReady + "\n";
-					if (justFirstSequence)
-					{
-						break;
-					}
-				}
-			}
-		}
-		return text;
-	}
+            Sequence seq = null;
+            if (targets != null)
+            {
+                foreach (ActorData target in targets)
+                {
+                    source.OnSequenceHit(seq, target, null);
+                }
+            }
+
+            source.OnSequenceHit(seq, targetPos);
+        }
+
+        return sequences;
+    }
+
+    internal Sequence[] CreateClientSequences(
+        GameObject prefab,
+        Vector3 targetPos,
+        ActorData[] targets,
+        ActorData caster,
+        SequenceSource source,
+        Sequence.IExtraSequenceParams[] extraParams)
+    {
+        return CreateClientSequences(
+            prefab,
+            null,
+            targetPos,
+            Quaternion.identity,
+            targets,
+            caster,
+            source,
+            extraParams);
+    }
+
+    internal Sequence[] CreateClientSequences(
+        GameObject prefab,
+        Vector3 targetPos,
+        Quaternion targetRotation,
+        ActorData[] targets,
+        ActorData caster,
+        SequenceSource source,
+        Sequence.IExtraSequenceParams[] extraParams)
+    {
+        return CreateClientSequences(prefab, null, targetPos, targetRotation, targets, caster, source, extraParams);
+    }
+
+    internal Sequence[] CreateClientSequences(
+        GameObject prefab,
+        BoardSquare targetSquare,
+        ActorData[] targets,
+        ActorData caster,
+        SequenceSource source,
+        Sequence.IExtraSequenceParams[] extraParams)
+    {
+        Vector3 targetPos = !(targetSquare != null) ? Vector3.zero : targetSquare.ToVector3();
+        return CreateClientSequences(
+            prefab,
+            targetSquare,
+            targetPos,
+            Quaternion.identity,
+            targets,
+            caster,
+            source,
+            extraParams);
+    }
+
+    public static bool UsingClientOnlySequences()
+    {
+        return true;
+    }
+
+    public GameObject FindTempSatellite(SequenceSource seqSource)
+    {
+        GameObject result = null;
+        for (int i = 0; i < m_sequences.Count; i++)
+        {
+            if (m_sequences[i] == null)
+            {
+                Log.Error("Null sequence in list, index {0}", i);
+                continue;
+            }
+
+            if (m_sequences[i].Source == seqSource)
+            {
+                TempSatelliteSequence tempSatelliteSequence = m_sequences[i] as TempSatelliteSequence;
+                if (tempSatelliteSequence != null)
+                {
+                    result = tempSatelliteSequence.GetTempSatellite();
+                    break;
+                }
+            }
+        }
+
+        return result;
+    }
+
+    internal Sequence FindSequence(int sequenceId)
+    {
+        return m_sequences.Find(entry => entry.Id == sequenceId);
+    }
+
+    public void OnAnimationEvent(
+        ActorData animatedActor,
+        Object eventObject,
+        GameObject sourceObject,
+        SequenceSource source)
+    {
+        for (int i = 0; i < m_sequences.Count; i++)
+        {
+            Sequence sequence = m_sequences[i];
+            if (sequence == null)
+            {
+                Log.Error("Null sequence in list, index {0}", i);
+                continue;
+            }
+
+            if (sequence.Source == source)
+            {
+                sequence.AnimationEvent(eventObject, sourceObject);
+            }
+        }
+    }
+
+    public List<ActorData> FindSequenceTargets(ActorData caster)
+    {
+        List<ActorData> targets = new List<ActorData>();
+        foreach (Sequence sequence in m_sequences)
+        {
+            if (sequence.Caster == caster && sequence.Targets != null)
+            {
+                targets.AddRange(sequence.Targets);
+            }
+        }
+
+        return targets;
+    }
+
+    internal void DoClientEnable(SequenceSource source)
+    {
+        if (!NetworkClient.active)
+        {
+            Log.Error("Attempted to call client only method without client.");
+            return;
+        }
+
+        for (int i = 0; i < m_sequences.Count; i++) // we can add new sequences while iterating
+        {
+            Sequence sequence = m_sequences[i];
+            if (sequence != null && sequence.Source == source)
+            {
+                sequence.OnDoClientEnable();
+            }
+        }
+    }
+
+    public string GetSequenceHitsSeenDebugString(SequenceSource source, bool justFirstSequence = true)
+    {
+        if (source == null)
+        {
+            return string.Empty;
+        }
+
+        string text = string.Empty;
+        foreach (Sequence sequence in m_sequences)
+        {
+            if (sequence != null && sequence.Source == source)
+            {
+                text += "* Sequence hits seen on sequence <" + sequence.name + ">, MarkedForRemoval = "
+                        + sequence.MarkedForRemoval + ", active = " + sequence.enabled + ", SourceRootID = "
+                        + sequence.Source.RootID + ":\n\t" + sequence.Source.GetHitActorsString() + "\n"
+                        + sequence.Source.GetHitPositionsString() + "* Sequence Target IDs: "
+                        + sequence.GetTargetsString() + "\n";
+                text += "* Has Received Anim Event before initialized: "
+                        + sequence.HasReceivedAnimEventBeforeReady + "\n";
+                if (justFirstSequence)
+                {
+                    break;
+                }
+            }
+        }
+
+        return text;
+    }
 }
