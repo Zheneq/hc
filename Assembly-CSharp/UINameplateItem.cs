@@ -827,7 +827,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         for (int i = 0; i < m_statusEffects.Count; i++)
         {
             StaticStatusDisplayInfo value = m_statusEffects[i];
-            if (value.evosStatusType == newType)
+            if (value.evosStatusType == newType && !value.m_removedBuff)
             {
                 value.m_removedBuff = true;
                 m_statusEffects[i] = value;

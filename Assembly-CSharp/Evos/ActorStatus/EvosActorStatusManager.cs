@@ -7,16 +7,14 @@ namespace Evos.ActorStatus
 {
 #if EVOS
     // TODO Sticky doesn't disappear immediately after exploding (Ice Core does) (react to seq 59? react to sequence hit?)
-    // TODO how does it work with duplicate characters? (Can we put casters' names in debuffs?)
-    // TODO for duplicate effects, one of the icons is missing
-    // TODO instantly readded statuses are instantly removed from nameplate
+    // TODO Can we put casters' names in debuffs?
     public class EvosActorStatusManager: MonoBehaviour
     {
         private static EvosActorStatusManager s_instance;
 
         private readonly Dictionary<int, AppliedStatusInfo> AppliedStatuses = new Dictionary<int, AppliedStatusInfo>();
 
-        private readonly Dictionary<ActorData, List<EvosActorStatusType>> PendingRemoval = new Dictionary<ActorData, List<EvosActorStatusType>>();
+        private readonly Dictionary<ActorData, List<EvosActorStatusType>> PendingRemoval = new Dictionary<ActorData, List<EvosActorStatusType>>(); // TODO remove?
 
         private const int NO_SEQUENCE_ID = -1; // TODO can't use same id for multiple actors
     
