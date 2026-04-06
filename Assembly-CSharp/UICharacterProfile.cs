@@ -484,7 +484,7 @@ public class UICharacterProfile : MonoBehaviour
 #if EVOS
         EvosActorStatusManager evosActorStatusManager = EvosActorStatusManager.Get();
         List<EvosActorStatusType> activeEvosStatusTypes = new List<EvosActorStatusType>();
-        if (!needsUpdate && evosActorStatusManager != null)
+        if (evosActorStatusManager != null)
         {
             ActorData actor = GameFlowData.Get().activeOwnedActorData;
             for (int i = 0; i < (int)EvosActorStatusType.NUM; i++)
@@ -524,12 +524,6 @@ public class UICharacterProfile : MonoBehaviour
         {
             return;
         }
-
-#if EVOS
-        Log.Info($"Updating UICharacterProfile for {GameFlowData.Get().activeOwnedActorData}, "
-                 + $"old statuses = {previousStatuses} + {previousEvosStatuses}, "
-                 + $"new statuses = {activeStatusTypes} + {activeEvosStatusTypes}"); // TODO when applying stickies two turns in a row the status is absent on the third turn's decision phase
-#endif
         
         UIBuffIndicator[] buffIndicators = m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
         UIBuffIndicator[] debuffIndicators = m_debuffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
