@@ -7,16 +7,16 @@ namespace Evos.ActorStatus
 #if EVOS
     public static class EvosActorStatusRepo
     {
-        private const string BasePath = "assets/statusicons/";
+        private const string BasePath = "assets/evos/statusicons/";
         
         private static readonly List<EvosActorStatusData> List = new List<EvosActorStatusData>
         {
             new EvosActorStatusData(EvosActorStatusType.BazookaGirl_StickyBomb, BasePath + "status_effect_bazookagirl_sticky.png", true),
             new EvosActorStatusData(EvosActorStatusType.Blaster_Overcharged, BasePath + "status_effect_blaster_overcharged.png", false),
             new EvosActorStatusData(EvosActorStatusType.Claymore_DirtyFighting, BasePath + "status_effect_claymore_dirty.png", true),
-            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_1, BasePath + "status_effect_dino_powerdrive.png", false), // TODO
-            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_2, BasePath + "status_effect_dino_powerdrive.png", false), // TODO
-            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_3, BasePath + "status_effect_dino_powerdrive.png", false), // TODO
+            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_1, BasePath + "status_effect_dino_powerdrive_1.png", false),
+            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_2, BasePath + "status_effect_dino_powerdrive_2.png", false),
+            new EvosActorStatusData(EvosActorStatusType.Dino_PowerDrive_3, BasePath + "status_effect_dino_powerdrive_3.png", false),
             new EvosActorStatusData(EvosActorStatusType.Fireborg_Ignited, BasePath + "status_effect_fireborg_ignited.png", true),
             new EvosActorStatusData(EvosActorStatusType.Iceborg_IceCore, BasePath + "status_effect_iceborg_icecore.png", true),
             new EvosActorStatusData(EvosActorStatusType.Ninja_VoidMark, BasePath + "status_effect_ninja_voidmark.png", true),
