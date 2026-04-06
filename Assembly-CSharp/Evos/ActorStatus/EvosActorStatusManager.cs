@@ -141,10 +141,14 @@ namespace Evos.ActorStatus
 
             RemoveStatus(info.Actors, info.Status, sequence.Id);
         }
-        
-        // TODO optimize?
+
         public int GetStatusCount(ActorData actor, EvosActorStatusType status)
         {
+            if (actor.IsDead())
+            {
+                return 0;
+            }
+            
             return AppliedStatuses.Values
                 .Count(appliedStatusInfo =>
                     appliedStatusInfo.Status == status
