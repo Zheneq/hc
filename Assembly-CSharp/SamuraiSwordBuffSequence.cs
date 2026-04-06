@@ -1,6 +1,5 @@
 ﻿// ROGUES
 // SERVER
-
 #if EVOS
 using Evos.ActorStatus;
 #endif

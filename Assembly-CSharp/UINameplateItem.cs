@@ -625,7 +625,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
             ? EvosActorStatusRepo.GetIconForStatusType(newEvosStatusType)
             : HUD_UIResources.GetIconForStatusType(newType);
 #else
-                HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(newType);
+        HUD_UIResources.StatusTypeIcon iconForStatusType = HUD_UIResources.GetIconForStatusType(newType);
 #endif
         if (!iconForStatusType.displayIcon)
         {
