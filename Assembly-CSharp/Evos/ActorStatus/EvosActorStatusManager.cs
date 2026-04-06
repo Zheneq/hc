@@ -64,9 +64,9 @@ namespace Evos.ActorStatus
                 return;
             }
             Log.Info($"OnSequenceAdded: {statusInfo} {string.Join(", ", sequences.Select(x => x.ToString()).ToArray())}");
-            switch (statusInfo.SequenceType)
+            switch (statusInfo.SequenceEventType)
             {
-                case SequenceType.Normal:
+                case SequenceEventType.Normal:
                     StartEffect(sequences.First(), statusInfo);
                     break;
             }
@@ -74,7 +74,7 @@ namespace Evos.ActorStatus
 
         private void StartEffect(Sequence sequence, SequenceStatusInfo statusInfo)
         {
-            ActorData[] sequenceTargets = statusInfo.UseCaster ? new [] { sequence.Caster } : sequence.Targets;
+            ActorData[] sequenceTargets = statusInfo.UseCasterAsTarget ? new [] { sequence.Caster } : sequence.Targets;
             if (sequenceTargets.IsNullOrEmpty())
             {
                 Log.Warning($"StartEffect: no targets for {statusInfo}");
@@ -96,13 +96,13 @@ namespace Evos.ActorStatus
                 EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(sequence.PrefabLookupId);
             
             if (!(statusInfo is null)
-                && statusInfo.PrimaryPrefabId > 0
+                && statusInfo.PrimarySequencePrefabId > 0
                 && !(SequenceManager.Get() is null))
             {
                 Log.Info($"OnSequenceHit: looking for initial sequence for {sequence}");
                 foreach (Sequence initialSequence in SequenceManager.Get().GetSequencesForSource(source))
                 {
-                    if (initialSequence.PrefabLookupId == statusInfo.PrimaryPrefabId
+                    if (initialSequence.PrefabLookupId == statusInfo.PrimarySequencePrefabId
                         && initialSequence.Targets.Contains(target))
                     {
                         sequence = initialSequence;
@@ -117,9 +117,9 @@ namespace Evos.ActorStatus
                 return;
             }
 
-            switch (statusInfo.SequenceType)
+            switch (statusInfo.SequenceEventType)
             {
-                case SequenceType.RemoveOnHit:
+                case SequenceEventType.RemoveOnHit:
                     EndEffect(sequence);
                     break;
             }

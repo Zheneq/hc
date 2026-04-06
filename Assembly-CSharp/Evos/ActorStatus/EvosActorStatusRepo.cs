@@ -8,6 +8,7 @@ namespace Evos.ActorStatus
     public static class EvosActorStatusRepo
     {
         private const string BasePath = "assets/evos/statusicons/";
+        private const int LOC_INDEX_START = 1000;
         
         private static readonly List<EvosActorStatusData> List = new List<EvosActorStatusData>
         {
@@ -28,12 +29,12 @@ namespace Evos.ActorStatus
         private static readonly Dictionary<int, SequenceStatusInfo> PrefabIdToStatusType = new Dictionary<int, SequenceStatusInfo>
         {
             { 57, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb) },
-            { 59, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, SequenceType.RemoveOnHit, primaryPrefabId: 57) },
+            { 59, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, SequenceEventType.RemoveOnHit, primarySequencePrefabId: 57) },
             { 67, new SequenceStatusInfo(EvosActorStatusType.Blaster_Overcharged) },
             { 109, new SequenceStatusInfo(EvosActorStatusType.Claymore_DirtyFighting) },
             { 216, new SequenceStatusInfo(EvosActorStatusType.Fireborg_Ignited) },
             { 272, new SequenceStatusInfo(EvosActorStatusType.Iceborg_IceCore) },
-            { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, useCaster: true) },
+            { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, useCasterAsTarget: true) },
         };
     
         // see HUD_UIResources.GetIconForStatusType
@@ -59,9 +60,9 @@ namespace Evos.ActorStatus
                 result.isDebuff = data.IsDebuff;
                 result.displayIcon = true;
                 result.displayInStatusList = true;
-                result.popupText = StringUtil.GetStatusIconPopupText(1000 + (int)data.Type); // TODO magic numbers
-                result.buffDescription = StringUtil.GetStatusIconBuffDesc(1000 + (int)data.Type);
-                result.buffName = StringUtil.GetStatusIconBuffName(1000 + (int)data.Type);
+                result.popupText = StringUtil.GetStatusIconPopupText(LOC_INDEX_START + (int)data.Type);
+                result.buffDescription = StringUtil.GetStatusIconBuffDesc(LOC_INDEX_START + (int)data.Type);
+                result.buffName = StringUtil.GetStatusIconBuffName(LOC_INDEX_START + (int)data.Type);
             }
 
             return result;
@@ -73,7 +74,7 @@ namespace Evos.ActorStatus
         }
     }
 
-    public enum SequenceType
+    public enum SequenceEventType
     {
         NONE,
         
@@ -84,25 +85,25 @@ namespace Evos.ActorStatus
     public class SequenceStatusInfo
     {
         public readonly EvosActorStatusType Type;
-        public readonly SequenceType SequenceType; // TODO something more straightforward
-        public readonly bool UseCaster; // instead of target
-        public readonly int PrimaryPrefabId; // TODO something more straightforward
+        public readonly SequenceEventType SequenceEventType;
+        public readonly bool UseCasterAsTarget;
+        public readonly int PrimarySequencePrefabId;
 
         public SequenceStatusInfo(
             EvosActorStatusType type,
-            SequenceType sequenceType = SequenceType.Normal,
-            bool useCaster = false,
-            int primaryPrefabId = -1)
+            SequenceEventType sequenceEventType = SequenceEventType.Normal,
+            bool useCasterAsTarget = false,
+            int primarySequencePrefabId = -1)
         {
             Type = type;
-            SequenceType = sequenceType;
-            UseCaster = useCaster;
-            PrimaryPrefabId = primaryPrefabId;
+            SequenceEventType = sequenceEventType;
+            UseCasterAsTarget = useCasterAsTarget;
+            PrimarySequencePrefabId = primarySequencePrefabId;
         }
 
         public override string ToString()
         {
-            return $"<{Type.ToString()} {SequenceType} RemoveOnHit={SequenceType} UseCaster={UseCaster}>";
+            return $"<{Type.ToString()} {SequenceEventType} UseCasterAsTarget={UseCasterAsTarget} PrimarySequencePrefabId={PrimarySequencePrefabId}>";
         }
     }
 
