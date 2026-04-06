@@ -82,20 +82,6 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 	}
 	
 #if EVOS
-	// protected override void SpawnFX(GameObject overrideFxPrefab = null)
-	// {
-	// 	base.SpawnFX(overrideFxPrefab);
-	// 	EvosActorStatusManager.AddStatus(Targets, EvosStatusType.Samurai_Fury);
-	// 	Log.Info($"{new System.Diagnostics.StackTrace()}");
-	// }
-	//
-	// protected override void StopFX()
-	// {
-	// 	base.StopFX();
-	// 	EvosActorStatusManager.RemoveStatus(Targets, EvosStatusType.Samurai_Fury);
-	// 	Log.Info($"{new System.Diagnostics.StackTrace()}");
-	// }
-
 	protected override void OnDestroy()
 	{
 		base.OnDestroy();

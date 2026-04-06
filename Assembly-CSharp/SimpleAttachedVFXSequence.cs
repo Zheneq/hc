@@ -409,11 +409,7 @@ public class SimpleAttachedVFXSequence : Sequence
         }
     }
 
-    protected 
-#if EVOS
-        virtual
-#endif
-        void StopFX()
+    protected void StopFX()
     {
         if (m_fx != null)
         {
@@ -521,11 +517,7 @@ public class SimpleAttachedVFXSequence : Sequence
         Source.OnSequenceHit(this, TargetPos);
     }
 
-    protected 
-#if EVOS
-        virtual
-#endif
-        void SpawnFX(GameObject overrideFxPrefab = null)
+    protected void SpawnFX(GameObject overrideFxPrefab = null)
     {
         m_spawnAttempted = true;
         if (!m_fxJoint.IsInitialized())
