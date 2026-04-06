@@ -43,9 +43,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		set
 		{
 			SetSyncVar(value, ref m_layerConePowerLevel, 4u);
-#if EVOS
-			Log.Info($"Dino_SyncComponent Power Level! {value} {m_actor}");
-#endif
 		}
 	}
 
@@ -211,7 +208,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 			m_dashOrShieldInReadyStance = reader.ReadBoolean();
 			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
 #if EVOS
-			Log.Info($"Dino_SyncComponent Power Level {m_layerConePowerLevel} {m_actor}");
 			EvosActorStatusManager.Get()?.UpdateDinoPowerLevel(m_actor);
 #endif
 			return;
@@ -230,7 +226,6 @@ public class Dino_SyncComponent : NetworkBehaviour
 		{
 			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
 #if EVOS
-			Log.Info($"Dino_SyncComponent Power Level {m_layerConePowerLevel} {m_actor}");
 			EvosActorStatusManager.Get()?.UpdateDinoPowerLevel(m_actor);
 #endif
 		}

@@ -6,15 +6,11 @@ using UnityEngine;
 namespace Evos.ActorStatus
 {
 #if EVOS
-    // TODO Remove statuses on death
-    // TODO Can we put casters' names in debuffs?
     public class EvosActorStatusManager: MonoBehaviour
     {
         private static EvosActorStatusManager s_instance;
 
         private readonly Dictionary<int, AppliedStatusInfo> AppliedStatuses = new Dictionary<int, AppliedStatusInfo>();
-
-        private const int NO_SEQUENCE_ID = -1; // TODO can't use same id for multiple actors
     
         public static EvosActorStatusManager Get()
         {
@@ -49,11 +45,6 @@ namespace Evos.ActorStatus
 
         public void OnTurnTick()
         {
-            // List<ActorData> actorDatas = GameFlowData.Get().GetActors().Where(a => a != null).ToList();
-            // foreach (ActorData actorData in actorDatas.Where(a => a.m_characterType == CharacterType.Dino))
-            // {
-            //     UpdateDinoPowerLevel(actorData);
-            // } 
         }
 
         public void OnSequenceAdded(Sequence[] sequences, int prefabID)
@@ -226,28 +217,28 @@ namespace Evos.ActorStatus
             var syncComp = dino.GetComponent<Dino_SyncComponent>();
             var ability =
                 dino.GetAbilityData()?.GetAbilityOfActionType(AbilityData.ActionType.ABILITY_0) as DinoLayerCones;
+            int nonSequenceId = -dino.ActorIndex;
             if (syncComp == null || ability == null)
             {
                 Log.Error($"EvosActorStatusManager.UpdateDinoPowerLevel: SyncComp or ability for {dino} not found!");
                 foreach (EvosActorStatusType statusToRemove in Statuses.Values)
                 {
-                    RemoveStatus(targetActors, statusToRemove, NO_SEQUENCE_ID);
+                    RemoveStatus(targetActors, statusToRemove, nonSequenceId);
                 }
                 return;
             }
             
             int powerLevel = Math.Min(syncComp.m_layerConePowerLevel, ability.GetLayerCount() - 1);
-            Log.Info($"EvosActorStatusManager.UpdateDinoPowerLevel: Level {powerLevel} - {dino}");
             Statuses.TryGetValue(powerLevel, out EvosActorStatusType status);
             
             foreach (EvosActorStatusType statusToRemove in Statuses.Values)
             {
-                RemoveStatus(targetActors, statusToRemove, NO_SEQUENCE_ID);
+                RemoveStatus(targetActors, statusToRemove, nonSequenceId);
             }
 
             if (status != EvosActorStatusType.NONE)
             {
-                AddStatus(targetActors, status, NO_SEQUENCE_ID);
+                AddStatus(targetActors, status, nonSequenceId);
             }
         }
     }
