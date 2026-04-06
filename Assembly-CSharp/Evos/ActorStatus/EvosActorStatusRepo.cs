@@ -27,15 +27,13 @@ namespace Evos.ActorStatus
 
         private static readonly Dictionary<int, SequenceStatusInfo> PrefabIdToStatusType = new Dictionary<int, SequenceStatusInfo>
         {
-            { 57, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb) }, // TODO it would be cool if it removed on explosion
-            { 59, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, SequenceType.RemoveOnHit, primaryPrefabId: 57) }, // is added and hits on explosion
+            { 57, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb) },
+            { 59, new SequenceStatusInfo(EvosActorStatusType.BazookaGirl_StickyBomb, SequenceType.RemoveOnHit, primaryPrefabId: 57) },
             { 67, new SequenceStatusInfo(EvosActorStatusType.Blaster_Overcharged) },
             { 109, new SequenceStatusInfo(EvosActorStatusType.Claymore_DirtyFighting) },
-            // { 0, EvosStatusType.Dino_PowerDrive },
             { 216, new SequenceStatusInfo(EvosActorStatusType.Fireborg_Ignited) },
             { 272, new SequenceStatusInfo(EvosActorStatusType.Iceborg_IceCore) },
             { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, useCaster: true) },
-            // { 481, new SequenceStatusInfo(EvosStatusType.Samurai_Fury, false) },
         };
     
         // see HUD_UIResources.GetIconForStatusType

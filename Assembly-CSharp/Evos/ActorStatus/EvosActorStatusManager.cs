@@ -14,8 +14,6 @@ namespace Evos.ActorStatus
 
         private readonly Dictionary<int, AppliedStatusInfo> AppliedStatuses = new Dictionary<int, AppliedStatusInfo>();
 
-        private readonly Dictionary<ActorData, List<EvosActorStatusType>> PendingRemoval = new Dictionary<ActorData, List<EvosActorStatusType>>(); // TODO remove?
-
         private const int NO_SEQUENCE_ID = -1; // TODO can't use same id for multiple actors
     
         public static EvosActorStatusManager Get()
@@ -46,12 +44,6 @@ namespace Evos.ActorStatus
             if (newState == GameState.StartingGame || newState == GameState.EndingGame)
             {
                 AppliedStatuses.Clear();
-                PendingRemoval.Clear();
-                foreach (ActorData actorData in GameFlowData.Get().GetActors())
-                {
-                    Log.Info($"EvosActorStatusManager: Initializing pending removal for {actorData}");
-                    PendingRemoval.Add(actorData, new List<EvosActorStatusType>());
-                }
             }
         }
 
@@ -171,41 +163,11 @@ namespace Evos.ActorStatus
             return result;
         }
 
-        public bool RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
+        public void RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
         {
             Log.Info($"EvosActorStatusManager.RemoveStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a.ToString()).ToArray())}");
-            bool result = UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.RemoveStatus(type));
-            if (AppliedStatuses.Remove(sequenceId))
-            {
-                foreach (ActorData targetActor in targetActors)
-                {
-                    GetPendingRemovalFor(targetActor).Add(evosStatusType);
-                }
-            }
-
-            return result;
-        }
-
-        private List<EvosActorStatusType> GetPendingRemovalFor(ActorData actor)
-        {
-            if (!PendingRemoval.TryGetValue(actor, out var result))
-            {
-                result = new List<EvosActorStatusType>();
-                PendingRemoval.Add(actor, new List<EvosActorStatusType>());
-                Log.Error($"EvosActorStatusManager: Pending removal not initialized for {actor}");
-            }
-
-            return result;
-        }
-
-        public bool IsPendingRemoval(ActorData actor, EvosActorStatusType status)
-        {
-            return GetPendingRemovalFor(actor).Contains(status);
-        }
-
-        public bool PendingRemovalProcessed(ActorData actor, EvosActorStatusType status)
-        {
-            return GetPendingRemovalFor(actor).Remove(status);
+            UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.RemoveStatus(type));
+            AppliedStatuses.Remove(sequenceId);
         }
 
         private static bool UpdateStatus(

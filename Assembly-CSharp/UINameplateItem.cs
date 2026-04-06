@@ -1761,15 +1761,7 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 #if EVOS
             if (animatingEffect.statusType == StatusType.INVALID)
             {
-                 if (!gainedStatus
-                     && (EvosActorStatusManager.Get() == null
-                        || EvosActorStatusManager.Get().IsPendingRemoval(m_actorData, animatingEffect.evosStatusType)))
-                 {
-                     Log.Info($"UINameplateItem.NotifyStatusAnimationDone: Status {animatingEffect.statusType}/{animatingEffect.evosStatusType} fadeout done (removing)"); // TODO debug
-                     // we started this chain by calling RemoveStatus, no need to start it again
-                     // RemoveStatus(animatingEffect.evosStatusType);
-                     // EvosActorStatusManager.Get().PendingRemovalProcessed(m_actorData, animatingEffect.evosStatusType);
-                 }
+                // we started this chain by calling RemoveStatus, no need to start it again
             }
             else
 #endif    
