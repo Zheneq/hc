@@ -715,10 +715,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
         {
             return;
         }
-  
-#if EVOS      
-        Log.Info($"UINameplateItem.AddStatus: {m_actorData} {newType}"); // TODO debug
-#endif
 
         UINameplateStatus uINameplateStatus = Instantiate(m_statusPrefab);
         uINameplateStatus.transform.SetParent(m_statusContainer.transform);
@@ -755,10 +751,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 
     public void RemoveStatus(StatusType newType)
     {
-#if EVOS      
-        Log.Info($"UINameplateItem.RemoveStatus: {m_actorData} {newType}"); // TODO debug
-#endif
-        
         for (int i = 0; i < m_statusEffects.Count; i++)
         {
             StaticStatusDisplayInfo value = m_statusEffects[i];
@@ -2156,9 +2148,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
 
                     if (component.alpha <= 0f)
                     {
-#if EVOS
-                        Log.Info($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done (visible)"); // TODO debug
-#endif
                         StatusFadeOutDone(m_statusEffects[i].statusType
 #if EVOS
                             , m_statusEffects[i].evosStatusType
@@ -2174,9 +2163,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                     component.alpha = 0f;
                     if (m_statusEffects[i].m_removedBuff)
                     {
-#if EVOS
-                        Log.Info($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done (invisible)"); // TODO debug
-#endif
                         StatusFadeOutDone(m_statusEffects[i].statusType
 #if EVOS
                             , m_statusEffects[i].evosStatusType
