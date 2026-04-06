@@ -59,5 +59,5 @@ public enum StatusType
 	IncreasedIncomingHealing,
 	CantPickUpFlag,
 	VisionPowerup,
-	NUM,
+	NUM
 }

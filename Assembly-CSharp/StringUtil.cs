@@ -1,8 +1,8 @@
+using I2.Loc;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
-using I2.Loc;
 
 public static class StringUtil
 {
@@ -627,23 +627,6 @@ public static class StringUtil
 	{
 		return ScriptLocalization.Get(ScriptLocalization.GetStatusIconBuffDescKey(statusIconId));
 	}
-	
-// #if EVOS
-// 	public static string GetEvosActorStatusIconPopupText(StatusType statusType)
-// 	{
-// 		return ScriptLocalization.Get(ScriptLocalization.GetStatusIconPopupTextKey(statusIconId));
-// 	}
-//
-// 	public static string GetEvosActorStatusIconBuffName(StatusType statusType)
-// 	{
-// 		return ScriptLocalization.Get(ScriptLocalization.GetStatusIconBuffNameKey(statusIconId));
-// 	}
-//
-// 	public static string GetEvosActorStatusIconBuffDesc(StatusType statusType)
-// 	{
-// 		return ScriptLocalization.Get(ScriptLocalization.GetStatusIconBuffDescKey(statusIconId));
-// 	}
-// #endif
 
 	public static string GetSpectatorToggleOptionName(UISpectatorHUD.SpectatorToggleOption option)
 	{

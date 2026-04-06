@@ -40,10 +40,7 @@ public class Dino_SyncComponent : NetworkBehaviour
 	{
 		get => m_layerConePowerLevel;
 		[param: In]
-		set
-		{
-			SetSyncVar(value, ref m_layerConePowerLevel, 4u);
-		}
+		set => SetSyncVar(value, ref m_layerConePowerLevel, 4u);
 	}
 
 	static Dino_SyncComponent()

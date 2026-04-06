@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+#if EVOS
 using Evos.ActorStatus;
+#endif
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -1352,6 +1354,15 @@ public abstract class Sequence : MonoBehaviour
 
 	public override string ToString()
 	{
+#if VANILLA
+		return $"[Sequence: {GetType()}, " +
+		       $"Object: {gameObject.name}, " +
+		       $"id: {Id}, " +
+		       $"initialized: {m_initialized}, " +
+		       $"enabled: {enabled}, " +
+		       $"MarkedForRemoval: {MarkedForRemoval}, " +
+		       $"Caster: {(Caster == null ? "NULL" : Caster.ToString())}]";
+#else
 		return $"[Sequence: {GetType()}, " +
 		       $"Object: {gameObject.name}, " +
 		       $"id: {Id}, " +
@@ -1362,6 +1373,7 @@ public abstract class Sequence : MonoBehaviour
 		       $"MarkedForRemoval: {MarkedForRemoval}, " +
 		       $"Caster: {(Caster == null ? "NULL" : Caster.ToString())}, " +
 		       $"Targets: {(Targets == null ? "NULL" : string.Join(", ",Targets.Select(x => x.ToString()).ToArray()))}]";
+#endif
 	}
 
 	public string GetTargetsString()

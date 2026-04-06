@@ -2166,13 +2166,6 @@ public class UINameplateItem : MonoBehaviour, IGameEventListener
                         m_statusEffects.RemoveAt(i);
                         i--;
                     }
-#if EVOS
-                    // seems legal in fog of war
-                    // else if (m_statusEffects[i].evosStatusType != EvosActorStatusType.NONE)
-                    // {
-                    //     Log.Error($"UINameplateItem.LateUpdate: Status {m_statusEffects[i].statusType}/{m_statusEffects[i].evosStatusType} fadeout done but it is not removed");
-                    // }
-#endif
                 }
             }
         }

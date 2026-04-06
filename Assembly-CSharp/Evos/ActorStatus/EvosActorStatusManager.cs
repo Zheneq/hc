@@ -43,10 +43,6 @@ namespace Evos.ActorStatus
             }
         }
 
-        public void OnTurnTick()
-        {
-        }
-
         public void OnSequenceAdded(Sequence[] sequences, int prefabID)
         {
             SequenceStatusInfo statusInfo = EvosActorStatusRepo.GetSequenceStatusInfoByPrefabId(prefabID);

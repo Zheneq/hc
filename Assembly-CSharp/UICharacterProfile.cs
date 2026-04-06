@@ -524,7 +524,7 @@ public class UICharacterProfile : MonoBehaviour
         {
             return;
         }
-        
+
         UIBuffIndicator[] buffIndicators = m_buffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
         UIBuffIndicator[] debuffIndicators = m_debuffGrid.GetComponentsInChildren<UIBuffIndicator>(false);
 
