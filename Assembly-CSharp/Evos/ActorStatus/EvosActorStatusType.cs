@@ -1,5 +1,6 @@
 namespace Evos.ActorStatus
 {
+#if EVOS
     public enum EvosActorStatusType
     {
         NONE,
@@ -17,4 +18,5 @@ namespace Evos.ActorStatus
         
         NUM,
     }
+#endif
 }
