@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Evos.ActorStatus
 {
 #if EVOS
-    // TODO Sticky doesn't disappear immediately after exploding (Ice Core does) (react to seq 59? react to sequence hit?)
+    // TODO Remove statuses on death
     // TODO Can we put casters' names in debuffs?
     public class EvosActorStatusManager: MonoBehaviour
     {
@@ -110,7 +110,8 @@ namespace Evos.ActorStatus
                 Log.Info($"OnSequenceHit: looking for initial sequence for {sequence}");
                 foreach (Sequence initialSequence in SequenceManager.Get().GetSequencesForSource(source))
                 {
-                    if (initialSequence.PrefabLookupId == statusInfo.PrimaryPrefabId)
+                    if (initialSequence.PrefabLookupId == statusInfo.PrimaryPrefabId
+                        && initialSequence.Targets.Contains(target))
                     {
                         sequence = initialSequence;
                         break;
