@@ -10,7 +10,7 @@ namespace Evos
     
         private AssetBundle EvosBundle;
 
-        private const string Path = "../Bundles/evos.bundle";
+        private const string Path = "../Evos/evos.bundle";
     
         public static EvosAssetBundleManager Get()
         {
