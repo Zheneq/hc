@@ -43,6 +43,7 @@ public class SettingsState : ICloneable
     public bool allowResettingWaypoints;
     public bool extendedCooldownView;
     public bool enableGamepadControls;
+    public bool enableUniqueStatusEffectIcons;
 #endif
 
     public object Clone()

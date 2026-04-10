@@ -35,6 +35,26 @@ namespace Evos.ActorStatus
             GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
         }
 
+        public void OnToggle()
+        {
+            if (IsEnabled)
+            {
+                foreach (var appliedStatusInfo in AppliedStatuses.Values)
+                {
+                    UpdateStatus(appliedStatusInfo.Actors, appliedStatusInfo.Status, (nameplate, type) => nameplate.AddStatus(type));
+                }
+            }
+            else
+            {
+                foreach (var appliedStatusInfo in AppliedStatuses.Values)
+                {
+                    UpdateStatus(appliedStatusInfo.Actors, appliedStatusInfo.Status, (nameplate, type) => nameplate.RemoveStatus(type), force: true);
+                }
+            }
+        }
+
+        private static bool IsEnabled => EvosOptions.Get()?.GetOption(EvosOptions.EnableUniqueStatusEffectIcons) ?? false;
+
         public void OnGameStateChanged(GameState newState)
         {
             if (newState == GameState.StartingGame || newState == GameState.EndingGame)
@@ -131,7 +151,7 @@ namespace Evos.ActorStatus
 
         public int GetStatusCount(ActorData actor, EvosActorStatusType status)
         {
-            if (actor.IsDead())
+            if (!IsEnabled || actor.IsDead())
             {
                 return 0;
             }
@@ -142,16 +162,11 @@ namespace Evos.ActorStatus
                     && appliedStatusInfo.Actors.Contains(actor));
         }
 
-        public bool AddStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
+        public void AddStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
         {
             Log.Info($"EvosActorStatusManager.AddStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a.ToString()).ToArray())}");
-            bool result = UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.AddStatus(type));
-            if (result)
-            {
-                AppliedStatuses[sequenceId] = new AppliedStatusInfo(targetActors,evosStatusType);
-            }
-
-            return result;
+            UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.AddStatus(type));
+            AppliedStatuses[sequenceId] = new AppliedStatusInfo(targetActors, evosStatusType);
         }
 
         public void RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
@@ -161,16 +176,22 @@ namespace Evos.ActorStatus
             AppliedStatuses.Remove(sequenceId);
         }
 
-        private static bool UpdateStatus(
+        private static void UpdateStatus(
             ActorData[] targetActors,
             EvosActorStatusType evosStatusType,
-            Action<UINameplateItem, EvosActorStatusType> method)
+            Action<UINameplateItem, EvosActorStatusType> method,
+            bool force = false)
         {
+            if (!IsEnabled && !force)
+            {
+                return;
+            }
+
             var panel = UIMainScreenPanel.Get();
             if (panel is null)
             {
                 Log.Error("EvosActorStatusManager.UpdateStatus: Failed to get UIMainScreenPanel");
-                return false;
+                return;
             }
 
             foreach (ActorData targetActor in targetActors)
@@ -190,8 +211,6 @@ namespace Evos.ActorStatus
                     Log.Error($"EvosActorStatusManager.UpdateStatus: Failed to get nameplate panel for {targetActor}");
                 }
             }
-
-            return true;
         }
     
         private static readonly Dictionary<int, EvosActorStatusType> Statuses = new Dictionary<int, EvosActorStatusType>

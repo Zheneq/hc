@@ -14,6 +14,7 @@
     "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
     "AllowResettingWaypointsNo@EvosOptions": "Do nothing",
     "ExtendedCooldownView@EvosOptions": "Always show cooldowns in main UI",
+    "EnableUniqueStatusEffectIcons@EvosOptions": "Special status effect icons",
     "EnableGamepadControls@EvosOptions": "Gamepad controls",
 
     "Tournament_Draft_Bans@GameWideData": "Tournament Draft With Bans",
