@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 namespace LobbyGameClientMessages
 {
 	[Serializable]
-	public class EvosOptionsNotification : WebSocketMessage
+	public class EvosOptionsNotificationLegacy : WebSocketMessage
 	{
 		public bool UserDialog;
 		public string DeviceIdentifier;
@@ -47,8 +47,6 @@ namespace LobbyGameClientMessages
 		// Evos options
 		public bool AllowResettingWaypoints;
 		public bool ExtendedCooldownView;
-		public bool EnableGamepadControls;
-		public bool EnableUniqueStatusEffectIcons;
 	}
 }
 #endif

@@ -299,6 +299,7 @@ namespace LobbyGameClientMessages
 		public static IEnumerable<Type> EvosMessageTypes => new[]
 		{
 			typeof(EvosOptionsNotification),
+			typeof(EvosOptionsNotificationLegacy),
 		};
 #endif
 
