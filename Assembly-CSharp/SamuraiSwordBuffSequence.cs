@@ -36,7 +36,12 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 				{
 					SpawnFX();
 #if EVOS
-					EvosActorStatusManager.Get()?.AddStatus(Targets, EvosActorStatusType.Samurai_Fury, Id);
+					var evosActorStatusManager = EvosActorStatusManager.Get();
+					if (evosActorStatusManager != null
+					    && evosActorStatusManager.GetStatusCount(Target, EvosActorStatusType.Samurai_Fury) == 0)
+					{
+						evosActorStatusManager.AddStatus(Targets, EvosActorStatusType.Samurai_Fury, Id);
+					}
 #endif
 				}
 				m_syncComp.m_swordBuffVfxPending = false;
