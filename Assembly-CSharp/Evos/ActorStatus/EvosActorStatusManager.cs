@@ -11,6 +11,8 @@ namespace Evos.ActorStatus
         private static EvosActorStatusManager s_instance;
 
         private readonly Dictionary<int, AppliedStatusInfo> AppliedStatuses = new Dictionary<int, AppliedStatusInfo>();
+        
+        private bool IsInGame { get; set; }
     
         public static EvosActorStatusManager Get()
         {
@@ -43,10 +45,12 @@ namespace Evos.ActorStatus
         private void OnGameStarted()
         {
             ResetEffects();
+            IsInGame = true;
         }
 
         private void OnGameStopped(GameResult gameResult)
         {
+            IsInGame = false;
             ResetEffects();
         }
 
@@ -199,13 +203,18 @@ namespace Evos.ActorStatus
             AppliedStatuses.Remove(sequenceId);
         }
 
-        private static void UpdateStatus(
+        private void UpdateStatus(
             ActorData[] targetActors,
             EvosActorStatusType evosStatusType,
             Action<UINameplateItem, EvosActorStatusType> method,
             bool force = false)
         {
             if (!IsEnabled && !force)
+            {
+                return;
+            }
+            
+            if (!IsInGame)
             {
                 return;
             }
