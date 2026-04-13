@@ -27,12 +27,37 @@ namespace Evos.ActorStatus
 
         private void Start()
         {
-            GameFlowData.s_onGameStateChanged += OnGameStateChanged;
+            var gameManager = GameManager.Get();
+            if (gameManager)
+            {
+                gameManager.OnGameStarted += OnGameStarted;
+                gameManager.OnGameStopped += OnGameStopped;
+                Log.Info("EvosActorStatusManager started");
+            }
+            else
+            {
+                Log.Error("EvosActorStatusManager failed to start");
+            }
+        }
+
+        private void OnGameStarted()
+        {
+            ResetEffects();
+        }
+
+        private void OnGameStopped(GameResult gameResult)
+        {
+            ResetEffects();
         }
 
         public void OnDestroy()
         {
-            GameFlowData.s_onGameStateChanged -= OnGameStateChanged;
+            var gameManager = GameManager.Get();
+            if (gameManager)
+            {
+                gameManager.OnGameAssembling -= OnGameStarted;
+                gameManager.OnGameStopped -= OnGameStopped;
+            }
         }
 
         public void OnToggle()
@@ -55,12 +80,10 @@ namespace Evos.ActorStatus
 
         private static bool IsEnabled => EvosOptions.Get()?.GetOption(EvosOptions.EnableUniqueStatusEffectIcons) ?? false;
 
-        public void OnGameStateChanged(GameState newState)
+        public void ResetEffects()
         {
-            if (newState == GameState.StartingGame || newState == GameState.EndingGame)
-            {
-                AppliedStatuses.Clear();
-            }
+            AppliedStatuses.Clear();
+            Log.Info("EvosActorStatusManager reset");
         }
 
         public void OnSequenceAdded(Sequence[] sequences, int prefabID)
