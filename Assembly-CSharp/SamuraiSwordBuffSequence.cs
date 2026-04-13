@@ -35,14 +35,6 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 				if (m_fx == null && AgeInTurns <= 0)
 				{
 					SpawnFX();
-#if EVOS
-					var evosActorStatusManager = EvosActorStatusManager.Get();
-					if (evosActorStatusManager != null
-					    && evosActorStatusManager.GetStatusCount(Target, EvosActorStatusType.Samurai_Fury) == 0)
-					{
-						evosActorStatusManager.AddStatus(Targets, EvosActorStatusType.Samurai_Fury, Id);
-					}
-#endif
 				}
 				m_syncComp.m_swordBuffVfxPending = false;
 			}
@@ -66,6 +58,13 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 					}
 				}
 				m_switchedToActiveBuffFx = true;
+#if EVOS
+				var evosActorStatusManager = EvosActorStatusManager.Get();
+				if (evosActorStatusManager != null)
+				{
+					evosActorStatusManager.AddStatus(Targets, EvosActorStatusType.Samurai_Fury, Id);
+				}
+#endif
 			}
 			else if (m_syncComp.m_swordBuffFinalTurnVfxPending
 			         && m_switchedToActiveBuffFx
