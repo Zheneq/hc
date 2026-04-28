@@ -1329,6 +1329,7 @@
     <Compile Include="LobbyGameClientMessages\ErrorReportSummaryRequest.cs" />
     <Compile Include="LobbyGameClientMessages\ErrorReportSummaryResponse.cs" />
     <Compile Include="LobbyGameClientMessages\EvosOptionsNotification.cs" />
+    <Compile Include="LobbyGameClientMessages\EvosOptionsNotificationLegacy.cs" />
     <Compile Include="LobbyGameClientMessages\FacebookAccessTokenNotification.cs" />
     <Compile Include="LobbyGameClientMessages\FacebookGetUserTokenRequest.cs" />
     <Compile Include="LobbyGameClientMessages\FacebookGetUserTokenResponse.cs" />
