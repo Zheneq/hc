@@ -7,7 +7,7 @@ namespace Evos.ActorStatus
 #if EVOS
     public static class EvosActorStatusRepo
     {
-        private const string BasePath = "assets/evos/statusicons/";
+        public const string BasePath = "assets/evos/statusicons/";
         private const int LOC_INDEX_START = 1000;
         
         private static readonly List<EvosActorStatusData> List = new List<EvosActorStatusData>

@@ -1,4 +1,8 @@
 using System;
+#if EVOS
+using Evos;
+using Evos.ActorStatus;
+#endif
 using UnityEngine;
 
 public class HUD_UIResources : MonoBehaviour
@@ -366,6 +370,18 @@ public class HUD_UIResources : MonoBehaviour
 
             break;
         }
+        
+#if EVOS
+        if (statusType == StatusType.CantCollectPowerups)
+        {
+            var sprite = EvosAssetBundleManager.Get()
+                ?.LoadAsset<Sprite>(EvosActorStatusRepo.BasePath + "status_effect_spoil_impairment.png");
+            if (sprite != null)
+            {
+                result.icon = sprite;
+            }
+        }
+#endif
 
         return result;
     }
