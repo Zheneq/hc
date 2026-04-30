@@ -7,6 +7,7 @@
     "Ability_SorceressDamageField_Ion Cloud_Tooltip@AbilitiesData": "Create an entropic cloud that deals [Damage] direct damage when cast and lasts [Duration] turns. Enemies moving through or starting their turn in the cloud take [Damage] additional indirect damage. Allies within or moving through the cloud heal for [Healing] health.\n\nGain [RewardOnDamage_PerTarget] energy per enemy hit and [RewardOnHit_PerAllyTarget] energy per ally hit (excluding yourself).",
     "Mod_NanoSmithWeaponsOfWar_Weapon of War_Tooltip@AbilitiesData": "Target gains [^might^] for the duration of the shield.",
     "StatusIcon_27_BuffDesc@AbilitiesData": "See through walls and camouflage.",
+    "ForcedToPlayFreelancer@Global": "{0} is already in use.\nWe've selected your best available freelancer, {1}.",
 
     "GroupChatRoom@FriendList": "In group",
 
@@ -61,7 +62,7 @@
   "Russian": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Бросает мины в окружающие клетки, которые наносят [Damage] ед. непрямого урона и действуют [MineDuration] хода. Если на какой-либо из клеток стоит враг, соотвествующая мина сдетонирует и нанесёт [Damage] ед. прямого урона.\n\nДает [EnergyGainOnMineHit] ед. энергии за каждое попадание по врагу.",
     "Ability_ExoTetherTrap_Lockdown_Tooltip@AbilitiesData": "Изолирует цель в текущей позиции на один ход и наносит [Damage_TetherBreak] ед. непрямого урона, если враг выходит за пределы [TetherDistance] клеток от этого места.\n\nДает [RewardOnDamage_PerTarget] ед. энергии за каждую цель, которой был нанесён урон.",
-    "Mod_NinjaDarts_Wave of Steel_Name@AbilitiesData": "Стальная волна",
+    "Mod_NinjaDarts_Wave of Steel_Name@AbilitiesData": "Волна стали",
     "Mod_NinjaDarts_Wave of Steel_Tooltip@AbilitiesData": "Увеличивает число сюрикенов на [LaserCount_Diff]. Снижает дополнительный урон на [ExtraDamagePerSubseqHit_Diff] ед. и дополнительную энергию на [EnergyPerDartHit_Diff] ед. за сюрикен.",
     "Mod_BazookaGirlRocketJump_Long Range Love_Name@AbilitiesData": "Любовь на расстоянии",
     "Mod_BazookaGirlRocketJump_Long Range Love_Tooltip@AbilitiesData": "Увеличивает дальность на [TargetDataMaxRange_Diff].",
@@ -253,7 +254,7 @@
 
     "GroupChatRoom@FriendList": "In der Gruppe",
 
-    "AllowResettingWaypoints@EvosOptions": "Beim erneuten Auswählen des aktuellen Ziels",
+    "AllowResettingWaypoints@EvosOptions": "Bei erneuter Zielauswahl",
     "AllowResettingWaypointsYes@EvosOptions": "Wegpunkte zurücksetzen",
     "AllowResettingWaypointsNo@EvosOptions": "Nichts tun",
     "ExtendedCooldownView@EvosOptions": "Abklingzeiten immer anzeigen",
