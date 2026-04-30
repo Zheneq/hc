@@ -581,6 +581,14 @@ public class Options_UI : UIScene, IGameEventListener
         "enableProfanityFilter",
         "tutorialVideos"
     };
+    private static readonly string[] c_dropDownNames = {
+        "windowModeList",
+        "resolutionList",
+        "gameWindowModeList",
+        "gameResolutionList",
+        "regionList",
+        "languageList"
+    };
     private List<RectTransform> m_rows;
     private const int c_rowHeight = 52;
     private const int c_vertStartOffset = -24;
@@ -601,6 +609,8 @@ public class Options_UI : UIScene, IGameEventListener
             return;
         }
         
+        int ui = LayerMask.NameToLayer("UI");
+        
         m_rows = new List<RectTransform>(c_rowNames.Length);
         foreach (string rowName in c_rowNames)
         {
@@ -610,13 +620,70 @@ public class Options_UI : UIScene, IGameEventListener
                 Log.Error($"Failed to hack into options menu: row {rowName} not found");
                 return;
             }
-            m_rows.Add(row);
+
+            GameObject rowWrapper = new GameObject(rowName + "Row")
+            {
+                layer = ui,
+                transform =
+                {
+                    localScale = Vector3.one
+                }
+            };
+            
+            GridLayoutGroup rowLayout = rowWrapper.AddComponent<GridLayoutGroup>();
+            rowLayout.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+            rowLayout.constraintCount = 2;
+            rowLayout.startAxis = GridLayoutGroup.Axis.Vertical;
+            rowLayout.cellSize = new Vector2(440, c_rowHeight);
+            rowLayout.childAlignment = TextAnchor.MiddleLeft;
+            
+            row.transform.SetParent(rowLayout.transform);
+            row.transform.localScale = Vector3.one;
+            
+            rowWrapper.transform.SetParent(rows.transform);
+            
+            m_rows.Add(rowLayout.transform as RectTransform);
         }
-        m_toggleButtonSource = m_rows[c_rowNames.Length - 1];
+
+        // add a label to each control
+        List<string> rowNames = StringUtil.TR("OptionLabelsDiscord", "Options").Split('\n').ToList();
+        for (int i = 0; i < m_rows.Count; i++)
+        {
+            var row = m_rows[i];
+            GameObject labelWrapperObject = new GameObject("labelWrapper", typeof(RectTransform))
+            {
+                layer = ui,
+                transform =
+                {
+                    localPosition = new Vector3(0, 0, 100),
+                    localScale = Vector3.one,
+                }
+            };
+            RectTransform labelWrapper = labelWrapperObject.GetComponent<RectTransform>();
+            labelWrapper.SetParent(row);
+            labelWrapper.SetAsFirstSibling();
+            var label = Instantiate(m_optionsLabelText, labelWrapper);
+            label.transform.localScale = Vector3.one;
+            var rectTransform = label.transform as RectTransform;
+            if (rectTransform)
+            {
+                rectTransform.anchoredPosition = new Vector2(50, -496);
+            }
+            label.gameObject.name = "label";
+            label.text = rowNames[i];
+            
+        }
         
+        // remove the old label
+        m_optionsLabelText.gameObject.SetActive(false);
+        m_optionsLabelText.gameObject.transform.SetParent(null);
+
+        // create custom controls
+        m_toggleButtonSource = m_rows[c_rowNames.Length - 1];
         foreach (EvosOptions.Option option in EvosOptions.Get().m_options)
         {
             AddCustomToggle(
+                option.termTitle,
                 option.gameObjectName,
                 out var btnEnable,
                 out var btnDisable,
@@ -635,9 +702,32 @@ public class Options_UI : UIScene, IGameEventListener
                 option.termDisable);
             option.AssignButtons(btnEnable, btnDisable);
         }
+
+        // dropdowns should render on the top
+        foreach (string dropDownName in c_dropDownNames)
+        {
+            RectTransform dropDown = rows.Find(dropDownName) as RectTransform;
+            if (dropDown != null)
+            {
+                dropDown.SetAsLastSibling();
+            }
+        }
+        
+        // arrange rows
+        for (int i = 0; i < m_rows.Count; i++)
+        {
+            RectTransform elem = m_rows[i];
+            elem.anchorMin = new Vector2(0, 1);
+            elem.anchorMax = new Vector2(0, 1);
+            elem.localScale = Vector3.one;
+            Vector2 pos = elem.anchoredPosition;
+            pos.y = c_vertStartOffset - c_rowHeight * i;
+            elem.anchoredPosition = pos;
+        }
     }
 
     private void AddCustomToggle(
+        string termLabel,
         string key,
         out _SelectableBtn btnEnable,
         out _SelectableBtn btnDisable,
@@ -677,6 +767,7 @@ public class Options_UI : UIScene, IGameEventListener
 
         btnEnable = myCustomButton.FindInChildren("enableBtn")?.GetComponent<_SelectableBtn>();
         btnDisable = myCustomButton.FindInChildren("disableBtn")?.GetComponent<_SelectableBtn>();
+        var label = myCustomButton.FindInChildren("label")?.GetComponent<TextMeshProUGUI>();
         
         if (btnEnable != null && btnDisable != null)
         {
@@ -694,6 +785,11 @@ public class Options_UI : UIScene, IGameEventListener
             {
                 loc.Term = termDisable;
                 loc.SecondaryTerm = termDisable;
+            }
+
+            if (label)
+            {
+                label.text = StringUtil.TR(termLabel);
             }
         }
         
@@ -887,18 +983,7 @@ public class Options_UI : UIScene, IGameEventListener
             m_activeState.resolutionHeight = Screen.height;
         }
 
-#if EVOS
-        // custom options
-        List<string> rowNames = StringUtil.TR("OptionLabelsDiscord", "Options").Split('\n').ToList();
-        foreach (EvosOptions.Option option in EvosOptions.Get().m_options)
-        {
-            int index = option.position == -1 ? rowNames.Count : option.position;
-            rowNames.Insert(index, StringUtil.TR(option.termTitle));
-        }
-        m_optionsLabelText.text = string.Join("\n", rowNames.ToArray());
-#else
         m_optionsLabelText.text = StringUtil.TR("OptionLabelsDiscord", "Options");
-#endif
         
         if (DiscordClientInterface.IsEnabled
             && (DiscordClientInterface.IsSdkEnabled || DiscordClientInterface.IsInstalled))
