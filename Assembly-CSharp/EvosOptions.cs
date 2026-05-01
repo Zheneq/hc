@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Evos.ActorStatus;
 using UnityEngine;
 
 #if EVOS
@@ -65,6 +66,7 @@ public class EvosOptions
     public const string AllowResettingWaypoints = "OptionsAllowResettingWaypoints";
     public const string ExtendedCooldownView = "OptionsExtendedCooldownView";
     public const string EnableGamepadControls = "EnableGamepadControls";
+    public const string EnableUniqueStatusEffectIcons = "EnableUniqueStatusEffectIcons";
 
     public readonly List<Option> m_options = new List<Option>
     {
@@ -89,6 +91,15 @@ public class EvosOptions
             "ExtendedCooldownView@EvosOptions",
             position: 13),
         new Option(
+            "enableUniqueStatusEffectIcons",
+            EnableUniqueStatusEffectIcons,
+            true,
+            pendingState => pendingState.enableUniqueStatusEffectIcons,
+            (pendingState, value) => pendingState.enableUniqueStatusEffectIcons = value,
+            () => EvosActorStatusManager.Get()?.OnToggle(),
+            "EnableUniqueStatusEffectIcons@EvosOptions",
+            position: 14),
+        new Option(
             "enableGamepadControls",
             EnableGamepadControls,
             false,
@@ -96,7 +107,7 @@ public class EvosOptions
             (pendingState, value) => pendingState.enableGamepadControls = value,
             () => { },
             "EnableGamepadControls@EvosOptions",
-            position: 14)
+            position: 15)
     };
     private readonly Dictionary<string, Option> m_optionDict;
     

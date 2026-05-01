@@ -2,6 +2,7 @@
 // SERVER
 //using System;
 using System.Collections.Generic;
+using Evos.ActorStatus;
 //using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -396,25 +397,35 @@ public static class ServerClientUtils
 			ActorData caster = GameFlowData.Get().FindActorByActorIndex(m_casterActorIndex);
 			SequenceSource sequenceSource = new SequenceSource(onHitActor, onHitPos, m_sourceRootID, m_sourceRemoveAtEndOfTurn);
 			sequenceSource.SetWaitForClientEnable(m_waitForClientEnable);
+
+			Sequence[] sequences;
 			if (m_useTargetRotation)
 			{
 				if (m_useTargetSquare)
 				{
-					return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, m_targetPos, m_targetRotation, targetActors, caster, sequenceSource, m_extraParams);
+					sequences = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, m_targetPos, m_targetRotation, targetActors, caster, sequenceSource, m_extraParams);
 				}
 				else
 				{
-					return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, m_targetPos, m_targetRotation, targetActors, caster, sequenceSource, m_extraParams);
+					sequences = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, m_targetPos, m_targetRotation, targetActors, caster, sequenceSource, m_extraParams);
 				}
 			}
 			else if (m_useTargetSquare)
 			{
-				return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, targetActors, caster, sequenceSource, m_extraParams);
+				sequences = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, targetSquare, targetActors, caster, sequenceSource, m_extraParams);
 			}
 			else
 			{
-				return SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, m_targetPos, targetActors, caster, sequenceSource, m_extraParams);
+				sequences = SequenceManager.Get().CreateClientSequences(prefabOfSequenceId, m_targetPos, targetActors, caster, sequenceSource, m_extraParams);
 			}
+#if EVOS
+			var evosActorStatusManager = EvosActorStatusManager.Get();
+			if (evosActorStatusManager != null)
+			{
+				evosActorStatusManager.OnSequenceAdded(sequences, m_prefabID);
+			}
+#endif
+			return sequences;
 		}
 
 		internal bool HasSequencePrefab()

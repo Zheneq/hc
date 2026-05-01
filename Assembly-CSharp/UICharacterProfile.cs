@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+#if EVOS
+using System.Linq;
+using Evos.ActorStatus;
+#endif
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -52,6 +56,9 @@ public class UICharacterProfile : MonoBehaviour
     private bool m_selectionMenuOpen;
     private bool m_tauntIsEnabled;
     private List<StatusType> previousStatuses;
+#if EVOS
+    private List<EvosActorStatusType> previousEvosStatuses;
+#endif
     private bool m_waitingForGGPackUseResponse;
     private bool m_hasGgPacks;
 
@@ -473,6 +480,45 @@ public class UICharacterProfile : MonoBehaviour
         {
             needsUpdate = true;
         }
+        
+#if EVOS
+        EvosActorStatusManager evosActorStatusManager = EvosActorStatusManager.Get();
+        List<EvosActorStatusType> activeEvosStatusTypes = new List<EvosActorStatusType>();
+        if (evosActorStatusManager != null)
+        {
+            ActorData actor = GameFlowData.Get().activeOwnedActorData;
+            for (int i = 0; i < (int)EvosActorStatusType.NUM; i++)
+            {
+                EvosActorStatusType statusType = (EvosActorStatusType)i;
+                int statusCount = evosActorStatusManager.GetStatusCount(actor, statusType);
+                if (statusCount == 0)
+                {
+                    continue;
+                }
+
+                HUD_UIResources.StatusTypeIcon iconForStatusType =
+                    EvosActorStatusRepo.GetIconForStatusType(statusType);
+                if (!iconForStatusType.displayIcon)
+                {
+                    continue;
+                }
+
+                for (int j = 0; j < statusCount; j++)
+                {
+                    activeEvosStatusTypes.Add(statusType);
+                }
+                if (previousEvosStatuses != null && previousEvosStatuses.Count(type => statusType.Equals(type)) != statusCount)
+                {
+                    needsUpdate = true;
+                }
+            }
+        }
+
+        if (previousEvosStatuses != null && previousEvosStatuses.Count != activeEvosStatusTypes.Count)
+        {
+            needsUpdate = true;
+        }
+#endif
 
         if (!needsUpdate && !forceUpdate)
         {
@@ -488,14 +534,22 @@ public class UICharacterProfile : MonoBehaviour
             allIndicators.Add(debuffIndicator);
         }
 
-        while (allIndicators.Count > activeStatusTypes.Count)
+        while (allIndicators.Count > activeStatusTypes.Count
+#if EVOS
+               + activeEvosStatusTypes.Count
+#endif
+               )
         {
             UIManager.SetGameObjectActive(allIndicators[0], false);
             Destroy(allIndicators[0].gameObject);
             allIndicators.RemoveAt(0);
         }
 
-        while (allIndicators.Count < activeStatusTypes.Count)
+        while (allIndicators.Count < activeStatusTypes.Count
+#if EVOS
+               + activeEvosStatusTypes.Count
+#endif
+               )
         {
             UIBuffIndicator item = Instantiate(m_buffIndicatorPrefab);
             allIndicators.Add(item);
@@ -511,12 +565,27 @@ public class UICharacterProfile : MonoBehaviour
             uIBuffIndicator.transform.localEulerAngles = Vector3.zero;
             allIndicators[i].Setup(activeStatusTypes[i], actorStatus.GetDurationOfStatus(activeStatusTypes[i]));
         }
+#if EVOS
+        for (int i = 0; i < activeEvosStatusTypes.Count; i++)
+        {
+            UIBuffIndicator uIBuffIndicator = allIndicators[i + activeStatusTypes.Count];
+            HUD_UIResources.StatusTypeIcon icon = EvosActorStatusRepo.GetIconForStatusType(activeEvosStatusTypes[i]);
+            uIBuffIndicator.transform.SetParent(icon.isDebuff ? m_debuffGrid.transform : m_buffGrid.transform);
+            uIBuffIndicator.transform.localScale = Vector3.one;
+            uIBuffIndicator.transform.localPosition = Vector3.zero;
+            uIBuffIndicator.transform.localEulerAngles = Vector3.zero;
+            uIBuffIndicator.Setup(activeEvosStatusTypes[i]);
+        }
+#endif
 
         m_debuffGrid.enabled = false;
         m_debuffGrid.enabled = true;
         m_buffGrid.enabled = false;
         m_buffGrid.enabled = true;
         previousStatuses = activeStatusTypes;
+#if EVOS
+        previousEvosStatuses = activeEvosStatusTypes;
+#endif
     }
 
     private void ShowTaunt(bool visible)

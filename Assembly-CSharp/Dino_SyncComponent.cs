@@ -1,4 +1,7 @@
 using System.Runtime.InteropServices;
+#if EVOS
+using Evos.ActorStatus;
+#endif
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -201,6 +204,9 @@ public class Dino_SyncComponent : NetworkBehaviour
 			m_dashOrShieldLastCastTurn = (int)reader.ReadPackedUInt32();
 			m_dashOrShieldInReadyStance = reader.ReadBoolean();
 			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
+#if EVOS
+			EvosActorStatusManager.Get()?.UpdateDinoPowerLevel(m_actor);
+#endif
 			return;
 		}
 		int num = (int)reader.ReadPackedUInt32();
@@ -216,6 +222,9 @@ public class Dino_SyncComponent : NetworkBehaviour
 		if ((num & 4) != 0)
 		{
 			m_layerConePowerLevel = (short)reader.ReadPackedUInt32();
+#if EVOS
+			EvosActorStatusManager.Get()?.UpdateDinoPowerLevel(m_actor);
+#endif
 		}
 	}
 }

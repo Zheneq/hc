@@ -894,6 +894,10 @@
     <Compile Include="EventLogger.cs" />
     <Compile Include="EventLogMessage.cs" />
     <Compile Include="EvosOptions.cs" />
+    <Compile Include="Evos\ActorStatus\EvosActorStatusManager.cs" />
+    <Compile Include="Evos\ActorStatus\EvosActorStatusType.cs" />
+    <Compile Include="Evos\ActorStatus\EvosActorStatusRepo.cs" />
+    <Compile Include="Evos\EvosAssetBundleManager.cs" />
     <Compile Include="ExampleAbility_Flash.cs" />
     <Compile Include="ExoAnchoredLaserCooldownEffect.cs" />
     <Compile Include="ExoAnchorLaser.cs" />
@@ -1325,6 +1329,7 @@
     <Compile Include="LobbyGameClientMessages\ErrorReportSummaryRequest.cs" />
     <Compile Include="LobbyGameClientMessages\ErrorReportSummaryResponse.cs" />
     <Compile Include="LobbyGameClientMessages\EvosOptionsNotification.cs" />
+    <Compile Include="LobbyGameClientMessages\EvosOptionsNotificationLegacy.cs" />
     <Compile Include="LobbyGameClientMessages\FacebookAccessTokenNotification.cs" />
     <Compile Include="LobbyGameClientMessages\FacebookGetUserTokenRequest.cs" />
     <Compile Include="LobbyGameClientMessages\FacebookGetUserTokenResponse.cs" />

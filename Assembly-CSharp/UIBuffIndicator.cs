@@ -1,3 +1,6 @@
+#if EVOS
+using Evos.ActorStatus;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +16,9 @@ public class UIBuffIndicator : MonoBehaviour
     public UITooltipHoverObject m_tooltipObject;
 
     private StatusType m_statusType;
+#if EVOS
+    private EvosActorStatusType m_evosStatusType;
+#endif
     private int m_duration;
 
     private void Start()
@@ -26,7 +32,18 @@ public class UIBuffIndicator : MonoBehaviour
     private bool PopulateTooltip(UITooltipBase tooltip)
     {
         UIBuffTooltip uIBuffTooltip = tooltip as UIBuffTooltip;
+#if EVOS
+        if (m_statusType == StatusType.INVALID)
+        {
+            uIBuffTooltip.Setup(m_evosStatusType);
+        }
+        else
+        {
+            uIBuffTooltip.Setup(m_statusType, m_duration);
+        }
+#else
         uIBuffTooltip.Setup(m_statusType, m_duration);
+#endif
         return true;
     }
 
@@ -52,4 +69,30 @@ public class UIBuffIndicator : MonoBehaviour
             UIManager.SetGameObjectActive(m_debuffContainer, false);
         }
     }
+    
+#if EVOS
+    public void Setup(EvosActorStatusType statusType)
+    {
+        m_statusType = StatusType.INVALID;
+        m_evosStatusType = statusType;
+        m_duration = -1;
+        UIManager.SetGameObjectActive(m_buffGainedMiniIcon, false);
+        UIManager.SetGameObjectActive(m_debuffGainedMiniIcon, false);
+        UIManager.SetGameObjectActive(m_debuffContainer, false);
+        UIManager.SetGameObjectActive(m_buffContainer, false);
+        HUD_UIResources.StatusTypeIcon iconForStatusType = EvosActorStatusRepo.GetIconForStatusType(statusType);
+        if (iconForStatusType.displayIcon)
+        {
+            m_buffGainedIcon.sprite = iconForStatusType.icon;
+            m_debuffGainedIcon.sprite = iconForStatusType.icon;
+            UIManager.SetGameObjectActive(m_buffContainer, !iconForStatusType.isDebuff);
+            UIManager.SetGameObjectActive(m_debuffContainer, iconForStatusType.isDebuff);
+        }
+        else
+        {
+            UIManager.SetGameObjectActive(m_buffContainer, false);
+            UIManager.SetGameObjectActive(m_debuffContainer, false);
+        }
+    }
+#endif
 }

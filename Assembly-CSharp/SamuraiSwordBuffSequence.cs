@@ -1,5 +1,8 @@
 ﻿// ROGUES
 // SERVER
+#if EVOS
+using Evos.ActorStatus;
+#endif
 using UnityEngine;
 
 // identical in reactor and rogues
@@ -55,6 +58,13 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 					}
 				}
 				m_switchedToActiveBuffFx = true;
+#if EVOS
+				var evosActorStatusManager = EvosActorStatusManager.Get();
+				if (evosActorStatusManager != null)
+				{
+					evosActorStatusManager.AddStatus(Targets, EvosActorStatusType.Samurai_Fury, Id);
+				}
+#endif
 			}
 			else if (m_syncComp.m_swordBuffFinalTurnVfxPending
 			         && m_switchedToActiveBuffFx
@@ -73,4 +83,12 @@ public class SamuraiSwordBuffSequence : SimpleAttachedVFXSequence
 	protected override void OnAnimationEvent(Object parameter, GameObject sourceObject)
 	{
 	}
+	
+#if EVOS
+	protected override void OnDestroy()
+	{
+		base.OnDestroy();
+		EvosActorStatusManager.Get()?.RemoveStatus(Targets, EvosActorStatusType.Samurai_Fury, Id);
+	}
+#endif
 }

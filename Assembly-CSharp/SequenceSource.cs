@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+#if EVOS
+using Evos.ActorStatus;
+#endif
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -175,6 +178,14 @@ public class SequenceSource
         if (seq != null && (tryHitReactIfAlreadyHit || !alreadyHit))
         {
             TheatricsManager.Get().OnSequenceHit(seq, target, impulseInfo, ragdollActivation);
+		
+#if EVOS
+            var evosActorStatusManager = EvosActorStatusManager.Get();
+            if (evosActorStatusManager != null)
+            {
+                evosActorStatusManager.OnSequenceHit(seq, this, target);
+            }
+#endif
         }
 
         if (SequenceManager.SequenceDebugTraceOn)

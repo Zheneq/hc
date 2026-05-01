@@ -989,6 +989,7 @@ public class Options_UI : UIScene, IGameEventListener
                 AllowResettingWaypoints = m_activeState.allowResettingWaypoints,
                 ExtendedCooldownView = m_activeState.extendedCooldownView,
                 EnableGamepadControls = m_activeState.enableGamepadControls,
+                EnableUniqueStatusEffectIcons = m_activeState.enableUniqueStatusEffectIcons,
 #endif
             });
     }
