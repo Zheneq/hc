@@ -793,7 +793,7 @@ public class UIRankedModeDraftScreen : UIScene
             if (SelectedCharacter != CharacterType.None && SelectedCharacter != ClientClickedCharacter)
             {
                 int playerId = GameManager.Get().PlayerInfo.PlayerId;
-                if (!m_lastDraftNotification.RankedData.Value._001D(playerId))
+                if (!m_lastDraftNotification.RankedData.Value.IsPlayerSelecting(playerId))
                 {
                     SetupCharacterSettings(SelectedCharacter);
                 }
@@ -1280,12 +1280,12 @@ public class UIRankedModeDraftScreen : UIScene
     {
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
-            teammate.SetAsSelecting(data._001D(teammate.PlayerID));
+            teammate.SetAsSelecting(data.IsPlayerSelecting(teammate.PlayerID));
         }
 
         foreach (UIRankedModePlayerDraftEntry enemy in m_redTeamMembers)
         {
-            enemy.SetAsSelecting(data._001D(enemy.PlayerID));
+            enemy.SetAsSelecting(data.IsPlayerSelecting(enemy.PlayerID));
         }
     }
 
@@ -1315,7 +1315,7 @@ public class UIRankedModeDraftScreen : UIScene
             m_phaseStartTime = Time.time;
         }
 
-        m_IsOnDeck = data._001D(OurPlayerId);
+        m_IsOnDeck = data.IsPlayerSelecting(OurPlayerId);
         DoCharacterSelectContainerActiveCheck();
         bool intendedLockInBtnStatus;
         if (m_IsOnDeck
@@ -1513,7 +1513,7 @@ public class UIRankedModeDraftScreen : UIScene
 
         foreach (LobbyPlayerInfo lobbyPlayerInfo in LastTeamInfo.TeamPlayerInfo)
         {
-            if (data._001D(lobbyPlayerInfo.PlayerId))
+            if (data.IsPlayerSelecting(lobbyPlayerInfo.PlayerId))
             {
                 return lobbyPlayerInfo.TeamId;
             }
@@ -1617,7 +1617,7 @@ public class UIRankedModeDraftScreen : UIScene
 
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
-            if (data._001D(teammate.PlayerID))
+            if (data.IsPlayerSelecting(teammate.PlayerID))
             {
                 isOnBlueTeam = true;
                 break;
@@ -1626,7 +1626,7 @@ public class UIRankedModeDraftScreen : UIScene
 
         foreach (UIRankedModePlayerDraftEntry enemy in m_redTeamMembers)
         {
-            if (data._001D(enemy.PlayerID))
+            if (data.IsPlayerSelecting(enemy.PlayerID))
             {
                 isOnRedTeam = true;
                 break;
@@ -1845,7 +1845,7 @@ public class UIRankedModeDraftScreen : UIScene
         if (LastGameInfo != null
             && HoveredCharacter != m_selectedSubPhaseCharacter
             && m_selectedSubPhaseCharacter != CharacterType.None
-            && data._001D(LastPlayerInfo.PlayerId)
+            && data.IsPlayerSelecting(LastPlayerInfo.PlayerId)
             && !m_selectedCharacterTypes.Contains(m_selectedSubPhaseCharacter)
             && !IsBanned(m_selectedSubPhaseCharacter))
         {
@@ -2253,7 +2253,7 @@ public class UIRankedModeDraftScreen : UIScene
             m_MessageText.text = SubphaseToDisplayName(
                 m_lastDraftNotification.SubPhase,
                 teamType,
-                data._001D(OurPlayerId));
+                data.IsPlayerSelecting(OurPlayerId));
         }
     }
 

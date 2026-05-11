@@ -345,7 +345,7 @@ public class LobbyGameClientInterface : WebSocketInterface
 		}
 		RankedResolutionPhaseData value = notification.RankedData.Value;
 		int ourPlayerId = UIRankedModeDraftScreen.Get().OurPlayerId;
-		if (value._001D(ourPlayerId))
+		if (value.IsPlayerSelecting(ourPlayerId))
 		{
 			Random rnd = new Random();
 			List<CharacterType> list = new List<CharacterType>();
