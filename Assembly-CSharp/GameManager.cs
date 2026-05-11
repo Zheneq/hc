@@ -344,7 +344,6 @@ public class GameManager : MonoBehaviour
 	private void OnDestroy()
 	{
 		s_instance = null;
-		Log.Info("EvosActorStatusManager GameManager is destroyed");
 	}
 
 	private void OnApplicationQuit()
