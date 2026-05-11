@@ -30,7 +30,7 @@ namespace LobbyGameClientMessages
 			{
 				if (check.PlayerId == input)
 				{
-					return (check.OnDeckness == RankedResolutionPlayerState.ReadyState._0012);
+					return (check.OnDeckness == RankedResolutionPlayerState.ReadyState.Selected);
 				}
 				return false;
 			}));

@@ -2,20 +2,18 @@ using System;
 
 namespace LobbyGameClientMessages
 {
-	[Serializable]
-	public struct RankedResolutionPlayerState
-	{
-		public enum ReadyState
-		{
-			_001D,
-			_000E,
-			_0012
-		}
+    [Serializable]
+    public struct RankedResolutionPlayerState
+    {
+        public enum ReadyState
+        {
+            None,
+            Unselected,
+            Selected
+        }
 
-		public int PlayerId;
-
-		public CharacterType Intention;
-
-		public ReadyState OnDeckness;
-	}
+        public int PlayerId;
+        public CharacterType Intention;
+        public ReadyState OnDeckness;
+    }
 }
