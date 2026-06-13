@@ -191,14 +191,14 @@ namespace Evos.ActorStatus
 
         public void AddStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
         {
-            Log.Info($"EvosActorStatusManager.AddStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a?.ToString()).ToArray())}");
+            Log.Info($"EvosActorStatusManager.AddStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a != null ? a.ToString() : null).ToArray())}");
             UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.AddStatus(type));
             AppliedStatuses[sequenceId] = new AppliedStatusInfo(targetActors, evosStatusType);
         }
 
         public void RemoveStatus(ActorData[] targetActors, EvosActorStatusType evosStatusType, int sequenceId)
         {
-            Log.Info($"EvosActorStatusManager.RemoveStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a?.ToString()).ToArray())}");
+            Log.Info($"EvosActorStatusManager.RemoveStatus: {evosStatusType} {string.Join(",", targetActors.Select(a => a != null ? a.ToString() : null).ToArray())}");
             UpdateStatus(targetActors, evosStatusType, (nameplate, type) => nameplate.RemoveStatus(type));
             AppliedStatuses.Remove(sequenceId);
         }
