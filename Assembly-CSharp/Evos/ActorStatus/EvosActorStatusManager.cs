@@ -118,7 +118,7 @@ namespace Evos.ActorStatus
             if (sequenceTargets.Contains(null))
             {
                 Log.Warning($"EvosActorStatusManager.OnSequenceAdded: Target actors for {statusInfo.Type} contains nulls");
-                sequenceTargets = sequenceTargets.Where(x => !(x is null)).ToArray();
+                sequenceTargets = sequenceTargets.Where(x => x != null).ToArray();
             }
 
             AddStatus(sequenceTargets, statusInfo.Type, sequence.Id);
@@ -131,7 +131,7 @@ namespace Evos.ActorStatus
             
             if (!(statusInfo is null)
                 && statusInfo.PrimarySequencePrefabId > 0
-                && !(SequenceManager.Get() is null))
+                && SequenceManager.Get() != null)
             {
                 Log.Info($"OnSequenceHit: looking for initial sequence for {sequence}");
                 foreach (Sequence initialSequence in SequenceManager.Get().GetSequencesForSource(source))
@@ -220,7 +220,7 @@ namespace Evos.ActorStatus
             }
 
             var panel = UIMainScreenPanel.Get();
-            if (panel is null)
+            if (panel == null)
             {
                 Log.Error("EvosActorStatusManager.UpdateStatus: Failed to get UIMainScreenPanel");
                 return;
@@ -228,7 +228,7 @@ namespace Evos.ActorStatus
 
             foreach (ActorData targetActor in targetActors)
             {
-                if (targetActor is null)
+                if (targetActor == null)
                 {
                     Log.Error($"EvosActorStatusManager.UpdateStatus: Target actor is null for status {evosStatusType}");
                     continue;
