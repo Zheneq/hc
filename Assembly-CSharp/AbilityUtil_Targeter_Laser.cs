@@ -4,294 +4,280 @@ using UnityEngine;
 
 public class AbilityUtil_Targeter_Laser : AbilityUtil_Targeter
 {
-	public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
+    public delegate bool IsAffectingCasterDelegate(ActorData caster, List<ActorData> actorsSoFar);
 
-	public delegate int MaxTargetsDelegate(ActorData caster);
+    public delegate int MaxTargetsDelegate(ActorData caster);
 
-	public delegate Vector3 ClampedAimDirectionDelegate(Vector3 currentAimDir, Vector3 prevAimDir);
+    public delegate Vector3 ClampedAimDirectionDelegate(Vector3 currentAimDir, Vector3 prevAimDir);
 
-	public struct HitActorContext
-	{
-		public ActorData actor;
+    public struct HitActorContext
+    {
+        public ActorData actor;
+        public int hitOrderIndex;
+        public float squaresFromCaster;
+    }
 
-		public int hitOrderIndex;
+    public float m_width = 1f;
+    public float m_distance = 15f;
+    public bool m_penetrateLoS;
+    public int m_maxTargets = -1;
+    private bool m_lengthIgnoreWorldGeo;
+    protected Vector3 m_lastCalculatedLaserEndPos;
+    public IsAffectingCasterDelegate m_affectCasterDelegate;
+    public MaxTargetsDelegate m_customMaxTargetsDelegate;
+    public ClampedAimDirectionDelegate m_getClampedAimDirection;
+    private List<HitActorContext> m_hitActorContext = new List<HitActorContext>();
+    private TargeterPart_Laser m_laserPart;
+    private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
 
-		public float squaresFromCaster;
-	}
+    public bool LengthIgnoreWorldGeo
+    {
+        get => m_lengthIgnoreWorldGeo;
+        set => m_lengthIgnoreWorldGeo = value;
+    }
 
-	public float m_width = 1f;
+    public AbilityUtil_Targeter_Laser(
+        Ability ability,
+        float width,
+        float distance,
+        bool penetrateLoS,
+        int maxTargets = -1,
+        bool affectsAllies = false,
+        bool affectsCaster = false)
+        : base(ability)
+    {
+        m_width = width;
+        m_distance = distance;
+        m_penetrateLoS = penetrateLoS;
+        m_maxTargets = maxTargets;
+        m_affectsAllies = affectsAllies;
+        SetAffectedGroups(true, m_affectsAllies, affectsCaster);
+        m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+        m_laserPart = new TargeterPart_Laser(m_width, m_distance, m_penetrateLoS, m_maxTargets);
+        m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+    }
 
-	public float m_distance = 15f;
+    public AbilityUtil_Targeter_Laser(Ability ability, LaserTargetingInfo laserTargetingInfo)
+        : base(ability)
+    {
+        m_width = laserTargetingInfo.width;
+        m_distance = laserTargetingInfo.range;
+        m_penetrateLoS = laserTargetingInfo.penetrateLos;
+        m_maxTargets = laserTargetingInfo.maxTargets;
+        m_affectsEnemies = laserTargetingInfo.affectsEnemies;
+        m_affectsAllies = laserTargetingInfo.affectsAllies;
+        SetAffectedGroups(m_affectsEnemies, m_affectsAllies, laserTargetingInfo.affectsCaster);
+        m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
+        m_laserPart = new TargeterPart_Laser(m_width, m_distance, m_penetrateLoS, m_maxTargets);
+        m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
+    }
 
-	public bool m_penetrateLoS;
+    public virtual float GetWidth()
+    {
+        return m_width;
+    }
 
-	public int m_maxTargets = -1;
+    public virtual float GetDistance()
+    {
+        return m_distance;
+    }
 
-	private bool m_lengthIgnoreWorldGeo;
+    public virtual bool GetPenetrateLoS()
+    {
+        return m_penetrateLoS;
+    }
 
-	protected Vector3 m_lastCalculatedLaserEndPos;
+    public virtual int GetMaxTargets()
+    {
+        return m_maxTargets;
+    }
 
-	public IsAffectingCasterDelegate m_affectCasterDelegate;
+    public Vector3 GetLastLaserEndPos()
+    {
+        return m_lastCalculatedLaserEndPos;
+    }
 
-	public MaxTargetsDelegate m_customMaxTargetsDelegate;
+    public List<HitActorContext> GetHitActorContext()
+    {
+        return m_hitActorContext;
+    }
 
-	public ClampedAimDirectionDelegate m_getClampedAimDirection;
+    public virtual Vector3 GetStartLosPos(AbilityTarget currentTarget, ActorData targetingActor)
+    {
+        return targetingActor.GetLoSCheckPos();
+    }
 
-	private List<HitActorContext> m_hitActorContext = new List<HitActorContext>();
+    public virtual Vector3 GetAimDirection(AbilityTarget currentTarget, ActorData targetingActor)
+    {
+        return currentTarget.AimDirection;
+    }
 
-	private TargeterPart_Laser m_laserPart;
+    public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
+    {
+        UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
+    }
 
-	private OperationOnSquare_TurnOnHiddenSquareIndicator m_indicatorHandler;
+    public override void UpdateTargetingMultiTargets(
+        AbilityTarget currentTarget,
+        ActorData targetingActor,
+        int currentTargetIndex,
+        List<AbilityTarget> targets)
+    {
+        ClearActorsInRange();
+        m_hitActorContext.Clear();
+        int maxTargets = GetMaxTargets();
+        if (m_customMaxTargetsDelegate != null)
+        {
+            maxTargets = m_customMaxTargetsDelegate(targetingActor);
+        }
 
-	public bool LengthIgnoreWorldGeo
-	{
-		get
-		{
-			return m_lengthIgnoreWorldGeo;
-		}
-		set
-		{
-			m_lengthIgnoreWorldGeo = value;
-		}
-	}
+        VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
+        laserCoords.start = GetStartLosPos(currentTarget, targetingActor);
+        Vector3 aimDirection = GetAimDirection(currentTarget, targetingActor);
+        if (currentTargetIndex > 0 && m_getClampedAimDirection != null)
+        {
+            aimDirection = m_getClampedAimDirection(aimDirection, targets[currentTargetIndex - 1].AimDirection);
+        }
 
-	public AbilityUtil_Targeter_Laser(
-		Ability ability,
-		float width,
-		float distance,
-		bool penetrateLoS,
-		int maxTargets = -1,
-		bool affectsAllies = false,
-		bool affectsCaster = false)
-		: base(ability)
-	{
-		m_width = width;
-		m_distance = distance;
-		m_penetrateLoS = penetrateLoS;
-		m_maxTargets = maxTargets;
-		m_affectsAllies = affectsAllies;
-		SetAffectedGroups(true, m_affectsAllies, affectsCaster);
-		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
-		m_laserPart = new TargeterPart_Laser(m_width, m_distance, m_penetrateLoS, m_maxTargets);
-		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-	}
+        m_laserPart.UpdateDimensions(GetWidth(), GetDistance());
+        m_laserPart.m_maxTargets = maxTargets;
+        m_laserPart.m_lengthIgnoreWorldGeo = LengthIgnoreWorldGeo;
+        List<ActorData> hitActors = m_laserPart.GetHitActors(
+            laserCoords.start,
+            aimDirection,
+            targetingActor,
+            GetAffectedTeams(),
+            out laserCoords.end);
+        m_lastCalculatedLaserEndPos = laserCoords.end;
+        if (hitActors.Contains(targetingActor))
+        {
+            hitActors.Remove(targetingActor);
+        }
 
-	public AbilityUtil_Targeter_Laser(Ability ability, LaserTargetingInfo laserTargetingInfo)
-		: base(ability)
-	{
-		m_width = laserTargetingInfo.width;
-		m_distance = laserTargetingInfo.range;
-		m_penetrateLoS = laserTargetingInfo.penetrateLos;
-		m_maxTargets = laserTargetingInfo.maxTargets;
-		m_affectsEnemies = laserTargetingInfo.affectsEnemies;
-		m_affectsAllies = laserTargetingInfo.affectsAllies;
-		SetAffectedGroups(m_affectsEnemies, m_affectsAllies, laserTargetingInfo.affectsCaster);
-		m_shouldShowActorRadius = GameWideData.Get().UseActorRadiusForLaser();
-		m_laserPart = new TargeterPart_Laser(m_width, m_distance, m_penetrateLoS, m_maxTargets);
-		m_indicatorHandler = new OperationOnSquare_TurnOnHiddenSquareIndicator(this);
-	}
+        if (Highlight == null)
+        {
+            Highlight = m_laserPart.CreateHighlightObject(this);
+        }
 
-	public virtual float GetWidth()
-	{
-		return m_width;
-	}
+        m_laserPart.AdjustHighlight(Highlight, laserCoords.start, laserCoords.end);
+        List<ActorData> actorsSoFar = new List<ActorData>();
+        int hitOrderIndex = 0;
+        Vector3 casterPos = targetingActor.GetFreePos();
+        foreach (ActorData hitActor in hitActors)
+        {
+            AddActorInRange(hitActor, laserCoords.start, targetingActor);
+            actorsSoFar.Add(hitActor);
+            float distanceInSquares = (hitActor.GetFreePos() - casterPos).magnitude / Board.Get().squareSize;
+            m_hitActorContext.Add(
+                new HitActorContext
+                {
+                    actor = hitActor,
+                    hitOrderIndex = hitOrderIndex,
+                    squaresFromCaster = distanceInSquares
+                });
+            ActorHitContext actorHitContext = m_actorContextVars[hitActor];
+            actorHitContext.m_hitOrigin = laserCoords.start;
+            actorHitContext.m_contextVars.SetValue(ContextKeys.s_HitOrder.GetKey(), hitOrderIndex);
+            actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), distanceInSquares);
+            hitOrderIndex++;
+        }
 
-	public virtual float GetDistance()
-	{
-		return m_distance;
-	}
+        if (m_affectsTargetingActor
+            && (m_affectCasterDelegate == null || m_affectCasterDelegate(targetingActor, actorsSoFar)))
+        {
+            AddActorInRange(targetingActor, laserCoords.start, targetingActor, AbilityTooltipSubject.Secondary);
+            m_hitActorContext.Add(
+                new HitActorContext
+                {
+                    actor = targetingActor,
+                    hitOrderIndex = hitOrderIndex,
+                    squaresFromCaster = 0f
+                });
+        }
 
-	public virtual bool GetPenetrateLoS()
-	{
-		return m_penetrateLoS;
-	}
+        DrawInvalidSquareIndicators(currentTarget, targetingActor, laserCoords.start, laserCoords.end);
+    }
 
-	public virtual int GetMaxTargets()
-	{
-		return m_maxTargets;
-	}
+    protected virtual void DrawInvalidSquareIndicators(
+        AbilityTarget currentTarget,
+        ActorData targetingActor,
+        Vector3 startPos,
+        Vector3 endPos)
+    {
+        if (targetingActor != GameFlowData.Get().activeOwnedActorData)
+        {
+            return;
+        }
 
-	public Vector3 GetLastLaserEndPos()
-	{
-		return m_lastCalculatedLaserEndPos;
-	}
+        ResetSquareIndicatorIndexToUse();
+        m_laserPart.ShowHiddenSquares(m_indicatorHandler, startPos, endPos, targetingActor, GetPenetrateLoS());
+        HideUnusedSquareIndicators();
+    }
 
-	public List<HitActorContext> GetHitActorContext()
-	{
-		return m_hitActorContext;
-	}
+    public VectorUtils.LaserCoords CurrentLaserCoordinatesForGizmo(
+        AbilityTarget currentTarget,
+        ActorData targetingActor)
+    {
+        Vector3 startLosPos = GetStartLosPos(currentTarget, targetingActor);
+        Vector3 aimDirection = GetAimDirection(currentTarget, targetingActor);
+        float maxDistanceInWorld = GetDistance() * Board.Get().squareSize;
+        float widthInWorld = GetWidth() * Board.Get().squareSize;
+        bool penetrateLoS = GetPenetrateLoS() || m_lengthIgnoreWorldGeo;
+        VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(
+            startLosPos,
+            aimDirection,
+            maxDistanceInWorld,
+            widthInWorld,
+            penetrateLoS,
+            targetingActor);
+        float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
+        if (laserInitialOffsetInSquares > 0f)
+        {
+            laserCoordinates.start = VectorUtils.GetAdjustedStartPosWithOffset(
+                laserCoordinates.start,
+                laserCoordinates.end,
+                laserInitialOffsetInSquares);
+        }
 
-	public virtual Vector3 GetStartLosPos(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		return targetingActor.GetLoSCheckPos();
-	}
+        return laserCoordinates;
+    }
 
-	public virtual Vector3 GetAimDirection(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		return currentTarget.AimDirection;
-	}
+    public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
+    {
+        VectorUtils.LaserCoords laserCoords = CurrentLaserCoordinatesForGizmo(currentTarget, targetingActor);
+        float widthInWorld = GetWidth() * Board.Get().squareSize;
+        float heightOffset = 0.1f - BoardSquare.s_LoSHeightOffset;
+        Vector3 gizmoStart = laserCoords.start + new Vector3(0f, heightOffset, 0f);
+        Vector3 gizmoEnd = laserCoords.end + new Vector3(0f, heightOffset, 0f);
+        TargeterUtils.DrawGizmo_LaserBox(gizmoStart, gizmoEnd, widthInWorld, Color.red);
 
-	public override void UpdateTargeting(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		UpdateTargetingMultiTargets(currentTarget, targetingActor, 0, null);
-	}
+        Gizmos.color = Color.yellow;
+        List<BoardSquare> squaresRespectingLos = GameWideData.Get().UseActorRadiusForLaser()
+            ? AreaEffectUtils.GetSquaresInBoxByActorRadius(
+                gizmoStart,
+                gizmoEnd,
+                GetWidth(),
+                GetPenetrateLoS(),
+                targetingActor)
+            : AreaEffectUtils.GetSquaresInBox(gizmoStart, gizmoEnd, GetWidth() / 2f, GetPenetrateLoS(), targetingActor);
+        foreach (BoardSquare square in squaresRespectingLos)
+        {
+            if (square.IsValidForGameplay())
+            {
+                Gizmos.DrawWireCube(square.ToVector3(), new Vector3(0.5f, 0.5f, 0.5f));
+            }
+        }
 
-	public override void UpdateTargetingMultiTargets(
-		AbilityTarget currentTarget,
-		ActorData targetingActor,
-		int currentTargetIndex,
-		List<AbilityTarget> targets)
-	{
-		ClearActorsInRange();
-		m_hitActorContext.Clear();
-		int maxTargets = GetMaxTargets();
-		if (m_customMaxTargetsDelegate != null)
-		{
-			maxTargets = m_customMaxTargetsDelegate(targetingActor);
-		}
-		VectorUtils.LaserCoords laserCoords = default(VectorUtils.LaserCoords);
-		laserCoords.start = GetStartLosPos(currentTarget, targetingActor);
-		Vector3 vector = GetAimDirection(currentTarget, targetingActor);
-		if (currentTargetIndex > 0 && m_getClampedAimDirection != null)
-		{
-			vector = m_getClampedAimDirection(vector, targets[currentTargetIndex - 1].AimDirection);
-		}
-		m_laserPart.UpdateDimensions(GetWidth(), GetDistance());
-		m_laserPart.m_maxTargets = maxTargets;
-		m_laserPart.m_lengthIgnoreWorldGeo = LengthIgnoreWorldGeo;
-		List<ActorData> hitActors = m_laserPart.GetHitActors(
-			laserCoords.start,
-			vector,
-			targetingActor,
-			GetAffectedTeams(),
-			out laserCoords.end);
-		m_lastCalculatedLaserEndPos = laserCoords.end;
-		if (hitActors.Contains(targetingActor))
-		{
-			hitActors.Remove(targetingActor);
-		}
-		if (Highlight == null)
-		{
-			Highlight = m_laserPart.CreateHighlightObject(this);
-		}
-		m_laserPart.AdjustHighlight(Highlight, laserCoords.start, laserCoords.end);
-		List<ActorData> list = new List<ActorData>();
-		int hitOrderIndex = 0;
-		Vector3 casterPos = targetingActor.GetFreePos();
-		foreach (ActorData hitActor in hitActors)
-		{
-			AddActorInRange(hitActor, laserCoords.start, targetingActor);
-			list.Add(hitActor);
-			float distanceInSquares = (hitActor.GetFreePos() - casterPos).magnitude / Board.Get().squareSize;
-			m_hitActorContext.Add(new HitActorContext
-			{
-				actor = hitActor,
-				hitOrderIndex = hitOrderIndex,
-				squaresFromCaster = distanceInSquares
-			});
-			ActorHitContext actorHitContext = m_actorContextVars[hitActor];
-			actorHitContext.m_hitOrigin = laserCoords.start;
-			actorHitContext.m_contextVars.SetValue(ContextKeys.s_HitOrder.GetKey(), hitOrderIndex);
-			actorHitContext.m_contextVars.SetValue(ContextKeys.s_DistFromStart.GetKey(), distanceInSquares);
-			hitOrderIndex++;
-		}
-		if (m_affectsTargetingActor
-		    && (m_affectCasterDelegate == null || m_affectCasterDelegate(targetingActor, list)))
-		{
-			AddActorInRange(targetingActor, laserCoords.start, targetingActor, AbilityTooltipSubject.Secondary);
-			m_hitActorContext.Add(new HitActorContext
-			{
-				actor = targetingActor,
-				hitOrderIndex = hitOrderIndex,
-				squaresFromCaster = 0f
-			});
-		}
-		DrawInvalidSquareIndicators(currentTarget, targetingActor, laserCoords.start, laserCoords.end);
-	}
-
-	protected virtual void DrawInvalidSquareIndicators(AbilityTarget currentTarget, ActorData targetingActor, Vector3 startPos, Vector3 endPos)
-	{
-		if (!(targetingActor == GameFlowData.Get().activeOwnedActorData))
-		{
-			return;
-		}
-		while (true)
-		{
-			ResetSquareIndicatorIndexToUse();
-			m_laserPart.ShowHiddenSquares(m_indicatorHandler, startPos, endPos, targetingActor, GetPenetrateLoS());
-			HideUnusedSquareIndicators();
-			return;
-		}
-	}
-
-	public VectorUtils.LaserCoords CurrentLaserCoordinatesForGizmo(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		Vector3 startLosPos = GetStartLosPos(currentTarget, targetingActor);
-		Vector3 aimDirection = GetAimDirection(currentTarget, targetingActor);
-		float maxDistanceInWorld = GetDistance() * Board.Get().squareSize;
-		float widthInWorld = GetWidth() * Board.Get().squareSize;
-		bool penetrateLoS = GetPenetrateLoS() || m_lengthIgnoreWorldGeo;
-		VectorUtils.LaserCoords laserCoordinates = VectorUtils.GetLaserCoordinates(startLosPos, aimDirection, maxDistanceInWorld, widthInWorld, penetrateLoS, targetingActor);
-		float laserInitialOffsetInSquares = GameWideData.Get().m_laserInitialOffsetInSquares;
-		if (laserInitialOffsetInSquares > 0f)
-		{
-			laserCoordinates.start = VectorUtils.GetAdjustedStartPosWithOffset(laserCoordinates.start, laserCoordinates.end, laserInitialOffsetInSquares);
-		}
-		return laserCoordinates;
-	}
-
-	public override void DrawGizmos(AbilityTarget currentTarget, ActorData targetingActor)
-	{
-		VectorUtils.LaserCoords laserCoords = CurrentLaserCoordinatesForGizmo(currentTarget, targetingActor);
-		float widthInWorld = GetWidth() * Board.Get().squareSize;
-		float y = 0.1f - BoardSquare.s_LoSHeightOffset;
-		Vector3 vector = laserCoords.start + new Vector3(0f, y, 0f);
-		Vector3 vector2 = laserCoords.end + new Vector3(0f, y, 0f);
-		TargeterUtils.DrawGizmo_LaserBox(vector, vector2, widthInWorld, Color.red);
-		Gizmos.color = Color.yellow;
-		List<BoardSquare> list = (!GameWideData.Get().UseActorRadiusForLaser()) ? AreaEffectUtils.GetSquaresInBox(vector, vector2, GetWidth() / 2f, GetPenetrateLoS(), targetingActor) : AreaEffectUtils.GetSquaresInBoxByActorRadius(vector, vector2, GetWidth(), GetPenetrateLoS(), targetingActor);
-		using (List<BoardSquare>.Enumerator enumerator = list.GetEnumerator())
-		{
-			while (enumerator.MoveNext())
-			{
-				BoardSquare current = enumerator.Current;
-				if (current.IsValidForGameplay())
-				{
-					Gizmos.DrawWireCube(current.ToVector3(), new Vector3(0.5f, 0.5f, 0.5f));
-				}
-			}
-		}
-		Gizmos.color = Color.white;
-		List<BoardSquare> list2;
-		if (GameWideData.Get().UseActorRadiusForLaser())
-		{
-			list2 = AreaEffectUtils.GetSquaresInBoxByActorRadius(vector, vector2, GetWidth(), true, targetingActor);
-		}
-		else
-		{
-			list2 = AreaEffectUtils.GetSquaresInBox(vector, vector2, GetWidth() / 2f, true, targetingActor);
-		}
-		List<BoardSquare> list3 = list2;
-		using (List<BoardSquare>.Enumerator enumerator2 = list3.GetEnumerator())
-		{
-			while (enumerator2.MoveNext())
-			{
-				BoardSquare current2 = enumerator2.Current;
-				if (current2.IsValidForGameplay())
-				{
-					Gizmos.DrawWireSphere(current2.ToVector3(), 0.2f);
-				}
-			}
-			while (true)
-			{
-				switch (5)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
-		}
-	}
+        Gizmos.color = Color.white;
+        List<BoardSquare> allSquaresInBox = GameWideData.Get().UseActorRadiusForLaser()
+            ? AreaEffectUtils.GetSquaresInBoxByActorRadius(gizmoStart, gizmoEnd, GetWidth(), true, targetingActor)
+            : AreaEffectUtils.GetSquaresInBox(gizmoStart, gizmoEnd, GetWidth() / 2f, true, targetingActor);
+        foreach (BoardSquare square in allSquaresInBox)
+        {
+            if (square.IsValidForGameplay())
+            {
+                Gizmos.DrawWireSphere(square.ToVector3(), 0.2f);
+            }
+        }
+    }
 }
