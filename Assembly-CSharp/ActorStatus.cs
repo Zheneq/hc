@@ -137,6 +137,8 @@ public class ActorStatus : NetworkBehaviour
 		}
 	}
 
+	// triggers SuppressInvisibility is removed 
+	// apparently, on actors participating in the attack that is currently playing out 
 	private void SyncListCallbackStatusCounts(SyncList<uint>.Operation op, int i)  // , uint item in rogues
 	{
 		if (!NetworkServer.active && i >= 0 && i < c_num)
