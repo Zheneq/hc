@@ -5,242 +5,181 @@ using UnityEngine.UI;
 
 public class NavigationBar : UIScene
 {
-	public class NavigationBarSceneStateParameters : SceneStateParameters
-	{
-	}
+    public class NavigationBarSceneStateParameters : SceneStateParameters
+    {
+    }
 
-	public TextMeshProUGUI m_searchQueueText;
+    public TextMeshProUGUI m_searchQueueText;
+    public _SelectableBtn m_cancelBtn;
+    public Button m_cancelHitbox;
+    public Animator m_cancelBtnAnimator;
+    public _SelectableBtn m_gameSettingsBtn;
+    public TextMeshProUGUI[] m_timeInQueueLabel;
 
-	public _SelectableBtn m_cancelBtn;
+    private static NavigationBar s_instance;
 
-	public Button m_cancelHitbox;
+    private string m_queueStatusDisplayString = string.Empty;
 
-	public Animator m_cancelBtnAnimator;
+    private static NavigationBarSceneStateParameters m_currentState = new NavigationBarSceneStateParameters();
 
-	public _SelectableBtn m_gameSettingsBtn;
+    public static NavigationBar Get()
+    {
+        return s_instance;
+    }
 
-	public TextMeshProUGUI[] m_timeInQueueLabel;
+    public override SceneStateParameters GetCurrentState()
+    {
+        return m_currentState;
+    }
 
-	private static NavigationBar s_instance;
+    public static NavigationBarSceneStateParameters GetCurrentSpecificState()
+    {
+        return m_currentState;
+    }
 
-	private string m_queueStatusDisplayString = string.Empty;
+    private void OnShowGameSettingsClicked(BaseEventData data)
+    {
+        UICharacterSelectScreen.Get().OnShowGameSettingsClicked(data);
+    }
 
-	private static NavigationBarSceneStateParameters m_currentState = new NavigationBarSceneStateParameters();
+    private void CancelButtonClickCallback(BaseEventData data)
+    {
+        UICharacterSelectScreenController.Get().CancelButtonClickCallback(data);
+    }
 
-	public static NavigationBar Get()
-	{
-		return s_instance;
-	}
+    public override void Awake()
+    {
+        s_instance = this;
+        m_gameSettingsBtn.spriteController.callback = OnShowGameSettingsClicked;
+        UIManager.SetGameObjectActive(m_cancelBtn, false);
+        m_cancelBtn.spriteController.callback = CancelButtonClickCallback;
+        m_searchQueueText.raycastTarget = false;
+        UIManager.SetGameObjectActive(m_gameSettingsBtn, false);
+        m_cancelHitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.SearchQueue, ShowTooltip);
+        base.Awake();
+    }
 
-	public override SceneStateParameters GetCurrentState()
-	{
-		return m_currentState;
-	}
+    public void UpdateTimeInQueueLabel(string newText)
+    {
+        if (m_timeInQueueLabel == null)
+        {
+            return;
+        }
 
-	public static NavigationBarSceneStateParameters GetCurrentSpecificState()
-	{
-		return m_currentState;
-	}
+        foreach (TextMeshProUGUI textMesh in m_timeInQueueLabel)
+        {
+            textMesh.text = newText;
+        }
+    }
 
-	private void OnShowGameSettingsClicked(BaseEventData data)
-	{
-		UICharacterSelectScreen.Get().OnShowGameSettingsClicked(data);
-	}
+    private bool ShowTooltip(UITooltipBase tooltip)
+    {
+        LobbyMatchmakingQueueInfo queueInfo = GameManager.Get().QueueInfo;
+        if (queueInfo == null)
+        {
+            return false;
+        }
 
-	private void CancelButtonClickCallback(BaseEventData data)
-	{
-		UICharacterSelectScreenController.Get().CancelButtonClickCallback(data);
-	}
+        ((UISearchQueueTooltip)tooltip).Setup();
+        return true;
+    }
 
-	public override void Awake()
-	{
-		s_instance = this;
-		m_gameSettingsBtn.spriteController.callback = OnShowGameSettingsClicked;
-		UIManager.SetGameObjectActive(m_cancelBtn, false);
-		m_cancelBtn.spriteController.callback = CancelButtonClickCallback;
-		m_searchQueueText.raycastTarget = false;
-		UIManager.SetGameObjectActive(m_gameSettingsBtn, false);
-		m_cancelHitbox.GetComponent<UITooltipHoverObject>().Setup(TooltipType.SearchQueue, ShowTooltip);
-		base.Awake();
-	}
+    public void UpdateSearchQueueTooltipLabels()
+    {
+        if (m_cancelBtn.gameObject.activeSelf)
+        {
+            m_cancelHitbox.GetComponent<UITooltipHoverObject>().Refresh();
+        }
+    }
 
-	public void UpdateTimeInQueueLabel(string newText)
-	{
-		if (m_timeInQueueLabel == null)
-		{
-			return;
-		}
-		while (true)
-		{
-			for (int i = 0; i < m_timeInQueueLabel.Length; i++)
-			{
-				m_timeInQueueLabel[i].text = newText;
-			}
-			while (true)
-			{
-				switch (6)
-				{
-				default:
-					return;
-				case 0:
-					break;
-				}
-			}
-		}
-	}
+    public void SearchQueueTextExit()
+    {
+        UITooltipManager.Get().HideDisplayTooltip(TooltipType.SearchQueue);
+    }
 
-	private bool ShowTooltip(UITooltipBase tooltip)
-	{
-		LobbyMatchmakingQueueInfo queueInfo = GameManager.Get().QueueInfo;
-		if (queueInfo != null)
-		{
-			UISearchQueueTooltip uISearchQueueTooltip = (UISearchQueueTooltip)tooltip;
-			uISearchQueueTooltip.Setup();
-			return true;
-		}
-		return false;
-	}
+    public void NotifyStatusQueueAnimDone()
+    {
+        m_searchQueueText.text = m_queueStatusDisplayString;
+    }
 
-	public void UpdateSearchQueueTooltipLabels()
-	{
-		if (!m_cancelBtn.gameObject.activeSelf)
-		{
-			return;
-		}
-		while (true)
-		{
-			m_cancelHitbox.GetComponent<UITooltipHoverObject>().Refresh();
-			return;
-		}
-	}
+    public void UpdateStatusMessage()
+    {
+        bool isWaitingForGroup = SceneStateParameters.IsWaitingForGroup;
+        bool isInCustomGame = SceneStateParameters.IsInCustomGame;
+        string newText = string.Empty;
+        if (!isWaitingForGroup && !isInCustomGame)
+        {
+            newText = string.Format(
+                StringUtil.TR("SecondsTimerShort", "Global"),
+                (int)SceneStateParameters.TimeInQueue.TotalSeconds);
+        }
 
-	public void SearchQueueTextExit()
-	{
-		UITooltipManager.Get().HideDisplayTooltip(TooltipType.SearchQueue);
-	}
+        UpdateTimeInQueueLabel(newText);
+        if (m_searchQueueText == null)
+        {
+            return;
+        }
 
-	public void NotifyStatusQueueAnimDone()
-	{
-		m_searchQueueText.text = m_queueStatusDisplayString;
-	}
+        m_queueStatusDisplayString = ClientGameManager.Get().GenerateQueueLabel();
+        if (!m_searchQueueText.text.IsNullOrEmpty() && !m_queueStatusDisplayString.IsNullOrEmpty())
+        {
+            bool flag = m_queueStatusDisplayString != m_searchQueueText.text;
+            string value = StringUtil.TR("Searching", "Frontend");
+            if (m_queueStatusDisplayString.Contains(value) && m_searchQueueText.text.Contains(value))
+            {
+                flag = false;
+            }
 
-	public void UpdateStatusMessage()
-	{
-		bool isWaitingForGroup = SceneStateParameters.IsWaitingForGroup;
-		bool isInCustomGame = SceneStateParameters.IsInCustomGame;
-		string newText = string.Empty;
-		if (!isWaitingForGroup)
-		{
-			if (!isInCustomGame)
-			{
-				newText = string.Format(arg0: (int)SceneStateParameters.TimeInQueue.TotalSeconds, format: StringUtil.TR("SecondsTimerShort", "Global"));
-			}
-		}
-		UpdateTimeInQueueLabel(newText);
-		if (!(m_searchQueueText != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			m_queueStatusDisplayString = ClientGameManager.Get().GenerateQueueLabel();
-			if (!m_searchQueueText.text.IsNullOrEmpty())
-			{
-				if (!m_queueStatusDisplayString.IsNullOrEmpty())
-				{
-					while (true)
-					{
-						switch (3)
-						{
-						case 0:
-							break;
-						default:
-						{
-							bool flag = m_queueStatusDisplayString != m_searchQueueText.text;
-							string value = StringUtil.TR("Searching", "Frontend");
-							if (m_queueStatusDisplayString.Contains(value) && m_searchQueueText.text.Contains(value))
-							{
-								flag = false;
-							}
-							if (flag)
-							{
-								while (true)
-								{
-									switch (7)
-									{
-									case 0:
-										break;
-									default:
-										try
-										{
-											AnimatorStateInfo currentAnimatorStateInfo = m_cancelBtnAnimator.GetCurrentAnimatorStateInfo(0);
-											AnimatorClipInfo animatorClipInfo = m_cancelBtnAnimator.GetCurrentAnimatorClipInfo(0)[0];
-											if (animatorClipInfo.clip.name != "CancelBtnStatusChange")
-											{
-												goto IL_01c1;
-											}
-											if (animatorClipInfo.clip.name == "CancelBtnStatusChange" && currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
-											{
-												goto IL_01c1;
-											}
-											goto end_IL_0146;
-											IL_01c1:
-											m_cancelBtnAnimator.Play("CancelBtnStatusChange", 0, 0f);
-											end_IL_0146:;
-										}
-										catch
-										{
-											m_searchQueueText.text = m_queueStatusDisplayString;
-										}
-										return;
-									}
-								}
-							}
-							m_searchQueueText.text = m_queueStatusDisplayString;
-							return;
-						}
-						}
-					}
-				}
-			}
-			if (!m_searchQueueText.text.IsNullOrEmpty())
-			{
-				if (!m_queueStatusDisplayString.IsNullOrEmpty())
-				{
-					return;
-				}
-			}
-			m_searchQueueText.text = m_queueStatusDisplayString;
-			return;
-		}
-	}
+            if (flag)
+            {
+                try
+                {
+                    AnimatorStateInfo currentAnimatorStateInfo = m_cancelBtnAnimator.GetCurrentAnimatorStateInfo(0);
+                    AnimatorClipInfo animatorClipInfo = m_cancelBtnAnimator.GetCurrentAnimatorClipInfo(0)[0];
+                    if (animatorClipInfo.clip.name != "CancelBtnStatusChange"
+                        || currentAnimatorStateInfo.normalizedTime >= currentAnimatorStateInfo.length)
+                    {
+                        m_cancelBtnAnimator.Play("CancelBtnStatusChange", 0, 0f);
+                    }
+                }
+                catch
+                {
+                    m_searchQueueText.text = m_queueStatusDisplayString;
+                }
 
-	public void Update()
-	{
-		if (!(AppState_CharacterSelect.Get() == AppState.GetCurrent()))
-		{
-			if (!(AppState_GroupCharacterSelect.Get() == AppState.GetCurrent()))
-			{
-				if (!(AppState_LandingPage.Get() == AppState.GetCurrent()))
-				{
-					return;
-				}
-			}
-		}
-		if (UIGameSettingsPanel.Get().m_lastVisible)
-		{
-			return;
-		}
-		while (true)
-		{
-			UpdateStatusMessage();
-			UpdateSearchQueueTooltipLabels();
-			return;
-		}
-	}
+                return;
+            }
 
-	public override SceneType GetSceneType()
-	{
-		return SceneType.FrontEndNavPanel;
-	}
+            m_searchQueueText.text = m_queueStatusDisplayString;
+            return;
+        }
+
+        if (m_searchQueueText.text.IsNullOrEmpty() || m_queueStatusDisplayString.IsNullOrEmpty())
+        {
+            m_searchQueueText.text = m_queueStatusDisplayString;
+        }
+    }
+
+    public void Update()
+    {
+        if (AppState_CharacterSelect.Get() != AppState.GetCurrent()
+            && AppState_GroupCharacterSelect.Get() != AppState.GetCurrent()
+            && AppState_LandingPage.Get() != AppState.GetCurrent())
+        {
+            return;
+        }
+
+        if (UIGameSettingsPanel.Get().m_lastVisible)
+        {
+            return;
+        }
+
+        UpdateStatusMessage();
+        UpdateSearchQueueTooltipLabels();
+    }
+
+    public override SceneType GetSceneType()
+    {
+        return SceneType.FrontEndNavPanel;
+    }
 }
