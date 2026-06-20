@@ -40,6 +40,12 @@ public static class CrashReportArchiver
                 if (Path.GetFileNameWithoutExtension(path) != "system_info" && Path.GetExtension(path) != ".dmp")
                 {
                     string destFileName = Path.Combine(extraDirectoryPath, fileName);
+#if EVOS
+                    if (File.Exists(destFileName))
+                    {
+                        File.Delete(destFileName);
+                    }
+#endif
                     File.Move(file, destFileName);
                 }
             }
