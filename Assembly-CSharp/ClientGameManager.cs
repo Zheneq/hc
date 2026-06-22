@@ -1879,6 +1879,69 @@ public class ClientGameManager : MonoBehaviour
 		}
 	}
 
+#if EVOS
+	// debug logs for issue https://discord.com/channels/600425662452465701/1514061410509000896
+	private void HandleQueueAssignmentNotification(MatchmakingQueueAssignmentNotification notification)
+	{
+		GameManager gameManager = GameManager.Get();
+		if (gameManager == null || notification == null)
+		{
+			Log.Error("HandleQueueAssignmentNotification - "
+			          + $"gameManager: {gameManager != null}, "
+			          + $"notification: {notification != null}");
+		}
+		LobbyMatchmakingQueueInfo newQueueInfo = notification.MatchmakingQueueInfo;
+		LobbyMatchmakingQueueInfo oldQueueInfo = gameManager.QueueInfo;
+		gameManager.SetQueueInfo(newQueueInfo);
+		if (oldQueueInfo?.GameConfig == null || UICharacterSelectWorldObjects.Get() == null)
+		{
+			Log.Error("HandleQueueAssignmentNotification - "
+			          + $"oldQueueInfo: {oldQueueInfo != null}, "
+			          + $"GameConfig: {oldQueueInfo?.GameConfig != null}, "
+			          + $"UICharacterSelectWorldObjects: {UICharacterSelectWorldObjects.Get() != null}");
+		}
+		if (newQueueInfo == null && oldQueueInfo.GameConfig.GameType == GameType.Ranked)
+		{
+			UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
+		}
+		if (oldQueueInfo != null)
+		{
+			Log.Info("Unassigned from queue {0}", oldQueueInfo.GameType);
+			if (OnQueueLeft == null || AppState_GroupCharacterSelect.Get() == null)
+			{
+				Log.Error("HandleQueueAssignmentNotification - "
+				          + $"OnQueueLeft: {OnQueueLeft != null}, "
+				          + $"AppState_GroupCharacterSelect: {AppState_GroupCharacterSelect.Get() != null}");
+			}
+			OnQueueLeft();
+			if (newQueueInfo == null)
+			{
+				AppState_GroupCharacterSelect.Get().NotifyQueueDrop();
+			}
+		}
+		if (newQueueInfo != null)
+		{
+			Log.Info("Assigned to queue {0}", newQueueInfo.GameType);
+			if (OnQueueEntered == null)
+			{
+				Log.Error($"HandleQueueAssignmentNotification - OnQueueEntered: {OnQueueEntered != null}");
+			}
+			OnQueueEntered();
+		}
+		if (OnQueueAssignmentNotification == null
+		    || UICharacterScreen.Get() == null
+		    || NavigationBar.Get() == null)
+		{
+			Log.Error("HandleQueueAssignmentNotification - "
+			          + $"OnQueueAssignmentNotification: {OnQueueAssignmentNotification != null}, "
+			          + $"UICharacterScreen: {UICharacterScreen.Get() != null}, "
+			          + $"NavigationBar: {NavigationBar.Get() != null}");
+		}
+		UICharacterScreen.Get().DoRefreshFunctions((ushort)UICharacterScreen.RefreshFunctionType.RefreshBotSkillPanel);
+		NavigationBar.Get().UpdateStatusMessage();
+		OnQueueAssignmentNotification(notification);
+	}
+#else
 	private void HandleQueueAssignmentNotification(MatchmakingQueueAssignmentNotification notification)
 	{
 		GameManager gameManager = GameManager.Get();
@@ -1907,6 +1970,7 @@ public class ClientGameManager : MonoBehaviour
 		NavigationBar.Get().UpdateStatusMessage();
 		OnQueueAssignmentNotification(notification);
 	}
+#endif
 
 	private void HandleLobbyStatusNotification(LobbyStatusNotification notification)
 	{
