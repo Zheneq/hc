@@ -729,12 +729,21 @@ public class Effect
 	{
 		return false;
 	}
+	
+	// custom
+	public virtual bool DispelMovementDebuff()
+	{
+		return false;
+	}
 
+	// TODO EFFECTS Not dispelling can break things
+	// (e.g. movement range won't update if your Unstoppable wears off but you still have Slow underneath it)
 	public virtual bool CanBeDispelledByStatusImmunity()
 	{
 		return true;
 	}
 
+	// TODO EFFECTS Should be used to merge buffs and debuffs applied on the same phase?
 	public virtual bool WillApplyStatus(StatusType status)
 	{
 		return false;
