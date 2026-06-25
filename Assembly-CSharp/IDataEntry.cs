@@ -1,6 +1,5 @@
 public interface IDataEntry
 {
-	int GetPrefabIndexToDisplay();
-
-	void Setup(int displayIndex, _LargeScrollListItemEntry UIEntry);
+    int GetPrefabIndexToDisplay();
+    void Setup(int displayIndex, _LargeScrollListItemEntry UIEntry);
 }
