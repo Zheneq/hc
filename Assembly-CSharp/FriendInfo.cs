@@ -3,53 +3,34 @@ using System;
 [Serializable]
 public class FriendInfo
 {
-	public long FriendAccountId;
+    public long FriendAccountId;
+    public string FriendHandle;
+    public FriendStatus FriendStatus;
+    public bool IsOnline;
+    public string StatusString;
+    public string FriendNote;
+    public int BannerID;
+    public int EmblemID;
+    public int TitleID;
+    public int TitleLevel;
+    public int RibbonID;
 
-	public string FriendHandle;
+    public FriendInfo()
+    {
+        BannerID = -1;
+        EmblemID = -1;
+        TitleID = -1;
+        TitleLevel = -1;
+        RibbonID = -1;
+    }
 
-	public FriendStatus FriendStatus;
+    public bool IsJoinable(LobbyGameplayOverrides GameplayOverrides)
+    {
+        return StatusString == "In Game" && GameplayOverrides.AllowSpectatorsOutsideCustom;
+    }
 
-	public bool IsOnline;
-
-	public string StatusString;
-
-	public string FriendNote;
-
-	public int BannerID;
-
-	public int EmblemID;
-
-	public int TitleID;
-
-	public int TitleLevel;
-
-	public int RibbonID;
-
-	public FriendInfo()
-	{
-		BannerID = -1;
-		EmblemID = -1;
-		TitleID = -1;
-		TitleLevel = -1;
-		RibbonID = -1;
-	}
-
-	public bool IsJoinable(LobbyGameplayOverrides GameplayOverrides)
-	{
-		int result;
-		if (StatusString == "In Game")
-		{
-			result = (GameplayOverrides.AllowSpectatorsOutsideCustom ? 1 : 0);
-		}
-		else
-		{
-			result = 0;
-		}
-		return (byte)result != 0;
-	}
-
-	public override string ToString()
-	{
-		return $"{FriendHandle} ({FriendAccountId}) {FriendStatus.ToString()}";
-	}
+    public override string ToString()
+    {
+        return $"{FriendHandle} ({FriendAccountId}) {FriendStatus.ToString()}";
+    }
 }
