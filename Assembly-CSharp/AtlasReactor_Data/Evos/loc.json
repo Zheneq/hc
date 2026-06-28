@@ -57,7 +57,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Ren's Fury",
     "StatusIcon_1010_BuffName@AbilitiesData": "Ren's Fury",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "Ball-istic",
+    "StatusIcon_1011_BuffName@AbilitiesData": "Ball-istic",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Missile Barrage",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Missile Barrage",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Putrid Spray",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Putrid Spray",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Tracked",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Tracked",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "Russian": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Бросает мины в окружающие клетки, которые наносят [Damage] ед. непрямого урона и действуют [MineDuration] хода. Если на какой-либо из клеток стоит враг, соотвествующая мина сдетонирует и нанесёт [Damage] ед. прямого урона.\n\nДает [EnergyGainOnMineHit] ед. энергии за каждое попадание по врагу.",
@@ -120,7 +132,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Атаки Кайгина наносят дополнительный урон.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Ярость Жэнь",
     "StatusIcon_1010_BuffName@AbilitiesData": "Ярость Жэнь",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "Клинок стал мощнее и наносит дополнительный урон."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "Клинок стал мощнее и наносит дополнительный урон.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "ШАРовой удар",
+    "StatusIcon_1011_BuffName@AbilitiesData": "ШАРовой удар",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "Воронка взрывается на следующий ход после перегрузки и наносит непрямой урон.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Град ракет",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Град ракет",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "Через паузу выпускает ракеты, наносящие непрямой урон ближайшим врагам.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Гниль",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Гниль",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Атаки Фейдры взрывают жуков и наносят дополнительный урон.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Трассировка",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Трассировка",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Атаки Грей могут нанести дополнительный урон."
   },
   "Chinese (Simplified)": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
@@ -181,7 +205,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "壬的狂怒",
     "StatusIcon_1010_BuffName@AbilitiesData": "壬的狂怒",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "球球震荡",
+    "StatusIcon_1011_BuffName@AbilitiesData": "球球震荡",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "导弹弹幕",
+    "StatusIcon_1012_BuffName@AbilitiesData": "导弹弹幕",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "腐烂飞沫",
+    "StatusIcon_1013_BuffName@AbilitiesData": "腐烂飞沫",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "示踪",
+    "StatusIcon_1014_BuffName@AbilitiesData": "示踪",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "French": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "",
@@ -241,7 +277,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Furie de Ren",
     "StatusIcon_1010_BuffName@AbilitiesData": "Furie de Ren",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "... et boule dégomme !",
+    "StatusIcon_1011_BuffName@AbilitiesData": "... et boule dégomme !",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Lâcher de chandelles",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Lâcher de chandelles",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Giclée putride",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Giclée putride",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Éclair traqueur",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Éclair traqueur",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "German": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Lass Minen in allen angrenzenden Feldern fallen, die [Damage] indirekten Schaden verursachen und [MineDuration] Runden andauern. Wenn sich ein Gegner im angrenzenden Feld befindet, detoniert die entsprechende Mine und verursacht [Damage] direkten Schaden.\n\nErhalte [EnergyGainOnMineHit] Energie pro getroffenen Gegner.",
@@ -300,7 +348,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Rens Wut",
     "StatusIcon_1010_BuffName@AbilitiesData": "Rens Wut",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "Ball-istik",
+    "StatusIcon_1011_BuffName@AbilitiesData": "Ball-istik",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Raketenschwall",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Raketenschwall",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Faulspray",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Faulspray",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Suchgeschoss",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Suchgeschoss",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "Italian": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Lascia mine in tutte le caselle adiacenti che infliggono [Damage] danni indiretti e durano per [MineDuration] turni. Se c'è un nemico nella casella adiacente, la mina corrispondente esploderà invece, infliggendo [Damage] danni diretti.\n\nOttieni [EnergyGainOnMineHit] energia per ogni nemico colpito.",
@@ -360,7 +420,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Furia dei Ren",
     "StatusIcon_1010_BuffName@AbilitiesData": "Furia dei Ren",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "In-Sferacita",
+    "StatusIcon_1011_BuffName@AbilitiesData": "In-Sferacita",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Pioggia di Missili",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Pioggia di Missili",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Getto Putrido",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Getto Putrido",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Freccia Tracciante",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Freccia Tracciante",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "Korean": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "모든 인접한 칸에 지뢰를 떨어뜨려 [Damage] 간접 피해를 주고 [MineDuration] 턴 동안 지속됩니다. 인접한 칸에 적이 있는 경우 해당 지뢰는 폭발하여 [Damage] 직접 피해를 줍니다.\n\n적이 맞을 때마다 [EnergyGainOnMineHit] 에너지를 얻습니다.",
@@ -420,7 +492,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "렌의 분노",
     "StatusIcon_1010_BuffName@AbilitiesData": "렌의 분노",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "시한폭탄",
+    "StatusIcon_1011_BuffName@AbilitiesData": "시한폭탄",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "유도 미사일",
+    "StatusIcon_1012_BuffName@AbilitiesData": "유도 미사일",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "날벌레 살포",
+    "StatusIcon_1013_BuffName@AbilitiesData": "날벌레 살포",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "추적 볼트",
+    "StatusIcon_1014_BuffName@AbilitiesData": "추적 볼트",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "Polish": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Zrzuć miny na wszystkie sąsiednie pola, które zadają [Damage] obrażeń pośrednich i trwają [MineDuration] tur. Jeśli na sąsiednim polu znajduje się przeciwnik, odpowiednia mina wybuchnie, zadając [Damage] obrażeń bezpośrednich.\n\nZdobądź [EnergyGainOnMineHit] energii za każdego trafionego przeciwnika.",
@@ -481,7 +565,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Furia Rena",
     "StatusIcon_1010_BuffName@AbilitiesData": "Furia Rena",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "Lecimy w Kulki",
+    "StatusIcon_1011_BuffName@AbilitiesData": "Lecimy w Kulki",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Rakietowa Nawałnica",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Rakietowa Nawałnica",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Oprysk Zgnilizny",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Oprysk Zgnilizny",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Smugowy Bełt",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Smugowy Bełt",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "Portuguese": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Solte minas em todos os quadrados adjacentes que causam [Damage] dano indireto e duram [MineDuration] turnos. Se houver um inimigo no quadrado adjacente, a mina correspondente detonará, causando [Damage] dano direto.\n\nGanhe [EnergyGainOnMineHit] energia por inimigo atingido.",
@@ -541,7 +637,19 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Fúria do Ren",
     "StatusIcon_1010_BuffName@AbilitiesData": "Fúria do Ren",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "Enbolacido",
+    "StatusIcon_1011_BuffName@AbilitiesData": "Enbolacido",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Barragem de Mísseis",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Barragem de Mísseis",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Borrifada Pútrida",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Borrifada Pútrida",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Flecha Rastreadora",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Flecha Rastreadora",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   },
   "Spanish": {
     "Ability_GremlinsDropMines_Splort!_Tooltip@AbilitiesData": "Coloca minas en todas las casillas adyacentes que infligen [Damage] daño indirecto y duran [MineDuration] turnos. Si hay un enemigo en la casilla adyacente, la mina correspondiente detonará en su lugar, infligiendo [Damage] daño directo.\n\nObtén [EnergyGainOnMineHit] energía por cada enemigo golpeado.",
@@ -601,6 +709,18 @@
     "StatusIcon_1009_BuffDesc@AbilitiesData": "Kaigin's attacks deal increased damage.",
     "StatusIcon_1010_PopupText@AbilitiesData": "Furia de Ren",
     "StatusIcon_1010_BuffName@AbilitiesData": "Furia de Ren",
-    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage."
+    "StatusIcon_1010_BuffDesc@AbilitiesData": "The blade is empowered, dealing increased damage.",
+    "StatusIcon_1011_PopupText@AbilitiesData": "Bolística",
+    "StatusIcon_1011_BuffName@AbilitiesData": "Bolística",
+    "StatusIcon_1011_BuffDesc@AbilitiesData": "The vortex explodes on the turn following the overcharge, dealing indirect damage.",
+    "StatusIcon_1012_PopupText@AbilitiesData": "Lluvia de misiles",
+    "StatusIcon_1012_BuffName@AbilitiesData": "Lluvia de misiles",
+    "StatusIcon_1012_BuffDesc@AbilitiesData": "After a delay, launches missiles that deal indirect damage to nearby enemies.",
+    "StatusIcon_1013_PopupText@AbilitiesData": "Aliento Putrefacto",
+    "StatusIcon_1013_BuffName@AbilitiesData": "Aliento Putrefacto",
+    "StatusIcon_1013_BuffDesc@AbilitiesData": "Phaedra's attacks burst the bugs, dealing additional damage.",
+    "StatusIcon_1014_PopupText@AbilitiesData": "Flecha rastreadora",
+    "StatusIcon_1014_BuffName@AbilitiesData": "Flecha rastreadora",
+    "StatusIcon_1014_BuffDesc@AbilitiesData": "Grey's attacks may deal increased damage."
   }
 }

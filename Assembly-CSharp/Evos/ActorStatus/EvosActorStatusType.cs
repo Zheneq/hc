@@ -15,6 +15,10 @@ namespace Evos.ActorStatus
         Iceborg_IceCore,
         Ninja_VoidMark,
         Samurai_Fury,
+        Scamp_Ballistic,
+        SpaceMarine_Barrage,
+        Manta_PutridSpray,
+        Tracker_Tracked,
         
         NUM,
     }

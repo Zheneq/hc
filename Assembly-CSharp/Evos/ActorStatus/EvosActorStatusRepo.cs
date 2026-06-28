@@ -22,6 +22,10 @@ namespace Evos.ActorStatus
             new EvosActorStatusData(EvosActorStatusType.Iceborg_IceCore, BasePath + "status_effect_iceborg_icecore.png", true),
             new EvosActorStatusData(EvosActorStatusType.Ninja_VoidMark, BasePath + "status_effect_ninja_voidmark.png", true),
             new EvosActorStatusData(EvosActorStatusType.Samurai_Fury, BasePath + "status_effect_samurai_fury.png", false),
+            new EvosActorStatusData(EvosActorStatusType.Scamp_Ballistic, BasePath + "status_effect_scamp_ballistic.png", false),
+            new EvosActorStatusData(EvosActorStatusType.SpaceMarine_Barrage, BasePath + "status_effect_spacemarine_barrage.png", false),
+            new EvosActorStatusData(EvosActorStatusType.Manta_PutridSpray, BasePath + "status_effect_manta_putrid_spray.png", true),
+            new EvosActorStatusData(EvosActorStatusType.Tracker_Tracked, BasePath + "status_effect_tracker_tracked.png", true),
         };
 
         private static readonly Dictionary<EvosActorStatusType, EvosActorStatusData> Data = List.ToDictionary(x => x.Type);
@@ -35,6 +39,10 @@ namespace Evos.ActorStatus
             { 216, new SequenceStatusInfo(EvosActorStatusType.Fireborg_Ignited) },
             { 272, new SequenceStatusInfo(EvosActorStatusType.Iceborg_IceCore) },
             { 389, new SequenceStatusInfo(EvosActorStatusType.Ninja_VoidMark, useCasterAsTarget: true) },
+            { 497, new SequenceStatusInfo(EvosActorStatusType.Scamp_Ballistic) },
+            { 301, new SequenceStatusInfo(EvosActorStatusType.SpaceMarine_Barrage) },
+            { 291, new SequenceStatusInfo(EvosActorStatusType.Manta_PutridSpray) },
+            { 617, new SequenceStatusInfo(EvosActorStatusType.Tracker_Tracked) },
         };
     
         // see HUD_UIResources.GetIconForStatusType
