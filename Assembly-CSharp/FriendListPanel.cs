@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using LobbyGameClientMessages;
 using TMPro;
@@ -11,6 +12,9 @@ public class FriendListPanel : MonoBehaviour
     {
         FriendRequests,
         Online,
+#if EVOS
+        OnlineNonFriends,
+#endif
         Offline,
         InvitationsSent,
         Blocked,
@@ -53,6 +57,11 @@ public class FriendListPanel : MonoBehaviour
                 case FriendSubsection.Online:
                     text = StringUtil.TR("OnlineHeading", "NewFrontEndScene");
                     break;
+#if EVOS
+                case FriendSubsection.OnlineNonFriends:
+                    text = StringUtil.TR("OnlineNonFriendsHeading", "NewFrontEndScene");
+                    break;
+#endif
             }
 
             text = m_isExpanded ? text.Replace("+", "-") : text.Replace("-", "+");
@@ -74,6 +83,13 @@ public class FriendListPanel : MonoBehaviour
             Get().ToggleSubSection(m_subSection);
             Get().UpdateFriendListSize();
         }
+
+#if EVOS
+        public string GetSortingKey()
+        {
+            return ((int)m_subSection).ToString("D10");
+        }
+#endif
     }
 
     public class FriendInfoData : IDataEntry
@@ -114,6 +130,13 @@ public class FriendListPanel : MonoBehaviour
 
             friendListEntry.Setup(m_friendInfo, m_subSection);
         }
+
+#if EVOS
+        public string GetSortingKey()
+        {
+            return m_friendInfo.FriendHandle.ToLowerInvariant();
+        }
+#endif
     }
 
     public TextMeshProUGUI m_playerName;
@@ -134,6 +157,9 @@ public class FriendListPanel : MonoBehaviour
     private List<IDataEntry> friendRequestedFriends = new List<IDataEntry>();
     private List<IDataEntry> invitationsSentFriends = new List<IDataEntry>();
     private List<IDataEntry> blockedFriends = new List<IDataEntry>();
+#if EVOS
+    private List<IDataEntry> onlineNonFriends = new List<IDataEntry>();
+#endif
 
     private bool[] SubsectionExpanded = new bool[(int)FriendSubsection.LAST];
     private List<long> friendsLoggedOff = new List<long>();
@@ -189,6 +215,9 @@ public class FriendListPanel : MonoBehaviour
         offlineFriends.Clear();
         invitationsSentFriends.Clear();
         blockedFriends.Clear();
+#if EVOS
+        onlineNonFriends.Clear();
+#endif
         for (int i = 0; i < SubsectionExpanded.Length; i++)
         {
             SubsectionExpanded[i] = true;
@@ -280,6 +309,20 @@ public class FriendListPanel : MonoBehaviour
         return new FriendInfoData(info, subsection);
     }
 
+#if EVOS
+    // reduce list jitter
+    public void SortFriendLists()
+    {
+        int Comparison(IDataEntry a, IDataEntry b) => string.Compare(a.GetSortingKey(), b.GetSortingKey(), StringComparison.Ordinal);
+        onlineFriends.Sort(Comparison);
+        offlineFriends.Sort(Comparison);
+        friendRequestedFriends.Sort(Comparison);
+        invitationsSentFriends.Sort(Comparison);
+        blockedFriends.Sort(Comparison);
+        onlineNonFriends.Sort(Comparison);
+    }
+#endif
+
     public void UpdateFriendListSize()
     {
         List<IDataEntry> friendListEntries = new List<IDataEntry>();
@@ -302,6 +345,18 @@ public class FriendListPanel : MonoBehaviour
                 friendListEntries.AddRange(onlineFriends);
             }
         }
+        
+#if EVOS
+        if (onlineNonFriends.Count > 0)
+        {
+            bool isExpanded = SubsectionExpanded[(int)FriendSubsection.OnlineNonFriends];
+            friendListEntries.Add(new FriendInfoSubsectionTitleData(FriendSubsection.OnlineNonFriends, isExpanded));
+            if (isExpanded)
+            {
+                friendListEntries.AddRange(onlineNonFriends);
+            }
+        }
+#endif
 
         if (offlineFriends.Count > 0)
         {
@@ -333,14 +388,24 @@ public class FriendListPanel : MonoBehaviour
             }
         }
 
+#if EVOS
+        float savedScroll = m_scrollView.verticalScrollbar.value;
+#endif
         m_friendScrollList.Setup(friendListEntries);
+#if EVOS
+        m_scrollView.verticalScrollbar.value = savedScroll;
+#endif
         m_friendScrollList.ScrollValueChanged(m_scrollView.verticalScrollbar.value);
 
         int num = onlineFriends.Count
                   + offlineFriends.Count
                   + friendRequestedFriends.Count
                   + invitationsSentFriends.Count
-                  + blockedFriends.Count;
+                  + blockedFriends.Count
+#if EVOS
+                  + onlineNonFriends.Count
+#endif
+                  ;
         m_scrollView.scrollSensitivity = 100f;
 
         if (num == 0)
@@ -427,6 +492,11 @@ public class FriendListPanel : MonoBehaviour
             case FriendStatus.Blocked:
                 blockedFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.Blocked));
                 break;
+#if true
+            case FriendStatus.OnlineNonFriend:
+                onlineNonFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.OnlineNonFriends));
+                break;
+#endif
         }
 
         EnableScrollViewMask();
@@ -485,6 +555,18 @@ public class FriendListPanel : MonoBehaviour
                 i--;
             }
         }
+        
+#if EVOS
+        for (int i = 0; i < onlineNonFriends.Count; i++)
+        {
+            FriendInfo friendInfo = (onlineNonFriends[i] as FriendInfoData).m_friendInfo;
+            if (friendInfo != null && friendAccountId == friendInfo.FriendAccountId)
+            {
+                onlineNonFriends.RemoveAt(i);
+                i--;
+            }
+        }
+#endif
 
         if (num > 0)
         {
@@ -531,6 +613,18 @@ public class FriendListPanel : MonoBehaviour
             string.Empty,
             HandleFriendUpdateResponse);
     }
+    
+#if EVOS
+    public void RequestToAddFriend(FriendInfo friendInfo)
+    {
+        ClientGameManager.Get().UpdateFriend(
+            null,
+            friendInfo.FriendAccountId,
+            FriendOperation.Add,
+            string.Empty,
+            HandleFriendUpdateResponse);
+    }
+#endif
 
     public void RequestToAcceptRequest(FriendInfo friendInfo)
     {
@@ -695,6 +789,9 @@ public class FriendListPanel : MonoBehaviour
             offlineFriends.Clear();
             invitationsSentFriends.Clear();
             blockedFriends.Clear();
+#if EVOS
+            onlineNonFriends.Clear();
+#endif
             FriendList friendList = ClientGameManager.Get().FriendList;
             foreach (KeyValuePair<long, FriendInfo> friend in friendList.Friends)
             {
@@ -717,6 +814,11 @@ public class FriendListPanel : MonoBehaviour
                     case FriendStatus.Friend:
                         offlineFriends.Add(FriendInfoToBannerDataEntry(friend.Value, FriendSubsection.Offline));
                         break;
+#if EVOS
+                    case FriendStatus.OnlineNonFriend:
+                        onlineNonFriends.Add(FriendInfoToBannerDataEntry(friend.Value, FriendSubsection.OnlineNonFriends));
+                        break;
+#endif
                 }
             }
         }
@@ -728,6 +830,10 @@ public class FriendListPanel : MonoBehaviour
             AddFriend(value);
         }
 
+#if EVOS
+        SortFriendLists();
+#endif
+        
         UpdateFriendListSize();
     }
 

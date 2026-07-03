@@ -87,7 +87,11 @@ public class FriendListBannerEntry : MonoBehaviour
     public void SendInvite(BaseEventData data)
     {
         if (m_subSection == FriendListPanel.FriendSubsection.Offline
-            || m_subSection == FriendListPanel.FriendSubsection.Online)
+            || m_subSection == FriendListPanel.FriendSubsection.Online
+#if EVOS
+            || m_subSection == FriendListPanel.FriendSubsection.OnlineNonFriends
+#endif
+            )
         {
             FriendListPanel.Get().RequestToInviteToParty(m_friendInfo);
         }
@@ -113,6 +117,9 @@ public class FriendListBannerEntry : MonoBehaviour
                 break;
             case FriendListPanel.FriendSubsection.Offline:
                 break;
+#if EVOS
+            case FriendListPanel.FriendSubsection.OnlineNonFriends:
+#endif
             case FriendListPanel.FriendSubsection.Online:
                 showInvite = true;
                 break;
@@ -138,6 +145,9 @@ public class FriendListBannerEntry : MonoBehaviour
 
         switch (friendInfo.FriendStatus)
         {
+#if EVOS
+            case FriendStatus.OnlineNonFriend:
+#endif
             case FriendStatus.Friend:
             {
                 if (friendInfo.StatusString.IsNullOrEmpty())

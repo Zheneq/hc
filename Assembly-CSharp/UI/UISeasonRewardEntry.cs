@@ -99,4 +99,11 @@ public class UISeasonRewardEntry : IDataEntry
         component.SetupReward(Rewards, RepeatingRewards);
         component.DoRewardIconFade(!isLevelled);
     }
+
+#if EVOS
+    public string GetSortingKey()
+    {
+        return LevelToGetReward.ToString("D10");
+    }
+#endif
 }

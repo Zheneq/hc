@@ -1,4 +1,5 @@
 using System;
+using Evos;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -14,7 +15,7 @@ public class FriendListBannerMenu : UITooltipBase
         InviteToGroupChat,
         BlockPlayer,
         ReportPlayer,
-        RemoveFriend,
+        RemoveFriend, // or add, for online non friends
         InviteToGame,
         ObserveGame,
         AddNote
@@ -34,6 +35,11 @@ public class FriendListBannerMenu : UITooltipBase
     public FriendListMenuGroupChat m_groupSubMenu;
 
     private FriendInfo m_friendInfo;
+    
+#if EVOS
+    private Sprite m_removeFriendSprite;
+    private Sprite m_addFriendSprite;
+#endif
 
     public void Start()
     {
@@ -143,7 +149,18 @@ public class FriendListBannerMenu : UITooltipBase
                         m_friendInfo.FriendAccountId);
                     break;
                 case FriendMenuButtonAction.RemoveFriend:
+#if EVOS
+                    if (m_friendInfo.FriendStatus == FriendStatus.OnlineNonFriend)
+                    {
+                        FriendListPanel.Get().RequestToAddFriend(m_friendInfo);
+                    }
+                    else
+                    {
+                        FriendListPanel.Get().RequestToRemoveFriend(m_friendInfo);
+                    }
+#else
                     FriendListPanel.Get().RequestToRemoveFriend(m_friendInfo);
+#endif
                     break;
                 case FriendMenuButtonAction.InviteToGame:
                     FriendListPanel.Get().RequestToInviteToGame(m_friendInfo);
@@ -208,6 +225,9 @@ public class FriendListBannerMenu : UITooltipBase
 
     public void Setup(FriendInfo friendInfo)
     {
+#if EVOS
+        InitSprites();
+#endif
         m_friendInfo = friendInfo;
         m_playerName.text = friendInfo.FriendHandle;
         UIManager.SetGameObjectActive(m_groupSubMenu, false);
@@ -224,6 +244,29 @@ public class FriendListBannerMenu : UITooltipBase
                 m_menuButtons[i].m_icon.color = Color.gray;
                 m_menuButtons[i].m_label.color = Color.gray;
             }
+#if EVOS
+            if (action == FriendMenuButtonAction.RemoveFriend)
+            {
+                bool isOnlineNonFriend = friendInfo.FriendStatus == FriendStatus.OnlineNonFriend;
+                string caption = isOnlineNonFriend ? "AddFriend" : "RemoveFriend";
+                m_menuButtons[i].m_label.text = StringUtil.TR(caption, "Global");
+                Sprite sprite = isOnlineNonFriend ? m_addFriendSprite : m_removeFriendSprite;
+                m_menuButtons[i].m_icon.sprite = sprite;
+            }
+#endif
         }
     }
+        
+#if EVOS
+    private void InitSprites()
+    {
+        if (m_removeFriendSprite != null)
+        {
+            return;
+        }
+        
+        m_removeFriendSprite = m_menuButtons[(int)FriendMenuButtonAction.RemoveFriend].m_icon.sprite;
+        m_addFriendSprite = EvosAssetBundleManager.Get().LoadAsset<Sprite>("assets/evos/ui/friends/add_friend.png");
+    }
+#endif
 }

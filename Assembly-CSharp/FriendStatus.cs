@@ -5,5 +5,8 @@ public enum FriendStatus
 	RequestSent,
 	RequestReceived,
 	Removed,
-	Blocked
+	Blocked,
+#if EVOS
+	OnlineNonFriend,
+#endif
 }

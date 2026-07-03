@@ -115,4 +115,11 @@ public class UIRankingDisplayEntry : IDataEntry
             mouseEventPasser.AddNewHandler(componentInParent);
         }
     }
+
+#if EVOS
+    public string GetSortingKey()
+    {
+        return TierPoints.ToString("D10");
+    }
+#endif
 }
