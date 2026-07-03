@@ -1010,7 +1010,15 @@ public class AbilityData : NetworkBehaviour
 			{
 				return;
 			}
+#if EVOS
+			// custom
+			int cooldownOrStockRefresh = ability.GetModdedMaxStocks() > 0
+				? GetStockRefreshCountdown(actionType)
+				: GetAbilityEntryOfActionType(actionType).GetCooldownRemaining();
+			int remainingCooldown = Mathf.Max(cooldownOrStockRefresh, GetTurnsTillUnlock(actionType));
+#else
 			int remainingCooldown = Mathf.Max(GetAbilityEntryOfActionType(actionType).GetCooldownRemaining(), GetTurnsTillUnlock(actionType));
+#endif
 			bool isUlt = actionType == ActionType.ABILITY_4;
 			LocalizationArg_AbilityPing localizedPing = LocalizationArg_AbilityPing.Create(
 				m_actor.m_characterType,
