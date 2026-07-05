@@ -199,19 +199,17 @@ public class UICharacterScreen : UIScene
 					GameWideData.Get().GetCharacterResourceLink(characterType);
 				if (enableHiddenCharacters || !characterResourceLink.m_isHidden)
 				{
-					if (characterResourceLink.m_characterRole == CharacterRole.Assassin)
+					switch (characterResourceLink.m_characterRole)
 					{
-						assassins.Add(characterType);
-					}
-
-					if (characterResourceLink.m_characterRole == CharacterRole.Support)
-					{
-						supports.Add(characterType);
-					}
-
-					if (characterResourceLink.m_characterRole == CharacterRole.Tank)
-					{
-						tanks.Add(characterType);
+						case CharacterRole.Assassin:
+							assassins.Add(characterType);
+							break;
+						case CharacterRole.Support:
+							supports.Add(characterType);
+							break;
+						case CharacterRole.Tank:
+							tanks.Add(characterType);
+							break;
 					}
 				}
 			}
@@ -475,90 +473,89 @@ public class UICharacterScreen : UIScene
 			Dictionary<ushort, GameSubType> gameTypeSubTypes2 = ClientGameManager.Get().GetGameTypeSubTypes(Parameters.GameTypeToDisplay);
 			if (!gameTypeSubTypes2.IsNullOrEmpty())
 			{
-				using (Dictionary<ushort, GameSubType>.Enumerator enumerator2 = gameTypeSubTypes2.GetEnumerator())
-				{
-					if (enumerator2.MoveNext())
-					{
-						KeyValuePair<ushort, GameSubType> keyValuePair2 = enumerator2.Current;
-						newMask = keyValuePair2.Key;
-					}
-				}
+				newMask = gameTypeSubTypes2.Keys.First();
 			}
 		}
 		ushort exclusiveModBitsOfGameTypeToDisplay = Parameters.ExclusiveModBitsOfGameTypeToDisplay;
-		ushort num = 0;
+		ushort checkedExclusiveBit = 0;
 		if (exclusiveModBitsOfGameTypeToDisplay != 0)
 		{
-			for (int j = 0; j < m_gameSubTypeBtns.Count; j++)
+			foreach (GameSubTypeState subTypeBtn in m_gameSubTypeBtns)
 			{
-				if (m_gameSubTypeBtns[j].btn.IsChecked())
+				if (subTypeBtn.btn.IsChecked()
+				    && (exclusiveModBitsOfGameTypeToDisplay | subTypeBtn.SubTypeBit) != 0)
 				{
-					if ((exclusiveModBitsOfGameTypeToDisplay | m_gameSubTypeBtns[j].SubTypeBit) != 0)
-					{
-						num = m_gameSubTypeBtns[j].SubTypeBit;
-						break;
-					}
+					checkedExclusiveBit = subTypeBtn.SubTypeBit;
+					break;
 				}
 			}
-			if (num != 0)
+
+			if (checkedExclusiveBit != 0)
 			{
-				newMask = num;
+				newMask = checkedExclusiveBit;
 			}
 		}
-		if (num == 0)
+		if (checkedExclusiveBit == 0)
 		{
-			for (int k = 0; k < m_gameSubTypeBtns.Count; k++)
+			foreach (GameSubTypeState subTypeBtn in m_gameSubTypeBtns)
 			{
-				if (m_gameSubTypeBtns[k].btn.IsChecked())
+				if (subTypeBtn.btn.IsChecked())
 				{
-					newMask = (ushort)(m_gameSubTypeBtns[k].SubTypeBit | newMask);
+					newMask = (ushort)(subTypeBtn.SubTypeBit | newMask);
 				}
 			}
 		}
-		ushort num2 = 0;
-		for (int l = 0; l < m_gameSubTypeBtns.Count; l++)
+		ushort allSubTypeBits = 0;
+		foreach (GameSubTypeState subTypeBtn in m_gameSubTypeBtns)
 		{
-			num2 = (ushort)(m_gameSubTypeBtns[l].SubTypeBit | num2);
+			allSubTypeBits = (ushort)(subTypeBtn.SubTypeBit | allSubTypeBits);
 		}
-		if (num2 != 0)
+		if (allSubTypeBits != 0 && (newMask & allSubTypeBits) == 0)
 		{
-			if ((newMask & num2) == 0)
-			{
-				m_gameSubTypeBtns[0].btn.SetOn(true);
-				newMask = m_gameSubTypeBtns[0].SubTypeBit;
-			}
+			m_gameSubTypeBtns[0].btn.SetOn(true);
+			newMask = m_gameSubTypeBtns[0].SubTypeBit;
 		}
 		Parameters.SelectedSubTypeMask = newMask;
 		UpdateSubTypeMaskChecks(newMask);
-		if (!sendMaskUpdate)
+		if (sendMaskUpdate || !SentInitialSubTypes)
 		{
-			if (SentInitialSubTypes)
+			SentInitialSubTypes = true;
+			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				goto IL_4EE;
+				if (ClientGameManager.Get().GroupInfo.IsLeader)
+				{
+					ClientGameManager.Get().SetGameTypeSubMasks(Parameters.GameTypeToDisplay, newMask, delegate(SetGameSubTypeResponse r)
+					{
+						if (!r.Success)
+						{
+							string text = $"Failed to select game modes: {(r.LocalizedFailure == null ? r.ErrorMessage : r.LocalizedFailure.ToString())}";
+							Log.Warning(text);
+							UIDialogPopupManager.OpenOneButtonDialog(
+								StringUtil.TR("Error", "Global"),
+								text, 
+								StringUtil.TR("Ok", "Global"));
+						}
+						else
+						{
+							ClientGameManager.Get().SetSoloSubGameMask(Parameters.GameTypeToDisplay, newMask);
+							UpdateSubTypeMaskChecks(newMask);
+						}
+					});
+				}
 			}
-		}
-		SentInitialSubTypes = true;
-		if (ClientGameManager.Get().GroupInfo.InAGroup)
-		{
-			if (ClientGameManager.Get().GroupInfo.IsLeader)
+			else
 			{
+				HydrogenConfig.Get().SaveGameTypeSubMaskPreference(Parameters.GameTypeToDisplay, newMask, ClientGameManager.Get().GameTypeAvailabilies);
 				ClientGameManager.Get().SetGameTypeSubMasks(Parameters.GameTypeToDisplay, newMask, delegate(SetGameSubTypeResponse r)
 				{
 					if (!r.Success)
 					{
-						string format = "Failed to select game modes: {0}";
-						object arg;
-						if (r.LocalizedFailure == null)
-						{
-							arg = r.ErrorMessage;
-						}
-						else
-						{
-							arg = r.LocalizedFailure.ToString();
-						}
-						string text = string.Format(format, arg);
+						string text = $"Failed to select game modes: {(r.LocalizedFailure != null ? r.LocalizedFailure.ToString() : r.ErrorMessage)}";
 						Log.Warning(text);
-						UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Error", "Global"), text, StringUtil.TR("Ok", "Global"));
+						UIDialogPopupManager.OpenOneButtonDialog(
+							StringUtil.TR("Error", "Global"),
+							text,
+							StringUtil.TR("Ok", "Global"));
 					}
 					else
 					{
@@ -568,25 +565,6 @@ public class UICharacterScreen : UIScene
 				});
 			}
 		}
-		else
-		{
-			HydrogenConfig.Get().SaveGameTypeSubMaskPreference(Parameters.GameTypeToDisplay, newMask, ClientGameManager.Get().GameTypeAvailabilies);
-			ClientGameManager.Get().SetGameTypeSubMasks(Parameters.GameTypeToDisplay, newMask, delegate(SetGameSubTypeResponse r)
-			{
-				if (!r.Success)
-				{
-					string text = string.Format("Failed to select game modes: {0}", (r.LocalizedFailure != null) ? r.LocalizedFailure.ToString() : r.ErrorMessage);
-					Log.Warning(text);
-					UIDialogPopupManager.OpenOneButtonDialog(StringUtil.TR("Error", "Global"), text, StringUtil.TR("Ok", "Global"));
-				}
-				else
-				{
-					ClientGameManager.Get().SetSoloSubGameMask(Parameters.GameTypeToDisplay, newMask);
-					UpdateSubTypeMaskChecks(newMask);
-				}
-			});
-		}
-		IL_4EE:
 		UpdateWillFillVisibility();
 		DoRefreshFunctions((ushort)RefreshFunctionType.RefreshPartyList);
 	}
@@ -598,12 +576,9 @@ public class UICharacterScreen : UIScene
 
 	public void ClickedOnFactionFilter(UICharacterSelectFactionFilter btn)
 	{
-		if (m_lastFilterBtnClicked != null)
+		if (m_lastFilterBtnClicked != null && m_lastFilterBtnClicked != btn)
 		{
-			if (m_lastFilterBtnClicked != btn)
-			{
-				m_lastFilterBtnClicked.m_btn.SetSelected(false, false, string.Empty, string.Empty);
-			}
+			m_lastFilterBtnClicked.m_btn.SetSelected(false, false, string.Empty, string.Empty);
 		}
 		m_lastFilterBtnClicked = btn;
 		UpdateCharacterButtonHighlights();
@@ -611,48 +586,42 @@ public class UICharacterScreen : UIScene
 
 	private void UpdateCharacterButtonHighlights()
 	{
-		for (int i = 0; i < CharacterSelectButtons.Count; i++)
+		foreach (UICharacterPanelSelectButton characterSelectButton in CharacterSelectButtons)
 		{
-			if (CharacterSelectButtons[i] != null)
+			if (characterSelectButton != null && characterSelectButton.GetComponent<CanvasGroup>() != null)
 			{
-				if (CharacterSelectButtons[i].GetComponent<CanvasGroup>() != null)
+				CanvasGroup component = characterSelectButton.GetComponent<CanvasGroup>();
+				if (component != null)
 				{
-					CanvasGroup component = CharacterSelectButtons[i].GetComponent<CanvasGroup>();
-					if (component != null)
-					{
-						component.alpha = 1f;
-					}
+					component.alpha = 1f;
 				}
 			}
 		}
-		if (m_lastFilterBtnClicked != null)
+		if (m_lastFilterBtnClicked != null && m_lastFilterBtnClicked.m_btn.IsSelected())
 		{
-			if (m_lastFilterBtnClicked.m_btn.IsSelected())
+			foreach (UICharacterPanelSelectButton characterSelectButton in CharacterSelectButtons)
 			{
-				for (int j = 0; j < CharacterSelectButtons.Count; j++)
+				if (!m_lastFilterBtnClicked.IsAvailable(characterSelectButton.m_characterType))
 				{
-					if (!m_lastFilterBtnClicked.IsAvailable(CharacterSelectButtons[j].m_characterType))
+					CanvasGroup component2 = characterSelectButton.GetComponent<CanvasGroup>();
+					if (component2 != null)
 					{
-						CanvasGroup component2 = CharacterSelectButtons[j].GetComponent<CanvasGroup>();
-						if (component2 != null)
-						{
-							component2.alpha = 0.3f;
-						}
+						component2.alpha = 0.3f;
 					}
 				}
 			}
 		}
 		if (!m_searchInputField.text.IsNullOrEmpty())
 		{
-			for (int k = 0; k < CharacterSelectButtons.Count; k++)
+			foreach (UICharacterPanelSelectButton characterSelectButton in CharacterSelectButtons)
 			{
-				CharacterResourceLink characterResourceLink = CharacterSelectButtons[k].GetCharacterResourceLink();
+				CharacterResourceLink characterResourceLink = characterSelectButton.GetCharacterResourceLink();
 				if (characterResourceLink != null)
 				{
 					string displayName = characterResourceLink.GetDisplayName();
 					if (!DoesSearchMatchDisplayName(m_searchInputField.text.ToLower(), displayName.ToLower()))
 					{
-						CanvasGroup component3 = CharacterSelectButtons[k].GetComponent<CanvasGroup>();
+						CanvasGroup component3 = characterSelectButton.GetComponent<CanvasGroup>();
 						if (component3 != null)
 						{
 							component3.alpha = 0.3f;
@@ -670,17 +639,8 @@ public class UICharacterScreen : UIScene
 		{
 			if (i >= displayText.Length)
 			{
-				for (;;)
-				{
-					switch (6)
-					{
-					case 0:
-						continue;
-					}
-					return true;
-				}
+				return true;
 			}
-
 			if (searchText[i] != displayText[i])
 			{
 				return false;
@@ -711,52 +671,48 @@ public class UICharacterScreen : UIScene
 		SkinSubButtons = m_skinsBtn.GetComponentsInChildren<_ButtonSwapSprite>(true);
 		AbilitySubButtons = m_AbilitiesBtn.GetComponentsInChildren<_ButtonSwapSprite>(true);
 		CatalystSubButtons = m_CatalystBtn.GetComponentsInChildren<_ButtonSwapSprite>(true);
-		for (int i = 0; i < SkinSubButtons.Length; i++)
+		foreach (_ButtonSwapSprite skinSubButton in SkinSubButtons)
 		{
-			if (SkinSubButtons[i] != m_skinsBtn.spriteController)
+			if (skinSubButton != m_skinsBtn.spriteController)
 			{
-				m_skinsBtn.spriteController.AddSubButton(SkinSubButtons[i]);
+				m_skinsBtn.spriteController.AddSubButton(skinSubButton);
 			}
 		}
-		for (int j = 0; j < AbilitySubButtons.Length; j++)
+		foreach (_ButtonSwapSprite abilitySubButton in AbilitySubButtons)
 		{
-			if (AbilitySubButtons[j] != m_AbilitiesBtn.spriteController)
+			if (abilitySubButton != m_AbilitiesBtn.spriteController)
 			{
-				m_AbilitiesBtn.spriteController.AddSubButton(AbilitySubButtons[j]);
+				m_AbilitiesBtn.spriteController.AddSubButton(abilitySubButton);
 			}
 		}
-		for (int k = 0; k < CatalystSubButtons.Length; k++)
+		foreach (_ButtonSwapSprite catalystSubButton in CatalystSubButtons)
 		{
-			if (CatalystSubButtons[k] != m_CatalystBtn.spriteController)
+			if (catalystSubButton != m_CatalystBtn.spriteController)
 			{
-				m_CatalystBtn.spriteController.AddSubButton(CatalystSubButtons[k]);
+				m_CatalystBtn.spriteController.AddSubButton(catalystSubButton);
 			}
 		}
 		m_skinsBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, tooltip => SideMenuOpen(tooltip, m_skinsBtn));
 		m_AbilitiesBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, tooltip => SideMenuOpen(tooltip, m_AbilitiesBtn));
 		m_CatalystBtn.spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, tooltip => SideMenuOpen(tooltip, m_CatalystBtn));
-		for (int l = 0; l < m_AbilityMouseOverBtns.Length; l++)
+		for (int i = 0; i < m_AbilityMouseOverBtns.Length; i++)
 		{
-			m_AbilityMouseOverBtns[l].spriteController.callback = ClickedAbilityIcon;
-			int index = l;
-			m_AbilityMouseOverBtns[l].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, tooltip => SetupAbilitySideBtnTooltip(tooltip, index));
+			m_AbilityMouseOverBtns[i].spriteController.callback = ClickedAbilityIcon;
+			int index = i;
+			m_AbilityMouseOverBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Ability, tooltip => SetupAbilitySideBtnTooltip(tooltip, index));
 		}
-		for (int m = 0; m < m_AbilityModIcons.Length; m++)
+		foreach (Image abilityModIcon in m_AbilityModIcons)
 		{
-			UIManager.SetGameObjectActive(m_AbilityModIcons[m], false);
+			UIManager.SetGameObjectActive(abilityModIcon, false);
 		}
-		for (int n = 0; n < m_CatalsytBtns.Length; n++)
+		for (int i = 0; i < m_CatalsytBtns.Length; i++)
 		{
-			m_CatalsytBtns[n].spriteController.callback = ClickedCatalystIcon;
-			AbilityRunPhase phase = n + AbilityRunPhase.Prep;
-			m_CatalsytBtns[n].spriteController.GetComponent<UITooltipHoverObject>().Setup(TooltipType.Titled, delegate(UITooltipBase tooltip)
-			{
-				if (SelectedCatalysts.ContainsKey(phase))
-				{
-					return SetupCatalystSideBtnTooltip(tooltip, SelectedCatalysts[phase]);
-				}
-				return false;
-			});
+			m_CatalsytBtns[i].spriteController.callback = ClickedCatalystIcon;
+			AbilityRunPhase phase = i + AbilityRunPhase.Prep;
+			m_CatalsytBtns[i].spriteController.GetComponent<UITooltipHoverObject>().Setup(
+				TooltipType.Titled,
+				tooltip => SelectedCatalysts.ContainsKey(phase)
+				           && SetupCatalystSideBtnTooltip(tooltip, SelectedCatalysts[phase]));
 		}
 		if (m_selectedSkinColorBtn != null)
 		{
@@ -827,30 +783,34 @@ public class UICharacterScreen : UIScene
 
 	private bool SetupSkinTooltip(UITooltipBase tooltip)
 	{
-		UICharacterSelectSkinPanel uicharacterSelectSkinPanel = UICharacterSelectCharacterSettingsPanel.Get().m_skinsSubPanel.m_selectHandler as UICharacterSelectSkinPanel;
-		if (uicharacterSelectSkinPanel != null)
+		UICharacterSelectSkinPanel skinPanel = UICharacterSelectCharacterSettingsPanel.Get().m_skinsSubPanel.m_selectHandler as UICharacterSelectSkinPanel;
+		if (skinPanel == null)
 		{
-			GameWideData gameWideData = GameWideData.Get();
-			CharacterType? clientSelectedCharacter = GetCurrentSpecificState().ClientSelectedCharacter;
-			CharacterResourceLink characterResourceLink = gameWideData.GetCharacterResourceLink(clientSelectedCharacter.Value);
-			CharacterVisualInfo? clientSelectedVisualInfo = GetCurrentSpecificState().ClientSelectedVisualInfo;
-			CharacterVisualInfo value = clientSelectedVisualInfo.Value;
-			if (!(characterResourceLink == null))
-			{
-				if (characterResourceLink.m_skins.Count > value.skinIndex && characterResourceLink.m_skins[value.skinIndex].m_patterns.Count > value.patternIndex)
-				{
-					if (characterResourceLink.m_skins[value.skinIndex].m_patterns[value.patternIndex].m_colors.Count > value.colorIndex)
-					{
-						string patternColorName = characterResourceLink.GetPatternColorName(value.skinIndex, value.patternIndex, value.colorIndex);
-						UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-						uititledTooltip.Setup(characterResourceLink.GetDisplayName(), string.Format(StringUtil.TR("SelectedStyle", "Global"), patternColorName), string.Empty);
-						return true;
-					}
-				}
-			}
 			return false;
 		}
-		return false;
+		
+		GameWideData gameWideData = GameWideData.Get();
+		CharacterType characterType = GetCurrentSpecificState().ClientSelectedCharacter.Value;
+		CharacterResourceLink characterResourceLink = gameWideData.GetCharacterResourceLink(characterType);
+		CharacterVisualInfo characterVisual = GetCurrentSpecificState().ClientSelectedVisualInfo.Value;
+		
+		if (characterResourceLink == null
+		    || characterResourceLink.m_skins.Count <= characterVisual.skinIndex
+		    || characterResourceLink.m_skins[characterVisual.skinIndex].m_patterns.Count <= characterVisual.patternIndex
+		    || characterResourceLink.m_skins[characterVisual.skinIndex].m_patterns[characterVisual.patternIndex].m_colors.Count
+		    <= characterVisual.colorIndex)
+		{
+			return false;
+		}
+		string patternColorName = characterResourceLink.GetPatternColorName(
+			characterVisual.skinIndex,
+			characterVisual.patternIndex,
+			characterVisual.colorIndex);
+		(tooltip as UITitledTooltip).Setup(
+			characterResourceLink.GetDisplayName(),
+			string.Format(StringUtil.TR("SelectedStyle", "Global"), patternColorName),
+			string.Empty);
+		return true;
 	}
 
 	private bool SetupCatalystSideBtnTooltip(UITooltipBase tooltip, Card card)
@@ -859,14 +819,18 @@ public class UICharacterScreen : UIScene
 		{
 			return false;
 		}
-		string text = card.GetDisplayName();
+		
+		string tooltipText = card.GetDisplayName();
 		if (!card.m_useAbility.m_flavorText.IsNullOrEmpty())
 		{
-			string text2 = text;
-			text = string.Concat(text2, Environment.NewLine, "<i>", card.m_useAbility.m_flavorText, "</i>");
+			tooltipText = string.Concat(tooltipText, Environment.NewLine, "<i>", card.m_useAbility.m_flavorText, "</i>");
 		}
-		UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-		uititledTooltip.Setup(string.Format(StringUtil.TR("CatalystTitle", "Global"), card.m_useAbility.GetPhaseString()), text, string.Empty);
+
+		(tooltip as UITitledTooltip).Setup(
+			string.Format(StringUtil.TR("CatalystTitle", "Global"),
+				card.m_useAbility.GetPhaseString()),
+			tooltipText, 
+			string.Empty);
 		return true;
 	}
 
@@ -876,45 +840,34 @@ public class UICharacterScreen : UIScene
 		{
 			return false;
 		}
+		
 		AbilityData.AbilityEntry abilityEntry = SelectedAbilityData[i].GetAbilityEntry();
-		if (abilityEntry != null)
+		if (abilityEntry == null || abilityEntry.ability == null)
 		{
-			if (!(abilityEntry.ability == null))
-			{
-				UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
-				string movieAssetName = "Video/AbilityPreviews/" + abilityEntry.ability.m_previewVideo;
-				uiabilityTooltip.Setup(abilityEntry.ability, SelectedAbilityData[i].GetSelectedMod(), movieAssetName);
-				return true;
-			}
+			return false;
 		}
-		return false;
+		
+		UIAbilityTooltip uiabilityTooltip = (UIAbilityTooltip)tooltip;
+		string movieAssetName = "Video/AbilityPreviews/" + abilityEntry.ability.m_previewVideo;
+		uiabilityTooltip.Setup(abilityEntry.ability, SelectedAbilityData[i].GetSelectedMod(), movieAssetName);
+		return true;
 	}
 
 	public void UpdateCatalystIcons(Dictionary<AbilityRunPhase, Card> phaseToCards)
 	{
 		SelectedCatalysts = phaseToCards;
-		using (Dictionary<AbilityRunPhase, Card>.Enumerator enumerator = SelectedCatalysts.GetEnumerator())
+		foreach (Card card in SelectedCatalysts.Values)
 		{
-			while (enumerator.MoveNext())
+			int phaseIndex = card.GetAbilityRunPhase() - AbilityRunPhase.Prep;
+			if (0 <= phaseIndex && phaseIndex < m_CatalystIcons.Length)
 			{
-				KeyValuePair<AbilityRunPhase, Card> keyValuePair = enumerator.Current;
-				Card value = keyValuePair.Value;
-				if (-1 < value.GetAbilityRunPhase() - AbilityRunPhase.Prep)
-				{
-					if (value.GetAbilityRunPhase() - AbilityRunPhase.Prep < m_CatalystIcons.Length)
-					{
-						UIManager.SetGameObjectActive(m_CatalystIcons[value.GetAbilityRunPhase() - AbilityRunPhase.Prep], true);
-						m_CatalystIcons[value.GetAbilityRunPhase() - AbilityRunPhase.Prep].sprite = value.GetIconSprite();
-					}
-				}
-				if (-1 < value.GetAbilityRunPhase() - AbilityRunPhase.Prep)
-				{
-					if (value.GetAbilityRunPhase() - AbilityRunPhase.Prep < m_CatalystHoverIcons.Length)
-					{
-						UIManager.SetGameObjectActive(m_CatalystHoverIcons[value.GetAbilityRunPhase() - AbilityRunPhase.Prep], true);
-						m_CatalystHoverIcons[value.GetAbilityRunPhase() - AbilityRunPhase.Prep].sprite = value.GetIconSprite();
-					}
-				}
+				UIManager.SetGameObjectActive(m_CatalystIcons[phaseIndex], true);
+				m_CatalystIcons[phaseIndex].sprite = card.GetIconSprite();
+			}
+			if (0 <= phaseIndex && phaseIndex < m_CatalystHoverIcons.Length)
+			{
+				UIManager.SetGameObjectActive(m_CatalystHoverIcons[phaseIndex], true);
+				m_CatalystHoverIcons[phaseIndex].sprite = card.GetIconSprite();
 			}
 		}
 	}
@@ -934,31 +887,33 @@ public class UICharacterScreen : UIScene
 				{
 					uiphase = UIQueueListPanel.GetUIPhaseFromAbilityPriority(abilityEntry.ability.RunPriority);
 				}
-				else if (m_currentState != null)
+				else if (m_currentState != null && m_currentState.CharacterTypeToDisplay != CharacterType.PendingWillFill)
 				{
-					if (m_currentState.CharacterTypeToDisplay != CharacterType.PendingWillFill)
-					{
-						Log.Warning("Ability entry has no ability!");
-					}
+					Log.Warning("Ability entry has no ability!");
 				}
 			}
 			else
 			{
 				Log.Warning("AbilityButton has no Ability Entry!");
 			}
-			Color color = Color.gray;
-			if (uiphase == UIQueueListPanel.UIPhase.Prep)
+			
+			Color color;
+			switch (uiphase)
 			{
-				color = prepColor;
+				case UIQueueListPanel.UIPhase.Prep:
+					color = prepColor;
+					break;
+				case UIQueueListPanel.UIPhase.Evasion:
+					color = dashColor;
+					break;
+				case UIQueueListPanel.UIPhase.Combat:
+					color = combatColor;
+					break;
+				default:
+					color = Color.gray;
+					break;
 			}
-			else if (uiphase == UIQueueListPanel.UIPhase.Evasion)
-			{
-				color = dashColor;
-			}
-			else if (uiphase == UIQueueListPanel.UIPhase.Combat)
-			{
-				color = combatColor;
-			}
+			
 			if (i < m_AbilityPhaseColors.Length)
 			{
 				m_AbilityPhaseColors[i].color = color;
@@ -994,20 +949,20 @@ public class UICharacterScreen : UIScene
 
 	public void ClickedAbilityIcon(BaseEventData data)
 	{
-		int num = -1;
+		int clickedIndex = -1;
 		for (int i = 0; i < m_AbilityMouseOverBtns.Length; i++)
 		{
 			if (m_AbilityMouseOverBtns[i].spriteController.gameObject == (data as PointerEventData).selectedObject)
 			{
-				num = i;
+				clickedIndex = i;
 				break;
 			}
 		}
 		UIFrontEnd.PlaySound(FrontEndButtonSounds.PlayCategorySelect);
 		UICharacterSelectCharacterSettingsPanel.Get().SetVisible(true, UICharacterSelectCharacterSettingsPanel.TabPanel.Abilities);
-		if (num > -1)
+		if (clickedIndex > -1)
 		{
-			UICharacterSelectCharacterSettingsPanel.Get().m_abilitiesSubPanel.AbilityButtonSelected(num);
+			UICharacterSelectCharacterSettingsPanel.Get().m_abilitiesSubPanel.AbilityButtonSelected(clickedIndex);
 		}
 	}
 
@@ -1022,8 +977,7 @@ public class UICharacterScreen : UIScene
 			m_CatalystBtn.spriteController.SetClickable(false);
 			m_CatalystBtn.spriteController.SetForceHovercallback(true);
 			m_CatalystBtn.spriteController.SetForceExitCallback(true);
-			UITitledTooltip uititledTooltip = tooltip as UITitledTooltip;
-			uititledTooltip.Setup(
+			(tooltip as UITitledTooltip).Setup(
 				StringUtil.TR("Disabled", "Global"),
 				StringUtil.TR("CatalystsAreDisabled", "Global"),
 				string.Empty);
@@ -1040,66 +994,66 @@ public class UICharacterScreen : UIScene
 
 	public void SkinMouseOver(BaseEventData data)
 	{
-		for (int i = 0; i < SkinSubButtons.Length; i++)
+		foreach (_ButtonSwapSprite skinSubButton in SkinSubButtons)
 		{
-			if (SkinSubButtons[i] != m_skinsBtn.spriteController)
+			if (skinSubButton != m_skinsBtn.spriteController)
 			{
-				SkinSubButtons[i].SetClickable(true);
+				skinSubButton.SetClickable(true);
 			}
 		}
 	}
 
 	public void SkinMouseExit(BaseEventData data)
 	{
-		for (int i = 0; i < SkinSubButtons.Length; i++)
+		foreach (_ButtonSwapSprite skinSubButton in SkinSubButtons)
 		{
-			if (SkinSubButtons[i] != m_skinsBtn.spriteController)
+			if (skinSubButton != m_skinsBtn.spriteController)
 			{
-				SkinSubButtons[i].SetClickable(false);
+				skinSubButton.SetClickable(false);
 			}
 		}
 	}
 
 	public void AbilityMouseOver(BaseEventData data)
 	{
-		for (int i = 0; i < AbilitySubButtons.Length; i++)
+		foreach (_ButtonSwapSprite abilitySubButton in AbilitySubButtons)
 		{
-			if (AbilitySubButtons[i] != m_AbilitiesBtn.spriteController)
+			if (abilitySubButton != m_AbilitiesBtn.spriteController)
 			{
-				AbilitySubButtons[i].SetClickable(true);
+				abilitySubButton.SetClickable(true);
 			}
 		}
 	}
 
 	public void AbilityMouseExit(BaseEventData data)
 	{
-		for (int i = 0; i < AbilitySubButtons.Length; i++)
+		foreach (_ButtonSwapSprite abilitySubButton in AbilitySubButtons)
 		{
-			if (AbilitySubButtons[i] != m_AbilitiesBtn.spriteController)
+			if (abilitySubButton != m_AbilitiesBtn.spriteController)
 			{
-				AbilitySubButtons[i].SetClickable(false);
+				abilitySubButton.SetClickable(false);
 			}
 		}
 	}
 
 	public void CatalystMouseOver(BaseEventData data)
 	{
-		for (int i = 0; i < CatalystSubButtons.Length; i++)
+		foreach (_ButtonSwapSprite catalystSubButton in CatalystSubButtons)
 		{
-			if (CatalystSubButtons[i] != m_CatalystBtn.spriteController)
+			if (catalystSubButton != m_CatalystBtn.spriteController)
 			{
-				CatalystSubButtons[i].SetClickable(true);
+				catalystSubButton.SetClickable(true);
 			}
 		}
 	}
 
 	public void CatalystMouseExit(BaseEventData data)
 	{
-		for (int i = 0; i < CatalystSubButtons.Length; i++)
+		foreach (_ButtonSwapSprite catalystSubButton in CatalystSubButtons)
 		{
-			if (CatalystSubButtons[i] != m_CatalystBtn.spriteController)
+			if (catalystSubButton != m_CatalystBtn.spriteController)
 			{
-				CatalystSubButtons[i].SetClickable(false);
+				catalystSubButton.SetClickable(false);
 			}
 		}
 	}
@@ -1137,117 +1091,76 @@ public class UICharacterScreen : UIScene
 	public void CharacterSelectionResponseHandler(PlayerInfoUpdateResponse response)
 	{
 		GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
-		if (response.Success)
+		if (response.Success && response.CharacterInfo != null)
 		{
-			if (response.CharacterInfo != null)
+			UIManager.Get().HandleNewSceneStateParameter(new CharacterSelectSceneStateParameters
 			{
-				UIManager.Get().HandleNewSceneStateParameter(new CharacterSelectSceneStateParameters
-				{
-					ClientSelectedCharacter = response.CharacterInfo.CharacterType
-				});
-				UICharacterSelectScreenController uicharacterSelectScreenController = UICharacterSelectScreenController.Get();
-				if (uicharacterSelectScreenController != null)
-				{
-					uicharacterSelectScreenController.UpdatePrimaryCharacter(response.CharacterInfo);
-				}
+				ClientSelectedCharacter = response.CharacterInfo.CharacterType
+			});
+			UICharacterSelectScreenController uicharacterSelectScreenController = UICharacterSelectScreenController.Get();
+			if (uicharacterSelectScreenController != null)
+			{
+				uicharacterSelectScreenController.UpdatePrimaryCharacter(response.CharacterInfo);
 			}
 		}
 	}
 
 	private bool IsCharacterValidForSelection(CharacterType characterType)
 	{
-		bool flag = false;
+		bool result = false;
 		if (characterType == CharacterType.None)
 		{
-			return flag;
+			return false;
 		}
 		GameType gameTypeToDisplay = GetCurrentSpecificState().GameTypeToDisplay;
-		if (GameManager.Get() != null)
+		if (GameManager.Get() != null && GameManager.Get().IsValidForHumanPreGameSelection(characterType))
 		{
-			if (GameManager.Get().IsValidForHumanPreGameSelection(characterType))
-			{
-				GameType gameType;
-				if (GameManager.Get().GameConfig != null && GameManager.Get().GameStatus != GameStatus.Stopped)
-				{
-					gameType = GameManager.Get().GameConfig.GameType;
-				}
-				else
-				{
-					gameType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
-				}
-				GameType gameType2 = gameType;
-				flag = GameManager.Get().IsCharacterAllowedForGameType(characterType, gameType2, null, null);
-			}
+			GameType gameType = GameManager.Get().GameConfig != null
+			                    && GameManager.Get().GameStatus != GameStatus.Stopped
+				? GameManager.Get().GameConfig.GameType
+				: ClientGameManager.Get().GroupInfo.SelectedQueueType;
+			result = GameManager.Get().IsCharacterAllowedForGameType(characterType, gameType, null, null);
 		}
-		if (flag)
+		if (result)
 		{
 			PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
-			bool flag2 = playerCharacterData != null && playerCharacterData.CharacterComponent != null && playerCharacterData.CharacterComponent.Unlocked;
-			bool flag3;
-			if (SceneStateParameters.IsInGameLobby)
-			{
-				flag3 = GameManager.Get().IsCharacterAllowedForPlayers(characterType);
-			}
-			else
-			{
-				flag3 = GameManager.Get().IsValidForHumanPreGameSelection(characterType);
-			}
-			bool flag4;
-			if (flag3)
-			{
-				flag4 = GameManager.Get().IsCharacterAllowedForGameType(characterType, gameTypeToDisplay, null, null);
-			}
-			else
-			{
-				flag4 = false;
-			}
-			bool flag5 = flag4;
-			bool flag6 = ClientGameManager.Get().IsCharacterAvailable(characterType, gameTypeToDisplay);
-			if (flag5)
-			{
-				if (flag2 || flag6)
-				{
-					goto IL_17F;
-				}
-			}
-			flag = false;
+			bool isUnlocked = playerCharacterData != null
+			             && playerCharacterData.CharacterComponent != null
+			             && playerCharacterData.CharacterComponent.Unlocked;
+			bool isValid = SceneStateParameters.IsInGameLobby
+				? GameManager.Get().IsCharacterAllowedForPlayers(characterType)
+				: GameManager.Get().IsValidForHumanPreGameSelection(characterType);
+			bool isAllowed = GameManager.Get().IsCharacterAllowedForGameType(characterType, gameTypeToDisplay, null, null);
+			bool isAvailable = ClientGameManager.Get().IsCharacterAvailable(characterType, gameTypeToDisplay);
+			result = isValid && isAllowed && (isUnlocked || isAvailable);
 		}
-		IL_17F:
-		if (flag && SceneStateParameters.IsInGameLobby)
+		if (result
+		    && SceneStateParameters.IsInGameLobby
+		    && GameManager.Get().TeamInfo != null
+		    && gameTypeToDisplay != GameType.Custom)
 		{
-			if (GameManager.Get().TeamInfo != null)
+			LobbyPlayerInfo playerInfo = GameManager.Get().PlayerInfo;
+			Team team = playerInfo.TeamId;
+			if (team == Team.Spectator)
 			{
-				if (gameTypeToDisplay != GameType.Custom)
+				team = Team.TeamA;
+			}
+			List<LobbyPlayerInfo> players = (from ti in GameManager.Get().TeamInfo.TeamInfo(team) 
+				orderby ti.PlayerId != playerInfo.PlayerId ? 1 : 0 
+				select ti)
+				.ToList();
+			foreach (LobbyPlayerInfo player in players)
+			{
+				if (player.PlayerId != playerInfo.PlayerId
+				    && player.CharacterType == characterType
+				    && GameManager.Get().IsFreelancerConflictPossible(player.TeamId == playerInfo.TeamId)
+				    && !player.IsNPCBot)
 				{
-					LobbyPlayerInfo playerInfo = GameManager.Get().PlayerInfo;
-					Team team = playerInfo.TeamId;
-					if (team == Team.Spectator)
-					{
-						team = Team.TeamA;
-					}
-					List<LobbyPlayerInfo> list = (from ti in GameManager.Get().TeamInfo.TeamInfo(team)
-					orderby (ti.PlayerId != playerInfo.PlayerId) ? 1 : 0
-					select ti).ToList();
-					for (int i = 0; i < list.Count; i++)
-					{
-						if (list[i].PlayerId != playerInfo.PlayerId)
-						{
-							if (list[i].CharacterType == characterType)
-							{
-								if (GameManager.Get().IsFreelancerConflictPossible(list[i].TeamId == playerInfo.TeamId))
-								{
-									if (!list[i].IsNPCBot)
-									{
-										return false;
-									}
-								}
-							}
-						}
-					}
+					return false;
 				}
 			}
 		}
-		return flag;
+		return result;
 	}
 
 	public void ReceivedGameTypeChangeResponse()
@@ -1259,9 +1172,9 @@ public class UICharacterScreen : UIScene
 	private void SetDropdownText(string text)
 	{
 		TextMeshProUGUI[] componentsInChildren = m_dropdownBtn.GetComponentsInChildren<TextMeshProUGUI>(true);
-		for (int i = 0; i < componentsInChildren.Length; i++)
+		foreach (TextMeshProUGUI dropdownText in componentsInChildren)
 		{
-			componentsInChildren[i].text = text;
+			dropdownText.text = text;
 		}
 	}
 
@@ -1270,48 +1183,40 @@ public class UICharacterScreen : UIScene
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
 		UIManager.SetGameObjectActive(m_partyListPanel, currentSpecificState.PartyListVisbility);
 		m_partyListPanel.SetVisible(currentSpecificState.PartyListVisbility);
-		if ((!currentSpecificState.CustomGamePartyIsVisible || currentSpecificState.CustomGamePartyIsHidden) && currentSpecificState.PartyListVisbility)
+		if ((!currentSpecificState.CustomGamePartyIsVisible || currentSpecificState.CustomGamePartyIsHidden)
+		    && currentSpecificState.PartyListVisbility
+		    && currentSpecificState.GameTypeToDisplay != GameType.Custom)
 		{
-			if (currentSpecificState.GameTypeToDisplay != GameType.Custom)
+			bool isDuplicateCharsAllowed = false;
+			int maxTeamAPlayers = -1;
+			foreach (GameSubType gameSubType in currentSpecificState.SelectedGameSubTypes.Values)
 			{
-				bool isDuplicateCharsAllowed = false;
-				int num = -1;
-				using (Dictionary<ushort, GameSubType>.ValueCollection.Enumerator enumerator = currentSpecificState.SelectedGameSubTypes.Values.GetEnumerator())
+				if (gameSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots) && gameSubType.TeamAPlayers > maxTeamAPlayers)
 				{
-					while (enumerator.MoveNext())
-					{
-						GameSubType gameSubType = enumerator.Current;
-						if (gameSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots))
-						{
-							if (gameSubType.TeamAPlayers > num)
-							{
-								num = gameSubType.TeamAPlayers;
-							}
-						}
-					}
+					maxTeamAPlayers = gameSubType.TeamAPlayers;
 				}
-				if (num < 0)
-				{
-					GameType selectedQueueType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
-					num = ClientGameManager.Get().GameTypeAvailabilies[selectedQueueType].TeamAPlayers;
-				}
-				m_partyListPanel.SetupForOutOfGame(num, isDuplicateCharsAllowed);
 			}
+			if (maxTeamAPlayers < 0)
+			{
+				GameType selectedQueueType = ClientGameManager.Get().GroupInfo.SelectedQueueType;
+				maxTeamAPlayers = ClientGameManager.Get().GameTypeAvailabilies[selectedQueueType].TeamAPlayers;
+			}
+			m_partyListPanel.SetupForOutOfGame(maxTeamAPlayers, isDuplicateCharsAllowed);
 		}
 	}
 
 	public void RefreshGameSubTypes()
 	{
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
-		ushort num = 0;
+		ushort prevCheckedMask = 0;
 		bool sendMaskUpdate = false;
 		if (currentSpecificState.ClientRequestAllyBotTeammates != null)
 		{
-			for (int i = 0; i < m_gameSubTypeBtns.Count; i++)
+			foreach (GameSubTypeState gameSubTypeBtn in m_gameSubTypeBtns)
 			{
-				if (m_gameSubTypeBtns[i].btn.IsChecked())
+				if (gameSubTypeBtn.btn.IsChecked())
 				{
-					num |= m_gameSubTypeBtns[i].SubTypeBit;
+					prevCheckedMask |= gameSubTypeBtn.SubTypeBit;
 				}
 			}
 			currentSpecificState.AllyBotTeammatesSelected = currentSpecificState.ClientRequestAllyBotTeammates.Value;
@@ -1329,99 +1234,69 @@ public class UICharacterScreen : UIScene
 			bool inAGroup = ClientGameManager.Get().GroupInfo.InAGroup;
 			int j = 0;
 			Dictionary<ushort, GameSubType> validGameSubTypes = currentSpecificState.ValidGameSubTypes;
-			if (!validGameSubTypes.IsNullOrEmpty())
+			if (!validGameSubTypes.IsNullOrEmpty() && validGameSubTypes.Count > 1)
 			{
-				if (validGameSubTypes.Count > 1)
+				ushort selectedMask = ClientGameManager.Get().GroupInfo.InAGroup && !ClientGameManager.Get().GroupInfo.IsLeader
+					? ClientGameManager.Get().GroupInfo.SubTypeMask
+					: ClientGameManager.Get().GetSoloSubGameMask(gameTypeToDisplay);
+				ushort consolidatedBit = 0;
+				foreach (KeyValuePair<ushort, GameSubType> keyValuePair in validGameSubTypes)
 				{
-					ushort num2 = 0;
-					if (ClientGameManager.Get().GroupInfo.InAGroup && !ClientGameManager.Get().GroupInfo.IsLeader)
+					bool isActive = IsGameSubTypeActive(gameTypeToDisplay, keyValuePair.Value);
+					if (isActive && keyValuePair.Value.HasMod(GameSubType.SubTypeMods.NotAllowedForGroups))
 					{
-						num2 = ClientGameManager.Get().GroupInfo.SubTypeMask;
+						isActive = !inAGroup;
 					}
-					else
-					{
-						num2 = ClientGameManager.Get().GetSoloSubGameMask(gameTypeToDisplay);
-					}
-					ushort num3 = 0;
-					using (Dictionary<ushort, GameSubType>.Enumerator enumerator = validGameSubTypes.GetEnumerator())
-					{
-						while (enumerator.MoveNext())
-						{
-							KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-							bool flag = IsGameSubTypeActive(gameTypeToDisplay, keyValuePair.Value);
-							if (flag && keyValuePair.Value.HasMod(GameSubType.SubTypeMods.NotAllowedForGroups))
-							{
-								flag = !inAGroup;
-							}
-							if (!flag || !keyValuePair.Value.HasMod(GameSubType.SubTypeMods.CanBeConsolidated))
-							{
-								while (j >= m_gameTypeButtons.Count)
-								{
-									_ToggleSwap toggleSwap = Instantiate(m_GameTypePrefab);
-									toggleSwap.transform.SetParent(m_GameTypeContainer.transform);
-									toggleSwap.transform.localEulerAngles = Vector3.zero;
-									toggleSwap.transform.localScale = Vector3.one;
-									toggleSwap.transform.localPosition = Vector3.zero;
-									m_gameTypeButtons.Add(toggleSwap);
-								}
-								m_gameSubTypeBtns.Add(new GameSubTypeState
-								{
-									btn = m_gameTypeButtons[j],
-									SubTypeBit = keyValuePair.Key
-								});
-								UIManager.SetGameObjectActive(m_gameTypeButtons[j], flag);
-								TextMeshProUGUI componentInChildren = m_gameTypeButtons[j].GetComponentInChildren<TextMeshProUGUI>(true);
-								componentInChildren.text = StringUtil.TR(keyValuePair.Value.LocalizedName);
-								m_gameTypeButtons[j].changedNotify = SubTypeClicked;
-								if (!flag)
-								{
-									goto IL_392;
-								}
-								if ((num2 & keyValuePair.Key) == 0)
-								{
-									goto IL_392;
-								}
-								m_gameTypeButtons[j].SetOn(true);
-								IL_3A8:
-								j++;
-								continue;
-								IL_392:
-								m_gameTypeButtons[j].SetOn(false);
-								goto IL_3A8;
-							}
-							num3 |= keyValuePair.Key;
-						}
-					}
-					if (num3 != 0)
+					if (!isActive || !keyValuePair.Value.HasMod(GameSubType.SubTypeMods.CanBeConsolidated))
 					{
 						while (j >= m_gameTypeButtons.Count)
 						{
-							_ToggleSwap toggleSwap2 = Instantiate(m_GameTypePrefab);
-							toggleSwap2.transform.SetParent(m_GameTypeContainer.transform);
-							toggleSwap2.transform.localEulerAngles = Vector3.zero;
-							toggleSwap2.transform.localScale = Vector3.one;
-							toggleSwap2.transform.localPosition = Vector3.zero;
-							m_gameTypeButtons.Add(toggleSwap2);
+							_ToggleSwap toggleSwap = Instantiate(m_GameTypePrefab);
+							toggleSwap.transform.SetParent(m_GameTypeContainer.transform);
+							toggleSwap.transform.localEulerAngles = Vector3.zero;
+							toggleSwap.transform.localScale = Vector3.one;
+							toggleSwap.transform.localPosition = Vector3.zero;
+							m_gameTypeButtons.Add(toggleSwap);
 						}
 						m_gameSubTypeBtns.Add(new GameSubTypeState
 						{
 							btn = m_gameTypeButtons[j],
-							SubTypeBit = num3
+							SubTypeBit = keyValuePair.Key
 						});
-						UIManager.SetGameObjectActive(m_gameTypeButtons[j], true);
-						if ((num2 & num3) != 0)
-						{
-							m_gameTypeButtons[j].SetOn(true);
-						}
-						else
-						{
-							m_gameTypeButtons[j].SetOn(false);
-						}
-						TextMeshProUGUI componentInChildren2 = m_gameTypeButtons[j].GetComponentInChildren<TextMeshProUGUI>(true);
-						componentInChildren2.text = StringUtil.TR("ConsolidatedGameSubTypes", "SubTypes");
+						UIManager.SetGameObjectActive(m_gameTypeButtons[j], isActive);
+						TextMeshProUGUI componentInChildren = m_gameTypeButtons[j].GetComponentInChildren<TextMeshProUGUI>(true);
+						componentInChildren.text = StringUtil.TR(keyValuePair.Value.LocalizedName);
 						m_gameTypeButtons[j].changedNotify = SubTypeClicked;
+						m_gameTypeButtons[j].SetOn(isActive && (selectedMask & keyValuePair.Key) != 0);
 						j++;
 					}
+					else
+					{
+						consolidatedBit |= keyValuePair.Key;
+					}
+				}
+				if (consolidatedBit != 0)
+				{
+					while (j >= m_gameTypeButtons.Count)
+					{
+						_ToggleSwap toggleSwap2 = Instantiate(m_GameTypePrefab);
+						toggleSwap2.transform.SetParent(m_GameTypeContainer.transform);
+						toggleSwap2.transform.localEulerAngles = Vector3.zero;
+						toggleSwap2.transform.localScale = Vector3.one;
+						toggleSwap2.transform.localPosition = Vector3.zero;
+						m_gameTypeButtons.Add(toggleSwap2);
+					}
+					m_gameSubTypeBtns.Add(new GameSubTypeState
+					{
+						btn = m_gameTypeButtons[j],
+						SubTypeBit = consolidatedBit
+					});
+					UIManager.SetGameObjectActive(m_gameTypeButtons[j], true);
+					m_gameTypeButtons[j].SetOn((selectedMask & consolidatedBit) != 0);
+					TextMeshProUGUI componentInChildren2 = m_gameTypeButtons[j].GetComponentInChildren<TextMeshProUGUI>(true);
+					componentInChildren2.text = StringUtil.TR("ConsolidatedGameSubTypes", "SubTypes");
+					m_gameTypeButtons[j].changedNotify = SubTypeClicked;
+					j++;
 				}
 			}
 			while (j < m_gameTypeButtons.Count)
@@ -1431,44 +1306,31 @@ public class UICharacterScreen : UIScene
 			}
 		}
 		UIManager.SetGameObjectActive(m_GameTypeContainer, currentSpecificState.GameSubTypesVisible);
-		CheckSubTypeSelection(sendMaskUpdate, num);
+		CheckSubTypeSelection(sendMaskUpdate, prevCheckedMask);
 	}
 
 	private void SendBotDifficultyUpdateToServer(BotDifficulty? AllyDifficulty, BotDifficulty? EnemyDifficulty)
 	{
-		if (GameManager.Get().TeamInfo != null)
+		if (GameManager.Get().TeamInfo == null || GameManager.Get().TeamInfo.TeamBPlayerInfo.IsNullOrEmpty())
 		{
-			if (!GameManager.Get().TeamInfo.TeamBPlayerInfo.IsNullOrEmpty())
-			{
-				goto IL_95;
-			}
-		}
-		if (GameManager.Get().QueueInfo != null)
-		{
-			if (EnemyDifficulty != null)
+			if (GameManager.Get().QueueInfo != null && EnemyDifficulty != null)
 			{
 				ClientGameManager.Get().LobbyInterface.UpdateQueueEnemyBotDifficulty(GameManager.Get().QueueInfo, EnemyDifficulty.Value);
 			}
 			return;
 		}
-		IL_95:
-		if (ClientGameManager.Get().GroupInfo != null && ClientGameManager.Get().GroupInfo.InAGroup)
+		if (ClientGameManager.Get().GroupInfo != null
+		    && ClientGameManager.Get().GroupInfo.InAGroup
+		    && ClientGameManager.Get().GroupInfo.IsLeader)
 		{
-			if (ClientGameManager.Get().GroupInfo.IsLeader)
-			{
-				ClientGameManager.Get().UpdateBotDifficulty(AllyDifficulty, EnemyDifficulty);
-				return;
-			}
+			ClientGameManager.Get().UpdateBotDifficulty(AllyDifficulty, EnemyDifficulty);
+			return;
 		}
 		if (GameManager.Get().TeamInfo != null)
 		{
-			using (IEnumerator<LobbyPlayerInfo> enumerator = GameManager.Get().TeamInfo.TeamBPlayerInfo.GetEnumerator())
+			foreach (LobbyPlayerInfo lobbyPlayerInfo in GameManager.Get().TeamInfo.TeamBPlayerInfo)
 			{
-				while (enumerator.MoveNext())
-				{
-					LobbyPlayerInfo lobbyPlayerInfo = enumerator.Current;
-					ClientGameManager.Get().UpdateBotDifficulty(AllyDifficulty, EnemyDifficulty, lobbyPlayerInfo.PlayerId);
-				}
+				ClientGameManager.Get().UpdateBotDifficulty(AllyDifficulty, EnemyDifficulty, lobbyPlayerInfo.PlayerId);
 			}
 		}
 	}
@@ -1477,65 +1339,49 @@ public class UICharacterScreen : UIScene
 	{
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
 		GameType gameTypeToDisplay = currentSpecificState.GameTypeToDisplay;
-		bool flag = !SceneStateParameters.IsInGameLobby && !SceneStateParameters.IsInQueue && !SceneStateParameters.IsGroupSubordinate;
-		m_teamBotStars.SetClickable(flag);
-		m_enemyBotStars.SetClickable(flag);
-		m_teamBotsToggle.SetClickable(flag);
-		for (int i = 0; i < m_gameTypeButtons.Count; i++)
+		bool isEditable = !SceneStateParameters.IsInGameLobby && !SceneStateParameters.IsInQueue && !SceneStateParameters.IsGroupSubordinate;
+		m_teamBotStars.SetClickable(isEditable);
+		m_enemyBotStars.SetClickable(isEditable);
+		m_teamBotsToggle.SetClickable(isEditable);
+		foreach (_ToggleSwap gameTypeButton in m_gameTypeButtons)
 		{
-			m_gameTypeButtons[i].SetClickable(flag);
+			gameTypeButton.SetClickable(isEditable);
 		}
-		m_simpleCogBtn.spriteController.SetClickable(flag);
-		m_advancedCogBtn.spriteController.SetClickable(flag);
-		m_dropdownBtn.spriteController.SetClickable(flag);
-		if (!flag)
+		m_simpleCogBtn.spriteController.SetClickable(isEditable);
+		m_advancedCogBtn.spriteController.SetClickable(isEditable);
+		m_dropdownBtn.spriteController.SetClickable(isEditable);
+		if (!isEditable)
 		{
 			UIManager.SetGameObjectActive(m_DifficultyListDropdown, false);
 		}
 		bool displayAllyBotTeammates = currentSpecificState.DisplayAllyBotTeammates;
 		m_teamBotsToggle.SetOn(displayAllyBotTeammates);
-		if (gameTypeToDisplay != GameType.Solo)
+		if (gameTypeToDisplay == GameType.Solo || gameTypeToDisplay == GameType.Coop)
 		{
-			if (gameTypeToDisplay != GameType.Coop)
+			string key = currentSpecificState.DisplayAllyBotTeammates ? "SoloEnemyDifficulty" : "CoopDifficulty";
+			int enemyBotDifficultyToDisplay = currentSpecificState.EnemyBotDifficultyToDisplay;
+			m_enemyBotStars.SetCurrentValue(enemyBotDifficultyToDisplay + 1);
+			if (currentSpecificState.ClientRequestedEnemyBotDifficulty != null)
 			{
-				goto IL_217;
+				PlayerPrefs.SetInt(key, enemyBotDifficultyToDisplay);
+				SendBotDifficultyUpdateToServer(null, (BotDifficulty)enemyBotDifficultyToDisplay);
+				currentSpecificState.SelectedEnemyBotDifficulty = currentSpecificState.ClientRequestedEnemyBotDifficulty;
+				currentSpecificState.ClientRequestedEnemyBotDifficulty = null;
+			}
+			int allyBotDifficultyToDisplay = currentSpecificState.AllyBotDifficultyToDisplay;
+			m_teamBotStars.SetCurrentValue(allyBotDifficultyToDisplay + 1);
+			if (currentSpecificState.ClientRequestedAllyBotDifficulty != null)
+			{
+				PlayerPrefs.SetInt("SoloAllyDifficulty", allyBotDifficultyToDisplay);
+				SendBotDifficultyUpdateToServer((BotDifficulty)allyBotDifficultyToDisplay, null);
+				currentSpecificState.SelectedAllyBotDifficulty = currentSpecificState.ClientRequestedAllyBotDifficulty;
+				currentSpecificState.ClientRequestedAllyBotDifficulty = null;
 			}
 		}
-		string text;
-		if (currentSpecificState.DisplayAllyBotTeammates)
-		{
-			text = "SoloEnemyDifficulty";
-		}
-		else
-		{
-			text = "CoopDifficulty";
-		}
-		string key = text;
-		int enemyBotDifficultyToDisplay = currentSpecificState.EnemyBotDifficultyToDisplay;
-		m_enemyBotStars.SetCurrentValue(enemyBotDifficultyToDisplay + 1);
-		int? clientRequestedEnemyBotDifficulty = currentSpecificState.ClientRequestedEnemyBotDifficulty;
-		if (clientRequestedEnemyBotDifficulty != null)
-		{
-			PlayerPrefs.SetInt(key, enemyBotDifficultyToDisplay);
-			SendBotDifficultyUpdateToServer(null, (BotDifficulty)enemyBotDifficultyToDisplay);
-			currentSpecificState.SelectedEnemyBotDifficulty = currentSpecificState.ClientRequestedEnemyBotDifficulty;
-			currentSpecificState.ClientRequestedEnemyBotDifficulty = null;
-		}
-		int allyBotDifficultyToDisplay = currentSpecificState.AllyBotDifficultyToDisplay;
-		m_teamBotStars.SetCurrentValue(allyBotDifficultyToDisplay + 1);
-		int? clientRequestedAllyBotDifficulty = currentSpecificState.ClientRequestedAllyBotDifficulty;
-		if (clientRequestedAllyBotDifficulty != null)
-		{
-			PlayerPrefs.SetInt("SoloAllyDifficulty", allyBotDifficultyToDisplay);
-			SendBotDifficultyUpdateToServer((BotDifficulty)allyBotDifficultyToDisplay, null);
-			currentSpecificState.SelectedAllyBotDifficulty = currentSpecificState.ClientRequestedAllyBotDifficulty;
-			currentSpecificState.ClientRequestedAllyBotDifficulty = null;
-		}
-		IL_217:
 		UIManager.SetGameObjectActive(m_botSkillPanel, currentSpecificState.BotSkillPanelVisible);
 		UIManager.SetGameObjectActive(m_DifficultyListDropdown, false);
-		bool flag2 = currentSpecificState.BotDifficultyViewTypeToDisplay == CharacterSelectSceneStateParameters.BotDifficultyViewType.Simple;
-		if (flag2)
+		bool isSimpleView = currentSpecificState.BotDifficultyViewTypeToDisplay == CharacterSelectSceneStateParameters.BotDifficultyViewType.Simple;
+		if (isSimpleView)
 		{
 			UIManager.SetGameObjectActive(m_simpleCogBtn, false);
 			UIManager.SetGameObjectActive(m_advancedCogBtn, true);
@@ -1545,25 +1391,21 @@ public class UICharacterScreen : UIScene
 			m_easyBtn.SetSelected(simpleBotSettingValueToDisplay == CharacterSelectSceneStateParameters.SimpleBotSettingValue.Easy, false, string.Empty, string.Empty);
 			m_mediumBtn.SetSelected(simpleBotSettingValueToDisplay == CharacterSelectSceneStateParameters.SimpleBotSettingValue.Medium, false, string.Empty, string.Empty);
 			m_hardBtn.SetSelected(simpleBotSettingValueToDisplay == CharacterSelectSceneStateParameters.SimpleBotSettingValue.Hard, false, string.Empty, string.Empty);
-			if (simpleBotSettingValueToDisplay != CharacterSelectSceneStateParameters.SimpleBotSettingValue.Easy)
+			switch (simpleBotSettingValueToDisplay)
 			{
-				if (simpleBotSettingValueToDisplay != CharacterSelectSceneStateParameters.SimpleBotSettingValue.Medium)
+				case CharacterSelectSceneStateParameters.SimpleBotSettingValue.Easy:
 				{
-					if (simpleBotSettingValueToDisplay != CharacterSelectSceneStateParameters.SimpleBotSettingValue.Hard)
+					SetDropdownText(StringUtil.TR("Easy", "Global"));
+					m_enemyBotStars.SetCurrentValue(1);
+					m_teamBotStars.SetCurrentValue(4);
+					if (currentSpecificState.ClientRequestedSimpleBotSettingValue != null)
 					{
+						SendBotDifficultyUpdateToServer(BotDifficulty.Hard, BotDifficulty.Stupid);
 					}
-					else
-					{
-						SetDropdownText(StringUtil.TR("Hard", "Global"));
-						m_enemyBotStars.SetCurrentValue(4);
-						m_teamBotStars.SetCurrentValue(2);
-						if (currentSpecificState.ClientRequestedSimpleBotSettingValue != null)
-						{
-							SendBotDifficultyUpdateToServer(BotDifficulty.Easy, BotDifficulty.Hard);
-						}
-					}
+
+					break;
 				}
-				else
+				case CharacterSelectSceneStateParameters.SimpleBotSettingValue.Medium:
 				{
 					SetDropdownText(StringUtil.TR("Medium", "Global"));
 					m_enemyBotStars.SetCurrentValue(2);
@@ -1572,18 +1414,23 @@ public class UICharacterScreen : UIScene
 					{
 						SendBotDifficultyUpdateToServer(BotDifficulty.Medium, BotDifficulty.Easy);
 					}
+
+					break;
 				}
-			}
-			else
-			{
-				SetDropdownText(StringUtil.TR("Easy", "Global"));
-				m_enemyBotStars.SetCurrentValue(1);
-				m_teamBotStars.SetCurrentValue(4);
-				if (currentSpecificState.ClientRequestedSimpleBotSettingValue != null)
+				case CharacterSelectSceneStateParameters.SimpleBotSettingValue.Hard:
 				{
-					SendBotDifficultyUpdateToServer(BotDifficulty.Hard, BotDifficulty.Stupid);
+					SetDropdownText(StringUtil.TR("Hard", "Global"));
+					m_enemyBotStars.SetCurrentValue(4);
+					m_teamBotStars.SetCurrentValue(2);
+					if (currentSpecificState.ClientRequestedSimpleBotSettingValue != null)
+					{
+						SendBotDifficultyUpdateToServer(BotDifficulty.Easy, BotDifficulty.Hard);
+					}
+
+					break;
 				}
 			}
+
 			if (currentSpecificState.ClientRequestedSimpleBotSettingValue != null)
 			{
 				currentSpecificState.SimpleBotSetting = currentSpecificState.ClientRequestedSimpleBotSettingValue;
@@ -1597,18 +1444,8 @@ public class UICharacterScreen : UIScene
 			UIManager.SetGameObjectActive(m_dropdownBtn, false);
 			UIManager.SetGameObjectActive(m_difficultyListContainer, false);
 		}
-		UIManager.SetGameObjectActive(m_enemyBotSkillPanel, currentSpecificState.BotSkillPanelVisible && !flag2);
-		GameObject teamBotSkillPanel = m_teamBotSkillPanel;
-		bool doActive;
-		if (currentSpecificState.BotSkillPanelVisible)
-		{
-			doActive = !flag2;
-		}
-		else
-		{
-			doActive = false;
-		}
-		UIManager.SetGameObjectActive(teamBotSkillPanel, doActive);
+		UIManager.SetGameObjectActive(m_enemyBotSkillPanel, currentSpecificState.BotSkillPanelVisible && !isSimpleView);
+		UIManager.SetGameObjectActive(m_teamBotSkillPanel, currentSpecificState.BotSkillPanelVisible && !isSimpleView);
 		UIManager.SetGameObjectActive(m_teamBotsToggle, true);
 	}
 
@@ -1617,20 +1454,19 @@ public class UICharacterScreen : UIScene
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
 		if (currentSpecificState.ClientRequestedGameType != null)
 		{
-			GameType? clientRequestedGameType = currentSpecificState.ClientRequestedGameType;
-			GameType value = clientRequestedGameType.Value;
+			GameType requestedGameType = currentSpecificState.ClientRequestedGameType.Value;
 			if (ClientGameManager.Get().GroupInfo.InAGroup)
 			{
-				if (ClientGameManager.Get().GroupInfo.SelectedQueueType != value)
+				if (ClientGameManager.Get().GroupInfo.SelectedQueueType != requestedGameType)
 				{
-					ClientGameManager.Get().UpdateSelectedGameMode(value);
+					ClientGameManager.Get().UpdateSelectedGameMode(requestedGameType);
 				}
 			}
 			else
 			{
 				GetCurrentSpecificState().ClientRequestedGameType = null;
 				SentInitialSubTypes = false;
-				ClientGameManager.Get().GroupInfo.SelectedQueueType = value;
+				ClientGameManager.Get().GroupInfo.SelectedQueueType = requestedGameType;
 			}
 		}
 		UpdateWillFillVisibility();
@@ -1642,40 +1478,25 @@ public class UICharacterScreen : UIScene
 		if (UICharacterSelectScreenController.Get() != null)
 		{
 			CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
-			GameTypeAvailability gameTypeAvailability;
-			int num;
-			if (ClientGameManager.Get().GameTypeAvailabilies.TryGetValue(currentSpecificState.GameTypeToDisplay, out gameTypeAvailability))
+			int maxWillFill = ClientGameManager.Get().GameTypeAvailabilies.TryGetValue(currentSpecificState.GameTypeToDisplay, out var gameTypeAvailability)
+				? gameTypeAvailability.MaxWillFillPerTeam
+				: 0;
+			foreach (GameSubType gameSubType in currentSpecificState.SelectedGameSubTypes.Values)
 			{
-				num = gameTypeAvailability.MaxWillFillPerTeam;
-			}
-			else
-			{
-				num = 0;
-			}
-			int num2 = num;
-			using (Dictionary<ushort, GameSubType>.ValueCollection.Enumerator enumerator = currentSpecificState.SelectedGameSubTypes.Values.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+				if (gameSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots))
 				{
-					GameSubType gameSubType = enumerator.Current;
-					if (gameSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots))
-					{
-						num2 = 0;
-					}
+					maxWillFill = 0;
 				}
 			}
-			UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, num2 > 0);
-			if (num2 == 0)
+			UIManager.SetGameObjectActive(UICharacterSelectScreenController.Get().m_miscCharSelectButtons, maxWillFill > 0);
+			if (maxWillFill == 0 && GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
 			{
-				if (GetCurrentSpecificState().CharacterTypeToDisplay.IsWillFill())
+				CharacterType characterType = ClientGameManager.Get().QueueRequirementApplicant.AvailableCharacters.Shuffled(new Random()).First();
+				CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
+				UIManager.Get().HandleNewSceneStateParameter(new CharacterSelectSceneStateParameters
 				{
-					CharacterType characterType = ClientGameManager.Get().QueueRequirementApplicant.AvailableCharacters.Shuffled(new Random()).First();
-					CharacterResourceLink characterResourceLink = GameWideData.Get().GetCharacterResourceLink(characterType);
-					UIManager.Get().HandleNewSceneStateParameter(new CharacterSelectSceneStateParameters
-					{
-						ClientRequestToServerSelectCharacter = characterResourceLink.m_characterType
-					});
-				}
+					ClientRequestToServerSelectCharacter = characterResourceLink.m_characterType
+				});
 			}
 		}
 	}
@@ -1703,51 +1524,29 @@ public class UICharacterScreen : UIScene
 			CharacterResourceLink characterResourceLink = uicharacterPanelSelectButton.GetCharacterResourceLink();
 			if (characterResourceLink == null)
 			{
+				continue;
 			}
-			else
+			
+			CharacterType characterType = characterResourceLink.m_characterType;
+			bool isSelectable = IsCharacterValidForSelection(characterType);
+			if (isSelectable && characterType == GetCurrentSpecificState().CharacterTypeToDisplay)
 			{
-				CharacterType characterType = characterResourceLink.m_characterType;
-				bool flag = true;
-				if (!IsCharacterValidForSelection(characterType))
-				{
-					flag = false;
-				}
-				else if (characterType == GetCurrentSpecificState().CharacterTypeToDisplay)
-				{
-					UICharacterSelectScreenController.Get().UpdateBuyButtons();
-				}
-				PersistedCharacterData playerCharacterData = ClientGameManager.Get().GetPlayerCharacterData(characterType);
-				bool practiceGameTypeSelectedForQueue = SceneStateParameters.PracticeGameTypeSelectedForQueue;
-				bool flag2;
-				if (GameManager.Get().IsCharacterAllowedForPlayers(characterType))
-				{
-					flag2 = GameManager.Get().IsCharacterAllowedForGameType(characterType, GetCurrentSpecificState().GameTypeToDisplay, null, null);
-				}
-				else
-				{
-					flag2 = false;
-				}
-				bool flag3 = flag2;
-				UICharacterPanelSelectButton uicharacterPanelSelectButton2 = uicharacterPanelSelectButton;
-				bool enabled;
-				if (!flag)
-				{
-					if (practiceGameTypeSelectedForQueue)
-					{
-						enabled = flag3;
-					}
-					else
-					{
-						enabled = false;
-					}
-				}
-				else
-				{
-					enabled = true;
-				}
-				uicharacterPanelSelectButton2.SetEnabled(enabled, playerCharacterData);
-				uicharacterPanelSelectButton.UpdateFreeRotationIcon();
+				UICharacterSelectScreenController.Get().UpdateBuyButtons();
 			}
+
+			PersistedCharacterData playerCharacterData =
+				ClientGameManager.Get().GetPlayerCharacterData(characterType);
+			bool practiceGameTypeSelectedForQueue = SceneStateParameters.PracticeGameTypeSelectedForQueue;
+
+			bool isAllowedForGameType = GameManager.Get().IsCharacterAllowedForPlayers(characterType)
+			             && GameManager.Get()
+				             .IsCharacterAllowedForGameType(
+					             characterType,
+					             GetCurrentSpecificState().GameTypeToDisplay,
+					             null,
+					             null);
+			uicharacterPanelSelectButton.SetEnabled(isSelectable || practiceGameTypeSelectedForQueue && isAllowedForGameType, playerCharacterData);
+			uicharacterPanelSelectButton.UpdateFreeRotationIcon();
 		}
 	}
 
@@ -1756,19 +1555,16 @@ public class UICharacterScreen : UIScene
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
 		if (currentSpecificState.ClientRequestToServerSelectCharacter != null)
 		{
-			CharacterType? clientRequestToServerSelectCharacter = currentSpecificState.ClientRequestToServerSelectCharacter;
-			CharacterType value = clientRequestToServerSelectCharacter.Value;
-			if (!IsCharacterValidForSelection(value))
+			CharacterType value = currentSpecificState.ClientRequestToServerSelectCharacter.Value;
+			if (!IsCharacterValidForSelection(value) && SceneStateParameters.IsInGameLobby)
 			{
-				if (SceneStateParameters.IsInGameLobby)
-				{
-					GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
-					DoCharButtonSelection(currentSpecificState.CharacterTypeToDisplay);
-					goto IL_85;
-				}
+				GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
+				DoCharButtonSelection(currentSpecificState.CharacterTypeToDisplay);
 			}
-			DoCharButtonSelection(value);
-			IL_85:;
+			else
+			{
+				DoCharButtonSelection(value);
+			}
 		}
 		else
 		{
@@ -1805,17 +1601,14 @@ public class UICharacterScreen : UIScene
 		CharacterType characterType = CharacterType.None;
 		if (currentSpecificState.ClientRequestToServerSelectCharacter != null)
 		{
-			CharacterType? clientRequestToServerSelectCharacter = currentSpecificState.ClientRequestToServerSelectCharacter;
-			characterType = clientRequestToServerSelectCharacter.Value;
+			characterType = currentSpecificState.ClientRequestToServerSelectCharacter.Value;
 		}
 		if (characterType != CharacterType.None)
 		{
-			if (!IsCharacterValidForSelection(characterType))
+			if (!IsCharacterValidForSelection(characterType) && SceneStateParameters.IsInGameLobby)
 			{
-				if (SceneStateParameters.IsInGameLobby)
-				{
-					goto IL_136;
-				}
+				GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
+				return;
 			}
 			if (AppState_GroupCharacterSelect.Get() == AppState.GetCurrent())
 			{
@@ -1827,21 +1620,20 @@ public class UICharacterScreen : UIScene
 			}
 			else
 			{
-				if (UILandingPageScreen.Get() != null && UILandingPageScreen.Get().CharacterInfoClicked != null)
+				if (UILandingPageScreen.Get() != null
+					&& UILandingPageScreen.Get().CharacterInfoClicked != null
+					&& UILandingPageScreen.Get().CharacterInfoClicked.Value == characterType)
 				{
-					if (UILandingPageScreen.Get().CharacterInfoClicked.Value == characterType)
-					{
-						ClientGameManager.Get().UpdateSelectedCharacter(characterType);
-						goto IL_134;
-					}
+					ClientGameManager.Get().UpdateSelectedCharacter(characterType);
+					return;
 				}
 				GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
 			}
-			IL_134:
-			return;
 		}
-		IL_136:
-		GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
+		else
+		{
+			GetCurrentSpecificState().ClientRequestToServerSelectCharacter = null;
+		}
 	}
 
 	public void RefreshSideButtonsVisibility()
@@ -1851,24 +1643,23 @@ public class UICharacterScreen : UIScene
 		UIManager.SetGameObjectActive(m_sideBtnContainer, sideButtonsVisibility);
 		if (sideButtonsVisibility)
 		{
-			if (currentSpecificState.ClientSelectedCharacter != null)
+			if (currentSpecificState.ClientSelectedCharacter != null
+			    && currentSpecificState.ClientSelectedCharacter.Value.IsWillFill())
 			{
-				CharacterType? clientSelectedCharacter = currentSpecificState.ClientSelectedCharacter;
-				if (clientSelectedCharacter.Value.IsWillFill())
-				{
-					UIManager.SetGameObjectActive(m_bioBtn, false);
-					UIManager.SetGameObjectActive(m_skinsBtn, true);
-					UIManager.SetGameObjectActive(m_AbilitiesBtn, false);
-					UIManager.SetGameObjectActive(m_CatalystBtn, false);
-					UIManager.SetGameObjectActive(m_TauntsBtn, false);
-					return;
-				}
+				UIManager.SetGameObjectActive(m_bioBtn, false);
+				UIManager.SetGameObjectActive(m_skinsBtn, true);
+				UIManager.SetGameObjectActive(m_AbilitiesBtn, false);
+				UIManager.SetGameObjectActive(m_CatalystBtn, false);
+				UIManager.SetGameObjectActive(m_TauntsBtn, false);
 			}
-			UIManager.SetGameObjectActive(m_bioBtn, true);
-			UIManager.SetGameObjectActive(m_skinsBtn, true);
-			UIManager.SetGameObjectActive(m_AbilitiesBtn, true);
-			UIManager.SetGameObjectActive(m_CatalystBtn, true);
-			UIManager.SetGameObjectActive(m_TauntsBtn, true);
+			else
+			{
+				UIManager.SetGameObjectActive(m_bioBtn, true);
+				UIManager.SetGameObjectActive(m_skinsBtn, true);
+				UIManager.SetGameObjectActive(m_AbilitiesBtn, true);
+				UIManager.SetGameObjectActive(m_CatalystBtn, true);
+				UIManager.SetGameObjectActive(m_TauntsBtn, true);
+			}
 		}
 	}
 
@@ -1897,17 +1688,17 @@ public class UICharacterScreen : UIScene
 
 	public static bool IsGameSubTypeActive(GameType gameType, GameSubType gst)
 	{
-		if (!gst.Requirements.IsNullOrEmpty())
+		if (gst.Requirements.IsNullOrEmpty())
 		{
-			ClientGameManager clientGameManager = ClientGameManager.Get();
-			foreach (QueueRequirement queueRequirement in gst.Requirements)
-			{
-				if (!queueRequirement.DoesApplicantPass(clientGameManager.QueueRequirementSystemInfo, clientGameManager.QueueRequirementApplicant, gameType, gst))
-				{
-					return false;
-				}
-			}
 			return true;
+		}
+		ClientGameManager clientGameManager = ClientGameManager.Get();
+		foreach (QueueRequirement queueRequirement in gst.Requirements)
+		{
+			if (!queueRequirement.DoesApplicantPass(clientGameManager.QueueRequirementSystemInfo, clientGameManager.QueueRequirementApplicant, gameType, gst))
+			{
+				return false;
+			}
 		}
 		return true;
 	}
@@ -1915,57 +1706,32 @@ public class UICharacterScreen : UIScene
 	public class CharacterSelectSceneStateParameters : SceneStateParameters
 	{
 		public const int SimpleEnemyBotEasyDifficulty = 0;
-
 		public const int SimpleAllyBotEasyDifficulty = 3;
-
 		public const int SimpleEnemyBotMediumDifficulty = 1;
-
 		public const int SimpleAllyBotMediumDifficulty = 2;
-
 		public const int SimpleEnemyBotHardDifficulty = 3;
-
 		public const int SimpleAllyBotHardDifficulty = 1;
 
 		public bool? SideButtonsVisible;
-
 		public bool? SideButtonsClickable;
-
 		public bool? CharacterSelectButtonsVisible;
-
 		public bool? AllyBotTeammatesSelected;
-
 		public bool? AllyBotTeammatesClickable;
-
 		public bool? BotsCanTauntCheckboxEnabled;
-
 		public bool? CustomGamePartyListVisible;
-
 		public bool? CustomGamePartyListHidden;
-
 		public int? SelectedAllyBotDifficulty;
-
 		public int? SelectedEnemyBotDifficulty;
-
 		public BotDifficultyViewType? BotDifficultyView;
-
 		public SimpleBotSettingValue? SimpleBotSetting;
-
 		public CharacterType? ClientSelectedCharacter;
-
 		public CharacterVisualInfo? ClientSelectedVisualInfo;
-
 		public SimpleBotSettingValue? ClientRequestedSimpleBotSettingValue;
-
 		public int? ClientRequestedAllyBotDifficulty;
-
 		public int? ClientRequestedEnemyBotDifficulty;
-
 		public bool? ClientRequestAllyBotTeammates;
-
 		public CharacterType? ClientRequestToServerSelectCharacter;
-
 		public GameType? ClientRequestedGameType;
-
 		public ushort? SelectedSubTypeMask;
 
 		public bool PartyListVisbility
@@ -1981,41 +1747,16 @@ public class UICharacterScreen : UIScene
 					return true;
 				}
 				GameManager gameManager = GameManager.Get();
-				if (gameManager != null)
+				if (gameManager != null
+				    && gameManager.GameStatus != GameStatus.Stopped
+				    && gameManager.GameStatus != GameStatus.None
+				    && gameManager.GameInfo != null)
 				{
-					if (gameManager.GameStatus != GameStatus.Stopped)
-					{
-						if (gameManager.GameStatus != GameStatus.None)
-						{
-							if (gameManager.GameInfo != null)
-							{
-								return gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots);
-							}
-						}
-					}
+					return gameManager.GameInfo.GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots);
 				}
-				using (Dictionary<ushort, GameSubType>.ValueCollection.Enumerator enumerator = SelectedGameSubTypes.Values.GetEnumerator())
+				foreach (GameSubType gameSubType in SelectedGameSubTypes.Values)
 				{
-					while (enumerator.MoveNext())
-					{
-						GameSubType gameSubType = enumerator.Current;
-						if (gameSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots))
-						{
-							return true;
-						}
-					}
-				}
-				return false;
-			}
-		}
-
-		public bool CustomGamePartyIsVisible
-		{
-			get
-			{
-				if (CustomGamePartyListVisible != null)
-				{
-					if (CustomGamePartyListVisible.Value)
+					if (gameSubType.HasMod(GameSubType.SubTypeMods.ControlAllBots))
 					{
 						return true;
 					}
@@ -2024,36 +1765,14 @@ public class UICharacterScreen : UIScene
 			}
 		}
 
-		public bool CustomGamePartyIsHidden
-		{
-			get
-			{
-				if (CustomGamePartyListHidden != null)
-				{
-					return CustomGamePartyListHidden.Value;
-				}
-				return true;
-			}
-		}
+		public bool CustomGamePartyIsVisible => CustomGamePartyListVisible != null && CustomGamePartyListVisible.Value;
 
-		public bool SideButtonsVisibility
-		{
-			get
-			{
-				if (UIGameSettingsPanel.Get() != null)
-				{
-					if (UIGameSettingsPanel.Get().m_lastVisible)
-					{
-						return false;
-					}
-				}
-				if (SideButtonsVisible != null)
-				{
-					return SideButtonsVisible.Value;
-				}
-				return false;
-			}
-		}
+		public bool CustomGamePartyIsHidden => CustomGamePartyListHidden == null || CustomGamePartyListHidden.Value;
+
+		public bool SideButtonsVisibility =>
+			(UIGameSettingsPanel.Get() == null || !UIGameSettingsPanel.Get().m_lastVisible)
+			&& SideButtonsVisible != null
+			&& SideButtonsVisible.Value;
 
 		public int AllyBotDifficultyToDisplay
 		{
@@ -2072,17 +1791,14 @@ public class UICharacterScreen : UIScene
 				}
 				else
 				{
-					if (SimpleBotSettingValueToDisplay == SimpleBotSettingValue.Easy)
+					switch (SimpleBotSettingValueToDisplay)
 					{
-						return 3;
-					}
-					if (SimpleBotSettingValueToDisplay == SimpleBotSettingValue.Medium)
-					{
-						return 2;
-					}
-					if (SimpleBotSettingValueToDisplay == SimpleBotSettingValue.Hard)
-					{
-						return 1;
+						case SimpleBotSettingValue.Easy:
+							return SimpleAllyBotEasyDifficulty;
+						case SimpleBotSettingValue.Medium:
+							return SimpleAllyBotMediumDifficulty;
+						case SimpleBotSettingValue.Hard:
+							return SimpleAllyBotHardDifficulty;
 					}
 				}
 				return PlayerPrefs.GetInt("SoloAllyDifficulty", 4);
@@ -2106,20 +1822,17 @@ public class UICharacterScreen : UIScene
 				}
 				else
 				{
-					if (SimpleBotSettingValueToDisplay == SimpleBotSettingValue.Easy)
+					switch (SimpleBotSettingValueToDisplay)
 					{
-						return 0;
-					}
-					if (SimpleBotSettingValueToDisplay == SimpleBotSettingValue.Medium)
-					{
-						return 1;
-					}
-					if (SimpleBotSettingValueToDisplay == SimpleBotSettingValue.Hard)
-					{
-						return 3;
+						case SimpleBotSettingValue.Easy:
+							return SimpleEnemyBotEasyDifficulty;
+						case SimpleBotSettingValue.Medium:
+							return SimpleEnemyBotMediumDifficulty;
+						case SimpleBotSettingValue.Hard:
+							return SimpleEnemyBotHardDifficulty;
 					}
 				}
-				return PlayerPrefs.GetInt("SoloEnemyDifficulty", 2);
+				return PlayerPrefs.GetInt("SoloEnemyDifficulty", SimpleAllyBotMediumDifficulty);
 			}
 		}
 
@@ -2127,20 +1840,16 @@ public class UICharacterScreen : UIScene
 		{
 			get
 			{
-				ushort num = 0;
+				ushort exclusiveBits = 0;
 				Dictionary<ushort, GameSubType> validGameSubTypes = ValidGameSubTypes;
-				using (Dictionary<ushort, GameSubType>.Enumerator enumerator = validGameSubTypes.GetEnumerator())
+				foreach (KeyValuePair<ushort, GameSubType> keyValuePair in validGameSubTypes)
 				{
-					while (enumerator.MoveNext())
+					if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.Exclusive))
 					{
-						KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-						if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.Exclusive))
-						{
-							num |= keyValuePair.Key;
-						}
+						exclusiveBits |= keyValuePair.Key;
 					}
 				}
-				return num;
+				return exclusiveBits;
 			}
 		}
 
@@ -2148,61 +1857,34 @@ public class UICharacterScreen : UIScene
 		{
 			get
 			{
-				if (GameTypeToDisplay == GameType.Coop)
+				if (GameTypeToDisplay != GameType.Coop)
 				{
-					Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameTypeToDisplay);
-					Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
-					Dictionary<ushort, GameSubType> dictionary2 = new Dictionary<ushort, GameSubType>();
-					using (Dictionary<ushort, GameSubType>.Enumerator enumerator = gameTypeSubTypes.GetEnumerator())
+					return ClientGameManager.Get().GetGameTypeSubTypes(GameTypeToDisplay);
+				}
+				
+				Dictionary<ushort, GameSubType> gameTypeSubTypes = ClientGameManager.Get().GetGameTypeSubTypes(GameTypeToDisplay);
+				Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
+				Dictionary<ushort, GameSubType> dictionary2 = new Dictionary<ushort, GameSubType>();
+				foreach (KeyValuePair<ushort, GameSubType> keyValuePair in gameTypeSubTypes)
+				{
+					if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.ShowWithAITeammates))
 					{
-						while (enumerator.MoveNext())
-						{
-							KeyValuePair<ushort, GameSubType> keyValuePair = enumerator.Current;
-							if (keyValuePair.Value.HasMod(GameSubType.SubTypeMods.ShowWithAITeammates))
-							{
-								dictionary2[keyValuePair.Key] = keyValuePair.Value;
-							}
-							else
-							{
-								dictionary[keyValuePair.Key] = keyValuePair.Value;
-							}
-						}
-					}
-					Dictionary<ushort, GameSubType> result;
-					if (DisplayAllyBotTeammates)
-					{
-						result = dictionary2;
+						dictionary2[keyValuePair.Key] = keyValuePair.Value;
 					}
 					else
 					{
-						result = dictionary;
+						dictionary[keyValuePair.Key] = keyValuePair.Value;
 					}
-					return result;
 				}
-				return ClientGameManager.Get().GetGameTypeSubTypes(GameTypeToDisplay);
+
+				return DisplayAllyBotTeammates ? dictionary2 : dictionary;
 			}
 		}
 
-		public bool GameSubTypesVisible
-		{
-			get
-			{
-				if (GameTypeToDisplay == GameType.Custom)
-				{
-					return false;
-				}
-				bool result;
-				if (!ValidGameSubTypes.IsNullOrEmpty())
-				{
-					result = (ValidGameSubTypes.Count > 1);
-				}
-				else
-				{
-					result = false;
-				}
-				return result;
-			}
-		}
+		public bool GameSubTypesVisible =>
+			GameTypeToDisplay != GameType.Custom
+			&& !ValidGameSubTypes.IsNullOrEmpty()
+			&& ValidGameSubTypes.Count > 1;
 
 		public Dictionary<ushort, GameSubType> SelectedGameSubTypes
 		{
@@ -2211,37 +1893,8 @@ public class UICharacterScreen : UIScene
 				Dictionary<ushort, GameSubType> dictionary = new Dictionary<ushort, GameSubType>();
 				foreach (KeyValuePair<ushort, GameSubType> keyValuePair in ValidGameSubTypes)
 				{
-					ushort? selectedSubTypeMask = SelectedSubTypeMask;
-					int? num;
-					if (selectedSubTypeMask != null)
-					{
-						num = selectedSubTypeMask.Value;
-					}
-					else
-					{
-						num = null;
-					}
-					int? num2 = num;
-					int? num3;
-					if (num2 != null)
-					{
-						num3 = keyValuePair.Key & num2.GetValueOrDefault();
-					}
-					else
-					{
-						num3 = null;
-					}
-					int? num4 = num3;
-					bool flag;
-					if (num4.GetValueOrDefault() == 0)
-					{
-						flag = (num4 == null);
-					}
-					else
-					{
-						flag = true;
-					}
-					if (flag)
+					if (SelectedSubTypeMask == null
+					    || (keyValuePair.Key & SelectedSubTypeMask.Value) != 0)
 					{
 						dictionary[keyValuePair.Key] = keyValuePair.Value;
 					}
@@ -2250,64 +1903,28 @@ public class UICharacterScreen : UIScene
 			}
 		}
 
-		public bool DisplayAllyBotTeammates
-		{
-			get
-			{
-				if (ClientRequestAllyBotTeammates != null)
-				{
-					return ClientRequestAllyBotTeammates.Value;
-				}
-				return AllyBotTeammatesSelected != null && AllyBotTeammatesSelected.Value;
-			}
-		}
+		public bool DisplayAllyBotTeammates =>
+			ClientRequestAllyBotTeammates != null
+				? ClientRequestAllyBotTeammates.Value
+				: AllyBotTeammatesSelected != null && AllyBotTeammatesSelected.Value;
 
-		public SimpleBotSettingValue SimpleBotSettingValueToDisplay
-		{
-			get
-			{
-				if (ClientRequestedSimpleBotSettingValue != null)
-				{
-					return ClientRequestedSimpleBotSettingValue.Value;
-				}
-				if (SimpleBotSetting != null)
-				{
-					return SimpleBotSetting.Value;
-				}
-				return SimpleBotSettingValue.Easy;
-			}
-		}
+		public SimpleBotSettingValue SimpleBotSettingValueToDisplay =>
+			ClientRequestedSimpleBotSettingValue != null
+				? ClientRequestedSimpleBotSettingValue.Value
+				: SimpleBotSetting != null
+					? SimpleBotSetting.Value
+					: SimpleBotSettingValue.Easy;
 
-		public BotDifficultyViewType BotDifficultyViewTypeToDisplay
-		{
-			get
-			{
-				if (!IsInGameLobby)
-				{
-					if (!IsInQueue)
-					{
-						if (IsGroupSubordinate)
-						{
-							return BotDifficultyViewType.Advanced;
-						}
-					}
-				}
-				if (BotDifficultyView != null)
-				{
-					BotDifficultyViewType? botDifficultyView = BotDifficultyView;
-					return botDifficultyView.Value;
-				}
-				return BotDifficultyViewType.Simple;
-			}
-		}
+		public BotDifficultyViewType BotDifficultyViewTypeToDisplay =>
+			!IsInGameLobby
+			&& !IsInQueue
+			&& IsGroupSubordinate
+				? BotDifficultyViewType.Advanced
+				: BotDifficultyView != null
+					? BotDifficultyView.Value
+					: BotDifficultyViewType.Simple;
 
-		public bool BotSkillPanelVisible
-		{
-			get
-			{
-				return GameTypeToDisplay == GameType.Solo || GameTypeToDisplay == GameType.Coop;
-			}
-		}
+		public bool BotSkillPanelVisible => GameTypeToDisplay == GameType.Solo || GameTypeToDisplay == GameType.Coop;
 
 		public GameType GameTypeToDisplay
 		{
@@ -2316,24 +1933,15 @@ public class UICharacterScreen : UIScene
 				GameType gameType;
 				if (ClientRequestedGameType != null)
 				{
-					GameType? clientRequestedGameType = ClientRequestedGameType;
-					gameType = clientRequestedGameType.Value;
+					gameType = ClientRequestedGameType.Value;
 				}
 				else
 				{
-					LobbyGameConfig lobbyGameConfig;
-					if (GameManager.Get() != null)
+					var gameManager = GameManager.Get();
+					LobbyGameConfig lobbyGameConfig = gameManager != null ? gameManager.GameConfig : null;
+					if (IsInGameLobby && lobbyGameConfig != null)
 					{
-						lobbyGameConfig = GameManager.Get().GameConfig;
-					}
-					else
-					{
-						lobbyGameConfig = null;
-					}
-					LobbyGameConfig lobbyGameConfig2 = lobbyGameConfig;
-					if (IsInGameLobby && lobbyGameConfig2 != null)
-					{
-						gameType = lobbyGameConfig2.GameType;
+						gameType = lobbyGameConfig.GameType;
 					}
 					else
 					{
@@ -2347,81 +1955,42 @@ public class UICharacterScreen : UIScene
 				ClientGameManager clientGameManager = ClientGameManager.Get();
 				GameType blockedExperienceAlternativeGameType = ClientGameManager.Get().GameTypeAvailabilies[gameType].BlockedExperienceAlternativeGameType;
 				List<MatchmakingQueueConfig.QueueEntryExperience> blockedExperienceEntries = clientGameManager.GameTypeAvailabilies[gameType].BlockedExperienceEntries;
-				if (blockedExperienceAlternativeGameType != GameType.None)
+				if (blockedExperienceAlternativeGameType != GameType.None
+				    && clientGameManager.GetPlayerAccountData().ExperienceComponent.Matches < clientGameManager.NewPlayerPvPQueueDuration
+				    && blockedExperienceEntries != null
+				    && blockedExperienceEntries.Contains(MatchmakingQueueConfig.QueueEntryExperience.NewPlayer))
 				{
-					if (clientGameManager.GetPlayerAccountData().ExperienceComponent.Matches < clientGameManager.NewPlayerPvPQueueDuration)
-					{
-						if (blockedExperienceEntries != null)
-						{
-							if (blockedExperienceEntries.Contains(MatchmakingQueueConfig.QueueEntryExperience.NewPlayer))
-							{
-								return blockedExperienceAlternativeGameType;
-							}
-						}
-					}
+					return blockedExperienceAlternativeGameType;
 				}
 				return gameType;
 			}
 		}
 
-		public CharacterResourceLink CharacterResourceLinkOfCharacterTypeToDisplay
-		{
-			get
-			{
-				if (CharacterTypeToDisplay.IsValidForHumanPreGameSelection())
-				{
-					return GameWideData.Get().GetCharacterResourceLink(CharacterTypeToDisplay);
-				}
-				return null;
-			}
-		}
+		public CharacterResourceLink CharacterResourceLinkOfCharacterTypeToDisplay =>
+			CharacterTypeToDisplay.IsValidForHumanPreGameSelection()
+				? GameWideData.Get().GetCharacterResourceLink(CharacterTypeToDisplay)
+				: null;
 
-		public CharacterType CharacterTypeToDisplay
-		{
-			get
-			{
-				if (AppState.GetCurrent() == AppState_CharacterSelect.Get()
-				    && SelectedCharacterFromGameInfo.IsValidForHumanPreGameSelection())
-				{
-					return SelectedCharacterFromGameInfo;
-				}
-				if (ClientRequestToServerSelectCharacter != null)
-				{
-					return ClientRequestToServerSelectCharacter.Value;
-				}
-				if (SelectedCharacterInGroup.IsValidForHumanPreGameSelection())
-				{
-					return SelectedCharacterInGroup;
-				}
-				if (ClientSelectedCharacter != null)
-				{
-					return ClientSelectedCharacter.Value;
-				}
-				return SelectedCharacterFromPlayerData;
-			}
-		}
+		public CharacterType CharacterTypeToDisplay =>
+			AppState.GetCurrent() == AppState_CharacterSelect.Get()
+			&& SelectedCharacterFromGameInfo.IsValidForHumanPreGameSelection()
+				? SelectedCharacterFromGameInfo
+				: ClientRequestToServerSelectCharacter != null
+					? ClientRequestToServerSelectCharacter.Value
+					: SelectedCharacterInGroup.IsValidForHumanPreGameSelection()
+						? SelectedCharacterInGroup
+						: ClientSelectedCharacter != null
+							? ClientSelectedCharacter.Value
+							: SelectedCharacterFromPlayerData;
 
-		public CharacterVisualInfo CharacterVisualInfoToDisplay
-		{
-			get
-			{
-				if (ClientSelectedVisualInfo != null)
-				{
-					return ClientSelectedVisualInfo.Value;
-				}
-				if (ClientGameManager.Get() != null)
-				{
-					if (ClientGameManager.Get().GroupInfo != null)
-					{
-						if (ClientGameManager.Get().GroupInfo.ChararacterInfo != null)
-						{
-							return ClientGameManager.Get().GroupInfo.ChararacterInfo.CharacterSkin;
-						}
-					}
-				}
-				return default(CharacterVisualInfo);
-			}
-		}
+		public CharacterVisualInfo CharacterVisualInfoToDisplay =>
+			ClientSelectedVisualInfo != null
+				? ClientSelectedVisualInfo.Value
+				: ClientGameManager.Get() != null
+				  && ClientGameManager.Get().GroupInfo != null
+				  && ClientGameManager.Get().GroupInfo.ChararacterInfo != null
+					? ClientGameManager.Get().GroupInfo.ChararacterInfo.CharacterSkin
+					: default(CharacterVisualInfo);
 
 		public enum BotDifficultyViewType
 		{
@@ -2439,10 +2008,10 @@ public class UICharacterScreen : UIScene
 
 	public enum RefreshFunctionType
 	{
-		RefreshSideButtonVisibility = 1,
-		RefreshSideButtonClickability,
-		RefreshSelectedCharacterButton = 4,
-		SendRequestToServerForCharacterSelect = 8,
+		RefreshSideButtonVisibility = 0x1,
+		RefreshSideButtonClickability = 0x2,
+		RefreshSelectedCharacterButton = 0x4,
+		SendRequestToServerForCharacterSelect = 0x8,
 		RefreshCharacterButtonVisibility = 0x10,
 		RefreshSelectedGameType = 0x20,
 		RefreshCharacterButtons = 0x40,
@@ -2454,7 +2023,6 @@ public class UICharacterScreen : UIScene
 	public class GameSubTypeState
 	{
 		public _ToggleSwap btn;
-
 		public ushort SubTypeBit;
 	}
 }
