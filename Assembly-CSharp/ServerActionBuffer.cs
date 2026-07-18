@@ -1882,7 +1882,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool flag = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == actor && abilityRequest.m_ability != null && abilityRequest.m_ability.RunPriority == AbilityPriority.Evasion && abilityRequest.m_ability.GetMovementType() != ActorData.MovementType.None)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == actor
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.RunPriority == AbilityPriority.Evasion
+			    && abilityRequest.m_ability.GetMovementType() != ActorData.MovementType.None)
 			{
 				flag = true;
 				break;
