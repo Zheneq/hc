@@ -492,7 +492,7 @@ public class FriendListPanel : MonoBehaviour
             case FriendStatus.Blocked:
                 blockedFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.Blocked));
                 break;
-#if true
+#if EVOS
             case FriendStatus.OnlineNonFriend:
                 onlineNonFriends.Add(FriendInfoToBannerDataEntry(friendInfo, FriendSubsection.OnlineNonFriends));
                 break;
