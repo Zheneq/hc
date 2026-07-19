@@ -12,28 +12,17 @@ public class ServerActionBuffer : NetworkBehaviour
 {
 #if SERVER
 	private static ServerActionBuffer s_instance;
-
 	private SharedActionBuffer m_sharedActionBuffer;
-
 	private ServerEvadeManager m_evadeManager;
-
 	private ServerKnockbackManager m_knockbackManager;
-
 	private ServerMovementStabilizer m_movementStabilizer;
-
-	// rogues
-	//private PlayerActionStateMachine m_playerActionFsm;
-
+	//private PlayerActionStateMachine m_playerActionFsm; // rogues
+	
 	private List<AbilityRequest> m_storedAbilityRequests;
-
 	private List<MovementRequest> m_storedMovementRequests;
-
 	private List<AbilityRequest> m_storedAbilityRequestsForNextTurn;
-
 	private bool m_waitingForPlayPhaseEnded;
-
 	private List<MovementRequest> m_removedMovementRequestsFromForceChase;
-
 	internal bool m_gatheringFakeResults = true; // no default value in rogues
 
 	// custom
@@ -42,13 +31,9 @@ public class ServerActionBuffer : NetworkBehaviour
 	// internal List<BoardSquare> m_tempReservedSquaresForAbilitySpoil = new List<BoardSquare>();
 
 	private float m_lastAbilityPhaseSet;
-
 	private AbilityPriority m_abilityPhase;
-
 	private ActionBufferPhase m_actionPhase;
-
 	private List<ActorData> m_actorsVisibleUntilEndOfPhase;
-
 	private ActorData m_combatInitiator;
 
 	private int m_combatInitiatorRecordTurn = -1;
@@ -57,7 +42,6 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private const string c_actionLogSearchMarker = "{act} ";
 	
-	
 	// custom
 	public int LastTurnWithActions { get; private set; }
 
@@ -65,18 +49,16 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		LastTurnWithActions = GameFlowData.Get().CurrentTurn;
 	}
+	// end custom
 
 	public static ServerActionBuffer Get()
 	{
-		return ServerActionBuffer.s_instance;
+		return s_instance;
 	}
 
 	public bool GatheringFakeResults
 	{
-		get
-		{
-			return m_gatheringFakeResults;
-		}
+		get => m_gatheringFakeResults;
 		set  // private in rogues
 		{
 			if (m_gatheringFakeResults != value)
@@ -89,15 +71,13 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public AbilityPriority AbilityPhase
 	{
-		get
-		{
-			return m_abilityPhase;
-		}
+		get => m_abilityPhase;
 		set  // private in rogues
 		{
 			if (m_abilityPhase != value)
 			{
-				if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases || (GameplayData.Get().m_resolveDamageAfterEvasion && m_abilityPhase == AbilityPriority.Evasion))
+				if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases
+				    || (GameplayData.Get().m_resolveDamageAfterEvasion && m_abilityPhase == AbilityPriority.Evasion))
 				{
 					ServerCombatManager.Get().ResolveHitPoints();
 					ServerCombatManager.Get().ResolveTechPoints();
@@ -118,10 +98,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	// custom
 	public ActionBufferPhase ActionPhase
 	{
-		get
-		{
-			return m_actionPhase;
-		}
+		get => m_actionPhase;
 		set
 		{
 			if (m_actionPhase != value)
@@ -137,7 +114,7 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void Awake()
 	{
-		ServerActionBuffer.s_instance = this;
+		s_instance = this;
 		if (NetworkServer.active)
 		{
 			m_evadeManager = new ServerEvadeManager();
@@ -146,10 +123,10 @@ public class ServerActionBuffer : NetworkBehaviour
 			GameObject sharedActionBufferPrefab = NetworkedSharedGameplayPrefabs.GetSharedActionBufferPrefab();
 			if (sharedActionBufferPrefab != null)
 			{
-				GameObject gameObject = UnityEngine.Object.Instantiate<GameObject>(sharedActionBufferPrefab, Vector3.zero, Quaternion.identity);
-				NetworkServer.Spawn(gameObject);
-				UnityEngine.Object.DontDestroyOnLoad(gameObject);
-				m_sharedActionBuffer = gameObject.GetComponent<SharedActionBuffer>();
+				GameObject sharedBuffer = Instantiate(sharedActionBufferPrefab, Vector3.zero, Quaternion.identity);
+				NetworkServer.Spawn(sharedBuffer);
+				DontDestroyOnLoad(sharedBuffer);
+				m_sharedActionBuffer = sharedBuffer.GetComponent<SharedActionBuffer>();
 			}
 			m_actorsVisibleUntilEndOfPhase = new List<ActorData>();
 		}
@@ -157,10 +134,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		m_storedMovementRequests = new List<MovementRequest>();
 		m_storedAbilityRequestsForNextTurn = new List<AbilityRequest>();
 		m_removedMovementRequestsFromForceChase = new List<MovementRequest>();
-
-		// rogues
-		//m_playerActionFsm = new PlayerActionStateMachine();
-	}
+		
+		//m_playerActionFsm = new PlayerActionStateMachine(); // rogues
+	} 
 
 	private void OnDestroy()
 	{
@@ -168,12 +144,14 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			NetworkServer.Destroy(m_sharedActionBuffer.gameObject);
 		}
-		ServerActionBuffer.s_instance = null;
+		s_instance = null;
 	}
 
 	private void Start()
 	{
-		//AbilityPhase = AbilityUtils.GetHighestAbilityPriority();
+		// rogues
+		// AbilityPhase = AbilityUtils.GetHighestAbilityPriority();
+		// custom
 		AbilityPhase = AbilityPriority.INVALID;
 	}
 
@@ -206,16 +184,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return Time.time - m_lastAbilityPhaseSet <= 0f;
 	}
 
-	public float TimeSpentInAbilityPhase
-	{
-		get
-		{
-			return Time.time - m_lastAbilityPhaseSet;
-		}
-		private set
-		{
-		}
-	}
+	public float TimeSpentInAbilityPhase => Time.time - m_lastAbilityPhaseSet;
 
 	public void SynchronizePositionsOfActorsParticipatingInPhase(AbilityPriority phase)
 	{
@@ -225,39 +194,41 @@ public class ServerActionBuffer : NetworkBehaviour
 			return;
 		}
 		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} BEGIN"); // custom
-		foreach (AbilityRequest abilityRequest in ServerActionBuffer.Get().GetAllStoredAbilityRequests())
+		foreach (AbilityRequest abilityRequest in Get().GetAllStoredAbilityRequests())
 		{
-			if (abilityRequest.m_ability.RunPriority == phase)
+			if (abilityRequest.m_ability.RunPriority != phase)
+			{
+				continue;
+			}
+			
+			if (abilityRequest.m_caster != null
+			    // custom
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.ShouldRevealCasterOnHostileAbilityHit()
+			    && abilityRequest.m_additionalData.m_abilityResults.HitActorsArray().Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam())
+			    // end custom
+			   )
+			{
+				Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName} for using ability {abilityRequest.m_ability.m_abilityName}"); // custom
+				abilityRequest.m_caster.SynchronizeTeamSensitiveData();
+			}
+			else
+			{
+				Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster?.DisplayName} for using ability {abilityRequest.m_ability?.m_abilityName}"); // custom
+			}
+			foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
 			{
 				if (abilityRequest.m_caster != null
-				    // custom
+				    && abilityRequest.m_caster.GetTeam() != hitActor.GetTeam()
 				    && abilityRequest.m_ability != null
-				    && abilityRequest.m_ability.ShouldRevealCasterOnHostileAbilityHit()
-				    && abilityRequest.m_additionalData.m_abilityResults.HitActorsArray().Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam())
-				    // end custom
-				    )
+				    && abilityRequest.m_ability.ShouldRevealTargetOnHostileAbilityHit()) // custom condition (unconditional in rouges)
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName} for using ability {abilityRequest.m_ability.m_abilityName}"); // custom
-					abilityRequest.m_caster.SynchronizeTeamSensitiveData();
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
+					hitActor.SynchronizeTeamSensitiveData();
 				}
 				else
 				{
-					Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster?.DisplayName} for using ability {abilityRequest.m_ability?.m_abilityName}"); // custom
-				}
-				foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
-				{
-					if (abilityRequest.m_caster != null
-					    && abilityRequest.m_caster.GetTeam() != hitActor.GetTeam()
-					    && abilityRequest.m_ability != null
-					    && abilityRequest.m_ability.ShouldRevealTargetOnHostileAbilityHit()) // custom condition
-					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
-						hitActor.SynchronizeTeamSensitiveData();
-					}
-					else
-					{
-						Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability?.m_abilityName}"); // custom
-					}
+					Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability?.m_abilityName}"); // custom
 				}
 			}
 		}
@@ -267,6 +238,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				if (effect.HasResolutionAction(phase))
 				{
+					// TODO rogues??
 					// if (effect.Caster != null)
 					// {
 					// 	Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using effect {effect.m_effectName}"); // custom
@@ -287,7 +259,7 @@ public class ServerActionBuffer : NetworkBehaviour
 					{
 						if (effect.Caster != null
 						    && effect.Caster.GetTeam() != hitActor.GetTeam()
-						    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition
+						    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition (unconditional in rogues)
 						{
 							Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
 							hitActor.SynchronizeTeamSensitiveData();
@@ -304,6 +276,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (effect.HasResolutionAction(phase))
 			{
+				// TODO rogues??
 				// if (effect.Caster != null)
 				// {
 				// 	Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using world effect {effect.m_effectName}"); // custom
@@ -313,7 +286,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					if (effect.Caster != null
 					    && effect.Caster.GetTeam() != hitActor.GetTeam()
-					    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition
+					    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition (unconditional in rogues)
 					{
 						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s world effect {effect.m_effectName}"); // custom
 						hitActor.SynchronizeTeamSensitiveData();
@@ -353,27 +326,29 @@ public class ServerActionBuffer : NetworkBehaviour
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
 			ActorData actor = movementRequest.m_actor;
-			if (actor != null && actor.GetActorBehavior() != null)
+			if (actor == null || actor.GetActorBehavior() == null)
 			{
-				if (movementRequest.IsChasing())
+				continue;
+			}
+			
+			if (movementRequest.IsChasing())
+			{
+				if (movementRequest.m_chaseTarget != null && movementRequest.m_chaseTarget.GetCurrentBoardSquare() != null)
 				{
-					if (movementRequest.m_chaseTarget != null && movementRequest.m_chaseTarget.GetCurrentBoardSquare() != null)
+					BoardSquare closestMoveableSquareTo = actor.GetActorMovement().GetClosestMoveableSquareTo(movementRequest.m_chaseTarget.GetCurrentBoardSquare(), false);
+					if (closestMoveableSquareTo != null)
 					{
-						BoardSquare closestMoveableSquareTo = actor.GetActorMovement().GetClosestMoveableSquareTo(movementRequest.m_chaseTarget.GetCurrentBoardSquare(), false);
-						if (closestMoveableSquareTo != null)
+						BoardSquarePathInfo boardSquarePathInfo = actor.GetActorMovement().BuildPathTo(actor.InitialMoveStartSquare, closestMoveableSquareTo);
+						if (boardSquarePathInfo != null)
 						{
-							BoardSquarePathInfo boardSquarePathInfo = actor.GetActorMovement().BuildPathTo(actor.InitialMoveStartSquare, closestMoveableSquareTo);
-							if (boardSquarePathInfo != null)
-							{
-								actor.GetActorBehavior().TrackDesiredMovementOnResolveStart(boardSquarePathInfo.FindMoveCostToEnd());
-							}
+							actor.GetActorBehavior().TrackDesiredMovementOnResolveStart(boardSquarePathInfo.FindMoveCostToEnd());
 						}
 					}
 				}
-				else if (movementRequest.m_path != null)
-				{
-					actor.GetActorBehavior().TrackDesiredMovementOnResolveStart(movementRequest.m_path.FindMoveCostToEnd());
-				}
+			}
+			else if (movementRequest.m_path != null)
+			{
+				actor.GetActorBehavior().TrackDesiredMovementOnResolveStart(movementRequest.m_path.FindMoveCostToEnd());
 			}
 		}
 	}
@@ -382,27 +357,23 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
-			bool flag = false;
+			bool found = false;
 			if (actorData.IsHumanControlled())
 			{
 				foreach (MovementRequest movementRequest in m_storedMovementRequests)
 				{
 					if (movementRequest.m_actor == actorData)
 					{
-						if (movementRequest.m_chaseTarget != null)
-						{
-							actorData.SetSquareRequestedForMovementMetrics(movementRequest.m_chaseTarget.GetCurrentBoardSquare());
-						}
-						else
-						{
-							actorData.SetSquareRequestedForMovementMetrics(movementRequest.m_targetSquare);
-						}
-						flag = true;
+						actorData.SetSquareRequestedForMovementMetrics(
+							movementRequest.m_chaseTarget != null
+								? movementRequest.m_chaseTarget.GetCurrentBoardSquare()
+								: movementRequest.m_targetSquare);
+						found = true;
 						break;
 					}
 				}
 			}
-			if (!flag)
+			if (!found)
 			{
 				actorData.SetSquareRequestedForMovementMetrics(null);
 			}
@@ -479,7 +450,9 @@ public class ServerActionBuffer : NetworkBehaviour
 			if (AbilityPhase == AbilityPriority.Combat_Final && actorData.IsActorInvisibleForRespawn())
 			{
 				actorData.RespawnPickedPositionSquare = null;
-				if (SpawnPointManager.Get() != null && SpawnPointManager.Get().m_respawnActorsCanBeHitDuringMovement && actorData.NextRespawnTurn > 0)
+				if (SpawnPointManager.Get() != null
+				    && SpawnPointManager.Get().m_respawnActorsCanBeHitDuringMovement
+				    && actorData.NextRespawnTurn > 0)
 				{
 					actorData.IgnoreForAbilityHits = false;
 				}
@@ -492,7 +465,8 @@ public class ServerActionBuffer : NetworkBehaviour
 		m_actorsVisibleUntilEndOfPhase.Clear();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest.m_ability.GetRunPriority() == oldPhase && abilityRequest.m_ability.GetStatusToApplyWhenRequested().Count > 0)
+			if (abilityRequest.m_ability.GetRunPriority() == oldPhase
+			    && abilityRequest.m_ability.GetStatusToApplyWhenRequested().Count > 0)
 			{
 				abilityRequest.m_caster.GetAbilityData().AddOnRequestStatusForAbility(abilityRequest.m_ability);
 			}
@@ -509,8 +483,6 @@ public class ServerActionBuffer : NetworkBehaviour
 
 		// rogues
 		//m_playerActionFsm.TransitionToState(PlayerActionStateMachine.StateFlag.WaitingForInput);
-
-		// rogues
 		//Team actingTeam = GameFlowData.Get().ActingTeam;
 
 		m_storedAbilityRequests.Clear();
@@ -579,16 +551,19 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		Bounds result = default(Bounds);
 		List<ActorData> actors = GameFlowData.Get().GetActors();
-		bool flag = false;
-		for (int i = 0; i < actors.Count; i++)
+		bool hasValue = false;
+		foreach (ActorData actorData in actors)
 		{
-			ActorData actorData = actors[i];
-			if (actorData != null && !actorData.IsDead() && actorData.GetCurrentBoardSquare() != null && !actorData.IgnoreForAbilityHits && (actorData.GetTeam() == team || actorData.IsActorVisibleToAnyEnemy()))
+			if (actorData != null
+			    && !actorData.IsDead()
+			    && actorData.GetCurrentBoardSquare() != null
+			    && !actorData.IgnoreForAbilityHits
+			    && (actorData.GetTeam() == team || actorData.IsActorVisibleToAnyEnemy()))
 			{
-				if (!flag)
+				if (!hasValue)
 				{
 					result = actorData.GetCurrentBoardSquare().CameraBounds;
-					flag = true;
+					hasValue = true;
 				}
 				else
 				{
@@ -596,7 +571,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				}
 			}
 		}
-		if (!flag)
+		if (!hasValue)
 		{
 			BoardSquare squareFromIndex = Board.Get().GetSquareFromIndex(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
 			if (squareFromIndex != null)
@@ -621,7 +596,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		Vector3 center = result.center;
 		Vector3 size = result.size;
-		center.y = 1.5f + (float)Board.Get().BaselineHeight;
+		center.y = 1.5f + Board.Get().BaselineHeight;
 		size.y = 3f;
 		result = new Bounds(center, size);
 		return result;
@@ -629,84 +604,99 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void EncapsulateMovementBoundsForAllyPath(BoardSquarePathInfo path, ref Bounds bounds)
 	{
-		if (path != null)
+		if (path == null)
 		{
-			for (BoardSquarePathInfo boardSquarePathInfo = path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+			return;
+		}
+		
+		for (BoardSquarePathInfo step = path; step != null; step = step.next)
+		{
+			if (step.square != null)
 			{
-				if (boardSquarePathInfo.square != null)
-				{
-					bounds.Encapsulate(boardSquarePathInfo.square.CameraBounds);
-				}
+				bounds.Encapsulate(step.square.CameraBounds);
 			}
 		}
 	}
 
 	private void EncapsulateMovementBoundsForEnemyPath(BoardSquarePathInfo path, ref Bounds bounds)
 	{
-		if (path != null)
+		if (path == null)
 		{
-			BoardSquarePathInfo boardSquarePathInfo = path;
-			BoardSquarePathInfo boardSquarePathInfo2 = null;
-			while (boardSquarePathInfo != null)
+			return;
+		}
+		
+		BoardSquarePathInfo step = path;
+		BoardSquarePathInfo lastVisibleStep = null;
+		while (step != null)
+		{
+			if (step.m_visibleToEnemies
+			    || step.m_updateLastKnownPos
+			    || step.m_moverDiesHere
+			    || step.m_moverHasGameplayHitHere)
 			{
-				if (boardSquarePathInfo.m_visibleToEnemies || boardSquarePathInfo.m_updateLastKnownPos || boardSquarePathInfo.m_moverDiesHere || boardSquarePathInfo.m_moverHasGameplayHitHere)
-				{
-					boardSquarePathInfo2 = boardSquarePathInfo;
-				}
-				else if (boardSquarePathInfo.prev != null && (boardSquarePathInfo.prev.m_visibleToEnemies || boardSquarePathInfo.prev.m_moverHasGameplayHitHere))
-				{
-					boardSquarePathInfo2 = boardSquarePathInfo;
-				}
-				boardSquarePathInfo = boardSquarePathInfo.next;
+				lastVisibleStep = step;
 			}
-			if (boardSquarePathInfo2 != null)
+			else if (step.prev != null && (step.prev.m_visibleToEnemies || step.prev.m_moverHasGameplayHitHere))
 			{
-				for (boardSquarePathInfo = path; boardSquarePathInfo != null; boardSquarePathInfo = boardSquarePathInfo.next)
+				lastVisibleStep = step;
+			}
+			step = step.next;
+		}
+		if (lastVisibleStep != null)
+		{
+			for (step = path; step != null; step = step.next)
+			{
+				if (step.square != null)
 				{
-					if (boardSquarePathInfo.square != null)
-					{
-						bounds.Encapsulate(boardSquarePathInfo.square.CameraBounds);
-					}
-					if (boardSquarePathInfo == boardSquarePathInfo2)
-					{
-						break;
-					}
+					bounds.Encapsulate(step.square.CameraBounds);
+				}
+				if (step == lastVisibleStep)
+				{
+					break;
 				}
 			}
 		}
 	}
 
-	private static string CreateReadableAbilityRequests(List<AbilityRequest> abilityRequests, AbilityRequest.AbilityResolveState matchingState, out int numMatching)
+	private static string CreateReadableAbilityRequests(
+		List<AbilityRequest> abilityRequests,
+		AbilityRequest.AbilityResolveState matchingState,
+		out int numMatching)
 	{
 		numMatching = 0;
 		List<string> list = new List<string>(abilityRequests.Count);
 		foreach (AbilityRequest abilityRequest in abilityRequests)
 		{
-			if (abilityRequest.m_resolveState == matchingState)
+			if (abilityRequest.m_resolveState != matchingState)
 			{
-				numMatching++;
-				if (abilityRequest.m_targets == null)
-				{
-				}
-				string arg;
-				if (abilityRequest.m_targets.Count == 0)
-				{
-					arg = "nobody";
-				}
-				else if (abilityRequest.MainTarget == null)
-				{
-					arg = "missing target";
-				}
-				else if (abilityRequest.MainTarget.GetCurrentBestActorTarget() == null)
-				{
-					arg = "(null)";
-				}
-				else
-				{
-					arg = abilityRequest.MainTarget.GetCurrentBestActorTarget().DisplayName;
-				}
-				list.Add(string.Format("     {0}'s {1}\n     @ {2}\n", abilityRequest.m_caster.DisplayName, abilityRequest.m_ability.m_abilityName, arg));
+				continue;
 			}
+			
+			numMatching++;
+			
+			// broken code
+			// if (abilityRequest.m_targets == null)
+			// {
+			// }
+			
+			string arg;
+			if (abilityRequest.m_targets.Count == 0)
+			{
+				arg = "nobody";
+			}
+			else if (abilityRequest.MainTarget == null)
+			{
+				arg = "missing target";
+			}
+			else if (abilityRequest.MainTarget.GetCurrentBestActorTarget() == null)
+			{
+				arg = "(null)";
+			}
+			else
+			{
+				arg = abilityRequest.MainTarget.GetCurrentBestActorTarget().DisplayName;
+			}
+			list.Add($"     {abilityRequest.m_caster.DisplayName}'s {abilityRequest.m_ability.m_abilityName}\n     @ {arg}\n");
 		}
 		list.Sort();
 		string text = "";
@@ -719,83 +709,64 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private string BuildAbilityRequestStateStr()
 	{
-		int num;
-		string text = ServerActionBuffer.CreateReadableAbilityRequests(m_storedAbilityRequests, AbilityRequest.AbilityResolveState.QUEUED, out num);
-		text = string.Format("Queued: {0}\n", num) + text;
-		int num2;
-		string text2 = ServerActionBuffer.CreateReadableAbilityRequests(m_storedAbilityRequests, AbilityRequest.AbilityResolveState.RESOLVING, out num2);
-		text2 = string.Format("Resolving: {0}\n", num2) + text2;
-		int num3;
-		string text3 = ServerActionBuffer.CreateReadableAbilityRequests(m_storedAbilityRequests, AbilityRequest.AbilityResolveState.RESOLVED, out num3);
-		text3 = string.Format("Resolved: {0}\n", num3) + text3;
-		return string.Format("Abilities: {0}\n{1}{2}{3}", new object[]
-		{
-			m_storedAbilityRequests.Count,
-			text,
-			text2,
-			text3
-		});
+		string textQueued = CreateReadableAbilityRequests(m_storedAbilityRequests, AbilityRequest.AbilityResolveState.QUEUED, out int numQueued);
+		textQueued = $"Queued: {numQueued}\n" + textQueued;
+		string textResolving = CreateReadableAbilityRequests(m_storedAbilityRequests, AbilityRequest.AbilityResolveState.RESOLVING, out int numResolving);
+		textResolving = $"Resolving: {numResolving}\n" + textResolving;
+		string textResolved = CreateReadableAbilityRequests(m_storedAbilityRequests, AbilityRequest.AbilityResolveState.RESOLVED, out int numResolved);
+		textResolved = $"Resolved: {numResolved}\n" + textResolved;
+		return $"Abilities: {m_storedAbilityRequests.Count}\n{textQueued}{textResolving}{textResolved}";
 	}
 
 	private string BuildMovementRequestStateStr()
 	{
-		string text = "";
-		int num = 0;
+		string textQueued = "";
+		int numQueued = 0;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
 			if (movementRequest.m_resolveState == MovementRequest.MovementResolveState.QUEUED)
 			{
-				num++;
-				text += string.Format("     {0}", movementRequest.m_actor.DisplayName);
+				numQueued++;
+				textQueued += $"     {movementRequest.m_actor.DisplayName}";
 			}
 		}
-		text = string.Format("Queued: {0}\n", num) + text;
-		string text2 = "";
-		int num2 = 0;
-		foreach (MovementRequest movementRequest2 in m_storedMovementRequests)
+		textQueued = $"Queued: {numQueued}\n" + textQueued;
+		string textResolving = "";
+		int numResolving = 0;
+		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest2.m_resolveState == MovementRequest.MovementResolveState.RESOLVING)
+			if (movementRequest.m_resolveState == MovementRequest.MovementResolveState.RESOLVING)
 			{
-				num2++;
-				text2 += string.Format("     {0}", movementRequest2.m_actor.DisplayName);
+				numResolving++;
+				textResolving += $"     {movementRequest.m_actor.DisplayName}";
 			}
 		}
-		text2 = string.Format("Resolving: {0}\n", num2) + text2;
-		string text3 = "";
-		int num3 = 0;
-		foreach (MovementRequest movementRequest3 in m_storedMovementRequests)
+		textResolving = $"Resolving: {numResolving}\n" + textResolving;
+		string textResolved = "";
+		int numResolved = 0;
+		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest3.m_resolveState == MovementRequest.MovementResolveState.RESOLVED)
+			if (movementRequest.m_resolveState == MovementRequest.MovementResolveState.RESOLVED)
 			{
-				num3++;
-				text3 += string.Format("     {0}", movementRequest3.m_actor.DisplayName);
+				numResolved++;
+				textResolved += $"     {movementRequest.m_actor.DisplayName}";
 			}
 		}
-		text3 = string.Format("Resolved: {0}\n", num3) + text3;
-		return string.Format("Movement: {0}\n{1}{2}{3}", new object[]
-		{
-			m_storedMovementRequests.Count,
-			text,
-			text2,
-			text3
-		});
+		textResolved = $"Resolved: {numResolved}\n" + textResolved;
+		return $"Movement: {m_storedMovementRequests.Count}\n{textQueued}{textResolving}{textResolved}";
 	}
 
 	public string BuildActionBufferStateString()
 	{
-		string text = BuildAbilityRequestStateStr();
-		string text2 = BuildMovementRequestStateStr();
-		return string.Concat(new string[]
-		{
+		return string.Concat(
 			"CurrentPhase: ",
 			AbilityPhase.ToString(),
 			", waiting for play phase to end: ",
 			m_waitingForPlayPhaseEnded.ToString(),
 			"\n",
-			text,
+			BuildAbilityRequestStateStr(),
 			"\n\n",
-			text2
-		});
+			BuildMovementRequestStateStr());
 	}
 
 	private void DebugDisplayBufferState()
@@ -806,7 +777,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		if (HasPendingMovementRequest(actor))
 		{
-			Log.Error(string.Format("Actor {0} is trying to store a movement request, but a request is already stored.  Replacing old request...", actor.DisplayName));
+			Log.Error($"Actor {actor.DisplayName} is trying to store a movement request, but a request is already stored.  Replacing old request...");
 			CancelMovementRequests(actor, false);
 		}
 		BoardSquare initialMoveStartSquare = actor.InitialMoveStartSquare;
@@ -831,110 +802,110 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
-	public void ProcessGroupMoveRequest(BoardSquare meetingSquare, List<ActorData> actors, ActorData requestingActor)
-	{
-		if (meetingSquare == null || !meetingSquare.IsValidForGameplay())
-		{
-			return;
-		}
-		GameFlowData gameFlowData = GameFlowData.Get();
-		if (!gameFlowData.IsInDecisionState())
-		{
-			return;
-		}
-		TargeterUtils.SortActorsByDistanceToPos(ref actors, meetingSquare.ToVector3());
-		Vector3 vector = meetingSquare.ToVector3() - requestingActor.GetFreePos();
-		vector.y = 0f;
-		if (vector.magnitude > 0.01f)
-		{
-			vector.Normalize();
-		}
-		else
-		{
-			vector = Vector3.forward;
-		}
-		Vector3 vector2 = new Vector3(1f, 0f, 0f);
-		Vector3 zero = Vector3.zero;
-		if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
-		{
-			if (vector.x > 0f)
-			{
-				vector2 = new Vector3(-1f, 0f, 0f);
-			}
-			float num = 0.49f * Board.SquareSizeStatic;
-			if (vector.z > 0f)
-			{
-				num *= -1f;
-			}
-			zero = new Vector3(0f, 0f, num);
-		}
-		else
-		{
-			if (vector.z >= 0f)
-			{
-				vector2 = new Vector3(0f, 0f, -1f);
-			}
-			else
-			{
-				vector2 = new Vector3(0f, 0f, 1f);
-			}
-			float num2 = 0.49f * Board.SquareSizeStatic;
-			if (vector.x > 0f)
-			{
-				num2 *= -1f;
-			}
-			zero = new Vector3(num2, 0f, 0f);
-		}
-		Vector3 vector3 = meetingSquare.GetOccupantLoSPos() + zero;
-		Vector3 endPos = vector3 + Board.SquareSizeStatic * vector2;
-		List<BoardSquare> squaresInBoxByActorRadius = AreaEffectUtils.GetSquaresInBoxByActorRadius(vector3, endPos, 1f, false, requestingActor, null);
-		AreaEffectUtils.SortSquaresByDistanceToPos(ref squaresInBoxByActorRadius, vector3);
-		int num3 = 0;
-		List<ActorData> list = new List<ActorData>();
-		foreach (ActorData actorData in actors)
-		{
-			ActorTurnSM actorTurnSM = actorData.GetActorTurnSM();
-			if (!actorData.IsDead()
-				&& actorTurnSM.AmDecidingMovement()
-				//&& actorData.GetTeam() == gameFlowData.ActingTeam  // rogues
-				&& actorData.GetActorMovement().SquaresCanMoveTo.Count > 0)
-			{
-				BoardSquare boardSquare = meetingSquare;
-				if (num3 < squaresInBoxByActorRadius.Count)
-				{
-					boardSquare = squaresInBoxByActorRadius[num3];
-				}
-				num3++;
-				if (!actorData.CanMoveToBoardSquare(boardSquare))
-				{
-					boardSquare = actorData.GetActorMovement().GetClosestMoveableSquareTo(boardSquare, false);
-				}
-				if (boardSquare != null)
-				{
-					if (HasPendingMovementRequest(actorData))
-					{
-						CancelMovementRequests(actorData, false);
-					}
-					BoardSquare initialMoveStartSquare = actorData.InitialMoveStartSquare;
-					if (initialMoveStartSquare != boardSquare)
-					{
-						BoardSquarePathInfo boardSquarePathInfo = actorData.GetActorMovement().BuildCompletePathTo(initialMoveStartSquare, boardSquare, false, null);
-						if (boardSquarePathInfo != null)
-						{
-							StoreMovementRequest(boardSquare.x, boardSquare.y, actorData, boardSquarePathInfo);
-							list.Add(actorData);
-						}
-					}
-				}
-			}
-		}
-
-		// rogues
-		//if (list.Count > 0)
-		//{
-		//	GetPlayerActionFSM().RunGroupMovementForActors(list);
-		//}
-	}
+	// rogues
+	// public void ProcessGroupMoveRequest(BoardSquare meetingSquare, List<ActorData> actors, ActorData requestingActor)
+	// {
+	// 	if (meetingSquare == null || !meetingSquare.IsValidForGameplay())
+	// 	{
+	// 		return;
+	// 	}
+	// 	GameFlowData gameFlowData = GameFlowData.Get();
+	// 	if (!gameFlowData.IsInDecisionState())
+	// 	{
+	// 		return;
+	// 	}
+	// 	TargeterUtils.SortActorsByDistanceToPos(ref actors, meetingSquare.ToVector3());
+	// 	Vector3 vector = meetingSquare.ToVector3() - requestingActor.GetFreePos();
+	// 	vector.y = 0f;
+	// 	if (vector.magnitude > 0.01f)
+	// 	{
+	// 		vector.Normalize();
+	// 	}
+	// 	else
+	// 	{
+	// 		vector = Vector3.forward;
+	// 	}
+	// 	Vector3 vector2 = new Vector3(1f, 0f, 0f);
+	// 	Vector3 zero = Vector3.zero;
+	// 	if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
+	// 	{
+	// 		if (vector.x > 0f)
+	// 		{
+	// 			vector2 = new Vector3(-1f, 0f, 0f);
+	// 		}
+	// 		float num = 0.49f * Board.SquareSizeStatic;
+	// 		if (vector.z > 0f)
+	// 		{
+	// 			num *= -1f;
+	// 		}
+	// 		zero = new Vector3(0f, 0f, num);
+	// 	}
+	// 	else
+	// 	{
+	// 		if (vector.z >= 0f)
+	// 		{
+	// 			vector2 = new Vector3(0f, 0f, -1f);
+	// 		}
+	// 		else
+	// 		{
+	// 			vector2 = new Vector3(0f, 0f, 1f);
+	// 		}
+	// 		float num2 = 0.49f * Board.SquareSizeStatic;
+	// 		if (vector.x > 0f)
+	// 		{
+	// 			num2 *= -1f;
+	// 		}
+	// 		zero = new Vector3(num2, 0f, 0f);
+	// 	}
+	// 	Vector3 vector3 = meetingSquare.GetOccupantLoSPos() + zero;
+	// 	Vector3 endPos = vector3 + Board.SquareSizeStatic * vector2;
+	// 	List<BoardSquare> squaresInBoxByActorRadius = AreaEffectUtils.GetSquaresInBoxByActorRadius(vector3, endPos, 1f, false, requestingActor, null);
+	// 	AreaEffectUtils.SortSquaresByDistanceToPos(ref squaresInBoxByActorRadius, vector3);
+	// 	int num3 = 0;
+	// 	List<ActorData> list = new List<ActorData>();
+	// 	foreach (ActorData actorData in actors)
+	// 	{
+	// 		ActorTurnSM actorTurnSM = actorData.GetActorTurnSM();
+	// 		if (!actorData.IsDead()
+	// 			&& actorTurnSM.AmDecidingMovement()
+	// 			&& actorData.GetTeam() == gameFlowData.ActingTeam
+	// 			&& actorData.GetActorMovement().SquaresCanMoveTo.Count > 0)
+	// 		{
+	// 			BoardSquare boardSquare = meetingSquare;
+	// 			if (num3 < squaresInBoxByActorRadius.Count)
+	// 			{
+	// 				boardSquare = squaresInBoxByActorRadius[num3];
+	// 			}
+	// 			num3++;
+	// 			if (!actorData.CanMoveToBoardSquare(boardSquare))
+	// 			{
+	// 				boardSquare = actorData.GetActorMovement().GetClosestMoveableSquareTo(boardSquare, false);
+	// 			}
+	// 			if (boardSquare != null)
+	// 			{
+	// 				if (HasPendingMovementRequest(actorData))
+	// 				{
+	// 					CancelMovementRequests(actorData, false);
+	// 				}
+	// 				BoardSquare initialMoveStartSquare = actorData.InitialMoveStartSquare;
+	// 				if (initialMoveStartSquare != boardSquare)
+	// 				{
+	// 					BoardSquarePathInfo boardSquarePathInfo = actorData.GetActorMovement().BuildCompletePathTo(initialMoveStartSquare, boardSquare, false, null);
+	// 					if (boardSquarePathInfo != null)
+	// 					{
+	// 						StoreMovementRequest(boardSquare.x, boardSquare.y, actorData, boardSquarePathInfo);
+	// 						list.Add(actorData);
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	//
+	// 	if (list.Count > 0)
+	// 	{
+	// 		GetPlayerActionFSM().RunGroupMovementForActors(list);
+	// 	}
+	// }
 
 	public void GatherMovementInfo(ActorData actor, out BoardSquare destination, out float queuedMovementAmount, out bool isChasing)
 	{
@@ -951,22 +922,27 @@ public class ServerActionBuffer : NetworkBehaviour
 		destination = actor.InitialMoveStartSquare;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest != null && movementRequest.m_actor == actor)
+			if (movementRequest == null || movementRequest.m_actor != actor)
 			{
-				if (movementRequest.IsChasing())
-				{
-					isChasing = true;
-					break;
-				}
-				destination = movementRequest.m_targetSquare;
-				if (movementRequest.m_path != null)
-				{
-					queuedMovementAmount = movementRequest.m_path.FindMoveCostToEnd();
-					break;
-				}
-				Debug.LogError(string.Format("ServerActionBuffer trying to gather movement info for actor {0}, but the request's path is null.\n\tActor current board square: {1}\n\tRequested square: {2}", actor.DebugNameString(), BoardSquare.DebugString(actor.CurrentBoardSquare, true), BoardSquare.DebugString(movementRequest.m_targetSquare, true)));
+				continue;
+			}
+			
+			if (movementRequest.IsChasing())
+			{
+				isChasing = true;
 				break;
 			}
+			destination = movementRequest.m_targetSquare;
+			if (movementRequest.m_path != null)
+			{
+				queuedMovementAmount = movementRequest.m_path.FindMoveCostToEnd();
+				break;
+			}
+			Debug.LogError(
+				$"ServerActionBuffer trying to gather movement info for actor {actor.DebugNameString()}, but the request's path is null.\n"
+				+ $"\tActor current board square: {BoardSquare.DebugString(actor.CurrentBoardSquare, true)}\n"
+				+ $"\tRequested square: {BoardSquare.DebugString(movementRequest.m_targetSquare, true)}");
+			break;
 		}
 		// rogues
 		//float num = ActorMovement.CalcMoveAdjustFromExecutedActions(actor);
@@ -975,32 +951,39 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public bool HasNormalMovementRequestOutsideOfRange(ActorData actor, float maxMovement)
 	{
-		if (actor != null)
+		if (actor == null)
 		{
-			foreach (MovementRequest movementRequest in m_storedMovementRequests)
-			{
-				if (movementRequest != null && movementRequest.m_actor == actor && !movementRequest.IsChasing() && movementRequest.m_path != null)
-				{
-					BoardSquarePathInfo pathEndpoint = movementRequest.m_path.GetPathEndpoint();
-					float moveCost = pathEndpoint.moveCost;
-					float num = 0f;
-					if (pathEndpoint.prev != null)
-					{
-						num = pathEndpoint.prev.moveCost;
-					}
-					bool flag;
-					if (GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax)
-					{
-						flag = (moveCost <= maxMovement);
-					}
-					else
-					{
-						flag = (num < maxMovement);
-					}
-					return !flag;
-				}
-			}
 			return false;
+		}
+		
+		foreach (MovementRequest movementRequest in m_storedMovementRequests)
+		{
+			if (movementRequest == null
+			    || movementRequest.m_actor != actor
+			    || movementRequest.IsChasing()
+			    || movementRequest.m_path == null)
+			{
+				continue;
+			}
+			
+			BoardSquarePathInfo pathEndpoint = movementRequest.m_path.GetPathEndpoint();
+			float moveCost = pathEndpoint.moveCost;
+			float prevMoveCost = 0f;
+			if (pathEndpoint.prev != null)
+			{
+				prevMoveCost = pathEndpoint.prev.moveCost;
+			}
+			bool isValid;
+			if (GameplayData.Get() != null
+			    && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax)
+			{
+				isValid = moveCost <= maxMovement;
+			}
+			else
+			{
+				isValid = prevMoveCost < maxMovement;
+			}
+			return !isValid;
 		}
 		return false;
 	}
@@ -1010,7 +993,10 @@ public class ServerActionBuffer : NetworkBehaviour
 		BoardSquare result = caster.GetCurrentBoardSquare();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == caster && abilityRequest.m_ability != null && abilityRequest.m_ability.CanOverrideMoveStartSquare())
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == caster
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.CanOverrideMoveStartSquare())
 			{
 				BoardSquare modifiedMoveStartSquare = abilityRequest.m_ability.GetModifiedMoveStartSquare(caster, abilityRequest.m_targets);
 				if (modifiedMoveStartSquare != null)
@@ -1046,8 +1032,10 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		if (target != null && target != chaser)
 		{
-			MovementRequest movementRequest = new MovementRequest(target, chaser, forceChased);
-			movementRequest.m_chaserInitiatedForceChase = (forceChased && chaserInitiated);
+			MovementRequest movementRequest = new MovementRequest(target, chaser, forceChased)
+			{
+				m_chaserInitiatedForceChase = forceChased && chaserInitiated
+			};
 			m_storedMovementRequests.Add(movementRequest);
 			chaser.OnMovementChanged(ActorData.MovementChangeType.MoreMovement, forceChased);
 		}
@@ -1055,27 +1043,29 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void ResolveMovmentOnRequest(MovementRequest request, ActorData actor, BoardSquare destinationSquare)
 	{
-		if (request != null && request.m_actor == actor && request.m_resolveState == MovementRequest.MovementResolveState.RESOLVING)
+		if (request != null
+		    && request.m_actor == actor
+		    && request.m_resolveState == MovementRequest.MovementResolveState.RESOLVING)
 		{
-			if (!(request.m_targetSquare == destinationSquare) && !actor.IsDead())
+			if (request.m_targetSquare != destinationSquare && !actor.IsDead())
 			{
-				string text = (request.m_targetSquare != null) ? request.m_targetSquare.ToString() : "null";
-				string text2 = (destinationSquare != null) ? destinationSquare.ToString() : "null";
-				Log.Error("on resolving movement request, living actor {0} has destination square mismatch. Request target square = {1}, destSquare = {2}", new object[]
-				{
+				string textTargetSquare = request.m_targetSquare != null ? request.m_targetSquare.ToString() : "null";
+				string textDestSquare = destinationSquare != null ? destinationSquare.ToString() : "null";
+				Log.Error(
+					"on resolving movement request, living actor {0} has destination square mismatch. Request target square = {1}, destSquare = {2}",
 					actor.DebugNameString(),
-					text,
-					text2
-				});
+					textTargetSquare,
+					textDestSquare);
 			}
 			request.m_resolveState = MovementRequest.MovementResolveState.RESOLVED;
 			if (!actor.IsDead())
 			{
 				actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
-				return;
 			}
 		}
-		else if (request != null && request.m_actor == actor && request.m_resolveState == MovementRequest.MovementResolveState.QUEUED)
+		else if (request != null
+		         && request.m_actor == actor
+		         && request.m_resolveState == MovementRequest.MovementResolveState.QUEUED)
 		{
 			Log.Error("on resolve movement request, request from actor " + actor.DebugNameString() + " is still in QUEUED state");
 		}
@@ -1083,14 +1073,24 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void RunMovementOnRequest(MovementRequest moveRequest)
 	{
-		if (moveRequest != null && moveRequest.m_resolveState == MovementRequest.MovementResolveState.QUEUED)
+		if (moveRequest == null
+		    || moveRequest.m_resolveState != MovementRequest.MovementResolveState.QUEUED)
 		{
-			if (moveRequest.m_actor.GetCurrentBoardSquare() != moveRequest.m_targetSquare || moveRequest.m_path.next != null)
-			{
-				moveRequest.m_resolveState = MovementRequest.MovementResolveState.RESOLVING;
-				moveRequest.m_actor.BroadcastMoveToBoardSquare(moveRequest.m_targetSquare, ActorData.MovementType.Normal, moveRequest.m_path, ActorData.TeleportType.NotATeleport, GameEventManager.EventType.Invalid, false);
-				return;
-			}
+			return;
+		}
+		
+		if (moveRequest.m_actor.GetCurrentBoardSquare() != moveRequest.m_targetSquare
+		    || moveRequest.m_path.next != null)
+		{
+			moveRequest.m_resolveState = MovementRequest.MovementResolveState.RESOLVING;
+			moveRequest.m_actor.BroadcastMoveToBoardSquare(
+				moveRequest.m_targetSquare,
+				ActorData.MovementType.Normal,
+				moveRequest.m_path,
+				ActorData.TeleportType.NotATeleport);
+		}
+		else
+		{
 			moveRequest.m_resolveState = MovementRequest.MovementResolveState.RESOLVED;
 			ActorTurnSM actorTurnSM = moveRequest.m_actor.GetActorTurnSM();
 			if (actorTurnSM)
@@ -1098,13 +1098,13 @@ public class ServerActionBuffer : NetworkBehaviour
 				actorTurnSM.OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
 			}
 		}
+		
 	}
 
 	private void ClearMovementRequests()
 	{
 		m_storedMovementRequests.Clear();
 		m_removedMovementRequestsFromForceChase.Clear();
-		Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 	}
 
 	public bool HasPendingMovementRequest(ActorData actor)
@@ -1176,7 +1176,10 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest != null && movementRequest.IsChasing() && movementRequest.m_actor == chaser && movementRequest.m_chaseTarget == target)
+			if (movementRequest != null
+			    && movementRequest.IsChasing()
+			    && movementRequest.m_actor == chaser
+			    && movementRequest.m_chaseTarget == target)
 			{
 				result = true;
 				break;
@@ -1190,7 +1193,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest != null && movementRequest.m_actor == fromMover && movementRequest.m_resolveState == MovementRequest.MovementResolveState.RESOLVING)
+			if (movementRequest != null
+			    && movementRequest.m_actor == fromMover
+			    && movementRequest.m_resolveState == MovementRequest.MovementResolveState.RESOLVING)
 			{
 				result = true;
 				break;
@@ -1204,7 +1209,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest != null && (fromMover == null || movementRequest.m_actor == fromMover) && movementRequest.m_resolveState != MovementRequest.MovementResolveState.RESOLVED)
+			if (movementRequest != null
+			    && (fromMover == null || movementRequest.m_actor == fromMover)
+			    && movementRequest.m_resolveState != MovementRequest.MovementResolveState.RESOLVED)
 			{
 				result = true;
 				break;
@@ -1227,12 +1234,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (forceChased)
 			{
-				string requestString = movementRequest.IsChasing()
-					? $"chase {movementRequest.m_chaseTarget.DisplayName}"
-					: movementRequest.m_path?.GetDebugPathStringToEnd("");
-				Log.Info($"FORCED CHASE removed {actor.DisplayName}'s movement request {requestString}");  // custom debug
 				m_removedMovementRequestsFromForceChase.Add(movementRequest);
-				Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 			}
 			m_storedMovementRequests.Remove(movementRequest);
 			movementRequest.m_actor.OnMovementChanged(ActorData.MovementChangeType.LessMovement, forceChased);
@@ -1249,12 +1251,12 @@ public class ServerActionBuffer : NetworkBehaviour
 				list.Add(movementRequest);
 			}
 		}
-		foreach (MovementRequest movementRequest2 in list)
+		foreach (MovementRequest movementRequest in list)
 		{
-			movementRequest2.m_actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
-			m_storedMovementRequests.Remove(movementRequest2);
-			float desiredMovementOnResolve = movementRequest2.m_actor.GetActorBehavior().DesiredMovementOnResolve;
-			movementRequest2.m_actor.GetActorBehavior().SetTotalMovementLostThisTurn(desiredMovementOnResolve);
+			movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
+			m_storedMovementRequests.Remove(movementRequest);
+			float desiredMovementOnResolve = movementRequest.m_actor.GetActorBehavior().DesiredMovementOnResolve;
+			movementRequest.m_actor.GetActorBehavior().SetTotalMovementLostThisTurn(desiredMovementOnResolve);
 		}
 	}
 
@@ -1313,20 +1315,22 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (!movementRequest.IsChasing())
+			if (movementRequest.IsChasing())
 			{
-				if (list.Contains(movementRequest.m_targetSquare))
-				{
-					Log.Error("Trying to find reserved squares, but found duplicates, which shouldn't happen (has movement been fully stabilized?).");
-				}
-				else if (movementRequest.m_actor == actorToSkip)
-				{
-					Log.Error("Trying to find reserved squares, but found a move request from the actor to skip, who shouldn't have made a move request yet.");
-				}
-				else
-				{
-					list.Add(movementRequest.m_targetSquare);
-				}
+				continue;
+			}
+			
+			if (list.Contains(movementRequest.m_targetSquare))
+			{
+				Log.Error("Trying to find reserved squares, but found duplicates, which shouldn't happen (has movement been fully stabilized?).");
+			}
+			else if (movementRequest.m_actor == actorToSkip)
+			{
+				Log.Error("Trying to find reserved squares, but found a move request from the actor to skip, who shouldn't have made a move request yet.");
+			}
+			else
+			{
+				list.Add(movementRequest.m_targetSquare);
 			}
 		}
 		return list;
@@ -1341,7 +1345,14 @@ public class ServerActionBuffer : NetworkBehaviour
 		CancelAbilityRequests(actor, false, keepFutureTurnRequests);
 	}
 
-	public void StoreAbilityRequest(Ability ability, AbilityData.ActionType actionType, List<AbilityTarget> targets, ActorData caster, SequenceSource parentAbilitySequenceSource = null, ChainAbilityAdditionalModInfo chainModInfo = null, bool storeForNextTurn = false)
+	public void StoreAbilityRequest(
+		Ability ability,
+		AbilityData.ActionType actionType,
+		List<AbilityTarget> targets,
+		ActorData caster,
+		SequenceSource parentAbilitySequenceSource = null,
+		ChainAbilityAdditionalModInfo chainModInfo = null,
+		bool storeForNextTurn = false)
 	{
 		if (HasPendingAbilityRequest(caster, false) && !ability.IsFreeAction())
 		{
@@ -1353,10 +1364,15 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		if (ability != null && caster != null)
 		{
-			AbilityRequest abilityRequest = new AbilityRequest(ability, actionType, targets, caster);
-			abilityRequest.m_additionalData.m_parentAbilitySequenceSource = parentAbilitySequenceSource;
-			abilityRequest.m_additionalData.m_chainModInfo = chainModInfo;
-			abilityRequest.m_additionalData.m_skipTheatricsAnimEntry = ability.SkipTheatricsAnimationEntry(caster);
+			AbilityRequest abilityRequest = new AbilityRequest(ability, actionType, targets, caster)
+			{
+				m_additionalData =
+				{
+					m_parentAbilitySequenceSource = parentAbilitySequenceSource,
+					m_chainModInfo = chainModInfo,
+					m_skipTheatricsAnimEntry = ability.SkipTheatricsAnimationEntry(caster)
+				}
+			};
 			if (storeForNextTurn)
 			{
 				m_storedAbilityRequestsForNextTurn.Add(abilityRequest);
@@ -1364,7 +1380,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 			m_storedAbilityRequests.Add(abilityRequest);
 			OnAbilityRequestStored(abilityRequest);
-			return;
+			// return;
 		}
 
 		// TODO LOW some broken code here
@@ -1405,21 +1421,26 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					chainModInfo = ability.CurrentAbilityMod.GetChainModInfoAtIndex(i);
 				}
-				StoreAbilityRequest(ability2, actionTypeOfAbility, targets, caster, newRequest.m_additionalData.m_sequenceSource, chainModInfo); //, ability.m_runChainAbilitiesTheFollowingTurn); in rogues
+				StoreAbilityRequest(
+					ability2,
+					actionTypeOfAbility,
+					targets,
+					caster,
+					newRequest.m_additionalData.m_sequenceSource,
+					chainModInfo); //, ability.m_runChainAbilitiesTheFollowingTurn); in rogues
 			}
 		}
 
-		// TODO LOW check taunts
-		// rogues?
-		//if (caster.GetActorTurnSM().m_tauntRequestedForNextAbility == (int)actionType || (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AlwaysTauntAutomatically")))
-		//{
-		//	List<CameraShotSequence> debugTauntListForActionType = caster.GetAbilityData().GetDebugTauntListForActionType(actionType);
-		//	if (!debugTauntListForActionType.IsNullOrEmpty<CameraShotSequence>())
-		//	{
-		//		caster.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(actionType, true, debugTauntListForActionType[0].m_tauntNumber, debugTauntListForActionType[0].m_uniqueTauntID);
-		//	}
-		//}
-		//caster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();
+		// rogues
+		// if (caster.GetActorTurnSM().m_tauntRequestedForNextAbility == (int)actionType || (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AlwaysTauntAutomatically")))
+		// {
+		// 	List<CameraShotSequence> debugTauntListForActionType = caster.GetAbilityData().GetDebugTauntListForActionType(actionType);
+		// 	if (!debugTauntListForActionType.IsNullOrEmpty<CameraShotSequence>())
+		// 	{
+		// 		caster.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(actionType, true, debugTauntListForActionType[0].m_tauntNumber, debugTauntListForActionType[0].m_uniqueTauntID);
+		// 	}
+		// }
+		// caster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();
 	}
 
 	public static bool ShouldLogActorActions()
@@ -1432,170 +1453,158 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void LogActorStateForRepro(string context)
 	{
-		if (ServerActionBuffer.ShouldLogActorActions())
+		if (ShouldLogActorActions())
 		{
-			string text = string.Concat(new object[]
-			{
-				"{act} Turn ",
+			string text = string.Concat(
+				c_actionLogSearchMarker + "Turn ",
 				GameFlowData.Get().CurrentTurn,
 				" | -- ActorState ",
 				context,
-				" --\n"
-			});
+				" --\n");
 			foreach (ActorData actorData in GameFlowData.Get().GetActors())
 			{
-				if (actorData != null && actorData.PlayerIndex >= 0)
+				if (actorData == null || actorData.PlayerIndex < 0)
 				{
-					BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-					string text2 = (currentBoardSquare != null) ? currentBoardSquare.GetGridPos().ToStringWithCross() : "NULL";
-					text = string.Concat(new object[]
-					{
-						text,
-						"{act} ",
-						actorData.DebugNameString(),
-						" @square= ",
-						text2,
-						" | HP= ",
-						actorData.HitPoints,
-						" | Energy= ",
-						actorData.TechPoints,
-						" | Absorb= ",
-						actorData.AbsorbPoints,
-						" | MaxMovement= ",
-						actorData.GetActorMovement().CalculateMaxHorizontalMovement(false, false),
-						"\n"
-					});
+					
+					continue;
 				}
+				BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+				string textGridPos = currentBoardSquare != null ? currentBoardSquare.GetGridPos().ToStringWithCross() : "NULL";
+				text = string.Concat(
+					text,
+					c_actionLogSearchMarker,
+					actorData.DebugNameString(),
+					" @square= ",
+					textGridPos,
+					" | HP= ",
+					actorData.HitPoints,
+					" | Energy= ",
+					actorData.TechPoints,
+					" | Absorb= ",
+					actorData.AbsorbPoints,
+					" | MaxMovement= ",
+					actorData.GetActorMovement().CalculateMaxHorizontalMovement(),
+					"\n");
 			}
 		}
 	}
 
 	private void LogRequestsForRepro(bool logAbilities, bool logMovement, string context)
 	{
-		if (ServerActionBuffer.ShouldLogActorActions())
+		if (!ShouldLogActorActions())
 		{
-			string text = string.Concat(new object[]
+			return;
+		}
+		
+		string textAbilities = string.Concat(
+			c_actionLogSearchMarker + "Turn ",
+			GameFlowData.Get().CurrentTurn,
+			" | -- Requests ",
+			context,
+			" --\n");
+		if (logAbilities)
+		{
+			textAbilities += c_actionLogSearchMarker + "-- Ability Requests --\n";
+			if (m_storedAbilityRequests.Count == 0)
 			{
-				"{act} Turn ",
-				GameFlowData.Get().CurrentTurn,
-				" | -- Requests ",
-				context,
-				" --\n"
-			});
-			if (logAbilities)
-			{
-				text += "{act} -- Ability Requests --\n";
-				if (m_storedAbilityRequests.Count == 0)
-				{
-					text += "{act} NONE\n";
-				}
-				foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
-				{
-					text = string.Concat(new string[]
-					{
-						text,
-						"{act} ",
-						abilityRequest.m_caster.DebugNameString(),
-						"\n{act}     ActionType= ",
-						abilityRequest.m_actionType.ToString(),
-						" | AbilityName= ",
-						abilityRequest.m_ability.m_abilityName,
-						"\n"
-					});
-					for (int i = 0; i < abilityRequest.m_targets.Count; i++)
-					{
-						AbilityTarget abilityTarget = abilityRequest.m_targets[i];
-						text = string.Concat(new object[]
-						{
-							text,
-							"{act}     CursorState ",
-							i,
-							": ",
-							abilityTarget.GetDebugString(),
-							"\n"
-						});
-					}
-				}
+				textAbilities += c_actionLogSearchMarker + "NONE\n";
 			}
-			string str = "\n";
-			if (logMovement)
+			foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 			{
-				str += GetMovementRequestsString();
+				textAbilities = string.Concat(
+					textAbilities,
+					c_actionLogSearchMarker,
+					abilityRequest.m_caster.DebugNameString(),
+					"\n" + c_actionLogSearchMarker + "    ActionType= ",
+					abilityRequest.m_actionType.ToString(),
+					" | AbilityName= ",
+					abilityRequest.m_ability.m_abilityName,
+					"\n");
+				for (int i = 0; i < abilityRequest.m_targets.Count; i++)
+				{
+					AbilityTarget abilityTarget = abilityRequest.m_targets[i];
+					textAbilities = string.Concat(
+						textAbilities,
+						c_actionLogSearchMarker + "    CursorState ",
+						i,
+						": ",
+						abilityTarget.GetDebugString(),
+						"\n");
+				}
 			}
 		}
+		string textMovement = "\n";
+		if (logMovement)
+		{
+			textMovement += GetMovementRequestsString();
+		}
+		
+		// custom
+		Log.Debug(textAbilities + textMovement);
 	}
 
 	private string GetMovementRequestsString()
 	{
-		if (ServerActionBuffer.ShouldLogActorActions())
+		if (!ShouldLogActorActions())
 		{
-			string text = "{act} -- Movement Requests --\n";
-			if (m_storedMovementRequests.Count == 0)
+			return "";
+		}
+		
+		string text = c_actionLogSearchMarker + "-- Movement Requests --\n";
+		if (m_storedMovementRequests.Count == 0)
+		{
+			text += c_actionLogSearchMarker + "NONE\n";
+		}
+		foreach (MovementRequest movementRequest in m_storedMovementRequests)
+		{
+			text = text + c_actionLogSearchMarker +  movementRequest.m_actor.DebugNameString() + "\n";
+			if (movementRequest.IsChasing())
 			{
-				text += "{act} NONE\n";
+				string textChaseTargetGridPos = movementRequest.m_chaseTarget.GetCurrentBoardSquare() != null
+					? movementRequest.m_chaseTarget.GetCurrentBoardSquare().GetGridPos().ToStringWithCross()
+					: "NULL";
+				text = string.Concat(
+					text,
+					c_actionLogSearchMarker + "    Chase | ChaseTarget= ",
+					movementRequest.m_chaseTarget.DebugNameString(),
+					" @square= ",
+					textChaseTargetGridPos,
+					" targetAlive= ",
+					(!movementRequest.m_chaseTarget.IsDead()).ToString(),
+					"\n");
 			}
-			foreach (MovementRequest movementRequest in m_storedMovementRequests)
+			else
 			{
-				text = text + "{act} " + movementRequest.m_actor.DebugNameString() + "\n";
-				if (movementRequest.IsChasing())
+				GridPos gridPos = GridPos.s_invalid;
+				if (movementRequest.m_targetSquare != null)
 				{
-					string text2;
-					if (movementRequest.m_chaseTarget.GetCurrentBoardSquare() != null)
-					{
-						text2 = movementRequest.m_chaseTarget.GetCurrentBoardSquare().GetGridPos().ToStringWithCross();
-					}
-					else
-					{
-						text2 = "NULL";
-					}
-					text = string.Concat(new string[]
-					{
-						text,
-						"{act}     Chase | ChaseTarget= ",
-						movementRequest.m_chaseTarget.DebugNameString(),
-						" @square= ",
-						text2,
-						" targetAlive= ",
-						(!movementRequest.m_chaseTarget.IsDead()).ToString(),
-						"\n"
-					});
+					gridPos = movementRequest.m_targetSquare.GetGridPos();
 				}
 				else
 				{
-					GridPos gridPos = GridPos.s_invalid;
-					if (movementRequest.m_targetSquare != null)
-					{
-						gridPos = movementRequest.m_targetSquare.GetGridPos();
-					}
-					else
-					{
-						Log.Error("Movement Request has null target square");
-					}
-					text = text + "{act}     Normal | ToSquare= " + gridPos.ToStringWithCross() + "\n";
+					Log.Error("Movement Request has null target square");
 				}
+				text = text + c_actionLogSearchMarker + "    Normal | ToSquare= " + gridPos.ToStringWithCross() + "\n";
 			}
-			return text;
 		}
-		return "";
+		return text;
 	}
 
 	public void LogActionRequests()
 	{
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			string text = string.Format("Cast Player:{0} Ability:{1}", abilityRequest.m_caster.DisplayName, abilityRequest.m_ability.m_abilityName);
-			for (int i = 0; i < abilityRequest.m_targets.Count; i++)
+			string text =
+				$"Cast Player:{abilityRequest.m_caster.DisplayName} Ability:{abilityRequest.m_ability.m_abilityName}";
+			foreach (AbilityTarget abilityTarget in abilityRequest.m_targets)
 			{
-				AbilityTarget abilityTarget = abilityRequest.m_targets[i];
-				text = string.Concat(new object[]
-				{
+				text = string.Concat(
 					text,
 					"(",
 					abilityTarget.GridPos.x,
 					",",
 					abilityTarget.GridPos.y,
-					")"
-				});
+					")");
 			}
 			MatchLogger.Get().Log(string.Format(text));
 		}
@@ -1619,14 +1628,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			else
 			{
 				GridPos gridPos3 = movementRequest.m_targetSquare.GetGridPos();
-				format = string.Format("Move Player:{0} Src:({1},{2}) Dst:({3},{4})", new object[]
-				{
-					movementRequest.m_actor.DisplayName,
-					gridPos.x,
-					gridPos.y,
-					gridPos3.x,
-					gridPos3.y
-				});
+				format = $"Move Player:{movementRequest.m_actor.DisplayName} Src:({gridPos.x},{gridPos.y}) Dst:({gridPos3.x},{gridPos3.y})";
 			}
 			MatchLogger.Get().Log(string.Format(format));
 		}
@@ -1635,15 +1637,10 @@ public class ServerActionBuffer : NetworkBehaviour
 	internal bool TryRunAbilityRequest(AbilityRequest request)
 	{
 		bool result = false;
-		bool cond = request != null
-		         && request.m_ability != null
-		         && request.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED
-		         && request.m_ability.RunPriority == AbilityPhase;
-		Log.Info($"TryRunAbilityRequest {cond}: request != null {request != null}, " +
-		         $"resolveState={request?.m_resolveState}, " +
-		         $"RunPriority={request?.m_ability?.RunPriority}, " +
-		         $"AbilityPhase={AbilityPhase}");
-		if (cond)
+		if (request != null
+		    && request.m_ability != null
+		    && request.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED
+		    && request.m_ability.RunPriority == AbilityPhase)
 		{
 			RunAbilityRequest(request);
 			result = true;
@@ -1695,13 +1692,16 @@ public class ServerActionBuffer : NetworkBehaviour
 			BrushCoordinator.Get().OnCast_HandleConcealment(request.m_caster, request.m_ability, request.m_targets);
 		}
 		GameplayMetricHelper.IncrementAbilityUseCount(request.m_caster, request.m_ability, request.m_cinematicRequested != -1);
-		if (request.m_actionType >= AbilityData.ActionType.CARD_0 && request.m_actionType <= AbilityData.ActionType.CARD_2)
+		if (request.m_actionType >= AbilityData.ActionType.CARD_0
+		    && request.m_actionType <= AbilityData.ActionType.CARD_2)
 		{
 			GameplayMetricHelper.RecordCatalystUsed(request.m_caster, request.m_actionType);
 		}
 		if (request.m_cinematicRequested > 0 && request.m_tauntUniqueId >= 0)
 		{
-			ActorCinematicRequests actorCinematicRequests = (request.m_caster != null) ? request.m_caster.GetComponent<ActorCinematicRequests>() : null;
+			ActorCinematicRequests actorCinematicRequests = request.m_caster != null
+				? request.m_caster.GetComponent<ActorCinematicRequests>()
+				: null;
 			if (actorCinematicRequests != null)
 			{
 				actorCinematicRequests.AddUsedUniqueTauntId(request.m_tauntUniqueId);
@@ -1731,7 +1731,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.RESOLVING && (abilityRequest.m_caster == fromCaster || fromCaster == null))
+			if (abilityRequest != null
+			    && abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.RESOLVING
+			    && (abilityRequest.m_caster == fromCaster || fromCaster == null))
 			{
 				result = true;
 				break;
@@ -1745,7 +1747,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && abilityRequest.m_resolveState != AbilityRequest.AbilityResolveState.RESOLVED)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && abilityRequest.m_resolveState != AbilityRequest.AbilityResolveState.RESOLVED)
 			{
 				result = true;
 				break;
@@ -1759,7 +1763,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && abilityRequest.m_resolveState != AbilityRequest.AbilityResolveState.RESOLVED && abilityRequest.m_ability != null && abilityRequest.m_ability.GetType() == abilityType)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && abilityRequest.m_resolveState != AbilityRequest.AbilityResolveState.RESOLVED
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.GetType() == abilityType)
 			{
 				result = true;
 				break;
@@ -1771,10 +1779,12 @@ public class ServerActionBuffer : NetworkBehaviour
 	public bool HasStoredAbilityRequestOfType(ActorData fromCaster, Type abilityType)
 	{
 		bool result = false;
-		for (int i = 0; i < m_storedAbilityRequests.Count; i++)
+		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			AbilityRequest abilityRequest = m_storedAbilityRequests[i];
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && abilityRequest.m_ability != null && abilityRequest.m_ability.GetType() == abilityType)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.GetType() == abilityType)
 			{
 				result = true;
 				break;
@@ -1795,14 +1805,14 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public MovementRequest GetStoredMovementRequestForActor(ActorData mover)
 	{
-		for (int i = 0; i < m_storedMovementRequests.Count; i++)
+		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			MovementRequest movementRequest = m_storedMovementRequests[i];
 			if (movementRequest.m_actor == mover)
 			{
 				return movementRequest;
 			}
 		}
+
 		return null;
 	}
 
@@ -1810,7 +1820,10 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaser && abilityRequest.m_ability != null && abilityRequest.m_ability.GetType() == abilityType)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaser
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.GetType() == abilityType)
 			{
 				return abilityRequest.m_targets;
 			}
@@ -1822,7 +1835,11 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == caster && abilityRequest.m_ability != null && abilityRequest.m_ability.GetType() == abilityType && abilityRequest.m_additionalData.m_abilityResults.GatheredResults)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == caster
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.GetType() == abilityType
+			    && abilityRequest.m_additionalData.m_abilityResults.GatheredResults)
 			{
 				return abilityRequest.m_additionalData.m_abilityResults.HitActorList();
 			}
@@ -1835,7 +1852,12 @@ public class ServerActionBuffer : NetworkBehaviour
 		List<Dictionary<ActorData, int>> list = new List<Dictionary<ActorData, int>>();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == caster && abilityRequest.m_ability != null && abilityRequest.m_ability.RunPriority >= fromPhase && abilityRequest.m_ability.RunPriority <= toPhase && abilityRequest.m_additionalData.m_abilityResults.GatheredResults)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == caster
+			    && abilityRequest.m_ability != null
+			    && abilityRequest.m_ability.RunPriority >= fromPhase
+			    && abilityRequest.m_ability.RunPriority <= toPhase
+			    && abilityRequest.m_additionalData.m_abilityResults.GatheredResults)
 			{
 				list.Add(abilityRequest.m_additionalData.m_abilityResults.DamageResults);
 			}
@@ -1843,7 +1865,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return list;
 	}
 
-	public void CollectGatheredOutgoingHitsSummary(AbilityPriority phase, ActorData caster, ServerActionBuffer.GatheredOutgoingHitsSummary summary)
+	public void CollectGatheredOutgoingHitsSummary(AbilityPriority phase, ActorData caster, GatheredOutgoingHitsSummary summary)
 	{
 		if (summary == null)
 		{
@@ -1851,7 +1873,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_ability.RunPriority == phase && abilityRequest.m_caster == caster)
+			if (abilityRequest != null
+			    && abilityRequest.m_ability.RunPriority == phase
+			    && abilityRequest.m_caster == caster)
 			{
 				Dictionary<ActorData, int> damageResults = abilityRequest.m_additionalData.m_abilityResults.DamageResults;
 				ActorData[] hitActors = abilityRequest.m_additionalData.m_abilityResults.HitActorsArray();
@@ -1931,7 +1955,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		List<ActorTargeting.AbilityRequestData> list = new List<ActorTargeting.AbilityRequestData>();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && !AbilityData.IsChain(abilityRequest.m_actionType))
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && !AbilityData.IsChain(abilityRequest.m_actionType))
 			{
 				list.Add(new ActorTargeting.AbilityRequestData(abilityRequest.m_actionType, abilityRequest.m_targets));
 			}
@@ -1944,7 +1970,10 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && (abilityRequest.m_ability == ability || ability.HasAbilityAsPartOfChain(abilityRequest.m_ability)) && abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && (abilityRequest.m_ability == ability || ability.HasAbilityAsPartOfChain(abilityRequest.m_ability))
+			    && abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
 			{
 				if (requested)
 				{
@@ -1953,7 +1982,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				else
 				{
 					abilityRequest.CancelCinematic();
-					// ability.ClearAbilityMod(abilityRequest.m_caster);
+					// ability.ClearAbilityMod(abilityRequest.m_caster); // rogues
 				}
 				result = true;
 			}
@@ -1963,56 +1992,63 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void CancelAbilityRequest(ActorData fromCaster, Ability ability, bool checkForAdditionalToCancel, bool keepFutureTurnRequests)
 	{
-		List<Ability> list = new List<Ability>();
-		List<Ability> list2 = new List<Ability>();
+		List<Ability> abilitiesToCancel = new List<Ability>();
+		List<Ability> chainAbilitiesToCancel = new List<Ability>();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && abilityRequest.m_ability == ability)
+			if (abilityRequest == null
+			    || abilityRequest.m_caster != fromCaster
+			    || abilityRequest.m_ability != ability)
 			{
+				continue;
+			}
+			
+			if (abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
+			{
+				HandleRemoveQueuedAbilityRequestForActor(
+					abilityRequest, fromCaster, checkForAdditionalToCancel, out List<Ability> collection);
+				abilitiesToCancel.AddRange(collection);
+				foreach (Ability abilityToCancel in abilityRequest.m_ability.GetChainAbilities())
+				{
+					chainAbilitiesToCancel.Add(abilityToCancel);
+				}
+				m_storedAbilityRequests.Remove(abilityRequest);
+			}
+			break;
+		}
+		
+		if (!keepFutureTurnRequests)
+		{
+			foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
+			{
+				if (abilityRequest == null
+				    || abilityRequest.m_caster != fromCaster
+				    || abilityRequest.m_ability != ability)
+				{
+					continue;
+				}
+				
 				if (abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
 				{
-					List<Ability> collection;
-					HandleRemoveQueuedAbilityRequestForActor(abilityRequest, fromCaster, checkForAdditionalToCancel, out collection);
-					list2.AddRange(collection);
-					foreach (Ability item in abilityRequest.m_ability.GetChainAbilities())
+					HandleRemoveQueuedAbilityRequestForActor(
+						abilityRequest, fromCaster, checkForAdditionalToCancel, out List<Ability> collection2);
+					abilitiesToCancel.AddRange(collection2);
+					foreach (Ability abilityToCancel in abilityRequest.m_ability.GetChainAbilities())
 					{
-						list.Add(item);
+						chainAbilitiesToCancel.Add(abilityToCancel);
 					}
-					m_storedAbilityRequests.Remove(abilityRequest);
-					break;
+					m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
 				}
 				break;
 			}
 		}
-		if (!keepFutureTurnRequests)
+		foreach (Ability abilityToCancel in chainAbilitiesToCancel)
 		{
-			foreach (AbilityRequest abilityRequest2 in m_storedAbilityRequestsForNextTurn)
-			{
-				if (abilityRequest2 != null && abilityRequest2.m_caster == fromCaster && abilityRequest2.m_ability == ability)
-				{
-					if (abilityRequest2.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
-					{
-						List<Ability> collection2;
-						HandleRemoveQueuedAbilityRequestForActor(abilityRequest2, fromCaster, checkForAdditionalToCancel, out collection2);
-						list2.AddRange(collection2);
-						foreach (Ability item2 in abilityRequest2.m_ability.GetChainAbilities())
-						{
-							list.Add(item2);
-						}
-						m_storedAbilityRequestsForNextTurn.Remove(abilityRequest2);
-						break;
-					}
-					break;
-				}
-			}
+			CancelAbilityRequest(fromCaster, abilityToCancel, false, keepFutureTurnRequests);
 		}
-		foreach (Ability ability2 in list)
+		foreach (Ability abilityToCancel in abilitiesToCancel)
 		{
-			CancelAbilityRequest(fromCaster, ability2, false, keepFutureTurnRequests);
-		}
-		foreach (Ability ability3 in list2)
-		{
-			CancelAbilityRequest(fromCaster, ability3, false, keepFutureTurnRequests);
+			CancelAbilityRequest(fromCaster, abilityToCancel, false, keepFutureTurnRequests);
 		}
 
 		// rogues
@@ -2021,36 +2057,37 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void CancelAbilityRequests(ActorData fromCaster, bool keepFreeActions, bool keepFutureTurnRequests)
 	{
-		List<AbilityRequest> list = new List<AbilityRequest>();
-		List<Ability> list2 = new List<Ability>();
+		List<AbilityRequest> requestsToCancel = new List<AbilityRequest>();
+		List<Ability> abilitiesToCancel = new List<Ability>();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && (!abilityRequest.m_ability.IsFreeAction() || !keepFreeActions))
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && (!abilityRequest.m_ability.IsFreeAction() || !keepFreeActions))
 			{
-				List<Ability> list3;
-				HandleRemoveQueuedAbilityRequestForActor(abilityRequest, fromCaster, true, out list3);
-				list.Add(abilityRequest);
+				HandleRemoveQueuedAbilityRequestForActor(abilityRequest, fromCaster, true, out _);
+				requestsToCancel.Add(abilityRequest);
 			}
 		}
 		if (!keepFutureTurnRequests)
 		{
-			foreach (AbilityRequest abilityRequest2 in m_storedAbilityRequestsForNextTurn)
+			foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
 			{
-				if (abilityRequest2 != null && abilityRequest2.m_caster == fromCaster)
+				if (abilityRequest != null && abilityRequest.m_caster == fromCaster)
 				{
-					list.Add(abilityRequest2);
+					requestsToCancel.Add(abilityRequest);
 				}
 			}
 		}
-		foreach (AbilityRequest item in list)
+		foreach (AbilityRequest abilityRequest in requestsToCancel)
 		{
-			m_storedAbilityRequests.Remove(item);
+			m_storedAbilityRequests.Remove(abilityRequest);
 			if (!keepFutureTurnRequests)
 			{
-				m_storedAbilityRequestsForNextTurn.Remove(item);
+				m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
 			}
 		}
-		foreach (Ability ability in list2)
+		foreach (Ability ability in abilitiesToCancel)
 		{
 			CancelAbilityRequest(fromCaster, ability, false, keepFutureTurnRequests);
 		}
@@ -2059,89 +2096,97 @@ public class ServerActionBuffer : NetworkBehaviour
 		//fromCaster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();
 	}
 
-	private void HandleRemoveQueuedAbilityRequestForActor(AbilityRequest request, ActorData fromCaster, bool checkForAdditionalToCancel, out List<Ability> othersToCancel)
+	private void HandleRemoveQueuedAbilityRequestForActor(
+		AbilityRequest request,
+		ActorData fromCaster,
+		bool checkForAdditionalToCancel,
+		out List<Ability> othersToCancel)
 	{
 		othersToCancel = new List<Ability>();
-		if (request != null && request.m_ability != null)
+		if (request == null || request.m_ability == null)
 		{
-			request.m_caster.GetAbilityData().SetQueuedAction(request.m_actionType, false);
-			if (request.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
+			return;
+		}
+		
+		request.m_caster.GetAbilityData().SetQueuedAction(request.m_actionType, false);
+		if (request.m_resolveState != AbilityRequest.AbilityResolveState.QUEUED)
+		{
+			return;
+		}
+		
+		if (fromCaster.GetAbilityData() != null)
+		{
+			fromCaster.GetAbilityData().RemoveOnRequestStatusForAbility(request.m_ability);
+		}
+		request.m_ability.OnAbilityUnqueuedDuringDecision();
+		if (checkForAdditionalToCancel)
+		{
+			List<AbilityData.ActionType> actionsToCancel = request.m_ability.GetOtherActionsToCancelOnAbilityUnqueue(request.m_caster);
+			if (actionsToCancel != null)
 			{
-				if (fromCaster.GetAbilityData() != null)
+				foreach (AbilityData.ActionType actionType in actionsToCancel)
 				{
-					fromCaster.GetAbilityData().RemoveOnRequestStatusForAbility(request.m_ability);
-				}
-				request.m_ability.OnAbilityUnqueuedDuringDecision();
-				if (checkForAdditionalToCancel)
-				{
-					List<AbilityData.ActionType> otherActionsToCancelOnAbilityUnqueue = request.m_ability.GetOtherActionsToCancelOnAbilityUnqueue(request.m_caster);
-					if (otherActionsToCancelOnAbilityUnqueue != null)
+					Ability abilityOfActionType = request.m_caster.GetAbilityData().GetAbilityOfActionType(actionType);
+					if (abilityOfActionType != null && abilityOfActionType != request.m_ability)
 					{
-						for (int i = 0; i < otherActionsToCancelOnAbilityUnqueue.Count; i++)
-						{
-							Ability abilityOfActionType = request.m_caster.GetAbilityData().GetAbilityOfActionType(otherActionsToCancelOnAbilityUnqueue[i]);
-							if (abilityOfActionType != null && abilityOfActionType != request.m_ability)
-							{
-								othersToCancel.Add(abilityOfActionType);
-							}
-						}
+						othersToCancel.Add(abilityOfActionType);
 					}
 				}
-				
-				// custom
-				int techPointCost = request.m_ability.GetModdedCost();
-				if (techPointCost > 0)
-				{
-					fromCaster.ReservedTechPoints = Math.Max(0, fromCaster.ReservedTechPoints - techPointCost);
-					fromCaster.SetTechPoints(fromCaster.TechPoints + techPointCost);
-				}
-				// end custom
 			}
 		}
+				
+		// custom - recover tech points
+		int techPointCost = request.m_ability.GetModdedCost();
+		if (techPointCost > 0)
+		{
+			fromCaster.ReservedTechPoints = Math.Max(0, fromCaster.ReservedTechPoints - techPointCost);
+			fromCaster.SetTechPoints(fromCaster.TechPoints + techPointCost);
+		}
+		// end custom
 	}
 
-	// TODO call it?
+	// TODO call it
 	private void ClearRequestsOfDeadActors()
 	{
-		List<AbilityRequest> list = new List<AbilityRequest>();
+		List<AbilityRequest> abilitiesToCancel = new List<AbilityRequest>();
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
 			if (abilityRequest.m_caster.IsDead())
 			{
-				list.Add(abilityRequest);
+				abilitiesToCancel.Add(abilityRequest);
 			}
 		}
-		foreach (AbilityRequest abilityRequest2 in m_storedAbilityRequestsForNextTurn)
+		foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
 		{
-			if (abilityRequest2.m_caster.IsDead())
+			if (abilityRequest.m_caster.IsDead())
 			{
-				list.Add(abilityRequest2);
+				abilitiesToCancel.Add(abilityRequest);
 			}
 		}
-		foreach (AbilityRequest abilityRequest3 in list)
+		foreach (AbilityRequest abilityRequest in abilitiesToCancel)
 		{
-			abilityRequest3.m_caster.GetComponent<AbilityData>().SetQueuedAction(abilityRequest3.m_actionType, false);
-			abilityRequest3.m_caster.InitialMoveStartSquare = abilityRequest3.m_caster.GetCurrentBoardSquare();
-			m_storedAbilityRequests.Remove(abilityRequest3);
-			m_storedAbilityRequestsForNextTurn.Remove(abilityRequest3);
+			abilityRequest.m_caster.GetComponent<AbilityData>().SetQueuedAction(abilityRequest.m_actionType, false);
+			abilityRequest.m_caster.InitialMoveStartSquare = abilityRequest.m_caster.GetCurrentBoardSquare();
+			m_storedAbilityRequests.Remove(abilityRequest);
+			m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
 		}
-		List<MovementRequest> list2 = new List<MovementRequest>();
+		
+		List<MovementRequest> movementToCancel = new List<MovementRequest>();
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
 			if (movementRequest.m_actor.IsDead())
 			{
-				list2.Add(movementRequest);
+				movementToCancel.Add(movementRequest);
 			}
 			else if (movementRequest.m_actor.GetCurrentBoardSquare() == null)
 			{
-				Log.Error("{0} is not dead but has no current board square, on removing requests from dead actors", new object[]
-				{
-					movementRequest.m_actor.DebugNameString()
-				});
-				list2.Add(movementRequest);
+				Log.Error(
+					"{0} is not dead but has no current board square, on removing requests from dead actors",
+					movementRequest.m_actor.DebugNameString());
+				movementToCancel.Add(movementRequest);
 			}
 		}
-		foreach (MovementRequest item in list2)
+		foreach (MovementRequest item in movementToCancel)
 		{
 			m_storedMovementRequests.Remove(item);
 		}
@@ -2159,10 +2204,10 @@ public class ServerActionBuffer : NetworkBehaviour
 			    && movementRequest.m_actor.GetActorStatus().IsImmuneToForcedChase())
 			{
 				requestsToRemove.Add(movementRequest);
-				MovementRequest movementRequest2 = FindMovementRequestToRestore(movementRequest.m_actor);
-				if (movementRequest2 != null)
+				MovementRequest requestToRestore = FindMovementRequestToRestore(movementRequest.m_actor);
+				if (requestToRestore != null)
 				{
-					requestsToRestore.Add(movementRequest2);
+					requestsToRestore.Add(requestToRestore);
 				}
 			}
 		}
@@ -2174,28 +2219,22 @@ public class ServerActionBuffer : NetworkBehaviour
 				m_storedMovementRequests.RemoveAt(i);
 			}
 		}
-		foreach (MovementRequest movementRequest3 in requestsToRestore)
+		foreach (MovementRequest movementRequest in requestsToRestore)
 		{
-			m_storedMovementRequests.Add(movementRequest3);
-			movementRequest3.m_actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement, movementRequest3.m_isForcedChase);
+			m_storedMovementRequests.Add(movementRequest);
+			movementRequest.m_actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement, movementRequest.m_isForcedChase);
 		}
 	}
 
 	private MovementRequest FindMovementRequestToRestore(ActorData actor)
 	{
-		Log.Info($"FORCED CHASE {m_removedMovementRequestsFromForceChase.Count} total requests removed");  // custom debug
 		foreach (MovementRequest movementRequest in m_removedMovementRequestsFromForceChase)
 		{
 			if (movementRequest != null && movementRequest.m_actor == actor)
 			{
-				string requestString = movementRequest.IsChasing()
-					? $"chase {movementRequest.m_chaseTarget.DisplayName}"
-					: movementRequest.m_path?.GetDebugPathStringToEnd("");
-				Log.Info($"FORCED CHASE restored {actor.DisplayName}'s movement request {requestString}");  // custom debug
 				return movementRequest;
 			}
 		}
-		Log.Info($"FORCED CHASE not found {actor.DisplayName}'s movement request to restore");  // custom debug
 		return null;
 	}
 
@@ -2204,26 +2243,31 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool flag = false;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
-			if (movementRequest != null && movementRequest.m_actor == mover)
+			if (movementRequest == null || movementRequest.m_actor != mover)
 			{
-				if (movementRequest.IsChasing())
-				{
-					flag = true;
-					mover.GetComponent<LineData>().OnMovementChanged(movementRequest.ToGridPosPath(), null, true, forceRebuildLine);
-					break;
-				}
-				if (movementRequest.m_path != null && mover.GetComponent<LineData>() != null)
-				{
-					flag = true;
-					BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_path.Clone(null);
-					m_movementStabilizer.ModifyPathForMaxMovement(movementRequest.m_actor, boardSquarePathInfo, false);
-					BoardSquarePathInfo boardSquarePathInfo2 = movementRequest.m_path.Clone(null);
-					m_movementStabilizer.ModifyPathForMaxMovement(movementRequest.m_actor, boardSquarePathInfo2, true);
-					mover.GetComponent<LineData>().OnMovementChanged(boardSquarePathInfo.ToGridPosPath(), boardSquarePathInfo2.ToGridPosPath(), movementRequest.IsChasing(), forceRebuildLine);
-					break;
-				}
+				continue;
+			}
+			
+			if (movementRequest.IsChasing())
+			{
+				flag = true;
+				mover.GetComponent<LineData>().OnMovementChanged(movementRequest.ToGridPosPath(), null, true, forceRebuildLine);
 				break;
 			}
+			if (movementRequest.m_path != null && mover.GetComponent<LineData>() != null)
+			{
+				flag = true;
+				BoardSquarePathInfo fullPath = movementRequest.m_path.Clone(null);
+				m_movementStabilizer.ModifyPathForMaxMovement(movementRequest.m_actor, fullPath, false);
+				BoardSquarePathInfo snaredPath = movementRequest.m_path.Clone(null);
+				m_movementStabilizer.ModifyPathForMaxMovement(movementRequest.m_actor, snaredPath, true);
+				mover.GetComponent<LineData>().OnMovementChanged(
+					fullPath.ToGridPosPath(),
+					snaredPath.ToGridPosPath(),
+					movementRequest.IsChasing(),
+					forceRebuildLine);
+			}
+			break;
 		}
 		if (!flag)
 		{
@@ -2236,14 +2280,14 @@ public class ServerActionBuffer : NetworkBehaviour
 		ServerGameplayUtils.AdjustStatsForDamageTakenWithEvades(forPhase, m_storedAbilityRequests);
 		HandleExecuteUnexecutedHitsForAbilityRequests(m_storedAbilityRequests, forPhase, asFailsafe);
 		ServerEffectManager.Get().ExecuteUnexecutedHitsForAllEffects(forPhase, asFailsafe);
-		if (forPhase == AbilityPriority.Evasion)
+		switch (forPhase)
 		{
-			ExecuteUnexecutedHitsForMovementStageInDistanceOrder(MovementStage.Evasion, asFailsafe);
-			return;
-		}
-		if (forPhase == AbilityPriority.Combat_Knockback)
-		{
-			ExecuteUnexecutedHitsForMovementStageInDistanceOrder(MovementStage.Knockback, asFailsafe);
+			case AbilityPriority.Evasion:
+				ExecuteUnexecutedHitsForMovementStageInDistanceOrder(MovementStage.Evasion, asFailsafe);
+				break;
+			case AbilityPriority.Combat_Knockback:
+				ExecuteUnexecutedHitsForMovementStageInDistanceOrder(MovementStage.Knockback, asFailsafe);
+				break;
 		}
 	}
 
@@ -2251,38 +2295,40 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		foreach (AbilityRequest abilityRequest in requests)
 		{
-			if (abilityRequest != null && abilityRequest.m_ability.RunPriority == forPhase)
+			if (abilityRequest == null || abilityRequest.m_ability.RunPriority != forPhase)
 			{
-				int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(
+				continue;
+			}
+			
+			int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(
+				abilityRequest.m_ability,
+				AbilityInteractionType.Cast,
+				true,
+				false,
+				false);
+			ActorData caster = abilityRequest.m_caster;
+			if (techPointRewardForInteraction > 0)
+			{
+				ServerCombatManager.Get().TechPointGain(
 					abilityRequest.m_ability,
-					AbilityInteractionType.Cast,
-					true,
-					false,
-					false);
-				ActorData caster = abilityRequest.m_caster;
-				if (techPointRewardForInteraction > 0)
-				{
-					ServerCombatManager.Get().TechPointGain(
-						abilityRequest.m_ability,
-						caster,
-						caster,
-						techPointRewardForInteraction,
-						ServerCombatManager.TechPointChangeType.AbilityInteraction);
-				}
-				if (abilityRequest.m_ability.GetModdedCost() > 0)
-				{
-					caster.ReservedTechPoints = 0;
-				}
-				if (!abilityRequest.m_additionalData.m_abilityResults.HitsDoneExecuting())
-				{
-					abilityRequest.m_additionalData.m_abilityResults.ExecuteUnexecutedAbilityHits(asFailsafe);
-				}
-				if (caster.GetAbilityData() != null
-				    && !caster.HasBotController
-				    && !AbilityData.IsChain(caster.GetAbilityData().GetActionTypeOfAbility(abilityRequest.m_ability)))
-				{
-					abilityRequest.m_additionalData.m_abilityResults.GenerateAbilityEvent();
-				}
+					caster,
+					caster,
+					techPointRewardForInteraction,
+					ServerCombatManager.TechPointChangeType.AbilityInteraction);
+			}
+			if (abilityRequest.m_ability.GetModdedCost() > 0)
+			{
+				caster.ReservedTechPoints = 0;
+			}
+			if (!abilityRequest.m_additionalData.m_abilityResults.HitsDoneExecuting())
+			{
+				abilityRequest.m_additionalData.m_abilityResults.ExecuteUnexecutedAbilityHits(asFailsafe);
+			}
+			if (caster.GetAbilityData() != null
+			    && !caster.HasBotController
+			    && !AbilityData.IsChain(caster.GetAbilityData().GetActionTypeOfAbility(abilityRequest.m_ability)))
+			{
+				abilityRequest.m_additionalData.m_abilityResults.GenerateAbilityEvent();
 			}
 		}
 	}
@@ -2380,7 +2426,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 		}
 
-		// custom
+		// custom - fix for Dino shields on knockback
 		Dictionary<ActorData, int> actorToKnockbackPhaseEffectShieldDelta = new Dictionary<ActorData, int>();
 		foreach (ActorData actorData in actors)
 		{
@@ -2410,11 +2456,6 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				dyingActors.Add(actorData);
 			}
-			Log.Info($"IdentifyActorsDyingBeforeKnockbackMovement {actorData.DisplayName} " +
-			         $"{actorData.HitPoints}HP + {actorData.UnresolvedHealing} healing + {actorData.AbsorbPoints} shields " +
-			         $"- {actorData.UnresolvedDamage} damage - {-actorToHealthDelta[actorData]} damage from knockbacks " +
-			         $"+ {actorToKnockbackPhaseEffectShieldDelta[actorData]} shields from knockbacks " +
-			         $"= {(actorData.HitPoints + prevPhasesDelta + knockbackPhaseDelta <= 0 ? "" : "not ")}dead"); // custom debug
 		}
 		return dyingActors;
 	}
@@ -2445,14 +2486,15 @@ public class ServerActionBuffer : NetworkBehaviour
 		m_combatInitiatorRecordTurn = -1;
 	}
 
-	public ActorData GetAbilityAlertInitiator(int turn)
-	{
-		if (turn == m_combatInitiatorRecordTurn)
-		{
-			return m_combatInitiator;
-		}
-		return null;
-	}
+	// rogues
+	// public ActorData GetAbilityAlertInitiator(int turn)
+	// {
+	// 	if (turn == m_combatInitiatorRecordTurn)
+	// 	{
+	// 		return m_combatInitiator;
+	// 	}
+	// 	return null;
+	// }
 
 	// rogues
 	//public PlayerActionStateMachine GetPlayerActionFSM()
@@ -2475,11 +2517,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		return m_movementStabilizer;
 	}
 
-	private void MirrorProcessed()
-	{
-	}
+	// rogues
+	// private void MirrorProcessed()
+	// {
+	// }
 
-	// custom
 	public ActionBufferPhase GetCurrentActionPhase()
     {
 		return m_sharedActionBuffer?.Networkm_actionPhase ?? ActionBufferPhase.Done;
@@ -2488,15 +2530,10 @@ public class ServerActionBuffer : NetworkBehaviour
 	public class GatheredOutgoingHitsSummary
 	{
 		public int m_damageTotal;
-
 		public int m_healingTotal;
-
 		public int m_numHitsOnEnemies;
-
 		public int m_numHitsOnAllies;
-
 		public int m_numDamagingHits;
-
 		public int m_numHealingHits;
 
 		public void UpdateValuesForResult(ActorData caster, ActorData[] hitActors, Dictionary<ActorData, int> hpDelta)
@@ -2533,8 +2570,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	// removed in rogues
 	public override bool OnSerialize(NetworkWriter writer, bool forceAll)
 	{
-		bool result = default(bool);
-		return result;
+		return false;
 	}
 
 	// removed in rogues
