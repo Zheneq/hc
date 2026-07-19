@@ -668,29 +668,31 @@ public class AbilityData : NetworkBehaviour
 	}
 
 	// added in rogues
-	//internal List<CameraShotSequence> GetDebugTauntListForActionType(AbilityData.ActionType actionType)
-	//{
-	//	List<CameraShotSequence> list = new List<CameraShotSequence>();
-	//	if (actionType < (AbilityData.ActionType)this.abilityEntries.Length && this.abilityEntries[(int)actionType] != null && this.abilityEntries[(int)actionType].ability != null)
-	//	{
-	//		foreach (ScriptableObject scriptableObject in this.m_actor.m_tauntCamSetData.m_tauntCameraShotSequences.values)
-	//		{
-	//			CameraShotSequence cameraShotSequence = (CameraShotSequence)scriptableObject;
-	//			if (cameraShotSequence != null)
-	//			{
-	//				if (this.abilityEntries[(int)actionType].ability.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex))
-	//				{
-	//					list.Add(cameraShotSequence);
-	//				}
-	//			}
-	//			else if (Application.isEditor)
-	//			{
-	//				Debug.LogError(this.m_actor.DebugNameString() + " has null entry in taunt camera list");
-	//			}
-	//		}
-	//	}
-	//	return list;
-	//}
+	internal List<CameraShotSequence> GetDebugTauntListForActionType(ActionType actionType)
+	{
+		List<CameraShotSequence> list = new List<CameraShotSequence>();
+		if (actionType < (ActionType)abilityEntries.Length
+		    && abilityEntries[(int)actionType] != null
+		    && abilityEntries[(int)actionType].ability != null)
+		{
+			foreach (ScriptableObject scriptableObject in m_actor.m_tauntCamSetData.m_tauntCameraShotSequences.values)
+			{
+				CameraShotSequence cameraShotSequence = (CameraShotSequence)scriptableObject;
+				if (cameraShotSequence != null)
+				{
+					if (abilityEntries[(int)actionType].ability.CanTriggerAnimAtIndexForTaunt(cameraShotSequence.m_animIndex))
+					{
+						list.Add(cameraShotSequence);
+					}
+				}
+				else if (Application.isEditor)
+				{
+					Debug.LogError(m_actor.DebugNameString() + " has null entry in taunt camera list");
+				}
+			}
+		}
+		return list;
+	}
 
 	internal static bool CanTauntForActionTypeForPlayer(PersistedCharacterData characterData, CharacterResourceLink character, ActionType actionType, bool checkTauntUniqueId, int uniqueId)
 	{

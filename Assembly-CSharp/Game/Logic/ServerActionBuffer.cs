@@ -20,7 +20,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	
 	private List<AbilityRequest> m_storedAbilityRequests;
 	private List<MovementRequest> m_storedMovementRequests;
-	private List<AbilityRequest> m_storedAbilityRequestsForNextTurn;
+	private List<AbilityRequest> m_storedAbilityRequestsForNextTurn; // TODO SAB - rogues? Do we ever have requests for next turn in Reactor? Doesn't seem to be ever populated
 	private bool m_waitingForPlayPhaseEnded;
 	private List<MovementRequest> m_removedMovementRequestsFromForceChase;
 	internal bool m_gatheringFakeResults = true; // no default value in rogues
@@ -33,12 +33,12 @@ public class ServerActionBuffer : NetworkBehaviour
 	private float m_lastAbilityPhaseSet;
 	private AbilityPriority m_abilityPhase;
 	private ActionBufferPhase m_actionPhase;
-	private List<ActorData> m_actorsVisibleUntilEndOfPhase;
-	private ActorData m_combatInitiator;
+	private List<ActorData> m_actorsVisibleUntilEndOfPhase; // was never populated in rogues
+	// private ActorData m_combatInitiator; // rogues
 
-	private int m_combatInitiatorRecordTurn = -1;
+	// private int m_combatInitiatorRecordTurn = -1; // rogues
 
-	public static bool c_clientOnlySequences = true;
+	public static bool c_clientOnlySequences = SequenceManager.c_clientOnlySequences;
 
 	private const string c_actionLogSearchMarker = "{act} ";
 	
@@ -72,29 +72,29 @@ public class ServerActionBuffer : NetworkBehaviour
 	public AbilityPriority AbilityPhase
 	{
 		get => m_abilityPhase;
-		set  // private in rogues
+		set  // private in rogues TODO SAB - all sets should probably be inside the class
 		{
 			if (m_abilityPhase != value)
 			{
+				// TODO SAB - client resets CurrentlyVisibleForAbilityCast = false, MovedForEvade = false for all actors
 				if (GameplayData.Get().m_resolveDamageBetweenAbilityPhases
 				    || (GameplayData.Get().m_resolveDamageAfterEvasion && m_abilityPhase == AbilityPriority.Evasion))
 				{
 					ServerCombatManager.Get().ResolveHitPoints();
 					ServerCombatManager.Get().ResolveTechPoints();
 				}
-				
-				OnAbilityPhaseEnd(m_abilityPhase); // custom
+
+				OnAbilityPhaseEnd(m_abilityPhase); // custom TODO SAB - wasn't here in rogues
 				
 				m_abilityPhase = value;
 				SynchronizeSharedData();
 				
-				m_waitingForPlayPhaseEnded = true; // custom
-				SetSquareAtPhaseStartForActors(); // custom
+				OnAbilityPhaseStart(m_abilityPhase); // custom TODO SAB - wasn't here in rogues
 			}
 			m_lastAbilityPhaseSet = Time.time;
 		}
 	}
-
+	
 	// custom
 	public ActionBufferPhase ActionPhase
 	{
@@ -149,10 +149,13 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void Start()
 	{
+		// TODO SAB - we should probably keep rogues version. Does it even affect anything?
 		// rogues
 		// AbilityPhase = AbilityUtils.GetHighestAbilityPriority();
 		// custom
 		AbilityPhase = AbilityPriority.INVALID;
+		
+		// TODO SAB - init ActionPhase?
 	}
 
 	private void Update()
@@ -164,6 +167,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		//{
 		//	m_playerActionFsm.OnUpdate();
 		//}
+		// TODO SAB - looks like some logic should be triggered here - it was replaced with the fsm in rogues (rogues calls PlayerAction.OnUpdate)
 	}
 
 	private void SynchronizeSharedData()
@@ -181,7 +185,7 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private bool PhaseSetThisFrame()
 	{
-		return Time.time - m_lastAbilityPhaseSet <= 0f;
+		return TimeSpentInAbilityPhase <= 0f;
 	}
 
 	public float TimeSpentInAbilityPhase => Time.time - m_lastAbilityPhaseSet;
@@ -194,108 +198,203 @@ public class ServerActionBuffer : NetworkBehaviour
 			return;
 		}
 		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} BEGIN"); // custom
-		foreach (AbilityRequest abilityRequest in Get().GetAllStoredAbilityRequests())
+		foreach (AbilityRequest abilityRequest in GetAllStoredAbilityRequests())
 		{
 			if (abilityRequest.m_ability.RunPriority != phase)
 			{
 				continue;
 			}
 			
-			if (abilityRequest.m_caster != null
-			    // custom
-			    && abilityRequest.m_ability != null
-			    && abilityRequest.m_ability.ShouldRevealCasterOnHostileAbilityHit()
-			    && abilityRequest.m_additionalData.m_abilityResults.HitActorsArray().Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam())
-			    // end custom
-			   )
+			if (abilityRequest.m_caster != null)
 			{
-				Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName} for using ability {abilityRequest.m_ability.m_abilityName}"); // custom
-				abilityRequest.m_caster.SynchronizeTeamSensitiveData();
+				// custom
+				bool isHostileHit = abilityRequest.m_additionalData.m_abilityResults.HitActorsArray()
+					.Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam());
+				bool shouldRevealOnHit = abilityRequest.m_ability != null
+				                         && abilityRequest.m_ability.ShouldRevealCasterOnHostileAbilityHit();
+				if (shouldRevealOnHit && isHostileHit)
+				{
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName}"
+					         + $" for using ability {abilityRequest.m_ability.m_abilityName}");
+					abilityRequest.m_caster.SynchronizeTeamSensitiveData();
+				}
+				else
+				{
+					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName}"
+					         + $" for using ability {abilityRequest.m_ability.m_abilityName}: "
+					         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
+				}
+				// rogues
+				// abilityRequest.m_caster.SynchronizeTeamSensitiveData();
 			}
 			else
 			{
-				Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster?.DisplayName} for using ability {abilityRequest.m_ability?.m_abilityName}"); // custom
+				Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} "
+				         + $"for {abilityRequest.m_caster?.DisplayName} for using "
+				         + $"ability {abilityRequest.m_ability?.m_abilityName}"); // custom
 			}
+			
 			foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
 			{
-				if (abilityRequest.m_caster != null
-				    && abilityRequest.m_caster.GetTeam() != hitActor.GetTeam()
-				    && abilityRequest.m_ability != null
-				    && abilityRequest.m_ability.ShouldRevealTargetOnHostileAbilityHit()) // custom condition (unconditional in rouges)
+				// custom
+				bool isHostileHit = abilityRequest.m_caster != null
+				                    && abilityRequest.m_caster.GetTeam() != hitActor.GetTeam();
+				bool shouldRevealOnHit = abilityRequest.m_ability != null
+				                               && abilityRequest.m_ability.ShouldRevealTargetOnHostileAbilityHit();
+				if (isHostileHit && shouldRevealOnHit)
 				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster.DisplayName}'s ability {abilityRequest.m_ability.m_abilityName}"); // custom
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
+					         + $"for being hit by {abilityRequest.m_caster.DisplayName}'s "
+					         + $"ability {abilityRequest.m_ability.m_abilityName}");
 					hitActor.SynchronizeTeamSensitiveData();
 				}
 				else
 				{
-					Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {abilityRequest.m_caster?.DisplayName}'s ability {abilityRequest.m_ability?.m_abilityName}"); // custom
+					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
+					         + $"for being hit by {abilityRequest.m_caster?.DisplayName}'s "
+					         + $"ability {abilityRequest.m_ability?.m_abilityName}: "
+					         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
 				}
+				// rogues
+				// hitActor.SynchronizeTeamSensitiveData();
 			}
 		}
+		
 		foreach (KeyValuePair<ActorData, List<Effect>> keyValuePair in ServerEffectManager.Get().GetAllActorEffects())
 		{
 			foreach (Effect effect in keyValuePair.Value)
 			{
-				if (effect.HasResolutionAction(phase))
+				if (!effect.HasResolutionAction(phase))
 				{
-					// TODO rogues??
-					// if (effect.Caster != null)
-					// {
-					// 	Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using effect {effect.m_effectName}"); // custom
-					// 	effect.Caster.SynchronizeTeamSensitiveData();
-					// }
-					if (effect.Target != null
-					    // custom
-					    // but what if black hole in fog of war hits nobody? will the animation play in the wrong place?
-					    && effect.Caster != null
-					    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealEffectHolderOnHostileEffectHit())
-					    && effect.GetResultsForPhase(phase, true).HitActorsArray().Any(ad => ad.GetTeam() != effect.Caster.GetTeam()))
-						//end custom
+					continue;
+				}
+				
+				// custom
+				bool hasHostileHits = effect.Caster != null
+				                    && effect.GetResultsForPhase(phase, true).HitActorsArray()
+					                    .Any(ad => ad.GetTeam() != effect.Caster.GetTeam()); 
+				// end custom
+				
+				if (effect.Caster != null)
+				{
+					// custom
+					bool shouldRevealOnHit = effect.Parent.Ability == null
+					                         || effect.Parent.Ability.ShouldRevealCasterOnHostileEffectOrBarrierHit();
+					if (hasHostileHits && shouldRevealOnHit)
 					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
+						         + $"for using effect {effect.m_effectName}");
+						effect.Caster.SynchronizeTeamSensitiveData(); // TODO SAB - this was commented out (but was unconditional) - might be more revealing now
+					}
+					else
+					{
+						Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
+						         + $"for using effect {effect.m_effectName}: "
+						         + $"hasHostileHits={hasHostileHits}, shouldRevealOnHit={shouldRevealOnHit}");
+					}
+					// rogues
+					// effect.Caster.SynchronizeTeamSensitiveData();
+				}
+				
+				if (effect.Target != null)
+				{
+					// custom
+					bool shouldRevealOnHit = effect.Parent.Ability == null
+					                         || effect.Parent.Ability.ShouldRevealEffectHolderOnHostileEffectHit();
+					// TODO SAB - but what if black hole in fog of war hits nobody? will the animation play in the wrong place?
+					if (hasHostileHits && shouldRevealOnHit)
+					{
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} "
+						         + $"for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}");
 						effect.Target.SynchronizeTeamSensitiveData();
 					}
-					foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
+					else
 					{
-						if (effect.Caster != null
-						    && effect.Caster.GetTeam() != hitActor.GetTeam()
-						    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition (unconditional in rogues)
-						{
-							Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
-							hitActor.SynchronizeTeamSensitiveData();
-						}
-						else
-						{
-							Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}"); // custom
-						}
+						Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} "
+						         + $"for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}: "
+						         + $"hasHostileHits={hasHostileHits}, shouldRevealOnHit={shouldRevealOnHit}");
 					}
+					// rogues
+					// effect.Target.SynchronizeTeamSensitiveData();
 				}
-			}
-		}
-		foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
-		{
-			if (effect.HasResolutionAction(phase))
-			{
-				// TODO rogues??
-				// if (effect.Caster != null)
-				// {
-				// 	Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} for using world effect {effect.m_effectName}"); // custom
-				// 	effect.Caster.SynchronizeTeamSensitiveData();
-				// }
-				foreach (var hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
+				
+				foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 				{
-					if (effect.Caster != null
-					    && effect.Caster.GetTeam() != hitActor.GetTeam()
-					    && (effect.Parent.Ability == null || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit())) // custom condition (unconditional in rogues)
+					// custom
+					bool isHostileHit = effect.Caster != null
+					                    && effect.Caster.GetTeam() != hitActor.GetTeam();
+					bool shouldRevealOnHit = effect.Parent.Ability == null
+					                         || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit();
+					if (isHostileHit && shouldRevealOnHit)
 					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster.DisplayName}'s world effect {effect.m_effectName}"); // custom
+						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
+						         + $"for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}");
 						hitActor.SynchronizeTeamSensitiveData();
 					}
 					else
 					{
-						Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}"); // custom
+						Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
+						         + $"for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}: "
+						         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
 					}
+					// rogues
+					// hitActor.SynchronizeTeamSensitiveData();
 				}
+			}
+		}
+		
+		foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
+		{
+			if (!effect.HasResolutionAction(phase))
+			{
+				continue;
+			}
+			
+			if (effect.Caster != null)
+			{
+				// custom
+				bool hasHostileHits = effect.Caster != null
+				                      && effect.GetResultsForPhase(phase, true).HitActorsArray()
+					                      .Any(ad => ad.GetTeam() != effect.Caster.GetTeam()); 
+				bool shouldRevealOnHit = effect.Parent.Ability == null
+				                         || effect.Parent.Ability.ShouldRevealCasterOnHostileEffectOrBarrierHit();
+				if (hasHostileHits && shouldRevealOnHit)
+				{
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
+					         + $"for using world effect {effect.m_effectName}");
+					effect.Caster.SynchronizeTeamSensitiveData(); // TODO SAB - this was commented out (but was unconditional) - might be more revealing now
+				}
+				else
+				{
+					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
+					         + $"for using world effect {effect.m_effectName}: "
+					         + $"hasHostileHits={hasHostileHits}, shouldRevealOnHit={shouldRevealOnHit}");
+				}
+				// rogues
+				// effect.Caster.SynchronizeTeamSensitiveData();
+			}
+			
+			foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
+			{
+				// custom
+				bool isHostileHit = effect.Caster != null
+				                    && effect.Caster.GetTeam() != hitActor.GetTeam();
+				bool shouldRevealOnHit = effect.Parent.Ability == null
+				                         || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit();
+				if (isHostileHit && shouldRevealOnHit)
+				{
+					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
+					         + $"for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}");
+					hitActor.SynchronizeTeamSensitiveData();
+				}
+				else
+				{
+					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
+					         + $"for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}: "
+					         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
+				}
+				// rogues
+				// hitActor.SynchronizeTeamSensitiveData();
 			}
 		}
 		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} END"); // custom
@@ -321,6 +420,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
+	// TODO SAB - denied movement stat? - not called
 	private void TrackDesiredMovementAmountOnResolve()
 	{
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
@@ -335,13 +435,14 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				if (movementRequest.m_chaseTarget != null && movementRequest.m_chaseTarget.GetCurrentBoardSquare() != null)
 				{
-					BoardSquare closestMoveableSquareTo = actor.GetActorMovement().GetClosestMoveableSquareTo(movementRequest.m_chaseTarget.GetCurrentBoardSquare(), false);
-					if (closestMoveableSquareTo != null)
+					BoardSquare targetSquare = actor.GetActorMovement()
+						.GetClosestMoveableSquareTo(movementRequest.m_chaseTarget.GetCurrentBoardSquare(), false);
+					if (targetSquare != null)
 					{
-						BoardSquarePathInfo boardSquarePathInfo = actor.GetActorMovement().BuildPathTo(actor.InitialMoveStartSquare, closestMoveableSquareTo);
-						if (boardSquarePathInfo != null)
+						BoardSquarePathInfo path = actor.GetActorMovement().BuildPathTo(actor.InitialMoveStartSquare, targetSquare);
+						if (path != null)
 						{
-							actor.GetActorBehavior().TrackDesiredMovementOnResolveStart(boardSquarePathInfo.FindMoveCostToEnd());
+							actor.GetActorBehavior().TrackDesiredMovementOnResolveStart(path.FindMoveCostToEnd());
 						}
 					}
 				}
@@ -353,6 +454,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
+	// TODO SAB - denied movement stat? - not called
 	private void SetSquareRequestedForMovementMetricsForActors()
 	{
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
@@ -380,6 +482,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
+	// TODO SAB - currently called in PlayerAction_Ability.ExecuteAction
 	private void ReInitAbilityInteractions(AbilityPriority newPhase)
 	{
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
@@ -410,10 +513,17 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 	
-	// custom
+	// custom - TODO SAB now there are two of them
 	public void OnAbilityPhaseStart()
 	{
 		OnPhaseStartForRequestedAbilities(AbilityPhase);
+	}
+
+	// custom - TODO SAB now there are two of them
+	private void OnAbilityPhaseStart(AbilityPriority phase)
+	{
+		m_waitingForPlayPhaseEnded = true;
+		SetSquareAtPhaseStartForActors();
 	}
 
 	private void OnAbilityPhaseEnd(AbilityPriority oldPhase)
@@ -458,11 +568,13 @@ public class ServerActionBuffer : NetworkBehaviour
 				}
 			}
 		}
-		foreach (ActorData actorData2 in m_actorsVisibleUntilEndOfPhase)
+		
+		foreach (ActorData actorData in m_actorsVisibleUntilEndOfPhase)
 		{
-			actorData2.VisibleTillEndOfPhase = false;
+			actorData.VisibleTillEndOfPhase = false;
 		}
 		m_actorsVisibleUntilEndOfPhase.Clear();
+		
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
 			if (abilityRequest.m_ability.GetRunPriority() == oldPhase
@@ -475,6 +587,15 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void MarkVisibleTillEndOfPhase(ActorData actor)
 	{
+		// custom, was empty in rogues
+		if (!actor.VisibleTillEndOfPhase)
+		{
+			actor.VisibleTillEndOfPhase = true;
+		}
+		if (!m_actorsVisibleUntilEndOfPhase.Contains(actor))
+		{
+			m_actorsVisibleUntilEndOfPhase.Add(actor);
+		}
 	}
 
 	public void OnTurnStart()
@@ -507,7 +628,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		//m_storedAbilityRequestsForNextTurn.RemoveAll((AbilityRequest r) => r.m_caster.GetTeam() == actingTeam);
 	}
 	
-	// custom
+	// custom - TODO SAB - fake results - probably needs to be removed?
 	public void OnTurnEnd()
 	{
 		GatheringFakeResults = true;
@@ -549,10 +670,9 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public Bounds GetMovementBoundsForTeam(List<MovementRequest> stabilizedMoveRequests, Team team)
 	{
-		Bounds result = default(Bounds);
-		List<ActorData> actors = GameFlowData.Get().GetActors();
+		Bounds result = new Bounds();
 		bool hasValue = false;
-		foreach (ActorData actorData in actors)
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
 			if (actorData != null
 			    && !actorData.IsDead()
@@ -573,10 +693,10 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		if (!hasValue)
 		{
-			BoardSquare squareFromIndex = Board.Get().GetSquareFromIndex(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
-			if (squareFromIndex != null)
+			BoardSquare centerSquare = Board.Get().GetSquareFromIndex(Board.Get().GetMaxX() / 2, Board.Get().GetMaxY() / 2);
+			if (centerSquare != null)
 			{
-				result = squareFromIndex.CameraBounds;
+				result = centerSquare.CameraBounds;
 			}
 			else
 			{
@@ -596,8 +716,8 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		Vector3 center = result.center;
 		Vector3 size = result.size;
-		center.y = 1.5f + Board.Get().BaselineHeight;
-		size.y = 3f;
+		center.y = 0.5f * Theatrics.ActorAnimation.c_minBoundsHeight + Board.Get().BaselineHeight;
+		size.y = Theatrics.ActorAnimation.c_minBoundsHeight;
 		result = new Bounds(center, size);
 		return result;
 	}
@@ -771,6 +891,7 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void DebugDisplayBufferState()
 	{
+		// empty in rogues; called in update, so if anything were here, it would spam a lot
 	}
 
 	public void StoreMovementRequest(int x, int y, ActorData actor, BoardSquarePathInfo path = null)
@@ -785,7 +906,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			MovementRequest item = new MovementRequest(x, y, actor, path);
 			m_storedMovementRequests.Add(item);
-			actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement, false);
+			actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement);
 		}
 	}
 
@@ -796,7 +917,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			if (movementRequest != null && movementRequest.m_actor == actor)
 			{
 				movementRequest.AppendMovement(x, y);
-				actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement, false);
+				actor.OnMovementChanged(ActorData.MovementChangeType.MoreMovement);
 				break;
 			}
 		}
@@ -936,12 +1057,14 @@ public class ServerActionBuffer : NetworkBehaviour
 			if (movementRequest.m_path != null)
 			{
 				queuedMovementAmount = movementRequest.m_path.FindMoveCostToEnd();
-				break;
 			}
-			Debug.LogError(
-				$"ServerActionBuffer trying to gather movement info for actor {actor.DebugNameString()}, but the request's path is null.\n"
-				+ $"\tActor current board square: {BoardSquare.DebugString(actor.CurrentBoardSquare, true)}\n"
-				+ $"\tRequested square: {BoardSquare.DebugString(movementRequest.m_targetSquare, true)}");
+			else
+			{
+				Debug.LogError(
+					$"ServerActionBuffer trying to gather movement info for actor {actor.DebugNameString()}, but the request's path is null.\n"
+					+ $"\tActor current board square: {BoardSquare.DebugString(actor.CurrentBoardSquare, true)}\n"
+					+ $"\tRequested square: {BoardSquare.DebugString(movementRequest.m_targetSquare, true)}");
+			}
 			break;
 		}
 		// rogues
@@ -1041,6 +1164,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
+	// TODO SAB - not called - currently called in HandleUpdateResolve? (OnMessage(TurnMessage.MOVEMENT_RESOLVED))
 	private void ResolveMovmentOnRequest(MovementRequest request, ActorData actor, BoardSquare destinationSquare)
 	{
 		if (request != null
@@ -1049,8 +1173,12 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (request.m_targetSquare != destinationSquare && !actor.IsDead())
 			{
-				string textTargetSquare = request.m_targetSquare != null ? request.m_targetSquare.ToString() : "null";
-				string textDestSquare = destinationSquare != null ? destinationSquare.ToString() : "null";
+				string textTargetSquare = request.m_targetSquare != null
+					? request.m_targetSquare.ToString()
+					: "null";
+				string textDestSquare = destinationSquare != null
+					? destinationSquare.ToString()
+					: "null";
 				Log.Error(
 					"on resolving movement request, living actor {0} has destination square mismatch. Request target square = {1}, destSquare = {2}",
 					actor.DebugNameString(),
@@ -1095,7 +1223,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			ActorTurnSM actorTurnSM = moveRequest.m_actor.GetActorTurnSM();
 			if (actorTurnSM)
 			{
-				actorTurnSM.OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
+				actorTurnSM.OnMessage(TurnMessage.MOVEMENT_RESOLVED);
 			}
 		}
 		
@@ -1171,6 +1299,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return result;
 	}
 
+	// TODO SAB - never called
 	public bool IsChasing(ActorData chaser, ActorData target)
 	{
 		bool result = false;
@@ -1188,6 +1317,8 @@ public class ServerActionBuffer : NetworkBehaviour
 		return result;
 	}
 
+
+	// TODO SAB - never called
 	public bool HasResolvingMovementRequest(ActorData fromMover)
 	{
 		bool result = false;
@@ -1253,7 +1384,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		foreach (MovementRequest movementRequest in list)
 		{
-			movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
+			movementRequest.m_actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED);
 			m_storedMovementRequests.Remove(movementRequest);
 			float desiredMovementOnResolve = movementRequest.m_actor.GetActorBehavior().DesiredMovementOnResolve;
 			movementRequest.m_actor.GetActorBehavior().SetTotalMovementLostThisTurn(desiredMovementOnResolve);
@@ -1298,6 +1429,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return list;
 	}
 
+	// TODO SAB - never called
 	public List<BoardSquare> GetReservedSquares_PostChaseStabilization(ActorData actorToSkip)
 	{
 		if (!NetworkServer.active)
@@ -1336,15 +1468,17 @@ public class ServerActionBuffer : NetworkBehaviour
 		return list;
 	}
 
+	// TODO SAB next turn requests here too
 	public void CancelActionRequests(ActorData actor, bool keepFutureTurnRequests)
 	{
 		// rogues
 		//PveLog.DebugLog("Canceling Action Requests for " + actor.DebugNameString(), null);
 
-		CancelMovementRequests(actor, false);
+		CancelMovementRequests(actor);
 		CancelAbilityRequests(actor, false, keepFutureTurnRequests);
 	}
-
+	
+	// TODO SAB next turn requests here too
 	public void StoreAbilityRequest(
 		Ability ability,
 		AbilityData.ActionType actionType,
@@ -1360,7 +1494,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		if ((!caster.QueuedMovementAllowsAbility && ability.GetAffectsMovement()) || ability.CanOverrideMoveStartSquare())
 		{
-			CancelMovementRequests(caster, false);
+			CancelMovementRequests(caster);
 		}
 		if (ability != null && caster != null)
 		{
@@ -1376,10 +1510,12 @@ public class ServerActionBuffer : NetworkBehaviour
 			if (storeForNextTurn)
 			{
 				m_storedAbilityRequestsForNextTurn.Add(abilityRequest);
-				return;
 			}
-			m_storedAbilityRequests.Add(abilityRequest);
-			OnAbilityRequestStored(abilityRequest);
+			else
+			{
+				m_storedAbilityRequests.Add(abilityRequest);
+				OnAbilityRequestStored(abilityRequest);
+			}
 			// return;
 		}
 
@@ -1406,23 +1542,23 @@ public class ServerActionBuffer : NetworkBehaviour
 		if (moddedCost > 0)
 		{
 			caster.ReservedTechPoints += moddedCost;
-			caster.SetTechPoints(caster.TechPoints - moddedCost, false, null, null);
+			caster.SetTechPoints(caster.TechPoints - moddedCost);
 		}
 		ability.OnAbilityQueuedDuringDecision();
 		Ability[] chainAbilities = ability.GetChainAbilities();
 		for (int i = 0; i < chainAbilities.Length; i++)
 		{
-			Ability ability2 = chainAbilities[i];
-			if (!(ability2 == null))
+			Ability chainAbility = chainAbilities[i];
+			if (chainAbility != null)
 			{
-				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(ability2);
+				AbilityData.ActionType actionTypeOfAbility = caster.GetAbilityData().GetActionTypeOfAbility(chainAbility);
 				ChainAbilityAdditionalModInfo chainModInfo = null;
 				if (ability.CurrentAbilityMod != null)
 				{
 					chainModInfo = ability.CurrentAbilityMod.GetChainModInfoAtIndex(i);
 				}
 				StoreAbilityRequest(
-					ability2,
+					chainAbility,
 					actionTypeOfAbility,
 					targets,
 					caster,
@@ -1431,16 +1567,23 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 		}
 
-		// rogues
-		// if (caster.GetActorTurnSM().m_tauntRequestedForNextAbility == (int)actionType || (DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AlwaysTauntAutomatically")))
-		// {
-		// 	List<CameraShotSequence> debugTauntListForActionType = caster.GetAbilityData().GetDebugTauntListForActionType(actionType);
-		// 	if (!debugTauntListForActionType.IsNullOrEmpty<CameraShotSequence>())
-		// 	{
-		// 		caster.GetComponent<ActorCinematicRequests>().SendAbilityCinematicRequest(actionType, true, debugTauntListForActionType[0].m_tauntNumber, debugTauntListForActionType[0].m_uniqueTauntID);
-		// 	}
-		// }
-		// caster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();
+		if (
+			// caster.GetActorTurnSM().m_tauntRequestedForNextAbility == (int)actionType ||  // rogues
+			(DebugParameters.Get() != null && DebugParameters.Get().GetParameterAsBool("AlwaysTauntAutomatically")))
+		{
+			List<CameraShotSequence> taunts = caster.GetAbilityData().GetDebugTauntListForActionType(actionType);
+			if (!taunts.IsNullOrEmpty())
+			{
+				caster
+					.GetComponent<ActorCinematicRequests>()
+					.SendAbilityCinematicRequest(
+						actionType,
+						true,
+						taunts[0].m_tauntNumber,
+						taunts[0].m_uniqueTauntID);
+			}
+		}
+		// caster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();  // rogues
 	}
 
 	public static bool ShouldLogActorActions()
@@ -1451,44 +1594,51 @@ public class ServerActionBuffer : NetworkBehaviour
 			&& GameFlowData.Get() != null;
 	}
 
+	// TODO LOW SAB - debug logging never called
 	private void LogActorStateForRepro(string context)
 	{
-		if (ShouldLogActorActions())
+		if (!ShouldLogActorActions())
 		{
-			string text = string.Concat(
-				c_actionLogSearchMarker + "Turn ",
-				GameFlowData.Get().CurrentTurn,
-				" | -- ActorState ",
-				context,
-				" --\n");
-			foreach (ActorData actorData in GameFlowData.Get().GetActors())
-			{
-				if (actorData == null || actorData.PlayerIndex < 0)
-				{
-					
-					continue;
-				}
-				BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
-				string textGridPos = currentBoardSquare != null ? currentBoardSquare.GetGridPos().ToStringWithCross() : "NULL";
-				text = string.Concat(
-					text,
-					c_actionLogSearchMarker,
-					actorData.DebugNameString(),
-					" @square= ",
-					textGridPos,
-					" | HP= ",
-					actorData.HitPoints,
-					" | Energy= ",
-					actorData.TechPoints,
-					" | Absorb= ",
-					actorData.AbsorbPoints,
-					" | MaxMovement= ",
-					actorData.GetActorMovement().CalculateMaxHorizontalMovement(),
-					"\n");
-			}
+			return;
 		}
+		
+		string text = string.Concat(
+			c_actionLogSearchMarker + "Turn ",
+			GameFlowData.Get().CurrentTurn,
+			" | -- ActorState ",
+			context,
+			" --\n");
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			if (actorData == null || actorData.PlayerIndex < 0)
+			{
+					
+				continue;
+			}
+			BoardSquare currentBoardSquare = actorData.GetCurrentBoardSquare();
+			string textGridPos = currentBoardSquare != null ? currentBoardSquare.GetGridPos().ToStringWithCross() : "NULL";
+			text = string.Concat(
+				text,
+				c_actionLogSearchMarker,
+				actorData.DebugNameString(),
+				" @square= ",
+				textGridPos,
+				" | HP= ",
+				actorData.HitPoints,
+				" | Energy= ",
+				actorData.TechPoints,
+				" | Absorb= ",
+				actorData.AbsorbPoints,
+				" | MaxMovement= ",
+				actorData.GetActorMovement().CalculateMaxHorizontalMovement(),
+				"\n");
+		}
+		
+		// custom
+		Log.Debug(text);
 	}
 
+	// TODO LOW SAB - debug logging never called
 	private void LogRequestsForRepro(bool logAbilities, bool logMovement, string context)
 	{
 		if (!ShouldLogActorActions())
@@ -1614,21 +1764,17 @@ public class ServerActionBuffer : NetworkBehaviour
 			string format;
 			if (movementRequest.IsChasing())
 			{
-				GridPos gridPos2 = movementRequest.m_chaseTarget.GetGridPos();
-				format = string.Format("Chase Player:{0} Src:({1},{2}) Target:{3} at ({4},{5})", new object[]
-				{
-					movementRequest.m_actor.DisplayName,
-					gridPos.x,
-					gridPos.y,
-					movementRequest.m_chaseTarget.DisplayName,
-					gridPos2.x,
-					gridPos2.y
-				});
+				GridPos targetPos = movementRequest.m_chaseTarget.GetGridPos();
+				format = $"Chase Player:{movementRequest.m_actor.DisplayName} "
+				         + $"Src:({gridPos.x},{gridPos.y}) "
+				         + $"Target:{movementRequest.m_chaseTarget.DisplayName} at ({targetPos.x},{targetPos.y})";
 			}
 			else
 			{
-				GridPos gridPos3 = movementRequest.m_targetSquare.GetGridPos();
-				format = $"Move Player:{movementRequest.m_actor.DisplayName} Src:({gridPos.x},{gridPos.y}) Dst:({gridPos3.x},{gridPos3.y})";
+				GridPos targetPos = movementRequest.m_targetSquare.GetGridPos();
+				format = $"Move Player:{movementRequest.m_actor.DisplayName} "
+				         + $"Src:({gridPos.x},{gridPos.y}) "
+				         + $"Dst:({targetPos.x},{targetPos.y})";
 			}
 			MatchLogger.Get().Log(string.Format(format));
 		}
@@ -1658,6 +1804,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
+	// TODO SAB - FCFS == rogues? - RunAbilityRequest is private => calling code should be in this class
 	public void RunAbilityRequest_FCFS(AbilityRequest request)
 	{
 		RunAbilityRequest(request);
@@ -1668,9 +1815,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		request.m_resolveState = AbilityRequest.AbilityResolveState.RESOLVING;
 		AbilityData abilityData = request.m_caster.GetAbilityData();
 		abilityData.OnAbilityCast(request.m_ability);
-		bool flag = request.m_ability.ShouldTriggerCooldownOnCast(request.m_targets, request.m_caster, request.m_additionalData);
+		bool shouldTriggerCooldown = request.m_ability.ShouldTriggerCooldownOnCast(request.m_targets, request.m_caster, request.m_additionalData);
 		request.m_ability.Run(request.m_targets, request.m_caster, request.m_additionalData);
-		if (flag)
+		if (shouldTriggerCooldown)
 		{
 			abilityData.TriggerCooldown(request.m_actionType);
 		}
@@ -1684,7 +1831,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				request.m_caster.GetPassiveData().OnBreakInvisibility();
 			}
 			
-			// custom
+			// custom TODO SAB - looks weird
 			request.m_caster.SetServerLastKnownPosSquare(request.m_caster.GetSquareAtPhaseStart(), "RunAbilityRequest");
 		}
 		if (BrushCoordinator.Get() != null)
@@ -1717,7 +1864,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		bool result = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
-			if (abilityRequest != null && abilityRequest.m_caster == fromCaster && (!abilityRequest.m_ability.IsFreeAction() || includeFreeActions))
+			if (abilityRequest != null
+			    && abilityRequest.m_caster == fromCaster
+			    && (!abilityRequest.m_ability.IsFreeAction() || includeFreeActions))
 			{
 				result = true;
 				break;
@@ -1726,6 +1875,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return result;
 	}
 
+	// TODO SAB - never called
 	public bool HasResolvingAbilityRequest(ActorData fromCaster)
 	{
 		bool result = false;
@@ -1742,6 +1892,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return result;
 	}
 
+	// TODO SAB - never called
 	public bool HasUnresolvedAbilityRequest(ActorData fromCaster)
 	{
 		bool result = false;
@@ -1792,17 +1943,20 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		return result;
 	}
-
+	
+	// TODO SAB - never called
 	public bool HasStoredAbilityRequestsFromAnyone()
 	{
 		return m_storedAbilityRequests.Count > 0;
 	}
 
+	// TODO SAB - never called
 	public bool HasStoredMovementRequestsFromAnyone()
 	{
 		return m_storedMovementRequests.Count > 0;
 	}
 
+	// TODO SAB - never called
 	public MovementRequest GetStoredMovementRequestForActor(ActorData mover)
 	{
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
@@ -1816,12 +1970,12 @@ public class ServerActionBuffer : NetworkBehaviour
 		return null;
 	}
 
-	public List<AbilityTarget> GetTargetingDataOfStoredAbility(ActorData fromCaser, Type abilityType)
+	public List<AbilityTarget> GetTargetingDataOfStoredAbility(ActorData fromCaster, Type abilityType)
 	{
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
 			if (abilityRequest != null
-			    && abilityRequest.m_caster == fromCaser
+			    && abilityRequest.m_caster == fromCaster
 			    && abilityRequest.m_ability != null
 			    && abilityRequest.m_ability.GetType() == abilityType)
 			{
@@ -1847,6 +2001,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return new List<ActorData>();
 	}
 
+	// TODO SAB - never called
 	public List<Dictionary<ActorData, int>> GetGatheredHpDeltas(ActorData caster, AbilityPriority fromPhase, AbilityPriority toPhase)
 	{
 		List<Dictionary<ActorData, int>> list = new List<Dictionary<ActorData, int>>();
@@ -1891,7 +2046,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (abilityRequest != null && abilityRequest.m_ability.RunPriority == phase)
 			{
-				ServerGameplayUtils.CountDamageAndHeal(abilityRequest.m_additionalData.m_abilityResults.DamageResults, target, ref damage, ref healing);
+				ServerGameplayUtils.CountDamageAndHeal(
+					abilityRequest.m_additionalData.m_abilityResults.DamageResults,
+					target,
+					ref damage,
+					ref healing);
 			}
 		}
 		ServerEffectManager.Get().CountDamageAndHealFromGatheredResults(phase, target, ref damage, ref healing);
@@ -1903,7 +2062,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			return false;
 		}
-		bool flag = false;
+		bool result = false;
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
 		{
 			if (abilityRequest != null
@@ -1912,15 +2071,15 @@ public class ServerActionBuffer : NetworkBehaviour
 			    && abilityRequest.m_ability.RunPriority == AbilityPriority.Evasion
 			    && abilityRequest.m_ability.GetMovementType() != ActorData.MovementType.None)
 			{
-				flag = true;
+				result = true;
 				break;
 			}
 		}
-		if (!flag && actor.PlayerIndex == PlayerData.s_invalidPlayerIndex)
+		if (!result && actor.PlayerIndex == PlayerData.s_invalidPlayerIndex)
 		{
-			flag = m_evadeManager.HasProcessedEvadeForActor(actor);
+			result = m_evadeManager.HasProcessedEvadeForActor(actor);
 		}
-		return flag;
+		return result;
 	}
 
 	public int GetNumSquaresInProcessedEvade(ActorData actor)
@@ -1990,6 +2149,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return result;
 	}
 
+	// TODO SAB next turn requests here too
 	public void CancelAbilityRequest(ActorData fromCaster, Ability ability, bool checkForAdditionalToCancel, bool keepFutureTurnRequests)
 	{
 		List<Ability> abilitiesToCancel = new List<Ability>();
@@ -2012,7 +2172,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					chainAbilitiesToCancel.Add(abilityToCancel);
 				}
-				m_storedAbilityRequests.Remove(abilityRequest);
+				m_storedAbilityRequests.Remove(abilityRequest); // modifying collection is fine as long as we break after
 			}
 			break;
 		}
@@ -2055,6 +2215,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		//fromCaster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();
 	}
 
+	// TODO SAB next turn requests here too
 	public void CancelAbilityRequests(ActorData fromCaster, bool keepFreeActions, bool keepFutureTurnRequests)
 	{
 		List<AbilityRequest> requestsToCancel = new List<AbilityRequest>();
@@ -2145,7 +2306,8 @@ public class ServerActionBuffer : NetworkBehaviour
 		// end custom
 	}
 
-	// TODO call it
+	// TODO SAB - never called - currently called in PlayerAction.PrepareResults
+	// TODO SAB next turn requests here too
 	private void ClearRequestsOfDeadActors()
 	{
 		List<AbilityRequest> abilitiesToCancel = new List<AbilityRequest>();
@@ -2240,7 +2402,7 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	public void UpdateActorLineDataForMovementStatus(ActorData mover, bool forceRebuildLine)
 	{
-		bool flag = false;
+		bool found = false;
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
 		{
 			if (movementRequest == null || movementRequest.m_actor != mover)
@@ -2250,13 +2412,12 @@ public class ServerActionBuffer : NetworkBehaviour
 			
 			if (movementRequest.IsChasing())
 			{
-				flag = true;
+				found = true;
 				mover.GetComponent<LineData>().OnMovementChanged(movementRequest.ToGridPosPath(), null, true, forceRebuildLine);
-				break;
 			}
-			if (movementRequest.m_path != null && mover.GetComponent<LineData>() != null)
+			else if (movementRequest.m_path != null && mover.GetComponent<LineData>() != null)
 			{
-				flag = true;
+				found = true;
 				BoardSquarePathInfo fullPath = movementRequest.m_path.Clone(null);
 				m_movementStabilizer.ModifyPathForMaxMovement(movementRequest.m_actor, fullPath, false);
 				BoardSquarePathInfo snaredPath = movementRequest.m_path.Clone(null);
@@ -2269,7 +2430,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 			break;
 		}
-		if (!flag)
+		if (!found)
 		{
 			mover.GetComponent<LineData>().OnMovementChanged(null, null, false, forceRebuildLine);
 		}
@@ -2303,9 +2464,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(
 				abilityRequest.m_ability,
 				AbilityInteractionType.Cast,
-				true,
-				false,
-				false);
+				true);
 			ActorData caster = abilityRequest.m_caster;
 			if (techPointRewardForInteraction > 0)
 			{
@@ -2340,72 +2499,97 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void ExecuteUnexecutedHitsForMovementStageInDistanceOrder(MovementStage stage, bool asFailsafe)
 	{
-		bool flag = true;
+		bool stillHasUnexecutedHits = true;
 		float distance = 0f;
-		while (flag)
+		while (stillHasUnexecutedHits)
 		{
 			Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder distance={distance}"); // custom debug
-			bool flag2;
-			float num;
-			BarrierManager.Get().ExecuteUnexecutedMovementHitsForAllBarriersForDistance(distance, stage, asFailsafe, out flag2, out num);
-			if (!flag2) Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more barrier hits"); // custom debug
-			bool flag3;
-			float num2;
+			BarrierManager.Get().ExecuteUnexecutedMovementHitsForAllBarriersForDistance(
+				distance,
+				stage,
+				asFailsafe,
+				out bool stillHasUnexecutedHitsBarriers,
+				out float nextUnexecutedHitDistanceBarriers);
+			
+			bool stillHasUnexecutedHitsCTF;
+			float nextUnexecutedHitDistanceCTF;
 			// TODO CTF CTC
 			//if (CaptureTheFlag.Get() != null)
 			//{
-			//	CaptureTheFlag.Get().ExecuteUnexecutedMovementResultsForDistance_Ctf(distance, stage, asFailsafe, out flag3, out num2);
+			//	CaptureTheFlag.Get().ExecuteUnexecutedMovementResultsForDistance_Ctf(distance, stage, asFailsafe, out stillHasUnexecutedHitsCTF, out nextUnexecutedHitDistanceCTF);
 			//}
 			//else
 			//{
-				flag3 = false;
-				num2 = -1f;
+				stillHasUnexecutedHitsCTF = false;
+				nextUnexecutedHitDistanceCTF = -1f;
 			//}
-			bool flag4;
-			float num3;
+			
+			bool stillHasUnexecutedHitsCTC;
+			float nextUnexecutedHitDistanceCTC;
 			// TODO CTF CTC
 			//if (CollectTheCoins.Get() != null)
 			//{
-			//	CollectTheCoins.Get().ExecuteUnexecutedMovementResultsForDistance_Ctc(distance, stage, asFailsafe, out flag4, out num3);
+			//	CollectTheCoins.Get().ExecuteUnexecutedMovementResultsForDistance_Ctc(distance, stage, asFailsafe, out stillHasUnexecutedHitsCTC, out nextUnexecutedHitDistance);
 			//}
 			//else
 			//{
-				flag4 = false;
-				num3 = -1f;
+				stillHasUnexecutedHitsCTC = false;
+				nextUnexecutedHitDistanceCTC = -1f;
 			//}
-			bool flag5;
-			float num4;
-			ServerEffectManager.Get().ExecuteUnexecutedMovementHitsForAllEffectsForDistance(distance, stage, asFailsafe, out flag5, out num4);
-			if (!flag5) Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more effect hits"); // custom debug
-			bool flag6;
-			float num5;
-			PowerUpManager.Get().ExecuteUnexecutedMovementHitsForAllPowerupsForDistance(distance, stage, asFailsafe, out flag6, out num5);
-			if (!flag6) Log.Info($"ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more powerup hits"); // custom debug
-			flag = (flag2 || flag3 || flag4 || flag5 || flag6);
-			if (flag)
+
+			ServerEffectManager.Get().ExecuteUnexecutedMovementHitsForAllEffectsForDistance(
+				distance,
+				stage,
+				asFailsafe,
+				out bool stillHasUnexecutedHitsEffects,
+				out float nextUnexecutedHitDistanceEffects);
+			PowerUpManager.Get().ExecuteUnexecutedMovementHitsForAllPowerupsForDistance(
+				distance,
+				stage,
+				asFailsafe,
+				out bool stillHasUnexecutedHitsPowerUps,
+				out float nextUnexecutedHitDistancePowerUps);
+			
+			// custom debug
+			if (!stillHasUnexecutedHitsBarriers) Log.Info("ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more barrier hits"); 
+			if (!stillHasUnexecutedHitsEffects) Log.Info("ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more effect hits");
+			if (!stillHasUnexecutedHitsPowerUps) Log.Info("ExecuteUnexecutedHitsForMovementStageInDistanceOrder no more powerup hits");
+			// end custom
+			
+			stillHasUnexecutedHits = stillHasUnexecutedHitsBarriers
+			                         || stillHasUnexecutedHitsCTF
+			                         || stillHasUnexecutedHitsCTC
+			                         || stillHasUnexecutedHitsEffects
+			                         || stillHasUnexecutedHitsPowerUps;
+			if (stillHasUnexecutedHits)
 			{
-				float num6 = -1f;
-				if (flag2 && (num < num6 || num6 == -1f))
+				float nextUnexecutedHitDistance = -1f;
+				if (stillHasUnexecutedHitsBarriers
+				    && (nextUnexecutedHitDistanceBarriers < nextUnexecutedHitDistance || nextUnexecutedHitDistance == -1f))
 				{
-					num6 = num;
+					nextUnexecutedHitDistance = nextUnexecutedHitDistanceBarriers;
 				}
-				if (flag3 && (num2 < num6 || num6 == -1f))
+				if (stillHasUnexecutedHitsCTF
+				    && (nextUnexecutedHitDistanceCTF < nextUnexecutedHitDistance || nextUnexecutedHitDistance == -1f))
 				{
-					num6 = num2;
+					nextUnexecutedHitDistance = nextUnexecutedHitDistanceCTF;
 				}
-				if (flag4 && (num3 < num6 || num6 == -1f))
+				if (stillHasUnexecutedHitsCTC
+				    && (nextUnexecutedHitDistanceCTC < nextUnexecutedHitDistance || nextUnexecutedHitDistance == -1f))
 				{
-					num6 = num3;
+					nextUnexecutedHitDistance = nextUnexecutedHitDistanceCTC;
 				}
-				if (flag5 && (num4 < num6 || num6 == -1f))
+				if (stillHasUnexecutedHitsEffects
+				    && (nextUnexecutedHitDistanceEffects < nextUnexecutedHitDistance || nextUnexecutedHitDistance == -1f))
 				{
-					num6 = num4;
+					nextUnexecutedHitDistance = nextUnexecutedHitDistanceEffects;
 				}
-				if (flag6 && (num5 < num6 || num6 == -1f))
+				if (stillHasUnexecutedHitsPowerUps
+				    && (nextUnexecutedHitDistancePowerUps < nextUnexecutedHitDistance || nextUnexecutedHitDistance == -1f))
 				{
-					num6 = num5;
+					nextUnexecutedHitDistance = nextUnexecutedHitDistancePowerUps;
 				}
-				distance = num6;
+				distance = nextUnexecutedHitDistance;
 			}
 		}
 	}
@@ -2422,7 +2606,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			if (abilityRequest != null && abilityRequest.m_ability.RunPriority == AbilityPriority.Combat_Knockback)
 			{
-				ServerGameplayUtils.IntegrateHpDeltas(abilityRequest.m_additionalData.m_abilityResults.DamageResults, ref actorToHealthDelta);
+				ServerGameplayUtils.IntegrateHpDeltas(
+					abilityRequest.m_additionalData.m_abilityResults.DamageResults,
+					ref actorToHealthDelta);
 			}
 		}
 
@@ -2441,7 +2627,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		// end custom
 
-		ServerEffectManager.Get().IntegrateHpDeltasForEffects(AbilityPriority.Combat_Knockback, ref actorToHealthDelta, false);
+		ServerEffectManager.Get().IntegrateHpDeltasForEffects(
+			AbilityPriority.Combat_Knockback,
+			ref actorToHealthDelta, 
+			false);
+		
 		List<ActorData> dyingActors = new List<ActorData>();
 		foreach (ActorData actorData in actors)
 		{
@@ -2470,21 +2660,23 @@ public class ServerActionBuffer : NetworkBehaviour
 		return m_storedMovementRequests;
 	}
 
-	public void RecordAbilityAlertInitiator(ActorData actor)
-	{
-		int currentTurn = GameFlowData.Get().CurrentTurn;
-		if (m_combatInitiator == null || currentTurn > m_combatInitiatorRecordTurn)
-		{
-			m_combatInitiator = actor;
-			m_combatInitiatorRecordTurn = currentTurn;
-		}
-	}
+	// rogues
+	// public void RecordAbilityAlertInitiator(ActorData actor)
+	// {
+	// 	int currentTurn = GameFlowData.Get().CurrentTurn;
+	// 	if (m_combatInitiator == null || currentTurn > m_combatInitiatorRecordTurn)
+	// 	{
+	// 		m_combatInitiator = actor;
+	// 		m_combatInitiatorRecordTurn = currentTurn;
+	// 	}
+	// }
 
-	public void ClearAbilityAlertInitiator()
-	{
-		m_combatInitiator = null;
-		m_combatInitiatorRecordTurn = -1;
-	}
+	// rogues
+	// public void ClearAbilityAlertInitiator()
+	// {
+	// 	m_combatInitiator = null;
+	// 	m_combatInitiatorRecordTurn = -1;
+	// }
 
 	// rogues
 	// public ActorData GetAbilityAlertInitiator(int turn)
