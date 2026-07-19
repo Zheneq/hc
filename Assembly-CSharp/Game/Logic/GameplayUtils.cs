@@ -192,7 +192,7 @@ public static class GameplayUtils
 		{
 			if (ServerActionBuffer.Get() != null)
 			{
-				ServerActionBuffer.Get().CancelActionRequests(actorData, false);
+				ServerActionBuffer.Get().CancelActionRequests(actorData); // , false in rogues
 			}
 			if (GameFlowData.Get() != null)
 			{

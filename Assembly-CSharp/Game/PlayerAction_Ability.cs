@@ -35,7 +35,7 @@ public class PlayerAction_Ability : PlayerAction
 			if (abilityRequest.m_caster.IsDead())
 			{
 				abilityRequest.m_resolveState = AbilityRequest.AbilityResolveState.QUEUED;
-				ServerActionBuffer.Get().CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true, false);
+				ServerActionBuffer.Get().CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true); // , false in rogues
 				m_requests.RemoveAt(i);
 			}
 		}
@@ -154,7 +154,7 @@ public class PlayerAction_Ability : PlayerAction
 			if (abilityRequest.m_caster.IsDead())
 			{
 				abilityRequest.m_resolveState = AbilityRequest.AbilityResolveState.QUEUED;
-				ServerActionBuffer.Get().CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true, false);
+				ServerActionBuffer.Get().CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true); // , false in rogues
 				m_requests.RemoveAt(i);
 			}
 		}

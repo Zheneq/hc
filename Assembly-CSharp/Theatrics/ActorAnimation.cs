@@ -149,7 +149,7 @@ namespace Theatrics
 						if (value == PlaybackState.CantBeStarted)
 						{
 							Log.Error($"Can't start, cancelling: {this}, request resolve state was: {m_abilityRequest.m_resolveState}");
-							ServerActionBuffer.Get().CancelAbilityRequest(Caster, m_abilityRequest.m_ability, false, true);
+							ServerActionBuffer.Get().CancelAbilityRequest(Caster, m_abilityRequest.m_ability, false); // , true in rogues
 						}
 					}
 					else

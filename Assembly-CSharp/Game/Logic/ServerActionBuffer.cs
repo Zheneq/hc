@@ -20,7 +20,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	
 	private List<AbilityRequest> m_storedAbilityRequests;
 	private List<MovementRequest> m_storedMovementRequests;
-	private List<AbilityRequest> m_storedAbilityRequestsForNextTurn; // TODO SAB - rogues? Do we ever have requests for next turn in Reactor? Doesn't seem to be ever populated
+	// private List<AbilityRequest> m_storedAbilityRequestsForNextTurn; // rogues
 	private bool m_waitingForPlayPhaseEnded;
 	private List<MovementRequest> m_removedMovementRequestsFromForceChase;
 	internal bool m_gatheringFakeResults = true; // no default value in rogues
@@ -132,7 +132,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		m_storedAbilityRequests = new List<AbilityRequest>();
 		m_storedMovementRequests = new List<MovementRequest>();
-		m_storedAbilityRequestsForNextTurn = new List<AbilityRequest>();
+		// m_storedAbilityRequestsForNextTurn = new List<AbilityRequest>(); // rogues
 		m_removedMovementRequestsFromForceChase = new List<MovementRequest>();
 		
 		//m_playerActionFsm = new PlayerActionStateMachine(); // rogues
@@ -607,22 +607,17 @@ public class ServerActionBuffer : NetworkBehaviour
 		//Team actingTeam = GameFlowData.Get().ActingTeam;
 
 		m_storedAbilityRequests.Clear();
-		foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
-		{
-			if (
-				// rogues
-				//actingTeam == abilityRequest.m_caster.GetTeam() &&
-				!abilityRequest.m_caster.IsDead())
-			{
-				m_storedAbilityRequests.Add(abilityRequest);
-				OnAbilityRequestStored(abilityRequest);
-
-				// rogues
-				//GetPlayerActionFSM().RunQueuedActionsFromActor(abilityRequest.m_caster);
-			}
-		}
-		// custom
-		m_storedAbilityRequestsForNextTurn.Clear();
+		// rogues
+		// foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
+		// {
+		// 	if (actingTeam == abilityRequest.m_caster.GetTeam() &&
+		// 		!abilityRequest.m_caster.IsDead())
+		// 	{
+		// 		m_storedAbilityRequests.Add(abilityRequest);
+		// 		OnAbilityRequestStored(abilityRequest);
+		// 		GetPlayerActionFSM().RunQueuedActionsFromActor(abilityRequest.m_caster);
+		// 	}
+		// }
 		ClearMovementRequests();
 		// rogues
 		//m_storedAbilityRequestsForNextTurn.RemoveAll((AbilityRequest r) => r.m_caster.GetTeam() == actingTeam);
@@ -1468,29 +1463,30 @@ public class ServerActionBuffer : NetworkBehaviour
 		return list;
 	}
 
-	// TODO SAB next turn requests here too
-	public void CancelActionRequests(ActorData actor, bool keepFutureTurnRequests)
+	public void CancelActionRequests(ActorData actor
+		// , bool keepFutureTurnRequests // rogues
+		)
 	{
 		// rogues
 		//PveLog.DebugLog("Canceling Action Requests for " + actor.DebugNameString(), null);
 
 		CancelMovementRequests(actor);
-		CancelAbilityRequests(actor, false, keepFutureTurnRequests);
+		CancelAbilityRequests(actor, false); // , keepFutureTurnRequests in rogues
 	}
 	
-	// TODO SAB next turn requests here too
 	public void StoreAbilityRequest(
 		Ability ability,
 		AbilityData.ActionType actionType,
 		List<AbilityTarget> targets,
 		ActorData caster,
 		SequenceSource parentAbilitySequenceSource = null,
-		ChainAbilityAdditionalModInfo chainModInfo = null,
-		bool storeForNextTurn = false)
+		ChainAbilityAdditionalModInfo chainModInfo = null
+		// , bool storeForNextTurn = false // rogues
+		)
 	{
 		if (HasPendingAbilityRequest(caster, false) && !ability.IsFreeAction())
 		{
-			CancelAbilityRequests(caster, true, false);
+			CancelAbilityRequests(caster, true); // , false in rogues
 		}
 		if ((!caster.QueuedMovementAllowsAbility && ability.GetAffectsMovement()) || ability.CanOverrideMoveStartSquare())
 		{
@@ -1507,15 +1503,16 @@ public class ServerActionBuffer : NetworkBehaviour
 					m_skipTheatricsAnimEntry = ability.SkipTheatricsAnimationEntry(caster)
 				}
 			};
-			if (storeForNextTurn)
-			{
-				m_storedAbilityRequestsForNextTurn.Add(abilityRequest);
-			}
-			else
-			{
+			// rogues
+			// if (storeForNextTurn)
+			// {
+			// 	m_storedAbilityRequestsForNextTurn.Add(abilityRequest);
+			// }
+			// else
+			// {
 				m_storedAbilityRequests.Add(abilityRequest);
 				OnAbilityRequestStored(abilityRequest);
-			}
+			// }
 			// return;
 		}
 
@@ -2149,8 +2146,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		return result;
 	}
 
-	// TODO SAB next turn requests here too
-	public void CancelAbilityRequest(ActorData fromCaster, Ability ability, bool checkForAdditionalToCancel, bool keepFutureTurnRequests)
+	public void CancelAbilityRequest(ActorData fromCaster, Ability ability, bool checkForAdditionalToCancel) // , bool keepFutureTurnRequests in rogues
 	{
 		List<Ability> abilitiesToCancel = new List<Ability>();
 		List<Ability> chainAbilitiesToCancel = new List<Ability>();
@@ -2177,46 +2173,46 @@ public class ServerActionBuffer : NetworkBehaviour
 			break;
 		}
 		
-		if (!keepFutureTurnRequests)
-		{
-			foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
-			{
-				if (abilityRequest == null
-				    || abilityRequest.m_caster != fromCaster
-				    || abilityRequest.m_ability != ability)
-				{
-					continue;
-				}
-				
-				if (abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
-				{
-					HandleRemoveQueuedAbilityRequestForActor(
-						abilityRequest, fromCaster, checkForAdditionalToCancel, out List<Ability> collection2);
-					abilitiesToCancel.AddRange(collection2);
-					foreach (Ability abilityToCancel in abilityRequest.m_ability.GetChainAbilities())
-					{
-						chainAbilitiesToCancel.Add(abilityToCancel);
-					}
-					m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
-				}
-				break;
-			}
-		}
+		// rogues
+		// if (!keepFutureTurnRequests)
+		// {
+		// 	foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
+		// 	{
+		// 		if (abilityRequest == null
+		// 		    || abilityRequest.m_caster != fromCaster
+		// 		    || abilityRequest.m_ability != ability)
+		// 		{
+		// 			continue;
+		// 		}
+		// 		
+		// 		if (abilityRequest.m_resolveState == AbilityRequest.AbilityResolveState.QUEUED)
+		// 		{
+		// 			HandleRemoveQueuedAbilityRequestForActor(
+		// 				abilityRequest, fromCaster, checkForAdditionalToCancel, out List<Ability> collection2);
+		// 			abilitiesToCancel.AddRange(collection2);
+		// 			foreach (Ability abilityToCancel in abilityRequest.m_ability.GetChainAbilities())
+		// 			{
+		// 				chainAbilitiesToCancel.Add(abilityToCancel);
+		// 			}
+		// 			m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
+		// 		}
+		// 		break;
+		// 	}
+		// }
 		foreach (Ability abilityToCancel in chainAbilitiesToCancel)
 		{
-			CancelAbilityRequest(fromCaster, abilityToCancel, false, keepFutureTurnRequests);
+			CancelAbilityRequest(fromCaster, abilityToCancel, false); // , keepFutureTurnRequests in rogues
 		}
 		foreach (Ability abilityToCancel in abilitiesToCancel)
 		{
-			CancelAbilityRequest(fromCaster, abilityToCancel, false, keepFutureTurnRequests);
+			CancelAbilityRequest(fromCaster, abilityToCancel, false); // , keepFutureTurnRequests in rogues
 		}
 
 		// rogues
 		//fromCaster.GetActorTurnSM().UpdateHasStoredAbilityRequestFlag();
 	}
 
-	// TODO SAB next turn requests here too
-	public void CancelAbilityRequests(ActorData fromCaster, bool keepFreeActions, bool keepFutureTurnRequests)
+	public void CancelAbilityRequests(ActorData fromCaster, bool keepFreeActions) // , bool keepFutureTurnRequests in rogues
 	{
 		List<AbilityRequest> requestsToCancel = new List<AbilityRequest>();
 		List<Ability> abilitiesToCancel = new List<Ability>();
@@ -2230,27 +2226,32 @@ public class ServerActionBuffer : NetworkBehaviour
 				requestsToCancel.Add(abilityRequest);
 			}
 		}
-		if (!keepFutureTurnRequests)
-		{
-			foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
-			{
-				if (abilityRequest != null && abilityRequest.m_caster == fromCaster)
-				{
-					requestsToCancel.Add(abilityRequest);
-				}
-			}
-		}
+		
+		// rogues
+		// if (!keepFutureTurnRequests)
+		// {
+		// 	foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
+		// 	{
+		// 		if (abilityRequest != null && abilityRequest.m_caster == fromCaster)
+		// 		{
+		// 			requestsToCancel.Add(abilityRequest);
+		// 		}
+		// 	}
+		// }
+		
 		foreach (AbilityRequest abilityRequest in requestsToCancel)
 		{
 			m_storedAbilityRequests.Remove(abilityRequest);
-			if (!keepFutureTurnRequests)
-			{
-				m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
-			}
+			
+			// rogues
+			// if (!keepFutureTurnRequests)
+			// {
+			// 	m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
+			// }
 		}
 		foreach (Ability ability in abilitiesToCancel)
 		{
-			CancelAbilityRequest(fromCaster, ability, false, keepFutureTurnRequests);
+			CancelAbilityRequest(fromCaster, ability, false); // , keepFutureTurnRequests in rogues
 		}
 
 		// rogues
@@ -2307,7 +2308,6 @@ public class ServerActionBuffer : NetworkBehaviour
 	}
 
 	// TODO SAB - never called - currently called in PlayerAction.PrepareResults
-	// TODO SAB next turn requests here too
 	private void ClearRequestsOfDeadActors()
 	{
 		List<AbilityRequest> abilitiesToCancel = new List<AbilityRequest>();
@@ -2318,19 +2318,22 @@ public class ServerActionBuffer : NetworkBehaviour
 				abilitiesToCancel.Add(abilityRequest);
 			}
 		}
-		foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
-		{
-			if (abilityRequest.m_caster.IsDead())
-			{
-				abilitiesToCancel.Add(abilityRequest);
-			}
-		}
+		
+		// rogues
+		// foreach (AbilityRequest abilityRequest in m_storedAbilityRequestsForNextTurn)
+		// {
+		// 	if (abilityRequest.m_caster.IsDead())
+		// 	{
+		// 		abilitiesToCancel.Add(abilityRequest);
+		// 	}
+		// }
+		
 		foreach (AbilityRequest abilityRequest in abilitiesToCancel)
 		{
 			abilityRequest.m_caster.GetComponent<AbilityData>().SetQueuedAction(abilityRequest.m_actionType, false);
 			abilityRequest.m_caster.InitialMoveStartSquare = abilityRequest.m_caster.GetCurrentBoardSquare();
 			m_storedAbilityRequests.Remove(abilityRequest);
-			m_storedAbilityRequestsForNextTurn.Remove(abilityRequest);
+			// m_storedAbilityRequestsForNextTurn.Remove(abilityRequest); // rogues
 		}
 		
 		List<MovementRequest> movementToCancel = new List<MovementRequest>();

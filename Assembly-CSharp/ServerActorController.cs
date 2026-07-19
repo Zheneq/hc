@@ -362,7 +362,7 @@ public class ServerActorController : MonoBehaviour
 			// 	}
 			// }
 
-			ServerActionBuffer.Get().CancelAbilityRequest(actorData, ability, true, false);
+			ServerActionBuffer.Get().CancelAbilityRequest(actorData, ability, true); // , false in rogues
 			
 			// custom
 			// TODO hack? Is there a better way to recalculate this flag?
@@ -424,7 +424,7 @@ public class ServerActorController : MonoBehaviour
 	public virtual void CancelActionRequestsForTurnStart()
 	{
 		ActorData actorData = GetComponent<ActorData>();
-		ServerActionBuffer.Get().CancelActionRequests(actorData, true);
+		ServerActionBuffer.Get().CancelActionRequests(actorData); // , true in rogues
 		AbilityData abilityData = GetComponent<AbilityData>();
 		if (abilityData)
 		{
