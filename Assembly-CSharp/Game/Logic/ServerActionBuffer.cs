@@ -208,6 +208,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			if (abilityRequest.m_caster != null)
 			{
 				// custom
+				// TODO SAB - those tags used in custom conditions exist in Reactor and used in Rogues - we should probably stick to rogues version without these conditions
 				bool isHostileHit = abilityRequest.m_additionalData.m_abilityResults.HitActorsArray()
 					.Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam());
 				bool shouldRevealOnHit = abilityRequest.m_ability != null
