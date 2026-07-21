@@ -293,7 +293,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             if (TurninRegionState_TeamB != TurninRegionState.Active)
             {
-                
                 return null;
             }
 
@@ -326,7 +325,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
                 || m_potentialFlagTurnins.Count == 0
                 || m_potentialTurninsAreTeamSpecific)
             {
-                
                 return m_flagTurninNeutral;
             }
 
@@ -345,14 +343,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         [param: In]
         set
         {
-            if (NetworkServer.localClientActive)
+            if (NetworkServer.localClientActive && !syncVarHookGuard)
             {
-                if (!syncVarHookGuard)
-                {
-                    syncVarHookGuard = true;
-                    HookSetTurninRegionState_TeamA(value);
-                    syncVarHookGuard = false;
-                }
+                syncVarHookGuard = true;
+                HookSetTurninRegionState_TeamA(value);
+                syncVarHookGuard = false;
             }
 
             SetSyncVar(value, ref m_turninRegionState_TeamA, 1u);
@@ -365,14 +360,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         [param: In]
         set
         {
-            if (NetworkServer.localClientActive)
+            if (NetworkServer.localClientActive && !syncVarHookGuard)
             {
-                if (!syncVarHookGuard)
-                {
-                    syncVarHookGuard = true;
-                    HookSetTurninRegionState_TeamB(value);
-                    syncVarHookGuard = false;
-                }
+                syncVarHookGuard = true;
+                HookSetTurninRegionState_TeamB(value);
+                syncVarHookGuard = false;
             }
 
             SetSyncVar(value, ref m_turninRegionState_TeamB, 2u);
@@ -385,14 +377,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         [param: In]
         set
         {
-            if (NetworkServer.localClientActive)
+            if (NetworkServer.localClientActive && !syncVarHookGuard)
             {
-                if (!syncVarHookGuard)
-                {
-                    syncVarHookGuard = true;
-                    HookSetTurninRegionState_Neutral(value);
-                    syncVarHookGuard = false;
-                }
+                syncVarHookGuard = true;
+                HookSetTurninRegionState_Neutral(value);
+                syncVarHookGuard = false;
             }
 
             SetSyncVar(value, ref m_turninRegionState_Neutral, 4u);
@@ -422,14 +411,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         [param: In]
         set
         {
-            if (NetworkServer.localClientActive)
+            if (NetworkServer.localClientActive && !syncVarHookGuard)
             {
-                if (!syncVarHookGuard)
-                {
-                    syncVarHookGuard = true;
-                    HookSetTurninRegionIndex_TeamB(value);
-                    syncVarHookGuard = false;
-                }
+                syncVarHookGuard = true;
+                HookSetTurninRegionIndex_TeamB(value);
+                syncVarHookGuard = false;
             }
 
             SetSyncVar(value, ref m_turninRegionIndex_TeamB, 16u);
@@ -442,14 +428,11 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         [param: In]
         set
         {
-            if (NetworkServer.localClientActive)
+            if (NetworkServer.localClientActive && !syncVarHookGuard)
             {
-                if (!syncVarHookGuard)
-                {
-                    syncVarHookGuard = true;
-                    HookSetTurninRegionIndex_Neutral(value);
-                    syncVarHookGuard = false;
-                }
+                syncVarHookGuard = true;
+                HookSetTurninRegionIndex_Neutral(value);
+                syncVarHookGuard = false;
             }
 
             SetSyncVar(value, ref m_turninRegionIndex_Neutral, 32u);
@@ -825,17 +808,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             }
         }
 
-        if (wasHoldingFlag)
+        if (wasHoldingFlag && ObjectivePoints.Get() != null)
         {
-            if (ObjectivePoints.Get() != null)
-            {
-                ObjectivePoints.Get().AdjustUnresolvedPoints(
-                    m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder,
-                    actor.GetTeam());
-                ObjectivePoints.Get().AdjustUnresolvedPoints(
-                    m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder,
-                    actor.GetEnemyTeam());
-            }
+            ObjectivePoints.Get().AdjustUnresolvedPoints(
+                m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder,
+                actor.GetTeam());
+            ObjectivePoints.Get().AdjustUnresolvedPoints(
+                m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder,
+                actor.GetEnemyTeam());
         }
 
         foreach (ActorData killer in deathblowsBy)
@@ -1058,36 +1038,30 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             args as GameEventManager.ActorHitHealthChangeArgs;
         bool fromCharacterSpecificAbility = actorHitHealthChangeArgs.m_fromCharacterSpecificAbility;
         List<CTF_Flag> flagsHeldByCaster = GetFlagsHeldByActor_Client(actorHitHealthChangeArgs.m_caster);
-        if (flagsHeldByCaster != null && flagsHeldByCaster.Count > 0)
+        if (flagsHeldByCaster != null
+            && flagsHeldByCaster.Count > 0
+            && actorHitHealthChangeArgs.m_caster != null)
         {
-            if (actorHitHealthChangeArgs.m_caster != null)
-            {
-                Team team = actorHitHealthChangeArgs.m_caster.GetTeam();
-                Team opposingTeam = actorHitHealthChangeArgs.m_caster.GetEnemyTeam();
-                float pointsPerHealthChangeFlagHolderTeam = GetPointsPerHealthChange(
-                    m_objectivePointsData_flagHoldersTeam,
-                    actorHitHealthChangeArgs.m_type,
-                    true,
-                    fromCharacterSpecificAbility);
-                float pointsPerHealthChangeOtherTeam = GetPointsPerHealthChange(
-                    m_objectivePointsData_otherTeam,
-                    actorHitHealthChangeArgs.m_type,
-                    true,
-                    fromCharacterSpecificAbility);
-                int pointsFlagHolderTeam = Mathf.RoundToInt(pointsPerHealthChangeFlagHolderTeam * actorHitHealthChangeArgs.m_amount);
-                int pointsOtherTeam = Mathf.RoundToInt(pointsPerHealthChangeOtherTeam * actorHitHealthChangeArgs.m_amount);
-                AdjustObjectivePoints(pointsFlagHolderTeam, team, clientMode);
-                AdjustObjectivePoints(pointsOtherTeam, opposingTeam, clientMode);
-            }
+            Team team = actorHitHealthChangeArgs.m_caster.GetTeam();
+            Team opposingTeam = actorHitHealthChangeArgs.m_caster.GetEnemyTeam();
+            float pointsPerHealthChangeFlagHolderTeam = GetPointsPerHealthChange(
+                m_objectivePointsData_flagHoldersTeam,
+                actorHitHealthChangeArgs.m_type,
+                true,
+                fromCharacterSpecificAbility);
+            float pointsPerHealthChangeOtherTeam = GetPointsPerHealthChange(
+                m_objectivePointsData_otherTeam,
+                actorHitHealthChangeArgs.m_type,
+                true,
+                fromCharacterSpecificAbility);
+            int pointsFlagHolderTeam = Mathf.RoundToInt(pointsPerHealthChangeFlagHolderTeam * actorHitHealthChangeArgs.m_amount);
+            int pointsOtherTeam = Mathf.RoundToInt(pointsPerHealthChangeOtherTeam * actorHitHealthChangeArgs.m_amount);
+            AdjustObjectivePoints(pointsFlagHolderTeam, team, clientMode);
+            AdjustObjectivePoints(pointsOtherTeam, opposingTeam, clientMode);
         }
 
         List<CTF_Flag> flagsHeldByTarget = GetFlagsHeldByActor_Client(actorHitHealthChangeArgs.m_target);
-        if (flagsHeldByTarget == null)
-        {
-            return;
-        }
-
-        if (flagsHeldByTarget.Count > 0)
+        if (flagsHeldByTarget != null && flagsHeldByTarget.Count > 0)
         {
             Team team = actorHitHealthChangeArgs.m_target.GetTeam();
             Team opposingTeam = actorHitHealthChangeArgs.m_target.GetEnemyTeam();
@@ -1125,14 +1099,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
                 return outgoing
                     ? data.m_pointsPerDamageDealtByFlagHolder
                     : data.m_pointsPerDamageTakenByFlagHolder;
-            case GameEventManager.ActorHitHealthChangeArgs.ChangeType.Healing when outgoing:
-                return data.m_pointsPerHealingDealtByFlagHolder;
             case GameEventManager.ActorHitHealthChangeArgs.ChangeType.Healing:
-                return data.m_pointsPerHealingTakenByFlagHolder;
-            case GameEventManager.ActorHitHealthChangeArgs.ChangeType.Absorb when outgoing:
-                return data.m_pointsPerAbsorbDealtByFlagHolder;
+                return outgoing
+                    ? data.m_pointsPerHealingDealtByFlagHolder
+                    : data.m_pointsPerHealingTakenByFlagHolder;
             case GameEventManager.ActorHitHealthChangeArgs.ChangeType.Absorb:
-                return data.m_pointsPerAbsorbTakenByFlagHolder;
+                return outgoing
+                    ? data.m_pointsPerAbsorbDealtByFlagHolder
+                    : data.m_pointsPerAbsorbTakenByFlagHolder;
             default:
                 return 0f;
         }
@@ -1221,7 +1195,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         }
 
         return true;
-
     }
 
     protected void HookSetTurninRegionState_TeamA(int turninRegionState_TeamA)
@@ -1345,7 +1318,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
                     .m_offscreenIndicatorPanel
                     .RemoveCtfFlagTurnInRegion(FlagTurninRegion_TeamA);
             }
-
         }
     }
 
@@ -1380,7 +1352,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
                     .m_offscreenIndicatorPanel
                     .RemoveCtfFlagTurnInRegion(FlagTurninRegion_TeamB);
             }
-
         }
     }
 
@@ -1411,7 +1382,6 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
                     .m_offscreenIndicatorPanel
                     .RemoveCtfFlagTurnInRegion(FlagTurninRegion_Neutral);
             }
-
         }
     }
 
@@ -1581,12 +1551,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             AdjustPositionOfObjToOscillation(m_autoBoundary_turnin_neutral, 0f);
             SetBoundaryColor(
-                color: new Color(
-                    m_primaryColor_neutral.r * 0.5f,
-                    m_primaryColor_neutral.g * 0.5f,
-                    m_primaryColor_neutral.b * 0.5f,
-                    m_primaryColor_neutral.a * 0.5f),
-                autoBoundary: m_autoBoundary_turnin_neutral);
+                m_autoBoundary_turnin_neutral,
+                new Color(
+                m_primaryColor_neutral.r * 0.5f,
+                m_primaryColor_neutral.g * 0.5f,
+                m_primaryColor_neutral.b * 0.5f,
+                m_primaryColor_neutral.a * 0.5f));
         }
 
         if (TurninRegionState_TeamA != TurninRegionState.Disabled)
@@ -1602,8 +1572,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             AdjustPositionOfObjToOscillation(m_autoBoundary_turnin_teamA, 0f);
             SetBoundaryColor(
-                color: new Color(color.r * 0.5f, color.g * 0.5f, color.b * 0.5f, color.a * 0.5f),
-                autoBoundary: m_autoBoundary_turnin_teamA);
+                m_autoBoundary_turnin_teamA,
+                new Color(color.r * 0.5f, color.g * 0.5f, color.b * 0.5f, color.a * 0.5f));
         }
 
         if (TurninRegionState_TeamB != TurninRegionState.Disabled)
@@ -1617,8 +1587,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             AdjustPositionOfObjToOscillation(m_autoBoundary_turnin_teamB, 0f);
             SetBoundaryColor(
-                color: new Color(color2.r * 0.5f, color2.g * 0.5f, color2.b * 0.5f, color2.a * 0.5f),
-                autoBoundary: m_autoBoundary_turnin_teamB);
+                m_autoBoundary_turnin_teamB,
+                new Color(color2.r * 0.5f, color2.g * 0.5f, color2.b * 0.5f, color2.a * 0.5f));
         }
 
         GetFlagCarrierDamageTillDropProgressForUI(out float cur, out float max);
@@ -1963,11 +1933,9 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             HookSetNumFlagDrops((int)reader.ReadPackedUInt32());
         }
 
-        if ((num & 0x80) == 0)
+        if ((num & 0x80) != 0)
         {
-            return;
+            m_sequenceSourceId = reader.ReadPackedUInt32();
         }
-
-        m_sequenceSourceId = reader.ReadPackedUInt32();
     }
 }
