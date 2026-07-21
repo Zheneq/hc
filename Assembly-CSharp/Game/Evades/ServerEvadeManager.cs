@@ -369,15 +369,14 @@ public class ServerEvadeManager
 		ServerEffectManager.Get().GatherAllEffectResultsInResponseToEvades(movementCollection);
 		BarrierManager.Get().GatherAllBarrierResultsInResponseToEvades(movementCollection);
 		PowerUpManager.Get().GatherAllPowerupResultsInResponseToEvades(movementCollection);
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	CaptureTheFlag.Get().GatherResultsInResponseToEvades(movementCollection);
-		//}
-		//if (CollectTheCoins.Get() != null)
-		//{
-		//	CollectTheCoins.Get().GatherResultsInResponseToEvades(movementCollection);
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			CaptureTheFlag.Get().GatherResultsInResponseToEvades(movementCollection);
+		}
+		if (CollectTheCoins.Get() != null)
+		{
+			CollectTheCoins.Get().GatherResultsInResponseToEvades(movementCollection);
+		}
 		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
 			movementCollection, 
 			out actorsThatWillBeSeenButArentMoving,

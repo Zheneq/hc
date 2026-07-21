@@ -358,11 +358,10 @@ public class ServerCombatManager : MonoBehaviour
 			BrushCoordinator.Get().OnDamaged_HandleConcealment(target, caster, damageSource, finalDamageAmount, damageType);
 		}
 		ServerEffectManager.Get().OnUnresolvedDamage(actorHitResults);
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null && num != 0)
-		//{
-		//	CaptureTheFlag.Get().OnUnresolvedDamage_Ctf(target, num);
-		//}
+		if (CaptureTheFlag.Get() != null && finalDamageAmount != 0)
+		{
+			CaptureTheFlag.Get().OnUnresolvedDamage_Ctf(target, finalDamageAmount);
+		}
 	}
 
 	// added in rogues
@@ -797,11 +796,10 @@ public class ServerCombatManager : MonoBehaviour
 	// added in rogues
 	private void NotifyOnResolvedHitPoints()
 	{
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	CaptureTheFlag.Get().OnResolvedHitPoints_Ctf();
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			CaptureTheFlag.Get().OnResolvedHitPoints_Ctf();
+		}
 	}
 
 	// added in rogues

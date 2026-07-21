@@ -472,15 +472,14 @@ public static class ServerGameplayUtils
 			ServerEffectManager.Get().GatherGrossDamageResults_Effects_Evasion(ref dictionary2, ref dictionary);
 			BarrierManager.Get().GatherGrossDamageResults_Barriers_Evasion(ref dictionary2, ref dictionary);
 			PowerUpManager.Get().GatherGrossDamageResults_PowerUps_Evasion(ref dictionary2, ref dictionary);
-			// TODO CTF CTC
-			//if (CaptureTheFlag.Get() != null)
-			//{
-			//	CaptureTheFlag.Get().GatherGrossDamageResults_Ctf_Evasion(ref dictionary2, ref dictionary);
-			//}
-			//if (CollectTheCoins.Get() != null)
-			//{
-			//	CollectTheCoins.Get().GatherGrossDamageResults_Ctc_Evasion(ref dictionary2, ref dictionary);
-			//}
+			if (CaptureTheFlag.Get() != null)
+			{
+				CaptureTheFlag.Get().GatherGrossDamageResults_Ctf_Evasion(ref dictionary2, ref dictionary);
+			}
+			if (CollectTheCoins.Get() != null)
+			{
+				CollectTheCoins.Get().GatherGrossDamageResults_Ctc_Evasion(ref dictionary2, ref dictionary);
+			}
 		}
 		return dictionary;
 	}
@@ -692,17 +691,16 @@ public static class ServerGameplayUtils
 					OnWillDie();
 				}
 			}
-			// TODO CTF CTC
-			//if (CaptureTheFlag.Get() != null)
-			//{
-			//	CaptureTheFlag.Get().GatherCtfResultsInResponseToMovementSegment(this, movementStage, ref movementResultsList4);
-			//	ProcessMovementResults(movementResultsList4);
-			//}
-			//if (CollectTheCoins.Get() != null)
-			//{
-			//	CollectTheCoins.Get().GatherCtcResultsInResponseToMovementSegment(this, movementStage, ref movementResultsList4);
-			//	ProcessMovementResults(movementResultsList4);
-			//}
+			if (CaptureTheFlag.Get() != null)
+			{
+				CaptureTheFlag.Get().GatherCtfResultsInResponseToMovementSegment(this, movementStage, ref movementResultsList4);
+				ProcessMovementResults(movementResultsList4);
+			}
+			if (CollectTheCoins.Get() != null)
+			{
+				CollectTheCoins.Get().GatherCtcResultsInResponseToMovementSegment(this, movementStage, ref movementResultsList4);
+				ProcessMovementResults(movementResultsList4);
+			}
 		}
 
 		public bool WillHaveDiedByNow(float distanceGoal)

@@ -1407,15 +1407,14 @@ public class GameFlow : NetworkBehaviour
 		ServerActionBuffer.Get().OnTurnStart();
 		BarrierManager.Get().OnTurnStart();
 		ServerEffectManager.GetSharedEffectBarrierManager().OnTurnStart();
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	CaptureTheFlag.Get().OnTurnStart();
-		//}
-		//if (CollectTheCoins.Get() != null)
-		//{
-		//	CollectTheCoins.Get().OnTurnStart();
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			CaptureTheFlag.Get().OnTurnStart();
+		}
+		if (CollectTheCoins.Get() != null)
+		{
+			CollectTheCoins.Get().OnTurnStart();
+		}
 		if (CoinCarnageManager.Get() != null)
 		{
 			CoinCarnageManager.Get().OnTurnStart();
@@ -1917,15 +1916,14 @@ public class GameFlow : NetworkBehaviour
 
 		//if (goingIntoNewTurn) // rogues
 		//{
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	CaptureTheFlag.Get().OnTurnEnd();
-		//}
-		//if (CollectTheCoins.Get() != null)
-		//{
-		//	CollectTheCoins.Get().OnTurnEnd();
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			CaptureTheFlag.Get().OnTurnEnd();
+		}
+		if (CollectTheCoins.Get() != null)
+		{
+			CollectTheCoins.Get().OnTurnEnd();
+		}
 		if (ObjectivePoints.Get() != null)
 		{
 			ObjectivePoints.Get().OnTurnEnd();

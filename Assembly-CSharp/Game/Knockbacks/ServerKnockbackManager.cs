@@ -278,15 +278,14 @@ public class ServerKnockbackManager
 		ServerEffectManager.Get().GatherAllEffectResultsInResponseToKnockbacks(movementCollection);
 		BarrierManager.Get().GatherAllBarrierResultsInResponseToKnockbacks(movementCollection);
 		PowerUpManager.Get().GatherAllPowerupResultsInResponseToKnockbacks(movementCollection);
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	CaptureTheFlag.Get().GatherResultsInResponseToKnockbacks(movementCollection);
-		//}
-		//if (CollectTheCoins.Get() != null)
-		//{
-		//	CollectTheCoins.Get().GatherResultsInResponseToKnockbacks(movementCollection);
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			CaptureTheFlag.Get().GatherResultsInResponseToKnockbacks(movementCollection);
+		}
+		if (CollectTheCoins.Get() != null)
+		{
+			CollectTheCoins.Get().GatherResultsInResponseToKnockbacks(movementCollection);
+		}
 		if (m_actorIncomingKnockbacks.Count > 0)
 		{
 			ServerGameplayUtils.SetServerLastKnownPositionsForMovement(

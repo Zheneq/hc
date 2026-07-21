@@ -22,19 +22,20 @@ public class GameModeEvent
 
 	public void ExecuteGameModeEvent()
 	{
-		// TODO CTF CTC
-		//if (GameModeUtils.IsCtfGameModeEvent(this))
-		//{
-		//	if (CaptureTheFlag.Get() != null)
-		//	{
-		//		CaptureTheFlag.Get().ExecuteServerGameModeEvent(this);
-		//		return;
-		//	}
-		//}
-		//else if (GameModeUtils.IsCtcGameModeEvent(this) && CollectTheCoins.Get() != null)
-		//{
-		//	CollectTheCoins.Get().ExecuteServerGameModeEvent(this);
-		//}
+		if (GameModeUtils.IsCtfGameModeEvent(this))
+		{
+			if (CaptureTheFlag.Get() != null)
+			{
+				CaptureTheFlag.Get().ExecuteServerGameModeEvent(this);
+			}
+		}
+		else if (GameModeUtils.IsCtcGameModeEvent(this))
+		{
+			if (CollectTheCoins.Get() != null)
+			{
+				CollectTheCoins.Get().ExecuteServerGameModeEvent(this);
+			}
+		}
 	}
 
 	public bool AppliesStatusToActor(StatusType status, ActorData actor)

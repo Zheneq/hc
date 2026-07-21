@@ -494,15 +494,14 @@ public class ServerActionBuffer : NetworkBehaviour
 		ServerEffectManager.Get().ClearAllEffectResultsForNormalMovement();
 		BarrierManager.Get().ClearAllBarrierResultsForNormalMovement();
 		PowerUpManager.Get().ClearAllPowerupResultsForNormalMovement();
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	CaptureTheFlag.Get().ClearNormalMovementResults();
-		//}
-		//if (CollectTheCoins.Get() != null)
-		//{
-		//	CollectTheCoins.Get().ClearNormalMovementResults();
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			CaptureTheFlag.Get().ClearNormalMovementResults();
+		}
+		if (CollectTheCoins.Get() != null)
+		{
+			CollectTheCoins.Get().ClearNormalMovementResults();
+		}
 		ClearIgnoreCantSprintFlags();
 		ClearMoveRangeCompensation();
 	}
@@ -2373,29 +2372,27 @@ public class ServerActionBuffer : NetworkBehaviour
 			
 			bool stillHasUnexecutedHitsCTF;
 			float nextUnexecutedHitDistanceCTF;
-			// TODO CTF CTC
-			//if (CaptureTheFlag.Get() != null)
-			//{
-			//	CaptureTheFlag.Get().ExecuteUnexecutedMovementResultsForDistance_Ctf(distance, stage, asFailsafe, out stillHasUnexecutedHitsCTF, out nextUnexecutedHitDistanceCTF);
-			//}
-			//else
-			//{
+			if (CaptureTheFlag.Get() != null)
+			{
+				CaptureTheFlag.Get().ExecuteUnexecutedMovementResultsForDistance_Ctf(distance, stage, asFailsafe, out stillHasUnexecutedHitsCTF, out nextUnexecutedHitDistanceCTF);
+			}
+			else
+			{
 				stillHasUnexecutedHitsCTF = false;
 				nextUnexecutedHitDistanceCTF = -1f;
-			//}
+			}
 			
 			bool stillHasUnexecutedHitsCTC;
 			float nextUnexecutedHitDistanceCTC;
-			// TODO CTF CTC
-			//if (CollectTheCoins.Get() != null)
-			//{
-			//	CollectTheCoins.Get().ExecuteUnexecutedMovementResultsForDistance_Ctc(distance, stage, asFailsafe, out stillHasUnexecutedHitsCTC, out nextUnexecutedHitDistance);
-			//}
-			//else
-			//{
+			if (CollectTheCoins.Get() != null)
+			{
+				CollectTheCoins.Get().ExecuteUnexecutedMovementResultsForDistance_Ctc(distance, stage, asFailsafe, out stillHasUnexecutedHitsCTC, out nextUnexecutedHitDistanceCTC);
+			}
+			else
+			{
 				stillHasUnexecutedHitsCTC = false;
 				nextUnexecutedHitDistanceCTC = -1f;
-			//}
+			}
 
 			ServerEffectManager.Get().ExecuteUnexecutedMovementHitsForAllEffectsForDistance(
 				distance,

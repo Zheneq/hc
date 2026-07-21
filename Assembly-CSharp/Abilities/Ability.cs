@@ -2619,9 +2619,7 @@ public class Ability : MonoBehaviour
 		}
 		bool flag2 = effectOnSelf != null && effectOnSelf.m_applyEffect && GameplayRandom.GetUniform() <= (double)chanceToApplyEffect;
 		bool flag3 = cooldownReductions.HasCooldownReduction();
-		bool flag4 = false;
-		//TODO CTF CTC
-		//bool flag4 = CollectTheCoins.Get() != null && CollectTheCoins.Get().HasModForAbility(ability, caster);
+		bool flag4 = CollectTheCoins.Get() != null && CollectTheCoins.Get().HasModForAbility(ability, caster);
 		if (flag2 || flag3 || flag4)
 		{
 			ActorHitResults actorHitResults;
@@ -2655,12 +2653,11 @@ public class Ability : MonoBehaviour
 			}
 			if (flag4)
 			{
-				// TODO CTF CTC
-				//AbilityModCooldownReduction abilityModCooldownReduction = CollectTheCoins.Get().CreateAbilityModCooldownReductionForAbility(ability, caster);
-				//if (abilityModCooldownReduction != null)
-				//{
-				//	abilityModCooldownReduction.AppendCooldownMiscEvents(actorHitResults, flag, num, num2);
-				//}
+				AbilityModCooldownReduction abilityModCooldownReduction = CollectTheCoins.Get().CreateAbilityModCooldownReductionForAbility(ability, caster);
+				if (abilityModCooldownReduction != null)
+				{
+					abilityModCooldownReduction.AppendCooldownMiscEvents(actorHitResults, flag, num, num2);
+				}
 			}
 		}
 	}

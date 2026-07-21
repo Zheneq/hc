@@ -288,8 +288,7 @@ public class ScoundrelBouncingLaser : Ability
 		int baseDamage = GetBaseDamage();
 		if (CollectTheCoins.Get() != null)
 		{
-			// TODO CTC There must be server-side bonus impl
-			baseDamage += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Client(ActorData));
+			baseDamage += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserDamage.GetBonus_Server(ActorData));
 		}
 		GetHitActors(
 			caster,
@@ -332,11 +331,10 @@ public class ScoundrelBouncingLaser : Ability
 		int maxTargetsHit = GetMaxTargetHits();
 		if (CollectTheCoins.Get() != null)
 		{
-			// TODO CTC There must be server-side bonus impl
-			maxTotalDistance += CollectTheCoins.Get().m_bouncingLaserTotalDistance.GetBonus_Client(caster);
-			maxDistancePerBounce += CollectTheCoins.Get().m_bouncingLaserBounceDistance.GetBonus_Client(caster);
-			maxBounces += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserBounces.GetBonus_Client(caster));
-			maxTargetsHit += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserPierces.GetBonus_Client(caster));
+			maxTotalDistance += CollectTheCoins.Get().m_bouncingLaserTotalDistance.GetBonus_Server(caster);
+			maxDistancePerBounce += CollectTheCoins.Get().m_bouncingLaserBounceDistance.GetBonus_Server(caster);
+			maxBounces += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserBounces.GetBonus_Server(caster));
+			maxTargetsHit += Mathf.RoundToInt(CollectTheCoins.Get().m_bouncingLaserPierces.GetBonus_Server(caster));
 		}
 		return VectorUtils.CalculateBouncingLaserEndpoints(
 			casterPos,

@@ -1837,20 +1837,18 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			{
 				ObjectivePoints.Get().Server_OnActorDeath(actor);
 			}
-			// TODO CTF CTC
-			//if (CaptureTheFlag.Get() != null)
-			//{
-			//	CaptureTheFlag.Get().OnActorDeath(actor);
-			//}
+			if (CaptureTheFlag.Get() != null)
+			{
+				CaptureTheFlag.Get().OnActorDeath(actor);
+			}
 			if (CoinCarnageManager.Get() != null)
 			{
 				CoinCarnageManager.Get().OnActorDeath(actor);
 			}
-			// TODO CTF CTC
-			//if (CollectTheCoins.Get() != null)
-			//{
-			//	CollectTheCoins.Get().OnActorDeath(actor);
-			//}
+			if (CollectTheCoins.Get() != null)
+			{
+				CollectTheCoins.Get().OnActorDeath(actor);
+			}
 			// TODO NPC
 			//if (NPCCoordinator.Get() != null)
 			//{

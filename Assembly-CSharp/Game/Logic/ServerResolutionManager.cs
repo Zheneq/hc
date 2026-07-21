@@ -939,15 +939,14 @@ public class ServerResolutionManager : NetworkBehaviour
 				}
 			}
 		}
-		// TODO CTF CTC
-		//if (CaptureTheFlag.Get() != null)
-		//{
-		//	AddMovementResultsListToResolutionActionList(CaptureTheFlag.Get().GetMovementResultsForMovementStage(stage), ref actions);
-		//}
-		//if (CollectTheCoins.Get() != null)
-		//{
-		//	AddMovementResultsListToResolutionActionList(CollectTheCoins.Get().GetMovementResultsForMovementStage(stage), ref actions);
-		//}
+		if (CaptureTheFlag.Get() != null)
+		{
+			AddMovementResultsListToResolutionActionList(CaptureTheFlag.Get().GetMovementResultsForMovementStage(stage), ref actions);
+		}
+		if (CollectTheCoins.Get() != null)
+		{
+			AddMovementResultsListToResolutionActionList(CollectTheCoins.Get().GetMovementResultsForMovementStage(stage), ref actions);
+		}
 	}
 
 	public void SendNonResolutionActionToClients(MovementResults moveResults)
