@@ -29,12 +29,12 @@ public class CollectTheCoins : NetworkBehaviour
         {
             bool isOverMin = numCoins >= m_minCoinsForAnyBonus || m_minCoinsForAnyBonus == -1f;
             bool isUnderMax = numCoins <= m_maxCoinsForAnyBonus || m_maxCoinsForAnyBonus == -1f;
-            
+
             if (!isOverMin || !isUnderMax)
             {
                 return 0f;
             }
-            
+
             float bonus = m_bonusForHavingMin + m_bonusPerCoinOverMin * (numCoins - m_minCoinsForAnyBonus);
             if (m_maxBonus >= 0f)
             {
@@ -195,23 +195,21 @@ public class CollectTheCoins : NetworkBehaviour
         }
 
         GameModeEventType eventType = gameModeEvent.m_eventType;
-        if (eventType == GameModeEventType.Ctc_CoinPickedUp)
-        {
-            BoardSquare square = gameModeEvent.m_square;
-            if (m_clientData.m_squaresToCoins_unresolved.ContainsKey(square))
-            {
-                int numCoins = m_clientData.m_squaresToCoins_unresolved[square];
-                OnActorGainedCoins_Client(gameModeEvent.m_primaryActor, numCoins);
-                RemoveCoinVisualsFromSquare(square);
-                m_clientData.m_squaresToCoins_unresolved[square] = 0;
-                m_clientData.m_squaresToCoins_unresolved.Remove(square);
-            }
-
-            return;
-        }
-
         switch (eventType)
         {
+            case GameModeEventType.Ctc_CoinPickedUp:
+            {
+                BoardSquare square = gameModeEvent.m_square;
+                if (m_clientData.m_squaresToCoins_unresolved.ContainsKey(square))
+                {
+                    int numCoins = m_clientData.m_squaresToCoins_unresolved[square];
+                    OnActorGainedCoins_Client(gameModeEvent.m_primaryActor, numCoins);
+                    RemoveCoinVisualsFromSquare(square);
+                    m_clientData.m_squaresToCoins_unresolved[square] = 0;
+                    m_clientData.m_squaresToCoins_unresolved.Remove(square);
+                }
+                break;
+            }
             case GameModeEventType.Ctc_CoinsDropped:
             {
                 OnActorDroppedCoins_Client(gameModeEvent.m_primaryActor, gameModeEvent.m_square);
@@ -262,7 +260,7 @@ public class CollectTheCoins : NetworkBehaviour
         {
             return;
         }
-
+        
         ObjectivePoints.Get().AdjustUnresolvedPoints(numCoins, actor.GetTeam());
     }
 
@@ -448,7 +446,7 @@ public class CollectTheCoins : NetworkBehaviour
         {
             return;
         }
-
+        
         foreach (KeyValuePair<ActorData, int> actorToCoins in m_clientData.m_actorsToCoins_unresolved)
         {
             if (actorToCoins.Value == 0)
