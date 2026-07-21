@@ -1,7 +1,10 @@
+// SERVER
+// ROGUES
 using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// same in rogues
 public class CoinCarnageCoin : NetworkBehaviour
 {
     private BoardSquare m_boardSquare;
