@@ -1,5 +1,23 @@
+// SERVER
+// ROGUES
+using UnityEngine;
+
 public static class GameModeUtils
 {
+#if SERVER
+    // added in rogues
+    public static bool IsCtfGameModeEvent(GameModeEvent gameModeEvent)
+    {
+        return gameModeEvent != null && IsCtfGameModeEventType(gameModeEvent.m_eventType);
+    }
+
+    // added in rogues
+    public static bool IsCtcGameModeEvent(GameModeEvent gameModeEvent)
+    {
+        return gameModeEvent != null && IsCtcGameModeEventType(gameModeEvent.m_eventType);
+    }
+#endif
+
     public static bool IsCtfGameModeEvent(ClientGameModeEvent gameModeEvent)
     {
         return gameModeEvent != null && IsCtfGameModeEventType(gameModeEvent.m_eventType);
@@ -37,4 +55,39 @@ public static class GameModeUtils
                 return false;
         }
     }
+
+#if SERVER
+    // added in rogues
+    public static MovementResults BuildGameModeEventMovementResults(
+        ActorData mover,
+        BoardSquarePathInfo triggeringPathSegment,
+        MovementStage movementStage,
+        GameModeEvent gameModeEvent,
+        GameObject sequencePrefab,
+        StandardEffectInfo effectInfo)
+    {
+        var triggeringPathInfo = new ServerAbilityUtils.TriggeringPathInfo(mover, triggeringPathSegment);
+        
+        ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(triggeringPathInfo));
+        actorHitResults.CanBeReactedTo = false;
+        actorHitResults.AddGameModeEvent(gameModeEvent);
+        actorHitResults.AddStandardEffectInfo(effectInfo);
+        
+        MovementResults movementResults = new MovementResults(movementStage);
+        movementResults.SetupTriggerData(mover, triggeringPathSegment);
+        movementResults.SetupGameplayData(GameWideData.Get().m_gameModeAbility, actorHitResults);
+        
+        SequenceSource sequenceSource = new SequenceSource(null, null, false);
+        ServerClientUtils.SequenceStartData startData = new ServerClientUtils.SequenceStartData(
+            sequencePrefab,
+            triggeringPathSegment.square,
+            null,
+            mover,
+            sequenceSource,
+            null);
+        movementResults.AddSequenceStartOverride(startData, sequenceSource, false);
+        
+        return movementResults;
+    }
+#endif
 }
