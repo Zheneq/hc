@@ -3,831 +3,590 @@ using UnityEngine.Networking;
 
 public class CTF_Flag : NetworkBehaviour
 {
-	public byte m_flagGuid;
+    public byte m_flagGuid;
+    public Team m_team;
 
-	public Team m_team;
+    private ActorData m_serverHolderActor;
+    private BoardSquare m_serverIdleSquare;
+    private ActorData m_clientHolderActor;
+    private BoardSquare m_clientIdleSquare;
+    private Sequence m_flagBeingHeldSequenceInstance;
 
-	private ActorData m_serverHolderActor;
+    private bool m_initializedOffscreenIndicator;
+    private bool m_notifiedOfSpawn;
+    private bool m_alreadyTurnedIn;
+    private int m_lastClientUpdateFlagHolderEventGuid = -1;
+    private ActorData m_gatheredHolderActor;
+    private BoardSquare m_gatheredIdleSquare;
+    private BoardSquarePathInfo m_gatheredPath;
+    private int m_gatheredMovementDamageSincePickedUp;
+    private int m_gatheredMovementDamageSinceTurnStart;
+    private BoardSquare m_originalSquare;
+    private int m_damageOnHolderSincePickedUp_Gross;
+    private int m_damageOnHolderSinceTurnStart_Gross;
+    private int m_clientUnresolvedDamageOnHolder;
+    private int m_numFullTurnsSpentHeldInTurninRegion;
+    private bool m_spentEntireTurnReadyToBeTurnedIn;
 
-	private BoardSquare m_serverIdleSquare;
+    public ActorData ServerHolderActor
+    {
+        get => m_serverHolderActor;
+        set
+        {
+            if (value != m_serverHolderActor)
+            {
+                m_serverHolderActor = value;
+                DamageOnHolderSincePickedUp_Gross = 0;
+                DamageOnHolderSinceTurnStart_Gross = 0;
+            }
+        }
+    }
 
-	private ActorData m_clientHolderActor;
+    public BoardSquare ServerIdleSquare
+    {
+        get => m_serverIdleSquare;
+        set
+        {
+            if (value != m_serverIdleSquare)
+            {
+                m_serverIdleSquare = value;
+            }
+        }
+    }
 
-	private BoardSquare m_clientIdleSquare;
+    public ActorData ClientHolderActor
+    {
+        get => m_clientHolderActor;
+        set
+        {
+            if (value == m_clientHolderActor)
+            {
+                return;
+            }
 
-	private Sequence m_flagBeingHeldSequenceInstance;
+            m_clientHolderActor = value;
+            ClientUnresolvedDamageOnHolder = 0;
+            if (CaptureTheFlag.Get() == null || CaptureTheFlag.Get().m_flagBeingHeldSequence == null)
+            {
+                return;
+            }
 
-	private bool m_initializedOffscreenIndicator;
+            if (m_flagBeingHeldSequenceInstance != null)
+            {
+                if (!m_flagBeingHeldSequenceInstance.MarkedForRemoval)
+                {
+                    m_flagBeingHeldSequenceInstance.MarkForRemoval();
+                }
 
-	private bool m_notifiedOfSpawn;
+                m_flagBeingHeldSequenceInstance = null;
+            }
 
-	private bool m_alreadyTurnedIn;
+            if (m_clientHolderActor != null)
+            {
+                Sequence[] sequences = SequenceManager.Get().CreateClientSequences(
+                    CaptureTheFlag.Get().m_flagBeingHeldSequence,
+                    m_clientHolderActor.CurrentBoardSquare,
+                    m_clientHolderActor.AsArray(),
+                    m_clientHolderActor,
+                    CaptureTheFlag.Get().SequenceSource,
+                    null);
 
-	private int m_lastClientUpdateFlagHolderEventGuid = -1;
+                if (sequences != null
+                    && sequences.Length != 0
+                    && sequences.Length <= 1)
+                {
+                    m_flagBeingHeldSequenceInstance = sequences[0];
+                }
+                else
+                {
+                    Debug.LogError("CTF_Flag creating flag-being-held sequence, but had bad output.");
+                }
+            }
+        }
+    }
 
-	private ActorData m_gatheredHolderActor;
+    public BoardSquare ClientIdleSquare
+    {
+        get => m_clientIdleSquare;
+        set
+        {
+            if (value != m_clientIdleSquare)
+            {
+                m_clientIdleSquare = value;
+            }
+        }
+    }
 
-	private BoardSquare m_gatheredIdleSquare;
+    public int LastClientUpdateFlagHolderEventGuid
+    {
+        get => m_lastClientUpdateFlagHolderEventGuid;
+        set
+        {
+            if (m_lastClientUpdateFlagHolderEventGuid != value)
+            {
+                m_lastClientUpdateFlagHolderEventGuid = value;
+            }
+        }
+    }
 
-	private BoardSquarePathInfo m_gatheredPath;
+    public ActorData GatheredHolderActor
+    {
+        get => m_gatheredHolderActor;
+        set
+        {
+            if (value != m_gatheredHolderActor)
+            {
+                m_gatheredHolderActor = value;
+                GatheredMovementDamageSincePickedUp = 0;
+                GatheredMovementDamageSinceTurnStart = 0;
+            }
+        }
+    }
 
-	private int m_gatheredMovementDamageSincePickedUp;
+    public BoardSquare GatheredIdleSquare
+    {
+        get => m_gatheredIdleSquare;
+        set
+        {
+            if (value != m_gatheredIdleSquare)
+            {
+                m_gatheredIdleSquare = value;
+            }
+        }
+    }
 
-	private int m_gatheredMovementDamageSinceTurnStart;
+    public BoardSquarePathInfo GatheredPath
+    {
+        get => m_gatheredPath;
+        set
+        {
+            if (value != m_gatheredPath)
+            {
+                m_gatheredPath = value;
+            }
+        }
+    }
 
-	private BoardSquare m_originalSquare;
+    public int GatheredMovementDamageSincePickedUp
+    {
+        get => m_gatheredMovementDamageSincePickedUp;
+        set
+        {
+            if (value != m_gatheredMovementDamageSincePickedUp)
+            {
+                m_gatheredMovementDamageSincePickedUp = value;
+            }
+        }
+    }
 
-	private int m_damageOnHolderSincePickedUp_Gross;
+    public int GatheredMovementDamageSinceTurnStart
+    {
+        get => m_gatheredMovementDamageSinceTurnStart;
+        set
+        {
+            if (m_gatheredMovementDamageSinceTurnStart != value)
+            {
+                m_gatheredMovementDamageSinceTurnStart = value;
+            }
+        }
+    }
 
-	private int m_damageOnHolderSinceTurnStart_Gross;
+    public int DamageOnHolderSincePickedUp_Gross
+    {
+        get => m_damageOnHolderSincePickedUp_Gross;
+        set
+        {
+            if (value != m_damageOnHolderSincePickedUp_Gross)
+            {
+                m_damageOnHolderSincePickedUp_Gross = value;
+                ClientUnresolvedDamageOnHolder = 0;
+            }
+        }
+    }
 
-	private int m_clientUnresolvedDamageOnHolder;
+    public int DamageOnHolderSinceTurnStart_Gross
+    {
+        get => m_damageOnHolderSinceTurnStart_Gross;
+        set
+        {
+            if (value != m_damageOnHolderSinceTurnStart_Gross)
+            {
+                m_damageOnHolderSinceTurnStart_Gross = value;
+                ClientUnresolvedDamageOnHolder = 0;
+            }
+        }
+    }
 
-	private int m_numFullTurnsSpentHeldInTurninRegion;
+    public int ClientUnresolvedDamageOnHolder
+    {
+        get => m_clientUnresolvedDamageOnHolder;
+        set
+        {
+            if (value != m_clientUnresolvedDamageOnHolder)
+            {
+                m_clientUnresolvedDamageOnHolder = value;
+            }
+        }
+    }
 
-	private bool m_spentEntireTurnReadyToBeTurnedIn;
+    public int NumFullTurnsSpentHeldInTurninRegion
+    {
+        get => m_numFullTurnsSpentHeldInTurninRegion;
+        private set
+        {
+            if (m_numFullTurnsSpentHeldInTurninRegion != value)
+            {
+                m_numFullTurnsSpentHeldInTurninRegion = value;
+            }
+        }
+    }
 
-	public ActorData ServerHolderActor
-	{
-		get
-		{
-			return m_serverHolderActor;
-		}
-		set
-		{
-			if (!(value != m_serverHolderActor))
-			{
-				return;
-			}
-			while (true)
-			{
-				m_serverHolderActor = value;
-				DamageOnHolderSincePickedUp_Gross = 0;
-				DamageOnHolderSinceTurnStart_Gross = 0;
-				return;
-			}
-		}
-	}
+    public bool SpentEntireTurnReadyToBeTurnedIn
+    {
+        get => m_spentEntireTurnReadyToBeTurnedIn;
+        private set
+        {
+            if (m_spentEntireTurnReadyToBeTurnedIn != value)
+            {
+                m_spentEntireTurnReadyToBeTurnedIn = value;
+            }
+        }
+    }
 
-	public BoardSquare ServerIdleSquare
-	{
-		get
-		{
-			return m_serverIdleSquare;
-		}
-		set
-		{
-			if (value != m_serverIdleSquare)
-			{
-				m_serverIdleSquare = value;
-			}
-		}
-	}
+    public void Initialize(BoardSquare square, Team team, byte flagGuid)
+    {
+        m_originalSquare = square;
+        m_team = team;
+        m_flagGuid = flagGuid;
+        m_serverHolderActor = null;
+        m_serverIdleSquare = square;
+        m_clientHolderActor = null;
+        m_clientIdleSquare = square;
+        UpdatePosition();
+    }
 
-	public ActorData ClientHolderActor
-	{
-		get
-		{
-			return m_clientHolderActor;
-		}
-		set
-		{
-			if (!(value != m_clientHolderActor))
-			{
-				return;
-			}
-			while (true)
-			{
-				m_clientHolderActor = value;
-				ClientUnresolvedDamageOnHolder = 0;
-				if (!(CaptureTheFlag.Get() != null) || !(CaptureTheFlag.Get().m_flagBeingHeldSequence != null))
-				{
-					return;
-				}
-				while (true)
-				{
-					if (m_flagBeingHeldSequenceInstance != null)
-					{
-						if (!m_flagBeingHeldSequenceInstance.MarkedForRemoval)
-						{
-							m_flagBeingHeldSequenceInstance.MarkForRemoval();
-						}
-						m_flagBeingHeldSequenceInstance = null;
-					}
-					if (!(m_clientHolderActor != null))
-					{
-						return;
-					}
-					GameObject flagBeingHeldSequence = CaptureTheFlag.Get().m_flagBeingHeldSequence;
-					BoardSquare currentBoardSquare = m_clientHolderActor.CurrentBoardSquare;
-					SequenceSource sequenceSource = CaptureTheFlag.Get().SequenceSource;
-					Sequence[] array = SequenceManager.Get().CreateClientSequences(flagBeingHeldSequence, currentBoardSquare, m_clientHolderActor.AsArray(), m_clientHolderActor, sequenceSource, null);
-					if (array != null && array.Length != 0)
-					{
-						if (array.Length <= 1)
-						{
-							m_flagBeingHeldSequenceInstance = array[0];
-							return;
-						}
-					}
-					Debug.LogError("CTF_Flag creating flag-being-held sequence, but had bad output.");
-					return;
-				}
-			}
-		}
-	}
+    public Sprite GetIcon()
+    {
+        return CaptureTheFlag.Get() != null
+            ? CaptureTheFlag.Get().m_flagIcon
+            : null;
+    }
 
-	public BoardSquare ClientIdleSquare
-	{
-		get
-		{
-			return m_clientIdleSquare;
-		}
-		set
-		{
-			if (value != m_clientIdleSquare)
-			{
-				m_clientIdleSquare = value;
-			}
-		}
-	}
+    public bool ShouldShowIndicator()
+    {
+        return m_clientIdleSquare != null;
+    }
 
-	public int LastClientUpdateFlagHolderEventGuid
-	{
-		get
-		{
-			return m_lastClientUpdateFlagHolderEventGuid;
-		}
-		set
-		{
-			if (m_lastClientUpdateFlagHolderEventGuid == value)
-			{
-				return;
-			}
-			while (true)
-			{
-				m_lastClientUpdateFlagHolderEventGuid = value;
-				return;
-			}
-		}
-	}
+    public void OnNotHeldInTurninRegion()
+    {
+        NumFullTurnsSpentHeldInTurninRegion = 0;
+        SpentEntireTurnReadyToBeTurnedIn = false;
+    }
 
-	public ActorData GatheredHolderActor
-	{
-		get
-		{
-			return m_gatheredHolderActor;
-		}
-		set
-		{
-			if (!(value != m_gatheredHolderActor))
-			{
-				return;
-			}
-			while (true)
-			{
-				m_gatheredHolderActor = value;
-				GatheredMovementDamageSincePickedUp = 0;
-				GatheredMovementDamageSinceTurnStart = 0;
-				return;
-			}
-		}
-	}
+    private void Start()
+    {
+        if (CaptureTheFlag.Get() != null)
+        {
+            CaptureTheFlag.Get().OnNewFlagStarted(this);
+        }
+    }
 
-	public BoardSquare GatheredIdleSquare
-	{
-		get
-		{
-			return m_gatheredIdleSquare;
-		}
-		set
-		{
-			if (!(value != m_gatheredIdleSquare))
-			{
-				return;
-			}
-			while (true)
-			{
-				m_gatheredIdleSquare = value;
-				return;
-			}
-		}
-	}
+    private void OnDestroy()
+    {
+        if (CaptureTheFlag.Get() != null)
+        {
+            CaptureTheFlag.Get().OnFlagDestroyed(this);
+        }
 
-	public BoardSquarePathInfo GatheredPath
-	{
-		get
-		{
-			return m_gatheredPath;
-		}
-		set
-		{
-			if (value == m_gatheredPath)
-			{
-				return;
-			}
-			while (true)
-			{
-				m_gatheredPath = value;
-				return;
-			}
-		}
-	}
+        if (HUD_UI.Get() != null)
+        {
+            HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveCtfFlag(this);
+        }
+    }
 
-	public int GatheredMovementDamageSincePickedUp
-	{
-		get
-		{
-			return m_gatheredMovementDamageSincePickedUp;
-		}
-		set
-		{
-			if (value == m_gatheredMovementDamageSincePickedUp)
-			{
-				return;
-			}
-			while (true)
-			{
-				m_gatheredMovementDamageSincePickedUp = value;
-				return;
-			}
-		}
-	}
+    public Vector3 GetPosition()
+    {
+        return ClientHolderActor != null
+            ? ClientHolderActor.IsActorVisibleToClient()
+                ? ClientHolderActor.transform.position
+                : transform.position
+            : ClientIdleSquare != null
+                ? ClientIdleSquare.ToVector3()
+                : transform.position;
+    }
 
-	public int GatheredMovementDamageSinceTurnStart
-	{
-		get
-		{
-			return m_gatheredMovementDamageSinceTurnStart;
-		}
-		set
-		{
-			if (m_gatheredMovementDamageSinceTurnStart == value)
-			{
-				return;
-			}
-			while (true)
-			{
-				m_gatheredMovementDamageSinceTurnStart = value;
-				return;
-			}
-		}
-	}
+    public Quaternion GetRotation()
+    {
+        return ClientHolderActor != null
+            ? ClientHolderActor.transform.rotation
+            : Quaternion.identity;
+    }
 
-	public int DamageOnHolderSincePickedUp_Gross
-	{
-		get
-		{
-			return m_damageOnHolderSincePickedUp_Gross;
-		}
-		set
-		{
-			if (value == m_damageOnHolderSincePickedUp_Gross)
-			{
-				return;
-			}
-			while (true)
-			{
-				m_damageOnHolderSincePickedUp_Gross = value;
-				ClientUnresolvedDamageOnHolder = 0;
-				return;
-			}
-		}
-	}
+    public BoardSquare GetOriginalSquare()
+    {
+        return m_originalSquare;
+    }
 
-	public int DamageOnHolderSinceTurnStart_Gross
-	{
-		get
-		{
-			return m_damageOnHolderSinceTurnStart_Gross;
-		}
-		set
-		{
-			if (value != m_damageOnHolderSinceTurnStart_Gross)
-			{
-				m_damageOnHolderSinceTurnStart_Gross = value;
-				ClientUnresolvedDamageOnHolder = 0;
-			}
-		}
-	}
+    public Team GetIntrinsicTeam()
+    {
+        return m_team;
+    }
 
-	public int ClientUnresolvedDamageOnHolder
-	{
-		get
-		{
-			return m_clientUnresolvedDamageOnHolder;
-		}
-		set
-		{
-			if (value != m_clientUnresolvedDamageOnHolder)
-			{
-				m_clientUnresolvedDamageOnHolder = value;
-			}
-		}
-	}
+    public Team GetCapturingTeam_Client()
+    {
+        if (m_team == Team.TeamA)
+        {
+            return Team.TeamB;
+        }
 
-	public int NumFullTurnsSpentHeldInTurninRegion
-	{
-		get
-		{
-			return m_numFullTurnsSpentHeldInTurninRegion;
-		}
-		private set
-		{
-			if (m_numFullTurnsSpentHeldInTurninRegion == value)
-			{
-				return;
-			}
-			while (true)
-			{
-				m_numFullTurnsSpentHeldInTurninRegion = value;
-				return;
-			}
-		}
-	}
+        if (m_team == Team.TeamB)
+        {
+            return Team.TeamA;
+        }
 
-	public bool SpentEntireTurnReadyToBeTurnedIn
-	{
-		get
-		{
-			return m_spentEntireTurnReadyToBeTurnedIn;
-		}
-		private set
-		{
-			if (m_spentEntireTurnReadyToBeTurnedIn != value)
-			{
-				m_spentEntireTurnReadyToBeTurnedIn = value;
-			}
-		}
-	}
+        if (ClientHolderActor != null && ClientHolderActor.GetTeam() == Team.TeamA)
+        {
+            return Team.TeamA;
+        }
 
-	public void Initialize(BoardSquare square, Team team, byte flagGuid)
-	{
-		m_originalSquare = square;
-		m_team = team;
-		m_flagGuid = flagGuid;
-		m_serverHolderActor = null;
-		m_serverIdleSquare = square;
-		m_clientHolderActor = null;
-		m_clientIdleSquare = square;
-		UpdatePosition();
-	}
+        if (ClientHolderActor != null && ClientHolderActor.GetTeam() == Team.TeamB)
+        {
+            return Team.TeamB;
+        }
 
-	public Sprite GetIcon()
-	{
-		if (CaptureTheFlag.Get() != null)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return CaptureTheFlag.Get().m_flagIcon;
-				}
-			}
-		}
-		return null;
-	}
+        return Team.Objects;
+    }
 
-	public bool ShouldShowIndicator()
-	{
-		return m_clientIdleSquare != null;
-	}
+    public void OnPickedUp_Client(ActorData newHolder, int eventGuid)
+    {
+        if (!NetworkClient.active)
+        {
+            Log.Error("Calling CTF_Flag.OnPickedUp_Client on a non-client.");
+            return;
+        }
 
-	public void OnNotHeldInTurninRegion()
-	{
-		NumFullTurnsSpentHeldInTurninRegion = 0;
-		SpentEntireTurnReadyToBeTurnedIn = false;
-	}
+        if (eventGuid != -1 && eventGuid <= LastClientUpdateFlagHolderEventGuid)
+        {
+            return;
+        }
 
-	private void Start()
-	{
-		if (CaptureTheFlag.Get() != null)
-		{
-			CaptureTheFlag.Get().OnNewFlagStarted(this);
-		}
-	}
+        LastClientUpdateFlagHolderEventGuid = eventGuid;
+        ActorData clientHolderActor = ClientHolderActor;
+        ClientHolderActor = newHolder;
+        ClientIdleSquare = null;
+        if (CaptureTheFlag.Get() != null)
+        {
+            CaptureTheFlag.Get().Client_OnFlagHolderChanged(
+                clientHolderActor,
+                ClientHolderActor,
+                false,
+                m_alreadyTurnedIn);
+        }
 
-	private void OnDestroy()
-	{
-		if (CaptureTheFlag.Get() != null)
-		{
-			CaptureTheFlag.Get().OnFlagDestroyed(this);
-		}
-		if (!(HUD_UI.Get() != null))
-		{
-			return;
-		}
-		while (true)
-		{
-			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.RemoveCtfFlag(this);
-			return;
-		}
-	}
+        GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs =
+            new GameEventManager.MatchObjectiveEventArgs
+            {
+                objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CasePickedUp_Client,
+                controlPoint = null,
+                activatingActor = newHolder,
+                team = newHolder.GetTeam()
+            };
+        GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, matchObjectiveEventArgs);
+    }
 
-	public Vector3 GetPosition()
-	{
-		if (ClientHolderActor == null)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					if (ClientIdleSquare == null)
-					{
-						while (true)
-						{
-							switch (1)
-							{
-							case 0:
-								break;
-							default:
-								return base.transform.position;
-							}
-						}
-					}
-					return ClientIdleSquare.ToVector3();
-				}
-			}
-		}
-		if (ClientHolderActor.IsActorVisibleToClient())
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return ClientHolderActor.transform.position;
-				}
-			}
-		}
-		return base.transform.position;
-	}
+    public void OnReturned_Client(ActorData returner)
+    {
+        if (!NetworkClient.active)
+        {
+            Log.Error("Calling CTF_Flag.OnReturned_Client on a non-client.");
+            return;
+        }
 
-	public Quaternion GetRotation()
-	{
-		if (ClientHolderActor == null)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					return Quaternion.identity;
-				}
-			}
-		}
-		return ClientHolderActor.transform.rotation;
-	}
+        ClientHolderActor = null;
+        ClientIdleSquare = m_originalSquare;
+    }
 
-	public BoardSquare GetOriginalSquare()
-	{
-		return m_originalSquare;
-	}
+    public void OnDropped_Client(BoardSquare newIdleSquare, int eventGuid)
+    {
+        if (!NetworkClient.active)
+        {
+            Log.Error("Calling CTF_Flag.OnDropped_Client on a non-client.");
+            return;
+        }
 
-	public Team GetIntrinsicTeam()
-	{
-		return m_team;
-	}
+        if (eventGuid != -1 && eventGuid <= LastClientUpdateFlagHolderEventGuid)
+        {
+            return;
+        }
 
-	public Team GetCapturingTeam_Client()
-	{
-		if (m_team == Team.TeamA)
-		{
-			return Team.TeamB;
-		}
-		if (m_team == Team.TeamB)
-		{
-			while (true)
-			{
-				switch (3)
-				{
-				case 0:
-					break;
-				default:
-					return Team.TeamA;
-				}
-			}
-		}
-		if (ClientHolderActor != null)
-		{
-			if (ClientHolderActor.GetTeam() == Team.TeamA)
-			{
-				while (true)
-				{
-					switch (2)
-					{
-					case 0:
-						break;
-					default:
-						return Team.TeamA;
-					}
-				}
-			}
-		}
-		if (ClientHolderActor != null && ClientHolderActor.GetTeam() == Team.TeamB)
-		{
-			while (true)
-			{
-				switch (6)
-				{
-				case 0:
-					break;
-				default:
-					return Team.TeamB;
-				}
-			}
-		}
-		return Team.Objects;
-	}
+        LastClientUpdateFlagHolderEventGuid = eventGuid;
+        ActorData clientHolderActor = ClientHolderActor;
+        ClientHolderActor = null;
+        ClientIdleSquare = newIdleSquare;
 
-	public void OnPickedUp_Client(ActorData newHolder, int eventGuid)
-	{
-		if (!NetworkClient.active)
-		{
-			while (true)
-			{
-				switch (2)
-				{
-				case 0:
-					break;
-				default:
-					Log.Error("Calling CTF_Flag.OnPickedUp_Client on a non-client.");
-					return;
-				}
-			}
-		}
-		if (eventGuid != -1)
-		{
-			if (eventGuid <= LastClientUpdateFlagHolderEventGuid)
-			{
-				return;
-			}
-		}
-		LastClientUpdateFlagHolderEventGuid = eventGuid;
-		ActorData clientHolderActor = ClientHolderActor;
-		ClientHolderActor = newHolder;
-		ClientIdleSquare = null;
-		if (CaptureTheFlag.Get() != null)
-		{
-			CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, ClientHolderActor, false, m_alreadyTurnedIn);
-		}
-		GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = new GameEventManager.MatchObjectiveEventArgs();
-		matchObjectiveEventArgs.objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.CasePickedUp_Client;
-		matchObjectiveEventArgs.controlPoint = null;
-		matchObjectiveEventArgs.activatingActor = newHolder;
-		matchObjectiveEventArgs.team = newHolder.GetTeam();
-		GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, matchObjectiveEventArgs);
-	}
+        if (CaptureTheFlag.Get() != null)
+        {
+            CaptureTheFlag.Get().Client_OnFlagHolderChanged(
+                clientHolderActor,
+                ClientHolderActor,
+                false,
+                m_alreadyTurnedIn);
+        }
+    }
 
-	public void OnReturned_Client(ActorData returner)
-	{
-		if (!NetworkClient.active)
-		{
-			Log.Error("Calling CTF_Flag.OnReturned_Client on a non-client.");
-			return;
-		}
-		ClientHolderActor = null;
-		ClientIdleSquare = m_originalSquare;
-	}
+    public void OnTurnedIn_Client(ActorData capturingActor, int eventGuid)
+    {
+        if (!NetworkClient.active)
+        {
+            Log.Error("Calling CTF_Flag.OnTurnedIn_Client on a non-client.");
+            return;
+        }
 
-	public void OnDropped_Client(BoardSquare newIdleSquare, int eventGuid)
-	{
-		if (!NetworkClient.active)
-		{
-			while (true)
-			{
-				switch (1)
-				{
-				case 0:
-					break;
-				default:
-					Log.Error("Calling CTF_Flag.OnDropped_Client on a non-client.");
-					return;
-				}
-			}
-		}
-		if (eventGuid != -1)
-		{
-			if (eventGuid <= LastClientUpdateFlagHolderEventGuid)
-			{
-				return;
-			}
-		}
-		LastClientUpdateFlagHolderEventGuid = eventGuid;
-		ActorData clientHolderActor = ClientHolderActor;
-		ClientHolderActor = null;
-		ClientIdleSquare = newIdleSquare;
-		if (CaptureTheFlag.Get() != null)
-		{
-			CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, ClientHolderActor, false, m_alreadyTurnedIn);
-		}
-	}
+        if (eventGuid != -1 && eventGuid <= LastClientUpdateFlagHolderEventGuid)
+        {
+            return;
+        }
 
-	public void OnTurnedIn_Client(ActorData capturingActor, int eventGuid)
-	{
-		if (!NetworkClient.active)
-		{
-			Log.Error("Calling CTF_Flag.OnTurnedIn_Client on a non-client.");
-			return;
-		}
-		if (eventGuid != -1)
-		{
-			if (eventGuid <= LastClientUpdateFlagHolderEventGuid)
-			{
-				return;
-			}
-		}
-		LastClientUpdateFlagHolderEventGuid = eventGuid;
-		ActorData clientHolderActor = ClientHolderActor;
-		ClientHolderActor = null;
-		ClientIdleSquare = null;
-		if (CaptureTheFlag.Get() != null)
-		{
-			CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, ClientHolderActor, true, m_alreadyTurnedIn);
-		}
-		m_alreadyTurnedIn = true;
-		GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs = new GameEventManager.MatchObjectiveEventArgs();
-		matchObjectiveEventArgs.objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.FlagTurnedIn_Client;
-		matchObjectiveEventArgs.controlPoint = null;
-		matchObjectiveEventArgs.activatingActor = capturingActor;
-		matchObjectiveEventArgs.team = capturingActor.GetTeam();
-		GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, matchObjectiveEventArgs);
-	}
+        LastClientUpdateFlagHolderEventGuid = eventGuid;
+        ActorData clientHolderActor = ClientHolderActor;
+        ClientHolderActor = null;
+        ClientIdleSquare = null;
 
-	public override bool OnSerialize(NetworkWriter writer, bool initialState)
-	{
-		int num;
-		if (initialState)
-		{
-			num = -1;
-		}
-		else
-		{
-			num = (int)base.syncVarDirtyBits;
-		}
-		uint num2 = (uint)num;
-		byte flagGuid = m_flagGuid;
-		byte value = (byte)m_team;
-		sbyte value2;
-		if (ServerHolderActor == null)
-		{
-			value2 = (sbyte)ActorData.s_invalidActorIndex;
-		}
-		else
-		{
-			value2 = (sbyte)ServerHolderActor.ActorIndex;
-		}
-		sbyte value3;
-		sbyte value4;
-		if (ServerIdleSquare == null)
-		{
-			value3 = -1;
-			value4 = -1;
-		}
-		else
-		{
-			value3 = (sbyte)ServerIdleSquare.x;
-			value4 = (sbyte)ServerIdleSquare.y;
-		}
-		int damageOnHolderSincePickedUp_Gross = DamageOnHolderSincePickedUp_Gross;
-		int damageOnHolderSinceTurnStart_Gross = DamageOnHolderSinceTurnStart_Gross;
-		writer.Write(flagGuid);
-		writer.Write(value);
-		writer.Write(value2);
-		writer.Write(value3);
-		writer.Write(value4);
-		writer.Write(damageOnHolderSincePickedUp_Gross);
-		writer.Write(damageOnHolderSinceTurnStart_Gross);
-		return num2 != 0;
-	}
+        if (CaptureTheFlag.Get() != null)
+        {
+            CaptureTheFlag.Get().Client_OnFlagHolderChanged(
+                clientHolderActor,
+                ClientHolderActor,
+                true,
+                m_alreadyTurnedIn);
+        }
 
-	public override void OnDeserialize(NetworkReader reader, bool initialState)
-	{
-		byte flagGuid = reader.ReadByte();
-		byte team = reader.ReadByte();
-		sbyte b = reader.ReadSByte();
-		sbyte b2 = reader.ReadSByte();
-		sbyte b3 = reader.ReadSByte();
-		int damageOnHolderSincePickedUp_Gross = reader.ReadInt32();
-		int damageOnHolderSinceTurnStart_Gross = reader.ReadInt32();
-		m_flagGuid = flagGuid;
-		m_team = (Team)team;
-		ActorData clientHolderActor = ClientHolderActor;
-		if (b == (sbyte)ActorData.s_invalidActorIndex)
-		{
-			ClientHolderActor = null;
-		}
-		else
-		{
-			ClientHolderActor = GameFlowData.Get().FindActorByActorIndex(b);
-		}
-		if (b2 == -1 && b3 == -1)
-		{
-			ClientIdleSquare = null;
-		}
-		else
-		{
-			ClientIdleSquare = Board.Get().GetSquareFromIndex(b2, b3);
-		}
-		if (clientHolderActor != ClientHolderActor)
-		{
-			if (CaptureTheFlag.Get() != null)
-			{
-				CaptureTheFlag.Get().Client_OnFlagHolderChanged(clientHolderActor, ClientHolderActor, false, m_alreadyTurnedIn);
-			}
-		}
-		DamageOnHolderSincePickedUp_Gross = damageOnHolderSincePickedUp_Gross;
-		DamageOnHolderSinceTurnStart_Gross = damageOnHolderSinceTurnStart_Gross;
-	}
+        m_alreadyTurnedIn = true;
+        GameEventManager.MatchObjectiveEventArgs matchObjectiveEventArgs =
+            new GameEventManager.MatchObjectiveEventArgs
+            {
+                objective = GameEventManager.MatchObjectiveEventArgs.ObjectiveType.FlagTurnedIn_Client,
+                controlPoint = null,
+                activatingActor = capturingActor,
+                team = capturingActor.GetTeam()
+            };
+        GameEventManager.Get().FireEvent(GameEventManager.EventType.MatchObjectiveEvent, matchObjectiveEventArgs);
+    }
 
-	private void Update()
-	{
-		if (!NetworkClient.active)
-		{
-			while (true)
-			{
-				switch (5)
-				{
-				case 0:
-					break;
-				default:
-					return;
-				}
-			}
-		}
-		if (HUD_UI.Get() != null && !m_initializedOffscreenIndicator)
-		{
-			HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddCtfFlag(this);
-			m_initializedOffscreenIndicator = true;
-		}
-		UpdatePosition();
-		MeshRenderer[] components = GetComponents<MeshRenderer>();
-		MeshRenderer[] array = components;
-		foreach (MeshRenderer meshRenderer in array)
-		{
-			if (ClientHolderActor == null)
-			{
-				meshRenderer.enabled = true;
-			}
-			else
-			{
-				meshRenderer.enabled = false;
-			}
-		}
-		while (true)
-		{
-			MeshRenderer[] componentsInChildren = GetComponentsInChildren<MeshRenderer>();
-			MeshRenderer[] array2 = componentsInChildren;
-			foreach (MeshRenderer meshRenderer2 in array2)
-			{
-				if (ClientHolderActor == null)
-				{
-					meshRenderer2.enabled = true;
-				}
-				else
-				{
-					meshRenderer2.enabled = false;
-				}
-			}
-			if (m_notifiedOfSpawn || !(InterfaceManager.Get() != null))
-			{
-				return;
-			}
-			while (true)
-			{
-				if (CaptureTheFlag.Get() != null)
-				{
-					while (true)
-					{
-						InterfaceManager.Get().DisplayAlert(StringUtil.TR("BriefcaseLocated", "CTF"), CaptureTheFlag.Get().m_textColor_neutral);
-						m_notifiedOfSpawn = true;
-						return;
-					}
-				}
-				return;
-			}
-		}
-	}
+    public override bool OnSerialize(NetworkWriter writer, bool initialState)
+    {
+        uint dirtyBits = initialState ? uint.MaxValue : syncVarDirtyBits;
 
-	public void UpdatePosition()
-	{
-		Vector3 position = GetPosition();
-		base.transform.position = position;
-		Quaternion rotation = GetRotation();
-		base.transform.rotation = rotation;
-	}
+        sbyte holderActorIndex = ServerHolderActor == null
+            ? (sbyte)ActorData.s_invalidActorIndex
+            : (sbyte)ServerHolderActor.ActorIndex;
 
-	private void UNetVersion()
-	{
-	}
+        sbyte x;
+        sbyte y;
+        if (ServerIdleSquare == null)
+        {
+            x = -1;
+            y = -1;
+        }
+        else
+        {
+            x = (sbyte)ServerIdleSquare.x;
+            y = (sbyte)ServerIdleSquare.y;
+        }
+
+        writer.Write(m_flagGuid);
+        writer.Write((byte)m_team);
+        writer.Write(holderActorIndex);
+        writer.Write(x);
+        writer.Write(y);
+        writer.Write(DamageOnHolderSincePickedUp_Gross);
+        writer.Write(DamageOnHolderSinceTurnStart_Gross);
+
+        return dirtyBits != 0;
+    }
+
+    public override void OnDeserialize(NetworkReader reader, bool initialState)
+    {
+        byte flagGuid = reader.ReadByte();
+        byte team = reader.ReadByte();
+        sbyte holderActorIndex = reader.ReadSByte();
+        sbyte x = reader.ReadSByte();
+        sbyte y = reader.ReadSByte();
+        int damageSincePickedUp = reader.ReadInt32();
+        int damageSinceTurnStart = reader.ReadInt32();
+
+        m_flagGuid = flagGuid;
+        m_team = (Team)team;
+
+        ActorData clientHolderActor = ClientHolderActor;
+        ClientHolderActor = holderActorIndex != (sbyte)ActorData.s_invalidActorIndex
+            ? GameFlowData.Get().FindActorByActorIndex(holderActorIndex)
+            : null;
+
+        if (x == -1 && y == -1)
+        {
+            ClientIdleSquare = null;
+        }
+        else
+        {
+            ClientIdleSquare = Board.Get().GetSquareFromIndex(x, y);
+        }
+
+        if (clientHolderActor != ClientHolderActor && CaptureTheFlag.Get() != null)
+        {
+            CaptureTheFlag.Get().Client_OnFlagHolderChanged(
+                clientHolderActor,
+                ClientHolderActor,
+                false,
+                m_alreadyTurnedIn);
+        }
+
+        DamageOnHolderSincePickedUp_Gross = damageSincePickedUp;
+        DamageOnHolderSinceTurnStart_Gross = damageSinceTurnStart;
+    }
+
+    private void Update()
+    {
+        if (!NetworkClient.active)
+        {
+            return;
+        }
+
+        if (HUD_UI.Get() != null && !m_initializedOffscreenIndicator)
+        {
+            HUD_UI.Get().m_mainScreenPanel.m_offscreenIndicatorPanel.AddCtfFlag(this);
+            m_initializedOffscreenIndicator = true;
+        }
+
+        UpdatePosition();
+        foreach (MeshRenderer meshRenderer in GetComponents<MeshRenderer>())
+        {
+            meshRenderer.enabled = ClientHolderActor == null;
+        }
+
+        foreach (MeshRenderer meshRenderer in GetComponentsInChildren<MeshRenderer>())
+        {
+            meshRenderer.enabled = ClientHolderActor == null;
+        }
+
+        if (!m_notifiedOfSpawn
+            && InterfaceManager.Get() != null
+            && CaptureTheFlag.Get() != null)
+        {
+            InterfaceManager.Get().DisplayAlert(
+                StringUtil.TR("BriefcaseLocated", "CTF"),
+                CaptureTheFlag.Get().m_textColor_neutral);
+            m_notifiedOfSpawn = true;
+        }
+    }
+
+    public void UpdatePosition()
+    {
+        transform.position = GetPosition();
+        transform.rotation = GetRotation();
+    }
+
+    private void UNetVersion()
+    {
+    }
 }
