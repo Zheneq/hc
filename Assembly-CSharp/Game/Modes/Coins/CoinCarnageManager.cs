@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -55,7 +57,7 @@ public class CoinCarnageManager : NetworkBehaviour
     private Dictionary<Team, GameObject> m_spawnedTurnInLocationInstances = new Dictionary<Team, GameObject>();
 
     private static CoinCarnageManager s_instance;
-    private static int kRpcRpcActorPickedUpCoin = -867352238;
+    private static int kRpcRpcActorPickedUpCoin = -867352238; // removed in rogues
 
     public int Networkm_coinTurninIdxTeamA
     {
@@ -127,8 +129,11 @@ public class CoinCarnageManager : NetworkBehaviour
 
     static CoinCarnageManager()
     {
+        // reactor
         RegisterRpcDelegate(typeof(CoinCarnageManager), kRpcRpcActorPickedUpCoin, InvokeRpcRpcActorPickedUpCoin);
         NetworkCRC.RegisterBehaviour("CoinCarnageManager", 0);
+        // rogues
+        // NetworkBehaviour.RegisterRpcDelegate(typeof(CoinCarnageManager), "RpcActorPickedUpCoin", new CmdDelegate(InvokeRpcRpcActorPickedUpCoin));
     }
 
     public static CoinCarnageManager Get()
@@ -216,7 +221,11 @@ public class CoinCarnageManager : NetworkBehaviour
 
         foreach (BoardRegion boardRegion in m_coinTurninLocations)
         {
+            // reactor
             boardRegion.Initialize();
+            // rogues
+            // boardRegion.Initialize(gameObject.scene);
+
             boardRegion.GizmosDrawRegion(m_debugTurnInRegionColor);
         }
     }
@@ -495,7 +504,11 @@ public class CoinCarnageManager : NetworkBehaviour
 
         if (turninRegionPrefab != null)
         {
+            // reactor
             turninLocation.Initialize();
+            // rogues
+            // turninLocation.Initialize(gameObject.scene);
+
             GameObject turninRegionParentObject = new GameObject();
             List<BoardSquare> squaresInRegion = turninLocation.GetSquaresInRegion();
             foreach (BoardSquare current in squaresInRegion)
@@ -884,7 +897,10 @@ public class CoinCarnageManager : NetworkBehaviour
         m_debugTextRight.text += textTeamB;
     }
 
+    // reactor
     private void UNetVersion()
+        // rogues
+        // private void MirrorProcessed()
     {
     }
 
