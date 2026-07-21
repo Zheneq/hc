@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -47,7 +49,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         public int m_totalMaxSpawns = -1;
         public int m_minTurnsTillFirstSpawn;
         public int m_minTurnsAfterCaptureTillRespawn;
-        
+
         public int NumFlagsSpawned { get; set; }
         public int LastCaptureTurn { get; set; }
     }
@@ -150,7 +152,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
     public GameObject m_friendlyTurninRegionActivatedSequence;
     public GameObject m_enemyTurninRegionActivatedSequence;
     public GameObject m_neutralTurninRegionActivatedSequence;
-    
+
     public Sprite m_flagIcon;
     public Sprite m_turnInRegionIcon;
 
@@ -172,7 +174,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
     private List<CTF_Flag> m_flags;
     private int m_teamACaptures;
     private int m_teamBCaptures;
-    
+
     private GameObject m_autoBoundary_spawn_teamA;
     private GameObject m_autoBoundary_spawn_teamB;
     private GameObject m_autoBoundary_spawn_neutral;
@@ -180,7 +182,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
     private GameObject m_autoBoundary_turnin_teamB;
     private GameObject m_autoBoundary_turnin_neutral;
     private float m_autoBoundaryHeight;
-    
+
     private float m_timeToFocusCameraOnTurninTeamA = -1f;
     private float m_timeToFocusCameraOnTurninTeamB = -1f;
     private float m_timeToFocusCameraOnTurninNeutral = -1f;
@@ -209,6 +211,16 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
     private uint m_sequenceSourceId;
 
     private SequenceSource _sequenceSource;
+
+#if SERVER
+    private int m_turnsTillTurninRegionUnlocks_TeamA = -1; // added in rogues
+    private int m_turnsTillTurninRegionUnlocks_TeamB = -1; // added in rogues
+    private int m_turnsTillTurninRegionUnlocks_Neutral = -1; // added in rogues
+
+    protected List<MovementResults> m_evadeResults = new List<MovementResults>(); // added in rogues
+    protected List<MovementResults> m_knockbackResults = new List<MovementResults>(); // added in rogues
+    protected List<MovementResults> m_normalMovementResults = new List<MovementResults>(); // added in rogues
+#endif
 
     private float m_lastFlagCarrierDamageCur;
     private float m_lastFlagCarrierDamageMax = 1f;
@@ -282,7 +294,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             {
                 return m_potentialFlagTurnins[m_turninRegionIndex_TeamA];
             }
-            
+
             return null;
         }
     }
@@ -307,7 +319,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             {
                 return m_potentialFlagTurnins[m_turninRegionIndex_TeamB];
             }
-            
+
             return null;
         }
     }
@@ -332,7 +344,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             {
                 return m_potentialFlagTurnins[m_turninRegionIndex_Neutral];
             }
-            
+
             return null;
         }
     }
@@ -586,7 +598,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return null;
         }
-        
+
         foreach (CTF_Flag flag in m_flags)
         {
             if (flag != null && flag.ClientHolderActor == actor)
@@ -647,12 +659,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
     public static List<ActorData> GetActorsRevealedByFlags_Client()
     {
         List<ActorData> list = new List<ActorData>();
-        
+
         if (!NetworkClient.active || Get() == null || !Get().m_flagRevealsHolder)
         {
             return list;
         }
-        
+
         foreach (CTF_Flag flag in Get().m_flags)
         {
             if (flag != null
@@ -674,7 +686,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
     public static List<ActorData> GetActorsRevealedByFlags_Server()
     {
         List<ActorData> list = new List<ActorData>();
-        
+
         if (!NetworkServer.active || Get() == null || !Get().m_flagRevealsHolder)
         {
             return list;
@@ -711,7 +723,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return null;
         }
-        
+
         switch (team)
         {
             case Team.TeamA:
@@ -736,7 +748,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return TurninRegionState.Disabled;
         }
-        
+
         switch (team)
         {
             case Team.TeamA:
@@ -750,21 +762,44 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 
     private void Start()
     {
+        // reactor
         m_flagSpawnsNeutral.Initialize();
         m_flagSpawnsTeamA.Initialize();
         m_flagSpawnsTeamB.Initialize();
         m_flagTurninTeamA.Initialize();
         m_flagTurninTeamB.Initialize();
         m_flagTurninNeutral.Initialize();
+        // rogues
+        // Scene scene = gameObject.scene;
+        // m_flagSpawnsNeutral.Initialize(scene);
+        // m_flagSpawnsTeamA.Initialize(scene);
+        // m_flagSpawnsTeamB.Initialize(scene);
+        // m_flagTurninTeamA.Initialize(scene);
+        // m_flagTurninTeamB.Initialize(scene);
+        // m_flagTurninNeutral.Initialize(scene);
+
         foreach (BoardRegion turnin in m_potentialFlagTurnins)
         {
+            // reactor
             turnin.Initialize();
+            // rogues
+            // turnin.Initialize(scene);
         }
 
         TurninRegionState_TeamA = m_turninRegionInitialState;
         TurninRegionState_TeamB = m_turninRegionInitialState;
         TurninRegionState_Neutral = m_turninRegionInitialState;
-        
+
+#if SERVER
+        // added in rogues
+        if (NetworkServer.active)
+        {
+            GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorDamaged_Server);
+            GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorHealed_Server);
+            GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorGainedAbsorb_Server);
+        }
+#endif
+
         if (NetworkClient.active)
         {
             GameEventManager.Get().AddListener(this, GameEventManager.EventType.ActorDamaged_Client);
@@ -776,6 +811,1361 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         m_flags = new List<CTF_Flag>();
     }
 
+#if SERVER
+    // added in rogues
+    public void OnTurnEnd()
+    {
+        List<MovementResults> list = new List<MovementResults>();
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            bool flag = !(ctf_Flag.ServerHolderActor == null) && ctf_Flag.CanBeTurnedIn(
+                ctf_Flag.ServerHolderActor.CurrentBoardSquare,
+                FlagTurninRegion_TeamA,
+                FlagTurninRegion_TeamB,
+                FlagTurninRegion_Neutral);
+            ctf_Flag.CTF_Flag_OnTurnEnd(flag);
+            bool flag2 = (flag && m_turnInRequirements.Contains(TurninType.FlagHolderEndingTurnInCaptureRegion))
+                         || (ctf_Flag.NumFullTurnsSpentHeldInTurninRegion > 0
+                             && m_turnInRequirements.Contains(TurninType.FlagHolderSpendingWholeTurnInCaptureRegion));
+            if (flag2)
+            {
+                BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
+                boardSquarePathInfo.square = ctf_Flag.ServerHolderActor.CurrentBoardSquare;
+                MovementResults item = BuildFlagTurnedInMovementResults(
+                    ctf_Flag.ServerHolderActor,
+                    boardSquarePathInfo,
+                    MovementStage.Normal,
+                    ctf_Flag.m_flagGuid);
+                list.Add(item);
+            }
+        }
+
+        foreach (MovementResults movementResults in list)
+        {
+            movementResults.ExecuteUnexecutedMovementHits(false);
+            if (ServerResolutionManager.Get() != null)
+            {
+                ServerResolutionManager.Get().SendNonResolutionActionToClients(movementResults);
+            }
+        }
+
+        foreach (CTF_Flag ctf_Flag2 in m_flags)
+        {
+            if (ctf_Flag2.ServerHolderActor != null)
+            {
+                Team team = ctf_Flag2.ServerHolderActor.GetTeam();
+                Team enemyTeam = ctf_Flag2.ServerHolderActor.GetEnemyTeam();
+                if (ObjectivePoints.Get() != null)
+                {
+                    ObjectivePoints.Get().AdjustPoints(m_objectivePointsData_flagHoldersTeam.m_pointsPerTurn, team);
+                    ObjectivePoints.Get().AdjustPoints(m_objectivePointsData_otherTeam.m_pointsPerTurn, enemyTeam);
+                }
+            }
+        }
+    }
+
+    // added in rogues
+    public void OnTurnStart()
+    {
+        bool flag = false;
+        bool flag2 = false;
+        bool flag3 = false;
+        while (ShouldSpawnFlagForTeam(Team.TeamA))
+        {
+            if (flag)
+            {
+                break;
+            }
+
+            flag = !SpawnNewFlag(m_flagSpawnsTeamA, Team.TeamA);
+        }
+
+        while (ShouldSpawnFlagForTeam(Team.TeamB))
+        {
+            if (flag2)
+            {
+                break;
+            }
+
+            flag2 = !SpawnNewFlag(m_flagSpawnsTeamB, Team.TeamB);
+        }
+
+        while (ShouldSpawnFlagForTeam(Team.Objects) && !flag3)
+        {
+            flag3 = !SpawnNewFlag(m_flagSpawnsNeutral, Team.Objects);
+        }
+
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            ctf_Flag.CTF_Flag_OnTurnStart();
+        }
+
+        UpdateTurninRegionsStates();
+        GenerateFlagTurninVisuals();
+    }
+
+    // added in rogues
+    private void UpdateTurninRegionsStates()
+    {
+        bool flag = false;
+        int relevantScore;
+        int num;
+        int num2;
+        if (ObjectivePoints.Get() == null)
+        {
+            relevantScore = 0;
+            num = 0;
+            num2 = 0;
+        }
+        else
+        {
+            num = ObjectivePoints.Get().GetPointsForTeam(Team.TeamA);
+            num2 = ObjectivePoints.Get().GetPointsForTeam(Team.TeamB);
+            relevantScore = Mathf.Max(num, num2);
+        }
+
+        TurninRegionState turninRegionState;
+        int num3;
+        GetNewStateForTurninRegion(
+            TurninRegionState_Neutral,
+            relevantScore,
+            m_disableTurninNeutralUntilAnyScore,
+            m_turnsTillTurninRegionUnlocks_Neutral,
+            m_numTurnsToLockTurninOnEnable,
+            out turninRegionState,
+            out num3);
+        if (turninRegionState != TurninRegionState_Neutral)
+        {
+            if (TurninRegionState_Neutral == TurninRegionState.Disabled && m_potentialFlagTurnins.Count > 0
+                                                                        && !m_potentialTurninsAreTeamSpecific)
+            {
+                Networkm_turninRegionIndex_Neutral = GetIndexForNewTurnin();
+            }
+
+            TurninRegionState_Neutral = turninRegionState;
+            flag = true;
+            OnTurninChanged_Neutral();
+        }
+
+        if (num3 != m_turnsTillTurninRegionUnlocks_Neutral)
+        {
+            m_turnsTillTurninRegionUnlocks_Neutral = num3;
+        }
+
+        TurninRegionState turninRegionState2;
+        int num4;
+        GetNewStateForTurninRegion(
+            TurninRegionState_TeamA,
+            num,
+            m_disableTurninTeamAUntilTheirScore,
+            m_turnsTillTurninRegionUnlocks_TeamA,
+            m_numTurnsToLockTurninOnEnable,
+            out turninRegionState2,
+            out num4);
+        if (turninRegionState2 != TurninRegionState_TeamA)
+        {
+            if (TurninRegionState_TeamA == TurninRegionState.Disabled && m_potentialFlagTurnins.Count > 0
+                                                                      && m_potentialTurninsAreTeamSpecific)
+            {
+                Networkm_turninRegionIndex_TeamA = GetIndexForNewTurnin();
+            }
+
+            TurninRegionState_TeamA = turninRegionState2;
+            flag = true;
+            OnTurninChanged_TeamA();
+        }
+
+        if (num4 != m_turnsTillTurninRegionUnlocks_TeamA)
+        {
+            m_turnsTillTurninRegionUnlocks_TeamA = num4;
+        }
+
+        TurninRegionState turninRegionState3;
+        int num5;
+        GetNewStateForTurninRegion(
+            TurninRegionState_TeamB,
+            num2,
+            m_disableTurninTeamBUntilTheirScore,
+            m_turnsTillTurninRegionUnlocks_TeamB,
+            m_numTurnsToLockTurninOnEnable,
+            out turninRegionState3,
+            out num5);
+        if (turninRegionState3 != TurninRegionState_TeamB)
+        {
+            if (TurninRegionState_TeamB == TurninRegionState.Disabled && m_potentialFlagTurnins.Count > 0
+                                                                      && m_potentialTurninsAreTeamSpecific)
+            {
+                Networkm_turninRegionIndex_TeamB = GetIndexForNewTurnin();
+            }
+
+            TurninRegionState_TeamB = turninRegionState3;
+            flag = true;
+            OnTurninChanged_TeamB();
+        }
+
+        if (num5 != m_turnsTillTurninRegionUnlocks_TeamB)
+        {
+            m_turnsTillTurninRegionUnlocks_TeamB = num5;
+        }
+
+        if (flag)
+        {
+            List<MovementResults> list = new List<MovementResults>();
+            foreach (CTF_Flag ctf_Flag in m_flags)
+            {
+                bool flag2 = !(ctf_Flag.ServerHolderActor == null) && ctf_Flag.CanBeTurnedIn(
+                    ctf_Flag.ServerHolderActor.CurrentBoardSquare,
+                    FlagTurninRegion_TeamA,
+                    FlagTurninRegion_TeamB,
+                    FlagTurninRegion_Neutral);
+                if (flag2)
+                {
+                    if (m_turnInRequirements.Contains(TurninType.CaptureRegionActivatingUnderFlagHolder))
+                    {
+                        BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
+                        boardSquarePathInfo.square = ctf_Flag.ServerHolderActor.CurrentBoardSquare;
+                        MovementResults item = BuildFlagTurnedInMovementResults(
+                            ctf_Flag.ServerHolderActor,
+                            boardSquarePathInfo,
+                            MovementStage.Normal,
+                            ctf_Flag.m_flagGuid);
+                        list.Add(item);
+                    }
+                }
+                else
+                {
+                    ctf_Flag.OnNotHeldInTurninRegion();
+                }
+            }
+
+            foreach (MovementResults movementResults in list)
+            {
+                movementResults.ExecuteUnexecutedMovementHits(false);
+                if (ServerResolutionManager.Get() != null)
+                {
+                    ServerResolutionManager.Get().SendNonResolutionActionToClients(movementResults);
+                }
+            }
+        }
+    }
+
+    // added in rogues
+    private static void GetNewStateForTurninRegion(
+        TurninRegionState currentState,
+        int relevantScore,
+        int disableUntilScore,
+        int currentTurnsTillRegionUnlocks,
+        int numTurnsToLockTurninOnEnable,
+        out TurninRegionState newState,
+        out int newTurnsTillRegionUnlocks)
+    {
+        if (currentState == TurninRegionState.Disabled)
+        {
+            bool flag = !(ObjectivePoints.Get() == null) && relevantScore >= disableUntilScore;
+            if (!flag)
+            {
+                newState = TurninRegionState.Disabled;
+                newTurnsTillRegionUnlocks = -1;
+                return;
+            }
+
+            if (numTurnsToLockTurninOnEnable > 0)
+            {
+                newState = TurninRegionState.Locked;
+                newTurnsTillRegionUnlocks = numTurnsToLockTurninOnEnable;
+                return;
+            }
+
+            newState = TurninRegionState.Active;
+            newTurnsTillRegionUnlocks = 0;
+        }
+        else
+        {
+            if (currentState != TurninRegionState.Locked)
+            {
+                newState = TurninRegionState.Active;
+                newTurnsTillRegionUnlocks = 0;
+                return;
+            }
+
+            newTurnsTillRegionUnlocks = currentTurnsTillRegionUnlocks - 1;
+            if (newTurnsTillRegionUnlocks == 0)
+            {
+                newState = TurninRegionState.Active;
+                return;
+            }
+
+            newState = TurninRegionState.Locked;
+        }
+    }
+
+    // added in rogues
+    private int GetIndexForNewTurnin()
+    {
+        BoardSquare square;
+        if (GetMainFlagCarrier_Server() != null)
+        {
+            square = GetMainFlagCarrier_Server().CurrentBoardSquare;
+        }
+        else
+        {
+            square = GetMainFlagIdleSquare_Server();
+        }
+
+        List<float> list = new List<float>();
+        if (m_turninRegionIndex_TeamA != -1)
+        {
+            list.Add(m_potentialFlagTurnins[m_turninRegionIndex_TeamA].GetShortestDistanceOnBoardTo(square));
+        }
+
+        if (m_turninRegionIndex_TeamB != -1)
+        {
+            list.Add(m_potentialFlagTurnins[m_turninRegionIndex_TeamB].GetShortestDistanceOnBoardTo(square));
+        }
+
+        if (m_turninRegionIndex_Neutral != -1)
+        {
+            list.Add(m_potentialFlagTurnins[m_turninRegionIndex_Neutral].GetShortestDistanceOnBoardTo(square));
+        }
+
+        float num = -10000f;
+        List<int> list2 = new List<int>();
+        for (int i = 0; i < m_potentialFlagTurnins.Count; i++)
+        {
+            if (m_turninRegionIndex_TeamA != i && m_turninRegionIndex_TeamB != i && m_turninRegionIndex_Neutral != i)
+            {
+                float shortestDistanceOnBoardTo = m_potentialFlagTurnins[i].GetShortestDistanceOnBoardTo(square);
+                float num2 = 0f;
+                if (m_potentialTurninRegion_minDistFromFlag >= 0f
+                    && shortestDistanceOnBoardTo >= m_potentialTurninRegion_minDistFromFlag)
+                {
+                    num2 += 10000f;
+                }
+
+                if (m_potentialTurninRegion_maxDistFromFlag >= 0f
+                    && shortestDistanceOnBoardTo <= m_potentialTurninRegion_maxDistFromFlag)
+                {
+                    num2 += 1000f;
+                }
+
+                for (int j = 0; j < list.Count; j++)
+                {
+                    float num3 = list[j];
+                    if (m_potentialTurninRegion_minDistFromTurnin >= 0f
+                        && num3 >= m_potentialTurninRegion_minDistFromTurnin)
+                    {
+                        num2 += 100f;
+                    }
+
+                    if (m_potentialTurninRegion_maxDistFromTurnin >= 0f
+                        && num3 <= m_potentialTurninRegion_maxDistFromTurnin)
+                    {
+                        num2 += 10f;
+                    }
+                }
+
+                float num4;
+                if (m_potentialTurninRegion_desiredDistFromFlag < 0f)
+                {
+                    num4 = 0f;
+                }
+                else
+                {
+                    num4 = Mathf.Abs(shortestDistanceOnBoardTo - m_potentialTurninRegion_desiredDistFromFlag);
+                }
+
+                num2 -= num4;
+                if (num2 > num)
+                {
+                    num = num2;
+                    list2.Clear();
+                    list2.Add(i);
+                }
+                else if (num2 == num)
+                {
+                    list2.Add(i);
+                }
+            }
+        }
+
+        if (list2.Count > 0)
+        {
+            return list2[0];
+        }
+
+        return -1;
+    }
+
+    // added in rogues
+    private bool ShouldSpawnFlagForTeam(Team team)
+    {
+        FlagSpawnData flagSpawnLogicForTeam = GetFlagSpawnLogicForTeam(team);
+        int numFlagsForTeam = GetNumFlagsForTeam(team);
+        bool flag = flagSpawnLogicForTeam.m_maxActiveSimultaneously == -1
+                    || flagSpawnLogicForTeam.m_maxActiveSimultaneously > numFlagsForTeam;
+        bool flag2 = flagSpawnLogicForTeam.m_totalMaxSpawns == -1
+                     || flagSpawnLogicForTeam.m_totalMaxSpawns > flagSpawnLogicForTeam.NumFlagsSpawned;
+        bool flag3 = flagSpawnLogicForTeam.NumFlagsSpawned > 0
+                     || GameFlowData.Get().CurrentTurn >= flagSpawnLogicForTeam.m_minTurnsTillFirstSpawn;
+        bool flag4 = flagSpawnLogicForTeam.LastCaptureTurn == 0
+                     || GameFlowData.Get().CurrentTurn - flagSpawnLogicForTeam.LastCaptureTurn
+                     >= flagSpawnLogicForTeam.m_minTurnsAfterCaptureTillRespawn;
+        return flag && flag2 && flag3 && flag4;
+    }
+
+    // added in rogues
+    private FlagSpawnData GetFlagSpawnLogicForTeam(Team team)
+    {
+        FlagSpawnData result;
+        switch (team)
+        {
+            case Team.TeamA:
+                result = m_teamAFlagSpawningLogic;
+                break;
+            case Team.TeamB:
+                result = m_teamBFlagSpawningLogic;
+                break;
+            case Team.Objects:
+                result = m_neutralFlagSpawningLogic;
+                break;
+            default:
+                result = null;
+                break;
+        }
+
+        return result;
+    }
+
+    // added in rogues
+    private int GetNumFlagsForTeam(Team team)
+    {
+        int num = 0;
+        using (List<CTF_Flag>.Enumerator enumerator = m_flags.GetEnumerator())
+        {
+            while (enumerator.MoveNext())
+            {
+                if (enumerator.Current.GetIntrinsicTeam() == team)
+                {
+                    num++;
+                }
+            }
+        }
+
+        return num;
+    }
+
+    // added in rogues
+    private bool SpawnNewFlag(BoardRegion flagSpawnRegion, Team flagTeam)
+    {
+        if (!NetworkServer.active)
+        {
+            Log.Error("Attempted to call server only function on client.");
+            return false;
+        }
+
+        BoardSquare boardSquare = null;
+        float num = 0f;
+        List<BoardSquare> squaresInRegion = flagSpawnRegion.GetSquaresInRegion();
+        List<BoardSquare> list = new List<BoardSquare>();
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            if (ctf_Flag.ServerIdleSquare != null && !list.Contains(ctf_Flag.ServerIdleSquare))
+            {
+                list.Add(ctf_Flag.ServerIdleSquare);
+            }
+
+            if (ctf_Flag.GetOriginalSquare() != null && !list.Contains(ctf_Flag.GetOriginalSquare()))
+            {
+                list.Add(ctf_Flag.GetOriginalSquare());
+            }
+        }
+
+        foreach (BoardSquare boardSquare2 in squaresInRegion)
+        {
+            if (boardSquare2.IsValidForGameplay() && !list.Contains(boardSquare2))
+            {
+                float num2 = 0f;
+                if (boardSquare2.occupant == null)
+                {
+                    num2 += 10f;
+                }
+
+                if (boardSquare == null || num2 > num)
+                {
+                    boardSquare = boardSquare2;
+                    num = num2;
+                }
+            }
+        }
+
+        bool result;
+        if (boardSquare != null)
+        {
+            GameObject gameObject = Instantiate(m_flagPrefab, boardSquare.ToVector3(), Quaternion.identity);
+            CTF_Flag component = gameObject.GetComponent<CTF_Flag>();
+            component.Initialize(boardSquare, flagTeam, s_nextFlagGuid);
+            s_nextFlagGuid += 1;
+            if (!m_flags.Contains(component))
+            {
+                m_flags.Add(component);
+            }
+
+            FlagSpawnData flagSpawnLogicForTeam = GetFlagSpawnLogicForTeam(flagTeam);
+            NetworkServer.Spawn(gameObject);
+            int numFlagsSpawned = flagSpawnLogicForTeam.NumFlagsSpawned + 1;
+            flagSpawnLogicForTeam.NumFlagsSpawned = numFlagsSpawned;
+            ActorData occupantActor = boardSquare.OccupantActor;
+            if (occupantActor != null && component.GetIntrinsicTeam() != occupantActor.GetTeam())
+            {
+                component.OnPickedUp_Server(occupantActor);
+                component.MarkAsDirty();
+            }
+
+            result = true;
+        }
+        else
+        {
+            result = false;
+        }
+
+        return result;
+    }
+
+    // added in rogues
+    public List<MovementResults> GetMovementResultsForMovementStage(MovementStage movementStage)
+    {
+        if (movementStage == MovementStage.Evasion)
+        {
+            return m_evadeResults;
+        }
+
+        if (movementStage == MovementStage.Knockback)
+        {
+            return m_knockbackResults;
+        }
+
+        if (movementStage == MovementStage.Normal)
+        {
+            return m_normalMovementResults;
+        }
+
+        return null;
+    }
+
+    // added in rogues
+    public void ExecuteUnexecutedMovementResults_Ctf(MovementStage movementStage, bool failsafe)
+    {
+        if (movementStage == MovementStage.Evasion)
+        {
+            MovementResults.ExecuteUnexecutedHits(m_evadeResults, failsafe);
+            return;
+        }
+
+        if (movementStage == MovementStage.Knockback)
+        {
+            MovementResults.ExecuteUnexecutedHits(m_knockbackResults, failsafe);
+            return;
+        }
+
+        if (movementStage == MovementStage.Normal)
+        {
+            MovementResults.ExecuteUnexecutedHits(m_normalMovementResults, failsafe);
+        }
+    }
+
+    // added in rogues
+    public void ExecuteUnexecutedMovementResultsForDistance_Ctf(
+        float distance,
+        MovementStage movementStage,
+        bool failsafe,
+        out bool stillHasUnexecutedHits,
+        out float nextUnexecutedHitDistance)
+    {
+        stillHasUnexecutedHits = false;
+        nextUnexecutedHitDistance = -1f;
+        if (movementStage == MovementStage.Evasion)
+        {
+            MovementResults.ExecuteUnexecutedHitsForDistance(
+                m_evadeResults,
+                distance,
+                failsafe,
+                out stillHasUnexecutedHits,
+                out nextUnexecutedHitDistance);
+            return;
+        }
+
+        if (movementStage == MovementStage.Knockback)
+        {
+            MovementResults.ExecuteUnexecutedHitsForDistance(
+                m_knockbackResults,
+                distance,
+                failsafe,
+                out stillHasUnexecutedHits,
+                out nextUnexecutedHitDistance);
+            return;
+        }
+
+        if (movementStage == MovementStage.Normal)
+        {
+            MovementResults.ExecuteUnexecutedHitsForDistance(
+                m_normalMovementResults,
+                distance,
+                failsafe,
+                out stillHasUnexecutedHits,
+                out nextUnexecutedHitDistance);
+        }
+    }
+
+    // added in rogues
+    public void ClearNormalMovementResults()
+    {
+        m_normalMovementResults.Clear();
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            ctf_Flag.GatheredHolderActor = ctf_Flag.ServerHolderActor;
+            ctf_Flag.GatheredIdleSquare = ctf_Flag.ServerIdleSquare;
+            ctf_Flag.GatheredPath = null;
+            ctf_Flag.GatheredMovementDamageSincePickedUp = ctf_Flag.DamageOnHolderSincePickedUp_Gross;
+            ctf_Flag.GatheredMovementDamageSinceTurnStart = ctf_Flag.DamageOnHolderSinceTurnStart_Gross;
+        }
+    }
+
+    // added in rogues
+    public void GatherResultsInResponseToEvades(MovementCollection collection)
+    {
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            ctf_Flag.GatheredHolderActor = ctf_Flag.ServerHolderActor;
+            ctf_Flag.GatheredIdleSquare = ctf_Flag.ServerIdleSquare;
+            ctf_Flag.GatheredPath = null;
+        }
+
+        m_evadeResults.Clear();
+        GatherMovementResults(collection, ref m_evadeResults);
+        foreach (MovementResults movementResults in m_evadeResults)
+        {
+            movementResults.m_triggeringPath.m_moverHasGameplayHitHere = true;
+        }
+    }
+
+    // added in rogues
+    public void GatherResultsInResponseToKnockbacks(MovementCollection collection)
+    {
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            ctf_Flag.GatheredHolderActor = ctf_Flag.ServerHolderActor;
+            ctf_Flag.GatheredIdleSquare = ctf_Flag.ServerIdleSquare;
+            ctf_Flag.GatheredPath = null;
+        }
+
+        m_knockbackResults.Clear();
+        GatherMovementResults(collection, ref m_knockbackResults);
+        for (int i = 0; i < m_knockbackResults.Count; i++)
+        {
+            TheatricsManager.Get().OnKnockbackMovementHitGathered(m_knockbackResults[i].GetTriggeringActor());
+        }
+    }
+
+    // added in rogues
+    public void GatherGrossDamageResults_Ctf_Evasion(
+        ref Dictionary<ActorData, int> actorToGrossDamage_real,
+        ref Dictionary<ActorData, ServerGameplayUtils.DamageDodgedStats> stats)
+    {
+        Dictionary<ActorData, int> fakeDamageTaken = new Dictionary<ActorData, int>();
+        foreach (MovementResults movementResults in GetMovementResultsForMovementStage(MovementStage.Evasion))
+        {
+            Dictionary<ActorData, int> movementDamageResults_Gross = movementResults.GetMovementDamageResults_Gross();
+            ServerGameplayUtils.CalcDamageDodgedAndIntercepted(movementDamageResults_Gross, fakeDamageTaken, ref stats);
+            ServerGameplayUtils.IntegrateHpDeltas(movementDamageResults_Gross, ref actorToGrossDamage_real);
+        }
+    }
+
+    // added in rogues
+    public MovementResults BuildFlagPickUpMovementResults(
+        ActorData mover,
+        BoardSquarePathInfo triggeringPathSegment,
+        MovementStage movementStage,
+        byte flagGuid)
+    {
+        return GameModeUtils.BuildGameModeEventMovementResults(
+            mover,
+            triggeringPathSegment,
+            movementStage,
+            new GameModeEvent
+            {
+                m_eventType = GameModeEventType.Ctf_FlagPickedUp,
+                m_objectGuid = flagGuid,
+                m_primaryActor = mover,
+                m_square = triggeringPathSegment.square
+            },
+            m_flagPickedUpSequence,
+            null);
+    }
+
+    // added in rogues
+    public MovementResults BuildFlagDropMovementResults(
+        ActorData mover,
+        BoardSquarePathInfo triggeringPathSegment,
+        MovementStage movementStage,
+        byte flagGuid)
+    {
+        return GameModeUtils.BuildGameModeEventMovementResults(
+            mover,
+            triggeringPathSegment,
+            movementStage,
+            new GameModeEvent
+            {
+                m_eventType = GameModeEventType.Ctf_FlagDropped,
+                m_objectGuid = flagGuid,
+                m_primaryActor = mover,
+                m_square = triggeringPathSegment.square
+            },
+            m_flagDroppedSequence,
+            m_onDroppedFlagEffect);
+    }
+
+    // added in rogues
+    public MovementResults BuildFlagSentToSpawnMovementResults(
+        ActorData mover,
+        BoardSquarePathInfo triggeringPathSegment,
+        MovementStage movementStage,
+        byte flagGuid,
+        BoardSquare flagDestSquare)
+    {
+        return GameModeUtils.BuildGameModeEventMovementResults(
+            mover,
+            triggeringPathSegment,
+            movementStage,
+            new GameModeEvent
+            {
+                m_eventType = GameModeEventType.Ctf_FlagSentToSpawn,
+                m_objectGuid = flagGuid,
+                m_primaryActor = mover,
+                m_square = flagDestSquare
+            },
+            m_flagReturnedToSpawnSequence,
+            m_onReturnedFlagEffect);
+    }
+
+    public MovementResults BuildFlagTurnedInMovementResults(
+        ActorData mover,
+        BoardSquarePathInfo triggeringPathSegment,
+        MovementStage movementStage,
+        byte flagGuid)
+    {
+        return GameModeUtils.BuildGameModeEventMovementResults(
+            mover,
+            triggeringPathSegment,
+            movementStage,
+            new GameModeEvent
+            {
+                m_eventType = GameModeEventType.Ctf_FlagTurnedIn,
+                m_objectGuid = flagGuid,
+                m_primaryActor = mover,
+                m_square = triggeringPathSegment.square
+            },
+            m_flagTurnedInSequence,
+            m_onTurnedInFlagEffect);
+    }
+
+    // added in rogues
+    public void GatherCtfResultsInResponseToMovementSegment(
+        ServerGameplayUtils.MovementGameplayData gameplayData,
+        MovementStage movementStage,
+        ref List<MovementResults> moveResultsForSegment)
+    {
+        List<MovementResults> list = new List<MovementResults>();
+        if (!gameplayData.m_currentlyConsideredPath.m_moverDiesHere)
+        {
+            if (CanMoverPickUpFlag(gameplayData.m_currentlyConsideredPath, gameplayData.Actor, movementStage))
+            {
+                foreach (CTF_Flag ctf_Flag in m_flags)
+                {
+                    if (ctf_Flag.GatheredHolderActor == null
+                        && ctf_Flag.GatheredIdleSquare == gameplayData.m_currentlyConsideredPath.square
+                        && (!(ctf_Flag.ServerHolderActor == gameplayData.Actor) || m_allowFlagJuggling))
+                    {
+                        if (ctf_Flag.GetIntrinsicTeam() == gameplayData.Actor.GetTeam())
+                        {
+                            if (!m_disableAllyReturningOwnFlags
+                                && ctf_Flag.GatheredIdleSquare != ctf_Flag.GetOriginalSquare())
+                            {
+                                MovementResults item = BuildFlagSentToSpawnMovementResults(
+                                    gameplayData.Actor,
+                                    gameplayData.m_currentlyConsideredPath,
+                                    movementStage,
+                                    ctf_Flag.m_flagGuid,
+                                    ctf_Flag.GetOriginalSquare());
+                                list.Add(item);
+                                ctf_Flag.GatheredIdleSquare = ctf_Flag.GetOriginalSquare();
+                                ctf_Flag.GatheredHolderActor = null;
+                            }
+                        }
+                        else
+                        {
+                            MovementResults item2 = BuildFlagPickUpMovementResults(
+                                gameplayData.Actor,
+                                gameplayData.m_currentlyConsideredPath,
+                                movementStage,
+                                ctf_Flag.m_flagGuid);
+                            list.Add(item2);
+                            ctf_Flag.GatheredIdleSquare = null;
+                            ctf_Flag.GatheredHolderActor = gameplayData.Actor;
+                        }
+                    }
+                }
+            }
+
+            foreach (CTF_Flag ctf_Flag2 in m_flags)
+            {
+                if (ctf_Flag2.GatheredHolderActor == gameplayData.Actor)
+                {
+                    int damageTakenThisSegment = gameplayData.m_damageTakenThisSegment;
+                    ctf_Flag2.GatheredMovementDamageSincePickedUp += damageTakenThisSegment;
+                    ctf_Flag2.GatheredMovementDamageSinceTurnStart += damageTakenThisSegment;
+                    int num = m_damageInOneTurnToDropFlag_gross + m_damageThesholdIncreaseOnDrop * m_numFlagDrops;
+                    int num2 = m_damageSincePickedUpToDropFlag_gross + m_damageThesholdIncreaseOnDrop * m_numFlagDrops;
+                    bool flag =
+                        (ctf_Flag2.GatheredMovementDamageSinceTurnStart >= num
+                         && m_damageInOneTurnToDropFlag_gross >= 0)
+                        || (ctf_Flag2.GatheredMovementDamageSincePickedUp >= num2
+                            && m_damageSincePickedUpToDropFlag_gross >= 0);
+                    if (flag)
+                    {
+                        MovementResults item3 = BuildFlagDropMovementResults(
+                            gameplayData.Actor,
+                            gameplayData.m_currentlyConsideredPath,
+                            movementStage,
+                            ctf_Flag2.m_flagGuid);
+                        list.Add(item3);
+                        ctf_Flag2.GatheredIdleSquare = gameplayData.m_currentlyConsideredPath.square;
+                        ctf_Flag2.GatheredHolderActor = null;
+                    }
+                }
+            }
+
+            using (List<CTF_Flag>.Enumerator enumerator = m_flags.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                {
+                    CTF_Flag ctf_Flag3 = enumerator.Current;
+                    if (ctf_Flag3.GatheredHolderActor == gameplayData.Actor)
+                    {
+                        if (ctf_Flag3.CanBeTurnedIn(
+                                gameplayData.m_currentlyConsideredPath.square,
+                                FlagTurninRegion_TeamA,
+                                FlagTurninRegion_TeamB,
+                                FlagTurninRegion_Neutral))
+                        {
+                            if (m_turnInRequirements.Contains(TurninType.FlagHolderMovingIntoCaptureRegion))
+                            {
+                                MovementResults item4 = BuildFlagTurnedInMovementResults(
+                                    gameplayData.Actor,
+                                    gameplayData.m_currentlyConsideredPath,
+                                    movementStage,
+                                    ctf_Flag3.m_flagGuid);
+                                list.Add(item4);
+                                ctf_Flag3.GatheredIdleSquare = null;
+                                ctf_Flag3.GatheredHolderActor = null;
+                            }
+                        }
+                        else
+                        {
+                            ctf_Flag3.OnNotHeldInTurninRegion();
+                        }
+                    }
+                }
+
+                goto IL_3AA;
+            }
+        }
+
+        foreach (CTF_Flag ctf_Flag4 in m_flags)
+        {
+            if (ctf_Flag4.GatheredHolderActor == gameplayData.Actor)
+            {
+                MovementResults item5 = BuildFlagDropMovementResults(
+                    gameplayData.Actor,
+                    gameplayData.m_currentlyConsideredPath,
+                    movementStage,
+                    ctf_Flag4.m_flagGuid);
+                list.Add(item5);
+                ctf_Flag4.GatheredIdleSquare = gameplayData.m_currentlyConsideredPath.square;
+                ctf_Flag4.GatheredHolderActor = null;
+            }
+        }
+
+        IL_3AA:
+        List<MovementResults> movementResultsForMovementStage = GetMovementResultsForMovementStage(movementStage);
+        for (int i = 0; i < list.Count; i++)
+        {
+            movementResultsForMovementStage.Add(list[i]);
+            if (list[i].ShouldMovementHitUpdateTargetLastKnownPos(gameplayData.Actor))
+            {
+                gameplayData.m_currentlyConsideredPath.m_visibleToEnemies = true;
+                gameplayData.m_currentlyConsideredPath.m_updateLastKnownPos = true;
+            }
+
+            gameplayData.m_currentlyConsideredPath.m_moverHasGameplayHitHere = true;
+            moveResultsForSegment.Add(list[i]);
+        }
+    }
+
+    // added in rogues
+    private void GatherMovementResultsForDroppingFlags(
+        MovementCollection movement,
+        ref List<MovementResults> movementResultsList)
+    {
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            if (!(ctf_Flag.GatheredHolderActor == null) && !(ctf_Flag.GatheredIdleSquare != null))
+            {
+                foreach (MovementInstance movementInstance in movement.m_movementInstances)
+                {
+                    ActorData mover = movementInstance.m_mover;
+                    if (ctf_Flag.GatheredHolderActor == mover)
+                    {
+                        bool flag = false;
+                        BoardSquare currentBoardSquare = mover.GetCurrentBoardSquare();
+                        for (BoardSquarePathInfo boardSquarePathInfo = movementInstance.m_path;
+                             boardSquarePathInfo != null;
+                             boardSquarePathInfo = boardSquarePathInfo.next)
+                        {
+                            if (boardSquarePathInfo.square != currentBoardSquare)
+                            {
+                                flag = true;
+                                break;
+                            }
+                        }
+
+                        if (!flag)
+                        {
+                            break;
+                        }
+
+                        bool flag2 = movement.m_movementStage == MovementStage.Evasion && m_evasionDropsFlags;
+                        bool flag3 = movement.m_movementStage == MovementStage.Knockback
+                                     && m_beingKnockedBackDropsFlags;
+                        bool flag4 = !mover.GetActorStatus().IsKnockbackImmune();
+                        if (flag2 || (flag3 && flag4))
+                        {
+                            MovementResults item = BuildFlagDropMovementResults(
+                                mover,
+                                movementInstance.m_path,
+                                movement.m_movementStage,
+                                ctf_Flag.m_flagGuid);
+                            movementResultsList.Add(item);
+                            ctf_Flag.GatheredIdleSquare = movementInstance.m_path.square;
+                            ctf_Flag.GatheredHolderActor = null;
+                        }
+
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    // added in rogues
+    private void GatherMovementResultsForFlagsOnGround(
+        MovementCollection movement,
+        ref List<MovementResults> movementResultsList)
+    {
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            if (!(ctf_Flag.GatheredHolderActor != null) && !(ctf_Flag.GatheredIdleSquare == null))
+            {
+                BoardSquarePathInfo boardSquarePathInfo = null;
+                MovementInstance movementInstance = null;
+                float currentShortestMoveCost = 0f;
+                foreach (MovementInstance movementInstance2 in movement.m_movementInstances)
+                {
+                    if (!movementInstance2.m_mover.GetActorStatus().HasStatus(StatusType.CantPickUpFlag)
+                        && (!(ctf_Flag.ServerHolderActor == movementInstance2.m_mover) || m_allowFlagJuggling))
+                    {
+                        for (BoardSquarePathInfo boardSquarePathInfo2 = movementInstance2.m_path;
+                             boardSquarePathInfo2 != null;
+                             boardSquarePathInfo2 = boardSquarePathInfo2.next)
+                        {
+                            if (boardSquarePathInfo2.square == ctf_Flag.GatheredIdleSquare)
+                            {
+                                bool flag = (movementInstance2.m_groundBased || boardSquarePathInfo2.IsPathEndpoint())
+                                            && !boardSquarePathInfo2.IsPathStartPoint();
+                                bool flag2 = boardSquarePathInfo2.IsPathEndpoint() || m_evadersCanPickUpFlags
+                                    || movement.m_movementStage != MovementStage.Evasion;
+                                bool flag3 = boardSquarePathInfo2.IsPathEndpoint() || m_knockbackedMoversCanPickUpFlags
+                                    || movement.m_movementStage != MovementStage.Knockback;
+                                bool flag4 = ctf_Flag.GetIntrinsicTeam() != movementInstance2.m_mover.GetTeam()
+                                             || (!m_disableAllyReturningOwnFlags && ctf_Flag.GatheredIdleSquare
+                                                 != ctf_Flag.GetOriginalSquare());
+                                bool flag5 = !boardSquarePathInfo2.m_moverClashesHere;
+                                if (flag && flag2 && flag3 && flag4 && flag5
+                                    && MovementUtils.IsBetterMovementPathForGameplayThan(
+                                        movementInstance2,
+                                        boardSquarePathInfo2.moveCost,
+                                        movementInstance,
+                                        currentShortestMoveCost))
+                                {
+                                    boardSquarePathInfo = boardSquarePathInfo2;
+                                    movementInstance = movementInstance2;
+                                    currentShortestMoveCost = boardSquarePathInfo2.moveCost;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (movementInstance != null)
+                {
+                    if (ctf_Flag.GetIntrinsicTeam() == movementInstance.m_mover.GetTeam())
+                    {
+                        if (ctf_Flag.GatheredIdleSquare != ctf_Flag.GetOriginalSquare())
+                        {
+                            MovementResults item = BuildFlagSentToSpawnMovementResults(
+                                movementInstance.m_mover,
+                                boardSquarePathInfo,
+                                movement.m_movementStage,
+                                ctf_Flag.m_flagGuid,
+                                ctf_Flag.GetOriginalSquare());
+                            movementResultsList.Add(item);
+                            ctf_Flag.GatheredIdleSquare = ctf_Flag.GetOriginalSquare();
+                            ctf_Flag.GatheredHolderActor = null;
+                            ctf_Flag.GatheredPath = null;
+                        }
+                    }
+                    else
+                    {
+                        MovementResults item2 = BuildFlagPickUpMovementResults(
+                            movementInstance.m_mover,
+                            boardSquarePathInfo,
+                            movement.m_movementStage,
+                            ctf_Flag.m_flagGuid);
+                        movementResultsList.Add(item2);
+                        ctf_Flag.GatheredIdleSquare = null;
+                        ctf_Flag.GatheredHolderActor = movementInstance.m_mover;
+                        ctf_Flag.GatheredPath = boardSquarePathInfo;
+                    }
+                }
+            }
+        }
+    }
+
+    // added in rogues
+    private void GatherMovementResultsForFlagsBeingHeld(
+        MovementCollection movement,
+        ref List<MovementResults> movementResultsList)
+    {
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            if (!(ctf_Flag.GatheredHolderActor == null) && !(ctf_Flag.GatheredIdleSquare != null))
+            {
+                foreach (MovementInstance movementInstance in movement.m_movementInstances)
+                {
+                    ActorData mover = movementInstance.m_mover;
+                    if (!(ctf_Flag.GatheredHolderActor != mover))
+                    {
+                        for (BoardSquarePathInfo boardSquarePathInfo = movementInstance.m_path;
+                             boardSquarePathInfo != null;
+                             boardSquarePathInfo = boardSquarePathInfo.next)
+                        {
+                            if (ctf_Flag.GatheredPath == null
+                                || ctf_Flag.GatheredPath.IsNodePartOfMyFuturePath(boardSquarePathInfo))
+                            {
+                                BoardSquare square = boardSquarePathInfo.square;
+                                if (ctf_Flag.CanBeTurnedIn(
+                                        square,
+                                        FlagTurninRegion_TeamA,
+                                        FlagTurninRegion_TeamB,
+                                        FlagTurninRegion_Neutral))
+                                {
+                                    if (m_turnInRequirements.Contains(TurninType.FlagHolderMovingIntoCaptureRegion)
+                                        && ((movementInstance.m_groundBased || boardSquarePathInfo.IsPathEndpoint())
+                                            && !boardSquarePathInfo.IsPathStartPoint()))
+                                    {
+                                        MovementResults item = BuildFlagTurnedInMovementResults(
+                                            movementInstance.m_mover,
+                                            boardSquarePathInfo,
+                                            movement.m_movementStage,
+                                            ctf_Flag.m_flagGuid);
+                                        movementResultsList.Add(item);
+                                        ctf_Flag.GatheredIdleSquare = null;
+                                        ctf_Flag.GatheredHolderActor = null;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    ctf_Flag.OnNotHeldInTurninRegion();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // added in rogues
+    public virtual void GatherMovementResults(
+        MovementCollection movement,
+        ref List<MovementResults> movementResultsList)
+    {
+        GatherMovementResultsForDroppingFlags(movement, ref movementResultsList);
+        GatherMovementResultsForFlagsOnGround(movement, ref movementResultsList);
+        GatherMovementResultsForFlagsBeingHeld(movement, ref movementResultsList);
+    }
+
+    // added in rogues
+    private bool CanMoverPickUpFlag(
+        BoardSquarePathInfo currentlyConsideredPath,
+        ActorData mover,
+        MovementStage movementStage)
+    {
+        bool result;
+        if (mover.GetActorStatus().HasStatus(StatusType.CantPickUpFlag))
+        {
+            result = false;
+        }
+        else if (currentlyConsideredPath.m_moverClashesHere)
+        {
+            result = false;
+        }
+        else if (currentlyConsideredPath.IsPathEndpoint() && !currentlyConsideredPath.WillDieAtEnd())
+        {
+            result = true;
+        }
+        else if (movementStage == MovementStage.Evasion)
+        {
+            result = m_evadersCanPickUpFlags;
+        }
+        else
+        {
+            result = (movementStage != MovementStage.Knockback || m_knockbackedMoversCanPickUpFlags);
+        }
+
+        return result;
+    }
+
+    // added in rogues
+    public void ExecuteServerGameModeEvent(GameModeEvent gameModeEvent)
+    {
+        if (gameModeEvent == null)
+        {
+            return;
+        }
+
+        GameModeEventType eventType = gameModeEvent.m_eventType;
+        byte objectGuid = gameModeEvent.m_objectGuid;
+        CTF_Flag flagByGuid = GetFlagByGuid(objectGuid);
+        if (flagByGuid == null)
+        {
+            Debug.LogError(
+                string.Concat(
+                    "CaptureTheFlag trying to handle GameModeEvent of type ",
+                    eventType.ToString(),
+                    " with objectGuid ",
+                    objectGuid,
+                    ", but can't find a flag with that guid."));
+            return;
+        }
+
+        if (eventType == GameModeEventType.Ctf_FlagPickedUp)
+        {
+            ActorData primaryActor = gameModeEvent.m_primaryActor;
+            flagByGuid.OnPickedUp_Server(primaryActor);
+            return;
+        }
+
+        if (eventType == GameModeEventType.Ctf_FlagDropped)
+        {
+            BoardSquare square = gameModeEvent.m_square;
+            flagByGuid.OnDropped_Server(square);
+            Networkm_numFlagDrops = m_numFlagDrops + 1;
+            return;
+        }
+
+        if (eventType == GameModeEventType.Ctf_FlagTurnedIn)
+        {
+            ActorData primaryActor2 = gameModeEvent.m_primaryActor;
+            BoardSquare square2 = gameModeEvent.m_square;
+            TurnInFlag_Server(flagByGuid, primaryActor2, square2);
+            return;
+        }
+
+        if (eventType == GameModeEventType.Ctf_FlagSentToSpawn)
+        {
+            ActorData primaryActor3 = gameModeEvent.m_primaryActor;
+            flagByGuid.OnReturned_Server(primaryActor3);
+            return;
+        }
+
+        Debug.LogError("CaptureTheFlag trying to handle non-CtF event type " + eventType + ".");
+    }
+
+    // added in rogues
+    private void TurnInFlag_Server(CTF_Flag flag, ActorData flagHolder, BoardSquare captureSquare)
+    {
+        if (flag.ServerHolderActor != flagHolder)
+        {
+            string text = (flagHolder == null) ? "(null)" : flagHolder.DebugNameString();
+            string text2 = (flag.ServerHolderActor == null) ? "(null)" : flag.ServerHolderActor.DebugNameString();
+            Debug.LogError(
+                string.Concat(
+                    "CaptureTheFlag: Flag with guid ",
+                    flag.m_flagGuid,
+                    " being turned in, but the flag holder ",
+                    text,
+                    " does not match the flag's serverHolderActor, ",
+                    text2,
+                    "."));
+        }
+
+        Team team = flagHolder.GetTeam();
+        if (team == Team.TeamA)
+        {
+            m_rewardToCapturingTeam.ApplyRewardTo(Team.TeamA);
+            m_rewardToOtherTeam.ApplyRewardTo(Team.TeamB);
+            m_teamACaptures++;
+        }
+        else if (team == Team.TeamB)
+        {
+            m_rewardToCapturingTeam.ApplyRewardTo(Team.TeamB);
+            m_rewardToOtherTeam.ApplyRewardTo(Team.TeamA);
+            m_teamBCaptures++;
+        }
+
+        m_timeToFocusCameraOnExtraction = Time.time + m_timeTillCameraFocusesOntoExtraction;
+        m_lastExtractionSquare = captureSquare;
+        flag.OnTurnedIn_Server();
+        GetFlagSpawnLogicForTeam(flag.GetIntrinsicTeam()).LastCaptureTurn = GameFlowData.Get().CurrentTurn;
+        if (m_flags.Contains(flag))
+        {
+            m_flags.Remove(flag);
+        }
+
+        NetworkServer.Destroy(flag.gameObject);
+    }
+
+    // added in rogues
+    public void OnActorDeath(ActorData actor)
+    {
+        bool flag = false;
+        List<ActorData> contributorsToKill = GameFlowData.Get().GetContributorsToKill(actor, true);
+        List<ActorData> contributorsToKill2 = GameFlowData.Get().GetContributorsToKill(actor);
+        List<ActorData> list = new List<ActorData>();
+        List<ActorData> list2 = new List<ActorData>();
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            if (ctf_Flag.ServerHolderActor != null)
+            {
+                if (ctf_Flag.ServerHolderActor == actor)
+                {
+                    flag = true;
+                    ctf_Flag.OnDropped_Server(actor.GetMostRecentDeathSquare());
+                    Networkm_numFlagDrops = m_numFlagDrops + 1;
+                    ctf_Flag.MarkAsDirty();
+                }
+
+                if (contributorsToKill.Contains(ctf_Flag.ServerHolderActor))
+                {
+                    list.Add(ctf_Flag.ServerHolderActor);
+                }
+
+                if (contributorsToKill2.Contains(ctf_Flag.ServerHolderActor))
+                {
+                    list2.Add(ctf_Flag.ServerHolderActor);
+                }
+            }
+        }
+
+        if (flag && ObjectivePoints.Get() != null)
+        {
+            ObjectivePoints.Get().AdjustPoints(
+                m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathOfFlagHolder,
+                actor.GetTeam());
+            ObjectivePoints.Get().AdjustPoints(
+                m_objectivePointsData_otherTeam.m_pointsPerDeathOfFlagHolder,
+                actor.GetEnemyTeam());
+        }
+
+        foreach (ActorData actorData in list)
+        {
+            if (ObjectivePoints.Get() != null)
+            {
+                ObjectivePoints.Get().AdjustPoints(
+                    m_objectivePointsData_flagHoldersTeam.m_pointsPerDeathblowByFlagHolder,
+                    actorData.GetTeam());
+                ObjectivePoints.Get().AdjustPoints(
+                    m_objectivePointsData_otherTeam.m_pointsPerDeathblowByFlagHolder,
+                    actorData.GetEnemyTeam());
+            }
+        }
+
+        foreach (ActorData actorData2 in list2)
+        {
+            if (ObjectivePoints.Get() != null)
+            {
+                ObjectivePoints.Get().AdjustPoints(
+                    m_objectivePointsData_flagHoldersTeam.m_pointsPerTakedownByFlagHolder,
+                    actorData2.GetTeam());
+                ObjectivePoints.Get().AdjustPoints(
+                    m_objectivePointsData_otherTeam.m_pointsPerTakedownByFlagHolder,
+                    actorData2.GetEnemyTeam());
+            }
+        }
+    }
+
+    // added in rogues
+    public void OnUnresolvedDamage_Ctf(ActorData actor, int damage)
+    {
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            if (ctf_Flag.ServerHolderActor == actor)
+            {
+                ctf_Flag.DamageOnHolderSincePickedUp_Gross += damage;
+                ctf_Flag.DamageOnHolderSinceTurnStart_Gross += damage;
+            }
+        }
+    }
+
+    // added in rogues
+    public void OnResolvedHitPoints_Ctf()
+    {
+        List<MovementResults> list = new List<MovementResults>();
+        int num = m_damageInOneTurnToDropFlag_gross + m_damageThesholdIncreaseOnDrop * m_numFlagDrops;
+        int num2 = m_damageSincePickedUpToDropFlag_gross + m_damageThesholdIncreaseOnDrop * m_numFlagDrops;
+        foreach (CTF_Flag ctf_Flag in m_flags)
+        {
+            bool flag = !(ctf_Flag.ServerHolderActor == null)
+                        && ((ctf_Flag.DamageOnHolderSinceTurnStart_Gross >= num
+                             && m_damageInOneTurnToDropFlag_gross >= 0)
+                            || (ctf_Flag.DamageOnHolderSincePickedUp_Gross >= num2
+                                && m_damageSincePickedUpToDropFlag_gross >= 0));
+            if (flag)
+            {
+                BoardSquarePathInfo boardSquarePathInfo = new BoardSquarePathInfo();
+                boardSquarePathInfo.square = ctf_Flag.ServerHolderActor.CurrentBoardSquare;
+                MovementResults item = BuildFlagDropMovementResults(
+                    ctf_Flag.ServerHolderActor,
+                    boardSquarePathInfo,
+                    MovementStage.Normal,
+                    ctf_Flag.m_flagGuid);
+                list.Add(item);
+            }
+        }
+
+        foreach (MovementResults movementResults in list)
+        {
+            movementResults.ExecuteUnexecutedMovementHits(false);
+            if (ServerResolutionManager.Get() != null)
+            {
+                ServerResolutionManager.Get().SendNonResolutionActionToClients(movementResults);
+            }
+        }
+    }
+#endif
+
     public void Client_OnActorDeath(ActorData actor)
     {
         bool wasHoldingFlag = false;
@@ -783,14 +2173,14 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         List<ActorData> contributorsAll = GameFlowData.Get().GetContributorsToKillOnClient(actor);
         List<ActorData> deathblowsBy = new List<ActorData>();
         List<ActorData> takedownsBy = new List<ActorData>();
-        
+
         foreach (CTF_Flag flag in m_flags)
         {
             if (flag.ClientHolderActor == null)
             {
                 continue;
             }
-            
+
             if (flag.ClientHolderActor == actor)
             {
                 wasHoldingFlag = true;
@@ -933,7 +2323,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return;
         }
-        
+
         Team teamViewing = GameFlowData.Get().LocalPlayerData.GetTeamViewing();
         RelationshipToClient relationship;
         Color color;
@@ -1012,19 +2402,37 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
 
     public void OnGameEvent(GameEventManager.EventType eventType, GameEventManager.GameEventArgs args)
     {
-        if (args == null || !NetworkClient.active)
+        if (args == null)
         {
             return;
         }
 
-        switch (eventType)
+        if (NetworkClient.active)
         {
-            case GameEventManager.EventType.ActorDamaged_Client:
-            case GameEventManager.EventType.ActorHealed_Client:
-            case GameEventManager.EventType.ActorGainedAbsorb_Client:
-                OnActorHealthChanged(args, true);
-                break;
+            switch (eventType)
+            {
+                case GameEventManager.EventType.ActorDamaged_Client:
+                case GameEventManager.EventType.ActorHealed_Client:
+                case GameEventManager.EventType.ActorGainedAbsorb_Client:
+                    OnActorHealthChanged(args, true);
+                    break;
+            }
         }
+
+#if SERVER
+        // added in rogues
+        if (NetworkServer.active)
+        {
+            switch (eventType)
+            {
+                case GameEventManager.EventType.ActorDamaged_Server:
+                case GameEventManager.EventType.ActorHealed_Server:
+                case GameEventManager.EventType.ActorGainedAbsorb_Server:
+                    OnActorHealthChanged(args, false);
+                    break;
+            }
+        }
+#endif
     }
 
     private void OnActorHealthChanged(GameEventManager.GameEventArgs args, bool clientMode)
@@ -1140,12 +2548,12 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return true;
         }
-        
+
         if (checkTeam != Team.TeamA && checkTeam != Team.TeamB)
         {
             return true;
         }
-        
+
         bool teamCapturedFlag;
         bool otherTeamCapturedFlag;
         if (checkTeam == Team.TeamA)
@@ -1167,7 +2575,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             {
                 continue;
             }
-            
+
             if (flag.ServerHolderActor.GetTeam() == checkTeam)
             {
                 teamHoldingFlag = true;
@@ -1301,7 +2709,8 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         if (FlagTurninRegion_TeamA != null && HUD_UI.Get() != null)
         {
             bool isLocalTeamA = GameFlowData.Get().activeOwnedActorData == null
-                    || GameFlowData.Get().activeOwnedActorData.GetTeam() == Team.TeamA;
+                                || GameFlowData.Get().activeOwnedActorData.GetTeam()
+                                == Team.TeamA; // activeOwnedActorData check removed in rogues
 
             if (isRegionActive && isRegionValid)
             {
@@ -1332,11 +2741,13 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             m_timeToFocusCameraOnTurninTeamB = Time.time + m_timeTillCameraFocusesOntoExtractionPoint;
         }
 
-        if (FlagTurninRegion_TeamB != null && HUD_UI.Get() != null)
+        if (FlagTurninRegion_TeamB != null
+            && HUD_UI.Get()
+            != null) // TODO CTF FlagTurninRegion_TeamA instead of FlagTurninRegion_TeamB in rogues - probably bug in rogues
         {
             bool isLocalTeamB = GameFlowData.Get().activeOwnedActorData != null
-                    && GameFlowData.Get().activeOwnedActorData.GetTeam() == Team.TeamB;
-
+                                && GameFlowData.Get().activeOwnedActorData.GetTeam()
+                                == Team.TeamB; // activeOwnedActorData check removed in rogues
             if (isRegionActive && isRegionValid)
             {
                 Team otherTeam = isLocalTeamB ? Team.TeamA : Team.TeamB;
@@ -1366,7 +2777,9 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             m_timeToFocusCameraOnTurninNeutral = Time.time + m_timeTillCameraFocusesOntoExtractionPoint;
         }
 
-        if (FlagTurninRegion_Neutral != null && HUD_UI.Get() != null)
+        if (FlagTurninRegion_Neutral != null
+            && HUD_UI.Get()
+            != null) // TODO CTF FlagTurninRegion_TeamA instead of FlagTurninRegion_Neutral in rogues - probably bug in rogues
         {
             if (isRegionActive && isRegionValid)
             {
@@ -1391,7 +2804,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return null;
         }
-        
+
         GameObject highlightObject = HighlightUtils.Get().CreateBoundaryHighlight(
             region.GetSquaresInRegion(),
             Color.yellow);
@@ -1423,7 +2836,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             m_flagSpawnsTeamA,
             "TeamA Flag-Spawn Auto-Boundary");
         m_autoBoundary_spawn_teamB = InstantiateBoundaryObject(
-            m_flagSpawnsTeamB, 
+            m_flagSpawnsTeamB,
             "TeamB Flag-Spawn Auto-Boundary");
     }
 
@@ -1461,7 +2874,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             return;
         }
-        
+
         float mainAlpha = 1f - oscillationLevel * oscillationLevel;
         float secondaryAlpha = oscillationLevel * oscillationLevel;
         Color color = new Color(
@@ -1469,7 +2882,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             mainColor.g * mainAlpha + secondaryColor.g * secondaryAlpha,
             mainColor.b * mainAlpha + secondaryColor.b * secondaryAlpha,
             mainColor.a * mainAlpha + secondaryColor.a * secondaryAlpha);
-        
+
         SetBoundaryColor(autoBoundary, color);
     }
 
@@ -1553,10 +2966,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             SetBoundaryColor(
                 m_autoBoundary_turnin_neutral,
                 new Color(
-                m_primaryColor_neutral.r * 0.5f,
-                m_primaryColor_neutral.g * 0.5f,
-                m_primaryColor_neutral.b * 0.5f,
-                m_primaryColor_neutral.a * 0.5f));
+                    m_primaryColor_neutral.r * 0.5f,
+                    m_primaryColor_neutral.g * 0.5f,
+                    m_primaryColor_neutral.b * 0.5f,
+                    m_primaryColor_neutral.a * 0.5f));
         }
 
         if (TurninRegionState_TeamA != TurninRegionState.Disabled)
@@ -1679,6 +3092,7 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
             : Team.Invalid;
 
         GameObject sequence;
+        // reactor
         if (teamOfTurninRegionActivating != Team.TeamA
             && teamOfTurninRegionActivating != Team.TeamB)
         {
@@ -1693,6 +3107,20 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         {
             sequence = m_friendlyTurninRegionActivatedSequence;
         }
+        // rogues TODO CTF - not sure which is correct
+        // if ((team != Team.TeamA && team != Team.TeamB)
+        //     || (teamOfTurninRegionActivating != Team.TeamA && teamOfTurninRegionActivating != Team.TeamB))
+        // {
+        //     sequence = m_neutralTurninRegionActivatedSequence;
+        // }
+        // else if (team != teamOfTurninRegionActivating)
+        // {
+        //     sequence = m_enemyTurninRegionActivatedSequence;
+        // }
+        // else
+        // {
+        //     sequence = m_friendlyTurninRegionActivatedSequence;
+        // }
 
         if (sequence != null)
         {
@@ -1766,7 +3194,10 @@ public class CaptureTheFlag : NetworkBehaviour, IGameEventListener
         }
     }
 
+    // reactor
     private void UNetVersion()
+        // rogues
+        // private void MirrorProcessed()
     {
     }
 
