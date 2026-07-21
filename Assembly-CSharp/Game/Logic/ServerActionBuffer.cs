@@ -197,7 +197,6 @@ public class ServerActionBuffer : NetworkBehaviour
 			Log.Error("Calling SynchronizePositionActorsParticipatingInPhase for the 'INVALID' phase.");
 			return;
 		}
-		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} BEGIN"); // custom
 		foreach (AbilityRequest abilityRequest in GetAllStoredAbilityRequests())
 		{
 			if (abilityRequest.m_ability.RunPriority != phase)
@@ -207,57 +206,12 @@ public class ServerActionBuffer : NetworkBehaviour
 			
 			if (abilityRequest.m_caster != null)
 			{
-				// custom
-				// TODO SAB - those tags used in custom conditions exist in Reactor and used in Rogues - we should probably stick to rogues version without these conditions
-				bool isHostileHit = abilityRequest.m_additionalData.m_abilityResults.HitActorsArray()
-					.Any(ad => ad.GetTeam() != abilityRequest.m_caster.GetTeam());
-				bool shouldRevealOnHit = abilityRequest.m_ability != null
-				                         && abilityRequest.m_ability.ShouldRevealCasterOnHostileAbilityHit();
-				if (shouldRevealOnHit && isHostileHit)
-				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName}"
-					         + $" for using ability {abilityRequest.m_ability.m_abilityName}");
-					abilityRequest.m_caster.SynchronizeTeamSensitiveData();
-				}
-				else
-				{
-					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {abilityRequest.m_caster.DisplayName}"
-					         + $" for using ability {abilityRequest.m_ability.m_abilityName}: "
-					         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
-				}
-				// rogues
-				// abilityRequest.m_caster.SynchronizeTeamSensitiveData();
-			}
-			else
-			{
-				Log.Info($"Not requesting SynchronizeTeamSensitiveData {phase} "
-				         + $"for {abilityRequest.m_caster?.DisplayName} for using "
-				         + $"ability {abilityRequest.m_ability?.m_abilityName}"); // custom
+				abilityRequest.m_caster.SynchronizeTeamSensitiveData();
 			}
 			
 			foreach (ActorData hitActor in abilityRequest.m_additionalData.m_abilityResults.HitActorsArray())
 			{
-				// custom
-				bool isHostileHit = abilityRequest.m_caster != null
-				                    && abilityRequest.m_caster.GetTeam() != hitActor.GetTeam();
-				bool shouldRevealOnHit = abilityRequest.m_ability != null
-				                               && abilityRequest.m_ability.ShouldRevealTargetOnHostileAbilityHit();
-				if (isHostileHit && shouldRevealOnHit)
-				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
-					         + $"for being hit by {abilityRequest.m_caster.DisplayName}'s "
-					         + $"ability {abilityRequest.m_ability.m_abilityName}");
-					hitActor.SynchronizeTeamSensitiveData();
-				}
-				else
-				{
-					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
-					         + $"for being hit by {abilityRequest.m_caster?.DisplayName}'s "
-					         + $"ability {abilityRequest.m_ability?.m_abilityName}: "
-					         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
-				}
-				// rogues
-				// hitActor.SynchronizeTeamSensitiveData();
+				hitActor.SynchronizeTeamSensitiveData();
 			}
 		}
 		
@@ -270,76 +224,19 @@ public class ServerActionBuffer : NetworkBehaviour
 					continue;
 				}
 				
-				// custom
-				bool hasHostileHits = effect.Caster != null
-				                    && effect.GetResultsForPhase(phase, true).HitActorsArray()
-					                    .Any(ad => ad.GetTeam() != effect.Caster.GetTeam()); 
-				// end custom
-				
 				if (effect.Caster != null)
 				{
-					// custom
-					bool shouldRevealOnHit = effect.Parent.Ability == null
-					                         || effect.Parent.Ability.ShouldRevealCasterOnHostileEffectOrBarrierHit();
-					if (hasHostileHits && shouldRevealOnHit)
-					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
-						         + $"for using effect {effect.m_effectName}");
-						effect.Caster.SynchronizeTeamSensitiveData(); // TODO SAB - this was commented out (but was unconditional) - might be more revealing now
-					}
-					else
-					{
-						Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
-						         + $"for using effect {effect.m_effectName}: "
-						         + $"hasHostileHits={hasHostileHits}, shouldRevealOnHit={shouldRevealOnHit}");
-					}
-					// rogues
-					// effect.Caster.SynchronizeTeamSensitiveData();
+					effect.Caster.SynchronizeTeamSensitiveData();
 				}
 				
 				if (effect.Target != null)
 				{
-					// custom
-					bool shouldRevealOnHit = effect.Parent.Ability == null
-					                         || effect.Parent.Ability.ShouldRevealEffectHolderOnHostileEffectHit();
-					// TODO SAB - but what if black hole in fog of war hits nobody? will the animation play in the wrong place?
-					if (hasHostileHits && shouldRevealOnHit)
-					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} "
-						         + $"for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}");
-						effect.Target.SynchronizeTeamSensitiveData();
-					}
-					else
-					{
-						Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {effect.Target.DisplayName} "
-						         + $"for being the target of {effect.Caster?.DisplayName}'s effect {effect.m_effectName}: "
-						         + $"hasHostileHits={hasHostileHits}, shouldRevealOnHit={shouldRevealOnHit}");
-					}
-					// rogues
-					// effect.Target.SynchronizeTeamSensitiveData();
+					effect.Target.SynchronizeTeamSensitiveData();
 				}
 				
 				foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 				{
-					// custom
-					bool isHostileHit = effect.Caster != null
-					                    && effect.Caster.GetTeam() != hitActor.GetTeam();
-					bool shouldRevealOnHit = effect.Parent.Ability == null
-					                         || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit();
-					if (isHostileHit && shouldRevealOnHit)
-					{
-						Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
-						         + $"for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}");
-						hitActor.SynchronizeTeamSensitiveData();
-					}
-					else
-					{
-						Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
-						         + $"for being hit by {effect.Caster?.DisplayName}'s effect {effect.m_effectName}: "
-						         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
-					}
-					// rogues
-					// hitActor.SynchronizeTeamSensitiveData();
+					hitActor.SynchronizeTeamSensitiveData();
 				}
 			}
 		}
@@ -353,52 +250,14 @@ public class ServerActionBuffer : NetworkBehaviour
 			
 			if (effect.Caster != null)
 			{
-				// custom
-				bool hasHostileHits = effect.Caster != null
-				                      && effect.GetResultsForPhase(phase, true).HitActorsArray()
-					                      .Any(ad => ad.GetTeam() != effect.Caster.GetTeam()); 
-				bool shouldRevealOnHit = effect.Parent.Ability == null
-				                         || effect.Parent.Ability.ShouldRevealCasterOnHostileEffectOrBarrierHit();
-				if (hasHostileHits && shouldRevealOnHit)
-				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
-					         + $"for using world effect {effect.m_effectName}");
-					effect.Caster.SynchronizeTeamSensitiveData(); // TODO SAB - this was commented out (but was unconditional) - might be more revealing now
-				}
-				else
-				{
-					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {effect.Caster.DisplayName} "
-					         + $"for using world effect {effect.m_effectName}: "
-					         + $"hasHostileHits={hasHostileHits}, shouldRevealOnHit={shouldRevealOnHit}");
-				}
-				// rogues
-				// effect.Caster.SynchronizeTeamSensitiveData();
+				effect.Caster.SynchronizeTeamSensitiveData();
 			}
 			
 			foreach (ActorData hitActor in effect.GetResultsForPhase(phase, true).HitActorsArray())
 			{
-				// custom
-				bool isHostileHit = effect.Caster != null
-				                    && effect.Caster.GetTeam() != hitActor.GetTeam();
-				bool shouldRevealOnHit = effect.Parent.Ability == null
-				                         || effect.Parent.Ability.ShouldRevealTargetOnHostileEffectOrBarrierHit();
-				if (isHostileHit && shouldRevealOnHit)
-				{
-					Log.Info($"Requesting SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
-					         + $"for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}");
-					hitActor.SynchronizeTeamSensitiveData();
-				}
-				else
-				{
-					Log.Info($"Skipping SynchronizeTeamSensitiveData {phase} for {hitActor.DisplayName} "
-					         + $"for being hit by {effect.Caster?.DisplayName}'s world effect {effect.m_effectName}: "
-					         + $"isHostileHit={isHostileHit}, shouldRevealOnHit={shouldRevealOnHit}");
-				}
-				// rogues
-				// hitActor.SynchronizeTeamSensitiveData();
+				hitActor.SynchronizeTeamSensitiveData();
 			}
 		}
-		Log.Info($"SynchronizePositionsOfActorsParticipatingInPhase {phase} END"); // custom
 	}
 
 	public void SynchronizePositionsOfActorsThatWillBeSeen(List<ActorData> actorsThatWillBeSeenButArentMoving)
@@ -1828,9 +1687,6 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				request.m_caster.GetPassiveData().OnBreakInvisibility();
 			}
-			
-			// custom TODO SAB - looks weird
-			request.m_caster.SetServerLastKnownPosSquare(request.m_caster.GetSquareAtPhaseStart(), "RunAbilityRequest");
 		}
 		if (BrushCoordinator.Get() != null)
 		{

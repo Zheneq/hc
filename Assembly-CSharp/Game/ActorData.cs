@@ -1469,6 +1469,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			ClientLastKnownPosSquare = movementSquare;
 			// reactor
 			m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
+			Log.Info($"lastVisibleTurnToClient ActorData_OnActorMoved {m_lastVisibleTurnToClient} {this}"); // custom debug
 			// rogues
 			//Networkm_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 		}
@@ -1909,6 +1910,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 			ClientLastKnownPosSquare = GetTravelBoardSquare();
 			// reactor
 			m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
+			Log.Info($"lastVisibleTurnToClient TriggerVisibilityForHit {m_lastVisibleTurnToClient} {this}"); // custom debug
 			// rogues
 			//Networkm_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 		}
@@ -1932,6 +1934,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					ClientLastKnownPosSquare = GetCurrentBoardSquare();
 					// reactor
 					m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
+					Log.Info($"lastVisibleTurnToClient UpdateClientLastKnownPosSquare {m_lastVisibleTurnToClient} {this}"); // custom debug
 					// rogues
 					//Networkm_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 				}
@@ -2062,6 +2065,7 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			// custom
 			m_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
+			Log.Info($"lastVisibleTurnToClient UpdateServerLastVisibleTurn {m_lastVisibleTurnToClient} {this}"); // custom debug
 			// rogues
 			//Networkm_lastVisibleTurnToClient = GameFlowData.Get().CurrentTurn;
 		}
@@ -5263,28 +5267,9 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 	public void SynchronizeTeamSensitiveData()
 	{
 		// custom
-		// Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle} {TeamSensitiveData_hostile.MoveFromBoardSquare?.GetGridPos()} -> {TeamSensitiveData_authority.MoveFromBoardSquare?.GetGridPos()}");
-		// TeamSensitiveData_hostile.BroadcastMovement(
-		// 	GameEventManager.EventType.Invalid,
-		// 	GetGridPos(),
-		// 	GetCurrentBoardSquare(),
-		// 	MovementType.Teleport,
-		// 	TeleportType.Reappear,
-		// 	new BoardSquarePathInfo
-		// 	{
-		// 		square = GetCurrentBoardSquare(),
-		// 		m_visibleToEnemies = true,
-		// 		m_updateLastKnownPos = true,
-		// 	});
-		
-		Log.Info($"SynchronizeTeamSensitiveData {GetPlayerDetails()?.m_handle}");
-		BoardSquare square = ServerActionBuffer.Get().AbilityPhase == AbilityPriority.Evasion
-			? GetSquareAtPhaseStart()
-			: GetCurrentBoardSquare();
-		SetServerLastKnownPosSquare(square, "SynchronizeTeamSensitiveData");
+		m_teamSensitiveData_hostile.SynchronizeMovementDataTo(m_teamSensitiveData_friendly);
 	}
 #endif
-
 
 	public void SetClientFriendlyTeamSensitiveData(ActorTeamSensitiveData friendlyTSD)
 	{
@@ -7337,42 +7322,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		//      {
 		//          ServerLastKnownPosSquare = square;
 		//}
-
 		// custom
-		BoardSquare oldSquare = ServerLastKnownPosSquare;
 		if (NetworkServer.active
 		    && (square == null
 		        || ServerLastKnownPosSquare == null
 		        || ServerLastKnownPosSquare.x != square.x
 		        || ServerLastKnownPosSquare.y != square.y))
 		{
+			Log.Info($"ServerLastKnownPosSquare {DisplayName} {callerStr}" +
+			         $"{ServerLastKnownPosSquare?.GetGridPos().ToString() ?? "null"} -> {square?.GetGridPos().ToString() ?? "null"}"); // custom debug
 			ServerLastKnownPosSquare = square;
-			
-			// TODO LOW It doesn't look like this is how it was handled in the original server,
-			//  but otherwise position is updated on the client too late
-			//  (e.g. player gets hit, plays damage animation while standing on wrong square, and then teleports)
-			if (ServerLastKnownPosSquare != null
-			    && (!ServerActionBuffer.Get().ActorIsEvading(this) || ServerActionBuffer.Get().AbilityPhase != AbilityPriority.Evasion))
-			{
-				Log.Info($"ServerLastKnownPosSquare {DisplayName} {callerStr}" +
-				         $"{oldSquare?.GetGridPos().ToString() ?? "null"} -> {square?.GetGridPos().ToString() ?? "null"}"); // custom debug
-				TeamSensitiveData_hostile.BroadcastMovement(
-					GameEventManager.EventType.ClientResolutionStarted,
-					ServerLastKnownPosSquare.GetGridPos(),
-					ServerLastKnownPosSquare,
-					MovementType.None,
-					TeleportType.Reappear,
-					null);
-			}
 		}
-		else
-		{
-			Log.Info($"ServerLastKnownPosSquare NOT BROADCASTING {DisplayName} {callerStr}" +
-			         $"{oldSquare?.GetGridPos().ToString() ?? "null"} -> {square?.GetGridPos().ToString() ?? "null"}"); // custom debug
-		}
-		// end custom
-
-		// TODO LOW check m_serverLastKnownPosX/Y
 	}
 #endif
 

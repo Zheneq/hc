@@ -132,6 +132,9 @@ public static class ServerGameplayUtils
 				BoardSquare boardSquare = null;
 				while (boardSquarePathInfo != null)
 				{
+					Log.Info($"IterateOverLastKnownPosData (path){(consideringChasers ? " (chase)" : "")} {key} "
+					         + $"{boardSquarePathInfo.square?.GetGridPos().ToString() ?? "<null>"} "
+					         + $"{(boardSquarePathInfo.m_updateLastKnownPos ? "+" : "-")}"); // custom debug
 					if (boardSquarePathInfo.m_updateLastKnownPos)
 					{
 						boardSquare = boardSquarePathInfo.square;

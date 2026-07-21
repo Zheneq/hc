@@ -679,6 +679,16 @@ namespace Theatrics
 			if (ForceActorVisibleForAbilityCast())
 			{
 				Caster.CurrentlyVisibleForAbilityCast = true;
+#if SERVER
+				// custom - otherwise last seen does not update on cast when nobody is hit
+				// for evasion - do not update if IterateOverLastKnownPosData+AdvanceGameplayPath already updated it
+				if (ServerActionBuffer.Get().AbilityPhase != AbilityPriority.Evasion
+				    || Caster.GetLastVisibleTurnToClient() != GameFlowData.Get().CurrentTurn)
+				{
+					Caster.SetServerLastKnownPosSquare(Caster.GetCurrentBoardSquare(), "CurrentlyVisibleForAbilityCast");
+					Caster.UpdateServerLastVisibleTurn();
+				}
+#endif
 			}
 
 			// server-only
@@ -1591,6 +1601,9 @@ namespace Theatrics
 			}
 			ParentAbilitySeqSource = m_abilityRequest.m_additionalData.m_parentAbilitySequenceSource;
 			InitHitActorsToDeltaHP(m_ability.GetRunPriority());
+			
+			// custom
+			m_revealOnCast = ShouldRevealOnCast();
 		}
 
 		internal ActorAnimation(Turn turn, Phase phase, EffectResults effectResults)
@@ -1621,11 +1634,7 @@ namespace Theatrics
 			m_cinematicRequested = tauntNum;
 			
 			// custom
-			m_revealOnCast = caster?
-				.GetAbilityData()
-				.GetAbilityOfActionType(actionType)?
-				.m_tags
-				.Contains(AbilityTags.DontBreakCasterInvisibilityOnCast) != true;
+			m_revealOnCast = ShouldRevealOnCast();
 			
 			m_isAbilityOrItem = false;
 			m_ability = null;
@@ -1644,6 +1653,23 @@ namespace Theatrics
 			SeqSource = source;
 			InitNonSerializedData();
 			InitBounds();
+		}
+
+		// custom
+		private bool ShouldRevealOnCast()
+		{
+			List<AbilityTags> tags = Caster?
+				.GetAbilityData()
+				.GetAbilityOfActionType(m_abilityActionType)?
+				.m_tags;
+			
+			if (tags == null)
+			{
+				return true;
+			}
+			
+			return !tags.Contains(AbilityTags.DontBreakCasterInvisibilityOnCast)
+			       && !tags.Contains(AbilityTags.DontDisruptBrush);
 		}
 
 		internal void SetTurn_FCFS(Turn turn)

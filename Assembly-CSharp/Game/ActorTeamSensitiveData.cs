@@ -459,7 +459,7 @@ public class ActorTeamSensitiveData : NetworkBehaviour, IGameEventListener
 				else
 				{
 					Log.Info($"BroadcastMovement {Actor.m_displayName} {m_typeObservingMe} {movementType} {teleportType}"
-					         + $" & disappear null -> null"
+					         + " & disappear null -> null"
 					         + (m_typeObservingMe == ObservedBy.Hostiles ? $" (in fact to {dest})" : "")); // custom debug
 					PackageRpcMovement(eventType, GridPos.s_invalid, null, null, movementType, true, m_respawning);
 					m_respawning = false;
