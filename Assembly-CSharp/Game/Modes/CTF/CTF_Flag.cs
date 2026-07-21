@@ -1,3 +1,6 @@
+// SERVER
+// ROGUES
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -27,6 +30,10 @@ public class CTF_Flag : NetworkBehaviour
     private int m_clientUnresolvedDamageOnHolder;
     private int m_numFullTurnsSpentHeldInTurninRegion;
     private bool m_spentEntireTurnReadyToBeTurnedIn;
+    
+#if SERVER
+    private StandardActorEffect m_flagHolderEffect; // added in rogues
+#endif
 
     public ActorData ServerHolderActor
     {
@@ -63,14 +70,14 @@ public class CTF_Flag : NetworkBehaviour
             {
                 return;
             }
-
+            
             m_clientHolderActor = value;
             ClientUnresolvedDamageOnHolder = 0;
             if (CaptureTheFlag.Get() == null || CaptureTheFlag.Get().m_flagBeingHeldSequence == null)
             {
                 return;
             }
-
+            
             if (m_flagBeingHeldSequenceInstance != null)
             {
                 if (!m_flagBeingHeldSequenceInstance.MarkedForRemoval)
@@ -90,7 +97,7 @@ public class CTF_Flag : NetworkBehaviour
                     m_clientHolderActor,
                     CaptureTheFlag.Get().SequenceSource,
                     null);
-
+                
                 if (sequences != null
                     && sequences.Length != 0
                     && sequences.Length <= 1)
@@ -252,7 +259,7 @@ public class CTF_Flag : NetworkBehaviour
             }
         }
     }
-
+    
     public void Initialize(BoardSquare square, Team team, byte flagGuid)
     {
         m_originalSquare = square;
@@ -276,7 +283,7 @@ public class CTF_Flag : NetworkBehaviour
     {
         return m_clientIdleSquare != null;
     }
-
+    
     public void OnNotHeldInTurninRegion()
     {
         NumFullTurnsSpentHeldInTurninRegion = 0;
@@ -356,7 +363,206 @@ public class CTF_Flag : NetworkBehaviour
 
         return Team.Objects;
     }
+    
+#if SERVER
+    // added in rogues
+    public Team GetCapturingTeam_Server()
+    {
+        if (m_team == Team.TeamA)
+        {
+            return Team.TeamB;
+        }
 
+        if (m_team == Team.TeamB)
+        {
+            return Team.TeamA;
+        }
+
+        if (GatheredHolderActor != null && GatheredHolderActor.GetTeam() == Team.TeamA)
+        {
+            return Team.TeamA;
+        }
+
+        if (GatheredHolderActor != null && GatheredHolderActor.GetTeam() == Team.TeamB)
+        {
+            return Team.TeamB;
+        }
+
+        return Team.Objects;
+    }
+
+    // added in rogues
+    public BoardRegion GetTeamAlignedTurninRegion(BoardRegion flagTurninTeamA, BoardRegion flagTurninTeamB)
+    {
+        switch (GetCapturingTeam_Server())
+        {
+            case Team.TeamA:
+                return flagTurninTeamA;
+            case Team.TeamB:
+                return flagTurninTeamB;
+            default:
+                return null;
+        }
+    }
+
+    // added in rogues
+    public bool CanBeTurnedIn(
+        BoardSquare currentSquare,
+        BoardRegion flagTurninTeamA,
+        BoardRegion flagTurninTeamB,
+        BoardRegion flagTurninNeutral)
+    {
+        if (flagTurninNeutral != null
+            && flagTurninNeutral.GetSquaresInRegion().Contains(currentSquare))
+        {
+            return true;
+        }
+
+        if (GatheredHolderActor != null)
+        {
+            BoardRegion teamAlignedTurninRegion = GetTeamAlignedTurninRegion(flagTurninTeamA, flagTurninTeamB);
+            if (teamAlignedTurninRegion != null)
+            {
+                List<BoardSquare> squaresInRegion = teamAlignedTurninRegion.GetSquaresInRegion();
+                return squaresInRegion != null && squaresInRegion.Contains(currentSquare);
+            }
+        }
+
+        return false;
+    }
+
+    // added in rogues
+    public void CTF_Flag_OnTurnEnd(bool canBeTurnedIn)
+    {
+        if (!canBeTurnedIn)
+        {
+            NumFullTurnsSpentHeldInTurninRegion = 0;
+            SpentEntireTurnReadyToBeTurnedIn = false;
+            return;
+        }
+
+        if (!SpentEntireTurnReadyToBeTurnedIn)
+        {
+            SpentEntireTurnReadyToBeTurnedIn = true;
+            return;
+        }
+
+        NumFullTurnsSpentHeldInTurninRegion += 1;
+    }
+
+    // added in rogues
+    public void CTF_Flag_OnTurnStart()
+    {
+        DamageOnHolderSinceTurnStart_Gross = 0;
+        MarkAsDirty();
+    }
+
+    // added in rogues
+    public void MarkAsDirty()
+    {
+        ClientHolderActor = m_serverHolderActor;
+        ClientIdleSquare = m_serverIdleSquare;
+        SetDirtyBit(1u);
+    }
+
+    // added in rogues
+    public void OnPickedUp_Server(ActorData newHolder)
+    {
+        if (!NetworkServer.active)
+        {
+            Log.Error("Calling CTF_Flag.OnPickedUp_Server on a non-server.");
+            return;
+        }
+
+        if (ServerHolderActor != null)
+        {
+            Log.Error($"CTF Flag held by {ServerHolderActor.DisplayName} is being picked up "
+                      + $"by {newHolder.DisplayName} without first being dropped.");
+        }
+
+        if (m_flagHolderEffect != null)
+        {
+            Log.Error($"CTF Flag held by {ServerHolderActor.DisplayName} is being picked up "
+                      + $"by {newHolder.DisplayName} without first clearing the holder-effect.");
+        }
+
+        ServerHolderActor = newHolder;
+        ServerIdleSquare = null;
+        if (CaptureTheFlag.Get().m_flagHolderEffect.m_applyEffect)
+        {
+            StandardActorEffectData effectData = CaptureTheFlag.Get().m_flagHolderEffect.m_effectData;
+            EffectSource parent = new EffectSource($"Flag Holder: {name}", null, null);
+            m_flagHolderEffect = new StandardActorEffect(
+                parent,
+                newHolder.GetCurrentBoardSquare(),
+                newHolder,
+                newHolder,
+                effectData);
+            m_flagHolderEffect.OverrideCanBeDispelledByStatusImmunity(false);
+            ServerEffectManager.Get().ApplyEffect(m_flagHolderEffect);
+        }
+    }
+
+    // added in rogues
+    public void OnReturned_Server(ActorData returner)
+    {
+        if (!NetworkServer.active)
+        {
+            Log.Error("Calling CTF_Flag.OnReturned_Server on a non-server.");
+            return;
+        }
+
+        if (ServerHolderActor != null)
+        {
+            Log.Error($"CTF Flag held by {ServerHolderActor.DisplayName} is being returned up "
+                      + $"by {returner.DisplayName} without first being dropped.");
+        }
+
+        ServerIdleSquare = m_originalSquare;
+    }
+
+    // added in rogues
+    public void OnDropped_Server(BoardSquare newIdleSquare)
+    {
+        if (!NetworkServer.active)
+        {
+            Log.Error("Calling CTF_Flag.OnDropped_Server on a non-server.");
+            return;
+        }
+
+        if (m_flagHolderEffect != null)
+        {
+            if (!ServerHolderActor.IsDead())
+            {
+                List<Effect> actorEffects = ServerEffectManager.Get().GetActorEffects(ServerHolderActor);
+                ServerEffectManager.Get().RemoveEffect(m_flagHolderEffect, actorEffects);
+            }
+
+            m_flagHolderEffect = null;
+        }
+
+        ServerIdleSquare = newIdleSquare;
+        ServerHolderActor = null;
+    }
+
+    // added in rogues
+    public void OnTurnedIn_Server()
+    {
+        if (!NetworkServer.active)
+        {
+            Log.Error("Calling CTF_Flag.OnTurnedIn_Server on a non-server.");
+            return;
+        }
+
+        if (m_flagHolderEffect != null)
+        {
+            List<Effect> actorEffects = ServerEffectManager.Get().GetActorEffects(ServerHolderActor);
+            ServerEffectManager.Get().RemoveEffect(m_flagHolderEffect, actorEffects);
+            m_flagHolderEffect = null;
+        }
+    }
+#endif
+    
     public void OnPickedUp_Client(ActorData newHolder, int eventGuid)
     {
         if (!NetworkClient.active)
@@ -369,7 +575,7 @@ public class CTF_Flag : NetworkBehaviour
         {
             return;
         }
-
+        
         LastClientUpdateFlagHolderEventGuid = eventGuid;
         ActorData clientHolderActor = ClientHolderActor;
         ClientHolderActor = newHolder;
@@ -418,12 +624,12 @@ public class CTF_Flag : NetworkBehaviour
         {
             return;
         }
-
+        
         LastClientUpdateFlagHolderEventGuid = eventGuid;
         ActorData clientHolderActor = ClientHolderActor;
         ClientHolderActor = null;
         ClientIdleSquare = newIdleSquare;
-
+        
         if (CaptureTheFlag.Get() != null)
         {
             CaptureTheFlag.Get().Client_OnFlagHolderChanged(
@@ -446,12 +652,12 @@ public class CTF_Flag : NetworkBehaviour
         {
             return;
         }
-
+        
         LastClientUpdateFlagHolderEventGuid = eventGuid;
         ActorData clientHolderActor = ClientHolderActor;
         ClientHolderActor = null;
         ClientIdleSquare = null;
-
+        
         if (CaptureTheFlag.Get() != null)
         {
             CaptureTheFlag.Get().Client_OnFlagHolderChanged(
@@ -501,7 +707,7 @@ public class CTF_Flag : NetworkBehaviour
         writer.Write(y);
         writer.Write(DamageOnHolderSincePickedUp_Gross);
         writer.Write(DamageOnHolderSinceTurnStart_Gross);
-
+        
         return dirtyBits != 0;
     }
 
@@ -586,7 +792,10 @@ public class CTF_Flag : NetworkBehaviour
         transform.rotation = GetRotation();
     }
 
+    // reactor
     private void UNetVersion()
+    // rogues
+    // private void MirrorProcessed()
     {
     }
 }
