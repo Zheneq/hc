@@ -5,7 +5,7 @@ using System.Linq;
 
 // rogues-only, missing in reactor
 #if SERVER
-public class PlayerAction_Movement : PlayerAction
+public class PlayerAction_Movement
 {
 	// custom
 	private bool m_isChase;
@@ -25,7 +25,6 @@ public class PlayerAction_Movement : PlayerAction
 			Log.Error("No movement requests");
 			return false;
 		}
-		base.ExecuteAction();
 		for (int i = moveRequests.Count - 1; i >= 0; i--)
 		{
 			MovementRequest movementRequest = moveRequests[i];
@@ -107,7 +106,7 @@ public class PlayerAction_Movement : PlayerAction
 	}
 
 	// rogues+custom: no chasing in rogues
-	public override bool ExecuteAction()
+	public bool ExecuteAction()
 	{
 		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		if (moveRequests == null || moveRequests.Count == 0)

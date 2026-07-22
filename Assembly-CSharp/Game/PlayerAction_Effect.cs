@@ -8,7 +8,7 @@ using UnityEngine.Networking;
 
 // rogues-only, missing in reactor
 #if SERVER
-public class PlayerAction_Effect : PlayerAction
+public class PlayerAction_Effect
 {
 	private List<EffectResults> m_requests;
 
@@ -37,11 +37,10 @@ public class PlayerAction_Effect : PlayerAction
 		return this.m_phase;
 	}
 
-	public override bool ExecuteAction()
+	public bool ExecuteAction()
 	{
 		if (this.m_requests != null)
 		{
-			base.ExecuteAction();
 			AbilityPriority phase = this.m_phase;
 			bool flag = phase == AbilityPriority.Evasion;
 			bool flag2 = phase == AbilityPriority.Combat_Knockback;
@@ -91,7 +90,6 @@ public class PlayerAction_Effect : PlayerAction
 	{
 		if (this.m_requests != null)
 		{
-			base.ExecuteAction();
 			AbilityPriority phase = this.m_phase;
 			bool isEvasionPhase = phase == AbilityPriority.Evasion;
 			bool isKnockbackPhase = phase == AbilityPriority.Combat_Knockback;
@@ -136,7 +134,7 @@ public class PlayerAction_Effect : PlayerAction
 		return new List<ActorAnimation>();
 	}
 
-	public override void OnExecutionComplete(bool isLastAction)
+	public void OnExecutionComplete(bool isLastAction)
 	{
 		foreach (EffectResults effectResults in this.m_requests)
 		{

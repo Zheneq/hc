@@ -1472,7 +1472,6 @@
     <Compile Include="Game\Movement\MovementStage.cs" />
     <Compile Include="Game\Movement\ServerMovementManager.cs" />
     <Compile Include="Game\Movement\ServerMovementStabilizer.cs" />
-    <Compile Include="Game\PlayerAction.cs" />
     <Compile Include="Game\PlayerAction_Ability.cs" />
     <Compile Include="Game\PlayerAction_Effect.cs" />
     <Compile Include="Game\PlayerAction_Movement.cs" />
@@ -2013,7 +2012,6 @@
     <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_TimeOfWeek.cs" />
     <Compile Include="Matchmaking\Queue\QueueBlockOutReasonDetails.cs" />
     <Compile Include="Matchmaking\Queue\QueueDodgingPenalty.cs" />
-    <Compile Include="Matchmaking\Queue\QueuedPlayerActionsContainer.cs" />
     <Compile Include="Matchmaking\Queue\QueuePenalties.cs" />
     <Compile Include="Matchmaking\Queue\QueueStatus.cs" />
     <Compile Include="MatchObjective.cs" />

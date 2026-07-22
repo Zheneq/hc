@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 // rogues-only, missing in reactor
 #if SERVER
-public class PlayerAction_Ability : PlayerAction
+public class PlayerAction_Ability
 {
 	private List<AbilityRequest> m_requests;
 	private AbilityPriority m_phase;
@@ -22,13 +22,12 @@ public class PlayerAction_Ability : PlayerAction
 		return m_phase;
 	}
 
-	public override bool ExecuteAction()
+	public bool ExecuteAction()
 	{
 		if (m_requests == null)
 		{
 			return false;
 		}
-		base.ExecuteAction();
 		for (int i = m_requests.Count - 1; i >= 0; i--)
 		{
 			AbilityRequest abilityRequest = m_requests[i];
@@ -147,7 +146,6 @@ public class PlayerAction_Ability : PlayerAction
 		{
 			return new List<ActorAnimation>();
 		}
-		base.ExecuteAction();
 		for (int i = m_requests.Count - 1; i >= 0; i--)
 		{
 			AbilityRequest abilityRequest = m_requests[i];

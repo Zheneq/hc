@@ -129,7 +129,9 @@ public class GameFlow : NetworkBehaviour
 	// added in rogues
 	private const float c_startWaitTimeoutTime = 120f;
 	// custom
-	private List<PlayerAction> m_executingPlayerActions = new List<PlayerAction>();
+	private List<PlayerAction_Ability> m_executingPlayerActions = new List<PlayerAction_Ability>();
+	// custom
+	private List<PlayerAction_Effect> m_executingEffectActions = new List<PlayerAction_Effect>();
 	// custom
 	private HashSet<AbilityPriority> m_nonEmptyPhases = new HashSet<AbilityPriority>();
 	// custom
@@ -599,7 +601,6 @@ public class GameFlow : NetworkBehaviour
 					
 					Log.Info($"Running {ServerActionBuffer.Get().GetAllStoredMovementRequests().Count(req => !req.IsChasing())} non-chase movement requests");
 					normalMovementAction = new PlayerAction_Movement(false);
-					m_executingPlayerActions.Add(normalMovementAction);
 					normalMovementAction.PrepareAction();
 				}
 
@@ -624,7 +625,6 @@ public class GameFlow : NetworkBehaviour
 					{
 						Log.Info($"Running {numChaseRequests} chase movement requests");
 						PlayerAction_Movement action = new PlayerAction_Movement(true);
-						m_executingPlayerActions.Add(action);
 						action.PrepareAction();
 						action.ExecuteAction();
 					}
@@ -740,7 +740,7 @@ public class GameFlow : NetworkBehaviour
 					{
 						Log.Info($"Have {executingEffects.Count} additional effects in this phase, playing them...");
 						PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-						m_executingPlayerActions.Add(action);
+						m_executingEffectActions.Add(action);
 						action.PrepareResults();
 					}
 			
@@ -750,11 +750,11 @@ public class GameFlow : NetworkBehaviour
 				}
 
 				// we do not want to disrupt brushes and stuff until effect results are gathered
-				foreach (PlayerAction action in m_executingPlayerActions)
+				foreach (PlayerAction_Ability action in m_executingPlayerActions)
 				{
-					if (action is PlayerAction_Ability abilityAction && abilityAction.GetRelevantPhase() == phase)
+					if (action.GetRelevantPhase() == phase)
 					{
-						abilityAction.RunAbilityRequests();
+						action.RunAbilityRequests();
 					}
 				}
 				
@@ -791,12 +791,14 @@ public class GameFlow : NetworkBehaviour
 		bool hasActionsThisPhase = GatherActionsInPhase(
 			allStoredAbilityRequests,
 			phase,
-			out List<PlayerAction> executingPlayerActions);
+			out List<PlayerAction_Ability> executingPlayerActions,
+			out List<PlayerAction_Effect> executingEffectActions);
 		if (phase == AbilityPriority.Combat_Knockback)
 		{
 			ServerActionBuffer.Get().GetKnockbackManager().ProcessKnockbacks(allStoredAbilityRequests);
 		}
 		m_executingPlayerActions.AddRange(executingPlayerActions);
+		m_executingEffectActions.AddRange(executingEffectActions);
 		if (hasActionsThisPhase)
 		{
 			m_nonEmptyPhases.Add(phase);
@@ -815,9 +817,11 @@ public class GameFlow : NetworkBehaviour
 	private static bool GatherActionsInPhase(
 		List<AbilityRequest> allStoredAbilityRequests,
 		AbilityPriority phase,
-		out List<PlayerAction> executingPlayerActions)
+		out List<PlayerAction_Ability> executingPlayerActions,
+		out List<PlayerAction_Effect> executingEffectActions)
 	{
-		executingPlayerActions = new List<PlayerAction>();
+		executingPlayerActions = new List<PlayerAction_Ability>();
+		executingEffectActions = new List<PlayerAction_Effect>();
 		
 		bool hasActionsThisPhase = false;
 		List<ActorAnimation> anims = new List<ActorAnimation>();
@@ -840,7 +844,7 @@ public class GameFlow : NetworkBehaviour
 		{
 			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
 			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-			executingPlayerActions.Add(action);
+			executingEffectActions.Add(action);
 			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
@@ -899,14 +903,14 @@ public class GameFlow : NetworkBehaviour
 // custom
 	private void CompleteExecutingPlayerActions()
 	{
-		if (!m_executingPlayerActions.IsNullOrEmpty())
+		if (!m_executingEffectActions.IsNullOrEmpty())
 		{
-			foreach (PlayerAction action in m_executingPlayerActions)
+			foreach (PlayerAction_Effect action in m_executingEffectActions)
 			{
 				action.OnExecutionComplete(false);
 			}
 
-			m_executingPlayerActions = new List<PlayerAction>();
+			m_executingEffectActions = new List<PlayerAction_Effect>();
 			m_nonEmptyPhases = new HashSet<AbilityPriority>();
 		}
 	}
