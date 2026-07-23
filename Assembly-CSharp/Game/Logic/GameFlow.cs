@@ -543,7 +543,7 @@ public class GameFlow : NetworkBehaviour
 					this.SetupCardCooldownsOnGameStart();
 				}
 				gameFlowData.gameState = GameState.Deployment;
-				gameFlowData.Networkm_deploymentTime = 1f;
+				// gameFlowData.Networkm_deploymentTime = 1f; // rogues. I wondered why match start animation was broken.
 				if (NPCCoordinator.Get() != null)
 				{
 					NPCCoordinator.Get().OnTurnStart();
@@ -1680,8 +1680,6 @@ public class GameFlow : NetworkBehaviour
 					this.HandleUpdateStartingGame();
 					return;
 				case GameState.Deployment:
-					// TODO LOW HACK deploymentTime set to 1 second in the asset
-					gameFlowData.m_deploymentTime = 7f;
 					// TODO LOW HACK m_timeLimitTurns set to 21 in the asset
 					ObjectivePoints.Get().m_timeLimitTurns = 20;
 					
