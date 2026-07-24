@@ -489,40 +489,41 @@ namespace Theatrics
 			if (actor.GetHitPointsToDisplay() + pendingDeltaHP > 0
 				|| actor.IsInRagdoll()
 				|| !DeadAtEndOfCurrentTimelineIndex(actor)  // removed in rogues
-				|| m_phaseIndex < 3)  // m_phaseIndex < 2 in rogues
+				|| m_phaseIndex < (int)AbilityPriority.Combat_Damage)  // m_phaseIndex < 2 in rogues
 			{
 				return false;
 			}
-			int num = m_phaseIndex;
-			int phaseIndex = m_phaseIndex;
+			int i = m_phaseIndex;
 			while (true)
 			{
-				if (num >= 0 && num < m_abilityPhases.Count)
+				if (i >= 0 && i < m_abilityPhases.Count)
 				{
-					if (num == (int)AbilityPriority.Combat_Knockback
-						&& m_abilityPhases[num].HasKnockbackMovementHitsRemaining(actor))
+					if (i == (int)AbilityPriority.Combat_Knockback
+						&& m_abilityPhases[i].HasKnockbackMovementHitsRemaining(actor))
 					{
 						return false;
 					}
-					List<ActorAnimation> animations = m_abilityPhases[num].m_actorAnimations;
-					for (int i = 0; i < animations.Count; i++)
+
+					foreach (ActorAnimation actorAnimation in m_abilityPhases[i].m_actorAnimations)
 					{
-						ActorAnimation actorAnimation = animations[i];
 						if ((sequenceSourceIdToIgnore < 0 || actorAnimation.SeqSource.RootID != sequenceSourceIdToIgnore)
-							&& ((actorAnimation.Caster == actor && actorAnimation.UpdateNotFinished()) || actorAnimation.DeltaHPPending(actor)))
+						    && ((actorAnimation.Caster == actor && actorAnimation.UpdateNotFinished()) || actorAnimation.DeltaHPPending(actor)))
 						{
 							return false;
 						}
 					}
-					if (num > phaseIndex && m_abilityPhases[num].HasHitOnActor(actor))
+					
+					if (i > m_phaseIndex && m_abilityPhases[i].HasHitOnActor(actor))
 					{
 						return false;
 					}
 				}
-				num++;
-				if (num >= (int)AbilityPriority.NumAbilityPriorities || GameplayData.Get().m_resolveDamageBetweenAbilityPhases)
+				
+				i++;
+				
+				if (i >= (int)AbilityPriority.NumAbilityPriorities || GameplayData.Get().m_resolveDamageBetweenAbilityPhases)
 				{
-					return !(ClientResolutionManager.Get() != null)
+					return ClientResolutionManager.Get() == null
 						|| !ClientResolutionManager.Get().HasUnexecutedHitsOnActor(actor, sequenceSourceIdToIgnore);
 				}
 			}
