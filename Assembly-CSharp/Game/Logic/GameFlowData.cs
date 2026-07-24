@@ -1974,6 +1974,7 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 			}
 			
 #if SERVER
+			// TODO check GameFlow.TeamDecisionPhaseFinished_FCFS
 			// custom
 			if (NetworkServer.active
 			    && (m_timeRemainingInDecision <= 0

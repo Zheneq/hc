@@ -810,66 +810,68 @@ public class ServerResolutionManager : NetworkBehaviour
 	// 	return list;
 	// }
 
-	public void SendPhaseResolutionActionsToClients_FCFS()
-	{
-		sbyte b = (sbyte)m_currentResolutionActions.Count;
-		sbyte b2 = (sbyte)m_animEntries.Count;
-		if (b > 0 || b2 > 0)
-		{
-			SendStartResolutionMessageToClients();
-			for (int i = 0; i < m_animEntries.Count; i++)
-			{
-				SendSingleTheatricsEntryToClients(m_animEntries[i]);
-			}
-			for (int j = 0; j < m_currentResolutionActions.Count; j++)
-			{
-				ResolutionAction action = m_currentResolutionActions[j];
-				SendSinglePhaseResolutionActionToClients(action, j);
-			}
-			if (m_playersStillResolving.Count == 0)
-			{
-				float num;
-				if (m_currentAbilityPhase == AbilityPriority.Combat_Knockback || m_currentAbilityPhase == AbilityPriority.Evasion)
-				{
-					num = 4f;
-				}
-				else
-				{
-					num = (float)(b * 2);
-				}
-				base.Invoke("SimulateClientPhaseResolution", num);
-				return;
-			}
-		}
-		else
-		{
-			ConcludeResolutionPhase();
-		}
-	}
+	// rogues
+	// public void SendPhaseResolutionActionsToClients_FCFS()
+	// {
+	// 	sbyte b = (sbyte)m_currentResolutionActions.Count;
+	// 	sbyte b2 = (sbyte)m_animEntries.Count;
+	// 	if (b > 0 || b2 > 0)
+	// 	{
+	// 		SendStartResolutionMessageToClients();
+	// 		for (int i = 0; i < m_animEntries.Count; i++)
+	// 		{
+	// 			SendSingleTheatricsEntryToClients(m_animEntries[i]);
+	// 		}
+	// 		for (int j = 0; j < m_currentResolutionActions.Count; j++)
+	// 		{
+	// 			ResolutionAction action = m_currentResolutionActions[j];
+	// 			SendSinglePhaseResolutionActionToClients(action, j);
+	// 		}
+	// 		if (m_playersStillResolving.Count == 0)
+	// 		{
+	// 			float num;
+	// 			if (m_currentAbilityPhase == AbilityPriority.Combat_Knockback || m_currentAbilityPhase == AbilityPriority.Evasion)
+	// 			{
+	// 				num = 4f;
+	// 			}
+	// 			else
+	// 			{
+	// 				num = (float)(b * 2);
+	// 			}
+	// 			base.Invoke("SimulateClientPhaseResolution", num);
+	// 			return;
+	// 		}
+	// 	}
+	// 	else
+	// 	{
+	// 		ConcludeResolutionPhase();
+	// 	}
+	// }
 
-	public List<CastAction> BuildCastActionsForAbilityPhase(AbilityPriority phase)
-	{
-		if (phase == AbilityPriority.INVALID)
-		{
-			Log.Error("Calling BuildCastActionsForAbilityPhase for the 'INVALID' phase.");
-			return null;
-		}
-		List<CastAction> list = new List<CastAction>();
-		foreach (AbilityRequest abilityRequest in ServerActionBuffer.Get().GetAllStoredAbilityRequests())
-		{
-			if (abilityRequest.m_ability.RunPriority == phase)
-			{
-				int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(abilityRequest.m_ability, AbilityInteractionType.Cast, true, false, false);
-				int moddedCost = abilityRequest.m_ability.GetModdedCost();
-				if (techPointRewardForInteraction > 0 || moddedCost > 0)
-				{
-					CastAction item = new CastAction(abilityRequest.m_caster, abilityRequest.m_ability, techPointRewardForInteraction, moddedCost);
-					list.Add(item);
-				}
-			}
-		}
-		return list;
-	}
+	// rogues?
+	// public List<CastAction> BuildCastActionsForAbilityPhase(AbilityPriority phase)
+	// {
+	// 	if (phase == AbilityPriority.INVALID)
+	// 	{
+	// 		Log.Error("Calling BuildCastActionsForAbilityPhase for the 'INVALID' phase.");
+	// 		return null;
+	// 	}
+	// 	List<CastAction> list = new List<CastAction>();
+	// 	foreach (AbilityRequest abilityRequest in ServerActionBuffer.Get().GetAllStoredAbilityRequests())
+	// 	{
+	// 		if (abilityRequest.m_ability.RunPriority == phase)
+	// 		{
+	// 			int techPointRewardForInteraction = AbilityUtils.GetTechPointRewardForInteraction(abilityRequest.m_ability, AbilityInteractionType.Cast, true, false, false);
+	// 			int moddedCost = abilityRequest.m_ability.GetModdedCost();
+	// 			if (techPointRewardForInteraction > 0 || moddedCost > 0)
+	// 			{
+	// 				CastAction item = new CastAction(abilityRequest.m_caster, abilityRequest.m_ability, techPointRewardForInteraction, moddedCost);
+	// 				list.Add(item);
+	// 			}
+	// 		}
+	// 	}
+	// 	return list;
+	// }
 
 	public string BuildDebugStringForActionList(List<ResolutionAction> actions)
 	{
