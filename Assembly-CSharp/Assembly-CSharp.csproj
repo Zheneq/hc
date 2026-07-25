@@ -1472,9 +1472,6 @@
     <Compile Include="Game\Movement\MovementStage.cs" />
     <Compile Include="Game\Movement\ServerMovementManager.cs" />
     <Compile Include="Game\Movement\ServerMovementStabilizer.cs" />
-    <Compile Include="Game\PlayerAction_Ability.cs" />
-    <Compile Include="Game\PlayerAction_Effect.cs" />
-    <Compile Include="Game\PlayerAction_Movement.cs" />
     <Compile Include="Game\PowerUps\PowerUp.cs" />
     <Compile Include="Game\PowerUps\PowerUpCoordinator.cs" />
     <Compile Include="Game\PowerUps\PowerUpLocation.cs" />

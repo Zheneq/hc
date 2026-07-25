@@ -2632,7 +2632,6 @@ public class ServerActionBuffer : NetworkBehaviour
 	
 	private ActionBufferPhase actionBufferTimerPhase = ActionBufferPhase.Done;
 	private float actionBufferPhaseStartTime;
-	private PlayerAction_Movement normalMovementAction;
 	private HashSet<AbilityPriority> m_nonEmptyPhases = new HashSet<AbilityPriority>();
 
 	private IEnumerable<AbilityRequest> RequestsInPhase(AbilityPriority phase) =>
@@ -2793,6 +2792,9 @@ public class ServerActionBuffer : NetworkBehaviour
 			false);
 	}
 
+	private MovementCollection movementCollection;
+	private List<MovementRequest> validRequestsThisPhase;
+	
 	private void HandleUpdateResolveAbilitiesWait(bool isNewPhase)
 	{
 		if (isNewPhase)
@@ -2815,13 +2817,14 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 					
 			Log.Info($"Running {GetAllStoredMovementRequests().Count(req => !req.IsChasing())} non-chase movement requests");
-			normalMovementAction = new PlayerAction_Movement(false);
-			normalMovementAction.PrepareAction();
+			movementCollection = null; // TODO SAB
+			validRequestsThisPhase = null; // TODO SAB
+			GatherMovement(false);
 		}
 
 		if (GameFlowData.Get().GetGameTime() - actionBufferPhaseStartTime > 1.5f)
 		{
-			normalMovementAction.ExecuteAction();
+			ExecuteMovement(false);
 			ActionPhase = ActionBufferPhase.Movement;
 		}
 	}
@@ -2839,9 +2842,10 @@ public class ServerActionBuffer : NetworkBehaviour
 			if (numChaseRequests > 0)
 			{
 				Log.Info($"Running {numChaseRequests} chase movement requests");
-				PlayerAction_Movement action = new PlayerAction_Movement(true);
-				action.PrepareAction();
-				action.ExecuteAction();
+				movementCollection = null; // TODO SAB
+				validRequestsThisPhase = null; // TODO SAB
+				GatherMovement(true);
+				ExecuteMovement(true);
 			}
 			else
 			{
@@ -3019,6 +3023,132 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 
 		return false;
+	}
+	
+	public void GatherMovement(bool isChase)
+	{
+		List<MovementRequest> moveRequests = GetAllStoredMovementRequests();
+		if (moveRequests == null)
+		{
+			Log.Error("No movement requests");
+			return;
+		}
+
+		// TODO SAB call ClearRequestsOfDeadActors
+		for (int i = moveRequests.Count - 1; i >= 0; i--)
+		{
+			MovementRequest movementRequest = moveRequests[i];
+			if (movementRequest.m_actor.IsDead())
+			{
+				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because they are dead");
+				CancelMovementRequests(movementRequest.m_actor);
+			}
+		}
+		
+		if (moveRequests.Count == 0)
+		{
+			Log.Info("No movement requests");
+			return;
+		}
+
+		// TODO SAB unite two cancellations?
+		foreach (MovementRequest movementRequest in moveRequests)
+		{
+			BoardSquare targetSquare = movementRequest.m_targetSquare;
+			if ((movementRequest.m_path?.next == null || targetSquare == null)
+			    && !movementRequest.IsChasing())
+			{
+				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because it is invalid");
+				CancelMovementRequests(movementRequest.m_actor);
+			}
+		}
+		Log.Info($"{moveRequests.Count} valid movement requests");
+				
+		GetMoveStabilizer().AdjustMovementStartsForMoveAfterEvade(moveRequests); // custom
+		GetMoveStabilizer().StabilizeMovement(moveRequests, isChase);
+
+		// TODO SAB unite two cancellations?
+		foreach (MovementRequest movementRequest in moveRequests)
+		{
+			if ((isChase || !movementRequest.IsChasing()) // custom
+			    && (movementRequest.m_path == null || movementRequest.m_path.next == null))
+			{
+				Log.Warning($"{movementRequest.m_actor.m_displayName}'s movement path is null after stabilization");
+				CancelMovementRequests(movementRequest.m_actor);
+			}
+		}
+
+		ClearNormalMovementResults();
+		
+		// custom
+		ServerClashUtils.MovementClashCollection clashes = ServerClashUtils.IdentifyClashSegments_Movement(moveRequests, isChase);
+		ServerClashUtils.ResolveClashMovement(moveRequests, clashes, isChase);
+		// end custom
+		
+		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(moveRequests, isChase);
+		
+		validRequestsThisPhase = moveRequests.Where(r => r.WasEverChasing() == isChase).ToList();
+		movementCollection = new MovementCollection(validRequestsThisPhase);
+
+		// custom
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			actorData.TeamSensitiveData_authority.MovementCameraBounds = GetMovementBoundsForTeam(validRequestsThisPhase, actorData.GetTeam());
+		}
+		// end custom
+	}
+
+	// rogues+custom: no chasing in rogues
+	public void ExecuteMovement(bool isChase)
+	{
+		List<MovementRequest> moveRequests = GetAllStoredMovementRequests();
+		if (moveRequests == null || moveRequests.Count == 0)
+		{
+			return;
+		}
+		
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			if (actorData.GetPassiveData() != null)
+			{
+				actorData.GetPassiveData().OnMovementResultsGathered(movementCollection);
+			}
+			actorData.GetActorMovement().ClearPath();
+			actorData.UpdateServerLastVisibleTurn();
+		}
+
+		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
+			movementCollection,
+			out List<ActorData> seenNonMovers_normal,
+			out List<ActorData> seenNonMovers_chase);
+		// custom
+		List<ActorData> seenNonMovers = seenNonMovers_normal;
+		
+		foreach (ActorData seenNonMover in seenNonMovers)
+		{
+			seenNonMover.TeamSensitiveData_hostile.BroadcastMovement(
+				GameEventManager.EventType.NormalMovementStart,
+				seenNonMover.CurrentBoardSquare.GetGridPos(),
+				seenNonMover.CurrentBoardSquare,
+				ActorData.MovementType.None,
+				ActorData.TeleportType.Reappear,
+				null);
+		}
+		// end custom
+		
+		ServerResolutionManager.Get().OnNormalMovementStart();
+		ServerMovementManager.Get().ServerMovementManager_OnMovementStart(movementCollection, isChase
+			? ServerMovementManager.MovementType.NormalMovement_Chase
+			: ServerMovementManager.MovementType.NormalMovement_NonChase);
+		foreach (MovementRequest movementRequest in validRequestsThisPhase)
+		{
+			RunMovementOnRequest(movementRequest);
+			ActorStatus actorStatus = movementRequest.m_actor.GetActorStatus();
+			if (actorStatus != null && actorStatus.HasStatus(StatusType.KnockedBack))
+			{
+				actorStatus.RemoveStatus(StatusType.KnockedBack);
+			}
+		}
 	}
 #endif
 }
