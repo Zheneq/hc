@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Theatrics;
 //using Mirror;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -2634,9 +2633,10 @@ public class ServerActionBuffer : NetworkBehaviour
 	private ActionBufferPhase actionBufferTimerPhase = ActionBufferPhase.Done;
 	private float actionBufferPhaseStartTime;
 	private PlayerAction_Movement normalMovementAction;
-	private List<PlayerAction_Ability> m_executingPlayerActions = new List<PlayerAction_Ability>();
-	private List<PlayerAction_Effect> m_executingEffectActions = new List<PlayerAction_Effect>();
 	private HashSet<AbilityPriority> m_nonEmptyPhases = new HashSet<AbilityPriority>();
+
+	private IEnumerable<AbilityRequest> RequestsInPhase(AbilityPriority phase) =>
+		m_storedAbilityRequests.Where(r => r?.m_ability?.RunPriority == phase);
 	
 	public void HandleUpdateResolve() // TODO SAB private?
 	{
@@ -2683,118 +2683,104 @@ public class ServerActionBuffer : NetworkBehaviour
 	// custom
 	private void HandleUpdateResolveAbilities()
 	{
-		TheatricsManager theatrics = TheatricsManager.Get();
 		ServerResolutionManager manager = ServerResolutionManager.Get();
-
-		if (manager.ActionsDoneResolving() && !IsWaitingForPlayPhaseEnded())
+		if (!manager.ActionsDoneResolving() || IsWaitingForPlayPhaseEnded())
 		{
-			while (true)
+			return;
+		}
+		
+		TheatricsManager theatrics = TheatricsManager.Get();
+		while (true)
+		{
+			ServerKnockbackManager serverKnockbackManager = GetKnockbackManager();
+			if (AbilityPhase == AbilityPriority.Combat_Knockback)
 			{
-				ServerKnockbackManager serverKnockbackManager = GetKnockbackManager();
-				if (AbilityPhase == AbilityPriority.Combat_Knockback)
-				{
-					serverKnockbackManager.ClearStoredData();
-				}
-				ServerEffectManager.Get().OnAbilityPhaseEnd(AbilityPhase);
-				if (AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
-				{
-					AbilityPhase = AbilityPriority.INVALID; // TODO SenseiAppendStatusEffect seems to expect it to be not INVALID on movement
-					ActionPhase = ActionBufferPhase.AbilitiesWait;
-					Log.Info($"Going to next action phase {ActionPhase}");
-					return;
-				}
+				serverKnockbackManager.ClearStoredData();
+			}
+			ServerEffectManager.Get().OnAbilityPhaseEnd(AbilityPhase);
+			if (AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
+			{
+				AbilityPhase = AbilityPriority.INVALID; // TODO SenseiAppendStatusEffect seems to expect it to be not INVALID on movement
+				ActionPhase = ActionBufferPhase.AbilitiesWait;
+				Log.Info($"Going to next action phase {ActionPhase}");
+				return;
+			}
 
-				AbilityPhase = AbilityPhase == AbilityPriority.INVALID
-					? AbilityUtils.GetHighestAbilityPriority()
-					: AbilityUtils.GetNextAbilityPriority(AbilityPhase);
-				Log.Info($"Going to next turn ability phase {AbilityPhase}");
+			AbilityPhase = AbilityPhase == AbilityPriority.INVALID
+				? AbilityUtils.GetHighestAbilityPriority()
+				: AbilityUtils.GetNextAbilityPriority(AbilityPhase);
+			Log.Info($"Going to next turn ability phase {AbilityPhase}");
 				
-				AbilityPriority phase = AbilityPhase;
-				
-				GatheringFakeResults = false;
-				List<AbilityRequest> allStoredAbilityRequests = GetAllStoredAbilityRequests();
-				if (phase < AbilityPriority.Combat_Damage)
-				{
-					SetupPhase(phase, allStoredAbilityRequests);
-				}
-				else if (phase == AbilityPriority.Combat_Damage)
-				{
-					for (AbilityPriority i = AbilityPriority.Combat_Damage;
-					     i < AbilityPriority.NumAbilityPriorities;
-					     ++i)
-					{
-						SetupPhase(i, allStoredAbilityRequests);
-					}
-				}
-				else if (phase == AbilityPriority.Combat_Knockback)
-				{
-					// in case something changed since pre-gathering
-					serverKnockbackManager.ClearStoredData();
-					serverKnockbackManager.ProcessKnockbacks(allStoredAbilityRequests);
-					List<Effect> executingEffects = GatherEffectResultsInPhase(phase);
-					if (executingEffects.Count > 0)
-					{
-						Log.Info($"Have {executingEffects.Count} additional effects in this phase, playing them...");
-						PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-						m_executingEffectActions.Add(action);
-						action.PrepareResults();
-					}
+			GatheringFakeResults = false;
 			
-					// we are only gathering responses to knockbacks here
-					serverKnockbackManager.GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
-					SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
-				}
-
-				// we do not want to disrupt brushes and stuff until effect results are gathered
-				foreach (PlayerAction_Ability action in m_executingPlayerActions)
+			if (AbilityPhase < AbilityPriority.Combat_Damage)
+			{
+				SetupPhase(AbilityPhase);
+			}
+			else if (AbilityPhase == AbilityPriority.Combat_Damage)
+			{
+				for (AbilityPriority i = AbilityPriority.Combat_Damage;
+				     i < AbilityPriority.NumAbilityPriorities;
+				     ++i)
 				{
-					if (action.GetRelevantPhase() == phase)
-					{
-						action.RunAbilityRequests();
-					}
-				}
-				
-				// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
-				SynchronizePositionsOfActorsParticipatingInPhase(AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
-				ServerEffectManager.Get().OnAbilityPhaseStart(phase);
-				ServerResolutionManager.Get().OnAbilityPhaseStart(phase);
-				foreach (ActorData actorData in GameFlowData.Get().GetActors())
-				{
-					if (actorData.GetPassiveData() != null)
-					{
-						actorData.GetPassiveData().OnAbilityPhaseStart(phase);
-					}
-				}
-				OnAbilityPhaseStart();
-				if (m_nonEmptyPhases.Contains(phase))
-				{
-					break;
-				}
-				else
-				{
-					Log.Info($"No requests in this phase, going to the next one");
+					SetupPhase(i);
 				}
 			}
-			
-			theatrics.SetDirtyBit(uint.MaxValue);
-			theatrics.PlayPhase(AbilityPhase);
+			else if (AbilityPhase == AbilityPriority.Combat_Knockback)
+			{
+				// in case something changed since pre-gathering
+				serverKnockbackManager.ClearStoredData();
+				serverKnockbackManager.ProcessKnockbacks(m_storedAbilityRequests);
+				
+				Log.Info("Looking for additional effects in this phase...");
+				
+				GatherEffects(AbilityPhase, true);
+
+				// we are only gathering responses to knockbacks here
+				serverKnockbackManager.GatherGameplayResultsInResponseToKnockbacks(out List<ActorData> actorsThatWillBeSeenButArentMoving);
+				SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+			}
+
+			// we do not want to disrupt brushes and stuff until effect results are gathered
+			foreach (AbilityRequest abilityRequest in RequestsInPhase(AbilityPhase))
+			{
+				TryRunAbilityRequest(abilityRequest);
+			}
+				
+			// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
+			SynchronizePositionsOfActorsParticipatingInPhase(AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
+			ServerEffectManager.Get().OnAbilityPhaseStart(AbilityPhase);
+			ServerResolutionManager.Get().OnAbilityPhaseStart(AbilityPhase);
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				if (actorData.GetPassiveData() != null)
+				{
+					actorData.GetPassiveData().OnAbilityPhaseStart(AbilityPhase);
+				}
+			}
+			OnAbilityPhaseStart();
+			if (m_nonEmptyPhases.Contains(AbilityPhase))
+			{
+				break;
+			}
+			else
+			{
+				Log.Info("No requests in this phase, going to the next one");
+			}
 		}
+			
+		theatrics.SetDirtyBit(uint.MaxValue);
+		theatrics.PlayPhase(AbilityPhase);
 	}
 
-	private void SetupPhase(AbilityPriority phase, List<AbilityRequest> allStoredAbilityRequests)
+	private void SetupPhase(AbilityPriority phase)
 	{
 		TheatricsManager theatrics = TheatricsManager.Get();
-		bool hasActionsThisPhase = GatherActionsInPhase(
-			allStoredAbilityRequests,
-			phase,
-			out List<PlayerAction_Ability> executingPlayerActions,
-			out List<PlayerAction_Effect> executingEffectActions);
+		bool hasActionsThisPhase = GatherActionsInPhase(phase);
 		if (phase == AbilityPriority.Combat_Knockback)
 		{
-			GetKnockbackManager().ProcessKnockbacks(allStoredAbilityRequests);
+			GetKnockbackManager().ProcessKnockbacks(m_storedAbilityRequests);
 		}
-		m_executingPlayerActions.AddRange(executingPlayerActions);
-		m_executingEffectActions.AddRange(executingEffectActions);
 		if (hasActionsThisPhase)
 		{
 			m_nonEmptyPhases.Add(phase);
@@ -2802,8 +2788,8 @@ public class ServerActionBuffer : NetworkBehaviour
 
 		theatrics.SetupTurnAbilityPhase(
 			phase,
-			allStoredAbilityRequests,
-			new HashSet<int>(),  // TODO LOW (hacked inside)
+			m_storedAbilityRequests,
+			new HashSet<int>(),  // TODO SAB (hacked inside)
 			false);
 	}
 
@@ -2842,7 +2828,7 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void HandleUpdateResolveMovement()
 	{
-		CompleteExecutingPlayerActions();
+		// CompleteExecutingPlayerActions();
 		if (ServerCombatManager.Get().HasUnresolvedHealthEntries())
 		{
 			ServerCombatManager.Get().ResolveHitPoints();
@@ -2867,7 +2853,7 @@ public class ServerActionBuffer : NetworkBehaviour
 
 	private void HandleUpdateResolveMovementChase()
 	{
-		CompleteExecutingPlayerActions();
+		// CompleteExecutingPlayerActions();
 		ServerMovementManager manager = ServerMovementManager.Get();
 		if (!manager.WaitingOnClients && ServerResolutionManager.Get().ActionsDoneResolving())
 		{
@@ -2892,42 +2878,42 @@ public class ServerActionBuffer : NetworkBehaviour
 	}
 	
 	// custom
-	private static bool GatherActionsInPhase(
-		List<AbilityRequest> allStoredAbilityRequests,
-		AbilityPriority phase,
-		out List<PlayerAction_Ability> executingPlayerActions,
-		out List<PlayerAction_Effect> executingEffectActions)
+	private bool GatherActionsInPhase(AbilityPriority phase)
 	{
-		executingPlayerActions = new List<PlayerAction_Ability>();
-		executingEffectActions = new List<PlayerAction_Effect>();
-		
 		bool hasActionsThisPhase = false;
-		List<ActorAnimation> anims = new List<ActorAnimation>();
 		
-		List<AbilityRequest> requestsThisPhase = allStoredAbilityRequests
-			.FindAll(r => r?.m_ability?.RunPriority == phase);
-		PlayerAction_Ability actionAbilities = null;
+		List<AbilityRequest> requestsThisPhase = RequestsInPhase(phase).ToList();
 		if (requestsThisPhase.Count > 0)
 		{
 			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-			actionAbilities = new PlayerAction_Ability(requestsThisPhase, phase);
-			executingPlayerActions.Add(actionAbilities);
-			anims.AddRange(actionAbilities.PrepareResults());
+			PlayerAction_Ability actionAbilities = new PlayerAction_Ability(requestsThisPhase, phase);
+			actionAbilities.PrepareResults();
 			hasActionsThisPhase = true;
 		}
 		
 		// Some abilities (RageBeastSelfHeal) expect abilities to be resolved before effects results are gathered
-		List<Effect> executingEffects = GatherEffectResultsInPhase(phase, phase != AbilityPriority.Combat_Knockback);  // knockback is gathered separately in HandleUpdateResolveAbilities
-		if (executingEffects.Count > 0)
+		PlayerAction_Effect effects = GatherEffects(phase, phase != AbilityPriority.Combat_Knockback);  // knockback is gathered separately in HandleUpdateResolveAbilities
+		if (effects != null)
 		{
-			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
-			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-			executingEffectActions.Add(action);
-			anims.AddRange(action.PrepareResults());
 			hasActionsThisPhase = true;
 		}
 
 		return hasActionsThisPhase;
+	}
+
+	// TODO unite with GatherEffectResultsInPhase
+	private static PlayerAction_Effect GatherEffects(AbilityPriority phase, bool notify)
+	{
+		List<Effect> executingEffects = GatherEffectResultsInPhase(phase, notify);
+		if (executingEffects.Count > 0)
+		{
+			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
+			action.PrepareResults();
+			return action;
+		}
+
+		return null;
 	}
 
 	// custom
@@ -2977,18 +2963,19 @@ public class ServerActionBuffer : NetworkBehaviour
 	}
 	
 	// custom
-	private void CompleteExecutingPlayerActions()
-	{
-		if (!m_executingEffectActions.IsNullOrEmpty())
-		{
-			foreach (PlayerAction_Effect action in m_executingEffectActions)
-			{
-				action.OnExecutionComplete(false);
-			}
-
-			m_executingEffectActions = new List<PlayerAction_Effect>();
-			m_nonEmptyPhases = new HashSet<AbilityPriority>();
-		}
-	}
+	// TODO SAB - used to call it in HandleUpdateResolveMovement/HandleUpdateResolveMovementChase - seems redundant?
+	// private void CompleteExecutingPlayerActions()
+	// {
+	// 	if (!m_executingEffectActions.IsNullOrEmpty())
+	// 	{
+	// 		foreach (PlayerAction_Effect action in m_executingEffectActions)
+	// 		{
+	// 			action.OnExecutionComplete(false);
+	// 		}
+	//
+	// 		m_executingEffectActions = new List<PlayerAction_Effect>();
+	// 		m_nonEmptyPhases = new HashSet<AbilityPriority>();
+	// 	}
+	// }
 #endif
 }

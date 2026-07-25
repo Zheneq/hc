@@ -214,6 +214,7 @@ public class StandardActorEffect : Effect
 		int hot = GetExpectedHealOverTimeTotal();
 		if (hot > 0 && Target != null && !Target.IsDead())
 		{
+			// TODO combine with resetting ExpectedHoT to zero
 			Target.ExpectedHoTTotal += hot;
 			Target.ExpectedHoTThisTurn += GetExpectedHealOverTimeThisTurn();
 			Target.SetDirtyBit(1);
