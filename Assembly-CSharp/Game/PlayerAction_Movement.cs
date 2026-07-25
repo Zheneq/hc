@@ -17,14 +17,16 @@ public class PlayerAction_Movement
 		m_isChase = isChase;
 	}
 
-	private bool PrepareMovementPhase()
+	// rogues+custom: no chasing in rogues
+	public void PrepareAction()
 	{
 		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		if (moveRequests == null)
 		{
 			Log.Error("No movement requests");
-			return false;
+			return;
 		}
+
 		for (int i = moveRequests.Count - 1; i >= 0; i--)
 		{
 			MovementRequest movementRequest = moveRequests[i];
@@ -34,11 +36,13 @@ public class PlayerAction_Movement
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
 			}
 		}
+		
 		if (moveRequests.Count == 0)
 		{
 			Log.Info("No movement requests");
-			return false;
+			return;
 		}
+
 		foreach (MovementRequest movementRequest in moveRequests)
 		{
 			BoardSquare targetSquare = movementRequest.m_targetSquare;
@@ -55,47 +59,34 @@ public class PlayerAction_Movement
 			// }
 		}
 		Log.Info($"{moveRequests.Count} valid movement requests");
+				
 		ServerActionBuffer.Get().GetMoveStabilizer().AdjustMovementStartsForMoveAfterEvade(moveRequests); // custom
 		ServerActionBuffer.Get().GetMoveStabilizer().StabilizeMovement(moveRequests, m_isChase);
-		for (int j = moveRequests.Count - 1; j >= 0; j--)
+				
+		for (int i = moveRequests.Count - 1; i >= 0; i--)
 		{
-			MovementRequest movementRequest = moveRequests[j];
+			MovementRequest movementRequest = moveRequests[i];
 			if ((m_isChase || !movementRequest.IsChasing()) // custom
-				&& (movementRequest.m_path == null || movementRequest.m_path.next == null))
+			    && (movementRequest.m_path == null || movementRequest.m_path.next == null))
 			{
 				Log.Warning($"{movementRequest.m_actor.m_displayName}'s movement path is null after stabilization");
 				ServerActionBuffer.Get().CancelMovementRequests(movementRequest.m_actor);
-				movementRequest.m_actor.GetActorMovement().UpdateSquaresCanMoveTo();
+				// movementRequest.m_actor.GetActorMovement().UpdateSquaresCanMoveTo();
 			}
 		}
-		return true;
-	}
 
-	// rogues+custom: no chasing in rogues
-	public bool PrepareAction()
-	{
-		if (!PrepareMovementPhase())
-		{
-			return false;
-		}
-
-		GatherMovementResults();
-		
-		return true;
-	}
-
-	private void GatherMovementResults()
-	{
-		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		ServerActionBuffer.Get().ClearNormalMovementResults();
+		
 		// custom
 		ServerClashUtils.MovementClashCollection clashes = ServerClashUtils.IdentifyClashSegments_Movement(moveRequests, m_isChase);
 		ServerClashUtils.ResolveClashMovement(moveRequests, clashes, m_isChase);
 		// end custom
+		
 		ServerGameplayUtils.GatherGameplayResultsForNormalMovement(moveRequests, m_isChase);
+		
 		validRequestsThisPhase = moveRequests.Where(r => r.WasEverChasing() == m_isChase).ToList();
 		movementCollection = new MovementCollection(validRequestsThisPhase);
-		
+
 		// custom
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
 		{
@@ -106,12 +97,12 @@ public class PlayerAction_Movement
 	}
 
 	// rogues+custom: no chasing in rogues
-	public bool ExecuteAction()
+	public void ExecuteAction()
 	{
 		List<MovementRequest> moveRequests = ServerActionBuffer.Get().GetAllStoredMovementRequests();
 		if (moveRequests == null || moveRequests.Count == 0)
 		{
-			return false;
+			return;
 		}
 		
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
@@ -120,9 +111,10 @@ public class PlayerAction_Movement
 			{
 				actorData.GetPassiveData().OnMovementResultsGathered(movementCollection);
 			}
+			actorData.GetActorMovement().ClearPath();
+			actorData.UpdateServerLastVisibleTurn();
 		}
-		Cleanup();
-		
+
 		ServerGameplayUtils.SetServerLastKnownPositionsForMovement(
 			movementCollection,
 			out List<ActorData> seenNonMovers_normal,
@@ -130,6 +122,7 @@ public class PlayerAction_Movement
 		// custom
 		// List<ActorData> seenNonMovers = m_isChase ? seenNonMovers_chase : seenNonMovers_normal;
 		List<ActorData> seenNonMovers = seenNonMovers_normal;
+		
 		foreach (ActorData seenNonMover in seenNonMovers)
 		{
 			seenNonMover.TeamSensitiveData_hostile.BroadcastMovement(
@@ -150,42 +143,32 @@ public class PlayerAction_Movement
 		{
 			ServerActionBuffer.Get().RunMovementOnRequest(movementRequest);
 			ActorStatus actorStatus = movementRequest.m_actor.GetActorStatus();
-			if (actorStatus != null && actorStatus.HasStatus(StatusType.KnockedBack, true))
+			if (actorStatus != null && actorStatus.HasStatus(StatusType.KnockedBack))
 			{
 				actorStatus.RemoveStatus(StatusType.KnockedBack);
 			}
 			// rogues
 			// float increment = movementRequest.m_path.FindMoveCostToEnd();
-			float num = movementRequest.m_actor.GetActorMovement().CalculateMaxHorizontalMovement(true, false);
-			BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_path;
-			bool isRoundingDown = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
-			bool canContinue = true;
-			while (boardSquarePathInfo != null && canContinue)
-			{
-				if (isRoundingDown)
-				{
-					canContinue = boardSquarePathInfo.moveCost <= num;
-				}
-				else if (boardSquarePathInfo.next != null)
-				{
-					canContinue = boardSquarePathInfo.moveCost < num;
-				}
-				boardSquarePathInfo = boardSquarePathInfo.next;
-			}
+			// float num = movementRequest.m_actor.GetActorMovement().CalculateMaxHorizontalMovement(true);
+			// BoardSquarePathInfo boardSquarePathInfo = movementRequest.m_path;
+			// bool isRoundingDown = GameplayData.Get() != null && GameplayData.Get().m_movementMaximumType == GameplayData.MovementMaximumType.CannotExceedMax;
+			// bool canContinue = true;
+			// while (boardSquarePathInfo != null && canContinue)
+			// {
+			// 	if (isRoundingDown)
+			// 	{
+			// 		canContinue = boardSquarePathInfo.moveCost <= num;
+			// 	}
+			// 	else if (boardSquarePathInfo.next != null)
+			// 	{
+			// 		canContinue = boardSquarePathInfo.moveCost < num;
+			// 	}
+			// 	boardSquarePathInfo = boardSquarePathInfo.next;
+			// }
 			// rogues
 			//bool flag3 = !flag2;
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveMoveCostUsed(increment);
 			//movementRequest.m_actor.GetActorTurnSM().IncrementPveNumMoveActions(flag3 ? 2 : 1);
-		}
-		return moveRequests.Count > 0;
-	}
-
-	private static void Cleanup()
-	{
-		foreach (ActorData actorData in GameFlowData.Get().GetActors())
-		{
-			actorData.GetActorMovement().ClearPath();
-			actorData.UpdateServerLastVisibleTurn();
 		}
 	}
 
