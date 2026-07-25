@@ -1428,7 +1428,10 @@ public class ServerGameManager : MonoBehaviour
 		playerState.ConnectionPersistent.Send((short)MyMsgType.SpawningObjectsNotification, spawningObjectsNotification);
 		// rogues
 		//playerState.ConnectionPersistent.Send<GameManager.SpawningObjectsNotification>(spawningObjectsNotification, 0);
-		
+
+		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
+		playerState.ConnectionReady = true;
+
 		// custom
 		if (ENABLE_RECONNECT_REPLAY
 			&& isGameLoaded
@@ -1454,8 +1457,6 @@ public class ServerGameManager : MonoBehaviour
 		}
 		// end custom Artemis
 
-		NetworkServer.SetClientReady(playerState.ConnectionPersistent);
-		playerState.ConnectionReady = true;
 		Log.Warning("Not calling SendReconnectData...");
 		
 		// custom
@@ -1468,7 +1469,7 @@ public class ServerGameManager : MonoBehaviour
 				Log.Info($"Teleporting reconnected {actorData}");
 				actorData.TeleportToBoardSquare(
 					actorData.GetCurrentBoardSquare(),
-					actorData.transform.localRotation.eulerAngles,
+					actorData.transform.forward,
 					ActorData.TeleportType.Failsafe,
 					null
 				);
