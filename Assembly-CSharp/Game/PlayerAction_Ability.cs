@@ -17,10 +17,10 @@ public class PlayerAction_Ability
 		m_phase = phase;
 	}
 
-	public AbilityPriority GetRelevantPhase()
-	{
-		return m_phase;
-	}
+	// public AbilityPriority GetRelevantPhase()
+	// {
+	// 	return m_phase;
+	// }
 
 	// public bool ExecuteAction()
 	// {
@@ -262,13 +262,13 @@ public class PlayerAction_Ability
 	}
 
 	// custom
-	public void RunAbilityRequests()
-	{
-		foreach (AbilityRequest request in m_requests)
-		{
-			ServerActionBuffer.Get().TryRunAbilityRequest(request);
-		}
-	}
+	// public void RunAbilityRequests()
+	// {
+	// 	foreach (AbilityRequest request in m_requests)
+	// 	{
+	// 		ServerActionBuffer.Get().TryRunAbilityRequest(request);
+	// 	}
+	// }
 
 	// public override void OnExecutionComplete(bool isLastAction)
 	// {

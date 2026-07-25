@@ -2882,73 +2882,110 @@ public class ServerActionBuffer : NetworkBehaviour
 	{
 		bool hasActionsThisPhase = false;
 		
-		List<AbilityRequest> requestsThisPhase = RequestsInPhase(phase).ToList();
-		if (requestsThisPhase.Count > 0)
-		{
-			Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-			PlayerAction_Ability actionAbilities = new PlayerAction_Ability(requestsThisPhase, phase);
-			actionAbilities.PrepareResults();
-			hasActionsThisPhase = true;
-		}
+		hasActionsThisPhase |= GatherAbilities(phase);
 		
 		// Some abilities (RageBeastSelfHeal) expect abilities to be resolved before effects results are gathered
-		PlayerAction_Effect effects = GatherEffects(phase, phase != AbilityPriority.Combat_Knockback);  // knockback is gathered separately in HandleUpdateResolveAbilities
-		if (effects != null)
-		{
-			hasActionsThisPhase = true;
-		}
+		// knockback is gathered separately in HandleUpdateResolveAbilities
+		hasActionsThisPhase |= GatherEffects(phase, phase != AbilityPriority.Combat_Knockback); 
 
 		return hasActionsThisPhase;
 	}
-
-	// TODO unite with GatherEffectResultsInPhase
-	private static PlayerAction_Effect GatherEffects(AbilityPriority phase, bool notify)
+	
+	
+	public bool GatherAbilities(AbilityPriority phase)
 	{
-		List<Effect> executingEffects = GatherEffectResultsInPhase(phase, notify);
-		if (executingEffects.Count > 0)
+		List<AbilityRequest> requestsThisPhase = RequestsInPhase(phase).ToList();
+		if (requestsThisPhase.Count == 0)
 		{
-			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
-			PlayerAction_Effect action = new PlayerAction_Effect(executingEffects, phase);
-			action.PrepareResults();
-			return action;
+			return false;
+		}
+		
+		Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
+		
+		for (int i = requestsThisPhase.Count - 1; i >= 0; i--)
+		{
+			AbilityRequest abilityRequest = requestsThisPhase[i];
+			if (abilityRequest.m_caster.IsDead())
+			{
+				abilityRequest.m_resolveState = AbilityRequest.AbilityResolveState.QUEUED;
+				CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true); // , false in rogues
+				requestsThisPhase.RemoveAt(i);
+			}
+		}
+		
+		if (requestsThisPhase.Count == 0)
+		{
+			return false;
 		}
 
-		return null;
+		if (phase == AbilityPriority.Evasion)
+		{
+			SetupForEvadesPreGathering(requestsThisPhase);
+		}
+		
+		foreach (AbilityRequest abilityRequest in requestsThisPhase)
+		{
+			if (abilityRequest.m_caster.GetPassiveData())
+			{
+				abilityRequest.m_caster.GetPassiveData().PreGatherResultsForPlayerAction(abilityRequest.m_ability);
+			}
+			if (abilityRequest.m_caster != null && abilityRequest.m_caster.GetAbilityData() != null)
+			{
+				abilityRequest.m_caster.GetAbilityData().ReinitAbilityInteractionData(abilityRequest.m_ability);
+			}
+			abilityRequest.m_ability.GatherResults_Base(
+				phase,
+				abilityRequest.m_targets,
+				abilityRequest.m_caster,
+				abilityRequest.m_additionalData);
+		}
+		return true;
 	}
 
-	// custom
-	private static List<Effect> GatherEffectResultsInPhase(AbilityPriority phase, bool notify = true)
+	private void SetupForEvadesPreGathering(List<AbilityRequest> requests)
+	{
+		ServerEvadeManager evadeManager = GetEvadeManager();
+		evadeManager.ProcessEvades(requests, AbilityPriority.Evasion);
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			if (actorData.GetPassiveData() != null)
+			{
+				actorData.GetPassiveData().OnEvadesProcessed();
+			}
+		}
+
+		evadeManager.GatherGameplayResultsInResponseToEvades(out var actorsThatWillBeSeenButArentMoving);
+		SynchronizePositionsOfActorsThatWillBeSeen(actorsThatWillBeSeenButArentMoving);
+		evadeManager.SwapEvaderSquaresWithDestinations();
+		if (evadeManager.HasEvades())
+		{
+			ImmediateUpdateAllFogOfWar();
+		}
+	}
+	
+	private bool GatherEffects(AbilityPriority phase, bool notify)
 	{
 		if (notify)
 		{
 			ServerEffectManager.Get().NotifyBeforeGatherAllEffectResults(phase);
 		}
+		
 		// from QueuedPlayerActionsContainer::InitEffectsForExecution
 		List<Effect> executingEffects = new List<Effect>();
 		foreach (KeyValuePair<ActorData, List<Effect>> actorAndEffects in ServerEffectManager.Get().GetAllActorEffects())
 		{
-			if (!actorAndEffects.Key.IsDead())
+			if (actorAndEffects.Key.IsDead())
 			{
-				foreach (Effect effect in actorAndEffects.Value)
-				{
-					if (effect.HitPhase == phase)
-					{
-						EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
-						if (effect.HitPhase == phase &&
-						    (resultsForPhase == null || !resultsForPhase.GatheredResults))
-						{
-							effect.Resolve();
-							executingEffects.Add(effect);
-						}
-					}
-				}
+				continue;
 			}
-		}
-
-		foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
-		{
-			if (effect.HitPhase == phase)
+			
+			foreach (Effect effect in actorAndEffects.Value)
 			{
+				if (effect.HitPhase != phase)
+				{
+					continue;
+				}
+				
 				EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
 				if (effect.HitPhase == phase &&
 				    (resultsForPhase == null || !resultsForPhase.GatheredResults))
@@ -2959,23 +2996,29 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 		}
 
-		return executingEffects;
+		foreach (Effect effect in ServerEffectManager.Get().GetWorldEffects())
+		{
+			if (effect.HitPhase != phase)
+			{
+				continue;
+			}
+			
+			EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
+			if (effect.HitPhase == phase &&
+			    (resultsForPhase == null || !resultsForPhase.GatheredResults))
+			{
+				effect.Resolve();
+				executingEffects.Add(effect);
+			}
+		}
+
+		if (executingEffects.Count > 0)
+		{
+			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
+			return true;
+		}
+
+		return false;
 	}
-	
-	// custom
-	// TODO SAB - used to call it in HandleUpdateResolveMovement/HandleUpdateResolveMovementChase - seems redundant?
-	// private void CompleteExecutingPlayerActions()
-	// {
-	// 	if (!m_executingEffectActions.IsNullOrEmpty())
-	// 	{
-	// 		foreach (PlayerAction_Effect action in m_executingEffectActions)
-	// 		{
-	// 			action.OnExecutionComplete(false);
-	// 		}
-	//
-	// 		m_executingEffectActions = new List<PlayerAction_Effect>();
-	// 		m_nonEmptyPhases = new HashSet<AbilityPriority>();
-	// 	}
-	// }
 #endif
 }
