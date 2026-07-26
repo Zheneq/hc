@@ -72,7 +72,7 @@ public class ServerActionBuffer : NetworkBehaviour
 	public AbilityPriority AbilityPhase
 	{
 		get => m_abilityPhase;
-		set  // private in rogues TODO SAB - all sets should probably be inside the class
+		private set
 		{
 			if (m_abilityPhase != value)
 			{
@@ -83,13 +83,9 @@ public class ServerActionBuffer : NetworkBehaviour
 					ServerCombatManager.Get().ResolveHitPoints();
 					ServerCombatManager.Get().ResolveTechPoints();
 				}
-
-				OnAbilityPhaseEnd(m_abilityPhase); // custom TODO SAB - wasn't here in rogues
 				
 				m_abilityPhase = value;
 				SynchronizeSharedData();
-				
-				OnAbilityPhaseStart(m_abilityPhase); // custom TODO SAB - wasn't here in rogues
 			}
 			m_lastAbilityPhaseSet = Time.time;
 		}
@@ -341,7 +337,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
-	// TODO SAB - currently called in PlayerAction_Ability.ExecuteAction
+	// TODO LOW SAB - currently inlined in GatherAbilities
 	private void ReInitAbilityInteractions(AbilityPriority newPhase)
 	{
 		foreach (AbilityRequest abilityRequest in m_storedAbilityRequests)
@@ -372,17 +368,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 	
-	// custom - TODO SAB now there are two of them
-	public void OnAbilityPhaseStart()
+	private void OnAbilityPhaseStart()
 	{
 		OnPhaseStartForRequestedAbilities(AbilityPhase);
-	}
-
-	// custom - TODO SAB now there are two of them
-	private void OnAbilityPhaseStart(AbilityPriority phase)
-	{
-		m_waitingForPlayPhaseEnded = true;
-		SetSquareAtPhaseStartForActors();
 	}
 
 	private void OnAbilityPhaseEnd(AbilityPriority oldPhase)
@@ -1041,7 +1029,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			request.m_resolveState = MovementRequest.MovementResolveState.RESOLVED;
 			if (!actor.IsDead())
 			{
-				actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED, true);
+				actor.GetActorTurnSM().OnMessage(TurnMessage.MOVEMENT_RESOLVED);
 			}
 		}
 		else if (request != null
@@ -1659,11 +1647,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
-	// TODO SAB - FCFS == rogues? - RunAbilityRequest is private => calling code should be in this class
-	public void RunAbilityRequest_FCFS(AbilityRequest request)
-	{
-		RunAbilityRequest(request);
-	}
+	// rogues
+	// public void RunAbilityRequest_FCFS(AbilityRequest request)
+	// {
+	// 	RunAbilityRequest(request);
+	// }
 
 	private void RunAbilityRequest(AbilityRequest request)
 	{
@@ -2162,7 +2150,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		// end custom
 	}
 
-	// TODO SAB - never called - currently called in PlayerAction.PrepareResults
+	// TODO SAB - never called - currently called in GatherAbilities/GatherMovement
 	private void ClearRequestsOfDeadActors()
 	{
 		List<AbilityRequest> abilitiesToCancel = new List<AbilityRequest>();
@@ -2697,6 +2685,7 @@ public class ServerActionBuffer : NetworkBehaviour
 				serverKnockbackManager.ClearStoredData();
 			}
 			ServerEffectManager.Get().OnAbilityPhaseEnd(AbilityPhase);
+			OnAbilityPhaseEnd(AbilityPhase);
 			if (AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
 			{
 				AbilityPhase = AbilityPriority.INVALID; // TODO SenseiAppendStatusEffect seems to expect it to be not INVALID on movement
@@ -2709,7 +2698,10 @@ public class ServerActionBuffer : NetworkBehaviour
 				? AbilityUtils.GetHighestAbilityPriority()
 				: AbilityUtils.GetNextAbilityPriority(AbilityPhase);
 			Log.Info($"Going to next turn ability phase {AbilityPhase}");
-				
+
+			m_waitingForPlayPhaseEnded = true;
+			SetSquareAtPhaseStartForActors();
+
 			GatheringFakeResults = false;
 			
 			if (AbilityPhase < AbilityPriority.Combat_Damage)
