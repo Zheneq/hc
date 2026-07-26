@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 // was empty in reactor
+// TODO SAB Gather fake results
 public class ServerActionBuffer : NetworkBehaviour
 {
 #if SERVER
@@ -275,7 +276,6 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
-	// TODO SAB - denied movement stat? - not called
 	private void TrackDesiredMovementAmountOnResolve()
 	{
 		foreach (MovementRequest movementRequest in m_storedMovementRequests)
@@ -309,7 +309,6 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
-	// TODO SAB - denied movement stat? - not called
 	private void SetSquareRequestedForMovementMetricsForActors()
 	{
 		foreach (ActorData actorData in GameFlowData.Get().GetActors())
@@ -366,11 +365,6 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			actorData.GetFogOfWar().ImmediateUpdateVisibilityOfSquares();
 		}
-	}
-	
-	private void OnAbilityPhaseStart()
-	{
-		OnPhaseStartForRequestedAbilities(AbilityPhase);
 	}
 
 	private void OnAbilityPhaseEnd(AbilityPriority oldPhase)
@@ -2627,8 +2621,6 @@ public class ServerActionBuffer : NetworkBehaviour
 	
 	public void HandleUpdateResolve() // TODO SAB private?
 	{
-		TheatricsManager theatrics = TheatricsManager.Get();
-
 		bool isNewPhase = false;
 		if (ActionPhase != actionBufferTimerPhase)
 		{
@@ -2669,7 +2661,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			}
 			case ActionBufferPhase.MovementWait:
 			{
-				HandleUpdateResolveMovementWait(theatrics);
+				HandleUpdateResolveMovementWait();
 				break;
 			}
 		}
@@ -2679,6 +2671,9 @@ public class ServerActionBuffer : NetworkBehaviour
 	private void OnBeginResolve()
 	{
 		AbilityPhase = AbilityPriority.INVALID; // TODO SAB is incorrect as we have to branch on it in HandleUpdateResolveAbilities 
+		ClearRequestsOfDeadActors();
+		TrackDesiredMovementAmountOnResolve();
+		SetSquareRequestedForMovementMetricsForActors();
 	}
 	
 	// custom
@@ -2704,8 +2699,8 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				serverKnockbackManager.ClearStoredData();
 			}
-			ServerEffectManager.Get().OnAbilityPhaseEnd(AbilityPhase);
-			OnAbilityPhaseEnd(AbilityPhase);
+			ServerEffectManager.Get().OnAbilityPhaseEnd(AbilityPhase); // TODO SAB - don't call for fake initial INVALID phase?
+			OnAbilityPhaseEnd(AbilityPhase); // TODO SAB - don't call for fake initial INVALID phase?
 			if (AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
 			{
 				// end ability resolution
@@ -2720,6 +2715,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			Log.Info($"Going to next turn ability phase {AbilityPhase}");
 
 			m_waitingForPlayPhaseEnded = true;
+			ClearRequestsOfDeadActors();
 			SetSquareAtPhaseStartForActors();
 
 			GatheringFakeResults = false;
@@ -2761,6 +2757,20 @@ public class ServerActionBuffer : NetworkBehaviour
 			// Note: some abilities expect phase results gathered before OnAbilityPhaseStart (e.g. MantaDirtyFightingEffect)
 			SynchronizePositionsOfActorsParticipatingInPhase(AbilityPhase); /// check? see PlayerAction_*.ExecuteAction for more resolution stuff gathered from all over ARe
 			ServerEffectManager.Get().OnAbilityPhaseStart(AbilityPhase);
+			TheatricsManager.Get().ResetTimeToTimeoutPhase();
+			
+			// TODO SAB can we move it up? to the other branches
+			if (AbilityPhase == AbilityPriority.Evasion)
+			{
+				ServerEvadeManager evadeManager = GetEvadeManager();
+				evadeManager.UndoEvaderDestinationsSwap();
+				if (evadeManager.HasEvades())
+				{
+					ImmediateUpdateAllFogOfWar();
+				}
+				evadeManager.RunEvades();
+			}
+			
 			ServerResolutionManager.Get().OnAbilityPhaseStart(AbilityPhase);
 			foreach (ActorData actorData in GameFlowData.Get().GetActors())
 			{
@@ -2769,7 +2779,7 @@ public class ServerActionBuffer : NetworkBehaviour
 					actorData.GetPassiveData().OnAbilityPhaseStart(AbilityPhase);
 				}
 			}
-			OnAbilityPhaseStart();
+			OnPhaseStartForRequestedAbilities(AbilityPhase);
 			if (m_nonEmptyPhases.Contains(AbilityPhase))
 			{
 				break;
@@ -2787,7 +2797,17 @@ public class ServerActionBuffer : NetworkBehaviour
 	private void SetupPhase(AbilityPriority phase)
 	{
 		TheatricsManager theatrics = TheatricsManager.Get();
-		bool hasActionsThisPhase = GatherActionsInPhase(phase);
+		bool hasActionsThisPhase = false;
+		
+		// before if a spoil spawned on a square, the square was locked for further spoils for the rest of the game
+		m_tempReservedSquaresForAbilitySpoil = new Dictionary<Team, List<BoardSquare>>(); 
+
+		hasActionsThisPhase |= GatherAbilities(phase);
+		
+		// Some abilities (RageBeastSelfHeal) expect abilities to be resolved before effects results are gathered
+		// knockback is gathered separately in HandleUpdateResolveAbilities
+		hasActionsThisPhase |= GatherEffects(phase, phase != AbilityPriority.Combat_Knockback);
+
 		if (phase == AbilityPriority.Combat_Knockback)
 		{
 			GetKnockbackManager().ProcessKnockbacks(m_storedAbilityRequests);
@@ -2882,9 +2902,9 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 
-	private void HandleUpdateResolveMovementWait(TheatricsManager theatrics)
+	private void HandleUpdateResolveMovementWait()
 	{
-		theatrics.MarkPhasesOnActionsDone();
+		TheatricsManager.Get().MarkPhasesOnActionsDone();
 		ActionPhase = ActionBufferPhase.Done;
 				
 		if (GameFlowData.Get().gameState == GameState.BothTeams_Resolve)
@@ -2894,20 +2914,6 @@ public class ServerActionBuffer : NetworkBehaviour
 	}
 	
 	// custom
-	private bool GatherActionsInPhase(AbilityPriority phase)
-	{
-		bool hasActionsThisPhase = false;
-		
-		hasActionsThisPhase |= GatherAbilities(phase);
-		
-		// Some abilities (RageBeastSelfHeal) expect abilities to be resolved before effects results are gathered
-		// knockback is gathered separately in HandleUpdateResolveAbilities
-		hasActionsThisPhase |= GatherEffects(phase, phase != AbilityPriority.Combat_Knockback); 
-
-		return hasActionsThisPhase;
-	}
-	
-	
 	public bool GatherAbilities(AbilityPriority phase)
 	{
 		List<AbilityRequest> requestsThisPhase = RequestsInPhase(phase).ToList();
@@ -2917,22 +2923,6 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		
 		Log.Info($"Have {requestsThisPhase.Count} requests in this phase, playing them...");
-		
-		for (int i = requestsThisPhase.Count - 1; i >= 0; i--)
-		{
-			AbilityRequest abilityRequest = requestsThisPhase[i];
-			if (abilityRequest.m_caster.IsDead())
-			{
-				abilityRequest.m_resolveState = AbilityRequest.AbilityResolveState.QUEUED;
-				CancelAbilityRequest(abilityRequest.m_caster, abilityRequest.m_ability, true); // , false in rogues
-				requestsThisPhase.RemoveAt(i);
-			}
-		}
-		
-		if (requestsThisPhase.Count == 0)
-		{
-			return false;
-		}
 
 		if (phase == AbilityPriority.Evasion)
 		{
@@ -2979,6 +2969,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 	}
 	
+	// TODO LOW SAB - move to ServerEffectManager?
 	private bool GatherEffects(AbilityPriority phase, bool notify)
 	{
 		if (notify)
@@ -3039,27 +3030,11 @@ public class ServerActionBuffer : NetworkBehaviour
 	
 	public void GatherMovement(bool isChase)
 	{
+		ClearRequestsOfDeadActors();
 		List<MovementRequest> moveRequests = GetAllStoredMovementRequests();
 		if (moveRequests == null)
 		{
 			Log.Error("No movement requests");
-			return;
-		}
-
-		// TODO SAB call ClearRequestsOfDeadActors
-		for (int i = moveRequests.Count - 1; i >= 0; i--)
-		{
-			MovementRequest movementRequest = moveRequests[i];
-			if (movementRequest.m_actor.IsDead())
-			{
-				Log.Info($"Cancelling ${movementRequest.m_actor.m_displayName}'s movement request because they are dead");
-				CancelMovementRequests(movementRequest.m_actor);
-			}
-		}
-		
-		if (moveRequests.Count == 0)
-		{
-			Log.Info("No movement requests");
 			return;
 		}
 
@@ -3135,17 +3110,8 @@ public class ServerActionBuffer : NetworkBehaviour
 			out List<ActorData> seenNonMovers_chase);
 		// custom
 		List<ActorData> seenNonMovers = seenNonMovers_normal;
-		
-		foreach (ActorData seenNonMover in seenNonMovers)
-		{
-			seenNonMover.TeamSensitiveData_hostile.BroadcastMovement(
-				GameEventManager.EventType.NormalMovementStart,
-				seenNonMover.CurrentBoardSquare.GetGridPos(),
-				seenNonMover.CurrentBoardSquare,
-				ActorData.MovementType.None,
-				ActorData.TeleportType.Reappear,
-				null);
-		}
+
+		SynchronizePositionsOfActorsThatWillBeSeen(seenNonMovers);
 		// end custom
 		
 		ServerResolutionManager.Get().OnNormalMovementStart();

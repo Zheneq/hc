@@ -562,7 +562,7 @@ namespace Theatrics
 			}
 			Phase phase = new Phase(this, phasePriority, abilityRequests);
 			
-			// TODO HACK
+			// TODO SAB HACK - not all hits change hp!
 			// custom
 			if (hitActorIds.IsNullOrEmpty())
 			{

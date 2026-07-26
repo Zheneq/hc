@@ -319,15 +319,6 @@ public class ServerResolutionManager : NetworkBehaviour
 		ResetPlayersStillResolving();
 		m_currentResolutionActions = BuildResolutionActionsForAbilityPhase(m_currentAbilityPhase);
 
-		// custom
-		TheatricsManager.Get().ResetTimeToTimeoutPhase();
-
-		// Test
-		//foreach (ResolutionAction action in m_currentResolutionActions)
-		//{
-		//    action.m_abilityResults.m_positionToHitResults.Add(Vector3.zero, new PositionHitResults(new PositionHitParameters(Vector3.zero)));
-		//}
-
 		m_currentCastActions = new List<CastAction>();
 		CurrentActionsDebugStr = BuildDebugStringForActionList(m_currentResolutionActions);
 		if (phase == AbilityPriority.Combat_Knockback)
@@ -335,24 +326,6 @@ public class ServerResolutionManager : NetworkBehaviour
 			InitKnockbackActors();
 		}
 		m_resolutionState = ServerResolutionManagerState.WaitingForClients_AbilityPhase;
-
-		// custom
-		//if (!NetworkClient.active)
-		//{
-		//	PlayerAction_Ability.InitializeTheatricsForPhaseActions(phase, list);
-		//}
-		if (phase == AbilityPriority.Evasion)
-		{
-			ServerEvadeManager evadeManager = ServerActionBuffer.Get().GetEvadeManager();
-			evadeManager.UndoEvaderDestinationsSwap();
-			if (evadeManager.HasEvades())
-			{
-				ServerActionBuffer.Get().ImmediateUpdateAllFogOfWar();
-			}
-			evadeManager.RunEvades();
-		}
-		// end custom
-
 		SendPhaseResolutionActionsToClients();
 
 		// custom
