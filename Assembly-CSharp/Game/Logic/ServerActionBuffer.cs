@@ -2641,11 +2641,19 @@ public class ServerActionBuffer : NetworkBehaviour
 		{
 			case ActionBufferPhase.Abilities:
 			{
+				if (isNewPhase)
+				{
+					OnBeginResolve();
+				}
 				HandleUpdateResolveAbilities();
 				break;
 			}
 			case ActionBufferPhase.AbilitiesWait:
 			{
+				if (isNewPhase)
+				{
+					OnEndResolveAbilities();
+				}
 				HandleUpdateResolveAbilitiesWait(isNewPhase);
 				break;
 			}
@@ -2665,6 +2673,18 @@ public class ServerActionBuffer : NetworkBehaviour
 				break;
 			}
 		}
+	}
+	
+	// custom
+	private void OnBeginResolve()
+	{
+		AbilityPhase = AbilityPriority.INVALID; // TODO SAB is incorrect as we have to branch on it in HandleUpdateResolveAbilities 
+	}
+	
+	// custom
+	private void OnEndResolveAbilities()
+	{
+		AbilityPhase = AbilityPriority.INVALID; // TODO SenseiAppendStatusEffect seems to expect it to be not INVALID on movement
 	}
 	
 	// custom
@@ -2688,7 +2708,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			OnAbilityPhaseEnd(AbilityPhase);
 			if (AbilityPhase == AbilityUtils.GetLowestAbilityPriority())
 			{
-				AbilityPhase = AbilityPriority.INVALID; // TODO SenseiAppendStatusEffect seems to expect it to be not INVALID on movement
+				// end ability resolution
 				ActionPhase = ActionBufferPhase.AbilitiesWait;
 				Log.Info($"Going to next action phase {ActionPhase}");
 				return;
