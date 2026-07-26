@@ -3039,7 +3039,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 
 		// TODO SAB unite two cancellations?
-		foreach (MovementRequest movementRequest in moveRequests)
+		foreach (MovementRequest movementRequest in moveRequests.ToList())
 		{
 			BoardSquare targetSquare = movementRequest.m_targetSquare;
 			if ((movementRequest.m_path?.next == null || targetSquare == null)
@@ -3055,7 +3055,7 @@ public class ServerActionBuffer : NetworkBehaviour
 		GetMoveStabilizer().StabilizeMovement(moveRequests, isChase);
 
 		// TODO SAB unite two cancellations?
-		foreach (MovementRequest movementRequest in moveRequests)
+		foreach (MovementRequest movementRequest in moveRequests.ToList())
 		{
 			if ((isChase || !movementRequest.IsChasing()) // custom
 			    && (movementRequest.m_path == null || movementRequest.m_path.next == null))
