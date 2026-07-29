@@ -46,12 +46,10 @@ public class SpecialEffectsFetcher
                     if (!string.IsNullOrEmpty(playerName) && !string.IsNullOrEmpty(effectName))
                     {
                         string key = playerName.Trim();
-                        Console.WriteLine(key);
                         if (!effectsByHandle.TryGetValue(key, out var list))
                         {
                             list = new List<string>();
                             effectsByHandle[key] = list;
-                            Console.WriteLine(list);
                         }
                         // avoid duplicates
                         if (!list.Contains(effectName))
