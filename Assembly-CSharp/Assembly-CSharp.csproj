@@ -54,7 +54,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Client Debug|AnyCPU' ">
     <DefineConstants>EVOS LOG</DefineConstants>
     <GitTagRegex>client*</GitTagRegex>
-    <OutputPath>bin\ClientDebug\</OutputPath>
+    <OutputPath>..\..\..\..\..\..\Program Files %28x86%29\Steam\steamapps\common\Atlas Reactor\Games\Atlas Reactor\Live\Win64\AtlasReactor_Data\Managed\</OutputPath>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Client Debug' Or '$(Configuration)' == 'Client Release' ">
     <ContentWithTargetPath Include="AtlasReactor_Data\Evos\**">
@@ -2364,6 +2364,8 @@
     <Compile Include="SlashCommands\SlashCommand_UserReport.cs" />
     <Compile Include="SlashCommands\SlashCommand_UserUnblock.cs" />
     <Compile Include="SlashCommands\SlashCommand_Version.cs" />
+    <Compile Include="SpecialEffectsFetcher.cs" />
+    <Compile Include="SpecialEffectsManager.cs" />
     <Compile Include="Spectator.cs" />
     <Compile Include="SpoilsData.cs" />
     <Compile Include="SpoilsManager.cs" />
