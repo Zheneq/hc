@@ -2187,7 +2187,6 @@ public class UITextConsole : MonoBehaviour
             if (manager != null)
             {
                 tagHandle = manager.GetEffectForHandle(handle);
-                Console.WriteLine(tagHandle);
             }
             else
             {
