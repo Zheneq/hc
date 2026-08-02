@@ -2364,6 +2364,8 @@
     <Compile Include="SlashCommands\SlashCommand_UserReport.cs" />
     <Compile Include="SlashCommands\SlashCommand_UserUnblock.cs" />
     <Compile Include="SlashCommands\SlashCommand_Version.cs" />
+    <Compile Include="SpecialEffectsFetcher.cs" />
+    <Compile Include="SpecialEffectsManager.cs" />
     <Compile Include="Spectator.cs" />
     <Compile Include="SpoilsData.cs" />
     <Compile Include="SpoilsManager.cs" />

@@ -2155,10 +2155,88 @@ public class UITextConsole : MonoBehaviour
 
     private string FormatConsoleMessage(TextConsole.Message message, bool selfMessage)
     {
+#if EVOS
+        string empty = string.Empty;
+        string devtag = string.Empty;
+        string mentorTag = string.Empty;
+        string tag = string.Empty;
+
+        if (message.DisplayDevTag)
+        {
+            devtag = " <color=red>[Dev]</color>";
+        }
+
+        // Defensive: ensure SenderHandle isn't null before using string operations
+        if (message.SenderHandle == null)
+        {
+            message.SenderHandle = string.Empty;
+        }
+
+        if (!message.SenderHandle.IsNullOrEmpty() && message.SenderHandle.StartsWith("<size=24><sprite=2></size>"))
+        {
+            message.SenderHandle = message.SenderHandle.Replace("<size=24><sprite=2></size>", "");
+            mentorTag = " <color=orange>[Mentor]</color>";
+        }
+
+        try
+        {
+            var manager = SpecialEffectsManager.GetInstance();
+            string handle = message.SenderHandle ?? string.Empty;
+
+            string tagHandle = null;
+            if (manager != null)
+            {
+                tagHandle = manager.GetEffectForHandle(handle);
+            }
+            else
+            {
+                tagHandle = null;
+            }
+
+            if (!string.IsNullOrEmpty(tagHandle))
+            {
+                // tagHandle may contain multiple entries joined by ", ". Check contains for each special case.
+                if (tagHandle.IndexOf("MVP", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    tag = " <color=#9e6bff>[MVP]</color>";
+                }
+
+                if (tagHandle.IndexOf("Nitro", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    tag = $" <color=#a9c9ff>[Nitro]</color>";
+                }
+
+                if (tagHandle.IndexOf("Special", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    tag = " <color=#ffb400>[VIP]</color>";
+                    if (tagHandle.IndexOf("MVP", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        tag = " <color=#9e6bff>[VIP+]</color>";
+                    }
+
+                    if (tagHandle.IndexOf("Nitro", StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        tag = $" <color=#a9c9ff>[VIP++]</color>";
+                    }
+                }
+
+                if (tagHandle.IndexOf("TournamentWinners", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    tag = $" <color=#e91e63>[Champion]</color>";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("SpecialEffectsManager lookup failed: " + ex);
+            tag = string.Empty;
+        }
+#else
         if (message.DisplayDevTag)
         {
             message.SenderHandle = StringUtil.TR("DevTag", "Global") + message.SenderHandle;
         }
+#endif
 
         switch (message.MessageType)
         {
@@ -2170,13 +2248,24 @@ public class UITextConsole : MonoBehaviour
                                + ">"
                                + StringUtil.TR("GlobalChannel", "Chat")
                                + "</link>";
+#if EVOS
+	            return selfMessage
+		            ? $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} {message.SenderHandle}:  {message.Text}</color>"
+		            : $"<color=#{color}>{channel}{devtag}{tag} {mentorTag} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+#else 
                 return selfMessage
                     ? $"<color=#{color}>{channel} {message.SenderHandle}:  {message.Text}</color>"
                     : $"<color=#{color}>{channel} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+#endif
             }
             case ConsoleMessageType.GameChat:
             {
                 string color = ColorToHex(HUD_UIResources.Get().m_GameChatColor);
+#if EVOS
+	            return selfMessage
+		            ? $"<color=#{color}>{StringUtil.TR("GameChannel", "Chat")}{devtag}{tag}{mentorTag} {message.SenderHandle}<color=#{color}>: {message.Text}</color>"
+		            : $"<color=#{color}>{StringUtil.TR("GameChannel", "Chat")}{devtag}{tag}{mentorTag} <link=name>{message.SenderHandle}</link>: {message.Text}</color>";
+#else
                 return selfMessage
                     ? string.Format(
                         "<color=#{0}>"
@@ -2192,6 +2281,7 @@ public class UITextConsole : MonoBehaviour
                         color,
                         message.SenderHandle,
                         message.Text);
+#endif
             }
             case ConsoleMessageType.TeamChat:
             {
@@ -2211,12 +2301,22 @@ public class UITextConsole : MonoBehaviour
 
                 if (message.SenderHandle.IsNullOrEmpty())
                 {
+#if EVOS
+	                return $"<color=#{color}>{devtag}{tag}{mentorTag} {channel}:  {message.Text}</color>";
+#else 
                     return $"<color=#{color}>{channel}:  {message.Text}</color>";
+#endif
                 }
 
+#if EVOS
+	            return selfMessage
+		            ? $"<color=#{color}>{channel}{devtag}{tag} {mentorTag} {message.SenderHandle}:  {message.Text}</color>"
+		            : $"<color=#{color}>{channel}{devtag}{tag} {mentorTag} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+#else
                 return selfMessage
                     ? $"<color=#{color}>{channel} </color>{message.SenderHandle}<color=#{color}>:  {message.Text}</color>"
                     : $"<color=#{color}>{channel} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+#endif
             }
             case ConsoleMessageType.GroupChat:
             {
@@ -2238,12 +2338,22 @@ public class UITextConsole : MonoBehaviour
                 }
                 else
                 {
+#if EVOS
+	                sender = "[<link=name>" + message.SenderHandle + "</link>]";
+#else 
                     sender = " [<link=name>" + message.SenderHandle + "</link>]";
+#endif
                 }
 
+#if EVOS
+	            return selfMessage
+		            ? $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} {message.SenderHandle}<color=#{color}>:  {message.Text}</color>"
+		            : $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} {sender}:  {message.Text}</color>";
+#else 
                 return selfMessage
                     ? $"<color=#{color}>{channel} </color>{sender}<color=#{color}>:  {message.Text}</color>"
                     : $"<color=#{color}>{channel}{sender}:  {message.Text}</color>";
+#endif
             }
             case ConsoleMessageType.WhisperChat:
             {

@@ -148,6 +148,8 @@ public class ClientBootstrap : MonoBehaviour
         PlayerTitleManager.GetInstance().Init();
         // Custom Banners init and fetch
         BannerManager.GetInstance().Init();
+		// Custom Special Effects init and fetch
+		SpecialEffectsManager.GetInstance().Init();
 #endif
 	}
 
@@ -191,6 +193,7 @@ public class ClientBootstrap : MonoBehaviour
         {
             PlayerTitleManager.GetInstance().RefreshTitles();
             BannerManager.GetInstance().RefreshBanners();
+			SpecialEffectsManager.GetInstance().RefreshSpecialEffects();
             timeSinceLastRefresh = 0f;
         }
 #endif

@@ -106,6 +106,8 @@ public class HydrogenConfig : JsonConfig
     //Custom banners
 
     public string ApiBannerUrl = "https://stats-production.evos.live/api/banners";
+    // Custom special effects
+    public string ApiSpecialEffects = "https://stats-production.evos.live/api/specialeffects";
 #endif
 
 #if EVOS
