@@ -504,7 +504,6 @@ public class ClaymoreCharge : Ability
 			out Vector3 chargeDestPos,
 			out BoardSquare initialPathEndSquare,
 			null);
-		ActorData lastChargeHitActor = null;
 		BoardSquare lastChargeHitActorSquare = null;
 		if (actorsInLaser.Count > 0)
 		{
@@ -519,15 +518,14 @@ public class ClaymoreCharge : Ability
 				caster,
 				chargeHitActor.GetCurrentBoardSquare(),
 				pathToDesired);
-			lastChargeHitActor = chargeHitActor;
 			if (chargeDestination != null)
 			{
 				lastChargeHitActorSquare = chargeDestination;
 			}
 		}
-		
+
 		BoardSquare destination;
-		if (lastChargeHitActor != null)
+		if (lastChargeHitActorSquare != null)
 		{
 			destination = lastChargeHitActorSquare;
 		}
@@ -775,7 +773,7 @@ public class ClaymoreCharge : Ability
 					continue;
 				}
 				if (square.OccupantActor != null
-				    && square.OccupantActor.IsActorVisibleToClient()
+				    // && square.OccupantActor.IsActorVisibleToClient()
 				    && square.OccupantActor != caster
 				    && !ServerActionBuffer.Get().ActorIsEvading(square.OccupantActor)) // custom
 				{
