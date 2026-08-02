@@ -311,7 +311,14 @@ public class BattleMonkBoundingLeap : Ability
 		BoardSquare result;
 		if (GetMaxTargets() > 0 && bouncingLaserInfos.Count >= GetMaxTargets())
 		{
-			result = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+			// custom: mirror the client targeter (AbilityUtil_Targeter_BounceActor.GetChargePathSquares) and
+			// stop half a square short of the last hit target, instead of returning its (occupied) square and
+			// letting server charge clash resolution bump the caster to a square the targeter never predicted.
+			BoardSquare lastHitSquare = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+			float maxDistance = Mathf.Max(0f, VectorUtils.HorizontalPlaneDistInWorld(start, lastHitSquare.ToVector3()) - 0.5f);
+			result = KnockbackUtils.GetLastValidBoardSquareInLine(start, bounceEndPoints[bounceEndPoints.Count - 1], true, false, maxDistance);
+			// rogues
+			// result = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
 		}
 		else
 		{
