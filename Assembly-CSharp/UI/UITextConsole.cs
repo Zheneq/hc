@@ -2153,164 +2153,150 @@ public class UITextConsole : MonoBehaviour
 		return textMeshProUGUI;
 	}
 
-	private string FormatConsoleMessage(TextConsole.Message message, bool selfMessage)
-	{
-		string empty = string.Empty;
-		if (message.DisplayDevTag)
-		{
-			message.SenderHandle = StringUtil.TR("DevTag", "Global") + message.SenderHandle;
-		}
-		switch (message.MessageType)
-		{
-		case ConsoleMessageType.GlobalChat:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_GlobalChatColor);
-			string text3 = "<link=channel:" + StringUtil.TR("/general", "SlashCommand").Substring(1) + ">" + StringUtil.TR("GlobalChannel", "Chat") + "</link>";
-			if (selfMessage)
-			{
-				while (true)
-				{
-					switch (6)
-					{
-					case 0:
-						break;
-					default:
-						return $"<color=#{arg}>{text3} {message.SenderHandle}:  {message.Text}</color>";
-					}
-				}
-			}
-			return $"<color=#{arg}>{text3} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
-		}
-		case ConsoleMessageType.GameChat:
-		{
-			string arg2 = ColorToHex(HUD_UIResources.Get().m_GameChatColor);
-			if (selfMessage)
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " </color>{1}<color=#{0}>: {2}</color>", arg2, message.SenderHandle, message.Text);
-					}
-				}
-			}
-			return string.Format("<color=#{0}>" + StringUtil.TR("GameChannel", "Chat") + " <link=name>{1}</link>: {2}</color>", arg2, message.SenderHandle, message.Text);
-		}
-		case ConsoleMessageType.TeamChat:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
-			string text3;
-			if (message.SenderTeam == Team.Spectator)
-			{
-				text3 = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">" + StringUtil.TR("SpectatorChannel", "Chat") + "</link>";
-			}
-			else
-			{
-				text3 = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">" + StringUtil.TR("TeamChannel", "Chat") + "</link>";
-			}
-			if (message.SenderHandle.IsNullOrEmpty())
-			{
-				while (true)
-				{
-					switch (4)
-					{
-					case 0:
-						break;
-					default:
-						return $"<color=#{arg}>{text3}:  {message.Text}</color>";
-					}
-				}
-			}
-			if (selfMessage)
-			{
-				while (true)
-				{
-					switch (7)
-					{
-					case 0:
-						break;
-					default:
-						return string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", arg, text3, message.SenderHandle, message.Text);
-					}
-				}
-			}
-			return $"<color=#{arg}>{text3} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
-		}
-		case ConsoleMessageType.GroupChat:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_GroupChatColor);
-			string text3 = "<link=channel:" + StringUtil.TR("/group", "SlashCommand").Substring(1) + ">" + StringUtil.TR("GroupChannel", "Chat") + "</link>";
-			string text4;
-			if (message.SenderHandle.IsNullOrEmpty())
-			{
-				text4 = string.Empty;
-			}
-			else if (selfMessage)
-			{
-				text4 = message.SenderHandle;
-			}
-			else
-			{
-				text4 = " [<link=name>" + message.SenderHandle + "</link>]";
-			}
-			if (selfMessage)
-			{
-				return string.Format("<color=#{0}>{1} </color>{2}<color=#{0}>:  {3}</color>", arg, text3, text4, message.Text);
-			}
-			return $"<color=#{arg}>{text3}{text4}:  {message.Text}</color>";
-		}
-		case ConsoleMessageType.WhisperChat:
-		{
-			string text;
-			string text2;
-			if (selfMessage)
-			{
-				text = message.RecipientHandle;
-				text2 = StringUtil.TR("To", "Chat");
-			}
-			else
-			{
-				text = message.SenderHandle;
-				text2 = string.Empty;
-			}
-			string arg = ColorToHex(HUD_UIResources.Get().m_whisperChatColor);
-			return $"<color=#{arg}>{text2} [<link=name>{text}</link>]:  {message.Text}</color>";
-		}
-		case ConsoleMessageType.SystemMessage:
-		case ConsoleMessageType.Exception:
-		case ConsoleMessageType.BroadcastMessage:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_systemChatColor);
-			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
-		}
-		case ConsoleMessageType.Error:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_systemErrorChatColor);
-			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
-		}
-		case ConsoleMessageType.CombatLog:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_combatLogChatColor);
-			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
-		}
-		case ConsoleMessageType.PingChat:
-		case ConsoleMessageType.ScriptedChat:
-		{
-			string arg = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
-			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
-		}
-		case ConsoleMessageType.DiscordLog:
-		{
-			string arg = ColorToHex(Color.yellow);
-			return string.Format("<color=#{1}>{0}</color>", message.Text, arg);
-		}
-		default:
-			return message.Text;
-		}
-	}
+    private string FormatConsoleMessage(TextConsole.Message message, bool selfMessage)
+    {
+        if (message.DisplayDevTag)
+        {
+            message.SenderHandle = StringUtil.TR("DevTag", "Global") + message.SenderHandle;
+        }
+
+        switch (message.MessageType)
+        {
+            case ConsoleMessageType.GlobalChat:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_GlobalChatColor);
+                string channel = "<link=channel:"
+                               + StringUtil.TR("/general", "SlashCommand").Substring(1)
+                               + ">"
+                               + StringUtil.TR("GlobalChannel", "Chat")
+                               + "</link>";
+                return selfMessage
+                    ? $"<color=#{color}>{channel} {message.SenderHandle}:  {message.Text}</color>"
+                    : $"<color=#{color}>{channel} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+            }
+            case ConsoleMessageType.GameChat:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_GameChatColor);
+                return selfMessage
+                    ? string.Format(
+                        "<color=#{0}>"
+                        + StringUtil.TR("GameChannel", "Chat")
+                        + " </color>{1}<color=#{0}>: {2}</color>",
+                        color,
+                        message.SenderHandle,
+                        message.Text)
+                    : string.Format(
+                        "<color=#{0}>"
+                        + StringUtil.TR("GameChannel", "Chat")
+                        + " <link=name>{1}</link>: {2}</color>",
+                        color,
+                        message.SenderHandle,
+                        message.Text);
+            }
+            case ConsoleMessageType.TeamChat:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
+                string channel;
+                if (message.SenderTeam == Team.Spectator)
+                {
+                    channel = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">"
+                            + StringUtil.TR("SpectatorChannel", "Chat")
+                            + "</link>";
+                }
+                else
+                {
+                    channel = "<link=channel:" + StringUtil.TR("/team", "SlashCommand").Substring(1) + ">"
+                            + StringUtil.TR("TeamChannel", "Chat") + "</link>";
+                }
+
+                if (message.SenderHandle.IsNullOrEmpty())
+                {
+                    return $"<color=#{color}>{channel}:  {message.Text}</color>";
+                }
+
+                return selfMessage
+                    ? $"<color=#{color}>{channel} </color>{message.SenderHandle}<color=#{color}>:  {message.Text}</color>"
+                    : $"<color=#{color}>{channel} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+            }
+            case ConsoleMessageType.GroupChat:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_GroupChatColor);
+                string channel = "<link=channel:"
+                                 + StringUtil.TR("/group", "SlashCommand").Substring(1)
+                                 + ">"
+                                 + StringUtil.TR("GroupChannel", "Chat")
+                                 + "</link>";
+                
+                string sender;
+                if (message.SenderHandle.IsNullOrEmpty())
+                {
+                    sender = string.Empty;
+                }
+                else if (selfMessage)
+                {
+                    sender = message.SenderHandle;
+                }
+                else
+                {
+                    sender = " [<link=name>" + message.SenderHandle + "</link>]";
+                }
+
+                return selfMessage
+                    ? $"<color=#{color}>{channel} </color>{sender}<color=#{color}>:  {message.Text}</color>"
+                    : $"<color=#{color}>{channel}{sender}:  {message.Text}</color>";
+            }
+            case ConsoleMessageType.WhisperChat:
+            {
+                string handle;
+                string prefix;
+                if (selfMessage)
+                {
+                    handle = message.RecipientHandle;
+                    prefix = StringUtil.TR("To", "Chat");
+                }
+                else
+                {
+                    handle = message.SenderHandle;
+                    prefix = string.Empty;
+                }
+
+                string color = ColorToHex(HUD_UIResources.Get().m_whisperChatColor);
+                return $"<color=#{color}>{prefix} [<link=name>{handle}</link>]:  {message.Text}</color>";
+            }
+            case ConsoleMessageType.SystemMessage:
+            case ConsoleMessageType.Exception:
+            case ConsoleMessageType.BroadcastMessage:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_systemChatColor);
+                return string.Format("<color=#{1}>{0}</color>", message.Text, color);
+            }
+            case ConsoleMessageType.Error:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_systemErrorChatColor);
+                return string.Format("<color=#{1}>{0}</color>", message.Text, color);
+            }
+            case ConsoleMessageType.CombatLog:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_combatLogChatColor);
+                return string.Format("<color=#{1}>{0}</color>", message.Text, color);
+            }
+            case ConsoleMessageType.PingChat:
+            case ConsoleMessageType.ScriptedChat:
+            {
+                string color = ColorToHex(HUD_UIResources.Get().m_TeamChatColor);
+                return string.Format("<color=#{1}>{0}</color>", message.Text, color);
+            }
+            case ConsoleMessageType.DiscordLog:
+            {
+                string color = ColorToHex(Color.yellow);
+                return string.Format("<color=#{1}>{0}</color>", message.Text, color);
+            }
+            default:
+            {
+                return message.Text;
+            }
+        }
+    }
 
 	private static bool ShouldDisplay(TextConsole.Message message)
 	{
