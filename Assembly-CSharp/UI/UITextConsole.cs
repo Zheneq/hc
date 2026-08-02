@@ -1766,7 +1766,7 @@ public class UITextConsole : MonoBehaviour
 #if EVOS
 	            return selfMessage
 		            ? $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} {message.SenderHandle}:  {message.Text}</color>"
-		            : $"<color=#{color}>{channel}{devtag}{tag} {mentorTag} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+		            : $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
 #else 
                 return selfMessage
                     ? $"<color=#{color}>{channel} {message.SenderHandle}:  {message.Text}</color>"
@@ -1825,8 +1825,8 @@ public class UITextConsole : MonoBehaviour
 
 #if EVOS
 	            return selfMessage
-		            ? $"<color=#{color}>{channel}{devtag}{tag} {mentorTag} {message.SenderHandle}:  {message.Text}</color>"
-		            : $"<color=#{color}>{channel}{devtag}{tag} {mentorTag} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
+		            ? $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} {message.SenderHandle}:  {message.Text}</color>"
+		            : $"<color=#{color}>{channel}{devtag}{tag}{mentorTag} [<link=name>{message.SenderHandle}</link>]:  {message.Text}</color>";
 #else
                 return selfMessage
                     ? $"<color=#{color}>{channel} </color>{message.SenderHandle}<color=#{color}>:  {message.Text}</color>"
