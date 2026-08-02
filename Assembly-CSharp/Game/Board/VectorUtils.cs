@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,8 +26,8 @@ public static class VectorUtils
     private static float s_positionOffset = 0.3f;
     public static float s_laserOffset = 0.3f;
     private static float s_laserInitialLengthOffset = 0.71f;
-    public static int s_raycastLayerLineOfSight = LayerMask.NameToLayer("LineOfSight");
-    public static int s_raycastLayerDynamicLineOfSight = LayerMask.NameToLayer("DynamicLineOfSight");
+    public static int s_raycastLayerLineOfSight = LayerMask.NameToLayer("LineOfSight"); // private in rogues
+    public static int s_raycastLayerDynamicLineOfSight = LayerMask.NameToLayer("DynamicLineOfSight"); // private in rogues
 
     public static ActorCover.CoverDirections GetCoverDirection(BoardSquare srcSquare, BoardSquare destSquare)
     {
@@ -315,9 +317,9 @@ public static class VectorUtils
         
         float distanceSquared = 0f;
         bool hasAbilityBlockingBarriers = BarrierManager.Get() != null
-                                          && BarrierManager.Get().HasAbilityBlockingBarriers();
+                                          && BarrierManager.Get().HasAbilityBlockingBarriers(); // moved in rogues
         bool isObscured = true;
-        bool hasLos = false;
+        bool hasLos = false; // removed in rogues
         Vector3 initialEndPoint = startTestPoints[0] + initialDistance * dir;
         
         if (maxDistanceInWorld > initialDistance)
@@ -331,10 +333,13 @@ public static class VectorUtils
                 if (RaycastInDirection(startTestPoint, testDir, magnitude, out RaycastHit hit))
                 {
                     isObscured = false;
+
+                    // removed in rogues
                     if ((hit.collider.gameObject.layer & s_raycastLayerDynamicLineOfSight) != 0)
                     {
                         hasLos = true;
                     }
+                    // end removed in rogues
 
                     break;
                 }
@@ -377,10 +382,13 @@ public static class VectorUtils
                 {
                     Vector3 b3 = startTestPoint - startTestPoints[0];
                     Vector3 vector5 = (startTestPoint + vector4) / 2f - b3;
+
+                    // removed in rogues
                     if (hasLos)
                     {
                         vector5 = startPos + (initialDistance + 0.3f) * dir;
                     }
+                    // end removed in rogues
 
                     float maxDistance = Mathf.Max(0f, (vector5 - startPos).magnitude - initialDistance);
                     Vector3 lineEndPoint2 = GetLineEndPoint(vector5, -dir, maxDistance);
@@ -1059,6 +1067,14 @@ public static class VectorUtils
                 hitTeams);
         actors.Remove(caster);
 
+#if SERVER
+        // added in rogues
+        if (includeInvisibles)
+        {
+            ServerAbilityUtils.RemoveEvadersFromHitTargets(ref actors);
+        }
+#endif
+
         if (excludeActor != null)
         {
             actors.Remove(excludeActor);
@@ -1337,6 +1353,7 @@ public static class VectorUtils
         return flag && flag2;
     }
 
+    // removed in rogues
     public static Vector3 GetProjectionPoint(Vector3 normalizedDir, Vector3 startPos, Vector3 pointToProject)
     {
         Vector3 lhs = pointToProject - startPos;
