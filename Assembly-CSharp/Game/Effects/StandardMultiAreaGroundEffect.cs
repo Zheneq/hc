@@ -510,7 +510,7 @@ public class StandardMultiAreaGroundEffect : Effect
 					{
 						triggeringPaths.Add(new ServerAbilityUtils.TriggeringPathInfo(mover, boardSquarePathInfo));
 						hitCenterSquares.Add(hitCenterSquare);
-						m_actorsHitThisTurn.Add(mover); // TODO knockbacks are not included in fake results?
+						m_actorsHitThisTurn.Add(mover); // NOTE: knockbacks are not included in fake results
 					}
 				}
 			}

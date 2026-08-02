@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 // was empty in reactor
-// TODO SAB Gather fake results
 public class ServerActionBuffer : NetworkBehaviour
 {
 #if SERVER
@@ -2674,6 +2673,11 @@ public class ServerActionBuffer : NetworkBehaviour
 		ClearRequestsOfDeadActors();
 		TrackDesiredMovementAmountOnResolve();
 		SetSquareRequestedForMovementMetricsForActors();
+		
+		foreach (ActorData actorData in GameFlowData.Get().GetActors())
+		{
+			actorData.SquareAtResolveStart = actorData.CurrentBoardSquare;
+		}
 	}
 	
 	// custom
@@ -2732,6 +2736,18 @@ public class ServerActionBuffer : NetworkBehaviour
 				{
 					SetupPhase(i);
 				}
+
+				GetEvadeManager().SwapEvaderCurrentSquaresWithPreEvadeSquares(out bool swapsOccured); // TODO SAB unused bool
+				ImmediateUpdateAllFogOfWar();
+				for (AbilityPriority i = AbilityPriority.Combat_Damage;
+				     i < AbilityPriority.NumAbilityPriorities;
+				     ++i)
+				{
+					SetupFakePhase(i);
+				}
+
+				m_evadeManager.UndoEvaderDestinationsSwap(); 
+				ImmediateUpdateAllFogOfWar();
 			}
 			else if (AbilityPhase == AbilityPriority.Combat_Knockback)
 			{
@@ -2764,6 +2780,7 @@ public class ServerActionBuffer : NetworkBehaviour
 			{
 				ServerEvadeManager evadeManager = GetEvadeManager();
 				evadeManager.UndoEvaderDestinationsSwap();
+				SetupFakePhase(AbilityPhase);
 				if (evadeManager.HasEvades())
 				{
 					ImmediateUpdateAllFogOfWar();
@@ -2822,6 +2839,14 @@ public class ServerActionBuffer : NetworkBehaviour
 			m_storedAbilityRequests,
 			new HashSet<int>(),  // TODO SAB (hacked inside)
 			false);
+	}
+
+	private void SetupFakePhase(AbilityPriority phase)
+	{
+		GatheringFakeResults = true;
+		GatherFakeAbilities(phase);
+		GatherEffects(phase, false, false);
+		GatheringFakeResults = false;
 	}
 
 	private MovementCollection movementCollection;
@@ -2947,6 +2972,26 @@ public class ServerActionBuffer : NetworkBehaviour
 		}
 		return true;
 	}
+	
+	// custom
+	public bool GatherFakeAbilities(AbilityPriority phase)
+	{
+		List<AbilityRequest> requestsThisPhase = RequestsInPhase(phase).ToList();
+		if (requestsThisPhase.Count == 0)
+		{
+			return false;
+		}
+		
+		foreach (AbilityRequest abilityRequest in requestsThisPhase)
+		{
+			abilityRequest.m_ability.GatherResults_Base_Fake(
+				phase,
+				abilityRequest.m_targets,
+				abilityRequest.m_caster,
+				abilityRequest.m_additionalData);
+		}
+		return true;
+	}
 
 	private void SetupForEvadesPreGathering(List<AbilityRequest> requests)
 	{
@@ -2970,9 +3015,9 @@ public class ServerActionBuffer : NetworkBehaviour
 	}
 	
 	// TODO LOW SAB - move to ServerEffectManager?
-	private bool GatherEffects(AbilityPriority phase, bool notify)
+	private bool GatherEffects(AbilityPriority phase, bool notify, bool isReal = true)
 	{
-		if (notify)
+		if (notify && isReal)
 		{
 			ServerEffectManager.Get().NotifyBeforeGatherAllEffectResults(phase);
 		}
@@ -2993,11 +3038,11 @@ public class ServerActionBuffer : NetworkBehaviour
 					continue;
 				}
 				
-				EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
+				EffectResults resultsForPhase = effect.GetResultsForPhase(phase, isReal);
 				if (effect.HitPhase == phase &&
 				    (resultsForPhase == null || !resultsForPhase.GatheredResults))
 				{
-					effect.Resolve();
+					effect.GatherEffectResults_Base(phase, isReal);
 					executingEffects.Add(effect);
 				}
 			}
@@ -3010,16 +3055,16 @@ public class ServerActionBuffer : NetworkBehaviour
 				continue;
 			}
 			
-			EffectResults resultsForPhase = effect.GetResultsForPhase(phase, true);
+			EffectResults resultsForPhase = effect.GetResultsForPhase(phase, isReal);
 			if (effect.HitPhase == phase &&
 			    (resultsForPhase == null || !resultsForPhase.GatheredResults))
 			{
-				effect.Resolve();
+				effect.GatherEffectResults_Base(phase, isReal);
 				executingEffects.Add(effect);
 			}
 		}
 
-		if (executingEffects.Count > 0)
+		if (executingEffects.Count > 0 && isReal)
 		{
 			Log.Info($"Have {executingEffects.Count} effects in this phase, playing them...");
 			return true;

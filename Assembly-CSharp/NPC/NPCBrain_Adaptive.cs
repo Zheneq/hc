@@ -7,9 +7,6 @@ using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-// TODO BOTS spoil _fake data in ability/effect results?
-// They are reset in OnTurnStart. Should bot end iteration before turn start?
-// For now _fake seems to be only used in effects, which are not gathered for bots? So it's ok?
 public class NPCBrain_Adaptive : NPCBrain
 {
 	// removed in rogues

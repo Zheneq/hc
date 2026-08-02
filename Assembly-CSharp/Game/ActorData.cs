@@ -5082,7 +5082,6 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 #endif
 
 	// added in rogues
-	// TODO check if it is set properly!
 #if SERVER
 	public BoardSquare SquareAtResolveStart
 	{
