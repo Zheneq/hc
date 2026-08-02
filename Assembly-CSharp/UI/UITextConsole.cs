@@ -1687,12 +1687,6 @@ public class UITextConsole : MonoBehaviour
             message.SenderHandle = string.Empty;
         }
 
-        if (!message.SenderHandle.IsNullOrEmpty() && message.SenderHandle.StartsWith("<size=24><sprite=2></size>"))
-        {
-            message.SenderHandle = message.SenderHandle.Replace("<size=24><sprite=2></size>", "");
-            mentorTag = " <color=orange>[Mentor]</color>";
-        }
-
         try
         {
             var manager = SpecialEffectsManager.GetInstance();
@@ -1738,6 +1732,11 @@ public class UITextConsole : MonoBehaviour
                 if (tagHandle.IndexOf("TournamentWinners", StringComparison.OrdinalIgnoreCase) >= 0)
                 {
                     tag = $" <color=#e91e63>[Champion]</color>";
+                }
+
+                if (tagHandle.IndexOf("Mentor", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    mentorTag = " <color=orange>[Mentor]</color>";
                 }
             }
         }
