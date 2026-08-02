@@ -333,12 +333,20 @@ public static class VectorUtils
 		return hitInfo.distance / magnitude;
 	}
 
-	public static LaserCoords GetLaserCoordinates(Vector3 startPos, Vector3 dir, float maxDistanceInWorld, float widthInWorld, bool penetrateLoS, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo = null)
+	public static LaserCoords GetLaserCoordinates(
+		Vector3 startPos,
+		Vector3 dir,
+		float maxDistanceInWorld,
+		float widthInWorld,
+		bool penetrateLoS,
+		ActorData caster,
+		List<NonActorTargetInfo> nonActorTargetInfo = null)
 	{
-		LaserCoords result = default(LaserCoords);
-		result.start = startPos;
-		result.end = GetLaserEndPoint(startPos, dir, maxDistanceInWorld, penetrateLoS, caster, nonActorTargetInfo);
-		return result;
+		return new LaserCoords
+		{
+			start = startPos,
+			end = GetLaserEndPoint(startPos, dir, maxDistanceInWorld, penetrateLoS, caster, nonActorTargetInfo)
+		};
 	}
 
 	public static Vector3 GetLaserEndPoint(Vector3 startPos, Vector3 dir, float maxDistanceInWorld, bool penetrateLoS, ActorData caster, List<NonActorTargetInfo> nonActorTargetInfo = null, bool checkBarriers = true)
@@ -861,183 +869,192 @@ public static class VectorUtils
 		return actors;
 	}
 
-	public static List<Vector3> CalculateBouncingActorEndpoints(Vector3 laserStartPos, Vector3 forwardDirection, float maxDistancePerBounceInSquares, float totalMaxDistanceInSquares, int maxBounces, ActorData caster, bool bounceOnActors, float bounceTestWidthInSquares, List<Team> bounceActorTeams, int maxTargets, out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors, out List<ActorData> orderedHitActors, bool includeInvisibles, List<List<NonActorTargetInfo>> nonActorTargetInfoInSegments)
+	public static List<Vector3> CalculateBouncingActorEndpoints(
+		Vector3 laserStartPos,
+		Vector3 forwardDirection,
+		float maxDistancePerBounceInSquares,
+		float totalMaxDistanceInSquares,
+		int maxBounces,
+		ActorData caster,
+		bool bounceOnActors,
+		float bounceTestWidthInSquares,
+		List<Team> bounceActorTeams,
+		int maxTargets,
+		out Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> bounceHitActors,
+		out List<ActorData> orderedHitActors,
+		bool includeInvisibles,
+		List<List<NonActorTargetInfo>> nonActorTargetInfoInSegments)
 	{
-		Vector3 vector = laserStartPos;
-		List<Vector3> list = new List<Vector3>();
+		Vector3 initialStartPos = laserStartPos;
+		
+		List<Vector3> startPositions = new List<Vector3>();
 		bounceHitActors = new Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo>();
 		orderedHitActors = new List<ActorData>();
-		float num = maxDistancePerBounceInSquares * Board.Get().squareSize;
-		float num2 = totalMaxDistanceInSquares * Board.Get().squareSize;
-		Vector3 vector2 = forwardDirection;
-		int num3 = 0;
-		float num4 = 0f;
-		int num5 = 0;
-		bool flag = false;
-		bool flag2 = false;
-		bool flag3 = false;
-		float maxDistanceInWorld = Board.Get().squareSize * 1.8f;
-		Vector3 travelBoardSquareWorldPositionForLos = caster.GetLoSCheckPos();
-		laserStartPos.y = travelBoardSquareWorldPositionForLos.y;
-		List<NonActorTargetInfo> list2 = new List<NonActorTargetInfo>();
-		LaserCoords laserCoordinates = GetLaserCoordinates(laserStartPos, forwardDirection, maxDistanceInWorld, 0f, false, caster, list2);
-		Vector3 end = laserCoordinates.end;
-		Vector3 a = end - laserStartPos;
-		Vector3 vector3 = a * 0.5f;
-		float magnitude = vector3.magnitude;
-		laserStartPos += vector3;
-		num4 += magnitude;
-		num -= magnitude;
-		int i = 0;
-		ActorData actorData = null;
-		int num7;
-		for (; !flag3; flag3 = ((byte)num7 != 0), i++)
+		
+		float maxDistancePerBounce = maxDistancePerBounceInSquares * Board.Get().squareSize;
+		float totalMaxDistance = totalMaxDistanceInSquares * Board.Get().squareSize;
+		Vector3 bounceDirection = forwardDirection;
+		int numBounces = 0;
+		float totalDist = 0f;
+		int numBouncesOnActors = 0;
+		bool isMiss = false;
+		bool hasReachedMaxTotalDist = false;
+		laserStartPos.y = caster.GetLoSCheckPos().y;
+		
+		List<NonActorTargetInfo> nonActorTargetInfoInitial = new List<NonActorTargetInfo>();
+		LaserCoords laserCoordinatesInitial = GetLaserCoordinates(
+			laserStartPos,
+			forwardDirection,
+			Board.Get().squareSize * 1.8f,
+			0f,
+			false,
+			caster,
+			nonActorTargetInfoInitial);
+
+		Vector3 adjustment = (laserCoordinatesInitial.end - laserStartPos) * 0.5f;
+		float adjustmentMagnitude = adjustment.magnitude;
+		laserStartPos += adjustment;
+		totalDist += adjustmentMagnitude;
+		maxDistancePerBounce -= adjustmentMagnitude; // reset back for all other segments
+		
+		ActorData lastHitActor = null;
+		for (int i = 0; ; i++)
 		{
-			bool flag4 = nonActorTargetInfoInSegments != null;
+			bool isCollectingNonActorInfo = nonActorTargetInfoInSegments != null;
 			nonActorTargetInfoInSegments?.Add(new List<NonActorTargetInfo>());
-			vector2.Normalize();
-			float maxDistance = Mathf.Min(num, num2 - num4);
-			num = maxDistancePerBounceInSquares * Board.Get().squareSize;
-			Vector3 collisionNormal = Vector3.zero;
-			Vector3 endPoint = Vector3.zero;
-			bool collisionWithGeo = false;
-			bool hitActorFirst = false;
-			ActorData bounceHitActor = null;
-			Vector3 prevStartPos = Vector3.zero;
-			if (i == 1)
-			{
-				prevStartPos = vector;
-			}
-			else if (i > 1)
-			{
-				prevStartPos = list[i - 2];
-			}
+			
+			bounceDirection.Normalize();
+			
+			float maxDistance = Mathf.Min(maxDistancePerBounce, totalMaxDistance - totalDist);
+			maxDistancePerBounce = maxDistancePerBounceInSquares * Board.Get().squareSize;
+			
+			Vector3 startPosForGameplay = i == 0
+				? initialStartPos
+				: laserStartPos;
+			Vector3 prevStartPos = i == 0
+				? Vector3.zero
+				: i == 1
+					? initialStartPos
+					: startPositions[i - 2];
+
 			Vector3 startPosForBounce = laserStartPos;
-			Vector3 startPosForGameplay;
-			if (i == 0)
+
+			List<ActorData> hitActors = CalculateActorBounce(
+				startPosForBounce,
+				startPosForGameplay,
+				bounceDirection,
+				maxDistance,
+				caster,
+				bounceOnActors,
+				bounceTestWidthInSquares,
+				bounceActorTeams,
+				lastHitActor,
+				includeInvisibles,
+				out Vector3 endPoint,
+				out bool collisionWithGeo,
+				out Vector3 collisionNormal,
+				out bool hitActorFirst,
+				out ActorData bounceHitActor,
+				isCollectingNonActorInfo ? nonActorTargetInfoInSegments[i] : null,
+				i,
+				prevStartPos);
+			lastHitActor = bounceHitActor;
+			
+			foreach (ActorData hitActor in hitActors)
 			{
-				startPosForGameplay = vector;
-			}
-			else
-			{
-				startPosForGameplay = laserStartPos;
-			}
-			Vector3 dir = vector2;
-			ActorData excludeActor = actorData;
-			object nonActorTargetInfo;
-			if (flag4)
-			{
-				nonActorTargetInfo = nonActorTargetInfoInSegments[i];
-			}
-			else
-			{
-				nonActorTargetInfo = null;
-			}
-			List<ActorData> list3 = CalculateActorBounce(startPosForBounce, startPosForGameplay, dir, maxDistance, caster, bounceOnActors, bounceTestWidthInSquares, bounceActorTeams, excludeActor, includeInvisibles, out endPoint, out collisionWithGeo, out collisionNormal, out hitActorFirst, out bounceHitActor, (List<NonActorTargetInfo>)nonActorTargetInfo, i, prevStartPos);
-			actorData = bounceHitActor;
-			using (List<ActorData>.Enumerator enumerator = list3.GetEnumerator())
-			{
-				while (enumerator.MoveNext())
+				if (!bounceHitActors.ContainsKey(hitActor)
+				    && (maxTargets <= 0 || orderedHitActors.Count < maxTargets))
 				{
-					ActorData current = enumerator.Current;
-					if (!bounceHitActors.ContainsKey(current))
-					{
-						if (maxTargets > 0)
-						{
-							if (orderedHitActors.Count >= maxTargets)
-							{
-								continue;
-							}
-						}
-						AreaEffectUtils.BouncingLaserInfo value = new AreaEffectUtils.BouncingLaserInfo(laserStartPos, i);
-						bounceHitActors.Add(current, value);
-						orderedHitActors.Add(current);
-					}
+					AreaEffectUtils.BouncingLaserInfo value =
+						new AreaEffectUtils.BouncingLaserInfo(laserStartPos, i);
+					bounceHitActors.Add(hitActor, value);
+					orderedHitActors.Add(hitActor);
 				}
 			}
-			int num6;
-			if (maxTargets > 0)
-			{
-				num6 = ((orderedHitActors.Count >= maxTargets) ? 1 : 0);
-			}
-			else
-			{
-				num6 = 0;
-			}
-			bool flag5 = (byte)num6 != 0;
-			if (flag5 && flag4)
+			
+			bool hasReachedMaxTargets = maxTargets > 0 && orderedHitActors.Count >= maxTargets;
+			if (hasReachedMaxTargets && isCollectingNonActorInfo)
 			{
 				nonActorTargetInfoInSegments[i].Clear();
-				flag4 = false;
+				isCollectingNonActorInfo = false;
 			}
-			if (flag4)
+			
+			if (isCollectingNonActorInfo
+			    && startPositions.Count == 0
+			    && nonActorTargetInfoInitial.Count > 0)
 			{
-				if (list.Count == 0)
+				foreach (NonActorTargetInfo info in nonActorTargetInfoInitial)
 				{
-					if (list2.Count > 0)
-					{
-						using (List<NonActorTargetInfo>.Enumerator enumerator2 = list2.GetEnumerator())
-						{
-							while (enumerator2.MoveNext())
-							{
-								NonActorTargetInfo current2 = enumerator2.Current;
-								nonActorTargetInfoInSegments[i].Add(current2);
-							}
-						}
-					}
+					nonActorTargetInfoInSegments[i].Add(info);
 				}
 			}
-			list.Add(endPoint);
-			float magnitude2 = (laserStartPos - endPoint).magnitude;
-			num4 += magnitude2;
-			if (num4 >= num2 - 0.01f)
+			
+			startPositions.Add(endPoint);
+			float bounceDist = (laserStartPos - endPoint).magnitude;
+			totalDist += bounceDist;
+			if (totalDist >= totalMaxDistance - 0.01f)
 			{
-				flag2 = true;
+				hasReachedMaxTotalDist = true;
 			}
+			
 			if (hitActorFirst)
 			{
-				num3++;
-				num5++;
+				numBounces++;
+				numBouncesOnActors++;
 				laserStartPos = endPoint;
-				vector2 -= 2f * Vector3.Dot(vector2, collisionNormal) * collisionNormal;
+				bounceDirection -= 2f * Vector3.Dot(bounceDirection, collisionNormal) * collisionNormal;
 			}
 			else if (collisionWithGeo)
 			{
-				num3++;
+				numBounces++;
 				laserStartPos = endPoint;
-				vector2 -= 2f * Vector3.Dot(vector2, collisionNormal) * collisionNormal;
+				bounceDirection -= 2f * Vector3.Dot(bounceDirection, collisionNormal) * collisionNormal;
 			}
 			else
 			{
-				flag = true;
+				isMiss = true;
 			}
-			if (!flag)
+
+			if (isMiss
+			    || hasReachedMaxTotalDist
+			    || numBounces > maxBounces
+			    || hasReachedMaxTargets)
 			{
-				if (!flag2)
-				{
-					if (num3 <= maxBounces)
-					{
-						num7 = (flag5 ? 1 : 0);
-						continue;
-					}
-				}
+				break;
 			}
-			num7 = 1;
 		}
-		return list;
+		return startPositions;
 	}
 
-	public static List<ActorData> CalculateActorBounce(Vector3 startPosForBounce, Vector3 startPosForGameplay, Vector3 dir, float maxDistance, ActorData caster, bool bounceOnActors, float bounceTestWidthInSquares, List<Team> hitTeams, ActorData excludeActor, bool includeInvisibles, out Vector3 endPoint, out bool collisionWithGeo, out Vector3 collisionNormal, out bool hitActorFirst, out ActorData bounceHitActor, List<NonActorTargetInfo> nonActorTargetInfo, int segmentIndex, Vector3 prevStartPos)
+	public static List<ActorData> CalculateActorBounce(
+		Vector3 startPosForBounce,
+		Vector3 startPosForGameplay,
+		Vector3 dir,
+		float maxDistance,
+		ActorData caster,
+		bool bounceOnActors,
+		float bounceTestWidthInSquares,
+		List<Team> hitTeams,
+		ActorData excludeActor,
+		bool includeInvisibles,
+		out Vector3 endPoint,
+		out bool collisionWithGeo,
+		out Vector3 collisionNormal,
+		out bool hitActorFirst,
+		out ActorData bounceHitActor,
+		List<NonActorTargetInfo> nonActorTargetInfo,
+		int segmentIndex,
+		Vector3 prevStartPos)
 	{
 		LayerMask mask = (1 << LayerMask.NameToLayer("LineOfSight")) | (1 << LayerMask.NameToLayer("DynamicLineOfSight"));
 		collisionWithGeo = Physics.Raycast(startPosForBounce, dir, out RaycastHit hitInfo, maxDistance, mask);
 		if (collisionWithGeo)
 		{
-			Vector3 a = hitInfo.point - startPosForBounce;
-			a.y = 0f;
-			float magnitude = a.magnitude;
-			a.Normalize();
-			endPoint = startPosForBounce + a * Mathf.Max(0f, magnitude - 0.05f);
+			Vector3 actualDirection = hitInfo.point - startPosForBounce;
+			actualDirection.y = 0f;
+			float distToHit = actualDirection.magnitude;
+			actualDirection.Normalize();
+			endPoint = startPosForBounce + actualDirection * Mathf.Max(0f, distToHit - 0.05f);
 			collisionNormal = hitInfo.normal;
 		}
 		else
@@ -1045,32 +1062,34 @@ public static class VectorUtils
 			endPoint = startPosForBounce + dir * maxDistance;
 			collisionNormal = Vector3.zero;
 		}
+		
 		if (BarrierManager.Get() != null)
 		{
-			bool collision;
-			Vector3 collisionNormal2;
-			Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(caster, startPosForBounce, endPoint, out collision, out collisionNormal2, nonActorTargetInfo);
+			Vector3 abilityLineEndpoint = BarrierManager.Get().GetAbilityLineEndpoint(
+				caster,
+				startPosForBounce,
+				endPoint,
+				out bool collision,
+				out Vector3 endpointCollisionNormal,
+				nonActorTargetInfo);
 			if (collision)
 			{
 				endPoint = abilityLineEndpoint;
 				collisionWithGeo = true;
-				collisionNormal = collisionNormal2;
+				collisionNormal = endpointCollisionNormal;
 			}
 		}
+		
 		hitActorFirst = false;
 		bounceHitActor = null;
 		float actorTargetingRadius = AreaEffectUtils.GetActorTargetingRadius();
-		List<ActorData> list;
-		if (GameWideData.Get().UseActorRadiusForLaser())
-		{
-			list = AreaEffectUtils.GetActorsInBoxByActorRadius(startPosForGameplay, endPoint, bounceTestWidthInSquares, false, caster, hitTeams);
-		}
-		else
-		{
-			list = AreaEffectUtils.GetActorsInBox(startPosForGameplay, endPoint, bounceTestWidthInSquares, true, caster, hitTeams);
-		}
-		List<ActorData> actors = list;
+		List<ActorData> actors = GameWideData.Get().UseActorRadiusForLaser()
+			? AreaEffectUtils.GetActorsInBoxByActorRadius(
+				startPosForGameplay, endPoint, bounceTestWidthInSquares, false, caster, hitTeams)
+			: AreaEffectUtils.GetActorsInBox(
+				startPosForGameplay, endPoint, bounceTestWidthInSquares, true, caster, hitTeams);
 		actors.Remove(caster);
+		
 		if (excludeActor != null)
 		{
 			actors.Remove(excludeActor);
@@ -1086,80 +1105,103 @@ public static class VectorUtils
 				TargeterUtils.RemoveActorsInvisibleToClient(ref actors);
 			}
 		}
-		Vector3 a2 = endPoint - startPosForBounce;
-		a2.y = 0f;
-		a2.Normalize();
-		if (segmentIndex > 0)
+		
+		Vector3 finalDirection = endPoint - startPosForBounce;
+		finalDirection.y = 0f;
+		finalDirection.Normalize();
+		
+		if (segmentIndex > 0 && actors.Count > 0)
 		{
-			if (actors.Count > 0)
+			Vector3 prevDir = prevStartPos - startPosForBounce;
+			prevDir.y = 0f;
+			prevDir.Normalize();
+			
+			Vector3 bounceNormal = 0.5f * (finalDirection + prevDir);
+			for (int i = actors.Count - 1; i >= 0; i--)
 			{
-				Vector3 b = prevStartPos - startPosForBounce;
-				b.y = 0f;
-				b.Normalize();
-				Vector3 collisionNormal3 = 0.5f * (a2 + b);
-				for (int num = actors.Count - 1; num >= 0; num--)
+				BoardSquare currentBoardSquare = actors[i].GetCurrentBoardSquare();
+				if (!SquareOnSameSideAsBounceBend(currentBoardSquare, startPosForBounce, bounceNormal))
 				{
-					BoardSquare currentBoardSquare = actors[num].GetCurrentBoardSquare();
-					if (!SquareOnSameSideAsBounceBend(currentBoardSquare, startPosForBounce, collisionNormal3))
-					{
-						actors.RemoveAt(num);
-					}
+					actors.RemoveAt(i);
 				}
 			}
 		}
+		
 		TargeterUtils.SortActorsByDistanceToPos(ref actors, startPosForBounce);
+		
 		if (bounceOnActors)
 		{
-			int num2 = 0;
+			int max = 0;
 			for (int i = 0; i < actors.Count; i++)
 			{
 				if (hitActorFirst)
 				{
 					break;
 				}
+				
 				ActorData actorData = actors[i];
-				Vector3 vector = actorData.GetFreePos() - startPosForBounce;
-				vector.y = 0f;
-				float magnitude2 = vector.magnitude;
-				Vector3 vector2 = endPoint - startPosForBounce;
-				vector2.y = 0f;
-				float magnitude3 = vector2.magnitude;
-				if (!(magnitude2 < magnitude3))
+				
+				Vector3 startToHitActor = actorData.GetFreePos() - startPosForBounce;
+				startToHitActor.y = 0f;
+				float distToHitActor = startToHitActor.magnitude;
+				
+				Vector3 startToEnd = endPoint - startPosForBounce;
+				startToEnd.y = 0f;
+				float distToEnd = startToEnd.magnitude;
+
+				if (distToHitActor >= distToEnd)
 				{
 					continue;
 				}
-				Vector3 travelBoardSquareWorldPosition = actorData.GetFreePos();
-				float num3 = 0.5f * bounceTestWidthInSquares * Board.Get().squareSize;
+				
+				Vector3 actorPos = actorData.GetFreePos();
+				
+				float radius = 0.5f * bounceTestWidthInSquares * Board.Get().squareSize;
 				if (GameWideData.Get().UseActorRadiusForLaser())
 				{
-					num3 += actorTargetingRadius * Board.Get().squareSize;
+					radius += actorTargetingRadius * Board.Get().squareSize;
 				}
-				num3 = Mathf.Min(0.4f * Board.Get().squareSize, num3);
-				Vector3 intersectP;
-				Vector3 intersectP2;
-				int lineCircleIntersections = GetLineCircleIntersections(startPosForBounce, endPoint, travelBoardSquareWorldPosition, num3, out intersectP, out intersectP2);
+				radius = Mathf.Min(0.4f * Board.Get().squareSize, radius);
+				
+				int lineCircleIntersections = GetLineCircleIntersections(
+					startPosForBounce,
+					endPoint,
+					actorPos,
+					radius,
+					out Vector3 intersectP1,
+					out Vector3 intersectP2);
+				
 				if (lineCircleIntersections > 1)
 				{
-					float num4 = HorizontalPlaneDistInWorld(intersectP, startPosForBounce);
-					float num5 = HorizontalPlaneDistInWorld(intersectP2, startPosForBounce);
-					endPoint = ((!(num4 <= num5)) ? intersectP2 : intersectP);
+					float distToIntersectP1 = HorizontalPlaneDistInWorld(intersectP1, startPosForBounce);
+					float distToIntersectP2 = HorizontalPlaneDistInWorld(intersectP2, startPosForBounce);
+					endPoint = distToIntersectP1 <= distToIntersectP2 ? intersectP1 : intersectP2;
 					endPoint.y = startPosForBounce.y;
-					collisionNormal = endPoint - travelBoardSquareWorldPosition;
+					
+					collisionNormal = endPoint - actorPos;
 					collisionNormal.y = 0f;
 					collisionNormal.Normalize();
-					float num6 = 0.5f * AreaEffectUtils.GetMaxAngleForActorBounce();
-					collisionNormal = Vector3.RotateTowards(-a2, collisionNormal, (float)Math.PI / 180f * num6, 0f);
+					
+					float maxHalfAngle = 0.5f * AreaEffectUtils.GetMaxAngleForActorBounce();
+					collisionNormal = Vector3.RotateTowards(
+						-finalDirection,
+						collisionNormal,
+						(float)Math.PI / 180f * maxHalfAngle,
+						0f);
+					
 					hitActorFirst = true;
 					collisionWithGeo = false;
 					bounceHitActor = actorData;
-					num2 = i;
+					max = i;
 				}
 			}
+			
 			if (hitActorFirst)
 			{
-				TargeterUtils.LimitActorsToMaxNumber(ref actors, num2 + 1);
+				TargeterUtils.LimitActorsToMaxNumber(ref actors, max + 1);
 			}
 		}
+		
 		return actors;
 	}
 
