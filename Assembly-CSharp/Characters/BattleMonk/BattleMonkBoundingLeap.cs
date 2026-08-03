@@ -264,13 +264,34 @@ public class BattleMonkBoundingLeap : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		BoardSquare pathDestinationAndEndPoints = GetPathDestinationAndEndPoints(targets, caster, out var endPoints);
+        // custom
+		BoardSquare restingSquare = GetPathDestinationAndEndPoints(targets, caster, out var endPoints, out BoardSquare impactSquare);
 		ServerEvadeUtils.ChargeSegment[] chargeSegmentForStopOnTargetHit =
 			ServerEvadeUtils.GetChargeSegmentForStopOnTargetHit(
 				caster,
 				endPoints,
-				pathDestinationAndEndPoints,
+				impactSquare,
 				m_recoveryTime);
+        // rogues
+		// BoardSquare pathDestinationAndEndPoints = GetPathDestinationAndEndPoints(targets, caster, out var endPoints);
+		// ServerEvadeUtils.ChargeSegment[] chargeSegmentForStopOnTargetHit =
+		//   	ServerEvadeUtils.GetChargeSegmentForStopOnTargetHit(
+		// 		caster,
+		// 		endPoints,
+		// 		pathDestinationAndEndPoints,
+		// 		m_recoveryTime);
+        
+		// custom: the segment builder lunges onto the (occupied) impactSquare and recovers in place; redirect that
+		// recovery to the targeter-predicted resting square so the caster crosses to the target and comes back to
+		// where the targeter drew it, instead of resting on the target and relying on charge clash resolution.
+		if (restingSquare != null
+		    && chargeSegmentForStopOnTargetHit.Length >= 2
+		    && chargeSegmentForStopOnTargetHit[chargeSegmentForStopOnTargetHit.Length - 1].m_cycle == BoardSquarePathInfo.ChargeCycleType.Recovery)
+		{
+			chargeSegmentForStopOnTargetHit[chargeSegmentForStopOnTargetHit.Length - 1].m_pos = restingSquare;
+		}
+        // end custom
+
 		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegmentForStopOnTargetHit));
 		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegmentForStopOnTargetHit)
 		{
@@ -288,11 +309,15 @@ public class BattleMonkBoundingLeap : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		return GetPathDestinationAndEndPoints(targets, caster, out _);
+		return GetPathDestinationAndEndPoints(targets, caster, out _, out _);
 	}
 
 	// added in rogues
-	private BoardSquare GetPathDestinationAndEndPoints(List<AbilityTarget> targets, ActorData caster, out List<Vector3> endPoints)
+	private BoardSquare GetPathDestinationAndEndPoints(
+		List<AbilityTarget> targets,
+		ActorData caster,
+		out List<Vector3> endPoints,
+		out BoardSquare impactSquare) // custom out parameter for recovery segment
 	{
 		Vector3 loSCheckPos = caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
 		List<Vector3> bounceEndPoints = GetBounceEndPoints(
@@ -305,27 +330,250 @@ public class BattleMonkBoundingLeap : Ability
 		ServerEvadeUtils.RemoveInvalidChargeEndPositions(ref bounceEndPoints);
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref bouncingLaserInfos);
 		ServerAbilityUtils.RemoveEvadersFromHitTargets(ref orderedHitActors);
-		ServerEvadeUtils.GetLastSegmentInfo(loSCheckPos, bounceEndPoints, out Vector3 start, out Vector3 dir, out var length);
-		float num2 = Mathf.Min(0.5f, length / 2f);
-		Vector3 end = bounceEndPoints[bounceEndPoints.Count - 1] - dir * num2;
-		BoardSquare result;
-		if (GetMaxTargets() > 0 && bouncingLaserInfos.Count >= GetMaxTargets())
+		// custom: derive the charge path exactly like the client targeter (AbilityUtil_Targeter_BounceActor.GetChargePathSquares),
+		// then read the apex and resting square straight off the resulting square list. impactSquare is the stop-short apex
+		// the caster lunges onto; the last list entry is where it rests (the relocated square if the apex was occupied).
+		List<BoardSquare> pathSquares = GetChargePathSquares(caster, bounceEndPoints, bouncingLaserInfos, orderedHitActors, out impactSquare);
+		endPoints = bounceEndPoints;
+		return pathSquares[pathSquares.Count - 1];
+		// rogues
+		// ServerEvadeUtils.GetLastSegmentInfo(loSCheckPos, bounceEndPoints, out Vector3 start, out Vector3 dir, out var length);
+		// float num2 = Mathf.Min(0.5f, length / 2f);
+		// Vector3 end = bounceEndPoints[bounceEndPoints.Count - 1] - dir * num2;
+		// BoardSquare result;
+		// if (GetMaxTargets() > 0 && bouncingLaserInfos.Count >= GetMaxTargets())
+		// {
+		// 	result = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+		// }
+		// else
+		// {
+		// 	result = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true);
+		// }
+		// endPoints = bounceEndPoints;
+		// return result;
+	}
+
+	// custom, based on AbilityUtil_Targeter_BounceActor.GetChargePathSquares almost verbatim
+	private List<BoardSquare> GetChargePathSquares(
+		ActorData caster,
+		List<Vector3> endPoints,
+		Dictionary<ActorData, AreaEffectUtils.BouncingLaserInfo> laserTargets,
+		List<ActorData> orderedHitActors,
+		out BoardSquare apexSquare)
+	{
+		for (int i = endPoints.Count - 1; i > 0; i--)
 		{
-			// custom: mirror the client targeter (AbilityUtil_Targeter_BounceActor.GetChargePathSquares) and
-			// stop half a square short of the last hit target, instead of returning its (occupied) square and
-			// letting server charge clash resolution bump the caster to a square the targeter never predicted.
-			BoardSquare lastHitSquare = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
-			float maxDistance = Mathf.Max(0f, VectorUtils.HorizontalPlaneDistInWorld(start, lastHitSquare.ToVector3()) - 0.5f);
-			result = KnockbackUtils.GetLastValidBoardSquareInLine(start, bounceEndPoints[bounceEndPoints.Count - 1], true, false, maxDistance);
-			// rogues
-			// result = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+			BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(
+				endPoints[i - 1],
+				endPoints[i],
+				true);
+			
+			if (lastValidBoardSquareInLine != null && lastValidBoardSquareInLine.IsValidForGameplay())
+			{
+				break;
+			}
+			
+			endPoints.RemoveAt(i);
+		}
+
+		Vector3 lastAnglePoint = endPoints[endPoints.Count - 1];
+		Vector3 prevAnglePoint = endPoints.Count >= 2
+			? endPoints[endPoints.Count - 2]
+			: caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart()); // no param in targeter
+		Vector3 lastSegmentDir = lastAnglePoint - prevAnglePoint;
+		float lastSegmentLen = lastSegmentDir.magnitude;
+		lastSegmentDir.Normalize();
+		Vector3 testVector = lastAnglePoint - Mathf.Min(0.5f, lastSegmentLen / 2f) * lastSegmentDir;
+
+		BoardSquare endSquare;
+		float adjustment = 0f;
+		if (GetMaxTargets() > 0 && laserTargets.Count >= GetMaxTargets()) // targeter uses m_maxTargetsHit
+		{
+			endSquare = orderedHitActors[orderedHitActors.Count - 1].GetCurrentBoardSquare();
+			adjustment = -0.5f;
 		}
 		else
 		{
-			result = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true);
+			endSquare = KnockbackUtils.GetLastValidBoardSquareInLine(prevAnglePoint, testVector, true);
 		}
-		endPoints = bounceEndPoints;
-		return result;
+		
+		if (endSquare != null && endSquare != caster.GetSquareAtPhaseStart()) // targeter uses GetCurrentBoardSquare
+		{
+			float dist = VectorUtils.HorizontalPlaneDistInWorld(prevAnglePoint, endSquare.ToVector3());
+			float maxDistance = Mathf.Max(0f, dist + adjustment);
+			endSquare = KnockbackUtils.GetLastValidBoardSquareInLine(
+				prevAnglePoint,
+				lastAnglePoint,
+				true,
+				false,
+				maxDistance);
+		}
+
+		apexSquare = endSquare; // added out var
+
+		List<BoardSquare> list = new List<BoardSquare>();
+		if (endSquare != null)
+		{
+			list.Add(caster.GetSquareAtPhaseStart()); // targeter uses GetCurrentBoardSquare
+			for (int i = 0; i < endPoints.Count; i++)
+			{
+				Vector3 start = i == 0
+					? list[i].ToVector3()
+					: endPoints[i - 1];
+				Vector3 end = endPoints[i];
+				
+				BoardSquare startSquare = list[list.Count - 1];
+				
+				Vector3 dir = end - start;
+				dir.y = 0f;
+				dir.Normalize();
+				
+				Vector3 halfDir = dir / 2f;
+				if (i > 0)
+				{
+					BoardSquare square1 = Board.Get().GetSquareFromVec3(start + halfDir);
+					if (square1 != null
+					    && square1 != startSquare
+					    && square1.IsValidForGameplay())
+					{
+						list.Add(square1);
+						startSquare = square1;
+					}
+				}
+				
+				if (i == endPoints.Count - 1)
+				{
+					if (endSquare != startSquare)
+					{
+						list.Add(endSquare);
+					}
+					
+					continue;
+				}
+				
+				BoardSquare square2 = Board.Get().GetSquareFromVec3(end - halfDir);
+				if (square2 != null && !square2.IsValidForGameplay())
+				{
+					BoardSquare lastValidSquare = KnockbackUtils.GetLastValidBoardSquareInLine(start, end, true);
+					if (lastValidSquare != null && lastValidSquare.IsValidForGameplay())
+					{
+						square2 = lastValidSquare;
+					}
+				}
+				
+				if (square2 != null && square2 != startSquare)
+				{
+					list.Add(square2);
+				}
+			}
+
+			ActorData occupantActor = endSquare.OccupantActor;
+			if (occupantActor != null
+			    && occupantActor != caster
+			    && !ServerActionBuffer.Get().ActorIsEvading(occupantActor)) // IsActorVisibleToClient in targeter
+			{
+				Vector3 testDir = prevAnglePoint - endSquare.ToVector3();
+				testDir.y = 0f;
+				testDir.Normalize();
+				
+				BoardSquare secondToLastInOrigPath = null;
+				if (list.Count > 1)
+				{
+					secondToLastInOrigPath = list[list.Count - 2];
+				}
+				
+				BoardSquare endSquareForOccupant = GetEndSquareForOccupant(
+					endSquare,
+					testDir,
+					caster,
+					secondToLastInOrigPath);
+				list.Add(endSquareForOccupant);
+			}
+		}
+		else
+		{
+			list.Add(caster.GetSquareAtPhaseStart()); // targeter uses GetCurrentBoardSquare
+		}
+
+		if (list.Count == 1)
+		{
+			list.Add(caster.GetSquareAtPhaseStart()); // targeter uses GetCurrentBoardSquare
+		}
+
+		return list;
+	}
+
+	// custom, based on AbilityUtil_Targeter_BounceActor.GetEndSquareForOccupant almost verbatim
+	private BoardSquare GetEndSquareForOccupant(
+		BoardSquare lastSquare,
+		Vector3 testDir,
+		ActorData caster,
+		BoardSquare secondToLastInOrigPath)
+	{
+		BoardSquare bestSquare = null;
+		float bestScore = -1f;
+
+		for (int i = 0; i < 3; i++)
+		{
+			if (bestSquare != null)
+			{
+				break;
+			}
+
+			List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(lastSquare, i, true);
+			foreach (var squareInBorderLayer in squaresInBorderLayer)
+			{
+				if (!squareInBorderLayer.IsValidForGameplay())
+				{
+					continue;
+				}
+
+				if (squareInBorderLayer.OccupantActor != null
+				    && squareInBorderLayer.OccupantActor != caster
+				    && !ServerActionBuffer.Get().ActorIsEvading(squareInBorderLayer.OccupantActor)) // IsActorVisibleToClient in targeter
+				{
+					continue;
+				}
+
+				if (!KnockbackUtils.CanBuildStraightLineChargePath(
+					    caster,
+					    squareInBorderLayer,
+					    lastSquare,
+					    false,
+					    out int _))
+				{
+					continue;
+				}
+
+				Vector3 recoveryDir = squareInBorderLayer.ToVector3() - lastSquare.ToVector3();
+				recoveryDir.y = 0f;
+				recoveryDir.Normalize();
+
+				float score = Vector3.Dot(testDir, recoveryDir);
+				if (secondToLastInOrigPath != null && secondToLastInOrigPath == squareInBorderLayer)
+				{
+					score += 0.5f;
+				}
+
+				if (lastSquare.GetLOS(squareInBorderLayer.x, squareInBorderLayer.y))
+				{
+					score -= 2f;
+				}
+
+				if (bestSquare == null || score > bestScore)
+				{
+					bestSquare = squareInBorderLayer;
+					bestScore = score;
+				}
+			}
+		}
+
+		if (bestSquare == null)
+		{
+			bestSquare = lastSquare;
+		}
+
+		return bestSquare;
 	}
 
 	// added in rogues
