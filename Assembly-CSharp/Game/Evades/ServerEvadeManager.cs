@@ -84,8 +84,7 @@ public class ServerEvadeManager
 			BoardSquare idealDestination = evadeInfo.GetIdealDestination();
 			List<BoardSquare> destinationSquares = FindDestinationSquares(
 				idealDestination, evadeInfo, allEvades, invalidSquares, additionalInvalidSquares_evaderSpecific);
-			BoardSquare bestDestination = null;
-			float bestDotProduct = -1f;
+			
 			Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
 			
 			// custom - if we have movement after dash, prefer squares closer to destination
@@ -107,18 +106,7 @@ public class ServerEvadeManager
 			}
 			// end custom
 			
-			foreach (BoardSquare square in destinationSquares)
-			{
-				Vector3 vector = square.ToVector3() - idealDestination.ToVector3();
-				vector.y = 0f;
-				vector.Normalize();
-				float dotProduct = Vector3.Dot(bestSquareTestVector, vector);
-				if (bestDestination == null || dotProduct > bestDotProduct)
-				{
-					bestDestination = square;
-					bestDotProduct = dotProduct;
-				}
-			}
+			BoardSquare bestDestination = PickBestDestinationSquare(evadeInfo, destinationSquares, idealDestination, bestSquareTestVector);
 			if (bestDestination == null)
 			{
 				evadeInfo.MarkAsInvalid();
@@ -171,6 +159,87 @@ public class ServerEvadeManager
 		}
 
 		return destinationSquares;
+	}
+
+	// inlined in rogues
+	private static BoardSquare PickBestDestinationSquare(
+		ServerEvadeUtils.EvadeInfo evadeInfo,
+		List<BoardSquare> destinationSquares,
+		BoardSquare idealDestination,
+		Vector3 bestSquareTestVector)
+	{
+		// custom
+		bool biasOffOccupant = GetOccupantRelocationScoring(evadeInfo, idealDestination, out BoardSquare approachSquare);
+		
+		BoardSquare bestDestination = null;
+		float bestDotProduct = -1f;
+		foreach (BoardSquare square in destinationSquares)
+		{
+			Vector3 vector = square.ToVector3() - idealDestination.ToVector3();
+			vector.y = 0f;
+			vector.Normalize();
+			float dotProduct = Vector3.Dot(bestSquareTestVector, vector);
+			
+			// custom
+			if (biasOffOccupant)
+			{
+				if (approachSquare != null && approachSquare == square)
+				{
+					dotProduct += 0.5f;
+				}
+				if (idealDestination.GetLOS(square.x, square.y))
+				{
+					dotProduct -= 2f;
+				}
+			}
+			// end custom
+			
+			if (bestDestination == null || dotProduct > bestDotProduct)
+			{
+				bestDestination = square;
+				bestDotProduct = dotProduct;
+			}
+		}
+		return bestDestination;
+	}
+	
+	// custom: detect a charge whose ideal destination lands on another (non-evading) actor, so the
+	// destination search can bias toward the square in front of the occupant (see PickBestDestinationSquare).
+	// approachSquare is the charge-path square just before the occupant, using the ability's charge-test
+	// source / pass-through hooks so it matches ChargeInfo.IsValidEvadeDestination. Returns false otherwise.
+	private static bool GetOccupantRelocationScoring(
+		ServerEvadeUtils.EvadeInfo evadeInfo,
+		BoardSquare idealDestination,
+		out BoardSquare approachSquare)
+	{
+		approachSquare = null;
+		if (!(evadeInfo is ServerEvadeUtils.ChargeInfo chargeInfo))
+		{
+			return false;
+		}
+		if (idealDestination == null || idealDestination.OccupantActor == null)
+		{
+			return false;
+		}
+		ActorData mover = evadeInfo.GetMover();
+		if (idealDestination.OccupantActor == mover
+		    || ServerActionBuffer.Get().ActorIsEvading(idealDestination.OccupantActor))
+		{
+			return false;
+		}
+		// BoardSquarePathInfo pathToOccupant = KnockbackUtils.BuildStraightLineChargePath(
+		// 	mover,
+		// 	idealDestination,
+		// 	chargeInfo.GetValidChargeTestSourceSquare(),
+		// 	chargeInfo.CanChargeThroughInvalidSquaresForDestination());
+		evadeInfo.StorePath();
+		BoardSquarePathInfo pathToOccupant = evadeInfo.m_evadePath;
+		BoardSquarePathInfo endpoint = pathToOccupant?.GetPathEndpoint();
+		if (endpoint?.prev != null)
+		{
+			approachSquare = endpoint.prev.square;
+		}
+		return true;
 	}
 
 	public void ProcessClashes(
@@ -232,21 +301,7 @@ public class ServerEvadeManager
 			{
 				BoardSquare idealDestination = evadeInfo.GetIdealDestination();
 				var destinationSquares = FindDestinationSquares(idealDestination, evadeInfo, evades, invalidSquares, squaresOfInterest);
-				BoardSquare bestDestination = null;
-				float bestDotProduct = -1f;
-				Vector3 bestSquareTestVector = evadeInfo.GetBestSquareTestVector();
-				foreach (BoardSquare destination in destinationSquares)
-				{
-					Vector3 vector = destination.ToVector3() - idealDestination.ToVector3();
-					vector.y = 0f;
-					vector.Normalize();
-					float dotProduct = Vector3.Dot(bestSquareTestVector, vector);
-					if (bestDestination == null || dotProduct > bestDotProduct)
-					{
-						bestDestination = destination;
-						bestDotProduct = dotProduct;
-					}
-				}
+				BoardSquare bestDestination = PickBestDestinationSquare(evadeInfo, destinationSquares, idealDestination, evadeInfo.GetBestSquareTestVector());
 				if (bestDestination == null)
 				{
 					evadeInfo.MarkAsInvalid();

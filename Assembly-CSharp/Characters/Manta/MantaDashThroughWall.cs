@@ -490,31 +490,6 @@ public class MantaDashThroughWall : Ability
 			}
 			result = boardSquare;
 		}
-		// custom: mirror the client targeter (AbilityUtil_Targeter_DashThroughWall.UpdateTargeting), which applies this
-		// occupant re-snap to every case. If the landing square is occupied, stop on the square in front of it via the
-		// shared GetChargeDestination instead of returning the occupied square and letting server charge clash resolution
-		// bump the caster to a square the targeter never predicted. Covers direct-hit, through-wall, and fallback
-		// destinations. See also ClaymoreCharge/BattleMonkBoundingLeap.
-		if (result != null
-		    && result.OccupantActor != null
-		    && result.OccupantActor != caster
-		    && !ServerActionBuffer.Get().ActorIsEvading(result.OccupantActor))
-		{
-			BoardSquarePathInfo pathToDesired = KnockbackUtils.BuildStraightLineChargePath(
-				caster,
-				result,
-				caster.GetSquareAtPhaseStart(),
-				true);
-			BoardSquare chargeDestination = AbilityUtil_Targeter_ClaymoreCharge.GetChargeDestination(
-				caster,
-				result.OccupantActor.GetCurrentBoardSquare(),
-				pathToDesired);
-			if (chargeDestination != null)
-			{
-				result = chargeDestination;
-			}
-		}
-        // end custom
 		return result;
 	}
 
@@ -620,6 +595,7 @@ public class MantaDashThroughWall : Ability
 		{
 			ActorHitResults actorHitResults = new ActorHitResults(new ActorHitParameters(actorData, caster.GetFreePos()));
 			if (!isThroughWall) // custom, rogues was applying damage through wall on full distance dash too
+			// if (chargeHitActors.Count > 0) // rogues
 			{
 				actorHitResults.SetBaseDamage(GetAoeDamage());
 				actorHitResults.AddStandardEffectInfo(GetAoeEnemyHitEffect());
