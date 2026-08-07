@@ -271,6 +271,12 @@ public class BattleMonkBoundingLeap : Ability
 				endPoints,
 				pathDestinationAndEndPoints,
 				m_recoveryTime);
+		
+		// TODO HACK
+		// custom
+		RelocateRecoveryOffOccupant(chargeSegmentForStopOnTargetHit, endPoints, caster);
+		// end custom
+		
 		float segmentMovementSpeed = CalcMovementSpeed(GetEvadeDistance(chargeSegmentForStopOnTargetHit));
 		foreach (ServerEvadeUtils.ChargeSegment segment in chargeSegmentForStopOnTargetHit)
 		{
@@ -280,6 +286,121 @@ public class BattleMonkBoundingLeap : Ability
 			}
 		}
 		return chargeSegmentForStopOnTargetHit;
+	}
+	
+	// custom
+	// Based on AbilityUtil_Targeter_BounceActor.GetChargePathSquares
+	// If the recovery sits on the occupied landing square, relocate it to a nearby free square
+	private void RelocateRecoveryOffOccupant(
+		ServerEvadeUtils.ChargeSegment[] segments,
+		List<Vector3> endPoints,
+		ActorData caster)
+	{
+		if (segments.Length < 2)
+		{
+			return;
+		}
+		
+		ServerEvadeUtils.ChargeSegment recovery = segments[segments.Length - 1];
+		BoardSquare impactSquare = segments[segments.Length - 2].m_pos;
+		
+		if (recovery.m_cycle != BoardSquarePathInfo.ChargeCycleType.Recovery
+			|| impactSquare == null
+			|| recovery.m_pos != impactSquare)
+		{
+			return;
+		}
+
+		if (impactSquare.OccupantActor != null
+		    && impactSquare.OccupantActor != caster
+		    && !ServerActionBuffer.Get().ActorIsEvading(impactSquare.OccupantActor))
+		{
+			Vector3 prevAnglePoint = endPoints.Count >= 2
+				? endPoints[endPoints.Count - 2]
+				: caster.GetLoSCheckPos(caster.GetSquareAtPhaseStart());
+			
+			Vector3 testDir = prevAnglePoint - impactSquare.ToVector3();
+			testDir.y = 0f;
+			testDir.Normalize();
+
+			BoardSquare secondToLastInOrigPath = null;
+
+			if (segments.Length >= 3)
+			{
+				secondToLastInOrigPath = segments[segments.Length - 3].m_pos;
+			}
+
+			recovery.m_pos = GetEndSquareForOccupant(
+				impactSquare,
+				testDir,
+				caster,
+				secondToLastInOrigPath);
+		}
+	}
+
+	// custom
+	// Based on AbilityUtil_Targeter_BounceActor.GetEndSquareForOccupant, almost verbatim
+	private BoardSquare GetEndSquareForOccupant(
+		BoardSquare lastSquare,
+		Vector3 testDir,
+		ActorData caster,
+		BoardSquare secondToLastInOrigPath)
+	{
+		BoardSquare bestSquare = null;
+		float bestScore = -1f;
+		for (int i = 0; i < 3; i++)
+		{
+			if (bestSquare != null)
+			{
+				break;
+			}
+			List<BoardSquare> squaresInBorderLayer = AreaEffectUtils.GetSquaresInBorderLayer(lastSquare, i, true);
+			foreach (BoardSquare squareInBorderLayer in squaresInBorderLayer)
+			{
+				if (!squareInBorderLayer.IsValidForGameplay())
+				{
+					continue;
+				}
+				
+				if (squareInBorderLayer.OccupantActor != null
+					&& squareInBorderLayer.OccupantActor != caster
+					&& !ServerActionBuffer.Get().ActorIsEvading(squareInBorderLayer.OccupantActor)) // && squareInBorderLayer.OccupantActor.IsActorVisibleToClient()) in targeter
+				{
+					continue;
+				}
+				
+				if (!KnockbackUtils.CanBuildStraightLineChargePath(caster, squareInBorderLayer, lastSquare, false, out int _))
+				{
+					continue;
+				}
+				
+				Vector3 recoveryDir = squareInBorderLayer.ToVector3() - lastSquare.ToVector3();
+				recoveryDir.y = 0f;
+				recoveryDir.Normalize();
+				
+				float score = Vector3.Dot(testDir, recoveryDir);
+				if (secondToLastInOrigPath != null && secondToLastInOrigPath == squareInBorderLayer)
+				{
+					score += 0.5f;
+				}
+				if (lastSquare.GetLOS(squareInBorderLayer.x, squareInBorderLayer.y))
+				{
+					score -= 2f;
+				}
+				if (bestSquare == null || score > bestScore)
+				{
+					bestSquare = squareInBorderLayer;
+					bestScore = score;
+				}
+			}
+		}
+		
+		if (bestSquare == null)
+		{
+			bestSquare = lastSquare;
+		}
+		
+		return bestSquare;
 	}
 
 	// added in rogues
