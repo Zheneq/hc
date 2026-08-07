@@ -388,6 +388,7 @@ public class EffectResults
 						MovementResults reactHitResults = nonActorTargetInfo_BarrierBlock.GetReactHitResults(Caster);
 						if (reactHitResults != null)
 						{
+							list.Add(nonActorTargetInfo_BarrierBlock.m_barrier); // custom fix
 							positionHitResults.AddReactionOnPositionHit(reactHitResults);
 							Dictionary<ActorData, int> movementDamageResults = reactHitResults.GetMovementDamageResults();
 							if (movementDamageResults != null)
