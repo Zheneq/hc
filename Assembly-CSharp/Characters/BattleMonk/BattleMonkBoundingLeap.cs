@@ -288,7 +288,11 @@ public class BattleMonkBoundingLeap : Ability
 		ActorData caster,
 		ServerAbilityUtils.AbilityRunData additionalData)
 	{
-		return GetPathDestinationAndEndPoints(targets, caster, out _);
+		// custom
+		var chargePath = GetChargePath(targets, caster, additionalData);
+		return chargePath[chargePath.Length - 1].m_pos;
+		// rogues
+		// return GetPathDestinationAndEndPoints(targets, caster, out _);
 	}
 
 	// added in rogues
