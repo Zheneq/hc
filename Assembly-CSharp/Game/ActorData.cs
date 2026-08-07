@@ -1194,32 +1194,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 				return m_teamSensitiveData_friendly.RespawnPickedSquare;
 			}
 
-			// this IF is removed in rogues
+			// removed in rogues
 			if (m_teamSensitiveData_hostile != null)
 			{
 				return m_teamSensitiveData_hostile.RespawnPickedSquare;
 			}
+			// end removed in rogues
+			
 			return null;
 		}
-		//set  // rogues
-		//{
-		//	if (NetworkServer.active)
-		//	{
-		//		m_trueRespawnPositionSquare = value;
-		//		if (m_teamSensitiveData_friendly != null)
-		//		{
-		//			if (GameFlowData.Get().IsInDecisionState() || GameFlowData.Get().CurrentTurn == NextRespawnTurn)
-		//			{
-		//				m_teamSensitiveData_friendly.RespawnPickedSquare = value;
-		//			}
-		//			else
-		//			{
-		//				m_teamSensitiveData_friendly.RespawnPickedSquare = null;
-		//			}
-		//		}
-		//		ShowRespawnFlare(m_trueRespawnPositionSquare, IsActorInvisibleForRespawn());
-		//	}
-		//}
 		set
 		{
 			if (!NetworkServer.active)
@@ -1238,6 +1221,8 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					m_teamSensitiveData_friendly.RespawnPickedSquare = value;
 				}
 			}
+			
+			// removed in rogues
 			if (m_teamSensitiveData_hostile != null)
 			{
 				if (GameFlowData.Get().CurrentTurn == NextRespawnTurn)
@@ -1256,6 +1241,10 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 					m_teamSensitiveData_hostile.RespawnPickedSquare = null;
 				}
 			}
+			// end removed in rogues
+			
+			// rogues
+			// ShowRespawnFlare(m_trueRespawnPositionSquare, IsActorInvisibleForRespawn());
 		}
 	}
 
