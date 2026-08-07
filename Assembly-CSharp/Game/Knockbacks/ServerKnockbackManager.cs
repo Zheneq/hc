@@ -351,7 +351,40 @@ public class ServerKnockbackManager
 		}
 		if (m_actorIncomingKnockbacks.Count == 0)
 		{
+			ReconcileBoardOccupancy(); // custom
 			ServerMovementManager.Get().OnKnockbackHitsConcluded();
+		}
+	}
+
+	// custom
+	private void ReconcileBoardOccupancy()
+	{
+		foreach (ActorData actor in GameFlowData.Get().GetActors())
+		{
+			if (actor == null || actor.IsDead())
+			{
+				continue;
+			}
+			BoardSquare square = actor.GetCurrentBoardSquare();
+			if (square == null)
+			{
+				Log.Error($"ReconcileBoardOccupancy: {actor} is not dead but has no square");
+				continue;
+			}
+			ActorData occupant = square.OccupantActor;
+			if (occupant == actor)
+			{
+				continue;
+			}
+			if (occupant != null
+			    && !occupant.IsDead()
+			    && occupant.GetCurrentBoardSquare() == square)
+			{
+				Log.Error($"ReconcileBoardOccupancy: {square.GetGridPos()} is occupied by both {occupant} and {actor}");
+				continue;
+			}
+			Log.Warning($"ReconcileBoardOccupancy: restoring occupant of {square.GetGridPos()} to {actor} (was {(occupant != null ? occupant.ToString() : "null")})");
+			actor.OccupyCurrentBoardSquare();
 		}
 	}
 
