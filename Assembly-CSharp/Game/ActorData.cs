@@ -1248,6 +1248,15 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		}
 	}
 
+	// custom
+	public void SetTrueRespawnPositionSquareServerOnly(BoardSquare value)
+	{
+		if (NetworkServer.active)
+		{
+			m_trueRespawnPositionSquare = value;
+		}
+	}
+
 	public bool HasBotController
 	{
 		get
@@ -5500,6 +5509,17 @@ public class ActorData : NetworkBehaviour, IGameEventListener
 		{
 			IgnoreForAbilityHits = false;
 		}
+		
+		// custom - update respawn square on client side in case it was shifted
+		if (IsDead()
+		    && NextRespawnTurn > 0
+		    && NextRespawnTurn == GameFlowData.Get().CurrentTurn
+		    && m_trueRespawnPositionSquare != null)
+		{
+			RespawnPickedPositionSquare = m_trueRespawnPositionSquare;
+		}
+		// end custom
+		
 		if (m_abilityData)
 		{
 			m_abilityData.ProgressCooldowns();

@@ -613,7 +613,12 @@ public class ServerActorController : MonoBehaviour
 				{
 					Log.Info("Adjusting respawn position during Decision to adjacent square to avoid spawning " +
 					         "on a square that is already claimed by another visible actor or respawn.");
-					actorData.RespawnPickedPositionSquare = boardSquare;
+					
+					// custom - do not reveal if respawn square conflicted with something
+					actorData.SetTrueRespawnPositionSquareServerOnly(boardSquare);
+					// rogues
+					// actorData.RespawnPickedPositionSquare = boardSquare;
+					
 					break;
 				}
 			}
