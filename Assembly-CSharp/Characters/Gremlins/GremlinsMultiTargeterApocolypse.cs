@@ -415,6 +415,14 @@ public class GremlinsMultiTargeterApocolypse : Ability
 				if (dictionary.ContainsKey(actorData))
 				{
 					dictionary[actorData] += GetSubsequentDamage();
+					
+					// custom - override damage origin so that if you don't have cover from any of the bombs, you get full damage
+					ActorCover actorCover = actorData.GetActorCover();
+					if (actorCover != null && !actorCover.IsInCoverWrt(centerOfShape))
+					{
+						damageOrigins[actorData] = centerOfShape;
+					}
+					// end custom
 				}
 				else
 				{
