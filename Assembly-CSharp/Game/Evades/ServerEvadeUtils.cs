@@ -143,7 +143,14 @@ public static class ServerEvadeUtils
 				{
 					vector = endPoints[i - 1];
 				}
-				Vector3 vector2 = (endPoints[i] - vector).normalized / 2f;
+				
+				// custom, based on AbilityUtil_Targeter_BounceActor.GetChargePathSquares
+				Vector3 dir = endPoints[i] - vector;
+				dir.y = 0f;
+				Vector3 vector2 = dir.normalized / 2f;
+				// rogues
+				// Vector3 vector2 = (endPoints[i] - vector).normalized / 2f;
+				
 				if (i > 0)
 				{
 					BoardSquare pos = list[list.Count - 1].m_pos;
@@ -161,7 +168,15 @@ public static class ServerEvadeUtils
 				if (i == endPoints.Count - 1)
 				{
 					chargeSegment.m_pos = dest;
-					float maxDistance = Vector3.Distance(vector, dest.ToVector3());
+					// custom, based on AbilityUtil_Targeter_BounceActor.GetChargePathSquares
+					float maxDistance = VectorUtils.HorizontalPlaneDistInWorld(vector, dest.ToVector3());
+					if (dest.occupant != null && dest.occupant != caster.gameObject)
+					{
+						maxDistance = Mathf.Max(0f, maxDistance - 0.5f);
+					}
+					// rogues
+					// float maxDistance = Vector3.Distance(vector, dest.ToVector3());
+					
 					BoardSquare lastValidBoardSquareInLine = KnockbackUtils.GetLastValidBoardSquareInLine(vector, endPoints[i], true, false, maxDistance);
 					if (lastValidBoardSquareInLine != null && lastValidBoardSquareInLine.IsValidForGameplay())
 					{
