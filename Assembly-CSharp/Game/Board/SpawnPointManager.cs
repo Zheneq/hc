@@ -540,6 +540,7 @@ public class SpawnPointManager : MonoBehaviour
 					// TODO check
 					if (GameFlowData.Get().CurrentTurn >= component.NextRespawnTurn && component.NextRespawnTurn > 0)  //  && component.GetTeam() == GameFlowData.Get().ActingTeam in rogues
 					{
+						// when opponents pick the same respawn square, the one standing earlier in GameFlowData.Get().GetPlayers() list has the priority
 						if (m_playersSelectRespawn)
 						{
 							gameObject.GetComponent<ServerActorController>().RespawnOnSquare(component.RespawnPickedPositionSquare);

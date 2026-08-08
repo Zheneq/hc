@@ -557,6 +557,8 @@ public class ServerActorController : MonoBehaviour
 		{
 			return;
 		}
+		
+		// save selected with fallback if invalid
 		if (actorData.respawnSquares.Contains(square))
 		{
 			actorData.RespawnPickedPositionSquare = square;
@@ -571,7 +573,8 @@ public class ServerActorController : MonoBehaviour
 			Log.Error($"Client for dead actor {actorData.DisplayName} requested a respawn location when no locations are available. This is bad.");
 			actorData.RespawnPickedPositionSquare = SpawnPointManager.Get().GetInitialSpawnSquare(actorData, new List<ActorData>());
 		}
-		List<BoardSquare> blocked = new List<BoardSquare>();
+		
+		List<BoardSquare> blockedByVisibleEnemyRespawn = new List<BoardSquare>();
 		foreach (GameObject player in GameFlowData.Get().GetPlayers())
 		{
 			ActorData otherActorData = player.GetComponent<ActorData>();
@@ -579,16 +582,19 @@ public class ServerActorController : MonoBehaviour
 			    && otherActorData != null
 			    && otherActorData.IsDead()
 			    && (otherActorData.GetTeam() == actorData.GetTeam()
-			        || (otherActorData.TeamSensitiveData_authority != null
-			            && otherActorData.TeamSensitiveData_authority.RespawnPickedSquare != null)))
+			        || (otherActorData.TeamSensitiveData_hostile != null // TeamSensitiveData_authority in rogues
+			            && otherActorData.TeamSensitiveData_hostile.RespawnPickedSquare != null))) // TeamSensitiveData_authority in rogues
 			{
-				blocked.Add(otherActorData.RespawnPickedPositionSquare);
+				blockedByVisibleEnemyRespawn.Add(otherActorData.RespawnPickedPositionSquare);
 			}
 		}
+		
 		ActorData occupantActor = actorData.RespawnPickedPositionSquare.OccupantActor;
 		if ((occupantActor != null && occupantActor.IsActorVisibleToActor(actorData))
-		    || blocked.Contains(actorData.RespawnPickedPositionSquare))
+		    || blockedByVisibleEnemyRespawn.Contains(actorData.RespawnPickedPositionSquare))
 		{
+			// find a better square based on the information known to the picker
+			
 			HashSet<BoardSquare> squaresToAvoid = new HashSet<BoardSquare>();
 			if (PowerUpManager.Get() != null)
 			{
@@ -598,26 +604,25 @@ public class ServerActorController : MonoBehaviour
 			{
 				SpoilsManager.Get().AddToSquaresToAvoidForRespawn(squaresToAvoid, actorData);
 			}
+			
 			List<BoardSquare> fallbackSquares = new List<BoardSquare>();
 			for (int i = 1; i <= 3; i++)
 			{
 				fallbackSquares.AddRange(AreaEffectUtils.GetSquaresInBorderLayer(actorData.RespawnPickedPositionSquare, i, false));
 			}
+			
 			foreach (BoardSquare boardSquare in fallbackSquares)
 			{
 				if (boardSquare.IsValidForGameplay()
 				    && (boardSquare.OccupantActor == null
 				        || !boardSquare.OccupantActor.IsActorVisibleToActor(actorData))
-				    && !blocked.Contains(boardSquare)
+				    && !blockedByVisibleEnemyRespawn.Contains(boardSquare)
 				    && !squaresToAvoid.Contains(boardSquare))
 				{
 					Log.Info("Adjusting respawn position during Decision to adjacent square to avoid spawning " +
 					         "on a square that is already claimed by another visible actor or respawn.");
 					
-					// custom - do not reveal if respawn square conflicted with something
-					actorData.SetTrueRespawnPositionSquareServerOnly(boardSquare);
-					// rogues
-					// actorData.RespawnPickedPositionSquare = boardSquare;
+					actorData.RespawnPickedPositionSquare = boardSquare;
 					
 					break;
 				}
