@@ -1298,6 +1298,11 @@ public class UIRankedModeDraftScreen : UIScene
         foreach (UICharacterPanelSelectRankModeButton btn in buttons)
         {
             bool clickable = isPickBan || SelectedCharacter == CharacterType.None;
+#if EVOS
+            // multilancer draft
+            // m_IsOnDeck mean the server wants us to pick, so unlock character picker
+            clickable = clickable || m_IsOnDeck;
+#endif
             btn.SetClickable(clickable);
         }
     }
@@ -1451,7 +1456,13 @@ public class UIRankedModeDraftScreen : UIScene
                     teammate.CanBeTraded = !DidPlayerLockInDuringSwapPhase(data, teammate.PlayerID);
                 }
 
-                if (teammate.AccountID == accountId)
+                if (teammate.AccountID == accountId
+#if EVOS
+                    // multilancer draft
+                    // If we are picking, we can select any character. Do not override our selection with the previous pick.
+                    && !m_IsOnDeck
+#endif
+                   )
                 {
                     SelectedCharacter = teammate.GetSelectedCharacter();
                 }
@@ -2213,6 +2224,23 @@ public class UIRankedModeDraftScreen : UIScene
         get
         {
             long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+            
+#if EVOS
+            // multilancer draft
+            // First, pick our player id we are currently selecting for. If none, fall back to standard. 
+            if (m_lastDraftNotification != null && m_lastDraftNotification.RankedData != null)
+            {
+                RankedResolutionPhaseData rankedData = m_lastDraftNotification.RankedData.Value;
+                foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
+                {
+                    if (teammate.AccountID == accountId && rankedData.IsPlayerSelecting(teammate.PlayerID))
+                    {
+                        return teammate.PlayerID;
+                    }
+                }
+            }
+#endif
+            
             foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
             {
                 if (teammate.AccountID == accountId)
