@@ -1210,6 +1210,7 @@ public class UICharacterScreen : UIScene
 		CharacterSelectSceneStateParameters currentSpecificState = GetCurrentSpecificState();
 		ushort prevCheckedMask = 0;
 		bool sendMaskUpdate = false;
+		// if AI teammates selected
 		if (currentSpecificState.ClientRequestAllyBotTeammates != null)
 		{
 			foreach (GameSubTypeState gameSubTypeBtn in m_gameSubTypeBtns)
@@ -1242,6 +1243,7 @@ public class UICharacterScreen : UIScene
 				ushort consolidatedBit = 0;
 				foreach (KeyValuePair<ushort, GameSubType> keyValuePair in validGameSubTypes)
 				{
+					// check if we can actually queue in this subqueue
 					bool isActive = IsGameSubTypeActive(gameTypeToDisplay, keyValuePair.Value);
 					if (isActive && keyValuePair.Value.HasMod(GameSubType.SubTypeMods.NotAllowedForGroups))
 					{
@@ -1272,9 +1274,11 @@ public class UICharacterScreen : UIScene
 					}
 					else
 					{
+						// don't add separate toggle, add to reactor roulette
 						consolidatedBit |= keyValuePair.Key;
 					}
 				}
+				// reactor roulette
 				if (consolidatedBit != 0)
 				{
 					while (j >= m_gameTypeButtons.Count)
@@ -1299,6 +1303,7 @@ public class UICharacterScreen : UIScene
 					j++;
 				}
 			}
+			// hide unused toggles
 			while (j < m_gameTypeButtons.Count)
 			{
 				UIManager.SetGameObjectActive(m_gameTypeButtons[j], false);
