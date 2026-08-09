@@ -2700,6 +2700,23 @@ public class UIRankedModeDraftScreen : UIScene
         return GameManager.Get().IsCharacterAllowedForPlayers(type);
     }
 
+    // custom, inlined in reactor
+    private bool IsCharacterButtonSelected(CharacterType characterType)
+    {
+        if (HoveredCharacter == characterType || m_selectedSubPhaseCharacter == characterType)
+        {
+            return true;
+        }
+#if EVOS
+        // If we are picking, do not highlight previous selection
+        if (m_IsOnDeck)
+        {
+            return false;
+        }
+#endif
+        return SelectedCharacter == characterType;
+    }
+
     private bool IsCharacterAvailableForPlayer(CharacterType type)
     {
         ClientGameManager clientGameManager = ClientGameManager.Get();
@@ -2728,10 +2745,7 @@ public class UIRankedModeDraftScreen : UIScene
             if (isCharacterVisibleForPlayer)
             {
                 btn.SetEnabled(isAvailable, ClientGameManager.Get().GetPlayerCharacterData(characterType));
-                btn.SetSelected(
-                    HoveredCharacter == btn.m_characterType
-                    || SelectedCharacter == btn.m_characterType
-                    || m_selectedSubPhaseCharacter == btn.m_characterType);
+                btn.SetSelected(IsCharacterButtonSelected(btn.m_characterType));
                 UIManager.SetGameObjectActive(btn, true);
             }
             else
@@ -2763,9 +2777,7 @@ public class UIRankedModeDraftScreen : UIScene
 #endif
             if (isCharacterVisibleForPlayer)
             {
-                bool selected = HoveredCharacter == btn.m_characterType
-                                || SelectedCharacter == btn.m_characterType
-                                || m_selectedSubPhaseCharacter == btn.m_characterType;
+                bool selected = IsCharacterButtonSelected(btn.m_characterType);
                 btn.Setup(isAvailable, selected);
                 UIManager.SetGameObjectActive(btn, true);
             }
