@@ -558,6 +558,89 @@ public class UIRankedModeDraftScreen : UIScene
         UIManager.SetGameObjectActive(m_tauntsBtn, visible);
     }
 
+#if EVOS
+    // custom: EVOS multilancer draft. One account owns several draft slots; during the
+    // loadout sub-phase, clicking one of your own slots switches the settings panel to
+    // that slot's freelancer AND retargets loadout saves to that slot (see
+    // ClientGameManager.LoadoutEditTargetPlayerId).
+    private bool IsLoadoutSubPhase()
+    {
+        return LastGameInfo != null && LastGameInfo.GameStatus == GameStatus.LoadoutSelecting;
+    }
+
+    public void ClickedDraftSlot(UIRankedModePlayerDraftEntry entry)
+    {
+        if (entry == null || !IsLoadoutSubPhase())
+        {
+            return;
+        }
+
+        long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+        if (entry.AccountID != accountId || entry.GetSelectedCharacter() == CharacterType.None)
+        {
+            return;
+        }
+
+        SelectLoadoutSlot(entry);
+    }
+
+    private void SelectLoadoutSlot(UIRankedModePlayerDraftEntry entry)
+    {
+        // Our primary slot keeps the default self-target (0) so single-slot behavior is
+        // unchanged; only additional owned slots need explicit retargeting.
+        bool isPrimarySlot = LastPlayerInfo != null && entry.PlayerID == LastPlayerInfo.PlayerId;
+        ClientGameManager.Get().LoadoutEditTargetPlayerId = isPrimarySlot ? 0 : entry.PlayerID;
+        SelectedCharacter = entry.GetSelectedCharacter();
+        if (m_rankedModeCharacterSettings != null)
+        {
+            m_rankedModeCharacterSettings.Refresh();
+        }
+    }
+
+    // LobbyPlayerInfo of the owned slot whose loadout is being edited, null if it is our primary slot
+    public LobbyPlayerInfo GetLoadoutEditSlotPlayerInfo()
+    {
+        int playerId = ClientGameManager.Get().LoadoutEditTargetPlayerId;
+        if (playerId == 0 || LastTeamInfo == null || LastTeamInfo.TeamPlayerInfo == null)
+        {
+            return null;
+        }
+
+        return LastTeamInfo.TeamPlayerInfo.Find(p => p.PlayerId == playerId);
+    }
+
+    private void InitDefaultLoadoutSlot()
+    {
+        long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+        UIRankedModePlayerDraftEntry fallback = null;
+        foreach (UIRankedModePlayerDraftEntry entry in m_blueTeamMembers)
+        {
+            if (entry == null || entry.AccountID != accountId
+                || entry.GetSelectedCharacter() == CharacterType.None)
+            {
+                continue;
+            }
+
+            // prefer the slot whose freelancer is already being shown (SelectedCharacter)
+            if (entry.GetSelectedCharacter() == SelectedCharacter)
+            {
+                SelectLoadoutSlot(entry);
+                return;
+            }
+
+            if (fallback == null)
+            {
+                fallback = entry;
+            }
+        }
+
+        if (fallback != null)
+        {
+            SelectLoadoutSlot(fallback);
+        }
+    }
+#endif
+
     public void OnLobbyGameplayOverridesUpdated(LobbyGameplayOverrides gameplayOverrides)
     {
         CheckCharacterListValidity();
@@ -604,6 +687,10 @@ public class UIRankedModeDraftScreen : UIScene
         {
             m_loadoutSelectStartTime = Time.realtimeSinceStartup;
             SetFreelancerSettingButtonsVisible(true);
+#if EVOS
+            // custom: default the loadout editor (view + save target) to the slot shown
+            InitDefaultLoadoutSlot(); // TODO or move it down after LastPlayerInfo = notification.PlayerInfo; ?
+#endif
         }
 
         bool flag = false;
@@ -1461,6 +1548,9 @@ public class UIRankedModeDraftScreen : UIScene
                     // multilancer draft
                     // If we are picking, we can select any character. Do not override our selection with the previous pick.
                     && !m_IsOnDeck
+                    // We may own several slots, only our primary one is our character.
+                    // Otherwise we cycle through all of them, setting up character settings for each.
+                    && teammate.PlayerID == LastPlayerInfo.PlayerId
 #endif
                    )
                 {
@@ -2372,6 +2462,9 @@ public class UIRankedModeDraftScreen : UIScene
         {
             SetFreelancerSettingButtonsVisible(false);
             UIRankedCharacterSelectSettingsPanel.Get().SetVisible(false);
+#if EVOS
+            ClientGameManager.Get().LoadoutEditTargetPlayerId = 0; // custom: stop retargeting loadout edits
+#endif
         }
     }
 
@@ -2799,6 +2892,12 @@ public class UIRankedModeDraftScreen : UIScene
 
     public void DismantleRankDraft()
     {
+#if EVOS
+        if (ClientGameManager.Get() != null)
+        {
+            ClientGameManager.Get().LoadoutEditTargetPlayerId = 0; // custom: stop retargeting loadout edits
+        }
+#endif
         m_assignedCharacterForGame = CharacterType.None;
         m_hoverCharacterForGame = CharacterType.None;
         m_selectedSubPhaseCharacter = CharacterType.None;

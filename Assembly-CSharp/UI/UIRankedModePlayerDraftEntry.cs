@@ -52,7 +52,22 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
             m_rejectSwap.spriteController.callback = RejectSwapClicked;
             m_rejectSwap.spriteController.m_soundToPlay = FrontEndButtonSounds.RankFreelancerSwapClick;
         }
+
+#if EVOS
+        // custom: EVOS multilancer draft — click your own slot during loadout to edit it
+        if (m_btn != null)
+        {
+            m_btn.spriteController.callback = SlotClicked;
+        }
+#endif
     }
+
+#if EVOS
+    public void SlotClicked(BaseEventData data)
+    {
+        UIRankedModeDraftScreen.Get()?.ClickedDraftSlot(this);
+    }
+#endif
 
     public void RequestSwapClicked(BaseEventData data)
     {

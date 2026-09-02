@@ -965,6 +965,20 @@ public class ClientGameManager : MonoBehaviour
 		});
 	}
 
+#if EVOS
+	// custom: EVOS multilancer draft. When one account owns several draft slots, loadout
+	// edits made through the shared settings sub-panels default to the primary slot
+	// (playerId 0). Setting this to an owned slot's player id retargets those loadout
+	// edits (mods/cards/skin/vfx/loadouts) to that slot. 0 = default self behavior.
+	public int LoadoutEditTargetPlayerId { get; set; }
+
+	// custom: response to an edit of another owned slot, it is not about our own character
+	private static bool IsResponseForOtherSlot(PlayerInfoUpdateResponse response)
+	{
+		return response.OriginalPlayerInfoUpdate != null && response.OriginalPlayerInfoUpdate.PlayerId != 0;
+	}
+#endif
+
 	public void UpdateSelectedCharacter(CharacterType character, int playerId = 0)
 	{
 		m_lobbyGameClientInterface?.UpdatePlayerInfo(
@@ -1016,6 +1030,9 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateLoadouts(List<CharacterLoadout> loadouts, int playerId = 0)
 	{
+#if EVOS
+		if (playerId == 0) playerId = LoadoutEditTargetPlayerId; // custom: retarget to owned draft slot
+#endif
 		if (m_lobbyGameClientInterface != null)
 		{
 			LobbyPlayerInfoUpdate lobbyPlayerInfoUpdate = new LobbyPlayerInfoUpdate
@@ -1057,17 +1074,29 @@ public class ClientGameManager : MonoBehaviour
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleLoadoutUpdateResponse");
 			return;
 		}
-		if (response.CharacterInfo.CharacterLoadouts.Count > 0
-		    && response.CharacterInfo.CharacterLoadouts[0].Strictness == ModStrictness.Ranked)
+#if EVOS
+		// custom: the response is not necessarily for the last character selected in the lobby
+		// (drafted freelancer, another owned slot in multilancer draft)
+		PersistedCharacterData characterData = GetPlayerCharacterData(response.CharacterInfo.CharacterType);
+#else
+		PersistedCharacterData characterData = GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter);
+#endif
+#if EVOS
+		if (characterData != null)
 		{
-			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter)
-				.CharacterComponent.CharacterLoadoutsRanked = response.CharacterInfo.CharacterLoadouts;
+#endif
+			if (response.CharacterInfo.CharacterLoadouts.Count > 0
+			    && response.CharacterInfo.CharacterLoadouts[0].Strictness == ModStrictness.Ranked)
+			{
+				characterData.CharacterComponent.CharacterLoadoutsRanked = response.CharacterInfo.CharacterLoadouts;
+			}
+			else
+			{
+				characterData.CharacterComponent.CharacterLoadouts = response.CharacterInfo.CharacterLoadouts;
+			}
+#if EVOS
 		}
-		else
-		{
-			GetPlayerCharacterData(GetPlayerAccountData().AccountComponent.LastCharacter)
-				.CharacterComponent.CharacterLoadouts = response.CharacterInfo.CharacterLoadouts;
-		}
+#endif
 		UICharacterSelectCharacterSettingsPanel.Get().NotifyLoadoutUpdate(response);
 		if (UIRankedCharacterSelectSettingsPanel.Get() != null)
 		{
@@ -1077,6 +1106,9 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedSkin(CharacterVisualInfo selectedCharacterSkin, int playerId = 0)
 	{
+#if EVOS
+		if (playerId == 0) playerId = LoadoutEditTargetPlayerId; // custom: retarget to owned draft slot
+#endif
 		if (m_lobbyGameClientInterface == null)
 		{
 			return;
@@ -1116,6 +1148,12 @@ public class ClientGameManager : MonoBehaviour
 		}
 		
 		GetAllPlayerCharacterData()[response.CharacterInfo.CharacterType].CharacterComponent.LastSkin = response.CharacterInfo.CharacterSkin;
+#if EVOS
+		if (IsResponseForOtherSlot(response))
+		{
+			return; // custom: neither our group character nor the one in slot 0
+		}
+#endif
 		Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
 #if EVOS
 		if (isRequestedSkin)
@@ -1147,6 +1185,9 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedCards(CharacterCardInfo cards, int playerId = 0)
 	{
+#if EVOS
+		if (playerId == 0) playerId = LoadoutEditTargetPlayerId; // custom: retarget to owned draft slot
+#endif
 		if (m_lobbyGameClientInterface == null)
 		{
 			return;
@@ -1194,7 +1235,14 @@ public class ClientGameManager : MonoBehaviour
 		}
 		if (response.CharacterInfo != null)
 		{
+#if EVOS
+			if (!IsResponseForOtherSlot(response)) // custom: not our group character
+			{
+				Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
+			}
+#else
 			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
+#endif
 			PersistedCharacterData playerCharacterData = GetPlayerCharacterData(response.CharacterInfo.CharacterType);
 			if (playerCharacterData != null)
 			{
@@ -1210,6 +1258,9 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedMods(CharacterModInfo mods, int playerId = 0)
 	{
+#if EVOS
+		if (playerId == 0) playerId = LoadoutEditTargetPlayerId; // custom: retarget to owned draft slot
+#endif
 		if (m_lobbyGameClientInterface == null)
 		{
 			return;
@@ -1226,6 +1277,9 @@ public class ClientGameManager : MonoBehaviour
 
 	public void UpdateSelectedAbilityVfxSwaps(CharacterAbilityVfxSwapInfo swaps, int playerId = 0)
 	{
+#if EVOS
+		if (playerId == 0) playerId = LoadoutEditTargetPlayerId; // custom: retarget to owned draft slot
+#endif
 		m_lobbyGameClientInterface?.UpdatePlayerInfo(
 			new LobbyPlayerInfoUpdate
 			{
@@ -1273,7 +1327,11 @@ public class ClientGameManager : MonoBehaviour
 				playerCharacterData.CharacterComponent.LastSelectedLoadout = lastSelectedLoadout.Value;
 			}
 		}
-		if (Get().GroupInfo != null)
+		if (Get().GroupInfo != null
+#if EVOS
+		    && !IsResponseForOtherSlot(response) // custom: not our group character
+#endif
+		   )
 		{
 			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
 		}
@@ -1298,7 +1356,11 @@ public class ClientGameManager : MonoBehaviour
 		}
 		Get().GetPlayerCharacterData(response.CharacterInfo.CharacterType)
 			.CharacterComponent.LastAbilityVfxSwaps = response.CharacterInfo.CharacterAbilityVfxSwaps;
-		if (Get().GroupInfo != null)
+		if (Get().GroupInfo != null
+#if EVOS
+		    && !IsResponseForOtherSlot(response) // custom: not our group character
+#endif
+		   )
 		{
 			Get().GroupInfo.SetCharacterInfo(response.CharacterInfo);
 		}
