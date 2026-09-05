@@ -454,6 +454,7 @@
     <Compile Include="AppState\AppState_WaitingForGame.cs" />
     <Compile Include="Artemis\ArtemisBridgeServerInterface.cs" />
     <Compile Include="Artemis\ArtemisClientBase.cs" />
+    <Compile Include="Artemis\GameServerAuthKey.cs" />
     <Compile Include="AssetBundleManager.cs" />
     <Compile Include="AssetFileSelectorAttribute.cs" />
     <Compile Include="AssetsLoadingState.cs" />
@@ -2036,6 +2037,7 @@
     <Compile Include="Messages\Alliance\ReconnectPlayerResponse.cs" />
     <Compile Include="Messages\Alliance\RegisterGameServerRequest.cs" />
     <Compile Include="Messages\Alliance\RegisterGameServerResponse.cs" />
+    <Compile Include="Messages\Alliance\ServerAuthChallengeNotification.cs" />
     <Compile Include="Messages\Alliance\ServerGameMetricsNotification.cs" />
     <Compile Include="Messages\Alliance\ServerGameStatusNotification.cs" />
     <Compile Include="Messages\Alliance\ServerGameSummaryNotification.cs" />

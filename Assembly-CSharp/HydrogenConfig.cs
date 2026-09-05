@@ -87,6 +87,9 @@ public class HydrogenConfig : JsonConfig
 	public int AdvertisedPort = 0;
 	public int MonitorServerPort = 6060;
 	public string ServerName = "Atlas";
+	// Path to the RSA key file used to authenticate with the lobby's /BridgeServer.
+	// Empty = default (bridge_key.xml next to this server's config file). Auto-generated on first run.
+	public string BridgeAuthKeyPath = "";
 
 	public int PendingReconnectTurnTime = 60;
 	public int PendingReconnectMaxTurnsConsecutive = 3;

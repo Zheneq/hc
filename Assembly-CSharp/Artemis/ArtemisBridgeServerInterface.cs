@@ -54,6 +54,7 @@ namespace ArtemisServer.BridgeServer
             typeof(ReconnectPlayerResponse),
             typeof(AdminShutdownGameRequest),
             typeof(AdminClearCooldownsRequest),
+            typeof(ServerAuthChallengeNotification),
         };
 
         protected override List<Type> GetMessageTypes()
@@ -100,6 +101,7 @@ namespace ArtemisServer.BridgeServer
             RegisterMessageDelegate<DisconnectPlayerRequest>(HandleDisconnectPlayerRequest);
             RegisterMessageDelegate<ReconnectPlayerRequest>(HandleReconnectPlayerRequest);
             RegisterMessageDelegate<MonitorHeartbeatResponse>(HandleMonitorHeartbeatResponse);
+            RegisterMessageDelegate<ServerAuthChallengeNotification>(HandleServerAuthChallenge);
             
             // custom
             Log.Info($"ArtemisBridgeServerInterface initialized for {processType} {lobbyServerAddress} - {processCode}");
@@ -121,7 +123,7 @@ namespace ArtemisServer.BridgeServer
             
             // StartInsight();
             m_registered = false;
-            RegisterGameServer();
+            // RegisterGameServer(); // Registration is deferred until the lobby's auth challenge arrives (see HandleServerAuthChallenge).
         }
 
         // custom
@@ -196,13 +198,33 @@ namespace ArtemisServer.BridgeServer
             // end custom
         }
 
-        private void RegisterGameServer()
+        // custom
+        // Responds to the lobby's auth challenge: signs the nonce and registers, proving possession
+        // of this server's private key.
+        private void HandleServerAuthChallenge(AllianceMessageBase msg)
+        {
+            ServerAuthChallengeNotification challenge = (ServerAuthChallengeNotification)msg;
+            try
+            {
+                byte[] nonce = Convert.FromBase64String(challenge.Nonce);
+                RegisterGameServer(GameServerAuthKey.PublicKey, GameServerAuthKey.SignBase64(nonce));
+            }
+            catch (Exception e)
+            {
+                Log.Error("Failed to answer bridge auth challenge: {0}", e);
+                Disconnect();
+            }
+        }
+
+        private void RegisterGameServer(string publicKey, string signature)
         {
             Log.Info($"Registering game server {m_sessionInfo.ProcessCode}");
             RegisterGameServerRequest registerGameServerRequest = new RegisterGameServerRequest
             {
                 SessionInfo = m_sessionInfo,
-                isPrivate = GameManager.Get().GameStatus != GameStatus.Stopped
+                isPrivate = GameManager.Get().GameStatus != GameStatus.Stopped,
+                PublicKey = publicKey,
+                Signature = signature
             };
             CallbackHandler callback = delegate(CallbackStatus status, AllianceMessageBase msg)
             {
