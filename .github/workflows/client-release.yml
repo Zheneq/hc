@@ -1,0 +1,59 @@
+name: Build client release
+
+# Compiles Assembly-CSharp.dll in the "Client Release" configuration and
+# publishes it as a raw asset on a GitHub release. No Docker image is built --
+# only the game server ships as a container; the client is just the DLL.
+# Client release versions are `client-*` tags (GitInfo GitTagRegex "client*").
+on:
+  push:
+    tags:
+      - "[Cc][Ll][Ii][Ee][Nn][Tt]-*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # GitInfo versions the DLL from git tags -- need full history + tags.
+          fetch-depth: 0
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Build only the export stage (Client Release) and copy the DLL out to the
+      # local filesystem. Separate gha cache scope so it doesn't collide with the
+      # server build, which compiles a different Configuration from the same tree.
+      - name: Export Assembly-CSharp.dll
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          target: export
+          build-args: |
+            CONFIG=Client Release
+          push: false
+          outputs: type=local,dest=./artifact
+          cache-from: type=gha,scope=client
+          cache-to: type=gha,scope=client,mode=max
+
+      # Strip the (case-insensitive) `client-` tag prefix -> bare version.
+      - name: Derive version
+        if: startsWith(github.ref, 'refs/tags/')
+        id: ver
+        run: |
+          version="$(printf '%s' "$GITHUB_REF_NAME" | sed -E 's/^[Cc][Ll][Ii][Ee][Nn][Tt]-//')"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+
+      # Only on tag pushes (workflow_dispatch on a branch has no tag to release).
+      - name: Create GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Client release ${{ steps.ver.outputs.version }}
+          body: |
+            HC game-client release **${{ steps.ver.outputs.version }}**.
+          files: ./artifact/Assembly-CSharp.dll

@@ -1,0 +1,8 @@
+# NOTE: .git is intentionally NOT ignored — GitInfo needs it to version the DLL.
+**/bin
+**/obj
+.vs
+.idea
+hs_err_pid*.log
+*.user
+TestResults

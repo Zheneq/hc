@@ -1,0 +1,79 @@
+name: Build game-server image
+
+# Builds the Atlas Reactor game-server image (Assembly-CSharp.dll compiled with
+# Mono, overlaid onto the prebaked Unity base) and pushes it to GHCR.
+# Server release versions are numeric tags (GitInfo GitTagRegex "[0-9]*");
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+*"
+  workflow_dispatch:
+
+env:
+  IMAGE: ghcr.io/zheneq/hc
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # GitInfo versions the DLL from git tags — need full history + tags.
+          fetch-depth: 0
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/') }}
+            type=ref,event=branch
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Export just the freshly-compiled DLL from the build stage. Reuses the
+      # gha cache populated above, so the msbuild layer is not recompiled.
+      - name: Export Assembly-CSharp.dll
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          target: export
+          push: false
+          outputs: type=local,dest=./artifact
+          cache-from: type=gha
+
+      # Only on tag pushes (workflow_dispatch on a branch has no tag to release).
+      - name: Create GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Server release ${{ github.ref_name }}
+          body: |
+            HC game-server release **${{ github.ref_name }}**.
+          files: ./artifact/Assembly-CSharp.dll
