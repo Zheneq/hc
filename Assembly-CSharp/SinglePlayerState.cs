@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 [Serializable]
@@ -44,7 +45,7 @@ public class SinglePlayerState
     {
         Never,
         AnyActor,
-        SpawnedNPCs,
+        SpawnedNPCs, // removed in rogues
         Players,
         ClientActor,
         ClientAlly,
@@ -114,7 +115,7 @@ public class SinglePlayerState
 
     private HashSet<BoardSquare> m_advanceDestinationsHashSet;
 
-    public void Initialize()
+    public void Initialize() // Initialize(Scene s) in rogues here and in all calls in this function
     {
         m_allowedDestinations.Initialize();
         m_advanceScriptDestinations.Initialize();
@@ -287,14 +288,22 @@ public class SinglePlayerState
         string bannerText = GetBannerText();
         if (bannerText != string.Empty)
         {
+            // reactor
             UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar, true);
             UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText, true);
+            // rogues
+            // HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar.gameObject.SetActive(true);
+            // HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText.gameObject.SetActive(true);
             HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText.text = bannerText;
         }
         else
         {
+            // reactor
             UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar, false);
             UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText, false);
+            // rogues
+            // HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar.gameObject.SetActive(false);
+            // HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText.gameObject.SetActive(false);
         }
 
         ChatterManager.Get().EnableChatter = GetHasTag(SinglePlayerTag.EnableChatter);
@@ -316,6 +325,61 @@ public class SinglePlayerState
             GameFlowData.Get().ClearCooldowns();
             GameFlowData.Get().RefillStocks();
         }
+
+#if SERVER
+        if (GetHasTag(SinglePlayerTag.ResetHealthOnEnter))
+        {
+            foreach (ActorData actorData in GameFlowData.Get().GetActors())
+            {
+                if (actorData.IsHumanControlled())
+                {
+                    actorData.SetHitPoints(actorData.GetMaxHitPoints());
+                }
+            }
+        }
+
+        if (GetHasTag(SinglePlayerTag.ResetEnergyOnEnter))
+        {
+            foreach (ActorData actorData in GameFlowData.Get().GetActors())
+            {
+                if (actorData.IsHumanControlled())
+                {
+                    actorData.SetTechPoints(0);
+                }
+            }
+        }
+
+        if (GetHasTag(SinglePlayerTag.ResetContributionOnEnter))
+        {
+            foreach (ActorData actorData in GameFlowData.Get().GetActors())
+            {
+                if (actorData.IsHumanControlled())
+                {
+                    actorData.GetComponent<ActorBehavior>().Reset();
+                }
+            }
+        }
+
+        CheckMinHitPoints();
+        if (GetHasTag(SinglePlayerTag.TeleportToAdvanceScriptDestination))
+        {
+            ActorData localPlayer = SinglePlayerManager.Get().GetLocalPlayer();
+            List<BoardSquare> squaresInRegion = m_advanceScriptDestinations.GetSquaresInRegion();
+            if (squaresInRegion.Count > 0)
+            {
+                localPlayer.TeleportToBoardSquare(
+                    squaresInRegion[0],
+                    GetSpawnFacing(squaresInRegion[0].ToVector3()),
+                    ActorData.TeleportType.Debug,
+                    null);
+                CameraManager.Get().SetTargetObject(
+                    localPlayer.gameObject,
+                    CameraManager.CameraTargetReason.SinglePlayerStateScriptCommand);
+            }
+
+            m_markedForAdvanceState = true;
+        }
+#endif
     }
 
     public void OnExitingState()
@@ -359,11 +423,16 @@ public class SinglePlayerState
         {
             GameManager.Get().StopGame();
             GameFlowData.Get().gameState = GameState.EndingGame;
+            
+            // reactor
             if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
             {
                 UIGameOverScreen.Get().Setup(GameManager.Get().GameConfig.GameType, GameResult.TeamAWon, 1, 0);
             }
-
+            // rogues
+            // UIGameOverScreen.Get().Setup(GameType.Custom, GameResult.TeamAWon, 1, 0);
+            
+            
             if (AppState.GetCurrent() != AppState_GameTeardown.Get()
                 && AppState.GetCurrent() != AppState_FrontendLoadingScreen.Get())
             {
@@ -389,6 +458,14 @@ public class SinglePlayerState
     private void LogState(string action, bool eventLog)
     {
         string timeForLogging = MatchLogger.Get().GetTimeForLogging(false);
+#if SERVER
+        string time = string.Empty;
+        if (NetworkServer.active)
+        {
+            time = MatchLogger.Get().GetTimeForLogging(true);
+        }
+#endif
+
         int currentTurn = GameFlowData.Get().CurrentTurn;
         string name = SceneManager.GetActiveScene().name;
         int num = SinglePlayerCoordinator.Get().m_script.Length - 1;
@@ -397,15 +474,85 @@ public class SinglePlayerState
             : "state " + m_stateIndex + " of " + num;
         Log.Info(
             $"{HydrogenConfig.Get().Ticket.Handle} SinglePlayer level {name}: {action} {state} on turn {currentTurn}.  Time elapsed: {timeForLogging}.");
+        
+#if SERVER
+        if (eventLog
+            && NetworkServer.active
+            // reactor
+            && GameManager.Get().GameConfig.GameType == GameType.Tutorial)
+            // rogues
+            // && GameManager.Get().GameMission.IsMissionTagActive(MissionData.s_missionTagTutorial))
+        {
+            EventLogMessage eventLogMessage = new EventLogMessage("tutorial", "ExitState");
+            PlayerDetails playerDetails = null;
+            using (Dictionary<Player, PlayerDetails>.Enumerator enumerator =
+                   GameFlow.Get().playerDetails.GetEnumerator())
+            {
+                if (enumerator.MoveNext())
+                {
+                    KeyValuePair<Player, PlayerDetails> keyValuePair = enumerator.Current;
+                    playerDetails = keyValuePair.Value;
+                }
+            }
+
+            if (playerDetails != null)
+            {
+                eventLogMessage.AddData("AccountId", playerDetails.m_accountId);
+                eventLogMessage.AddData("Handle", playerDetails.m_handle);
+            }
+
+            eventLogMessage.AddData("Map", name);
+            eventLogMessage.AddData("StateTitle", state);
+            eventLogMessage.AddData("StateIndex", m_stateIndex);
+            eventLogMessage.AddData("CurrentTurn", currentTurn);
+            eventLogMessage.AddData("ElapsedTime", time);
+            eventLogMessage.AddData("ElapsedTimeExact", MatchLogger.Get().GetExactTimeForLogging());
+            eventLogMessage.AddData("ProcessCode", HydrogenConfig.Get().ProcessCode);
+            eventLogMessage.Write();
+        }
+#endif
     }
 
     public void OnTurnTick()
     {
         CheckMinHitPoints();
     }
-
+    
     private void CheckMinHitPoints()
     {
+#if SERVER
+        if (!NetworkServer.active)
+        {
+            return;
+        }
+        
+        foreach (ActorData actorData in GameFlowData.Get().GetActors())
+        {
+            if (actorData.IsHumanControlled())
+            {
+                if (m_minPlayerHitPoints > 0 && actorData.HitPoints < m_minPlayerHitPoints)
+                {
+                    SinglePlayerScriptedChat[] chatTextOnLowHealth =
+                        SinglePlayerCoordinator.Get().m_chatTextOnLowHealth;
+                    if (!chatTextOnLowHealth.IsNullOrEmpty())
+                    {
+                        foreach (SinglePlayerScriptedChat chatText in chatTextOnLowHealth)
+                        {
+                            SinglePlayerManager.Get().CallRpcPlayScriptedChat(chatText);
+                        }
+                    }
+
+                    actorData.SetHitPoints(actorData.GetMaxHitPoints());
+                }
+            }
+            else if (actorData.GetTeam() == Team.TeamA
+                     && m_minAllyHitPoints > 0
+                     && actorData.HitPoints < m_minAllyHitPoints)
+            {
+                actorData.SetHitPoints(actorData.GetMaxHitPoints());
+            }
+        }
+#endif
     }
 
     public bool GetHasTag(SinglePlayerTag tag)
@@ -427,10 +574,10 @@ public class SinglePlayerState
         {
             return new Vector3(1f, 0f, 0f);
         }
-
+        
         Vector3 vector = m_cameraRotationTarget.transform.position - spawnPosition;
         vector.y = 0f;
-
+        
         if (Mathf.Abs(vector.x) > Mathf.Abs(vector.z))
         {
             return vector.x > 0f
