@@ -253,6 +253,7 @@ public class SinglePlayerState
             }
         }
 
+#if !SERVER
         foreach (ActivatableUI activatableUI in m_uiActivationsOnEnter)
         {
             activatableUI.Activate();
@@ -319,6 +320,7 @@ public class SinglePlayerState
         {
             CameraManager.Get().m_abilityCinematicState = CameraManager.AbilityCinematicState.Never;
         }
+#endif
 
         if (GetHasTag(SinglePlayerTag.ClearCooldownsOnEnter))
         {
@@ -404,6 +406,7 @@ public class SinglePlayerState
             }
         }
 
+#if !SERVER
         foreach (ActivatableUI activatableUI in m_uiActivationsOnExit)
         {
             activatableUI.Activate();
@@ -418,12 +421,14 @@ public class SinglePlayerState
         {
             CameraManager.Get().m_abilityCinematicState = CameraManager.AbilityCinematicState.Default;
         }
+#endif
 
         if (GetHasTag(SinglePlayerTag.ShutdownOnExit))
         {
             GameManager.Get().StopGame();
             GameFlowData.Get().gameState = GameState.EndingGame;
-            
+
+#if !SERVER
             // reactor
             if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
             {
@@ -431,8 +436,8 @@ public class SinglePlayerState
             }
             // rogues
             // UIGameOverScreen.Get().Setup(GameType.Custom, GameResult.TeamAWon, 1, 0);
-            
-            
+#endif
+
             if (AppState.GetCurrent() != AppState_GameTeardown.Get()
                 && AppState.GetCurrent() != AppState_FrontendLoadingScreen.Get())
             {
