@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using TMPro;
@@ -27,11 +29,11 @@ public class SinglePlayerManager : NetworkBehaviour
     private bool[] m_teamPlayerIconForceOff = new bool[5];
     private bool[] m_enemyPlayerIconForceOff = new bool[5];
 
-    [HideInInspector]
+    [HideInInspector] // removed in rogues as useless
     private bool m_errorTriggered;
     private int m_lastTutorialTextState = -1;
     private int m_lastTutorialCameraState = -1;
-    private static int kRpcRpcPlayScriptedChat;
+    private static int kRpcRpcPlayScriptedChat; // removed in rogues
 
     public int Networkm_currentScriptIndex
     {
@@ -70,12 +72,19 @@ public class SinglePlayerManager : NetworkBehaviour
     static SinglePlayerManager()
     {
         m_uniqueNetworkHash = "FFFFFF24601";
+        
+        // reactor
         kRpcRpcPlayScriptedChat = 884030896;
         RegisterRpcDelegate(typeof(SinglePlayerManager), kRpcRpcPlayScriptedChat, InvokeRpcRpcPlayScriptedChat);
         NetworkCRC.RegisterBehaviour("SinglePlayerManager", 0);
+        // rogues
+        // NetworkBehaviour.RegisterRpcDelegate(
+        //     typeof(SinglePlayerManager),
+        //     "RpcPlayScriptedChat",
+        //     new CmdDelegate(InvokeRpcRpcPlayScriptedChat));
     }
 
-    private static GameObject OnSpawn(Vector3 position, NetworkHash128 assetId)
+    private static GameObject OnSpawn(Vector3 position, NetworkHash128 assetId) // Guid assetId  in rogues
     {
         GameObject gameObject = new GameObject("SinglePlayerManagerGameObject");
         SinglePlayerManager singlePlayerManager = gameObject.AddComponent<SinglePlayerManager>();
@@ -96,12 +105,14 @@ public class SinglePlayerManager : NetworkBehaviour
         }
     }
 
+    // empty in rogues
     public static void RegisterSpawnHandler()
     {
         NetworkHash128 assetId = NetworkHash128.Parse(m_uniqueNetworkHash);
         ClientScene.RegisterSpawnHandler(assetId, OnSpawn, OnDespawn);
     }
 
+    // empty in rogues
     public static void UnregisterSpawnHandler()
     {
         NetworkHash128 assetId = NetworkHash128.Parse(m_uniqueNetworkHash);
@@ -110,7 +121,27 @@ public class SinglePlayerManager : NetworkBehaviour
 
     public static SinglePlayerManager Get()
     {
-        return SinglePlayerCoordinator.Get() != null ? s_instance : null;
+        if (SinglePlayerCoordinator.Get() == null)
+        {
+            return null;
+        }
+        
+#if SERVER
+        if (NetworkServer.active && s_instance == null)
+        {
+            GameObject gameObject = new GameObject("SinglePlayerManagerGameObject");
+            gameObject.AddComponent<NetworkIdentity>();
+            s_instance = gameObject.AddComponent<SinglePlayerManager>();
+            // custom
+            NetworkHash128 assetId = NetworkHash128.Parse(m_uniqueNetworkHash);
+            NetworkServer.Spawn(gameObject, assetId);
+            // reactor
+            // Guid guid = Guid.Parse(m_uniqueNetworkHash);
+            // NetworkServer.Spawn(gameObject, guid);
+        }
+#endif
+        
+        return s_instance;
     }
 
     public void SetScriptIndex(int newIndex)
@@ -140,6 +171,13 @@ public class SinglePlayerManager : NetworkBehaviour
                     }
                 }
             }
+#if SERVER
+            else if (NetworkServer.active && m_pausedTimer)
+            {
+                m_pausedTimer = false;
+                GameFlowData.Get().SetPausedForSinglePlayer(m_pausedTimer);
+            }
+#endif
 
             ActorData localPlayer = GetLocalPlayer();
             if ((bool)localPlayer)
@@ -171,7 +209,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         SetScriptIndex(value);
     }
 
@@ -181,7 +219,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         Networkm_canEndTurn = canEnd;
     }
 
@@ -306,12 +344,12 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.m_startTime == 0f)
         {
             return;
         }
-
+        
         if (currentState.GetDuration() > currentState.m_advanceAfterSeconds / Time.timeScale)
         {
             AdvanceScript();
@@ -325,7 +363,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnDecisionEnd))
         {
             AdvanceScript();
@@ -339,7 +377,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnResolutionEnd))
         {
             AdvanceScript();
@@ -409,8 +447,95 @@ public class SinglePlayerManager : NetworkBehaviour
 
     public void OnTurnTick()
     {
+#if SERVER
+        // added in rogues
+        if (NetworkServer.active)
+        {
+            if (SinglePlayerCoordinator.Get() == null)
+            {
+                return;
+            }
+
+            if (m_currentScriptIndex == -1)
+            {
+                SetScriptIndex(0);
+            }
+
+            foreach (ActorData actorData in GameFlowData.Get().GetActors())
+            {
+                if (actorData.IsHumanControlled())
+                {
+                    SinglePlayerState currentState = GetCurrentState();
+                    if (currentState == null)
+                    {
+                        break;
+                    }
+
+                    currentState.OnTurnTick();
+                    if (currentState.m_advanceScriptDestinations != null && currentState.m_advanceScriptDestinations
+                            .GetActorsInRegion().Contains(actorData))
+                    {
+                        currentState.m_markedForAdvanceState = true;
+                    }
+
+                    if (currentState.m_minPlayerHitPoints > 0
+                        && actorData.HitPoints < currentState.m_minPlayerHitPoints)
+                    {
+                        actorData.SetHitPoints(actorData.GetMaxHitPoints());
+                    }
+
+                    if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnNewTurn))
+                    {
+                        currentState.m_markedForAdvanceState = true;
+                    }
+
+                    if (currentState.m_markedForAdvanceState)
+                    {
+                        AdvanceScript();
+                    }
+
+                    break;
+                }
+            }
+        }
+#endif
     }
 
+#if SERVER
+    // added in rogues
+    private void RespawnActor(ActorData actor)
+    {
+        if (NetworkServer.active)
+        {
+            if (SinglePlayerCoordinator.Get() == null)
+            {
+                return;
+            }
+
+            SinglePlayerState currentState = GetCurrentState();
+            BoardSquare spawnSquare;
+            if (currentState != null && currentState.m_respawnDestinations.m_quads.Length != 0)
+            {
+                List<BoardSquare> squaresInRegion = currentState.m_respawnDestinations.GetSquaresInRegion();
+                if (squaresInRegion.Count > 0)
+                {
+                    spawnSquare = squaresInRegion[0];
+                }
+                else
+                {
+                    spawnSquare = SpawnPointManager.Get().GetSpawnSquare(actor, false);
+                }
+            }
+            else
+            {
+                spawnSquare = SpawnPointManager.Get().GetSpawnSquare(actor, false);
+            }
+
+            actor.GetComponent<ServerActorController>().RespawnOnSquare(spawnSquare);
+        }
+    }
+#endif
+    
     public void DebugAdvanceScript() // _001D
     {
         AdvanceScript();
@@ -471,7 +596,7 @@ public class SinglePlayerManager : NetworkBehaviour
                     advanceForDeath = false;
                     break;
                 }
-                case SinglePlayerState.ActorDiesTrigger.SpawnedNPCs:
+                case SinglePlayerState.ActorDiesTrigger.SpawnedNPCs: // case removed in rogues
                 {
                     advanceForDeath = NPCCoordinator.IsSpawnedNPC(actor);
                     break;
@@ -512,7 +637,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnMoveEntered))
         {
             AdvanceScript();
@@ -527,7 +652,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnAbilitySelected))
         {
             AdvanceScript();
@@ -542,7 +667,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnAbilityTargeted))
         {
             AdvanceScript();
@@ -557,7 +682,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.AdvanceOnLockInEntered))
         {
             AdvanceScript();
@@ -601,13 +726,13 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         HashSet<BoardSquare> advanceDestinations = GetCurrentState().GetAdvanceDestinations();
         if (advanceDestinations == null || advanceDestinations.Count <= 0)
         {
             return;
         }
-
+        
         m_advanceDestinationsHighlight = HighlightUtils.Get().CreateBoundaryHighlight(advanceDestinations, Color.white);
         if (m_advanceDestinationsHighlight)
         {
@@ -621,7 +746,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         m_errorTriggered = false;
         RecalcCanEndTurn();
         if (GetCanEndTurnFlag())
@@ -638,7 +763,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         foreach (ActivatableObject activatableObject in SinglePlayerCoordinator.Get().m_activationsOnForbiddenPath)
         {
             if (activatableObject == null)
@@ -668,7 +793,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (SinglePlayerCoordinator.Get() != null)
         {
             foreach (ActivatableObject a in SinglePlayerCoordinator.Get().m_activationsOnForbiddenPath)
@@ -700,7 +825,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         if (!IsMovementAllowed())
         {
             if (SinglePlayerCoordinator.Get() != null)
@@ -724,7 +849,7 @@ public class SinglePlayerManager : NetworkBehaviour
 
             return;
         }
-
+        
         if (!IsShootAndMoveAllowed())
         {
             if (SinglePlayerCoordinator.Get() != null)
@@ -754,7 +879,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return;
         }
-
+        
         foreach (ActivatableObject a in SinglePlayerCoordinator.Get().m_activationsOnFailedToUseAllAbilities)
         {
             if (a == null)
@@ -791,7 +916,7 @@ public class SinglePlayerManager : NetworkBehaviour
             {
                 return Get().EnableAutoQueuedAbilitiesForNPCs();
             }
-
+            
             return true;
         }
 
@@ -853,7 +978,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return false;
         }
-
+        
         return SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion().Contains(square);
     }
 
@@ -886,7 +1011,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return true;
         }
-
+        
         AbilityData abilityData = GetLocalPlayer().GetAbilityData();
         return abilityData.HasQueuedAbilities() && !abilityData.GetQueuedAbilitiesAllowMovement();
     }
@@ -897,19 +1022,32 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             return true;
         }
-
+        
         SinglePlayerState currentState = GetCurrentState();
-        if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
+        if (currentState != null && currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireDash))
         {
             return true;
         }
-
-        if (currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireChasing))
+        
+        if (currentState != null && currentState.GetHasTag(SinglePlayerState.SinglePlayerTag.RequireChasing))
         {
+            bool isChasing = false;
             ActorData localPlayer = GetLocalPlayer();
-            bool isChasing = !NetworkServer.active
-                             && localPlayer.GetComponent<LineData>() != null
-                             && localPlayer.GetComponent<LineData>().GetIsChasing();
+            
+#if SERVER
+            // added in rogues
+            if (NetworkServer.active && ServerActionBuffer.Get() != null)
+            {
+                isChasing = ServerActionBuffer.Get().IsChasing(localPlayer);
+            }
+#endif
+            
+            if (!NetworkServer.active
+                && localPlayer.GetComponent<LineData>() != null)
+            {
+                isChasing = localPlayer.GetComponent<LineData>().GetIsChasing();
+            }
+
             return isChasing;
         }
 
@@ -919,7 +1057,16 @@ public class SinglePlayerManager : NetworkBehaviour
         }
 
         ActorData localPlayer2 = GetLocalPlayer();
+        bool chasing = false;
         List<GridPos> path = null;
+        
+#if SERVER
+        if (NetworkServer.active && ServerActionBuffer.Get() != null)
+        {
+            path = ServerActionBuffer.Get().GetGridPosPath(localPlayer2, out chasing);
+        }
+#endif
+        
         if (!NetworkServer.active && localPlayer2.GetComponent<LineData>())
         {
             path = localPlayer2.GetComponent<LineData>().GetGridPosPath();
@@ -927,6 +1074,14 @@ public class SinglePlayerManager : NetworkBehaviour
 
         if (path != null)
         {
+#if SERVER
+            // added in rogues
+            if (chasing)
+            {
+                return true;
+            }
+#endif
+            
             foreach (GridPos pos in path)
             {
                 if (SinglePlayerCoordinator.Get().m_forbiddenSquares.GetSquaresInRegion()
@@ -957,6 +1112,15 @@ public class SinglePlayerManager : NetworkBehaviour
 
         BoardSquare item = null;
         ActorData localPlayer = GetLocalPlayer();
+        
+#if SERVER
+        // added in rogues
+        if (NetworkServer.active)
+        {
+            ServerActionBuffer.Get().GatherMovementInfo(localPlayer, out item, out _, out _);
+        }
+#endif
+
         if (!NetworkServer.active)
         {
             List<GridPos> gridPosPath = localPlayer.GetComponent<LineData>().GetGridPosPath();
@@ -997,6 +1161,15 @@ public class SinglePlayerManager : NetworkBehaviour
         ActorData localPlayer = GetLocalPlayer();
         List<GridPos> path = null;
         bool isChasing = false;
+        
+#if SERVER
+        // added in rogues
+        if (NetworkServer.active)
+        {
+            path = ServerActionBuffer.Get().GetGridPosPath(localPlayer, out isChasing);
+        }
+#endif
+
         if (!NetworkServer.active)
         {
             path = localPlayer.GetComponent<LineData>().GetGridPosPath();
@@ -1050,7 +1223,7 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             allTargetersSet = true;
         }
-        else if (selectedAbility.Targeter != null)
+        else if (selectedAbility != null && selectedAbility.Targeter != null)
         {
             allTargetersSet = selectedAbility.Targeter.GetNumActorsInRange()
                               >= currentState.m_minAbilityTargetsForAiming;
@@ -1134,7 +1307,10 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             if (!leftClick.activeSelf)
             {
+                // reactor
                 UIManager.SetGameObjectActive(leftClick, true);
+                // rogues
+                // leftClick.SetActive(true);
             }
 
             Canvas c = leftClick.GetComponentInParent<Canvas>();
@@ -1145,11 +1321,14 @@ public class SinglePlayerManager : NetworkBehaviour
                 vp.x * r.sizeDelta.x - r.sizeDelta.x * 0.5f,
                 vp.y * r.sizeDelta.y - r.sizeDelta.y * 0.5f);
             string txt = currentState.GetLeftClickText();
-            leftClickText.text = txt != string.Empty ? txt : StringUtil.TR("LeftClick", "Tutorial");
+            leftClickText.text = txt != string.Empty ? txt : StringUtil.TR("LeftClick", "Tutorial"); // checks old value in rogues
         }
         else if (leftClick.activeSelf)
         {
+            // reactor
             UIManager.SetGameObjectActive(leftClick, false);
+            // rogues
+            // leftClick.SetActive(false);
         }
 
         List<BoardSquare> rightSquares = currentState.m_rightClickHighlight.GetSquaresInRegion();
@@ -1157,7 +1336,10 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             if (!rightClick.activeSelf)
             {
+                // reactor
                 UIManager.SetGameObjectActive(rightClick, true);
+                // rogues
+                // rightClick.SetActive(true);
             }
 
             Canvas c2 = rightClick.GetComponentInParent<Canvas>();
@@ -1168,9 +1350,9 @@ public class SinglePlayerManager : NetworkBehaviour
                 vp2.x * r2.sizeDelta.x - r2.sizeDelta.x * 0.5f,
                 vp2.y * r2.sizeDelta.y - r2.sizeDelta.y * 0.5f);
             string txt2 = currentState.GetRightClickText();
-            rightClickText.text = txt2 != string.Empty ? txt2 : StringUtil.TR("RightClick", "Tutorial");
+            rightClickText.text = txt2 != string.Empty ? txt2 : StringUtil.TR("RightClick", "Tutorial"); // checks old value in rogues
         }
-
+        
         bool shiftEnabled = Options_UI.Get() != null && Options_UI.Get().GetShiftClickForMovementWaypoints();
         List<BoardSquare> shiftSquares = currentState.m_shiftRightClickHighlight.GetSquaresInRegion();
         if (shiftSquares.Count > 0)
@@ -1179,7 +1361,10 @@ public class SinglePlayerManager : NetworkBehaviour
             {
                 if (!shiftRightClick.activeSelf)
                 {
+                    // reactor
                     UIManager.SetGameObjectActive(shiftRightClick, true);
+                    // rogues
+                    // shiftRightClick.SetActive(true);
                 }
 
                 Canvas c3 = shiftRightClick.GetComponentInParent<Canvas>();
@@ -1193,27 +1378,30 @@ public class SinglePlayerManager : NetworkBehaviour
                     vp3.x * r3.sizeDelta.x - r3.sizeDelta.x * 0.5f,
                     vp3.y * r3.sizeDelta.y - r3.sizeDelta.y * 0.5f);
                 string txt3 = currentState.GetShiftRightClickText();
-                shiftRightClickText.text = txt3 != string.Empty ? txt3 : StringUtil.TR("RightClick", "Tutorial");
+                shiftRightClickText.text = txt3 != string.Empty ? txt3 : StringUtil.TR("RightClick", "Tutorial"); // checks old value in rogues
             }
             else
             {
                 if (!rightClick.activeSelf)
                 {
+                    // reactor
                     UIManager.SetGameObjectActive(rightClick, true);
+                    // rogues
+                    // rightClick.SetActive(true);
                 }
 
                 Canvas c4 = rightClick.GetComponentInParent<Canvas>();
                 RectTransform r4 = c4 != null ? c4.transform as RectTransform : null;
                 Vector2 vp4 = Camera.main.WorldToViewportPoint(
                     new Vector3(
-                        shiftSquares[0].worldX,
-                        1.5f + currentState.m_rightClickHeight,
+                        shiftSquares[0].worldX, 
+                        1.5f + currentState.m_rightClickHeight, 
                         shiftSquares[0].worldY));
                 (rightClick.transform as RectTransform).anchoredPosition = new Vector2(
                     vp4.x * r4.sizeDelta.x - r4.sizeDelta.x * 0.5f,
                     vp4.y * r4.sizeDelta.y - r4.sizeDelta.y * 0.5f);
                 string txt4 = currentState.GetRightClickText();
-                rightClickText.text = txt4 != string.Empty ? txt4 : StringUtil.TR("RightClick", "Tutorial");
+                rightClickText.text = txt4 != string.Empty ? txt4 : StringUtil.TR("RightClick", "Tutorial"); // checks old value in rogues
             }
         }
 
@@ -1221,7 +1409,10 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             if (rightClick.activeSelf)
             {
+                // reactor
                 UIManager.SetGameObjectActive(rightClick, false);
+                // rogues
+                // rightClick.SetActive(false);
             }
         }
 
@@ -1229,7 +1420,10 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             if (shiftRightClick.activeSelf)
             {
+                // reactor
                 UIManager.SetGameObjectActive(shiftRightClick, false);
+                // rogues
+                // shiftRightClick.SetActive(false);
             }
         }
     }
@@ -1245,12 +1439,22 @@ public class SinglePlayerManager : NetworkBehaviour
         string errorText = currentState != null ? currentState.GetErrorStringOnForbiddenPath() : string.Empty;
         if (m_errorTriggered && errorText != string.Empty)
         {
+            // reactor
             UIManager.SetGameObjectActive(panel, true);
             text.text = errorText;
+            // rogues
+            // panel.SetActive(true);
+            // if (text.text != errorText)
+            // {
+            //     text.text = errorText;
+            // }
         }
         else
         {
+            // reactor
             UIManager.SetGameObjectActive(panel, false);
+            // rogues
+            // panel.SetActive(false);
         }
     }
 
@@ -1287,7 +1491,10 @@ public class SinglePlayerManager : NetworkBehaviour
 
         if (currentState.m_tutorialBoxText.m_location == null)
         {
+            // reactor
             UIManager.SetGameObjectActive(panel, false);
+            // rogues
+            // panel.SetActive(false);
         }
         else
         {
@@ -1297,7 +1504,10 @@ public class SinglePlayerManager : NetworkBehaviour
             {
                 m_lastTutorialTextState = currentState.m_stateIndex;
                 text.text = currentState.GetTutorialBoxText();
+                // reactor
                 UIManager.SetGameObjectActive(panel, true);
+                // rogues
+                // panel.SetActive(true);
             }
 
             Vector2 vp = Camera.main.WorldToViewportPoint(currentState.m_tutorialBoxText.m_location.transform.position);
@@ -1308,7 +1518,10 @@ public class SinglePlayerManager : NetworkBehaviour
 
         if (currentState.m_tutorialBoxText2.m_location == null)
         {
+            // reactor
             UIManager.SetGameObjectActive(panel2, false);
+            // rogues
+            // panel2.SetActive(false);
         }
         else
         {
@@ -1318,7 +1531,10 @@ public class SinglePlayerManager : NetworkBehaviour
             {
                 m_lastTutorialTextState = currentState.m_stateIndex;
                 text2.text = currentState.GetTutorialBoxText2();
+                // reactor
                 UIManager.SetGameObjectActive(panel2, true);
+                // rogues
+                // panel2.SetActive(true);
             }
 
             Vector2 vp2 =
@@ -1330,7 +1546,10 @@ public class SinglePlayerManager : NetworkBehaviour
 
         if (currentState.m_tutorialBoxText3.m_location == null)
         {
+            // reactor
             UIManager.SetGameObjectActive(panel3, false);
+            // rogues
+            // panel3.SetActive(false);
         }
         else
         {
@@ -1340,7 +1559,10 @@ public class SinglePlayerManager : NetworkBehaviour
             {
                 m_lastTutorialTextState = currentState.m_stateIndex;
                 text3.text = currentState.GetTutorialBoxText3();
+                // reactor
                 UIManager.SetGameObjectActive(panel3, true);
+                // rogues
+                // panel3.SetActive(true);
             }
 
             Vector2 vp3 =
@@ -1352,7 +1574,10 @@ public class SinglePlayerManager : NetworkBehaviour
 
         if (currentState.m_tutorialCameraMovementText.m_location == null)
         {
+            // reactor
             UIManager.SetGameObjectActive(panelCameraMovement, false);
+            // rogues
+            // panelCameraMovement.SetActive(false);
         }
         else
         {
@@ -1362,7 +1587,10 @@ public class SinglePlayerManager : NetworkBehaviour
             {
                 m_lastTutorialTextState = currentState.m_stateIndex;
                 textCameraMovement.text = currentState.GetTutorialCameraMovementText();
+                //reactor
                 UIManager.SetGameObjectActive(panelCameraMovement, true);
+                // rogues
+                // panelCameraMovement.SetActive(true);
             }
 
             Vector2 vp4 = Camera.main.WorldToViewportPoint(
@@ -1374,7 +1602,10 @@ public class SinglePlayerManager : NetworkBehaviour
 
         if (currentState.m_tutorialCameraRotationText.m_location == null)
         {
+            // reactor
             UIManager.SetGameObjectActive(panelCameraRotation, false);
+            // rogues
+            // panelCameraRotation.SetActive(false);
             return;
         }
 
@@ -1384,7 +1615,10 @@ public class SinglePlayerManager : NetworkBehaviour
         {
             m_lastTutorialTextState = currentState.m_stateIndex;
             textCameraRotation.text = currentState.GetTutorialCameraRotationText();
+            // reactor
             UIManager.SetGameObjectActive(panelCameraRotation, true);
+            // rogues
+            // panelCameraRotation.SetActive(true);
         }
 
         Vector2 vp5 =
@@ -1509,8 +1743,13 @@ public class SinglePlayerManager : NetworkBehaviour
         activatableUI.Activate();
         activatableUI.m_uiElement = ActivatableUI.UIElement.FadeOutPanel;
         activatableUI.Activate();
+        
+        // reactor
         UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar, false);
         UIManager.SetGameObjectActive(HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText, false);
+        // rogues
+        // HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialBar.gameObject.SetActive(false);
+        // HUD_UI.Get().m_mainScreenPanel.m_playerDisplayPanel.m_tutorialText.gameObject.SetActive(false);
     }
 
     [ClientRpc]
@@ -1527,6 +1766,7 @@ public class SinglePlayerManager : NetworkBehaviour
     {
     }
 
+    // changed in rogues
     protected static void InvokeRpcRpcPlayScriptedChat(NetworkBehaviour obj, NetworkReader reader)
     {
         if (!NetworkClient.active)
@@ -1538,6 +1778,7 @@ public class SinglePlayerManager : NetworkBehaviour
         ((SinglePlayerManager)obj).RpcPlayScriptedChat(GeneratedNetworkCode._ReadSinglePlayerScriptedChat_None(reader));
     }
 
+    // changed in rogues
     public void CallRpcPlayScriptedChat(SinglePlayerScriptedChat chatText)
     {
         if (!NetworkServer.active)
@@ -1555,6 +1796,7 @@ public class SinglePlayerManager : NetworkBehaviour
         SendRPCInternal(networkWriter, 0, "RpcPlayScriptedChat");
     }
 
+    // changed in rogues
     public override bool OnSerialize(NetworkWriter writer, bool forceAll)
     {
         if (forceAll)
@@ -1595,6 +1837,7 @@ public class SinglePlayerManager : NetworkBehaviour
         return flag;
     }
 
+    // changed in rogues
     public override void OnDeserialize(NetworkReader reader, bool initialState)
     {
         if (initialState)
