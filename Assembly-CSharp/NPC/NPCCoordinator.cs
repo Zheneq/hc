@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
+// reworked in rogues
 public class NPCCoordinator : MonoBehaviour
 {
     public enum LoadingStateEnum
@@ -36,10 +37,16 @@ public class NPCCoordinator : MonoBehaviour
 
         LoadingState = LoadingStateEnum.WaitingToLoad;
         LoadNPCs();
+#if SERVER
+        GameFlowData.s_onAddActor += OnActorAddedToGameFlowData; // added in rogues
+#endif
     }
 
     private void OnDestroy()
     {
+#if SERVER
+        GameFlowData.s_onAddActor -= OnActorAddedToGameFlowData; // added in rogues
+#endif
         s_instance = null;
     }
 
@@ -143,6 +150,15 @@ public class NPCCoordinator : MonoBehaviour
                     nPCSpawner.m_skinIndex,
                     nPCSpawner.m_patternIndex,
                     nPCSpawner.m_colorIndex);
+#if SERVER
+                // custom
+                if (NetworkServer.active && ServerGameManager.Get() != null)
+                {
+                    ServerGameManager.Get().LoadCharacterResourceLink(
+                        nPCSpawner.m_characterResourceLink,
+                        linkVisualInfo);
+                }
+#endif
                 if (!NetworkServer.active && ClientGameManager.Get() != null)
                 {
                     ClientGameManager.Get().LoadCharacterResourceLink(
@@ -165,6 +181,13 @@ public class NPCCoordinator : MonoBehaviour
         }
 
         bool isServerDoneLoading = true;
+#if SERVER
+        // added in rogues
+        if (NetworkServer.active && ServerGameManager.Get() != null)
+        {
+            isServerDoneLoading = ServerGameManager.Get().NumCharacterResourcesCurrentlyLoading == 0;
+        }
+#endif
         bool isClientDoneLoading = true;
         if (!NetworkServer.active && ClientGameManager.Get() != null)
         {
@@ -178,9 +201,73 @@ public class NPCCoordinator : MonoBehaviour
     }
 
 #if SERVER
-    // TODO NPC custom placeholder code
+    // based on rogues
     public void OnTurnStart()
     {
+        if (!NetworkServer.active)
+        {
+            return;
+        }
+
+        foreach (NPCSpawner spawner in m_spawners)
+        {
+            spawner.OnTurnStart();
+        }
+    }
+
+    // custom
+    public void OnScriptUpdate(int newScriptIndex)
+    {
+        if (!NetworkServer.active)
+        {
+            return;
+        }
+
+        foreach (NPCSpawner spawner in m_spawners)
+        {
+            spawner.OnScriptUpdate(newScriptIndex);
+        }
+    }
+
+    // custom
+    private void OnActorAddedToGameFlowData(ActorData actor)
+    {
+        if (!NetworkServer.active)
+        {
+            return;
+        }
+
+        foreach (NPCSpawner spawner in m_spawners)
+        {
+            if (spawner.m_id == actor.SpawnerId)
+            {
+                spawner.OnActorAddedToGameFlowData(actor);
+            }
+        }
+    }
+
+    // custom
+    public void Spawn(string spawnerTitle)
+    {
+        foreach (NPCSpawner spawner in m_spawners)
+        {
+            if (spawner.m_spawnerTitle == spawnerTitle && !spawner.HasSpawned())
+            {
+                spawner.Spawn();
+            }
+        }
+    }
+    
+    // custom
+    public void Despawn(string spawnerTitle)
+    {
+        foreach (NPCSpawner spawner in m_spawners)
+        {
+            if (spawner.m_spawnerTitle == spawnerTitle)
+            {
+                spawner.Despawn();
+            }
+        }
     }
 #endif
 }

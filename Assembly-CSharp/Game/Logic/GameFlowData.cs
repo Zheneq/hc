@@ -1451,6 +1451,15 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 				}
 				m_deploymentStartTime = Time.realtimeSinceStartup;
 				break;
+#if SERVER
+			// custom
+			case GameState.BothTeams_Resolve:
+				if (NetworkServer.active && SinglePlayerManager.Get() != null)
+				{
+					SinglePlayerManager.Get().OnDecisionEnd();
+				}
+				break;
+#endif
 			case GameState.BothTeams_Decision:
 				if (NetworkServer.active)
 				{
@@ -1961,10 +1970,24 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 
 	private void UpdateTimeRemaining()
 	{
+#if SERVER
+		// custom: the tutorial pauses the decision timer while it waits for the player (SinglePlayerTag.PauseTimer),
+		// but locking in still has to end the decision
+		bool isTimerPausedByTutorial = m_pausedForSinglePlayer && !m_pausedByPlayerRequest;
+		if (NetworkServer.active
+		    && isTimerPausedByTutorial
+		    && IsInDecisionState())
+		{
+			if (TryEndDecisionIfAllLockedIn())
+			{
+				return;
+			}
+		}
+#endif
 		// rogues
 		// if (!GameFlowData.PauseForPvEPrototype() && ...
 		if (!m_pause
-			&& Get().IsInDecisionState()
+			&& IsInDecisionState()
 			&& m_timeRemainingInDecision >= -m_timeRemainingInDecisionOverflow)
 		{
 			m_timeRemainingInDecision -= Time.deltaTime;
@@ -1976,21 +1999,16 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 #if SERVER
 			// TODO check GameFlow.TeamDecisionPhaseFinished_FCFS
 			// custom
-			if (NetworkServer.active
-			    && (m_timeRemainingInDecision <= 0
-			        || GameManager.Get().GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial))
-			    && GetActors().All(a => a.GetActorTurnSM().CurrentState == TurnStateEnum.CONFIRMED
-			                            || !a.IsHumanControlled()
-			                            || a.PlayerIndex == PlayerData.s_invalidPlayerIndex)) // Oz why
+			if (NetworkServer.active)
 			{
-				foreach (ActorData actor in GetActors())
+				bool isAntiSocial = GameManager.Get().GameConfig.InstanceSubType.HasMod(GameSubType.SubTypeMods.AntiSocial);
+				if (m_timeRemainingInDecision <= 0 || isAntiSocial)
 				{
-					var turnSm = actor.gameObject.GetComponent<ActorTurnSM>();
-					turnSm.OnMessage(TurnMessage.BEGIN_RESOLVE);
+					if (TryEndDecisionIfAllLockedIn())
+					{
+						return;
+					}
 				}
-				ServerActionBuffer.Get().ActionPhase = ActionBufferPhase.Abilities;
-				gameState = GameState.BothTeams_Resolve;
-				return;
 			}
 
 			// server-only
@@ -2058,6 +2076,28 @@ public class GameFlowData : NetworkBehaviour, IGameEventListener
 #endif
 		}
 	}
+
+#if SERVER
+	// custom
+	private bool TryEndDecisionIfAllLockedIn()
+	{
+		bool allLockedIn = GetActors().All(
+			a => a.GetActorTurnSM().CurrentState == TurnStateEnum.CONFIRMED
+			     || !a.IsHumanControlled()
+			     || a.PlayerIndex == PlayerData.s_invalidPlayerIndex); // Oz why
+		if (!allLockedIn)
+		{
+			return false;
+		}
+		foreach (ActorData actor in GetActors())
+		{
+			actor.gameObject.GetComponent<ActorTurnSM>().OnMessage(TurnMessage.BEGIN_RESOLVE);
+		}
+		ServerActionBuffer.Get().ActionPhase = ActionBufferPhase.Abilities;
+		gameState = GameState.BothTeams_Resolve;
+		return true;
+	}
+#endif
 
 	private void DEBUG_DisplayGameInfo()
 	{

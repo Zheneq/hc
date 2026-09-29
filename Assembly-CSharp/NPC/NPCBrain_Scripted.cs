@@ -82,6 +82,8 @@ public class NPCBrain_Scripted : NPCBrain
 		}
 		if (npcbrain != null)
 		{
+			botController.PushBrain(npcbrain); // custom
+			
 			yield return botController.StartCoroutine(npcbrain.DecideAbilities());
 			Destroy(this);
 			yield break;

@@ -191,6 +191,13 @@ public class SinglePlayerManager : NetworkBehaviour
 
             UpdateDestinationHighlights();
             RecalcCanEndTurn();
+#if SERVER
+            // custom
+            if (NetworkServer.active && NPCCoordinator.Get() != null)
+            {
+                NPCCoordinator.Get().OnScriptUpdate(newIndex);
+            }
+#endif
             if (nextState != null && nextState.m_markedForAdvanceState)
             {
                 newIndex++;

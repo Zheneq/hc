@@ -1,3 +1,5 @@
+// SERVER
+// ROGUES
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -380,6 +382,19 @@ public class SinglePlayerState
             }
 
             m_markedForAdvanceState = true;
+        }
+
+        // custom
+        if (NPCCoordinator.Get() != null)
+        {
+            foreach (string spawnerTitle in m_npcsToSpawnOnEnter)
+            {
+                NPCCoordinator.Get().Spawn(spawnerTitle);
+            }
+            foreach (string spawnerTitle in m_npcsToDespawnOnEnter)
+            {
+                NPCCoordinator.Get().Despawn(spawnerTitle);
+            }
         }
 #endif
     }

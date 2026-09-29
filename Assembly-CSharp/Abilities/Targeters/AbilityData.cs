@@ -2670,7 +2670,7 @@ public class AbilityData : NetworkBehaviour
 	public bool ValidateActionRequest(ActionType actionType, List<AbilityTarget> targets, bool checkIfRequestable = true)  // no checkIfRequestable in reactor
 	{
 		bool result = true;
-		bool isNotBot = m_actor.GetPlayerDetails().IsHumanControlled; // custom
+		bool isNotBot = m_actor.GetPlayerDetails()?.IsHumanControlled ?? false; // custom null check (tutorial bots have no PlayerDetails)
 		Ability abilityOfActionType = GetAbilityOfActionType(actionType);
 		if (checkIfRequestable && !ValidateActionIsRequestable(actionType))
 		{

@@ -16,10 +16,15 @@ public class BotController : MonoBehaviour
 #endif
 
 	[HideInInspector]
+#if !SERVER
 	// reactor
 	public Stack<NPCBrain> previousBrainStack;
+#else
 	// rogues
 	// public Stack<NPCBrain> m_brainStack = new Stack<NPCBrain>();
+	// custom
+	public Stack<NPCBrain> previousBrainStack = new Stack<NPCBrain>(); // custom: initializer as in rogues, so a spawner can push a brain before Start()
+#endif
 	
 #if SERVER
 	public Stack<NPCBrain> m_brainStack => previousBrainStack;  // custom for rogues
@@ -55,8 +60,10 @@ public class BotController : MonoBehaviour
 			}
 		}
 		// end removed in rogues
-		
+
+#if !SERVER
 		previousBrainStack = new Stack<NPCBrain>(); // moved to initializer in rogues
+#endif
 		if (GetComponent<NPCBrain>() == null)
 		{
 			if (component.GetClassName() != "Sniper"
@@ -313,9 +320,14 @@ public class BotController : MonoBehaviour
 	
 #if SERVER
 	// added in rogues
+	// public NPCBrain ActiveBrain()
+	// {
+	// 	return m_brainStack.Peek();
+	// }
+	// custom
 	public NPCBrain ActiveBrain()
 	{
-		return m_brainStack.Peek();
+		return m_brainStack.Count > 0 ? m_brainStack.Peek() : null;
 	}
 
 	// added in rogues
@@ -334,11 +346,13 @@ public class BotController : MonoBehaviour
 	// added in rogues
 	public void UpdateBrainStack()
 	{
-		NPCBrain npcbrain = m_brainStack.Peek();
-		while (npcbrain == null || npcbrain.ShouldStopBrain())
+		NPCBrain npcbrain = ActiveBrain();
+		while (
+			m_brainStack.Count > 0 // custom
+			&& (npcbrain == null || npcbrain.ShouldStopBrain()))
 		{
 			m_brainStack.Pop();
-			npcbrain = m_brainStack.Peek();
+			npcbrain = ActiveBrain();
 		}
 	}
 
@@ -363,7 +377,7 @@ public class BotController : MonoBehaviour
 	public bool ShouldDoAbilityBeforeMovement()
 	{
 		bool result = false;
-		NPCBrain npcbrain = m_brainStack.Peek();
+		NPCBrain npcbrain = ActiveBrain();
 		if (npcbrain != null)
 		{
 			result = npcbrain.ShouldDoAbilityBeforeMovement();
@@ -380,7 +394,7 @@ public class BotController : MonoBehaviour
 		}
 		else
 		{
-			NPCBrain npcbrain = m_brainStack.Peek();
+			NPCBrain npcbrain = ActiveBrain();
 			if (npcbrain != null)
 			{
 				yield return npcbrain.DecideMovement();
@@ -409,7 +423,7 @@ public class BotController : MonoBehaviour
 		}
 		else
 		{
-			NPCBrain npcbrain = m_brainStack.Peek();
+			NPCBrain npcbrain = ActiveBrain();
 			if (npcbrain != null)
 			{
 				yield return npcbrain.DecideAbilities();

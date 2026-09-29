@@ -61,12 +61,22 @@ public class ServerCombatManager : MonoBehaviour
 		s_instance = this;
 		m_unresolvedHealthChanges = new Dictionary<ActorData, List<UnresolvedHealthChange>>();
 		m_unresolvedTechPointChanges = new Dictionary<ActorData, List<UnresolvedHealthChange>>();
+		GameFlowData.s_onRemoveActor += RemoveReferencesToActor; // custom, based on ServerEffectmanager
 	}
 
 	// added in rogues
 	private void OnDestroy()
 	{
+		GameFlowData.s_onRemoveActor -= RemoveReferencesToActor; // custom
 		s_instance = null;
+	}
+
+	// custom: an actor destroyed mid-turn (e.g. a despawned tutorial NPC) must not stay in the pending changes
+	// that are resolved at the end of the turn
+	private void RemoveReferencesToActor(ActorData actor)
+	{
+		m_unresolvedHealthChanges.Remove(actor);
+		m_unresolvedTechPointChanges.Remove(actor);
 	}
 
 	// added in rogues

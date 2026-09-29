@@ -1299,6 +1299,9 @@ public class GameFlow : NetworkBehaviour
 			}
 		}
 	}
+	
+	private int m_endingTurnStartTurn = -1; // custom for tutorial
+	private float m_endingTurnStartTime; // custom for tutorial
 
 	// added in rogues
 	private void Update_FCFS()
@@ -1328,7 +1331,10 @@ public class GameFlow : NetworkBehaviour
 					return;
 				case GameState.Deployment:
 					// TODO LOW HACK m_timeLimitTurns set to 21 in the asset
-					ObjectivePoints.Get().m_timeLimitTurns = 20;
+					if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
+					{
+						ObjectivePoints.Get().m_timeLimitTurns = 20;
+					}
 					
 					if (gameFlowData.GetTimeSinceDeployment() > gameFlowData.m_deploymentTime / Time.timeScale)
 					{
@@ -1346,7 +1352,21 @@ public class GameFlow : NetworkBehaviour
 					break;
 				// custom
 				case GameState.EndingTurn:
-					if (gameFlowData.GetTimeInState() > 2.0f)
+					// tutorial
+					if (m_endingTurnStartTurn != gameFlowData.CurrentTurn)
+					{
+						m_endingTurnStartTurn = gameFlowData.CurrentTurn;
+						m_endingTurnStartTime = Time.unscaledTime;
+					}
+					SinglePlayerManager singlePlayerManager = SinglePlayerManager.Get();
+					float timeInEndingTurn = singlePlayerManager != null
+						? Time.unscaledTime - m_endingTurnStartTime
+						: gameFlowData.GetTimeInState();
+					bool scriptHoldsTurn = singlePlayerManager != null
+					                       && singlePlayerManager.GetCurrentState() != null
+					                       && singlePlayerManager.GetCurrentState().GetHasTag(SinglePlayerState.SinglePlayerTag.DisableAdvanceTurn);
+					
+					if (timeInEndingTurn > 2.0f && !scriptHoldsTurn)
 					{
 						OnTurnEnd();
 						switch (GameFlowData.Get().gameState)

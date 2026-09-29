@@ -97,6 +97,12 @@ public class ServerActorController : MonoBehaviour
 			}
 		}
 		actorTurnSm.OnMessage(success ? TurnMessage.MOVEMENT_ACCEPTED : TurnMessage.MOVEMENT_REJECTED);
+
+		// custom, to trigger tutorial AdvanceOnMoveEntered
+		if (success && SinglePlayerManager.Get() != null)
+		{
+			SinglePlayerManager.Get().OnActorMoveEntered(actorData);
+		}
 	}
 
 	// custom
