@@ -49,6 +49,10 @@ public class UIFrontendLoadingScreen : UIScene
 
 	private bool shouldPlayIntroVideo;
 
+#if EVOS
+	private bool m_isShowingVersionText;
+#endif
+
 	public DisplayStates DisplayState => m_displayState;
 
 	public override SceneType GetSceneType()
@@ -215,6 +219,13 @@ public class UIFrontendLoadingScreen : UIScene
 		{
 			UIManager.SetGameObjectActive(m_loadingMapNameInfoContainer, false);
 		}
+#if EVOS
+		// tutorial title info overlaps the build version text
+		if (m_isShowingVersionText)
+		{
+			UIManager.SetGameObjectActive(m_subTextBox, !m_loadingMapNameInfoContainer.gameObject.activeSelf);
+		}
+#endif
 	}
 
 	public void OnDisable()
@@ -322,12 +333,16 @@ public class UIFrontendLoadingScreen : UIScene
 	{
 		SetDisplayState(DisplayStates.Loading);
 #if EVOS
-        if (subText == null) 
+        bool isVersionText = subText == null;
+        if (isVersionText)
         {
             subText = $"EvoS - {BuildVersion.s_version}";
         }
 #endif
         ShowText(StringUtil.TR("NOWLOADING", "LoadingScreen"), subText);
+#if EVOS
+        m_isShowingVersionText = isVersionText;
+#endif
         m_animator.Play("FrontEndLoadingScreenDefaultIDLE");
 	}
 
@@ -365,6 +380,9 @@ public class UIFrontendLoadingScreen : UIScene
 
 	private void ShowText(string text, string subText = null, string subText2 = null)
 	{
+#if EVOS
+		m_isShowingVersionText = false;
+#endif
 		UIManager.SetGameObjectActive(m_ServerLockedButton, text == StringUtil.TR("SERVERISLOCKED", "LoadingScreen"));
 		if (m_mainTextBox != null)
 		{
