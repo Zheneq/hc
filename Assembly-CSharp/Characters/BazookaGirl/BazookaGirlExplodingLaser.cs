@@ -273,6 +273,9 @@ public class BazookaGirlExplodingLaser : Ability
 			: GetAimDirectionLaserWithShape(caster, targets, out targetPos);
 		GetHitActorsLaser(caster, targetPos, aimDirection, null, out var adjustedCoords, out _);
 
+		Vector3 seqPos = adjustedCoords.end;
+		seqPos.y = Board.Get().BaselineHeight;
+
 		Sequence.IExtraSequenceParams[] extraParams = {
 			new SplineProjectileSequence.DelayedProjectileExtraParams
 			{
@@ -283,10 +286,10 @@ public class BazookaGirlExplodingLaser : Ability
 				projectileWidthInWorld = 1.125f
 			}
 		};
-		
+
 		return new ServerClientUtils.SequenceStartData(
 			AsEffectSource().GetSequencePrefab(),
-			adjustedCoords.end,
+			seqPos,
 			additionalData.m_abilityResults.HitActorsArray(),
 			caster,
 			additionalData.m_sequenceSource,
