@@ -957,6 +957,30 @@ public class SinglePlayerManager : NetworkBehaviour
         }
 
         SinglePlayerState currentState = s_instance.GetCurrentState();
+    
+#if SERVER
+        // custom: if every allowed ability handles movement itself (e.g. a dash), block
+        // regular movement so the player cannot get stuck by queuing it instead of the ability.
+        if (currentState.m_allowedAbilities.Length > 0)
+        {
+            AbilityData abilityData = mover.GetAbilityData();
+            bool allPreventMovement = true;
+            foreach (int allowed in currentState.m_allowedAbilities)
+            {
+                Ability ability = abilityData?.GetAbilityOfActionType((AbilityData.ActionType)allowed);
+                if (ability == null || !ability.GetPreventsMovement())
+                {
+                    allPreventMovement = false;
+                    break;
+                }
+            }
+            if (allPreventMovement)
+            {
+                return false;
+            }
+        }
+#endif
+        
         bool inRegion = currentState.m_allowedDestinations.m_quads.Length == 0
                         || currentState.m_allowedDestinations.GetSquaresInRegion().Contains(square);
         bool waypointOk = !currentState.m_onlyAllowWaypointMovement
