@@ -22,7 +22,7 @@ public class Archer_SyncComponent : NetworkBehaviour
 	// removed in rogues
 	private static int kListm_usedHealReactionActorIndices = -338768934;
 	private static int kListm_expendedHealReactionActorIndices = 1068514778;
-	private static int kListm_vfxChangedHealReactionActorIndices = 90460605;
+	private static int kListm_vfxChangedHealReactionActorIndices = 904606057;
 	private static int kListm_shieldGeneratorTargetActorIndices = 215859;
 	// end removed in rogues
 
