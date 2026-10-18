@@ -1331,7 +1331,8 @@ public class GameFlow : NetworkBehaviour
 					return;
 				case GameState.Deployment:
 					// TODO LOW HACK m_timeLimitTurns set to 21 in the asset
-					if (GameManager.Get().GameConfig.GameType != GameType.Tutorial)
+					if (GameManager.Get().GameConfig.GameType != GameType.Tutorial
+					    && GameManager.Get().GameConfig.GameType != GameType.Practice)
 					{
 						ObjectivePoints.Get().m_timeLimitTurns = 20;
 					}

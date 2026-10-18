@@ -423,11 +423,18 @@ public class BotManager : MonoBehaviour
 	private int TurnPriorityComparison(ActorData a1, ActorData a2)
 	{
 		// custom
-		CharacterRole value = a1 != null ? a1.GetCharacterResourceLink().m_characterRole : CharacterRole.None;
-		return value.CompareTo(a2 != null ? a2.GetCharacterResourceLink().m_characterRole : CharacterRole.None);
+		return GetTurnPriorityRole(a1).CompareTo(GetTurnPriorityRole(a2));
 		// rogues
 		// int value = (a1 != null) ? a1.TurnPriority : 0;
 		// return ((a2 != null) ? a2.TurnPriority : 0).CompareTo(value);
+	}
+
+	// custom
+	private static CharacterRole GetTurnPriorityRole(ActorData actor)
+	{
+		// actors with CharacterType.None (e.g. practice punching dummies) have no character resource link
+		CharacterResourceLink characterResourceLink = actor != null ? actor.GetCharacterResourceLink() : null;
+		return characterResourceLink != null ? characterResourceLink.m_characterRole : CharacterRole.None;
 	}
 	
 	// custom
