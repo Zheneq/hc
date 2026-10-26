@@ -101,6 +101,23 @@ public class CardManager : NetworkBehaviour
 #endif
 	}
 
+#if SERVER
+	// custom
+	internal void UnqueueUsedCards()
+	{
+		if (NetworkServer.active)
+		{
+			foreach (ActorData actorData in GameFlowData.Get().GetActors())
+			{
+				if (actorData != null && actorData.GetAbilityData() != null)
+				{
+					actorData.GetAbilityData().UnqueueUsedCards();
+				}
+			}
+		}
+	}
+#endif
+
 	private void UNetVersion()
 	{
 	}

@@ -277,6 +277,15 @@ public class GameFlow : NetworkBehaviour
 #endif
 
 				break;
+			// custom
+			case GameState.EndingTurn:
+#if SERVER
+				if (CardManager.Get() != null)
+				{
+					CardManager.Get().UnqueueUsedCards();
+				}
+#endif
+				break;
 				// rogues
 				//case GameState.PVE_TeamTurnStart:
 				//	break;

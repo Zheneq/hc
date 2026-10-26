@@ -2254,6 +2254,35 @@ public class AbilityData : NetworkBehaviour
 		}
 	}
 
+	// custom
+	// Card removal is sent to clients immediately (SyncList) while the queued flag reset at turn start
+	// is delayed (dirty bits are sent at intervals). If a client gets the removal and BothTeams_Decision first,
+	// it has a queued card slot without an ability, which breaks client code (e.g. Neko_SyncComponent).
+	// So we unqueue used cards when the turn ends, long before removing them.
+	[Server]
+	public void UnqueueUsedCards()
+	{
+		if (!NetworkServer.active)
+		{
+			Debug.LogWarning("[Server] function 'System.Void AbilityData::UnqueueUsedCards()' called on client");
+			return;
+		}
+		if (CardManagerData.Get() != null
+		    && CardManagerData.Get().m_cardConsumeMode == CardManagerData.CardConsumeMode.OneUse)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				ActionType actionType = ActionType.CARD_0 + i;
+				if (m_cardUsed[i]
+				    && m_currentCardIds[i] > 0
+				    && HasQueuedAction(actionType))
+				{
+					SetQueuedAction(actionType, false);
+				}
+			}
+		}
+	}
+
 	// added in rogues
 	public int GetTechPointRewardForAbilityDamage(Ability damagingAbility, bool includeStatusMods, ServerGameplayUtils.EnergyStatAdjustments statAdjustments)
 	{
