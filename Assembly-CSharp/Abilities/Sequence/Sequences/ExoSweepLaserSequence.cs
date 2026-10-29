@@ -147,19 +147,22 @@ public class ExoSweepLaserSequence : Sequence
 				for (int i = m_actorsToHit.Count - 1; i >= 0; i--)
 				{
 					BoardSquare currentBoardSquare = m_actorsToHit[i].GetCurrentBoardSquare();
-					bool isSquareInConeByActorRadius = AreaEffectUtils.IsSquareInConeByActorRadius(
-						currentBoardSquare,
-						Caster.GetLoSCheckPos(),
-						coneCenterAngleDegrees,
-						num + 1f,
-						coneLengthRadiusInSquares,
-						0f,
-						true,
-						Caster);
-					if (currentBoardSquare != null && isSquareInConeByActorRadius)
+					if (currentBoardSquare != null)
 					{
-						DoActorHit(m_actorsToHit[i]);
-						m_actorsToHit.RemoveAt(i);
+						bool isSquareInConeByActorRadius = AreaEffectUtils.IsSquareInConeByActorRadius(
+							currentBoardSquare,
+							Caster.GetLoSCheckPos(),
+							coneCenterAngleDegrees,
+							num + 1f,
+							coneLengthRadiusInSquares,
+							0f,
+							true,
+							Caster);
+						if (isSquareInConeByActorRadius)
+						{
+							DoActorHit(m_actorsToHit[i]);
+							m_actorsToHit.RemoveAt(i);
+						}
 					}
 				}
 			}
