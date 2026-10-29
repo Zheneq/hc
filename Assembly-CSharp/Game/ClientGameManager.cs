@@ -1093,6 +1093,18 @@ public class ClientGameManager : MonoBehaviour
 
 	public void HandleSkinSelectUpdateResponse(PlayerInfoUpdateResponse response)
 	{
+#if EVOS
+		// Every response answers one request, so consume it even if the server rejected or corrected the skin.
+		// Otherwise IsWaitingForSkinResponse() stays true until the next game is loaded,
+		// and the character in slot 0 is not updated on group and game info updates.
+		bool isRequestedSkin = false;
+		if (WaitingForSkinSelectResponse.Count > 0)
+		{
+			isRequestedSkin = response.CharacterInfo != null
+			                  && WaitingForSkinSelectResponse[0].Equals(response.CharacterInfo.CharacterSkin);
+			WaitingForSkinSelectResponse.RemoveAt(0);
+		}
+#endif
 		if (!response.Success)
 		{
 			RecordFailureInCharacterSelectUpdateResponse(response, "HandleSkinSelectUpdateResponse");
@@ -1105,12 +1117,19 @@ public class ClientGameManager : MonoBehaviour
 		
 		GetAllPlayerCharacterData()[response.CharacterInfo.CharacterType].CharacterComponent.LastSkin = response.CharacterInfo.CharacterSkin;
 		Get().GroupInfo.SetCharacterInfo(response.CharacterInfo, true);
+#if EVOS
+		if (isRequestedSkin)
+		{
+			return;
+		}
+#else
 		if (WaitingForSkinSelectResponse.Count > 0
 		    && WaitingForSkinSelectResponse[0].Equals(response.CharacterInfo.CharacterSkin))
 		{
 			WaitingForSkinSelectResponse.RemoveAt(0);
 			return;
 		}
+#endif
 		if (UICharacterSelectWorldObjects.Get() != null)
 		{
 			UICharacterSelectWorldObjects.Get().LoadCharacterIntoSlot(
