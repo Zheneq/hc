@@ -1893,15 +1893,19 @@ public class ClientGameManager : MonoBehaviour
 		LobbyMatchmakingQueueInfo newQueueInfo = notification.MatchmakingQueueInfo;
 		LobbyMatchmakingQueueInfo oldQueueInfo = gameManager.QueueInfo;
 		gameManager.SetQueueInfo(newQueueInfo);
-		if (oldQueueInfo?.GameConfig == null || UICharacterSelectWorldObjects.Get() == null)
+		if (oldQueueInfo?.GameConfig == null)
 		{
 			Log.Error("HandleQueueAssignmentNotification - "
 			          + $"oldQueueInfo: {oldQueueInfo != null}, "
-			          + $"GameConfig: {oldQueueInfo?.GameConfig != null}, "
-			          + $"UICharacterSelectWorldObjects: {UICharacterSelectWorldObjects.Get() != null}");
+			          + $"GameConfig: {oldQueueInfo?.GameConfig != null}");
 		}
 		if (newQueueInfo == null && oldQueueInfo.GameConfig.GameType == GameType.Ranked)
 		{
+			if (UICharacterSelectWorldObjects.Get() == null)
+			{
+				Log.Error("HandleQueueAssignmentNotification - "
+				          + $"UICharacterSelectWorldObjects: {UICharacterSelectWorldObjects.Get() != null}");
+			}
 			UICharacterSelectWorldObjects.Get().SetCharacterReady(0, false);
 		}
 		if (oldQueueInfo != null)
