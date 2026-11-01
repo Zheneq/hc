@@ -588,6 +588,136 @@ public static class AbilityResultsUtils
 		return list;
 	}
 
+	// custom debug
+	// Clients execute an actor hit when a sequence hits one of its targets. If the target has no hit results,
+	// the client logs "Sequence hitting actor ..., but that actor isn't in our hit results."
+	// Catching it here tells us which ability/effect produced it.
+	// Sequences that only aim at their targets without hitting them will be reported too.
+#if SERVER
+	private static void LogSequenceTargetsWithoutHitResults(
+		List<ServerClientUtils.SequenceStartData> seqStartDataList,
+		Dictionary<ActorData, ActorHitResults> actorToHitResults,
+		string sourceDescription)
+	{
+		if (seqStartDataList == null)
+		{
+			return;
+		}
+		foreach (ServerClientUtils.SequenceStartData seqStartData in seqStartDataList)
+		{
+			if (seqStartData == null)
+			{
+				continue;
+			}
+			string missingTargets = "";
+			foreach (int actorIndex in seqStartData.GetTargetActorIndices())
+			{
+				ActorData target = GameFlowData.Get().FindActorByActorIndex(actorIndex);
+				if (target != null && (actorToHitResults == null || !actorToHitResults.ContainsKey(target)))
+				{
+					missingTargets += " " + target.DebugNameString();
+				}
+			}
+			if (missingTargets.Length == 0)
+			{
+				continue;
+			}
+			string hitActors = "";
+			if (actorToHitResults != null)
+			{
+				foreach (ActorData hitActor in actorToHitResults.Keys)
+				{
+					hitActors += " " + hitActor.DebugNameString();
+				}
+			}
+			GameObject prefab = seqStartData.GetServerOnlyPrefabReference();
+			Log.Warning($"SEQUENCE TARGET WITHOUT HIT RESULTS: {sourceDescription}, " +
+			            $"turn {GameFlowData.Get().CurrentTurn}, phase {ServerClientUtils.GetCurrentAbilityPhase()}, " +
+			            $"sequence {(prefab != null ? prefab.name : "(null prefab)")} (id {seqStartData.GetSequencePrefabId()}), " +
+			            $"targets without hit results:{missingTargets}, " +
+			            $"actors with hit results:{(hitActors.Length > 0 ? hitActors : " (none)")}");
+		}
+	}
+
+	private static string GetAbilityResultsDebugDescription(AbilityResults results)
+	{
+		string caster = results.Caster != null ? results.Caster.DebugNameString() : "(null caster)";
+		Ability ability = results.Ability;
+		if (ability == null)
+		{
+			return caster + "'s (null ability)";
+		}
+		string mod = ability.CurrentAbilityMod != null ? " " + ability.CurrentAbilityMod.GetDebugIdentifier() : "";
+		return caster + "'s " + ability.GetDebugIdentifier() + mod;
+	}
+
+	private static string GetEffectResultsDebugDescription(EffectResults results)
+	{
+		string caster = results.Caster != null ? results.Caster.DebugNameString() : "(null caster)";
+		Effect effect = results.Effect;
+		if (effect == null)
+		{
+			return caster + "'s (null effect)";
+		}
+		string description = caster + "'s effect " + effect.GetType().Name + " " + effect.GetDebugIdentifier();
+		Ability ability = effect.Parent != null ? effect.Parent.Ability : null;
+		if (ability != null && ability.GetInstanceID() != 0)  // powerups reference broken abilities
+		{
+			description += " from " + ability.GetDebugIdentifier();
+		}
+		return description;
+	}
+
+	private static string GetBarrierResultsDebugDescription(BarrierResults results)
+	{
+		Barrier barrier = results.Barrier;
+		if (barrier == null)
+		{
+			return "(null barrier)";
+		}
+		string caster = barrier.Caster != null ? barrier.Caster.DebugNameString() : "(null caster)";
+		return caster + "'s barrier " + barrier.Name + " guid " + barrier.m_guid;
+	}
+
+	// trigger sequences of movement results hit the actors in the hit results of the gameplay response
+	private static void LogSequenceTargetsWithoutHitResults(MovementResults results, List<ServerClientUtils.SequenceStartData> triggerSeqDataList)
+	{
+		ActorData mover = results.GetTriggeringActor();
+		string trigger = "movement of " + (mover != null ? mover.DebugNameString() : "(null mover)") + " triggering ";
+		switch (results.m_gameplayResponseType)
+		{
+			case MovementResults_GameplayResponseType.Effect:
+				EffectResults effectResults = results.GetEffectResults();
+				if (effectResults != null)
+				{
+					LogSequenceTargetsWithoutHitResults(triggerSeqDataList, effectResults.m_actorToHitResults, trigger + GetEffectResultsDebugDescription(effectResults));
+				}
+				break;
+			case MovementResults_GameplayResponseType.Barrier:
+				BarrierResults barrierResults = results.GetBarrierResults();
+				if (barrierResults != null)
+				{
+					LogSequenceTargetsWithoutHitResults(triggerSeqDataList, barrierResults.m_actorToHitResults, trigger + GetBarrierResultsDebugDescription(barrierResults));
+				}
+				break;
+			case MovementResults_GameplayResponseType.Powerup:
+				AbilityResults powerupResults = results.GetPowerUpResults();
+				if (powerupResults != null)
+				{
+					LogSequenceTargetsWithoutHitResults(triggerSeqDataList, powerupResults.m_actorToHitResults, trigger + "powerup " + GetAbilityResultsDebugDescription(powerupResults));
+				}
+				break;
+			case MovementResults_GameplayResponseType.GameMode:
+				AbilityResults gameModeResults = results.GetGameModeResults();
+				if (gameModeResults != null)
+				{
+					LogSequenceTargetsWithoutHitResults(triggerSeqDataList, gameModeResults.m_actorToHitResults, trigger + "game mode " + GetAbilityResultsDebugDescription(gameModeResults));
+				}
+				break;
+		}
+	}
+#endif
+
 	//server-only
 #if SERVER
 	public static void SerializeServerAbilityResultsToStream(AbilityResults results, bool includeRunSequences, NetworkWriter writer)
@@ -603,6 +733,7 @@ public static class AbilityResultsUtils
 		{
 			sequenceDataList = null;
 		}
+		LogSequenceTargetsWithoutHitResults(sequenceDataList, results.m_actorToHitResults, GetAbilityResultsDebugDescription(results)); // custom debug
 		writer.Write(b);
 		writer.Write(b2);
 		AbilityResultsUtils.SerializeSequenceStartDataListToStream(sequenceDataList, writer);
@@ -663,6 +794,7 @@ public static class AbilityResultsUtils
         {
 			list = null;
 		}
+		LogSequenceTargetsWithoutHitResults(list, results.m_actorToHitResults, GetEffectResultsDebugDescription(results)); // custom debug
 		writer.WritePackedUInt32(effectGUID);
 		writer.Write(casterActorIndex);
 		// custom reactor
@@ -785,6 +917,7 @@ public static class AbilityResultsUtils
 		}
 		BoardSquarePathInfo triggeringPath_endingAtHit = results.m_triggeringPath_endingAtHit;
 		sbyte b2 = (sbyte)results.m_gameplayResponseType;
+		LogSequenceTargetsWithoutHitResults(results, triggerSeqDataList); // custom debug
 		writer.Write(b);
 		MovementUtils.SerializeLightweightPath(triggeringPath_endingAtHit, writer);
 		SerializeSequenceStartDataListToStream(triggerSeqDataList, writer);
@@ -900,6 +1033,7 @@ public static class AbilityResultsUtils
 			AbilityResults_Reaction abilityResults_Reaction = reactionResultsList[i];
 			List<ServerClientUtils.SequenceStartData> reactionSeqDataList = abilityResults_Reaction.GetReactionSeqDataList();
 			EffectResults reactionResults = abilityResults_Reaction.GetReactionResults();
+			LogSequenceTargetsWithoutHitResults(reactionSeqDataList, reactionResults.m_actorToHitResults, "reaction " + GetEffectResultsDebugDescription(reactionResults)); // custom debug
 			AbilityResultsUtils.SerializeSequenceStartDataListToStream(reactionSeqDataList, writer);
 			AbilityResultsUtils.SerializeServerEffectResultsToStream(reactionResults, false, writer);
 			byte extraFlags = abilityResults_Reaction.GetExtraFlags();
@@ -1012,6 +1146,7 @@ public static class AbilityResultsUtils
 	{
 		List<ServerClientUtils.SequenceStartData> sequenceDataList = powerupResults.BuildAbilityRunSequenceDataList();
 		AbilityResults abilityResults = powerupResults.AbilityResults;
+		LogSequenceTargetsWithoutHitResults(sequenceDataList, abilityResults.m_actorToHitResults, "powerup " + GetAbilityResultsDebugDescription(abilityResults)); // custom debug
 		AbilityResultsUtils.SerializeSequenceStartDataListToStream(sequenceDataList, writer);
 		AbilityResultsUtils.SerializeServerAbilityResultsToStream(abilityResults, true, writer);
 	}
