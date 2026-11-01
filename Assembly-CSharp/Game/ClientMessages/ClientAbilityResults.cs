@@ -152,9 +152,87 @@ public class ClientAbilityResults
 		}
 		else
 		{
+#if EVOS 
+			// custom debug
+			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results."
+			               + GetMissingHitResultsDetails(m_actorToHitResults, m_seqStartDataList)
+			               + "\nSource: " + GetStableDebugDescription()
+			               + GetMissingHitResultsStableDetails(m_seqStartDataList));
+#else
 			Debug.LogError("ClientAbilityResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+#endif
 		}
 	}
+
+#if EVOS
+	// custom debug
+	// ClientExceptionDetector hashes everything after the first line of an error (with digits replaced)
+	// to group error reports, so the first line is free-form, and the rest must not contain player names.
+	internal static string GetMissingHitResultsDetails(
+		Dictionary<ActorData, ClientActorHitResults> actorToHitResults,
+		List<ServerClientUtils.SequenceStartData> seqStartDataList)
+	{
+		string text = " Hit results:";
+		if (actorToHitResults != null && actorToHitResults.Count > 0)
+		{
+			foreach (ActorData actor in actorToHitResults.Keys)
+			{
+				text += " " + actor.DebugNameString();
+			}
+		}
+		else
+		{
+			text += " (none)";
+		}
+		text += " Sequence targets:";
+		if (seqStartDataList != null)
+		{
+			foreach (ServerClientUtils.SequenceStartData seqStartData in seqStartDataList)
+			{
+				if (seqStartData != null)
+				{
+					text += " " + GetSequencePrefabName(seqStartData) + ": " + seqStartData.GetTargetActorsString() + ";";
+				}
+			}
+		}
+		return text;
+	}
+
+	internal static string GetMissingHitResultsStableDetails(List<ServerClientUtils.SequenceStartData> seqStartDataList)
+	{
+		string text = ", sequences:";
+		if (seqStartDataList != null)
+		{
+			foreach (ServerClientUtils.SequenceStartData seqStartData in seqStartDataList)
+			{
+				if (seqStartData != null)
+				{
+					text += " " + GetSequencePrefabName(seqStartData);
+				}
+			}
+		}
+		return text;
+	}
+
+	private static string GetSequencePrefabName(ServerClientUtils.SequenceStartData seqStartData)
+	{
+		GameObject prefab = SequenceLookup.Get() != null
+			? SequenceLookup.Get().GetPrefabOfSequenceId(seqStartData.GetSequencePrefabId())
+			: null;
+		return prefab != null ? prefab.name : "(prefab id " + seqStartData.GetSequencePrefabId() + ")";
+	}
+
+	private string GetStableDebugDescription()
+	{
+		string caster = m_casterActor != null ? m_casterActor.GetClassName() : "(null actor)";
+		if (m_castedAbility == null)
+		{
+			return caster + "'s (null ability), action " + m_actionType;
+		}
+		string mod = m_castedAbility.CurrentAbilityMod != null ? " " + m_castedAbility.CurrentAbilityMod.GetDebugIdentifier() : "";
+		return caster + "'s " + m_castedAbility.GetDebugIdentifier() + mod;
+	}
+#endif
 
 	internal void OnAbilityHitPosition(Vector3 position)
 	{

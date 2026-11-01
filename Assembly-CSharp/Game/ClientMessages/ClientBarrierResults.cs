@@ -60,7 +60,15 @@ public class ClientBarrierResults
 				}
 			}
 		}
+#if EVOS
+		// custom debug
+		// must not contain player names after the first line, see ClientAbilityResults.GetMissingHitResultsDetails
+		Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results."
+		               + ClientAbilityResults.GetMissingHitResultsDetails(m_actorToHitResults, null)
+		               + "\nSource: " + (m_barrierCaster != null ? m_barrierCaster.GetClassName() : "(null actor)") + "'s barrier");
+#else
 		Debug.LogError("ClientBarrierResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+#endif
 	}
 
 	internal void OnBarrierHitPosition(Vector3 position)

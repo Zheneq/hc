@@ -150,9 +150,34 @@ public class ClientEffectResults
 		}
 		else
 		{
+#if EVOS
+			// custom debug
+			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results."
+			               + ClientAbilityResults.GetMissingHitResultsDetails(m_actorToHitResults, m_seqStartDataList)
+			               + "\nSource: " + GetStableDebugDescription()
+			               + ClientAbilityResults.GetMissingHitResultsStableDetails(m_seqStartDataList));
+#else
 			Debug.LogError("ClientEffectResults error-- Sequence hitting actor " + target.DebugNameString() + ", but that actor isn't in our hit results.");
+#endif
 		}
 	}
+
+#if EVOS
+	// custom debug
+	// must not contain player names, see ClientAbilityResults.GetMissingHitResultsDetails
+	private string GetStableDebugDescription()
+	{
+		if (m_effectCaster == null)
+		{
+			return "(null actor)'s effect, guid = " + m_effectGUID;
+		}
+		Ability sourceAbility = m_effectCaster.GetAbilityData() != null
+			? m_effectCaster.GetAbilityData().GetAbilityOfActionType(m_sourceAbilityActionType)
+			: null;
+		string source = sourceAbility != null ? sourceAbility.GetDebugIdentifier() : "action " + m_sourceAbilityActionType;
+		return m_effectCaster.GetClassName() + "'s effect from " + source + ", guid = " + m_effectGUID;
+	}
+#endif
 
 	internal void OnEffectHitPosition(Vector3 position)
 	{
