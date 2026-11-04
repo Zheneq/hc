@@ -100,6 +100,15 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				StringUtil.TR("Ok", "Global"));
 			return;
 		}
+		// Playback doesn't unready us, so the group would get queued as soon as everyone else is ready
+		if (IsSelfReadyInGroup())
+		{
+			UIDialogPopupManager.OpenOneButtonDialog(
+				StringUtil.TR("ReplayIssue", "FrontEnd"),
+				StringUtil.TR("CantWatchReplayWhileReady", "FrontEnd"),
+				StringUtil.TR("Ok", "Global"));
+			return;
+		}
 #endif
 		ResetState();
 		try
@@ -163,6 +172,27 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 		m_appStateLoadingPassed = false;
 		m_playingReplay.StartPlayback();
 	}
+
+#if EVOS
+	private static bool IsSelfReadyInGroup()
+	{
+		ClientGameManager clientGameManager = ClientGameManager.Get();
+		LobbyPlayerGroupInfo groupInfo = clientGameManager.GroupInfo;
+		if (groupInfo == null || !groupInfo.InAGroup || groupInfo.Members == null)
+		{
+			return false;
+		}
+		long accountId = clientGameManager.GetPlayerAccountData().AccountId;
+		foreach (UpdateGroupMemberData memberData in groupInfo.Members)
+		{
+			if (memberData.AccountID == accountId)
+			{
+				return memberData.IsReady;
+			}
+		}
+		return false;
+	}
+#endif
 
 	public bool IsPlayback()
 	{
