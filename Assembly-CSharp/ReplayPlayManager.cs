@@ -88,6 +88,19 @@ internal class ReplayPlayManager : MonoBehaviour, IGameEventListener
 				}
 			}
 		}
+#if EVOS
+		// Playback fakes a game launch on the client only, the lobby keeps us queued.
+		// A real game assigned during playback is never joined, and leaving the replay unassigns it client-side.
+		GameManager gameManager = GameManager.Get();
+		if (gameManager.QueueInfo != null || gameManager.GameStatus.IsActiveStatus())
+		{
+			UIDialogPopupManager.OpenOneButtonDialog(
+				StringUtil.TR("ReplayIssue", "FrontEnd"),
+				StringUtil.TR("CantWatchReplayInQueue", "FrontEnd"),
+				StringUtil.TR("Ok", "Global"));
+			return;
+		}
+#endif
 		ResetState();
 		try
 		{

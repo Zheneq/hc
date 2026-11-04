@@ -14,6 +14,8 @@
     "OfflineHeading@NewFrontEndScene": "- Offline friends",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- Online",
 
+    "CantWatchReplayInQueue@FrontEnd": "You can't watch a replay while you are queued or in a game.",
+
     "AllowResettingWaypoints@EvosOptions": "On reselecting current destination",
     "AllowResettingWaypointsYes@EvosOptions": "Reset waypoints",
     "AllowResettingWaypointsNo@EvosOptions": "Do nothing",
@@ -105,6 +107,8 @@
     "OfflineHeading@NewFrontEndScene": "- Друзья вне сети",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- В сети",
 
+    "CantWatchReplayInQueue@FrontEnd": "Нельзя смотреть повтор, находясь в очереди или в игре.",
+
     "OptionLabelsDiscord@Options": "Качество графики\nЭкран меню\nЭкран игры\nРегион\nЯзык\nОбщая громкость\nГромкость музыки\nКурсор\nРечь наемника\nВыбор пути - правая кнопка мыши\nShift+правая кнопка мыши\nОтмена после подтверждения\nПоказать общий чат\nПоказать весь чат\nФильтр мата\nМеню обучающих видеороликов",
     "AllowResettingWaypoints@EvosOptions": "При повторном выборе клетки",
     "AllowResettingWaypointsYes@EvosOptions": "Кратчайший путь",
@@ -194,6 +198,8 @@
     "OnlineHeading@NewFrontEndScene": "- 在线好友",
     "OfflineHeading@NewFrontEndScene": "- 离线好友",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- 在线",
+
+    "CantWatchReplayInQueue@FrontEnd": "排队或游戏中无法观看回放。",
 
     "OptionLabelsDiscord@Options": "画质\n菜单模式/分辨率\n游戏模式/分辨率\n地区\n语言\n总音量\n音乐音量\n锁定游标\n雇佣兵语音\n右击选定目标\n按住 Shift 键右击\n正在确认时可取消\n显示一般聊天信息\n显示所有聊天信息\n不雅语言过滤器\n显示教学视频菜单",
     "AllowResettingWaypoints@EvosOptions": "重新选择当前目的地时",
@@ -285,6 +291,8 @@
     "OfflineHeading@NewFrontEndScene": "- Amis hors ligne",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- En ligne",
 
+    "CantWatchReplayInQueue@FrontEnd": "Vous ne pouvez pas regarder une rediffusion pendant que vous êtes en file d'attente ou en partie.",
+
     "AllowResettingWaypoints@EvosOptions": "Re-sélection de la destination",
     "AllowResettingWaypointsYes@EvosOptions": "Chemin le plus court",
     "AllowResettingWaypointsNo@EvosOptions": "Ne rien faire",
@@ -373,6 +381,8 @@
     "OfflineHeading@NewFrontEndScene": "- Offline-Freunde",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- Online",
 
+    "CantWatchReplayInQueue@FrontEnd": "Du kannst keine Wiederholung ansehen, während du in der Warteschlange oder in einem Spiel bist.",
+
     "AllowResettingWaypoints@EvosOptions": "Bei erneuter Zielauswahl",
     "AllowResettingWaypointsYes@EvosOptions": "Wegpunkte zurücksetzen",
     "AllowResettingWaypointsNo@EvosOptions": "Nichts tun",
@@ -460,6 +470,8 @@
     "OnlineHeading@NewFrontEndScene": "- Amici online",
     "OfflineHeading@NewFrontEndScene": "- Amici offline",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- Online",
+
+    "CantWatchReplayInQueue@FrontEnd": "Non puoi guardare un replay mentre sei in coda o in partita.",
 
     "OptionLabelsDiscord@Options": "Qualità Grafica\nRisoluzione Menù\nRisoluzione di Gioco\nRegione\nLingua\nVolume Principale\nVolume Musica\nBlocca Cursore\nCommenti dei Professionisti\nFunzione Tasto Destro\nShift + Tasto Destro\nAnnullare Se Confermato\nMostra Chat Generale\nMostra Chat Con Nemici\nFiltro Linguaggio\nMostra Menù Video Tutorial",
     "AllowResettingWaypoints@EvosOptions": "Riseleziona destinazione",
@@ -550,6 +562,8 @@
     "OfflineHeading@NewFrontEndScene": "- 오프라인 친구",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- 온라인",
 
+    "CantWatchReplayInQueue@FrontEnd": "대기열에 있거나 게임 중에는 리플레이를 볼 수 없습니다.",
+
     "OptionLabelsDiscord@Options": "그래픽 품질\n로비 화면/해상도\n경기 화면/해상도\n지역\n언어\n전체 음량\n배경음악 음량\n마우스 커서 잠금\n프리랜서 대사\n우클릭 스킬 타게팅\n쉬프트 우클릭 이동\n확정 후 취소 허용\n일반 채팅 보이기\n경기 전체 채팅 보이기\n비속어 필터링\n튜토리얼 영상 메뉴 보이기",
     "AllowResettingWaypoints@EvosOptions": "현재 목적지를 다시 선택하면",
     "AllowResettingWaypointsYes@EvosOptions": "경유지 초기화",
@@ -638,6 +652,8 @@
     "OnlineHeading@NewFrontEndScene": "- Znajomi online",
     "OfflineHeading@NewFrontEndScene": "- Znajomi offline",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- Online",
+
+    "CantWatchReplayInQueue@FrontEnd": "Nie możesz oglądać powtórki, gdy jesteś w kolejce lub w grze.",
 
     "OptionLabelsDiscord@Options": "Jakość Grafiki\nRozdzielczość Menu\nRozdzielczość Gry\nRegion\nJęzyk\nGłośność Ogólna\nGłośność Muzyki\nZablokowanie Kursora\nRozmówki Najemników\nNamierzanie PPM\nShift + PPM\nAnulowanie Po Zatwierdzeniu\nPokaż Czat Ogólny\nPokaż Cały Czat\nFiltr Wulgaryzmów\nPokaż Menu Filmików Samouczka",
     "AllowResettingWaypoints@EvosOptions": "Ponowne wybranie bieżącego celu",
@@ -729,6 +745,8 @@
     "OfflineHeading@NewFrontEndScene": "- Amigos offline",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- Online",
 
+    "CantWatchReplayInQueue@FrontEnd": "Você não pode assistir a um replay enquanto estiver na fila ou em uma partida.",
+
     "OptionLabelsDiscord@Options": "Qualidade dos Gráficos\nModo/Resolução de Menu\nModo/Resolução de Jogo\nRegião\nIdioma\nVolume Geral\nVolume de Música\nTravar Cursor\nTagarelice dos Mercenários\nMira com Clique Direito\nShift Clique Direito\nCancelar após confirmar\nMostrar Chat Geral\nMostrar Todos Os Chats\nFiltro de Profanidade\nMostrar vídeos de tutorial",
     "AllowResettingWaypoints@EvosOptions": "Ao reselecionar o destino atual",
     "AllowResettingWaypointsYes@EvosOptions": "Caminho mais curto",
@@ -817,6 +835,8 @@
     "OnlineHeading@NewFrontEndScene": "- Amigos en línea",
     "OfflineHeading@NewFrontEndScene": "- Amigos desconectados",
     "OnlineNonFriendsHeading@NewFrontEndScene": "- En línea",
+
+    "CantWatchReplayInQueue@FrontEnd": "No puedes ver una repetición mientras estás en cola o en una partida.",
 
     "OptionLabelsDiscord@Options": "Calidad de gráficos\nModo/Resolución Menú\nModo/Resolución Juego\nRegión\nIdioma\nVolumen General\nVolumen de Música\nFijar cursor\nComentarios del freelancer\nMarcar con click derecho\nShift Click derecho\nPermitir Cancelar al confirmar\nMostrar Chat General\nMostrar todo el chat\nFiltro de lenguaje soez\nMostrar Menú de Video Tutoriales",
     "AllowResettingWaypoints@EvosOptions": "Volver a seleccionar destino",
