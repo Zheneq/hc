@@ -3239,6 +3239,9 @@ public class AbilityData : NetworkBehaviour
 	public float GetTargetableRadius(int actionTypeInt, ActorData caster)
 	{
 		if (actionTypeInt < m_abilities.Length  // removed first check in rogues
+#if !VANILLA
+			 && actionTypeInt >= 0 // custom
+#endif
 			&& m_abilities[actionTypeInt].ability != null
 			&& m_abilities[actionTypeInt].ability.CanShowTargetableRadiusPreview())
 		{
