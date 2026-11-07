@@ -321,22 +321,39 @@ public class UIScreenManager : MonoBehaviour
             return;
         }
 
-        if (Options_UI.Get().IsVisible())
+        if (
+#if EVOS
+            // custom: UI scenes load async one by one, nav panel may be up before these exist
+            Options_UI.Get() != null &&
+#endif
+            Options_UI.Get().IsVisible())
         {
             Options_UI.Get().ToggleOptions();
         }
-        else if (KeyBinding_UI.Get().IsVisible())
+        else if (
+#if EVOS
+                 KeyBinding_UI.Get() != null &&
+#endif
+                 KeyBinding_UI.Get().IsVisible())
         {
             if (!KeyBinding_UI.Get().IsSettingKeybindCommand())
             {
                 KeyBinding_UI.Get().ToggleKeybinds();
             }
         }
-        else if (QuestListPanel.Get().IsVisible())
+        else if (
+#if EVOS
+                 QuestListPanel.Get() != null &&
+#endif
+                 QuestListPanel.Get().IsVisible())
         {
             QuestListPanel.Get().SetVisible(false);
         }
-        else if (UILandingPageFullScreenMenus.Get().IsActive())
+        else if (
+#if EVOS
+                 UILandingPageFullScreenMenus.Get() != null &&
+#endif
+                 UILandingPageFullScreenMenus.Get().IsActive())
         {
             UILandingPageFullScreenMenus.Get().CloseMenu();
         }
