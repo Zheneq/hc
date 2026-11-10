@@ -665,6 +665,10 @@ public class UICreateGameScreen : UIScene
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)
+#if EVOS
+            // custom: Update can run during frontend loading, before UIFrontEnd & chat exist
+            && AppState.GetCurrent() == AppState_CreateGame.Get()
+#endif
             && UIFrontEnd.Get().CanMenuEscape()
             && !UIFrontEnd.Get().m_frontEndChatConsole.EscapeJustPressed())
         {
@@ -692,6 +696,7 @@ public class UICreateGameScreen : UIScene
                 bool isGameTypeSelected = false;
                 if (btn == null)
                 {
+                    // TODO CLIENT LOW dead loop?
                     while (btn != null)
                     {
                         if (btn == m_gameSubTypeDropdownBtn)
