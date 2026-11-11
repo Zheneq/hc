@@ -26,6 +26,14 @@ public static class BuildVersion
 #endif
 		;
 
+#if EVOS
+	// The numbers of s_version
+	public static readonly Version ClientVersion = new Version(
+		int.Parse(ThisAssembly.Git.BaseVersion.Major),
+		int.Parse(ThisAssembly.Git.BaseVersion.Minor),
+		int.Parse(ThisAssembly.Git.SemVer.Patch));
+#endif
+
 	public static int ReleaseNumber => s_releaseNumber;
 	public static int BuildNumber => s_buildNumber;
 	public static string BuildLetter => s_buildLetter.ToUpper();

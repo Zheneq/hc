@@ -21,7 +21,10 @@ public abstract class QueueRequirement
 		AfterDate,
 		ProhibitEnvironment,
 		AvailableCharacterCount,
-		HasUnlockedCharacter
+		HasUnlockedCharacter,
+#if EVOS
+		MinClientVersion,
+#endif
 	}
 
 	public abstract RequirementType Requirement { get; }
@@ -100,6 +103,11 @@ public abstract class QueueRequirement
 			case RequirementType.ProhibitEnvironment:
 				queueRequirement = QueueRequirement_Environement.Create(reader);
 				break;
+#if EVOS
+			case RequirementType.MinClientVersion:
+				queueRequirement = QueueRequirement_MinClientVersion.Create(reader);
+				break;
+#endif
 			default:
 				throw new Exception($"{text} is not a valid BogusRequirement type");
 			}

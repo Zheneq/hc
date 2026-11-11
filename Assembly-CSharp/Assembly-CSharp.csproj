@@ -2006,6 +2006,7 @@
     <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_Environement.cs" />
     <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_GreaterThan.cs" />
     <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_MaxLeavingPoints.cs" />
+    <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_MinClientVersion.cs" />
     <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_Never.cs" />
     <Compile Include="Matchmaking\QueueRequirements\QueueRequirement_TimeOfWeek.cs" />
     <Compile Include="Matchmaking\Queue\QueueBlockOutReasonDetails.cs" />

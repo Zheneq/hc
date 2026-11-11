@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using NetSerializer;
 using Newtonsoft.Json;
+#if EVOS
+using System.Linq;
+using LobbyGameClientMessages;
+#endif
 
 [JsonConverter(typeof(JsonConverter))]
 [Serializable]
@@ -167,6 +171,10 @@ public class RequirementCollection : IEnumerable<QueueRequirement>, IEnumerable
 			{
 				s_serializer = new Serializer();
 				s_serializer.AddTypes(QueueRequirement.MessageTypes);
+#if EVOS
+				// Same type IDs as EvoS, which prepends them to QueueRequirement.MessageTypes in the same order
+				s_serializer.AddTypes(Factory.EvosMessageTypes.Where(type => type.IsSubclassOf(typeof(QueueRequirement))));
+#endif
 			}
 			return s_serializer;
 		}

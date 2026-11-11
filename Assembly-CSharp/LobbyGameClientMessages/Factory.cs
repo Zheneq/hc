@@ -296,8 +296,11 @@ namespace LobbyGameClientMessages
 		};
 		
 #if EVOS
+		// NetSerializer numbers this list from the end, so new types must be added to the start to keep existing type IDs.
+		// QueueRequirement subtypes are also added to RequirementCollection's serializer
 		public static IEnumerable<Type> EvosMessageTypes => new[]
 		{
+			typeof(QueueRequirement_MinClientVersion),
 			typeof(EvosOptionsNotification),
 			typeof(EvosOptionsNotificationLegacy),
 		};
