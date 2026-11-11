@@ -1190,7 +1190,12 @@ public class UIRankedModeDraftScreen : UIScene
         bool isPickBan = m_lastDraftNotification.SubPhase.IsPickBanSubPhase();
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
+#if EVOS
+            // Ban hovers are shown in the ban slots, not in the player list (originally, only for ourselves)
+            if (isPickBan && m_playerIDsOnDeck.ContainsKey(teammate.PlayerID))
+#else
             if (isPickBan && m_playerIDsOnDeck.ContainsKey(OurPlayerId) && teammate.PlayerID == OurPlayerId)
+#endif
             {
                 continue;
             }
@@ -1275,7 +1280,12 @@ public class UIRankedModeDraftScreen : UIScene
                 bool updated = false;
                 if (m_playerIDsOnDeck.ContainsKey(enemy.PlayerID)
                     && m_playerIDsOnDeck[enemy.PlayerID] != CharacterType.None
-                    && !IsBanned(m_playerIDsOnDeck[enemy.PlayerID]))
+                    && !IsBanned(m_playerIDsOnDeck[enemy.PlayerID])
+#if EVOS
+                    // Ban hovers are shown in the ban slots, not in the player list
+                    && !isPickBan
+#endif
+                   )
                 {
                     CharacterResourceLink characterResourceLink =
                         GameWideData.Get().GetCharacterResourceLink(m_playerIDsOnDeck[enemy.PlayerID]);
@@ -2502,6 +2512,18 @@ public class UIRankedModeDraftScreen : UIScene
         }
 
         RankedResolutionPhaseData value = notification.RankedData.Value;
+#if EVOS
+        // Refresh hovers of the players still on deck before they are used (player list, lock in animation),
+        // otherwise they are one update behind. UpdateCenter still handles players getting on and off deck.
+        // Locked in bans come without a hover, keep the last one for the lock in animation.
+        foreach (RankedResolutionPlayerState state in value.PlayersOnDeck)
+        {
+            if (state.Intention != CharacterType.None && m_playerIDsOnDeck.ContainsKey(state.PlayerId))
+            {
+                m_playerIDsOnDeck[state.PlayerId] = state.Intention;
+            }
+        }
+#endif
         SetupInstructions(value);
         UpdateRankData(value, updateFromGameInfoUpdate);
         UpdatePlayerSelecting(value);
@@ -2546,7 +2568,13 @@ public class UIRankedModeDraftScreen : UIScene
                             UpdateHoverSelfStatus(value);
                         }
 
-                        if (!m_lastDraftNotification.SubPhase.IsPickBanSubPhase())
+                        if (!m_lastDraftNotification.SubPhase.IsPickBanSubPhase()
+#if EVOS
+                            // multilancer draft: it updates our primary slot,
+                            // the hover request is enough when we are selecting for another one
+                            && OurPlayerId == LastPlayerInfo.PlayerId
+#endif
+                           )
                         {
                             ClientGameManager.Get().UpdateSelectedCharacter(m_selectedSubPhaseCharacter);
                         }
