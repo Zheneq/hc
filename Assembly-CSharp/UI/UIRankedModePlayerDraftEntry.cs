@@ -54,11 +54,10 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
         }
 
 #if EVOS
-        // custom: EVOS multilancer draft — click your own slot during loadout to edit it
-        if (m_btn != null)
-        {
-            m_btn.spriteController.callback = SlotClicked;
-        }
+        // custom: EVOS multilancer draft - click your own slot during loadout to edit it.
+        // m_btn gets no pointer events, so listen on the whole entry
+        // (clicks on child elements that do not handle them are passed up here).
+        UIEventTriggerUtils.AddListener(gameObject, EventTriggerType.PointerClick, SlotClicked);
 #endif
     }
 
@@ -66,6 +65,47 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
     public void SlotClicked(BaseEventData data)
     {
         UIRankedModeDraftScreen.Get()?.ClickedDraftSlot(this);
+    }
+
+    private bool m_isSlotClickable;
+    private Graphic[] m_slotHitAreas;
+    private bool[] m_defaultRaycastTargets;
+
+    // custom: the entry does not get pointer events in the prefab. While the slot can be clicked,
+    // make the whole entry a hit area (a transparent image on it), and the portrait in case it does not cover it.
+    public void SetSlotClickable(bool clickable)
+    {
+        if (m_isSlotClickable == clickable)
+        {
+            return;
+        }
+
+        m_isSlotClickable = clickable;
+        if (m_slotHitAreas == null)
+        {
+            Graphic entryHitArea = GetComponent<Graphic>();
+            if (entryHitArea == null)
+            {
+                entryHitArea = gameObject.AddComponent<Image>();
+                entryHitArea.color = Color.clear;
+                entryHitArea.raycastTarget = false;
+            }
+
+            m_slotHitAreas = new[] { entryHitArea, m_selectCharacterImage };
+            m_defaultRaycastTargets = new bool[m_slotHitAreas.Length];
+            for (int i = 0; i < m_slotHitAreas.Length; i++)
+            {
+                m_defaultRaycastTargets[i] = m_slotHitAreas[i] != null && m_slotHitAreas[i].raycastTarget;
+            }
+        }
+
+        for (int i = 0; i < m_slotHitAreas.Length; i++)
+        {
+            if (m_slotHitAreas[i] != null)
+            {
+                m_slotHitAreas[i].raycastTarget = clickable || m_defaultRaycastTargets[i];
+            }
+        }
     }
 #endif
 
@@ -88,6 +128,9 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
     {
         PlayerID = -1;
         AccountID = -1L;
+#if EVOS
+        SetSlotClickable(false);
+#endif
     }
 
     public void Setup(LobbyPlayerInfo info, bool isEnemy = false)

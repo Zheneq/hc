@@ -595,6 +595,14 @@ public class UIRankedModeDraftScreen : UIScene
         {
             m_rankedModeCharacterSettings.Refresh();
         }
+
+        // Show which of our slots is being edited if we have several
+        long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+        bool hasSeveralSlots = m_blueTeamMembers.Count(teammate => teammate.AccountID == accountId) > 1;
+        foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
+        {
+            teammate.SetAsSelecting(hasSeveralSlots && teammate == entry);
+        }
     }
 
     // LobbyPlayerInfo of the owned slot whose loadout is being edited, null if it is our primary slot
@@ -612,6 +620,11 @@ public class UIRankedModeDraftScreen : UIScene
     private void InitDefaultLoadoutSlot()
     {
         long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+        foreach (UIRankedModePlayerDraftEntry entry in m_blueTeamMembers)
+        {
+            entry.SetSlotClickable(entry.AccountID == accountId && entry.GetSelectedCharacter() != CharacterType.None);
+        }
+
         UIRankedModePlayerDraftEntry fallback = null;
         foreach (UIRankedModePlayerDraftEntry entry in m_blueTeamMembers)
         {
@@ -689,7 +702,7 @@ public class UIRankedModeDraftScreen : UIScene
             SetFreelancerSettingButtonsVisible(true);
 #if EVOS
             // custom: default the loadout editor (view + save target) to the slot shown
-            InitDefaultLoadoutSlot(); // TODO or move it down after LastPlayerInfo = notification.PlayerInfo; ?
+            InitDefaultLoadoutSlot();
 #endif
         }
 
@@ -2496,6 +2509,11 @@ public class UIRankedModeDraftScreen : UIScene
             UIRankedCharacterSelectSettingsPanel.Get().SetVisible(false);
 #if EVOS
             ClientGameManager.Get().LoadoutEditTargetPlayerId = 0; // custom: stop retargeting loadout edits
+            foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
+            {
+                teammate.SetSlotClickable(false);
+                teammate.SetAsSelecting(false);
+            }
 #endif
         }
     }
