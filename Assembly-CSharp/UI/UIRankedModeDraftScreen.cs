@@ -1002,7 +1002,13 @@ public class UIRankedModeDraftScreen : UIScene
             }
 
             UIManager.SetGameObjectActive(m_lockInBtn, m_intendedLockInBtnStatus);
-            m_lockInBtn.SetDisabled(m_selectedSubPhaseCharacter == SelectedCharacter);
+            m_lockInBtn.SetDisabled(m_selectedSubPhaseCharacter == SelectedCharacter
+#if EVOS
+                                    // multilancer draft: nothing selected for our slot on deck,
+                                    // while SelectedCharacter is our primary slot's pick
+                                    || m_selectedSubPhaseCharacter == CharacterType.None
+#endif
+                                   );
         }
 
         if (m_containerAC == null)
@@ -1081,7 +1087,12 @@ public class UIRankedModeDraftScreen : UIScene
 
         if (LastGameInfo != null)
         {
+#if EVOS
+            // multilancer draft: the slot we are selecting for, not necessarily our primary one
+            int playerId = OurPlayerId;
+#else
             int playerId = LastPlayerInfo.PlayerId;
+#endif
 
             foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
             {
@@ -1601,6 +1612,17 @@ public class UIRankedModeDraftScreen : UIScene
         {
             SetPageIndex(0);
         }
+
+#if EVOS
+        // multilancer draft
+        // Do not carry over a selection that is taken now (picked or banned), e.g. the pick of
+        // another of our slots when we are on deck for several of them in a row.
+        // Our own pick is SelectedCharacter, lock in is disabled for it anyway.
+        if (m_selectedSubPhaseCharacter != SelectedCharacter && IsBanned(m_selectedSubPhaseCharacter))
+        {
+            m_selectedSubPhaseCharacter = CharacterType.None;
+        }
+#endif
 
         CheckCharacterListValidity();
     }
