@@ -1386,6 +1386,18 @@ public class ClientGameManager : MonoBehaviour
 		m_lobbyGameClientInterface?.SendSetRegionRequest(region);
 	}
 
+#if EVOS
+	// custom: offeringPlayerId - EVOS multilancer draft, the owned slot we trade from, 0 = our primary one
+	public void SendRankedTradeRequest_AcceptOrOffer(CharacterType desiredCharacter, int offeringPlayerId = 0)
+	{
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType.AcceptOrOffer, offeringPlayerId);
+	}
+
+	public void SendRankedTradeRequest_Reject(CharacterType desiredCharacter, int offeringPlayerId = 0)
+	{
+		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType.Reject, offeringPlayerId);
+	}
+#else
 	public void SendRankedTradeRequest_AcceptOrOffer(CharacterType desiredCharacter)
 	{
 		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType.AcceptOrOffer);
@@ -1395,6 +1407,7 @@ public class ClientGameManager : MonoBehaviour
 	{
 		m_lobbyGameClientInterface?.SendRankedTradeRequest(desiredCharacter, RankedTradeData.TradeActionType.Reject);
 	}
+#endif
 
 	public void SendRankedTradeRequest_StopTrading()
 	{

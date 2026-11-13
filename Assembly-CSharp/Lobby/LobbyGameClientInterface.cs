@@ -405,7 +405,13 @@ public class LobbyGameClientInterface : WebSocketInterface
 		});
 	}
 
-	public void SendRankedTradeRequest(CharacterType desiredCharacter, RankedTradeData.TradeActionType tradeAction)
+	public void SendRankedTradeRequest(
+		CharacterType desiredCharacter,
+		RankedTradeData.TradeActionType tradeAction
+#if EVOS
+		, int offeringPlayerId = 0
+#endif
+		)
 	{
 		RankedTradeRequest rankedTradeRequest = new RankedTradeRequest
 		{
@@ -413,6 +419,9 @@ public class LobbyGameClientInterface : WebSocketInterface
 		};
 		rankedTradeRequest.Trade.DesiredCharacter = desiredCharacter;
 		rankedTradeRequest.Trade.TradeAction = tradeAction;
+#if EVOS
+		rankedTradeRequest.Trade.OfferingPlayerId = offeringPlayerId; // custom: multilancer draft, 0 = our primary slot
+#endif
 		ClientGameManager.Get().LobbyInterface.SendRequestMessage(rankedTradeRequest, delegate(RankedTradeResponse response)
 		{
 			if (!response.Success)

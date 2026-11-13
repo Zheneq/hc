@@ -570,7 +570,7 @@ public class UIRankedModeDraftScreen : UIScene
 
     public void ClickedDraftSlot(UIRankedModePlayerDraftEntry entry)
     {
-        if (entry == null || !IsLoadoutSubPhase())
+        if (entry == null)
         {
             return;
         }
@@ -581,7 +581,82 @@ public class UIRankedModeDraftScreen : UIScene
             return;
         }
 
-        SelectLoadoutSlot(entry);
+        if (IsTradeSubPhase())
+        {
+            SelectTradeSlot(entry);
+        }
+        else if (IsLoadoutSubPhase())
+        {
+            SelectLoadoutSlot(entry);
+        }
+    }
+
+    private bool HasSeveralOwnSlots()
+    {
+        long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+        return m_blueTeamMembers.Count(teammate => teammate.AccountID == accountId) > 1;
+    }
+
+    // custom: EVOS multilancer draft. During the trade sub-phase, if we own several slots,
+    // we select the one we trade from by clicking it, and trades are shown for that slot.
+    // None is selected when the trade sub-phase starts. Selecting one is required to offer a trade.
+    // If none is selected and a teammate asks for one of our characters, that slot gets selected.
+    // The selection is kept until the end of the trade sub-phase, even if its character is traded.
+    private int m_tradeSlotPlayerId;
+
+    // The slot we trade from if we own several, 0 otherwise (the server uses our primary one)
+    public int TradeSlotPlayerId => m_tradeSlotPlayerId;
+
+    private bool IsTradeSubPhase()
+    {
+        return m_lastDraftNotification != null
+               && m_lastDraftNotification.SubPhase == FreelancerResolutionPhaseSubType.FREELANCER_TRADE
+               && LastGameInfo != null
+               && LastGameInfo.GameStatus == GameStatus.FreelancerSelecting;
+    }
+
+    private void UpdateTradeSlot(FreelancerResolutionPhaseSubType subPhase, RankedResolutionPhaseData data)
+    {
+        if (subPhase != FreelancerResolutionPhaseSubType.FREELANCER_TRADE)
+        {
+            m_tradeSlotPlayerId = 0;
+            return;
+        }
+
+        long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
+        bool hasSeveralSlots = HasSeveralOwnSlots();
+        foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
+        {
+            teammate.SetSlotClickable(hasSeveralSlots && teammate.AccountID == accountId);
+        }
+
+        if (!hasSeveralSlots || m_tradeSlotPlayerId != 0 || data.TradeActions == null)
+        {
+            return;
+        }
+
+        // the oldest request comes first
+        foreach (RankedTradeData rankedTradeData in data.TradeActions)
+        {
+            if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType.AcceptOrOffer
+                && m_blueTeamMembers.Any(teammate => teammate.AccountID == accountId
+                                                     && teammate.PlayerID == rankedTradeData.AskedPlayerId))
+            {
+                m_tradeSlotPlayerId = rankedTradeData.AskedPlayerId;
+                return;
+            }
+        }
+    }
+
+    private void SelectTradeSlot(UIRankedModePlayerDraftEntry entry)
+    {
+        if (!HasSeveralOwnSlots() || m_lastDraftNotification.RankedData == null)
+        {
+            return;
+        }
+
+        m_tradeSlotPlayerId = entry.PlayerID;
+        NotifyFreelancerTrades(m_lastDraftNotification.RankedData.Value);
     }
 
     private void SelectLoadoutSlot(UIRankedModePlayerDraftEntry entry)
@@ -597,8 +672,7 @@ public class UIRankedModeDraftScreen : UIScene
         }
 
         // Show which of our slots is being edited if we have several
-        long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
-        bool hasSeveralSlots = m_blueTeamMembers.Count(teammate => teammate.AccountID == accountId) > 1;
+        bool hasSeveralSlots = HasSeveralOwnSlots();
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
             teammate.SetAsSelecting(hasSeveralSlots && teammate == entry);
@@ -1401,6 +1475,14 @@ public class UIRankedModeDraftScreen : UIScene
     {
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
+#if EVOS
+            // multilancer draft: the slot we trade from is highlighted in NotifyFreelancerTrades,
+            // do not reset it here to avoid restarting its animation
+            if (m_tradeSlotPlayerId != 0 && teammate.PlayerID == m_tradeSlotPlayerId)
+            {
+                continue;
+            }
+#endif
             teammate.SetAsSelecting(data.IsPlayerSelecting(teammate.PlayerID));
         }
 
@@ -2425,6 +2507,29 @@ public class UIRankedModeDraftScreen : UIScene
         long accountId = ClientGameManager.Get().GetPlayerAccountData().AccountId;
         int num = -1;
         bool selfLockedIn = false;
+#if EVOS
+        // multilancer draft: if we own several slots, trades are shown for the one we trade from
+        // (none until we select one, see UpdateTradeSlot). Locking in is for all of them.
+        bool hasSeveralSlots = HasSeveralOwnSlots();
+        foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
+        {
+            if (teammate.AccountID == accountId)
+            {
+                if (!hasSeveralSlots || teammate.PlayerID == m_tradeSlotPlayerId)
+                {
+                    num = teammate.PlayerID;
+                }
+
+                selfLockedIn = selfLockedIn || DidPlayerLockInDuringSwapPhase(data, teammate.PlayerID);
+            }
+        }
+
+        foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
+        {
+            teammate.SetAsSelecting(
+                hasSeveralSlots && !selfLockedIn && teammate.AccountID == accountId && teammate.PlayerID == num);
+        }
+#else
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
             if (teammate.AccountID == accountId)
@@ -2435,6 +2540,7 @@ public class UIRankedModeDraftScreen : UIScene
 
             teammate.SetAsSelecting(false);
         }
+#endif
 
         foreach (UIRankedModePlayerDraftEntry enemy in m_redTeamMembers)
         {
@@ -2444,10 +2550,27 @@ public class UIRankedModeDraftScreen : UIScene
         foreach (UIRankedModePlayerDraftEntry teammate in m_blueTeamMembers)
         {
             UIRankedModePlayerDraftEntry.TradeStatus status = UIRankedModePlayerDraftEntry.TradeStatus.NoTrade;
+#if EVOS
+            // multilancer draft: our slots we do not trade from only show that a teammate wants their characters
+            bool isOtherOwnSlot = hasSeveralSlots && teammate.AccountID == accountId && teammate.PlayerID != num;
+#endif
             foreach (RankedTradeData rankedTradeData in data.TradeActions)
             {
                 if (rankedTradeData.TradeAction == RankedTradeData.TradeActionType.AcceptOrOffer)
                 {
+#if EVOS
+                    if (isOtherOwnSlot)
+                    {
+                        if (rankedTradeData.AskedPlayerId == teammate.PlayerID)
+                        {
+                            status = UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestReceived;
+                            break;
+                        }
+
+                        continue;
+                    }
+
+#endif
                     if (rankedTradeData.AskedPlayerId == teammate.PlayerID && rankedTradeData.OfferingPlayerId == num)
                     {
                         status = UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestSent;
@@ -2471,7 +2594,16 @@ public class UIRankedModeDraftScreen : UIScene
                 }
             }
 
+#if EVOS
+            bool isSelf = teammate.PlayerID == num
+                          || isOtherOwnSlot && status != UIRankedModePlayerDraftEntry.TradeStatus.TradeRequestReceived;
+            teammate.SetTradeStatus(status, isSelf, selfLockedIn);
+            // We cannot offer trades until we select a slot to trade from.
+            // Requests for our other slots wait until we select them, clicking their buttons does it.
+            teammate.SetTradeButtonsInactive(hasSeveralSlots && (num < 0 || isOtherOwnSlot), isOtherOwnSlot);
+#else
             teammate.SetTradeStatus(status, teammate.PlayerID == num, selfLockedIn);
+#endif
         }
     }
 
@@ -2531,6 +2663,7 @@ public class UIRankedModeDraftScreen : UIScene
 
         RankedResolutionPhaseData value = notification.RankedData.Value;
 #if EVOS
+        UpdateTradeSlot(notification.SubPhase, value); // multilancer draft
         // Refresh hovers of the players still on deck before they are used (player list, lock in animation),
         // otherwise they are one update behind. UpdateCenter still handles players getting on and off deck.
         // Locked in bans come without a hover, keep the last one for the lock in animation.
@@ -2965,6 +3098,8 @@ public class UIRankedModeDraftScreen : UIScene
         {
             ClientGameManager.Get().LoadoutEditTargetPlayerId = 0; // custom: stop retargeting loadout edits
         }
+
+        m_tradeSlotPlayerId = 0; // custom: multilancer draft
 #endif
         m_assignedCharacterForGame = CharacterType.None;
         m_hoverCharacterForGame = CharacterType.None;

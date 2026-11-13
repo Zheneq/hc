@@ -107,21 +107,85 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
             }
         }
     }
+
+    // custom: EVOS multilancer draft trade sub-phase - trade buttons that look inactive.
+    // On a teammate's slot, they wait for us to select which of our slots to trade from.
+    // On our slot we do not trade from, they show that a teammate wants its character,
+    // and clicking them selects the slot (the buttons get the click, it does not reach the entry).
+    private bool m_tradeButtonsSelectSlot;
+
+    public void SetTradeButtonsInactive(bool inactive, bool selectSlotOnClick)
+    {
+        m_tradeButtonsSelectSlot = inactive && selectSlotOnClick;
+        SetTradeButtonInactive(m_requestSwap, inactive);
+        SetTradeButtonInactive(m_acceptSwap, inactive);
+        SetTradeButtonInactive(m_rejectSwap, inactive);
+    }
+
+    private void SetTradeButtonInactive(_SelectableBtn btn, bool inactive)
+    {
+        if (btn == null)
+        {
+            return;
+        }
+
+        if (btn.IsDisabled != inactive)
+        {
+            btn.SetDisabled(inactive);
+        }
+
+        if (btn.spriteController != null)
+        {
+            btn.spriteController.SetClickable(!inactive || m_tradeButtonsSelectSlot);
+        }
+    }
+
+    private static int TradeSlotPlayerId => UIRankedModeDraftScreen.Get()?.TradeSlotPlayerId ?? 0;
 #endif
 
     public void RequestSwapClicked(BaseEventData data)
     {
+#if EVOS
+        if (m_tradeButtonsSelectSlot)
+        {
+            SlotClicked(data);
+            return;
+        }
+
+        ClientGameManager.Get().SendRankedTradeRequest_AcceptOrOffer(GetSelectedCharacter(), TradeSlotPlayerId);
+#else
         ClientGameManager.Get().SendRankedTradeRequest_AcceptOrOffer(GetSelectedCharacter());
+#endif
     }
 
     public void AcceptSwapClicked(BaseEventData data)
     {
+#if EVOS
+        if (m_tradeButtonsSelectSlot)
+        {
+            SlotClicked(data);
+            return;
+        }
+
+        ClientGameManager.Get().SendRankedTradeRequest_AcceptOrOffer(GetSelectedCharacter(), TradeSlotPlayerId);
+#else
         ClientGameManager.Get().SendRankedTradeRequest_AcceptOrOffer(GetSelectedCharacter());
+#endif
     }
 
     public void RejectSwapClicked(BaseEventData data)
     {
+#if EVOS
+        if (m_tradeButtonsSelectSlot)
+        {
+            SlotClicked(data);
+            return;
+        }
+
+        ClientGameManager.Get().SendRankedTradeRequest_Reject(GetSelectedCharacter(), TradeSlotPlayerId);
+#else
         ClientGameManager.Get().SendRankedTradeRequest_Reject(GetSelectedCharacter());
+#endif
     }
 
     public void Dismantle()
@@ -130,6 +194,7 @@ public class UIRankedModePlayerDraftEntry : UIRankedModeDraftCharacterEntry
         AccountID = -1L;
 #if EVOS
         SetSlotClickable(false);
+        SetTradeButtonsInactive(false, false);
 #endif
     }
 
