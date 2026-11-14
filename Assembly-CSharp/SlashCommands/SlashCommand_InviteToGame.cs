@@ -47,7 +47,11 @@ public class SlashCommand_InviteToGame : SlashCommand
         FriendList friendList = ClientGameManager.Get().FriendList;
         foreach (KeyValuePair<long, FriendInfo> friend in friendList.Friends)
         {
-            if (friend.Value.IsOnline)
+            if (friend.Value.IsOnline
+#if EVOS
+                && friend.Value.FriendStatus == FriendStatus.Friend // custom: the list also includes requests, blocked and online non-friends
+#endif
+                )
             {
                 ClientGameManager.Get().InvitePlayerToGame(friend.Value.FriendHandle, onResponseCallback);
             }
